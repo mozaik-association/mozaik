@@ -32,7 +32,9 @@
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
-    'depends': [],
+    'depends': [
+        'ficep_base',
+    ],
     'description': """
 FICEP
 =====
@@ -51,10 +53,10 @@ FICEP
     ],
     'test': [
     ],
-    'installable': True,
-    'active': False,
     'sequence': 150,
+    'active': False,
     'auto_install': False,
+    'installable': True,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
