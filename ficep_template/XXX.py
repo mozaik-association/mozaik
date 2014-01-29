@@ -26,7 +26,35 @@
 #
 ##############################################################################
 
-from openerp.osv import orm,fields
+from openerp.osv import orm, fields
 from openerp.tools.translate import _
+
+
+class xxxx(orm.Model):
+
+    def _your_field_function(self):
+        pass
+
+    def _your_selection_function(self):
+        return (
+        ('choice1', 'This is the choice 1'),
+        ('choice2', 'This is the choice 2'))
+
+    _name = 'XXXXX'
+    _columns = {
+        'name': fields.char('Name', size=128, required=True, select=True),
+        'name': fields.function(_your_field_function, type='char', string='Name'),
+        'date': fields.date('Date', select=1),
+        'name': fields.many2one('object', 'field_name'),
+        'name': fields.one2many('other.object', 'field_relation_id', 'Field Name'),
+        'name': fields.char('name', size=64, select=1),
+        'name': fields.selection(_your_selection_function, 'Choose',
+            help="text"),
+        'name': fields.text('Notes'),
+        'name': fields.many2many('other.object.name', id1='field_relation_id', id2='field_name', string='Tags'),
+        'name': fields.boolean('Active'),
+        'name': fields.related('field_name', type='type', relation='model', string='name'),
+        'image': fields.binary("Files",help="test"),
+        }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

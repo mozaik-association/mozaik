@@ -26,43 +26,46 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Base',
+    'name': 'FICEP: Partner Extension',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'auth_ldap',
-        'contacts',
-        'event',
-        'l10n_be',
-        'account_accountant',
-        'account_cancel',
-        'mass_mailing',
+        'base',
     ],
     'description': """
-FICEP Base
-==========
+FICEP Partner Extension
+=======================
+This module provides customization required for the project ficep and
+mainly applied to the model "partner"
     """,
     'images': [
     ],
     'data': [
+        #'security/XXX.xml',
+        #'XXX.xml,',
+        #'wizard/XXX.xml',
+        #'data/XXX.xml'
     ],
     'js': [
+        #'static/src/js/XXX.js',
     ],
     'qweb': [
+        #'static/src/xml/XXX.css',
     ],
     'css': [
+        #'static/src/css/XXX.css',
     ],
     'demo': [
     ],
     'test': [
     ],
-    'sequence': 150,
-    'active': False,
-    'auto_install': False,
     'installable': True,
+    'active': False,
+    'sequence': 150,
+    'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

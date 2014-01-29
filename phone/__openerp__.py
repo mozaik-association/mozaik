@@ -26,34 +26,35 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Base',
+    'name': 'FICEP: Phone',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'auth_ldap',
-        'contacts',
-        'event',
-        'l10n_be',
-        'account_accountant',
-        'account_cancel',
-        'mass_mailing',
+        'ficep_base',
     ],
     'description': """
-FICEP Base
-==========
+FICEP Phone
+===========
     """,
     'images': [
     ],
     'data': [
+        #'security/XXX.xml',
+        #'XXX.xml,',
+        #'wizard/XXX.xml',
+        #'data/XXX.xml'
     ],
     'js': [
+        #'static/src/js/XXX.js',
     ],
     'qweb': [
+        #'static/src/xml/XXX.css',
     ],
     'css': [
+        #'static/src/css/XXX.css',
     ],
     'demo': [
     ],
