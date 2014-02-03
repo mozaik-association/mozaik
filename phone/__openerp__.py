@@ -33,28 +33,24 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_base',
+        'coordinate_category',
     ],
     'description': """
 FICEP Phone
 ===========
+This module provides a solution to manage phone coordinate
+It allows to manage three types of phone (fix-phone-mobile phone)
     """,
     'images': [
     ],
     'data': [
-        #'security/XXX.xml',
-        #'XXX.xml,',
-        #'wizard/XXX.xml',
-        #'data/XXX.xml'
+         'phone_phone_view.xml'
     ],
     'js': [
-        #'static/src/js/XXX.js',
     ],
     'qweb': [
-        #'static/src/xml/XXX.css',
     ],
     'css': [
-        #'static/src/css/XXX.css',
     ],
     'demo': [
     ],
@@ -62,8 +58,8 @@ FICEP Phone
     ],
     'sequence': 150,
     'active': False,
-    'auto_install': False,
     'installable': True,
+    'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

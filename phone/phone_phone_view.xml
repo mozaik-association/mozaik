@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+        <record id="phone_phone_form" model="ir.ui.view">
+            <field name="name">phone.phone.form</field>
+            <field name="model">phone.phone</field>
+            <field name="arch" type="xml">
+                <form string="Phone" version="7.0">
+                    <sheet>
+                        <group col="2">
+                            <field name="name" />
+                            <field name="country_id" />
+                            <field name="type" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="phone_phone_tree" model="ir.ui.view">
+            <field name="name">phone.phone.tree</field>
+            <field name="model">phone.phone</field>
+            <field name="arch" type="xml">
+                <tree string="Phone" version="7.0">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+        <record id="phone_phone_action" model="ir.actions.act_window">
+            <field name="name">Phone</field>
+            <field name="res_model">phone.phone</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Phone" id="phone_phone_submenu" parent="coordinate_category.technical_menu"
+            sequence="99" action="phone_phone_action" />
+    </data>
+</openerp>

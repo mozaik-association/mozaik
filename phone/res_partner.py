@@ -26,8 +26,15 @@
 #
 ##############################################################################
 
-import phone_phone
-import res_partner
-import coordinate_category
+from openerp.osv import orm,fields
+
+
+class res_partner(orm.Model):
+
+    _inherit = "res.partner"
+
+    _columns = {
+                'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
+                }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
