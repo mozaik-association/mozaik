@@ -1,6 +1,22 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data noupdate="0">
+        <record id="phone_coordinate_form" model="ir.ui.view">
+            <field name="name">phone.coordinate.form</field>
+            <field name="model">phone.coordinate</field>
+            <field name="arch" type="xml">
+                <form string="Phone Coordinate" version="7.0">
+                    <sheet>
+                        <group col="2">
+                            <field name="phone_id" />
+                            <field name="partner_id" />
+                            <field name="is_main" />
+                            <field name="state" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
         <record id="phone_phone_form" model="ir.ui.view">
             <field name="name">phone.phone.form</field>
             <field name="model">phone.phone</field>
@@ -16,6 +32,18 @@
                 </form>
             </field>
         </record>
+        <record id="phone_coordinate_tree" model="ir.ui.view">
+            <field name="name">phone.coordinate.tree</field>
+            <field name="model">phone.coordinate</field>
+            <field name="arch" type="xml">
+                <tree string="Phone Coordinate" version="7.0">
+                    <field name="phone_id" />
+                    <field name="is_main" />
+                    <field name="partner_id" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
         <record id="phone_phone_tree" model="ir.ui.view">
             <field name="name">phone.phone.tree</field>
             <field name="model">phone.phone</field>
@@ -25,13 +53,23 @@
                 </tree>
             </field>
         </record>
+        <record id="phone_coordinate_action" model="ir.actions.act_window">
+            <field name="name">Phone Coordinate</field>
+            <field name="res_model">phone.coordinate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
         <record id="phone_phone_action" model="ir.actions.act_window">
             <field name="name">Phone</field>
             <field name="res_model">phone.phone</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem name="Phone" id="phone_phone_submenu" parent="coordinate_category.technical_menu"
-            sequence="99" action="phone_phone_action" />
+        <menuitem name="Phone Coordinate" id="phone_coordinate_submenu"
+            parent="coordinate_category.coordinate_category_submenu"
+            sequence="99" action="phone_coordinate_action" />
+        <menuitem name="Phone" id="phone_phone_submenu"
+            parent="coordinate_category.technical_menu" sequence="99"
+            action="phone_phone_action" />
     </data>
 </openerp>

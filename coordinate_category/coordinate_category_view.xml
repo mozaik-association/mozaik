@@ -8,7 +8,7 @@
             <field name="view_mode">tree,form</field>
         </record>
         <menuitem name="Coordinate Category" id="coordinate_category_submenu"
-            parent="person.person_menu" sequence="98"
+            parent="person.person_menu" sequence="99"
             action="coordinate_category_action" />
         <menuitem name="Technical" id="technical_menu" parent="person.person_menu_root"
             sequence="99" action="coordinate_category_action" />

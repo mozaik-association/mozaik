@@ -12,8 +12,8 @@
         <menuitem name="Person" id="person_menu" parent="person_menu_root"
             sequence="1" />
         <menuitem name="Pysical Person" id="pysical_person_submenu"
-            parent="person_menu" sequence="99" action="res_partner_action" />
+            parent="person_menu" sequence="80" action="res_partner_action" />
         <menuitem name="Moral Person" id="moral_person_submenu"
-            parent="person_menu" sequence="99" action="res_partner_action" />
+            parent="person_menu" sequence="80" action="res_partner_action" />
     </data>
 </openerp>

@@ -104,8 +104,9 @@ class phone_coordinate(orm.Model):
     _rec_name = 'phone_id'
     _columns = {
                 'phone_id': fields.many2one('phone.phone', string='Phone', required=True),
-                'state': fields.selection(fb.AVAILABLE_PC_STATE),
-                'partner_id': fields.many2one('res.partner', 'Contact'),
+                'is_main': fields.boolean('Is Main'),
+                'state': fields.selection(fb.AVAILABLE_PC_STATE, 'State'),
+                'partner_id': fields.many2one('res.partner', 'Contact', required=True),
                 'phone_type': fields.related('phone_id', 'type', type='many2one', relation='phone.phone', string='Phone Type'),
                 'start_date': fields.date('Start Date'),
                 'end_date': fields.date('End Date'),

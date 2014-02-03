@@ -37,4 +37,8 @@ AVAILABLE_PC_STATE = [('valid', 'Valid'),
                       ('prohibited', 'Prohibited'),
                       ('expired', 'Expired')]
 
+
+def replication(cr, uid, src_model, target_model_id):
+    pass
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

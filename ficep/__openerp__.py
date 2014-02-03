@@ -42,6 +42,7 @@ FICEP
     'images': [
     ],
     'data': [
+        'res_users_data.xml',
     ],
     'js': [
     ],
