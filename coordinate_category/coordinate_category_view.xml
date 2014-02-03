@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+        <record id="coordinate_category_action" model="ir.actions.act_window">
+            <field name="name">Coordinate Category</field>
+            <field name="res_model">coordinate.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Coordinate Category" id="coordinate_category_submenu"
+            parent="person.person_menu" sequence="98"
+            action="coordinate_category_action" />
+        <menuitem name="Technical" id="technical_menu" parent="person.person_menu_root"
+            sequence="99" action="coordinate_category_action" />
+    </data>
+</openerp>
