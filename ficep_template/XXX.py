@@ -41,6 +41,7 @@ class xxxx(orm.Model):
         ('choice2', 'This is the choice 2'))
 
     _name = 'XXXXX'
+    _rec_name = 'name'
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True),
         'name': fields.function(_your_field_function, type='char', string='Name'),
@@ -54,7 +55,28 @@ class xxxx(orm.Model):
         'name': fields.many2many('other.object.name', id1='field_relation_id', id2='field_name', string='Tags'),
         'name': fields.boolean('Active'),
         'name': fields.related('field_name', type='type', relation='model', string='name'),
-        'image': fields.binary("Files",help="test"),
+        'image': fields.binary("Files", help="test"),
+        'name': fields.integer('integer'),
         }
+
+    def create(self, cr, uid, vals, context=None):
+        if context is None:
+            context = {}
+        super(xxxx, self).create(cr, uid, vals, context=context)
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        super(xxxx, self).write(cr, uid, ids, vals, context=context)
+
+    def unlink(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        super(xxxx, self).unlink(cr, uid, ids, context=context)
+
+    def copy(self, cr, uid, ids, default=None, context=None):
+        if context is None:
+            context = {}
+        super(xxxx, self).copy(cr, uid, id, default=default, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
