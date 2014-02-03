@@ -33,13 +33,13 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'auth_ldap',
+        #'auth_ldap',
         'contacts',
-        'event',
-        'l10n_be',
-        'account_accountant',
-        'account_cancel',
-        'mass_mailing',
+        #'event',
+        #'l10n_be',
+        #'account_accountant',
+        #'account_cancel',
+        #'mass_mailing',
     ],
     'description': """
 FICEP Base
