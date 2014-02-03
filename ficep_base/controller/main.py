@@ -26,6 +26,15 @@
 #
 ##############################################################################
 
-import controller
+"""
+# Available State for 
+#    'phone.coordinate'
+#    'email.coordinate'
+#    'address.coordinate'
+# Valid - Prohibited - Expired
+"""
+AVAILABLE_PC_STATE = [('valid', 'Valid'),
+                      ('prohibited', 'Prohibited'),
+                      ('expired', 'Expired')]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
