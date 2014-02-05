@@ -62,21 +62,21 @@ class xxxx(orm.Model):
     def create(self, cr, uid, vals, context=None):
         if context is None:
             context = {}
-        super(xxxx, self).create(cr, uid, vals, context=context)
+        return super(xxxx, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
         if context is None:
             context = {}
-        super(xxxx, self).write(cr, uid, ids, vals, context=context)
+        return super(xxxx, self).write(cr, uid, ids, vals, context=context)
 
     def unlink(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        super(xxxx, self).unlink(cr, uid, ids, context=context)
+        return super(xxxx, self).unlink(cr, uid, ids, context=context)
 
     def copy(self, cr, uid, ids, default=None, context=None):
         if context is None:
             context = {}
-        super(xxxx, self).copy(cr, uid, id, default=default, context=context)
+        return super(xxxx, self).copy(cr, uid, id, default=default, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
