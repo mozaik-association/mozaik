@@ -25,7 +25,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from openerp.osv import orm,fields
 
 
@@ -35,6 +34,7 @@ class res_partner(orm.Model):
 
     _columns = {
                 'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
+                'phone_coordinate_id': fields.many2one('phone.coordinate', 'phone_id', 'Main Phone Coordinate'),
                 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

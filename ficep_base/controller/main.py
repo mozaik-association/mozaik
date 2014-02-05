@@ -26,19 +26,26 @@
 #
 ##############################################################################
 
-"""
-# Available State for 
-#    'phone.coordinate'
-#    'email.coordinate'
-#    'address.coordinate'
-# Valid - Prohibited - Expired
-"""
-AVAILABLE_PC_STATE = [('valid', 'Valid'),
-                      ('prohibited', 'Prohibited'),
-                      ('expired', 'Expired')]
 
+class Controller():
 
-def replication(cr, uid, src_model, target_model_id):
-    pass
+    def __init__(self,cr, uid, context):
+        self.cr = cr
+        self.uid = uid
+        self.context = context
+
+    def replication(self,base_model, target_model, search_on_target, field_to_update):
+        res_ids = base_model.pool.get(target_model).search(self.cr, self.uid, search_on_target)
+        base_model.pool.get(target_model).write(self.cr,
+                                                self.uid,
+                                                res_ids,
+                                                {field_to_update: False},
+                                                context=self.context)
+
+    def set_partner_id(self, base_model, new_id, model_field):
+        base_model.browse(self.cr,
+                          self.uid,
+                          new_id,
+                          context=None).partner_id.write({model_field: new_id})
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

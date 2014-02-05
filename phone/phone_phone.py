@@ -28,7 +28,8 @@
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
-from openerp.addons.ficep_base.controller import main as fb
+from openerp.addons.ficep_base.controller.main import Controller as Ctrl
+from openerp.addons.ficep_base.controller.constant import *
 
 import phonenumbers as pn
 
@@ -48,7 +49,6 @@ class phone_phone(orm.Model):
             normalized_number = pn.parse(num, code)
         except pn.NumberParseException, e:
             raise orm.except_orm(_('Warning!'), _('Invalid phone number: %s') % _(e))
-
         vals['national_number'] = normalized_number.national_number
         vals['prefix'] = normalized_number.country_code
         vals['name'] = pn.format_number(normalized_number, pn.PhoneNumberFormat.INTERNATIONAL)
@@ -105,12 +105,33 @@ class phone_coordinate(orm.Model):
     _columns = {
                 'phone_id': fields.many2one('phone.phone', string='Phone', required=True),
                 'is_main': fields.boolean('Is Main'),
-                'state': fields.selection(fb.AVAILABLE_PC_STATE, 'State'),
+                'state': fields.selection(AVAILABLE_PC_STATE, 'State'),
                 'partner_id': fields.many2one('res.partner', 'Contact', required=True),
                 'phone_type': fields.related('phone_id', 'type', type='many2one', relation='phone.phone', string='Phone Type'),
                 'start_date': fields.date('Start Date'),
                 'end_date': fields.date('End Date'),
                 'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category'),
                 }
+
+    def create(self, cr, uid, vals, context=None):
+        if context is None:
+            context = {}
+        if vals.get('is_main',False):
+            ctrl = Ctrl(cr, uid, context)
+            search_on_target = [('state','=','valid'),
+                                ('is_main','=',True),
+                                ('partner_id','=', vals['partner_id'])]
+            target_model = self._name
+            field_to_update = 'is_main'
+            ctrl.replication(self, target_model, search_on_target, field_to_update)
+        new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
+        ctrl.set_partner_id(self, new_id, 'phone_coordinate_id')
+        return new_id
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        return super(phone_coordinate, self).write(cr, uid, ids, vals, context=context)
+
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

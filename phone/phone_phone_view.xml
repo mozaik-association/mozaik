@@ -9,9 +9,9 @@
                     <sheet>
                         <group col="2">
                             <field name="phone_id" />
-                            <field name="partner_id" />
-                            <field name="is_main" />
+                            <field name="partner_id" required="1" />
                             <field name="state" />
+                            <field name="is_main" />
                         </group>
                     </sheet>
                 </form>
