@@ -12,6 +12,7 @@
                             <field name="partner_id" required="1" />
                             <field name="state" />
                             <field name="is_main" />
+                            <field name="phone_type" />
                         </group>
                     </sheet>
                 </form>
@@ -25,7 +26,6 @@
                     <sheet>
                         <group col="2">
                             <field name="name" />
-                            <field name="country_id" />
                             <field name="type" />
                         </group>
                     </sheet>

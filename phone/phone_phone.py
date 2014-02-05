@@ -28,8 +28,9 @@
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+
 from openerp.addons.ficep_base.controller.main import Controller as Ctrl
-from openerp.addons.ficep_base.controller.constant import *
+from openerp.addons.ficep_base.controller.ficep_constant import *
 
 import phonenumbers as pn
 
@@ -41,62 +42,44 @@ AVAILABLE_TYPE = [('mobile phone', 'Mobile Phone'),
                   ('phone', 'Phone'),
                   ('fax', 'Fax')]
 
+PREFIX_NUM = 'BE'
+
 
 class phone_phone(orm.Model):
 
-    def _check_and_format_number(self, vals, num, code):
+    def _check_and_format_number(self, vals, num):
+        code = False
+        if num[:2] == '00':
+            num = '%s%s' % (num[:2].replace('00', '+'), num[2:])
+        else:
+            code = PREFIX_NUM
         try:
-            normalized_number = pn.parse(num, code)
+            normalized_number = pn.parse(num, code) if code else pn.parse(num)
         except pn.NumberParseException, e:
             raise orm.except_orm(_('Warning!'), _('Invalid phone number: %s') % _(e))
-        vals['national_number'] = normalized_number.national_number
-        vals['prefix'] = normalized_number.country_code
         vals['name'] = pn.format_number(normalized_number, pn.PhoneNumberFormat.INTERNATIONAL)
-        return vals
-
-    def _get_country_code(self, cr, uid, country_id, context=None):
-        if context is None:
-            context= {}
-        return self.pool.get('res.country').read(cr, uid, country_id, ['code'], context=context)['code']
 
     _name = 'phone.phone'
     _columns = {
                 'name': fields.char('Number', required=True, size=50, help="Exemple: 0476552611"),
                 'type': fields.selection(AVAILABLE_TYPE, 'Type'),
-                'country_id': fields.many2one('res.country', 'Country', required=True),
-                'national_number' : fields.char('National Number', size=50),
-                'prefix' : fields.char('Prefix', size=10),
                 'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
                 }
 
     def create(self, cr, uid, vals, context=None):
         if context is None:
             context = {}
-        country_code = self._get_country_code(cr, uid, vals['country_id'], context=context)
-        vals = self._check_and_format_number(vals, vals['name'], country_code)
+        self._check_and_format_number(vals, vals['name'])
         return super(phone_phone, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
         if context is None:
             context = {}
         num = vals.get('name', False)
-        country_id = vals.get('country_id', False)
-        code = False if not country_id else self._get_country_code(cr, uid, country_id, context=context)
-        if num != False or code != False:
-            prefix = False
-            to_read = []
-            to_read.append('prefix')
-            if not num:
-                to_read.append('national_number')
-            if not code:
-                to_read.append('country_id')
-            stored_value = self.read(cr, uid, ids, to_read, context=context)[0]
-            num = num or stored_value.get('national_number')
-            code = code or self._get_country_code(cr, uid, stored_value.get('country_id')[0], context=context)
-            prefix = prefix or stored_value.get('prefix',False)
-            num = num.replace('+%s' % prefix ,'') if prefix else num
-            vals = self._check_and_format_number(vals, num, code)
+        if num:
+            self._check_and_format_number(vals, num)
         return super(phone_phone, self).write(cr, uid, ids, vals, context=context)
+
 
 class phone_coordinate(orm.Model):
 
@@ -107,7 +90,7 @@ class phone_coordinate(orm.Model):
                 'is_main': fields.boolean('Is Main'),
                 'state': fields.selection(AVAILABLE_PC_STATE, 'State'),
                 'partner_id': fields.many2one('res.partner', 'Contact', required=True),
-                'phone_type': fields.related('phone_id', 'type', type='many2one', relation='phone.phone', string='Phone Type'),
+                'phone_type': fields.related('phone_id', 'type', type='selection', relation='phone.phone', string='Phone Type'),
                 'start_date': fields.date('Start Date'),
                 'end_date': fields.date('End Date'),
                 'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category'),
@@ -116,11 +99,11 @@ class phone_coordinate(orm.Model):
     def create(self, cr, uid, vals, context=None):
         if context is None:
             context = {}
-        if vals.get('is_main',False):
+        if vals.get('is_main', False):
             ctrl = Ctrl(cr, uid, context)
-            search_on_target = [('state','=','valid'),
-                                ('is_main','=',True),
-                                ('partner_id','=', vals['partner_id'])]
+            search_on_target = [('state', '=', 'valid'),
+                                ('is_main', '=', True),
+                                ('partner_id', '=', vals['partner_id'])]
             target_model = self._name
             field_to_update = 'is_main'
             ctrl.replication(self, target_model, search_on_target, field_to_update)
