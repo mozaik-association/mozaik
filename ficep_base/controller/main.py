@@ -29,23 +29,31 @@
 
 class Controller():
 
-    def __init__(self,cr, uid, context):
+    def __init__(self, cr, uid, context):
         self.cr = cr
         self.uid = uid
         self.context = context
 
-    def replication(self,base_model, target_model, search_on_target, field_to_update):
+    def check_unicity_main(self, base_model, target_model, search_on_target, field_to_update, value_to_set):
         res_ids = base_model.pool.get(target_model).search(self.cr, self.uid, search_on_target)
         base_model.pool.get(target_model).write(self.cr,
                                                 self.uid,
                                                 res_ids,
-                                                {field_to_update: False},
+                                                {field_to_update: value_to_set},
                                                 context=self.context)
 
-    def set_partner_id(self, base_model, new_id, model_field):
+    def replicate(self, base_model, new_id, model_field):
         base_model.browse(self.cr,
                           self.uid,
                           new_id,
                           context=None).partner_id.write({model_field: new_id})
+
+    def remove_main(self, base_model, ids, model_field):
+        if not hasattr(ids, '__iter__'):
+            ids = [ids]
+        base_model.browse(self.cr,
+                          self.uid,
+                          ids,
+                          context=None)[0].partner_id.write({model_field: False})
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
