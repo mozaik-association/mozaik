@@ -54,6 +54,7 @@ class xxxx(orm.Model):
         ('choice2', 'This is the choice 2'))
 # columns
     _columns = {
+        'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, required=True, select=True),
         'name': fields.function(_your_field_function, type='char', string='Name'),
         'date': fields.date('Date', select=1),
