@@ -32,6 +32,11 @@ from openerp.tools.translate import _
 
 class xxxx(orm.Model):
 
+#_XXXX
+    _name = 'XXXXX'
+    _rec_name = 'name'
+
+# new method
     def _your_field_function(self):
         pass
 
@@ -39,9 +44,7 @@ class xxxx(orm.Model):
         return (
         ('choice1', 'This is the choice 1'),
         ('choice2', 'This is the choice 2'))
-
-    _name = 'XXXXX'
-    _rec_name = 'name'
+# columns
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True),
         'name': fields.function(_your_field_function, type='char', string='Name'),
@@ -58,7 +61,9 @@ class xxxx(orm.Model):
         'image': fields.binary("Files", help="test"),
         'name': fields.integer('integer'),
         }
+# constraint
 
+# orm method
     def create(self, cr, uid, vals, context=None):
         if context is None:
             context = {}
@@ -78,5 +83,11 @@ class xxxx(orm.Model):
         if context is None:
             context = {}
         return super(xxxx, self).copy(cr, uid, id, default=default, context=context)
+
+# onchange/button
+
+# workflow
+
+# public
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
