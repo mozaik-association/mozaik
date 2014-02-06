@@ -25,14 +25,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import phonenumbers as pn
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 from openerp.addons.ficep_base.controller.main import Controller as Ctrl
-from openerp.addons.ficep_base.controller.ficep_constant import *
 
-import phonenumbers as pn
 
 """
 # Available Type for 'phone.phone':
@@ -60,9 +59,11 @@ class phone_phone(orm.Model):
         vals['name'] = pn.format_number(normalized_number, pn.PhoneNumberFormat.INTERNATIONAL)
 
     _name = 'phone.phone'
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
     _columns = {
-                'name': fields.char('Number', required=True, size=50, help="Exemple: 0476552611"),
-                'type': fields.selection(AVAILABLE_TYPE, 'Type'),
+                'id': fields.integer('ID', readonly=True),
+                'name': fields.char('Number', required=True, size=50),
+                'type': fields.selection(AVAILABLE_TYPE, 'Type', required=True),
                 'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
                 }
 
@@ -84,37 +85,84 @@ class phone_phone(orm.Model):
 class phone_coordinate(orm.Model):
 
     _name = 'phone.coordinate'
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
     _rec_name = 'phone_id'
+
     _columns = {
-                'phone_id': fields.many2one('phone.phone', string='Phone', required=True),
-                'is_main': fields.boolean('Is Main'),
-                'state': fields.selection(AVAILABLE_PC_STATE, 'State'),
-                'partner_id': fields.many2one('res.partner', 'Contact', required=True),
-                'phone_type': fields.related('phone_id', 'type', type='selection', relation='phone.phone', string='Phone Type'),
-                'start_date': fields.date('Start Date'),
-                'end_date': fields.date('End Date'),
-                'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category'),
-                }
+        'id': fields.integer('ID', readonly=True),
+        'phone_id': fields.many2one('phone.phone', string='Phone', required=True),
+        'is_main': fields.boolean('Is Main'),
+        'phone_type': fields.related('phone_id', 'type', type='selection', string='Phone Type',
+                                      relation='phone.phone', selection=AVAILABLE_TYPE, readonly=True),
+        'partner_id': fields.many2one('res.partner', 'Contact', required=True,),
+        'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category'),
+        'create_date': fields.date('Creation Date'),
+        'expire_date': fields.date('Expiration Date'),
+        'active': fields.boolean('Active'),
+    }
+
+    def check_at_least_one_main(self, cr, uid, ids, context=None):
+        """
+        That constraint will check the associated partner has at least one main
+        coordinate if this one isn't it
+        """
+        context = context or {}
+        phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
+        if phone_coordinate.phone_type == 'phone':
+            if not phone_coordinate.partner_id.phone_coordinate_id and not phone_coordinate.is_main:
+                return False
+        else:
+            if not phone_coordinate.partner_id.mobile_phone_coordinate_id and not phone_coordinate.is_main:
+                return False
+        return True
+
+    _defaults = {
+        'active': True
+    }
+
+    _constraints = [
+        (check_at_least_one_main, _('Error! At least one main coordinate by associated partner'), ['partner_id']),
+    ]
 
     def create(self, cr, uid, vals, context=None):
-        if context is None:
-            context = {}
+        """
+        Create a coordinate phone:
+        When 'is_main' is true the coordinate has to become the main coordinate for its
+        associated partner.
+        That implies to remove the current-valid-main coordinate by calling the
+        'check_unicity_main' of Controller.
+        Next step is to replicate (ref. spec.) the new coordinate into the related partner
+        In the end call super create
+        """
+        context = context or {}
         if vals.get('is_main', False):
             ctrl = Ctrl(cr, uid, context)
-            search_on_target = [('state', '=', 'valid'),
-                                ('is_main', '=', True),
-                                ('partner_id', '=', vals['partner_id'])]
+            phone_type = self.pool.get('phone.phone').read(cr, uid, vals['phone_id'], ['type'], context=context)['type']
+            target_domain = [('phone_type', '=', phone_type),
+                             ('is_main', '=', True),
+                             ('active', '=', True),
+                             ('partner_id', '=', vals['partner_id'])]
             target_model = self._name
             field_to_update = 'is_main'
-            ctrl.replication(self, target_model, search_on_target, field_to_update)
-        new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
-        ctrl.set_partner_id(self, new_id, 'phone_coordinate_id')
-        return new_id
+            value_to_set = False
+            ctrl.check_unicity_main(self, target_model, target_domain, field_to_update, value_to_set)
+            new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
+            model_field = 'phone_coordinate_id' if phone_type == 'phone' else 'mobile_phone_coordinate_id'
+            ctrl.replicate(self, new_id, model_field)
+            return new_id
+        return super(phone_coordinate, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
-        if context is None:
-            context = {}
+        context = context or {}
         return super(phone_coordinate, self).write(cr, uid, ids, vals, context=context)
 
+    def invalidate(self, cr, uid, ids, context=None):
+        context = context or {}
+        ctrl = Ctrl(cr, uid, context)
+        model_field = 'phone_coordinate_id' if self.read(cr, uid, ids, \
+                      ['phone_type'], context=context) == 'phone' else 'mobile_phone_coordinate_id'
+        ctrl.remove_main(self, ids, model_field)
+        return self.write(cr, uid, ids, {'is_main': False,
+                                         'end_date': fields.date.context_today(self, cr, uid, context=context)}, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

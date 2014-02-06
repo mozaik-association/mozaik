@@ -6,13 +6,23 @@
             <field name="model">phone.coordinate</field>
             <field name="arch" type="xml">
                 <form string="Phone Coordinate" version="7.0">
+                    <header>
+                        <button name="invalidate" string="Invalidate"
+                            type="object" />
+                        <button name="Select As Main" string="Invalidate"
+                            type="object" attrs="{'invisible':[('is_main','=',True)]}"/>
+                    </header>
                     <sheet>
                         <group col="2">
+                            <field name="id" invisible="1" />
                             <field name="phone_id" />
-                            <field name="partner_id" required="1" />
-                            <field name="state" />
-                            <field name="is_main" />
+                            <field name="partner_id" required="1"
+                                attrs="{'readonly':[('id','&lt;&gt;',False)]}" />
+                            <field name="is_main"
+                                attrs="{'readonly':[('id','&lt;&gt;',False)]}" />
                             <field name="phone_type" />
+                            <field name="create_date" readonly="1" />
+                            <field name="end_date" readonly="1" />
                         </group>
                     </sheet>
                 </form>
@@ -25,8 +35,10 @@
                 <form string="Phone" version="7.0">
                     <sheet>
                         <group col="2">
-                            <field name="name" />
-                            <field name="type" />
+                            <field name="id" invisible="1" />
+                            <field name="name" placeholder="e.g. +32 476 81 37 00" />
+                            <field name="type"
+                                attrs="{'readonly':[('id','&lt;&gt;',False)]}" />
                         </group>
                     </sheet>
                 </form>
@@ -40,7 +52,6 @@
                     <field name="phone_id" />
                     <field name="is_main" />
                     <field name="partner_id" />
-                    <field name="state" />
                 </tree>
             </field>
         </record>
