@@ -26,8 +26,8 @@
 #
 ##############################################################################
 
-import phone_phone
-import res_partner
-import coordinate_category
+from . import phone_phone
+from . import res_partner
+from . import coordinate_category
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
