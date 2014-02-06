@@ -25,14 +25,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+# IMPORT SYSTEM
 
+# SPECIAL PYTHON IMPORT
+
+# IMPORT OPENERP
+
+# OUR IMPORT
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+
+# CONSTANT
 
 
 class xxxx(orm.Model):
 
-#_XXXX
+# _XXXX
     _name = 'XXXXX'
     _rec_name = 'name'
 
@@ -65,23 +73,19 @@ class xxxx(orm.Model):
 
 # orm method
     def create(self, cr, uid, vals, context=None):
-        if context is None:
-            context = {}
+        context = context or {}
         return super(xxxx, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
-        if context is None:
-            context = {}
+        context = context or {}
         return super(xxxx, self).write(cr, uid, ids, vals, context=context)
 
     def unlink(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
+        context = context or {}
         return super(xxxx, self).unlink(cr, uid, ids, context=context)
 
     def copy(self, cr, uid, ids, default=None, context=None):
-        if context is None:
-            context = {}
+        context = context or {}
         return super(xxxx, self).copy(cr, uid, id, default=default, context=context)
 
 # onchange/button
