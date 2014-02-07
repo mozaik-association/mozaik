@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- wizard action on res.partner -->
+        <act_window id="partner_coordinate_phone_wizard_action"
+            name="Select Main Coordinate Phone" src_model="res.partner"
+            res_model="phone.coordinate.wizard" view_type="form"
+            view_mode="form" key2="client_action_multi" target="new" />
+
+        <record id="wizard_phone_coordinate" model="ir.ui.view">
+            <field name="name">Select Main Phone Coordinate</field>
+            <field name="model">phone.coordinate.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Select Main Phone Coordinate"
+                    version="7.0">
+                    <group col="2">
+                        <field name="phone_coordinate_id" />
+                        <field name="invalidate_previous_phone_coordinate" />
+                    </group>
+                    <footer>
+                        <button string="Validate" name="mass_select_as_main"
+                            type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link"
+                            special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>
