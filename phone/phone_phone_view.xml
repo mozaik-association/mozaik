@@ -7,22 +7,30 @@
             <field name="arch" type="xml">
                 <form string="Phone Coordinate" version="7.0">
                     <header>
-                        <button name="invalidate" string="Invalidate"
-                            type="object" />
-                        <button name="Select As Main" string="Invalidate"
-                            type="object" attrs="{'invisible':[('is_main','=',True)]}"/>
+                        <div
+                            attrs="{'invisible':['|',('id','=',False),('is_main','=',True)]}">
+                            <button name="invalidate" string="Invalidate"
+                                type="object" />
+                            <button name="select_as_main" string="Select As Main"
+                                type="object" />
+                        </div>
                     </header>
                     <sheet>
-                        <group col="2">
-                            <field name="id" invisible="1" />
+                        <field name="id" invisible="1" />
+                        <group col="2"
+                            attrs="{'readonly':[('id','&lt;&gt;',False)]}">
                             <field name="phone_id" />
-                            <field name="partner_id" required="1"
-                                attrs="{'readonly':[('id','&lt;&gt;',False)]}" />
-                            <field name="is_main"
-                                attrs="{'readonly':[('id','&lt;&gt;',False)]}" />
-                            <field name="phone_type" />
-                            <field name="create_date" readonly="1" />
-                            <field name="end_date" readonly="1" />
+                            <field name="partner_id" required="1" />
+                            <field name="is_main" />
+                            <field name="phone_type"
+                                attrs="{'invisible':[('id','=',False)]}" />
+                            <field name="active" invisible="1" />
+                        </group>
+                        <group col="2">
+                            <field name="create_date" readonly="1"
+                                attrs="{'invisible':[('id','=',False)]}" />
+                            <field name="expire_date" readonly="1"
+                                attrs="{'invisible':[('active','=',True)]}" />
                         </group>
                     </sheet>
                 </form>

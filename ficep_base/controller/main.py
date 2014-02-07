@@ -34,26 +34,57 @@ class Controller():
         self.uid = uid
         self.context = context
 
-    def check_unicity_main(self, base_model, target_model, search_on_target, field_to_update, value_to_set):
-        res_ids = base_model.pool.get(target_model).search(self.cr, self.uid, search_on_target)
+    def check_unicity_main(self, base_model, target_model, target_domain, fields_to_update):
+        """
+        ==================
+        Check Unicity Main
+        ==================
+
+        This method will check the unicity of the main coordinate by a generic way:
+        * Firstly search existing records depending of the ``target_domain``
+        * Next step update value for the ``fields_to_update`` for the ``base_model``
+        :param base_model: A base model that can be
+                           * phone.coordinate
+                           * address.coordinate
+                           * email.coordinate
+        :type base_model: BaseModel
+        :param target_model: the concerned  model of the action
+        :type target_model: char
+        :param fields_to_update: fields to update with their associated value
+        :type fields_to_update: dictionary
+
+        **Note **: ``base_model`` is unlike ``target_model`` because this way is more generic:
+                    That lets the possibility to pool on other model from an other
+        """
+        res_ids = base_model.pool.get(target_model).search(self.cr, self.uid, target_domain)
         base_model.pool.get(target_model).write(self.cr,
                                                 self.uid,
                                                 res_ids,
-                                                {field_to_update: value_to_set},
+                                                fields_to_update,
                                                 context=self.context)
 
     def replicate(self, base_model, new_id, model_field):
+        """
+        =========
+        replicate
+        =========
+
+        Symbolic write that will ``replicate`` the browse record having ``new_id``
+        into the partner_id
+        :param base_model: A base model that can be
+                           * phone.coordinate
+                           * address.coordinate
+                           * email.coordinate
+        :type base_model: BaseModel
+        :param: new_id: is the id of the record to set into the field of the partner
+        :type new_id: integer
+        :param model_field: ``model_field`` contains the name of the field that will be
+                            updated
+        :type model_field: char
+        """
         base_model.browse(self.cr,
                           self.uid,
                           new_id,
                           context=None).partner_id.write({model_field: new_id})
-
-    def remove_main(self, base_model, ids, model_field):
-        if not hasattr(ids, '__iter__'):
-            ids = [ids]
-        base_model.browse(self.cr,
-                          self.uid,
-                          ids,
-                          context=None)[0].partner_id.write({model_field: False})
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

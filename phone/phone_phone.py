@@ -46,20 +46,32 @@ PREFIX_NUM = 'BE'
 
 class phone_phone(orm.Model):
 
-    def _check_and_format_number(self, vals, num):
+    _name = 'phone.phone'
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
+
+    def _check_and_format_number(self, num):
+        """
+        :param vals: containing at least 'name' that is the phone number
+        :type vals: dictionary
+        :returns: Number formated into a International Number
+                  If number is not starting by '+' then check if it starts by '00'
+                  and replace it with '+'. Otherwise set a code value with a PREFIX
+        :rtype: char
+        :raise: pn.NumberParseException
+                * if number is not parsing due to a bad encoded value
+        """
         code = False
-        if num[:2] == '00':
-            num = '%s%s' % (num[:2].replace('00', '+'), num[2:])
-        else:
-            code = PREFIX_NUM
+        if not num.startswith('+'):
+            if num[:2] == '00':
+                num = '%s%s' % (num[:2].replace('00', '+'), num[2:])
+            else:
+                code = PREFIX_NUM
         try:
             normalized_number = pn.parse(num, code) if code else pn.parse(num)
         except pn.NumberParseException, e:
             raise orm.except_orm(_('Warning!'), _('Invalid phone number: %s') % _(e))
-        vals['name'] = pn.format_number(normalized_number, pn.PhoneNumberFormat.INTERNATIONAL)
+        return pn.format_number(normalized_number, pn.PhoneNumberFormat.INTERNATIONAL)
 
-    _name = 'phone.phone'
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
     _columns = {
                 'id': fields.integer('ID', readonly=True),
                 'name': fields.char('Number', required=True, size=50),
@@ -68,6 +80,13 @@ class phone_phone(orm.Model):
                 }
 
     def create(self, cr, uid, vals, context=None):
+        """
+        This method will create a phone number after checking and format this
+        Number, calling the _check_and_format_number method
+        :param: vals
+        :type: dictionary that contains at least 'name'
+        :rparam: id of the new phone
+        """
         if context is None:
             context = {}
         self._check_and_format_number(vals, vals['name'])
@@ -78,7 +97,7 @@ class phone_phone(orm.Model):
             context = {}
         num = vals.get('name', False)
         if num:
-            self._check_and_format_number(vals, num)
+            vals['name'] = self._check_and_format_number(num)
         return super(phone_phone, self).write(cr, uid, ids, vals, context=context)
 
 
@@ -87,6 +106,84 @@ class phone_coordinate(orm.Model):
     _name = 'phone.coordinate'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
     _rec_name = 'phone_id'
+
+    def get_target_domain(self, phone_type, partner_id):
+        """
+        =================
+        get_target_domain
+        =================
+        :parma phone_type: the type of the phone
+        :type phone_type: char
+        :param partner_id: id of the partner
+        :type partner_id: integer
+        :rparam: dictionary with ``phone_type`` and ``partner_id`` well set
+        :rtype: dictionary
+        """
+        return [('phone_type', '=', phone_type),
+                 ('is_main', '=', True),
+                 ('active', '=', True),
+                 ('partner_id', '=', partner_id)]
+
+    def invalidate(self, cr, uid, ids, context=None):
+        """
+        ==========
+        invalidate
+        ==========
+        This method will invalidate the phone.coordinate by setting
+        * active to False
+        * expire_date to current date
+        :rparam: True
+        :rtype: boolean
+        """
+        context = context or {}
+        return super(phone_coordinate, self).write(cr, uid, ids,
+                                            {'active': False, 'expire_date': fields.date.today()},
+                                            context=context)
+
+    def select_as_main(self, cr, uid, ids, context=None):
+        """
+        ==============
+        select_as_main
+        ==============
+        This method allows to switch main coordinate:
+        1) Check And Set Existing main coordinate for the partner to 'active' = False
+        2) Replace the old reference value into the res_partner by current coordinate
+        3) Set is_main to True for current coordinate
+        :rparam: True
+        :rtype: boolean
+        """
+        context = context or {}
+        rec_phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
+        ctrl = Ctrl(cr, uid, context)
+        target_domain = self.get_target_domain(rec_phone_coordinate.phone_type, rec_phone_coordinate.partner_id.id)
+        target_model = self._name
+        fields_to_update = {'active': False, 'is_main': False}
+        ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
+        model_field = 'phone_coordinate_id' if self.read(cr, uid, ids, \
+                      ['phone_type'], context=context) == 'phone' else 'mobile_phone_coordinate_id'
+        ctrl.replicate(self, ids[0], model_field)
+        return super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
+
+    def check_at_least_one_main(self, cr, uid, ids, context=None):
+        """
+        =======================
+        check_at_least_one_main
+        =======================
+        That constraint will check the associated partner has at least one main
+        coordinate if this current one isn't it
+        :rparam: True if The associated partner has already a main coordinate
+                 Otherwise False
+        :rtype: boolean
+        """
+        context = context or {}
+        phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
+        if phone_coordinate.phone_type == 'phone':
+            if not phone_coordinate.partner_id.phone_coordinate_id and not phone_coordinate.is_main:
+                return False
+        else:
+            if not phone_coordinate.partner_id.mobile_phone_coordinate_id and not phone_coordinate.is_main:
+                return False
+        return True
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
@@ -100,21 +197,6 @@ class phone_coordinate(orm.Model):
         'expire_date': fields.date('Expiration Date'),
         'active': fields.boolean('Active'),
     }
-
-    def check_at_least_one_main(self, cr, uid, ids, context=None):
-        """
-        That constraint will check the associated partner has at least one main
-        coordinate if this one isn't it
-        """
-        context = context or {}
-        phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
-        if phone_coordinate.phone_type == 'phone':
-            if not phone_coordinate.partner_id.phone_coordinate_id and not phone_coordinate.is_main:
-                return False
-        else:
-            if not phone_coordinate.partner_id.mobile_phone_coordinate_id and not phone_coordinate.is_main:
-                return False
-        return True
 
     _defaults = {
         'active': True
@@ -130,39 +212,24 @@ class phone_coordinate(orm.Model):
         When 'is_main' is true the coordinate has to become the main coordinate for its
         associated partner.
         That implies to remove the current-valid-main coordinate by calling the
-        'check_unicity_main' of Controller.
+        ``check_unicity_main()`` of Controller.
         Next step is to replicate (ref. spec.) the new coordinate into the related partner
         In the end call super create
+        :rparam: id of the new phone coordinate
+        :rtype: integer
         """
         context = context or {}
         if vals.get('is_main', False):
             ctrl = Ctrl(cr, uid, context)
             phone_type = self.pool.get('phone.phone').read(cr, uid, vals['phone_id'], ['type'], context=context)['type']
-            target_domain = [('phone_type', '=', phone_type),
-                             ('is_main', '=', True),
-                             ('active', '=', True),
-                             ('partner_id', '=', vals['partner_id'])]
+            target_domain = self.get_target_domain(phone_type, vals['partner_id'])
             target_model = self._name
-            field_to_update = 'is_main'
-            value_to_set = False
-            ctrl.check_unicity_main(self, target_model, target_domain, field_to_update, value_to_set)
+            fields_to_update = {'active': False, 'is_main': False}
+            ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
             model_field = 'phone_coordinate_id' if phone_type == 'phone' else 'mobile_phone_coordinate_id'
             ctrl.replicate(self, new_id, model_field)
             return new_id
         return super(phone_coordinate, self).create(cr, uid, vals, context=context)
-
-    def write(self, cr, uid, ids, vals, context=None):
-        context = context or {}
-        return super(phone_coordinate, self).write(cr, uid, ids, vals, context=context)
-
-    def invalidate(self, cr, uid, ids, context=None):
-        context = context or {}
-        ctrl = Ctrl(cr, uid, context)
-        model_field = 'phone_coordinate_id' if self.read(cr, uid, ids, \
-                      ['phone_type'], context=context) == 'phone' else 'mobile_phone_coordinate_id'
-        ctrl.remove_main(self, ids, model_field)
-        return self.write(cr, uid, ids, {'is_main': False,
-                                         'end_date': fields.date.context_today(self, cr, uid, context=context)}, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
