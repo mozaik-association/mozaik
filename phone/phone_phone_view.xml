@@ -17,11 +17,10 @@
                     </header>
                     <sheet>
                         <field name="id" invisible="1" />
-                        <group col="2"
-                            attrs="{'readonly':[('id','&lt;&gt;',False)]}">
-                            <field name="phone_id" />
-                            <field name="partner_id" required="1" />
-                            <field name="is_main" />
+                        <group col="2" colspan="5">
+                            <field name="phone_id" attrs="{'readonly' : [('id','!=',False)]}"/>
+                            <field name="partner_id" attrs="{'readonly' : [('id','!=',False)]}" required="1" />
+                            <field name="is_main" attrs="{'readonly' : [('id','!=',False)]}"/>
                             <field name="phone_type"
                                 attrs="{'invisible':[('id','=',False)]}" />
                             <field name="active" invisible="1" />
@@ -46,7 +45,7 @@
                             <field name="id" invisible="1" />
                             <field name="name" placeholder="e.g. +32 476 81 37 00" />
                             <field name="type"
-                                attrs="{'readonly':[('id','&lt;&gt;',False)]}" />
+                                attrs="{'readonly':[('id','!=',False)]}" />
                         </group>
                     </sheet>
                 </form>

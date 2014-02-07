@@ -37,8 +37,8 @@ from openerp.addons.ficep_base.controller.main import Controller as Ctrl
 # Available Type for 'phone.phone':
 # Mobile Phone - Phone - Fax
 """
-AVAILABLE_TYPE = [('mobile phone', 'Mobile Phone'),
-                  ('phone', 'Phone'),
+AVAILABLE_TYPE = [('mobile', 'Mobile'),
+                  ('fix', 'Fix'),
                   ('fax', 'Fax')]
 
 PREFIX_NUM = 'BE'
@@ -61,11 +61,10 @@ class phone_phone(orm.Model):
                 * if number is not parsing due to a bad encoded value
         """
         code = False
-        if not num.startswith('+'):
-            if num[:2] == '00':
-                num = '%s%s' % (num[:2].replace('00', '+'), num[2:])
-            else:
-                code = PREFIX_NUM
+        if num[:2] == '00':
+            num = '%s%s' % (num[:2].replace('00', '+'), num[2:])
+        elif not num.startswith('+'):
+            code = PREFIX_NUM
         try:
             normalized_number = pn.parse(num, code) if code else pn.parse(num)
         except pn.NumberParseException, e:
@@ -89,7 +88,7 @@ class phone_phone(orm.Model):
         """
         if context is None:
             context = {}
-        self._check_and_format_number(vals, vals['name'])
+        vals['name'] = self._check_and_format_number(vals['name'])
         return super(phone_phone, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -159,8 +158,8 @@ class phone_coordinate(orm.Model):
         target_model = self._name
         fields_to_update = {'active': False, 'is_main': False}
         ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
-        model_field = 'phone_coordinate_id' if self.read(cr, uid, ids, \
-                      ['phone_type'], context=context) == 'phone' else 'mobile_phone_coordinate_id'
+        model_field = 'fix_coordinate_id' if self.read(cr, uid, ids, \
+                      ['phone_type'], context=context) == 'fix' else 'mobile_coordinate_id'
         ctrl.replicate(self, ids[0], model_field)
         return super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
 
@@ -178,24 +177,24 @@ class phone_coordinate(orm.Model):
         context = context or {}
         phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
         if phone_coordinate.phone_type == 'phone':
-            if not phone_coordinate.partner_id.phone_coordinate_id and not phone_coordinate.is_main:
+            if not phone_coordinate.partner_id.fix_coordinate_id and not phone_coordinate.is_main:
                 return False
         else:
-            if not phone_coordinate.partner_id.mobile_phone_coordinate_id and not phone_coordinate.is_main:
+            if not phone_coordinate.partner_id.mobile_coordinate_id and not phone_coordinate.is_main:
                 return False
         return True
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
-        'phone_id': fields.many2one('phone.phone', string='Phone', required=True),
-        'is_main': fields.boolean('Is Main'),
+        'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True),
+        'is_main': fields.boolean('Is Main', readonly=True),
         'phone_type': fields.related('phone_id', 'type', type='selection', string='Phone Type',
                                       relation='phone.phone', selection=AVAILABLE_TYPE, readonly=True),
-        'partner_id': fields.many2one('res.partner', 'Contact', required=True,),
+        'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True,),
         'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category'),
-        'create_date': fields.date('Creation Date'),
-        'expire_date': fields.date('Expiration Date'),
-        'active': fields.boolean('Active'),
+        'create_date': fields.date('Creation Date', readonly=True),
+        'expire_date': fields.date('Expiration Date', readonly=True),
+        'active': fields.boolean('Active', readonly=True),
     }
 
     _defaults = {
@@ -227,7 +226,7 @@ class phone_coordinate(orm.Model):
             fields_to_update = {'active': False, 'is_main': False}
             ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
-            model_field = 'phone_coordinate_id' if phone_type == 'phone' else 'mobile_phone_coordinate_id'
+            model_field = 'fix_coordinate_id' if phone_type == 'fix' else 'mobile_coordinate_id'
             ctrl.replicate(self, new_id, model_field)
             return new_id
         return super(phone_coordinate, self).create(cr, uid, vals, context=context)
