@@ -148,6 +148,8 @@ class phone_coordinate(orm.Model):
         1) Check And Set Existing main coordinate for the partner to 'active' = False
         2) Replace the old reference value into the res_partner by current coordinate
         3) Set is_main to True for current coordinate
+        :param disable_prev: If True then the previous coordinate will be disable
+        :type disabale_prev: Boolean
         :rparam: True
         :rtype: boolean
         """
@@ -156,7 +158,7 @@ class phone_coordinate(orm.Model):
         ctrl = Ctrl(cr, uid, context)
         target_domain = self.get_target_domain(rec_phone_coordinate.phone_type, rec_phone_coordinate.partner_id.id)
         target_model = self._name
-        fields_to_update = {'active': False, 'is_main': False}
+        fields_to_update = {'active': False, 'is_main': False} if context.get('disable', False) else {'is_main': False}
         ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
         model_field = 'fix_coordinate_id' if self.read(cr, uid, ids, \
                       ['phone_type'], context=context) == 'fix' else 'mobile_coordinate_id'
