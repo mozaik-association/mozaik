@@ -41,7 +41,7 @@ AVAILABLE_TYPE = [('mobile', 'Mobile'),
                   ('fix', 'Fix'),
                   ('fax', 'Fax')]
 
-PREFIX_NUM = 'BE'
+PREFIX_CODE = 'BE'
 
 
 class phone_phone(orm.Model):
@@ -49,8 +49,29 @@ class phone_phone(orm.Model):
     _name = 'phone.phone'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
-    def _check_and_format_number(self, num):
+    def get_default_country_code(self, cr, uid, context=None):
         """
+        ========================
+        get_default_country_code
+        ========================
+        This method will return a country code.
+        e.g. BE, FR, ...
+        The country code firstly will be the value of the parameter key ``default.country.code.phone``
+        If no value then take the default country code PREFIX_CODE
+        :rparam: Country code found into the config_parameter or PREFIX_CODE
+        :rtype: char
+        """
+        context = context or {}
+        param_id = self.pool.get('ir.config_parameter').search(cr, uid, [('key', '=', 'default.country.code.phone')], context=context)
+        if param_id:
+            return self.pool.get('ir.config_parameter').read(cr, uid, param_id, ['value'], context=context)[0]['value']
+        return PREFIX_CODE
+
+    def _check_and_format_number(self, cr, uid, num, context=None):
+        """
+        ========================
+        _check_and_format_number
+        ========================
         :param vals: containing at least 'name' that is the phone number
         :type vals: dictionary
         :returns: Number formated into a International Number
@@ -60,11 +81,12 @@ class phone_phone(orm.Model):
         :raise: pn.NumberParseException
                 * if number is not parsing due to a bad encoded value
         """
+        context = context or {}
         code = False
         if num[:2] == '00':
             num = '%s%s' % (num[:2].replace('00', '+'), num[2:])
         elif not num.startswith('+'):
-            code = PREFIX_NUM
+            code = self.get_default_country_code(cr, uid, context=context)
         try:
             normalized_number = pn.parse(num, code) if code else pn.parse(num)
         except pn.NumberParseException, e:
@@ -80,23 +102,38 @@ class phone_phone(orm.Model):
 
     def create(self, cr, uid, vals, context=None):
         """
+        ==================
+        create phone.phone
+        ==================
         This method will create a phone number after checking and format this
         Number, calling the _check_and_format_number method
         :param: vals
         :type: dictionary that contains at least 'name'
         :rparam: id of the new phone
+        :rtype: integer
         """
         if context is None:
             context = {}
-        vals['name'] = self._check_and_format_number(vals['name'])
+        vals['name'] = self._check_and_format_number(cr, uid, vals['name'], context=context)
         return super(phone_phone, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
+        """
+        ==================
+        write phone.phone
+        ==================
+        This method will update a phone number after checking and format this
+        Number, calling the _check_and_format_number method
+        :param: vals
+        :type: dictionary that possibly contains 'name'
+        :rparam: True
+        :rtype: boolean
+        """
         if context is None:
             context = {}
         num = vals.get('name', False)
         if num:
-            vals['name'] = self._check_and_format_number(num)
+            vals['name'] = self._check_and_format_number(cr, uid, num, context=context)
         return super(phone_phone, self).write(cr, uid, ids, vals, context=context)
 
 
@@ -211,7 +248,9 @@ class phone_coordinate(orm.Model):
 
     def create(self, cr, uid, vals, context=None):
         """
-        Create a coordinate phone:
+        =======================
+        create phone.coordinate
+        =======================
         When 'is_main' is true the coordinate has to become the main coordinate for its
         associated partner.
         That implies to remove the current-valid-main coordinate by calling the

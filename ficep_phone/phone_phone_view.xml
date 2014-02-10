@@ -11,16 +11,21 @@
                             attrs="{'invisible':['|',('id','=',False),('is_main','=',True)]}">
                             <button name="invalidate" string="Invalidate"
                                 type="object" />
-                            <button name="select_as_main" string="Select As Main" context="{'disable':True}"
-                                type="object" attrs="{'invisible':[('active','=',False)]}"/>
+                            <button name="select_as_main" string="Select As Main"
+                                context="{'disable':True}" type="object"
+                                attrs="{'invisible':[('active','=',False)]}" />
                         </div>
                     </header>
                     <sheet>
                         <field name="id" invisible="1" />
                         <group col="2" colspan="5">
-                            <field name="phone_id" attrs="{'readonly' : [('id','!=',False)]}"/>
-                            <field name="partner_id" attrs="{'readonly' : [('id','!=',False)]}" required="1" />
-                            <field name="is_main" attrs="{'readonly' : [('id','!=',False)]}"/>
+                            <field name="phone_id"
+                                attrs="{'readonly' : [('id','!=',False)]}" />
+                            <field name="partner_id"
+                                attrs="{'readonly' : [('id','!=',False)]}"
+                                required="1" />
+                            <field name="is_main"
+                                attrs="{'readonly' : [('id','!=',False)]}" />
                             <field name="phone_type"
                                 attrs="{'invisible':[('id','=',False)]}" />
                             <field name="active" invisible="1" />

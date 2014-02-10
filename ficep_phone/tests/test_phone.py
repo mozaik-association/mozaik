@@ -25,6 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm
 import openerp.tests.common as common
 import logging
 
@@ -41,5 +42,21 @@ class test_phone(common.TransactionCase):
 
         self.registry('ir.model').clear_caches()
         self.registry('ir.model.data').clear_caches()
+
+    def test_insert_without_prefix(self):
+        num = self.registry('phone.phone')._check_and_format_number('061140220')
+        self.assertEquals(num, '+32 61 14 02 20', '061140220 should give +32 61 14 02 20')
+
+    def test_insert_with_prefix(self):
+        num = self.registry('phone.phone')._check_and_format_number('+32489587520')
+        self.assertEquals(num, '+32 489 58 75 20', '+32489587520 should give +32 489 58 75 20')
+
+    def test_proper_escaping(self):
+        num = self.registry('phone.phone')._check_and_format_number('061-54/10    45')
+        self.assertEquals(num, '+32 61 54 10 45', '061-54/10    45 should give +32 61 54 10 45')
+
+    def test_insert_bad_query(self):
+        cr, uid = self.cr, self.uid
+        self.assertRaises(orm.except_orm, self.registry('phone.phone')._check_and_format_number, cr, uid, 'badquery')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

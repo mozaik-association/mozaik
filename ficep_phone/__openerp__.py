@@ -46,6 +46,7 @@ It allows to manage three types of phone (fix-phone-mobile phone)
     'data': [
          'phone_phone_view.xml',
          'wizard/select_main_coordinate_phone.xml',
+         'data/ir_config_parameter_data.xml'
     ],
     'js': [
     ],
