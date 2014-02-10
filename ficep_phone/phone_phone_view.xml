@@ -84,10 +84,10 @@
             <field name="view_mode">tree,form</field>
         </record>
         <menuitem name="Phone Coordinate" id="phone_coordinate_submenu"
-            parent="coordinate_category.coordinate_category_submenu"
+            parent="ficep_coordinate_category.coordinate_category_submenu"
             sequence="99" action="phone_coordinate_action" />
         <menuitem name="Phone" id="phone_phone_submenu"
-            parent="coordinate_category.technical_menu" sequence="99"
+            parent="ficep_coordinate_category.technical_menu" sequence="99"
             action="phone_phone_action" />
     </data>
 </openerp>

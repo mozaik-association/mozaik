@@ -33,7 +33,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'phone',
+        'ficep_phone',
     ],
     'description': """
 FICEP

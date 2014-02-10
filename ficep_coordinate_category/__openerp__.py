@@ -34,7 +34,7 @@
     'category': 'Political Association',
     'depends': [
         #'ficep_base',
-        'person',
+        'ficep_person',
     ],
     'description': """
 FICEP Coordinate Category
