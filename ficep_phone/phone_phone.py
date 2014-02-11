@@ -34,8 +34,8 @@ from openerp.addons.ficep_base.controller.main import Controller as Ctrl
 
 
 """
-# Available Type for 'phone.phone':
-# Mobile Phone - Phone - Fax
+Available Type for 'phone.phone':
+Mobile Phone - Phone - Fax
 """
 AVAILABLE_TYPE = [('mobile', 'Mobile'),
                   ('fix', 'Fix'),

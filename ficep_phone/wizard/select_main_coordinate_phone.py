@@ -43,19 +43,21 @@ class phone_coordinate_wizard(orm.TransientModel):
         of selected partner (context['active_ids'])
         * The selected coordinate will be set as main for the first partner into
             the list
-        * The other phone coordinate will be create for the other partner into the list
+        * Others phone coordinate will be create for the other partner of the list
         * The previsous phone coordinate will be invalidate if the user has
             check ``invalidate_previous_phone_coordinate``
-        * If it is launched from one partner the it has effect only on this partner from
-            ``res_id``
         :rparam: id or ids created
         :rtype: integer or [integer]
         :raise: ERROR if no active_id and no active_ids into the context
+
+        **Note**
+        When it is launched from the partner form then take the id into ``res_id``
         """
         context = context or {}
         rec_wizard = self.browse(cr, uid, ids, context=context)[0]
         context['invalidate'] = rec_wizard.invalidate_previous_phone_coordinate
         if context.get('active_ids', False):
+            #will call create method for all partner id into the active_ids
             return [(self.pool.get('phone.coordinate').create(cr, uid, {
                                                             'phone_id': rec_wizard.phone_coordinate_id.phone_id.id,
                                                             'is_main': True,
