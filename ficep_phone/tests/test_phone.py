@@ -44,18 +44,54 @@ class test_phone(common.TransactionCase):
         self.registry('ir.model.data').clear_caches()
 
     def test_insert_without_prefix(self):
+        """
+        ==========================
+        test_insert_without_prefix
+        ==========================
+        Test case:
+        insert a valid phone number without prefix
+        :insert: 061140220
+        :expected: +32 61 14 02 20
+        """
         num = self.registry('phone.phone')._check_and_format_number('061140220')
         self.assertEquals(num, '+32 61 14 02 20', '061140220 should give +32 61 14 02 20')
 
     def test_insert_with_prefix(self):
+        """
+        =======================
+        test_insert_with_prefix
+        =======================
+        Test case:
+        insert a valid phone number with prefix
+        :insert: +32489587520
+        :expected: +32 489 58 75 20
+        """
         num = self.registry('phone.phone')._check_and_format_number('+32489587520')
         self.assertEquals(num, '+32 489 58 75 20', '+32489587520 should give +32 489 58 75 20')
 
     def test_proper_escaping(self):
+        """
+        ====================
+        test_proper_escaping
+        ====================
+        Test case:
+        insert a valid phone number with other characters in more
+        :insert: 061-54/10    45
+        :expected: +32 61 54 10 45
+        """
         num = self.registry('phone.phone')._check_and_format_number('061-54/10    45')
         self.assertEquals(num, '+32 61 54 10 45', '061-54/10    45 should give +32 61 54 10 45')
 
     def test_insert_bad_query(self):
+        """
+        =====================
+        test_insert_bad_query
+        =====================
+        Test case:
+        insert a bad format for a phone e.g. a word
+        :insert: badquery
+        :expected: orm_exception
+        """
         cr, uid = self.cr, self.uid
         self.assertRaises(orm.except_orm, self.registry('phone.phone')._check_and_format_number, cr, uid, 'badquery')
 
