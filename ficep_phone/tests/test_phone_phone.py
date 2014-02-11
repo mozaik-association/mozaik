@@ -35,10 +35,10 @@ DB = common.DB
 ADMIN_USER_ID = common.ADMIN_USER_ID
 
 
-class test_phone(common.TransactionCase):
+class test_phone_phone(common.TransactionCase):
 
     def setUp(self):
-        super(test_phone, self).setUp()
+        super(test_phone_phone, self).setUp()
 
         self.registry('ir.model').clear_caches()
         self.registry('ir.model.data').clear_caches()
@@ -53,7 +53,8 @@ class test_phone(common.TransactionCase):
         :insert: 061140220
         :expected: +32 61 14 02 20
         """
-        num = self.registry('phone.phone')._check_and_format_number('061140220')
+        cr, uid = self.cr, self.uid
+        num = self.registry('phone.phone')._check_and_format_number(cr, uid, '061140220')
         self.assertEquals(num, '+32 61 14 02 20', '061140220 should give +32 61 14 02 20')
 
     def test_insert_with_prefix(self):
@@ -66,7 +67,8 @@ class test_phone(common.TransactionCase):
         :insert: +32489587520
         :expected: +32 489 58 75 20
         """
-        num = self.registry('phone.phone')._check_and_format_number('+32489587520')
+        cr, uid = self.cr, self.uid
+        num = self.registry('phone.phone')._check_and_format_number(cr, uid, '+32489587520')
         self.assertEquals(num, '+32 489 58 75 20', '+32489587520 should give +32 489 58 75 20')
 
     def test_proper_escaping(self):
@@ -79,7 +81,8 @@ class test_phone(common.TransactionCase):
         :insert: 061-54/10    45
         :expected: +32 61 54 10 45
         """
-        num = self.registry('phone.phone')._check_and_format_number('061-54/10    45')
+        cr, uid = self.cr, self.uid
+        num = self.registry('phone.phone')._check_and_format_number(cr, uid, '061-54/10    45')
         self.assertEquals(num, '+32 61 54 10 45', '061-54/10    45 should give +32 61 54 10 45')
 
     def test_insert_bad_query(self):

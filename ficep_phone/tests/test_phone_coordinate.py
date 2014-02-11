@@ -25,18 +25,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import test_phone_phone
-from . import test_phone_coordinate
-from . import test_phone_coordinate_wizard
+import openerp.tests.common as common
+import logging
 
-fast_suite = [
-]
+_logger = logging.getLogger(__name__)
 
-checks = [
-    test_phone_phone,
-    test_phone_coordinate,
-    test_phone_coordinate_wizard
-]
+DB = common.DB
+ADMIN_USER_ID = common.ADMIN_USER_ID
 
+
+class test_phone_coordinate(common.TransactionCase):
+
+    def setUp(self):
+        super(test_phone_coordinate, self).setUp()
+
+        self.registry('ir.model').clear_caches()
+        self.registry('ir.model.data').clear_caches()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
