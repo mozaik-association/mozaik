@@ -25,13 +25,17 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import test_phone
+from ficep_phone.tests import test_phone
+import test_phone_coordinate
+import test_phone_coordinate_wizard
 
 fast_suite = [
 ]
 
 checks = [
-    test_phone,
+    test_phone_phone,
+    test_phone_coordinate,
+    test_phone_coordinate_wizard
 ]
 
 
