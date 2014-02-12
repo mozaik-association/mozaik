@@ -97,11 +97,24 @@
             <field name="model">phone.coordinate</field>
             <field name="arch" type="xml">
                 <search string="Phone Coordinate">
+                    <field name="partner_id" />
+                    <field name="coordinate_category_id" />
+                    <field name="partner_id" />
+
                     <filter string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expire Phone Coordinate" />
                     <filter string="VIP" domain="[('vip','=',True)]" />
                     <filter string="Unauthorized" domain="[('unauthorized','=',True)]" />
+
+                    <group expand="0" string="Group By...">
+                        <filter string="Partner" domain="[]"
+                            context="{'group_by':'partner_id'}" />
+                        <filter string="Phone" domain="[]"
+                            context="{'group_by':'phone_id'}" />
+                        <filter string="Category" domain="[]"
+                            context="{'group_by':'coordinate_category_id'}" />
+                    </group>
                 </search>
             </field>
         </record>

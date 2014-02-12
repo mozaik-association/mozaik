@@ -100,6 +100,10 @@ class phone_phone(orm.Model):
                 'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
                 }
 
+    _sql_constraints = [
+             ('check_unicity_number', 'unique(name)', _('This Phone already exists!'))
+     ]
+
     def create(self, cr, uid, vals, context=None):
         """
         ==================
@@ -162,7 +166,7 @@ class phone_coordinate(orm.Model):
 
     def get_fields_to_update(self, context=None):
         context = context or {}
-        return {'active': False, 'is_main': False} if context.get('invalidate', False) else {'is_main': False}
+        return {'active': False, 'expire_date': fields.date.today()} if context.get('invalidate', False) else {'is_main': False}
 
     def invalidate(self, cr, uid, ids, context=None):
         """
@@ -174,6 +178,8 @@ class phone_coordinate(orm.Model):
         * expire_date to current date
         :rparam: True
         :rtype: boolean
+        **Note**
+        Launched from the button 'invalidate'
         """
         context = context or {}
         return super(phone_coordinate, self).write(cr, uid, ids,
@@ -204,6 +210,19 @@ class phone_coordinate(orm.Model):
         ctrl.replicate(self, ids[0], model_field)
         return super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
 
+    def redirect_from_select_as_main(self, cr, uid, vals, context=None):
+        context = context or {}
+        res_ids = self.search(cr, uid, [('partner_id', '=', vals['partner_id']),
+                                        ('phone_id', '=', vals['phone_id']),
+                                        ('expire_date', '=', False)], context=context)
+        if len(res_ids) == 0:
+            # must be create
+            self.create(cr, uid, vals, context=context)
+        else:
+            #If the found record  is not ``main``: set it by calling ``select_as_main``
+            if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:
+                self.select_as_main(cr, uid, res_ids, context=context)
+
     def check_at_least_one_main(self, cr, uid, ids, context=None):
         """
         =======================
@@ -225,6 +244,23 @@ class phone_coordinate(orm.Model):
                 return False
         return True
 
+    def check_unicity(self, cr, uid, ids, context=None):
+        """
+        =============
+        check_unicity
+        =============
+        :rparam: False if phone coordinate already exists with (phone_id,partner_id,expire_date)
+                 Else True
+        :rtype: Boolean
+        """
+        context = context or {}
+        pc_rec = self.browse(cr, uid, ids, context=context)[0]
+        res_ids = self.search(cr, uid, [('id', '!=', pc_rec.id),
+                                        ('partner_id', '=', pc_rec.partner_id.id),
+                                        ('phone_id', '=', pc_rec.phone_id.id),
+                                        ('expire_date', '=', False)], context=context)
+        return len(res_ids) == 0
+
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True),
@@ -236,8 +272,8 @@ class phone_coordinate(orm.Model):
                                       relation='phone.phone', selection=AVAILABLE_TYPE, readonly=True),
         'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True,),
         'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category'),
-        'create_date': fields.date('Creation Date', readonly=True),
-        'expire_date': fields.date('Expiration Date', readonly=True),
+        'create_date': fields.datetime('Creation Date', readonly=True),
+        'expire_date': fields.datetime('Expiration Date', readonly=True),
     }
 
     _defaults = {
@@ -246,6 +282,7 @@ class phone_coordinate(orm.Model):
 
     _constraints = [
         (check_at_least_one_main, _('Error! At least one main coordinate by associated partner'), ['partner_id']),
+        (check_unicity, _('This Phone Coordinate already exists for this contact'), ['phone_id', 'partner_id', 'expire_date'])
     ]
 
     def create(self, cr, uid, vals, context=None):

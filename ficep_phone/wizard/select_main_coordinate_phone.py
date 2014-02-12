@@ -55,15 +55,15 @@ class phone_coordinate_wizard(orm.TransientModel):
         rec_wizard = self.browse(cr, uid, ids, context=context)[0]
         context['invalidate'] = rec_wizard.invalidate_previous_phone_coordinate
         if context.get('active_ids', False):
-            #will call create method for all partner id into the active_ids
-            return [(self.pool.get('phone.coordinate').create(cr, uid, {
-                                                            'phone_id': rec_wizard.phone_coordinate_id.phone_id.id,
+            # will call create method for all partner id into the active_ids
+            return [(self.pool.get('phone.coordinate').redirect_from_select_as_main(cr, uid, {
+                                                            'phone_id': rec_wizard.phone_id.id,
                                                             'is_main': True,
                                                             'partner_id':_id,
                                                         }, context=context)) for _id in context.get('active_ids')]
         elif context.get('res_id', False):
-            return self.pool.get('phone.coordinate').create(cr, uid, {
-                                                        'phone_id': rec_wizard.phone_coordinate_id.phone_id.id,
+            return self.pool.get('phone.coordinate').redirect_from_select_as_main(cr, uid, {
+                                                        'phone_id': rec_wizard.phone_id.id,
                                                         'is_main': True,
                                                         'partner_id': context.get('res_id'),
                                                         }, context=context)
@@ -71,7 +71,7 @@ class phone_coordinate_wizard(orm.TransientModel):
             raise orm.except_orm(_('ERROR!'), _('At Least One Partner Is Required To Select A Phone Main Coordinate'))
 
     _columns = {
-        'phone_coordinate_id': fields.many2one('phone.coordinate', 'New Main Coordinate', required=True),
+        'phone_id': fields.many2one('phone.phone', 'New Main Phone', required=True),
         'invalidate_previous_phone_coordinate': fields.boolean('Invalidate Previous Coordinate'),
     }
 

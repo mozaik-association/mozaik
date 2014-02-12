@@ -50,19 +50,26 @@ class test_phone_coordinate_wizard(common.TransactionCase):
 
         self.partner_id_1 = self.model_partner.create(cr, uid, {'name': 'partner_1'}, context={})
         self.partner_id_2 = self.model_partner.create(cr, uid, {'name': 'partner_2'}, context={})
+        self.partner_id_3 = self.model_partner.create(cr, uid, {'name': 'partner_3'}, context={})
+
         self.phone_id_1 = self.model_phone.create(cr, uid, {'name': '+32 478 85 25 25',
                                                                    'type': 'mobile'
                                                                    }, context={})
         self.phone_id_2 = self.model_phone.create(cr, uid, {'name': '+32 465 00 00 00',
                                                                    'type': 'mobile'
                                                                    }, context={})
+
         self.phone_coordinate_id_1 = self.model_phone_coordinate.create(cr, uid, {'phone_id': self.phone_id_1,
                                                                                  'partner_id': self.partner_id_1,
                                                                                  'is_main': True,
                                                                                    }, context={})
-        self.phone_coordinate_id_2 = self.model_phone_coordinate.create(cr, uid, {'phone_id': self.phone_id_1,
-                                                                                   'partner_id': self.partner_id_1,
-                                                                                   'is_main': False,
+        self.phone_coordinate_id_2 = self.model_phone_coordinate.create(cr, uid, {'phone_id': self.phone_id_2,
+                                                                                   'partner_id': self.partner_id_2,
+                                                                                   'is_main': True,
+                                                                                   }, context={})
+        self.phone_coordinate_id_3 = self.model_phone_coordinate.create(cr, uid, {'phone_id': self.phone_id_1,
+                                                                                 'partner_id': self.partner_id_2,
+                                                                                 'is_main': False,
                                                                                    }, context={})
 
     def mass_select_as_main(self, invalidate):
@@ -76,10 +83,10 @@ class test_phone_coordinate_wizard(common.TransactionCase):
         :rtype: integer
         """
         context = {
-        'active_ids': [self.partner_id_1, self.partner_id_2]
+            'active_ids': [self.partner_id_1, self.partner_id_2, self.partner_id_3]
         }
         wiz_vals = {
-            'phone_coordinate_id': self.phone_coordinate_id_1,
+            'phone_id': self.phone_id_1,
             'invalidate_previous_phone_coordinate': invalidate,
         }
         wiz_id = self.phone_coordinate_wizard.create(self.cr, self.uid, wiz_vals, context=context)
@@ -94,34 +101,12 @@ class test_phone_coordinate_wizard(common.TransactionCase):
         for their associated partner.
         """
         res_ids = self.mass_select_as_main(True)
-        # Test that partners have right main
-        for id_partner, id_new_coo in zip([self.partner_id_1, self.partner_id_2], res_ids):
-            read_vals = self.model_phone_coordinate.read(self.cr, self.uid, id_new_coo, ['partner_id', 'is_main'])
-            self.assertEquals(read_vals['partner_id'][0] == id_partner and
-                              read_vals['is_main'] == True, True, 'THe New Phone Coordinate Should Be The Main Of The Related Partner')
-
-    def test_mass_select_as_main_with_invalidate(self):
-        """
-        ========================================
-        test_mass_select_as_main_with_invalidate
-        ========================================
-        This test check that ``mass_select_as_main`` will correctly
-        invalidate the previous phone coordinate of the partner
-        """
-        self.mass_select_as_main(True)
-        active = self.model_phone_coordinate.read(self.cr, self.uid, self.phone_coordinate_id_1, ['active'], context={})['active']
-        self.assertEquals(active, False, 'The previous phone coordinate should be off')
-
-    def test_mass_select_as_main_without_invalidate(self):
-        """
-        ===========================================
-        test_mass_select_as_main_without_invalidate
-        ===========================================
-        This test check that ``mass_select_as_main`` will not
-        invalidate the previous phone coordinate of the partner
-        """
-        self.mass_select_as_main(False)
-        active = self.model_phone_coordinate.read(self.cr, self.uid, self.phone_coordinate_id_1, ['active'], context={})['active']
-        self.assertEquals(active, True, 'The previous phone coordinate should be on')
+        phone_coo = self.model_partner.read(self.cr, self.uid, [self.partner_id_1,
+                                                    self.partner_id_2,
+                                                    self.partner_id_3], ['mobile_coordinate_id'], context={})
+        for phone_coordinate_vals in phone_coo:
+            pc_rec = self.model_phone_coordinate.browse(self.cr, self.uid, phone_coordinate_vals['mobile_coordinate_id'][0], context={})
+            self.assertEqual(pc_rec.phone_id.id == self.phone_id_1 and
+                             pc_rec.is_main == True, True, 'Phone Coordinate Should Be Replicate Into The  Associated Partner')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
