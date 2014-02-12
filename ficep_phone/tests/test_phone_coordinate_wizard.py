@@ -25,7 +25,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
 import openerp.tests.common as common
 import logging
 
@@ -67,6 +66,15 @@ class test_phone_coordinate_wizard(common.TransactionCase):
                                                                                    }, context={})
 
     def mass_select_as_main(self, invalidate):
+        """
+        ===================
+        mass_select_as_main
+        ===================
+        :param invalidate: value for ``invalidate_previous_phone_coordinate``
+        :type invalidate: boolean
+        :rparam: id or [ids]
+        :rtype: integer
+        """
         context = {
         'active_ids': [self.partner_id_1, self.partner_id_2]
         }
@@ -78,19 +86,40 @@ class test_phone_coordinate_wizard(common.TransactionCase):
         return self.phone_coordinate_wizard.mass_select_as_main(self.cr, self.uid, [wiz_id], context=context)
 
     def test_mass_replication(self):
-        res_id = self.mass_select_as_main(True)
+        """
+        =====================
+        test_mass_replication
+        =====================
+        This test check the fact that the created phone coordinate are the main
+        for their associated partner.
+        """
+        res_ids = self.mass_select_as_main(True)
         # Test that partners have right main
-        for id_partner, id_new_coo in zip([self.partner_id_1, self.partner_id_2], res_id):
+        for id_partner, id_new_coo in zip([self.partner_id_1, self.partner_id_2], res_ids):
             read_vals = self.model_phone_coordinate.read(self.cr, self.uid, id_new_coo, ['partner_id', 'is_main'])
             self.assertEquals(read_vals['partner_id'][0] == id_partner and
                               read_vals['is_main'] == True, True, 'THe New Phone Coordinate Should Be The Main Of The Related Partner')
 
     def test_mass_select_as_main_with_invalidate(self):
+        """
+        ========================================
+        test_mass_select_as_main_with_invalidate
+        ========================================
+        This test check that ``mass_select_as_main`` will correctly
+        invalidate the previous phone coordinate of the partner
+        """
         self.mass_select_as_main(True)
         active = self.model_phone_coordinate.read(self.cr, self.uid, self.phone_coordinate_id_1, ['active'], context={})['active']
         self.assertEquals(active, False, 'The previous phone coordinate should be off')
 
     def test_mass_select_as_main_without_invalidate(self):
+        """
+        ========================================
+        test_mass_select_as_main_without_invalidate
+        ========================================
+        This test check that ``mass_select_as_main`` will not
+        invalidate the previous phone coordinate of the partner
+        """
         self.mass_select_as_main(False)
         active = self.model_phone_coordinate.read(self.cr, self.uid, self.phone_coordinate_id_1, ['active'], context={})['active']
         self.assertEquals(active, True, 'The previous phone coordinate should be on')
