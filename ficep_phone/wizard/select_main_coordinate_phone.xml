@@ -15,7 +15,8 @@
                 <form string="Select Main Phone Coordinate"
                     version="7.0">
                     <group col="2">
-                        <field name="phone_coordinate_id" />
+                        <field name="phone_coordinate_id"
+                            domain="[('is_main','=', False)]" />
                         <field name="invalidate_previous_phone_coordinate" />
                     </group>
                     <footer>
@@ -25,7 +26,7 @@
                         <button string="Cancel" class="oe_link"
                             special="cancel" />
                     </footer>
-                </form>
+                </form> 
             </field>
         </record>
 

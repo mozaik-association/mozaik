@@ -114,9 +114,9 @@ class test_phone_coordinate_wizard(common.TransactionCase):
 
     def test_mass_select_as_main_without_invalidate(self):
         """
-        ========================================
+        ===========================================
         test_mass_select_as_main_without_invalidate
-        ========================================
+        ===========================================
         This test check that ``mass_select_as_main`` will not
         invalidate the previous phone coordinate of the partner
         """

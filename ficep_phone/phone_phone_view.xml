@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data noupdate="0">
+
         <record id="phone_coordinate_form" model="ir.ui.view">
             <field name="name">phone.coordinate.form</field>
             <field name="model">phone.coordinate</field>
@@ -29,6 +30,10 @@
                             <field name="phone_type"
                                 attrs="{'invisible':[('id','=',False)]}" />
                             <field name="active" invisible="1" />
+                            <field name="vip" />
+                            <field name="unauthorized" />
+                            <field name="coordinate_category_id"
+                                attrs="{'readonly' : [('expire_date','!=',False)]}" />
                         </group>
                         <group col="2">
                             <field name="create_date" readonly="1"
@@ -40,6 +45,7 @@
                 </form>
             </field>
         </record>
+
         <record id="phone_phone_form" model="ir.ui.view">
             <field name="name">phone.phone.form</field>
             <field name="model">phone.phone</field>
@@ -56,17 +62,26 @@
                 </form>
             </field>
         </record>
+
         <record id="phone_coordinate_tree" model="ir.ui.view">
             <field name="name">phone.coordinate.tree</field>
             <field name="model">phone.coordinate</field>
             <field name="arch" type="xml">
                 <tree string="Phone Coordinate" version="7.0">
-                    <field name="phone_id" />
-                    <field name="is_main" />
+                    <field name="active" invisible="1" />
                     <field name="partner_id" />
+                    <field name="coordinate_category_id" />
+                    <field name="phone_type" />
+                    <field name="phone_id" />
+                    <field name="vip" />
+                    <field name="unauthorized" />
+                    <field name="is_main" />
+                    <field name="expire_date"
+                        invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
+
         <record id="phone_phone_tree" model="ir.ui.view">
             <field name="name">phone.phone.tree</field>
             <field name="model">phone.phone</field>
@@ -76,23 +91,44 @@
                 </tree>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="view_event_search">
+            <field name="name">phone.coordinate.search</field>
+            <field name="model">phone.coordinate</field>
+            <field name="arch" type="xml">
+                <search string="Phone Coordinate">
+                    <filter string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active','=',False)]" help="Expire Phone Coordinate" />
+                    <filter string="VIP" domain="[('vip','=',True)]" />
+                    <filter string="Unauthorized" domain="[('unauthorized','=',True)]" />
+                </search>
+            </field>
+        </record>
+
         <record id="phone_coordinate_action" model="ir.actions.act_window">
             <field name="name">Phone Coordinate</field>
             <field name="res_model">phone.coordinate</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
+
         <record id="phone_phone_action" model="ir.actions.act_window">
             <field name="name">Phone</field>
             <field name="res_model">phone.phone</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem name="Phone Coordinate" id="phone_coordinate_submenu"
-            parent="ficep_coordinate_category.coordinate_category_submenu"
-            sequence="99" action="phone_coordinate_action" />
-        <menuitem name="Phone" id="phone_phone_submenu"
-            parent="ficep_coordinate_category.technical_menu" sequence="99"
-            action="phone_phone_action" />
+
+        <menuitem name="Phone Coordinate" id="phone_coordinate_menu"
+            parent="ficep_person.person_menu_root" sequence="98" />
+
+        <menuitem name="Coordinate" id="phone_coordinate_submenu"
+            parent="phone_coordinate_menu" sequence="97"
+            action="phone_coordinate_action" />
+
+        <menuitem name="Phone" id="phone_phone_submenu" parent="phone_coordinate_menu"
+            sequence="98" action="phone_phone_action" />
+
     </data>
 </openerp>

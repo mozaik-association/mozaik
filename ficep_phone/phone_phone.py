@@ -228,6 +228,9 @@ class phone_coordinate(orm.Model):
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True),
+        'active': fields.boolean('Active', readonly=True),
+        'vip': fields.boolean('VIP'),
+        'unauthorized': fields.boolean('Unauthorized'),
         'is_main': fields.boolean('Is Main', readonly=True),
         'phone_type': fields.related('phone_id', 'type', type='selection', string='Phone Type',
                                       relation='phone.phone', selection=AVAILABLE_TYPE, readonly=True),
@@ -235,7 +238,6 @@ class phone_coordinate(orm.Model):
         'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category'),
         'create_date': fields.date('Creation Date', readonly=True),
         'expire_date': fields.date('Expiration Date', readonly=True),
-        'active': fields.boolean('Active', readonly=True),
     }
 
     _defaults = {

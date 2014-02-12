@@ -41,9 +41,7 @@ class phone_coordinate_wizard(orm.TransientModel):
         ===================
         This method provides a way to select a coordinate as main for a group
         of selected partner (context['active_ids'])
-        * The selected coordinate will be set as main for the first partner into
-            the list
-        * Others phone coordinate will be create for the other partner of the list
+        * phone coordinate will be create for the other partner of the list
         * The previsous phone coordinate will be invalidate if the user has
             check ``invalidate_previous_phone_coordinate``
         :rparam: id or ids created
