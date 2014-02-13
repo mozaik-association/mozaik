@@ -99,14 +99,81 @@ class test_phone_coordinate_wizard(common.TransactionCase):
         =====================
         This test check the fact that the created phone coordinate are the main
         for their associated partner.
+
+        Assure that the phone_id_N is well replicated into the partner form:
+            partner_N.mobile_coordinate.phone_id.id = self.phone_id_N
+        Assure that the phone replicated is main:
+            partner_N.mobile_coordinate.is_main = True
+        If those condition are well respected then replication is functional
         """
-        res_ids = self.mass_select_as_main(True)
-        phone_coo = self.model_partner.read(self.cr, self.uid, [self.partner_id_1,
-                                                    self.partner_id_2,
-                                                    self.partner_id_3], ['mobile_coordinate_id'], context={})
+        self.mass_select_as_main(True)
+        phone_coo = self.model_partner.read(self.cr,
+                                            self.uid, [self.partner_id_1,
+                                            self.partner_id_2,
+                                            self.partner_id_3], ['mobile_coordinate_id'], context={})
         for phone_coordinate_vals in phone_coo:
             pc_rec = self.model_phone_coordinate.browse(self.cr, self.uid, phone_coordinate_vals['mobile_coordinate_id'][0], context={})
             self.assertEqual(pc_rec.phone_id.id == self.phone_id_1 and
                              pc_rec.is_main == True, True, 'Phone Coordinate Should Be Replicate Into The  Associated Partner')
+
+    def test_mass_replication_with_invalidate(self):
+        """
+        ========================================
+        test_mass_replication_with_invalidate
+        ========================================
+        This test check the fact that the ``mass_select_as_main`` of
+        the wizard will right invalidate the previous phone coordinate if it is
+        wanted
+        Check also the fact that if a selected partner has already the new selected number
+        into a phone coordinate then it will not be invalidate
+        **Note**
+        Context:
+
+        u1 ----- main_phone_coo1 ------ phone 1 : active
+        u2 ----- main_phone_coo2 ------ phone 2 : active
+        u2 ----- phone_coo_3 ---------- phone 1 : active
+        Excepted Result:
+
+        u1 ----- main_phone_coo1 ------ phone 1 : active
+        u2 ----- phone_coo2      ------ phone 2 : not active
+        u2 ----- main_phone_coo_3------ phone 1 : active
+        """
+        self.mass_select_as_main(True)
+        active = self.model_phone_coordinate.read(self.cr,
+                                                  self.uid,
+                                                  [self.phone_coordinate_id_1, self.phone_coordinate_id_2],
+                                                  ['active'],
+                                                  context={})
+        self.assertEqual(active[0]['active'], True, 'Should not invalidate a phone coordinate that is already the \
+                                                     main for the selected partner with this selected number')
+        self.assertEqual(active[1]['active'], False, 'Previous Phone Coordinate should be invalidate')
+
+    def test_mass_replication_without_invalidate(self):
+        """
+        ========================================
+        test_mass_replication_without_invalidate
+        ========================================
+        This test check the fact that the ``mass_select_as_main`` of
+        the wizard doesn't invalidate the previous phone coordinate if it is
+        not wanted
+        **Note**
+        Context:
+
+        u1 ----- main_phone_coo1 ------ phone 1 : active
+        u2 ----- main_phone_coo2 ------ phone 2 : active
+        u2 ----- phone_coo_3 ---------- phone 1 : active
+        Excepted Result:
+
+        u1 ----- main_phone_coo1 ------ phone 1 : active
+        u2 ----- phone_coo2      ------ phone 2 : active
+        u2 ----- main_phone_coo_3------ phone 1 : active
+        """
+        self.mass_select_as_main(False)
+        active = self.model_phone_coordinate.read(self.cr,
+                                                  self.uid,
+                                                  self.phone_coordinate_id_2,
+                                                  ['active'],
+                                                  context={})['active']
+        self.assertEqual(active, True, 'Previous Phone Coordinate should not be invalidate')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
