@@ -106,6 +106,8 @@
                         domain="[('active','=',False)]" help="Expire Phone Coordinate" />
                     <filter string="VIP" domain="[('vip','=',True)]" />
                     <filter string="Unauthorized" domain="[('unauthorized','=',True)]" />
+                    <filter string="All"
+                        domain="['|', ['active', '=', True], ['active', '!=', True]]" />
 
                     <group expand="0" string="Group By...">
                         <filter string="Partner" domain="[]"
