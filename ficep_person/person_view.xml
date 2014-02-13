@@ -1,19 +1,27 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data noupdate="0">
-        <record id="res_partner_action" model="ir.actions.act_window">
+        <record id="physical_res_partner_action" model="ir.actions.act_window">
             <field name="name">Contacts</field>
             <field name="res_model">res.partner</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="domain">[['is_company', '=', False]]</field>
+        </record>
+        <record id="moral_res_partner_action" model="ir.actions.act_window">
+            <field name="name">Contacts</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[['is_company', '=', True]]</field>
         </record>
         <menuitem name="Person" id="person_menu_root" groups="base.group_user"
             sequence="1" />
         <menuitem name="Person" id="person_menu" parent="person_menu_root"
             sequence="1" />
         <menuitem name="Pysical Person" id="pysical_person_submenu"
-            parent="person_menu" sequence="80" action="res_partner_action" />
+            parent="person_menu" sequence="80" action="physical_res_partner_action" />
         <menuitem name="Moral Person" id="moral_person_submenu"
-            parent="person_menu" sequence="80" action="res_partner_action" />
+            parent="person_menu" sequence="80" action="moral_res_partner_action" />
     </data>
 </openerp>
