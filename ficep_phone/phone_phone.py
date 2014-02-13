@@ -214,6 +214,15 @@ class phone_coordinate(orm.Model):
         return super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
 
     def redirect_from_select_as_main(self, cr, uid, vals, context=None):
+        """
+        ============================
+        redirect_from_select_as_main
+        ============================
+        Two possible case:
+        1) A phone coordinate with partner_id,phone_id and no expire_date already
+            exists => if it is not a main, set it otherwise do nothing
+        2) If there is no phone coordinate then create passing ``vals``
+        """
         context = context or {}
         res_ids = self.search(cr, uid, [('partner_id', '=', vals['partner_id']),
                                         ('phone_id', '=', vals['phone_id']),

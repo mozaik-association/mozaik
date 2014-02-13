@@ -59,13 +59,14 @@ class test_phone_coordinate(common.TransactionCase):
                                                                    'type': 'mobile'
                                                                    }, context={})
 
-    def test_first_create_witout_main(self):
-        cr, uid = self.cr, self.uid
-        self.assertRaises(orm.except_orm, self.model_phone_coordinate.create, cr, uid, {'partner_id': self.partner_id_1,
-                                                                                        'phone_id': self.phone_id_1,
-                                                                                        'is_main': False})
-
     def test_unicity_of_phone_coordinate(self):
+        """
+        ================================
+        test_unicity_of_phone_coordinate
+        ================================
+        Test the fact that the phone coordinate must be unique with
+        partner_id, phone_id when no expire date
+        """
         self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
                                                                'phone_id': self.phone_id_1,
                                                                'is_main': True})
@@ -74,6 +75,15 @@ class test_phone_coordinate(common.TransactionCase):
                                                                                                   'is_main': False})
 
     def test_create_new_main(self):
+        """
+        ====================
+        test_create_new_main
+        ====================
+        Test the fact that a created phone coordinate that is main selected will
+        set the previous phone coordinate to ``is_main`` = False
+        **Note**
+        Check also that the new is right main
+        """
         pc_id_1 = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
                                                                'phone_id': self.phone_id_1,
                                                                'is_main': True})
@@ -85,11 +95,31 @@ class test_phone_coordinate(common.TransactionCase):
         self.assertEqual(is_main[1]['is_main'], True, 'New Phone Coordinate Should Be Main')
 
     def test_check_at_least_one_main(self):
+        """
+        =============================
+        test_check_at_least_one_main
+        =============================
+        Test the fact that the associated partner of the phone coordinate has at least
+        One main coordinate.
+        """
         self.assertRaises(orm.except_orm, self.model_phone_coordinate.create, self.cr, self.uid, {'partner_id': self.partner_id_1,
                                                                                                   'phone_id': self.phone_id_1,
                                                                                                   'is_main': False})
 
     def test_select_as_main(self):
+        """
+        ===================
+        test_select_as_main
+        ===================
+        Test the behavior of ``select_as_main``
+        Context:
+        phone_coo_1 : main     active
+        phone_coo_2 : not main active
+
+        Waiting result:
+        phone_coo_1 : main    not active
+        phone_coo_2 : main    active
+        """
         pc_id_1 = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
                                                                'phone_id': self.phone_id_1,
                                                                'is_main': True})
