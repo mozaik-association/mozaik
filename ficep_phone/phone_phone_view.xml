@@ -13,7 +13,7 @@
                             <button name="invalidate" string="Invalidate"
                                 type="object" />
                             <button name="select_as_main" string="Select As Main"
-                                context="{'disable':True}" type="object"
+                                context="{'invalidate':True}" type="object"
                                 attrs="{'invisible':[('active','=',False)]}" />
                         </div>
                     </header>

@@ -26,6 +26,7 @@
 #
 ##############################################################################
 from openerp.osv import orm
+import psycopg2
 import openerp.tests.common as common
 import logging
 
@@ -42,6 +43,8 @@ class test_phone_phone(common.TransactionCase):
 
         self.registry('ir.model').clear_caches()
         self.registry('ir.model.data').clear_caches()
+
+        self.model_phone = self.registry('phone.phone')
 
     def test_insert_without_prefix(self):
         """

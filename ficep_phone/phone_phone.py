@@ -200,14 +200,17 @@ class phone_coordinate(orm.Model):
         """
         context = context or {}
         rec_phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
-        ctrl = Ctrl(cr, uid, context)
+
         target_domain = self.get_target_domain(rec_phone_coordinate.phone_type, rec_phone_coordinate.partner_id.id)
         target_model = self._name
         fields_to_update = self.get_fields_to_update(context)
-        ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
         model_field = 'fix_coordinate_id' if self.read(cr, uid, ids, \
                       ['phone_type'], context=context) == 'fix' else 'mobile_coordinate_id'
+
+        ctrl = Ctrl(cr, uid, context)
+        ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
         ctrl.replicate(self, ids[0], model_field)
+
         return super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
 
     def redirect_from_select_as_main(self, cr, uid, vals, context=None):
@@ -219,7 +222,7 @@ class phone_coordinate(orm.Model):
             # must be create
             self.create(cr, uid, vals, context=context)
         else:
-            #If the found record  is not ``main``: set it by calling ``select_as_main``
+            # If the found record  is not ``main``: set it by calling ``select_as_main``
             if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:
                 self.select_as_main(cr, uid, res_ids, context=context)
 
