@@ -36,6 +36,10 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 # CONSTANT
+AVAILABLE_TYPE = [
+                  ('xx', 'X'),
+                  ('yy', 'Y'),
+                 ]
 
 
 class xxxx(orm.Model):
@@ -44,7 +48,7 @@ class xxxx(orm.Model):
     _name = 'XXXXX'
     _rec_name = 'name'
 
-# new method
+# static methods
     def _your_field_function(self):
         pass
 
@@ -52,10 +56,13 @@ class xxxx(orm.Model):
         return (
         ('choice1', 'This is the choice 1'),
         ('choice2', 'This is the choice 2'))
+
 # columns
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, required=True, select=True),
+        'type': fields.selection(AVAILABLE_TYPE, 'Type', required=True),
+
         'name': fields.function(_your_field_function, type='char', string='Name'),
         'date': fields.date('Date', select=1),
         'name': fields.many2one('object', 'field_name'),
@@ -69,10 +76,36 @@ class xxxx(orm.Model):
         'name': fields.related('field_name', type='type', relation='model', string='name'),
         'image': fields.binary("Files", help="test"),
         'name': fields.integer('integer'),
-        }
-# constraint
 
-# orm method
+        'create_date': fields.datetime('Creation Date', readonly=True),
+        'expire_date': fields.datetime('Expiration Date', readonly=True),
+        'active': fields.boolean('Active', readonly=True),
+        }
+
+    _defaults = {
+        'type': AVAILABLE_TYPE[0],
+        'active': 1
+    }
+
+# constraints
+
+    def _check_xxx(self, cr, uid, ids, context=None):
+        """
+        =============
+        _check_xxx
+        =============
+        :rparam: False if ...
+                 Else True
+        :rtype: Boolean
+        """
+        context = context or {}
+        return True
+
+    _constraints = [
+        (_check_xxx, _('Error! XYZ...'), ['zzz_id']),
+    ]
+
+# orm methods
     def create(self, cr, uid, vals, context=None):
         context = context or {}
         return super(xxxx, self).create(cr, uid, vals, context=context)
@@ -93,6 +126,6 @@ class xxxx(orm.Model):
 
 # workflow
 
-# public
+# public methods
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

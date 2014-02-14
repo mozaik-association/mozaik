@@ -48,6 +48,7 @@ FICEP Base
     'images': [
     ],
     'data': [
+        'security/ficep_base_security.xml',
     ],
     'js': [
     ],

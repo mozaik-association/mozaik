@@ -2,6 +2,70 @@
 <openerp>
     <data noupdate="0">
 
+        <record id="phone_phone_tree" model="ir.ui.view">
+            <field name="name">phone.phone.tree</field>
+            <field name="model">phone.phone</field>
+            <field name="arch" type="xml">
+                <tree string="Phone" version="7.0">
+                    <field name="name" />
+                    <field name="type" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="phone_phone_form" model="ir.ui.view">
+            <field name="name">phone.phone.form</field>
+            <field name="model">phone.phone</field>
+            <field name="arch" type="xml">
+                <form string="Phone" version="7.0">
+                    <sheet>
+                        <group col="2">
+                            <field name="id" invisible="1" />
+                            <field name="name" placeholder="e.g. +32 476 81 37 00" />
+                            <field name="type"
+                                attrs="{'readonly':[('id','!=',False)]}" />
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" group="ficep_base.ficep_res_groups_officer"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="phone_search_view">
+            <field name="name">phone.phone.search</field>
+            <field name="model">phone.phone</field>
+            <field name="arch" type="xml">
+                <search string="Phone Coordinate">
+                    <field name="name" />
+                    <group expand="1" string="Group By...">
+                        <filter string="type" domain="[]" context="{'group_by':'type'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="phone_coordinate_tree" model="ir.ui.view">
+            <field name="name">phone.coordinate.tree</field>
+            <field name="model">phone.coordinate</field>
+            <field name="arch" type="xml">
+                <tree string="Phone Coordinate" version="7.0">
+                    <field name="active" invisible="1" />
+                    <field name="partner_id" />
+                    <field name="coordinate_category_id" />
+                    <field name="phone_type" />
+                    <field name="phone_id" />
+                    <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <field name="unauthorized" />
+                    <field name="is_main" />
+                    <field name="expire_date"
+                        invisible="context.get('invisible_expire_date', True)" />
+                </tree>
+            </field>
+        </record>
+
         <record id="phone_coordinate_form" model="ir.ui.view">
             <field name="name">phone.coordinate.form</field>
             <field name="model">phone.coordinate</field>
@@ -30,7 +94,7 @@
                             <field name="phone_type"
                                 attrs="{'invisible':[('id','=',False)]}" />
                             <field name="active" invisible="1" />
-                            <field name="vip" />
+                            <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
                             <field name="unauthorized" />
                             <field name="coordinate_category_id"
                                 attrs="{'readonly' : [('expire_date','!=',False)]}" />
@@ -46,104 +110,71 @@
             </field>
         </record>
 
-        <record id="phone_phone_form" model="ir.ui.view">
-            <field name="name">phone.phone.form</field>
-            <field name="model">phone.phone</field>
-            <field name="arch" type="xml">
-                <form string="Phone" version="7.0">
-                    <sheet>
-                        <group col="2">
-                            <field name="id" invisible="1" />
-                            <field name="name" placeholder="e.g. +32 476 81 37 00" />
-                            <field name="type"
-                                attrs="{'readonly':[('id','!=',False)]}" />
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <record id="phone_coordinate_tree" model="ir.ui.view">
-            <field name="name">phone.coordinate.tree</field>
-            <field name="model">phone.coordinate</field>
-            <field name="arch" type="xml">
-                <tree string="Phone Coordinate" version="7.0">
-                    <field name="active" invisible="1" />
-                    <field name="partner_id" />
-                    <field name="coordinate_category_id" />
-                    <field name="phone_type" />
-                    <field name="phone_id" />
-                    <field name="vip" />
-                    <field name="unauthorized" />
-                    <field name="is_main" />
-                    <field name="expire_date"
-                        invisible="context.get('invisible_expire_date', True)" />
-                </tree>
-            </field>
-        </record>
-
-        <record id="phone_phone_tree" model="ir.ui.view">
-            <field name="name">phone.phone.tree</field>
-            <field name="model">phone.phone</field>
-            <field name="arch" type="xml">
-                <tree string="Phone" version="7.0">
-                    <field name="name" />
-                </tree>
-            </field>
-        </record>
-
-        <record model="ir.ui.view" id="view_event_search">
+        <record model="ir.ui.view" id="phone_coordinate_search_view">
             <field name="name">phone.coordinate.search</field>
             <field name="model">phone.coordinate</field>
             <field name="arch" type="xml">
                 <search string="Phone Coordinate">
                     <field name="partner_id" />
+                    <field name="phone_id" />
                     <field name="coordinate_category_id" />
-                    <field name="partner_id" />
 
+                    <filter string="VIP" domain="[('vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <filter string="Unauthorized" domain="[('unauthorized','=',True)]" />
+                    <separator />
                     <filter string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expire Phone Coordinate" />
-                    <filter string="VIP" domain="[('vip','=',True)]" />
-                    <filter string="Unauthorized" domain="[('unauthorized','=',True)]" />
                     <filter string="All"
-                        domain="['|', ['active', '=', True], ['active', '!=', True]]" />
-
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                    <separator />
                     <group expand="0" string="Group By...">
-                        <filter string="Partner" domain="[]"
-                            context="{'group_by':'partner_id'}" />
-                        <filter string="Phone" domain="[]"
-                            context="{'group_by':'phone_id'}" />
-                        <filter string="Category" domain="[]"
-                            context="{'group_by':'coordinate_category_id'}" />
+                        <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
+                        <filter string="Phone" domain="[]" context="{'group_by':'phone_id'}" />
+                        <filter string="Category" domain="[]" context="{'group_by':'coordinate_category_id'}" />
                     </group>
                 </search>
             </field>
         </record>
 
-        <record id="phone_coordinate_action" model="ir.actions.act_window">
-            <field name="name">Phone Coordinate</field>
+        <record id="phone_coordinates_action" model="ir.actions.act_window">
+            <field name="name">Phone Coordinates</field>
             <field name="res_model">phone.coordinate</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="phone_coordinate_search_view" />
         </record>
 
-        <record id="phone_phone_action" model="ir.actions.act_window">
-            <field name="name">Phone</field>
+        <record id="phone_phones_action" model="ir.actions.act_window">
+            <field name="name">Phones</field>
             <field name="res_model">phone.phone</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="phone_search_view" />
         </record>
 
-        <menuitem name="Phone Coordinate" id="phone_coordinate_menu"
-            parent="ficep_person.person_menu_root" sequence="98" />
+        <menuitem name="Phone Coordinates" id="phone_coordinates_menu"
+                  sequence="40" parent="ficep_person.persons_root_menu" />
 
-        <menuitem name="Coordinate" id="phone_coordinate_submenu"
-            parent="phone_coordinate_menu" sequence="97"
-            action="phone_coordinate_action" />
+        <menuitem id="phone_coordinates_submenu"
+                  sequence="10" parent="phone_coordinates_menu" action="phone_coordinates_action" />
 
-        <menuitem name="Phone" id="phone_phone_submenu" parent="phone_coordinate_menu"
-            sequence="98" action="phone_phone_action" />
+        <menuitem id="phone_phones_submenu"
+                  sequence="20" parent="phone_coordinates_menu" action="phone_phones_action" />
+
+        <record id="phone_coordinate_form (ficep_phone)" model="ir.ui.view">
+            <field name="name">coordinate.category.form</field>
+            <field name="model">coordinate.category</field>
+            <field name="inherit_id" ref="ficep_coordinate_category.phone_coordinate_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button string="Phone Coordinates"
+                            name="%(phone_coordinates_action)d"
+                            type="action"
+                            context="{'search_default_coordinate_category_id': active_id, 'default_coordinate_category_id': active_id}"/>
+                </xpath>
+            </field>
+        </record>
 
     </data>
 </openerp>

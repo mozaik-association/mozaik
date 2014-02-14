@@ -34,6 +34,6 @@ class coordinate_category(orm.Model):
     _inherit = 'coordinate.category'
     _columns = {
         'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
-        }
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

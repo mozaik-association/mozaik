@@ -2,35 +2,37 @@
 <openerp>
     <data noupdate="0">
 
+        <record id="coordinate_category_action" model="ir.actions.act_window">
+            <field name="name">Coordinate Categories</field>
+            <field name="res_model">coordinate.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
         <record id="phone_coordinate_form" model="ir.ui.view">
             <field name="name">coordinate.category.form</field>
             <field name="model">coordinate.category</field>
             <field name="arch" type="xml">
                 <form string="Phone Coordinate" version="7.0">
                     <header>
-                        <button name="phone_coordinate_action"
-                            string="Phone Coordinate" type="object" />
                     </header>
                     <sheet>
-                        <field name="name" />
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Name of the category..." /></h1>
+                        </div>
                     </sheet>
                 </form>
             </field>
         </record>
 
-        <record id="coordinate_category_action" model="ir.actions.act_window">
-            <field name="name">Coordinate Category</field>
-            <field name="res_model">coordinate.category</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-
         <menuitem name="Configuration" id="configuration_menu"
-            parent="ficep_person.person_menu_root" sequence="99" />
+                  sequence="99" parent="ficep_person.persons_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
 
-        <menuitem name="Coordinate Category" id="coordinate_category_submenu"
-            parent="configuration_menu" sequence="99"
-            action="coordinate_category_action" />
+        <menuitem id="coordinate_category_submenu"
+                  sequence="10" parent="configuration_menu" action="coordinate_category_action" />
 
     </data>
 </openerp>

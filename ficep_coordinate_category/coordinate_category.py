@@ -33,21 +33,8 @@ class coordinate_category(orm.Model):
 
     _name = 'coordinate.category'
 
-    def phone_coordinate_action(self, cr, uid, ids, context=None):
-        context = context or {}
-        category_name = self.read(cr, uid, ids, ['name'], context=context)[0]['name']
-        return {
-            'name': 'Phone Coordinate Of Category %s' % category_name,
-            'type': 'ir.actions.act_window',
-            'view_type': 'form',
-            'view_mode': 'tree,form',
-            'res_model': 'phone.coordinate',
-            'context': "{}",
-            'domain': "[['active', '=', True], ['coordinate_category_id', '=', '%s']]" % category_name,
-        }
-
     _columns = {
         'name': fields.char('Name', size=128),
-        }
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

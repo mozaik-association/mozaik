@@ -37,9 +37,11 @@ from openerp.addons.ficep_base.controller.main import Controller as Ctrl
 Available Type for 'phone.phone':
 Mobile Phone - Phone - Fax
 """
-AVAILABLE_TYPE = [('mobile', 'Mobile'),
+AVAILABLE_TYPE = [
                   ('fix', 'Fix'),
-                  ('fax', 'Fax')]
+                  ('mobile', 'Mobile'),
+                  ('fax', 'Fax'),
+                 ]
 
 PREFIX_CODE = 'BE'
 
@@ -94,15 +96,19 @@ class phone_phone(orm.Model):
         return pn.format_number(normalized_number, pn.PhoneNumberFormat.INTERNATIONAL)
 
     _columns = {
-                'id': fields.integer('ID', readonly=True),
-                'name': fields.char('Number', required=True, size=50),
-                'type': fields.selection(AVAILABLE_TYPE, 'Type', required=True),
-                'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
-                }
+        'id': fields.integer('ID', readonly=True),
+        'name': fields.char('Number', required=True, size=50, track_visibility='onchange'),
+        'type': fields.selection(AVAILABLE_TYPE, 'Type', required=True, readonly=True),
+        'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
+    }
+
+    _defaults = {
+        'type': AVAILABLE_TYPE[0],
+    }
 
     _sql_constraints = [
-             ('check_unicity_number', 'unique(name)', _('This Phone already exists!'))
-     ]
+        ('check_unicity_number', 'unique(name)', _('This Phone already exists!'))
+    ]
 
     def create(self, cr, uid, vals, context=None):
         """
@@ -275,17 +281,20 @@ class phone_coordinate(orm.Model):
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
+
+        'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True,),
         'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True),
-        'active': fields.boolean('Active', readonly=True),
+        'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category'),
+
         'vip': fields.boolean('VIP'),
         'unauthorized': fields.boolean('Unauthorized'),
         'is_main': fields.boolean('Is Main', readonly=True),
         'phone_type': fields.related('phone_id', 'type', type='selection', string='Phone Type',
                                       relation='phone.phone', selection=AVAILABLE_TYPE, readonly=True),
-        'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True,),
-        'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category'),
+
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True),
+        'active': fields.boolean('Active', readonly=True),
     }
 
     _defaults = {

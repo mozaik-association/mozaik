@@ -1,27 +1,31 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data noupdate="0">
-        <record id="physical_res_partner_action" model="ir.actions.act_window">
-            <field name="name">Contacts</field>
+
+        <record id="natural_res_partner_action" model="ir.actions.act_window">
+            <field name="name">Natural Persons</field>
             <field name="res_model">res.partner</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[['is_company', '=', False]]</field>
         </record>
-        <record id="moral_res_partner_action" model="ir.actions.act_window">
-            <field name="name">Contacts</field>
+
+        <record id="legal_res_partner_action" model="ir.actions.act_window">
+            <field name="name">Legal Persons</field>
             <field name="res_model">res.partner</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[['is_company', '=', True]]</field>
         </record>
-        <menuitem name="Person" id="person_menu_root" groups="base.group_user"
-            sequence="1" />
-        <menuitem name="Person" id="person_menu" parent="person_menu_root"
-            sequence="1" />
-        <menuitem name="Pysical Person" id="pysical_person_submenu"
-            parent="person_menu" sequence="80" action="physical_res_partner_action" />
-        <menuitem name="Moral Person" id="moral_person_submenu"
-            parent="person_menu" sequence="80" action="moral_res_partner_action" />
+
+        <menuitem name="Persons" id="persons_root_menu"
+                  sequence="11" groups="ficep_base.ficep_res_groups_reader" />
+        <menuitem name="Persons" id="persons_menu"
+                  sequence="10" parent="persons_root_menu" />
+        <menuitem id="natural_persons_submenu"
+                  sequence="10" parent="persons_menu" action="natural_res_partner_action" />
+        <menuitem id="legal_persons_submenu"
+                  sequence="20" parent="persons_menu" action="legal_res_partner_action" />
+
     </data>
 </openerp>
