@@ -254,7 +254,7 @@ class phone_coordinate(orm.Model):
         """
         context = context or {}
         phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
-        if phone_coordinate.phone_type == 'phone':
+        if phone_coordinate.phone_type == 'fix':
             if not phone_coordinate.partner_id.fix_coordinate_id and not phone_coordinate.is_main:
                 return False
         else:
