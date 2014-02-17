@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record model="res.groups" id="ficep_res_groups_base">
+            <field name="name">Ficep Base (technical)</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user')),
+                                             (4, ref('base.group_no_one')),
+                                            ]" />
+        </record>
+
+        <record model="res.groups" id="ficep_res_groups_reader">
+            <field name="name">Ficep Reader</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(4, ref('ficep_res_groups_base')),
+                                            ]" />
+        </record>
+
+        <record model="res.groups" id="ficep_res_groups_user">
+            <field name="name">Ficep User</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(4, ref('ficep_res_groups_base')),
+                                             (4, ref('base.group_partner_manager')),
+                                            ]" />
+        </record>
+
+        <record model="res.groups" id="ficep_res_groups_officer">
+            <field name="name">Ficep Officer</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(4, ref('ficep_res_groups_reader')),
+                                             (4, ref('ficep_res_groups_user')),
+                                            ]" />
+        </record>
+
+        <record model="res.groups" id="ficep_res_groups_vip_reader">
+            <field name="name">Ficep Vip Reader</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(4, ref('ficep_res_groups_reader')),
+                                            ]" />
+        </record>
+
+        <record model="res.groups" id="ficep_res_groups_manager">
+            <field name="name">Ficep Manager</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(4, ref('ficep_res_groups_vip_reader')),
+                                             (4, ref('ficep_res_groups_officer')),
+                                            ]" />
+        </record>
+
+        <record model="res.groups" id="ficep_res_groups_configurator">
+            <field name="name">Ficep Configurator</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(4, ref('ficep_res_groups_manager')),
+                                            ]" />
+        </record>
+
+        <record model="res.users" id="base.user_root">
+            <field name="groups_id" eval="[(4, ref('ficep_res_groups_configurator')),
+                                          ]"/>
+        </record>
+
+    </data>
+</openerp>
