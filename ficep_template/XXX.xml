@@ -2,5 +2,19 @@
 <openerp>
     <data noupdate="0">
 
+        <record id="REAL_ID" model="ir.ui.view">
+            <field name="name">NAME (PROJECT NAME)</field>
+            <field name="model">MODEL NAME</field>
+            <field name="inherit_id" ref="MODULE_NAME.XML_ID_NAME" />
+            <field name="arch" type="xml">
+                <xpath expr="//TAG_NAME[@ATTRIBUTE_NAME='NAME']"
+                    position="after-replace-attributes-before">
+                    <attribute name="NEW_ATTRIBUTE">
+                        ATTRIBUTE VALUE
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>
