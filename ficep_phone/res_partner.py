@@ -34,8 +34,9 @@ class res_partner(orm.Model):
 
     _columns = {
         'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
-        'fix_coordinate_id': fields.many2one('phone.coordinate', 'phone_id', 'Main Phone Coordinate', readonly=True, ondelete='restrict'),
-        'mobile_coordinate_id': fields.many2one('phone.coordinate', 'phone_id', 'Main Mobile Phone Coordinate', readonly=True, ondelete='restrict'),
+        'fix_coordinate_id': fields.many2one('phone.coordinate', 'Main Phone Coordinate', readonly=True, ondelete='restrict'),
+        'fax_coordinate_id': fields.many2one('phone.coordinate', 'Main Fax Coordinate', readonly=True, ondelete='restrict'),
+        'mobile_coordinate_id': fields.many2one('phone.coordinate', 'Main Mobile Phone Coordinate', readonly=True, ondelete='restrict'),
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
