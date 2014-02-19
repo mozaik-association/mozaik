@@ -2,10 +2,6 @@
 <openerp>
     <data noupdate="0">
 
-        <record id="base.user_root" model="res.users">
-            <field name="in_group_4" eval="1"/>
-        </record>
-
         <record id="partner_of_user_first" model="res.partner">
             <field name="name">Pierre</field>
             <field name="company_id" ref="base.main_company"/>
@@ -30,6 +26,7 @@
             <field name="password">a</field>
             <field name="signature">pierre</field>
             <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_user')),]"/>
          </record>
 
         <record id="user_second" model="res.users">
@@ -38,6 +35,7 @@
             <field name="password">a</field>
             <field name="signature">claude</field>
             <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_vip_reader')),]"/>
          </record>
 
         <!--
