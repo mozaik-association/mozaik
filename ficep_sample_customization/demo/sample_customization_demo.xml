@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- associate a category on the phone coordinate -->
+
+        <record id="main_fix_coordinate_one" model="phone.coordinate">
+            <field name="coordinate_category_id" ref="ficep_sample_customization.coo_cat_two" />
+        </record>
+
+        <record id="main_fax_coordinate_one" model="phone.coordinate">
+            <field name="coordinate_category_id" ref="ficep_sample_customization.coo_cat_two" />
+        </record>
+
+        <record id="main_mobile_coordinate_one" model="phone.coordinate">
+            <field name="coordinate_category_id" ref="ficep_sample_customization.coo_cat_two" />
+        </record>
+
+        <record id="mobile_coordinate_one" model="phone.coordinate">
+            <field name="coordinate_category_id" ref="ficep_sample_customization.coo_cat_two" />
+        </record>
+
+    </data>
+</openerp>

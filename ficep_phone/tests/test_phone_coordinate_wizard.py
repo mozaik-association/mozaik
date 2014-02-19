@@ -25,52 +25,35 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import openerp.tests.common as common
+from anybox.testing.openerp import SharedSetupTransactionCase
 import logging
-
 _logger = logging.getLogger(__name__)
 
-DB = common.DB
-ADMIN_USER_ID = common.ADMIN_USER_ID
 
+class test_phone_coordinate_wizard(SharedSetupTransactionCase):
 
-class test_phone_coordinate_wizard(common.TransactionCase):
+    _data_files = ('data/phone_data.xml',)
+
+    _module_ns = 'ficep_phone'
 
     def setUp(self):
         super(test_phone_coordinate_wizard, self).setUp()
-
-        self.registry('ir.model').clear_caches()
-        self.registry('ir.model.data').clear_caches()
-
-        cr, uid = self.cr, self.uid
         self.phone_coordinate_wizard = self.registry('phone.coordinate.wizard')
         self.model_partner = self.registry('res.partner')
         self.model_phone = self.registry('phone.phone')
         self.model_phone_coordinate = self.registry('phone.coordinate')
+        self.model_data = self.registry('ir.model.data')
 
-        self.partner_id_1 = self.model_partner.create(cr, uid, {'name': 'partner_1'}, context={})
-        self.partner_id_2 = self.model_partner.create(cr, uid, {'name': 'partner_2'}, context={})
-        self.partner_id_3 = self.model_partner.create(cr, uid, {'name': 'partner_3'}, context={})
+        self.partner_id_1 = self.ref('ficep_phone.phone_coordinate_partner_one')
+        self.partner_id_2 = self.ref('ficep_phone.phone_coordinate_partner_two')
+        self.partner_id_3 = self.ref('ficep_phone.phone_coordinate_partner_three')
 
-        self.phone_id_1 = self.model_phone.create(cr, uid, {'name': '+32 478 85 25 25',
-                                                                   'type': 'mobile'
-                                                                   }, context={})
-        self.phone_id_2 = self.model_phone.create(cr, uid, {'name': '+32 465 00 00 00',
-                                                                   'type': 'mobile'
-                                                                   }, context={})
+        self.phone_id_1 = self.ref('ficep_phone.mobile_one')
+        self.phone_id_2 = self.ref('ficep_phone.mobile_two')
 
-        self.phone_coordinate_id_1 = self.model_phone_coordinate.create(cr, uid, {'phone_id': self.phone_id_1,
-                                                                                 'partner_id': self.partner_id_1,
-                                                                                 'is_main': True,
-                                                                                   }, context={})
-        self.phone_coordinate_id_2 = self.model_phone_coordinate.create(cr, uid, {'phone_id': self.phone_id_2,
-                                                                                   'partner_id': self.partner_id_2,
-                                                                                   'is_main': True,
-                                                                                   }, context={})
-        self.phone_coordinate_id_3 = self.model_phone_coordinate.create(cr, uid, {'phone_id': self.phone_id_1,
-                                                                                 'partner_id': self.partner_id_2,
-                                                                                 'is_main': False,
-                                                                                   }, context={})
+        self.phone_coordinate_id_1 = self.ref('ficep_phone.main_mobile_coordinate_one')
+        self.phone_coordinate_id_2 = self.ref('ficep_phone.main_mobile_coordinate_two')
+        self.phone_coordinate_id_3 = self.ref('ficep_phone.mobile_coordinate_two')
 
     def mass_select_as_main(self, invalidate):
         """
@@ -128,7 +111,6 @@ class test_phone_coordinate_wizard(common.TransactionCase):
         into a phone coordinate then it will not be invalidate
         **Note**
         Context:
-
         u1 ----- main_phone_coo1 ------ phone 1 : active
         u2 ----- main_phone_coo2 ------ phone 2 : active
         u2 ----- phone_coo_3 ---------- phone 1 : active

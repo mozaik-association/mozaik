@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="base.user_root" model="res.users">
+            <field name="in_group_4" eval="1"/>
+        </record>
+
+        <record id="partner_of_user_first" model="res.partner">
+            <field name="name">Pierre</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="customer" eval="False"/>
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <record id="partner_of_user_second" model="res.partner">
+            <field name="name">Claude</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="customer" eval="False"/>
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <!--
+            Create user: one for each partner
+        -->
+
+        <record id="user_first" model="res.users">
+            <field name="partner_id" ref="partner_of_user_first"/>
+            <field name="login">pierre</field>
+            <field name="password">a</field>
+            <field name="signature">pierre</field>
+            <field name="company_id" ref="base.main_company"/>
+         </record>
+
+        <record id="user_second" model="res.users">
+            <field name="partner_id" ref="partner_of_user_second"/>
+            <field name="login">claude</field>
+            <field name="password">a</field>
+            <field name="signature">claude</field>
+            <field name="company_id" ref="base.main_company"/>
+         </record>
+
+        <!--
+            Add email address after creating user to avoid to try to send a welcome message
+        -->
+
+        <record id="partner_of_user_first" model="res.partner">
+            <field name="email">pierre@ficep.be</field>
+        </record>
+
+        <record id="partner_of_user_second" model="res.partner">
+            <field name="email">claude@ficep.be</field>
+        </record>
+
+    </data>
+</openerp>
