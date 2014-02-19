@@ -307,6 +307,15 @@ class phone_coordinate(orm.Model):
     ]
 
     def name_get(self, cr, uid, ids, context=None):
+        """
+        ========
+        name_get
+        ========
+        :rparam: list of tuple (id, name to display)
+                 where id is the id of the object into the relation
+                 and display_name, the name of this object.
+        :rtype: [(,)] list of tuple
+        """
         if not ids:
             return []
 
@@ -314,8 +323,8 @@ class phone_coordinate(orm.Model):
             ids = [ids]
 
         res = []
-        for record in self.browse(cr, uid, ids, context=context):
-            display_name = record.phone_id.name
+        for record in self.read(cr, uid, ids, ['phone_id'], context=context):
+            display_name = record['phone_id'][1]
             res.append((record['id'], display_name))
         return res
 
