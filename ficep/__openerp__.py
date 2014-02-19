@@ -44,7 +44,6 @@ FICEP
     'data': [
         'data/res_users_data.xml',
         'data/ir_filters_data.xml',
-        'res_partner_view.xml',
     ],
     'js': [
     ],

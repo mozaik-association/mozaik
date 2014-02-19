@@ -315,7 +315,7 @@ class phone_coordinate(orm.Model):
 
         res = []
         for record in self.browse(cr, uid, ids, context=context):
-            display_name = record.phone_id.name
+            display_name = "%s (%s)" % (record.phone_id.name,record.phone_id.type)
             res.append((record['id'], display_name))
         return res
 

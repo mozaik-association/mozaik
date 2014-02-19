@@ -43,17 +43,14 @@ FICEP Person
     'images': [
     ],
     'data': [
-        'person_view.xml',
         'res_partner_view.xml',
+        'person_view.xml',
     ],
     'js': [
-        #'static/src/js/XXX.js',
     ],
     'qweb': [
-        #'static/src/xml/XXX.css',
     ],
     'css': [
-        #'static/src/css/XXX.css',
     ],
     'demo': [
     ],

@@ -16,7 +16,7 @@
             <field name="coordinate_category_id" ref="ficep_sample_customization.coo_cat_two" />
         </record>
 
-        <record id="mobile_coordinate_one" model="phone.coordinate">
+        <record id="mobile_coordinate_two" model="phone.coordinate">
             <field name="coordinate_category_id" ref="ficep_sample_customization.coo_cat_two" />
         </record>
 

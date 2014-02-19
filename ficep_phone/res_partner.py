@@ -25,6 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields
 
 
@@ -33,10 +34,13 @@ class res_partner(orm.Model):
     _inherit = "res.partner"
 
     _columns = {
-        'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
-        'fix_coordinate_id': fields.many2one('phone.coordinate', 'Main Phone Coordinate', readonly=True, ondelete='restrict'),
-        'fax_coordinate_id': fields.many2one('phone.coordinate', 'Main Fax Coordinate', readonly=True, ondelete='restrict'),
-        'mobile_coordinate_id': fields.many2one('phone.coordinate', 'Main Mobile Phone Coordinate', readonly=True, ondelete='restrict'),
+        'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinates'),
+        'fix_coordinate_id': fields.many2one('phone.coordinate', 'Phone Coordinate', readonly=True,
+                                             domain=['&',('is_main','=',True),('phone_type','=','fix')]),
+        'mobile_coordinate_id': fields.many2one('phone.coordinate', 'Mobile Coordinate', readonly=True,
+                                             domain=['&',('is_main','=',True),('phone_type','=','mobile')]),
+        'fax_coordinate_id': fields.many2one('phone.coordinate', 'Fax Coordinate', readonly=True,
+                                             domain=['&',('is_main','=',True),('phone_type','=','fax')]),
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

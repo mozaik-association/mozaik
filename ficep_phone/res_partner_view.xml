@@ -2,15 +2,35 @@
 <openerp>
     <data noupdate="0">
 
+       <record id="res_partner_search_view" model="ir.ui.view">
+            <field name="name">res.partner.search (ficep_phone)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_person.res_partner_search_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="fix_coordinate_id" />
+                    <field name="mobile_coordinate_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree (ficep_phone)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='phone']" position="replace">
+                    <field name="fix_coordinate_id" />
+                    <field name="mobile_coordinate_id" />
+                </xpath>
+            </field>
+        </record>
+
         <record id="view_partner_form" model="ir.ui.view">
             <field name="name">res.partner.form (ficep_phone)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
-
-                <xpath expr="//field[@name='function']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
 
                 <xpath expr="//field[@name='phone']" position="attributes">
                     <attribute name="invisible">1</attribute>

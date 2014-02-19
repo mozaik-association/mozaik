@@ -2,15 +2,67 @@
 <openerp>
     <data noupdate="0">
 
+       <record id="res_partner_search_view" model="ir.ui.view">
+            <field name="name">res.partner.search</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Search Partner">
+                   <field name="name"
+                       filter_domain="['|','|',('name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                   <separator/>
+                   <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                   <filter string="Legal Persons" name="type_company" domain="[('is_company','=',1)]"/>
+                   <separator/>
+                   <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+                   <group expand="0" string="Group By...">
+                       <filter string="Country" context="{'group_by': 'country_id'}"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+
         <record id="view_partner_form" model="ir.ui.view">
             <field name="name">res.partner.form (ficep_person)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
 
+                <xpath expr="//field[@name='function']" position="replace"/>
                 <xpath expr="//page[@string='Contacts']" position="replace"/>
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
 
             </field>
+        </record>
+
+        <record id="natural_res_partner_action" model="ir.actions.act_window">
+            <field name="name">Natural Persons</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_company', '=', False)]</field>
+            <field name="search_view_id" ref="res_partner_search_view" />
+        </record>
+
+        <record id="legal_res_partner_action" model="ir.actions.act_window">
+            <field name="name">Legal Persons</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_company', '=', True)]</field>
+            <field name="context">{'default_is_company': True}</field>
+            <field name="search_view_id" ref="res_partner_search_view" />
+        </record>
+
+        <record id="all_res_partner_action" model="ir.actions.act_window">
+            <field name="name">All Contacts</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="res_partner_search_view" />
         </record>
 
     </data>
