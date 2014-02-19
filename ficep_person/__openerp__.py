@@ -34,6 +34,7 @@
     'category': 'Political Association',
     'depends': [
         'ficep_base',
+        #'partner_firstname',
     ],
     'description': """
 FICEP Person
@@ -43,6 +44,7 @@ FICEP Person
     ],
     'data': [
         'person_view.xml',
+        'res_partner_view.xml',
     ],
     'js': [
         #'static/src/js/XXX.js',

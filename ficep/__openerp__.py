@@ -42,7 +42,8 @@ FICEP
     'images': [
     ],
     'data': [
-        'res_users_data.xml',
+        'data/res_users_data.xml',
+        'data/ir_filters_data.xml',
     ],
     'js': [
     ],

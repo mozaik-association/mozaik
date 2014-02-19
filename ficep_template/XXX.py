@@ -105,7 +105,26 @@ class xxxx(orm.Model):
         (_check_xxx, _('Error! XYZ...'), ['zzz_id']),
     ]
 
+    _sql_constraints = [
+        # only if all columns must be non null
+        ('col1_col2_..._unique', 'unique (col1,col2, ...)', 'The couple (column desc 2, ...) must be unique for a given column desc 1 !')
+    ]
+
 # orm methods
+
+    def name_get(self, cr, uid, ids, context=None):
+        if not ids:
+            return []
+
+        if isinstance(ids, (long, int)):
+            ids = [ids]
+
+        res = []
+        for record in self.browse(cr, uid, ids, context=context):
+            display_name = record.name
+            res.append((record['id'], display_name))
+        return res
+
     def create(self, cr, uid, vals, context=None):
         context = context or {}
         return super(xxxx, self).create(cr, uid, vals, context=context)

@@ -306,6 +306,19 @@ class phone_coordinate(orm.Model):
         (check_unicity, _('This Phone Coordinate already exists for this contact'), ['phone_id', 'partner_id', 'expire_date'])
     ]
 
+    def name_get(self, cr, uid, ids, context=None):
+        if not ids:
+            return []
+
+        if isinstance(ids, (long, int)):
+            ids = [ids]
+
+        res = []
+        for record in self.browse(cr, uid, ids, context=context):
+            display_name = record.phone_id.name
+            res.append((record['id'], display_name))
+        return res
+
     def create(self, cr, uid, vals, context=None):
         """
         =======================
