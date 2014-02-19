@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Create Number -->
+
+        <record id="fix_one" model="phone.phone">
+            <field name="name">061548798</field>
+            <field name="type">fix</field>
+        </record>
+
+        <record id="mobile_one" model="phone.phone">
+            <field name="name">+32 478 85 25 25</field>
+            <field name="type">mobile</field>
+        </record>
+
+        <record id="mobile_two" model="phone.phone">
+            <field name="name">+32 465 00 00 00</field>
+            <field name="type">mobile</field>
+        </record>
+
+        <record id="fax_one" model="phone.phone">
+            <field name="name">061548799</field>
+            <field name="type">fax</field>
+        </record>
+
+        <!-- Create Partner For Phone Coordinate -->
+
+        <record id="phone_coordinate_partner_one" model="res.partner">
+            <field name="name">Marc</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="customer" eval="False" />
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <record id="phone_coordinate_partner_two" model="res.partner">
+            <field name="name">Thiery</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="customer" eval="False" />
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <record id="phone_coordinate_partner_three" model="res.partner">
+            <field name="name">Sophie</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="customer" eval="False" />
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <!-- Create Phone Coordinate -->
+
+        <!-- Partner Marc -->
+
+        <record id="main_fix_coordinate_one" model="phone.coordinate">
+            <field name="phone_id" ref="fix_one" />
+            <field name="partner_id" ref="phone_coordinate_partner_one" />
+            <field name="is_main" eval="True" />
+        </record>
+
+        <record id="main_fax_coordinate_one" model="phone.coordinate">
+            <field name="phone_id" ref="fax_one" />
+            <field name="partner_id" ref="phone_coordinate_partner_one" />
+            <field name="is_main" eval="True" />
+        </record>
+
+        <record id="main_mobile_coordinate_one" model="phone.coordinate">
+            <field name="phone_id" ref="mobile_one" />
+            <field name="partner_id" ref="phone_coordinate_partner_one" />
+            <field name="is_main" eval="True" />
+        </record>
+
+        <!-- Partner Thiery -->
+
+        <record id="main_mobile_coordinate_two" model="phone.coordinate">
+            <field name="phone_id" ref="mobile_two" />
+            <field name="partner_id" ref="phone_coordinate_partner_two" />
+            <field name="is_main" eval="True" />
+        </record>
+
+        <record id="mobile_coordinate_two" model="phone.coordinate">
+            <field name="phone_id" ref="mobile_one" />
+            <field name="partner_id" ref="phone_coordinate_partner_two" />
+            <field name="is_main" eval="False" />
+        </record>
+
+    </data>
+</openerp>
