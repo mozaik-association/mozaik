@@ -2,19 +2,43 @@
 <openerp>
     <data noupdate="0">
 
-        <record id="base.user_root" model="res.users">
-            <field name="in_group_4" eval="1"/>
-        </record>
-
-        <record id="partner_of_user_first" model="res.partner">
+        <record id="partner_of_user_1" model="res.partner">
             <field name="name">Pierre</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="customer" eval="False"/>
             <field name="notification_email_send">none</field>
         </record>
 
-        <record id="partner_of_user_second" model="res.partner">
+        <record id="partner_of_user_2" model="res.partner">
             <field name="name">Claude</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="customer" eval="False"/>
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <record id="partner_of_user_3" model="res.partner">
+            <field name="name">Phillipe</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="customer" eval="False"/>
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <record id="partner_of_user_4" model="res.partner">
+            <field name="name">Léon</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="customer" eval="False"/>
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <record id="partner_of_user_5" model="res.partner">
+            <field name="name">Isabelle</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="customer" eval="False"/>
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <record id="partner_of_user_6" model="res.partner">
+            <field name="name">Sylvie</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="customer" eval="False"/>
             <field name="notification_email_send">none</field>
@@ -24,32 +48,86 @@
             Create user: one for each partner
         -->
 
-        <record id="user_first" model="res.users">
-            <field name="partner_id" ref="partner_of_user_first"/>
-            <field name="login">pierre</field>
+        <record id="user_1" model="res.users">
+            <field name="partner_id" ref="partner_of_user_1"/>
+            <field name="login">ficep_reader_1</field>
             <field name="password">a</field>
             <field name="signature">pierre</field>
             <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_reader')),]"/>
          </record>
 
-        <record id="user_second" model="res.users">
-            <field name="partner_id" ref="partner_of_user_second"/>
-            <field name="login">claude</field>
+        <record id="user_2" model="res.users">
+            <field name="partner_id" ref="partner_of_user_2"/>
+            <field name="login">ficep_user_1</field>
             <field name="password">a</field>
             <field name="signature">claude</field>
             <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_user')),]"/>
+         </record>
+
+        <record id="user_3" model="res.users">
+            <field name="partner_id" ref="partner_of_user_3"/>
+            <field name="login">ficep_officer_1</field>
+            <field name="password">a</field>
+            <field name="signature">phillipe</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_officer')),]"/>
+         </record>
+
+        <record id="user_4" model="res.users">
+            <field name="partner_id" ref="partner_of_user_4"/>
+            <field name="login">ficep_vip_reader_1</field>
+            <field name="password">a</field>
+            <field name="signature">leon</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_vip_reader')),]"/>
+         </record>
+
+        <record id="user_5" model="res.users">
+            <field name="partner_id" ref="partner_of_user_5"/>
+            <field name="login">ficep_manager_1</field>
+            <field name="password">a</field>
+            <field name="signature">isabelle</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_manager')),]"/>
+         </record>
+
+        <record id="user_6" model="res.users">
+            <field name="partner_id" ref="partner_of_user_6"/>
+            <field name="login">ficep_configurator_1</field>
+            <field name="password">a</field>
+            <field name="signature">sylvie</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_configurator')),]"/>
          </record>
 
         <!--
             Add email address after creating user to avoid to try to send a welcome message
         -->
 
-        <record id="partner_of_user_first" model="res.partner">
+        <record id="partner_of_user_1" model="res.partner">
             <field name="email">pierre@ficep.be</field>
         </record>
 
-        <record id="partner_of_user_second" model="res.partner">
+        <record id="partner_of_user_2" model="res.partner">
             <field name="email">claude@ficep.be</field>
+        </record>
+
+        <record id="partner_of_user_3" model="res.partner">
+            <field name="email">phillipe@ficep.be</field>
+        </record>
+
+        <record id="partner_of_user_4" model="res.partner">
+            <field name="email">leon@ficep.be</field>
+        </record>
+
+        <record id="partner_of_user_5" model="res.partner">
+            <field name="email">isabelle@ficep.be</field>
+        </record>
+
+        <record id="partner_of_user_6" model="res.partner">
+            <field name="email">sylvie@ficep.be</field>
         </record>
 
     </data>
