@@ -49,6 +49,8 @@ FICEP Base
     ],
     'data': [
         'security/ficep_base_security.xml',
+        'data/res_lang_data.xml',
+        'data/res_lang_install.xml',
     ],
     'js': [
     ],

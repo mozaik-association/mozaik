@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data>
+    <data noupdate="0">
+        <record model="res.partner" id="base.partner_root">
+            <field name="tz">Europe/Brussels</field>
+        </record>
 
         <record model="res.users" id="base.user_root">
             <field name="groups_id" eval="[(4, ref('base.group_no_one')),

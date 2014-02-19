@@ -25,6 +25,19 @@
                             <field name="type"
                                 attrs="{'readonly':[('id','!=',False)]}" />
                         </group>
+                        <notebook colspan="4">
+                            <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
+                                <field name="phone_coordinate_ids" mode="tree" context="{'default_phone_id': id}">
+                                    <tree>
+                                        <field name="partner_id"/>
+                                        <field name="coordinate_category_id" />
+                                        <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                                        <field name="unauthorized" />
+                                        <field name="is_main" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>
