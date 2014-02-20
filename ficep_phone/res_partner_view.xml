@@ -59,5 +59,26 @@
             </field>
         </record>
 
+        <record id="view_partner_2_form" model="ir.ui.view">
+            <field name="name">res.partner.form (ficep_phone_2)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_coordinate_category.view_partner_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='coordinates']" position="inside">
+                    <field name="phone_coordinate_ids" context="{'default_partner_id': active_id}">
+                        <tree>
+                            <field name="phone_id"/>
+                            <field name="coordinate_category_id" />
+                            <field name="is_main" />
+                            <field name="unauthorized" />
+                            <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                        </tree>
+                    </field>
+                </xpath>
+
+            </field>
+        </record>
+
     </data>
 </openerp>

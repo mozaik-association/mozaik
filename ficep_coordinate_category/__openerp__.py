@@ -33,7 +33,6 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        #'ficep_base',
         'ficep_person',
     ],
     'description': """
@@ -48,6 +47,7 @@ This module provides a shortcut to
     ],
     'data': [
         'coordinate_category_view.xml',
+        'res_partner_view.xml',
     ],
     'js': [
     ],
