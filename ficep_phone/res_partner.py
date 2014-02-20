@@ -25,22 +25,114 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from openerp.osv import orm, fields
+
+
+def _get_phone_dictionary(value):
+    """
+    =====================
+    _get_phone_dictionary
+    =====================
+    This method will return a dictionary using by field.function concerning
+    phone coordinate
+    :param value: set search_on with this value. (fix-fax-mobile)
+    :type value: char
+    :rparam: dictionary with needed value for ``_get_real_value``
+    :rtype: {}
+    """
+    return {'field': 'fix_coordinate_id',
+            'field_to_search': 'phone_type',
+            'model': 'phone.coordinate',
+            'target_value': 'phone_id',
+            'search_on': value}
 
 
 class res_partner(orm.Model):
 
     _inherit = "res.partner"
 
+    def _get_real_value(self, cr, uid, ids, name, args, context=None):
+        """
+        ===============
+        _get_real_value
+        ===============
+        This method will update native field of the res_partner model with the value
+        of a new custom field according to support backward compatibility.
+        :param name: Field that call this method
+        :type name: char
+        :param args: argument declared as ``arg`` into the definition of the field
+                     args contains key ``field`` : the related field of
+                                                   the older one ``name``
+                                    ``search_on``: make search on this
+                                    ``field_to_search``: field to apply search_on
+                                    ``model``: the concerning model
+                                    ``target_value``: the value to associate with id
+        :type args: dict
+        :rparam: dictionary composing by id of partner and the associated value
+                 for the field ``name``
+        :rtype: dict {id:value,id:value,}
+        """
+        res = {}.fromkeys(ids, False)
+        model = self.pool.get(args['model'])
+        search_list = [(args['field_to_search'], '=', args['search_on'])] if 'search_on' in args else []
+        for partner_value in self.read(cr, uid, ids, [args['field']], context=context):
+            record_id = model.search(cr, uid,
+                [('partner_id', '=', partner_value['id']),
+                 ('is_main', '=', True),
+                 ('expire_date', '=', False)] + search_list,
+                context=context)
+            # record_id must always be true with this expression len(record_id)==1 otherwise take the first
+            if record_id:
+                res[partner_value['id']] = model.read(cr, uid, record_id[0], [args['target_value']], context=context)[args['target_value']][1]
+            else:
+                res[partner_value['id']] = partner_value[args['field']]
+        return res
+
+    def _get_linked_partner(self, cr, uid, ids, context=None):
+        """
+        ===================
+        _get_linked_partner
+        ===================
+        This will return the ids of the associated partner of the
+        modify model
+        Path to partner must be object.partner_id
+        :rparam: partner_ids
+        :rtype: list of ids
+        """
+        model_rds = self.browse(cr, uid, ids, context=context)
+        partner_ids = []
+        for record in model_rds:
+            partner_ids.append(record.partner_id.id)
+        return partner_ids
+
     _columns = {
         'phone_coordinate_ids': fields.one2many('phone.coordinate', 'partner_id', 'Phone Coordinates'),
         'fix_coordinate_id': fields.many2one('phone.coordinate', 'Phone Coordinate', readonly=True,
-                                             domain=['&',('is_main','=',True),('phone_type','=','fix')]),
+                                             domain=['&', ('is_main', '=', True), ('phone_type', '=', 'fix')]),
         'mobile_coordinate_id': fields.many2one('phone.coordinate', 'Mobile Coordinate', readonly=True,
-                                             domain=['&',('is_main','=',True),('phone_type','=','mobile')]),
+                                             domain=['&', ('is_main', '=', True), ('phone_type', '=', 'mobile')]),
         'fax_coordinate_id': fields.many2one('phone.coordinate', 'Fax Coordinate', readonly=True,
-                                             domain=['&',('is_main','=',True),('phone_type','=','fax')]),
+                                             domain=['&', ('is_main', '=', True), ('phone_type', '=', 'fax')]),
+
+        # This will allow to continue to feed native fields of OpenERP for backward compatibility
+        'phone': fields.function(_get_real_value, arg=_get_phone_dictionary('fix'), string='Phone',
+                                 type='char', relation="phone.coordinate",
+                                 store={
+                                        'phone.coordinate': (_get_linked_partner, ['phone_id'], 10),
+                                      },
+                                ),
+        'fax': fields.function(_get_real_value, arg=_get_phone_dictionary('fax'), string='Fax',
+                                 type='char', relation="phone.coordinate",
+                                 store={
+                                        'phone.coordinate': (_get_linked_partner, ['phone_id'], 10),
+                                      },
+                                ),
+        'mobile': fields.function(_get_real_value, arg=_get_phone_dictionary('mobile'), string='Mobile',
+                                 type='char', relation="phone.coordinate",
+                                 store={
+                                        'phone.coordinate': (_get_linked_partner, ['phone_id'], 10),
+                                      },
+                                ),
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

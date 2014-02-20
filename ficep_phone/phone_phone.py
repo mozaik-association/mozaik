@@ -200,6 +200,15 @@ class phone_coordinate(orm.Model):
         context = context or {}
         return {'active': False, 'expire_date': fields.date.today()} if context.get('invalidate', False) else {'is_main': False}
 
+    def get_field_name_for_type(self, type):
+        if type == 'fix':
+            field_name = 'fix_coordinate_id'
+        elif type == 'fax':
+            field_name = 'fax_coordinate_id'
+        else:
+            field_name = 'mobile_coordinate_id'
+        return field_name
+
     def invalidate(self, cr, uid, ids, context=None):
         """
         ==========
@@ -236,8 +245,7 @@ class phone_coordinate(orm.Model):
         target_domain = self.get_target_domain(rec_phone_coordinate.phone_type, rec_phone_coordinate.partner_id.id)
         target_model = self._name
         fields_to_update = self.get_fields_to_update(context)
-        model_field = 'fix_coordinate_id' if self.read(cr, uid, ids, \
-                      ['phone_type'], context=context) == 'fix' else 'mobile_coordinate_id'
+        model_field = self.get_field_name_for_type(self.read(cr, uid, ids, ['phone_type'], context=context))
 
         ctrl = Ctrl(cr, uid, context)
         ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
@@ -282,6 +290,9 @@ class phone_coordinate(orm.Model):
         phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
         if phone_coordinate.phone_type == 'fix':
             if not phone_coordinate.partner_id.fix_coordinate_id and not phone_coordinate.is_main:
+                return False
+        elif phone_coordinate.phone_type == 'fax':
+            if not phone_coordinate.partner_id.fax_coordinate_id and not phone_coordinate.is_main:
                 return False
         else:
             if not phone_coordinate.partner_id.mobile_coordinate_id and not phone_coordinate.is_main:
