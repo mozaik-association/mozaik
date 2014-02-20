@@ -34,7 +34,7 @@ class coordinate_category(orm.Model):
     _name = 'coordinate.category'
 
     _columns = {
-        'name': fields.char('Name', size=128),
+        'name': fields.char('Name', size=128, select=True),
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

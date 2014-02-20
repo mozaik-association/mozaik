@@ -35,21 +35,27 @@
             <field name="arch" type="xml">
                 <form string="Phone" version="7.0">
                     <sheet>
-                        <group col="2">
-                            <field name="id" invisible="1" />
-                            <field name="name" placeholder="e.g. +32 476 81 37 00" />
-                            <field name="type"
-                                attrs="{'readonly':[('id','!=',False)]}" />
+                        <field name="id" invisible="1" />
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" attrs="{'readonly': [('phone_coordinate_ids','!=',[])]}" placeholder="e.g. +32 476 81 37 00" /></h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+
+                        <group>
+                            <field name="type" attrs="{'readonly': [('phone_coordinate_ids','!=',[])]}" />
                         </group>
-                        <notebook colspan="4">
+
+                        <notebook>
                             <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                                <field name="phone_coordinate_ids" mode="tree" context="{'default_phone_id': id}">
+                                <field name="phone_coordinate_ids" context="{'default_phone_id': id}">
                                     <tree>
                                         <field name="partner_id"/>
                                         <field name="coordinate_category_id" />
-                                        <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
-                                        <field name="unauthorized" />
                                         <field name="is_main" />
+                                        <field name="unauthorized" />
+                                        <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
                                     </tree>
                                 </field>
                             </page>
@@ -107,16 +113,18 @@
             <field name="model">phone.coordinate</field>
             <field name="arch" type="xml">
                 <tree string="Phone Coordinate" version="7.0">
-                    <field name="active" invisible="1" />
                     <field name="partner_id" />
-                    <field name="coordinate_category_id" />
-                    <field name="phone_type" />
                     <field name="phone_id" />
-                    <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <field name="unauthorized" />
+                    <field name="coordinate_category_id" />
                     <field name="is_main" />
+                    <field name="unauthorized" />
+                    <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+
                     <field name="expire_date"
-                        invisible="context.get('invisible_expire_date', True)" />
+                           invisible="context.get('invisible_expire_date', True)" />
+
+                    <field name="phone_type" invisible="1" />
+                    <field name="active" invisible="1" />
                 </tree>
             </field>
         </record>
@@ -127,8 +135,7 @@
             <field name="arch" type="xml">
                 <form string="Phone Coordinate" version="7.0">
                     <header>
-                        <div
-                            attrs="{'invisible': ['|','|',('id','=',False),('is_main','=',True),('active','=',False)]}">
+                        <div attrs="{'invisible': ['|','|',('id','=',False),('is_main','=',True),('active','=',False)]}">
                             <button name="invalidate" string="Invalidate"/>
                             <button name="select_as_main" string="Select As Main" type="object"
                                     context="{'invalidate': True}" />
@@ -136,27 +143,29 @@
                     </header>
                     <sheet>
                         <field name="id" invisible="1" />
-                        <group col="2" colspan="5">
-                            <field name="phone_id"
-                                attrs="{'readonly': [('id','!=',False)]}" />
-                            <field name="partner_id"
-                                attrs="{'readonly': [('id','!=',False)]}"
-                                required="1" />
-                            <field name="is_main"
-                                attrs="{'readonly': [('id','!=',False)]}" />
-                            <field name="phone_type"
-                                attrs="{'invisible': [('id','=',False)]}" />
-                            <field name="active" invisible="1" />
-                            <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
-                            <field name="unauthorized" />
-                            <field name="coordinate_category_id"
-                                attrs="{'readonly': [('expire_date','!=',False)]}" />
+                        <field name="active" invisible="1" />
+                        <div class="oe_title">
+                            <label for="phone_id" class="oe_edit_only"/>
+                            <h1><field name="phone_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="phone_type" attrs="{'invisible': [('id','=',False)]}" />
+                                <field name="partner_id" attrs="{'readonly': [('id','!=',False)]}" />
+                                <field name="coordinate_category_id" />
+                            </group>
+                            <group>
+                                <field name="is_main" attrs="{'readonly': [('id','!=',False)]}" />
+                                <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                                <field name="unauthorized" />
+                            </group>
                         </group>
-                        <group col="2">
-                            <field name="create_date" readonly="1"
-                                attrs="{'invisible': [('id','=',False)]}" />
-                            <field name="expire_date" readonly="1"
-                                attrs="{'invisible': [('active','=',True)]}" />
+                        <group>
+                            <field name="create_date" attrs="{'invisible': [('id','=',False)]}" />
+                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                         </group>
                     </sheet>
                     <div class="oe_chatter">

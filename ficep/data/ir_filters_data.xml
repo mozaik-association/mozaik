@@ -8,6 +8,8 @@
             <field name="user_id" ref="base.user_root"/>
             <field name="is_default" eval="1"/>
             <field name="domain">[
+                '&amp;',
+                ('state', '!=', 'uninstallable'),
                 '|',
                 ('name', 'ilike', 'ficep'),
                 ('name', 'in', ['base','settings_improvement'])

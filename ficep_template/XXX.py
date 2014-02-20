@@ -36,10 +36,12 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 # CONSTANT
-AVAILABLE_TYPE = [
-                  ('xx', 'X'),
-                  ('yy', 'Y'),
-                 ]
+AVAILABLE_TYPES = [
+                   ('xx', 'X'),
+                   ('yy', 'Y'),
+                  ]
+
+available_types = dict(AVAILABLE_TYPES)
 
 
 class xxxx(orm.Model):
@@ -61,7 +63,7 @@ class xxxx(orm.Model):
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, required=True, select=True),
-        'type': fields.selection(AVAILABLE_TYPE, 'Type', required=True),
+        'type': fields.selection(AVAILABLE_TYPES, 'Type', required=True),
 
         'name': fields.function(_your_field_function, type='char', string='Name'),
         'date': fields.date('Date', select=1),
@@ -69,7 +71,7 @@ class xxxx(orm.Model):
         'name': fields.one2many('other.object', 'field_relation_id', 'Field Name'),
         'name': fields.char('name', size=64, select=1),
         'name': fields.selection(_your_selection_function, 'Choose',
-            help="text"),
+                                 help="text"),
         'name': fields.text('Notes'),
         'name': fields.many2many('other.object.name', id1='field_relation_id', id2='field_name', string='Tags'),
         'name': fields.boolean('Active'),
@@ -80,11 +82,13 @@ class xxxx(orm.Model):
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True),
         'active': fields.boolean('Active', readonly=True),
-        }
+    }
+
+    _order = "name"
 
     _defaults = {
-        'type': AVAILABLE_TYPE[0],
-        'active': 1
+        'type': AVAILABLE_TYPES[0],
+        'active': True
     }
 
 # constraints
@@ -113,6 +117,15 @@ class xxxx(orm.Model):
 # orm methods
 
     def name_get(self, cr, uid, ids, context=None):
+        """
+        ========
+        name_get
+        ========
+        :rparam: list of tuple (id, name to display)
+                 where id is the id of the object into the relation
+                 and display_name, the name of this object.
+        :rtype: [(id,name)] list of tuple
+        """
         if not ids:
             return []
 
