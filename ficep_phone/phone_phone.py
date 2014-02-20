@@ -64,7 +64,7 @@ def _get_field_name_for_type(phone_type):
     if phone_type in available_types:
         field_name = '%s_coordinate_id' % phone_type
     else:
-        raise orm.except_orm(_('Error!'), _('Invalid Type Of Phone'))
+        raise orm.except_orm(_('Error!'), _('Invalid phone type'))
     return field_name
 
 
@@ -72,24 +72,6 @@ class phone_phone(orm.Model):
 
     _name = 'phone.phone'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
-
-    def get_default_country_code(self, cr, uid, context=None):
-        """
-        ========================
-        get_default_country_code
-        ========================
-        This method will return a country code.
-        e.g. BE, FR, ...
-        The country code firstly will be the value of the parameter key ``default.country.code.phone``
-        If no value then take the default country code PREFIX_CODE
-        :rparam: Country code found into the config_parameter or PREFIX_CODE
-        :rtype: char
-        """
-        context = context or {}
-        param_id = self.pool.get('ir.config_parameter').search(cr, uid, [('key', '=', 'default.country.code.phone')], context=context)
-        if param_id:
-            return self.pool.get('ir.config_parameter').read(cr, uid, param_id, ['value'], context=context)[0]['value']
-        return PREFIX_CODE
 
     def _check_and_format_number(self, cr, uid, num, context=None):
         """
@@ -133,6 +115,8 @@ class phone_phone(orm.Model):
     _sql_constraints = [
         ('check_unicity_number', 'unique(name)', _('This Phone already exists!'))
     ]
+
+# orm methods
 
     def name_get(self, cr, uid, ids, context=None):
         """
@@ -192,6 +176,42 @@ class phone_phone(orm.Model):
             vals['name'] = self._check_and_format_number(cr, uid, num, context=context)
         return super(phone_phone, self).write(cr, uid, ids, vals, context=context)
 
+# public methods
+
+    def get_default_country_code(self, cr, uid, context=None):
+        """
+        ========================
+        get_default_country_code
+        ========================
+        This method will return a country code.
+        e.g. BE, FR, ...
+        The country code firstly will be the value of the parameter key ``default.country.code.phone``
+        If no value then take the default country code PREFIX_CODE
+        :rparam: Country code found into the config_parameter or PREFIX_CODE
+        :rtype: char
+        """
+        context = context or {}
+        param_id = self.pool.get('ir.config_parameter').search(cr, uid, [('key', '=', 'default.country.code.phone')], context=context)
+        if param_id:
+            return self.pool.get('ir.config_parameter').read(cr, uid, param_id, ['value'], context=context)[0]['value']
+        return PREFIX_CODE
+
+    def get_linked_partners(self, cr, uid, ids, context=None):
+        """
+        ===================
+        get_linked_partners
+        ===================
+        Return partner ids linked to all related coordinate linked to phone ids.
+        :rparam: partner_ids
+        :rtype: list of ids
+        """
+        phone_rds = self.browse(cr, uid, ids, context=context)
+        partner_ids = []
+        for record in phone_rds:
+            for associated_coordinate in record.phone_coordinate_ids:
+                partner_ids.append(associated_coordinate.partner_id.id)
+        return partner_ids
+
 
 class phone_coordinate(orm.Model):
 
@@ -199,11 +219,11 @@ class phone_coordinate(orm.Model):
     _inherit = ['mail.thread', 'ir.needaction_mixin']
     _rec_name = 'phone_id'
 
-    def get_target_domain(self, phone_type, partner_id):
+    def _get_target_domain(self, phone_type, partner_id):
         """
-        =================
-        get_target_domain
-        =================
+        ==================
+        _get_target_domain
+        ==================
         :parma phone_type: the type of the phone
         :type phone_type: char
         :param partner_id: id of the partner
@@ -216,70 +236,39 @@ class phone_coordinate(orm.Model):
                  ('active', '=', True),
                  ('partner_id', '=', partner_id)]
 
-    def get_fields_to_update(self, context=None):
+    def _get_fields_to_update(self, context=None):
         context = context or {}
         return {'active': False, 'expire_date': fields.date.today()} if context.get('invalidate', False) else {'is_main': False}
 
-    def select_as_main(self, cr, uid, ids, context=None):
-        """
-        ==============
-        select_as_main
-        ==============
-        This method allows to switch main coordinate:
-        1) Check And Set Existing main coordinate for the partner to 'active' = False
-        2) Replace the old reference value into the res_partner by current coordinate
-        3) Set is_main to True for current coordinate
-        :rparam: True
-        :rtype: boolean
-        """
-        context = context or {}
-        rec_phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
+    _columns = {
+        'id': fields.integer('ID', readonly=True),
 
-        target_domain = self.get_target_domain(rec_phone_coordinate.phone_type, rec_phone_coordinate.partner_id.id)
-        fields_to_update = self.get_fields_to_update(context)
-        model_field = _get_field_name_for_type(self.read(cr, uid, ids, ['phone_type'], context=context)[0]['phone_type'])
+        'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True, select=True),
+        'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True, select=True),
+        'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category', select=True, track_visibility='onchange'),
 
-        ctrl = Ctrl(self, cr, uid)
-        ctrl.search_and_update(target_domain, fields_to_update, context=context)
-        ctrl.replicate(ids[0], model_field, context=context)
+        'is_main': fields.boolean('Is Main', readonly=True, select=True),
+        'vip': fields.boolean('VIP', track_visibility='onchange'),
+        'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
+        'phone_type': fields.related('phone_id', 'type', type='selection', string='Phone Type',
+                                      relation='phone.phone', selection=AVAILABLE_TYPE, readonly=True),
 
-        return super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
+        'create_date': fields.datetime('Creation Date', readonly=True),
+        'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
+        'active': fields.boolean('Active', readonly=True),
+    }
 
-    def mass_select_as_main(self, cr, uid, partner_ids, phone_id, context=None):
+    _defaults = {
+        'active': True
+    }
+
+# constraints
+
+    def _check_one_main_coordinate(self, cr, uid, ids, for_unlink=False, context=None):
         """
-        ===================
-        mass_select_as_main
-        ===================
-        :param partner_ids: list of partner id
-        :type partner_ids: [integer]
-        :param phone_id: id of a phone.phone
-        :type phone_id: integer
-        :rparam: list of partner ids created
-        :rtype: list of integer
-        """
-        context = context or {}
-        return_ids = []
-        for partner_id in partner_ids:
-            res_ids = self.search(cr, uid, [('partner_id', '=', partner_id),
-                                        ('phone_id', '=', phone_id),
-                                        ('expire_date', '=', False)], context=context)
-            if len(res_ids) == 0:
-                # must be create
-                return_ids.append(self.create(cr, uid, {'phone_id': phone_id,
-                                      'is_main': True,
-                                      'partner_id': partner_id,
-                                     }, context=context))
-            else:
-                # If the found record  is not ``main``: set it by calling ``select_as_main``
-                if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:
-                    self.select_as_main(cr, uid, res_ids, context=context)
-        return return_ids
-
-    def check_one_main_coordinate(self, cr, uid, ids, for_unlink=False, context=None):
-        """
-        =========================
-        check_one_main_coordinate
-        =========================
+        ==========================
+        _check_one_main_coordinate
+        ==========================
         Check if associated partner has exactly one main coordinate 
         for a given phone type
         :rparam: True if it is the case
@@ -308,11 +297,11 @@ class phone_coordinate(orm.Model):
         
         return True
 
-    def check_unicity(self, cr, uid, ids, context=None):
+    def _check_unicity(self, cr, uid, ids, context=None):
         """
-        =============
-        check_unicity
-        =============
+        ==============
+        _check_unicity
+        ==============
         :rparam: False if phone coordinate already exists with (phone_id,partner_id,expire_date)
                  Else True
         :rtype: Boolean
@@ -325,32 +314,12 @@ class phone_coordinate(orm.Model):
                                         ('expire_date', '=', False)], context=context)
         return len(res_ids) == 0
 
-    _columns = {
-        'id': fields.integer('ID', readonly=True),
-
-        'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True, select=True),
-        'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True, select=True),
-        'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category', select=True, track_visibility='onchange'),
-
-        'vip': fields.boolean('VIP', track_visibility='onchange'),
-        'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
-        'is_main': fields.boolean('Is Main', readonly=True, select=True),
-        'phone_type': fields.related('phone_id', 'type', type='selection', string='Phone Type',
-                                      relation='phone.phone', selection=AVAILABLE_TYPE, readonly=True),
-
-        'create_date': fields.datetime('Creation Date', readonly=True),
-        'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
-        'active': fields.boolean('Active', readonly=True),
-    }
-
-    _defaults = {
-        'active': True
-    }
-
     _constraints = [
-        (check_one_main_coordinate, MAIN_COORDINATE_ERROR, ['partner_id']),
-        (check_unicity, _('This Phone Coordinate already exists for this contact'), ['phone_id', 'partner_id', 'expire_date'])
+        (_check_one_main_coordinate, MAIN_COORDINATE_ERROR, ['partner_id']),
+        (_check_unicity, _('This Phone Coordinate already exists for this contact'), ['phone_id', 'partner_id', 'expire_date'])
     ]
+
+# orm methods
 
     def name_get(self, cr, uid, ids, context=None):
         """
@@ -396,8 +365,8 @@ class phone_coordinate(orm.Model):
             vals['is_main'] = True 
         if vals.get('is_main'):
             ctrl = Ctrl(self, cr, uid)
-            target_domain = self.get_target_domain(phone_type, vals['partner_id'])
-            fields_to_update = self.get_fields_to_update(context)
+            target_domain = self._get_target_domain(phone_type, vals['partner_id'])
+            fields_to_update = self._get_fields_to_update(context)
             ctrl.search_and_update(target_domain, fields_to_update, context=context)
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
             model_field = _get_field_name_for_type(phone_type)
@@ -419,7 +388,7 @@ class phone_coordinate(orm.Model):
         coordinate_ids = self.search(cr, uid, [('id', 'in', ids),('is_main', '=', False)], context=context)
         super(phone_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
         coordinate_ids = list(set(ids).difference(coordinate_ids))
-        if not self.check_one_main_coordinate(cr, uid, coordinate_ids, for_unlink=True, context=context):
+        if not self._check_one_main_coordinate(cr, uid, coordinate_ids, for_unlink=True, context=context):
             raise orm.except_orm(_('Error!'), MAIN_COORDINATE_ERROR)
         return super(phone_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
 
@@ -446,13 +415,68 @@ class phone_coordinate(orm.Model):
 
 # public methods
 
-    def _get_linked_partner(self, cr, uid, ids, context=None):
+    def select_as_main(self, cr, uid, ids, context=None):
+        """
+        ==============
+        select_as_main
+        ==============
+        This method allows to switch main coordinate:
+        1) Check And Set Existing main coordinate for the partner to 'active' = False
+        2) Replace the old reference value into the res_partner by current coordinate
+        3) Set is_main to True for current coordinate
+        :rparam: True
+        :rtype: boolean
+        """
+        context = context or {}
+        rec_phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
+
+        target_domain = self._get_target_domain(rec_phone_coordinate.phone_type, rec_phone_coordinate.partner_id.id)
+        fields_to_update = self._get_fields_to_update(context)
+        model_field = _get_field_name_for_type(self.read(cr, uid, ids, ['phone_type'], context=context)[0]['phone_type'])
+
+        ctrl = Ctrl(self, cr, uid)
+        ctrl.search_and_update(target_domain, fields_to_update, context=context)
+        res=super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
+        ctrl.replicate(ids[0], model_field, context=context)
+
+        return res
+
+    def mass_select_as_main(self, cr, uid, partner_ids, phone_id, context=None):
         """
         ===================
-        _get_linked_partner
+        mass_select_as_main
         ===================
-        This will return the ids of the associated partner of the
-        modify model
+        :param partner_ids: list of partner id
+        :type partner_ids: [integer]
+        :param phone_id: id of a phone.phone
+        :type phone_id: integer
+        :rparam: list of partner ids created
+        :rtype: list of integer
+        """
+        context = context or {}
+        return_ids = []
+        for partner_id in partner_ids:
+            res_ids = self.search(cr, uid, [('partner_id', '=', partner_id),
+                                            ('phone_id', '=', phone_id),
+                                            ('expire_date', '=', False)], context=context)
+            if len(res_ids) == 0:
+                # must be create
+                return_ids.append(self.create(cr, uid, {'phone_id': phone_id,
+                                                        'is_main': True,
+                                                        'partner_id': partner_id,
+                                                       }, context=context))
+            else:
+                # If the found record  is not ``main``: set it by calling ``select_as_main``
+                if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:
+                    self.select_as_main(cr, uid, res_ids, context=context)
+        return return_ids
+
+    def get_linked_partners(self, cr, uid, ids, context=None):
+        """
+        ===================
+        get_linked_partners
+        ===================
+        Returns partner ids linked to coordinate ids
         Path to partner must be object.partner_id
         :rparam: partner_ids
         :rtype: list of ids

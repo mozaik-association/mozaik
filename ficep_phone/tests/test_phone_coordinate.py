@@ -102,9 +102,13 @@ class test_phone_coordinate(common.TransactionCase):
         Test the fact that the associated partner of the phone coordinate has at least
         One main coordinate.
         """
-        self.assertRaises(orm.except_orm, self.model_phone_coordinate.create, self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                                                                  'phone_id': self.phone_id_1,
-                                                                                                  'is_main': False})
+        pc_id = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
+                                                                       'phone_id': self.phone_id_1,
+                                                                       'is_main': False})
+
+        is_main = self.model_phone_coordinate.read(self.cr, self.uid, [pc_id], ['is_main'])
+
+        self.assertEqual(is_main[0]['is_main'], True, 'First Phone Coordinate Must Be Main')
 
     def test_select_as_main(self):
         """

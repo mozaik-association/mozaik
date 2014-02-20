@@ -28,7 +28,7 @@
 
 from openerp.osv import orm, fields
 
-from .phone_phone import phone_coordinate
+from .phone_phone import phone_phone, phone_coordinate
 
 def _get_phone_dictionary(value):
     """
@@ -90,23 +90,6 @@ class res_partner(orm.Model):
                 res[partner_value['id']] = partner_value[args['field']][1] if partner_value[args['field']] else partner_value[args['field']]
         return res
 
-    def _get_linked_partner_for_linked_coordinate(self, cr, uid, ids, context=None):
-        """
-        =========================================
-        _get_linked_partner_for_linked_coordinate
-        =========================================
-        This will return the ids of all associated partner for all phone
-        having a phone coordinate linked with the phone ids.
-        :rparam: partner_ids
-        :rtype: list of ids
-        """
-        phone_rds = self.browse(cr, uid, ids, context=context)
-        partner_ids = []
-        for record in phone_rds:
-            for associated_coordinate in record.phone_coordinate_ids:
-                partner_ids.append(associated_coordinate.partner_id.id)
-        return partner_ids
-
     _columns = {
         'phone_coordinate_ids': fields.one2many('phone.coordinate', 'partner_id', 'Phone Coordinates'),
         'fix_coordinate_id': fields.many2one('phone.coordinate', 'Phone Coordinate', readonly=True,
@@ -120,23 +103,23 @@ class res_partner(orm.Model):
         'phone': fields.function(_get_real_value, arg=_get_phone_dictionary('fix'), string='Phone',
                                  type='char', relation="phone.coordinate",
                                  store={
-                                        'phone.coordinate': (phone_coordinate._get_linked_partner, ['phone_id'], 10),
-                                        'phone.phone': (_get_linked_partner_for_linked_coordinate, ['name'], 10),
-                                      },
+                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['phone_id'], 10),
+                                        'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
+                                       },
                                 ),
         'fax': fields.function(_get_real_value, arg=_get_phone_dictionary('fax'), string='Fax',
                                  type='char', relation="phone.coordinate",
                                  store={
-                                        'phone.coordinate': (phone_coordinate._get_linked_partner, ['phone_id'], 10),
-                                        'phone.phone': (_get_linked_partner_for_linked_coordinate, ['name'], 10),
-                                      },
+                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['phone_id'], 10),
+                                        'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
+                                       },
                                 ),
         'mobile': fields.function(_get_real_value, arg=_get_phone_dictionary('mobile'), string='Mobile',
                                  type='char', relation="phone.coordinate",
                                  store={
-                                        'phone.coordinate': (phone_coordinate._get_linked_partner, ['phone_id'], 10),
-                                        'phone.phone': (_get_linked_partner_for_linked_coordinate, ['name'], 10),
-                                      },
+                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['phone_id'], 10),
+                                        'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
+                                       },
                                 ),
     }
 
