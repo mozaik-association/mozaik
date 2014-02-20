@@ -252,13 +252,12 @@ class phone_coordinate(orm.Model):
         rec_phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
 
         target_domain = self.get_target_domain(rec_phone_coordinate.phone_type, rec_phone_coordinate.partner_id.id)
-        target_model = self._name
         fields_to_update = self.get_fields_to_update(context)
         model_field = _get_field_name_for_type(self.read(cr, uid, ids, ['phone_type'], context=context)[0]['phone_type'])
 
-        ctrl = Ctrl(cr, uid, context)
-        ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
-        ctrl.replicate(self, ids[0], model_field)
+        ctrl = Ctrl(self, cr, uid)
+        ctrl.search_and_update(target_domain, fields_to_update, context=context)
+        ctrl.replicate(ids[0], model_field, context=context)
 
         return super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
 
@@ -390,7 +389,7 @@ class phone_coordinate(orm.Model):
         When 'is_main' is true the coordinate has to become the main coordinate for its
         associated partner.
         That implies to remove the current-valid-main coordinate by calling the
-        ``check_unicity_main()`` of Controller.
+        ``search_and_update()`` of Controller.
         Next step is to replicate (ref. spec.) the new coordinate into the related partner
         In the end call super create
         :rparam: id of the new phone coordinate
@@ -398,15 +397,14 @@ class phone_coordinate(orm.Model):
         """
         context = context or {}
         if vals.get('is_main', False):
-            ctrl = Ctrl(cr, uid, context)
+            ctrl = Ctrl(self, cr, uid)
             phone_type = vals.get('phone_type', False) or self.pool.get('phone.phone').read(cr, uid, vals['phone_id'], ['type'], context=context)['type']
             target_domain = self.get_target_domain(phone_type, vals['partner_id'])
-            target_model = self._name
             fields_to_update = self.get_fields_to_update(context)
-            ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
+            ctrl.search_and_update(target_domain, fields_to_update, context=context)
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
             model_field = _get_field_name_for_type(phone_type)
-            ctrl.replicate(self, new_id, model_field)
+            ctrl.replicate(new_id, model_field)
             return new_id
         return super(phone_coordinate, self).create(cr, uid, vals, context=context)
 
