@@ -262,27 +262,35 @@ class phone_coordinate(orm.Model):
 
         return super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
 
-    def redirect_from_select_as_main(self, cr, uid, vals, context=None):
+    def mass_select_as_main(self, cr, uid, partner_ids, phone_id, context=None):
         """
-        ============================
-        redirect_from_select_as_main
-        ============================
-        Two possible case:
-        1) A phone coordinate with partner_id,phone_id and no expire_date already
-            exists => if it is not a main, set it otherwise do nothing
-        2) If there is no phone coordinate then create passing ``vals``
+        ===================
+        mass_select_as_main
+        ===================
+        :param partner_ids: list of partner id
+        :type partner_ids: [integer]
+        :param phone_id: id of a phone.phone
+        :type phone_id: integer
+        :rparam: list of partner ids created
+        :rtype: list of integer
         """
         context = context or {}
-        res_ids = self.search(cr, uid, [('partner_id', '=', vals['partner_id']),
-                                        ('phone_id', '=', vals['phone_id']),
+        return_ids = []
+        for partner_id in partner_ids:
+            res_ids = self.search(cr, uid, [('partner_id', '=', partner_id),
+                                        ('phone_id', '=', phone_id),
                                         ('expire_date', '=', False)], context=context)
-        if len(res_ids) == 0:
-            # must be create
-            self.create(cr, uid, vals, context=context)
-        else:
-            # If the found record  is not ``main``: set it by calling ``select_as_main``
-            if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:
-                self.select_as_main(cr, uid, res_ids, context=context)
+            if len(res_ids) == 0:
+                # must be create
+                return_ids.append(self.create(cr, uid, {'phone_id': phone_id,
+                                      'is_main': True,
+                                      'partner_id': partner_id,
+                                     }, context=context))
+            else:
+                # If the found record  is not ``main``: set it by calling ``select_as_main``
+                if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:
+                    self.select_as_main(cr, uid, res_ids, context=context)
+        return return_ids
 
     def check_at_least_one_main(self, cr, uid, ids, context=None):
         """

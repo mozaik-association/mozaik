@@ -54,19 +54,9 @@ class phone_coordinate_wizard(orm.TransientModel):
         context = context or {}
         rec_wizard = self.browse(cr, uid, ids, context=context)[0]
         context['invalidate'] = rec_wizard.invalidate_previous_phone_coordinate
-        if context.get('active_ids', False):
-            # will call create method for all partner id into the active_ids
-            return [(self.pool.get('phone.coordinate').redirect_from_select_as_main(cr, uid, {
-                                                            'phone_id': rec_wizard.phone_id.id,
-                                                            'is_main': True,
-                                                            'partner_id':_id,
-                                                        }, context=context)) for _id in context.get('active_ids')]
-        elif context.get('res_id', False):
-            return self.pool.get('phone.coordinate').redirect_from_select_as_main(cr, uid, {
-                                                        'phone_id': rec_wizard.phone_id.id,
-                                                        'is_main': True,
-                                                        'partner_id': context.get('res_id'),
-                                                        }, context=context)
+        partner_ids = context.get('active_ids', False) if context.get('active_ids', False) else list(context.get('res_id', False))
+        if partner_ids:
+            self.pool.get('phone.coordinate').mass_select_as_main(cr, uid, partner_ids, rec_wizard.phone_id.id, context=context)
         else:
             raise orm.except_orm(_('ERROR!'), _('At Least One Partner Is Required To Select A Phone Main Coordinate'))
 

@@ -79,9 +79,9 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
 
     def test_update_phone_number(self):
         """
-        ============================
+        ========================
         test_update_phone_number
-        ============================
+        ========================
         Test the fact that when a number is updated for a phone_coordinate that
         is associated with a partner, the phone value is right set for the
         partner of this phone_coordinate
