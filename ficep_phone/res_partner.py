@@ -34,7 +34,7 @@ class res_partner(orm.Model):
     _inherit = "res.partner"
 
     _columns = {
-        'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinates'),
+        'phone_coordinate_ids': fields.one2many('phone.coordinate', 'partner_id', 'Phone Coordinates'),
         'fix_coordinate_id': fields.many2one('phone.coordinate', 'Phone Coordinate', readonly=True,
                                              domain=['&',('is_main','=',True),('phone_type','=','fix')]),
         'mobile_coordinate_id': fields.many2one('phone.coordinate', 'Mobile Coordinate', readonly=True,

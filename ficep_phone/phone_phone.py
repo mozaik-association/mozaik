@@ -35,13 +35,15 @@ from openerp.addons.ficep_base.controller.main import Controller as Ctrl
 
 """
 Available Type for 'phone.phone':
-Mobile Phone - Phone - Fax
+Mobile - Fix - Fax
 """
 AVAILABLE_TYPE = [
                   ('fix', 'Fix'),
                   ('mobile', 'Mobile'),
                   ('fax', 'Fax'),
                  ]
+
+available_types = dict(AVAILABLE_TYPE)
 
 PREFIX_CODE = 'BE'
 
@@ -97,10 +99,12 @@ class phone_phone(orm.Model):
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Number', required=True, size=50, track_visibility='onchange'),
-        'type': fields.selection(AVAILABLE_TYPE, 'Type', required=True, readonly=True),
+        'name': fields.char('Number', size=50, required=True, select=True, track_visibility='onchange'),
+        'type': fields.selection(AVAILABLE_TYPE, 'Type', required=True, track_visibility='onchange'),
         'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
     }
+    
+    _order = "name"
 
     _defaults = {
         'type': AVAILABLE_TYPE[0],
@@ -109,6 +113,28 @@ class phone_phone(orm.Model):
     _sql_constraints = [
         ('check_unicity_number', 'unique(name)', _('This Phone already exists!'))
     ]
+
+    def name_get(self, cr, uid, ids, context=None):
+        """
+        ========
+        name_get
+        ========
+        :rparam: list of tuple (id, name to display)
+                 where id is the id of the object into the relation
+                 and display_name, the name of this object.
+        :rtype: [(id,name)] list of tuple
+        """
+        if not ids:
+            return []
+
+        if isinstance(ids, (long, int)):
+            ids = [ids]
+
+        res = []
+        for record in self.read(cr, uid, ids, ['name','type'], context=context):
+            display_name = "%s (%s)" % (record['name'],available_types.get(record['type']))
+            res.append((record['id'], display_name))
+        return res
 
     def create(self, cr, uid, vals, context=None):
         """
@@ -282,13 +308,13 @@ class phone_coordinate(orm.Model):
     _columns = {
         'id': fields.integer('ID', readonly=True),
 
-        'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True,),
-        'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True),
-        'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category', track_visibility='onchange'),
+        'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True, select=True),
+        'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True, select=True),
+        'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category', select=True, track_visibility='onchange'),
 
         'vip': fields.boolean('VIP', track_visibility='onchange'),
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
-        'is_main': fields.boolean('Is Main', readonly=True),
+        'is_main': fields.boolean('Is Main', readonly=True, select=True),
         'phone_type': fields.related('phone_id', 'type', type='selection', string='Phone Type',
                                       relation='phone.phone', selection=AVAILABLE_TYPE, readonly=True),
 
@@ -314,7 +340,7 @@ class phone_coordinate(orm.Model):
         :rparam: list of tuple (id, name to display)
                  where id is the id of the object into the relation
                  and display_name, the name of this object.
-        :rtype: [(,)] list of tuple
+        :rtype: [(id,name)] list of tuple
         """
         if not ids:
             return []
@@ -324,7 +350,7 @@ class phone_coordinate(orm.Model):
 
         res = []
         for record in self.read(cr, uid, ids, ['phone_id','phone_type'], context=context):
-            display_name = "%s (%s)" % (record['phone_id'][1],record['phone_type'])
+            display_name = record['phone_id'][1]
             res.append((record['id'], display_name))
         return res
 
@@ -351,7 +377,7 @@ class phone_coordinate(orm.Model):
             fields_to_update = self.get_fields_to_update(context)
             ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
-            model_field = 'fix_coordinate_id' if phone_type == 'fix' else 'mobile_coordinate_id'
+            model_field = '%s_coordinate_id' % phone_type
             ctrl.replicate(self, new_id, model_field)
             return new_id
         return super(phone_coordinate, self).create(cr, uid, vals, context=context)
