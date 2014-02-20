@@ -295,16 +295,16 @@ class phone_coordinate(orm.Model):
 
         'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True,),
         'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True),
-        'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category'),
+        'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category', track_visibility='onchange'),
 
-        'vip': fields.boolean('VIP'),
-        'unauthorized': fields.boolean('Unauthorized'),
+        'vip': fields.boolean('VIP', track_visibility='onchange'),
+        'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
         'is_main': fields.boolean('Is Main', readonly=True),
         'phone_type': fields.related('phone_id', 'type', type='selection', string='Phone Type',
                                       relation='phone.phone', selection=AVAILABLE_TYPE, readonly=True),
 
         'create_date': fields.datetime('Creation Date', readonly=True),
-        'expire_date': fields.datetime('Expiration Date', readonly=True),
+        'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
         'active': fields.boolean('Active', readonly=True),
     }
 

@@ -2,14 +2,7 @@
 <openerp>
     <data noupdate="0">
 
-        <record id="coordinate_category_action" model="ir.actions.act_window">
-            <field name="name">Coordinate Categories</field>
-            <field name="res_model">coordinate.category</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-
-        <record id="phone_coordinate_form" model="ir.ui.view">
+        <record id="coordinate_category_form_view" model="ir.ui.view">
             <field name="name">coordinate.category.form</field>
             <field name="model">coordinate.category</field>
             <field name="arch" type="xml">
@@ -26,6 +19,13 @@
                     </sheet>
                 </form>
             </field>
+        </record>
+
+        <record id="coordinate_category_action" model="ir.actions.act_window">
+            <field name="name">Coordinate Categories</field>
+            <field name="res_model">coordinate.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
         </record>
 
         <menuitem name="Configuration" id="configuration_menu"
