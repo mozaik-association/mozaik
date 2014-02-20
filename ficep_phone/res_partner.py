@@ -85,7 +85,7 @@ class res_partner(orm.Model):
             if record_id:
                 res[partner_value['id']] = model.read(cr, uid, record_id[0], [args['target_value']], context=context)[args['target_value']][1]
             else:
-                res[partner_value['id']] = partner_value[args['field']]
+                res[partner_value['id']] = partner_value[args['field']][1] if partner_value[args['field']] else partner_value[args['field']]
         return res
 
     def _get_linked_partner(self, cr, uid, ids, context=None):
@@ -105,6 +105,23 @@ class res_partner(orm.Model):
             partner_ids.append(record.partner_id.id)
         return partner_ids
 
+    def _get_linked_partner_for_linked_coordinate(self, cr, uid, ids, context=None):
+        """
+        =========================================
+        _get_linked_partner_for_linked_coordinate
+        =========================================
+        This will return the ids of all associated partner for all phone
+        having a phone coordinate linked with the phone ids.
+        :rparam: partner_ids
+        :rtype: list of ids
+        """
+        phone_rds = self.browse(cr, uid, ids, context=context)
+        partner_ids = []
+        for record in phone_rds:
+            for associated_coordinate in record.phone_coordinate_ids:
+                partner_ids.append(associated_coordinate.partner_id.id)
+        return partner_ids
+
     _columns = {
         'phone_coordinate_ids': fields.one2many('phone.coordinate', 'partner_id', 'Phone Coordinates'),
         'fix_coordinate_id': fields.many2one('phone.coordinate', 'Phone Coordinate', readonly=True,
@@ -119,18 +136,21 @@ class res_partner(orm.Model):
                                  type='char', relation="phone.coordinate",
                                  store={
                                         'phone.coordinate': (_get_linked_partner, ['phone_id'], 10),
+                                        'phone.phone': (_get_linked_partner_for_linked_coordinate, ['name'], 10),
                                       },
                                 ),
         'fax': fields.function(_get_real_value, arg=_get_phone_dictionary('fax'), string='Fax',
                                  type='char', relation="phone.coordinate",
                                  store={
                                         'phone.coordinate': (_get_linked_partner, ['phone_id'], 10),
+                                        'phone.phone': (_get_linked_partner_for_linked_coordinate, ['name'], 10),
                                       },
                                 ),
         'mobile': fields.function(_get_real_value, arg=_get_phone_dictionary('mobile'), string='Mobile',
                                  type='char', relation="phone.coordinate",
                                  store={
                                         'phone.coordinate': (_get_linked_partner, ['phone_id'], 10),
+                                        'phone.phone': (_get_linked_partner_for_linked_coordinate, ['name'], 10),
                                       },
                                 ),
     }

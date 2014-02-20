@@ -48,6 +48,24 @@ available_types = dict(AVAILABLE_TYPE)
 PREFIX_CODE = 'BE'
 
 
+def _get_field_name_for_type(phone_type):
+    """
+    ========================
+    _get_field_name_for_type
+    ========================
+    :param phone_type: the type of the phone. must be into the 
+           const available_types
+    :rparam phone_type: char
+    :raise: orm.except_orm if phone_type is not into the constant
+        ``available_types``
+    """
+    if phone_type in available_types:
+        field_name = '%s_coordinate_id' % phone_type
+    else:
+        raise orm.except_orm(_('ERROR'), _('Invalid Type Of Phone'))
+    return field_name
+
+
 class phone_phone(orm.Model):
 
     _name = 'phone.phone'
@@ -103,7 +121,7 @@ class phone_phone(orm.Model):
         'type': fields.selection(AVAILABLE_TYPE, 'Type', required=True, track_visibility='onchange'),
         'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
     }
-    
+
     _order = "name"
 
     _defaults = {
@@ -131,8 +149,8 @@ class phone_phone(orm.Model):
             ids = [ids]
 
         res = []
-        for record in self.read(cr, uid, ids, ['name','type'], context=context):
-            display_name = "%s (%s)" % (record['name'],available_types.get(record['type']))
+        for record in self.read(cr, uid, ids, ['name', 'type'], context=context):
+            display_name = "%s (%s)" % (record['name'], available_types.get(record['type']))
             res.append((record['id'], display_name))
         return res
 
@@ -200,15 +218,6 @@ class phone_coordinate(orm.Model):
         context = context or {}
         return {'active': False, 'expire_date': fields.date.today()} if context.get('invalidate', False) else {'is_main': False}
 
-    def get_field_name_for_type(self, type):
-        if type == 'fix':
-            field_name = 'fix_coordinate_id'
-        elif type == 'fax':
-            field_name = 'fax_coordinate_id'
-        else:
-            field_name = 'mobile_coordinate_id'
-        return field_name
-
     def invalidate(self, cr, uid, ids, context=None):
         """
         ==========
@@ -245,7 +254,7 @@ class phone_coordinate(orm.Model):
         target_domain = self.get_target_domain(rec_phone_coordinate.phone_type, rec_phone_coordinate.partner_id.id)
         target_model = self._name
         fields_to_update = self.get_fields_to_update(context)
-        model_field = self.get_field_name_for_type(self.read(cr, uid, ids, ['phone_type'], context=context))
+        model_field = _get_field_name_for_type(self.read(cr, uid, ids, ['phone_type'], context=context)[0]['phone_type'])
 
         ctrl = Ctrl(cr, uid, context)
         ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
@@ -360,7 +369,7 @@ class phone_coordinate(orm.Model):
             ids = [ids]
 
         res = []
-        for record in self.read(cr, uid, ids, ['phone_id','phone_type'], context=context):
+        for record in self.read(cr, uid, ids, ['phone_id', 'phone_type'], context=context):
             display_name = record['phone_id'][1]
             res.append((record['id'], display_name))
         return res
@@ -388,7 +397,7 @@ class phone_coordinate(orm.Model):
             fields_to_update = self.get_fields_to_update(context)
             ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
-            model_field = '%s_coordinate_id' % phone_type
+            model_field = _get_field_name_for_type(phone_type)
             ctrl.replicate(self, new_id, model_field)
             return new_id
         return super(phone_coordinate, self).create(cr, uid, vals, context=context)
