@@ -47,6 +47,8 @@ available_types = dict(AVAILABLE_TYPE)
 
 PREFIX_CODE = 'BE'
 
+MAIN_COORDINATE_ERROR = _('Exactly one main coordinate must exist for a given partner and a given phone type!')
+
 
 def _get_field_name_for_type(phone_type):
     """
@@ -62,7 +64,7 @@ def _get_field_name_for_type(phone_type):
     if phone_type in available_types:
         field_name = '%s_coordinate_id' % phone_type
     else:
-        raise orm.except_orm(_('ERROR'), _('Invalid Type Of Phone'))
+        raise orm.except_orm(_('Error!'), _('Invalid Type Of Phone'))
     return field_name
 
 
@@ -218,24 +220,6 @@ class phone_coordinate(orm.Model):
         context = context or {}
         return {'active': False, 'expire_date': fields.date.today()} if context.get('invalidate', False) else {'is_main': False}
 
-    def invalidate(self, cr, uid, ids, context=None):
-        """
-        ==========
-        invalidate
-        ==========
-        This method will invalidate the phone.coordinate by setting
-        * active to False
-        * expire_date to current date
-        :rparam: True
-        :rtype: boolean
-        **Note**
-        Launched from the button 'invalidate'
-        """
-        context = context or {}
-        return super(phone_coordinate, self).write(cr, uid, ids,
-                                            {'active': False, 'expire_date': fields.date.today()},
-                                            context=context)
-
     def select_as_main(self, cr, uid, ids, context=None):
         """
         ==============
@@ -284,28 +268,37 @@ class phone_coordinate(orm.Model):
             if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:
                 self.select_as_main(cr, uid, res_ids, context=context)
 
-    def check_at_least_one_main(self, cr, uid, ids, context=None):
+    def check_one_main_coordinate(self, cr, uid, ids, for_unlink=False, context=None):
         """
-        =======================
-        check_at_least_one_main
-        =======================
-        That constraint will check the associated partner has at least one main
-        coordinate if this current one isn't it
-        :rparam: True if The associated partner has already a main coordinate
-                 Otherwise False
+        =========================
+        check_one_main_coordinate
+        =========================
+        Check if associated partner has exactly one main coordinate 
+        for a given phone type
+        :rparam: True if it is the case
+                 False otherwise
         :rtype: boolean
         """
-        context = context or {}
-        phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
-        if phone_coordinate.phone_type == 'fix':
-            if not phone_coordinate.partner_id.fix_coordinate_id and not phone_coordinate.is_main:
+        coordinates = self.browse(cr, uid, ids, context=context)
+        for coordinate in coordinates:
+            if for_unlink and not coordinate.is_main:
+                continue
+    
+            coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
+                                                   ('phone_type', '=', coordinate.phone_type)], context=context)
+    
+            if for_unlink and len(coordinate_ids)>1 and coordinate.is_main:
                 return False
-        elif phone_coordinate.phone_type == 'fax':
-            if not phone_coordinate.partner_id.fax_coordinate_id and not phone_coordinate.is_main:
+        
+            if not coordinate_ids:
+                continue
+        
+            coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
+                                                   ('phone_type', '=', coordinate.phone_type),
+                                                   ('is_main', '=', True)], context=context)
+            if len(coordinate_ids)!=1:
                 return False
-        else:
-            if not phone_coordinate.partner_id.mobile_coordinate_id and not phone_coordinate.is_main:
-                return False
+        
         return True
 
     def check_unicity(self, cr, uid, ids, context=None):
@@ -348,7 +341,7 @@ class phone_coordinate(orm.Model):
     }
 
     _constraints = [
-        (check_at_least_one_main, _('Error! At least one main coordinate by associated partner'), ['partner_id']),
+        (check_one_main_coordinate, MAIN_COORDINATE_ERROR, ['partner_id']),
         (check_unicity, _('This Phone Coordinate already exists for this contact'), ['phone_id', 'partner_id', 'expire_date'])
     ]
 
@@ -389,17 +382,78 @@ class phone_coordinate(orm.Model):
         :rtype: integer
         """
         context = context or {}
-        if vals.get('is_main', False):
+        phone_type = self.pool.get('phone.phone').read(cr, uid, vals['phone_id'], ['type'], context=context)['type']
+        coordinate_ids = self.search(cr, uid, [('partner_id', '=', vals['partner_id']),
+                                               ('phone_type', '=', phone_type),
+                                               ('is_main', '=', True)], context=context)
+        if not coordinate_ids:
+            vals['is_main'] = True 
+        if vals.get('is_main'):
             ctrl = Ctrl(cr, uid, context)
-            phone_type = vals.get('phone_type', False) or self.pool.get('phone.phone').read(cr, uid, vals['phone_id'], ['type'], context=context)['type']
             target_domain = self.get_target_domain(phone_type, vals['partner_id'])
-            target_model = self._name
             fields_to_update = self.get_fields_to_update(context)
-            ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
+            ctrl.check_unicity_main(self, self._name, target_domain, fields_to_update)
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
             model_field = _get_field_name_for_type(phone_type)
             ctrl.replicate(self, new_id, model_field)
-            return new_id
-        return super(phone_coordinate, self).create(cr, uid, vals, context=context)
+        else:
+            new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
+        return new_id
+
+    def unlink(self, cr, uid, ids, context=None):
+        """
+        =======================
+        unlink phone.coordinate
+        =======================
+        :rparam: True
+        :rtype: boolean
+        :raise: Error if the coordinate is main
+                and another coordinate of the same type exists
+        """
+        context = context or {}
+        coordinate_ids = self.search(cr, uid, [('id', 'in', ids),('is_main', '=', False)], context=context)
+        super(phone_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
+        coordinate_ids = list(set(ids).difference(coordinate_ids))
+        if not self.check_one_main_coordinate(cr, uid, coordinate_ids, for_unlink=True, context=context):
+            raise orm.except_orm(_('Error!'), MAIN_COORDINATE_ERROR)
+        return super(phone_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
+
+    def _get_linked_partner(self, cr, uid, ids, context=None):
+        """
+        ===================
+        _get_linked_partner
+        ===================
+        This will return the ids of the associated partner of the
+        modify model
+        Path to partner must be object.partner_id
+        :rparam: partner_ids
+        :rtype: list of ids
+        """
+        model_rds = self.browse(cr, uid, ids, context=context)
+        partner_ids = []
+        for record in model_rds:
+            partner_ids.append(record.partner_id.id)
+        return partner_ids
+
+# view methods: onchange, button
+
+    def button_invalidate(self, cr, uid, ids, context=None):
+        """
+        =================
+        button_invalidate
+        =================
+        This method invalidate a phone.coordinate by setting
+        * active to False
+        * expire_date to current date
+        :rparam: True
+        :rtype: boolean
+        :raise: Error if the coordinate is main
+                and another coordinate of the same type exists
+        """
+        self.write(cr, uid, ids,
+                   {'active': False, 'expire_date': fields.date.today()},
+                   context=context)
+
+        return True
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

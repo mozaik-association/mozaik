@@ -135,9 +135,10 @@
             <field name="arch" type="xml">
                 <form string="Phone Coordinate" version="7.0">
                     <header>
-                        <div attrs="{'invisible': ['|','|',('id','=',False),('is_main','=',True),('active','=',False)]}">
-                            <button name="invalidate" string="Invalidate"/>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
+                            <button name="button_invalidate" string="Invalidate" type="object" />
                             <button name="select_as_main" string="Select As Main" type="object"
+                                    attrs="{'invisible': [('is_main','=',True)]}"
                                     context="{'invalidate': True}" />
                         </div>
                     </header>

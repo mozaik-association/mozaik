@@ -154,7 +154,7 @@ class xxxx(orm.Model):
         context = context or {}
         return super(xxxx, self).copy(cr, uid, id, default=default, context=context)
 
-# onchange/button
+# view methods: onchange, button
 
 # workflow
 
