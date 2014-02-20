@@ -24,7 +24,31 @@
             <field name="type">fax</field>
         </record>
 
+        <record id="fix_for_test_update_1" model="phone.phone">
+            <field name="name">061458978</field>
+            <field name="type">fix</field>
+        </record>
+
+        <record id="fix_for_test_update_2" model="phone.phone">
+            <field name="name">061411232</field>
+            <field name="type">fix</field>
+        </record>
+
         <!-- Create Partner For Phone Coordinate -->
+
+        <record id="partner_for_test_update_1" model="res.partner">
+            <field name="name">Paul</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="customer" eval="False" />
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <record id="partner_for_test_update_2" model="res.partner">
+            <field name="name">Pauline</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="customer" eval="False" />
+            <field name="notification_email_send">none</field>
+        </record>
 
         <record id="phone_coordinate_partner_one" model="res.partner">
             <field name="name">Marc</field>
@@ -48,6 +72,22 @@
         </record>
 
         <!-- Create Phone Coordinate -->
+
+        <!-- Partner Pauline -->
+
+        <record id="phone_coo_for_test_update_1" model="phone.coordinate">
+            <field name="phone_id" ref="fix_for_test_update_1" />
+            <field name="partner_id" ref="partner_for_test_update_1" />
+            <field name="is_main" eval="True" />
+        </record>
+
+        <!-- Partner Paul -->
+
+        <record id="phone_coo_for_test_update_2" model="phone.coordinate">
+            <field name="phone_id" ref="fix_for_test_update_1" />
+            <field name="partner_id" ref="partner_for_test_update_2" />
+            <field name="is_main" eval="True" />
+        </record>
 
         <!-- Partner Marc -->
 

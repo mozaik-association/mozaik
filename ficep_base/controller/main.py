@@ -29,20 +29,11 @@
 
 class Controller():
 
-    def __init__(self, cr, uid, context):
-        self.cr = cr
-        self.uid = uid
-        self.context = context
-
-    def check_unicity_main(self, base_model, target_model, target_domain, fields_to_update):
+    def __init__(self, base_model, cr, uid, target_model=None):
         """
-        ==================
-        Check Unicity Main
-        ==================
-
-        This method will check the unicity of the main coordinate by a generic way:
-        * Firstly search existing records depending of the ``target_domain``
-        * Next step update value for the ``fields_to_update`` for the ``base_model``
+        ========
+        __init__
+        ========
         :param base_model: A base model that can be
                            * phone.coordinate
                            * address.coordinate
@@ -50,41 +41,57 @@ class Controller():
         :type base_model: BaseModel
         :param target_model: the concerned  model of the action
         :type target_model: char
+
+        :post: initialize with all passing parameters
+               self.target_model is base_mode._name if no target_model passing
+               into the parameters
+        """
+        self.cr = cr
+        self.uid = uid
+        self.base_model = base_model
+        if not target_model:
+            self.target_model = base_model._name
+        else:
+            self.target_model = target_model
+        self.obj = base_model.pool.get(self.target_model)
+
+    def search_and_update(self, target_domain, fields_to_update, context=None):
+        """
+        ==================
+        search_and_update
+        ==================
+
+        This method will check the unicity of the main coordinate by a generic way:
+        * Firstly search existing records depending of the ``target_domain``
+        * Next step update value for the ``fields_to_update`` for the ``base_model``
         :param fields_to_update: fields to update with their associated value
         :type fields_to_update: dictionary
-
-        **Note **: ``base_model`` is unlike ``target_model`` because this way is more generic:
-                    That lets the possibility to pool on other model from an other
         """
-        res_ids = base_model.pool.get(target_model).search(self.cr, self.uid, target_domain)
-        base_model.pool.get(target_model).write(self.cr,
-                                                self.uid,
-                                                res_ids,
-                                                fields_to_update,
-                                                context=self.context)
+        res_ids = self.obj.search(self.cr, self.uid, target_domain, context=context)
+        save_constraints, self.obj._constraints = self.obj._constraints, []
+        self.obj.write(self.cr,
+                       self.uid,
+                       res_ids,
+                       fields_to_update,
+                       context=context)
+        self.obj._constraints = save_constraints
 
-    def replicate(self, base_model, new_id, model_field):
+    def replicate(self, new_id, model_field, context=None):
         """
         =========
         replicate
         =========
-
         Symbolic write that will ``replicate`` the browse record having ``new_id``
         into the partner_id
-        :param base_model: A base model that can be
-                           * phone.coordinate
-                           * address.coordinate
-                           * email.coordinate
-        :type base_model: BaseModel
         :param: new_id: is the id of the record to set into the field of the partner
         :type new_id: integer
         :param model_field: ``model_field`` contains the name of the field that will be
                             updated
         :type model_field: char
         """
-        base_model.browse(self.cr,
+        self.base_model.browse(self.cr,
                           self.uid,
                           new_id,
-                          context=None).partner_id.write({model_field: new_id})
+                          context=context).partner_id.write({model_field: new_id})
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

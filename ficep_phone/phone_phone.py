@@ -236,37 +236,44 @@ class phone_coordinate(orm.Model):
         rec_phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
 
         target_domain = self.get_target_domain(rec_phone_coordinate.phone_type, rec_phone_coordinate.partner_id.id)
-        target_model = self._name
         fields_to_update = self.get_fields_to_update(context)
         model_field = _get_field_name_for_type(self.read(cr, uid, ids, ['phone_type'], context=context)[0]['phone_type'])
 
-        ctrl = Ctrl(cr, uid, context)
-        ctrl.check_unicity_main(self, target_model, target_domain, fields_to_update)
-        ctrl.replicate(self, ids[0], model_field)
+        ctrl = Ctrl(self, cr, uid)
+        ctrl.search_and_update(target_domain, fields_to_update, context=context)
+        ctrl.replicate(ids[0], model_field, context=context)
 
         return super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
 
-    def redirect_from_select_as_main(self, cr, uid, vals, context=None):
+    def mass_select_as_main(self, cr, uid, partner_ids, phone_id, context=None):
         """
-        ============================
-        redirect_from_select_as_main
-        ============================
-        Two possible case:
-        1) A phone coordinate with partner_id,phone_id and no expire_date already
-            exists => if it is not a main, set it otherwise do nothing
-        2) If there is no phone coordinate then create passing ``vals``
+        ===================
+        mass_select_as_main
+        ===================
+        :param partner_ids: list of partner id
+        :type partner_ids: [integer]
+        :param phone_id: id of a phone.phone
+        :type phone_id: integer
+        :rparam: list of partner ids created
+        :rtype: list of integer
         """
         context = context or {}
-        res_ids = self.search(cr, uid, [('partner_id', '=', vals['partner_id']),
-                                        ('phone_id', '=', vals['phone_id']),
+        return_ids = []
+        for partner_id in partner_ids:
+            res_ids = self.search(cr, uid, [('partner_id', '=', partner_id),
+                                        ('phone_id', '=', phone_id),
                                         ('expire_date', '=', False)], context=context)
-        if len(res_ids) == 0:
-            # must be create
-            self.create(cr, uid, vals, context=context)
-        else:
-            # If the found record  is not ``main``: set it by calling ``select_as_main``
-            if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:
-                self.select_as_main(cr, uid, res_ids, context=context)
+            if len(res_ids) == 0:
+                # must be create
+                return_ids.append(self.create(cr, uid, {'phone_id': phone_id,
+                                      'is_main': True,
+                                      'partner_id': partner_id,
+                                     }, context=context))
+            else:
+                # If the found record  is not ``main``: set it by calling ``select_as_main``
+                if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:
+                    self.select_as_main(cr, uid, res_ids, context=context)
+        return return_ids
 
     def check_one_main_coordinate(self, cr, uid, ids, for_unlink=False, context=None):
         """
@@ -375,13 +382,12 @@ class phone_coordinate(orm.Model):
         When 'is_main' is true the coordinate has to become the main coordinate for its
         associated partner.
         That implies to remove the current-valid-main coordinate by calling the
-        ``check_unicity_main()`` of Controller.
+        ``search_and_update()`` of Controller.
         Next step is to replicate (ref. spec.) the new coordinate into the related partner
         In the end call super create
         :rparam: id of the new phone coordinate
         :rtype: integer
         """
-        context = context or {}
         phone_type = self.pool.get('phone.phone').read(cr, uid, vals['phone_id'], ['type'], context=context)['type']
         coordinate_ids = self.search(cr, uid, [('partner_id', '=', vals['partner_id']),
                                                ('phone_type', '=', phone_type),
@@ -389,13 +395,13 @@ class phone_coordinate(orm.Model):
         if not coordinate_ids:
             vals['is_main'] = True 
         if vals.get('is_main'):
-            ctrl = Ctrl(cr, uid, context)
+            ctrl = Ctrl(self, cr, uid)
             target_domain = self.get_target_domain(phone_type, vals['partner_id'])
             fields_to_update = self.get_fields_to_update(context)
-            ctrl.check_unicity_main(self, self._name, target_domain, fields_to_update)
+            ctrl.search_and_update(target_domain, fields_to_update, context=context)
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
             model_field = _get_field_name_for_type(phone_type)
-            ctrl.replicate(self, new_id, model_field)
+            ctrl.replicate(new_id, model_field, context=context)
         else:
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
         return new_id
@@ -410,30 +416,12 @@ class phone_coordinate(orm.Model):
         :raise: Error if the coordinate is main
                 and another coordinate of the same type exists
         """
-        context = context or {}
         coordinate_ids = self.search(cr, uid, [('id', 'in', ids),('is_main', '=', False)], context=context)
         super(phone_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
         coordinate_ids = list(set(ids).difference(coordinate_ids))
         if not self.check_one_main_coordinate(cr, uid, coordinate_ids, for_unlink=True, context=context):
             raise orm.except_orm(_('Error!'), MAIN_COORDINATE_ERROR)
         return super(phone_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
-
-    def _get_linked_partner(self, cr, uid, ids, context=None):
-        """
-        ===================
-        _get_linked_partner
-        ===================
-        This will return the ids of the associated partner of the
-        modify model
-        Path to partner must be object.partner_id
-        :rparam: partner_ids
-        :rtype: list of ids
-        """
-        model_rds = self.browse(cr, uid, ids, context=context)
-        partner_ids = []
-        for record in model_rds:
-            partner_ids.append(record.partner_id.id)
-        return partner_ids
 
 # view methods: onchange, button
 
@@ -455,5 +443,24 @@ class phone_coordinate(orm.Model):
                    context=context)
 
         return True
+
+# public methods
+
+    def _get_linked_partner(self, cr, uid, ids, context=None):
+        """
+        ===================
+        _get_linked_partner
+        ===================
+        This will return the ids of the associated partner of the
+        modify model
+        Path to partner must be object.partner_id
+        :rparam: partner_ids
+        :rtype: list of ids
+        """
+        model_rds = self.browse(cr, uid, ids, context=context)
+        partner_ids = []
+        for record in model_rds:
+            partner_ids.append(record.partner_id.id)
+        return partner_ids
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
