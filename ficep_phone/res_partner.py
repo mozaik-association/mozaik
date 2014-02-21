@@ -42,7 +42,7 @@ def _get_phone_dictionary(value):
     :rparam: dictionary with needed value for ``_get_real_value``
     :rtype: {}
     """
-    return {'field': 'fix_coordinate_id',
+    return {'field': '%s_coordinate_id' % value,
             'field_to_search': 'phone_type',
             'model': 'phone.coordinate',
             'target_value': 'phone_id',
