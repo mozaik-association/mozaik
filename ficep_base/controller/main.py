@@ -76,22 +76,4 @@ class Controller():
                        context=context)
         self.obj._constraints = save_constraints
 
-    def replicate(self, new_id, model_field, context=None):
-        """
-        =========
-        replicate
-        =========
-        Symbolic write that will ``replicate`` the browse record having ``new_id``
-        into the partner_id
-        :param: new_id: is the id of the record to set into the field of the partner
-        :type new_id: integer
-        :param model_field: ``model_field`` contains the name of the field that will be
-                            updated
-        :type model_field: char
-        """
-        self.base_model.browse(self.cr,
-                          self.uid,
-                          new_id,
-                          context=context).partner_id.write({model_field: new_id})
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

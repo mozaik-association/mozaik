@@ -37,13 +37,13 @@ from openerp.addons.ficep_base.controller.main import Controller as Ctrl
 Available Type for 'phone.phone':
 Mobile - Fix - Fax
 """
-AVAILABLE_TYPE = [
-                  ('fix', 'Fix'),
-                  ('mobile', 'Mobile'),
-                  ('fax', 'Fax'),
-                 ]
+PHONE_AVAILABLE_TYPES = [
+                         ('fix', 'Fix'),
+                         ('mobile', 'Mobile'),
+                         ('fax', 'Fax'),
+                        ]
 
-available_types = dict(AVAILABLE_TYPE)
+phone_available_types = dict(PHONE_AVAILABLE_TYPES)
 
 PREFIX_CODE = 'BE'
 
@@ -56,15 +56,15 @@ def _get_field_name_for_type(phone_type):
     _get_field_name_for_type
     ========================
     :param phone_type: the type of the phone. must be into the 
-           const available_types
+           const phone_available_types
     :rparam phone_type: char
     :raise: orm.except_orm if phone_type is not into the constant
-        ``available_types``
+        ``phone_available_types``
     """
-    if phone_type in available_types:
+    if phone_type in phone_available_types:
         field_name = '%s_coordinate_id' % phone_type
     else:
-        raise orm.except_orm(_('Error!'), _('Invalid phone type'))
+        raise orm.except_orm(_('ValidateError'), _('Invalid phone type: "%s" !') % phone_type or _('Undefined'))
     return field_name
 
 
@@ -102,14 +102,14 @@ class phone_phone(orm.Model):
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Number', size=50, required=True, select=True, track_visibility='onchange'),
-        'type': fields.selection(AVAILABLE_TYPE, 'Type', required=True, track_visibility='onchange'),
+        'type': fields.selection(PHONE_AVAILABLE_TYPES, 'Type', required=True, track_visibility='onchange'),
         'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
     }
 
     _order = "name"
 
     _defaults = {
-        'type': AVAILABLE_TYPE[0],
+        'type': PHONE_AVAILABLE_TYPES[0],
     }
 
     _sql_constraints = [
@@ -136,7 +136,7 @@ class phone_phone(orm.Model):
 
         res = []
         for record in self.read(cr, uid, ids, ['name', 'type'], context=context):
-            display_name = "%s (%s)" % (record['name'], available_types.get(record['type']))
+            display_name = "%s (%s)" % (record['name'], phone_available_types.get(record['type']))
             res.append((record['id'], display_name))
         return res
 
@@ -251,7 +251,7 @@ class phone_coordinate(orm.Model):
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
         'vip': fields.boolean('VIP', track_visibility='onchange'),
         'phone_type': fields.related('phone_id', 'type', type='selection', string='Phone Type',
-                                      relation='phone.phone', selection=AVAILABLE_TYPE, readonly=True),
+                                      relation='phone.phone', selection=PHONE_AVAILABLE_TYPES, readonly=True),
 
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
@@ -352,8 +352,6 @@ class phone_coordinate(orm.Model):
         associated partner.
         That implies to remove the current-valid-main coordinate by calling the
         ``search_and_update()`` of Controller.
-        Next step is to replicate (ref. spec.) the new coordinate into the related partner
-        In the end call super create
         :rparam: id of the new phone coordinate
         :rtype: integer
         """
@@ -369,8 +367,6 @@ class phone_coordinate(orm.Model):
             fields_to_update = self._get_fields_to_update(context)
             ctrl.search_and_update(target_domain, fields_to_update, context=context)
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
-            model_field = _get_field_name_for_type(phone_type)
-            ctrl.replicate(new_id, model_field, context=context)
         else:
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
         return new_id
@@ -432,12 +428,10 @@ class phone_coordinate(orm.Model):
 
         target_domain = self._get_target_domain(rec_phone_coordinate.phone_type, rec_phone_coordinate.partner_id.id)
         fields_to_update = self._get_fields_to_update(context)
-        model_field = _get_field_name_for_type(self.read(cr, uid, ids, ['phone_type'], context=context)[0]['phone_type'])
 
         ctrl = Ctrl(self, cr, uid)
         ctrl.search_and_update(target_domain, fields_to_update, context=context)
         res=super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
-        ctrl.replicate(ids[0], model_field, context=context)
 
         return res
 

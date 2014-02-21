@@ -36,12 +36,12 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 # CONSTANT
-AVAILABLE_TYPES = [
+XXX_AVAILABLE_TYPES = [
                    ('xx', 'X'),
                    ('yy', 'Y'),
                   ]
 
-available_types = dict(AVAILABLE_TYPES)
+xxx_available_types = dict(XXX_AVAILABLE_TYPES)
 
 
 class xxxx(orm.Model):
@@ -63,7 +63,7 @@ class xxxx(orm.Model):
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, required=True, select=True),
-        'type': fields.selection(AVAILABLE_TYPES, 'Type', required=True),
+        'type': fields.selection(XXX_AVAILABLE_TYPES, 'Type', required=True),
 
         'name': fields.function(_your_field_function, type='char', string='Name'),
         'date': fields.date('Date', select=1),
@@ -87,7 +87,7 @@ class xxxx(orm.Model):
     _order = "name"
 
     _defaults = {
-        'type': AVAILABLE_TYPES[0],
+        'type': XXX_AVAILABLE_TYPES[0],
         'active': True
     }
 

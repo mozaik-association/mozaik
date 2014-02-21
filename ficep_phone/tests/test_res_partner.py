@@ -61,8 +61,8 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         The phone value is right set
         """
         partner_value = self.model_partner.read(self.cr, self.uid, self.partner_id_1, ['phone'], context={})
-        phone_value = self.model_phone_coordinate.read(self.cr, self.uid, self.phone_coordinate_id_1, ['phone_id'], context={})
-        self.assertEqual(partner_value['phone'] == phone_value['phone_id'][1], True, "Phone Should Be Set With The Same Value")
+        phone_value = self.model_phone_coordinate.browse(self.cr, self.uid, self.phone_coordinate_id_1, context={}).phone_id.name
+        self.assertEqual(partner_value['phone'] == phone_value, True, "Phone Should Be Set With The Same Value")
 
     def test_update_phone_coordinate(self):
         """
@@ -74,8 +74,8 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         """
         self.model_phone_coordinate.write(self.cr, self.uid, self.phone_coordinate_id_1, {'phone_id': self.phone_id_2}, context={})
         partner_value = self.model_partner.read(self.cr, self.uid, self.partner_id_1, ['phone'], context={})
-        phone_value = self.model_phone_coordinate.read(self.cr, self.uid, self.phone_coordinate_id_1, ['phone_id'], context={})
-        self.assertEqual(partner_value['phone'] == phone_value['phone_id'][1], True, "Phone Should Be Set With The Same Value")
+        phone_value = self.model_phone_coordinate.browse(self.cr, self.uid, self.phone_coordinate_id_1, context={}).phone_id.name
+        self.assertEqual(partner_value['phone'] == phone_value, True, "Phone Should Be Set With The Same Value")
 
     def test_update_phone_number(self):
         """
@@ -89,7 +89,7 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         self.model_phone_coordinate.write(self.cr, self.uid, self.phone_coordinate_id_1, {'phone_id': self.phone_id_2}, context={})
         self.model_phone.write(self.cr, self.uid, self.phone_id_2, {'name': '091452325'}, context={})
         partner_value = self.model_partner.read(self.cr, self.uid, self.partner_id_1, ['phone'], context={})
-        phone_value = self.model_phone_coordinate.read(self.cr, self.uid, self.phone_coordinate_id_1, ['phone_id'], context={})
-        self.assertEqual(partner_value['phone'] == phone_value['phone_id'][1], True, "Phone Should Be Set With The Same Value")
+        phone_value = self.model_phone_coordinate.browse(self.cr, self.uid, self.phone_coordinate_id_1, context={}).phone_id.name
+        self.assertEqual(partner_value['phone'] == phone_value, True, "Phone Should Be Set With The Same Value")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

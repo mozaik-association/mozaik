@@ -148,11 +148,6 @@
                         </div>
                     </header>
                     <sheet>
-                        <div groups="ficep_base.res_groups_developper">
-                            <field name="id" />
-                            <field name="active" />
-                        </div>
-
                         <div class="oe_title">
                             <label for="phone_id" class="oe_edit_only"/>
                             <h1><field name="phone_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>

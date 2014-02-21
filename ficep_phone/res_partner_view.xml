@@ -8,8 +8,7 @@
             <field name="inherit_id" ref="ficep_person.res_partner_search_view" />
             <field name="arch" type="xml">
                 <xpath expr="//search" position="inside">
-                    <field name="fix_coordinate_id" />
-                    <field name="mobile_coordinate_id" />
+                    <field name="phone" string="Fix or Mobile Phone" filter_domain="['|',('phone','ilike',self),('mobile','ilike',self)]"/>
                 </xpath>
             </field>
         </record>
@@ -19,9 +18,8 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='phone']" position="replace">
-                    <field name="fix_coordinate_id" />
-                    <field name="mobile_coordinate_id" />
+                <xpath expr="//field[@name='phone']" position="after">
+                    <field name="mobile" />
                 </xpath>
             </field>
         </record>
