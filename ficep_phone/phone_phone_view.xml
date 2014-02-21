@@ -94,20 +94,20 @@
                     <field name="phone_type" />
                     <field name="coordinate_category_id" />
 
-                    <filter string="VIP" domain="[('vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <filter string="Unauthorized" domain="[('unauthorized','=',True)]" />
+                    <filter name="vip" string="VIP" domain="[('vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <filter name="unauthorized" string="Unauthorized" domain="[('unauthorized','=',True)]" />
                     <separator />
-                    <filter string="Expired"
+                    <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expire Phone Coordinate" />
-                    <filter string="All"
+                    <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" />
 
                     <group expand="0" string="Group By...">
-                        <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
-                        <filter string="Phone" domain="[]" context="{'group_by':'phone_id'}" />
-                        <filter string="Category" domain="[]" context="{'group_by':'coordinate_category_id'}" />
+                        <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
+                        <filter name="phone" string="Phone" domain="[]" context="{'group_by':'phone_id'}" />
+                        <filter name="category" string="Category" domain="[]" context="{'group_by':'coordinate_category_id'}" />
                     </group>
                 </search>
             </field>
@@ -195,22 +195,6 @@
             <field name="search_view_id" ref="phone_coordinate_search_view" />
         </record>
 
-        <!-- Phone Coordinate -->
-
-        <record id="coordinate_category_form_view (ficep_phone)" model="ir.ui.view">
-            <field name="name">coordinate.category.form</field>
-            <field name="model">coordinate.category</field>
-            <field name="inherit_id" ref="ficep_coordinate_category.coordinate_category_form_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//div[@name='buttons']" position="inside">
-                    <button string="Phone Coordinates"
-                            name="%(phone_coordinates_action)d"
-                            type="action"
-                            context="{'search_default_coordinate_category_id': active_id, 'default_coordinate_category_id': active_id}"/>
-                </xpath>
-            </field>
-        </record>
-
         <!-- Menu -->
 
         <menuitem name="Phone Coordinates" id="phone_coordinates_menu"
@@ -221,6 +205,24 @@
 
         <menuitem id="phone_phones_submenu"
                   sequence="20" parent="phone_coordinates_menu" action="phone_phones_action" />
+
+        <!-- Other Inheritance -->
+
+        <!-- Phone -->
+
+        <record id="phone_phone_inherit_form_view" model="ir.ui.view">
+            <field name="name">phone.phone.inherit.form</field>
+            <field name="model">phone.phone</field>
+            <field name="inherit_id" ref="phone_phone_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='phone_coordinate_ids']" position="before">
+                    <button string="All Details"
+                            name="%(phone_coordinates_action)d"
+                            type="action"
+                            context="{'search_default_phone_id': active_id, 'default_phone_id': active_id, 'search_default_all': True}"/>
+                </xpath>
+            </field>
+        </record>
 
     </data>
 </openerp>

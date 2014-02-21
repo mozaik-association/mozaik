@@ -39,15 +39,16 @@
 FICEP Phone
 ===========
 This module provides a solution to manage phone coordinate
-It allows to manage three types of phone (fix-phone-mobile phone)
+It allows to manage three types of phone (fix-mobile-fax phone)
     """,
     'images': [
     ],
     'data': [
-         'phone_phone_view.xml',
          'wizard/select_main_coordinate_phone.xml',
          'data/ir_config_parameter_data.xml',
+         'phone_phone_view.xml',
          'res_partner_view.xml',
+         'coordinate_category_view.xml',
     ],
     'js': [
     ],
