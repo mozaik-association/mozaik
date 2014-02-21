@@ -248,8 +248,8 @@ class phone_coordinate(orm.Model):
         'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category', select=True, track_visibility='onchange'),
 
         'is_main': fields.boolean('Is Main', readonly=True, select=True),
-        'vip': fields.boolean('VIP', track_visibility='onchange'),
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
+        'vip': fields.boolean('VIP', track_visibility='onchange'),
         'phone_type': fields.related('phone_id', 'type', type='selection', string='Phone Type',
                                       relation='phone.phone', selection=AVAILABLE_TYPE, readonly=True),
 

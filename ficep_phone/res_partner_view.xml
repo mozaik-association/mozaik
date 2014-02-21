@@ -32,28 +32,31 @@
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='phone']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                    <attribute name="readonly">1</attribute>
-                </xpath>
-                <xpath expr="//field[@name='phone']" position="after">
+                <xpath expr="//field[@name='phone']" position="replace">
                     <field name="fix_coordinate_id" />
                 </xpath>
 
-                <xpath expr="//field[@name='mobile']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                    <attribute name="readonly">1</attribute>
-                </xpath>
-                <xpath expr="//field[@name='mobile']" position="after">
+                <xpath expr="//field[@name='mobile']" position="replace">
                     <field name="mobile_coordinate_id" />
                 </xpath>
 
-                <xpath expr="//field[@name='fax']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                    <attribute name="readonly">1</attribute>
-                </xpath>
-                <xpath expr="//field[@name='fax']" position="after">
+                <xpath expr="//field[@name='fax']" position="replace">
                     <field name="fax_coordinate_id" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_emails_partner_info_form" model="ir.ui.view">
+            <field name="name">res.partner.emails.info.inherit (ficep_phone)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_person.view_emails_partner_info_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[@name='dbg']" position="inside">
+                    <field name="phone" />
+                    <field name="mobile" />
+                    <field name="fax" />
                 </xpath>
 
             </field>

@@ -55,8 +55,15 @@
                                             ]" />
         </record>
 
+        <record model="res.groups" id="res_groups_developper">
+            <field name="name">Developper</field>
+            <field name="category_id" ref="base.module_category_usability"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_no_one')),
+                                            ]" />
+        </record>
+
         <record model="res.users" id="base.user_root">
-            <field name="groups_id" eval="[(4, ref('ficep_res_groups_configurator')),
+            <field name="groups_id" eval="[(4, ref('ficep_res_groups_configurator'))
                                           ]"/>
         </record>
 

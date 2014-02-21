@@ -29,8 +29,28 @@
 
                 <xpath expr="//field[@name='function']" position="replace"/>
                 <xpath expr="//page[@string='Contacts']" position="replace"/>
-                <xpath expr="//field[@name='parent_id']" position="attributes">
-                    <attribute name="invisible">1</attribute>
+                <xpath expr="//page[@name='sales_purchases']" position="attributes">
+                    <attribute name="groups">ficep_base.res_groups_developper</attribute>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="replace"/>
+
+            </field>
+        </record>
+
+        <record id="view_emails_partner_info_form" model="ir.ui.view">
+            <field name="name">res.partner.emails.info.inherit (ficep_person)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="mail.view_emails_partner_info_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@class='oe_chatter']" position="before">
+                    <div class="oe_developper" groups="ficep_base.res_groups_developper">
+                        <h3>More Debug Info</h3>
+                        <group name="dbg">
+                            <field name="parent_id" />
+                            <field name="function" />
+                        </group>
+                    </div>
                 </xpath>
 
             </field>
