@@ -19,7 +19,10 @@
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='phone']" position="after">
-                    <field name="mobile" />
+                    <field name="mobile" attrs="{'invisible': [('mobile','=','VIP')]}" />
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('phone','=','VIP')]}</attribute>
                 </xpath>
             </field>
         </record>
@@ -52,7 +55,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//group[@name='dbg']" position="inside">
-                    <field name="phone" />
+                    <field name="phone"/>
                     <field name="mobile" />
                     <field name="fax" />
                 </xpath>
@@ -68,7 +71,7 @@
 
                 <xpath expr="//page[@name='coordinates']" position="inside">
                     <button string="All Details"
-                            name="%(phone_coordinates_action)d"
+                            name="%(phone_coordinate_action)d"
                             type="action"
                             context="{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'search_default_all': True}"/>
                     <field name="phone_coordinate_ids" context="{'default_partner_id': active_id}">

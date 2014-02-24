@@ -25,30 +25,31 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-# IMPORT SYSTEM
+# System imports
 
-# SPECIAL PYTHON IMPORT
+# Other utilities imports
 
-# IMPORT OPENERP
-
-# OUR IMPORT
+# OpenERP imports
+import openerp
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
-# CONSTANT
+# Local imports
+
+# Constants
 XXX_AVAILABLE_TYPES = [
-                   ('xx', 'X'),
-                   ('yy', 'Y'),
-                  ]
+                       ('xx', 'X'),
+                       ('yy', 'Y'),
+                      ]
 
 xxx_available_types = dict(XXX_AVAILABLE_TYPES)
 
 
 class xxxx(orm.Model):
 
-# _XXXX
-    _name = 'XXXXX'
-    _rec_name = 'name'
+    _name = 'xxx'
+    _description = "XXX"
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
 
 # static methods
     def _your_field_function(self):
@@ -62,27 +63,30 @@ class xxxx(orm.Model):
 # columns
     _columns = {
         'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Name', size=128, required=True, select=True),
-        'type': fields.selection(XXX_AVAILABLE_TYPES, 'Type', required=True),
+        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
+        'notes': fields.text('Notes'),
+        'integer': fields.integer('integer'),
+        'date': fields.date('Date', select=True, track_visibility='onchange'),
+        'image': fields.binary('Files', help='test'),
 
-        'name': fields.function(_your_field_function, type='char', string='Name'),
-        'date': fields.date('Date', select=1),
-        'name': fields.many2one('object', 'field_name'),
-        'name': fields.one2many('other.object', 'field_relation_id', 'Field Name'),
-        'name': fields.char('name', size=64, select=1),
-        'name': fields.selection(_your_selection_function, 'Choose',
+        'type': fields.selection(XXX_AVAILABLE_TYPES, 'Type', required=True, track_visibility='onchange'),
+        'name': fields.selection(_your_selection_function, 'Choice',
                                  help="text"),
-        'name': fields.text('Notes'),
-        'name': fields.many2many('other.object.name', id1='field_relation_id', id2='field_name', string='Tags'),
-        'name': fields.boolean('Active'),
+
+        'name': fields.function(_your_field_function, type='char', string='Function'),
         'name': fields.related('field_name', type='type', relation='model', string='name'),
-        'image': fields.binary("Files", help="test"),
-        'name': fields.integer('integer'),
+
+        'name': fields.many2one('object', 'field_name', required=True, select=True),
+        'name': fields.one2many('other.object', 'field_relation_id', 'Field Name', domain=[]),
+        'name': fields.many2many('other.object.name', id1='field_relation_id', id2='field_name', string='Tags'),
+        'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True, select=True),
 
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True),
         'active': fields.boolean('Active', readonly=True),
     }
+
+    _rec_name = 'name'
 
     _order = "name"
 
@@ -102,7 +106,6 @@ class xxxx(orm.Model):
                  Else True
         :rtype: Boolean
         """
-        context = context or {}
         return True
 
     _constraints = [
@@ -117,15 +120,6 @@ class xxxx(orm.Model):
 # orm methods
 
     def name_get(self, cr, uid, ids, context=None):
-        """
-        ========
-        name_get
-        ========
-        :rparam: list of tuple (id, name to display)
-                 where id is the id of the object into the relation
-                 and display_name, the name of this object.
-        :rtype: [(id,name)] list of tuple
-        """
         if not ids:
             return []
 
@@ -139,22 +133,33 @@ class xxxx(orm.Model):
         return res
 
     def create(self, cr, uid, vals, context=None):
-        context = context or {}
         return super(xxxx, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
-        context = context or {}
         return super(xxxx, self).write(cr, uid, ids, vals, context=context)
 
     def unlink(self, cr, uid, ids, context=None):
-        context = context or {}
         return super(xxxx, self).unlink(cr, uid, ids, context=context)
 
     def copy(self, cr, uid, ids, default=None, context=None):
-        context = context or {}
-        return super(xxxx, self).copy(cr, uid, id, default=default, context=context)
+        if context is None:
+            context = {}
+        return super(xxxx, self).copy(cr, uid, ids, default=default, context=context)
 
 # view methods: onchange, button
+
+    def button_zzz(self, cr, uid, ids, context=None):
+        """
+        ==========
+        button_zzz
+        ==========
+        This method ...
+        :rparam: True
+        :rtype: boolean
+        :raise: Error if the coordinate is main
+                and another coordinate of the same type exists
+        """
+        return True
 
 # workflow
 

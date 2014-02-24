@@ -2,32 +2,45 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- wizard action on res.partner -->
-        <act_window id="partner_coordinate_phone_wizard_action"
-            name="Select Main Coordinate Phone" src_model="res.partner"
-            res_model="phone.coordinate.wizard" view_type="form"
-            view_mode="form" key2="client_action_multi" target="new" />
+        <!-- Change Main Phone Number Wizard on res.partner -->
 
-        <record id="wizard_phone_coordinate" model="ir.ui.view">
-            <field name="name">Select Main Phone Coordinate</field>
-            <field name="model">phone.coordinate.wizard</field>
+        <record id="phone_change_main_number_wizard" model="ir.ui.view">
+            <field name="name">phone.change.main.number.wizard</field>
+            <field name="model">phone.change.main.number</field>
             <field name="arch" type="xml">
-                <form string="Select Main Phone Coordinate"
-                    version="7.0">
-                    <group col="2">
+                <form string="Change Main Phone Number" version="7.0">
+                    <group>
                         <field name="phone_id" />
                         <field name="invalidate_previous_phone_coordinate" />
                     </group>
                     <footer>
-                        <button string="Validate" name="mass_select_as_main"
-                            type="object" class="oe_highlight" />
+                        <button string="Validate" name="change_main_phone_number"
+                                type="object" class="oe_highlight" />
                         or
-                        <button string="Cancel" class="oe_link"
-                            special="cancel" />
+                        <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>
                 </form>
             </field>
         </record>
 
+        <record id="phone_change_main_number_action" model="ir.actions.act_window">
+            <field name="name">Change Main Phone Number</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">res.partner</field>
+            <field name="res_model">phone.change.main.number</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="phone_change_main_number_wizard"/>
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_user')),
+                                          ]" />
+        </record>
+
+        <record id="phone_change_main_number_value" model="ir.values">
+            <field name="name">Change Main Phone Number</field>
+            <field name="model">res.partner</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('phone_change_main_number_action')"/>
+        </record>
     </data>
 </openerp>

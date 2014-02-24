@@ -38,17 +38,20 @@
     'description': """
 FICEP Phone
 ===========
-This module provides a solution to manage phone coordinate
-It allows to manage three types of phone (fix-mobile-fax phone)
-    """,
+This module manages phone numbers and phone coordinates.
+It covers three types of phone: fix, mobile and fax.
+Numbers are normalized regarding the external python library: phonenumbers
+""",
     'images': [
     ],
     'data': [
-         'wizard/select_main_coordinate_phone.xml',
-         'data/ir_config_parameter_data.xml',
-         'phone_phone_view.xml',
-         'res_partner_view.xml',
-         'coordinate_category_view.xml',
+        'security/ir.model.access.csv',
+        'security/ir.rule.xml',
+        'wizard/select_main_coordinate_phone.xml',
+        'data/ir_config_parameter_data.xml',
+        'phone_phone_view.xml',
+        'res_partner_view.xml',
+        'coordinate_category_view.xml',
     ],
     'js': [
     ],

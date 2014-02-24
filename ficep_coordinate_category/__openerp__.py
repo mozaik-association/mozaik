@@ -38,14 +38,12 @@
     'description': """
 FICEP Coordinate Category
 =========================
-This module provides a shortcut to
-* Postal Coordinate
-* Email Coordinate
-* Phone Coordinate
-    """,
+Manage categories of email, phone and postal coordinates: private, professional, ...
+""",
     'images': [
     ],
     'data': [
+        'security/ir.model.access.csv',
         'coordinate_category_view.xml',
         'res_partner_view.xml',
     ],

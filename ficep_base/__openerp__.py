@@ -33,6 +33,8 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
+        'base',
+        'portal',
         'mail',
         #'auth_ldap',
         #'event',

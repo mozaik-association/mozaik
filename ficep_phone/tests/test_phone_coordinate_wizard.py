@@ -38,28 +38,25 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
 
     def setUp(self):
         super(test_phone_coordinate_wizard, self).setUp()
-        self.phone_coordinate_wizard = self.registry('phone.coordinate.wizard')
+
+        self.phone_coordinate_wizard = self.registry('phone.change.main.number')
         self.model_partner = self.registry('res.partner')
-        self.model_phone = self.registry('phone.phone')
         self.model_phone_coordinate = self.registry('phone.coordinate')
-        self.model_data = self.registry('ir.model.data')
 
         self.partner_id_1 = self.ref('ficep_phone.phone_coordinate_partner_one')
         self.partner_id_2 = self.ref('ficep_phone.phone_coordinate_partner_two')
         self.partner_id_3 = self.ref('ficep_phone.phone_coordinate_partner_three')
 
         self.phone_id_1 = self.ref('ficep_phone.mobile_one')
-        self.phone_id_2 = self.ref('ficep_phone.mobile_two')
 
         self.phone_coordinate_id_1 = self.ref('ficep_phone.main_mobile_coordinate_one')
         self.phone_coordinate_id_2 = self.ref('ficep_phone.main_mobile_coordinate_two')
-        self.phone_coordinate_id_3 = self.ref('ficep_phone.mobile_coordinate_two')
 
-    def mass_select_as_main(self, invalidate):
+    def change_main_phone_number(self, invalidate):
         """
-        ===================
-        mass_select_as_main
-        ===================
+        ========================
+        change_main_phone_number
+        ========================
         :param invalidate: value for ``invalidate_previous_phone_coordinate``
         :type invalidate: boolean
         :rparam: id or [ids]
@@ -73,7 +70,7 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
             'invalidate_previous_phone_coordinate': invalidate,
         }
         wiz_id = self.phone_coordinate_wizard.create(self.cr, self.uid, wiz_vals, context=context)
-        return self.phone_coordinate_wizard.mass_select_as_main(self.cr, self.uid, [wiz_id], context=context)
+        return self.phone_coordinate_wizard.change_main_phone_number(self.cr, self.uid, [wiz_id], context=context)
 
     def test_mass_replication(self):
         """
@@ -89,7 +86,7 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
             partner_N.mobile_coordinate.is_main = True
         If those condition are well respected then replication is functional
         """
-        self.mass_select_as_main(True)
+        self.change_main_phone_number(True)
         phone_coo = self.model_partner.read(self.cr,
                                             self.uid, [self.partner_id_1,
                                             self.partner_id_2,
@@ -101,9 +98,9 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
 
     def test_mass_replication_with_invalidate(self):
         """
-        ========================================
+        =====================================
         test_mass_replication_with_invalidate
-        ========================================
+        =====================================
         This test check the fact that the ``mass_select_as_main`` of
         the wizard will right invalidate the previous phone coordinate if it is
         wanted
@@ -120,7 +117,7 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         u2 ----- phone_coo2      ------ phone 2 : not active
         u2 ----- main_phone_coo_3------ phone 1 : active
         """
-        self.mass_select_as_main(True)
+        self.change_main_phone_number(True)
         active = self.model_phone_coordinate.read(self.cr,
                                                   self.uid,
                                                   [self.phone_coordinate_id_1, self.phone_coordinate_id_2],
@@ -150,7 +147,7 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         u2 ----- phone_coo2      ------ phone 2 : active
         u2 ----- main_phone_coo_3------ phone 1 : active
         """
-        self.mass_select_as_main(False)
+        self.change_main_phone_number(False)
         active = self.model_phone_coordinate.read(self.cr,
                                                   self.uid,
                                                   self.phone_coordinate_id_2,

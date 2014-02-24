@@ -110,12 +110,12 @@ class test_phone_coordinate(common.TransactionCase):
 
         self.assertEqual(is_main[0]['is_main'], True, 'First Phone Coordinate Must Be Main')
 
-    def test_select_as_main(self):
+    def test_set_as_main(self):
         """
-        ===================
-        test_select_as_main
-        ===================
-        Test the behavior of ``select_as_main``
+        ================
+        test_set_as_main
+        ================
+        Test the behavior of ``set_as_main``
         Context:
         phone_coo_1 : main     active
         phone_coo_2 : not main active
@@ -130,7 +130,7 @@ class test_phone_coordinate(common.TransactionCase):
         pc_id_2 = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
                                                                'phone_id': self.phone_id_2,
                                                                'is_main': False})
-        self.model_phone_coordinate.select_as_main(self.cr, self.uid, [pc_id_2], context={'invalidate': True})
+        self.model_phone_coordinate.set_as_main(self.cr, self.uid, [pc_id_2], context={'invalidate': True})
 
         pc_vals = self.model_phone_coordinate.read(self.cr, self.uid, [pc_id_1, pc_id_2], ['active', 'is_main'])
         mobile_coordinate_id = self.model_partner.read(self.cr, self.uid, self.partner_id_1, ['mobile_coordinate_id'])['mobile_coordinate_id']

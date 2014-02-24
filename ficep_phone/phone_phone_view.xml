@@ -4,11 +4,11 @@
 
         <!-- Phone -->
 
-        <record model="ir.ui.view" id="phone_search_view">
+        <record id="phone_phone_search_view" model="ir.ui.view">
             <field name="name">phone.phone.search</field>
             <field name="model">phone.phone</field>
             <field name="arch" type="xml">
-                <search string="Phone Coordinate">
+                <search string="Phone" version="7.0">
                     <field name="name" />
                     <field name="type" />
                     <group expand="1" string="Group By...">
@@ -22,7 +22,7 @@
             <field name="name">phone.phone.tree</field>
             <field name="model">phone.phone</field>
             <field name="arch" type="xml">
-                <tree string="Phone" version="7.0">
+                <tree string="Phones" version="7.0">
                     <field name="name" />
                     <field name="type" />
                 </tree>
@@ -74,21 +74,21 @@
             </field>
         </record>
 
-        <record id="phone_phones_action" model="ir.actions.act_window">
+        <record id="phone_phone_action" model="ir.actions.act_window">
             <field name="name">Phones</field>
             <field name="res_model">phone.phone</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="phone_search_view" />
+            <field name="search_view_id" ref="phone_phone_search_view" />
         </record>
 
         <!-- Phone Coordinate -->
 
-        <record model="ir.ui.view" id="phone_coordinate_search_view">
+        <record id="phone_coordinate_search_view" model="ir.ui.view">
             <field name="name">phone.coordinate.search</field>
             <field name="model">phone.coordinate</field>
             <field name="arch" type="xml">
-                <search string="Phone Coordinate">
+                <search string="Phone Coordinate" version="7.0">
                     <field name="partner_id" />
                     <field name="phone_id" />
                     <field name="phone_type" />
@@ -117,7 +117,7 @@
             <field name="name">phone.coordinate.tree</field>
             <field name="model">phone.coordinate</field>
             <field name="arch" type="xml">
-                <tree string="Phone Coordinate" version="7.0">
+                <tree string="Phone Coordinates" version="7.0">
                     <field name="partner_id" />
                     <field name="phone_id" />
                     <field name="coordinate_category_id" />
@@ -187,7 +187,7 @@
             </field>
         </record>
 
-        <record id="phone_coordinates_action" model="ir.actions.act_window">
+        <record id="phone_coordinate_action" model="ir.actions.act_window">
             <field name="name">Phone Coordinates</field>
             <field name="res_model">phone.coordinate</field>
             <field name="view_type">form</field>
@@ -197,18 +197,16 @@
 
         <!-- Menu -->
 
-        <menuitem name="Phone Coordinates" id="phone_coordinates_menu"
+        <menuitem name="Phone Coordinates" id="phone_coordinate_menu"
                   sequence="40" parent="ficep_person.persons_root_menu" />
 
-        <menuitem id="phone_coordinates_submenu"
-                  sequence="10" parent="phone_coordinates_menu" action="phone_coordinates_action" />
+        <menuitem id="phone_coordinate_submenu"
+                  sequence="10" parent="phone_coordinate_menu" action="phone_coordinate_action" />
 
-        <menuitem id="phone_phones_submenu"
-                  sequence="20" parent="phone_coordinates_menu" action="phone_phones_action" />
+        <menuitem id="phone_phone_submenu"
+                  sequence="20" parent="phone_coordinate_menu" action="phone_phone_action" />
 
-        <!-- Other Inheritance -->
-
-        <!-- Phone -->
+        <!-- Other Inheritance: Phone -->
 
         <record id="phone_phone_inherit_form_view" model="ir.ui.view">
             <field name="name">phone.phone.inherit.form</field>
@@ -217,7 +215,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='phone_coordinate_ids']" position="before">
                     <button string="All Details"
-                            name="%(phone_coordinates_action)d"
+                            name="%(phone_coordinate_action)d"
                             type="action"
                             context="{'search_default_phone_id': active_id, 'default_phone_id': active_id, 'search_default_all': True}"/>
                 </xpath>

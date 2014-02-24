@@ -50,7 +50,7 @@
 
         <record id="user_1" model="res.users">
             <field name="partner_id" ref="partner_of_user_1"/>
-            <field name="login">ficep_reader_1</field>
+            <field name="login">fr1</field>
             <field name="password">a</field>
             <field name="signature">pierre</field>
             <field name="company_id" ref="base.main_company"/>
@@ -59,7 +59,7 @@
 
         <record id="user_2" model="res.users">
             <field name="partner_id" ref="partner_of_user_2"/>
-            <field name="login">ficep_user_1</field>
+            <field name="login">fu1</field>
             <field name="password">a</field>
             <field name="signature">claude</field>
             <field name="company_id" ref="base.main_company"/>
@@ -68,7 +68,7 @@
 
         <record id="user_3" model="res.users">
             <field name="partner_id" ref="partner_of_user_3"/>
-            <field name="login">ficep_officer_1</field>
+            <field name="login">fo1</field>
             <field name="password">a</field>
             <field name="signature">phillipe</field>
             <field name="company_id" ref="base.main_company"/>
@@ -77,7 +77,7 @@
 
         <record id="user_4" model="res.users">
             <field name="partner_id" ref="partner_of_user_4"/>
-            <field name="login">ficep_vip_reader_1</field>
+            <field name="login">fvr1</field>
             <field name="password">a</field>
             <field name="signature">leon</field>
             <field name="company_id" ref="base.main_company"/>
@@ -86,7 +86,7 @@
 
         <record id="user_5" model="res.users">
             <field name="partner_id" ref="partner_of_user_5"/>
-            <field name="login">ficep_manager_1</field>
+            <field name="login">fm1</field>
             <field name="password">a</field>
             <field name="signature">isabelle</field>
             <field name="company_id" ref="base.main_company"/>
@@ -95,7 +95,7 @@
 
         <record id="user_6" model="res.users">
             <field name="partner_id" ref="partner_of_user_6"/>
-            <field name="login">ficep_configurator_1</field>
+            <field name="login">fc1</field>
             <field name="password">a</field>
             <field name="signature">sylvie</field>
             <field name="company_id" ref="base.main_company"/>

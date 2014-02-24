@@ -27,6 +27,7 @@
 ##############################################################################
 import phonenumbers as pn
 
+import openerp
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
@@ -34,8 +35,8 @@ from openerp.addons.ficep_base.controller.main import Controller as Ctrl
 
 
 """
-Available Type for 'phone.phone':
-Mobile - Fix - Fax
+Available Types for 'phone.phone':
+Fix - Mobile - Fax
 """
 PHONE_AVAILABLE_TYPES = [
                          ('fix', 'Fix'),
@@ -71,6 +72,7 @@ def _get_field_name_for_type(phone_type):
 class phone_phone(orm.Model):
 
     _name = 'phone.phone'
+    _description = "Phone Number"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
     def _check_and_format_number(self, cr, uid, num, context=None):
@@ -113,7 +115,7 @@ class phone_phone(orm.Model):
     }
 
     _sql_constraints = [
-        ('check_unicity_number', 'unique(name)', _('This Phone already exists!'))
+        ('check_unicity_number', 'unique(name)', _('This phone number already exists!'))
     ]
 
 # orm methods
@@ -216,25 +218,25 @@ class phone_phone(orm.Model):
 class phone_coordinate(orm.Model):
 
     _name = 'phone.coordinate'
+    _description = "Phone Coordinate"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
-    _rec_name = 'phone_id'
 
-    def _get_target_domain(self, phone_type, partner_id):
+    def _get_target_domain(self, partner_id, phone_type):
         """
         ==================
         _get_target_domain
         ==================
-        :parma phone_type: the type of the phone
-        :type phone_type: char
         :param partner_id: id of the partner
         :type partner_id: integer
+        :parma phone_type: the type of the phone
+        :type phone_type: char
         :rparam: dictionary with ``phone_type`` and ``partner_id`` well set
         :rtype: dictionary
         """
-        return [('phone_type', '=', phone_type),
-                 ('is_main', '=', True),
-                 ('active', '=', True),
-                 ('partner_id', '=', partner_id)]
+        return [('partner_id', '=', partner_id),
+                ('phone_type', '=', phone_type),
+                ('is_main', '=', True),
+               ]
 
     def _get_fields_to_update(self, context=None):
         context = context or {}
@@ -257,6 +259,10 @@ class phone_coordinate(orm.Model):
         'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
         'active': fields.boolean('Active', readonly=True),
     }
+
+    _rec_name = 'phone_id'
+
+    _order = "partner_id"
 
     _defaults = {
         'active': True
@@ -316,7 +322,7 @@ class phone_coordinate(orm.Model):
 
     _constraints = [
         (_check_one_main_coordinate, MAIN_COORDINATE_ERROR, ['partner_id']),
-        (_check_unicity, _('This Phone Coordinate already exists for this contact'), ['phone_id', 'partner_id', 'expire_date'])
+        (_check_unicity, _('This phone coordinate already exists for this contact'), ['phone_id', 'partner_id', 'expire_date'])
     ]
 
 # orm methods
@@ -363,7 +369,7 @@ class phone_coordinate(orm.Model):
             vals['is_main'] = True 
         if vals.get('is_main'):
             ctrl = Ctrl(self, cr, uid)
-            target_domain = self._get_target_domain(phone_type, vals['partner_id'])
+            target_domain = self._get_target_domain(vals['partner_id'], phone_type)
             fields_to_update = self._get_fields_to_update(context)
             ctrl.search_and_update(target_domain, fields_to_update, context=context)
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
@@ -411,58 +417,56 @@ class phone_coordinate(orm.Model):
 
 # public methods
 
-    def select_as_main(self, cr, uid, ids, context=None):
+    def set_as_main(self, cr, uid, ids, context=None):
         """
-        ==============
-        select_as_main
-        ==============
+        ===========
+        set_as_main
+        ===========
         This method allows to switch main coordinate:
-        1) Check And Set Existing main coordinate for the partner to 'active' = False
-        2) Replace the old reference value into the res_partner by current coordinate
-        3) Set is_main to True for current coordinate
+        1) Reset is_main of previous main coordinate
+        2) Set is_main of new main coordinate
         :rparam: True
         :rtype: boolean
         """
-        context = context or {}
         rec_phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
 
-        target_domain = self._get_target_domain(rec_phone_coordinate.phone_type, rec_phone_coordinate.partner_id.id)
-        fields_to_update = self._get_fields_to_update(context)
-
+        # 1) Reset is_main of previous main coordinate
         ctrl = Ctrl(self, cr, uid)
+        target_domain = self._get_target_domain(rec_phone_coordinate.partner_id.id, rec_phone_coordinate.phone_type)
+        fields_to_update = self._get_fields_to_update(context)
         ctrl.search_and_update(target_domain, fields_to_update, context=context)
+
+        # 2) Set is_main of new main coordinate
         res=super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
 
         return res
 
-    def mass_select_as_main(self, cr, uid, partner_ids, phone_id, context=None):
+    def change_main_phone_number(self, cr, uid, partner_ids, phone_id, context=None):
         """
-        ===================
-        mass_select_as_main
-        ===================
+        ========================
+        change_main_phone_number
+        ========================
         :param partner_ids: list of partner id
         :type partner_ids: [integer]
-        :param phone_id: id of a phone.phone
+        :param phone_id: id of the new main phone.phone
         :type phone_id: integer
-        :rparam: list of partner ids created
+        :rparam: list of phone coordinate ids created
         :rtype: list of integer
         """
-        context = context or {}
         return_ids = []
         for partner_id in partner_ids:
             res_ids = self.search(cr, uid, [('partner_id', '=', partner_id),
-                                            ('phone_id', '=', phone_id),
-                                            ('expire_date', '=', False)], context=context)
-            if len(res_ids) == 0:
+                                            ('phone_id', '=', phone_id)], context=context)
+            if not res_ids:
                 # must be create
-                return_ids.append(self.create(cr, uid, {'phone_id': phone_id,
+                return_ids.append(self.create(cr, uid, {'partner_id': partner_id,
+                                                        'phone_id': phone_id,
                                                         'is_main': True,
-                                                        'partner_id': partner_id,
                                                        }, context=context))
             else:
-                # If the found record  is not ``main``: set it by calling ``select_as_main``
+                # If the coordinate is not already ``main``, set it as main
                 if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:
-                    self.select_as_main(cr, uid, res_ids, context=context)
+                    self.set_as_main(cr, uid, res_ids, context=context)
         return return_ids
 
     def get_linked_partners(self, cr, uid, ids, context=None):

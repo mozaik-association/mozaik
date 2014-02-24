@@ -30,13 +30,15 @@ import openerp
 from openerp.osv import orm, fields
 
 
-class coordinate_category(orm.Model):
+class res_users(orm.Model):
 
-    _name = 'coordinate.category'
-    _description = 'Coordinate Category'
+    _inherit = 'res.users'
 
-    _columns = {
-        'name': fields.char('Name', size=128, select=True),
+    def _get_group(self, cr, uid, context=None):
+        return []
+
+    _defaults = {
+        'groups_id': _get_group,
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

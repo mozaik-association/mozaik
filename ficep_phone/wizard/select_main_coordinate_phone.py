@@ -26,15 +26,17 @@
 #
 ##############################################################################
 
+import openerp
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 
-class phone_coordinate_wizard(orm.TransientModel):
+class phone_main_number_change(orm.TransientModel):
 
-    _name = 'phone.coordinate.wizard'
+    _name = 'phone.change.main.number'
+    _description = 'Change Main Phone Number Wizard'
 
-    def mass_select_as_main(self, cr, uid, ids, context=None):
+    def change_main_phone_number(self, cr, uid, ids, context=None):
         """
         ===================
         mass_select_as_main
@@ -56,13 +58,13 @@ class phone_coordinate_wizard(orm.TransientModel):
         context['invalidate'] = rec_wizard.invalidate_previous_phone_coordinate
         partner_ids = context.get('active_ids', False) if context.get('active_ids', False) else list(context.get('res_id', False))
         if partner_ids:
-            self.pool.get('phone.coordinate').mass_select_as_main(cr, uid, partner_ids, rec_wizard.phone_id.id, context=context)
+            self.pool.get('phone.coordinate').change_main_phone_number(cr, uid, partner_ids, rec_wizard.phone_id.id, context=context)
         else:
-            raise orm.except_orm(_('ERROR!'), _('At Least One Partner Is Required To Select A Phone Main Coordinate'))
+            raise orm.except_orm(_('ERROR!'), _('At Least One Partner Is Required To Select A Main Phone Coordinate'))
 
     _columns = {
         'phone_id': fields.many2one('phone.phone', 'New Main Phone', required=True),
-        'invalidate_previous_phone_coordinate': fields.boolean('Invalidate Previous Coordinate'),
+        'invalidate_previous_phone_coordinate': fields.boolean('Invalidate Previous Phone Coordinate'),
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

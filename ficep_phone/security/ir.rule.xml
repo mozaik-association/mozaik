@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="phone_coordinate_reader_rule" model="ir.rule">
+            <field name="name">Phone Coordinate for Readers</field>
+            <field name="model_id" ref="model_phone_coordinate"/>
+            <field name="domain_force">[('vip','=',False)]</field>
+            <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_reader'))]"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="phone_coordinate_vip_reader_rule" model="ir.rule">
+            <field name="name">Phone Coordinate for VIP Readers</field>
+            <field name="model_id" ref="model_phone_coordinate"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_vip_reader'))]"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="phone_coordinate_officer_rule" model="ir.rule">
+            <field name="name">Phone Coordinate for Officers</field>
+            <field name="model_id" ref="model_phone_coordinate"/>
+            <field name="domain_force">[('vip','=',False)]</field>
+            <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_officer'))]"/>
+        </record>
+
+        <record id="phone_coordinate_manager_rule" model="ir.rule">
+            <field name="name">Phone Coordinate for Managers</field>
+            <field name="model_id" ref="model_phone_coordinate"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_manager'))]"/>
+        </record>
+
+    </data>
+</openerp>

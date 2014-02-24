@@ -6,7 +6,7 @@
             <field name="name">res.partner.search</field>
             <field name="model">res.partner</field>
             <field name="arch" type="xml">
-                <search string="Search Partner">
+                <search string="Partner">
                    <field name="name"
                        filter_domain="['|','|',('name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
                    <separator/>
@@ -83,6 +83,12 @@
             <field name="domain">[]</field>
             <field name="context">{}</field>
             <field name="search_view_id" ref="res_partner_search_view" />
+        </record>
+
+        <!-- Portal Access: not for Partner Creation group, only for developpers -->
+        <record id="portal.partner_wizard_action" model="ir.actions.act_window">
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.res_groups_developper')]),
+                                          ]" />
         </record>
 
     </data>

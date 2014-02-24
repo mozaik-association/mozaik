@@ -38,16 +38,13 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
 
     def setUp(self):
         super(test_phone_coordinate_wizard, self).setUp()
-        self.phone_coordinate_wizard = self.registry('phone.coordinate.wizard')
+
         self.model_partner = self.registry('res.partner')
         self.model_phone = self.registry('phone.phone')
         self.model_phone_coordinate = self.registry('phone.coordinate')
-        self.model_data = self.registry('ir.model.data')
 
         self.partner_id_1 = self.ref('ficep_phone.partner_for_test_update_1')
-        self.partner_id_2 = self.ref('ficep_phone.partner_for_test_update_2')
 
-        self.phone_id_1 = self.ref('ficep_phone.fix_for_test_update_1')
         self.phone_id_2 = self.ref('ficep_phone.fix_for_test_update_2')
 
         self.phone_coordinate_id_1 = self.ref('ficep_phone.phone_coo_for_test_update_1')

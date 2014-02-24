@@ -26,6 +26,8 @@
 #
 ##############################################################################
 
+import openerp
+from openerp import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
@@ -65,7 +67,7 @@ class res_partner(orm.Model):
         =======================
         _get_main_phone_numbers
         =======================
-        Reset a main phone number field with corresponding for a given phone type
+        Reset a main phone number field for a given phone type
         :param ids: partner ids for which the phone number has to be recomputed
         :type name: char
         :rparam: dictionary for all partner ids with the requested main phone number
@@ -76,13 +78,13 @@ class res_partner(orm.Model):
         phone_type = args.get('type')
         if not phone_type or phone_type not in phone_available_types:
             raise orm.except_orm(_('ValidateError'), _('Invalid phone type: "%s" !') % args.get('type', _('Undefined')))
-        result = {}.fromkeys(ids, {name: False})
+        result = {}.fromkeys(ids, False)
         coord_obj = self.pool['phone.coordinate']
-        coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
-                                                    ('phone_type', '=', phone_type),
-                                                    ('is_main', '=', True)], context=context)
-        for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
-            result[coord.partner_id.id] = coord.phone_id.name
+        coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
+                                                             ('phone_type', '=', phone_type),
+                                                             ('is_main', '=', True)], context=context)
+        for coord in coord_obj.browse(cr, SUPERUSER_ID, coordinate_ids, context=context):
+            result[coord.partner_id.id] = coord.vip and 'VIP' or coord.phone_id.name
         return result
 
     _columns = {
@@ -101,21 +103,21 @@ class res_partner(orm.Model):
         'phone': fields.function(_get_main_phone_numbers, arg={'type': 'fix'}, string='Phone',
                                  type='char', relation="phone.coordinate",
                                  store={
-                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','active'], 10),
+                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','vip','active'], 10),
                                         'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
                                        },
                                 ),
         'fax': fields.function(_get_main_phone_numbers, arg={'type': 'fax'}, string='Fax',
                                  type='char', relation="phone.coordinate",
                                  store={
-                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','active'], 10),
+                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','vip','active'], 10),
                                         'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
                                        },
                                 ),
         'mobile': fields.function(_get_main_phone_numbers, arg={'type': 'mobile'}, string='Mobile',
                                  type='char', relation="phone.coordinate",
                                  store={
-                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','active'], 10),
+                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','vip','active'], 10),
                                         'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
                                        },
                                 ),
