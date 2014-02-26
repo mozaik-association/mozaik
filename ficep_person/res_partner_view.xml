@@ -53,6 +53,10 @@
                     </div>
                 </xpath>
 
+                <xpath expr="//field[@name='message_follower_ids']" position="attributes">
+                    <attribute name="groups">ficep_base.ficep_res_groups_officer</attribute>
+                </xpath>
+
             </field>
         </record>
 
