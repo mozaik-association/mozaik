@@ -140,7 +140,8 @@
             <field name="arch" type="xml">
                 <form string="Phone Coordinate" version="7.0">
                     <header>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                              groups="ficep_base.res_groups_user">
                             <button name="button_invalidate" string="Invalidate" type="object" />
                             <button name="select_as_main" string="Select As Main" type="object"
                                     attrs="{'invisible': [('is_main','=',True)]}"
