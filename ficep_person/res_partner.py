@@ -26,6 +26,16 @@
 #
 ##############################################################################
 
-from . import res_partner
+import openerp
+from openerp.osv import orm, fields
+
+
+class res_partner(orm.Model):
+
+    _inherit = 'res.partner'
+
+    _columns = {
+        'comment': fields.text('Notes', select=True),
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

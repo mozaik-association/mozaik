@@ -61,11 +61,13 @@
                             </page>
                         </notebook>
                     </sheet>
-                    <div class="oe_developper" groups="ficep_base.res_groups_developper">
-                        <h3>More Debug Info</h3>
-                        <group>
-                            <field name="id"/>
-                        </group>
+                    <div class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                            </group>
+                        </div>
                     </div>
                     <div class="oe_chatter" invisible="context.get('no_chatter')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_officer"/>
@@ -177,13 +179,15 @@
                             <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                         </group>
                     </sheet>
-                    <div class="oe_developper" groups="ficep_base.res_groups_developper">
-                        <h3>More Debug Info</h3>
-                        <group>
-                            <field name="id"/>
-                            <field name="active"/>
-                            <field name="phone_type"/>
-                        </group>
+                    <div class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                                <field name="phone_type"/>
+                            </group>
+                        </div>
                     </div>
                     <div class="oe_chatter" invisible="context.get('no_chatter')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_officer"/>

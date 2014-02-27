@@ -34,11 +34,8 @@ class res_users(orm.Model):
 
     _inherit = 'res.users'
 
-    def _get_group(self, cr, uid, context=None):
-        return []
-
     _defaults = {
-        'groups_id': _get_group,
+        'groups_id': False,
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

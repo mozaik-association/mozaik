@@ -7,17 +7,30 @@
             <field name="model">res.partner</field>
             <field name="arch" type="xml">
                 <search string="Partner">
-                   <field name="name"
-                       filter_domain="['|','|',('name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
-                   <separator/>
-                   <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
-                   <filter string="Legal Persons" name="type_company" domain="[('is_company','=',1)]"/>
-                   <separator/>
-                   <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
-                   <group expand="0" string="Group By...">
-                       <filter string="Country" context="{'group_by': 'country_id'}"/>
-                   </group>
+                    <field name="id" string="Number"/>
+                    <field name="name"
+                           filter_domain="['|','|',('name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+                    <field name="comment" />
+                    <separator/>
+                    <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                    <filter string="Legal Persons" name="type_company" domain="[('is_company','=',1)]"/>
+                    <separator/>
+                    <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Country" context="{'group_by': 'country_id'}"/>
+                    </group>
                </search>
+            </field>
+        </record>
+
+        <record id="view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree (ficep_person)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="id" />
+                </xpath>
             </field>
         </record>
 
@@ -26,6 +39,10 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
+
+                <xpath expr="//div[@class='oe_edit_only']" position="before">
+                    <h1><label string="#" attrs="{'invisible': [('id', '=', False)]}"/><field name="id" class="oe_inline"/></h1>
+                </xpath>
 
                 <xpath expr="//field[@name='function']" position="replace"/>
                 <xpath expr="//page[@string='Contacts']" position="replace"/>
@@ -44,12 +61,14 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//div[@class='oe_chatter']" position="before">
-                    <div class="oe_developper" groups="ficep_base.res_groups_developper">
-                        <h3>More Debug Info</h3>
-                        <group name="dbg">
-                            <field name="parent_id" domain="[('is_company', '=', True)]" />
-                            <field name="function" />
-                        </group>
+                    <div class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                                <field name="parent_id" domain="[('is_company', '=', True)]" />
+                                <field name="function" />
+                            </group>
+                        </div>
                     </div>
                 </xpath>
 
