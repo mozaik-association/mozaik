@@ -2,16 +2,28 @@
 <openerp>
     <data noupdate="0">
 
-        <menuitem name="Persons" id="persons_root_menu"
+        <menuitem id="persons_root_menu" name="Persons"
                   sequence="11" groups="ficep_base.ficep_res_groups_base" />
-        <menuitem name="Persons" id="persons_menu"
+        <menuitem id="persons_menu" name="Persons"
                   sequence="10" parent="persons_root_menu" />
-        <menuitem id="natural_persons_submenu"
-                  sequence="10" parent="persons_menu" action="natural_res_partner_action" />
-        <menuitem id="legal_persons_submenu"
-                  sequence="20" parent="persons_menu" action="legal_res_partner_action" />
-        <menuitem id="all_persons_submenu"
-                  sequence="30" parent="persons_menu" action="all_res_partner_action" />
+        <menuitem id="natural_persons_submenu" action="natural_res_partner_action"
+                  sequence="10" parent="persons_menu" />
+        <menuitem id="legal_persons_submenu" action="legal_res_partner_action"
+                  sequence="20" parent="persons_menu" />
+        <menuitem id="all_persons_submenu" action="all_res_partner_action"
+                  sequence="30" parent="persons_menu" />
+
+        <menuitem id="configuration_menu" name="Configuration"
+                  sequence="99" parent="persons_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
+
+        <menuitem id="res_partner_category_menu" action="base.action_partner_category_form"
+                  sequence="75" parent="configuration_menu" />
+
+        <menuitem id="res_partner_title_menu" action="base.action_partner_title_contact"
+                  sequence="76" parent="configuration_menu" />
+
+        <menuitem id="res_country_menu" action="base.action_country"
+                  sequence="77" parent="configuration_menu" />
 
     </data>
 </openerp>

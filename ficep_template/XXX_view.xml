@@ -1,6 +1,34 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data noupdate="0">
+    
+    <!--
+      "options" attribute value for:
+      * m2o:                   options='{"always_reload": True}'
+                               options='{"no_open":True}'
+                               options="{'label':{'create':'xxx','edit':'Edit yyy'}}" widget="many2onebutton"
+                               options='{"highlight_first_line": True}'
+                               options='{"create_name_field": "name"}'
+      * o2m (avec boutons):    options='{"reload_on_button": true}'
+      * widget='image':        options='{"preview_image": "image_small"}' or image_medium
+      * widget="mail_thread"   options='{"thread_level": 1}'
+      * widget="monetary"      options='{"currency_field" : "xxx"}'
+      * widget="sparkline_bar" options="{'height': '20px', 'barWidth': 4, 'barSpacing': 1}"
+      * widget="html"          options='{"safe": True}'
+      * widget="gauge"         options="{'max_field': 'invoiced_target'}"
+
+      "style" attribute value for:
+      * widget="gauge"         style="width:160px; height: 120px;"
+      * ... (TBC)
+
+      predefined "context" key:
+      * o2m:                   context="{'form_view_ref':'form view xml id', 'tree_view_ref':'tree view xml id'}"
+      * ... (TBC)
+      
+      tree "colors" samples (if any, quoting must be colors="...'xxx'..."):
+      * colors="red:date_deadline&lt;current_date;blue:date_deadline==current_date;black:date_deadline&gt;current_date"
+      * colors="blue:state == 'draft';grey:state == 'done';red:state not in ('cancel', 'done') and date &lt; current_date"
+    -->
 
         <record id="REAL_ID" model="ir.ui.view">
             <field name="name">NAME (PROJECT NAME)</field>

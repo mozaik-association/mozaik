@@ -47,7 +47,7 @@
                     <div class="oe_developper" groups="ficep_base.res_groups_developper">
                         <h3>More Debug Info</h3>
                         <group name="dbg">
-                            <field name="parent_id" />
+                            <field name="parent_id" domain="[('is_company', '=', True)]" />
                             <field name="function" />
                         </group>
                     </div>
