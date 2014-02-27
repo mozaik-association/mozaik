@@ -63,10 +63,11 @@ class xxxx(orm.Model):
 # columns
     _columns = {
         'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
+        'name': fields.char('Name', size=128, required=True, translate=True, select=True, track_visibility='onchange'),
         'notes': fields.text('Notes'),
         'integer': fields.integer('integer'),
         'date': fields.date('Date', select=True, track_visibility='onchange'),
+        'datetime': fields.datetime('Date Time', select=True, track_visibility='onchange'),
         'image': fields.binary('Files', help='test'),
 
         'type': fields.selection(XXX_AVAILABLE_TYPES, 'Type', required=True, track_visibility='onchange'),
@@ -74,7 +75,7 @@ class xxxx(orm.Model):
                                  help="text"),
 
         'name': fields.function(_your_field_function, type='char', string='Function'),
-        'name': fields.related('field_name', type='type', relation='model', string='name'),
+        'name': fields.related('relation_field', 'field_name', string='name', type='type', relation='model'),
 
         'name': fields.many2one('object', 'field_name', required=True, select=True),
         'name': fields.one2many('other.object', 'field_relation_id', 'Field Name', domain=[]),
@@ -92,6 +93,8 @@ class xxxx(orm.Model):
 
     _defaults = {
         'type': XXX_AVAILABLE_TYPES[0],
+        'date': fields.date.today,
+        'datetime': fields.datetime.now,
         'active': True
     }
 

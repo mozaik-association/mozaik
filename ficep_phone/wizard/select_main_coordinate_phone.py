@@ -36,6 +36,11 @@ class phone_main_number_change(orm.TransientModel):
     _name = 'phone.change.main.number'
     _description = 'Change Main Phone Number Wizard'
 
+    _columns = {
+        'phone_id': fields.many2one('phone.phone', 'New Main Phone', required=True),
+        'invalidate_previous_phone_coordinate': fields.boolean('Invalidate Previous Main Coordinate'),
+    }
+
     def change_main_phone_number(self, cr, uid, ids, context=None):
         """
         ===================
@@ -60,11 +65,6 @@ class phone_main_number_change(orm.TransientModel):
         if partner_ids:
             self.pool.get('phone.coordinate').change_main_phone_number(cr, uid, partner_ids, rec_wizard.phone_id.id, context=context)
         else:
-            raise orm.except_orm(_('ERROR!'), _('At Least One Partner Is Required To Select A Main Phone Coordinate'))
-
-    _columns = {
-        'phone_id': fields.many2one('phone.phone', 'New Main Phone', required=True),
-        'invalidate_previous_phone_coordinate': fields.boolean('Invalidate Previous Phone Coordinate'),
-    }
+            raise orm.except_orm(_('Error'), _('At least one partner is required to set its main phone coordinate!'))
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

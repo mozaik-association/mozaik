@@ -77,7 +77,7 @@ class res_partner(orm.Model):
         """
         phone_type = args.get('type')
         if not phone_type or phone_type not in phone_available_types:
-            raise orm.except_orm(_('ValidateError'), _('Invalid phone type: "%s" !') % args.get('type', _('Undefined')))
+            raise orm.except_orm(_('ValidateError'), _('Invalid phone type: "%s"!') % args.get('type', _('Undefined')))
         result = {}.fromkeys(ids, False)
         coord_obj = self.pool['phone.coordinate']
         coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),

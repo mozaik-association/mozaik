@@ -65,7 +65,7 @@ def _get_field_name_for_type(phone_type):
     if phone_type in phone_available_types:
         field_name = '%s_coordinate_id' % phone_type
     else:
-        raise orm.except_orm(_('ValidateError'), _('Invalid phone type: "%s" !') % phone_type or _('Undefined'))
+        raise orm.except_orm(_('ValidateError'), _('Invalid phone type: "%s"!') % phone_type or _('Undefined'))
     return field_name
 
 
@@ -89,7 +89,6 @@ class phone_phone(orm.Model):
         :raise: pn.NumberParseException
                 * if number is not parsing due to a bad encoded value
         """
-        context = context or {}
         code = False
         if num[:2] == '00':
             num = '%s%s' % (num[:2].replace('00', '+'), num[2:])
@@ -154,8 +153,6 @@ class phone_phone(orm.Model):
         :rparam: id of the new phone
         :rtype: integer
         """
-        if context is None:
-            context = {}
         vals['name'] = self._check_and_format_number(cr, uid, vals['name'], context=context)
         return super(phone_phone, self).create(cr, uid, vals, context=context)
 
@@ -171,8 +168,6 @@ class phone_phone(orm.Model):
         :rparam: True
         :rtype: boolean
         """
-        if context is None:
-            context = {}
         num = vals.get('name', False)
         if num:
             vals['name'] = self._check_and_format_number(cr, uid, num, context=context)
@@ -192,7 +187,6 @@ class phone_phone(orm.Model):
         :rparam: Country code found into the config_parameter or PREFIX_CODE
         :rtype: char
         """
-        context = context or {}
         param_id = self.pool.get('ir.config_parameter').search(cr, uid, [('key', '=', 'default.country.code.phone')], context=context)
         if param_id:
             return self.pool.get('ir.config_parameter').read(cr, uid, param_id, ['value'], context=context)[0]['value']
@@ -255,7 +249,7 @@ class phone_coordinate(orm.Model):
 
     def _get_fields_to_update(self, context=None):
         context = context or {}
-        return {'active': False, 'expire_date': fields.date.today()} if context.get('invalidate', False) else {'is_main': False}
+        return {'active': False, 'expire_date': fields.datetime.now()} if context.get('invalidate', False) else {'is_main': False}
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
@@ -333,7 +327,6 @@ class phone_coordinate(orm.Model):
                  Else True
         :rtype: Boolean
         """
-        context = context or {}
         pc_rec = self.browse(cr, uid, ids, context=context)[0]
         res_ids = self.search(cr, uid, [('id', '!=', pc_rec.id),
                                         ('partner_id', '=', pc_rec.partner_id.id),
@@ -412,7 +405,7 @@ class phone_coordinate(orm.Model):
         super(phone_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
         coordinate_ids = list(set(ids).difference(coordinate_ids))
         if not self._check_one_main_coordinate(cr, uid, coordinate_ids, for_unlink=True, context=context):
-            raise orm.except_orm(_('Error!'), MAIN_COORDINATE_ERROR)
+            raise orm.except_orm(_('Error'), MAIN_COORDINATE_ERROR)
         return super(phone_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
 
 # view methods: onchange, button
@@ -431,7 +424,7 @@ class phone_coordinate(orm.Model):
                 and another coordinate of the same type exists
         """
         self.write(cr, uid, ids,
-                   {'active': False, 'expire_date': fields.date.today()},
+                   {'active': False, 'expire_date': fields.datetime.now()},
                    context=context)
 
         return True
