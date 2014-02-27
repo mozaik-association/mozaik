@@ -203,7 +203,7 @@ class phone_phone(orm.Model):
         ===================
         get_linked_partners
         ===================
-        Return partner ids linked to all related coordinate linked to phone ids.
+        Return partner ids linked to all related coordinate linked to phone ids
         :rparam: partner_ids
         :rtype: list of ids
         """
@@ -213,6 +213,21 @@ class phone_phone(orm.Model):
             for associated_coordinate in record.phone_coordinate_ids:
                 partner_ids.append(associated_coordinate.partner_id.id)
         return partner_ids
+
+    def get_linked_phone_ccordinates(self, cr, uid, ids, context=None):
+        """
+        ============================
+        get_linked_phone_ccordinates
+        ============================
+        Return phone coordinate ids linked to phone ids
+        :rparam: phone_coordinate_ids
+        :rtype: list of ids
+        """
+        phones = self.read(cr, uid, ids, ['phone_coordinate_ids'], context=context)
+        res_ids = []
+        for phone in phones:
+            res_ids += phone['phone_coordinate_ids']
+        return list(set(res_ids))
 
 
 class phone_coordinate(orm.Model):
@@ -252,8 +267,14 @@ class phone_coordinate(orm.Model):
         'is_main': fields.boolean('Is Main', readonly=True, select=True),
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
         'vip': fields.boolean('VIP', track_visibility='onchange'),
-        'phone_type': fields.related('phone_id', 'type', type='selection', string='Phone Type',
-                                      relation='phone.phone', selection=PHONE_AVAILABLE_TYPES, readonly=True),
+
+        'phone_type': fields.related('phone_id', 'type', string='Phone Type', readonly=True,
+                                      type='selection', selection=PHONE_AVAILABLE_TYPES,
+                                      store={
+                                             'phone.coordinate': (lambda self,cr,uid,ids,context=None: ids, ['phone_id'], 10),
+                                             'phone.phone': (phone_phone.get_linked_phone_ccordinates, ['type'], 10),
+                                            },
+                                    ),
 
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
@@ -262,7 +283,7 @@ class phone_coordinate(orm.Model):
 
     _rec_name = 'phone_id'
 
-    _order = "partner_id"
+    _order = "partner_id, expire_date, is_main desc, phone_type"
 
     _defaults = {
         'active': True
@@ -287,7 +308,7 @@ class phone_coordinate(orm.Model):
                 continue
     
             coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
-                                                   ('phone_type', '=', coordinate.phone_type)], context=context)
+                                                   ('phone_type', '=', coordinate.phone_id.type)], context=context)
     
             if for_unlink and len(coordinate_ids)>1 and coordinate.is_main:
                 return False
@@ -296,7 +317,7 @@ class phone_coordinate(orm.Model):
                 continue
         
             coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
-                                                   ('phone_type', '=', coordinate.phone_type),
+                                                   ('phone_type', '=', coordinate.phone_id.type),
                                                    ('is_main', '=', True)], context=context)
             if len(coordinate_ids)!=1:
                 return False

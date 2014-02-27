@@ -101,20 +101,20 @@ class res_partner(orm.Model):
 
         # This will allow to continue to feed native fields of OpenERP for backward compatibility
         'phone': fields.function(_get_main_phone_numbers, arg={'type': 'fix'}, string='Phone',
-                                 type='char', relation="phone.coordinate",
-                                 store={
-                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','vip','active'], 10),
-                                        'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
-                                       },
-                                ),
-        'fax': fields.function(_get_main_phone_numbers, arg={'type': 'fax'}, string='Fax',
-                                 type='char', relation="phone.coordinate",
+                                 type='char', relation="phone.coordinate", select=True,
                                  store={
                                         'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','vip','active'], 10),
                                         'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
                                        },
                                 ),
         'mobile': fields.function(_get_main_phone_numbers, arg={'type': 'mobile'}, string='Mobile',
+                                 type='char', relation="phone.coordinate", select=True,
+                                 store={
+                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','vip','active'], 10),
+                                        'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
+                                       },
+                                ),
+        'fax': fields.function(_get_main_phone_numbers, arg={'type': 'fax'}, string='Fax',
                                  type='char', relation="phone.coordinate",
                                  store={
                                         'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','vip','active'], 10),

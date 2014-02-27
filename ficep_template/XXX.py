@@ -79,7 +79,7 @@ class xxxx(orm.Model):
         'name': fields.many2one('object', 'field_name', required=True, select=True),
         'name': fields.one2many('other.object', 'field_relation_id', 'Field Name', domain=[]),
         'name': fields.many2many('other.object.name', id1='field_relation_id', id2='field_name', string='Tags'),
-        'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True, select=True),
+        'partner_id': fields.many2one('res.partner', 'Contact', required=True, select=True),
 
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True),
