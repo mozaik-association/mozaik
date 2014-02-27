@@ -159,12 +159,13 @@
                         <group>
                             <group>
                                 <field name="partner_id" attrs="{'readonly': [('id','!=',False)]}" />
-                                <field name="coordinate_category_id" />
+                                <field name="coordinate_category_id" attrs="{'readonly': [('active','=',False)]}" />
                             </group>
                             <group>
-                                <field name="is_main" attrs="{'readonly': [('id','!=',False)]}" />
-                                <field name="unauthorized" />
-                                <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                                <field name="is_main" attrs="{'readonly': ['|',('id','!=',False),('active','=',False)]}" />
+                                <field name="unauthorized" attrs="{'readonly': [('active','=',False)]}" />
+                                <field name="vip" attrs="{'readonly': [('active','=',False)]}"
+                                       groups="ficep_base.ficep_res_groups_vip_reader" />
                             </group>
                         </group>
                         <group>

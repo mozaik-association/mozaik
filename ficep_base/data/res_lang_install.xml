@@ -4,7 +4,7 @@
 
         <!-- Load Automatically Ficep Language -->
 
-        <record model="base.language.install" id="install_fr_be">
+        <record model="base.language.install" id="install_fr_fr">
             <field name="lang">fr_FR</field>
             <field name="state">done</field>
             <field name="overwrite" eval="1"/>

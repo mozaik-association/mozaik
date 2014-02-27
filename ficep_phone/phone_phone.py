@@ -308,7 +308,7 @@ class phone_coordinate(orm.Model):
                 continue
     
             coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
-                                                   ('phone_type', '=', coordinate.phone_id.type)], context=context)
+                                                   ('phone_type', '=', coordinate.phone_type)], context=context)
     
             if for_unlink and len(coordinate_ids)>1 and coordinate.is_main:
                 return False
@@ -317,7 +317,7 @@ class phone_coordinate(orm.Model):
                 continue
         
             coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
-                                                   ('phone_type', '=', coordinate.phone_id.type),
+                                                   ('phone_type', '=', coordinate.phone_type),
                                                    ('is_main', '=', True)], context=context)
             if len(coordinate_ids)!=1:
                 return False
@@ -365,7 +365,7 @@ class phone_coordinate(orm.Model):
             ids = [ids]
 
         res = []
-        for record in self.read(cr, uid, ids, ['phone_id', 'phone_type'], context=context):
+        for record in self.read(cr, uid, ids, ['phone_id'], context=context):
             display_name = record['phone_id'][1]
             res.append((record['id'], display_name))
         return res
@@ -382,15 +382,15 @@ class phone_coordinate(orm.Model):
         :rparam: id of the new phone coordinate
         :rtype: integer
         """
-        phone_type = self.pool.get('phone.phone').read(cr, uid, vals['phone_id'], ['type'], context=context)['type']
+        vals['phone_type'] = self.pool.get('phone.phone').read(cr, uid, vals['phone_id'], ['type'], context=context)['type']
         coordinate_ids = self.search(cr, uid, [('partner_id', '=', vals['partner_id']),
-                                               ('phone_type', '=', phone_type),
+                                               ('phone_type', '=', vals['phone_type']),
                                                ('is_main', '=', True)], context=context)
         if not coordinate_ids:
             vals['is_main'] = True 
         if vals.get('is_main'):
             ctrl = Ctrl(self, cr, uid)
-            target_domain = self._get_target_domain(vals['partner_id'], phone_type)
+            target_domain = self._get_target_domain(vals['partner_id'], vals['phone_type'])
             fields_to_update = self._get_fields_to_update(context)
             ctrl.search_and_update(target_domain, fields_to_update, context=context)
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)

@@ -90,9 +90,10 @@ class test_phone_coordinate(common.TransactionCase):
         pc_id_2 = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
                                                                'phone_id': self.phone_id_2,
                                                                'is_main': True})
-        is_main = self.model_phone_coordinate.read(self.cr, self.uid, [pc_id_1, pc_id_2], ['is_main'])
-        self.assertEqual(is_main[0]['is_main'], False, 'Previous Phone Coordinate Should Not Be Main')
-        self.assertEqual(is_main[1]['is_main'], True, 'New Phone Coordinate Should Be Main')
+        is_main_1 = self.model_phone_coordinate.read(self.cr, self.uid, pc_id_1, ['is_main'])['is_main']
+        is_main_2 = self.model_phone_coordinate.read(self.cr, self.uid, pc_id_2, ['is_main'])['is_main']
+        self.assertEqual(is_main_1, False, 'Previous Phone Coordinate Should Not Be Main')
+        self.assertEqual(is_main_2, True, 'New Phone Coordinate Should Be Main')
 
     def test_check_at_least_one_main(self):
         """
