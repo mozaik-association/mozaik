@@ -84,8 +84,13 @@ class res_partner(orm.Model):
                                                              ('phone_type', '=', phone_type),
                                                              ('is_main', '=', True)], context=context)
         for coord in coord_obj.browse(cr, SUPERUSER_ID, coordinate_ids, context=context):
-            result[coord.partner_id.id] = coord.vip and 'VIP' or coord.phone_id.name
+            result[coord.partner_id.id] = 'VIP' if coord.vip else 'N/A: %s' % coord.phone_id.name if coord.unauthorized else coord.phone_id.name
         return result
+
+    _phone_store_triggers = {
+                               'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','vip','unauthorized','active'], 10),
+                               'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
+                            }
 
     _columns = {
         'phone_coordinate_ids': fields.one2many('phone.coordinate', 'partner_id', 'Phone Coordinates', domain=[('active','=',True)]), # force "active_test" domain to bypass _search() override
@@ -102,24 +107,15 @@ class res_partner(orm.Model):
         # This will allow to continue to feed native fields of OpenERP for backward compatibility
         'phone': fields.function(_get_main_phone_numbers, arg={'type': 'fix'}, string='Phone',
                                  type='char', relation="phone.coordinate", select=True,
-                                 store={
-                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','vip','active'], 10),
-                                        'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
-                                       },
+                                 store=_phone_store_triggers,
                                 ),
         'mobile': fields.function(_get_main_phone_numbers, arg={'type': 'mobile'}, string='Mobile',
                                  type='char', relation="phone.coordinate", select=True,
-                                 store={
-                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','vip','active'], 10),
-                                        'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
-                                       },
+                                 store=_phone_store_triggers,
                                 ),
         'fax': fields.function(_get_main_phone_numbers, arg={'type': 'fax'}, string='Fax',
                                  type='char', relation="phone.coordinate",
-                                 store={
-                                        'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','vip','active'], 10),
-                                        'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
-                                       },
+                                 store=_phone_store_triggers,
                                 ),
     }
 
