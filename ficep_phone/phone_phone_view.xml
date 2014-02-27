@@ -11,6 +11,7 @@
                 <search string="Phone" version="7.0">
                     <field name="name" />
                     <field name="type" />
+                    <filter name="phones" string="Phones" domain="[('type','in',['fix','mobile'])]" />
                     <group expand="1" string="Group By...">
                         <filter string="type" domain="[]" context="{'group_by':'type'}" />
                     </group>
@@ -94,8 +95,9 @@
                     <field name="phone_type" />
                     <field name="coordinate_category_id" />
 
-                    <filter name="vip" string="VIP" domain="[('vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <filter name="main" string="Main Coordinates" domain="[('is_main','=',True)]" />
                     <filter name="unauthorized" string="Unauthorized" domain="[('unauthorized','=',True)]" />
+                    <filter name="vip" string="VIP" domain="[('vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
@@ -142,10 +144,12 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              groups="ficep_base.ficep_res_groups_user">
-                            <button name="button_invalidate" string="Invalidate" type="object" />
-                            <button name="select_as_main" string="Select As Main" type="object"
+                            <button name="button_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate coordinate: proceed anyway ?" />
+                            <button name="set_as_main" string="Set As Main" type="object"
                                     attrs="{'invisible': [('is_main','=',True)]}"
-                                    context="{'invalidate': True}" />
+                                    context="{'invalidate': True}" 
+                                    confirm="Set this coordinate as main and invalidate the previous one: proceed anyway ?" />
                         </div>
                     </header>
                     <sheet>
