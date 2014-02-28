@@ -11,12 +11,29 @@
                     <field name="name"
                            filter_domain="['|','|',('name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
                     <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+                    <field string="Birthdate > ..." name="birthdate" filter_domain="[('birthdate','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <field string="Birthdate &lt; ..." name="birthdate" filter_domain="[('birthdate','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field name="comment" />
-                    <group string="Persons..." invisible="'default_is_company' in context">
-                       <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
-                       <filter string="Legal Persons" name="type_company" domain="[('is_company','=',1)]"/>
-                    </group>
+
+                    <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]" invisible="'default_is_company' in context"/>
+                    <filter string="Legal Persons" name="type_company" domain="[('is_company','=',1)]" invisible="'default_is_company' in context"/>
+                    <separator />
+                    <filter string="Male" name="male" domain="[('gender','=','m')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
+                    <filter string="Female" name="female" domain="[('gender','=','f')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
+                    <separator />
+                    <filter string="French" name="french" domain="[('tongue','=','f')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
+                    <filter string="German" name="german" domain="[('tongue','=','g')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
+                    <separator />
+                    <filter name="expired" string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active','=',False)]" help="Exprired Contacts" />
+                    <filter name="all" string="All"
+                        context="{'invisible_expire_date': False}"
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Contacts, expired or not" />
+
                     <group expand="0" string="Group By...">
+                        <filter string="Gender" context="{'group_by': 'gender'}" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
+                        <filter string="Tongue" context="{'group_by': 'tongue'}" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                         <filter string="Country" context="{'group_by': 'country_id'}"/>
                     </group>
                </search>
@@ -28,8 +45,23 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="birthdate" invisible="'default_is_company' not in context or context.get('default_is_company')" />
+
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)" />
+
+                    <field name="gender" invisible="1"/>
+                    <field name="tongue" invisible="1"/>
+                </xpath>
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="id" />
+
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)" />
+
+                    <field name="gender" invisible="1"/>
+                    <field name="tongue" invisible="1"/>
                 </xpath>
             </field>
         </record>
@@ -51,8 +83,14 @@
                 </xpath>
 
                 <xpath expr="//field[@name='title']" position="replace">
-                    <field name="title" domain="[('domain', '=', 'contact')]" options="{&quot;no_open&quot;: True}" context="{'default_domain': 'contact'}"  attrs="{'invisible': [('is_company','=', True)]}"/>
-                    <field name="title" domain="[('domain', '=', 'partner')]" options="{&quot;no_open&quot;: True}" context="{'default_domain': 'partner'}"  attrs="{'invisible': [('is_company','=', False)]}"/>
+                    <field name="gender" attrs="{'invisible': [('is_company','=', True)]}"/>
+                    <field name="birthdate" attrs="{'invisible': [('is_company','=', True)]}"/>
+                    <field name="tongue" attrs="{'invisible': [('is_company','=', True)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='website']" position="replace">
+                    <field name="create_date" attrs="{'invisible': [('id','=',False)]}" />
+                    <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                 </xpath>
 
                 <xpath expr="//field[@name='function']" position="replace"/>
@@ -61,6 +99,34 @@
                     <attribute name="groups">ficep_base.res_groups_developper</attribute>
                 </xpath>
                 <xpath expr="//field[@name='parent_id']" position="replace"/>
+                <xpath expr="//page[@name='internal_notes']" position="inside">
+                    <group name="all">
+                        <group>
+                            <field name="website" widget="url"/>
+                            <field name="secondary_website" widget="url"/>
+                        </group>
+                        <group>
+                            <field name="twitter"/>
+                            <field name="facebook"/>
+                        </group>
+                        <group>
+                            <field name="title" domain="[('domain', '=', 'contact')]" options="{&quot;no_open&quot;: True}" context="{'default_domain': 'contact'}" attrs="{'invisible': [('is_company','=', True)]}"/>
+                            <field name="title" domain="[('domain', '=', 'partner')]" options="{&quot;no_open&quot;: True}" context="{'default_domain': 'partner'}" attrs="{'invisible': [('is_company','=', False)]}"/>
+                        </group>
+                    </group>
+                    <group name="contact" attrs="{'invisible': [('is_company','=', True)]}">
+                        <group>
+                            <field name="function"/>
+                            <field name="civil_status"/>
+                        </group>
+                        <group>
+                            <field name="ldap_name" attrs="{'invisible': [('user_ids','=',[])]}"/>
+                            <field name="ldap_id" attrs="{'invisible': [('user_ids','=',[])]}"/>
+                        </group>
+                    </group>
+                    <group name="partner" attrs="{'invisible': [('is_company','=', False)]}">
+                    </group>
+                </xpath>
 
             </field>
         </record>
@@ -77,7 +143,6 @@
                             <h3>More Info</h3>
                             <group name="moreinfo">
                                 <field name="parent_id" domain="[('is_company', '=', True)]" />
-                                <field name="function" />
                             </group>
                         </div>
                     </div>

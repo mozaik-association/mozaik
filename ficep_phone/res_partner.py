@@ -31,6 +31,7 @@ from openerp import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
+# Local imports
 from .phone_phone import phone_phone, phone_coordinate, PHONE_AVAILABLE_TYPES, phone_available_types
 
 
@@ -104,7 +105,7 @@ class res_partner(orm.Model):
         'fax_coordinate_id': fields.function(_get_main_phone_coordinate_ids, string='Fax',
                                              type='many2one', relation="phone.coordinate", multi='AllInOne'),
 
-        # This will allow to continue to feed native fields of OpenERP for backward compatibility
+        # Standard fields redefinition
         'phone': fields.function(_get_main_phone_numbers, arg={'type': 'fix'}, string='Phone',
                                  type='char', relation="phone.coordinate", select=True,
                                  store=_phone_store_triggers,
