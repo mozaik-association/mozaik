@@ -26,8 +26,7 @@
 #
 ##############################################################################
 
-import openerp
-from openerp import SUPERUSER_ID
+from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
@@ -44,7 +43,7 @@ class res_partner(orm.Model):
         _get_main_phone_coordinate_ids
         ==============================
         Reset *_coordinate_id fields with corresponding main phone coordinate ids
-        :param ids: partner ids for which new *_coordinate_id fields have to be recomputed 
+        :param ids: partner ids for which new *_coordinate_id fields have to be recomputed
         :type name: char
         :rparam: dictionary for all partner id with requested main coordinate ids
         :rtype: dict {partner_id:{'fix_coordinate_id': main_fix_id,
@@ -88,12 +87,12 @@ class res_partner(orm.Model):
         return result
 
     _phone_store_triggers = {
-                               'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id','phone_id','is_main','vip','unauthorized','active'], 10),
-                               'phone.phone': (phone_phone.get_linked_partners, ['name','type'], 10),
+                               'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id', 'phone_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
+                               'phone.phone': (phone_phone.get_linked_partners, ['name', 'type'], 10),
                             }
 
     _columns = {
-        'phone_coordinate_ids': fields.one2many('phone.coordinate', 'partner_id', 'Phone Coordinates', domain=[('active','=',True)]), # force "active_test" domain to bypass _search() override
+        'phone_coordinate_ids': fields.one2many('phone.coordinate', 'partner_id', 'Phone Coordinates', domain=[('active', '=', True)]),  # force "active_test" domain to bypass _search() override
 
         'fix_coordinate_id': fields.function(_get_main_phone_coordinate_ids, string='Phone',
                                              type='many2one', relation="phone.coordinate", multi='AllInOne'),

@@ -26,7 +26,6 @@
 #
 ##############################################################################
 
-import openerp
 from openerp.osv import orm, fields
 
 
