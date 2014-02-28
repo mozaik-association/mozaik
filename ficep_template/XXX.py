@@ -45,6 +45,17 @@ XXX_AVAILABLE_TYPES = [
 xxx_available_types = dict(XXX_AVAILABLE_TYPES)
 
 
+class res_partner_title(orm.Model):
+    _inherit = 'res.partner.title'
+
+    def create(self, cr, uid, vals, context=None):
+        res = super(res_partner_title, self).create(cr, uid, vals, context=context)
+        return res
+
+class res_partner(orm.Model):
+
+    _inherit = 'res.partner'
+
 class xxxx(orm.Model):
 
     _name = 'xxx'
@@ -136,18 +147,22 @@ class xxxx(orm.Model):
         return res
 
     def create(self, cr, uid, vals, context=None):
-        return super(xxxx, self).create(cr, uid, vals, context=context)
+        res = super(xxxx, self).create(cr, uid, vals, context=context)
+        return res
 
     def write(self, cr, uid, ids, vals, context=None):
-        return super(xxxx, self).write(cr, uid, ids, vals, context=context)
+        res = super(xxxx, self).write(cr, uid, ids, vals, context=context)
+        return res
 
     def unlink(self, cr, uid, ids, context=None):
-        return super(xxxx, self).unlink(cr, uid, ids, context=context)
+        res = super(xxxx, self).unlink(cr, uid, ids, context=context)
+        return res
 
     def copy(self, cr, uid, ids, default=None, context=None):
         if context is None:
             context = {}
-        return super(xxxx, self).copy(cr, uid, ids, default=default, context=context)
+        res = super(xxxx, self).copy(cr, uid, ids, default=default, context=context)
+        return res
 
 # view methods: onchange, button
 

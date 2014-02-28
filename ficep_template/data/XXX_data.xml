@@ -2,5 +2,8 @@
 <openerp>
     <data noupdate="0">
 
+        <!-- special case to delete some records -->
+        <delete model="ir.ui.menu" id="base.module_mi" />
+
     </data>
 </openerp>

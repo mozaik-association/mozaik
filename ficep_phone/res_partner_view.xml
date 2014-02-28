@@ -19,10 +19,11 @@
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='phone']" position="after">
-                    <field name="mobile" />
+                    <field name="mobile" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
+                    <field name="fax" invisible="'default_is_company' not in context or not context.get('default_is_company')"/>
                 </xpath>
                 <xpath expr="//tree" position="attributes">
-                    <attribute name="colors">darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP'</attribute>
+                    <attribute name="colors">darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP'</attribute>
                 </xpath>
             </field>
         </record>
@@ -70,6 +71,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//page[@name='coordinates']" position="inside">
+                    <separator string="Political Association"/>
                     <button string="All Details"
                             name="%(phone_coordinate_action)d"
                             type="action"

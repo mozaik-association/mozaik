@@ -19,8 +19,22 @@
         <menuitem id="res_partner_category_menu" action="base.action_partner_category_form"
                   sequence="75" parent="configuration_menu" />
 
-        <menuitem id="res_partner_title_menu" action="base.action_partner_title_contact"
+        <record id="base.action_partner_title_contact" model="ir.actions.act_window">
+            <field name="name">Natural Persons Titles</field>
+        </record>
+
+        <record id="base.action_partner_title_partner" model="ir.actions.act_window">
+            <field name="name">Legal Persons Titles</field>
+        </record>
+
+        <menuitem id="title_menu" name="Titles"
                   sequence="76" parent="configuration_menu" />
+
+        <menuitem id="res_partner_natural_title_menu" action="base.action_partner_title_contact"
+                  sequence="10" parent="title_menu" />
+
+        <menuitem id="res_partner_legal_title_menu" action="base.action_partner_title_partner"
+                  sequence="20" parent="title_menu" />
 
         <menuitem id="res_country_menu" action="base.action_country"
                   sequence="77" parent="configuration_menu" />
