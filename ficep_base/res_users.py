@@ -26,8 +26,7 @@
 #
 ##############################################################################
 
-import openerp
-from openerp.osv import orm, fields
+from openerp.osv import orm
 
 
 class res_users(orm.Model):

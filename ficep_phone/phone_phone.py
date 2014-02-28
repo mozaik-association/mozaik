@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+#
 #
 #    Copyright (c) 2014 Acsone SA/NV (http://www.acsone.eu)
 #    All Rights Reserved
@@ -24,10 +24,9 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+#
 import phonenumbers as pn
 
-import openerp
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
@@ -39,10 +38,10 @@ Available Types for 'phone.phone':
 Fix - Mobile - Fax
 """
 PHONE_AVAILABLE_TYPES = [
-                         ('fix', 'Fix'),
-                         ('mobile', 'Mobile'),
-                         ('fax', 'Fax'),
-                        ]
+    ('fix', 'Fix'),
+    ('mobile', 'Mobile'),
+    ('fax', 'Fax'),
+]
 
 phone_available_types = dict(PHONE_AVAILABLE_TYPES)
 
@@ -245,7 +244,7 @@ class phone_coordinate(orm.Model):
         return [('partner_id', '=', partner_id),
                 ('phone_type', '=', phone_type),
                 ('is_main', '=', True),
-               ]
+                ]
 
     def _get_fields_to_update(self, context=None):
         context = context or {}
@@ -263,12 +262,12 @@ class phone_coordinate(orm.Model):
         'vip': fields.boolean('VIP', track_visibility='onchange'),
 
         'phone_type': fields.related('phone_id', 'type', string='Phone Type', readonly=True,
-                                      type='selection', selection=PHONE_AVAILABLE_TYPES,
-                                      store={
-                                             'phone.coordinate': (lambda self,cr,uid,ids,context=None: ids, ['phone_id'], 10),
-                                             'phone.phone': (phone_phone.get_linked_phone_ccordinates, ['type'], 10),
-                                            },
-                                    ),
+                                     type='selection', selection=PHONE_AVAILABLE_TYPES,
+                                     store={
+                                         'phone.coordinate': (lambda self, cr, uid, ids, context=None: ids, ['phone_id'], 10),
+                                         'phone.phone': (phone_phone.get_linked_phone_ccordinates, ['type'], 10),
+                                     },
+                                     ),
 
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
@@ -290,7 +289,7 @@ class phone_coordinate(orm.Model):
         ==========================
         _check_one_main_coordinate
         ==========================
-        Check if associated partner has exactly one main coordinate 
+        Check if associated partner has exactly one main coordinate
         for a given phone type
         :rparam: True if it is the case
                  False otherwise
@@ -300,22 +299,22 @@ class phone_coordinate(orm.Model):
         for coordinate in coordinates:
             if for_unlink and not coordinate.is_main:
                 continue
-    
+
             coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
                                                    ('phone_type', '=', coordinate.phone_type)], context=context)
-    
-            if for_unlink and len(coordinate_ids)>1 and coordinate.is_main:
+
+            if for_unlink and len(coordinate_ids) > 1 and coordinate.is_main:
                 return False
-        
+
             if not coordinate_ids:
                 continue
-        
+
             coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
                                                    ('phone_type', '=', coordinate.phone_type),
                                                    ('is_main', '=', True)], context=context)
-            if len(coordinate_ids)!=1:
+            if len(coordinate_ids) != 1:
                 return False
-        
+
         return True
 
     def _check_unicity(self, cr, uid, ids, context=None):
@@ -380,7 +379,7 @@ class phone_coordinate(orm.Model):
                                                ('phone_type', '=', vals['phone_type']),
                                                ('is_main', '=', True)], context=context)
         if not coordinate_ids:
-            vals['is_main'] = True 
+            vals['is_main'] = True
         if vals.get('is_main'):
             ctrl = Ctrl(self, cr, uid)
             target_domain = self._get_target_domain(vals['partner_id'], vals['phone_type'])
@@ -401,7 +400,7 @@ class phone_coordinate(orm.Model):
         :raise: Error if the coordinate is main
                 and another coordinate of the same type exists
         """
-        coordinate_ids = self.search(cr, uid, [('id', 'in', ids),('is_main', '=', False)], context=context)
+        coordinate_ids = self.search(cr, uid, [('id', 'in', ids), ('is_main', '=', False)], context=context)
         super(phone_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
         coordinate_ids = list(set(ids).difference(coordinate_ids))
         if not self._check_one_main_coordinate(cr, uid, coordinate_ids, for_unlink=True, context=context):
@@ -451,7 +450,7 @@ class phone_coordinate(orm.Model):
         ctrl.search_and_update(target_domain, fields_to_update, context=context)
 
         # 2) Set is_main of new main coordinate
-        res=super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
+        res = super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
 
         return res
 
@@ -476,7 +475,7 @@ class phone_coordinate(orm.Model):
                 return_ids.append(self.create(cr, uid, {'partner_id': partner_id,
                                                         'phone_id': phone_id,
                                                         'is_main': True,
-                                                       }, context=context))
+                                                        }, context=context))
             else:
                 # If the coordinate is not already ``main``, set it as main
                 if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:

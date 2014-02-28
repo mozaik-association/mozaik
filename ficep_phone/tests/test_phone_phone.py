@@ -26,7 +26,6 @@
 #
 ##############################################################################
 from openerp.osv import orm
-import psycopg2
 import openerp.tests.common as common
 import logging
 
