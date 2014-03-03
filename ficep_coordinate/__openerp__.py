@@ -44,7 +44,7 @@ Manage categories of email, phone and postal coordinates: private, professional,
     ],
     'data': [
         'security/ir.model.access.csv',
-        'ficep_coordinate_view.xml',
+        'ficep_coordinate_category_view.xml',
         'res_partner_view.xml',
     ],
     'js': [
