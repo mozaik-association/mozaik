@@ -32,7 +32,9 @@ _logger = logging.getLogger(__name__)
 
 class test_phone_coordinate_wizard(SharedSetupTransactionCase):
 
-    _data_files = ('data/phone_data.xml',)
+    _data_files = ('../../ficep_person/tests/data/person_data.xml',
+                   'data/phone_data.xml',
+                  )
 
     _module_ns = 'ficep_phone'
 
@@ -43,14 +45,14 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         self.model_partner = self.registry('res.partner')
         self.model_phone_coordinate = self.registry('phone.coordinate')
 
-        self.partner_id_1 = self.ref('ficep_phone.phone_coordinate_partner_one')
-        self.partner_id_2 = self.ref('ficep_phone.phone_coordinate_partner_two')
-        self.partner_id_3 = self.ref('ficep_phone.phone_coordinate_partner_three')
+        self.partner_id_1 = self.ref('%s.res_partner_marc' % self._module_ns)
+        self.partner_id_2 = self.ref('%s.res_partner_thierry' % self._module_ns)
+        self.partner_id_3 = self.ref('%s.res__partner_sophie' % self._module_ns)
 
-        self.phone_id_1 = self.ref('ficep_phone.mobile_one')
+        self.phone_id_1 = self.ref('%s.mobile_one' % self._module_ns)
 
-        self.phone_coordinate_id_1 = self.ref('ficep_phone.main_mobile_coordinate_one')
-        self.phone_coordinate_id_2 = self.ref('ficep_phone.main_mobile_coordinate_two')
+        self.phone_coordinate_id_1 = self.ref('%s.main_mobile_coordinate_one' % self._module_ns)
+        self.phone_coordinate_id_2 = self.ref('%s.main_mobile_coordinate_two' % self._module_ns)
 
     def change_main_phone_number(self, invalidate):
         """

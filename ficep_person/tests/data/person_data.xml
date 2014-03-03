@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Create Partner For Phone Coordinate -->
+
+        <record id="res_partner_paul" model="res.partner">
+            <field name="name">Paul</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="customer" eval="False" />
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <record id="res_partner_pauline" model="res.partner">
+            <field name="name">Pauline</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="customer" eval="False" />
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <record id="res_partner_marc" model="res.partner">
+            <field name="name">Marc</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="customer" eval="False" />
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <record id="res_partner_thierry" model="res.partner">
+            <field name="name">Thierry</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="customer" eval="False" />
+            <field name="notification_email_send">none</field>
+        </record>
+
+        <record id="res__partner_sophie" model="res.partner">
+            <field name="name">Sophie</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="customer" eval="False" />
+            <field name="notification_email_send">none</field>
+        </record>
+
+    </data>
+</openerp>

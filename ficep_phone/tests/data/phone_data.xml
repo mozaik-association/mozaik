@@ -34,50 +34,13 @@
             <field name="type">fix</field>
         </record>
 
-        <!-- Create Partner For Phone Coordinate -->
-
-        <record id="partner_for_test_update_1" model="res.partner">
-            <field name="name">Paul</field>
-            <field name="company_id" ref="base.main_company" />
-            <field name="customer" eval="False" />
-            <field name="notification_email_send">none</field>
-        </record>
-
-        <record id="partner_for_test_update_2" model="res.partner">
-            <field name="name">Pauline</field>
-            <field name="company_id" ref="base.main_company" />
-            <field name="customer" eval="False" />
-            <field name="notification_email_send">none</field>
-        </record>
-
-        <record id="phone_coordinate_partner_one" model="res.partner">
-            <field name="name">Marc</field>
-            <field name="company_id" ref="base.main_company" />
-            <field name="customer" eval="False" />
-            <field name="notification_email_send">none</field>
-        </record>
-
-        <record id="phone_coordinate_partner_two" model="res.partner">
-            <field name="name">Thiery</field>
-            <field name="company_id" ref="base.main_company" />
-            <field name="customer" eval="False" />
-            <field name="notification_email_send">none</field>
-        </record>
-
-        <record id="phone_coordinate_partner_three" model="res.partner">
-            <field name="name">Sophie</field>
-            <field name="company_id" ref="base.main_company" />
-            <field name="customer" eval="False" />
-            <field name="notification_email_send">none</field>
-        </record>
-
-        <!-- Create Phone Coordinate -->
+        <!-- Create Phone Coordinates -->
 
         <!-- Partner Pauline -->
 
         <record id="phone_coo_for_test_update_1" model="phone.coordinate">
             <field name="phone_id" ref="fix_for_test_update_1" />
-            <field name="partner_id" ref="partner_for_test_update_1" />
+            <field name="partner_id" ref="res_partner_pauline" />
             <field name="is_main" eval="True" />
         </record>
 
@@ -85,7 +48,7 @@
 
         <record id="phone_coo_for_test_update_2" model="phone.coordinate">
             <field name="phone_id" ref="fix_for_test_update_1" />
-            <field name="partner_id" ref="partner_for_test_update_2" />
+            <field name="partner_id" ref="res_partner_paul" />
             <field name="is_main" eval="True" />
         </record>
 
@@ -93,33 +56,33 @@
 
         <record id="main_fix_coordinate_one" model="phone.coordinate">
             <field name="phone_id" ref="fix_one" />
-            <field name="partner_id" ref="phone_coordinate_partner_one" />
+            <field name="partner_id" ref="res_partner_marc" />
             <field name="is_main" eval="True" />
         </record>
 
         <record id="main_fax_coordinate_one" model="phone.coordinate">
             <field name="phone_id" ref="fax_one" />
-            <field name="partner_id" ref="phone_coordinate_partner_one" />
+            <field name="partner_id" ref="res_partner_marc" />
             <field name="is_main" eval="True" />
         </record>
 
         <record id="main_mobile_coordinate_one" model="phone.coordinate">
             <field name="phone_id" ref="mobile_one" />
-            <field name="partner_id" ref="phone_coordinate_partner_one" />
+            <field name="partner_id" ref="res_partner_marc" />
             <field name="is_main" eval="True" />
         </record>
 
-        <!-- Partner Thiery -->
+        <!-- Partner Thierry -->
 
         <record id="main_mobile_coordinate_two" model="phone.coordinate">
             <field name="phone_id" ref="mobile_two" />
-            <field name="partner_id" ref="phone_coordinate_partner_two" />
+            <field name="partner_id" ref="res_partner_thierry" />
             <field name="is_main" eval="True" />
         </record>
 
         <record id="mobile_coordinate_two" model="phone.coordinate">
             <field name="phone_id" ref="mobile_one" />
-            <field name="partner_id" ref="phone_coordinate_partner_two" />
+            <field name="partner_id" ref="res_partner_thierry" />
             <field name="is_main" eval="False" />
         </record>
 
