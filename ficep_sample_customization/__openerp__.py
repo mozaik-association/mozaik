@@ -44,7 +44,7 @@ FICEP Sample Customization
     'data': [
          'demo/company_demo.xml',
          'demo/users_demo.xml',
-         '../ficep_coordinate/demo/ficep_coordinate_demo.xml',  # data of ficep_coordinate_category module
+         '../ficep_coordinate/demo/ficep_coordinate_demo.xml',  # data of ficep_coordinate module
          '../ficep_phone/tests/data/phone_data.xml',  # data of ficep_phone module
          'demo/sample_customization_demo.xml'  # must be the last
     ],

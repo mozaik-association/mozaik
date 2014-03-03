@@ -67,7 +67,7 @@
         <record id="view_partner_2_form" model="ir.ui.view">
             <field name="name">res.partner.form (ficep_phone_2)</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="ficep_coordinate_category.view_partner_form" />
+            <field name="inherit_id" ref="ficep_coordinate.view_partner_form" />
             <field name="arch" type="xml">
 
                 <xpath expr="//page[@name='coordinates']" position="inside">
