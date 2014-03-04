@@ -223,20 +223,18 @@ class ficep_coordinate(orm.AbstractModel):
         ==================
         search_and_update
         ==================
-
-        This method will check the unicity of the main coordinate by a generic way:
-        * Firstly search existing records depending of the ``target_domain``
-        * Next step update value for the ``fields_to_update`` for the ``base_model``
-        :param fields_to_update: fields to update with their associated value
+        :param  target_domain: A domain used into a search
+        :type target_domain: list of tuples
+        :param fields_to_update: contain the field to be updated
         :type fields_to_update: dictionary
+
+        **Note**
+        1) Search with self on ``target_domain``
+        2) Update self with ``fields_to_update``
         """
         res_ids = self.search(cr, uid, target_domain, context=context)
         save_constraints, self._constraints = self._constraints, []
-        self.write(cr,
-                   uid,
-                   res_ids,
-                   fields_to_update,
-                   context=context)
+        self.write(cr, uid, res_ids, fields_to_update, context=context)
         self._constraints = save_constraints
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
