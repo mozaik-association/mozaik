@@ -16,6 +16,15 @@
             <field name="company_id" ref="base.main_company" />
             <field name="customer" eval="False" />
             <field name="notification_email_send">none</field>
+            <field name="birthdate">1961-03-28</field>
+            <field name="tongue">f</field>
+            <field name="gender">f</field>
+            <field name="secondary_website">http://www.acsone.eu</field>
+            <field name="twitter">#onpc</field>
+            <field name="facebook">LEGOLAND</field>
+            <field name="ldap_name">pauline</field>
+            <field name="ldap_id">451256</field>
+            <field name="website">http://www.legoland.dk/</field>
         </record>
 
         <record id="res_partner_marc" model="res.partner">

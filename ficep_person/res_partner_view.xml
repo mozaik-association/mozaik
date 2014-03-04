@@ -119,7 +119,7 @@
                             <field name="function"/>
                             <field name="civil_status"/>
                         </group>
-                        <group>
+                        <group groups="ficep_base.ficep_res_groups_configurator">
                             <field name="ldap_name" attrs="{'invisible': [('user_ids','=',[])]}"/>
                             <field name="ldap_id" attrs="{'invisible': [('user_ids','=',[])]}"/>
                         </group>
