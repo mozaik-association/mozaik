@@ -62,7 +62,7 @@ class phone_main_number_change(orm.TransientModel):
         context['invalidate'] = rec_wizard.invalidate_previous_phone_coordinate
         partner_ids = context.get('active_ids', False) if context.get('active_ids', False) else list(context.get('res_id', False))
         if partner_ids:
-            self.pool.get('phone.coordinate').change_main_phone_number(cr, uid, partner_ids, rec_wizard.phone_id.id, context=context)
+            self.pool.get('phone.coordinate').change_main_coordinate(cr, uid, partner_ids, rec_wizard.phone_id.id, context=context)
         else:
             raise orm.except_orm(_('Error'), _('At least one partner is required to set its main phone coordinate!'))
 

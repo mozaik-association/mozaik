@@ -54,10 +54,10 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         self.phone_coordinate_id_1 = self.ref('%s.main_mobile_coordinate_one' % self._module_ns)
         self.phone_coordinate_id_2 = self.ref('%s.main_mobile_coordinate_two' % self._module_ns)
 
-    def change_main_phone_number(self, invalidate):
+    def change_main_coordinate(self, invalidate):
         """
         ========================
-        change_main_phone_number
+        change_main_coordinate
         ========================
         :param invalidate: value for ``invalidate_previous_phone_coordinate``
         :type invalidate: boolean
@@ -88,7 +88,7 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
             partner_N.mobile_coordinate.is_main = True
         If those condition are well respected then replication is functional
         """
-        self.change_main_phone_number(True)
+        self.change_main_coordinate(True)
         phone_coo = self.model_partner.read(self.cr,
                                             self.uid, [self.partner_id_1,
                                             self.partner_id_2,
@@ -119,7 +119,7 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         u2 ----- phone_coo2      ------ phone 2 : not active
         u2 ----- main_phone_coo_3------ phone 1 : active
         """
-        self.change_main_phone_number(True)
+        self.change_main_coordinate(True)
         active = self.model_phone_coordinate.read(self.cr,
                                                   self.uid,
                                                   [self.phone_coordinate_id_1, self.phone_coordinate_id_2],
@@ -149,7 +149,7 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         u2 ----- phone_coo2      ------ phone 2 : active
         u2 ----- main_phone_coo_3------ phone 1 : active
         """
-        self.change_main_phone_number(False)
+        self.change_main_coordinate(False)
         active = self.model_phone_coordinate.read(self.cr,
                                                   self.uid,
                                                   self.phone_coordinate_id_2,

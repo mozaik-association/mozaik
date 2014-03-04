@@ -142,4 +142,42 @@ class test_phone_coordinate(common.TransactionCase):
                          pc_vals[1]['active'] == True, True, 'Current Phone Coordinate Should Be New Main')
         self.assertEqual(mobile_coordinate_id[0] == pc_vals[1]['id'], True, 'Replication Failed: Should be the new selected as main phone coordinate')
 
+    def test_bad_unlink_phone_coordinate(self):
+        """
+        ================================
+        test_bad_unlink_phone_coordinate
+        ================================
+        :start: creation of two phone coordinate that have the same
+                  type and the same partner
+        :action: try to unlink the main coordinate
+        :expected: raise an exception
+        """
+        main_phone_coordinate_id = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
+                                                               'phone_id': self.phone_id_1,
+                                                               'is_main': True})
+        self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
+                                                               'phone_id': self.phone_id_2,
+                                                               'is_main': False})
+        self.assertRaises(orm.except_orm, self.model_phone_coordinate.unlink, self.cr, self.uid, [main_phone_coordinate_id])
+
+    def test_correct_unlink_phone_coordinate(self):
+        """
+        ====================================
+        test_correct_unlink_phone_coordinate
+        ====================================
+        :start: creation of two phone coordinate that have the same
+                  type and the same partner
+        :action: try to unlink the two main coordinate
+        :expected: succeed
+        """
+        main_phone_coordinate_id = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
+                                                               'phone_id': self.phone_id_1,
+                                                               'is_main': True})
+        phone_coordinate_id = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
+                                                               'phone_id': self.phone_id_2,
+                                                               'is_main': False})
+        self.assertTrue(self.model_phone_coordinate.unlink(self.cr, self.uid, \
+                         [main_phone_coordinate_id, phone_coordinate_id]), \
+                         'Should be able to delete all coordinate of the same type for the same partner')
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

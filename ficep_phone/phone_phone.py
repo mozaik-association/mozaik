@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#
+##############################################################################
 #
 #    Copyright (c) 2014 Acsone SA/NV (http://www.acsone.eu)
 #    All Rights Reserved
@@ -24,13 +24,11 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#
+##############################################################################
 import phonenumbers as pn
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
-
-from openerp.addons.ficep_base.controller.main import Controller as Ctrl
 
 
 """
@@ -55,7 +53,7 @@ def _get_field_name_for_type(phone_type):
     ========================
     _get_field_name_for_type
     ========================
-    :param phone_type: the type of the phone. must be into the 
+    :param phone_type: the type of the phone. must be into the
            const phone_available_types
     :rparam phone_type: char
     :raise: orm.except_orm if phone_type is not into the constant
@@ -207,10 +205,10 @@ class phone_phone(orm.Model):
                 partner_ids.append(associated_coordinate.partner_id.id)
         return partner_ids
 
-    def get_linked_phone_ccordinates(self, cr, uid, ids, context=None):
+    def get_linked_phone_coordinates(self, cr, uid, ids, context=None):
         """
         ============================
-        get_linked_phone_ccordinates
+        get_linked_phone_coordinates
         ============================
         Return phone coordinate ids linked to phone ids
         :rparam: phone_coordinate_ids
@@ -258,7 +256,7 @@ class phone_coordinate(orm.Model):
                                      type='selection', selection=PHONE_AVAILABLE_TYPES,
                                      store={
                                          'phone.coordinate': (lambda self, cr, uid, ids, context=None: ids, ['phone_id'], 10),
-                                         'phone.phone': (phone_phone.get_linked_phone_ccordinates, ['type'], 10),
+                                         'phone.phone': (phone_phone.get_linked_phone_coordinates, ['type'], 10),
                                      },
                                      ),
     }
@@ -306,50 +304,11 @@ class phone_coordinate(orm.Model):
 
         return True
 
-    def _check_unicity(self, cr, uid, ids, context=None):
-        """
-        ==============
-        _check_unicity
-        ==============
-        :rparam: False if phone coordinate already exists with (phone_id,partner_id,expire_date)
-                 Else True
-        :rtype: Boolean
-        """
-        pc_rec = self.browse(cr, uid, ids, context=context)[0]
-        res_ids = self.search(cr, uid, [('id', '!=', pc_rec.id),
-                                        ('partner_id', '=', pc_rec.partner_id.id),
-                                        ('phone_id', '=', pc_rec.phone_id.id),
-                                        ('expire_date', '=', False)], context=context)
-        return len(res_ids) == 0
-
     _constraints = [
         (_check_one_main_coordinate, MAIN_COORDINATE_ERROR, ['partner_id']),
-        (_check_unicity, _('This phone coordinate already exists for this contact'), ['phone_id', 'partner_id', 'expire_date'])
     ]
 
 # orm methods
-
-    def name_get(self, cr, uid, ids, context=None):
-        """
-        ========
-        name_get
-        ========
-        :rparam: list of tuple (id, name to display)
-                 where id is the id of the object into the relation
-                 and display_name, the name of this object.
-        :rtype: [(id,name)] list of tuple
-        """
-        if not ids:
-            return []
-
-        if isinstance(ids, (long, int)):
-            ids = [ids]
-
-        res = []
-        for record in self.read(cr, uid, ids, ['phone_id'], context=context):
-            display_name = record['phone_id'][1]
-            res.append((record['id'], display_name))
-        return res
 
     def create(self, cr, uid, vals, context=None):
         """
@@ -370,52 +329,13 @@ class phone_coordinate(orm.Model):
         if not coordinate_ids:
             vals['is_main'] = True
         if vals.get('is_main'):
-            ctrl = Ctrl(self, cr, uid)
             target_domain = self._get_target_domain(vals['partner_id'], vals['phone_type'])
             fields_to_update = self._get_fields_to_update(context)
-            ctrl.search_and_update(target_domain, fields_to_update, context=context)
+            self.search_and_update(cr, uid, target_domain, fields_to_update, context=context)
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
         else:
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
         return new_id
-
-    def unlink(self, cr, uid, ids, context=None):
-        """
-        =======================
-        unlink phone.coordinate
-        =======================
-        :rparam: True
-        :rtype: boolean
-        :raise: Error if the coordinate is main
-                and another coordinate of the same type exists
-        """
-        coordinate_ids = self.search(cr, uid, [('id', 'in', ids), ('is_main', '=', False)], context=context)
-        super(phone_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
-        coordinate_ids = list(set(ids).difference(coordinate_ids))
-        if not self._check_one_main_coordinate(cr, uid, coordinate_ids, for_unlink=True, context=context):
-            raise orm.except_orm(_('Error'), MAIN_COORDINATE_ERROR)
-        return super(phone_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
-
-# view methods: onchange, button
-
-    def button_invalidate(self, cr, uid, ids, context=None):
-        """
-        =================
-        button_invalidate
-        =================
-        This method invalidate a phone.coordinate by setting
-        * active to False
-        * expire_date to current date
-        :rparam: True
-        :rtype: boolean
-        :raise: Error if the coordinate is main
-                and another coordinate of the same type exists
-        """
-        self.write(cr, uid, ids,
-                   {'active': False, 'expire_date': fields.datetime.now()},
-                   context=context)
-
-        return True
 
 # public methods
 
@@ -433,58 +353,13 @@ class phone_coordinate(orm.Model):
         rec_phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
 
         # 1) Reset is_main of previous main coordinate
-        ctrl = Ctrl(self, cr, uid)
         target_domain = self._get_target_domain(rec_phone_coordinate.partner_id.id, rec_phone_coordinate.phone_type)
         fields_to_update = self._get_fields_to_update(context)
-        ctrl.search_and_update(target_domain, fields_to_update, context=context)
+        self.search_and_update(cr, uid, target_domain, fields_to_update, context=context)
 
         # 2) Set is_main of new main coordinate
         res = super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
 
         return res
-
-    def change_main_phone_number(self, cr, uid, partner_ids, phone_id, context=None):
-        """
-        ========================
-        change_main_phone_number
-        ========================
-        :param partner_ids: list of partner id
-        :type partner_ids: [integer]
-        :param phone_id: id of the new main phone.phone
-        :type phone_id: integer
-        :rparam: list of phone coordinate ids created
-        :rtype: list of integer
-        """
-        return_ids = []
-        for partner_id in partner_ids:
-            res_ids = self.search(cr, uid, [('partner_id', '=', partner_id),
-                                            ('phone_id', '=', phone_id)], context=context)
-            if not res_ids:
-                # must be create
-                return_ids.append(self.create(cr, uid, {'partner_id': partner_id,
-                                                        'phone_id': phone_id,
-                                                        'is_main': True,
-                                                        }, context=context))
-            else:
-                # If the coordinate is not already ``main``, set it as main
-                if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:
-                    self.set_as_main(cr, uid, res_ids, context=context)
-        return return_ids
-
-    def get_linked_partners(self, cr, uid, ids, context=None):
-        """
-        ===================
-        get_linked_partners
-        ===================
-        Returns partner ids linked to coordinate ids
-        Path to partner must be object.partner_id
-        :rparam: partner_ids
-        :rtype: list of ids
-        """
-        model_rds = self.browse(cr, uid, ids, context=context)
-        partner_ids = []
-        for record in model_rds:
-            partner_ids.append(record.partner_id.id)
-        return partner_ids
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
