@@ -30,8 +30,6 @@ import phonenumbers as pn
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
-from openerp.addons.ficep_base.controller.main import Controller as Ctrl
-
 
 """
 Available Types for 'phone.phone':
@@ -331,10 +329,9 @@ class phone_coordinate(orm.Model):
         if not coordinate_ids:
             vals['is_main'] = True
         if vals.get('is_main'):
-            ctrl = Ctrl(self, cr, uid)
             target_domain = self._get_target_domain(vals['partner_id'], vals['phone_type'])
             fields_to_update = self._get_fields_to_update(context)
-            ctrl.search_and_update(target_domain, fields_to_update, context=context)
+            self.search_and_update(cr, uid, target_domain, fields_to_update, context=context)
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
         else:
             new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
@@ -356,10 +353,9 @@ class phone_coordinate(orm.Model):
         rec_phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
 
         # 1) Reset is_main of previous main coordinate
-        ctrl = Ctrl(self, cr, uid)
         target_domain = self._get_target_domain(rec_phone_coordinate.partner_id.id, rec_phone_coordinate.phone_type)
         fields_to_update = self._get_fields_to_update(context)
-        ctrl.search_and_update(target_domain, fields_to_update, context=context)
+        self.search_and_update(cr, uid, target_domain, fields_to_update, context=context)
 
         # 2) Set is_main of new main coordinate
         res = super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
