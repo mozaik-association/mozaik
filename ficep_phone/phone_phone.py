@@ -227,7 +227,8 @@ class phone_coordinate(orm.Model):
 
     _name = 'phone.coordinate'
     _description = "Phone Coordinate"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['ficep.coordinate']
+    _coordinate_field = 'phone_id'
 
     def _get_target_domain(self, partner_id, phone_type):
         """
@@ -251,15 +252,7 @@ class phone_coordinate(orm.Model):
         return {'active': False, 'expire_date': fields.datetime.now()} if context.get('invalidate', False) else {'is_main': False}
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
-
-        'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True, select=True),
         'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True, select=True),
-        'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category', select=True, track_visibility='onchange'),
-
-        'is_main': fields.boolean('Is Main', readonly=True, select=True),
-        'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
-        'vip': fields.boolean('VIP', track_visibility='onchange'),
 
         'phone_type': fields.related('phone_id', 'type', string='Phone Type', readonly=True,
                                      type='selection', selection=PHONE_AVAILABLE_TYPES,
@@ -268,10 +261,6 @@ class phone_coordinate(orm.Model):
                                          'phone.phone': (phone_phone.get_linked_phone_ccordinates, ['type'], 10),
                                      },
                                      ),
-
-        'create_date': fields.datetime('Creation Date', readonly=True),
-        'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
-        'active': fields.boolean('Active', readonly=True),
     }
 
     _rec_name = 'phone_id'

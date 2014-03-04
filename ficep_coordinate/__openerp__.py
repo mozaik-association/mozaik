@@ -25,7 +25,42 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-import coordinate_category
+{
+    'name': 'FICEP: Coordinate Category',
+    'version': '1.0',
+    "author": "ACSONE SA/NV",
+    "maintainer": "ACSONE SA/NV",
+    "website": "http://www.acsone.eu",
+    'category': 'Political Association',
+    'depends': [
+        'ficep_person',
+    ],
+    'description': """
+FICEP Coordinate Category
+=========================
+Manage categories of email, phone and postal coordinates: private, professional, ...
+""",
+    'images': [
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'ficep_coordinate_category_view.xml',
+        'res_partner_view.xml',
+    ],
+    'js': [
+    ],
+    'qweb': [
+    ],
+    'css': [
+    ],
+    'demo': [
+    ],
+    'test': [
+    ],
+    'sequence': 150,
+    'active': False,
+    'installable': True,
+    'auto_install': False,
+}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

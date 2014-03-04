@@ -25,44 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Sample Customization',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep',
-    ],
-    'description': """
-FICEP Sample Customization
-==========================
-    """,
-    'images': [
-    ],
-    'data': [
-         'demo/company_demo.xml',
-         'demo/users_demo.xml',
-         '../ficep_person/tests/data/person_data.xml',  # data of ficep_person module
-         '../ficep_coordinate/demo/ficep_coordinate_demo.xml',  # data of ficep_coordinate module
-         '../ficep_phone/tests/data/phone_data.xml',  # data of ficep_phone module
-         'demo/sample_customization_demo.xml'  # must be the last
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'auto_install': False,
-    'installable': True,
-}
+
+from . import ficep_coordinate_category
+from . import ficep_coordinate
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

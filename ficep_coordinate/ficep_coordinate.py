@@ -25,42 +25,31 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Coordinate Category',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_person',
-    ],
-    'description': """
-FICEP Coordinate Category
-=========================
-Manage categories of email, phone and postal coordinates: private, professional, ...
-""",
-    'images': [
-    ],
-    'data': [
-        'security/ir.model.access.csv',
-        'coordinate_category_view.xml',
-        'res_partner_view.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'installable': True,
-    'auto_install': False,
-}
+
+from openerp.osv import orm, fields
+
+
+class ficep_coordinate(orm.AbstractModel):
+
+    _name = 'ficep.coordinate'
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
+
+    _coordinate_field = None
+
+    _columns = {
+        'id': fields.integer('ID', readonly=True),
+
+        'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True, select=True),
+        'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category', select=True, track_visibility='onchange'),
+
+        'is_main': fields.boolean('Is Main', readonly=True, select=True),
+        'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
+        'vip': fields.boolean('VIP', track_visibility='onchange'),
+
+        'create_date': fields.datetime('Creation Date', readonly=True),
+        'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
+        'active': fields.boolean('Active', readonly=True),
+    }
+
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
