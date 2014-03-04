@@ -71,7 +71,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//page[@name='coordinates']" position="inside">
-                    <separator string="Political Association"/>
+                    <separator string="Phone Coordinates"/>
                     <button string="All Details"
                             name="%(phone_coordinate_action)d"
                             type="action"
