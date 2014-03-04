@@ -30,8 +30,10 @@ from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
+from openerp.addons.ficep_coordinate.ficep_coordinate import ficep_coordinate
+
 # Local imports
-from .phone_phone import phone_phone, phone_coordinate, PHONE_AVAILABLE_TYPES, phone_available_types
+from .phone_phone import phone_phone, PHONE_AVAILABLE_TYPES, phone_available_types
 
 
 class res_partner(orm.Model):
@@ -88,7 +90,7 @@ class res_partner(orm.Model):
         return result
 
     _phone_store_triggers = {
-                               'phone.coordinate': (phone_coordinate.get_linked_partners, ['partner_id', 'phone_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
+                               'phone.coordinate': (ficep_coordinate.get_linked_partners, ['partner_id', 'phone_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
                                'phone.phone': (phone_phone.get_linked_partners, ['name', 'type'], 10),
                             }
 
