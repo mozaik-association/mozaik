@@ -2,50 +2,78 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Create Partner For Phone Coordinate -->
+        <!-- Partners -->
 
         <record id="res_partner_paul" model="res.partner">
-            <field name="name">Paul</field>
+            <field name="firstname">Paul</field>
+            <field name="lastname">VAN HAVER</field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
+            <field name="birthdate">1985-03-12</field>
             <field name="company_id" ref="base.main_company" />
-            <field name="customer" eval="False" />
-            <field name="notification_email_send">none</field>
+            <field name="ldap_name">pvanhaver</field>
+            <field name="ldap_id">451256</field>
         </record>
 
         <record id="res_partner_pauline" model="res.partner">
-            <field name="name">Pauline</field>
+            <field name="lastname">MAROIS</field>
+            <field name="firstname">Pauline</field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company" />
-            <field name="customer" eval="False" />
-            <field name="notification_email_send">none</field>
-            <field name="birthdate">1961-03-28</field>
+            <field name="birthdate">1949-03-29</field>
             <field name="tongue">f</field>
             <field name="gender">f</field>
             <field name="secondary_website">http://www.acsone.eu</field>
             <field name="twitter">#onpc</field>
             <field name="facebook">LEGOLAND</field>
-            <field name="ldap_name">pauline</field>
-            <field name="ldap_id">451256</field>
             <field name="website">http://www.legoland.dk/</field>
         </record>
 
         <record id="res_partner_marc" model="res.partner">
-            <field name="name">Marc</field>
+            <field name="lastname">Marc</field>
+            <field name="firstname"></field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company" />
-            <field name="customer" eval="False" />
-            <field name="notification_email_send">none</field>
         </record>
 
         <record id="res_partner_thierry" model="res.partner">
-            <field name="name">Thierry</field>
+            <field name="lastname">LHERMITTE</field>
+            <field name="firstname">Thierry</field>
+            <field name="usual_lastname">BROCHANT</field>
+            <field name="usual_firstname">Pierre</field>
             <field name="company_id" ref="base.main_company" />
-            <field name="customer" eval="False" />
-            <field name="notification_email_send">none</field>
         </record>
 
-        <record id="res__partner_sophie" model="res.partner">
-            <field name="name">Sophie</field>
+        <record id="res_partner_sophie" model="res.partner">
+            <field name="lastname">LE CROQUANT</field>
+            <field name="firstname">Jacques</field>
+            <field name="usual_firstname">Jacquou</field>
+            <field name="usual_lastname"></field>
             <field name="company_id" ref="base.main_company" />
-            <field name="customer" eval="False" />
-            <field name="notification_email_send">none</field>
+        </record>
+
+        <record id="res_partner_fgtb" model="res.partner">
+            <field name="name">F.G.T.B</field>
+            <field name="is_company" eval="True" />
+        </record>
+
+        <!--
+            User
+        -->
+
+        <record id="res_users_paul" model="res.users">
+            <field name="partner_id" ref="res_partner_paul"/>
+            <field name="login">pvh</field>
+            <field name="password">a</field>
+            <field name="signature">Stromae</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_vip_reader')),]"/>
+        </record>
+
+        <record id="res_partner_paul" model="res.partner">
+            <field name="email">pvh@google.com</field>
         </record>
 
     </data>

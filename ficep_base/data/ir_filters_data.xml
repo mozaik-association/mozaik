@@ -11,7 +11,7 @@
                 '&amp;',
                 ('state', '!=', 'uninstallable'),
                 '|',
-                ('name', 'ilike', 'ficep'),
+                ('category_id', '=', 'Political Association'),
                 ('name', 'in', ['base','settings_improvement'])
 ]           </field>
             <field name="context">{}</field>

@@ -3,45 +3,51 @@
     <data noupdate="0">
 
         <record id="partner_of_user_1" model="res.partner">
-            <field name="name">Pierre</field>
+            <field name="lastname">DETAILLE</field>
+            <field name="firstname">Pierre</field>
+            <field name="usual_lastname">KIROUL</field>
+            <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="customer" eval="False"/>
-            <field name="notification_email_send">none</field>
         </record>
 
         <record id="partner_of_user_2" model="res.partner">
-            <field name="name">Claude</field>
+            <field name="lastname">LELOUCH</field>
+            <field name="firstname">Claude</field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="customer" eval="False"/>
-            <field name="notification_email_send">none</field>
         </record>
 
         <record id="partner_of_user_3" model="res.partner">
-            <field name="name">Phillipe</field>
+            <field name="lastname">DARCIS</field>
+            <field name="firstname">Steve</field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="customer" eval="False"/>
-            <field name="notification_email_send">none</field>
         </record>
 
         <record id="partner_of_user_4" model="res.partner">
-            <field name="name">Léon</field>
+            <field name="lastname">BARRAL</field>
+            <field name="firstname">Léon</field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="customer" eval="False"/>
-            <field name="notification_email_send">none</field>
         </record>
 
         <record id="partner_of_user_5" model="res.partner">
-            <field name="name">Isabelle</field>
+            <field name="lastname">ADJANI</field>
+            <field name="firstname">Isabelle</field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="customer" eval="False"/>
-            <field name="notification_email_send">none</field>
         </record>
 
         <record id="partner_of_user_6" model="res.partner">
-            <field name="name">Sylvie</field>
+            <field name="lastname">TESTUD</field>
+            <field name="firstname">Sylvie</field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="customer" eval="False"/>
-            <field name="notification_email_send">none</field>
         </record>
 
         <!--
@@ -55,7 +61,7 @@
             <field name="signature">pierre</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_reader')),]"/>
-         </record>
+        </record>
 
         <record id="user_2" model="res.users">
             <field name="partner_id" ref="partner_of_user_2"/>
@@ -64,16 +70,16 @@
             <field name="signature">claude</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_user')),]"/>
-         </record>
+        </record>
 
         <record id="user_3" model="res.users">
             <field name="partner_id" ref="partner_of_user_3"/>
             <field name="login">fo1</field>
             <field name="password">a</field>
-            <field name="signature">phillipe</field>
+            <field name="signature">steve</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_officer')),]"/>
-         </record>
+        </record>
 
         <record id="user_4" model="res.users">
             <field name="partner_id" ref="partner_of_user_4"/>
@@ -82,7 +88,7 @@
             <field name="signature">leon</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_vip_reader')),]"/>
-         </record>
+        </record>
 
         <record id="user_5" model="res.users">
             <field name="partner_id" ref="partner_of_user_5"/>
@@ -91,7 +97,7 @@
             <field name="signature">isabelle</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_manager')),]"/>
-         </record>
+        </record>
 
         <record id="user_6" model="res.users">
             <field name="partner_id" ref="partner_of_user_6"/>
@@ -100,7 +106,7 @@
             <field name="signature">sylvie</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_configurator')),]"/>
-         </record>
+        </record>
 
         <!--
             Add email address after creating user to avoid to try to send a welcome message
@@ -115,7 +121,7 @@
         </record>
 
         <record id="partner_of_user_3" model="res.partner">
-            <field name="email">phillipe@ficep.be</field>
+            <field name="email">steve@ficep.be</field>
         </record>
 
         <record id="partner_of_user_4" model="res.partner">

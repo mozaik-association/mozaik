@@ -29,6 +29,8 @@
 import openerp
 from openerp.osv import orm, fields
 
+from openerp.addons.base.res import res_partner
+
 
 # Constants
 AVAILABLE_GENDERS = [
@@ -57,6 +59,11 @@ class res_partner(orm.Model):
 
     _inherit = 'res.partner'
 
+    _display_name_store_triggers = {
+        'res.partner': (lambda self,cr,uid,ids,context=None: ids,
+                        ['is_company', 'name', 'firstname', 'lastname', 'usual_firstname', 'usual_lastname',], 10)
+    }
+
     _columns = {
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue', select=True, track_visibility='onchange'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender', select=True, track_visibility='onchange'),
@@ -68,9 +75,12 @@ class res_partner(orm.Model):
         'ldap_name': fields.char('LDAP Name', size=64, track_visibility='onchange',
                                  help="Name of the user in the LDAP"),
         'ldap_id': fields.integer('LDAP Id', track_visibility='onchange',
-                                 help="ID of the user in the LDAP"),
-        
+                                  help="ID of the user in the LDAP"),
+        'usual_firstname': fields.char("Usual Firstname"),
+        'usual_lastname': fields.char("Usual Lastname"),
+            
         # Standard fields redefinition
+        'display_name': fields.function(res_partner.res_partner._display_name_compute, type='char', string='Name', store=_display_name_store_triggers),
         'birthdate': fields.date('Birthdate', select=True, track_visibility='onchange'),
         'website': fields.char('Main Website', size=128, track_visibility='onchange',
                                help="Main Website of Partner or Company"),
@@ -82,7 +92,38 @@ class res_partner(orm.Model):
     }
 
     _defaults = {
+        # Redefinition
+        'tz': 'Europe/Brussels',
+        'customer': False,
+        'notification_email_send': 'none',
+        
+        # New fields 
         'tongue': lambda *args: AVAILABLE_TONGUES[0][0],
     }
+
+# orm methods
+
+    def name_get(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        if 'show_address' in context:
+            res = super(res_partner, self).name_get(cr, uid, ids, context=context)
+        else:
+            if isinstance(ids, (int, long)):
+                ids = [ids]
+            res = []
+            for record in self.browse(cr, uid, ids, context=context):
+                if record.is_company:
+                    name = record.name
+                else:
+                    names = (
+                             record.usual_lastname or record.lastname,
+                             record.usual_firstname or record.firstname or False
+                            )
+                    name = " ".join([s for s in names if s])
+                if context.get('show_email') and record.email:
+                    name = "%s <%s>" % (name, record.email)
+                res.append((record.id, name))
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

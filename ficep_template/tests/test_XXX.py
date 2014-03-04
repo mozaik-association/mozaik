@@ -25,16 +25,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import openerp.tests.common as common
-import logging
+from anybox.testing.openerp import SharedSetupTransactionCase
 
+import logging
 _logger = logging.getLogger(__name__)
 
 DB = common.DB
 ADMIN_USER_ID = common.ADMIN_USER_ID
 
 
-class test_NAME(common.TransactionCase):
+class test_NAME(SharedSetupTransactionCase):
+
+    _data_files = ('data/XXX_data.xml',
+                  )
+
+    _module_ns = 'ficep_XXX'
 
     def setUp(self):
         super(test_NAME, self).setUp()
@@ -42,7 +47,33 @@ class test_NAME(common.TransactionCase):
         self.registry('ir.model').clear_caches()
         self.registry('ir.model.data').clear_caches()
 
-    def test_NAME(self):
-        pass
+        self.partner_model = self.registry('res.partner')
+
+        self.model_of_xxx_id = self.ref('%s.model_of_xxx_id' % self._module_ns)
+        self.model_of_yyy_id = self.ref('%s.model_of_yyy_id' % self._module_ns)
+
+        self.context = self.partner_model.context_get(self.cr, self.uid)
+
+    def test_NAME_xxx(self):
+        """
+        =============
+        test_NAME_xxx
+        =============
+        Test ...
+        """
+        cr, uid, context = self.cr, self.uid, self.context
+        xxx_id, yyy_id = self.model_of_xxx_id, self.model_of_yyy_id
+        partner_model = self.partner_model
+
+        # Check for reference data
+        vals = partner_model.read(cr, uid, [xxx_id], ['fld1', 'fld2'], context=context)[0]
+        self.assertTrue(vals['fld1'], 'Wrong expected reference data for this test')
+        self.assertEqual(vals['fld2'], 'hello' , 'Wrong expected reference data for this test')
+
+        # ...
+
+        self.assertTrue(True, 'Update... fails with wrong...')
+        self.assertFalse(True, 'Update... fails with wrong...')
+        self.assertEqual(vals['a'], '?!?' , 'Update... fails with wrong...')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
