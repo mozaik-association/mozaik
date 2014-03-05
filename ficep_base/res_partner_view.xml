@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="partner_firstname.view_partner_form_firstname" model="ir.ui.view">
+            <field name="sequence" eval="5"/><!-- Force this view to be evaluated first before all other ficep views -->
+        </record>
+
+    </data>
+</openerp>

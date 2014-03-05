@@ -170,6 +170,9 @@ class phone_phone(orm.Model):
             vals['name'] = self._check_and_format_number(cr, uid, num, context=context)
         return super(phone_phone, self).write(cr, uid, ids, vals, context=context)
 
+    def copy(self, cr, uid, ids, default=None, context=None):
+        raise orm.except_orm(_('Error'), _('A phone number cannot be duplicated!'))
+
 # public methods
 
     def get_default_country_code(self, cr, uid, context=None):

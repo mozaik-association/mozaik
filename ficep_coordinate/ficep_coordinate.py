@@ -172,6 +172,16 @@ class ficep_coordinate(orm.AbstractModel):
             raise orm.except_orm(_('Error'), MAIN_COORDINATE_ERROR)
         return super(ficep_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
 
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        res = super(ficep_coordinate, self).copy_data(cr, uid, ids, default=default, context=context)
+        if res.get('active', True):
+            raise orm.except_orm(_('Error'), _('An active coordinate cannot be duplicated!'))
+        res.update({
+                    'active': True,
+                    'expire_date': False,
+                   })
+        return res
+
 # public methods
 
     def get_linked_partners(self, cr, uid, ids, context=None):

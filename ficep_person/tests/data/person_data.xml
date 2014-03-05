@@ -46,7 +46,7 @@
             <field name="company_id" ref="base.main_company" />
         </record>
 
-        <record id="res_partner_sophie" model="res.partner">
+        <record id="res_partner_jacques" model="res.partner">
             <field name="lastname">LE CROQUANT</field>
             <field name="firstname">Jacques</field>
             <field name="usual_firstname">Jacquou</field>

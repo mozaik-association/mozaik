@@ -55,6 +55,7 @@ FICEP Base
         'data/ir_filters_data.xml',
         'data/res_lang_data.xml',
         'data/res_lang_install.xml',
+        'res_partner_view.xml',
     ],
     'js': [
     ],

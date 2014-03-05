@@ -121,4 +121,13 @@ class res_partner(orm.Model):
                                 ),
     }
 
+# orm methods
+
+    def copy(self, cr, uid, ids, default=None, context=None):
+        if default is None:
+            default = {}
+        default.update({'phone_coordinate_ids': []})
+        res = super(res_partner, self).copy(cr, uid, ids, default=default, context=context)
+        return res
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -26,12 +26,14 @@
 #
 ##############################################################################
 from . import test_res_partner
+from . import test_create_user_from_partner
 
 fast_suite = [
 ]
 
 checks = [
-    test_res_partner
+    test_res_partner,
+    test_create_user_from_partner,
 ]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

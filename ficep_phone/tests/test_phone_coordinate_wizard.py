@@ -47,7 +47,7 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
 
         self.partner_id_1 = self.ref('%s.res_partner_marc' % self._module_ns)
         self.partner_id_2 = self.ref('%s.res_partner_thierry' % self._module_ns)
-        self.partner_id_3 = self.ref('%s.res_partner_sophie' % self._module_ns)
+        self.partner_id_3 = self.ref('%s.res_partner_jacques' % self._module_ns)
 
         self.phone_id_1 = self.ref('%s.mobile_one' % self._module_ns)
 
