@@ -45,15 +45,11 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
+
                 <xpath expr="//field[@name='display_name']" position="after">
                     <field name="birthdate" invisible="'default_is_company' not in context or context.get('default_is_company')" />
-
-                    <field name="expire_date"
-                           invisible="context.get('invisible_expire_date', True)" />
-
-                    <field name="gender" invisible="1"/>
-                    <field name="tongue" invisible="1"/>
                 </xpath>
+
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="id" />
 
@@ -63,6 +59,7 @@
                     <field name="gender" invisible="1"/>
                     <field name="tongue" invisible="1"/>
                 </xpath>
+
             </field>
         </record>
 
