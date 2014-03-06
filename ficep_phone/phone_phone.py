@@ -352,14 +352,24 @@ class phone_coordinate(orm.Model):
             validate_fields = self._get_fields_to_update('validate', context)
             # assure that there are no other main coordinate of this type for this partner
             self.search_and_update(cr, uid, domain_other_active_main, validate_fields, context=context)
-            # assure that existing duplicate are rested
-            domain_existing_duplicate = [('phone_id', '=', vals['phone_id'])]
-            duplicate_fields = self._get_fields_to_update('duplicate', context)
-            duplicate_detected = self.search_and_update(cr, SUPERUSER_ID, domain_existing_duplicate, duplicate_fields)
-            if duplicate_detected:
-                vals['is_duplicate_detected'] = True
-                vals['is_duplicate_allowed'] = False
-        return super(phone_coordinate, self).create(cr, uid, vals, context=context)
+        new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
+        # check new duplicate state after creation
+        self.management_of_duplicate(cr, SUPERUSER_ID, [vals['phone_id']], context=context)
+        return new_id
+
+    def write(self, cr, uid, ids, vals, context=None):
+        """
+        Objective is to manage the duplicate coordinate after the call of the super.
+        """
+        res = super(phone_coordinate, self).write(cr, uid, ids, vals, context=context)
+        if 'is_duplicate_detected' in vals or 'is_duplicate_allowed' in vals or 'phone_id' in vals:
+            read_phone_ids = self.read(cr, uid, ids, [self._coordinate_field], context=context)
+            phone_ids = []
+            if read_phone_ids:
+                for read_phone_id in read_phone_ids:
+                    phone_ids.append(read_phone_id[self._coordinate_field][0])
+                self.management_of_duplicate(cr, uid, phone_ids, context)
+        return res
 
 # public methods
 

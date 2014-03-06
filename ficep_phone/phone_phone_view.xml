@@ -135,8 +135,8 @@
 
                     <field name="phone_type" groups="ficep_base.res_groups_developper" />
                     <field name="active" groups="ficep_base.res_groups_developper" />
-                    <field name="is_duplicate_detected" />
-                    <field name="is_duplicate_allowed" />
+                    <field name="is_duplicate_detected" invisible="1"/>
+                    <field name="is_duplicate_allowed" invisible="0"/>
                 </tree>
             </field>
         </record>
