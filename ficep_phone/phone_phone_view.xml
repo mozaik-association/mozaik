@@ -70,10 +70,26 @@
                         </div>
                     </div>
                     <div class="oe_chatter" invisible="context.get('no_chatter')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_officer"/>
-                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" readonly="1"/>
                     </div>
                 </form>
+            </field>
+        </record>
+
+        <record id="phone_phone_override_form_view" model="ir.ui.view">
+            <field name="name">phone.phone.override.form</field>
+            <field name="model">phone.phone</field>
+            <field name="inherit_id" ref="phone_phone_form_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')]),
+                                          ]" />
+            <field name="priority" eval="20" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='message_ids']" position="replace">
+                    <field name="message_ids" widget="mail_thread"/>
+                </xpath>
+
             </field>
         </record>
 
@@ -83,6 +99,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="phone_phone_search_view" />
+            <field name="context">{'mail_create_nosubscribe': True}</field>
         </record>
 
         <!-- Phone Coordinate -->
@@ -190,10 +207,26 @@
                         </div>
                     </div>
                     <div class="oe_chatter" invisible="context.get('no_chatter')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_officer"/>
-                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" readonly="1"/>
                     </div>
                 </form>
+            </field>
+        </record>
+
+        <record id="phone_coordinate_override_form_view" model="ir.ui.view">
+            <field name="name">phone.coordinate.override.form</field>
+            <field name="model">phone.coordinate</field>
+            <field name="inherit_id" ref="phone_coordinate_form_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')]),
+                                          ]" />
+            <field name="priority" eval="20" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='message_ids']" position="replace">
+                    <field name="message_ids" widget="mail_thread"/>
+                </xpath>
+
             </field>
         </record>
 
@@ -203,6 +236,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="phone_coordinate_search_view" />
+            <field name="context">{'mail_create_nosubscribe': True}</field>
         </record>
 
         <!-- Menu -->

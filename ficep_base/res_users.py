@@ -27,6 +27,8 @@
 ##############################################################################
 
 from openerp.osv import orm
+from openerp import tools
+from openerp.tools import SUPERUSER_ID
 
 
 class res_users(orm.Model):
@@ -37,5 +39,17 @@ class res_users(orm.Model):
         'groups_id': False,
         'display_groups_suggestions': False,
     }
+
+# overriden model methods
+
+    @tools.ormcache(skiparg=2)
+    def context_get(self, cr, uid, context=None):
+        result = super(res_users, self).context_get(cr, uid)
+        user = self.browse(cr, SUPERUSER_ID, uid, context)
+        model, appl_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'base', 'module_category_political_association')
+        for g in user.groups_id:
+            if g.category_id.id == appl_id:
+                result.update({'in_%s' % g.name.lower().replace(' ','_'): 1})
+        return result
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -179,8 +179,27 @@
                     </div>
                 </xpath>
 
-                <xpath expr="//field[@name='message_follower_ids']" position="attributes">
-                    <attribute name="groups">ficep_base.ficep_res_groups_officer</attribute>
+                <xpath expr="//div[@class='oe_chatter']" position="replace">
+                    <div class="oe_chatter" invisible="context.get('no_chatter')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" readonly="1"/>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_emails_partner_info_override_form" model="ir.ui.view">
+            <field name="name">res.partner.emails.info.inherit.override (ficep_person)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="view_emails_partner_info_form" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')]),
+                                          ]" />
+            <field name="priority" eval="20" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='message_ids']" position="replace">
+                    <field name="message_ids" widget="mail_thread"/>
                 </xpath>
 
             </field>
@@ -192,7 +211,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('is_company', '=', False)]</field>
-            <field name="context">{'default_is_company': False}</field>
+            <field name="context">{'default_is_company': False, 'mail_create_nosubscribe': True}</field>
             <field name="search_view_id" ref="res_partner_search_view" />
         </record>
 
@@ -202,7 +221,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('is_company', '=', True)]</field>
-            <field name="context">{'default_is_company': True}</field>
+            <field name="context">{'default_is_company': True, 'mail_create_nosubscribe': True}</field>
             <field name="search_view_id" ref="res_partner_search_view" />
         </record>
 
@@ -212,14 +231,8 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
-            <field name="context">{}</field>
+            <field name="context">{'mail_create_nosubscribe': True}</field>
             <field name="search_view_id" ref="res_partner_search_view" />
-        </record>
-
-        <!-- Portal Access: not for Partner Creation group, only for developpers -->
-        <record id="portal.partner_wizard_action" model="ir.actions.act_window">
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.res_groups_developper')]),
-                                          ]" />
         </record>
 
     </data>

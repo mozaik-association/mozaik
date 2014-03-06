@@ -5,7 +5,7 @@
         <!-- Extra groups not belonging to Political Association application -->
 
         <record model="res.groups" id="res_groups_base">
-            <field name="name">Ficep Base (technical)</field>
+            <field name="name">Base (ficep)</field>
             <field name="category_id" ref="base.module_category_usability"/>
             <field name="implied_ids" eval="[(4, ref('base.group_user')),
                                              (4, ref('base.group_no_one')),
@@ -13,7 +13,7 @@
         </record>
 
         <record model="res.groups" id="res_groups_developper">
-            <field name="name">Developper</field>
+            <field name="name">Developper (ficep)</field>
             <field name="category_id" ref="base.module_category_usability"/>
             <field name="implied_ids" eval="[(4, ref('base.group_no_one')),
                                             ]" />

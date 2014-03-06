@@ -77,15 +77,17 @@ class res_partner(orm.Model):
                                  help="Name of the user in the LDAP"),
         'ldap_id': fields.integer('LDAP Id', track_visibility='onchange',
                                   help="ID of the user in the LDAP"),
-        'usual_firstname': fields.char("Usual Firstname"),
-        'usual_lastname': fields.char("Usual Lastname"),
+        'usual_firstname': fields.char("Usual Firstname", track_visibility='onchange'),
+        'usual_lastname': fields.char("Usual Lastname", track_visibility='onchange'),
             
         # Standard fields redefinition
         'display_name': fields.function(res_partner.res_partner._display_name_compute, type='char', string='Name', store=_display_name_store_triggers),
         'birthdate': fields.date('Birthdate', select=True, track_visibility='onchange'),
         'website': fields.char('Main Website', size=128, track_visibility='onchange',
                                help="Main Website of Partner or Company"),
-        'comment': fields.text('Notes', select=True),
+        'comment': fields.text('Notes', select=True, track_visibility='onchange'),
+        'firstname': fields.char("Firstname", track_visibility='onchange'),
+        'lastname': fields.char("Lastname", required=True, track_visibility='onchange'),
 
         # Validity period
         'create_date': fields.datetime('Creation Date', readonly=True),

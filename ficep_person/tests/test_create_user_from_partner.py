@@ -85,13 +85,6 @@ class test_create_user_from_partner(SharedSetupTransactionCase):
         self.assertEqual(user.partner_id.ldap_name, 'jack', 'Update partner fails with wrong ldap_name')
 
         # Recreate a user from a partner
-        try:
-            user_id = self.partner_model.create_user(cr, uid, 'popol', paul_id, [fr_id], context=context)
-        except orm.except_orm, e:
-            self.assertEqual(e.name, _('Error'), 'Create user fails raising an unexpected orm exception')
-        except Exception, e:
-            self.assertFalse(True, 'Create user fails raising an unexpected python exception')
-        else:
-            self.assertFalse(True, 'Create user fails accepting to create twice a user from the same partner!')
+        self.assertRaises(orm.except_orm, self.partner_model.create_user, cr, uid, 'popol', paul_id, [fr_id], context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
