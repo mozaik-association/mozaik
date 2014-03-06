@@ -35,6 +35,7 @@ class res_users(orm.Model):
 
     _defaults = {
         'groups_id': False,
+        'display_groups_suggestions': False,
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

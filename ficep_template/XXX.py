@@ -90,7 +90,7 @@ class xxxx(orm.Model):
 
         'name': fields.many2one('object', 'field_name', required=True, select=True),
         'name': fields.one2many('other.object', 'field_relation_id', 'Field Name', domain=[]),
-        'name': fields.many2many('other.object.name', id1='field_relation_id', id2='field_name', string='Tags'),
+        'm2m': fields.many2many('other.object.name', id1='field_relation_id', id2='field_name', string='Tags'),
 
         # Standard fields redefinition
         'partner_id': fields.many2one('res.partner', 'Contact', required=True, select=True),
@@ -161,9 +161,21 @@ class xxxx(orm.Model):
         res = super(xxxx, self).unlink(cr, uid, ids, context=context)
         return res
 
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        if default is None:
+            default = {}
+        res = super(xxxx, self).copy_data(cr, uid, ids, default=default, context=context)
+        return res
+
     def copy(self, cr, uid, ids, default=None, context=None):
-        if context is None:
-            context = {}
+        if default is None:
+            default = {}
+        default.update({
+                        'active': True,
+                        'expire_date': False,
+
+                        'm2m': [],
+                       })
         res = super(xxxx, self).copy(cr, uid, ids, default=default, context=context)
         return res
 

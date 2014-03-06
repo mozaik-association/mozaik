@@ -24,6 +24,7 @@
             <field name="usual_lastname"></field>
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
+            <field name="employee" eval="1"/>
         </record>
 
         <record id="partner_of_user_4" model="res.partner">
@@ -40,6 +41,7 @@
             <field name="usual_lastname"></field>
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
+            <field name="employee" eval="1"/>
         </record>
 
         <record id="partner_of_user_6" model="res.partner">
@@ -48,6 +50,7 @@
             <field name="usual_lastname"></field>
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
+            <field name="employee" eval="1"/>
         </record>
 
         <!--

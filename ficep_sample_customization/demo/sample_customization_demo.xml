@@ -2,22 +2,27 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- associate a category on the phone coordinate -->
+        <!-- add some attributes to phone coordinates -->
 
         <record id="main_fix_coordinate_one" model="phone.coordinate">
-            <field name="coordinate_category_id" ref="ficep_sample_customization.coo_cat_two" />
+            <field name="coordinate_category_id" ref="coo_cat_two" />
+            <field name="unauthorized" eval="True" />
         </record>
 
         <record id="main_fax_coordinate_one" model="phone.coordinate">
-            <field name="coordinate_category_id" ref="ficep_sample_customization.coo_cat_two" />
+            <field name="coordinate_category_id" ref="coo_cat_two" />
         </record>
 
         <record id="main_mobile_coordinate_one" model="phone.coordinate">
-            <field name="coordinate_category_id" ref="ficep_sample_customization.coo_cat_two" />
+            <field name="coordinate_category_id" ref="coo_cat_two" />
+        </record>
+
+        <record id="main_mobile_coordinate_two" model="phone.coordinate">
+            <field name="vip" eval="True" />
         </record>
 
         <record id="mobile_coordinate_two" model="phone.coordinate">
-            <field name="coordinate_category_id" ref="ficep_sample_customization.coo_cat_two" />
+            <field name="coordinate_category_id" ref="coo_cat_two" />
         </record>
 
     </data>

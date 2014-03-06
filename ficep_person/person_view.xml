@@ -3,7 +3,7 @@
     <data noupdate="0">
 
         <menuitem id="persons_root_menu" name="Persons"
-                  sequence="11" groups="ficep_base.ficep_res_groups_base" />
+                  sequence="11" groups="ficep_base.res_groups_base" />
         <menuitem id="persons_menu" name="Persons"
                   sequence="10" parent="persons_root_menu" />
         <menuitem id="natural_persons_submenu" action="natural_res_partner_action"

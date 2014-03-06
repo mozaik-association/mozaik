@@ -25,9 +25,10 @@
       * o2m:                   context="{'form_view_ref':'form view xml id', 'tree_view_ref':'tree view xml id'}"
       * ... (TBC)
       
-      tree "colors" samples (if any, quoting must be colors="...'xxx'..."):
+      tree "colors" and "fonts" samples (if any, quoting must be colors="...'xxx'..."):
       * colors="red:date_deadline&lt;current_date;blue:date_deadline==current_date;black:date_deadline&gt;current_date"
       * colors="blue:state == 'draft';grey:state == 'done';red:state not in ('cancel', 'done') and date &lt; current_date"
+      * fonts="bold:message_unread==True"
     -->
 
         <record id="REAL_ID" model="ir.ui.view">

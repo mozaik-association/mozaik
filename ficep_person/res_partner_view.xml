@@ -24,6 +24,8 @@
                     <filter string="French" name="french" domain="[('tongue','=','f')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                     <filter string="German" name="german" domain="[('tongue','=','g')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                     <separator />
+                    <filter string="Employee" name="employee" domain="[('employee','=',1)]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
+                    <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Exprired Contacts" />
@@ -45,15 +47,11 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
+
                 <xpath expr="//field[@name='display_name']" position="after">
                     <field name="birthdate" invisible="'default_is_company' not in context or context.get('default_is_company')" />
-
-                    <field name="expire_date"
-                           invisible="context.get('invisible_expire_date', True)" />
-
-                    <field name="gender" invisible="1"/>
-                    <field name="tongue" invisible="1"/>
                 </xpath>
+
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="id" />
 
@@ -62,7 +60,9 @@
 
                     <field name="gender" invisible="1"/>
                     <field name="tongue" invisible="1"/>
+                    <field name="employee" invisible="1"/>
                 </xpath>
+
             </field>
         </record>
 
@@ -110,14 +110,15 @@
                 </xpath>
 
                 <xpath expr="//field[@name='title']" position="replace">
-                    <field name="gender" attrs="{'invisible': [('is_company','=', True)]}"/>
                     <field name="birthdate" attrs="{'invisible': [('is_company','=', True)]}"/>
-                    <field name="tongue" attrs="{'invisible': [('is_company','=', True)]}"/>
                 </xpath>
 
                 <xpath expr="//field[@name='website']" position="replace">
                     <field name="create_date" attrs="{'invisible': [('id','=',False)]}" />
                     <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                    <field name="gender" attrs="{'invisible': [('is_company','=', True)]}"/>
+                    <field name="tongue" attrs="{'invisible': [('is_company','=', True)]}"/>
+                    <field name="employee" attrs="{'invisible': [('is_company','=', True)]}"/>
                 </xpath>
 
                 <xpath expr="//field[@name='function']" position="replace"/>

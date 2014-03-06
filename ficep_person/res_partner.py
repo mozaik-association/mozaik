@@ -28,6 +28,7 @@
 
 import openerp
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
 
 from openerp.addons.base.res import res_partner
 
@@ -125,5 +126,64 @@ class res_partner(orm.Model):
                     name = "%s <%s>" % (name, record.email)
                 res.append((record.id, name))
         return res
+
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        res.update({
+                    'active': True,
+                    'child_ids': [],
+                    'user_ids': [],
+                    'bank_ids': [],
+
+                    'ldap_name': False,
+                    'ldap_id': False,
+                    'expire_date': False,
+                   })
+        return res
+
+# public methods
+
+    def create_user(self, cr, uid, login, partner_id, group_ids, context=None):
+        """
+        ===========
+        create_user
+        ===========
+        Create a User related to an existing partner
+        :param login: login of the new user
+        :type login: char
+        :param partner_id: id of the source partner
+        :type partner_id: int
+        :param group_ids: list of the group ids that will be associated to the user
+        :type group_ids: [int]
+        :raise: ERROR if partner is already a user or is a company or is not active
+        """
+        if not partner_id or not login:
+            raise orm.except_orm(_('Error'), _('A partner and a login must be provided to create a user!'))
+
+        partner = self.browse(cr, uid, partner_id, context=context)
+        if not partner:
+            raise orm.except_orm(_('Error'), _('Bad partner id: %s!') % partner_id)
+
+        if partner.user_ids:
+            raise orm.except_orm(_('Error'), _('The partner %s is already a user!') % partner.display_name)
+
+        if partner.is_company:
+            raise orm.except_orm(_('Error'), _('The partner %s cannot be a company to be associated to a user!') % partner.display_name)
+
+        if not partner.active:
+            raise orm.except_orm(_('Error'), _('The partner %s has to be active!') % partner.display_name)
+
+        vals = group_ids and {'groups_id': [(6, 0, group_ids)]} or {} 
+        vals.update({
+                     'partner_id': partner_id,
+                     'login': login,
+                     'password': False,  # user will be authenticated by ldap or something else without password
+                    })
+
+        user_id = self.pool.get('res.users').create(cr, uid, vals, context=context)
+        
+        partner.write({'ldap_name': login}, context=context)
+        
+        return user_id
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

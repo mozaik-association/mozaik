@@ -25,27 +25,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from . import test_res_partner
+from . import test_create_user_from_partner
 
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
+fast_suite = [
+]
 
-
-class res_partner(orm.Model):
-
-    _inherit = "res.partner"
-
-# orm methods
-
-    def copy(self, cr, uid, ids, default=None, context=None):
-        if default is None:
-            default = {}
-        default.update({
-                        'active': True,
-                        'expire_date': False,
-
-                        'm2m': [],
-                       })
-        res = super(res_partner, self).copy(cr, uid, ids, default=default, context=context)
-        return res
+checks = [
+    test_res_partner,
+    test_create_user_from_partner,
+]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
