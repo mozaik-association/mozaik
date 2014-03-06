@@ -49,6 +49,9 @@ class ficep_coordinate(orm.AbstractModel):
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
         'vip': fields.boolean('VIP', track_visibility='onchange'),
 
+        'is_duplicate_detected': fields.boolean('Is Duplicate Detected', track_visibility='onchange', readonly=True),
+        'is_duplicate_allowed': fields.boolean('Is Duplicate Allowed', track_visibility='onchange', readonly=True),
+
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
         'active': fields.boolean('Active', readonly=True),
@@ -126,9 +129,10 @@ class ficep_coordinate(orm.AbstractModel):
                 (ref phone_phone._check_one_main_coordinate)
         """
         self.write(cr, uid, ids,
-                   {'active': False, 'expire_date': fields.datetime.now()},
+                   {'active': False, 'expire_date': fields.datetime.now(),
+                    'is_duplicate_detected': False,
+                    'is_duplicate_allowed': False},
                    context=context)
-
         return True
 
 # orm methods
@@ -166,11 +170,17 @@ class ficep_coordinate(orm.AbstractModel):
                 and another coordinate of the same type exists
         """
         coordinate_ids = self.search(cr, uid, [('id', 'in', ids), ('is_main', '=', False)], context=context)
+        read_phone_ids = self.read(cr, uid, ids, [self._coordinate_field], context=context)
         super(ficep_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
         coordinate_ids = list(set(ids).difference(coordinate_ids))
         if not self._check_one_main_coordinate(cr, uid, coordinate_ids, for_unlink=True, context=context):
             raise orm.except_orm(_('Error'), MAIN_COORDINATE_ERROR)
-        return super(ficep_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
+        res = super(ficep_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
+        phone_ids = []
+        for read_phone_id in read_phone_ids:
+            phone_ids.append(read_phone_id[self._coordinate_field][0])
+        self.management_of_duplicate(cr, uid, phone_ids, context)
+        return res
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
         res = super(ficep_coordinate, self).copy_data(cr, uid, ids, default=default, context=context)
@@ -228,7 +238,7 @@ class ficep_coordinate(orm.AbstractModel):
                     self.set_as_main(cr, uid, res_ids, context=context)
         return return_ids
 
-    def search_and_update(self, cr, uid, target_domain, fields_to_update, context=None):
+    def search_and_update(self, cr, uid, target_domain, fields_to_update, as_super_user=None, context=None):
         """
         ==================
         search_and_update
@@ -237,7 +247,8 @@ class ficep_coordinate(orm.AbstractModel):
         :type target_domain: list of tuples
         :param fields_to_update: contain the field to be updated
         :type fields_to_update: dictionary
-
+        :rparam: True some objects are found otherwise False
+        :rparam: boolean
         **Note**
         1) Search with self on ``target_domain``
         2) Update self with ``fields_to_update``
@@ -246,5 +257,25 @@ class ficep_coordinate(orm.AbstractModel):
         save_constraints, self._constraints = self._constraints, []
         self.write(cr, uid, res_ids, fields_to_update, context=context)
         self._constraints = save_constraints
+        return len(res_ids) != 0
+
+    def management_of_duplicate(self, cr, uid, field_ids, context=None):
+        """
+        :param field_ids: ids of related object coordinate field
+        :type field_ids: list integer
+        This method will update the duplicate attribute of ficep coordinate
+        depending if other are found.
+        """
+        for field_id in field_ids:
+            coordinate_ids = self.search(cr, uid, [(self._coordinate_field, \
+                                 '=', field_id)], context=context)
+            if coordinate_ids:
+                fields_to_update = {'is_duplicate_allowed': False, }
+                if len(coordinate_ids) > 1:
+                    fields_to_update['is_duplicate_detected'] = True
+                else:
+                    fields_to_update['is_duplicate_detected'] = False
+                super(ficep_coordinate, self).write(cr, uid, coordinate_ids,
+                               fields_to_update, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

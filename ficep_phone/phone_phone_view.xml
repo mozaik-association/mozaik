@@ -138,7 +138,8 @@
             <field name="name">phone.coordinate.tree</field>
             <field name="model">phone.coordinate</field>
             <field name="arch" type="xml">
-                <tree string="Phone Coordinates" version="7.0">
+                <tree string="Phone Coordinates" version="7.0"
+                      colors="red:is_duplicate_detected==True">
                     <field name="partner_id" />
                     <field name="phone_id" />
                     <field name="coordinate_category_id" />
@@ -151,6 +152,8 @@
 
                     <field name="phone_type" groups="ficep_base.res_groups_developper" />
                     <field name="active" groups="ficep_base.res_groups_developper" />
+                    <field name="is_duplicate_detected" invisible="1"/>
+                    <field name="is_duplicate_allowed" invisible="0"/>
                 </tree>
             </field>
         </record>
@@ -192,8 +195,14 @@
                             </group>
                         </group>
                         <group>
-                            <field name="create_date" attrs="{'invisible': [('id','=',False)]}" />
-                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            <group>
+                                <field name="create_date" attrs="{'invisible': [('id','=',False)]}" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group>
+                                <field name="is_duplicate_allowed" attrs="{'invisible': [('id','=',False)]}" />
+                                <field name="is_duplicate_detected" attrs="{'invisible': [('id','=',False)]}" />
+                            </group>
                         </group>
                     </sheet>
                     <div class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">

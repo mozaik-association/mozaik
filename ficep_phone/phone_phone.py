@@ -27,6 +27,7 @@
 ##############################################################################
 import phonenumbers as pn
 
+from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
@@ -40,6 +41,8 @@ PHONE_AVAILABLE_TYPES = [
     ('mobile', 'Mobile'),
     ('fax', 'Fax'),
 ]
+
+CASE_OF = ['validate', 'duplicate']
 
 phone_available_types = dict(PHONE_AVAILABLE_TYPES)
 
@@ -248,9 +251,24 @@ class phone_coordinate(orm.Model):
                 ('is_main', '=', True),
                 ]
 
-    def _get_fields_to_update(self, context=None):
-        context = context or {}
-        return {'active': False, 'expire_date': fields.datetime.now()} if context.get('invalidate', False) else {'is_main': False}
+    def _get_fields_to_update(self, case_of, context=None):
+        """
+        :param case_of: return a different dictionary depending of
+                        case_of value
+        :type case_of: char
+        :except: raise orm_exception if ``case_of`` not in ``CASE_OF`` constant
+        :rtype: dictionary
+        """
+        if context is None:
+            context = {}
+        if case_of not in CASE_OF:
+            raise orm.except_orm(_('ERROR'), _('Invalid `case_of`'))
+        else:
+            if case_of == 'validate':
+                return {'active': False, 'expire_date': fields.datetime.now()} if context.get('invalidate', False) else {'is_main': False}
+            elif case_of == 'duplicate':
+                return {'is_duplicate_detected': True,
+                        'is_duplicate_allowed': False}
 
     _columns = {
         'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True, select=True),
@@ -320,25 +338,38 @@ class phone_coordinate(orm.Model):
         =======================
         When 'is_main' is true the coordinate has to become the main coordinate for its
         associated partner.
-        That implies to remove the current-valid-main coordinate by calling the
-        ``search_and_update()`` of Controller.
         :rparam: id of the new phone coordinate
         :rtype: integer
+
+        **Note**
+        If new coordinate is main and other active main coordinate found into
+        the database then the other(s) will be no more main anymore
         """
         vals['phone_type'] = self.pool.get('phone.phone').read(cr, uid, vals['phone_id'], ['type'], context=context)['type']
-        coordinate_ids = self.search(cr, uid, [('partner_id', '=', vals['partner_id']),
-                                               ('phone_type', '=', vals['phone_type']),
-                                               ('is_main', '=', True)], context=context)
-        if not coordinate_ids:
-            vals['is_main'] = True
+        domain_other_active_main = self._get_target_domain(vals['partner_id'], vals['phone_type'])
+        self.user_consistency(cr, uid, vals, domain_other_active_main, context=context)
         if vals.get('is_main'):
-            target_domain = self._get_target_domain(vals['partner_id'], vals['phone_type'])
-            fields_to_update = self._get_fields_to_update(context)
-            self.search_and_update(cr, uid, target_domain, fields_to_update, context=context)
-            new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
-        else:
-            new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
+            validate_fields = self._get_fields_to_update('validate', context)
+            # assure that there are no other main coordinate of this type for this partner
+            self.search_and_update(cr, uid, domain_other_active_main, validate_fields, context=context)
+        new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
+        # check new duplicate state after creation
+        self.management_of_duplicate(cr, SUPERUSER_ID, [vals['phone_id']], context=context)
         return new_id
+
+    def write(self, cr, uid, ids, vals, context=None):
+        """
+        Objective is to manage the duplicate coordinate after the call of the super.
+        """
+        res = super(phone_coordinate, self).write(cr, uid, ids, vals, context=context)
+        if 'is_duplicate_detected' in vals or 'is_duplicate_allowed' in vals or 'phone_id' in vals:
+            read_phone_ids = self.read(cr, uid, ids, [self._coordinate_field], context=context)
+            phone_ids = []
+            if read_phone_ids:
+                for read_phone_id in read_phone_ids:
+                    phone_ids.append(read_phone_id[self._coordinate_field][0])
+                self.management_of_duplicate(cr, uid, phone_ids, context)
+        return res
 
 # public methods
 
@@ -357,12 +388,24 @@ class phone_coordinate(orm.Model):
 
         # 1) Reset is_main of previous main coordinate
         target_domain = self._get_target_domain(rec_phone_coordinate.partner_id.id, rec_phone_coordinate.phone_type)
-        fields_to_update = self._get_fields_to_update(context)
+        fields_to_update = self._get_fields_to_update('validate', context)
         self.search_and_update(cr, uid, target_domain, fields_to_update, context=context)
 
         # 2) Set is_main of new main coordinate
         res = super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
 
         return res
+
+    def user_consistency(self, cr, uid, vals, domain_other_active_main, context=None):
+        """
+        :param domain_other_active_main: for research on main coordinate
+        :type domain_other_active_main: list(tuples)
+        :type vals: dictionary
+        **Note**
+        Update ``vals`` with is_main to ``True`` case of no other main coordinate found
+        """
+        coordinate_ids = self.search(cr, uid, domain_other_active_main, context=context)
+        if not coordinate_ids:
+            vals['is_main'] = True
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
