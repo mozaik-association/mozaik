@@ -49,6 +49,9 @@ class ficep_coordinate(orm.AbstractModel):
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
         'vip': fields.boolean('VIP', track_visibility='onchange'),
 
+        'is_duplicate_detected': fields.boolean('Is Duplicate Detected', track_visibility='onchange'),
+        'is_duplicate_allowed': fields.boolean('Is Duplicate Allowed', track_visibility='onchange'),
+
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
         'active': fields.boolean('Active', readonly=True),
