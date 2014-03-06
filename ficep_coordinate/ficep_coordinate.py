@@ -49,8 +49,8 @@ class ficep_coordinate(orm.AbstractModel):
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
         'vip': fields.boolean('VIP', track_visibility='onchange'),
 
-        'is_duplicate_detected': fields.boolean('Is Duplicate Detected', track_visibility='onchange'),
-        'is_duplicate_allowed': fields.boolean('Is Duplicate Allowed', track_visibility='onchange'),
+        'is_duplicate_detected': fields.boolean('Is Duplicate Detected', track_visibility='onchange', readonly=True),
+        'is_duplicate_allowed': fields.boolean('Is Duplicate Allowed', track_visibility='onchange', readonly=True),
 
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
@@ -231,7 +231,7 @@ class ficep_coordinate(orm.AbstractModel):
                     self.set_as_main(cr, uid, res_ids, context=context)
         return return_ids
 
-    def search_and_update(self, cr, uid, target_domain, fields_to_update, context=None):
+    def search_and_update(self, cr, uid, target_domain, fields_to_update, as_super_user=None, context=None):
         """
         ==================
         search_and_update
@@ -240,7 +240,8 @@ class ficep_coordinate(orm.AbstractModel):
         :type target_domain: list of tuples
         :param fields_to_update: contain the field to be updated
         :type fields_to_update: dictionary
-
+        :rparam: True some objects are found otherwise False
+        :rparam: boolean
         **Note**
         1) Search with self on ``target_domain``
         2) Update self with ``fields_to_update``
@@ -249,5 +250,6 @@ class ficep_coordinate(orm.AbstractModel):
         save_constraints, self._constraints = self._constraints, []
         self.write(cr, uid, res_ids, fields_to_update, context=context)
         self._constraints = save_constraints
+        return len(res_ids) != 0
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
