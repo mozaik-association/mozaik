@@ -349,13 +349,14 @@ class abstract_coordinate(orm.AbstractModel):
 
     def management_of_duplicate(self, cr, uid, vals, context=None):
         """
-        This method will update the duplicate attribute of ficep coordinate
+        This method will update the duplicate attribute of coordinate
         depending if other are found.
         :param vals: coordinate values
         :type vals: list
         """
         for v in vals:
             coordinate_ids = self.search(cr, uid, [(self._coordinate_field, '=', v)], context=context)
+            fields_to_update = {}
             if len(coordinate_ids) > 1:
                 current_values = self.read(cr, uid, coordinate_ids, ['is_duplicate_allowed', 'is_duplicate_detected'], context=context)
 
@@ -376,7 +377,8 @@ class abstract_coordinate(orm.AbstractModel):
             else:
                 fields_to_update = {'is_duplicate_allowed': False, 'is_duplicate_detected': False}
 
-            super(abstract_coordinate, self).write(cr, uid, coordinate_ids, fields_to_update, context=context)
+            if fields_to_update:
+                super(abstract_coordinate, self).write(cr, uid, coordinate_ids, fields_to_update, context=context)
 
     def get_target_domain(self, partner_id, coordinate_type):
         """

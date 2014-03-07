@@ -50,7 +50,9 @@
 
                         <notebook>
                             <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                                <field name="phone_coordinate_ids" context="{'default_phone_id': id, 'simplified': 1}">
+                                <field name="phone_coordinate_ids" context="{'default_phone_id': id,
+                                                                             'simplified': 1,
+                                                                             'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}">
                                     <tree>
                                         <field name="partner_id"/>
                                         <field name="coordinate_category_id" />
@@ -99,6 +101,7 @@
             <field name="res_model">phone.phone</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="phone_phone_tree_view" />
             <field name="search_view_id" ref="phone_phone_search_view" />
             <field name="context">{'mail_create_nosubscribe': True}</field>
         </record>
@@ -108,137 +111,46 @@
         <record id="phone_coordinate_search_view" model="ir.ui.view">
             <field name="name">phone.coordinate.search</field>
             <field name="model">phone.coordinate</field>
+            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_search_view" />
+            <field name="priority" eval="10" />
             <field name="arch" type="xml">
-                <search string="Phone Coordinate" version="7.0">
-                    <field name="partner_id" />
+
+                <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="phone_id" />
-                    <field name="coordinate_type" />
-                    <field name="coordinate_category_id" />
+                </xpath>
 
-                    <filter name="main" string="Main Coordinates" domain="[('is_main','=',True)]" />
-                    <filter name="unauthorized" string="Unauthorized" domain="[('unauthorized','=',True)]" />
-                    <filter name="vip" string="VIP" domain="[('vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator />
-                    <filter name="expired" string="Expired"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expire Phone Coordinate" />
-                    <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                <xpath expr="//filter[@name='partner']" position="after">
+                    <filter name="phone" string="Phone" domain="[]" context="{'group_by':'phone_id'}" />
+                </xpath>
 
-                    <group expand="0" string="Group By...">
-                        <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
-                        <filter name="phone" string="Phone" domain="[]" context="{'group_by':'phone_id'}" />
-                        <filter name="category" string="Category" domain="[]" context="{'group_by':'coordinate_category_id'}" />
-                    </group>
-                </search>
             </field>
         </record>
 
         <record id="phone_coordinate_tree_view" model="ir.ui.view">
             <field name="name">phone.coordinate.tree</field>
             <field name="model">phone.coordinate</field>
+            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_tree_view" />
+            <field name="priority" eval="10" />
             <field name="arch" type="xml">
-                <tree string="Phone Coordinates" version="7.0"
-                      colors="red:is_duplicate_detected==True">
-                    <field name="partner_id" />
+
+                <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="phone_id" />
-                    <field name="coordinate_category_id" />
-                    <field name="is_main" />
-                    <field name="unauthorized" />
-                    <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                </xpath>
 
-                    <field name="is_duplicate_allowed"/>
-                    <field name="is_duplicate_detected" invisible="1"/>
-
-                    <field name="expire_date"
-                           invisible="context.get('invisible_expire_date', True)" />
-
-                    <field name="coordinate_type" groups="ficep_base.res_groups_developper" />
-                    <field name="active" groups="ficep_base.res_groups_developper" />
-                </tree>
             </field>
         </record>
 
         <record id="phone_coordinate_form_view" model="ir.ui.view">
             <field name="name">phone.coordinate.form</field>
             <field name="model">phone.coordinate</field>
-            <field name="arch" type="xml">
-                <form string="Phone Coordinate" version="7.0">
-                    <header>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
-                             groups="ficep_base.ficep_res_groups_user">
-                            <button name="button_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate coordinate: proceed anyway ?" />
-                            <button name="set_as_main" string="Set As Main" type="object"
-                                    attrs="{'invisible': [('is_main','=',True)]}"
-                                    context="{'invalidate': True}"
-                                    confirm="Set this coordinate as main and invalidate the previous one: proceed anyway ?" />
-                        </div>
-                    </header>
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="phone_id" class="oe_edit_only"/>
-                            <h1><field name="phone_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
-                        </div>
-                        <div class="oe_right oe_button_box" name="buttons">
-                        </div>
-
-                        <group>
-                            <group>
-                                <field name="partner_id" attrs="{'readonly': [('id','!=',False)]}" />
-                                <field name="coordinate_category_id" attrs="{'readonly': [('active','=',False)]}" />
-                            </group>
-                            <group>
-                                <field name="is_main" attrs="{'readonly': ['|',('id','!=',False),('active','=',False)]}" />
-                                <field name="unauthorized" attrs="{'readonly': [('active','=',False)]}" />
-                                <field name="vip" attrs="{'readonly': [('active','=',False)]}"
-                                       groups="ficep_base.ficep_res_groups_vip_reader" />
-                            </group>
-                        </group>
-                        <group attrs="{'invisible': [('id','=',False)]} ">
-                            <group>
-                                <field name="create_date" />
-                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
-                            </group>
-                            <group>
-                                <field name="is_duplicate_allowed" />
-                                <field name="is_duplicate_detected" />
-                            </group>
-                        </group>
-                    </sheet>
-                    <div class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
-                        <div class="oe_formview oe_form_sheet_width">
-                            <h3>More Info</h3>
-                            <group name="moreinfo">
-                                <field name="id"/>
-                                <field name="active"/>
-                                <field name="coordinate_type"/>
-                            </group>
-                        </div>
-                    </div>
-                    <div class="oe_chatter" invisible="context.get('simplified')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
-                        <field name="message_ids" widget="mail_thread" readonly="1"/>
-                    </div>
-                </form>
-            </field>
-        </record>
-
-        <record id="phone_coordinate_override_form_view" model="ir.ui.view">
-            <field name="name">phone.coordinate.override.form</field>
-            <field name="model">phone.coordinate</field>
-            <field name="inherit_id" ref="phone_coordinate_form_view" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')]),
-                                          ]" />
-            <field name="priority" eval="20" />
+            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_form_view" />
+            <field name="priority" eval="10" />
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='message_ids']" position="replace">
-                    <field name="message_ids" widget="mail_thread"/>
+                <xpath expr="//div[@class='oe_title']" position="inside">
+                    <label for="phone_id" class="oe_edit_only"/>
+                    <h1><field name="phone_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
                 </xpath>
-
             </field>
         </record>
 
@@ -247,8 +159,9 @@
             <field name="res_model">phone.coordinate</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="phone_coordinate_tree_view" />
             <field name="search_view_id" ref="phone_coordinate_search_view" />
-            <field name="context">{'mail_create_nosubscribe': True}</field>
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}</field>
         </record>
 
         <!-- Menu -->
@@ -273,7 +186,9 @@
                     <button string="All Details"
                             name="%(phone_coordinate_action)d"
                             type="action"
-                            context="{'search_default_phone_id': active_id, 'default_phone_id': active_id, 'search_default_all': True}"/>
+                            context="{'search_default_phone_id': active_id,
+                                      'default_phone_id': active_id,
+                                      'search_default_all': True}"/>
                 </xpath>
             </field>
         </record>
