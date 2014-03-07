@@ -45,11 +45,45 @@
             </field>
         </record>
 
+        <record id="xxx_tree_view" model="ir.ui.view">
+            <field name="name">xxx.tree</field>
+            <field name="model">xxx</field>
+            <field name="arch" type="xml">
+                <tree string="XXX" version="7.0"
+                      colors="red:is_duplicate_detected==True">
+                    <field name="partner_id" />
+
+                    <field name="coordinate_category_id" />
+                    <field name="is_main" />
+                    <field name="unauthorized" />
+                    <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)" />
+
+                    <field name="coordinate_type" groups="ficep_base.res_groups_developper" />
+                    <field name="active" groups="ficep_base.res_groups_developper" />
+                    <field name="is_duplicate_allowed"/>
+                </tree>
+            </field>
+        </record>
+
         <record id="xxx_form_view" model="ir.ui.view">
             <field name="name">xxx.form</field>
             <field name="model">xxx</field>
             <field name="arch" type="xml">
                 <form string="XXX" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_user">
+                            <button name="button_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate coordinate: proceed anyway ?" />
+                            <button name="set_as_main" string="Set As Main" type="object"
+                                    attrs="{'invisible': [('is_main','=',True)]}"
+                                    context="{'invalidate': True}"
+                                    confirm="Set this coordinate as main and invalidate the previous one: proceed anyway ?" />
+                    </header>
                     <sheet>
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only"/>
@@ -64,7 +98,7 @@
 
                         <notebook>
                             <page string="YYY" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                                <field name="yyy_ids" context="{'default_zzz_id': id, 'no_chatter': 1}">
+                                <field name="yyy_ids" context="{'default_zzz_id': id, 'simplified': 1}">
                                     <tree>
                                         <field name="zzz_id"/>
                                     </tree>
@@ -80,7 +114,7 @@
                             </group>
                         </div>
                     </div>
-                    <div class="oe_chatter" invisible="context.get('no_chatter')">
+                    <div class="oe_chatter" invisible="context.get('simplified')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" readonly="1"/>
                     </div>
@@ -88,13 +122,14 @@
             </field>
         </record>
 
+        <!-- Special form to make some fields not readonly -->
         <record id="xxx_override_form_view" model="ir.ui.view">
             <field name="name">xxx.override.form</field>
             <field name="model">xxx</field>
             <field name="inherit_id" ref="xxx_form_view" />
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')]),
                                           ]" />
-            <field name="priority" eval="20" />
+            <field name="priority" eval="20" /><!-- to be sure to evaluate it after others forms (default priority=16) -->
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='message_ids']" position="replace">
@@ -103,6 +138,26 @@
 
             </field>
         </record>
+
+        <record id="xxx_action" model="ir.actions.act_window">
+            <field name="name">XXX</field>
+            <field name="res_model">xxx</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="xxx_search_view" />
+            <field name="context">{'mail_create_nosubscribe': True}</field>
+        </record>
+
+        <!-- Menu -->
+
+        <menuitem name="XXX" id="xxx_menu"
+                  sequence="40" parent="ficep_mmm.xxx_root_menu" />
+
+        <menuitem id="xxx_submenu"
+                  sequence="10" parent="xxx_menu" action="xxx_action" />
+
+        <menuitem id="yyy_submenu"
+                  sequence="20" parent="xxx_menu" action="yyy_action" />
 
     </data>
 </openerp>

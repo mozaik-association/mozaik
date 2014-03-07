@@ -19,6 +19,11 @@
             <field name="type">mobile</field>
         </record>
 
+        <record id="mobile_three" model="phone.phone">
+            <field name="name">+32 473 78 10 78</field>
+            <field name="type">mobile</field>
+        </record>
+
         <record id="fax_one" model="phone.phone">
             <field name="name">061548799</field>
             <field name="type">fax</field>
@@ -60,14 +65,14 @@
             <field name="is_main" eval="True" />
         </record>
 
-        <record id="main_fax_coordinate_one" model="phone.coordinate">
-            <field name="phone_id" ref="fax_one" />
+        <record id="main_mobile_coordinate_one" model="phone.coordinate">
+            <field name="phone_id" ref="mobile_one" />
             <field name="partner_id" ref="res_partner_marc" />
             <field name="is_main" eval="True" />
         </record>
 
-        <record id="main_mobile_coordinate_one" model="phone.coordinate">
-            <field name="phone_id" ref="mobile_one" />
+        <record id="main_fax_coordinate_one" model="phone.coordinate">
+            <field name="phone_id" ref="fax_one" />
             <field name="partner_id" ref="res_partner_marc" />
             <field name="is_main" eval="True" />
         </record>
@@ -81,9 +86,35 @@
         </record>
 
         <record id="mobile_coordinate_two" model="phone.coordinate">
-            <field name="phone_id" ref="mobile_one" />
+            <field name="phone_id" ref="mobile_three" />
             <field name="partner_id" ref="res_partner_thierry" />
-            <field name="is_main" eval="False" />
+        </record>
+
+        <!--
+            Phone Coordinates for other Partners
+        -->
+
+        <record id="fix_fgtb" model="phone.phone">
+            <field name="name">025520330</field>
+            <field name="type">fix</field>
+        </record>
+
+        <record id="fax_nouvelobs" model="phone.phone">
+            <field name="name">+33 01 40 23 86 13</field>
+            <field name="type">fax</field>
+        </record>
+
+        <record id="main_fix_ccordinate_for_fgtb" model="phone.coordinate">
+            <field name="phone_id" ref="fix_fgtb" />
+            <field name="partner_id" ref="res_partner_fgtb" />
+            <field name="is_main" eval="True" />
+        </record>
+
+        <record id="main_fax_ccordinate_for_nouvelobs" model="phone.coordinate">
+            <field name="phone_id" ref="fax_nouvelobs" />
+            <field name="partner_id" ref="res_partner_nouvelobs" />
+            <field name="is_main" eval="True" />
+            <field name="unauthorized" eval="True" />
         </record>
 
     </data>

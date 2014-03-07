@@ -59,6 +59,11 @@
             <field name="is_company" eval="True" />
         </record>
 
+        <record id="res_partner_nouvelobs" model="res.partner">
+            <field name="name">Nouvel Observateur</field>
+            <field name="is_company" eval="True" />
+        </record>
+
         <!--
             User
         -->
