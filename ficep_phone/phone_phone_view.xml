@@ -111,7 +111,7 @@
                 <search string="Phone Coordinate" version="7.0">
                     <field name="partner_id" />
                     <field name="phone_id" />
-                    <field name="phone_type" />
+                    <field name="coordinate_type" />
                     <field name="coordinate_category_id" />
 
                     <filter name="main" string="Main Coordinates" domain="[('is_main','=',True)]" />
@@ -150,7 +150,7 @@
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
 
-                    <field name="phone_type" groups="ficep_base.res_groups_developper" />
+                    <field name="coordinate_type" groups="ficep_base.res_groups_developper" />
                     <field name="active" groups="ficep_base.res_groups_developper" />
                     <field name="is_duplicate_detected" invisible="1"/>
                     <field name="is_duplicate_allowed" invisible="0"/>
@@ -211,7 +211,7 @@
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
-                                <field name="phone_type"/>
+                                <field name="coordinate_type"/>
                             </group>
                         </div>
                     </div>

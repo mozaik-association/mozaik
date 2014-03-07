@@ -61,7 +61,7 @@ class res_partner(orm.Model):
         coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
                                                     ('is_main', '=', True)], context=context)
         for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
-            result[coord.partner_id.id]['%s_coordinate_id' % coord.phone_type] = coord.id
+            result[coord.partner_id.id]['%s_coordinate_id' % coord.coordinate_type] = coord.id
         return result
 
     def _get_main_phone_numbers(self, cr, uid, ids, name, args, context=None):
@@ -77,13 +77,13 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Single mode
         """
-        phone_type = args.get('type')
-        if not phone_type or phone_type not in phone_available_types:
+        coordinate_type = args.get('type')
+        if not coordinate_type or coordinate_type not in phone_available_types:
             raise orm.except_orm(_('ValidateError'), _('Invalid phone type: "%s"!') % args.get('type', _('Undefined')))
         result = {}.fromkeys(ids, False)
         coord_obj = self.pool['phone.coordinate']
         coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
-                                                             ('phone_type', '=', phone_type),
+                                                             ('coordinate_type', '=', coordinate_type),
                                                              ('is_main', '=', True)], context=context)
         for coord in coord_obj.browse(cr, SUPERUSER_ID, coordinate_ids, context=context):
             result[coord.partner_id.id] = 'VIP' if coord.vip else 'N/A: %s' % coord.phone_id.name if coord.unauthorized else coord.phone_id.name

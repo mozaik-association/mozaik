@@ -42,31 +42,9 @@ PHONE_AVAILABLE_TYPES = [
     ('fax', 'Fax'),
 ]
 
-CASE_OF = ['validate', 'duplicate']
-
 phone_available_types = dict(PHONE_AVAILABLE_TYPES)
 
 PREFIX_CODE = 'BE'
-
-MAIN_COORDINATE_ERROR = _('Exactly one main coordinate must exist for a given partner and a given phone type!')
-
-
-def _get_field_name_for_type(phone_type):
-    """
-    ========================
-    _get_field_name_for_type
-    ========================
-    :param phone_type: the type of the phone. must be into the
-           const phone_available_types
-    :rparam phone_type: char
-    :raise: orm.except_orm if phone_type is not into the constant
-        ``phone_available_types``
-    """
-    if phone_type in phone_available_types:
-        field_name = '%s_coordinate_id' % phone_type
-    else:
-        raise orm.except_orm(_('ValidateError'), _('Invalid phone type: "%s"!') % phone_type or _('Undefined'))
-    return field_name
 
 
 class phone_phone(orm.Model):
@@ -234,178 +212,35 @@ class phone_coordinate(orm.Model):
     _inherit = ['ficep.coordinate']
     _coordinate_field = 'phone_id'
 
-    def _get_target_domain(self, partner_id, phone_type):
-        """
-        ==================
-        _get_target_domain
-        ==================
-        :param partner_id: id of the partner
-        :type partner_id: integer
-        :parma phone_type: the type of the phone
-        :type phone_type: char
-        :rparam: dictionary with ``phone_type`` and ``partner_id`` well set
-        :rtype: dictionary
-        """
-        return [('partner_id', '=', partner_id),
-                ('phone_type', '=', phone_type),
-                ('is_main', '=', True),
-                ]
-
-    def _get_fields_to_update(self, case_of, context=None):
-        """
-        :param case_of: return a different dictionary depending of
-                        case_of value
-        :type case_of: char
-        :except: raise orm_exception if ``case_of`` not in ``CASE_OF`` constant
-        :rtype: dictionary
-        """
-        if context is None:
-            context = {}
-        if case_of not in CASE_OF:
-            raise orm.except_orm(_('ERROR'), _('Invalid `case_of`'))
-        else:
-            if case_of == 'validate':
-                return {'active': False, 'expire_date': fields.datetime.now()} if context.get('invalidate', False) else {'is_main': False}
-            elif case_of == 'duplicate':
-                return {'is_duplicate_detected': True,
-                        'is_duplicate_allowed': False}
-
     _columns = {
         'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True, select=True),
 
-        'phone_type': fields.related('phone_id', 'type', string='Phone Type', readonly=True,
-                                     type='selection', selection=PHONE_AVAILABLE_TYPES,
-                                     store={
-                                         'phone.coordinate': (lambda self, cr, uid, ids, context=None: ids, ['phone_id'], 10),
-                                         'phone.phone': (phone_phone.get_linked_phone_coordinates, ['type'], 10),
-                                     },
-                                     ),
+        'coordinate_type': fields.related('phone_id', 'type', string='Phone Type', readonly=True,
+                                          type='selection', selection=PHONE_AVAILABLE_TYPES,
+                                          store={
+                                             'phone.coordinate': (lambda self, cr, uid, ids, context=None: ids, ['phone_id'], 10),
+                                             'phone.phone': (phone_phone.get_linked_phone_coordinates, ['type'], 10),
+                                          },
+                                         ),
     }
-
-    _rec_name = 'phone_id'
-
-    _order = "partner_id, expire_date, is_main desc, phone_type"
 
     _defaults = {
-        'active': True
+        'coordinate_type': False,
     }
-
-# constraints
-
-    def _check_one_main_coordinate(self, cr, uid, ids, for_unlink=False, context=None):
-        """
-        ==========================
-        _check_one_main_coordinate
-        ==========================
-        Check if associated partner has exactly one main coordinate
-        for a given phone type
-        :rparam: True if it is the case
-                 False otherwise
-        :rtype: boolean
-        """
-        coordinates = self.browse(cr, uid, ids, context=context)
-        for coordinate in coordinates:
-            if for_unlink and not coordinate.is_main:
-                continue
-
-            coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
-                                                   ('phone_type', '=', coordinate.phone_type)], context=context)
-
-            if for_unlink and len(coordinate_ids) > 1 and coordinate.is_main:
-                return False
-
-            if not coordinate_ids:
-                continue
-
-            coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
-                                                   ('phone_type', '=', coordinate.phone_type),
-                                                   ('is_main', '=', True)], context=context)
-            if len(coordinate_ids) != 1:
-                return False
-
-        return True
-
-    _constraints = [
-        (_check_one_main_coordinate, MAIN_COORDINATE_ERROR, ['partner_id']),
-    ]
 
 # orm methods
 
     def create(self, cr, uid, vals, context=None):
         """
-        =======================
-        create phone.coordinate
-        =======================
+        ======
+        create
+        ======
         When 'is_main' is true the coordinate has to become the main coordinate for its
         associated partner.
-        :rparam: id of the new phone coordinate
+        :rparam: id of the new coordinate
         :rtype: integer
-
-        **Note**
-        If new coordinate is main and other active main coordinate found into
-        the database then the other(s) will be no more main anymore
         """
-        vals['phone_type'] = self.pool.get('phone.phone').read(cr, uid, vals['phone_id'], ['type'], context=context)['type']
-        domain_other_active_main = self._get_target_domain(vals['partner_id'], vals['phone_type'])
-        self.user_consistency(cr, uid, vals, domain_other_active_main, context=context)
-        if vals.get('is_main'):
-            validate_fields = self._get_fields_to_update('validate', context)
-            # assure that there are no other main coordinate of this type for this partner
-            self.search_and_update(cr, uid, domain_other_active_main, validate_fields, context=context)
-        new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
-        # check new duplicate state after creation
-        self.management_of_duplicate(cr, SUPERUSER_ID, [vals['phone_id']], context=context)
-        return new_id
-
-    def write(self, cr, uid, ids, vals, context=None):
-        """
-        Objective is to manage the duplicate coordinate after the call of the super.
-        """
-        res = super(phone_coordinate, self).write(cr, uid, ids, vals, context=context)
-        if 'is_duplicate_detected' in vals or 'is_duplicate_allowed' in vals or 'phone_id' in vals:
-            read_phone_ids = self.read(cr, uid, ids, [self._coordinate_field], context=context)
-            phone_ids = []
-            if read_phone_ids:
-                for read_phone_id in read_phone_ids:
-                    phone_ids.append(read_phone_id[self._coordinate_field][0])
-                self.management_of_duplicate(cr, uid, phone_ids, context)
-        return res
-
-# public methods
-
-    def set_as_main(self, cr, uid, ids, context=None):
-        """
-        ===========
-        set_as_main
-        ===========
-        This method allows to switch main coordinate:
-        1) Reset is_main of previous main coordinate
-        2) Set is_main of new main coordinate
-        :rparam: True
-        :rtype: boolean
-        """
-        rec_phone_coordinate = self.browse(cr, uid, ids, context=context)[0]
-
-        # 1) Reset is_main of previous main coordinate
-        target_domain = self._get_target_domain(rec_phone_coordinate.partner_id.id, rec_phone_coordinate.phone_type)
-        fields_to_update = self._get_fields_to_update('validate', context)
-        self.search_and_update(cr, uid, target_domain, fields_to_update, context=context)
-
-        # 2) Set is_main of new main coordinate
-        res = super(phone_coordinate, self).write(cr, uid, ids, {'is_main': True}, context=context)
-
-        return res
-
-    def user_consistency(self, cr, uid, vals, domain_other_active_main, context=None):
-        """
-        :param domain_other_active_main: for research on main coordinate
-        :type domain_other_active_main: list(tuples)
-        :type vals: dictionary
-        **Note**
-        Update ``vals`` with is_main to ``True`` case of no other main coordinate found
-        """
-        coordinate_ids = self.search(cr, uid, domain_other_active_main, context=context)
-        if not coordinate_ids:
-            vals['is_main'] = True
+        vals['coordinate_type'] = self.pool.get('phone.phone').read(cr, uid, vals['phone_id'], ['type'], context=context)['type']
+        return super(phone_coordinate, self).create(cr, uid, vals, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -26,8 +26,19 @@
 #
 ##############################################################################
 
+from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+
+"""
+Available Coordinate Types:
+N/A
+"""
+COORDINATE_AVAILABLE_TYPES = [
+    ('n/a', 'N/A'),
+]
+
+coordinate_available_types = dict(COORDINATE_AVAILABLE_TYPES)
 
 MAIN_COORDINATE_ERROR = _('Exactly one main coordinate must exist for a given partner')
 
@@ -44,6 +55,7 @@ class ficep_coordinate(orm.AbstractModel):
 
         'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True, select=True),
         'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category', select=True, track_visibility='onchange'),
+        'coordinate_type': fields.selection(COORDINATE_AVAILABLE_TYPES, 'Coordinate Type'),
 
         'is_main': fields.boolean('Is Main', readonly=True, select=True),
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
@@ -57,6 +69,15 @@ class ficep_coordinate(orm.AbstractModel):
         'active': fields.boolean('Active', readonly=True),
     }
 
+    _rec_name = _coordinate_field
+
+    _defaults = {
+        'coordinate_type': COORDINATE_AVAILABLE_TYPES[0],
+        'active': True,
+    }
+
+    _order = "partner_id, expire_date, is_main desc, coordinate_type"
+
 # constraints
 
     def _check_one_main_coordinate(self, cr, uid, ids, for_unlink=False, context=None):
@@ -65,6 +86,7 @@ class ficep_coordinate(orm.AbstractModel):
         _check_one_main_coordinate
         ==========================
         Check if associated partner has exactly one main coordinate
+        for a given coordinate type
         :rparam: True if it is the case
                  False otherwise
         :rtype: boolean
@@ -74,7 +96,8 @@ class ficep_coordinate(orm.AbstractModel):
             if for_unlink and not coordinate.is_main:
                 continue
 
-            coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id)], context=context)
+            coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
+                                                   ('coordinate_type', '=', coordinate.coordinate_type)], context=context)
 
             if for_unlink and len(coordinate_ids) > 1 and coordinate.is_main:
                 return False
@@ -83,6 +106,7 @@ class ficep_coordinate(orm.AbstractModel):
                 continue
 
             coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
+                                                   ('coordinate_type', '=', coordinate.coordinate_type),
                                                    ('is_main', '=', True)], context=context)
             if len(coordinate_ids) != 1:
                 return False
@@ -98,42 +122,17 @@ class ficep_coordinate(orm.AbstractModel):
                  Else True
         :rtype: Boolean
         """
-        pc_rec = self.browse(cr, uid, ids, context=context)[0]
-        res_ids = self.search(cr, uid, [('id', '!=', pc_rec.id),
-                                        ('partner_id', '=', pc_rec.partner_id.id),
-                                        (self._coordinate_field, '=', pc_rec[self._coordinate_field].id),
-                                        ('expire_date', '=', False)], context=context)
+        coordinate = self.browse(cr, uid, ids, context=context)[0]
+        res_ids = self.search(cr, uid, [('id', '!=', coordinate.id),
+                                        ('partner_id', '=', coordinate.partner_id.id),
+                                        (self._coordinate_field, '=', isinstance(self._columns[self._coordinate_field],fields.many2one) and coordinate[self._coordinate_field].id or coordinate[self._coordinate_field]),
+                                       ], context=context)
         return len(res_ids) == 0
 
     _constraints = [
         (_check_unicity, _('This coordinate already exists for this contact'), ['related_field', 'partner_id', 'expire_date']),
         (_check_one_main_coordinate, MAIN_COORDINATE_ERROR, ['partner_id'])
     ]
-
-# view methods: onchange, button
-
-    def button_invalidate(self, cr, uid, ids, context=None):
-        """
-        =================
-        button_invalidate
-        =================
-        This method invalidate a ficep_coordinate by setting
-        * active to False
-        * expire_date to current date
-        :rparam: True
-        :rtype: boolean
-
-        **Note**
-        :raise: Error if the coordinate is main
-                and another coordinate of the same type exists
-                (ref phone_phone._check_one_main_coordinate)
-        """
-        self.write(cr, uid, ids,
-                   {'active': False, 'expire_date': fields.datetime.now(),
-                    'is_duplicate_detected': False,
-                    'is_duplicate_allowed': False},
-                   context=context)
-        return True
 
 # orm methods
 
@@ -159,27 +158,67 @@ class ficep_coordinate(orm.AbstractModel):
             res.append((record['id'], display_name))
         return res
 
+    def create(self, cr, uid, vals, context=None):
+        """
+        ======
+        create
+        ======
+        When 'is_main' is true the coordinate has to become the main coordinate for its
+        associated partner.
+        :rparam: id of the new coordinate
+        :rtype: integer
+
+        **Note**
+        If new coordinate is main and another main coordinate found into
+        the database then the other(s) will not be main anymore
+        """
+        vals['coordinate_type'] = vals.get('coordinate_type') or COORDINATE_AVAILABLE_TYPES[0]
+        domain_other_active_main = self.get_target_domain(vals['partner_id'], vals['coordinate_type'])
+        self.user_consistency(cr, uid, vals, domain_other_active_main, context=context)
+        if vals.get('is_main'):
+            validate_fields = self.get_fields_to_update('validate', context)
+            # assure that there are no other main coordinate of this type for this partner
+            self.search_and_update(cr, uid, domain_other_active_main, validate_fields, context=context)
+        new_id = super(ficep_coordinate, self).create(cr, uid, vals, context=context)
+        # check new duplicate state after creation
+        self.management_of_duplicate(cr, SUPERUSER_ID, [vals[self._coordinate_field]], context=context)
+        return new_id
+
+    def write(self, cr, uid, ids, vals, context=None):
+        """
+        Objective is to manage the duplicate coordinate after the call of the super.
+        """
+        res = super(ficep_coordinate, self).write(cr, uid, ids, vals, context=context)
+        if 'is_duplicate_detected' in vals or 'is_duplicate_allowed' in vals or self._coordinate_field in vals:
+            coordinate_field_values = self.read(cr, uid, ids, [self._coordinate_field], context=context)
+            if coordinate_field_values:
+                field_values = []
+                for coordinate_field_value in coordinate_field_values:
+                    field_values.append(isinstance(coordinate_field_value[self._coordinate_field], tuple) and coordinate_field_value[self._coordinate_field][0] or coordinate_field_value[self._coordinate_field])
+                self.management_of_duplicate(cr, uid, field_values, context)
+        return res
+
     def unlink(self, cr, uid, ids, context=None):
         """
-        =======================
-        unlink phone.coordinate
-        =======================
+        ======
+        unlink
+        ======
         :rparam: True
         :rtype: boolean
         :raise: Error if the coordinate is main
                 and another coordinate of the same type exists
         """
         coordinate_ids = self.search(cr, uid, [('id', 'in', ids), ('is_main', '=', False)], context=context)
-        read_phone_ids = self.read(cr, uid, ids, [self._coordinate_field], context=context)
+        coordinate_field_values = self.read(cr, uid, ids, [self._coordinate_field], context=context)
         super(ficep_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
         coordinate_ids = list(set(ids).difference(coordinate_ids))
         if not self._check_one_main_coordinate(cr, uid, coordinate_ids, for_unlink=True, context=context):
             raise orm.except_orm(_('Error'), MAIN_COORDINATE_ERROR)
         res = super(ficep_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
-        phone_ids = []
-        for read_phone_id in read_phone_ids:
-            phone_ids.append(read_phone_id[self._coordinate_field][0])
-        self.management_of_duplicate(cr, uid, phone_ids, context)
+        vals = []
+        for val in coordinate_field_values:
+            vals.append(val[self._coordinate_field][0])
+        self.management_of_duplicate(cr, uid, vals, context)
         return res
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
@@ -191,6 +230,32 @@ class ficep_coordinate(orm.AbstractModel):
                     'expire_date': False,
                    })
         return res
+
+# view methods: onchange, button
+
+    def button_invalidate(self, cr, uid, ids, context=None):
+        """
+        =================
+        button_invalidate
+        =================
+        This method invalidate a ficep_coordinate by setting
+        * active to False
+        * expire_date to current date
+        :rparam: True
+        :rtype: boolean
+
+        **Note**
+        :raise: Error if the coordinate is main
+                and another coordinate of the same type exists
+                (ref _check_one_main_coordinate constraint)
+        """
+        self.write(cr, uid, ids,
+                   {'active': False,
+                    'expire_date': fields.datetime.now(),
+                    'is_duplicate_detected': False,
+                    'is_duplicate_allowed': False,
+                   }, context=context)
+        return True
 
 # public methods
 
@@ -209,6 +274,29 @@ class ficep_coordinate(orm.AbstractModel):
         for record in model_rds:
             partner_ids.append(record.partner_id.id)
         return partner_ids
+
+    def set_as_main(self, cr, uid, ids, context=None):
+        """
+        ===========
+        set_as_main
+        ===========
+        This method allows to switch main coordinate:
+        1) Reset is_main of previous main coordinate
+        2) Set is_main of new main coordinate
+        :rparam: True
+        :rtype: boolean
+        """
+        coordinate = self.browse(cr, uid, ids, context=context)[0]
+
+        # 1) Reset is_main of previous main coordinate
+        target_domain = self.get_target_domain(coordinate.partner_id.id, coordinate.coordinate_type)
+        fields_to_update = self.get_fields_to_update('validate', context)
+        self.search_and_update(cr, uid, target_domain, fields_to_update, context=context)
+
+        # 2) Set is_main of new main coordinate
+        res = self.write(cr, uid, ids, {'is_main': True}, context=context)
+
+        return res
 
     def change_main_coordinate(self, cr, uid, partner_ids, field_id, context=None):
         """
@@ -231,19 +319,19 @@ class ficep_coordinate(orm.AbstractModel):
                 return_ids.append(self.create(cr, uid, {'partner_id': partner_id,
                                                         self._coordinate_field: field_id,
                                                         'is_main': True,
-                                                        }, context=context))
+                                                       }, context=context))
             else:
                 # If the coordinate is not already ``main``, set it as main
                 if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:
                     self.set_as_main(cr, uid, res_ids, context=context)
         return return_ids
 
-    def search_and_update(self, cr, uid, target_domain, fields_to_update, as_super_user=None, context=None):
+    def search_and_update(self, cr, uid, target_domain, fields_to_update, context=None):
         """
         ==================
         search_and_update
         ==================
-        :param  target_domain: A domain used into a search
+        :param target_domain: A domain used into a search
         :type target_domain: list of tuples
         :param fields_to_update: contain the field to be updated
         :type fields_to_update: dictionary
@@ -259,16 +347,15 @@ class ficep_coordinate(orm.AbstractModel):
         self._constraints = save_constraints
         return len(res_ids) != 0
 
-    def management_of_duplicate(self, cr, uid, field_ids, context=None):
+    def management_of_duplicate(self, cr, uid, vals, context=None):
         """
-        :param field_ids: ids of related object coordinate field
-        :type field_ids: list integer
         This method will update the duplicate attribute of ficep coordinate
         depending if other are found.
+        :param vals: coordinate values
+        :type vals: list
         """
-        for field_id in field_ids:
-            coordinate_ids = self.search(cr, uid, [(self._coordinate_field, \
-                                 '=', field_id)], context=context)
+        for v in vals:
+            coordinate_ids = self.search(cr, uid, [(self._coordinate_field, '=', v)], context=context)
             if coordinate_ids:
                 fields_to_update = {'is_duplicate_allowed': False, }
                 if len(coordinate_ids) > 1:
@@ -277,5 +364,57 @@ class ficep_coordinate(orm.AbstractModel):
                     fields_to_update['is_duplicate_detected'] = False
                 super(ficep_coordinate, self).write(cr, uid, coordinate_ids,
                                fields_to_update, context=context)
+
+    def get_target_domain(self, partner_id, coordinate_type):
+        """
+        =================
+        get_target_domain
+        =================
+        :param partner_id: id of the partner
+        :type partner_id: integer
+        :parma coordinate_type: type of the coordinate
+        :type coordinate_type: char
+        :rparam: dictionary with ``coordinate_type`` and ``partner_id`` well set
+        :rtype: dictionary
+        """
+        return [('partner_id', '=', partner_id),
+                ('coordinate_type', '=', coordinate_type),
+                ('is_main', '=', True),
+               ]
+
+    def get_fields_to_update(self, case_of, context=None):
+        """
+        ====================
+        get_fields_to_update
+        ====================
+        :param case_of: return a different dictionary depending of
+                        case_of value
+        :type case_of: char
+        :except: raise orm_exception if invalid ``case_of``
+        :rtype: dictionary
+        """
+        if context is None:
+            context = {}
+
+        if case_of == 'validate':
+            return {'active': False,
+                    'expire_date': fields.datetime.now()} if context.get('invalidate', False) else {'is_main': False}
+        if case_of == 'duplicate':
+            return {'is_duplicate_detected': True,
+                    'is_duplicate_allowed': False}
+
+        raise orm.except_orm(_('ERROR'), _('Invalid `case_of`'))
+
+    def user_consistency(self, cr, uid, vals, domain_other_active_main, context=None):
+        """
+        :param domain_other_active_main: for research on main coordinate
+        :type domain_other_active_main: list(tuples)
+        :type vals: dictionary
+        **Note**
+        Update ``vals`` with is_main to ``True`` case of no other main coordinate found
+        """
+        coordinate_ids = self.search(cr, uid, domain_other_active_main, context=context)
+        if not coordinate_ids:
+            vals['is_main'] = True
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
