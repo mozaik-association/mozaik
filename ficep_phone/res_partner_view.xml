@@ -76,7 +76,7 @@
                             name="%(phone_coordinate_action)d"
                             type="action"
                             context="{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'search_default_all': True}"/>
-                    <field name="phone_coordinate_ids" context="{'default_partner_id': active_id, 'no_chatter': 1}">
+                    <field name="phone_coordinate_ids" context="{'default_partner_id': active_id, 'simplified': 1}">
                         <tree>
                             <field name="phone_id"/>
                             <field name="coordinate_category_id" />
