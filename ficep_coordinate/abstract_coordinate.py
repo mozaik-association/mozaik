@@ -356,16 +356,19 @@ class abstract_coordinate(orm.AbstractModel):
         """
         for v in vals:
             coordinate_ids = self.search(cr, uid, [(self._coordinate_field, '=', v)], context=context)
+            current_values = self.read(cr, uid, coordinate_ids, ['is_duplicate_allowed', 'is_duplicate_detected'], context=context)
+            fields_to_update = {}
             if len(coordinate_ids) > 1:
-                fields_to_update = None
-                current_values = self.read(cr, uid, coordinate_ids, ['is_duplicate_allowed', 'is_duplicate_detected'], context=context)
-
                 is_ok = 0
+                val = {}
                 for value in current_values:
                     if not value['is_duplicate_detected'] and value['is_duplicate_allowed']:
                         is_ok += 1
+                        val = value
+                        if is_ok == 2:
+                            break
                 if is_ok == 1:
-                    fields_to_update = {'is_duplicate_allowed': False, 'is_duplicate_detected': False}
+                    val['is_duplicate_allowed'] = False
 
                 is_ok = 0
                 for value in current_values:
@@ -375,7 +378,10 @@ class abstract_coordinate(orm.AbstractModel):
                 if is_ok >= 1:
                     fields_to_update = {'is_duplicate_detected': True, 'is_duplicate_allowed': False}
             else:
-                fields_to_update = {'is_duplicate_allowed': False, 'is_duplicate_detected': False}
+                if current_values[0]['is_duplicate_allowed'] == True:
+                    fields_to_update = {'is_duplicate_allowed': False}
+                if current_values[0]['is_duplicate_detected'] == True:
+                    fields_to_update['is_duplicate_detected'] = False
             if fields_to_update:
                 super(abstract_coordinate, self).write(cr, uid, coordinate_ids, fields_to_update, context=context)
 
