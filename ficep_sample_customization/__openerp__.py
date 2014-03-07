@@ -44,9 +44,9 @@ FICEP Sample Customization
     'data': [
          'demo/company_demo.xml',
          'demo/users_demo.xml',
-         '../ficep_person/tests/data/person_data.xml',  # data of ficep_person module
-         '../ficep_coordinate/demo/ficep_coordinate_demo.xml',  # data of ficep_coordinate module
-         '../ficep_phone/tests/data/phone_data.xml',  # data of ficep_phone module
+         '../ficep_person/tests/data/person_data.xml',
+         '../ficep_coordinate/demo/coordinate_demo.xml',
+         '../ficep_phone/tests/data/phone_data.xml',
          'demo/sample_customization_demo.xml'  # must be the last
     ],
     'js': [

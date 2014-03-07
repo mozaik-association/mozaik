@@ -209,7 +209,7 @@ class phone_coordinate(orm.Model):
 
     _name = 'phone.coordinate'
     _description = "Phone Coordinate"
-    _inherit = ['ficep.coordinate']
+    _inherit = ['abstract.coordinate']
     _coordinate_field = 'phone_id'
 
     _columns = {

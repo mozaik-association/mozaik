@@ -26,7 +26,7 @@
 #
 ##############################################################################
 
-from . import ficep_coordinate_category
-from . import ficep_coordinate
+from . import coordinate_category
+from . import abstract_coordinate
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

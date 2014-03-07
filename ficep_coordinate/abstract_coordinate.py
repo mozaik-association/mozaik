@@ -43,9 +43,9 @@ coordinate_available_types = dict(COORDINATE_AVAILABLE_TYPES)
 MAIN_COORDINATE_ERROR = _('Exactly one main coordinate must exist for a given partner')
 
 
-class ficep_coordinate(orm.AbstractModel):
+class abstract_coordinate(orm.AbstractModel):
 
-    _name = 'ficep.coordinate'
+    _name = 'abstract.coordinate'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
     _coordinate_field = None
@@ -179,7 +179,7 @@ class ficep_coordinate(orm.AbstractModel):
             validate_fields = self.get_fields_to_update('validate', context)
             # assure that there are no other main coordinate of this type for this partner
             self.search_and_update(cr, uid, domain_other_active_main, validate_fields, context=context)
-        new_id = super(ficep_coordinate, self).create(cr, uid, vals, context=context)
+        new_id = super(abstract_coordinate, self).create(cr, uid, vals, context=context)
         # check new duplicate state after creation
         self.management_of_duplicate(cr, SUPERUSER_ID, [vals[self._coordinate_field]], context=context)
         return new_id
@@ -188,7 +188,7 @@ class ficep_coordinate(orm.AbstractModel):
         """
         Objective is to manage the duplicate coordinate after the call of the super.
         """
-        res = super(ficep_coordinate, self).write(cr, uid, ids, vals, context=context)
+        res = super(abstract_coordinate, self).write(cr, uid, ids, vals, context=context)
         if 'is_duplicate_detected' in vals or 'is_duplicate_allowed' in vals or self._coordinate_field in vals:
             coordinate_field_values = self.read(cr, uid, ids, [self._coordinate_field], context=context)
             if coordinate_field_values:
@@ -210,11 +210,11 @@ class ficep_coordinate(orm.AbstractModel):
         """
         coordinate_ids = self.search(cr, uid, [('id', 'in', ids), ('is_main', '=', False)], context=context)
         coordinate_field_values = self.read(cr, uid, ids, [self._coordinate_field], context=context)
-        super(ficep_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
+        super(abstract_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
         coordinate_ids = list(set(ids).difference(coordinate_ids))
         if not self._check_one_main_coordinate(cr, uid, coordinate_ids, for_unlink=True, context=context):
             raise orm.except_orm(_('Error'), MAIN_COORDINATE_ERROR)
-        res = super(ficep_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
+        res = super(abstract_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
         vals = []
         for val in coordinate_field_values:
             vals.append(isinstance(val[self._coordinate_field], tuple) and val[self._coordinate_field][0] or val[self._coordinate_field])
@@ -222,7 +222,7 @@ class ficep_coordinate(orm.AbstractModel):
         return res
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
-        res = super(ficep_coordinate, self).copy_data(cr, uid, ids, default=default, context=context)
+        res = super(abstract_coordinate, self).copy_data(cr, uid, ids, default=default, context=context)
         if res.get('active', True):
             raise orm.except_orm(_('Error'), _('An active coordinate cannot be duplicated!'))
         res.update({
@@ -238,7 +238,7 @@ class ficep_coordinate(orm.AbstractModel):
         =================
         button_invalidate
         =================
-        This method invalidate a ficep_coordinate by setting
+        This method invalidate a coordinate by setting
         * active to False
         * expire_date to current date
         :rparam: True
@@ -307,7 +307,7 @@ class ficep_coordinate(orm.AbstractModel):
         :type partner_ids: [integer]
         :param field_id: id of the new main object selected
         :type field_id: integer
-        :rparam: list of ficep.coordinate ids created
+        :rparam: list of coordinate ids created
         :rtype: list of integer
         """
         return_ids = []
@@ -362,7 +362,7 @@ class ficep_coordinate(orm.AbstractModel):
                     fields_to_update['is_duplicate_detected'] = True
                 else:
                     fields_to_update['is_duplicate_detected'] = False
-                super(ficep_coordinate, self).write(cr, uid, coordinate_ids,
+                super(abstract_coordinate, self).write(cr, uid, coordinate_ids,
                                fields_to_update, context=context)
 
     def get_target_domain(self, partner_id, coordinate_type):
