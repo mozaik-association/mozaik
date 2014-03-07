@@ -217,7 +217,7 @@ class ficep_coordinate(orm.AbstractModel):
         res = super(ficep_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
         vals = []
         for val in coordinate_field_values:
-            vals.append(val[self._coordinate_field][0])
+            vals.append(isinstance(val[self._coordinate_field], tuple) and val[self._coordinate_field][0] or val[self._coordinate_field])
         self.management_of_duplicate(cr, uid, vals, context)
         return res
 
