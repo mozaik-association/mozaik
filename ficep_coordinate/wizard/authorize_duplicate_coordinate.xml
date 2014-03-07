@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="0">
 
-        <record id="authorize_duplicate_wizard" model="ir.ui.view">
+        <record id="authorize_duplicate_coordinate_wizard" model="ir.ui.view">
             <field name="name">authorize.duplicate.coordinate.wizard</field>
             <field name="model">authorize.duplicate.coordinate</field>
             <field name="arch" type="xml">
@@ -11,9 +11,11 @@
                     Some text
                     </strong>
                     <footer>
-                        <button string="Validate" name="authorize_duplicate_coordinate"
-                                type="object" class="oe_highlight" />
-                        or
+                        <span name="go-wizard">
+                            <button string="Authorize" name="button_authorize_duplicate_coordinate"
+                                    type="object" class="oe_highlight" />
+                            or
+                        </span>
                         <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>
                 </form>

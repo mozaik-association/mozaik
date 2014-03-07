@@ -30,40 +30,37 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 
-class phone_main_number_change(orm.TransientModel):
+class change_main_phone(orm.TransientModel):
 
-    _name = 'phone.change.main.number'
-    _description = 'Change Main Phone Number Wizard'
+    _name = 'change.main.phone'
+    _description = 'Change Main Phone Wizard'
 
     _columns = {
         'phone_id': fields.many2one('phone.phone', 'New Main Phone', required=True),
-        'invalidate_previous_phone_coordinate': fields.boolean('Invalidate Previous Main Coordinate'),
+        'invalidate_previous_coordinate': fields.boolean('Invalidate Previous Main Coordinate'),
     }
 
-    def change_main_phone_number(self, cr, uid, ids, context=None):
+    def button_change_main_coordinate(self, cr, uid, ids, context=None):
         """
-        ===================
-        mass_select_as_main
-        ===================
-        This method provides a way to select a coordinate as main for a group
-        of selected partner (context['active_ids'])
-        * phone coordinate will be create for the other partner of the list
-        * The previsous phone coordinate will be invalidate if the user has
-            check ``invalidate_previous_phone_coordinate``
-        :rparam: id or ids created
-        :rtype: integer or [integer]
-        :raise: ERROR if no active_id and no active_ids into the context
+        =============================
+        button_change_main_coordinate
+        =============================
+        Change main coordinate for a list of partners
+        * a new main coordinate is created for each partner
+        * the previsous main coordinate is invalidates or not regarding
+          the option ``invalidate_previous_coordinate``
+        :raise: ERROR if no partner selected
 
         **Note**
-        When it is launched from the partner form then take the id into ``res_id``
+        When launched from the partner form the partner id is taken ``res_id``
         """
         context = context or {}
         rec_wizard = self.browse(cr, uid, ids, context=context)[0]
-        context['invalidate'] = rec_wizard.invalidate_previous_phone_coordinate
+        context['invalidate'] = rec_wizard.invalidate_previous_coordinate
         partner_ids = context.get('active_ids', False) if context.get('active_ids', False) else list(context.get('res_id', False))
         if partner_ids:
             self.pool.get('phone.coordinate').change_main_coordinate(cr, uid, partner_ids, rec_wizard.phone_id.id, context=context)
         else:
-            raise orm.except_orm(_('Error'), _('At least one partner is required to set its main phone coordinate!'))
+            raise orm.except_orm(_('Error'), _('At least one partner is required to change its main coordinate!'))
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

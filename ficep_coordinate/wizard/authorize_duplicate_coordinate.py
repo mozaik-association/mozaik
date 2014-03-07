@@ -38,7 +38,7 @@ class authorize_duplicate_coordinate(orm.TransientModel):
 
     _name = "authorize.duplicate.coordinate"
 
-    def authorize_duplicate_coordinate(self, cr, uid, ids, context=None):
+    def button_authorize_duplicate_coordinate(self, cr, uid, ids, context=None):
         if not context.get('active_model', False) or not context.get('coordinate_type', False):
             raise orm.except_orm(_('Error'), _('Missing coordinate_mode and/or coordinate_type in context action'))
         coord_obj = self.pool[context.get('active_model')]

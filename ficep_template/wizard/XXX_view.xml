@@ -2,5 +2,45 @@
 <openerp>
     <data noupdate="0">
 
+        <record id="xxx_wizard" model="ir.ui.view">
+            <field name="name">xxx.wizard</field>
+            <field name="model">xxx</field>
+            <field name="arch" type="xml">
+                <form string="XXX" version="7.0">
+                    <strong>
+                        Some text ... or fields
+                    </strong>
+                    <footer>
+                        <span name="go-wizard">
+                            <button string="Yyy" name="button_yyy"
+                                    type="object" class="oe_highlight" />
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="xxx_action" model="ir.actions.act_window">
+            <field name="name">XXX</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">yyy</field>
+            <field name="res_model">xxx</field>
+            <field name="multi" eval="1"/><!-- To only view wizard in the tree -->
+            <field name="target">new</field>
+            <field name="view_id" ref="xxx_wizard" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+        </record>
+
+        <record id="xxx_value" model="ir.values">
+            <field name="name">XXX</field>
+            <field name="model">yyy</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('xxx_action')" />
+        </record>
+
     </data>
 </openerp>

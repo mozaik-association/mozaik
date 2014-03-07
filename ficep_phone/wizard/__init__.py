@@ -26,6 +26,6 @@
 #
 ##############################################################################
 
-from . import select_main_coordinate_phone
+from . import change_main_phone
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

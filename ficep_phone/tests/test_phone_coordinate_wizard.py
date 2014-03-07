@@ -41,7 +41,7 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
     def setUp(self):
         super(test_phone_coordinate_wizard, self).setUp()
 
-        self.phone_coordinate_wizard = self.registry('phone.change.main.number')
+        self.phone_coordinate_wizard = self.registry('change.main.phone')
         self.model_partner = self.registry('res.partner')
         self.model_phone_coordinate = self.registry('phone.coordinate')
 
@@ -69,10 +69,10 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         }
         wiz_vals = {
             'phone_id': self.phone_id_1,
-            'invalidate_previous_phone_coordinate': invalidate,
+            'invalidate_previous_coordinate': invalidate,
         }
         wiz_id = self.phone_coordinate_wizard.create(self.cr, self.uid, wiz_vals, context=context)
-        return self.phone_coordinate_wizard.change_main_phone_number(self.cr, self.uid, [wiz_id], context=context)
+        return self.phone_coordinate_wizard.button_change_main_coordinate(self.cr, self.uid, [wiz_id], context=context)
 
     def test_mass_replication(self):
         """
