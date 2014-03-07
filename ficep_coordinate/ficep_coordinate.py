@@ -125,7 +125,7 @@ class ficep_coordinate(orm.AbstractModel):
         coordinate = self.browse(cr, uid, ids, context=context)[0]
         res_ids = self.search(cr, uid, [('id', '!=', coordinate.id),
                                         ('partner_id', '=', coordinate.partner_id.id),
-                                        (self._coordinate_field, '=', isinstance(self._columns[self._coordinate_field],fields.many2one) and coordinate[self._coordinate_field].id or coordinate[self._coordinate_field]),
+                                        (self._coordinate_field, '=', isinstance(self._columns[self._coordinate_field], fields.many2one) and coordinate[self._coordinate_field].id or coordinate[self._coordinate_field]),
                                        ], context=context)
         return len(res_ids) == 0
 
@@ -356,14 +356,27 @@ class ficep_coordinate(orm.AbstractModel):
         """
         for v in vals:
             coordinate_ids = self.search(cr, uid, [(self._coordinate_field, '=', v)], context=context)
-            if coordinate_ids:
-                fields_to_update = {'is_duplicate_allowed': False, }
-                if len(coordinate_ids) > 1:
-                    fields_to_update['is_duplicate_detected'] = True
-                else:
-                    fields_to_update['is_duplicate_detected'] = False
-                super(ficep_coordinate, self).write(cr, uid, coordinate_ids,
-                               fields_to_update, context=context)
+            if len(coordinate_ids) > 1:
+                current_values = self.read(cr, uid, coordinate_ids, ['is_duplicate_allowed', 'is_duplicate_detected'], context=context)
+
+                is_ok = 0
+                for value in current_values:
+                    if not value['is_duplicate_detected'] and value['is_duplicate_allowed']:
+                        is_ok += 1
+                if is_ok == 1:
+                    fields_to_update = {'is_duplicate_allowed': False, 'is_duplicate_detected': False}
+
+                is_ok = 0
+                for value in current_values:
+                    if not value['is_duplicate_detected'] and not value['is_duplicate_allowed']:
+                        is_ok += 1
+                        break
+                if is_ok >= 1:
+                    fields_to_update = {'is_duplicate_detected': True, 'is_duplicate_allowed': False}
+            else:
+                fields_to_update = {'is_duplicate_allowed': False, 'is_duplicate_detected': False}
+
+            super(ficep_coordinate, self).write(cr, uid, coordinate_ids, fields_to_update, context=context)
 
     def get_target_domain(self, partner_id, coordinate_type):
         """
