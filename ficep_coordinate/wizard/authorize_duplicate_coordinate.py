@@ -25,9 +25,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm
 
-from . import coordinate_category
-from . import abstract_coordinate
-from . import wizard
+
+class authorize_duplicate_coordinate(orm.TransientModel):
+
+    _name = "authorize.duplicate.coordinate"
+    _inherit = "abstract.coordinate"
+
+    def authorize_duplicate_coordinate(self, cr, uid, ids, context=None):
+        pass
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
