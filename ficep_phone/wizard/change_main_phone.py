@@ -27,40 +27,16 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
-from openerp.tools.translate import _
 
 
 class change_main_phone(orm.TransientModel):
 
     _name = 'change.main.phone'
+    _inherit = 'change.main.coordinate'
     _description = 'Change Main Phone Wizard'
 
     _columns = {
         'phone_id': fields.many2one('phone.phone', 'New Main Phone', required=True),
-        'invalidate_previous_coordinate': fields.boolean('Invalidate Previous Main Coordinate'),
     }
-
-    def button_change_main_coordinate(self, cr, uid, ids, context=None):
-        """
-        =============================
-        button_change_main_coordinate
-        =============================
-        Change main coordinate for a list of partners
-        * a new main coordinate is created for each partner
-        * the previsous main coordinate is invalidates or not regarding
-          the option ``invalidate_previous_coordinate``
-        :raise: ERROR if no partner selected
-
-        **Note**
-        When launched from the partner form the partner id is taken ``res_id``
-        """
-        context = context or {}
-        rec_wizard = self.browse(cr, uid, ids, context=context)[0]
-        context['invalidate'] = rec_wizard.invalidate_previous_coordinate
-        partner_ids = context.get('active_ids', False) if context.get('active_ids', False) else list(context.get('res_id', False))
-        if partner_ids:
-            self.pool.get('phone.coordinate').change_main_coordinate(cr, uid, partner_ids, rec_wizard.phone_id.id, context=context)
-        else:
-            raise orm.except_orm(_('Error'), _('At least one partner is required to change its main coordinate!'))
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

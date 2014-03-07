@@ -65,7 +65,8 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         :rtype: integer
         """
         context = {
-            'active_ids': [self.partner_id_1, self.partner_id_2, self.partner_id_3]
+            'active_ids': [self.partner_id_1, self.partner_id_2, self.partner_id_3],
+            'target_model': 'phone.coordinate',
         }
         wiz_vals = {
             'phone_id': self.phone_id_1,
