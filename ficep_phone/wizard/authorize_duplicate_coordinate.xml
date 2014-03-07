@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="authorize_duplicate_coordinate_action" model="ir.actions.act_window">
+            <field name="name">Authorize Duplicate Coordinate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">phone.coordinate</field>
+            <field name="res_model">authorize.duplicate.coordinate</field>
+            <field name="multi" eval="1"/>
+            <field name="target">new</field>
+            <field name="view_id" ref="ficep_coordinate.authorize_duplicate_wizard" />
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_user')),]" />
+            <field name="context">{'coordinate_type':'phone_id'}</field>
+        </record>
+
+        <record id="authorize_duplicate_value" model="ir.values">
+            <field name="name">Authorize Duplicate Coordinate</field>
+            <field name="model">phone.coordinate</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('authorize_duplicate_coordinate_action')" />
+        </record>
+
+    </data>
+</openerp>

@@ -52,6 +52,7 @@ Numbers are normalized regarding the external python library: phonenumbers
         'phone_phone_view.xml',
         'res_partner_view.xml',
         'coordinate_category_view.xml',
+        'wizard/authorize_duplicate_coordinate.xml',
     ],
     'js': [
     ],
