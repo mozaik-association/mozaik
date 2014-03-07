@@ -357,6 +357,7 @@ class abstract_coordinate(orm.AbstractModel):
         for v in vals:
             coordinate_ids = self.search(cr, uid, [(self._coordinate_field, '=', v)], context=context)
             if len(coordinate_ids) > 1:
+                fields_to_update = None
                 current_values = self.read(cr, uid, coordinate_ids, ['is_duplicate_allowed', 'is_duplicate_detected'], context=context)
 
                 is_ok = 0
@@ -375,8 +376,8 @@ class abstract_coordinate(orm.AbstractModel):
                     fields_to_update = {'is_duplicate_detected': True, 'is_duplicate_allowed': False}
             else:
                 fields_to_update = {'is_duplicate_allowed': False, 'is_duplicate_detected': False}
-
-            super(abstract_coordinate, self).write(cr, uid, coordinate_ids, fields_to_update, context=context)
+            if fields_to_update:
+                super(abstract_coordinate, self).write(cr, uid, coordinate_ids, fields_to_update, context=context)
 
     def get_target_domain(self, partner_id, coordinate_type):
         """
