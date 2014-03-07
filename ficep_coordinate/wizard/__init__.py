@@ -26,8 +26,6 @@
 #
 ##############################################################################
 
-from . import coordinate_category
-from . import abstract_coordinate
-from . import wizard
+from . import authorize_duplicate_coordinate
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
