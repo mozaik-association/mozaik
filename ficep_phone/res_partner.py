@@ -30,15 +30,41 @@ from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
-from openerp.addons.ficep_coordinate.abstract_coordinate import abstract_coordinate
-
 # Local imports
-from .phone_phone import phone_phone, PHONE_AVAILABLE_TYPES, phone_available_types
+from .phone_phone import PHONE_AVAILABLE_TYPES, phone_available_types
 
 
 class res_partner(orm.Model):
 
     _inherit = "res.partner"
+
+    def _get_linked_partners_from_coordinates(self, cr, uid, ids, context=None):
+        """
+        =====================================
+        _get_linked_partners_from_coordinates
+        =====================================
+        Return partner ids linked to coordinates ids
+        :param ids: triggered coordinates ids
+        :type name: list
+        :rparam: partner ids
+        :rtype: list
+        """
+        coord_model = self.pool['phone.coordinate']
+        return coord_model.get_linked_partners(cr, uid, ids, context=context)
+
+    def _get_linked_partners_from_phones(self, cr, uid, ids, context=None):
+        """
+        ===============================
+        get_linked_partners_from_phones
+        ===============================
+        Return partner ids linked by coordinates to phone ids
+        :param ids: triggered phone ids
+        :type name: list
+        :rparam: partner ids
+        :rtype: list
+        """
+        phone_model = self.pool['phone.phone']
+        return phone_model.get_linked_partners(cr, uid, ids, context=context)
 
     def _get_main_phone_coordinate_ids(self, cr, uid, ids, name, args, context=None):
         """
@@ -90,8 +116,8 @@ class res_partner(orm.Model):
         return result
 
     _phone_store_triggers = {
-                               'phone.coordinate': (abstract_coordinate.get_linked_partners, ['partner_id', 'phone_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
-                               'phone.phone': (phone_phone.get_linked_partners, ['name', 'type'], 10),
+                               'phone.coordinate': (_get_linked_partners_from_coordinates, ['partner_id', 'phone_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
+                               'phone.phone': (_get_linked_partners_from_phones, ['name', 'type'], 10),
                             }
 
     _columns = {
