@@ -8,11 +8,11 @@
             <field name="arch" type="xml">
                 <form string="Authorize Duplicate Coordinate" version="7.0">
                     <strong>
-                    Some text
+                    After checking, selected coordinates are not duplicates. Accept anyway?
                     </strong>
                     <footer>
                         <span name="go-wizard">
-                            <button string="Authorize" name="button_authorize_duplicate_coordinate"
+                            <button string="Ok" name="button_authorize_duplicate_coordinate"
                                     type="object" class="oe_highlight" />
                             or
                         </span>

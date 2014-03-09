@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Coordinate Category',
+    'name': 'FICEP: Coordinate',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -36,9 +36,10 @@
         'ficep_person',
     ],
     'description': """
-FICEP Coordinate Category
-=========================
-Manage categories of email, phone and postal coordinates: private, professional, ...
+FICEP Coordinate
+================
+* Manage categories of email, phone and postal coordinates: private, professional, ...
+* provide an abstract model (and related wizard) for all kinds of coordinates
 """,
     'images': [
     ],
