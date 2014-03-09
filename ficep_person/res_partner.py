@@ -85,7 +85,7 @@ class res_partner(orm.Model):
         'birthdate': fields.date('Birthdate', select=True, track_visibility='onchange'),
         'website': fields.char('Main Website', size=128, track_visibility='onchange',
                                help="Main Website of Partner or Company"),
-        'comment': fields.text('Notes', select=True, track_visibility='onchange'),
+        'comment': fields.text('Notes', track_visibility='onchange'),
         'firstname': fields.char("Firstname", track_visibility='onchange'),
         'lastname': fields.char("Lastname", required=True, track_visibility='onchange'),
 

@@ -17,6 +17,8 @@
                     <filter name="unauthorized" string="Unauthorized" domain="[('unauthorized','=',True)]" />
                     <filter name="vip" string="VIP" domain="[('vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator />
+                    <filter name="duplicate" string="Duplicate" domain="[('is_duplicate_detected','=',True)]" />
+                    <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expire Coordinate" />
@@ -44,8 +46,13 @@
                     <field name="unauthorized" />
                     <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
 
-                    <field name="is_duplicate_allowed"/>
                     <field name="is_duplicate_detected" invisible="1"/>
+                    <field name="is_duplicate_allowed" invisible="1"/>
+                    <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
+                            groups="ficep_base.ficep_res_groups_user"
+                            attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
+                            icon="gtk-undo"
+                            confirm="Undo allow duplicate: proceed anyway ?" />
 
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
@@ -65,12 +72,15 @@
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_user">
-                            <button name="button_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate coordinate: proceed anyway ?" />
                             <button name="set_as_main" string="Set As Main" type="object"
                                     attrs="{'invisible': [('is_main','=',True)]}"
                                     context="{'invalidate': True}"
                                     confirm="Set this coordinate as main and invalidate the previous one: proceed anyway ?" />
+                            <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
+                                    attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
+                                    confirm="Undo allow duplicate: proceed anyway ?" />
+                            <button name="button_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate coordinate: proceed anyway ?" />
                         </div>
                     </header>
                     <sheet>

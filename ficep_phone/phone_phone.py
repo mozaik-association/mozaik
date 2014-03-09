@@ -211,6 +211,7 @@ class phone_coordinate(orm.Model):
     _description = "Phone Coordinate"
     _inherit = ['abstract.coordinate']
     _coordinate_field = 'phone_id'
+    _coordinate_action = 'phone_coordinate_action'
 
     _columns = {
         'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True, select=True),

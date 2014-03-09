@@ -25,7 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
+from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
 
@@ -54,10 +54,11 @@ class authorize_duplicate_coordinate(orm.TransientModel):
 
         if len(coordinate_ids) == 1:
             # can now search all for this type of coordinate: coordinate field is the same
-            allowed_coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [(coordinate_field, '=', coordinate_field_ids[0].id),
+            value = isinstance(coord_obj._columns[coord_obj._coordinate_field], fields.many2one) and coordinate_field_ids[0].id or coordinate_field_ids[0]
+            allowed_coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [(coordinate_field, '=', value),
                                                                          ('is_duplicate_allowed', '=', True)], context=context)
             if not allowed_coordinate_ids:
-                raise orm.except_orm(_('Error'), _('You must select more than one coordinates!'))
+                raise orm.except_orm(_('Error'), _('You must select more than one coordinate!'))
 
         coord_obj.write(cr, uid, coordinate_ids, {'is_duplicate_detected': False, 'is_duplicate_allowed': True})
 

@@ -49,6 +49,7 @@ class abstract_coordinate(orm.AbstractModel):
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
     _coordinate_field = None
+    _coordinate_action = None
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
@@ -61,8 +62,8 @@ class abstract_coordinate(orm.AbstractModel):
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
         'vip': fields.boolean('VIP', track_visibility='onchange'),
 
-        'is_duplicate_detected': fields.boolean('Is Duplicate Detected', track_visibility='onchange', readonly=True),
-        'is_duplicate_allowed': fields.boolean('Is Duplicate Allowed', track_visibility='onchange', readonly=True),
+        'is_duplicate_detected': fields.boolean('Is Duplicate Detected', readonly=True),
+        'is_duplicate_allowed': fields.boolean('Is Duplicate Allowed', readonly=True, track_visibility='onchange'),
 
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
@@ -181,7 +182,7 @@ class abstract_coordinate(orm.AbstractModel):
             self.search_and_update(cr, uid, domain_other_active_main, validate_fields, context=context)
         new_id = super(abstract_coordinate, self).create(cr, uid, vals, context=context)
         # check new duplicate state after creation
-        self.management_of_duplicate(cr, SUPERUSER_ID, [vals[self._coordinate_field]], context=context)
+        self.detect_and_repair_duplicate(cr, SUPERUSER_ID, [vals[self._coordinate_field]], context=context)
         return new_id
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -195,7 +196,7 @@ class abstract_coordinate(orm.AbstractModel):
                 field_values = []
                 for coordinate_field_value in coordinate_field_values:
                     field_values.append(isinstance(coordinate_field_value[self._coordinate_field], tuple) and coordinate_field_value[self._coordinate_field][0] or coordinate_field_value[self._coordinate_field])
-                self.management_of_duplicate(cr, uid, field_values, context)
+                self.detect_and_repair_duplicate(cr, uid, field_values, context)
         return res
 
     def unlink(self, cr, uid, ids, context=None):
@@ -218,7 +219,7 @@ class abstract_coordinate(orm.AbstractModel):
         vals = []
         for val in coordinate_field_values:
             vals.append(isinstance(val[self._coordinate_field], tuple) and val[self._coordinate_field][0] or val[self._coordinate_field])
-        self.management_of_duplicate(cr, uid, vals, context)
+        self.detect_and_repair_duplicate(cr, uid, vals, context)
         return res
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
@@ -232,6 +233,33 @@ class abstract_coordinate(orm.AbstractModel):
         return res
 
 # view methods: onchange, button
+
+    def button_undo_allow_duplicate(self, cr, uid, ids, context=None):
+        """
+        =============================
+        button_undo_allow_duplicate
+        =============================
+        Undo the effect of the "authorize duplicate coordinate" wizard
+        :rparam: True
+        :rtype: boolean
+
+        **Note**
+        All allowed duplicates will be reset
+        (see detect_and_repair_duplicate)
+        """
+        self.write(cr, uid, ids,
+                   {'is_duplicate_allowed': False}, context=context)
+
+        # reload the tree with all duplicates
+        coordinate = self.browse(cr, uid, ids, context=context)[0]
+        value = isinstance(self._columns[self._coordinate_field], fields.many2one) and coordinate[self._coordinate_field].id or coordinate[self._coordinate_field]
+        action = self.pool['ir.actions.act_window'].for_xml_id(cr, uid, self._module, self._coordinate_action, context=context)
+        action.pop('search_view')
+        ctx = action.get('context') and eval(action['context']) or {}
+        ctx.update({'search_default_%s' % self._coordinate_field: value, 'default_%s' % self._coordinate_field: value})
+        action['context'] = str(ctx)
+
+        return action
 
     def button_invalidate(self, cr, uid, ids, context=None):
         """
@@ -347,10 +375,13 @@ class abstract_coordinate(orm.AbstractModel):
         self._constraints = save_constraints
         return len(res_ids) != 0
 
-    def management_of_duplicate(self, cr, uid, vals, context=None):
+    def detect_and_repair_duplicate(self, cr, uid, vals, context=None):
         """
-        This method will update the duplicate attribute of coordinate
-        depending if other are found.
+        ===========================
+        detect_and_repair_duplicate
+        ===========================
+        Detect automatically duplicates (setting the is_duplicate_detected flag)
+        Repair orphan allowed or detected duplicate (resetting the corresponding flag)
         :param vals: coordinate values
         :type vals: list
         """
@@ -379,11 +410,13 @@ class abstract_coordinate(orm.AbstractModel):
                     if is_ok >= 1:
                         fields_to_update = {'is_duplicate_detected': True, 'is_duplicate_allowed': False}
                 else:
-                    if current_values[0]['is_duplicate_allowed'] == True:
-                        fields_to_update = {'is_duplicate_allowed': False}
-                    if current_values[0]['is_duplicate_detected'] == True:
-                        fields_to_update['is_duplicate_detected'] = False
+                    if current_values[0]['is_duplicate_allowed']:
+                        fields_to_update.update({'is_duplicate_allowed': False})
+                    if current_values[0]['is_duplicate_detected']:
+                        fields_to_update.update({'is_duplicate_detected': False})
+
                 if fields_to_update:
+                    # super write method must be called here to avoid to cycle
                     super(abstract_coordinate, self).write(cr, uid, coordinate_ids, fields_to_update, context=context)
 
     def get_target_domain(self, partner_id, coordinate_type):

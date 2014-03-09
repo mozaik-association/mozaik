@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <form string="Authorize Duplicate Coordinate" version="7.0">
                     <strong>
-                    After checking, selected coordinates are not duplicates. Accept anyway?
+                    Selected coordinates are not duplicates. Accept anyway?
                     </strong>
                     <footer>
                         <span name="go-wizard">
