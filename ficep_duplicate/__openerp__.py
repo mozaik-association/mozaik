@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Person',
+    'name': 'FICEP: Duplicate',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -34,19 +34,15 @@
     'category': 'Political Association',
     'depends': [
         'ficep_base',
-        'ficep_duplicate',
-        #'partner_firstname',
     ],
     'description': """
-FICEP Person
-============
-    """,
+FICEP Duplicate
+===============
+* Provide an abstract model (and related wizard) to detect, repair and allow duplicates
+""",
     'images': [
     ],
     'data': [
-        'res_partner_view.xml',
-        'person_view.xml',
-        'wizard/create_user_from_partner_view.xml',
         'wizard/allow_duplicate_view.xml',
     ],
     'js': [
@@ -61,8 +57,8 @@ FICEP Person
     ],
     'sequence': 150,
     'active': False,
-    'auto_install': False,
     'installable': True,
+    'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

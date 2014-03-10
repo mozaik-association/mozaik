@@ -64,6 +64,11 @@
             <field name="is_company" eval="True" />
         </record>
 
+        <record id="res_partner_nouvelobs_bis" model="res.partner">
+            <field name="name">Nouvel Observateur (Service Publicité)</field>
+            <field name="is_company" eval="True" />
+        </record>
+
         <!--
             User
         -->

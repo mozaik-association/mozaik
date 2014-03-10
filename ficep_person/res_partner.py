@@ -58,7 +58,11 @@ available_tongues = dict(AVAILABLE_TONGUES)
 
 class res_partner(orm.Model):
 
-    _inherit = 'res.partner'
+    _name = 'res.partner'
+    _inherit = ['res.partner', 'abstract.duplicate']
+
+    _discriminant_field = 'name'
+    _undo_redirect_action = 'ficep_person.all_res_partner_action'
 
     _display_name_store_triggers = {
         'res.partner': (lambda self,cr,uid,ids,context=None: ids,
@@ -117,7 +121,7 @@ class res_partner(orm.Model):
             res = []
             for record in self.browse(cr, uid, ids, context=context):
                 if record.is_company:
-                    name = record.name
+                    name = record.name or record.lastname
                 else:
                     names = (
                              record.usual_lastname or record.lastname,
@@ -142,6 +146,26 @@ class res_partner(orm.Model):
                     'expire_date': False,
                    })
         return res
+
+# view methods: onchange, button
+
+    def button_invalidate(self, cr, uid, ids, context=None):
+        """
+        =================
+        button_invalidate
+        =================
+        Invalidate a partner by setting
+        * active to False
+        * expire_date to current date
+        and resetting its duplicate flag
+        :rparam: True
+        :rtype: boolean
+        """
+        vals = self.get_fields_to_update(cr, uid, 'reset', context=context)
+        vals.update({'active': False,
+                     'expire_date': fields.datetime.now(),
+                    })
+        return self.write(cr, uid, ids, vals, context=context)
 
 # public methods
 

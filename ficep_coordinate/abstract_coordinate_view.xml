@@ -107,8 +107,8 @@
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                             </group>
                             <group>
-                                <field name="is_duplicate_allowed" />
                                 <field name="is_duplicate_detected" />
+                                <field name="is_duplicate_allowed" />
                             </group>
                         </group>
                     </sheet>

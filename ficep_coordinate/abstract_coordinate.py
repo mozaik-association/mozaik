@@ -62,6 +62,7 @@ class abstract_coordinate(orm.AbstractModel):
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
         'vip': fields.boolean('VIP', track_visibility='onchange'),
 
+        # Duplicates
         'is_duplicate_detected': fields.boolean('Is Duplicate Detected', readonly=True),
         'is_duplicate_allowed': fields.boolean('Is Duplicate Allowed', readonly=True, track_visibility='onchange'),
 
@@ -266,9 +267,10 @@ class abstract_coordinate(orm.AbstractModel):
         =================
         button_invalidate
         =================
-        This method invalidate a coordinate by setting
+        Invalidates a coordinate by setting
         * active to False
         * expire_date to current date
+        and resetting its duplicate flags
         :rparam: True
         :rtype: boolean
 

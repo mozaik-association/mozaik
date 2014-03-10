@@ -22,9 +22,6 @@
                     <field name="mobile" invisible="context.get('default_is_company')"/>
                     <field name="fax" invisible="not context.get('default_is_company')"/>
                 </xpath>
-                <xpath expr="//tree" position="attributes">
-                    <attribute name="colors">darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP'</attribute>
-                </xpath>
             </field>
         </record>
 

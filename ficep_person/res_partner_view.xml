@@ -29,6 +29,8 @@
                     <filter string="User" name="user" domain="[('user_ids', '!=', False)]" invisible="context.get('default_is_company')"/>
                     <filter string="Not User" name="not_user" domain="[('user_ids', '=', False)]" invisible="context.get('default_is_company')"/>
                     <separator />
+                    <filter name="duplicate" string="Duplicate" domain="[('is_duplicate_detected','=',True)]" />
+                    <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Exprired Contacts" />
@@ -51,12 +53,24 @@
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
 
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="colors">red:is_duplicate_detected==True;darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP'</attribute>
+                </xpath>
+
                 <xpath expr="//field[@name='display_name']" position="after">
                     <field name="birthdate" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                 </xpath>
 
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="id" />
+
+                    <field name="is_duplicate_detected" invisible="1"/>
+                    <field name="is_duplicate_allowed" invisible="1"/>
+                    <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
+                            groups="ficep_base.ficep_res_groups_user"
+                            attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
+                            icon="gtk-undo"
+                            confirm="Undo allow duplicate: proceed anyway ?" />
 
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
@@ -84,6 +98,20 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
+
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_user">
+                            <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
+                                    attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
+                                    confirm="Undo allow duplicate: proceed anyway ?" />
+                            <button name="button_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate contact: proceed anyway ?" />
+                        </div>
+                    </header>
+                </xpath>
 
                 <xpath expr="//div[@class='oe_edit_only']" position="before">
                     <h1><label string="#" attrs="{'invisible': [('id', '=', False)]}"/><field name="id" class="oe_inline"/></h1>
@@ -118,6 +146,8 @@
                 <xpath expr="//field[@name='website']" position="replace">
                     <field name="create_date" attrs="{'invisible': [('id','=',False)]}" />
                     <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                    <field name="is_duplicate_detected" />
+                    <field name="is_duplicate_allowed" />
                     <field name="gender" attrs="{'invisible': [('is_company','=', True)]}" />
                     <field name="tongue" attrs="{'invisible': [('is_company','=', True)]}" />
                     <field name="employee" attrs="{'invisible': [('is_company','=', True)]}" />
@@ -175,6 +205,7 @@
                             <h3>More Info</h3>
                             <group name="moreinfo">
                                 <field name="parent_id" domain="[('is_company', '=', True)]" />
+                                <field name="display_name" />
                                 <field name="tz" />
                             </group>
                         </div>
