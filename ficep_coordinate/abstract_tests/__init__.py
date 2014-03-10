@@ -25,21 +25,5 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.addons.ficep_coordinate.abstract_tests.test_abstract_coordinate import abstract_coordinate
-import openerp.tests.common as common
-
-
-class test_phone_coordinate(abstract_coordinate, common.TransactionCase):
-
-    def setUp(self):
-        super(test_phone_coordinate, self).setUp()
-        self.model_phone = self.registry('phone.phone')
-        self.model_coordinate = self.registry('phone.coordinate')
-        self.field_id_1 = self.model_phone.create(self.cr, self.uid, {'name': '+32 478 85 25 25',
-                                                                   'type': 'mobile'
-                                                                   }, context={})
-        self.field_id_2 = self.model_phone.create(self.cr, self.uid, {'name': '+32 465 00 00 00',
-                                                                   'type': 'mobile'
-                                                                   }, context={})
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
