@@ -62,6 +62,7 @@ class res_partner(orm.Model):
     _inherit = ['res.partner', 'abstract.duplicate']
 
     _discriminant_field = 'name'
+    _trigger_fileds = ['lastname', 'firstname']
     _undo_redirect_action = 'ficep_person.all_res_partner_action'
 
     _display_name_store_triggers = {
@@ -154,10 +155,10 @@ class res_partner(orm.Model):
         =================
         button_invalidate
         =================
-        Invalidate a partner by setting
+        Invalidates a partner by setting
         * active to False
         * expire_date to current date
-        and resetting its duplicate flag
+        and resetting its duplicate flags
         :rparam: True
         :rtype: boolean
         """
