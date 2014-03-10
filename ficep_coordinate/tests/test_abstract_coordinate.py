@@ -27,13 +27,6 @@
 ##############################################################################
 from openerp.osv import orm
 
-import openerp.tests.common as common
-import logging
-
-_logger = logging.getLogger(__name__)
-DB = common.DB
-ADMIN_USER_ID = common.ADMIN_USER_ID
-
 
 class abstract_coordinate(object):
 
@@ -53,17 +46,17 @@ class abstract_coordinate(object):
 
     def test_unicity_of_abstract_coordinate(self):
         """
-        ================================
+        ===================================
         test_unicity_of_abstract_coordinate
-        ================================
-        Test the fact that the phone coordinate must be unique with
-        partner_id, phone_id when no expire date
+        ===================================
+        Test the fact that the model coordinate must be unique with
+        partner_id, model_id when no expire date
         """
         self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                         'phone_id': self.field_id_1,
+                                                         self.model_coordinate._coordinate_field: self.field_id_1,
                                                          'is_main': True})
         self.assertRaises(orm.except_orm, self.model_coordinate.create, self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                                                                  'phone_id': self.field_id_1,
+                                                                                                  self.model_coordinate._coordinate_field: self.field_id_1,
                                                                                                   'is_main': False})
 
     def test_create_new_main(self):
@@ -71,37 +64,37 @@ class abstract_coordinate(object):
         ====================
         test_create_new_main
         ====================
-        Test the fact that a created phone coordinate that is main selected will
-        set the previous phone coordinate to ``is_main`` = False
+        Test the fact that a created model coordinate that is main selected will
+        set the previous model coordinate to ``is_main`` = False
         **Note**
         Check also that the new is right main
         """
         pc_id_1 = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                               'phone_id': self.field_id_1,
+                                                               self.model_coordinate._coordinate_field: self.field_id_1,
                                                                'is_main': True})
         pc_id_2 = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                               'phone_id': self.field_id_2,
+                                                               self.model_coordinate._coordinate_field: self.field_id_2,
                                                                'is_main': True})
         is_main_1 = self.model_coordinate.read(self.cr, self.uid, pc_id_1, ['is_main'])['is_main']
         is_main_2 = self.model_coordinate.read(self.cr, self.uid, pc_id_2, ['is_main'])['is_main']
-        self.assertEqual(is_main_1, False, 'Previous Phone Coordinate Should Not Be Main')
-        self.assertEqual(is_main_2, True, 'New Phone Coordinate Should Be Main')
+        self.assertEqual(is_main_1, False, 'Previous model Coordinate Should Not Be Main')
+        self.assertEqual(is_main_2, True, 'New model Coordinate Should Be Main')
 
     def test_check_at_least_one_main(self):
         """
         =============================
         test_check_at_least_one_main
         =============================
-        Test the fact that the associated partner of the phone coordinate has at least
+        Test the fact that the associated partner of the model coordinate has at least
         One main coordinate.
         """
         pc_id = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                                       'phone_id': self.field_id_1,
+                                                                       self.model_coordinate._coordinate_field: self.field_id_1,
                                                                        'is_main': False})
 
         is_main = self.model_coordinate.read(self.cr, self.uid, [pc_id], ['is_main'])
 
-        self.assertEqual(is_main[0]['is_main'], True, 'First Phone Coordinate Must Be Main')
+        self.assertEqual(is_main[0]['is_main'], True, 'First model Coordinate Must Be Main')
 
     def test_set_as_main(self):
         """
@@ -110,18 +103,18 @@ class abstract_coordinate(object):
         ================
         Test the behavior of ``set_as_main``
         Context:
-        phone_coo_1 : main     active
-        phone_coo_2 : not main active
+        model_coo_1 : main     active
+        model_coo_2 : not main active
 
         Waiting result:
-        phone_coo_1 : main    not active
-        phone_coo_2 : main    active
+        model_coo_1 : main    not active
+        model_coo_2 : main    active
         """
         pc_id_1 = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                               'phone_id': self.field_id_1,
+                                                               self.model_coordinate._coordinate_field: self.field_id_1,
                                                                'is_main': True})
         pc_id_2 = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                               'phone_id': self.field_id_2,
+                                                               self.model_coordinate._coordinate_field: self.field_id_2,
                                                                'is_main': False})
         self.model_coordinate.set_as_main(self.cr, self.uid, [pc_id_2], context={'invalidate': True})
 
@@ -129,44 +122,44 @@ class abstract_coordinate(object):
         mobile_coordinate_id = self.model_partner.read(self.cr, self.uid, self.partner_id_1, ['mobile_coordinate_id'])['mobile_coordinate_id']
 
         self.assertEqual(pc_vals[0]['is_main'] == True and
-                         pc_vals[0]['active'] == False, True, 'Previous Phone Coordinate Should Be Right Invalidate')
+                         pc_vals[0]['active'] == False, True, 'Previous model Coordinate Should Be Right Invalidate')
         self.assertEqual(pc_vals[1]['is_main'] == True and
-                         pc_vals[1]['active'] == True, True, 'Current Phone Coordinate Should Be New Main')
-        self.assertEqual(mobile_coordinate_id[0] == pc_vals[1]['id'], True, 'Replication Failed: Should be the new selected as main phone coordinate')
+                         pc_vals[1]['active'] == True, True, 'Current model Coordinate Should Be New Main')
+        self.assertEqual(mobile_coordinate_id[0] == pc_vals[1]['id'], True, 'Replication Failed: Should be the new selected as main model coordinate')
 
     def test_bad_unlink_abstract_coordinate(self):
         """
-        ================================
+        ===================================
         test_bad_unlink_abstract_coordinate
-        ================================
-        :test_case: * creation of two phone coordinate that have the same
+        ===================================
+        :test_case: * creation of two model coordinate that have the same
                           type and the same partner
                     * try to unlink the main coordinate
                     * check that is raise an ``orm.except_orm`` exception
         """
         main_abstract_coordinate_id = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                               'phone_id': self.field_id_1,
+                                                               self.model_coordinate._coordinate_field: self.field_id_1,
                                                                'is_main': True})
         self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                               'phone_id': self.field_id_2,
+                                                               self.model_coordinate._coordinate_field: self.field_id_2,
                                                                'is_main': False})
         self.assertRaises(orm.except_orm, self.model_coordinate.unlink, self.cr, self.uid, [main_abstract_coordinate_id])
 
     def test_correct_unlink_abstract_coordinate(self):
         """
-        ====================================
+        =======================================
         test_correct_unlink_abstract_coordinate
-        ====================================
-        :test_case: * creation of two phone coordinate that have the same
+        =======================================
+        :test_case: * creation of two model coordinate that have the same
                           type and the same partner
                     * try to unlink the two main coordinate
                     * check that it succeed
         """
         main_abstract_coordinate_id = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                               'phone_id': self.field_id_1,
+                                                               self.model_coordinate._coordinate_field: self.field_id_1,
                                                                'is_main': True})
         abstract_coordinate_id = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                               'phone_id': self.field_id_2,
+                                                               self.model_coordinate._coordinate_field: self.field_id_2,
                                                                'is_main': False})
         self.assertTrue(self.model_coordinate.unlink(self.cr, self.uid, \
                          [main_abstract_coordinate_id, abstract_coordinate_id]), \
@@ -193,20 +186,20 @@ class abstract_coordinate(object):
         ===================================
         test_management_of_duplicate_create
         ===================================
-        :test_case: * create two phone coordinate with same phone_id
+        :test_case: * create two model coordinate with same model_id
                       check that ``is_duplicate_detected`` is set to True
                       check that ``is_duplicate_allowed`` is set to False
-                    * allow those tow phone coordinate
+                    * allow those tow model coordinate
                       check that ``is_duplicate_detected`` is set to False
                       check that ``is_duplicate_allowed`` is set to True
-                    * create a third phone coordinate with same phone_id that previous
+                    * create a third model coordinate with same model_id that previous
                       check that ``is_duplicate_detected`` is set to True
                       check that ``is_duplicate_allowed`` is set to False
         """
         coordinate_id_1 = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                                                 'phone_id': self.field_id_1}, {})
+                                                                                 self.model_coordinate._coordinate_field: self.field_id_1}, {})
         coordinate_id_2 = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_2,
-                                                                                 'phone_id': self.field_id_1}, {})
+                                                                                 self.model_coordinate._coordinate_field: self.field_id_1}, {})
         is_duplicate_values = self.get_value_detected([coordinate_id_1, coordinate_id_2])
         self.check_state_of_duplicate(is_duplicate_values, True)
 
@@ -218,7 +211,7 @@ class abstract_coordinate(object):
         self.check_state_of_duplicate(is_duplicate_values, False)
 
         self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_3,
-                                                                                 'phone_id': self.field_id_1}, {})
+                                                                                 self.model_coordinate._coordinate_field: self.field_id_1}, {})
         is_duplicate_values = self.get_value_detected([coordinate_id_1, coordinate_id_2])
         self.check_state_of_duplicate(is_duplicate_values, True)
 
@@ -227,16 +220,16 @@ class abstract_coordinate(object):
         ===================================
         test_management_of_duplicate_unlink
         ===================================
-        :test_case: * create two phone coordinate with same phone_id
-                    * allow those tow phone coordinate
+        :test_case: * create two model coordinate with same model_id
+                    * allow those tow model coordinate
                     * unlink on of those coordinate
                       check that ``is_duplicate_detected`` is set to False
                       check that ``is_duplicate_allowed`` is set to False
         """
         coordinate_id_1 = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                                                 'phone_id': self.field_id_1}, {})
+                                                                                 self.model_coordinate._coordinate_field: self.field_id_1}, {})
         coordinate_id_2 = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_2,
-                                                                                 'phone_id': self.field_id_1}, {})
+                                                                                 self.model_coordinate._coordinate_field: self.field_id_1}, {})
         self.model_coordinate.unlink(self.cr, self.uid, [coordinate_id_2])
         is_duplicate_values = self.get_value_detected([coordinate_id_1])
         self.check_state_of_duplicate(is_duplicate_values)
@@ -246,19 +239,18 @@ class abstract_coordinate(object):
         =======================================
         test_management_of_duplicate_invalidate
         =======================================
-        :test_case: * create two phone coordinate with same phone_id
-                    * allow those tow phone coordinate
+        :test_case: * create two model coordinate with same model_id
+                    * allow those tow model coordinate
                     * invalidate first coordinate
                       check that the active one ``is_duplicate_detected`` is set to False
                       check that the active one ``is_duplicate_allowed`` is set to False
         """
         coordinate_id_1 = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                                                 'phone_id': self.field_id_1}, {})
+                                                                                 self.model_coordinate._coordinate_field: self.field_id_1}, {})
         coordinate_id_2 = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_2,
-                                                                                 'phone_id': self.field_id_1}, {})
+                                                                                 self.model_coordinate._coordinate_field: self.field_id_1}, {})
         self.model_coordinate.button_invalidate(self.cr, self.uid, [coordinate_id_2])
         is_duplicate_values = self.get_value_detected([coordinate_id_1])
         self.check_state_of_duplicate(is_duplicate_values)
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

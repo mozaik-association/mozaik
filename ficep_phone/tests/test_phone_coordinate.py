@@ -25,7 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.addons.ficep_coordinate.abstract_tests.test_abstract_coordinate import abstract_coordinate
+from openerp.addons.ficep_coordinate.tests.test_abstract_coordinate import abstract_coordinate
 import openerp.tests.common as common
 
 
