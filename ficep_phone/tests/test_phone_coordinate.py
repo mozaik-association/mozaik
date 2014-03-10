@@ -51,6 +51,7 @@ class test_phone_coordinate(common.TransactionCase):
 
         self.partner_id_1 = self.model_partner.create(cr, uid, {'name': 'partner_1'}, context={})
         self.partner_id_2 = self.model_partner.create(cr, uid, {'name': 'partner_2'}, context={})
+        self.partner_id_3 = self.model_partner.create(cr, uid, {'name': 'partner_3'}, context={})
 
         self.phone_id_1 = self.model_phone.create(cr, uid, {'name': '+32 478 85 25 25',
                                                                    'type': 'mobile'
@@ -147,10 +148,10 @@ class test_phone_coordinate(common.TransactionCase):
         ================================
         test_bad_unlink_phone_coordinate
         ================================
-        :start: creation of two phone coordinate that have the same
-                  type and the same partner
-        :action: try to unlink the main coordinate
-        :expected: raise an exception
+        :test_case: * creation of two phone coordinate that have the same
+                          type and the same partner
+                    * try to unlink the main coordinate
+                    * check that is raise an ``orm.except_orm`` exception
         """
         main_phone_coordinate_id = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
                                                                'phone_id': self.phone_id_1,
@@ -165,10 +166,10 @@ class test_phone_coordinate(common.TransactionCase):
         ====================================
         test_correct_unlink_phone_coordinate
         ====================================
-        :start: creation of two phone coordinate that have the same
-                  type and the same partner
-        :action: try to unlink the two main coordinate
-        :expected: succeed
+        :test_case: * creation of two phone coordinate that have the same
+                          type and the same partner
+                    * try to unlink the two main coordinate
+                    * check that it succeed
         """
         main_phone_coordinate_id = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
                                                                'phone_id': self.phone_id_1,
@@ -179,5 +180,94 @@ class test_phone_coordinate(common.TransactionCase):
         self.assertTrue(self.model_phone_coordinate.unlink(self.cr, self.uid, \
                          [main_phone_coordinate_id, phone_coordinate_id]), \
                          'Should be able to delete all coordinate of the same type for the same partner')
+
+    def check_state_of_duplicate(self, is_duplicate_values, detected=None):
+        for is_duplicate_value in is_duplicate_values:
+            if detected is None:
+                self.assertFalse(is_duplicate_value['is_duplicate_detected'], 'Should be duplicate detected')
+                self.assertFalse(is_duplicate_value['is_duplicate_allowed'], 'Should not be duplicate allowed')
+            else:
+                if detected:
+                    self.assertTrue(is_duplicate_value['is_duplicate_detected'], 'Should be duplicate detected')
+                    self.assertFalse(is_duplicate_value['is_duplicate_allowed'], 'Should not be duplicate allowed')
+                else:
+                    self.assertTrue(is_duplicate_value['is_duplicate_allowed'], 'Should be duplicate allowed')
+                    self.assertFalse(is_duplicate_value['is_duplicate_detected'], 'Should not be duplicate detected')
+
+    def get_value_detected(self, ids):
+        return self.model_phone_coordinate.read(self.cr, self.uid, ids, ['is_duplicate_detected', 'is_duplicate_allowed'],)
+
+    def test_management_of_duplicate_create(self):
+        """
+        ===================================
+        test_management_of_duplicate_create
+        ===================================
+        :test_case: * create two phone coordinate with same phone_id
+                      check that ``is_duplicate_detected`` is set to True
+                      check that ``is_duplicate_allowed`` is set to False
+                    * allow those tow phone coordinate
+                      check that ``is_duplicate_detected`` is set to False
+                      check that ``is_duplicate_allowed`` is set to True
+                    * create a third phone coordinate with same phone_id that previous
+                      check that ``is_duplicate_detected`` is set to True
+                      check that ``is_duplicate_allowed`` is set to False
+        """
+        coordinate_id_1 = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
+                                                                                 'phone_id': self.phone_id_1}, {})
+        coordinate_id_2 = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_2,
+                                                                                 'phone_id': self.phone_id_1}, {})
+        is_duplicate_values = self.get_value_detected([coordinate_id_1, coordinate_id_2])
+        self.check_state_of_duplicate(is_duplicate_values, True)
+
+        self.model_phone_coordinate.write(self.cr, self.uid,
+                                          [coordinate_id_1, coordinate_id_2],
+                                          {'is_duplicate_detected': False,
+                                           'is_duplicate_allowed': True})
+        is_duplicate_values = self.get_value_detected([coordinate_id_1, coordinate_id_2])
+        self.check_state_of_duplicate(is_duplicate_values, False)
+
+        self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_3,
+                                                                                 'phone_id': self.phone_id_1}, {})
+        is_duplicate_values = self.get_value_detected([coordinate_id_1, coordinate_id_2])
+        self.check_state_of_duplicate(is_duplicate_values, True)
+
+    def test_management_of_duplicate_unlink(self):
+        """
+        ===================================
+        test_management_of_duplicate_unlink
+        ===================================
+        :test_case: * create two phone coordinate with same phone_id
+                    * allow those tow phone coordinate
+                    * unlink on of those coordinate
+                      check that ``is_duplicate_detected`` is set to False
+                      check that ``is_duplicate_allowed`` is set to False
+        """
+        coordinate_id_1 = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
+                                                                                 'phone_id': self.phone_id_1}, {})
+        coordinate_id_2 = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_2,
+                                                                                 'phone_id': self.phone_id_1}, {})
+        self.model_phone_coordinate.unlink(self.cr, self.uid, [coordinate_id_2])
+        is_duplicate_values = self.get_value_detected([coordinate_id_1])
+        self.check_state_of_duplicate(is_duplicate_values)
+
+    def test_management_of_duplicate_invalidate(self):
+        """
+        =======================================
+        test_management_of_duplicate_invalidate
+        =======================================
+        :test_case: * create two phone coordinate with same phone_id
+                    * allow those tow phone coordinate
+                    * invalidate first coordinate
+                      check that the active one ``is_duplicate_detected`` is set to False
+                      check that the active one ``is_duplicate_allowed`` is set to False
+        """
+        coordinate_id_1 = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
+                                                                                 'phone_id': self.phone_id_1}, {})
+        coordinate_id_2 = self.model_phone_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_2,
+                                                                                 'phone_id': self.phone_id_1}, {})
+        self.model_phone_coordinate.button_invalidate(self.cr, self.uid, [coordinate_id_2])
+        is_duplicate_values = self.get_value_detected([coordinate_id_1])
+        self.check_state_of_duplicate(is_duplicate_values)
+
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
