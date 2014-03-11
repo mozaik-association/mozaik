@@ -70,7 +70,7 @@ class abstract_coordinate(orm.AbstractModel):
     _rec_name = _discriminant_field
 
     _defaults = {
-        'coordinate_type': COORDINATE_AVAILABLE_TYPES[0],
+        'coordinate_type': COORDINATE_AVAILABLE_TYPES[0][0],
         'active': True,
     }
 

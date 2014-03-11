@@ -88,7 +88,7 @@ class phone_phone(orm.Model):
     _order = "name"
 
     _defaults = {
-        'type': PHONE_AVAILABLE_TYPES[0],
+        'type': PHONE_AVAILABLE_TYPES[0][0],
     }
 
     _sql_constraints = [
