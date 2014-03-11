@@ -25,40 +25,35 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_phone',
-        'ficep_email',
-    ],
-    'description': """
-FICEP
-=====
-    """,
-    'images': [
-    ],
-    'data': [
-        'data/res_users_data.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'auto_install': False,
-    'installable': True,
-}
+from openerp.osv import orm
+import openerp.tests.common as common
+import logging
+
+_logger = logging.getLogger(__name__)
+
+DB = common.DB
+ADMIN_USER_ID = common.ADMIN_USER_ID
+
+
+class test_email_coordinate(common.TransactionCase):
+
+    def setUp(self):
+        super(test_email_coordinate, self).setUp()
+
+        self.registry('ir.model').clear_caches()
+        self.registry('ir.model.data').clear_caches()
+
+    def test_bad_insert(self):
+        """
+        ===============
+        test_bad_insert
+        ===============
+        """
+        cr, uid = self.cr, self.uid
+        model_email = self.registry('email.coordinate')
+        model_partner = self.registry('res.partner')
+        partner_id_1 = model_partner.create(cr, uid, {'name': 'test'})
+        self.assertRaises(orm.except_orm, model_email.create, cr, uid, {'partner_id': partner_id_1,
+                                                                        'email': 'bad'})
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

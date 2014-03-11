@@ -47,6 +47,7 @@ FICEP Sample Customization
          '../ficep_person/tests/data/person_data.xml',
          '../ficep_coordinate/demo/coordinate_demo.xml',
          '../ficep_phone/tests/data/phone_data.xml',
+         '../ficep_email/tests/data/email_data.xml',
          'demo/sample_customization_demo.xml'  # must be the last
     ],
     'js': [

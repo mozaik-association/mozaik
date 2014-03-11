@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+       <record id="res_partner_search_view" model="ir.ui.view">
+            <field name="name">res.partner.search (ficep_email)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_person.res_partner_search_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field string="Emails" name="email" filter_domain="[('email','ilike',self)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree (ficep_email)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email']" position="replace">
+                    <field name="email" invisible="context.get('default_is_company')"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form (ficep_email)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='email']" position="replace">
+                    <field name="email_coordinate_id" context="{'form_view_ref': 'ficep_email.email_coordinate_form_view'}" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_emails_partner_info_form" model="ir.ui.view">
+            <field name="name">res.partner.emails.info.inherit (ficep_email)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_person.view_emails_partner_info_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="email"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_partner_2_form" model="ir.ui.view">
+            <field name="name">res.partner.form (ficep_email_2)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_coordinate.view_partner_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='coordinates']" position="inside">
+                    <separator string="Email Coordinates"/>
+                    <button string="All Details"
+                            name="%(email_coordinate_action)d"
+                            type="action"
+                            context="{'search_default_partner_id': active_id,
+                                      'default_partner_id': active_id,
+                                      'search_default_all': True}"/>
+                    <field name="email_coordinate_ids" context="{'default_partner_id': active_id,
+                                                                 'simplified': 1,
+                                                                 'form_view_ref': 'ficep_email.email_coordinate_form_view'}"
+                           attrs="{'invisible': [('active','=',False)]}">
+                        <tree>
+                            <field name="email"/>
+                            <field name="coordinate_category_id" />
+                            <field name="is_main" />
+                            <field name="unauthorized" />
+                            <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                        </tree>
+                    </field>
+                    <field name="email_coordinate_inactive_ids" context="{'simplified': 1,
+                                                                          'form_view_ref': 'ficep_email.email_coordinate_form_view'}"
+                           readonly="1" attrs="{'invisible': [('active','=',True)]}">
+                        <tree>
+                            <field name="email"/>
+                            <field name="coordinate_category_id" />
+                            <field name="is_main" />
+                            <field name="unauthorized" />
+                            <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                        </tree>
+                    </field>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>
