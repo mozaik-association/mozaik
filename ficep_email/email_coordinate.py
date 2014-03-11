@@ -34,15 +34,14 @@ from openerp.tools.translate import _
 class email_coordinate(orm.Model):
 
     _name = 'email.coordinate'
-    _description = "Email Coordinate"
     _inherit = ['abstract.coordinate']
+    _description = "Email Coordinate"
+
     _discriminant_field = 'email'
-    _coordinate_action = 'email_coordinate_action'
+    _undo_redirect_action = 'ficep_email.email_coordinate_action'
 
     _columns = {
-        'email': fields.char('Email', size=100, required=True, select=True, track_visibility='onchange'),
-
-        'coordinate_type': fields.char('Coordinate Type'),
+        'email': fields.char('Email', size=100, required=True, select=True),
     }
 
     def _check_email(self, cr, uid, ids, context=None):
@@ -55,40 +54,5 @@ class email_coordinate(orm.Model):
     _constraints = [
         (_check_email, _('Invalid Email Format'), ['email']),
     ]
-
-# orm methods
-
-    def create(self, cr, uid, vals, context=None):
-        """
-        =======================
-        create email.coordinate
-        =======================
-        """
-        return super(email_coordinate, self).create(cr, uid, vals, context=context)
-
-    def write(self, cr, uid, ids, vals, context=None):
-        """
-        ======================
-        write email.coordinate
-        ======================
-        """
-        return super(email_coordinate, self).write(cr, uid, ids, vals, context=context)
-
-#public methods
-
-    def get_linked_partners(self, cr, uid, ids, context=None):
-        """
-        ===================
-        get_linked_partners
-        ===================
-        Return partner ids linked to all related coordinate linked to phone ids
-        :rparam: partner_ids
-        :rtype: list of ids
-        """
-        email_rds = self.browse(cr, uid, ids, context=context)
-        partner_ids = []
-        for record in email_rds:
-            partner_ids.append(record.partner_id.id)
-        return partner_ids
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

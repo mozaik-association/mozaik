@@ -62,7 +62,8 @@ class xxxx(orm.Model):
     _description = "XXX"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
-# static methods
+# private methods
+
     def _your_field_function(self):
         pass
 
@@ -71,7 +72,8 @@ class xxxx(orm.Model):
         ('choice1', 'This is the choice 1'),
         ('choice2', 'This is the choice 2'))
 
-# columns
+# fields
+
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, required=True, translate=True, select=True, track_visibility='onchange'),

@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Create Phone Coordinates -->
+        <!-- Create Email Coordinates -->
 
         <!-- Partner Pauline -->
 
@@ -17,7 +17,12 @@
         <record id="email_coordinate_two" model="email.coordinate">
             <field name="email">thierry@gmail.com</field>
             <field name="partner_id" ref="res_partner_thierry" />
-            <field name="is_main" eval="True" />
+        </record>
+
+        <record id="email_coordinate_one" model="email.coordinate">
+            <field name="email">titi@hotmail.com</field>
+            <field name="partner_id" ref="res_partner_thierry" />
+            <field name="vip" eval="True" />
         </record>
 
     </data>

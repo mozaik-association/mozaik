@@ -38,11 +38,11 @@ class res_partner(orm.Model):
 
     _inherit = "res.partner"
 
-    def _get_linked_partners_from_coordinates(self, cr, uid, ids, context=None):
+    def _get_linked_partners_from_phone_coordinates(self, cr, uid, ids, context=None):
         """
-        =====================================
-        _get_linked_partners_from_coordinates
-        =====================================
+        ===========================================
+        _get_linked_partners_from_phone_coordinates
+        ===========================================
         Return partner ids linked to coordinates ids
         :param ids: triggered coordinates ids
         :type name: list
@@ -97,7 +97,7 @@ class res_partner(orm.Model):
         =======================
         _get_main_phone_numbers
         =======================
-        Reset a main phone number field for a given phone type
+        Reset main phone number field for a given phone type
         :param ids: partner ids for which the phone number has to be recomputed
         :type name: char
         :rparam: dictionary for all partner ids with the requested main phone number
@@ -120,8 +120,10 @@ class res_partner(orm.Model):
         return result
 
     _phone_store_triggers = {
-                               'phone.coordinate': (_get_linked_partners_from_coordinates, ['partner_id', 'phone_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
-                               'phone.phone': (_get_linked_partners_from_phones, ['name', 'type'], 10),
+                               'phone.coordinate': (_get_linked_partners_from_phone_coordinates,
+                                   ['partner_id', 'phone_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
+                               'phone.phone': (_get_linked_partners_from_phones,
+                                   ['name', 'type'], 10),
                             }
 
     _columns = {
@@ -140,21 +142,24 @@ class res_partner(orm.Model):
         # Standard fields redefinition
         'phone': fields.function(_get_main_phone_numbers, arg={'type': 'fix'}, string='Phone',
                                  type='char', relation="phone.coordinate", select=True,
-                                 store=_phone_store_triggers,
-                                ),
+                                 store=_phone_store_triggers),
         'mobile': fields.function(_get_main_phone_numbers, arg={'type': 'mobile'}, string='Mobile',
                                  type='char', relation="phone.coordinate", select=True,
-                                 store=_phone_store_triggers,
-                                ),
+                                 store=_phone_store_triggers),
         'fax': fields.function(_get_main_phone_numbers, arg={'type': 'fax'}, string='Fax',
-                                 type='char', relation="phone.coordinate",
-                                 store=_phone_store_triggers,
-                                ),
+                                 type='char', relation="phone.coordinate", select=True,
+                                 store=_phone_store_triggers),
     }
 
 # orm methods
 
     def copy(self, cr, uid, ids, default=None, context=None):
+        """
+        ====
+        copy
+        ====
+        Avoid to copy coordinates when duplicating partner
+        """
         if default is None:
             default = {}
         default.update({'phone_coordinate_ids': []})

@@ -9,7 +9,7 @@
                 <search string="Partner">
                     <field name="id" string="Number"/>
                     <field name="name"
-                           filter_domain="['|','|',('display_name','ilike',self),('name','ilike',self),('email','ilike',self)]"/>
+                           filter_domain="['|',('display_name','ilike',self),('name','ilike',self)]"/>
                     <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
                     <field string="Birthdate > ..." name="birthdate" filter_domain="[('birthdate','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field string="Birthdate &lt; ..." name="birthdate" filter_domain="[('birthdate','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />

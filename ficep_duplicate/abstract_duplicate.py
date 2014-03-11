@@ -41,6 +41,13 @@ class abstract_duplicate(orm.AbstractModel):
     _trigger_fileds = []
     _undo_redirect_action = None
 
+# private methods
+
+    def _is_discriminant_m2o(self):
+        return isinstance(self._columns[self._discriminant_field], fields.many2one)
+
+# fields
+
     _columns = {
         # Duplicates
         'is_duplicate_detected': fields.boolean('Is Duplicate Detected', readonly=True),
@@ -64,7 +71,7 @@ class abstract_duplicate(orm.AbstractModel):
         if discriminants:
             values = []
             for discriminant in discriminants:
-                values.append(isinstance(discriminant[self._discriminant_field], tuple) and discriminant[self._discriminant_field][0] or discriminant[self._discriminant_field])
+                values.append(self._is_discriminant_m2o() and discriminant[self._discriminant_field][0] or discriminant[self._discriminant_field])
             self.detect_and_repair_duplicate(cr, SUPERUSER_ID, list(set(values)), context)
         return new_id
 
@@ -85,7 +92,7 @@ class abstract_duplicate(orm.AbstractModel):
             if discriminants:
                 values = []
                 for discriminant in discriminants:
-                    values.append(isinstance(discriminant[self._discriminant_field], tuple) and discriminant[self._discriminant_field][0] or discriminant[self._discriminant_field])
+                    values.append(self._is_discriminant_m2o() and discriminant[self._discriminant_field][0] or discriminant[self._discriminant_field])
                 self.detect_and_repair_duplicate(cr, SUPERUSER_ID, list(set(values)), context)
         return res
 
@@ -101,7 +108,7 @@ class abstract_duplicate(orm.AbstractModel):
         if discriminants:
             values = []
             for discriminant in discriminants:
-                values.append(isinstance(discriminant[self._discriminant_field], tuple) and discriminant[self._discriminant_field][0] or discriminant[self._discriminant_field])
+                values.append(self._is_discriminant_m2o() and discriminant[self._discriminant_field][0] or discriminant[self._discriminant_field])
             self.detect_and_repair_duplicate(cr, SUPERUSER_ID, list(set(values)), context)
         return res
 
@@ -125,7 +132,7 @@ class abstract_duplicate(orm.AbstractModel):
 
         # reload the tree with all duplicates
         duplicate = self.browse(cr, uid, ids, context=context)[0]
-        value = isinstance(self._columns[self._discriminant_field], fields.many2one) and duplicate[self._discriminant_field].id or duplicate[self._discriminant_field]
+        value = self._is_discriminant_m2o() and duplicate[self._discriminant_field].id or duplicate[self._discriminant_field]
         action_name = self._undo_redirect_action.split('.', 1) 
         action = self.pool['ir.actions.act_window'].for_xml_id(cr, uid, action_name[0], action_name[1], context=context)
         action.pop('search_view')

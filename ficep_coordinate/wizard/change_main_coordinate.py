@@ -64,7 +64,7 @@ class change_main_coordinate(orm.TransientModel):
         wizard = self.browse(cr, uid, ids, context=context)[0]
         coord_obj = self.pool[context.get('target_model')]
         coordinate_field = coord_obj._discriminant_field
-        coordinate_value = isinstance(coord_obj._columns[coordinate_field], fields.many2one) and wizard[coordinate_field].id or wizard[coordinate_field]
+        coordinate_value = coord_obj._is_discriminant_m2o() and wizard[coordinate_field].id or wizard[coordinate_field]
 
         context['invalidate'] = wizard.invalidate_previous_coordinate
         coord_obj.change_main_coordinate(cr, uid, partner_ids, coordinate_value, context=context)

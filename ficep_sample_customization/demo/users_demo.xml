@@ -115,27 +115,33 @@
             Add email address after creating user to avoid to try to send a welcome message
         -->
 
-        <record id="partner_of_user_1" model="res.partner">
+        <record id="email_coordinate_demo_1" model="email.coordinate">
+            <field name="partner_id" ref="partner_of_user_1" />
             <field name="email">pierre@ficep.be</field>
         </record>
 
-        <record id="partner_of_user_2" model="res.partner">
+        <record id="email_coordinate_demo_2" model="email.coordinate">
+            <field name="partner_id" ref="partner_of_user_2" />
             <field name="email">claude@ficep.be</field>
         </record>
 
-        <record id="partner_of_user_3" model="res.partner">
+        <record id="email_coordinate_demo_3" model="email.coordinate">
+            <field name="partner_id" ref="partner_of_user_3" />
             <field name="email">steve@ficep.be</field>
         </record>
 
-        <record id="partner_of_user_4" model="res.partner">
+        <record id="email_coordinate_demo_4" model="email.coordinate">
+            <field name="partner_id" ref="partner_of_user_4" />
             <field name="email">leon@ficep.be</field>
         </record>
 
-        <record id="partner_of_user_5" model="res.partner">
+        <record id="email_coordinate_demo_5" model="email.coordinate">
+            <field name="partner_id" ref="partner_of_user_5" />
             <field name="email">isabelle@ficep.be</field>
         </record>
 
-        <record id="partner_of_user_6" model="res.partner">
+        <record id="email_coordinate_demo_6" model="email.coordinate">
+            <field name="partner_id" ref="partner_of_user_6" />
             <field name="email">sylvie@ficep.be</field>
         </record>
 

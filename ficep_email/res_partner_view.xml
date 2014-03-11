@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="ficep_person.res_partner_search_view" />
             <field name="arch" type="xml">
                 <xpath expr="//search" position="inside">
-                    <field string="Emails" name="email" filter_domain="[('email','ilike',self)]"/>
+                    <field string="Email" name="email" filter_domain="[('email','ilike',self)]"/>
                 </xpath>
             </field>
         </record>
@@ -18,9 +18,7 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='email']" position="replace">
-                    <field name="email" invisible="context.get('default_is_company')"/>
-                </xpath>
+                <xpath expr="//field[@name='email']" position="replace"/>
             </field>
         </record>
 

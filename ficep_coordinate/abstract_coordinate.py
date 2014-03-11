@@ -51,6 +51,8 @@ class abstract_coordinate(orm.AbstractModel):
 
     _discriminant_field = None
 
+# fields
+
     _columns = {
         'id': fields.integer('ID', readonly=True),
 
@@ -123,7 +125,7 @@ class abstract_coordinate(orm.AbstractModel):
         coordinate = self.browse(cr, uid, ids, context=context)[0]
         res_ids = self.search(cr, uid, [('id', '!=', coordinate.id),
                                         ('partner_id', '=', coordinate.partner_id.id),
-                                        (self._discriminant_field, '=', isinstance(self._columns[self._discriminant_field], fields.many2one) and coordinate[self._discriminant_field].id or coordinate[self._discriminant_field]),
+                                        (self._discriminant_field, '=', self._is_discriminant_m2o() and coordinate[self._discriminant_field].id or coordinate[self._discriminant_field]),
                                        ], context=context)
         return len(res_ids) == 0
 
@@ -147,15 +149,12 @@ class abstract_coordinate(orm.AbstractModel):
         if not ids:
             return []
 
-        if isinstance(self._columns[self._discriminant_field], fields.many2one):
-            return super(abstract_coordinate, self).name_get(cr, uid, ids, context=context)
-
         if isinstance(ids, (long, int)):
             ids = [ids]
 
         res = []
         for record in self.read(cr, uid, ids, [self._discriminant_field], context=context):
-            display_name = record[self._discriminant_field][1]
+            display_name = self._is_discriminant_m2o() and record[self._discriminant_field][1] or record[self._discriminant_field]
             res.append((record['id'], display_name))
         return res
 
@@ -174,7 +173,7 @@ class abstract_coordinate(orm.AbstractModel):
         the database then the other(s) will not be main anymore
         """
         context = context or {}
-        vals['coordinate_type'] = vals.get('coordinate_type') or COORDINATE_AVAILABLE_TYPES[0]
+        vals['coordinate_type'] = vals.get('coordinate_type') or COORDINATE_AVAILABLE_TYPES[0][0]
         domain_other_active_main = self.get_target_domain(vals['partner_id'], vals['coordinate_type'])
         coordinate_ids = self.search(cr, uid, domain_other_active_main, context=context)
         if not coordinate_ids:

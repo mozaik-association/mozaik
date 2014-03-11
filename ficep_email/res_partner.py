@@ -36,9 +36,9 @@ class res_partner(orm.Model):
 
     def _get_linked_partners_from_email_coordinates(self, cr, uid, ids, context=None):
         """
-        =====================================
+        ===========================================
         _get_linked_partners_from_email_coordinates
-        =====================================
+        ===========================================
         Return partner ids linked to coordinates ids
         :param ids: triggered coordinates ids
         :type name: list
@@ -59,7 +59,7 @@ class res_partner(orm.Model):
         :rparam: dictionary for all partner id with requested main coordinate ids
         :rtype: dict {partner_id:{'email_coordinate_id': main_email_id,}}
         Note:
-        Calling and result convention: Multiple mode
+        Calling and result convention: Single mode
         """
         result = {}.fromkeys(ids, False)
         coord_obj = self.pool['email.coordinate']
@@ -76,11 +76,11 @@ class res_partner(orm.Model):
         ===============
         _get_main_email
         ===============
-        Reset a main email
+        Reset main email field
         :param ids: partner ids for which the email has to be recomputed
         :type name: char
         :rparam: dictionary for all partner ids with the requested main email number
-        :rtype: dict {partner_id: main_email_coordinate}
+        :rtype: dict {partner_id: main_email}
         Note:
         Calling and result convention: Single mode
         """
@@ -95,7 +95,8 @@ class res_partner(orm.Model):
         return result
 
     _email_store_triggers = {
-                               'email.coordinate': (_get_linked_partners_from_email_coordinates, ['partner_id', 'email', 'is_main', 'vip', 'unauthorized', 'active'], 10),
+                               'email.coordinate': (_get_linked_partners_from_email_coordinates,
+                                   ['partner_id', 'email', 'is_main', 'vip', 'unauthorized', 'active'], 10),
                             }
 
     _columns = {
@@ -103,18 +104,23 @@ class res_partner(orm.Model):
         'email_coordinate_inactive_ids': fields.one2many('email.coordinate', 'partner_id', 'Email Coordinates', domain=[('active', '=', False)]),
 
         'email_coordinate_id': fields.function(_get_main_email_coordinate_ids, string='Email',
-                                             type='many2one', relation="email.coordinate"),
+                                               type='many2one', relation="email.coordinate"),
 
         # Standard fields redefinition
         'email': fields.function(_get_main_email, string='Email',
                                  type='char', relation="email.coordinate", select=True,
-                                 store=_email_store_triggers,
-                                ),
+                                 store=_email_store_triggers),
     }
 
 # orm methods
 
     def copy(self, cr, uid, ids, default=None, context=None):
+        """
+        ====
+        copy
+        ====
+        Avoid to copy coordinates when duplicating partner
+        """
         if default is None:
             default = {}
         default.update({'email_coordinate_ids': []})

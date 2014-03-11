@@ -53,7 +53,7 @@ class allow_duplicate_wizard(orm.TransientModel):
             raise orm.except_orm(_('Error'), _('Only duplicated entries related to the same field "%s" are allowed!') % target_obj._columns[discriminant_field].string)
 
         if len(document_ids) == 1:
-            discriminant = isinstance(target_obj._columns[target_obj._discriminant_field], fields.many2one) and discriminants[0].id or discriminants[0]
+            discriminant = target_obj._is_discriminant_m2o() and discriminants[0].id or discriminants[0]
             allowed_document_ids = target_obj.search(cr, SUPERUSER_ID, [(discriminant_field, '=', discriminant),
                                                                         ('is_duplicate_allowed', '=', True)], context=context)
             if not allowed_document_ids:
