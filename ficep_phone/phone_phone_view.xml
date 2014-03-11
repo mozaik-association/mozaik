@@ -119,8 +119,9 @@
                     <field name="phone_id" />
                 </xpath>
 
-                <xpath expr="//filter[@name='partner']" position="after">
+                <xpath expr="//group[@name='group_by']" position="inside">
                     <filter name="phone" string="Phone" domain="[]" context="{'group_by':'phone_id'}" />
+                    <filter name="type" string="Phone Type" domain="[]" context="{'group_by':'coordinate_type'}" />
                 </xpath>
 
             </field>

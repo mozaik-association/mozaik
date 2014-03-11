@@ -26,7 +26,7 @@
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" />
 
-                    <group expand="0" string="Group By...">
+                    <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
                         <filter name="category" string="Category" domain="[]" context="{'group_by':'coordinate_category_id'}" />
                     </group>
@@ -39,7 +39,7 @@
             <field name="model">abstract.coordinate</field>
             <field name="arch" type="xml">
                 <tree string="Coordinates" version="7.0"
-                      colors="red:is_duplicate_detected==True">
+                      colors="grey:active==False;red:is_duplicate_detected==True">
                     <field name="partner_id" />
                     <field name="coordinate_category_id" />
                     <field name="is_main" />

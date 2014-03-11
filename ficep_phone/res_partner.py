@@ -54,9 +54,9 @@ class res_partner(orm.Model):
 
     def _get_linked_partners_from_phones(self, cr, uid, ids, context=None):
         """
-        ===============================
-        get_linked_partners_from_phones
-        ===============================
+        ================================
+        _get_linked_partners_from_phones
+        ================================
         Return partner ids linked by coordinates to phone ids
         :param ids: triggered phone ids
         :type name: list
@@ -85,9 +85,11 @@ class res_partner(orm.Model):
         result = {}.fromkeys(ids, {'%s_coordinate_id' % cid[0]: False for cid in PHONE_AVAILABLE_TYPES})
         coord_obj = self.pool['phone.coordinate']
         coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
-                                                    ('is_main', '=', True)], context=context)
+                                                    ('is_main', '=', True),
+                                                    ('active','<=',True)], context=context)
         for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
-            result[coord.partner_id.id]['%s_coordinate_id' % coord.coordinate_type] = coord.id
+            if coord.active == coord.partner_id.active:
+                result[coord.partner_id.id]['%s_coordinate_id' % coord.coordinate_type] = coord.id
         return result
 
     def _get_main_phone_numbers(self, cr, uid, ids, name, args, context=None):
@@ -110,9 +112,11 @@ class res_partner(orm.Model):
         coord_obj = self.pool['phone.coordinate']
         coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
                                                              ('coordinate_type', '=', coordinate_type),
-                                                             ('is_main', '=', True)], context=context)
+                                                             ('is_main', '=', True),
+                                                             ('active','<=',True)], context=context)
         for coord in coord_obj.browse(cr, SUPERUSER_ID, coordinate_ids, context=context):
-            result[coord.partner_id.id] = 'VIP' if coord.vip else 'N/A: %s' % coord.phone_id.name if coord.unauthorized else coord.phone_id.name
+            if coord.active == coord.partner_id.active:
+                result[coord.partner_id.id] = 'VIP' if coord.vip else 'N/A: %s' % coord.phone_id.name if coord.unauthorized else coord.phone_id.name
         return result
 
     _phone_store_triggers = {
@@ -164,6 +168,7 @@ class res_partner(orm.Model):
         =====
         When invalidating a partner, invalidates also its phone coordinates 
         """
+        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         if 'active' in vals and not vals['active']:
             coord_obj = self.pool['phone.coordinate']
             coord_ids = []
@@ -171,6 +176,6 @@ class res_partner(orm.Model):
                 coord_ids += [c.id for c in partner.phone_coordinate_ids]
             if coord_ids:
                 coord_obj.button_invalidate(cr, SUPERUSER_ID, coord_ids, context=context)
-        return super(res_partner, self).write(cr, uid, ids, vals, context=context)
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

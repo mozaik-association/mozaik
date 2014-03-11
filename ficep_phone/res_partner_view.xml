@@ -32,15 +32,15 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='phone']" position="replace">
-                    <field name="fix_coordinate_id" />
+                    <field name="fix_coordinate_id" context="{'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}" />
                 </xpath>
 
                 <xpath expr="//field[@name='mobile']" position="replace">
-                    <field name="mobile_coordinate_id" />
+                    <field name="mobile_coordinate_id" context="{'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}" />
                 </xpath>
 
                 <xpath expr="//field[@name='fax']" position="replace">
-                    <field name="fax_coordinate_id" />
+                    <field name="fax_coordinate_id" context="{'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}" />
                 </xpath>
 
             </field>
