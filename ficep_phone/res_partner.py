@@ -86,7 +86,7 @@ class res_partner(orm.Model):
         coord_obj = self.pool['phone.coordinate']
         coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
                                                     ('is_main', '=', True),
-                                                    ('active','<=',True)], context=context)
+                                                    ('active', '<=', True)], context=context)
         for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
             if coord.active == coord.partner_id.active:
                 result[coord.partner_id.id]['%s_coordinate_id' % coord.coordinate_type] = coord.id
@@ -113,7 +113,7 @@ class res_partner(orm.Model):
         coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
                                                              ('coordinate_type', '=', coordinate_type),
                                                              ('is_main', '=', True),
-                                                             ('active','<=',True)], context=context)
+                                                             ('active', '<=', True)], context=context)
         for coord in coord_obj.browse(cr, SUPERUSER_ID, coordinate_ids, context=context):
             if coord.active == coord.partner_id.active:
                 result[coord.partner_id.id] = 'VIP' if coord.vip else 'N/A: %s' % coord.phone_id.name if coord.unauthorized else coord.phone_id.name
@@ -166,7 +166,7 @@ class res_partner(orm.Model):
         =====
         write
         =====
-        When invalidating a partner, invalidates also its phone coordinates 
+        When invalidating a partner, invalidates also its phone coordinates
         """
         res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         if 'active' in vals and not vals['active']:
