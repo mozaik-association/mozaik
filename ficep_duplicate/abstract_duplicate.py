@@ -35,6 +35,7 @@ class abstract_duplicate(orm.AbstractModel):
 
     _name = 'abstract.duplicate'
     # target model has to inherit from ['mail.thread']
+    _description = "Abstract Duplicate"
 
     _discriminant_field = None
     _trigger_fileds = []

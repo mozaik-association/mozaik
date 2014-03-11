@@ -208,10 +208,11 @@ class phone_phone(orm.Model):
 class phone_coordinate(orm.Model):
 
     _name = 'phone.coordinate'
-    _description = "Phone Coordinate"
     _inherit = ['abstract.coordinate']
-    _coordinate_field = 'phone_id'
-    _coordinate_action = 'phone_coordinate_action'
+    _description = "Phone Coordinate"
+
+    _discriminant_field = 'phone_id'
+    _undo_redirect_action = 'ficep_phone.phone_coordinate_action'
 
     _columns = {
         'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True, select=True),

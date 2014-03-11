@@ -48,7 +48,6 @@ FICEP Coordinate
         'coordinate_category_view.xml',
         'abstract_coordinate_view.xml',
         'res_partner_view.xml',
-        'wizard/authorize_duplicate_coordinate.xml',
         'wizard/change_main_coordinate.xml',
     ],
     'js': [
