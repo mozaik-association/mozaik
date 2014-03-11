@@ -152,6 +152,13 @@ class phone_phone(orm.Model):
         return super(phone_phone, self).write(cr, uid, ids, vals, context=context)
 
     def copy(self, cr, uid, ids, default=None, context=None):
+        """
+        ================
+        copy phone.phone
+        ================
+        Due to the constraint: to avoid the standard except: better explanation
+        for the user
+        """
         raise orm.except_orm(_('Error'), _('A phone number cannot be duplicated!'))
 
 # public methods

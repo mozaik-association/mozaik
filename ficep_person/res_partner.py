@@ -26,7 +26,6 @@
 #
 ##############################################################################
 
-import openerp
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
@@ -42,8 +41,8 @@ AVAILABLE_GENDERS = [
 available_genders = dict(AVAILABLE_GENDERS)
 
 AVAILABLE_CIVIL_STATUS = [
-                          ('u', 'Unmarried'), 
-                          ('m', 'Married'), 
+                          ('u', 'Unmarried'),
+                          ('m', 'Married'),
                           ('d', 'Divorced'),
                          ]
 
@@ -56,6 +55,7 @@ AVAILABLE_TONGUES = [
 
 available_tongues = dict(AVAILABLE_TONGUES)
 
+
 class res_partner(orm.Model):
 
     _name = 'res.partner'
@@ -66,14 +66,14 @@ class res_partner(orm.Model):
     _undo_redirect_action = 'ficep_person.all_res_partner_action'
 
     _display_name_store_triggers = {
-        'res.partner': (lambda self,cr,uid,ids,context=None: ids,
-                        ['is_company', 'name', 'firstname', 'lastname', 'usual_firstname', 'usual_lastname',], 10)
+        'res.partner': (lambda self, cr, uid, ids, context=None: ids,
+                        ['is_company', 'name', 'firstname', 'lastname', 'usual_firstname', 'usual_lastname', ], 10)
     }
 
     _columns = {
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue', select=True, track_visibility='onchange'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender', select=True, track_visibility='onchange'),
-        'civil_status': fields.selection(AVAILABLE_CIVIL_STATUS, 'Civil Status', track_visibility='onchange'),  
+        'civil_status': fields.selection(AVAILABLE_CIVIL_STATUS, 'Civil Status', track_visibility='onchange'),
         'secondary_website': fields.char('Secondary Website', size=128, track_visibility='onchange',
                                          help="Secondary Website of Partner or Company"),
         'twitter': fields.char('Twitter', size=64, track_visibility='onchange'),
@@ -84,7 +84,7 @@ class res_partner(orm.Model):
                                   help="ID of the user in the LDAP"),
         'usual_firstname': fields.char("Usual Firstname", track_visibility='onchange'),
         'usual_lastname': fields.char("Usual Lastname", track_visibility='onchange'),
-            
+
         # Standard fields redefinition
         'display_name': fields.function(res_partner.res_partner._display_name_compute, type='char', string='Name', store=_display_name_store_triggers),
         'birthdate': fields.date('Birthdate', select=True, track_visibility='onchange'),
@@ -104,8 +104,8 @@ class res_partner(orm.Model):
         'tz': 'Europe/Brussels',
         'customer': False,
         'notification_email_send': 'none',
-        
-        # New fields 
+
+        # New fields
         'tongue': lambda *args: AVAILABLE_TONGUES[0][0],
     }
 
@@ -200,7 +200,7 @@ class res_partner(orm.Model):
         if not partner.active:
             raise orm.except_orm(_('Error'), _('The partner %s has to be active!') % partner.display_name)
 
-        vals = group_ids and {'groups_id': [(6, 0, group_ids)]} or {} 
+        vals = group_ids and {'groups_id': [(6, 0, group_ids)]} or {}
         vals.update({
                      'partner_id': partner_id,
                      'login': login,
@@ -208,9 +208,9 @@ class res_partner(orm.Model):
                     })
 
         user_id = self.pool.get('res.users').create(cr, uid, vals, context=context)
-        
+
         partner.write({'ldap_name': login}, context=context)
-        
+
         return user_id
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

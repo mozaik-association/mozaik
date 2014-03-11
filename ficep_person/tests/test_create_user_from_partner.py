@@ -27,7 +27,6 @@
 ##############################################################################
 from anybox.testing.openerp import SharedSetupTransactionCase
 from openerp.osv import orm
-from openerp.tools.translate import _
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -69,11 +68,11 @@ class test_create_user_from_partner(SharedSetupTransactionCase):
         partner_model, user_model = self.partner_model, self.user_model
 
         # Check for reference data
-        vals = user_model.search(cr, uid, [('partner_id','=',jacques_id)], context=context)
+        vals = user_model.search(cr, uid, [('partner_id', '=', jacques_id)], context=context)
         self.assertFalse(len(vals), 'Wrong expected reference data for this test')
-        vals = partner_model.search(cr, uid, [('id','=',jacques_id),('ldap_name','>','')], context=context)
+        vals = partner_model.search(cr, uid, [('id', '=', jacques_id), ('ldap_name', '>', '')], context=context)
         self.assertFalse(len(vals), 'Wrong expected reference data for this test')
-        vals = user_model.search(cr, uid, [('partner_id','=',paul_id)], context=context)
+        vals = user_model.search(cr, uid, [('partner_id', '=', paul_id)], context=context)
         self.assertTrue(len(vals), 'Wrong expected reference data for this test')
 
         # Create a user from a partner

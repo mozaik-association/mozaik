@@ -29,6 +29,8 @@ from openerp.osv import orm
 
 
 class abstract_coordinate(object):
+    #unittest2 run test for the abstract class too
+    #resolved with a dual inherit on the abstract and the common.NAME
 
     def setUp(self):
         super(abstract_coordinate, self).setUp()

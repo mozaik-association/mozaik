@@ -28,6 +28,8 @@
 
 
 class test_coordinate_wizard(object):
+    #unittest2 run test for the abstract class too
+    #resolved with a dual inherit on the abstract and the common.NAME
 
     def setUp(self):
         super(test_coordinate_wizard, self).setUp()
