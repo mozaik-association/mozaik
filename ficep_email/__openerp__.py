@@ -26,24 +26,30 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP',
+    'name': 'FICEP: Email',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_phone',
-        'ficep_email',
+        'ficep_coordinate',
     ],
     'description': """
-FICEP
-=====
-    """,
+FICEP Email
+===========
+This module manages Emails.
+""",
     'images': [
     ],
     'data': [
-        'data/res_users_data.xml',
+        'security/ir.model.access.csv',
+        'security/ir.rule.xml',
+        'wizard/change_main_email.xml',
+        'wizard/authorize_duplicate_coordinate.xml',
+        'email_coordinate_view.xml',
+        'res_partner_view.xml',
+        'coordinate_category_view.xml',
     ],
     'js': [
     ],
@@ -57,8 +63,8 @@ FICEP
     ],
     'sequence': 150,
     'active': False,
-    'auto_install': False,
     'installable': True,
+    'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

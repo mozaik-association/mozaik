@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Create Phone Coordinates -->
+
+        <!-- Partner Pauline -->
+
+        <record id="email_coo_for_test_update_1" model="email.coordinate">
+            <field name="email">pauline@gmail.com</field>
+            <field name="partner_id" ref="res_partner_pauline" />
+            <field name="is_main" eval="True" />
+        </record>
+
+        <!-- Partner Thierry -->
+
+        <record id="email_coordinate_two" model="email.coordinate">
+            <field name="email">thierry@gmail.com</field>
+            <field name="partner_id" ref="res_partner_thierry" />
+            <field name="is_main" eval="True" />
+        </record>
+
+    </data>
+</openerp>
