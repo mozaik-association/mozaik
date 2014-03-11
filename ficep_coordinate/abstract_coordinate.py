@@ -46,10 +46,10 @@ MAIN_COORDINATE_ERROR = _('Exactly one main coordinate must exist for a given pa
 class abstract_coordinate(orm.AbstractModel):
 
     _name = 'abstract.coordinate'
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['mail.thread', 'ir.needaction_mixin', 'abstract.duplicate']
+    _description = "Abstract Coordinate"
 
-    _coordinate_field = None
-    _coordinate_action = None
+    _discriminant_field = None
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
@@ -62,19 +62,15 @@ class abstract_coordinate(orm.AbstractModel):
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
         'vip': fields.boolean('VIP', track_visibility='onchange'),
 
-        # Duplicates
-        'is_duplicate_detected': fields.boolean('Is Duplicate Detected', readonly=True),
-        'is_duplicate_allowed': fields.boolean('Is Duplicate Allowed', readonly=True, track_visibility='onchange'),
-
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
         'active': fields.boolean('Active', readonly=True),
     }
 
-    _rec_name = _coordinate_field
+    _rec_name = _discriminant_field
 
     _defaults = {
-        'coordinate_type': COORDINATE_AVAILABLE_TYPES[0],
+        'coordinate_type': COORDINATE_AVAILABLE_TYPES[0][0],
         'active': True,
     }
 
@@ -120,14 +116,14 @@ class abstract_coordinate(orm.AbstractModel):
         ==============
         _check_unicity
         ==============
-        :rparam: False if coordinate already exists with (self._coordinate_field,partner_id,expire_date)
+        :rparam: False if coordinate already exists with (self._discriminant_field,partner_id,expire_date)
                  Else True
         :rtype: Boolean
         """
         coordinate = self.browse(cr, uid, ids, context=context)[0]
         res_ids = self.search(cr, uid, [('id', '!=', coordinate.id),
                                         ('partner_id', '=', coordinate.partner_id.id),
-                                        (self._coordinate_field, '=', isinstance(self._columns[self._coordinate_field], fields.many2one) and coordinate[self._coordinate_field].id or coordinate[self._coordinate_field]),
+                                        (self._discriminant_field, '=', isinstance(self._columns[self._discriminant_field], fields.many2one) and coordinate[self._discriminant_field].id or coordinate[self._discriminant_field]),
                                        ], context=context)
         return len(res_ids) == 0
 
@@ -151,12 +147,15 @@ class abstract_coordinate(orm.AbstractModel):
         if not ids:
             return []
 
+        if isinstance(self._columns[self._discriminant_field], fields.many2one):
+            return super(abstract_coordinate, self).name_get(cr, uid, ids, context=context)
+
         if isinstance(ids, (long, int)):
             ids = [ids]
 
         res = []
-        for record in self.read(cr, uid, ids, [self._coordinate_field], context=context):
-            display_name = record[self._coordinate_field][1]
+        for record in self.read(cr, uid, ids, [self._discriminant_field], context=context):
+            display_name = record[self._discriminant_field][1]
             res.append((record['id'], display_name))
         return res
 
@@ -174,31 +173,19 @@ class abstract_coordinate(orm.AbstractModel):
         If new coordinate is main and another main coordinate found into
         the database then the other(s) will not be main anymore
         """
+        context = context or {}
         vals['coordinate_type'] = vals.get('coordinate_type') or COORDINATE_AVAILABLE_TYPES[0]
         domain_other_active_main = self.get_target_domain(vals['partner_id'], vals['coordinate_type'])
-        self.user_consistency(cr, uid, vals, domain_other_active_main, context=context)
+        coordinate_ids = self.search(cr, uid, domain_other_active_main, context=context)
+        if not coordinate_ids:
+            vals['is_main'] = True
         if vals.get('is_main'):
-            validate_fields = self.get_fields_to_update('validate', context)
+            mode = context.get('invalidate') and 'deactivate' or 'secondary'
+            validate_fields = self.get_fields_to_update(cr, uid, mode, context)
             # assure that there are no other main coordinate of this type for this partner
             self.search_and_update(cr, uid, domain_other_active_main, validate_fields, context=context)
         new_id = super(abstract_coordinate, self).create(cr, uid, vals, context=context)
-        # check new duplicate state after creation
-        self.detect_and_repair_duplicate(cr, SUPERUSER_ID, [vals[self._coordinate_field]], context=context)
         return new_id
-
-    def write(self, cr, uid, ids, vals, context=None):
-        """
-        Objective is to manage the duplicate coordinate after the call of the super.
-        """
-        res = super(abstract_coordinate, self).write(cr, uid, ids, vals, context=context)
-        if 'is_duplicate_detected' in vals or 'is_duplicate_allowed' in vals or self._coordinate_field in vals:
-            coordinate_field_values = self.read(cr, uid, ids, [self._coordinate_field], context=context)
-            if coordinate_field_values:
-                field_values = []
-                for coordinate_field_value in coordinate_field_values:
-                    field_values.append(isinstance(coordinate_field_value[self._coordinate_field], tuple) and coordinate_field_value[self._coordinate_field][0] or coordinate_field_value[self._coordinate_field])
-                self.detect_and_repair_duplicate(cr, uid, field_values, context)
-        return res
 
     def unlink(self, cr, uid, ids, context=None):
         """
@@ -211,56 +198,21 @@ class abstract_coordinate(orm.AbstractModel):
                 and another coordinate of the same type exists
         """
         coordinate_ids = self.search(cr, uid, [('id', 'in', ids), ('is_main', '=', False)], context=context)
-        coordinate_field_values = self.read(cr, uid, ids, [self._coordinate_field], context=context)
         super(abstract_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
         coordinate_ids = list(set(ids).difference(coordinate_ids))
         if not self._check_one_main_coordinate(cr, uid, coordinate_ids, for_unlink=True, context=context):
             raise orm.except_orm(_('Error'), MAIN_COORDINATE_ERROR)
         res = super(abstract_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
-        vals = []
-        for val in coordinate_field_values:
-            vals.append(isinstance(val[self._coordinate_field], tuple) and val[self._coordinate_field][0] or val[self._coordinate_field])
-        self.detect_and_repair_duplicate(cr, uid, vals, context)
         return res
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
         res = super(abstract_coordinate, self).copy_data(cr, uid, ids, default=default, context=context)
         if res.get('active', True):
             raise orm.except_orm(_('Error'), _('An active coordinate cannot be duplicated!'))
-        res.update({
-                    'active': True,
-                    'expire_date': False,
-                   })
+        res.update(self.get_fields_to_update(cr, uid, 'activate', context=context))
         return res
 
 # view methods: onchange, button
-
-    def button_undo_allow_duplicate(self, cr, uid, ids, context=None):
-        """
-        =============================
-        button_undo_allow_duplicate
-        =============================
-        Undo the effect of the "authorize duplicate coordinate" wizard
-        :rparam: True
-        :rtype: boolean
-
-        **Note**
-        All allowed duplicates will be reset
-        (see detect_and_repair_duplicate)
-        """
-        self.write(cr, uid, ids,
-                   {'is_duplicate_allowed': False}, context=context)
-
-        # reload the tree with all duplicates
-        coordinate = self.browse(cr, uid, ids, context=context)[0]
-        value = isinstance(self._columns[self._coordinate_field], fields.many2one) and coordinate[self._coordinate_field].id or coordinate[self._coordinate_field]
-        action = self.pool['ir.actions.act_window'].for_xml_id(cr, uid, self._module, self._coordinate_action, context=context)
-        action.pop('search_view')
-        ctx = action.get('context') and eval(action['context']) or {}
-        ctx.update({'search_default_%s' % self._coordinate_field: value, 'default_%s' % self._coordinate_field: value})
-        action['context'] = str(ctx)
-
-        return action
 
     def button_invalidate(self, cr, uid, ids, context=None):
         """
@@ -279,13 +231,9 @@ class abstract_coordinate(orm.AbstractModel):
                 and another coordinate of the same type exists
                 (ref _check_one_main_coordinate constraint)
         """
-        self.write(cr, uid, ids,
-                   {'active': False,
-                    'expire_date': fields.datetime.now(),
-                    'is_duplicate_detected': False,
-                    'is_duplicate_allowed': False,
-                   }, context=context)
-        return True
+        vals = self.get_fields_to_update(cr, uid, 'reset', context=context)
+        vals.update(self.get_fields_to_update(cr, uid, 'deactivate', context=context))
+        return self.write(cr, uid, ids, vals, context=context)
 
 # public methods
 
@@ -316,11 +264,13 @@ class abstract_coordinate(orm.AbstractModel):
         :rparam: True
         :rtype: boolean
         """
+        context = context or {}
         coordinate = self.browse(cr, uid, ids, context=context)[0]
 
         # 1) Reset is_main of previous main coordinate
         target_domain = self.get_target_domain(coordinate.partner_id.id, coordinate.coordinate_type)
-        fields_to_update = self.get_fields_to_update('validate', context)
+        mode = context.get('invalidate') and 'deactivate' or 'secondary'
+        fields_to_update = self.get_fields_to_update(cr, uid, mode, context)
         self.search_and_update(cr, uid, target_domain, fields_to_update, context=context)
 
         # 2) Set is_main of new main coordinate
@@ -343,11 +293,11 @@ class abstract_coordinate(orm.AbstractModel):
         return_ids = []
         for partner_id in partner_ids:
             res_ids = self.search(cr, uid, [('partner_id', '=', partner_id),
-                                            (self._coordinate_field, '=', field_id)], context=context)
+                                            (self._discriminant_field, '=', field_id)], context=context)
             if not res_ids:
                 # must be create
                 return_ids.append(self.create(cr, uid, {'partner_id': partner_id,
-                                                        self._coordinate_field: field_id,
+                                                        self._discriminant_field: field_id,
                                                         'is_main': True,
                                                        }, context=context))
             else:
@@ -377,50 +327,6 @@ class abstract_coordinate(orm.AbstractModel):
         self._constraints = save_constraints
         return len(res_ids) != 0
 
-    def detect_and_repair_duplicate(self, cr, uid, vals, context=None):
-        """
-        ===========================
-        detect_and_repair_duplicate
-        ===========================
-        Detect automatically duplicates (setting the is_duplicate_detected flag)
-        Repair orphan allowed or detected duplicate (resetting the corresponding flag)
-        :param vals: coordinate values
-        :type vals: list
-        """
-        for v in vals:
-            coordinate_ids = self.search(cr, uid, [(self._coordinate_field, '=', v)], context=context)
-            if coordinate_ids:
-                current_values = self.read(cr, uid, coordinate_ids, ['is_duplicate_allowed', 'is_duplicate_detected'], context=context)
-                fields_to_update = {}
-                if len(coordinate_ids) > 1:
-                    is_ok = 0
-                    val = {}
-                    for value in current_values:
-                        if not value['is_duplicate_detected'] and value['is_duplicate_allowed']:
-                            is_ok += 1
-                            val = value
-                            if is_ok == 2:
-                                break
-                    if is_ok == 1:
-                        val['is_duplicate_allowed'] = False
-
-                    is_ok = 0
-                    for value in current_values:
-                        if not value['is_duplicate_detected'] and not value['is_duplicate_allowed']:
-                            is_ok += 1
-                            break
-                    if is_ok >= 1:
-                        fields_to_update = {'is_duplicate_detected': True, 'is_duplicate_allowed': False}
-                else:
-                    if current_values[0]['is_duplicate_allowed']:
-                        fields_to_update.update({'is_duplicate_allowed': False})
-                    if current_values[0]['is_duplicate_detected']:
-                        fields_to_update.update({'is_duplicate_detected': False})
-
-                if fields_to_update:
-                    # super write method must be called here to avoid to cycle
-                    super(abstract_coordinate, self).write(cr, uid, coordinate_ids, fields_to_update, context=context)
-
     def get_target_domain(self, partner_id, coordinate_type):
         """
         =================
@@ -438,39 +344,27 @@ class abstract_coordinate(orm.AbstractModel):
                 ('is_main', '=', True),
                ]
 
-    def get_fields_to_update(self, case_of, context=None):
+    def get_fields_to_update(self, cr, uid, mode, context=None):
         """
         ====================
         get_fields_to_update
         ====================
-        :param case_of: return a different dictionary depending of
-                        case_of value
-        :type case_of: char
-        :except: raise orm_exception if invalid ``case_of``
-        :rtype: dictionary
+        :param mode: return a dictionary depending on mode value
+        :type mode: char
         """
-        if context is None:
-            context = {}
-
-        if case_of == 'validate':
+        if mode == 'main':
+            return {'is_main': True}
+        if mode == 'secondary':
+            return {'is_main': False}
+        if mode == 'deactivate':
             return {'active': False,
-                    'expire_date': fields.datetime.now()} if context.get('invalidate', False) else {'is_main': False}
-        if case_of == 'duplicate':
-            return {'is_duplicate_detected': True,
-                    'is_duplicate_allowed': False}
+                    'expire_date': fields.datetime.now(),
+                   }
+        if mode == 'activate':
+            return {'active': True,
+                    'expire_date': False,
+                   }
 
-        raise orm.except_orm(_('ERROR'), _('Invalid `case_of`'))
-
-    def user_consistency(self, cr, uid, vals, domain_other_active_main, context=None):
-        """
-        :param domain_other_active_main: for research on main coordinate
-        :type domain_other_active_main: list(tuples)
-        :type vals: dictionary
-        **Note**
-        Update ``vals`` with is_main to ``True`` case of no other main coordinate found
-        """
-        coordinate_ids = self.search(cr, uid, domain_other_active_main, context=context)
-        if not coordinate_ids:
-            vals['is_main'] = True
+        return super(abstract_coordinate, self).get_fields_to_update(cr, uid, mode, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

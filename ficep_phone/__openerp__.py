@@ -49,7 +49,7 @@ Numbers are normalized regarding the external python library: phonenumbers
         'security/ir.rule.xml',
         'data/ir_config_parameter_data.xml',
         'wizard/change_main_phone.xml',
-        'wizard/authorize_duplicate_coordinate.xml',
+        'wizard/allow_duplicate_view.xml',
         'phone_phone_view.xml',
         'res_partner_view.xml',
         'coordinate_category_view.xml',

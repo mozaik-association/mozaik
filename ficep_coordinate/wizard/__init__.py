@@ -26,7 +26,6 @@
 #
 ##############################################################################
 
-from . import authorize_duplicate_coordinate
 from . import change_main_coordinate
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

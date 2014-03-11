@@ -40,6 +40,13 @@ class test_coordinate_wizard(object):
         self.partner_id_2 = self.ref('%s.res_partner_thierry' % self._module_ns)
         self.partner_id_3 = self.ref('%s.res_partner_jacques' % self._module_ns)
 
+        self.model_coordinate_wizard = None
+        self.model_coordinate = None
+        self.model_id_1 = None
+        self.coo_into_partner = None
+        self.model_coordinate_id_1 = None
+        self.model_coordinate_id_2 = None
+
     def change_main_coordinate(self, invalidate):
         """
         ========================
@@ -55,7 +62,7 @@ class test_coordinate_wizard(object):
             'target_model': self.model_coordinate._name,
         }
         wiz_vals = {
-            self.model_coordinate._coordinate_field: self.model_id_1,
+            self.model_coordinate._discriminant_field: self.model_id_1,
             'invalidate_previous_coordinate': invalidate,
         }
         wiz_id = self.model_coordinate_wizard.create(self.cr, self.uid, wiz_vals, context=context)
@@ -82,7 +89,7 @@ class test_coordinate_wizard(object):
                                             self.partner_id_3], [self.coo_into_partner], context={})
         for model_coordinate_vals in model_coo:
             c_rec = self.model_coordinate.browse(self.cr, self.uid, model_coordinate_vals['mobile_coordinate_id'][0], context={})
-            self.assertEqual(c_rec[self.model_coordinate._coordinate_field].id == self.model_id_1 and
+            self.assertEqual(c_rec[self.model_coordinate._discriminant_field].id == self.model_id_1 and
                              c_rec.is_main == True, True, 'model Coordinate Should Be Replicate Into The  Associated Partner')
 
     def test_mass_replication_with_invalidate(self):
