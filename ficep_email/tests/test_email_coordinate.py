@@ -51,8 +51,9 @@ class test_email_coordinate(common.TransactionCase):
         """
         cr, uid = self.cr, self.uid
         model_email = self.registry('email.coordinate')
-        self.assertRaises(orm.except_orm, model_email.create, cr, uid, {'email', 'bad'})
-        self.assertRaises(orm.except_orm, model_email.create, cr, uid, {'email', 'bad@'})
-        self.assertRaises(orm.except_orm, model_email.create, cr, uid, {'email', 'baé"&àè!ç(§é&à'})
+        model_partner = self.registry('res.partner')
+        partner_id_1 = model_partner.create(cr, uid, {'name': 'test'})
+        self.assertRaises(orm.except_orm, model_email.create, cr, uid, {'partner_id': partner_id_1,
+                                                                        'email': 'bad'})
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

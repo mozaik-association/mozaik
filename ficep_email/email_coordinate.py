@@ -36,7 +36,7 @@ class email_coordinate(orm.Model):
     _name = 'email.coordinate'
     _description = "Email Coordinate"
     _inherit = ['abstract.coordinate']
-    _coordinate_field = 'email'
+    _discriminant_field = 'email'
     _coordinate_action = 'email_coordinate_action'
 
     _columns = {

@@ -46,7 +46,7 @@ This module manages Emails.
         'security/ir.model.access.csv',
         'security/ir.rule.xml',
         'wizard/change_main_email.xml',
-        'wizard/authorize_duplicate_coordinate.xml',
+        'wizard/allow_duplicate_view.xml',
         'email_coordinate_view.xml',
         'res_partner_view.xml',
         'coordinate_category_view.xml',
