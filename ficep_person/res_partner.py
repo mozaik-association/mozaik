@@ -62,7 +62,7 @@ class res_partner(orm.Model):
     _inherit = ['res.partner', 'abstract.duplicate']
 
     _discriminant_field = 'name'
-    _trigger_fileds = ['lastname', 'firstname']
+    _trigger_fileds = ['name', 'lastname', 'firstname']
     _undo_redirect_action = 'ficep_person.all_res_partner_action'
 
     _display_name_store_triggers = {

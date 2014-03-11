@@ -6,7 +6,7 @@
             <field name="name">coordinate.category.form</field>
             <field name="model">coordinate.category</field>
             <field name="arch" type="xml">
-                <form string="Phone Coordinate" version="7.0">
+                <form string="Coordinate Category" version="7.0">
                     <header>
                     </header>
                     <sheet>
