@@ -77,7 +77,19 @@
                                       'search_default_all': True}"/>
                     <field name="phone_coordinate_ids" context="{'default_partner_id': active_id,
                                                                  'simplified': 1,
-                                                                 'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}">
+                                                                 'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}"
+                           attrs="{'invisible': [('active','=',False)]}">
+                        <tree>
+                            <field name="phone_id"/>
+                            <field name="coordinate_category_id" />
+                            <field name="is_main" />
+                            <field name="unauthorized" />
+                            <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                        </tree>
+                    </field>
+                    <field name="phone_coordinate_inactive_ids" context="{'simplified': 1,
+                                                                          'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}"
+                           readonly="1" attrs="{'invisible': [('active','=',True)]}">
                         <tree>
                             <field name="phone_id"/>
                             <field name="coordinate_category_id" />

@@ -121,7 +121,8 @@ class res_partner(orm.Model):
                             }
 
     _columns = {
-        'phone_coordinate_ids': fields.one2many('phone.coordinate', 'partner_id', 'Phone Coordinates', domain=[('active', '=', True)]),  # force "active_test" domain to bypass _search() override
+        'phone_coordinate_ids': fields.one2many('phone.coordinate', 'partner_id', 'Phone Coordinates', domain=[('active', '=', True)]),
+        'phone_coordinate_inactive_ids': fields.one2many('phone.coordinate', 'partner_id', 'Phone Coordinates', domain=[('active', '=', False)]),
 
         'fix_coordinate_id': fields.function(_get_main_phone_coordinate_ids, string='Phone',
                                              type='many2one', relation="phone.coordinate", multi='AllInOne'),
@@ -155,5 +156,21 @@ class res_partner(orm.Model):
         default.update({'phone_coordinate_ids': []})
         res = super(res_partner, self).copy(cr, uid, ids, default=default, context=context)
         return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        """
+        =====
+        write
+        =====
+        When invalidating a partner, invalidates also its phone coordinates 
+        """
+        if 'active' in vals and not vals['active']:
+            coord_obj = self.pool['phone.coordinate']
+            coord_ids = []
+            for partner in self.browse(cr, SUPERUSER_ID, ids, context=context):
+                coord_ids += [c.id for c in partner.phone_coordinate_ids]
+            if coord_ids:
+                coord_obj.button_invalidate(cr, SUPERUSER_ID, coord_ids, context=context)
+        return super(res_partner, self).write(cr, uid, ids, vals, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

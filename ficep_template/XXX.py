@@ -179,6 +179,18 @@ class xxxx(orm.Model):
         res = super(xxxx, self).copy(cr, uid, ids, default=default, context=context)
         return res
 
+    def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
+        res = super(xxxx, self).search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)
+        return res
+
+    def _read_flat(self, cr, user, ids, fields_to_read, context=None, load='_classic_read'):
+        res = super(xxxx, self)._read_flat(cr, user, ids, fields_to_read, context=context, load=load)
+        return res
+
+    def browse(self, cr, uid, select, context=None, list_class=None, fields_process=None):
+        res = super(xxxx, self).browse(cr, uid, select, context=context, list_class=list_class, fields_process=fields_process)
+        return res
+
 # view methods: onchange, button
 
     def button_zzz(self, cr, uid, ids, context=None):
