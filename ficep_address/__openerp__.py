@@ -26,25 +26,30 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP',
+    'name': 'FICEP: Address',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_phone',
-        'ficep_email',
-        'ficep_address',
+        'ficep_coordinate',
     ],
     'description': """
-FICEP
-=====
-    """,
+FICEP Address
+=============
+""",
     'images': [
     ],
     'data': [
-        'data/res_users_data.xml',
+        #'security/ir.model.access.csv',
+        #'security/ir.rule.xml',
+        #'data/ir_config_parameter_data.xml',
+        #'wizard/change_main_phone.xml',
+        #'wizard/allow_duplicate_view.xml',
+        'address_address_view.xml',
+        #'res_partner_view.xml',
+        #'coordinate_category_view.xml',
     ],
     'js': [
     ],
@@ -58,8 +63,8 @@ FICEP
     ],
     'sequence': 150,
     'active': False,
-    'auto_install': False,
     'installable': True,
+    'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -25,41 +25,27 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_phone',
-        'ficep_email',
-        'ficep_address',
-    ],
-    'description': """
-FICEP
-=====
-    """,
-    'images': [
-    ],
-    'data': [
-        'data/res_users_data.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'auto_install': False,
-    'installable': True,
-}
+from openerp.osv import orm, fields
+from openerp.tools.translate import _
+
+
+class address_local_street(orm.Model):
+
+    _name = 'address.local.street'
+    _description = "Address Local Street"
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
+
+    _columns = {
+        'local_street': fields.char('Street', size=50, required=True, select=True, track_visibility='onchange'),
+        'local_zip_id': fields.many2one('address.local.zip', 'local_zip', 'Local Zip'),
+    }
+
+    _rec_name = 'local_street'
+
+    _sql_constraints = [
+        ('check_unicity_street', 'unique(local_street,local_zip_id)', _('This street already exist for this given zip code!'))
+    ]
+
+    _order = "local_street"
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
