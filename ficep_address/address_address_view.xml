@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Address -->
+
+        <record id="address_address_search_view" model="ir.ui.view">
+            <field name="name">address.address.search</field>
+            <field name="model">address.address</field>
+            <field name="arch" type="xml">
+                <search string="Address" version="7.0">
+                    <field name="name" />
+                </search>
+            </field>
+        </record>
+
+        <record id="address_address_tree_view" model="ir.ui.view">
+            <field name="name">address.address.tree</field>
+            <field name="model">address.address</field>
+            <field name="arch" type="xml">
+                <tree string="Addresses" version="7.0">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="address_address_form_view" model="ir.ui.view">
+            <field name="name">address.address.form</field>
+            <field name="model">address.address</field>
+            <field name="arch" type="xml">
+                <form string="address" version="7.0">
+                    <header/>
+                    <sheet>
+                        <div class="oe_title" attrs="{'invisible': [('id','=',False)]}">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" /></h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                        </div>
+                        <group name="country_zip" >
+                            <group>
+                                <field name="country_id"/>
+                            </group>
+                            <group>
+                                <field name="address_local_zip_id" />
+                            </group>
+                        </group>
+                        <group name="streets">
+                            <field name="address_local_street_id"/>
+                            <field name="street"/>
+                            <field name="street2"/>
+                        </group>
+                        <group name="numbers">
+                            <group>
+                                <field name="number"/>
+                            </group>
+                            <group>
+                                <field name="box"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
+                                <field name="address_coordinate_ids" context="{'default_address_id': id,
+                                                                             'simplified': 1,
+                                                                             'form_view_ref': 'ficep_address.address_coordinate_form_view'}">
+                                    <tree>
+                                        <field name="partner_id"/>
+                                        <field name="coordinate_category_id" />
+                                        <field name="is_main" />
+                                        <field name="unauthorized" />
+                                        <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div class="oe_chatter" invisible="context.get('simplified')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" readonly="1"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="address_address_override_form_view" model="ir.ui.view">
+            <field name="name">address.address.override.form</field>
+            <field name="model">address.address</field>
+            <field name="inherit_id" ref="address_address_form_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')]),
+                                          ]" />
+            <field name="priority" eval="20" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='message_ids']" position="replace">
+                    <field name="message_ids" widget="mail_thread"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="address_address_action" model="ir.actions.act_window">
+            <field name="name">Address</field>
+            <field name="res_model">address.address</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="address_address_tree_view" />
+            <field name="search_view_id" ref="address_address_search_view" />
+            <field name="context">{'mail_create_nosubscribe': True}</field>
+        </record>
+
+        <!-- Address Coordinate -->
+
+        <record id="address_coordinate_search_view" model="ir.ui.view">
+            <field name="name">address.coordinate.search</field>
+            <field name="model">address.coordinate</field>
+            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_search_view" />
+            <field name="priority" eval="10" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="address_id" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="address_coordinate_tree_view" model="ir.ui.view">
+            <field name="name">address.coordinate.tree</field>
+            <field name="model">address.coordinate</field>
+            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_tree_view" />
+            <field name="priority" eval="10" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="address_id" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="address_coordinate_form_view" model="ir.ui.view">
+            <field name="name">address.coordinate.form</field>
+            <field name="model">address.coordinate</field>
+            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_form_view" />
+            <field name="priority" eval="10" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@class='oe_title']" position="inside">
+                    <label for="address_id" class="oe_edit_only"/>
+                    <h1><field name="address_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="address_coordinate_action" model="ir.actions.act_window">
+            <field name="name">Address Coordinates</field>
+            <field name="res_model">address.coordinate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="address_coordinate_tree_view" />
+            <field name="search_view_id" ref="address_coordinate_search_view" />
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.address_coordinate_form_view'}</field>
+        </record>
+
+        <!-- Menu -->
+
+        <menuitem name="Address Coordinates" id="address_coordinate_menu"
+                  sequence="40" parent="ficep_person.persons_root_menu" />
+
+        <menuitem id="address_coordinate_submenu"
+                  sequence="10" parent="address_coordinate_menu" action="address_coordinate_action" />
+
+        <menuitem id="address_address_submenu"
+                  sequence="20" parent="address_coordinate_menu" action="address_address_action" />
+
+        <!-- Other Inheritance: Address -->
+
+        <record id="address_address_inherit_form_view" model="ir.ui.view">
+            <field name="name">address.address.inherit.form</field>
+            <field name="model">address.address</field>
+            <field name="inherit_id" ref="address_address_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='address_coordinate_ids']" position="before">
+                    <button string="All Details"
+                            name="%(address_coordinate_action)d"
+                            type="action"
+                            context="{'search_default_address_id': active_id,
+                                      'default_address_id': active_id,
+                                      'search_default_all': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

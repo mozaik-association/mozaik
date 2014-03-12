@@ -25,41 +25,26 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_phone',
-        'ficep_email',
-        'ficep_address',
-    ],
-    'description': """
-FICEP
-=====
-    """,
-    'images': [
-    ],
-    'data': [
-        'data/res_users_data.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'auto_install': False,
-    'installable': True,
-}
+from openerp.osv import orm, fields
+from openerp.tools.translate import _
+
+
+class address_local_zip(orm.Model):
+
+    _name = 'address.local.zip'
+    _description = "Address Local Zip"
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
+
+    _columns = {
+        'local_zip': fields.integer('Local Zip', required=True),
+    }
+
+    _rec_name = 'local_zip'
+
+    _sql_constraints = [
+        ('check_unicity_zip', 'unique(local_zip)', _('This street already exist for this given zip code!'))
+    ]
+
+    _order = "local_zip"
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

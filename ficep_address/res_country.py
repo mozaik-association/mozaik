@@ -25,41 +25,20 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_phone',
-        'ficep_email',
-        'ficep_address',
-    ],
-    'description': """
-FICEP
-=====
-    """,
-    'images': [
-    ],
-    'data': [
-        'data/res_users_data.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'auto_install': False,
-    'installable': True,
-}
+from openerp.osv import orm
+
+
+class res_country(orm.Model):
+
+    _inherit = "res.country"
+
+    def _country_default_get(self, cr, uid, country_code, context=None):
+        country_id = self.search(cr, uid, [('code', '=', country_code)], context=context)
+        if country_id:
+            return country_id[0]
+        return False
+
+    def _get_linked_addresses(self, cr, uid, ids, context=None):
+        return self.pool.get('address.address').search(cr, uid, ['id', 'in', ids], context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
