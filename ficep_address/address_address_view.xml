@@ -173,7 +173,7 @@
         <!-- Menu -->
 
         <menuitem name="Address Coordinates" id="address_coordinate_menu"
-                  sequence="40" parent="ficep_person.persons_root_menu" />
+                  sequence="40" parent="ficep_base.persons_root_menu" />
 
         <menuitem id="address_coordinate_submenu"
                   sequence="10" parent="address_coordinate_menu" action="address_coordinate_action" />
