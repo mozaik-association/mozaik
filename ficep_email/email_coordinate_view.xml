@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Phone Coordinate -->
+        <!-- Email Coordinate -->
 
         <record id="email_coordinate_search_view" model="ir.ui.view">
             <field name="name">email.coordinate.search</field>
@@ -41,7 +41,7 @@
 
                 <xpath expr="//div[@class='oe_title']" position="inside">
                     <label for="email" class="oe_edit_only"/>
-                    <h1><field name="email" attrs="{'readonly': [('id','!=',False)]}" /></h1>
+                    <h1><field name="email" attrs="{'readonly': [('id','!=',False)]}" widget="email" /></h1>
                 </xpath>
             </field>
         </record>
@@ -59,9 +59,9 @@
         <!-- Menu -->
 
         <menuitem name="Email Coordinates" id="email_coordinate_menu"
-                  sequence="40" parent="ficep_person.persons_root_menu" />
+                  sequence="20" parent="ficep_person.persons_root_menu" />
 
-        <menuitem id="phone_coordinate_submenu"
+        <menuitem id="email_coordinate_submenu"
                   sequence="10" parent="email_coordinate_menu" action="email_coordinate_action" />
 
     </data>

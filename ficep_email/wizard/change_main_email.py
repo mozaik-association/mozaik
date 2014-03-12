@@ -33,7 +33,7 @@ class change_main_email(orm.TransientModel):
 
     _name = 'change.main.email'
     _inherit = 'change.main.coordinate'
-    _description = 'Change Main Phone Wizard'
+    _description = 'Change Main Email Wizard'
 
     _columns = {
         'email': fields.char('New Main Email', required=True),

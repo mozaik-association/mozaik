@@ -25,6 +25,8 @@
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
             <field name="employee" eval="1"/>
+            <field name="website">http://www.aftnet.be/portail-aft/Joueurs/Fiche-signaletique-membre.aspx?numfed=4021764</field>
+            <field name="secondary_website">http://www.itftennis.com/procircuit/players/player/profile.aspx?playerid=30020306</field>
         </record>
 
         <record id="partner_of_user_4" model="res.partner">
@@ -133,6 +135,7 @@
         <record id="email_coordinate_demo_4" model="email.coordinate">
             <field name="partner_id" ref="partner_of_user_4" />
             <field name="email">leon@ficep.be</field>
+            <field name="unauthorized" eval="1"/>
         </record>
 
         <record id="email_coordinate_demo_5" model="email.coordinate">

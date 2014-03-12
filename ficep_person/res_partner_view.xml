@@ -54,7 +54,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//tree" position="attributes">
-                    <attribute name="colors">grey:active==False;red:is_duplicate_detected==True;darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP'</attribute>
+                    <attribute name="colors">grey:active==False;red:is_duplicate_detected==True;darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP' or email>='N/A' and email&lt;'N/B'</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='display_name']" position="after">
@@ -143,35 +143,43 @@
                     <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
                 </xpath>
 
-                <xpath expr="//field[@name='title']" position="replace">
-                    <field name="birthdate" attrs="{'invisible': [('is_company','=', True)]}"/>
-                </xpath>
-
-                <xpath expr="//field[@name='website']" position="replace">
-                    <field name="create_date" attrs="{'invisible': [('id','=',False)]}" />
-                    <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
-                    <field name="is_duplicate_detected" />
-                    <field name="is_duplicate_allowed" />
-                    <field name="gender" attrs="{'invisible': [('is_company','=', True)]}" />
-                    <field name="tongue" attrs="{'invisible': [('is_company','=', True)]}" />
-                    <field name="employee" attrs="{'invisible': [('is_company','=', True)]}" />
-                </xpath>
-
+                <xpath expr="//field[@name='parent_id']" position="replace"/>
+                <xpath expr="//field[@name='title']" position="replace" />
+                <xpath expr="//field[@name='website']" position="replace" />
                 <xpath expr="//field[@name='function']" position="replace"/>
+
+                <xpath expr="//group[field[@name='user_ids']]" position="after">
+                    <group name="person1" attrs="{'invisible': [('is_company','=', True)]}">
+                        <field name="birthdate" />
+                        <field name="gender" />
+                    </group>
+                    <group name="person2" attrs="{'invisible': [('is_company','=', True)]}">
+                        <field name="tongue" />
+                        <field name="employee" />
+                    </group>
+                    <group name="date" attrs="{'invisible': [('id','=',False)]}">
+                        <field name="create_date" />
+                        <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                    </group>
+                    <group name="duplicate" attrs="{'invisible': [('id','=',False)]}">
+                        <field name="is_duplicate_detected"/>
+                        <field name="is_duplicate_allowed"/>
+                    </group>
+                </xpath>
+
                 <xpath expr="//page[@string='Contacts']" position="attributes">
                     <attribute name="groups">ficep_base.res_groups_developper</attribute>
                 </xpath>
                 <xpath expr="//page[@name='sales_purchases']" position="attributes">
                     <attribute name="groups">ficep_base.res_groups_developper</attribute>
                 </xpath>
-                <xpath expr="//field[@name='parent_id']" position="replace"/>
                 <xpath expr="//page[@name='internal_notes']" position="inside">
                     <group name="all">
-                        <group>
+                        <group name="site">
                             <field name="website" widget="url"/>
                             <field name="secondary_website" widget="url"/>
                         </group>
-                        <group>
+                        <group name="social">
                             <field name="twitter"/>
                             <field name="facebook"/>
                         </group>

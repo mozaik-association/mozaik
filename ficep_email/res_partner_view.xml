@@ -18,7 +18,9 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='email']" position="replace"/>
+                <xpath expr="//field[@name='email']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
             </field>
         </record>
 
@@ -56,16 +58,15 @@
 
                 <xpath expr="//page[@name='coordinates']" position="inside">
                     <separator string="Email Coordinates"/>
-                    <button string="All Details"
-                            name="%(email_coordinate_action)d"
-                            type="action"
+                    <button string="All Details" name="%(email_coordinate_action)d"
+                            type="action" attrs="{'invisible': [('id','=',False)]}"
                             context="{'search_default_partner_id': active_id,
                                       'default_partner_id': active_id,
-                                      'search_default_all': True}"/>
+                                      'search_default_all': True}" />
                     <field name="email_coordinate_ids" context="{'default_partner_id': active_id,
                                                                  'simplified': 1,
                                                                  'form_view_ref': 'ficep_email.email_coordinate_form_view'}"
-                           attrs="{'invisible': [('active','=',False)]}">
+                           attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                         <tree>
                             <field name="email"/>
                             <field name="coordinate_category_id" />
