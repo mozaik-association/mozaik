@@ -35,7 +35,6 @@
     'depends': [
         'ficep_base',
         'ficep_duplicate',
-        #'partner_firstname',
     ],
     'description': """
 FICEP Person

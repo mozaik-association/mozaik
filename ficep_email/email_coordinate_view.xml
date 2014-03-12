@@ -59,7 +59,7 @@
         <!-- Menu -->
 
         <menuitem name="Email Coordinates" id="email_coordinate_menu"
-                  sequence="20" parent="ficep_person.persons_root_menu" />
+                  sequence="20" parent="ficep_base.persons_root_menu" />
 
         <menuitem id="email_coordinate_submenu"
                   sequence="10" parent="email_coordinate_menu" action="email_coordinate_action" />
