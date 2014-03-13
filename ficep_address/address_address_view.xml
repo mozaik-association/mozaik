@@ -39,16 +39,21 @@
                         </div>
                         <group name="country_zip" >
                             <group>
-                                <field name="country_id"/>
+                                <field name="country_id" on_change="onchange_country_id(country_id)"/>
+                                <field name="country_code" />
                             </group>
                             <group>
-                                <field name="address_local_zip_id" />
+                                <field name="address_local_zip_id" 
+                                       on_change="onchange_local_zip_id(address_local_zip_id)"
+                                       attrs="{'invisible': [('country_code','!=','BE')]}"/>
                             </group>
                         </group>
                         <group name="streets">
-                            <field name="address_local_street_id"/>
-                            <field name="street"/>
-                            <field name="street2"/>
+                            <field name="address_local_street_id" 
+                                   attrs="{'invisible': [('country_code','!=','BE')]}"
+                                   domain="[('local_zip_id.id','=',address_local_zip_id)]"/>
+                            <field name="street" />
+                            <field name="street2" />
                         </group>
                         <group name="numbers">
                             <group>
@@ -60,9 +65,9 @@
                         </group>
                         <notebook>
                             <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                                <field name="address_coordinate_ids" context="{'default_address_id': id,
+                                <field name="postal_coordinate_ids" context="{'default_address_id': id,
                                                                              'simplified': 1,
-                                                                             'form_view_ref': 'ficep_address.address_coordinate_form_view'}">
+                                                                             'form_view_ref': 'ficep_address.postal_coordinate_form_view'}">
                                     <tree>
                                         <field name="partner_id"/>
                                         <field name="coordinate_category_id" />
@@ -116,11 +121,11 @@
             <field name="context">{'mail_create_nosubscribe': True}</field>
         </record>
 
-        <!-- Address Coordinate -->
+        <!-- Postal Coordinate -->
 
-        <record id="address_coordinate_search_view" model="ir.ui.view">
-            <field name="name">address.coordinate.search</field>
-            <field name="model">address.coordinate</field>
+        <record id="postal_coordinate_search_view" model="ir.ui.view">
+            <field name="name">postal.coordinate.search</field>
+            <field name="model">postal.coordinate</field>
             <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_search_view" />
             <field name="priority" eval="10" />
             <field name="arch" type="xml">
@@ -132,9 +137,9 @@
             </field>
         </record>
 
-        <record id="address_coordinate_tree_view" model="ir.ui.view">
-            <field name="name">address.coordinate.tree</field>
-            <field name="model">address.coordinate</field>
+        <record id="postal_coordinate_tree_view" model="ir.ui.view">
+            <field name="name">postal.coordinate.tree</field>
+            <field name="model">postal.coordinate</field>
             <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_tree_view" />
             <field name="priority" eval="10" />
             <field name="arch" type="xml">
@@ -146,9 +151,9 @@
             </field>
         </record>
 
-        <record id="address_coordinate_form_view" model="ir.ui.view">
-            <field name="name">address.coordinate.form</field>
-            <field name="model">address.coordinate</field>
+        <record id="postal_coordinate_form_view" model="ir.ui.view">
+            <field name="name">postal.coordinate.form</field>
+            <field name="model">postal.coordinate</field>
             <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_form_view" />
             <field name="priority" eval="10" />
             <field name="arch" type="xml">
@@ -160,26 +165,26 @@
             </field>
         </record>
 
-        <record id="address_coordinate_action" model="ir.actions.act_window">
-            <field name="name">Address Coordinates</field>
-            <field name="res_model">address.coordinate</field>
+        <record id="postal_coordinate_action" model="ir.actions.act_window">
+            <field name="name">Postal Coordinates</field>
+            <field name="res_model">postal.coordinate</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="address_coordinate_tree_view" />
-            <field name="search_view_id" ref="address_coordinate_search_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.address_coordinate_form_view'}</field>
+            <field name="view_id" ref="postal_coordinate_tree_view" />
+            <field name="search_view_id" ref="postal_coordinate_search_view" />
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.postal_coordinate_form_view'}</field>
         </record>
 
         <!-- Menu -->
 
-        <menuitem name="Address Coordinates" id="address_coordinate_menu"
+        <menuitem name="Postal Coordinates" id="postal_coordinate_menu"
                   sequence="40" parent="ficep_base.persons_root_menu" />
 
-        <menuitem id="address_coordinate_submenu"
-                  sequence="10" parent="address_coordinate_menu" action="address_coordinate_action" />
+        <menuitem id="postal_coordinate_submenu"
+                  sequence="10" parent="postal_coordinate_menu" action="postal_coordinate_action" />
 
         <menuitem id="address_address_submenu"
-                  sequence="20" parent="address_coordinate_menu" action="address_address_action" />
+                  sequence="20" parent="postal_coordinate_menu" action="address_address_action" />
 
         <!-- Other Inheritance: Address -->
 
@@ -188,9 +193,9 @@
             <field name="model">address.address</field>
             <field name="inherit_id" ref="address_address_form_view" />
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='address_coordinate_ids']" position="before">
+                <xpath expr="//field[@name='postal_coordinate_ids']" position="before">
                     <button string="All Details"
-                            name="%(address_coordinate_action)d"
+                            name="%(postal_coordinate_action)d"
                             type="action"
                             context="{'search_default_address_id': active_id,
                                       'default_address_id': active_id,
