@@ -17,6 +17,7 @@
 
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]" invisible="'default_is_company' in context"/>
                     <filter string="Legal Persons" name="type_company" domain="[('is_company','=',1)]" invisible="'default_is_company' in context"/>
+                    <filter string="Assemblies" name="type_assembly" domain="[('is_assembly','=',1)]" invisible="'default_is_company' in context"/>
                     <separator />
                     <filter string="Male" name="male" domain="[('gender','=','m')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                     <filter string="Female" name="female" domain="[('gender','=','f')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
@@ -169,7 +170,7 @@
                     </group>
                 </xpath>
 
-                <xpath expr="//group[field[@name='user_ids']]" position="replace"/>
+                <xpath expr="//field[@name='user_ids']" position="replace"/>
 
                 <xpath expr="//page[@string='Contacts']" position="attributes">
                     <attribute name="groups">ficep_base.res_groups_developper</attribute>
@@ -197,7 +198,7 @@
                             <field name="function"/>
                             <field name="civil_status"/>
                         </group>
-                        <group name="ldap"  attrs="{'invisible': [('user_ids','=',[])]}" groups="ficep_base.ficep_res_groups_configurator">
+                        <group name="ldap" attrs="{'invisible': [('user_ids','=',[])]}" groups="ficep_base.ficep_res_groups_configurator">
                             <field name="ldap_name" />
                             <field name="ldap_id" />
                         </group>
@@ -220,10 +221,11 @@
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
-                                <field name="parent_id" domain="[('is_company', '=', True)]" />
                                 <field name="display_name" />
+                                <field name="is_assembly" />
                                 <field name="tz" />
-                                <field name="user_ids" />
+                                <field name="user_ids" attrs="{'invisible': [('user_ids','=',[])]}" />
+                                <field name="parent_id" domain="[('is_company', '=', True)]" />
                             </group>
                         </div>
                     </div>
@@ -270,7 +272,7 @@
             <field name="res_model">res.partner</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('is_company', '=', True)]</field>
+            <field name="domain">[('is_company', '=', True),('is_assembly', '=', False)]</field>
             <field name="context">{'default_is_company': True, 'mail_create_nosubscribe': True}</field>
             <field name="search_view_id" ref="res_partner_search_view" />
         </record>
