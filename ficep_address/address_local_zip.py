@@ -36,7 +36,7 @@ class address_local_zip(orm.Model):
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
     def _get_linked_addresses(self, cr, uid, ids, context=None):
-        return self.pool.get('address.address').search(cr, uid, ['id', 'in', ids], context=context)
+        return self.pool.get('address.address').search(cr, uid, [('address_local_zip_id', 'in', ids)], context=context)
 
     _columns = {
         'local_zip': fields.integer('Local Zip', required=True),

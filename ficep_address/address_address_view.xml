@@ -39,16 +39,21 @@
                         </div>
                         <group name="country_zip" >
                             <group>
-                                <field name="country_id"/>
+                                <field name="country_id" on_change="onchange_country_id(country_id)"/>
+                                <field name="country_code" />
                             </group>
                             <group>
-                                <field name="address_local_zip_id" />
+                                <field name="address_local_zip_id" 
+                                       on_change="onchange_local_zip_id(address_local_zip_id)"
+                                       attrs="{'invisible': [('country_code','!=','BE')]}"/>
                             </group>
                         </group>
                         <group name="streets">
-                            <field name="address_local_street_id"/>
-                            <field name="street"/>
-                            <field name="street2"/>
+                            <field name="address_local_street_id" 
+                                   attrs="{'invisible': [('country_code','!=','BE')]}"
+                                   domain="[('local_zip_id.id','=',address_local_zip_id)]"/>
+                            <field name="street" />
+                            <field name="street2" />
                         </group>
                         <group name="numbers">
                             <group>

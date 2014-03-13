@@ -39,6 +39,6 @@ class res_country(orm.Model):
         return False
 
     def _get_linked_addresses(self, cr, uid, ids, context=None):
-        return self.pool.get('address.address').search(cr, uid, ['id', 'in', ids], context=context)
+        return self.pool.get('address.address').search(cr, uid, [('country_id', 'in', ids)], context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

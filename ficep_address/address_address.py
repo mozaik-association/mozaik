@@ -37,16 +37,16 @@ class address_address(orm.Model):
     _description = "Address"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
-#private methods
+# private methods
 
     def _get_linked_addresses_from_country(self, cr, uid, ids, context=None):
-        return self.pool.get['res.country']._get_linked_addresses(cr, uid, ids, context=context)
+        return self.pool.get('res.country')._get_linked_addresses(cr, uid, ids, context=context)
 
     def _get_linked_addresses_from_local_zip(self, cr, uid, ids, context=None):
-        return self.pool.get['address.local.zip']._get_linked_addresses(cr, uid, ids, context=context)
+        return self.pool.get('address.local.zip')._get_linked_addresses(cr, uid, ids, context=context)
 
     def _get_linked_addresses_from_local_street(self, cr, uid, ids, context=None):
-        return self.pool.get['address.local.street']._get_linked_addresses(cr, uid, ids, context=context)
+        return self.pool.get('address.local.street')._get_linked_addresses(cr, uid, ids, context=context)
 
     def _get_integral_address(self, cr, uid, ids, name, args, context=None):
         result = {}.fromkeys(ids, False)
@@ -61,6 +61,8 @@ class address_address(orm.Model):
                 real_address_value = ''.join([real_address_value, '%s ' % adrs.street])
             if adrs.street2:
                 real_address_value = ''.join([real_address_value, '%s ' % adrs.street2])
+            if adrs.address_local_zip_id:
+                real_address_value = ''.join([real_address_value, '%s ' % adrs.address_local_zip_id.local_zip])
             if adrs.country_id:
                 real_address_value = ''.join([real_address_value, '%s ' % adrs.country_id.name])
             result[adrs.id] = real_address_value
@@ -80,6 +82,7 @@ class address_address(orm.Model):
                                 type='char',
                                 store=_address_store_triggers),
         'country_id': fields.many2one('res.country', 'Country', track_visibility='onchange'),
+        'country_code': fields.related('country_id', 'code', string='Country Code', type='char', relation='res.country'),
 
         'address_local_zip_id': fields.many2one('address.local.zip', 'Local Zip', track_visibility='onchange'),
         'address_local_street_id': fields.many2one('address.local.street', 'Local Street', track_visibility='onchange'),
@@ -95,6 +98,7 @@ class address_address(orm.Model):
     _defaults = {
         'country_id': lambda self, cr, uid, c:
         self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE, context=c),
+        'country_code': COUNTRY_CODE,
     }
 
     _sql_constraints = [
@@ -137,11 +141,20 @@ class address_address(orm.Model):
 
 # view methods: onchange, button
 
-    def on_change_country_id(self, cr, uid, ids, local_zip_id, context=None):
-        pass
+    def onchange_country_id(self, cr, uid, ids, country_id, context=None):
+        return {
+                'value': {
+                          'country_code': self.pool.get('res.country').read(cr, uid, \
+                                          [country_id], ['code'], context=context)[0]['code']
+                 }
+        }
 
-    def on_change_local_zip_id(self, cr, uid, ids, local_zip_id, context=None):
-        pass
+    def onchange_local_zip_id(self, cr, uid, ids, local_zip_id, context=None):
+        return {
+                'value': {
+                          'address_local_street_id': False
+                 }
+        }
 
 # public methods
 
