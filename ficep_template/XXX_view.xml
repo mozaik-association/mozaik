@@ -51,6 +51,10 @@
             </field>
         </record>
 
+        <!-- to delete a record: a view for instance -->
+        <delete id="module.xmlid" model="ir.ui.view"/>
+        <!--  -->
+
         <record id="xxx_search_view" model="ir.ui.view">
             <field name="name">xxx.search</field>
             <field name="model">xxx</field>
@@ -79,6 +83,7 @@
             </field>
         </record>
 
+        <!--delete id="xxx_tree_view" model="ir.ui.view"/-->
         <record id="xxx_tree_view" model="ir.ui.view">
             <field name="name">xxx.tree</field>
             <field name="model">xxx</field>
@@ -102,14 +107,12 @@
             </field>
         </record>
 
+        <!--delete id="xxx_form_view" model="ir.ui.view"/-->
         <record id="xxx_form_view" model="ir.ui.view">
             <field name="name">xxx.form</field>
             <field name="model">xxx</field>
             <field name="arch" type="xml">
                 <form string="XXX" version="7.0">
-                    <div invisible="1">
-                      <!-- all necessary but not displayed fields if not -->
-                    </div>
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('simplified')"
@@ -120,6 +123,8 @@
                                     attrs="{'invisible': [('is_main','=',True)]}"
                                     context="{'invalidate': True}"
                                     confirm="Set this coordinate as main and invalidate the previous one: proceed anyway ?" />
+                        </div>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">
@@ -153,6 +158,7 @@
                             <h3>More Info</h3>
                             <group name="moreinfo">
                                 <field name="id"/>
+                                <field name="active"/>
                             </group>
                         </div>
                     </div>
@@ -171,7 +177,7 @@
             <field name="inherit_id" ref="xxx_form_view" />
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')]),
                                           ]" />
-            <field name="priority" eval="20" /><!-- to be sure to evaluate it after others forms (default priority=16) -->
+            <field name="priority" eval="20" /><!-- to be sure to evaluate it after other forms (default priority=16) -->
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='message_ids']" position="replace">
@@ -181,25 +187,27 @@
             </field>
         </record>
 
+        <!--delete id="xxx_action" model="ir.actions.act_window"/-->
         <record id="xxx_action" model="ir.actions.act_window">
             <field name="name">XXX</field>
             <field name="res_model">xxx</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="xxx_tree_view" />
             <field name="search_view_id" ref="xxx_search_view" />
             <field name="context">{'mail_create_nosubscribe': True}</field>
         </record>
 
         <!-- Menu -->
 
-        <menuitem name="XXX" id="xxx_menu"
+        <menuitem id="xxx_menu" name="XXX"
                   sequence="40" parent="ficep_mmm.xxx_root_menu" />
 
-        <menuitem id="xxx_submenu"
-                  sequence="10" parent="xxx_menu" action="xxx_action" />
+        <menuitem id="xxx_submenu" action="xxx_action"
+                  sequence="10" parent="xxx_menu" />
 
-        <menuitem id="yyy_submenu"
-                  sequence="20" parent="xxx_menu" action="yyy_action" />
+        <menuitem id="yyy_submenu" action="yyy_action"
+                  sequence="20" parent="xxx_menu" />
 
     </data>
 </openerp>

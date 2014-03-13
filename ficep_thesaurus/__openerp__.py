@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Person',
+    'name': 'FICEP: Thesaurus',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -34,20 +34,21 @@
     'category': 'Political Association',
     'depends': [
         'ficep_base',
-        'ficep_duplicate',
-        'ficep_thesaurus',
     ],
     'description': """
-FICEP Person
-============
-    """,
+FICEP Thesaurus
+===============
+Implements a light thesaurus for indexation purpose.
+Model is read-only for all users except thesaurus managers that are followers of all terms.
+Creating a new term will send a message to all this followers requesting their validation.
+""",
     'images': [
     ],
     'data': [
-        'res_partner_view.xml',
-        'person_view.xml',
-        'wizard/create_user_from_partner_view.xml',
-        'wizard/allow_duplicate_view.xml',
+        'security/ir.model.access.csv',
+        'data/thesaurus_data.xml',
+        #'wizard/change_main_phone.xml',
+        'thesaurus_view.xml',
     ],
     'js': [
     ],
@@ -61,8 +62,8 @@ FICEP Person
     ],
     'sequence': 150,
     'active': False,
-    'auto_install': False,
     'installable': True,
+    'auto_install': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -11,15 +11,15 @@
                   sequence="99" parent="persons_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
 
         <menuitem id="persons_titles_menu" name="Titles"
-                  sequence="76" parent="persons_configuration_menu" />
+                  sequence="60" parent="persons_configuration_menu" />
 
         <!-- Re-base standard menus -->
 
         <menuitem id="res_partner_category_menu" action="base.action_partner_category_form"
-                  sequence="75" parent="persons_configuration_menu" />
+                  sequence="50" parent="persons_configuration_menu" />
 
         <menuitem id="res_country_menu" action="base.action_country"
-                  sequence="77" parent="persons_configuration_menu" />
+                  sequence="70" parent="persons_configuration_menu" />
 
         <menuitem id="res_partner_natural_title_menu" action="base.action_partner_title_contact"
                   sequence="10" parent="persons_titles_menu" />
