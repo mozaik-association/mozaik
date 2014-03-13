@@ -7,9 +7,23 @@
             <field name="model">xxx</field>
             <field name="arch" type="xml">
                 <form string="XXX" version="7.0">
+                    <group name="data">
+                        <group name="main">
+                            <field name="yyy" />
+                        </group>
+                        <group name="other">
+                            <field name="kkk" />
+                        </group>
+                    </group>
                     <strong>
-                        Some text ... or fields
+                        Some text ...
                     </strong>
+                    <div name="dev" groups="ficep_base.res_groups_developper">
+                        <h3>More Info</h3>
+                        <group name="moreinfo">
+                            <field name="www"/>
+                        </group>
+                    </div>
                     <footer>
                         <span name="go-wizard">
                             <button string="Yyy" name="button_yyy"

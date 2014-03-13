@@ -9,7 +9,7 @@
             <field name="model">change.main.coordinate</field>
             <field name="arch" type="xml">
                 <form string="Change Main Coordinate" version="7.0">
-                    <group>
+                    <group name="data">
                         <field name="invalidate_previous_coordinate" />
                     </group>
                     <footer>
