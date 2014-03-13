@@ -197,6 +197,10 @@ class xxxx(orm.Model):
         res = super(xxxx, self).fields_view_get(cr, user, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
         return res
 
+    def fields_get(self, cr, user, allfields=None, context=None, write_access=True):
+        res = super(xxxx, self).fields_get(cr, user, allfields=allfields, context=context, write_access=write_access)
+        return res
+
 # view methods: onchange, button
 
     def button_zzz(self, cr, uid, ids, context=None):

@@ -99,11 +99,16 @@
                         </div>
 
                         <group>
-                            <field name="zzz" attrs="{'readonly': [('yyy_ids','!=',[])]}" />
+                            <group  name="abc">
+                                <field name="zzz" attrs="{'readonly': [('yyy_ids','!=',[])]}" />
+                            </group>
+                            <group name="xyz">
+                                <field name="xxx" attrs="{'readonly': [('yyy_ids','!=',[])]}" />
+                            </group>
                         </group>
 
                         <notebook>
-                            <page string="YYY" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
+                            <page string="YYY" name="yyy" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="yyy_ids" context="{'default_zzz_id': id, 'simplified': 1}">
                                     <tree>
                                         <field name="zzz_id"/>
