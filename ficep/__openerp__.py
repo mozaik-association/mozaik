@@ -36,6 +36,7 @@
         'ficep_phone',
         'ficep_email',
         'ficep_address',
+        'ficep_structure',
     ],
     'description': """
 FICEP

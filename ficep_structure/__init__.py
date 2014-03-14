@@ -25,46 +25,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Sample Customization',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep',
-    ],
-    'description': """
-FICEP Sample Customization
-==========================
-    """,
-    'images': [
-    ],
-    'data': [
-         'demo/company_demo.xml',
-         'demo/users_demo.xml',
-         '../ficep_person/tests/data/person_data.xml',
-         '../ficep_coordinate/demo/coordinate_demo.xml',
-         '../ficep_phone/tests/data/phone_data.xml',
-         '../ficep_email/tests/data/email_data.xml',
-         '../ficep_structure_demo/structure_demo.xml'
-         'demo/sample_customization_demo.xml'  # must be the last
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'auto_install': False,
-    'installable': True,
-}
+from . import abstract_structure
+from . import structure
+from . import sta_structure
+from . import ext_structure
+from . import int_structure
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

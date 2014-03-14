@@ -26,30 +26,26 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Sample Customization',
+    'name': 'FICEP: Structure',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep',
+        'ficep_base',
     ],
     'description': """
-FICEP Sample Customization
-==========================
+FICEP Structure
+============
     """,
     'images': [
     ],
     'data': [
-         'demo/company_demo.xml',
-         'demo/users_demo.xml',
-         '../ficep_person/tests/data/person_data.xml',
-         '../ficep_coordinate/demo/coordinate_demo.xml',
-         '../ficep_phone/tests/data/phone_data.xml',
-         '../ficep_email/tests/data/email_data.xml',
-         '../ficep_structure_demo/structure_demo.xml'
-         'demo/sample_customization_demo.xml'  # must be the last
+             'security/ir.model.access.csv',
+             'abstract_structure_view.xml',
+             'structure_view.xml',
+             'data/structure_data.xml',
     ],
     'js': [
     ],
