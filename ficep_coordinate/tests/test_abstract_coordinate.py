@@ -34,7 +34,6 @@ class abstract_coordinate(object):
 
     def setUp(self):
         super(abstract_coordinate, self).setUp()
-        self.model_coordinate = None
 
         self.registry('ir.model').clear_caches()
         self.registry('ir.model.data').clear_caches()
@@ -45,6 +44,12 @@ class abstract_coordinate(object):
         self.partner_id_1 = self.model_partner.create(cr, uid, {'name': 'partner_1'}, context={})
         self.partner_id_2 = self.model_partner.create(cr, uid, {'name': 'partner_2'}, context={})
         self.partner_id_3 = self.model_partner.create(cr, uid, {'name': 'partner_3'}, context={})
+
+        # members to instanciate by real test
+        self.model_coordinate = None
+        self.field_id_1 = None
+        self.field_id_2 = None
+        self.coo_into_partner = None
 
     def test_unicity_of_abstract_coordinate(self):
         """
@@ -121,13 +126,13 @@ class abstract_coordinate(object):
         self.model_coordinate.set_as_main(self.cr, self.uid, [pc_id_2], context={'invalidate': True})
 
         pc_vals = self.model_coordinate.read(self.cr, self.uid, [pc_id_1, pc_id_2], ['active', 'is_main'])
-        mobile_coordinate_id = self.model_partner.read(self.cr, self.uid, self.partner_id_1, ['mobile_coordinate_id'])['mobile_coordinate_id']
+        coordinate_id = self.model_partner.read(self.cr, self.uid, self.partner_id_1, [self.coo_into_partner])[self.coo_into_partner]
 
         self.assertEqual(pc_vals[0]['is_main'] == True and
                          pc_vals[0]['active'] == False, True, 'Previous model Coordinate Should Be Right Invalidate')
         self.assertEqual(pc_vals[1]['is_main'] == True and
                          pc_vals[1]['active'] == True, True, 'Current model Coordinate Should Be New Main')
-        self.assertEqual(mobile_coordinate_id[0] == pc_vals[1]['id'], True, 'Replication Failed: Should be the new selected as main model coordinate')
+        self.assertEqual(coordinate_id[0] == pc_vals[1]['id'], True, 'Replication Failed: Should be the new selected as main model coordinate')
 
     def test_bad_unlink_abstract_coordinate(self):
         """

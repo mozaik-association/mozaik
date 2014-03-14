@@ -42,6 +42,7 @@ class test_phone_coordinate_wizard(test_coordinate_wizard, SharedSetupTransactio
     def setUp(self):
         super(test_phone_coordinate_wizard, self).setUp()
 
+        # instanciated members of abstract test
         self.model_coordinate_wizard = self.registry('change.main.phone')
         self.model_coordinate = self.registry('phone.coordinate')
         self.model_id_1 = self.ref('%s.mobile_one' % self._module_ns)

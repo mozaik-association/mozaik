@@ -139,15 +139,15 @@ class res_partner(orm.Model):
     def copy_data(self, cr, uid, ids, default=None, context=None):
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
         res.update({
-                    'active': True,
                     'child_ids': [],
                     'user_ids': [],
                     'bank_ids': [],
 
+                    'is_assembly': False,
                     'ldap_name': False,
                     'ldap_id': False,
                     'expire_date': False,
-                    'is_assembly': False,
+                    'active': True,
                    })
         return res
 

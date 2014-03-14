@@ -26,24 +26,27 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP',
+    'name': 'FICEP: Person - Coordinate',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_person_coordinate',
+        'ficep_person',
+        'ficep_email',
+        'ficep_address',
+        'ficep_phone',
     ],
     'description': """
-FICEP
-=====
-Loads all ficep modules
+FICEP Person - Coordinate
+=========================
+Colors tree view.
     """,
     'images': [
     ],
     'data': [
-        'data/res_users_data.xml',
+        'res_partner_view.xml',
     ],
     'js': [
     ],
@@ -57,7 +60,7 @@ Loads all ficep modules
     ],
     'sequence': 150,
     'active': False,
-    'auto_install': False,
+    'auto_install': True, # automatically install if all depends loaded
     'installable': True,
 }
 
