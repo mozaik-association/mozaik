@@ -9,7 +9,7 @@
             <field name="lastname">VAN HAVER</field>
             <field name="usual_lastname"></field>
             <field name="usual_firstname"></field>
-            <field name="birthdate">1985-03-12</field>
+            <field name="birth_date">1985-03-12</field>
             <field name="company_id" ref="base.main_company" />
             <field name="ldap_name">pvanhaver</field>
             <field name="ldap_id">451256</field>
@@ -21,7 +21,7 @@
             <field name="usual_lastname"></field>
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company" />
-            <field name="birthdate">1949-03-29</field>
+            <field name="birth_date">1949-03-29</field>
             <field name="tongue">f</field>
             <field name="gender">f</field>
             <field name="secondary_website">http://www.acsone.eu</field>

@@ -163,18 +163,17 @@ class thesaurus_term(orm.Model):
         res = super(thesaurus_term, self).copy_data(cr, uid, ids, default=default, context=context)
         return res
 
-    def copy(self, cr, uid, ids, default=None, context=None):
+    def copy_data(self, cr, uid, ids, default=None, context=None):
         """
-        Prevent to duplicate a theasaurus
+        Reset some fields to their initial values.
+        Mark the name as (copy) 
         """
-        if default is None:
-            default = {}
-        default.update({
-                        'name': _('%s (copy)') % default.get('name'),
-                        'active': True,
-                        'expire_date': False,
-                       })
-        res = super(thesaurus_term, self).copy(cr, uid, ids, default=default, context=context)
+        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        res.update({
+                    'name': _('%s (copy)') % default.get('name'),
+                    'active': True,
+                    'expire_date': False,
+                   })
         return res
 
 # view methods: onchange, button

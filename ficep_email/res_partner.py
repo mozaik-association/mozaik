@@ -114,17 +114,14 @@ class res_partner(orm.Model):
 
 # orm methods
 
-    def copy(self, cr, uid, ids, default=None, context=None):
+    def copy_data(self, cr, uid, ids, default=None, context=None):
         """
-        ====
-        copy
-        ====
-        Avoid to copy coordinates when duplicating partner
+        Do not copy o2m fields.
         """
-        if default is None:
-            default = {}
-        default.update({'email_coordinate_ids': []})
-        res = super(res_partner, self).copy(cr, uid, ids, default=default, context=context)
+        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        res.update({
+                    'email_coordinate_ids': [],
+                   })
         return res
 
     def write(self, cr, uid, ids, vals, context=None):

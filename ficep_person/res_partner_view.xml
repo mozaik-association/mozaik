@@ -11,8 +11,8 @@
                     <field name="name"
                            filter_domain="['|',('display_name','ilike',self),('name','ilike',self)]"/>
                     <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
-                    <field string="Birthdate > ..." name="birthdate" filter_domain="[('birthdate','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
-                    <field string="Birthdate &lt; ..." name="birthdate" filter_domain="[('birthdate','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field name="comment" />
 
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]" invisible="'default_is_company' in context"/>
@@ -59,7 +59,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='display_name']" position="after">
-                    <field name="birthdate" invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <field name="birth_date" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                 </xpath>
 
                 <xpath expr="//field[@name='country']" position="replace"/><!-- rid off this replace when oe will drop definitvely deprecated country field -->
@@ -153,7 +153,8 @@
 
                 <xpath expr="//group[field[@name='user_ids']]" position="after">
                     <group name="person1" attrs="{'invisible': [('is_company','=', True)]}">
-                        <field name="birthdate" />
+                        <field name="birth_date" />
+<field name="birthdate" widget="date" string="zzzzz"/>
                         <field name="gender" />
                     </group>
                     <group name="person2" attrs="{'invisible': [('is_company','=', True)]}">

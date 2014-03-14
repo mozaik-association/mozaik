@@ -88,7 +88,6 @@ class res_partner(orm.Model):
 
         # Standard fields redefinition
         'display_name': fields.function(res_partner.res_partner._display_name_compute, type='char', string='Name', store=_display_name_store_triggers),
-        'birthdate': fields.date('Birthdate', select=True, track_visibility='onchange'),
         'website': fields.char('Main Website', size=128, track_visibility='onchange',
                                help="Main Website of Partner or Company"),
         'comment': fields.text('Notes', track_visibility='onchange'),
@@ -98,6 +97,12 @@ class res_partner(orm.Model):
         # Validity period
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
+
+        # Special case: 
+        # * do not use native birthdate field, it is a char field without any control
+        # * do not redefine it either, oe will silently rename twice the column (birthdate_moved12, birthdate_moved13, ...)
+        #   losing its content and making the res_partner table with an astronomic number of columns !!  
+        'birth_date': fields.date('Birthdate', select=True, track_visibility='onchange'),
     }
 
     _defaults = {
@@ -137,6 +142,10 @@ class res_partner(orm.Model):
         return res
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        Do not copy o2m fields.
+        Reset some fields to their initial values.
+        """
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
         res.update({
                     'child_ids': [],
