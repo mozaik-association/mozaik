@@ -26,6 +26,7 @@
 #
 ##############################################################################
 from anybox.testing.openerp import SharedSetupTransactionCase
+from openerp.osv import fields
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -129,7 +130,10 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         nb_active_phone_coord += 1
 
         # Invalidate partner
-        partner_model.button_invalidate(cr, uid, [nouvelobs_id], context=context)
+        partner_model.write(cr, uid, [nouvelobs_id], {'is_duplicate_detected': False,
+                                                      'is_duplicate_allowed': False,
+                                                      'active': False,
+                                                      'expire_date': fields.datetime.now(), }, context=context)
 
         # Check its phone coordinates
         nouvelobs = partner_model.browse(cr, uid, nouvelobs_id, context=context)

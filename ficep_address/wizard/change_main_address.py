@@ -25,45 +25,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Address',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_coordinate',
-    ],
-    'description': """
-FICEP Address
-=============
-""",
-    'images': [
-    ],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/ir.rule.xml',
-        'wizard/change_main_phone.xml',
-        'wizard/allow_duplicate_view.xml',
-        'address_address_view.xml',
-        #'res_partner_view.xml',
-        #'coordinate_category_view.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'installable': True,
-    'auto_install': False,
-}
+
+from openerp.osv import orm, fields
+
+
+class change_main_address(orm.TransientModel):
+
+    _name = 'change.main.address'
+    _inherit = 'change.main.coordinate'
+    _description = 'Change Main Address Wizard'
+
+    _columns = {
+        'address_id': fields.many2one('address.address', 'New Main Address', required=True),
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
