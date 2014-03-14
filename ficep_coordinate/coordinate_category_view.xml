@@ -10,13 +10,27 @@
                     <header>
                     </header>
                     <sheet>
-                        <div class="oe_title">
+                        <div class="oe_title" name="title">
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" placeholder="Name of the category..." /></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons">
                         </div>
+
+                        <group name="data">
+                            <group name="main">
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
                     </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                            </group>
+                        </div>
+                    </div>
                 </form>
             </field>
         </record>

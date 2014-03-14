@@ -9,17 +9,26 @@
             <field name="model">create.user.from.partner</field>
             <field name="arch" type="xml">
                 <form string="Create a User from a Partner" version="7.0">
-                    <div invisible="1">
-                        <field name="appl_id"/>
-                    </div>
-                    <group>
-                        <field name="login" />
-                        <field name="group_id" />
+                    <group name="data">
+                        <group name="main">
+                            <field name="login" />
+                        </group>
+                        <group name="other">
+                            <field name="group_id" />
+                        </group>
                     </group>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <h3>More Info</h3>
+                        <group name="moreinfo">
+                            <field name="appl_id"/>
+                        </group>
+                    </div>
                     <footer>
-                        <button string="Create" name="create_user_from_partner"
-                                type="object" class="oe_highlight" />
-                        or
+                        <span name="go-wizard">
+                            <button string="Create" name="create_user_from_partner"
+                                    type="object" class="oe_highlight" />
+                            or
+                        </span>
                         <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>
                 </form>

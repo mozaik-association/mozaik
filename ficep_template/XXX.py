@@ -38,11 +38,19 @@ from openerp.tools.translate import _
 
 # Constants
 XXX_AVAILABLE_TYPES = [
-                       ('xx', 'X'),
-                       ('yy', 'Y'),
-                      ]
+    ('xx', 'X'),
+    ('yy', 'Y'),
+]
 
 xxx_available_types = dict(XXX_AVAILABLE_TYPES)
+
+QQQ_AVAILABLE_STATES = [
+    ('draft', 'Unconfirmed'),
+    ('confirm', 'Confirmed'),
+    ('cancel', 'Cancelled'),
+]
+
+qqq_available_states = dict(QQQ_AVAILABLE_STATES)
 
 
 class res_partner_title(orm.Model):
@@ -59,7 +67,7 @@ class res_partner(orm.Model):
 class xxxx(orm.Model):
 
     _name = 'xxx'
-    _description = "XXX"
+    _description = 'XXX'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
 # private methods
@@ -96,22 +104,28 @@ class xxxx(orm.Model):
 
         # Standard fields redefinition
         'partner_id': fields.many2one('res.partner', 'Contact', required=True, select=True),
+        'hhh': fields.char('HHH', readonly=True, required=True, select=True, track_visibility='onchange',
+                           states={'draft': [('readonly', False),('required', False)]}),
+
+        # State
+        'state': fields.selection(QQQ_AVAILABLE_STATES,'Status', readonly=True, required=True, track_visibility='onchange',
+            help='If qqq is created, the status is \'Unconfirmed\'. If qqq is confirmed the status is set to \'Confirmed\'. Finally, if event is cancelled the status is set to \'Cancelled\'.'),
 
         # Validity period
         'create_date': fields.datetime('Creation Date', readonly=True),
-        'expire_date': fields.datetime('Expiration Date', readonly=True),
+        'expire_date': fields.datetime('Expiration Date', track_visibility='onchange'),
         'active': fields.boolean('Active', readonly=True),
     }
 
     _rec_name = 'name'
 
-    _order = "name"
+    _order = 'name'
 
     _defaults = {
         'type': XXX_AVAILABLE_TYPES[0],
         'date': fields.date.today,
         'datetime': fields.datetime.now,
-        'active': True
+        'active': True,
     }
 
 # constraints
@@ -211,9 +225,21 @@ class xxxx(orm.Model):
         This method ...
         :rparam: True
         :rtype: boolean
-        :raise: Error if the coordinate is main
-                and another coordinate of the same type exists
+        :raise: Error if ...
         """
+        self.write(cr, uid, ids, {'state': 'confirm'}, context=context)
+        return True
+
+    def button_reset(self, cr, uid, ids, context=None):
+        """
+        ============
+        button_reset
+        ============
+        Resurrect the ...
+        :rparam: True
+        :rtype: boolean
+        """
+        self.write(cr, uid, ids, {'state': 'draft', 'active': True, 'expire_date': False}, context=context)
         return True
 
 # workflow

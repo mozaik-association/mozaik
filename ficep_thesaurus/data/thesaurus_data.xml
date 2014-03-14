@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+         <record id="initial_thesaurus" model="thesaurus">
+            <field name="name">Thesaurus</field>
+        </record>
+
+    </data>
+</openerp>

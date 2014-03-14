@@ -37,7 +37,16 @@ class address_address(orm.Model):
     _description = "Address"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
-#private methods
+# private methods
+
+    def _get_linked_addresses_from_country(self, cr, uid, ids, context=None):
+        return self.pool.get('res.country')._get_linked_addresses(cr, uid, ids, context=context)
+
+    def _get_linked_addresses_from_local_zip(self, cr, uid, ids, context=None):
+        return self.pool.get('address.local.zip')._get_linked_addresses(cr, uid, ids, context=context)
+
+    def _get_linked_addresses_from_local_street(self, cr, uid, ids, context=None):
+        return self.pool.get('address.local.street')._get_linked_addresses(cr, uid, ids, context=context)
 
     def _get_integral_address(self, cr, uid, ids, name, args, context=None):
         result = {}.fromkeys(ids, False)
@@ -45,50 +54,55 @@ class address_address(orm.Model):
         for adrs in adrs_recs:
             real_address_value = ''
             if adrs.number:
-                real_address_value = ''.join([real_address_value, '(n°%s ' % adrs.number])
+                real_address_value = ''.join([real_address_value, '%s ' % adrs.number])
             if adrs.box:
-                real_address_value = ''.join([real_address_value, '%s) ' % adrs.box])
+                real_address_value = ''.join([real_address_value, '%s ' % adrs.box])
             if adrs.street:
                 real_address_value = ''.join([real_address_value, '%s ' % adrs.street])
             if adrs.street2:
                 real_address_value = ''.join([real_address_value, '%s ' % adrs.street2])
+            if adrs.address_local_zip_id:
+                real_address_value = ''.join([real_address_value, '%s ' % adrs.address_local_zip_id.local_zip])
             if adrs.country_id:
                 real_address_value = ''.join([real_address_value, '%s ' % adrs.country_id.name])
             result[adrs.id] = real_address_value
         return result
 
-    def _address_store_triggers(self, cr, uid, ids, context=None):
-        return {
-            'res.country': (self.pool.get('res.country')._get_linked_addresses, ['country_id'], 10),
-            # address.local.zip
-            # address.local.street
+    _address_store_triggers = {
+            'address.address': (lambda self, cr, uid, ids, context=None: ids, [], 10),
+            'res.country': (_get_linked_addresses_from_country, ['name'], 10),
+            'address.local.zip': (_get_linked_addresses_from_local_zip, ['local_zip'], 10),
+            'address.local.street': (_get_linked_addresses_from_local_street, ['local_street'], 10),
         }
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.function(_get_integral_address,
                                 string='Address',
-                                type='char'),
+                                type='char',
+                                store=_address_store_triggers),
         'country_id': fields.many2one('res.country', 'Country', track_visibility='onchange'),
+        'country_code': fields.related('country_id', 'code', string='Country Code', type='char', relation='res.country'),
 
         'address_local_zip_id': fields.many2one('address.local.zip', 'Local Zip', track_visibility='onchange'),
         'address_local_street_id': fields.many2one('address.local.street', 'Local Street', track_visibility='onchange'),
 
         'street': fields.char('Street', track_visibility='onchange'),
         'street2': fields.char('Street2', track_visibility='onchange'),
-        'number': fields.integer('Number', track_visibility='onchange'),
-        'box': fields.integer('Box', track_visibility='onchange'),
+        'number': fields.char('Number', track_visibility='onchange'),
+        'box': fields.char('Box', track_visibility='onchange'),
 
-        'address_coordinate_ids': fields.one2many('address.coordinate', 'address_id', 'Address Coordinate'),
+        'postal_coordinate_ids': fields.one2many('postal.coordinate', 'address_id', 'Postal Coordinate'),
     }
 
     _defaults = {
         'country_id': lambda self, cr, uid, c:
         self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE, context=c),
+        'country_code': COUNTRY_CODE,
     }
 
     _sql_constraints = [
-        #('check_unicity_number', 'unique(name)', _('This Address number already exists!'))
+        ('check_unicity_number', 'unique(name)', _('This Address number already exists!'))
     ]
 
 # orm methods
@@ -127,11 +141,30 @@ class address_address(orm.Model):
 
 # view methods: onchange, button
 
-    def on_change_country_id(self, cr, uid, ids, local_zip_id, context=None):
-        pass
+    def onchange_country_id(self, cr, uid, ids, country_id, context=None):
+        return {
+                'value': {
+                          'country_code': self.pool.get('res.country').read(cr, uid, \
+                                          [country_id], ['code'], context=context)[0]['code']
+                                          if country_id else country_id
+                 }
+        }
 
-    def on_change_local_zip_id(self, cr, uid, ids, local_zip_id, context=None):
-        pass
+    def onchange_local_zip_id(self, cr, uid, ids, local_zip_id, context=None):
+        return {
+                'value': {
+                          'address_local_street_id': False
+                 }
+        }
+
+    def onchange_local_street_id(self, cr, uid, ids, local_street_id, context=None):
+        return {
+                'value': {
+                          'street': self.pool.get('address.local.street').read(cr, uid, \
+                                          [local_street_id], ['local_street'], context=context)[0]['local_street']
+                                    if local_street_id else local_street_id
+                 }
+        }
 
 # public methods
 
@@ -167,9 +200,9 @@ class address_address(orm.Model):
         return list(set(res_ids))
 
 
-class address_coordinate(orm.Model):
+class postal_coordinate(orm.Model):
 
-    _name = 'address.coordinate'
+    _name = 'postal.coordinate'
     _inherit = ['abstract.coordinate']
     _description = "Address Coordinate"
 

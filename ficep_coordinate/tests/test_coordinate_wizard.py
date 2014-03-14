@@ -40,6 +40,7 @@ class test_coordinate_wizard(object):
         self.partner_id_2 = self.ref('%s.res_partner_thierry' % self._module_ns)
         self.partner_id_3 = self.ref('%s.res_partner_jacques' % self._module_ns)
 
+        # members to instanciate by real test
         self.model_coordinate_wizard = None
         self.model_coordinate = None
         self.model_id_1 = None
@@ -73,14 +74,12 @@ class test_coordinate_wizard(object):
         =====================
         test_mass_replication
         =====================
-        This test check the fact that the created model coordinate are the main
-        for their associated partner.
+        Test that created coordinates are main for their respective partners.
 
-        Assure that the model_id_N is well replicated into the partner form:
-            partner_N.mobile_coordinate.model_id.id = self.model_id_N
-        Assure that the model replicated is main:
-            partner_N.mobile_coordinate.is_main = True
-        If those condition are well respected then replication is functional
+        Assure that the main coordinate is well replicated into the partner form
+            partner[coo_into_partner] = self.model_id_N
+        Assure that the replicated coordinate is main:
+            partner[coo_into_partner].is_main = True
         """
         self.change_main_coordinate(True)
         model_coo = self.model_partner.read(self.cr,
@@ -88,9 +87,10 @@ class test_coordinate_wizard(object):
                                             self.partner_id_2,
                                             self.partner_id_3], [self.coo_into_partner], context={})
         for model_coordinate_vals in model_coo:
-            c_rec = self.model_coordinate.browse(self.cr, self.uid, model_coordinate_vals['mobile_coordinate_id'][0], context={})
-            self.assertEqual(c_rec[self.model_coordinate._discriminant_field].id == self.model_id_1 and
-                             c_rec.is_main == True, True, 'model Coordinate Should Be Replicate Into The  Associated Partner')
+            coordinate = self.model_coordinate.browse(self.cr, self.uid, model_coordinate_vals[self.coo_into_partner][0], context={})
+            coord_value = self.model_coordinate._is_discriminant_m2o() and coordinate[self.model_coordinate._discriminant_field].id or coordinate[self.model_coordinate._discriminant_field]
+            self.assertEqual(coord_value == self.model_id_1 and
+                             coordinate.is_main == True, True, 'Coordinate Should Be Replicate Into The Associated Partner')
 
     def test_mass_replication_with_invalidate(self):
         """

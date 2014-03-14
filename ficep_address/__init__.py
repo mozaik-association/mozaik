@@ -30,6 +30,6 @@ from . import address_local_zip
 from . import address_local_street
 from . import address_address
 #from . import res_partner
-#from . import wizard
+from . import wizard
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

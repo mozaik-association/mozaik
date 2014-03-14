@@ -51,6 +51,39 @@
             </field>
         </record>
 
+        <!-- to delete a record: a view for instance -->
+        <delete id="module.xmlid" model="ir.ui.view"/>
+        <!--  -->
+
+        <record id="xxx_search_view" model="ir.ui.view">
+            <field name="name">xxx.search</field>
+            <field name="model">xxx</field>
+            <field name="arch" type="xml">
+                <search string="XXX" version="7.0">
+                    <field name="yyy" />
+                    <field name="yyy_id" />
+
+                    <filter name="fff1" string="FFF hhh" domain="[('hhh','=',True)]" />
+                    <filter name="fff2" string="FFF ggg" domain="[('ggg','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="fff3" string="FFF 3" domain="[('fff','=',True)]" />
+                    <separator />
+                    <filter name="expired" string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active','=',False)]" help="Expire Coordinate" />
+                    <filter name="all" string="All"
+                        context="{'invisible_expire_date': False}"
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
+                        <filter name="category" string="Category" domain="[]" context="{'group_by':'coordinate_category_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--delete id="xxx_tree_view" model="ir.ui.view"/-->
         <record id="xxx_tree_view" model="ir.ui.view">
             <field name="name">xxx.tree</field>
             <field name="model">xxx</field>
@@ -74,6 +107,7 @@
             </field>
         </record>
 
+        <!--delete id="xxx_form_view" model="ir.ui.view"/-->
         <record id="xxx_form_view" model="ir.ui.view">
             <field name="name">xxx.form</field>
             <field name="model">xxx</field>
@@ -89,20 +123,22 @@
                                     attrs="{'invisible': [('is_main','=',True)]}"
                                     context="{'invalidate': True}"
                                     confirm="Set this coordinate as main and invalidate the previous one: proceed anyway ?" />
+                        </div>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                     </header>
                     <sheet>
-                        <div class="oe_title">
+                        <div class="oe_title" name="title">
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" attrs="{'readonly': [('yyy_ids','!=',[])]}" placeholder="e.g. blabla" /></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons">
                         </div>
 
-                        <group>
-                            <group  name="abc">
+                        <group name="data">
+                            <group name="main">
                                 <field name="zzz" attrs="{'readonly': [('yyy_ids','!=',[])]}" />
                             </group>
-                            <group name="xyz">
+                            <group name="other">
                                 <field name="xxx" attrs="{'readonly': [('yyy_ids','!=',[])]}" />
                             </group>
                         </group>
@@ -117,15 +153,16 @@
                             </page>
                         </notebook>
                     </sheet>
-                    <div class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
                                 <field name="id"/>
+                                <field name="active"/>
                             </group>
                         </div>
                     </div>
-                    <div class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" readonly="1"/>
                     </div>
@@ -140,7 +177,7 @@
             <field name="inherit_id" ref="xxx_form_view" />
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')]),
                                           ]" />
-            <field name="priority" eval="20" /><!-- to be sure to evaluate it after others forms (default priority=16) -->
+            <field name="priority" eval="20" /><!-- to be sure to evaluate it after other forms (default priority=16) -->
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='message_ids']" position="replace">
@@ -150,25 +187,27 @@
             </field>
         </record>
 
+        <!--delete id="xxx_action" model="ir.actions.act_window"/-->
         <record id="xxx_action" model="ir.actions.act_window">
             <field name="name">XXX</field>
             <field name="res_model">xxx</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="xxx_tree_view" />
             <field name="search_view_id" ref="xxx_search_view" />
             <field name="context">{'mail_create_nosubscribe': True}</field>
         </record>
 
         <!-- Menu -->
 
-        <menuitem name="XXX" id="xxx_menu"
+        <menuitem id="xxx_menu" name="XXX"
                   sequence="40" parent="ficep_mmm.xxx_root_menu" />
 
-        <menuitem id="xxx_submenu"
-                  sequence="10" parent="xxx_menu" action="xxx_action" />
+        <menuitem id="xxx_submenu" action="xxx_action"
+                  sequence="10" parent="xxx_menu" />
 
-        <menuitem id="yyy_submenu"
-                  sequence="20" parent="xxx_menu" action="yyy_action" />
+        <menuitem id="yyy_submenu" action="yyy_action"
+                  sequence="20" parent="xxx_menu" />
 
     </data>
 </openerp>

@@ -35,6 +35,9 @@ class address_local_street(orm.Model):
     _description = "Address Local Street"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
+    def _get_linked_addresses(self, cr, uid, ids, context=None):
+        return self.pool.get('address.address').search(cr, uid, [('address_local_street_id', 'in', ids)], context=context)
+
     _columns = {
         'local_street': fields.char('Street', size=50, required=True, select=True, track_visibility='onchange'),
         'local_zip_id': fields.many2one('address.local.zip', 'local_zip', 'Local Zip'),

@@ -17,6 +17,7 @@
 
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]" invisible="'default_is_company' in context"/>
                     <filter string="Legal Persons" name="type_company" domain="[('is_company','=',1)]" invisible="'default_is_company' in context"/>
+                    <filter string="Assemblies" name="type_assembly" domain="[('is_assembly','=',1)]" invisible="'default_is_company' in context"/>
                     <separator />
                     <filter string="Male" name="male" domain="[('gender','=','m')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                     <filter string="Female" name="female" domain="[('gender','=','f')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
@@ -38,7 +39,7 @@
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Contacts, expired or not" />
 
-                    <group expand="0" string="Group By...">
+                    <group expand="0" string="Group By..." name="group_by">
                         <filter string="Gender" context="{'group_by': 'gender'}" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                         <filter string="Tongue" context="{'group_by': 'tongue'}" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                         <filter string="Country" context="{'group_by': 'country_id'}"/>
@@ -54,7 +55,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//tree" position="attributes">
-                    <attribute name="colors">grey:active==False;red:is_duplicate_detected==True;darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP' or email>='N/A' and email&lt;'N/B'</attribute>
+                    <attribute name="colors">grey:active==False;red:is_duplicate_detected==True</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='display_name']" position="after">
@@ -123,7 +124,7 @@
                     <h1><label string="#" attrs="{'invisible': [('id', '=', False)]}"/><field name="id" class="oe_inline"/></h1>
                 </xpath>
                 <xpath expr="//div[@class='oe_edit_only']" position="replace">
-                    <div class="oe_edit_only">
+                    <div name="title" class="oe_edit_only">
                         <label for="name"/>
                         <span invisible="'default_is_company' in context">(<field name="is_company" on_change="onchange_type(is_company)" attrs="{'readonly': [('id', '!=', False)]}" class="oe_inline"/> <label for="is_company" string="Is a Company?"/>)</span>
                     </div>
@@ -159,7 +160,7 @@
                         <field name="tongue" />
                         <field name="employee" />
                     </group>
-                    <group name="date" attrs="{'invisible': [('id','=',False)]}">
+                    <group name="validity" attrs="{'invisible': [('id','=',False)]}">
                         <field name="create_date" />
                         <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                     </group>
@@ -169,8 +170,11 @@
                     </group>
                 </xpath>
 
+                <xpath expr="//field[@name='user_ids']" position="replace"/>
+
                 <xpath expr="//page[@string='Contacts']" position="attributes">
                     <attribute name="groups">ficep_base.res_groups_developper</attribute>
+                    <attribute name="autofocus"/>
                 </xpath>
                 <xpath expr="//page[@name='sales_purchases']" position="attributes">
                     <attribute name="groups">ficep_base.res_groups_developper</attribute>
@@ -185,19 +189,19 @@
                             <field name="twitter"/>
                             <field name="facebook"/>
                         </group>
-                        <group>
-                            <field name="title" domain="[('domain', '=', 'contact')]" options="{&quot;no_open&quot;: True}" context="{'default_domain': 'contact'}" attrs="{'invisible': [('is_company','=', True)]}"/>
-                            <field name="title" domain="[('domain', '=', 'partner')]" options="{&quot;no_open&quot;: True}" context="{'default_domain': 'partner'}" attrs="{'invisible': [('is_company','=', False)]}"/>
-                        </group>
+                    </group>
+                    <group name="partner_title">
+                        <field name="title" domain="[('domain', '=', 'contact')]" options="{&quot;no_open&quot;: True}" context="{'default_domain': 'contact'}" attrs="{'invisible': [('is_company','=', True)]}"/>
+                        <field name="title" domain="[('domain', '=', 'partner')]" options="{&quot;no_open&quot;: True}" context="{'default_domain': 'partner'}" attrs="{'invisible': [('is_company','=', False)]}"/>
                     </group>
                     <group name="contact" attrs="{'invisible': [('is_company','=', True)]}">
-                        <group>
+                        <group name="status">
                             <field name="function"/>
                             <field name="civil_status"/>
                         </group>
-                        <group groups="ficep_base.ficep_res_groups_configurator">
-                            <field name="ldap_name" attrs="{'invisible': [('user_ids','=',[])]}"/>
-                            <field name="ldap_id" attrs="{'invisible': [('user_ids','=',[])]}"/>
+                        <group name="ldap" attrs="{'invisible': [('user_ids','=',[])]}" groups="ficep_base.ficep_res_groups_configurator">
+                            <field name="ldap_name" />
+                            <field name="ldap_id" />
                         </group>
                     </group>
                     <group name="partner" attrs="{'invisible': [('is_company','=', False)]}">
@@ -218,9 +222,11 @@
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
-                                <field name="parent_id" domain="[('is_company', '=', True)]" />
                                 <field name="display_name" />
+                                <field name="is_assembly" />
                                 <field name="tz" />
+                                <field name="user_ids" attrs="{'invisible': [('user_ids','=',[])]}" />
+                                <field name="parent_id" domain="[('is_company', '=', True)]" />
                             </group>
                         </div>
                     </div>
@@ -267,7 +273,7 @@
             <field name="res_model">res.partner</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('is_company', '=', True)]</field>
+            <field name="domain">[('is_company', '=', True),('is_assembly', '=', False)]</field>
             <field name="context">{'default_is_company': True, 'mail_create_nosubscribe': True}</field>
             <field name="search_view_id" ref="res_partner_search_view" />
         </record>

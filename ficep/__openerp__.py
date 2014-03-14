@@ -37,10 +37,12 @@
         'ficep_email',
         'ficep_address',
         'ficep_structure',
+        'ficep_person_coordinate',
     ],
     'description': """
 FICEP
 =====
+Loads all ficep modules
     """,
     'images': [
     ],

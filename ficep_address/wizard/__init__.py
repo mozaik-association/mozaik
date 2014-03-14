@@ -25,20 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
 
-
-class res_country(orm.Model):
-
-    _inherit = "res.country"
-
-    def _country_default_get(self, cr, uid, country_code, context=None):
-        country_id = self.search(cr, uid, [('code', '=', country_code)], context=context)
-        if country_id:
-            return country_id[0]
-        return False
-
-    def _get_linked_addresses(self, cr, uid, ids, context=None):
-        return self.pool.get('address.address').search(cr, uid, [('country_id', 'in', ids)], context=context)
+from . import change_main_address
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

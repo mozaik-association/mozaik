@@ -25,20 +25,45 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
-
-
-class res_country(orm.Model):
-
-    _inherit = "res.country"
-
-    def _country_default_get(self, cr, uid, country_code, context=None):
-        country_id = self.search(cr, uid, [('code', '=', country_code)], context=context)
-        if country_id:
-            return country_id[0]
-        return False
-
-    def _get_linked_addresses(self, cr, uid, ids, context=None):
-        return self.pool.get('address.address').search(cr, uid, [('country_id', 'in', ids)], context=context)
+{
+    'name': 'FICEP: Thesaurus',
+    'version': '1.0',
+    "author": "ACSONE SA/NV",
+    "maintainer": "ACSONE SA/NV",
+    "website": "http://www.acsone.eu",
+    'category': 'Political Association',
+    'depends': [
+        'ficep_base',
+    ],
+    'description': """
+FICEP Thesaurus
+===============
+Implements a light thesaurus for indexation purpose.
+Model is read-only for all users except thesaurus managers that are followers of all terms.
+Creating a new term will send a message to all this followers requesting their validation.
+""",
+    'images': [
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/thesaurus_data.xml',
+        #'wizard/change_main_phone.xml',
+        'thesaurus_view.xml',
+    ],
+    'js': [
+    ],
+    'qweb': [
+    ],
+    'css': [
+    ],
+    'demo': [
+    ],
+    'test': [
+    ],
+    'sequence': 150,
+    'active': False,
+    'installable': True,
+    'auto_install': False,
+}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

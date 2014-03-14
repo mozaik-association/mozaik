@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="xxx_yyy_rule" model="ir.rule">
+            <field name="name">XXX for YYYs</field>
+            <field name="model_id" ref="xxx"/>
+            <field name="domain_force">[('hhh','=',False)]</field>
+            <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_yyy'))]"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+    </data>
+</openerp>

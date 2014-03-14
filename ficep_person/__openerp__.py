@@ -35,6 +35,7 @@
     'depends': [
         'ficep_base',
         'ficep_duplicate',
+        'ficep_thesaurus',
     ],
     'description': """
 FICEP Person

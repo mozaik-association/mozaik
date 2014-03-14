@@ -44,6 +44,7 @@ FICEP Sample Customization
     'data': [
          'demo/company_demo.xml',
          'demo/users_demo.xml',
+         '../ficep_thesaurus/tests/data/thesaurus_data.xml',
          '../ficep_person/tests/data/person_data.xml',
          '../ficep_coordinate/demo/coordinate_demo.xml',
          '../ficep_phone/tests/data/phone_data.xml',

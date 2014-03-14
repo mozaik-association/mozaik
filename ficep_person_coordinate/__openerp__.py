@@ -25,20 +25,43 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
-
-
-class res_country(orm.Model):
-
-    _inherit = "res.country"
-
-    def _country_default_get(self, cr, uid, country_code, context=None):
-        country_id = self.search(cr, uid, [('code', '=', country_code)], context=context)
-        if country_id:
-            return country_id[0]
-        return False
-
-    def _get_linked_addresses(self, cr, uid, ids, context=None):
-        return self.pool.get('address.address').search(cr, uid, [('country_id', 'in', ids)], context=context)
+{
+    'name': 'FICEP: Person - Coordinate',
+    'version': '1.0',
+    "author": "ACSONE SA/NV",
+    "maintainer": "ACSONE SA/NV",
+    "website": "http://www.acsone.eu",
+    'category': 'Political Association',
+    'depends': [
+        'ficep_person',
+        'ficep_email',
+        'ficep_address',
+        'ficep_phone',
+    ],
+    'description': """
+FICEP Person - Coordinate
+=========================
+Colors tree view.
+    """,
+    'images': [
+    ],
+    'data': [
+        'res_partner_view.xml',
+    ],
+    'js': [
+    ],
+    'qweb': [
+    ],
+    'css': [
+    ],
+    'demo': [
+    ],
+    'test': [
+    ],
+    'sequence': 150,
+    'active': False,
+    'auto_install': True, # automatically install if all depends loaded
+    'installable': True,
+}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

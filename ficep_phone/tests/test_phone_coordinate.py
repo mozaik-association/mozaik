@@ -33,13 +33,17 @@ class test_phone_coordinate(abstract_coordinate, common.TransactionCase):
 
     def setUp(self):
         super(test_phone_coordinate, self).setUp()
-        self.model_phone = self.registry('phone.phone')
+
+        model_phone = self.registry('phone.phone')
+
+        # instanciated members of abstract test
         self.model_coordinate = self.registry('phone.coordinate')
-        self.field_id_1 = self.model_phone.create(self.cr, self.uid, {'name': '+32 478 85 25 25',
-                                                                   'type': 'mobile'
-                                                                   }, context={})
-        self.field_id_2 = self.model_phone.create(self.cr, self.uid, {'name': '+32 465 00 00 00',
-                                                                   'type': 'mobile'
-                                                                   }, context={})
+        self.field_id_1 = model_phone.create(self.cr, self.uid, {'name': '+32 478 85 25 25',
+                                                                 'type': 'mobile'
+                                                                }, context={})
+        self.field_id_2 = model_phone.create(self.cr, self.uid, {'name': '+32 465 00 00 00',
+                                                                 'type': 'mobile'
+                                                                }, context={})
+        self.coo_into_partner = 'mobile_coordinate_id'
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
