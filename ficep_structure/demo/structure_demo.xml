@@ -1,101 +1,102 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data noupdate="0">
+
         <!-- Create State Instance -->
 
         <record id="sta_instance_01" model="sta.instance">
             <field name="name">Etat féderal</field>
-            <field name="power_level_id" ref="sta_power_level_01"/>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_01"/>
         </record>
-        
+
         <record id="sta_instance_02" model="sta.instance">
             <field name="name">Communauté française</field>
-            <field name="power_level_id" ref="sta_power_level_03"/>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_03"/>
             <field name="parent_id" ref="sta_instance_01"/>
         </record>
-        
+
         <record id="sta_instance_03" model="sta.instance">
             <field name="name">Région wallonne</field>
-            <field name="power_level_id" ref="sta_power_level_04"/>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_04"/>
              <field name="parent_id" ref="sta_instance_02"/>
         </record>
-        
+
         <record id="sta_instance_04" model="sta.instance">
             <field name="name">Liège</field>
-            <field name="power_level_id" ref="sta_power_level_09"/>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_09"/>
             <field name="parent_id" ref="sta_instance_03"/>
             <field name="secondary_parent_id" ref="sta_instance_02"/>
         </record>
-        
+
         <record id="sta_instance_05" model="sta.instance">
             <field name="name">Huy-Waremme</field>
-            <field name="power_level_id" ref="sta_power_level_08"/>
-            <field name="parent_id" ref="sta_instance_04"/>           
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_08"/>
+            <field name="parent_id" ref="sta_instance_04"/>
         </record>
-        
+
         <record id="sta_instance_06" model="sta.instance">
             <field name="name">Huy</field>
-            <field name="power_level_id" ref="sta_power_level_05"/>
-            <field name="parent_id" ref="sta_instance_05"/>           
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_05"/>
+            <field name="parent_id" ref="sta_instance_05"/>
         </record>
-        
+
         <!-- Create Internal Instance -->
 
         <record id="int_instance_01" model="int.instance">
             <field name="name">Ecolo Fédéral</field>
-            <field name="power_level_id" ref="int_power_level_01"/>
-        </record>  
-        
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_01"/>
+        </record>
+
         <record id="int_instance_02" model="int.instance">
             <field name="name">Parlement wallon (PW)</field>
-            <field name="power_level_id" ref="int_power_level_02"/>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_02"/>
             <field name="parent_id" ref="int_instance_01"/>
-        </record>  
-                   
+        </record>
+
         <record id="int_instance_03" model="int.instance">
             <field name="name">Liège</field>
-            <field name="power_level_id" ref="int_power_level_03"/>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_03"/>
             <field name="parent_id" ref="int_instance_02"/>
-        </record>  
-        
+        </record>
+
         <record id="int_instance_04" model="int.instance">
             <field name="name">Huy-Waremme</field>
-            <field name="power_level_id" ref="int_power_level_04"/>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_04"/>
             <field name="parent_id" ref="int_instance_03"/>
-        </record> 
-        
+        </record>
+
         <record id="int_instance_05" model="int.instance">
             <field name="name">Huy</field>
-            <field name="power_level_id" ref="int_power_level_05"/>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_05"/>
             <field name="parent_id" ref="int_instance_04"/>
         </record>
-        
+
         <record id="int_instance_06" model="int.instance">
             <field name="name">Oreye</field>
-            <field name="power_level_id" ref="int_power_level_05"/>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_05"/>
             <field name="parent_id" ref="int_instance_04"/>
         </record>
-        
+
         <record id="int_instance_07" model="int.instance">
             <field name="name">Wanze</field>
-            <field name="power_level_id" ref="int_power_level_05"/>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_05"/>
             <field name="parent_id" ref="int_instance_04"/>
         </record>
-        
+
         <record id="int_instance_08" model="int.instance">
             <field name="name">Amay</field>
-            <field name="power_level_id" ref="int_power_level_05"/>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_05"/>
             <field name="parent_id" ref="int_instance_04"/>
-        </record>        
-        
+        </record>
+
         <record id="int_instance_06" model="int.instance">
             <field name="name">Wanze-Amay-Oreye</field>
-            <field name="power_level_id" ref="int_power_level_05"/>
-            <field name="parent_id" ref="int_instance_04"/>    
-            <field name="multi_instance_n2m_ids" eval="[(4, ref('int_instance_06')),                                          
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_05"/>
+            <field name="parent_id" ref="int_instance_04"/>
+            <field name="multi_instance_n2m_ids" eval="[(4, ref('int_instance_06')),
                                                         (4, ref('int_instance_07')),
-                                                        (4, ref('int_instance_08')),]"/>      
-        </record>  
-        
+                                                        (4, ref('int_instance_08')),]"/>
+        </record>
+
     </data>
 </openerp>
