@@ -24,45 +24,32 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
-{
-    'name': 'FICEP',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_phone',
-        'ficep_email',
-        'ficep_address',
-        'ficep_structure',
-        'ficep_person_coordinate',
-    ],
-    'description': """
-FICEP
-=====
-Loads all ficep modules
-    """,
-    'images': [
-    ],
-    'data': [
-        'data/res_users_data.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'auto_install': False,
-    'installable': True,
-}
+##############################################################################'''
+from openerp.osv import orm, fields
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class ext_assembly_category(orm.Model):
+
+    _name = 'ext.assembly.category'
+    _inherit = ['abstract.assembly.category']
+    _description = "External Assembly Category"
+
+    _columns = {
+        'assembly_ids': fields.one2many('ext.assembly', 'assembly_category_id', 'External Assemblies', domain=[('active', '=', True)]),
+        }
+
+
+class ext_assembly(orm.Model):
+
+    _name = 'ext.assembly'
+    _inherit = ['abstract.assembly']
+    _description = "External Assembly"
+
+    _columns = {
+        'assembly_category_id': fields.many2one('ext.assembly.category', 'Category',
+                                                 required=True, ondelete='cascade'),
+        'instance_id': fields.many2one('int.instance', 'Internal Instance',
+                                                 required=True, ondelete='cascade'),
+        'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
+                                                 required=True, ondelete='cascade', readonly=False),
+        }

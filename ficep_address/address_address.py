@@ -146,6 +146,7 @@ class address_address(orm.Model):
                 'value': {
                           'country_code': self.pool.get('res.country').read(cr, uid, \
                                           [country_id], ['code'], context=context)[0]['code']
+                                          if country_id else country_id
                  }
         }
 
@@ -153,6 +154,15 @@ class address_address(orm.Model):
         return {
                 'value': {
                           'address_local_street_id': False
+                 }
+        }
+
+    def onchange_local_street_id(self, cr, uid, ids, local_street_id, context=None):
+        return {
+                'value': {
+                          'street': self.pool.get('address.local.street').read(cr, uid, \
+                                          [local_street_id], ['local_street'], context=context)[0]['local_street']
+                                    if local_street_id else local_street_id
                  }
         }
 

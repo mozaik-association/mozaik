@@ -26,28 +26,26 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP',
+    'name': 'FICEP: Structure',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_phone',
-        'ficep_email',
-        'ficep_address',
-        'ficep_structure',
-        'ficep_person_coordinate',
+        'ficep_base',
     ],
     'description': """
-FICEP
-=====
-Loads all ficep modules
+FICEP Structure
+============
     """,
     'images': [
     ],
     'data': [
-        'data/res_users_data.xml',
+             'security/ir.model.access.csv',
+             'abstract_structure_view.xml',
+             'structure_view.xml',
+             'data/structure_data.xml',
     ],
     'js': [
     ],

@@ -25,44 +25,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_phone',
-        'ficep_email',
-        'ficep_address',
-        'ficep_structure',
-        'ficep_person_coordinate',
-    ],
-    'description': """
-FICEP
-=====
-Loads all ficep modules
-    """,
-    'images': [
-    ],
-    'data': [
-        'data/res_users_data.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'auto_install': False,
-    'installable': True,
-}
+
+from openerp.osv import orm, fields
+
+
+class change_main_address(orm.TransientModel):
+
+    _name = 'change.main.address'
+    _inherit = 'change.main.coordinate'
+    _description = 'Change Main Address Wizard'
+
+    _columns = {
+        'address_id': fields.many2one('address.address', 'New Main Address', required=True),
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
