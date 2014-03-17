@@ -300,7 +300,9 @@
 
                         <group>
                             <group  name="Power Level">
-                                <field name="power_level_id"/>
+                                <field name="power_level_id" context="{'default_power_level_id': id,
+                                                                       'simplified': 1,
+                                                                       'form_view_ref': 'ficep_structure.abstract_power_level_form_view'}"/>
                             </group>
                             <group name="Dates">
                                 <field name="create_date"/>

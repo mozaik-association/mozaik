@@ -40,13 +40,19 @@
                                 <field name="months_before_end_of_mandate"/>
                             </group>                        
                             <group  name="Category">
-                                <field name="assembly_category_id"/>
+                                <field name="assembly_category_id" context="{'default_assembly_category_id': id,
+                                                                             'simplified': 1,
+                                                                             'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}"/>
                             </group>
                             <group name="Instance">
-                                <field name="instance_id"/>
+                                <field name="instance_id" context="{'default_instance_id': id,
+                                                                             'simplified': 1,
+                                                                             'form_view_ref': 'ficep_structure.abstract_instance_form_view'}"/>
                             </group>   
                              <group name="Power Level">
-                                <field name="designation_int_power_level_id"/>
+                                <field name="designation_int_power_level_id" context="{'default_int_power_level_id': id,
+                                                                             'simplified': 1,
+                                                                             'form_view_ref': 'ficep_structure.abstract_power_level_form_view'}"/>
                             </group>                          
                         </group>
                     </sheet>
@@ -119,10 +125,14 @@
 
                         <group>
                             <group  name="Parent">
-                                <field name="parent_id"/>
+                                <field name="parent_id" context="{'default_parent_id': id,
+                                                                  'simplified': 1,
+                                                                  'form_view_ref': 'ficep_structure.abstract_instance_form_view'}"/>
                             </group>
                             <group name="Power Level">
-                                <field name="power_level_id"/>
+                                <field name="power_level_id" context="{'default_power_level_id': id,
+                                                                       'simplified': 1,
+                                                                       'form_view_ref': 'ficep_structure.abstract_power_level_form_view'}"/>
                             </group>                            
                         </group>
                         <notebook>
