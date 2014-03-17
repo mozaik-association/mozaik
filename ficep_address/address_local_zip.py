@@ -39,7 +39,7 @@ class address_local_zip(orm.Model):
         return self.pool.get('address.address').search(cr, uid, [('address_local_zip_id', 'in', ids)], context=context)
 
     _columns = {
-        'local_zip': fields.integer('Local Zip', required=True),
+        'local_zip': fields.char('Local Zip', required=True),
         'town': fields.char('Town', required=True),
     }
 

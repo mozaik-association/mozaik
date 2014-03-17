@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form (ficep_address)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//label[@for='street']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div[field[@name='street']]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div[field[@name='street']]" position="after">
+                    <field name="postal_coordinate_id" context="{'form_view_ref': 'ficep_address.postal_coordinate_form_view'}" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_partner_2_form" model="ir.ui.view">
+            <field name="name">res.partner.form (ficep_address2)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_coordinate.view_partner_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='coordinates']" position="inside">
+                    <separator string="Postal Coordinates"/>
+                    <button string="All Details" name="%(postal_coordinate_action)d"
+                            type="action" attrs="{'invisible': [('id','=',False)]}"
+                            context="{'search_default_partner_id': active_id,
+                                      'default_partner_id': active_id,
+                                      'search_default_all': True}" />
+                    <field name="postal_coordinate_ids" context="{'default_partner_id': active_id,
+                                                                 'simplified': 1,
+                                                                 'form_view_ref': 'ficep_address.postal_coordinate_form_view'}"
+                           attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
+                        <tree>
+                            <field name="address_id"/>
+                            <field name="coordinate_category_id" />
+                            <field name="is_main" />
+                            <field name="unauthorized" />
+                            <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                        </tree>
+                    </field>
+                    <field name="postal_coordinate_inactive_ids" context="{'simplified': 1,
+                                                                          'form_view_ref': 'ficep_address.postal_coordinate_form_view'}"
+                           readonly="1" attrs="{'invisible': [('active','=',True)]}">
+                        <tree>
+                            <field name="address_id"/>
+                            <field name="coordinate_category_id" />
+                            <field name="is_main" />
+                            <field name="unauthorized" />
+                            <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                        </tree>
+                    </field>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

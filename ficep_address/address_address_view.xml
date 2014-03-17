@@ -41,15 +41,15 @@
                             <group>
                                 <field name="country_id"
                                        on_change="onchange_country_id(country_id)"/>
-                                <field name="country_code" 
-                                       invisible="0"/>
                             </group>
                             <group>
                                 <field name="address_local_zip_id"
-                                       attrs="{'invisible': [('country_code','!=', 'BE')]}"
+                                       attrs="{'invisible': [('country_code','!=', 'BE')],
+                                               'required': [('zip_man','=', False)]}"
                                        on_change="onchange_local_zip_id(address_local_zip_id)"/>
                                 <field name="zip_man"
-                                       attrs="{'invisible': [('address_local_zip_id','!=', False)]}"/>
+                                       attrs="{'invisible': [('address_local_zip_id','!=', False)],
+                                               'required': [('address_local_zip_town','=', False)]}"/>
 
                                 <field name="address_local_zip_town"
                                        attrs="{'invisible': ['|',('country_code','!=', 'BE'),
@@ -98,6 +98,7 @@
                                 <field name="zip"/>
                                 <field name="id"/>
                                 <field name="street"/>
+                                <field name="country_code"/>
                             </group>
                         </div>
                     </div>
