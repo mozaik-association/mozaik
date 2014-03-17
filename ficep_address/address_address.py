@@ -56,17 +56,17 @@ class address_address(orm.Model):
             if adrs.number:
                 real_address_value = ''.join([real_address_value, '%s ' % adrs.number])
             if adrs.box:
-                real_address_value = ''.join([real_address_value, '%s ' % adrs.box])
+                real_address_value = ''.join([real_address_value, '/%s ' % adrs.box])
             if adrs.street:
-                real_address_value = ''.join([real_address_value, '%s ' % adrs.street])
-            if adrs.zip:
-                real_address_value = ''.join([real_address_value, '%s ' % adrs.zip])
+                real_address_value = ''.join([real_address_value, '%s' % adrs.street])
             if adrs.country_code == 'BE':
-                if adrs.town_man:
-                    real_address_value = ''.join([real_address_value, '%s ' % adrs.town_man])
-                elif adrs.address_local_zip_town:
+                if adrs.zip:
+                    real_address_value = ''.join([real_address_value, '%s ' % adrs.zip])
+            if adrs.town_man:
+                real_address_value = ''.join([real_address_value, '%s ' % adrs.town_man])
+            if adrs.address_local_zip_town:
                     real_address_value = ''.join([real_address_value, '%s ' % adrs.address_local_zip_town])
-            else:
+            if adrs.country_code != 'BE':
                 if adrs.country_id:
                     real_address_value = ''.join([real_address_value, '%s ' % adrs.country_id.name])
             result[adrs.id] = real_address_value
@@ -119,7 +119,7 @@ class address_address(orm.Model):
                                 string='Address',
                                 type='char',
                                 store=_address_store_triggers),
-        'country_id': fields.many2one('res.country', 'Country', track_visibility='onchange'),
+        'country_id': fields.many2one('res.country', 'Country', track_visibility='onchange', required=True),
         'country_code': fields.related('country_id', 'code', string='Country Code', type='char', relation='res.country'),
 
         'zip': fields.function(_get_zip,
