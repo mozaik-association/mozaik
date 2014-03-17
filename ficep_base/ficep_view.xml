@@ -32,8 +32,5 @@
         <menuitem id="structures_root_menu" name="Structures"
                   sequence="21" groups="ficep_res_groups_user" />
 
-        <menuitem id="structures_configuration_menu" name="Configuration"
-                  sequence="99" parent="structures_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
-
     </data>
 </openerp>

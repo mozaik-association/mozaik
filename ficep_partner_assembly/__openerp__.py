@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Person',
+    'name': 'FICEP: Partner - Assembly',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -34,21 +34,16 @@
     'category': 'Political Association',
     'depends': [
         'ficep_base',
-        'ficep_duplicate',
-        'ficep_thesaurus',
-        'ficep_partner_assembly',
     ],
     'description': """
-FICEP Person
-============
+FICEP Partner - Assembly
+========================
+Add a readonly field 'is_assembly' to a partner.
+This module is a dependency of both persons and structures modules.
     """,
     'images': [
     ],
     'data': [
-        'res_partner_view.xml',
-        'person_view.xml',
-        'wizard/create_user_from_partner_view.xml',
-        'wizard/allow_duplicate_view.xml',
     ],
     'js': [
     ],
