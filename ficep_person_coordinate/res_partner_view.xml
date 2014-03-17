@@ -2,6 +2,39 @@
 <openerp>
     <data noupdate="0">
 
+        <!-- Improve person search view -->
+
+       <record id="res_partner_search_view" model="ir.ui.view">
+            <field name="name">res.partner.search (ficep_person_coordinate)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_person.res_partner_search_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field string="Email" name="email" filter_domain="[('email','ilike',self)]"/>
+                    <field string="Phones" name="phone" filter_domain="['|','|',('phone','ilike',self),('mobile','ilike',self),('fax','ilike',self)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Add calculated fields to moreinfo zone -->
+
+        <record id="view_emails_partner_info_form" model="ir.ui.view">
+            <field name="name">res.partner.emails.info.inherit (ficep_email)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_person.view_emails_partner_info_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="email"/>
+
+                    <field name="phone"/>
+                    <field name="mobile" />
+                    <field name="fax" />
+                </xpath>
+
+            </field>
+        </record>
+
         <!-- Final colors expression is only possible when all coordinates modules are loaded -->
 
         <record id="view_partner_tree" model="ir.ui.view">

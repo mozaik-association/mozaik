@@ -2,17 +2,6 @@
 <openerp>
     <data noupdate="0">
 
-       <record id="res_partner_search_view" model="ir.ui.view">
-            <field name="name">res.partner.search (ficep_phone)</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="ficep_person.res_partner_search_view" />
-            <field name="arch" type="xml">
-                <xpath expr="//search" position="inside">
-                    <field string="Phones" name="phone" filter_domain="['|','|',('phone','ilike',self),('mobile','ilike',self),('fax','ilike',self)]"/>
-                </xpath>
-            </field>
-        </record>
-
         <record id="view_partner_tree" model="ir.ui.view">
             <field name="name">res.partner.tree (ficep_phone)</field>
             <field name="model">res.partner</field>
@@ -41,21 +30,6 @@
 
                 <xpath expr="//field[@name='fax']" position="replace">
                     <field name="fax_coordinate_id" context="{'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}" />
-                </xpath>
-
-            </field>
-        </record>
-
-        <record id="view_emails_partner_info_form" model="ir.ui.view">
-            <field name="name">res.partner.emails.info.inherit (ficep_phone)</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="ficep_person.view_emails_partner_info_form" />
-            <field name="arch" type="xml">
-
-                <xpath expr="//group[@name='moreinfo']" position="inside">
-                    <field name="phone"/>
-                    <field name="mobile" />
-                    <field name="fax" />
                 </xpath>
 
             </field>
