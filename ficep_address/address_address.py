@@ -84,10 +84,18 @@ class address_address(orm.Model):
         'country_id': fields.many2one('res.country', 'Country', track_visibility='onchange'),
         'country_code': fields.related('country_id', 'code', string='Country Code', type='char', relation='res.country'),
 
-        'address_local_zip_id': fields.many2one('address.local.zip', 'Local Zip', track_visibility='onchange'),
-        'address_local_street_id': fields.many2one('address.local.street', 'Local Street', track_visibility='onchange'),
+        'zip': fields.char('Zip'),
+        'zip_man': fields.char('Zip'),
+        'address_local_zip_id': fields.many2one('address.local.zip', 'Zip', track_visibility='onchange'),
+
+        'town': fields.char('Town'),
+        'town_man': fields.char('Town'),
+        'address_local_zip_town': fields.related('address_local_zip_id', 'town', string="Town", type="char", relation="address.local.zip"),
 
         'street': fields.char('Street', track_visibility='onchange'),
+        'street_man': fields.char('Street', track_visibility='onchange'),
+        'address_local_street_id': fields.many2one('address.local.street', 'Street', track_visibility='onchange'),
+
         'street2': fields.char('Street2', track_visibility='onchange'),
         'number': fields.char('Number', track_visibility='onchange'),
         'box': fields.char('Box', track_visibility='onchange'),
@@ -146,23 +154,29 @@ class address_address(orm.Model):
                 'value': {
                           'country_code': self.pool.get('res.country').read(cr, uid, \
                                           [country_id], ['code'], context=context)[0]['code']
-                                          if country_id else country_id
+                                          if country_id else country_id,
+                          'address_local_zip_id': False,
+                          'address_local_zip_town': False,
+                          'address_local_street_id': False,
                  }
         }
 
     def onchange_local_zip_id(self, cr, uid, ids, local_zip_id, context=None):
         return {
                 'value': {
-                          'address_local_street_id': False
+                          'address_local_street_id': False,
+                          'address_local_zip_town': self.pool.get('address.local.zip').read(cr, uid, \
+                                          [local_zip_id], ['town'], context=context)[0]['town']
+                                          if local_zip_id else local_zip_id,
+                          'town_man': False,
+                          'zip_man': False,
                  }
         }
 
     def onchange_local_street_id(self, cr, uid, ids, local_street_id, context=None):
         return {
                 'value': {
-                          'street': self.pool.get('address.local.street').read(cr, uid, \
-                                          [local_street_id], ['local_street'], context=context)[0]['local_street']
-                                    if local_street_id else local_street_id
+                          'street_man': False,
                  }
         }
 

@@ -39,21 +39,34 @@
                         </div>
                         <group name="country_zip" >
                             <group>
-                                <field name="country_id" on_change="onchange_country_id(country_id)"/>
-                                <field name="country_code" invisible="1"/>
+                                <field name="country_id"
+                                       on_change="onchange_country_id(country_id)"/>
+                                <field name="country_code" 
+                                       invisible="1"/>
                             </group>
                             <group>
-                                <field name="address_local_zip_id" 
-                                       on_change="onchange_local_zip_id(address_local_zip_id)"
-                                       attrs="{'invisible': [('country_code','!=','BE')]}"/>
+                                <field name="zip"/>
+                                <field name="zip_man"
+                                       attrs="{'invisible': [('address_local_zip_id','!=', False)]}"/>
+                                <field name="address_local_zip_id"
+                                       attrs="{'invisible': [('country_code','!=', 'BE')]}"
+                                       on_change="onchange_local_zip_id(address_local_zip_id)"/>
+
+                                <field name="town"/>
+                                <field name="town_man"
+                                       attrs="{'invisible': [('address_local_zip_town','!=', False)]}"/>
+                                <field name="address_local_zip_town"
+                                       attrs="{'invisible': [('country_code','!=', 'BE')]}"/>
                             </group>
                         </group>
                         <group name="streets">
+                            <field name="street"/>
+                            <field name="street_man"
+                                   attrs="{'invisible': [('address_local_street_id','!=', False)]}"/>
                             <field name="address_local_street_id"
-                                   on_change="onchange_local_street_id(address_local_street_id)"
-                                   attrs="{'invisible': [('country_code','!=','BE')]}"
-                                   domain="[('local_zip_id.id','=',address_local_zip_id)]"/>
-                            <field name="street" attrs="{'invisible': [('address_local_street_id','!=',False)]}"/>
+                                   domain="[('local_zip_id.id','=',address_local_zip_id)]"
+                                   attrs="{'invisible': [('country_code','!=', 'BE')]}"/>
+
                             <field name="street2" />
                         </group>
                         <group name="numbers">

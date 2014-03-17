@@ -40,6 +40,7 @@ class address_local_zip(orm.Model):
 
     _columns = {
         'local_zip': fields.integer('Local Zip', required=True),
+        'town': fields.char('Town', required=True),
     }
 
     _rec_name = 'local_zip'
