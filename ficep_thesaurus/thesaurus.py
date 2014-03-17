@@ -48,9 +48,16 @@ class thesaurus(orm.Model):
     _description = 'Thesaurus'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
+    _track = {
+        'new_thesaurus_term_id': {
+            'ficep_thesaurus.mt_thesaurus_add_term': lambda self, cr, uid, obj, ctx=None: obj.new_thesaurus_term_id,
+        },
+    }
+
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Thesaurus', size=50, required=True, track_visibility='onchange'),
+        'new_thesaurus_term_id': fields.many2one('thesaurus.term', string='New Term to Validate', readonly=True, track_visibility='onchange'),
 
         # Validity
         'active': fields.boolean('Active', readonly=True),
@@ -84,7 +91,9 @@ class thesaurus(orm.Model):
         :rparam: True
         :rtype: boolean
         """
-        #TODO: only without active terms
+        term_ids = self.pool['thesaurus.term'].search(cr, uid, [('thesaurus_id', 'in', ids)], limit=1, context=context)
+        if term_ids:
+            raise orm.except_orm(_('Error'), _('A thesaurus with active terms cannot be invalidated!'))
         self.write(cr, uid, ids, {'active': False}, context=context)
         return True
 
@@ -127,41 +136,21 @@ class thesaurus_term(orm.Model):
 
     def create(self, cr, uid, vals, context=None):
         """
-        Create a new term and notify the thesaurus followers
+        Create a new term and notify it to the thesaurus to send a message to the followers.
         :param: vals
         :type: dictionary that contains at least 'name'
         :rparam: id of the new term
         :rtype: integer
         """
-        #TODO: send a mail
-        res = super(thesaurus_term, self).create(cr, uid, vals, context=context)
-        return res
+        new_id = super(thesaurus_term, self).create(cr, uid, vals, context=context)
+        term = self.browse(cr, uid, new_id, context=context)
 
-    def write(self, cr, uid, ids, vals, context=None):
-        """
-        This method will update a phone number after checking and format this
-        Number, calling the _check_and_format_number method
-        :param: vals
-        :type: dictionary that possibly contains 'name'
-        :rparam: True
-        :rtype: boolean
-        """
-        res = super(thesaurus_term, self).write(cr, uid, ids, vals, context=context)
-        return res
-
-    def copy_data(self, cr, uid, ids, default=None, context=None):
-        """
-        ...
-        """
-        if default is None:
-            default = {}
-        default.update({
-                        'name': _('%s (copy)') % default.get('name'),
-                        'active': True,
-                        'expire_date': False,
-                       })
-        res = super(thesaurus_term, self).copy_data(cr, uid, ids, default=default, context=context)
-        return res
+        # context: notrack when resetting the new term id to False
+        reset_context = dict(context or {}, mail_notrack=True)
+        self.pool['thesaurus'].write(cr, uid, term.thesaurus_id.id, {'new_thesaurus_term_id': False}, context=reset_context)
+        # Send a "New Term to Validate" notification to followers 
+        self.pool['thesaurus'].write(cr, uid, term.thesaurus_id.id, {'new_thesaurus_term_id': new_id}, context=context)
+        return new_id
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
         """
@@ -214,39 +203,5 @@ class thesaurus_term(orm.Model):
         """
         self.write(cr, uid, ids, {'state': 'draft', 'active': True, 'expire_date': False}, context=context)
         return True
-
-# public methods
-
-    def get_linked_partners(self, cr, uid, ids, context=None):
-        """
-        ===================
-        get_linked_partners
-        ===================
-        Return partner ids linked to all related coordinate linked to phone ids
-        :rparam: partner_ids
-        :rtype: list of ids
-        """
-        phone_rds = self.browse(cr, uid, ids, context=context)
-        partner_ids = []
-        for record in phone_rds:
-            for associated_coordinate in record.phone_coordinate_ids:
-                partner_ids.append(associated_coordinate.partner_id.id)
-        return partner_ids
-
-    def get_linked_phone_coordinates(self, cr, uid, ids, context=None):
-        """
-        ============================
-        get_linked_phone_coordinates
-        ============================
-        Return phone coordinate ids linked to phone ids
-        :rparam: phone_coordinate_ids
-        :rtype: list of ids
-        """
-        phones = self.read(cr, uid, ids, ['phone_coordinate_ids'], context=context)
-        res_ids = []
-        for phone in phones:
-            res_ids += phone['phone_coordinate_ids']
-        return list(set(res_ids))
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -131,13 +131,13 @@ class res_partner(orm.Model):
         'phone_coordinate_inactive_ids': fields.one2many('phone.coordinate', 'partner_id', 'Phone Coordinates', domain=[('active', '=', False)]),
 
         'fix_coordinate_id': fields.function(_get_main_phone_coordinate_ids, string='Phone',
-                                             type='many2one', relation="phone.coordinate", multi='AllInOne'),
+                                             type='many2one', relation="phone.coordinate", multi='AllPhoneIdsInOne'),
 
         'mobile_coordinate_id': fields.function(_get_main_phone_coordinate_ids, string='Mobile',
-                                                type='many2one', relation="phone.coordinate", multi='AllInOne'),
+                                                type='many2one', relation="phone.coordinate", multi='AllPhoneIdsInOne'),
 
         'fax_coordinate_id': fields.function(_get_main_phone_coordinate_ids, string='Fax',
-                                             type='many2one', relation="phone.coordinate", multi='AllInOne'),
+                                             type='many2one', relation="phone.coordinate", multi='AllPhoneIdsInOne'),
 
         # Standard fields redefinition
         'phone': fields.function(_get_main_phone_numbers, arg={'type': 'fix'}, string='Phone',

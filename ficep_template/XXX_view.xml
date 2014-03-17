@@ -131,7 +131,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" attrs="{'readonly': [('yyy_ids','!=',[])]}" placeholder="e.g. blabla" /></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons">
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
 
                         <group name="data">
