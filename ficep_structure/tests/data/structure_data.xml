@@ -29,7 +29,7 @@
         </record>
 
         <record id="sta_instance_05" model="sta.instance">
-            <field name="name">Huy-Waremme</field>            
+            <field name="name">Huy-Waremme</field>
             <field name="power_level_id" ref="ficep_structure.sta_power_level_08"/>
             <field name="parent_id" ref="sta_instance_04"/>
         </record>
@@ -39,7 +39,7 @@
             <field name="power_level_id" ref="ficep_structure.sta_power_level_05"/>
             <field name="parent_id" ref="sta_instance_05"/>
         </record>
-        
+
         <record id="sta_instance_07" model="sta.instance">
             <field name="name">Huy (district prov.)</field>
             <field name="power_level_id" ref="ficep_structure.sta_power_level_07"/>
@@ -103,19 +103,19 @@
                                                         (4, ref('int_instance_07')),
                                                         (4, ref('int_instance_08')),]"/>
         </record>
-        
+
         <!-- Create Legislature -->
-        
+
         <record id="legislature_01" model="legislature">
-            <field name="name">Communale</field>
+            <field name="name">Communale 2012</field>
             <field name="power_level_id" ref="ficep_structure.sta_power_level_05"/>
             <field name="create_date">2012-12-03</field>
             <field name="deadline_date">2018-12-02</field>
             <field name="election_date">2012-10-14</field>
         </record>
-        
+
         <record id="legislature_02" model="legislature">
-            <field name="name">Provinciale</field>
+            <field name="name">Provinciale 2012</field>
             <field name="power_level_id" ref="ficep_structure.sta_power_level_09"/>
             <field name="create_date">2012-10-26</field>
             <field name="deadline_date">2018-10-25</field>
@@ -123,52 +123,47 @@
         </record>
 
         <!-- Create State Assemblies -->
-        
+
         <record id="sta_assembly_01" model="sta.assembly">
-            <field name="name">Huy (conseil communal)</field>
             <field name="instance_id" ref="sta_instance_06"/>
             <field name="assembly_category_id" ref="ficep_structure.sta_assembly_category_07"/>
         </record>
-        
+
         <record id="sta_assembly_02" model="sta.assembly">
-            <field name="name">Huy (conseil provincial)</field>
             <field name="instance_id" ref="sta_instance_07"/>
             <field name="assembly_category_id" ref="ficep_structure.sta_assembly_category_05"/>
         </record>
-        
+
         <!-- Create Electoral Districts -->
-        
+
         <record id="electoral_district_01" model="electoral.district">
             <field name="name">Huy</field>
             <field name="sta_instance_id" ref="sta_instance_06"/>
             <field name="assembly_id" ref="sta_assembly_01"/>
         </record>
-        
+
         <record id="electoral_district_02" model="electoral.district">
             <field name="name">Huy</field>
             <field name="sta_instance_id" ref="sta_instance_07"/>
             <field name="assembly_id" ref="sta_assembly_02"/>
         </record>
-        
+
         <!-- Create Internal Assemblies -->
-        
+
         <record id="int_assembly_01" model="int.assembly">
-            <field name="name">Huy (Assemblée locale)</field>
             <field name="instance_id" ref="int_instance_05"/>
             <field name="assembly_category_id" ref="ficep_structure.int_assembly_category_01"/>
         </record>
-        
+
         <record id="int_assembly_02" model="int.assembly">
-            <field name="name">Huy (Secrétariat local)</field>
             <field name="instance_id" ref="int_instance_05"/>
             <field name="assembly_category_id" ref="ficep_structure.int_assembly_category_04"/>
         </record>
-        
+
         <record id="int_assembly_03" model="int.assembly">
-            <field name="name">Huy-Waremme (Secrétariat régional)</field>
             <field name="instance_id" ref="int_instance_04"/>
             <field name="assembly_category_id" ref="ficep_structure.int_assembly_category_05"/>
         </record>
-        
+
     </data>
 </openerp>

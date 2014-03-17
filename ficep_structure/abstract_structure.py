@@ -36,16 +36,17 @@ class abstract_power_level(orm.AbstractModel):
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
-        'sequence': fields.integer("Sequence", track_visibility='onchange'),
-        'name': fields.char('Name', size=128, translate=True, select=True, track_visibility='onchange'),
+        'sequence': fields.integer("Sequence", required=True, track_visibility='onchange'),
+        'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
         'assembly_category_ids': fields.one2many('abstract.assembly.category', 'power_level_id',
                                                   'Assembly Categories', domain=[('active', '=', True)]),
         'instance_ids': fields.one2many('abstract.instance', 'power_level_id', 'Instances', domain=[('active', '=', True)]),
         'active': fields.boolean('Active', readonly=True),
-        }
+    }
 
     _defaults = {
         'active': True,
+        'sequence': 5,
     }
 
     _order = "sequence, name"
@@ -59,12 +60,12 @@ class abstract_assembly_category(orm.AbstractModel):
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Name', size=128, translate=True, select=True, track_visibility='onchange'),
-        'duration': fields.integer('Duration of mandate', readonly=False, track_visibility='onchange'),
-        'months_before_end_of_mandate': fields.integer('Month before end of mandate', readonly=False, track_visibility='onchange'),
+        'name': fields.char('Name', size=128, select=True, required=True, track_visibility='onchange'),
+        'duration': fields.integer('Duration of mandates', track_visibility='onchange'),
+        'months_before_end_of_mandate': fields.integer('Months before end of mandate', track_visibility='onchange'),
         'assembly_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies', domain=[('active', '=', True)]),
         'active': fields.boolean('Active', readonly=True),
-        }
+    }
 
     _defaults = {
         'active': True,
@@ -81,15 +82,15 @@ class abstract_instance(orm.AbstractModel):
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Name', size=128, translate=True, select=True, track_visibility='onchange'),
+        'name': fields.char('Name', size=128, select=True, required=True, track_visibility='onchange'),
         'parent_id': fields.many2one('abstract.instance', 'Parent Abstract Instance', select=True, ondelete='cascade', track_visibility='onchange'),
         'child_ids': fields.one2many('abstract.instance', 'parent_id', string='Child Abstract Instance'),
         'power_level_id': fields.many2one('abstract.power.level', 'Power Level', required=True, ondelete='cascade', track_visibility='onchange'),
         'assembly_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies', domain=[('active', '=', True)]),
         'active': fields.boolean('Active', readonly=True),
-        'parent_left': fields.integer('Left Parent', select=1),
-        'parent_right': fields.integer('Right Parent', select=1),
-        }
+        'parent_left': fields.integer('Left Parent', select=True),
+        'parent_right': fields.integer('Right Parent', select=True),
+    }
 
     _defaults = {
         'active': True,
@@ -99,7 +100,29 @@ class abstract_instance(orm.AbstractModel):
     _parent_store = True
     _parent_order = 'name'
     _order = 'parent_left'
+# orm methods
 
+    def name_get(self, cr, uid, ids, context=None):
+        """
+        ========
+        name_get
+        ========
+        :rparam: list of tuple (id, name to display)
+                 where id is the id of the object into the relation
+                 and display_name, the name of this object.
+        :rtype: [(id,name)] list of tuple
+        """
+        if not ids:
+            return []
+
+        if isinstance(ids, (long, int)):
+            ids = [ids]
+
+        res = []
+        for record in self.read(cr, uid, ids, ['name','power_level_id'], context=context):
+            display_name = '%s (%s)' % (record['name'],record['power_level_id'][1])
+            res.append((record['id'], display_name))
+        return res
 
 class abstract_assembly(orm.AbstractModel):
 
@@ -113,17 +136,17 @@ class abstract_assembly(orm.AbstractModel):
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'assembly_category_id': fields.many2one('abstract.assembly.category', string='Category',
-                                                 required=True, ondelete='cascade', readonly=False, track_visibility='onchange'),
+                                                 required=True, ondelete='cascade', track_visibility='onchange'),
         'instance_id': fields.many2one('abstract.instance', string='Instance',
-                                                 required=True, ondelete='cascade', readonly=False, track_visibility='onchange'),
-        'partner_id': fields.many2one('res.partner', 'partner_id', required=True, ondelete='cascade',
-                                      context={'is_company': True, 'is_assembly': True}, readonly=False),
+                                                 required=True, ondelete='cascade', track_visibility='onchange'),
+        'partner_id': fields.many2one('res.partner', 'Associated Partner', required=True, ondelete='cascade',
+                                      context={'is_company': True, 'is_assembly': True}, readonly=True),
 
         'designation_int_power_level_id': fields.many2one('abstract.power.level', string='Designation Power Level',
-                                                 required=True, ondelete='cascade', readonly=False, track_visibility='onchange'),
-        'months_before_end_of_mandate': fields.integer('Month before end of mandate', readonly=False, track_visibility='onchange'),
+                                                 required=True, ondelete='cascade', track_visibility='onchange'),
+        'months_before_end_of_mandate': fields.integer('Month before end of mandate', track_visibility='onchange'),
         'active': fields.boolean('Active', readonly=True),
-        }
+    }
 
     _defaults = {
         'active': True,
