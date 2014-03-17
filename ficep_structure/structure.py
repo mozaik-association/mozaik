@@ -49,6 +49,9 @@ class electoral_district(orm.Model):
                                          ),
         'assembly_id': fields.many2one('sta.assembly', 'Assembly',
                                                  required=True, ondelete='cascade'),
+        'power_level_id': fields.related('sta_instance_id', 'power_level_id', string='Power Level', readonly=True,
+                                          type='many2one', relation="sta.power.level"
+                                        ),
         'active': fields.boolean('Active', readonly=True),
         }
 

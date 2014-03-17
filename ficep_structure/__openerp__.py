@@ -34,6 +34,7 @@
     'category': 'Political Association',
     'depends': [
         'ficep_base',
+        'ficep_partner_assembly',
     ],
     'description': """
 FICEP Structure
