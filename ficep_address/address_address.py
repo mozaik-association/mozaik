@@ -59,19 +59,57 @@ class address_address(orm.Model):
                 real_address_value = ''.join([real_address_value, '%s ' % adrs.box])
             if adrs.street:
                 real_address_value = ''.join([real_address_value, '%s ' % adrs.street])
-            if adrs.street2:
-                real_address_value = ''.join([real_address_value, '%s ' % adrs.street2])
-            if adrs.address_local_zip_id:
-                real_address_value = ''.join([real_address_value, '%s ' % adrs.address_local_zip_id.local_zip])
-            if adrs.country_id:
-                real_address_value = ''.join([real_address_value, '%s ' % adrs.country_id.name])
+            if adrs.zip:
+                real_address_value = ''.join([real_address_value, '%s ' % adrs.zip])
+            if adrs.country_code == 'BE':
+                if adrs.town_man:
+                    real_address_value = ''.join([real_address_value, '%s ' % adrs.town_man])
+                elif adrs.address_local_zip_town:
+                    real_address_value = ''.join([real_address_value, '%s ' % adrs.address_local_zip_town])
+            else:
+                if adrs.country_id:
+                    real_address_value = ''.join([real_address_value, '%s ' % adrs.country_id.name])
             result[adrs.id] = real_address_value
+
+        return result
+
+    def _get_street(self, cr, uid, ids, name, args, context=None):
+        result = {}.fromkeys(ids, False)
+        adrs_recs = self.browse(cr, uid, ids, context=context)
+        for adrs in adrs_recs:
+            real_street_value = ''
+            if adrs.street_man:
+                real_street_value = ''.join([real_street_value, '%s ' % adrs.street_man])
+            elif adrs.address_local_street_id:
+                real_street_value = ''.join([real_street_value, '%s ' % adrs.address_local_street_id.local_street])
+            result[adrs.id] = real_street_value
+
+        return result
+
+    def _get_zip(self, cr, uid, ids, name, args, context=None):
+        result = {}.fromkeys(ids, False)
+        adrs_recs = self.browse(cr, uid, ids, context=context)
+        for adrs in adrs_recs:
+            real_zip_value = ''
+            if adrs.zip_man:
+                real_zip_value = ''.join([real_zip_value, '%s ' % adrs.zip_man])
+            elif adrs.address_local_zip_id:
+                real_zip_value = ''.join([real_zip_value, '%s ' % adrs.address_local_zip_id.local_zip])
+            result[adrs.id] = real_zip_value
+
         return result
 
     _address_store_triggers = {
-            'address.address': (lambda self, cr, uid, ids, context=None: ids, [], 10),
+            #this MUST be executed in last for consistency: sequence is greater than other
+            'address.address': (lambda self, cr, uid, ids, context=None: ids, [], 11),
             'res.country': (_get_linked_addresses_from_country, ['name'], 10),
+        }
+    _zip_store_triggers = {
+            'address.address': (lambda self, cr, uid, ids, context=None: ids, ['zip_man', 'address_local_zip_id'], 10),
             'address.local.zip': (_get_linked_addresses_from_local_zip, ['local_zip'], 10),
+        }
+    _street_store_triggers = {
+            'address.address': (lambda self, cr, uid, ids, context=None: ids, ['street_man', 'address_local_street_id'], 10),
             'address.local.street': (_get_linked_addresses_from_local_street, ['local_street'], 10),
         }
 
@@ -84,21 +122,26 @@ class address_address(orm.Model):
         'country_id': fields.many2one('res.country', 'Country', track_visibility='onchange'),
         'country_code': fields.related('country_id', 'code', string='Country Code', type='char', relation='res.country'),
 
-        'zip': fields.char('Zip'),
+        'zip': fields.function(_get_zip,
+                                string='Zip',
+                                type='char',
+                                store=_zip_store_triggers),
         'zip_man': fields.char('Zip'),
-        'address_local_zip_id': fields.many2one('address.local.zip', 'Zip', track_visibility='onchange'),
+        'address_local_zip_id': fields.many2one('address.local.zip', string='Referenced Zip', track_visibility='onchange'),
 
-        'town': fields.char('Town'),
-        'town_man': fields.char('Town'),
-        'address_local_zip_town': fields.related('address_local_zip_id', 'town', string="Town", type="char", relation="address.local.zip"),
+        'town_man': fields.char(string='Town'),
+        'address_local_zip_town': fields.related('address_local_zip_id', 'town', string="Referenced Town", type="char", relation="address.local.zip"),
 
-        'street': fields.char('Street', track_visibility='onchange'),
-        'street_man': fields.char('Street', track_visibility='onchange'),
-        'address_local_street_id': fields.many2one('address.local.street', 'Street', track_visibility='onchange'),
+        'street': fields.function(_get_street,
+                                  string='Street',
+                                  type='char',
+                                  store=_street_store_triggers),
+        'street_man': fields.char(string='Street', track_visibility='onchange'),
+        'address_local_street_id': fields.many2one('address.local.street', string='Referenced Street', track_visibility='onchange'),
 
-        'street2': fields.char('Street2', track_visibility='onchange'),
-        'number': fields.char('Number', track_visibility='onchange'),
-        'box': fields.char('Box', track_visibility='onchange'),
+        'street2': fields.char(string='Street2', track_visibility='onchange'),
+        'number': fields.char(string='Number', track_visibility='onchange'),
+        'box': fields.char(string='Box', track_visibility='onchange'),
 
         'postal_coordinate_ids': fields.one2many('postal.coordinate', 'address_id', 'Postal Coordinate'),
     }
