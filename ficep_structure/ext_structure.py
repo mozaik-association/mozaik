@@ -47,9 +47,9 @@ class ext_assembly(orm.Model):
 
     _columns = {
         'assembly_category_id': fields.many2one('ext.assembly.category', 'Category',
-                                                 required=True, ondelete='cascade'),
+                                                 required=True, ondelete='cascade', track_visibility='onchange'),
         'instance_id': fields.many2one('int.instance', 'Internal Instance',
-                                                 required=True, ondelete='cascade'),
+                                                 required=True, ondelete='cascade', track_visibility='onchange'),
         'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
-                                                 required=True, ondelete='cascade', readonly=False),
+                                                 required=True, ondelete='cascade', readonly=False, track_visibility='onchange'),
         }

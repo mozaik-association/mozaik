@@ -120,18 +120,21 @@
             <field name="name">Conseil provincial</field>
             <field name="power_level_id" ref="sta_power_level_09"/>
             <field name="duration">6</field>
+            <field name="is_legislative" eval="1"/>
         </record>
         
         <record id="sta_assembly_category_06" model="sta.assembly.category">
             <field name="name">Conseil régional</field>
             <field name="power_level_id" ref="sta_power_level_04"/>
             <field name="duration">5</field>
+            <field name="is_legislative" eval="1"/>
         </record>
         
         <record id="sta_assembly_category_07" model="sta.assembly.category">
             <field name="name">Conseil communal</field>
             <field name="power_level_id" ref="sta_power_level_05"/>
             <field name="duration">6</field>
+            <field name="is_legislative" eval="1"/>
         </record>
         
         <record id="sta_assembly_category_08" model="sta.assembly.category">
@@ -174,6 +177,7 @@
             <field name="name">Conseil de l'Aide Social</field>
              <field name="power_level_id" ref="sta_power_level_05"/>
             <field name="duration">6</field>
+            <field name="is_legislative" eval="1"/>
         </record>
         
         <record id="sta_assembly_category_15" model="sta.assembly.category">
@@ -208,16 +212,19 @@
         <record id="int_assembly_category_04" model="int.assembly.category">
             <field name="name">Secrétariat local</field>
             <field name="power_level_id" ref="int_power_level_05"/>
+            <field name="is_secretariat" eval="1"/>
         </record>
         
         <record id="int_assembly_category_05" model="int.assembly.category">
             <field name="name">Secrétariat régional</field>
             <field name="power_level_id" ref="int_power_level_04"/>
+            <field name="is_secretariat" eval="1"/>
         </record>
         
         <record id="int_assembly_category_06" model="int.assembly.category">
             <field name="name">Secrétariat fédéral</field>
             <field name="power_level_id" ref="int_power_level_01"/>
+            <field name="is_secretariat" eval="1"/>
         </record>
 
         <record id="int_assembly_category_07" model="int.assembly.category">
@@ -286,7 +293,7 @@
         </record>
         
         <record id="int_assembly_category_20" model="int.assembly.category">
-            <field name="name">omité de Concertation</field>
+            <field name="name">Comité de Concertation</field>
             <field name="power_level_id" ref="int_power_level_01"/>
         </record>
     </data>

@@ -36,14 +36,23 @@
                         </div>
 
                         <group>
+                            <group  name="Mandate">
+                                <field name="months_before_end_of_mandate"/>
+                            </group>                        
                             <group  name="Category">
-                                <field name="assembly_category_id"/>
+                                <field name="assembly_category_id" context="{'default_assembly_category_id': id,
+                                                                             'simplified': 1,
+                                                                             'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}"/>
                             </group>
                             <group name="Instance">
-                                <field name="instance_id"/>
+                                <field name="instance_id" context="{'default_instance_id': id,
+                                                                             'simplified': 1,
+                                                                             'form_view_ref': 'ficep_structure.abstract_instance_form_view'}"/>
                             </group>   
                              <group name="Power Level">
-                                <field name="designation_int_power_level_id"/>
+                                <field name="designation_int_power_level_id" context="{'default_int_power_level_id': id,
+                                                                             'simplified': 1,
+                                                                             'form_view_ref': 'ficep_structure.abstract_power_level_form_view'}"/>
                             </group>                          
                         </group>
                     </sheet>
@@ -116,10 +125,14 @@
 
                         <group>
                             <group  name="Parent">
-                                <field name="parent_id"/>
+                                <field name="parent_id" context="{'default_parent_id': id,
+                                                                  'simplified': 1,
+                                                                  'form_view_ref': 'ficep_structure.abstract_instance_form_view'}"/>
                             </group>
                             <group name="Power Level">
-                                <field name="power_level_id"/>
+                                <field name="power_level_id" context="{'default_power_level_id': id,
+                                                                       'simplified': 1,
+                                                                       'form_view_ref': 'ficep_structure.abstract_power_level_form_view'}"/>
                             </group>                            
                         </group>
                         <notebook>
@@ -175,7 +188,9 @@
             <field name="model">abstract.assembly.category</field>
             <field name="arch" type="xml">
                 <tree string="Assembly Categories" version="7.0">
-                    <field name="name"/>                    
+                    <field name="name"/>
+                    <field name="duration"/> 
+                    <field name="months_before_end_of_mandate"/>                                       
                 </tree>
             </field>
         </record>
@@ -201,7 +216,7 @@
                         <div class="oe_right oe_button_box" name="buttons">
                         </div>
                         <group>
-                            <group  name="Mandat">
+                            <group name="Mandat">
                                 <field name="duration"/>
                                 <field name="months_before_end_of_mandate"/>
                             </group>                                                       
@@ -241,7 +256,8 @@
             <field name="model">abstract.power.level</field>
             <field name="arch" type="xml">
                 <tree string="Power Levels" version="7.0">
-                    <field name="name"/>                    
+                    <field name="name"/>
+                    <field name="sequence"/>
                 </tree>
             </field>
         </record>
@@ -264,10 +280,13 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name"/></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons">
+                        <div class="oe_right oe_button_box" name="buttons">	                        
                         </div>
-
-                        
+                        <group>
+                            <group  name="Data">
+                                <field name="sequence"/>                                
+                            </group>                                                       
+                        </group>                        
                         <notebook>
                             <page string="Assembly Categories" name="assembly_categories" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="assembly_category_ids" context="{'default_assembly_category_id': id, 
@@ -302,7 +321,8 @@
             <field name="model">abstract.power.level</field>
             <field name="arch" type="xml">
                 <search string="Power Level" version="7.0">
-                    <field name="name" />                   
+                    <field name="name" />
+                    <field name="sequence" />
                 </search>
             </field>
         </record>

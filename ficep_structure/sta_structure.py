@@ -49,8 +49,13 @@ class sta_assembly_category(orm.Model):
     _description = "State Assembly Category"
 
     _columns = {
-        'power_level_id': fields.many2one('sta.power.level', 'State Power Level', required=True, ondelete='cascade'),
+        'power_level_id': fields.many2one('sta.power.level', 'State Power Level', required=True, ondelete='cascade', track_visibility='onchange'),
         'assembly_ids': fields.one2many('sta.assembly', 'assembly_category_id', 'State Assemblies', domain=[('active', '=', True)]),
+        'is_legislative': fields.boolean("Legislative", track_visibility='onchange')
+        }
+
+    _default = {
+        'is_legislative': False,
         }
 
 
@@ -76,13 +81,13 @@ class sta_instance(orm.Model):
         return list(set(res_ids))
 
     _columns = {
-        'parent_id': fields.many2one('sta.instance', 'Parent State Instance', select=True, ondelete='cascade'),
-        'secondary_parent_id': fields.many2one('sta.instance', 'Secondary Parent State Instance', select=True, ondelete='cascade'),
+        'parent_id': fields.many2one('sta.instance', 'Parent State Instance', select=True, ondelete='cascade', track_visibility='onchange'),
+        'secondary_parent_id': fields.many2one('sta.instance', 'Secondary Parent State Instance', select=True, ondelete='cascade', track_visibility='onchange'),
         'child_ids': fields.one2many('sta.instance', 'parent_id', string='Child State Instance'),
-        'power_level_id': fields.many2one('sta.power.level', 'State Power Level', required=True, ondelete='cascade'),
+        'power_level_id': fields.many2one('sta.power.level', 'State Power Level', required=True, ondelete='cascade', track_visibility='onchange'),
         'assembly_ids': fields.one2many('sta.assembly', 'instance_id', 'State Assemblies', domain=[('active', '=', True)]),
         'electoral_district_ids': fields.one2many('electoral.district', 'sta_instance_id', 'Electoral Districts', domain=[('active', '=', True)]),
-        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', select=True, ondelete='cascade'),
+        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', select=True, ondelete='cascade', track_visibility='onchange'),
         }
 
 
@@ -96,9 +101,10 @@ class legislature(orm.Model):
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, translate=True, select=True),
         'create_date': fields.datetime('Creation Date', readonly=True),
-        'deadline_date': fields.datetime('Deadline Date'),
+        'deadline_date': fields.datetime('Deadline Date', track_visibility='onchange'),
         'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
-        'power_level_id': fields.many2one('sta.power.level', 'Power Level', required=True, ondelete='cascade'),
+        'election_date': fields.datetime('Election Date', track_visibility='onchange'),
+        'power_level_id': fields.many2one('sta.power.level', 'Power Level', required=True, ondelete='cascade', track_visibility='onchange'),
         'active': fields.boolean('Active', readonly=True),
         }
 
@@ -115,10 +121,14 @@ class sta_assembly(orm.Model):
 
     _columns = {
         'assembly_category_id': fields.many2one('sta.assembly.category', 'Category',
-                                                 required=True, ondelete='cascade'),
+                                                 required=True, ondelete='cascade', track_visibility='onchange'),
         'instance_id': fields.many2one('sta.instance', 'Instance',
-                                                 required=True, ondelete='cascade'),
+                                                 required=True, ondelete='cascade', track_visibility='onchange'),
         'electoral_district_ids': fields.one2many('electoral.district', 'assembly_id', 'Electoral Districts', domain=[('active', '=', True)]),
         'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
-                                                 required=True, ondelete='cascade', readonly=False),
+                                                 required=True, ondelete='cascade', readonly=False, track_visibility='onchange'),
         }
+
+    def create(self, cr, uid, vals, context=None):
+        res = super(sta_assembly, self).create(cr, uid, vals, context=context)
+        return res

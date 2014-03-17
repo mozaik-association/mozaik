@@ -48,8 +48,8 @@ class int_assembly_category(orm.Model):
     _description = "Internal Assembly Category"
 
     _columns = {
-        'is_secretariat': fields.boolean("Secretariat"),
-        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, ondelete='cascade'),
+        'is_secretariat': fields.boolean("Secretariat", track_visibility='onchange'),
+        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, ondelete='cascade', track_visibility='onchange'),
         'assembly_ids': fields.one2many('int.assembly', 'assembly_category_id', 'Internal Assemblies', domain=[('active', '=', True)]),
         }
 
@@ -61,9 +61,9 @@ class int_instance(orm.Model):
     _description = "Internal Instance"
 
     _columns = {
-        'parent_id': fields.many2one('int.instance', 'Parent Internal Instance', select=True, ondelete='cascade', required=False),
+        'parent_id': fields.many2one('int.instance', 'Parent Internal Instance', select=True, ondelete='cascade', required=False, track_visibility='onchange'),
         'child_ids': fields.one2many('int.instance', 'parent_id', string='Child Internal Instance', required=False),
-        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, ondelete='cascade'),
+        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, ondelete='cascade', track_visibility='onchange'),
         'assembly_ids': fields.one2many('int.assembly', 'instance_id', 'Internal Assemblies', domain=[('active', '=', True)]),
         'ext_assembly_ids': fields.one2many('ext.assembly', 'instance_id', 'External Assemblies', domain=[('active', '=', True)]),
         'sta_instance_ids': fields.one2many('sta.instance', 'id', 'State Instances', domain=[('active', '=', True)]),
@@ -86,9 +86,9 @@ class int_assembly(orm.Model):
 
     _columns = {
         'assembly_category_id': fields.many2one('int.assembly.category', 'Category',
-                                                 required=True, ondelete='cascade'),
+                                                 required=True, ondelete='cascade', track_visibility='onchange'),
         'instance_id': fields.many2one('int.instance', 'Internal Instance',
-                                                 required=True, ondelete='cascade'),
+                                                 required=True, ondelete='cascade', track_visibility='onchange'),
         'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
-                                                 required=True, ondelete='cascade', readonly=False),
+                                                 required=True, ondelete='cascade', readonly=False, track_visibility='onchange'),
         }
