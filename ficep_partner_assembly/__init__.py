@@ -25,45 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Person',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_base',
-        'ficep_duplicate',
-        'ficep_thesaurus',
-        'ficep_partner_assembly',
-    ],
-    'description': """
-FICEP Person
-============
-    """,
-    'images': [
-    ],
-    'data': [
-        'res_partner_view.xml',
-        'person_view.xml',
-        'wizard/create_user_from_partner_view.xml',
-        'wizard/allow_duplicate_view.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'auto_install': False,
-    'installable': True,
-}
+
+from . import res_partner
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

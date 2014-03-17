@@ -84,7 +84,6 @@ class res_partner(orm.Model):
                                   help="ID of the user in the LDAP"),
         'usual_firstname': fields.char("Usual Firstname", track_visibility='onchange'),
         'usual_lastname': fields.char("Usual Lastname", track_visibility='onchange'),
-        'is_assembly': fields.boolean('Is an Assembly'),
 
         # Standard fields redefinition
         'display_name': fields.function(res_partner.res_partner._display_name_compute, type='char', string='Name', store=_display_name_store_triggers),
@@ -113,7 +112,6 @@ class res_partner(orm.Model):
 
         # New fields
         'tongue': lambda *args: AVAILABLE_TONGUES[0][0],
-        'is_assembly': False,
     }
 
 # orm methods
@@ -152,7 +150,6 @@ class res_partner(orm.Model):
                     'user_ids': [],
                     'bank_ids': [],
 
-                    'is_assembly': False,
                     'ldap_name': False,
                     'ldap_id': False,
                     'expire_date': False,

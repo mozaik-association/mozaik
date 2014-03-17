@@ -25,45 +25,32 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Person',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_base',
-        'ficep_duplicate',
-        'ficep_thesaurus',
-        'ficep_partner_assembly',
-    ],
-    'description': """
-FICEP Person
-============
-    """,
-    'images': [
-    ],
-    'data': [
-        'res_partner_view.xml',
-        'person_view.xml',
-        'wizard/create_user_from_partner_view.xml',
-        'wizard/allow_duplicate_view.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'auto_install': False,
-    'installable': True,
-}
+
+from openerp.osv import orm, fields
+
+
+class res_partner(orm.Model):
+
+    _inherit = 'res.partner'
+
+    _columns = {
+        'is_assembly': fields.boolean('Is an Assembly'),
+    }
+
+    _defaults = {
+        'is_assembly': False,
+    }
+
+# orm methods
+
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        Reset some fields to their initial values.
+        """
+        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        res.update({
+                    'is_assembly': False,
+                   })
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
