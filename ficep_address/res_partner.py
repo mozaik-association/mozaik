@@ -79,7 +79,7 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Multiple mode
         """
-        result = {}.fromkeys(ids, {})
+        result = dict((_id, {}) for _id in ids)
         coord_obj = self.pool['postal.coordinate']
         coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
                                                     ('is_main', '=', True),
