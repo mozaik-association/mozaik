@@ -143,7 +143,7 @@ class address_address(orm.Model):
         'number': fields.char(string='Number', track_visibility='onchange'),
         'box': fields.char(string='Box', track_visibility='onchange'),
 
-        'postal_coordinate_ids': fields.one2many('postal.coordinate', 'address_id', 'Postal Coordinate'),
+        'postal_coordinate_ids': fields.one2many('postal.coordinate', 'address_id', 'Postal Coordinates'),
     }
 
     _defaults = {
@@ -237,7 +237,7 @@ class address_address(orm.Model):
         address_rds = self.browse(cr, uid, ids, context=context)
         partner_ids = []
         for record in address_rds:
-            for associated_coordinate in record.phone_coordinate_ids:
+            for associated_coordinate in record.postal_coordinate_ids:
                 partner_ids.append(associated_coordinate.partner_id.id)
         return partner_ids
 
@@ -261,10 +261,10 @@ class postal_coordinate(orm.Model):
 
     _name = 'postal.coordinate'
     _inherit = ['abstract.coordinate']
-    _description = "Address Coordinate"
+    _description = "Postal Coordinate"
 
     _discriminant_field = 'address_id'
-    _undo_redirect_action = 'ficep_phone.phone_coordinate_action'
+    _undo_redirect_action = 'ficep_address.postal_coordinate_action'
 
     _columns = {
         'address_id': fields.many2one('address.address', string='Address', required=True, readonly=True, select=True),

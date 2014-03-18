@@ -82,7 +82,7 @@ class phone_phone(orm.Model):
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Number', size=50, required=True, select=True, track_visibility='onchange'),
         'type': fields.selection(PHONE_AVAILABLE_TYPES, 'Type', required=True, track_visibility='onchange'),
-        'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinate'),
+        'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinates'),
     }
 
     _order = "name"

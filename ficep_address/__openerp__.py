@@ -44,7 +44,7 @@ FICEP Address
     'data': [
         'security/ir.model.access.csv',
         'security/ir.rule.xml',
-        'wizard/change_main_phone.xml',
+        'wizard/change_main_address.xml',
         'wizard/allow_duplicate_view.xml',
         'address_address_view.xml',
         'res_partner_view.xml',

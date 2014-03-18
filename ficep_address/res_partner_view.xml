@@ -2,6 +2,17 @@
 <openerp>
     <data noupdate="0">
 
+        <record id="view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree (ficep_address)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <field name="street2" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
         <record id="view_partner_form" model="ir.ui.view">
             <field name="name">res.partner.form (ficep_address)</field>
             <field name="model">res.partner</field>
@@ -22,7 +33,7 @@
         </record>
 
         <record id="view_partner_2_form" model="ir.ui.view">
-            <field name="name">res.partner.form (ficep_address2)</field>
+            <field name="name">res.partner.form (ficep_address_2)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="ficep_coordinate.view_partner_form" />
             <field name="arch" type="xml">
