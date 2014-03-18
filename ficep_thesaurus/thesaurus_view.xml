@@ -158,7 +158,7 @@
                                 <field name="ext_id" />
                             </group>
                             <group name="other">
-                                <field name="thesaurus_id" context="{'simplified': 1}" groups="ficep_base.ficep_res_groups_vip_configurator" />
+                                <field name="thesaurus_id" context="{'simplified': 1}" groups="ficep_base.ficep_res_groups_configurator" />
                             </group>
                             <group name="validity" attrs="{'invisible': [('id','=',False)]}">
                                 <field name="create_date" />

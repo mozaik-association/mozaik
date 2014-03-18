@@ -54,8 +54,8 @@ class res_partner(orm.Model):
         =================================
         _get_linked_partners_from_address
         =================================
-        Return partner ids linked by coordinates to phone ids
-        :param ids: triggered phone ids
+        Return partner ids linked by coordinates to address ids
+        :param ids: triggered address ids
         :type name: list
         :rparam: partner ids
         :rtype: list
@@ -65,16 +65,16 @@ class res_partner(orm.Model):
 
     def _get_main_address_componant(self, cr, uid, ids, name, args, context=None):
         """
-        ==============================
-        _get_main_phone_coordinate_ids
-        ==============================
-        Reset *_coordinate_id fields with corresponding main phone coordinate ids
-        :param ids: partner ids for which new *_coordinate_id fields have to be recomputed
+        ===========================
+        _get_main_address_componant
+        ===========================
+        Reset address fields with corresponding main postal coordinate ids
+        :param ids: partner ids for which new address fields have to be recomputed
         :type name: char
         :rparam: dictionary for all partner id with requested main coordinate ids
-        :rtype: dict {partner_id:{'fix_coordinate_id': main_fix_id,
-                                  'mobile_coordinate_id': main_mobile_id,
-                                  'fax_coordinate_id': main_fax_id,
+        :rtype: dict {partner_id:{'country_id': ...,
+                                  'city': ...,
+                                  ...,
                                  }}
         Note:
         Calling and result convention: Multiple mode
@@ -90,7 +90,7 @@ class res_partner(orm.Model):
                 result[coord.partner_id.id]['city'] = coord.address_id.town_man if coord.address_id.town_man else coord.address_id.address_local_zip_town
                 result[coord.partner_id.id]['zip'] = coord.address_id.zip
                 result[coord.partner_id.id]['street'] = coord.address_id.street
-                result[coord.partner_id.id]['street2'] = coord.address_id.street2
+                result[coord.partner_id.id]['street2'] = 'VIP' if coord.vip else 'N/A: %s' % coord.address_id.street2 if coord.unauthorized else coord.address_id.street2
         return result
 
     def _get_main_postal_coordinate_id(self, cr, uid, ids, name, args, context=None):
@@ -174,14 +174,14 @@ class res_partner(orm.Model):
         =====
         write
         =====
-        When invalidating a partner, invalidates also its phone coordinates
+        When invalidating a partner, invalidates also its postal coordinates
         """
         res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         if 'active' in vals and not vals['active']:
             coord_obj = self.pool['postal.coordinate']
             coord_ids = []
             for partner in self.browse(cr, SUPERUSER_ID, ids, context=context):
-                coord_ids += [c.id for c in partner.phone_coordinate_ids]
+                coord_ids += [c.id for c in partner.postal_coordinate_ids]
             if coord_ids:
                 coord_obj.button_invalidate(cr, SUPERUSER_ID, coord_ids, context=context)
         return res
