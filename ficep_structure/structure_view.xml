@@ -359,7 +359,7 @@
                             </group>
                         </group>
                     </sheet>
-                    <div class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
@@ -368,9 +368,9 @@
                             </group>
                         </div>
                     </div>
-                    <div class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
-                        <field name="message_ids" widget="mail_thread" readonly="1"/>
+                        <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
             </field>
@@ -410,7 +410,7 @@
                             </group>
                         </group>
                     </sheet>
-                    <div class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
@@ -419,9 +419,9 @@
                             </group>
                         </div>
                     </div>
-                    <div class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
-                        <field name="message_ids" widget="mail_thread" readonly="1"/>
+                        <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
             </field>
@@ -543,7 +543,7 @@
                   sequence="20" parent="external_menu" />
 
         <menuitem id="configuration_menu" name="Configuration"
-                  sequence="90" parent="ficep_base.structures_root_menu" />
+                  sequence="90" parent="ficep_base.structures_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
 
         <menuitem id="state_configuration_submenu" name="State"
                   sequence="10" parent="configuration_menu"/>

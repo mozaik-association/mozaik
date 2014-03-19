@@ -25,9 +25,33 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from lxml import etree
 
-import controller
-import res_users
-import mail_thread
+from openerp.tools import SUPERUSER_ID
+from openerp.osv import orm
+
+
+class mail_thread(orm.AbstractModel):
+
+    _inherit = 'mail.thread'
+
+# orm methods
+
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
+        '''
+        Wrongly handle by oe, add manually the readonly attribute to message_follower_ids if needed
+        '''
+        if context is None:
+            context = {}
+
+        res = super(mail_thread,self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
+
+        if view_type == 'form':
+            if not context.get('in_ficep_user'):
+                doc = etree.XML(res['arch'])
+                for node in doc.xpath("//field[@name='message_ids']"):
+                    node.set('readonly', '1')
+                res['arch'] = etree.tostring(doc)
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

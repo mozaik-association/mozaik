@@ -47,6 +47,9 @@
     'description': """
 FICEP Base
 ==========
+* improve user context adding a flag by ficep group
+* provide a work-around to handle correctly the readonly attribute of the widget mail_thread
+* define ficep menus skeleton
     """,
     'images': [
     ],
