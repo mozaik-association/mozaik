@@ -25,14 +25,36 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm
+from anybox.testing.openerp import SharedSetupTransactionCase
+import openerp.tests.common as common
+import logging
 
-from . import test_address_address
-from . import test_postal_coordinate
+_logger = logging.getLogger(__name__)
 
-checks = [
-    test_address_address,
-    test_postal_coordinate
- ]
+DB = common.DB
+ADMIN_USER_ID = common.ADMIN_USER_ID
 
+
+class test_postal_coordinate(SharedSetupTransactionCase):
+
+    _data_files = ('data/address_data.xml',)
+
+    _module_ns = 'ficep_address'
+
+    def setUp(self):
+        super(test_postal_coordinate, self).setUp()
+
+        self.registry('ir.model').clear_caches()
+        self.registry('ir.model.data').clear_caches()
+
+    def test_check_co_residency_consistency(self):
+        postal_coo_2 = self.ref("ficep_address.postal_coordinate_2")
+        postal_coo_3 = self.ref("ficep_address.postal_coordinate_3")
+        co_residency = self.ref("ficep_address.co_residency_id_1")
+        self.assertRaises(orm.except_orm, self.registry('postal.coordinate').write,
+                                          self.cr, ADMIN_USER_ID,
+                                          [postal_coo_3, postal_coo_2],
+                                          {'co_residency_id': co_residency})
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

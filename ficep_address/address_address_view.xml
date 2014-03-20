@@ -120,6 +120,105 @@
             <field name="context">{'mail_create_nosubscribe': True}</field>
         </record>
 
+        <!-- co_residency -->
+
+        <record id="co_residency_search_view" model="ir.ui.view">
+            <field name="name">co.residency.search</field>
+            <field name="model">co.residency</field>
+            <field name="arch" type="xml">
+                <search string="Co-Residency" version="7.0">
+                    <field name="name" />
+                    <field name="line"/>
+                    <field name="line2"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="co_residency_tree_view" model="ir.ui.view">
+            <field name="name">co.residency.tree</field>
+            <field name="model">co.residency</field>
+            <field name="arch" type="xml">
+                <tree string="Co-Residency" version="7.0">
+                    <field name="name" />
+                    <field name="line" />
+                    <field name="line2" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="co_residency_form_view" model="ir.ui.view">
+            <field name="name">co.residency.form</field>
+            <field name="model">co.residency</field>
+            <field name="arch" type="xml">
+                <form string="Co-Residency" version="7.0">
+                    <header/>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1><field name="name" /></h1>
+                        </div>
+                        <group name="lines" >
+                            <field name="line"/>
+                            <field name="line2"/>
+                        </group>
+                        <notebook>
+                            <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
+                                <field name="postal_coordinate_ids" context="{'simplified': 1,
+                                                                              'default_co_residency_id': active_id,
+                                                                              'form_view_ref': 'ficep_address.postal_coordinate_form_view'}">
+                                    <tree>
+                                        <field name="partner_id"/>
+                                        <field name="coordinate_category_id" />
+                                        <field name="is_main" />
+                                        <field name="unauthorized" />
+                                        <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div class="oe_chatter" invisible="context.get('simplified')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" readonly="1"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="co_residency_override_form_view" model="ir.ui.view">
+            <field name="name">co.residency.override.form</field>
+            <field name="model">co.residency</field>
+            <field name="inherit_id" ref="co_residency_form_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')]),
+                                          ]" />
+            <field name="priority" eval="20" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='message_ids']" position="replace">
+                    <field name="message_ids" widget="mail_thread"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="co_residency_action" model="ir.actions.act_window">
+            <field name="name">Co-Residency</field>
+            <field name="res_model">co.residency</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="co_residency_tree_view" />
+            <field name="search_view_id" ref="co_residency_search_view" />
+            <field name="context">{'mail_create_nosubscribe': True}</field>
+        </record>
+
         <!-- Postal Coordinate -->
 
         <record id="postal_coordinate_search_view" model="ir.ui.view">
@@ -131,6 +230,7 @@
 
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="address_id" />
+                    <field name="co_residency_id" />
                 </xpath>
 
             </field>
@@ -145,6 +245,7 @@
 
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="address_id" />
+                    <field name="co_residency_id" />
                 </xpath>
 
             </field>
@@ -160,6 +261,10 @@
                 <xpath expr="//div[@class='oe_title']" position="inside">
                     <label for="address_id" class="oe_edit_only"/>
                     <h1><field name="address_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
+                    <field name="co_residency_id" />
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="co_residency_id" />
                 </xpath>
             </field>
         </record>
@@ -184,6 +289,9 @@
 
         <menuitem id="address_address_submenu"
                   sequence="20" parent="postal_coordinate_menu" action="address_address_action" />
+
+        <menuitem id="co_residency_submenu"
+                  sequence="25" parent="postal_coordinate_menu" action="co_residency_action" />
 
         <!-- Other Inheritance: Address -->
 
