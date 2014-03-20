@@ -56,9 +56,20 @@
 
         <!-- Postal Coordinates -->
 
+        <record id="postal_coordinate_2" model="postal.coordinate">
+            <field name="address_id" ref="address_2"/>
+            <field name="partner_id" ref="base.partner_root"/>
+        </record>
+
         <record id="postal_coordinate_3" model="postal.coordinate">
             <field name="address_id" ref="address_3"/>
             <field name="partner_id" ref="base.partner_root"/>
+        </record>
+
+        <!-- Co Residency -->
+
+        <record id="co_residency_id_1" model="co.residency">
+            <field name="name">Familly Marsh</field>
         </record>
 
     </data>
