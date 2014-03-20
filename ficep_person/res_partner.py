@@ -59,7 +59,7 @@ available_tongues = dict(AVAILABLE_TONGUES)
 class res_partner(orm.Model):
 
     _name = 'res.partner'
-    _inherit = ['res.partner', 'abstract.duplicate']
+    _inherit = ['mail.thread', 'res.partner', 'abstract.duplicate']
 
     _discriminant_field = 'name'
     _trigger_fileds = ['name', 'lastname', 'firstname']

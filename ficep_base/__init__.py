@@ -28,5 +28,6 @@
 
 import controller
 import res_users
+import mail_thread
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
