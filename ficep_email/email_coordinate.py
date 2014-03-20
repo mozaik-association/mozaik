@@ -45,11 +45,11 @@ class email_coordinate(orm.Model):
     }
 
     def _check_email(self, cr, uid, ids, context=None):
-        coordinate = self.browse(cr, uid, ids, context=context)[0]
-        if re.match("^[_a-zA-Z0-9\\-\\.\\+]+\\@[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})$", coordinate.email) != None:
-            return True
-        else:
-            return False
+        coordinates = self.browse(cr, uid, ids, context=context)
+        for coordinate in coordinates:
+            if not re.match("^[_a-zA-Z0-9\\-\\.\\+]+\\@[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})$", coordinate.email) != None:
+                return False
+        return True
 
     _constraints = [
         (_check_email, _('Invalid Email Format'), ['email']),
