@@ -100,7 +100,7 @@ class address_address(orm.Model):
         return result
 
     _address_store_triggers = {
-            #this MUST be executed in last for consistency: sequence is greater than other
+            # this MUST be executed in last for consistency: sequence is greater than other
             'address.address': (lambda self, cr, uid, ids, context=None: ids, [], 11),
             'res.country': (_get_linked_addresses_from_country, ['name'], 10),
         }
