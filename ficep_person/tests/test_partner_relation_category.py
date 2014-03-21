@@ -46,6 +46,11 @@ class test_partner_relation_category(SharedSetupTransactionCase):
         self.model_partner_relation_category = self.registry('partner.relation.category')
 
     def test_name_get(self):
+        """
+        This method test that for a given object key in context,
+        the method name_get of partner_relation_category will return either
+        subject_name or object_name depending context['object'] False or Not
+        """
         relation_id = self.ref("ficep_person.partner_relation")
         res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [relation_id], context=None)
         self.assertEqual('employs', res[0][1], "Without context: should be subject name")
