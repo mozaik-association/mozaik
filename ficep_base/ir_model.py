@@ -25,9 +25,26 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm
+from openerp.tools import SUPERUSER_ID
 
-import controller
-import res_users
-import abstract_ficep
-import ir_model
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class ir_model(orm.Model):
+    _inherit = 'ir.model'
+
+    def _get_active_relations(self, cr, uid, ids, model_name, context=None):
+        uid = SUPERUSER_ID
+        relation_ids = self.pool.get('ir.model.fields').search(cr, uid, [('relation', '=', model_name)
+                                                                         , ('ttype', '=', 'many2one')]
+                                                                         , context=context)
+        relations = self.pool.get('ir.model.fields').browse(cr, uid, relation_ids, context=context)
+
+        results = {}
+        for record_id in ids:
+            for relation in relations:
+                active_dep_ids = self.pool.get(relation.model).search(cr, uid, [(relation.name, '=', record_id)], context=context)
+
+                if len(active_dep_ids) > 0:
+                    results.update({record_id: relation.model})
+
+        return results
