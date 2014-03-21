@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Partner Relation Category -->
+        <record id="partner_relation_category_1" model="partner.relation.category">
+            <field name="subject_name">employs</field>
+            <field name="object_name">is used by</field>
+        </record>
+
+        <!-- Partner Relation -->
+        <record id="partner_relation" model="partner.relation">
+            <field name="subject_partner_id" ref="base.main_partner"/>
+            <field name="object_partner_id" ref="base.partner_root"/>
+            <field name="partner_relation_category_id" ref="partner_relation_category_1"/>
+        </record>
+
+    </data>
+</openerp>
