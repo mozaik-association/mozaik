@@ -88,6 +88,10 @@ class res_partner(orm.Model):
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_competencies_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
         'interests_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_interests_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
 
+        #relation fields
+        'partner_is_subject_relation_ids': fields.many2many('partner.relation', 'res_partner_subject_relation_rel', id1='partner_id', id2='partner_relation_id', string='Is Subject Of Relation'),
+        'partner_is_object_relation_ids': fields.many2many('partner.relation', 'res_partner_object_relation_rel', id1='partner_id', id2='partner_relation_id', string='Is Object Of Relation'),
+
         # Standard fields redefinition
         'display_name': fields.function(res_partner.res_partner._display_name_compute, type='char', string='Name', store=_display_name_store_triggers),
         'website': fields.char('Main Website', size=128, track_visibility='onchange',
@@ -100,10 +104,10 @@ class res_partner(orm.Model):
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
 
-        # Special case: 
+        # Special case:
         # * do not use native birthdate field, it is a char field without any control
         # * do not redefine it either, oe will silently rename twice the column (birthdate_moved12, birthdate_moved13, ...)
-        #   losing its content and making the res_partner table with an astronomic number of columns !!  
+        #   losing its content and making the res_partner table with an astronomic number of columns !!
         'birth_date': fields.date('Birthdate', select=True, track_visibility='onchange'),
     }
 
