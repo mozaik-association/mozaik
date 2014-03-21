@@ -35,10 +35,9 @@ class sta_power_level(orm.Model):
     _description = "State Power Level"
 
     _columns = {
-        'assembly_category_ids': fields.one2many('sta.assembly.category', 'power_level_id',
-                                                  'Assembly Categories', domain=[('active', '=', True)]),
-        'instance_ids': fields.one2many('sta.instance', 'power_level_id', 'State Instances', domain=[('active', '=', True)]),
-        'legislature_ids': fields.one2many('legislature', 'power_level_id', 'Legislatures', domain=[('active', '=', True)]),
+        'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
+        'assembly_category_ids': fields.one2many('sta.assembly.category', 'power_level_id', 'Assembly Categories'),
+        'assembly_category_inactive_ids': fields.one2many('sta.assembly.category', 'power_level_id', 'Assembly Categories', domain=[('active', '=', False)]),
     }
 
 
@@ -49,12 +48,11 @@ class sta_assembly_category(orm.Model):
     _description = "State Assembly Category"
 
     _columns = {
-        'power_level_id': fields.many2one('sta.power.level', 'State Power Level', required=True, ondelete='cascade', track_visibility='onchange'),
-        'assembly_ids': fields.one2many('sta.assembly', 'assembly_category_id', 'State Assemblies', domain=[('active', '=', True)]),
+        'power_level_id': fields.many2one('sta.power.level', 'State Power Level', required=True, track_visibility='onchange'),
         'is_legislative': fields.boolean("Legislative", track_visibility='onchange')
     }
 
-    _default = {
+    _defaults = {
         'is_legislative': False,
     }
 
@@ -81,13 +79,14 @@ class sta_instance(orm.Model):
         return list(set(res_ids))
 
     _columns = {
-        'parent_id': fields.many2one('sta.instance', 'Parent State Instance', select=True, ondelete='cascade', track_visibility='onchange'),
-        'secondary_parent_id': fields.many2one('sta.instance', 'Secondary Parent State Instance', select=True, ondelete='cascade', track_visibility='onchange'),
-        'child_ids': fields.one2many('sta.instance', 'parent_id', string='Child State Instance'),
-        'power_level_id': fields.many2one('sta.power.level', 'State Power Level', required=True, ondelete='cascade', track_visibility='onchange'),
-        'assembly_ids': fields.one2many('sta.assembly', 'instance_id', 'State Assemblies', domain=[('active', '=', True)]),
-        'electoral_district_ids': fields.one2many('electoral.district', 'sta_instance_id', 'Electoral Districts', domain=[('active', '=', True)]),
-        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', select=True, ondelete='cascade', track_visibility='onchange'),
+        'parent_id': fields.many2one('sta.instance', 'Parent State Instance', select=True, track_visibility='onchange'),
+        'secondary_parent_id': fields.many2one('sta.instance', 'Secondary Parent State Instance', select=True, track_visibility='onchange'),
+        'power_level_id': fields.many2one('sta.power.level', 'State Power Level', required=True, track_visibility='onchange'),
+        'assembly_ids': fields.one2many('sta.assembly', 'instance_id', 'State Assemblies'),
+        'assembly_inactive_ids': fields.one2many('sta.assembly', 'instance_id', 'State Assemblies', domain=[('active', '=', False)]),
+        'electoral_district_ids': fields.one2many('electoral.district', 'sta_instance_id', 'Electoral Districts'),
+        'electoral_district_inactive_ids': fields.one2many('electoral.district', 'sta_instance_id', 'Electoral Districts', domain=[('active', '=', False)]),
+        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', select=True, track_visibility='onchange'),
     }
 
 
@@ -95,22 +94,18 @@ class legislature(orm.Model):
 
     _name = 'legislature'
     _description = "Legislature"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['abstract.ficep.model']
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, translate=True, select=True),
-        'create_date': fields.datetime('Creation Date', readonly=True),
-        'deadline_date': fields.datetime('Deadline Date', track_visibility='onchange'),
-        'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
-        'election_date': fields.datetime('Election Date', track_visibility='onchange'),
-        'power_level_id': fields.many2one('sta.power.level', 'Power Level', required=True, ondelete='cascade', track_visibility='onchange'),
-        'active': fields.boolean('Active', readonly=True),
+        'deadline_date': fields.date('Deadline Date', track_visibility='onchange'),
+        'election_date': fields.date('Election Date', track_visibility='onchange'),
+        'power_level_id': fields.many2one('sta.power.level', 'Power Level', required=True, track_visibility='onchange'),
     }
 
-    _defaults = {
-        'active': True,
-    }
+    _order = 'create_date desc'
+
 
 class sta_assembly(orm.Model):
 
@@ -124,7 +119,7 @@ class sta_assembly(orm.Model):
         for ass in assemblies:
             fullname = "%s (%s) " % (ass.instance_id.name, ass.assembly_category_id.name)
             res[ass.id] = fullname
-            self.pool['res.partner'].write(cursor, uid, ass.partner_id.id,{'name': fullname}, context=context)
+            self.pool['res.partner'].write(cursor, uid, ass.partner_id.id, {'name': fullname}, context=context)
         return res
 
     _name_store_triggers = {
@@ -134,20 +129,19 @@ class sta_assembly(orm.Model):
                          ['name', ], 10),
         'sta.assembly.category': (lambda self, cr, uid, ids, context=None: self.pool['sta.assembly'].search(cr, uid, [('assembly_category_id', 'in', ids)], context=context),
                                   ['name', ], 10),
-    } 
+    }
 
     _columns = {
         # dummy: define a dummy function to update the partner name associated to the assembly
         'dummy': fields.function(_compute_dummy, string="Dummy",
                                  type="char", store=_name_store_triggers,
-                                 select=True, readonly=True),
+                                 select=True),
         'assembly_category_id': fields.many2one('sta.assembly.category', 'State Assembly Category',
-                                                 required=True, ondelete='cascade', track_visibility='onchange'),
+                                                 required=True, track_visibility='onchange'),
         'instance_id': fields.many2one('sta.instance', 'State Instance',
-                                                 required=True, ondelete='cascade', track_visibility='onchange'),
-        'electoral_district_ids': fields.one2many('electoral.district', 'assembly_id', 'Electoral Districts', domain=[('active', '=', True)]),
+                                                 required=True, track_visibility='onchange'),
         'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
-                                                 required=True, ondelete='cascade', readonly=False, track_visibility='onchange'),
+                                                 required=True, track_visibility='onchange'),
     }
 
     def create(self, cr, uid, vals, context=None):
@@ -162,7 +156,7 @@ class sta_assembly(orm.Model):
             category = ''
             if vals.get('assembly_category_id'):
                 category = self.pool['sta.assembly.category'].read(cr, uid, vals.get('assembly_category_id'), ['name'], context=context)
-            vals['name'] = '%s (%s)' % (instance['name'], category['name']) 
+            vals['name'] = '%s (%s)' % (instance['name'], category['name'])
         res = super(sta_assembly, self).create(cr, uid, vals, context=context)
         return res
 

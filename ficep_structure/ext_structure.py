@@ -34,10 +34,6 @@ class ext_assembly_category(orm.Model):
     _inherit = ['abstract.assembly.category']
     _description = "External Assembly Category"
 
-    _columns = {
-        'assembly_ids': fields.one2many('ext.assembly', 'assembly_category_id', 'External Assemblies', domain=[('active', '=', True)]),
-    }
-
 
 class ext_assembly(orm.Model):
 
@@ -47,9 +43,11 @@ class ext_assembly(orm.Model):
 
     _columns = {
         'assembly_category_id': fields.many2one('ext.assembly.category', 'External Assembly Category',
-                                                 required=True, ondelete='cascade', track_visibility='onchange'),
+                                                 required=True, track_visibility='onchange'),
         'instance_id': fields.many2one('int.instance', 'Internal Instance',
-                                                 required=True, ondelete='cascade', track_visibility='onchange'),
+                                                 required=True, track_visibility='onchange'),
         'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
-                                                 required=True, ondelete='cascade', readonly=False, track_visibility='onchange'),
+                                                 required=True, readonly=False, track_visibility='onchange'),
+        'ref_partner_id': fields.many2one('res.partner', 'Reference Partner', required=True, ondelete='cascade',
+                                      context={'is_company': True, 'is_assembly': False}, track_visibility='onchange'),
     }

@@ -41,8 +41,8 @@
         </record>
 
         <record id="sta_instance_07" model="sta.instance">
-            <field name="name">Huy (district prov.)</field>
-            <field name="power_level_id" ref="ficep_structure.sta_power_level_07"/>
+            <field name="name">Huy</field>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_09"/>
             <field name="parent_id" ref="sta_instance_04"/>
         </record>
 
@@ -95,7 +95,7 @@
             <field name="parent_id" ref="int_instance_04"/>
         </record>
 
-        <record id="int_instance_06" model="int.instance">
+        <record id="int_instance_09" model="int.instance">
             <field name="name">Wanze-Amay-Oreye</field>
             <field name="power_level_id" ref="ficep_structure.sta_power_level_05"/>
             <field name="parent_id" ref="int_instance_04"/>
