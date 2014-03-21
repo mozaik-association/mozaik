@@ -100,7 +100,7 @@ class address_address(orm.Model):
         return result
 
     _address_store_triggers = {
-            #this MUST be executed in last for consistency: sequence is greater than other
+            # this MUST be executed in last for consistency: sequence is greater than other
             'address.address': (lambda self, cr, uid, ids, context=None: ids, [], 11),
             'res.country': (_get_linked_addresses_from_country, ['name'], 10),
         }
@@ -268,6 +268,39 @@ class postal_coordinate(orm.Model):
 
     _columns = {
         'address_id': fields.many2one('address.address', string='Address', required=True, readonly=True, select=True),
+        'co_residency_id': fields.many2one('co.residency', string='Co-residency', ondelete='restrict'),
+    }
+
+    def _check_co_residency_consistency(self, cr, uid, ids, context=None):
+        postal_coordinates = self.browse(cr, uid, ids, context=context)
+        for postal_coordinate in postal_coordinates:
+            if postal_coordinate.co_residency_id:
+                postal_co_resident_ids = self.search(cr, uid, [('co_residency_id', '=', postal_coordinate.co_residency_id.id)], context=context)
+                address_ids = [(postal_coo.address_id.id) for postal_coo in self.browse(cr, uid, postal_co_resident_ids)]
+                if len(set(address_ids)) != 1:
+                    return False
+        return True
+
+    _constraints = [
+        (_check_co_residency_consistency, _('Co-Residency Could Not Be Associated With Different Address Of Postal Coordinate'),
+        ['co_residency_id']),
+    ]
+
+
+class co_residency(orm.Model):
+    _name = 'co.residency'
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
+
+    _columns = {
+        'id': fields.integer('ID'),
+        'name': fields.char('Name', track_visibility='onchange'),
+        'line': fields.char('Line', track_visibility='onchange'),
+        'line2': fields.char('Line 2', track_visibility='onchange'),
+        'postal_coordinate_ids': fields.one2many('postal.coordinate',
+                                                 'address_id',
+                                                 'Postal Coordinates',
+                                                 domain=[('active', '=', True)],
+                                                 track_visibility='onchange'),
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -30,7 +30,7 @@
         <!-- Structures -->
 
         <menuitem id="structures_root_menu" name="Structures"
-                  sequence="21" groups="ficep_res_groups_user" />
+                  sequence="21" groups="res_groups_base" />
 
     </data>
 </openerp>

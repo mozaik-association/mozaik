@@ -52,4 +52,9 @@ class res_users(orm.Model):
                 result.update({'in_%s' % g.name.lower().replace(' ', '_'): 1})
         return result
 
+    def write(self, cr, uid, ids, vals, context=None):
+        res = super(res_users, self).write(cr, uid, ids, vals, context=context)
+        super(res_users, self).context_get.clear_cache(self)
+        return res
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -72,6 +72,10 @@ class xxxx(orm.Model):
 
 # private methods
 
+    def _your_method(self, cr, uid, ids, context=None):
+         _, xml_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'model', 'xmlid')
+         return xml_id
+     
     def _your_field_function(self):
         pass
 
@@ -98,9 +102,9 @@ class xxxx(orm.Model):
         'name': fields.function(_your_field_function, type='char', string='Function'),
         'name': fields.related('relation_field', 'field_name', string='name', type='type', relation='model'),
 
-        'name': fields.many2one('object', 'field_name', required=True, select=True),
-        'name': fields.one2many('other.object', 'field_relation_id', 'Field Name', domain=[]),
-        'm2m': fields.many2many('other.object.name', id1='field_relation_id', id2='field_name', string='Tags'),
+        'name_id': fields.many2one('other.model', 'field_name', required=True, select=True),
+        'name_ids': fields.one2many('other.model', 'field_relation_id', 'Field Name', domain=[]),
+        'name_m2m_ids': fields.many2many('other.model', 'cur_model_other_model_rel', id1='cur_model_relation_id', id2='other_model_relation_id', string='Tags'),
 
         # Standard fields redefinition
         'partner_id': fields.many2one('res.partner', 'Contact', required=True, select=True),
@@ -108,13 +112,13 @@ class xxxx(orm.Model):
                            states={'draft': [('readonly', False),('required', False)]}),
 
         # State
-        'state': fields.selection(QQQ_AVAILABLE_STATES,'Status', readonly=True, required=True, track_visibility='onchange',
+        'state': fields.selection(QQQ_AVAILABLE_STATES,'Status', required=True, track_visibility='onchange',
             help='If qqq is created, the status is \'Unconfirmed\'. If qqq is confirmed the status is set to \'Confirmed\'. Finally, if event is cancelled the status is set to \'Cancelled\'.'),
 
         # Validity period
-        'create_date': fields.datetime('Creation Date', readonly=True),
+        'create_date': fields.datetime('Creation Date'),
         'expire_date': fields.datetime('Expiration Date', track_visibility='onchange'),
-        'active': fields.boolean('Active', readonly=True),
+        'active': fields.boolean('Active'),
     }
 
     _rec_name = 'name'
@@ -156,8 +160,7 @@ class xxxx(orm.Model):
         if not ids:
             return []
 
-        if isinstance(ids, (long, int)):
-            ids = [ids]
+        ids = isinstance(ids, (long, int)) and [ids] or ids
 
         res = []
         for record in self.browse(cr, uid, ids, context=context):

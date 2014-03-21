@@ -59,7 +59,7 @@ available_tongues = dict(AVAILABLE_TONGUES)
 class res_partner(orm.Model):
 
     _name = 'res.partner'
-    _inherit = ['res.partner', 'abstract.duplicate']
+    _inherit = ['mail.thread', 'res.partner', 'abstract.duplicate']
 
     _discriminant_field = 'name'
     _trigger_fileds = ['name', 'lastname', 'firstname']
@@ -84,6 +84,9 @@ class res_partner(orm.Model):
                                   help="ID of the user in the LDAP"),
         'usual_firstname': fields.char("Usual Firstname", track_visibility='onchange'),
         'usual_lastname': fields.char("Usual Lastname", track_visibility='onchange'),
+
+        'competencies_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_competencies_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_interests_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
 
         # Standard fields redefinition
         'display_name': fields.function(res_partner.res_partner._display_name_compute, type='char', string='Name', store=_display_name_store_triggers),
