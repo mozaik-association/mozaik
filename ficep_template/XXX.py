@@ -72,6 +72,10 @@ class xxxx(orm.Model):
 
 # private methods
 
+    def _your_method(self, cr, uid, ids, context=None):
+         _, xml_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'model', 'xmlid')
+         return xml_id
+     
     def _your_field_function(self):
         pass
 
@@ -108,13 +112,13 @@ class xxxx(orm.Model):
                            states={'draft': [('readonly', False),('required', False)]}),
 
         # State
-        'state': fields.selection(QQQ_AVAILABLE_STATES,'Status', readonly=True, required=True, track_visibility='onchange',
+        'state': fields.selection(QQQ_AVAILABLE_STATES,'Status', required=True, track_visibility='onchange',
             help='If qqq is created, the status is \'Unconfirmed\'. If qqq is confirmed the status is set to \'Confirmed\'. Finally, if event is cancelled the status is set to \'Cancelled\'.'),
 
         # Validity period
-        'create_date': fields.datetime('Creation Date', readonly=True),
+        'create_date': fields.datetime('Creation Date'),
         'expire_date': fields.datetime('Expiration Date', track_visibility='onchange'),
-        'active': fields.boolean('Active', readonly=True),
+        'active': fields.boolean('Active'),
     }
 
     _rec_name = 'name'

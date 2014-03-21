@@ -38,14 +38,52 @@ class create_user_from_partner(orm.TransientModel):
     _description = 'Wizard to Create a User from a Partner'
 
     _columns = {
+        'portal_only': fields.boolean('Portal only'),
+        'nok': fields.char('reason'),
         'login': fields.char('Login', size=64, required=True),
-        'appl_id': fields.many2one('ir.module.category', string="Application"),
-        'group_id': fields.many2one('res.groups', string="User's group", required=True,
+        'group_id': fields.many2one('res.groups', string="User's group",
                                     domain="[('category_id','=',appl_id)]"),
+        'appl_id': fields.many2one('ir.module.category', string="Application"),
     }
 
     _defaults = {
+        'portal_only': False,
     }
+
+    def default_get(self, cr, uid, fields, context):
+        """ To get default values for the object.
+         @param self: The object pointer.
+         @param cr: A database cursor
+         @param uid: ID of the user currently logged in
+         @param fields: List of fields for which we want default values
+         @param context: A standard dictionary
+         @return: A dictionary which of fields with values.
+        """
+        partner_id = context and context.get('active_id', False) or False
+        if not partner_id:
+            raise orm.except_orm(_('Error'), _('A partner is required to create a new user!'))
+
+        res = super(create_user_from_partner, self).default_get(cr, uid, fields, context=context)
+
+        partner = self.pool['res.partner'].browse(cr, uid, partner_id, context=context)
+
+        nok = False
+        if partner.user_ids:
+            nok = 'user'
+        elif not partner.active:
+            nok = 'active'
+        elif partner.is_company:
+            nok = 'company'
+        elif not partner.birth_date:
+            nok = 'birthdate'
+        elif not partner.email or partner.email.startswith('N/A'):
+            nok = 'email'
+
+        res.update({'nok': nok})
+        if nok:
+            res.update({'portal_only': False})
+            
+        return res
 
     def create_user_from_partner(self, cr, uid, ids, context=None):
         """
@@ -64,11 +102,18 @@ class create_user_from_partner(orm.TransientModel):
         if context is None:
             context = {}
 
-        partner_id = context.get('active_id', False)
-        if not partner_id:
-            raise orm.except_orm(_('Error'), _('A partner is required to create a new user!'))
+        partner_id = context.get('active_id')
 
         wizard = self.browse(cr, uid, ids, context=context)[0]
-        self.pool.get('res.partner').create_user(cr, uid, wizard.login, partner_id, [wizard.group_id.id], context=context)
+        if wizard.portal_only:
+            _, group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'portal', 'group_portal')
+    
+            partner = self.pool['res.partner'].browse(cr, uid, partner_id, context=context)
+
+            login = partner.email
+        else:
+            group_id = wizard.group_id.id
+            login = wizard.login
+        self.pool.get('res.partner').create_user(cr, uid, login, partner_id, [group_id], context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

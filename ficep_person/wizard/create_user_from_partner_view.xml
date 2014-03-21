@@ -9,22 +9,37 @@
             <field name="model">create.user.from.partner</field>
             <field name="arch" type="xml">
                 <form string="Create a User from a Partner" version="7.0">
-                    <group name="data">
+                    <group name="portal" attrs="{'invisible': [('nok','in',['user','company','active'])]}">
+                        <group name="check">
+                            <field name="portal_only" attrs="{'readonly': [('nok','!=',False)]}" />
+                        </group>
+                        <group name="help">
+                            <span attrs="{'invisible': [('nok','!=','birthdate')]}">To become a member of the portal the contact has to have a known birthdate.</span>
+                            <span attrs="{'invisible': [('nok','!=','email')]}">To become a member of the portal the contact has to have an authorized email.</span>
+                        </group>
+                    </group>
+                    <group name="data" attrs="{'invisible': ['|',('portal_only','=',True),('nok','in',['user','company','active'])]}">
                         <group name="main">
-                            <field name="login" />
+                            <field name="login" attrs="{'required': [('portal_only','=',False)]}" />
                         </group>
                         <group name="other">
-                            <field name="group_id" />
+                            <field name="group_id" attrs="{'required': [('portal_only','=',False)]}" />
                         </group>
                     </group>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <h3>More Info</h3>
                         <group name="moreinfo">
                             <field name="appl_id"/>
+                            <field name="nok"/>
                         </group>
                     </div>
+                    <div name="noway">
+                        <p attrs="{'invisible': [('nok','!=','user')]}">The selected partner is already a user.</p>
+                        <p attrs="{'invisible': [('nok','!=','company')]}">The selected partner is a legal person.</p>
+                        <p attrs="{'invisible': [('nok','!=','active')]}">The selected partner is deactivated.</p>
+                    </div>
                     <footer>
-                        <span name="go-wizard">
+                        <span name="go-wizard" attrs="{'invisible': [('nok','in',['user','company','active'])]}">
                             <button string="Create" name="create_user_from_partner"
                                     type="object" class="oe_highlight" />
                             or
