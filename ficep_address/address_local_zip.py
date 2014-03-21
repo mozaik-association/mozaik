@@ -39,14 +39,14 @@ class address_local_zip(orm.Model):
         return self.pool.get('address.address').search(cr, uid, [('address_local_zip_id', 'in', ids)], context=context)
 
     _columns = {
-        'local_zip': fields.char('Local Zip', required=True),
-        'town': fields.char('Town', required=True),
+        'local_zip': fields.char(string='Local Zip', required=True),
+        'town': fields.char(string='Town', required=True),
     }
 
     _rec_name = 'local_zip'
 
     _sql_constraints = [
-        ('check_unicity_zip', 'unique(local_zip)', _('This street already exist for this given zip code!'))
+        ('check_unicity_zip', 'unique(local_zip)', _('This zip already exist'))
     ]
 
     _order = "local_zip"

@@ -125,7 +125,7 @@ class address_address(orm.Model):
         'zip': fields.function(_get_zip,
                                 string='Zip',
                                 type='char',
-                                store=_zip_store_triggers),
+                                store=_zip_store_triggers, track_visibility='onchange'),
         'zip_man': fields.char('Zip'),
         'address_local_zip_id': fields.many2one('address.local.zip', string='Referenced Zip', track_visibility='onchange'),
 
@@ -135,7 +135,7 @@ class address_address(orm.Model):
         'street': fields.function(_get_street,
                                   string='Street',
                                   type='char',
-                                  store=_street_store_triggers),
+                                  store=_street_store_triggers, track_visibility='onchange'),
         'street_man': fields.char(string='Street', track_visibility='onchange'),
         'address_local_street_id': fields.many2one('address.local.street', string='Referenced Street', track_visibility='onchange'),
 
