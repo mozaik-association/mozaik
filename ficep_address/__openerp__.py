@@ -49,6 +49,8 @@ FICEP Address
         'address_address_view.xml',
         'res_partner_view.xml',
         'coordinate_category_view.xml',
+        'address_local_zip_view.xml',
+        'address_local_street_view.xml',
     ],
     'js': [
     ],
