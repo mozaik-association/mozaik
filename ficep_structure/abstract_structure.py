@@ -26,26 +26,24 @@
 #
 ##############################################################################
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
 
 
 class abstract_power_level(orm.AbstractModel):
 
     _name = 'abstract.power.level'
     _description = "Abstract Power Level"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['abstract.ficep.model']
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'sequence': fields.integer("Sequence", required=True, track_visibility='onchange'),
         'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
-        'assembly_category_ids': fields.one2many('abstract.assembly.category', 'power_level_id',
-                                                  'Assembly Categories', domain=[('active', '=', True)]),
-        'instance_ids': fields.one2many('abstract.instance', 'power_level_id', 'Instances', domain=[('active', '=', True)]),
-        'active': fields.boolean('Active', readonly=True),
+        'assembly_category_ids': fields.one2many('abstract.assembly.category', 'power_level_id', 'Assembly Categories'),
+        'assembly_category_inactive_ids': fields.one2many('abstract.assembly.category', 'power_level_id', 'Assembly Categories', domain=[('active', '=', False)]),
     }
 
     _defaults = {
-        'active': True,
         'sequence': 5,
     }
 
@@ -56,19 +54,13 @@ class abstract_assembly_category(orm.AbstractModel):
 
     _name = 'abstract.assembly.category'
     _description = "Abstract Assembly Category"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['abstract.ficep.model']
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, select=True, required=True, track_visibility='onchange'),
         'duration': fields.integer('Duration of mandates', track_visibility='onchange'),
         'months_before_end_of_mandate': fields.integer('Months before end of mandate', track_visibility='onchange'),
-        'assembly_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies', domain=[('active', '=', True)]),
-        'active': fields.boolean('Active', readonly=True),
-    }
-
-    _defaults = {
-        'active': True,
     }
 
     _order = "name"
@@ -78,22 +70,17 @@ class abstract_instance(orm.AbstractModel):
 
     _name = 'abstract.instance'
     _description = "Abstract Instance"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['abstract.ficep.model']
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, select=True, required=True, track_visibility='onchange'),
-        'parent_id': fields.many2one('abstract.instance', 'Parent Abstract Instance', select=True, ondelete='cascade', track_visibility='onchange'),
-        'child_ids': fields.one2many('abstract.instance', 'parent_id', string='Child Abstract Instance'),
-        'power_level_id': fields.many2one('abstract.power.level', 'Power Level', required=True, ondelete='cascade', track_visibility='onchange'),
-        'assembly_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies', domain=[('active', '=', True)]),
-        'active': fields.boolean('Active', readonly=True),
+        'parent_id': fields.many2one('abstract.instance', 'Parent Abstract Instance', select=True, track_visibility='onchange'),
+        'power_level_id': fields.many2one('abstract.power.level', 'Power Level', required=True, track_visibility='onchange'),
+        'assembly_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies'),
+        'assembly_inactive_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies', domain=[('active', '=', False)]),
         'parent_left': fields.integer('Left Parent', select=True),
         'parent_right': fields.integer('Right Parent', select=True),
-    }
-
-    _defaults = {
-        'active': True,
     }
 
     _parent_name = "parent_id"
@@ -119,16 +106,17 @@ class abstract_instance(orm.AbstractModel):
             ids = [ids]
 
         res = []
-        for record in self.read(cr, uid, ids, ['name','power_level_id'], context=context):
-            display_name = '%s (%s)' % (record['name'],record['power_level_id'][1])
+        for record in self.read(cr, uid, ids, ['name', 'power_level_id'], context=context):
+            display_name = '%s (%s)' % (record['name'], record['power_level_id'][1])
             res.append((record['id'], display_name))
         return res
+
 
 class abstract_assembly(orm.AbstractModel):
 
     _name = 'abstract.assembly'
     _description = "Abstract Assembly"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['abstract.ficep.model']
     _inherits = {
         'res.partner': 'partner_id',
     }
@@ -136,23 +124,42 @@ class abstract_assembly(orm.AbstractModel):
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'assembly_category_id': fields.many2one('abstract.assembly.category', string='Category',
-                                                 required=True, ondelete='cascade', track_visibility='onchange'),
+                                                 required=True, track_visibility='onchange'),
         'instance_id': fields.many2one('abstract.instance', string='Instance',
-                                                 required=True, ondelete='cascade', track_visibility='onchange'),
+                                                 required=True, track_visibility='onchange'),
         'partner_id': fields.many2one('res.partner', 'Associated Partner', required=True, ondelete='cascade',
-                                      context={'is_company': True, 'is_assembly': True}, readonly=True),
-
+                                      context={'is_company': True, 'is_assembly': True}),
         'designation_int_power_level_id': fields.many2one('abstract.power.level', string='Designation Power Level',
-                                                 required=True, ondelete='cascade', track_visibility='onchange'),
+                                                 required=True, track_visibility='onchange'),
         'months_before_end_of_mandate': fields.integer('Month before end of mandate', track_visibility='onchange'),
-        'active': fields.boolean('Active', readonly=True),
     }
 
+    def _check_consistent_power_level(self, cr, uid, ids, for_unlink=False, context=None):
+        """
+        ==========================
+        _check_consistent_power_level
+        ==========================
+        Check if power levels of assembly category and instance are consistents.
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        assemblies = self.browse(cr, uid, ids, context=context)
+        for assembly in assemblies:
+            if assembly.assembly_category_id.power_level_id.id != assembly.instance_id.power_level_id.id:
+                return False
+
+        return True
+
     _defaults = {
-        'active': True,
         'is_company': True,
         'is_assembly': True,
         'designation_int_power_level_id': lambda self, cr, uid, ids, context=None: self.pool.get("ir.model.data").get_object_reference(cr, uid, "ficep_structure", "int_power_level_01")[1]
     }
+
+    _constraints = [
+        (_check_consistent_power_level, _('Power level of category and power level of instance are inconsistents'),
+          ['assembly_category_id', 'instance_id'])
+    ]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

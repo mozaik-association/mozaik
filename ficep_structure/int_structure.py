@@ -35,9 +35,8 @@ class int_power_level(orm.Model):
     _description = "Internal Power Level"
 
     _columns = {
-        'assembly_category_ids': fields.one2many('int.assembly.category', 'power_level_id',
-                                                  'Internal Assembly Categories', domain=[('active', '=', True)]),
-        'instance_ids': fields.one2many('int.instance', 'power_level_id', 'Internal Instances', domain=[('active', '=', True)]),
+        'assembly_category_ids': fields.one2many('int.assembly.category', 'power_level_id', 'Internal Assembly Categories'),
+        'assembly_category_inactive_ids': fields.one2many('int.assembly.category', 'power_level_id', 'Internal Assembly Categories', domain=[('active', '=', False)]),
     }
 
 
@@ -49,8 +48,8 @@ class int_assembly_category(orm.Model):
 
     _columns = {
         'is_secretariat': fields.boolean("Secretariat", track_visibility='onchange'),
-        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, ondelete='cascade', track_visibility='onchange'),
-        'assembly_ids': fields.one2many('int.assembly', 'assembly_category_id', 'Internal Assemblies', domain=[('active', '=', True)]),
+        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, track_visibility='onchange'),
+        'assembly_ids': fields.one2many('int.assembly', 'assembly_category_id', 'Internal Assemblies'),
     }
 
 
@@ -61,18 +60,22 @@ class int_instance(orm.Model):
     _description = "Internal Instance"
 
     _columns = {
-        'parent_id': fields.many2one('int.instance', 'Parent Internal Instance', select=True, ondelete='cascade', required=False, track_visibility='onchange'),
-        'child_ids': fields.one2many('int.instance', 'parent_id', string='Child Internal Instances', required=False),
-        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, ondelete='cascade', track_visibility='onchange'),
-        'assembly_ids': fields.one2many('int.assembly', 'instance_id', 'Internal Assemblies', domain=[('active', '=', True)]),
-        'ext_assembly_ids': fields.one2many('ext.assembly', 'instance_id', 'External Assemblies', domain=[('active', '=', True)]),
-        'sta_instance_ids': fields.one2many('sta.instance', 'id', 'State Instances', domain=[('active', '=', True)]),
-        'electoral_district_ids': fields.one2many('electoral.district', 'int_instance_id', 'Electoral Districts', domain=[('active', '=', True)]),
+        'parent_id': fields.many2one('int.instance', 'Parent Internal Instance', select=True, required=False, track_visibility='onchange'),
+        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, track_visibility='onchange'),
+        'assembly_ids': fields.one2many('int.assembly', 'instance_id', 'Internal Assemblies'),
+        'assembly_inactive_ids': fields.one2many('int.assembly', 'instance_id', 'Internal Assemblies', domain=[('active', '=', False)]),
+        'electoral_district_ids': fields.one2many('electoral.district', 'int_instance_id', 'Electoral Districts'),
+        'electoral_district_inactive_ids': fields.one2many('electoral.district', 'int_instance_id', 'Electoral Districts', domain=[('active', '=', False)]),
         'multi_instance_n2m_ids': fields.many2many('int.instance',
                                         'int_instance_int_instance_rel',
                                         'id',
                                         'multi_instance_n2m_ids',
                                         'Multi-Instance'),
+        'multi_instance_n2m_inactive_ids': fields.many2many('int.instance',
+                                        'int_instance_int_instance_inactive_rel',
+                                        'id',
+                                        'multi_instance_n2m_inactive_ids',
+                                        'Multi-Instance', domain=[('active', '=', False)]),
     }
 
     _order = "name"
@@ -90,7 +93,7 @@ class int_assembly(orm.Model):
         for ass in assemblies:
             fullname = "%s (%s) " % (ass.instance_id.name, ass.assembly_category_id.name)
             res[ass.id] = fullname
-            self.pool['res.partner'].write(cursor, uid, ass.partner_id.id,{'name': fullname}, context=context)
+            self.pool['res.partner'].write(cursor, uid, ass.partner_id.id, {'name': fullname}, context=context)
         return res
 
     _name_store_triggers = {
@@ -100,19 +103,19 @@ class int_assembly(orm.Model):
                          ['name', ], 10),
         'int.assembly.category': (lambda self, cr, uid, ids, context=None: self.pool['int.assembly'].search(cr, uid, [('assembly_category_id', 'in', ids)], context=context),
                                   ['name', ], 10),
-    } 
+    }
 
     _columns = {
         # dummy: define a dummy function to update the partner name associated to the assembly
         'dummy': fields.function(_compute_dummy, string="Dummy",
                                  type="char", store=_name_store_triggers,
-                                 select=True, readonly=True),
+                                 select=True),
         'assembly_category_id': fields.many2one('int.assembly.category', 'Internal Assembly Category',
-                                                 required=True, ondelete='cascade', track_visibility='onchange'),
+                                                 required=True, track_visibility='onchange'),
         'instance_id': fields.many2one('int.instance', 'Internal Instance',
-                                                 required=True, ondelete='cascade', track_visibility='onchange'),
+                                                 required=True, track_visibility='onchange'),
         'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
-                                                 required=True, ondelete='cascade', readonly=False, track_visibility='onchange'),
+                                                 required=True, track_visibility='onchange'),
     }
 
     def create(self, cr, uid, vals, context=None):
@@ -127,7 +130,7 @@ class int_assembly(orm.Model):
             category = ''
             if vals.get('assembly_category_id'):
                 category = self.pool['int.assembly.category'].read(cr, uid, vals.get('assembly_category_id'), ['name'], context=context)
-            vals['name'] = '%s (%s)' % (instance['name'], category['name']) 
+            vals['name'] = '%s (%s)' % (instance['name'], category['name'])
         res = super(int_assembly, self).create(cr, uid, vals, context=context)
         return res
 

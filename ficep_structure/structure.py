@@ -33,30 +33,25 @@ class electoral_district(orm.Model):
 
     _name = 'electoral.district'
     _description = "Electoral District"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['abstract.ficep.model']
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Name', size=128, translate=True, select=True),
+        'name': fields.char('Name', size=128, translate=True, select=True, track_visibility='onchange'),
         'sta_instance_id': fields.many2one('sta.instance', 'State Instance',
-                                                 required=True, ondelete='cascade'),
-        'int_instance_id': fields.related('sta_instance_id', 'int_instance_id', string='Internal Instance', readonly=True,
+                                                 required=True, track_visibility='onchange'),
+        'int_instance_id': fields.related('sta_instance_id', 'int_instance_id', string='Internal Instance',
                                           type='many2one', relation="int.instance",
                                           store={
                                              'electoral.district': (lambda self, cr, uid, ids, context=None: ids, ['sta_instance_id'], 10),
                                              'sta.instance': (sta_instance.get_linked_electoral_districts, ['int_instance_id'], 20),
-                                          },
+                                          }, track_visibility='onchange',
                                          ),
         'assembly_id': fields.many2one('sta.assembly', 'Assembly',
-                                                 required=True, ondelete='cascade'),
-        'power_level_id': fields.related('sta_instance_id', 'power_level_id', string='Power Level', readonly=True,
-                                          type='many2one', relation="sta.power.level"
+                                                 required=True, track_visibility='onchange'),
+        'power_level_id': fields.related('sta_instance_id', 'power_level_id', string='Power Level',
+                                          type='many2one', relation="sta.power.level", track_visibility='onchange'
                                         ),
-        'active': fields.boolean('Active', readonly=True),
         }
-
-    _defaults = {
-        'active': True,
-    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
