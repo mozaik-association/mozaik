@@ -182,7 +182,7 @@
         <!-- Menu -->
 
         <menuitem id="thesaurus_submenu" name="Thesaurus"
-                  sequence="55" parent="ficep_base.persons_configuration_menu" />
+                  sequence="55" parent="ficep_base.persons_configuration_submenu" />
 
         <menuitem id="thesaurus_term_menu" action="thesaurus_term_action"
                   sequence="10" parent="thesaurus_submenu" />

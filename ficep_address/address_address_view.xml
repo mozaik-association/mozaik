@@ -10,6 +10,12 @@
             <field name="arch" type="xml">
                 <search string="Address" version="7.0">
                     <field name="name" />
+                    <field name="address_local_zip_id" />
+                    <field name="country_id" />
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter string="Zip" context="{'group_by': 'address_local_zip_id'}"/>
+                        <filter string="Country" context="{'group_by': 'country_id'}"/>
+                    </group>
                 </search>
             </field>
         </record>
@@ -20,6 +26,8 @@
             <field name="arch" type="xml">
                 <tree string="Addresses" version="7.0">
                     <field name="name" />
+                    <field name="address_local_zip_id" />
+                    <field name="country_id" />
                 </tree>
             </field>
         </record>
@@ -111,7 +119,7 @@
         </record>
 
         <record id="address_address_action" model="ir.actions.act_window">
-            <field name="name">Address</field>
+            <field name="name">Addresses</field>
             <field name="res_model">address.address</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -210,7 +218,7 @@
         </record>
 
         <record id="co_residency_action" model="ir.actions.act_window">
-            <field name="name">Co-Residency</field>
+            <field name="name">Co-Residencies</field>
             <field name="res_model">co.residency</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -266,7 +274,6 @@
                 <xpath expr="//div[@class='oe_title']" position="inside">
                     <label for="address_id" class="oe_edit_only"/>
                     <h1><field name="address_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
-                    <field name="co_residency_id" />
                 </xpath>
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="co_residency_id" />
@@ -286,17 +293,17 @@
 
         <!-- Menu -->
 
-        <menuitem name="Postal Coordinates" id="postal_coordinate_menu"
+        <menuitem id="postal_coordinate_submenu" name="Postal Coordinates"
                   sequence="40" parent="ficep_base.persons_root_menu" />
 
-        <menuitem id="postal_coordinate_submenu"
-                  sequence="10" parent="postal_coordinate_menu" action="postal_coordinate_action" />
+        <menuitem id="postal_coordinate_menu" action="postal_coordinate_action"
+                  sequence="10" parent="postal_coordinate_submenu" />
 
-        <menuitem id="address_address_submenu"
-                  sequence="20" parent="postal_coordinate_menu" action="address_address_action" />
+        <menuitem id="address_address_menu" action="address_address_action"
+                  sequence="20" parent="postal_coordinate_submenu" />
 
-        <menuitem id="co_residency_submenu"
-                  sequence="25" parent="postal_coordinate_menu" action="co_residency_action" />
+        <menuitem id="co_residency_menu" action="co_residency_action"
+                  sequence="25" parent="postal_coordinate_submenu" />
 
         <!-- Other Inheritance: Address -->
 

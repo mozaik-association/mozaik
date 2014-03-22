@@ -2,6 +2,31 @@
 <openerp>
     <data noupdate="0">
 
+        <record id="address_local_zip_search_view" model="ir.ui.view">
+            <field name="name">address.local.zip.search</field>
+            <field name="model">address.local.zip</field>
+            <field name="arch" type="xml">
+                <search string="Local zip" version="7.0">
+                    <field name="local_zip" />
+                    <field name="town" />
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter string="Zip" context="{'group_by': 'local_zip'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="address_local_zip_tree_view" model="ir.ui.view">
+            <field name="name">address.local.zip.tree</field>
+            <field name="model">address.local.zip</field>
+            <field name="arch" type="xml">
+                <tree string="Phones" version="7.0">
+                    <field name="local_zip" />
+                    <field name="town" />
+                </tree>
+            </field>
+        </record>
+
         <record id="address_local_zip_form_view" model="ir.ui.view">
             <field name="name">address.local.zip.form</field>
             <field name="model">address.local.zip</field>
@@ -34,14 +59,15 @@
         </record>
 
         <record id="address_local_zip_action" model="ir.actions.act_window">
-            <field name="name">Address Local Zip</field>
+            <field name="name">Local Zip Codes</field>
             <field name="res_model">address.local.zip</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="address_local_zip_search_view" />
         </record>
 
-        <menuitem id="address_local_zip_submenu"
-                  sequence="10" parent="ficep_base.persons_configuration_menu" action="address_local_zip_action" />
+        <menuitem id="address_local_zip_menu" action="address_local_zip_action"
+                  sequence="20" parent="ficep_base.localization_submenu" />
 
     </data>
 </openerp>

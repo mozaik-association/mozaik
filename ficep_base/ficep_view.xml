@@ -7,25 +7,28 @@
         <menuitem id="persons_root_menu" name="Persons"
                   sequence="11" groups="res_groups_base" />
 
-        <menuitem id="persons_configuration_menu" name="Configuration"
+        <menuitem id="persons_configuration_submenu" name="Configuration"
                   sequence="99" parent="persons_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
 
-        <menuitem id="persons_titles_menu" name="Titles"
-                  sequence="60" parent="persons_configuration_menu" />
+        <menuitem id="localization_submenu" name="Localization"
+                  sequence="40" parent="persons_configuration_submenu" />
+
+        <menuitem id="persons_titles_submenu" name="Titles"
+                  sequence="60" parent="persons_configuration_submenu" />
 
         <!-- Re-base standard menus -->
 
         <menuitem id="res_partner_category_menu" action="base.action_partner_category_form"
-                  sequence="50" parent="persons_configuration_menu" />
+                  sequence="50" parent="persons_configuration_submenu" />
 
         <menuitem id="res_country_menu" action="base.action_country"
-                  sequence="70" parent="persons_configuration_menu" />
+                  sequence="50" parent="localization_submenu" />
 
         <menuitem id="res_partner_natural_title_menu" action="base.action_partner_title_contact"
-                  sequence="10" parent="persons_titles_menu" />
+                  sequence="10" parent="persons_titles_submenu" />
 
         <menuitem id="res_partner_legal_title_menu" action="base.action_partner_title_partner"
-                  sequence="20" parent="persons_titles_menu" />
+                  sequence="20" parent="persons_titles_submenu" />
 
         <!-- Structures -->
 

@@ -32,23 +32,22 @@ from openerp.tools.translate import _
 class address_local_street(orm.Model):
 
     _name = 'address.local.street'
-    _description = "Address Local Street"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _description = "Local Streets Referential"
 
     def _get_linked_addresses(self, cr, uid, ids, context=None):
         return self.pool.get('address.address').search(cr, uid, [('address_local_street_id', 'in', ids)], context=context)
 
     _columns = {
-        'local_street': fields.char('Street', size=50, required=True, select=True, track_visibility='onchange'),
-        'local_zip_id': fields.many2one('address.local.zip', 'local_zip', 'Local Zip'),
+        'local_street': fields.char(string='Street', required=True, select=True),
+        'local_zip_id': fields.many2one('address.local.zip', string='Zip', required=True, select=True),
     }
 
     _rec_name = 'local_street'
 
     _sql_constraints = [
-        ('check_unicity_street', 'unique(local_street,local_zip_id)', _('This street already exist for this given zip code!'))
+        ('check_unicity_street', 'unique(local_street,local_zip_id)', _('This local street already exist for this zip code!'))
     ]
 
-    _order = "local_street"
+    _order = "local_zip_id,local_street"
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

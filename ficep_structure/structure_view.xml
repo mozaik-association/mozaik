@@ -634,61 +634,61 @@
 
         <!-- Menus -->
 
-        <menuitem id="state_menu" name="State"
+        <menuitem id="state_submenu" name="State"
                   sequence="10" parent="ficep_base.structures_root_menu" />
 
-        <menuitem id="state_instance_submenu" action="sta_instance_action"
-                  sequence="10" parent="state_menu" />
+        <menuitem id="state_instance_menu" action="sta_instance_action"
+                  sequence="10" parent="state_submenu" />
 
-        <menuitem id="state_assembly_submenu" action="sta_assembly_action"
-                  sequence="20" parent="state_menu" />
+        <menuitem id="state_assembly_menu" action="sta_assembly_action"
+                  sequence="20" parent="state_submenu" />
 
-        <menuitem id="electoral_district_submenu" action="electoral_district_action"
-                  sequence="30" parent="state_menu" />
+        <menuitem id="electoral_district_menu" action="electoral_district_action"
+                  sequence="30" parent="state_submenu" />
 
-        <menuitem id="legislatures_submenu" action="legislature_action"
-                  sequence="40" parent="state_menu" />
+        <menuitem id="legislatures_menu" action="legislature_action"
+                  sequence="40" parent="state_submenu" />
 
-        <menuitem id="internal_menu" name="Internal"
+        <menuitem id="internal_submenu" name="Internal"
                   sequence="20" parent="ficep_base.structures_root_menu" />
 
-        <menuitem id="internal_instance_submenu" action="int_instance_action"
-                  sequence="10" parent="internal_menu" />
+        <menuitem id="internal_instance_menu" action="int_instance_action"
+                  sequence="10" parent="internal_submenu" />
 
-        <menuitem id="internal_assembly_submenu" action="int_assembly_action"
-                  sequence="20" parent="internal_menu" />
+        <menuitem id="internal_assembly_menu" action="int_assembly_action"
+                  sequence="20" parent="internal_submenu" />
 
-        <menuitem id="external_menu" name="External"
+        <menuitem id="external_submenu" name="External"
                   sequence="30" parent="ficep_base.structures_root_menu" />
 
-        <menuitem id="external_assembly_submenu" action="ext_assembly_action"
-                  sequence="20" parent="external_menu" />
+        <menuitem id="external_assembly_menu" action="ext_assembly_action"
+                  sequence="20" parent="external_submenu" />
 
-        <menuitem id="configuration_menu" name="Configuration"
+        <menuitem id="configuration_submenu" name="Configuration"
                   sequence="90" parent="ficep_base.structures_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
 
         <menuitem id="state_configuration_submenu" name="State"
-                  sequence="10" parent="configuration_menu"/>
+                  sequence="10" parent="configuration_submenu"/>
 
-        <menuitem id="sta_power_level_submenu" action="sta_power_level_action"
+        <menuitem id="sta_power_level_menu" action="sta_power_level_action"
                   sequence="10" parent="state_configuration_submenu" />
 
-        <menuitem id="sta_assembly_category_submenu" action="sta_assembly_category_action"
+        <menuitem id="sta_assembly_category_menu" action="sta_assembly_category_action"
                   sequence="20" parent="state_configuration_submenu" />
 
         <menuitem id="internal_configuration_submenu" name="Internal"
-                  sequence="20" parent="configuration_menu"/>
+                  sequence="20" parent="configuration_submenu"/>
 
-        <menuitem id="int_power_level_submenu" action="int_power_level_action"
+        <menuitem id="int_power_level_menu" action="int_power_level_action"
                   sequence="10" parent="internal_configuration_submenu" />
 
-        <menuitem id="int_assembly_category_submenu" action="int_assembly_category_action"
+        <menuitem id="int_assembly_category_menu" action="int_assembly_category_action"
                   sequence="20" parent="internal_configuration_submenu" />
 
         <menuitem id="external_configuration_submenu" name="External"
-                  sequence="30" parent="configuration_menu"/>
+                  sequence="30" parent="configuration_submenu"/>
 
-        <menuitem id="ext_assembly_category_submenu" action="ext_assembly_category_action"
+        <menuitem id="ext_assembly_category_menu" action="ext_assembly_category_action"
                   sequence="20" parent="external_configuration_submenu" />
 
     </data>

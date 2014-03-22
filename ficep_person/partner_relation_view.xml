@@ -113,17 +113,16 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <!-- Relations menu are placed after Persons menu: seq:11 -->
-        <menuitem id="relations_menu" name="Relations"
-                  sequence="11" parent="ficep_base.persons_root_menu" />
+        <!-- Relations menu are placed after Coordinates -->
+        <menuitem id="relations_submenu" name="Relations"
+                  sequence="50" parent="ficep_base.persons_root_menu" />
         <menuitem id="subject_relation_menu" action="subject_relation_action"
-                  sequence="10" parent="relations_menu" />
+                  sequence="10" parent="relations_submenu" />
         <menuitem id="object_relation_menu" action="object_relation_action"
-                  sequence="20" parent="relations_menu" />
+                  sequence="20" parent="relations_submenu" />
         <!-- Partner Relation Category -->
-        <menuitem id="relation_category_menu" name="Relation Category"
-                  sequence="20" parent="ficep_base.persons_configuration_menu" 
-                  action="partner_relation_category_action"/>
+        <menuitem id="relation_category_menu" action="partner_relation_category_action"
+                  sequence="20" parent="ficep_base.persons_configuration_submenu" />
 
     </data>
 </openerp>

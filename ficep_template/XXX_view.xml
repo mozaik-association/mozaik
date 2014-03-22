@@ -183,14 +183,14 @@
 
         <!-- Menu -->
 
-        <menuitem id="xxx_menu" name="XXX"
+        <menuitem id="xxx_submenu" name="XXX"
                   sequence="40" parent="ficep_mmm.xxx_root_menu" />
 
-        <menuitem id="xxx_submenu" action="xxx_action"
-                  sequence="10" parent="xxx_menu" />
+        <menuitem id="yyy_menu" action="yyy_action"
+                  sequence="10" parent="xxx_submenu" />
 
-        <menuitem id="yyy_submenu" action="yyy_action"
-                  sequence="20" parent="xxx_menu" />
+        <menuitem id="zzz_menu" action="zzz_action"
+                  sequence="20" parent="xxx_submenu" />
 
     </data>
 </openerp>

@@ -42,8 +42,8 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="coordinate_category_submenu"
-                  sequence="10" parent="ficep_base.persons_configuration_menu" action="coordinate_category_action" />
+        <menuitem id="coordinate_category_menu" action="coordinate_category_action"
+                  sequence="10" parent="ficep_base.persons_configuration_submenu" />
 
     </data>
 </openerp>
