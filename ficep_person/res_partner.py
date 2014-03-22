@@ -67,7 +67,7 @@ class res_partner(orm.Model):
 
     _display_name_store_triggers = {
         'res.partner': (lambda self, cr, uid, ids, context=None: ids,
-                        ['is_company', 'name', 'firstname', 'lastname', 'usual_firstname', 'usual_lastname', ], 10)
+                        ['is_company', 'firstname', 'lastname', 'usual_firstname', 'usual_lastname', ], 10)
     }
 
     _columns = {

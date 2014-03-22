@@ -102,7 +102,7 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Multiple mode
         """
-        result = dict((_id, {}) for _id in ids)
+        result = dict((i, {}) for i in ids)
         coord_obj = self.pool['postal.coordinate']
         coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
                                                     ('is_main', '=', True),
@@ -110,19 +110,21 @@ class res_partner(orm.Model):
         for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
             if coord.active == coord.partner_id.active:
                 result[coord.partner_id.id]['country_id'] = coord.address_id.country_id.id
-                result[coord.partner_id.id]['city'] = coord.address_id.town_man if coord.address_id.town_man else coord.address_id.address_local_zip_town
                 result[coord.partner_id.id]['zip'] = coord.address_id.zip
-                result[coord.partner_id.id]['street'] = coord.address_id.street
+                result[coord.partner_id.id]['city'] = coord.address_id.city
+                result[coord.partner_id.id]['street'] = ' '.join([s for s in ['/'.join([n for n in [coord.address_id.number or coord.address_id.box and '-' or False,
+                                                                                                    coord.address_id.box] if n]),
+                                                                              coord.address_id.street] if s])
                 result[coord.partner_id.id]['street2'] = coord.address_id.street2
                 result[coord.partner_id.id]['address'] = 'VIP' if coord.vip else 'N/A: %s' % coord.address_id.name if coord.unauthorized else coord.address_id.name
         return result
 
     _postal_store_triggers = {
-                               'postal.coordinate': (_get_linked_partners_from_postal_coordinates,
-                                   ['partner_id', 'address_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
-                               'address_address': (_get_linked_partners_from_address,
-                                   ['country_id', 'zip', 'town_man', 'address_local_zip_town', 'street', 'street2'], 10),
-                             }
+        'postal.coordinate': (_get_linked_partners_from_postal_coordinates,
+            ['partner_id', 'address_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
+        'address.address': (_get_linked_partners_from_address,
+            ['country_id', 'address_local_zip_id', 'zip_man', 'town_man', 'address_local_street_id', 'street_man', 'street2', 'number', 'box'], 99),
+     }
 
     _columns = {
         'postal_coordinate_ids': fields.one2many('postal.coordinate', 'partner_id', 'Postal Coordinates', domain=[('active', '=', True)]),

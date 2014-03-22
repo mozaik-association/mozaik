@@ -56,7 +56,7 @@ class address_address(orm.Model):
                     adrs.street,
                     '-',
                     (adrs.country_code == 'BE') and adrs.zip or False,
-                    adrs.address_local_zip_town or adrs.town_man or False, 
+                    adrs.city or False, 
                     (adrs.country_code != 'BE') and '-' or False,
                     (adrs.country_code != 'BE') and adrs.country_id.name or False,
                    ]
@@ -74,10 +74,11 @@ class address_address(orm.Model):
         return result
 
     def _get_zip(self, cr, uid, ids, name, args, context=None):
-        result = {}.fromkeys(ids, False)
+        result = dict((i, {}) for i in ids)
         adrs_recs = self.browse(cr, uid, ids, context=context)
         for adrs in adrs_recs:
-            result[adrs.id] = adrs.address_local_zip_id and adrs.address_local_zip_id.local_zip or adrs.zip_man or False
+            result[adrs.id]['zip'] = adrs.address_local_zip_id and adrs.address_local_zip_id.local_zip or adrs.zip_man or False
+            result[adrs.id]['city'] = adrs.address_local_zip_id and adrs.address_local_zip_id.town or adrs.town_man or False
 
         return result
 
@@ -87,31 +88,28 @@ class address_address(orm.Model):
             'res.country': (_get_linked_addresses_from_country, ['name'], 10),
     }
     _zip_store_triggers = {
-            'address.address': (lambda self, cr, uid, ids, context=None: ids, ['zip_man', 'address_local_zip_id'], 10),
-            'address.local.zip': (_get_linked_addresses_from_local_zip, ['local_zip'], 10),
+            'address.address': (lambda self, cr, uid, ids, context=None: ids, ['address_local_zip_id', 'zip_man', 'town_man'], 10),
+            'address.local.zip': (_get_linked_addresses_from_local_zip, [], 10),
     }
     _street_store_triggers = {
-            'address.address': (lambda self, cr, uid, ids, context=None: ids, ['street_man', 'address_local_street_id'], 10),
+            'address.address': (lambda self, cr, uid, ids, context=None: ids, ['address_local_street_id','street_man'], 10),
             'address.local.street': (_get_linked_addresses_from_local_street, ['local_street'], 10),
     }
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
-        'name': fields.function(_get_integral_address,
-                                string='Address',
-                                type='char',
+        'name': fields.function(_get_integral_address, string='Address', type='char',
                                 store=_address_store_triggers),
         'country_id': fields.many2one('res.country', 'Country', required=True, track_visibility='onchange'),
         'country_code': fields.related('country_id', 'code', string='Country Code', type='char'),
 
-        'zip': fields.function(_get_zip,
-                                string='Zip',
-                                type='char',
+        'zip': fields.function(_get_zip, string='Zip', type='char', multi='ZipAndCity',
                                 store=_zip_store_triggers),
-        'address_local_zip_id': fields.many2one('address.local.zip', string='Referenced Zip', track_visibility='onchange'),
+        'address_local_zip_id': fields.many2one('address.local.zip', string='City', track_visibility='onchange'),
         'zip_man': fields.char(string='Zip', track_visibility='onchange'),
 
-        'address_local_zip_town': fields.related('address_local_zip_id', 'town', string="Referenced Town", type='char'),
+        'city': fields.function(_get_zip, string='City', type='char', multi='ZipAndCity',
+                                store=_zip_store_triggers),
         'town_man': fields.char(string='Town', track_visibility='onchange'),
 
         'street': fields.function(_get_street,
@@ -176,33 +174,34 @@ class address_address(orm.Model):
 
     def onchange_country_id(self, cr, uid, ids, country_id, context=None):
         return {
-                'value': {
-                          'country_code': self.pool.get('res.country').read(cr, uid, \
-                                          [country_id], ['code'], context=context)[0]['code']
-                                          if country_id else False,
-                          'address_local_zip_id': False,
-                          'address_local_zip_town': False,
-                          'address_local_street_id': False,
-                 }
+            'value': {
+                'country_code': self.pool.get('res.country').read(cr, uid, \
+                                [country_id], ['code'], context=context)[0]['code']
+                                if country_id else False,
+                'address_local_zip_id': False,
+             }
         }
 
     def onchange_local_zip_id(self, cr, uid, ids, local_zip_id, context=None):
+        zip, city = False, False
+        if local_zip_id:
+            zip_city = self.pool.get('address.local.zip').read(cr, uid, [local_zip_id], [], context=context)[0]
+            zip, city = zip_city['local_zip'], zip_city['town']
         return {
-                'value': {
-                          'address_local_street_id': False,
-                          'address_local_zip_town': self.pool.get('address.local.zip').read(cr, uid, \
-                                          [local_zip_id], ['town'], context=context)[0]['town']
-                                          if local_zip_id else False,
-                          'town_man': False,
-                          'zip_man': False,
-                 }
+            'value': {
+                'zip': zip,
+                'city': city,
+                'zip_man': False,
+                'town_man': False,
+                'address_local_street_id': False,
+             }
         }
 
     def onchange_local_street_id(self, cr, uid, ids, local_street_id, context=None):
         return {
-                'value': {
-                          'street_man': False,
-                 }
+            'value': {
+                'street_man': False,
+             }
         }
 
 # public methods
