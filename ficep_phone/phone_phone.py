@@ -233,6 +233,8 @@ class phone_coordinate(orm.Model):
                                          ),
     }
 
+    _rec_name = _discriminant_field
+
     _defaults = {
         'coordinate_type': False,
     }

@@ -44,6 +44,9 @@ class res_users(orm.Model):
 
     @tools.ormcache(skiparg=2)
     def context_get(self, cr, uid, context=None):
+        '''
+        Add a flag in the users's context related to each ficep group 
+        '''
         result = super(res_users, self).context_get(cr, uid)
         user = self.browse(cr, SUPERUSER_ID, uid, context)
         _, appl_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'base', 'module_category_political_association')
@@ -53,6 +56,9 @@ class res_users(orm.Model):
         return result
 
     def write(self, cr, uid, ids, vals, context=None):
+        '''
+        Invalidate cache when updating user
+        '''
         res = super(res_users, self).write(cr, uid, ids, vals, context=context)
         super(res_users, self).context_get.clear_cache(self)
         return res

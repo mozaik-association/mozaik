@@ -69,10 +69,11 @@ class abstract_coordinate(orm.AbstractModel):
         'active': fields.boolean('Active', readonly=True),
     }
 
-    _rec_name = _discriminant_field
-
     _defaults = {
         'coordinate_type': COORDINATE_AVAILABLE_TYPES[0][0],
+        'is_main': False,
+        'unauthorized': False,
+        'vip': False,
         'active': True,
     }
 
@@ -153,8 +154,9 @@ class abstract_coordinate(orm.AbstractModel):
             ids = [ids]
 
         res = []
-        for record in self.read(cr, uid, ids, [self._discriminant_field], context=context):
+        for record in self.read(cr, uid, ids, [self._discriminant_field, 'unauthorized'], context=context):
             display_name = self._is_discriminant_m2o() and record[self._discriminant_field][1] or record[self._discriminant_field]
+            display_name = 'N/A: %s' % display_name if record['unauthorized'] else display_name
             res.append((record['id'], display_name))
         return res
 

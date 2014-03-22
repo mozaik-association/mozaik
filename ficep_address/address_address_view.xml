@@ -128,8 +128,8 @@
             <field name="arch" type="xml">
                 <search string="Co-Residency" version="7.0">
                     <field name="name" />
-                    <field name="line"/>
-                    <field name="line2"/>
+                    <field name="line" />
+                    <field name="line2" />
                 </search>
             </field>
         </record>
@@ -231,6 +231,11 @@
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="address_id" />
                     <field name="co_residency_id" />
+                </xpath>
+
+                <xpath expr="//group[@name='group_by']" position="inside">
+                    <filter name="address" string="Address" domain="[]" context="{'group_by':'address_id'}" />
+                    <filter name="co_residency" string="Co Residency" domain="[]" context="{'group_by':'co_residency_id'}" />
                 </xpath>
 
             </field>

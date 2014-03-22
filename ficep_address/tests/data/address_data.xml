@@ -2,68 +2,56 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Create Postal Coordinates -->
-
-        <!-- Address Local Zip -->
-
-        <record id="local_zip_1" model="address.local.zip">
-            <field name="local_zip">5000</field>
-            <field name="town">Namur</field>
-        </record>
-        <record id="local_zip_2" model="address.local.zip">
-            <field name="local_zip">6700</field>
-            <field name="town">Arlon</field>
-        </record>
-        <record id="local_zip_3" model="address.local.zip">
-            <field name="local_zip">20301</field>
-            <field name="town">Washington</field>
-        </record>
-
-        <!-- Address Local Street -->
-
-        <record id="local_street_1" model="address.local.street">
-            <field name="local_street">place Chanoine Descamps</field>
-            <field name="local_zip_id" ref="local_zip_1"/>
-        </record>
-        <record id="local_street_2" model="address.local.street">
-            <field name="local_street">Place Léopold</field>
-            <field name="local_zip_id" ref="local_zip_2"/>
-        </record>
-        <record id="local_street_3" model="address.local.street">
-            <field name="local_street">DC</field>
-            <field name="local_zip_id" ref="local_zip_3"/>
-        </record>
+        <!-- Addresses -->
 
         <record id="address_1" model="address.address">
             <field name="country_id" ref="base.be"/>
+            <field name="address_local_zip_id" ref="local_zip_1"/>
             <field name="address_local_street_id" ref="local_street_1"/>
-            <field name="address_local_zip_id" ref="local_street_1"/>
             <field name="number">5</field>
         </record>
 
         <record id="address_2" model="address.address">
             <field name="country_id" ref="base.be"/>
+            <field name="address_local_zip_id" ref="local_zip_2"/>
             <field name="address_local_street_id" ref="local_street_2"/>
-            <field name="address_local_zip_id" ref="local_street_2"/>
             <field name="number">6</field>
+            <field name="box">2B</field>
         </record>
 
         <record id="address_3" model="address.address">
             <field name="country_id" ref="base.us"/>
-            <field name="address_local_street_id" ref="local_street_3"/>
-            <field name="address_local_zip_id" ref="local_street_3"/>
+            <field name="zip_man">20301</field>
+            <field name="town_man">Washington DC</field>
+            <field name="street_man">White House</field>
         </record>
 
         <!-- Postal Coordinates -->
 
+        <record id="postal_coordinate_1" model="postal.coordinate">
+            <field name="address_id" ref="address_1"/>
+            <field name="partner_id" ref="res_partner_thierry"/>
+            <field name="is_main" eval="True" />
+        </record>
+
         <record id="postal_coordinate_2" model="postal.coordinate">
             <field name="address_id" ref="address_2"/>
-            <field name="partner_id" ref="base.partner_root"/>
+            <field name="partner_id" ref="res_partner_jacques"/>
+            <field name="is_main" eval="True" />
+        </record>
+
+        <record id="postal_coordinate_2_duplicate" model="postal.coordinate">
+            <field name="address_id" ref="address_2"/>
+            <field name="partner_id" ref="res_partner_marc"/>
+            <field name="is_main" eval="True" />
+            <field name="unauthorized" eval="True" />
         </record>
 
         <record id="postal_coordinate_3" model="postal.coordinate">
             <field name="address_id" ref="address_3"/>
-            <field name="partner_id" ref="base.partner_root"/>
+            <field name="partner_id" ref="res_partner_pauline"/>
+            <field name="is_main" eval="True" />
+            <field name="vip" eval="True" />
         </record>
 
         <!-- Co Residency -->

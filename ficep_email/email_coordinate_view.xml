@@ -15,6 +15,10 @@
                     <field name="email" />
                 </xpath>
 
+                <xpath expr="//group[@name='group_by']" position="inside">
+                    <filter name="email" string="Email" domain="[]" context="{'group_by':'email'}" />
+                </xpath>
+
             </field>
         </record>
 
@@ -43,6 +47,7 @@
                     <label for="email" class="oe_edit_only"/>
                     <h1><field name="email" attrs="{'readonly': [('id','!=',False)]}" widget="email" /></h1>
                 </xpath>
+
             </field>
         </record>
 
@@ -53,7 +58,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="email_coordinate_tree_view" />
             <field name="search_view_id" ref="email_coordinate_search_view" />
-            <field name="context">{'email_create_nosubscribe': True, 'form_view_ref': 'ficep_email.email_coordinate_form_view'}</field>
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_email.email_coordinate_form_view'}</field>
         </record>
 
         <!-- Menu -->

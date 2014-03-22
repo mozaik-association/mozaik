@@ -51,6 +51,7 @@ FICEP Sample Customization
          '../ficep_phone/tests/data/phone_data.xml',
          '../ficep_email/tests/data/email_data.xml',
          '../ficep_structure/tests/data/structure_data.xml',
+         '../ficep_address/tests/data/reference_data.xml',
          '../ficep_address/tests/data/address_data.xml',
          'demo/sample_customization_demo.xml',  # must be the last
     ],

@@ -44,6 +44,8 @@ class email_coordinate(orm.Model):
         'email': fields.char('Email', size=100, required=True, select=True),
     }
 
+    _rec_name = _discriminant_field
+
     def _check_email(self, cr, uid, ids, context=None):
         coordinates = self.browse(cr, uid, ids, context=context)
         for coordinate in coordinates:

@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
                 <xpath expr="//tree" position="inside">
-                    <field name="street2" invisible="1"/>
+                    <field name="address" invisible="1"/>
                 </xpath>
             </field>
         </record>
@@ -19,15 +19,10 @@
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
 
-                <xpath expr="//label[@for='street']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="//div[field[@name='street']]" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-                <xpath expr="//div[field[@name='street']]" position="after">
+                <xpath expr="//label[@for='street']" position="replace">
                     <field name="postal_coordinate_id" context="{'form_view_ref': 'ficep_address.postal_coordinate_form_view'}" />
                 </xpath>
+                <xpath expr="//div[field[@name='street']]" position="replace"/>
 
             </field>
         </record>

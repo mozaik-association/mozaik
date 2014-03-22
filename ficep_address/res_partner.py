@@ -63,6 +63,29 @@ class res_partner(orm.Model):
         address_model = self.pool['address.address']
         return address_model.get_linked_partners(cr, uid, ids, context=context)
 
+    def _get_main_postal_coordinate_id(self, cr, uid, ids, name, args, context=None):
+        """
+        ==============================
+        _get_main_postal_coordinate_id
+        ==============================
+        Reset main address field for a given address
+        :param ids: partner ids for which the address number has to be recomputed
+        :type name: char
+        :rparam: dictionary for all partner ids with the requested main address number
+        :rtype: dict {partner_id: main_address}
+        Note:
+        Calling and result convention: Single mode
+        """
+        result = {}.fromkeys(ids, False)
+        coord_obj = self.pool['postal.coordinate']
+        coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
+                                                             ('is_main', '=', True),
+                                                             ('active', '<=', True)], context=context)
+        for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
+            if coord.active == coord.partner_id.active:
+                result[coord.partner_id.id] = coord.id
+        return result
+
     def _get_main_address_componant(self, cr, uid, ids, name, args, context=None):
         """
         ===========================
@@ -90,30 +113,8 @@ class res_partner(orm.Model):
                 result[coord.partner_id.id]['city'] = coord.address_id.town_man if coord.address_id.town_man else coord.address_id.address_local_zip_town
                 result[coord.partner_id.id]['zip'] = coord.address_id.zip
                 result[coord.partner_id.id]['street'] = coord.address_id.street
-                result[coord.partner_id.id]['street2'] = 'VIP' if coord.vip else 'N/A: %s' % coord.address_id.street2 if coord.unauthorized else coord.address_id.street2
-        return result
-
-    def _get_main_postal_coordinate_id(self, cr, uid, ids, name, args, context=None):
-        """
-        ===========================
-        _get_main_postal_coordinate
-        ===========================
-        Reset main address field for a given address
-        :param ids: partner ids for which the address number has to be recomputed
-        :type name: char
-        :rparam: dictionary for all partner ids with the requested main address number
-        :rtype: dict {partner_id: main_address}
-        Note:
-        Calling and result convention: Single mode
-        """
-        result = {}.fromkeys(ids, False)
-        coord_obj = self.pool['postal.coordinate']
-        coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
-                                                             ('is_main', '=', True),
-                                                             ('active', '<=', True)], context=context)
-        for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
-            if coord.active == coord.partner_id.active:
-                result[coord.partner_id.id] = coord.id
+                result[coord.partner_id.id]['street2'] = coord.address_id.street2
+                result[coord.partner_id.id]['address'] = 'VIP' if coord.vip else 'N/A: %s' % coord.address_id.name if coord.unauthorized else coord.address_id.name
         return result
 
     _postal_store_triggers = {
@@ -121,35 +122,39 @@ class res_partner(orm.Model):
                                    ['partner_id', 'address_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
                                'address_address': (_get_linked_partners_from_address,
                                    ['country_id', 'zip', 'town_man', 'address_local_zip_town', 'street', 'street2'], 10),
-                            }
+                             }
 
     _columns = {
         'postal_coordinate_ids': fields.one2many('postal.coordinate', 'partner_id', 'Postal Coordinates', domain=[('active', '=', True)]),
         'postal_coordinate_inactive_ids': fields.one2many('postal.coordinate', 'partner_id', 'Postal Coordinates', domain=[('active', '=', False)]),
 
         'postal_coordinate_id': fields.function(_get_main_postal_coordinate_id, string='Address',
-                                             type='many2one', relation="postal.coordinate"),
+                                                type='many2one', relation="postal.coordinate"),
+        'address': fields.function(_get_main_address_componant, string='Address',
+                                 type='char', select=True,
+                                 multi='all_address_componant_in_one',
+                                 store=_postal_store_triggers),
 
         # Standard fields redefinition
         'country_id': fields.function(_get_main_address_componant, string='Country',
                                  type='many2one', select=True,
                                  multi='all_address_componant_in_one',
-                                 relation="res.country",
+                                 relation='res.country',
                                  store=_postal_store_triggers),
         'city': fields.function(_get_main_address_componant, string='City',
-                                 type='char', select=True,
+                                 type='char',
                                  multi='all_address_componant_in_one',
                                  store=_postal_store_triggers),
-        'zip': fields.function(_get_main_address_componant, string='Zip',
-                                 type='char', select=True,
+        'zip': fields.function(_get_main_address_componant, string='Zip Code',
+                                 type='char',
                                  multi='all_address_componant_in_one',
                                  store=_postal_store_triggers),
         'street': fields.function(_get_main_address_componant, string='Street',
-                                 type='char', select=True,
+                                 type='char',
                                  multi='all_address_componant_in_one',
                                  store=_postal_store_triggers),
         'street2': fields.function(_get_main_address_componant, string='Street2',
-                                 type='char', select=True,
+                                 type='char',
                                  multi='all_address_componant_in_one',
                                  store=_postal_store_triggers),
     }

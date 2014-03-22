@@ -10,9 +10,9 @@
             <field name="inherit_id" ref="ficep_person.res_partner_search_view" />
             <field name="arch" type="xml">
                 <xpath expr="//search" position="inside">
-                    <field string="Email" name="email" filter_domain="[('email','ilike',self)]"/>
-                    <field string="Address" name="street" filter_domain="['|','|','|','|',('country_id','ilike',self),('city','ilike',self),('zip','ilike',self),('street','ilike',self),('street2','ilike',self)]"/>
-                    <field string="Phones" name="phone" filter_domain="['|','|',('phone','ilike',self),('mobile','ilike',self),('fax','ilike',self)]"/>
+                    <field string="Email" name="email" filter_domain="[('email','ilike',self)]" />
+                    <field string="Address" name="street" filter_domain="[('address','ilike',self)] "/>
+                    <field string="Phones" name="phone" filter_domain="['|','|',('phone','ilike',self),('mobile','ilike',self),('fax','ilike',self)]" />
                 </xpath>
             </field>
         </record>
@@ -20,7 +20,7 @@
         <!-- Add calculated fields to moreinfo zone -->
 
         <record id="view_emails_partner_info_form" model="ir.ui.view">
-            <field name="name">res.partner.emails.info.inherit (ficep_email)</field>
+            <field name="name">res.partner.emails.info.inherit (ficep_person_coordinate)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="ficep_person.view_emails_partner_info_form" />
             <field name="arch" type="xml">
@@ -29,10 +29,12 @@
                     <field name="email"/>
 
                     <field name="country_id"/>
+                    <field name="state_id"/>
                     <field name="city" />
                     <field name="zip" />
                     <field name="street" />
                     <field name="street2" />
+                    <field name="address" />
 
                     <field name="phone"/>
                     <field name="mobile" />
@@ -52,7 +54,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//tree" position="attributes">
-                    <attribute name="colors">grey:active==False;red:is_duplicate_detected==True;darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP' or email>='N/A' and email&lt;'N/B' or street2>='N/A' and street2&lt;'N/B'</attribute>
+                    <attribute name="colors">grey:active==False;red:is_duplicate_detected==True;darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP' or email>='N/A' and email&lt;'N/B' or address>='N/A' and address&lt;'N/B'</attribute>
                 </xpath>
 
             </field>
