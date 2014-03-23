@@ -88,9 +88,9 @@ class res_partner(orm.Model):
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_competencies_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
         'interests_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_interests_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
 
-        #relation fields
-        'partner_is_subject_relation_ids': fields.many2many('partner.relation', 'res_partner_subject_relation_rel', id1='partner_id', id2='partner_relation_id', string='Is Subject Of Relation'),
-        'partner_is_object_relation_ids': fields.many2many('partner.relation', 'res_partner_object_relation_rel', id1='partner_id', id2='partner_relation_id', string='Is Object Of Relation'),
+        # relation fields
+        'partner_is_subject_relation_ids': fields.one2many('partner.relation', 'subject_partner_id', string='Is Subject Of Relation'),
+        'partner_is_object_relation_ids': fields.one2many('partner.relation', 'object_partner_id', string='Is Object Of Relation'),
 
         # Standard fields redefinition
         'display_name': fields.function(res_partner.res_partner._display_name_compute, type='char', string='Name', store=_display_name_store_triggers),
