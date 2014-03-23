@@ -66,19 +66,11 @@ class int_instance(orm.Model):
         'assembly_inactive_ids': fields.one2many('int.assembly', 'instance_id', 'Internal Assemblies', domain=[('active', '=', False)]),
         'electoral_district_ids': fields.one2many('electoral.district', 'int_instance_id', 'Electoral Districts'),
         'electoral_district_inactive_ids': fields.one2many('electoral.district', 'int_instance_id', 'Electoral Districts', domain=[('active', '=', False)]),
-        'multi_instance_n2m_ids': fields.many2many('int.instance',
-                                        'int_instance_int_instance_rel',
-                                        'id',
-                                        'multi_instance_n2m_ids',
-                                        'Multi-Instance'),
-        'multi_instance_n2m_inactive_ids': fields.many2many('int.instance',
-                                        'int_instance_int_instance_inactive_rel',
-                                        'id',
-                                        'multi_instance_n2m_inactive_ids',
-                                        'Multi-Instance', domain=[('active', '=', False)]),
+        'multi_instance_pc_m2m_ids': fields.many2many('int.instance', 'int_instance_int_instance_rel', 'id', 'child_id',
+                                                      'Multi-Instance', domain=[('active', '<=', True)]),
+        'multi_instance_cp_m2m_ids': fields.many2many('int.instance', 'int_instance_int_instance_rel', 'child_id', 'id',
+                                                      'Multi-Instance', domain=[('active', '<=', True)]),
     }
-
-    _order = "name"
 
 
 class int_assembly(orm.Model):

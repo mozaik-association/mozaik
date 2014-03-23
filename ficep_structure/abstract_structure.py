@@ -131,7 +131,7 @@ class abstract_assembly(orm.AbstractModel):
                                       context={'is_company': True, 'is_assembly': True}),
         'designation_int_power_level_id': fields.many2one('abstract.power.level', string='Designation Power Level',
                                                  required=True, track_visibility='onchange'),
-        'months_before_end_of_mandate': fields.integer('Month before end of mandate', track_visibility='onchange'),
+        'months_before_end_of_mandate': fields.integer('Months before end of mandate', track_visibility='onchange'),
     }
 
     def _check_consistent_power_level(self, cr, uid, ids, for_unlink=False, context=None):

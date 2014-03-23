@@ -27,29 +27,29 @@
                              groups="ficep_base.ficep_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate assembly: proceed anyway ?" />
-                        </div>                        
+                        </div>
                     </header>
                     <sheet>
                         <div class="oe_title" name="title" attrs="{'invisible': [('id','=',False)]}">
                             <label for="name"/>
-                            <h1><field name="name" string="Name" readonly="1" required="0"/></h1>
+                            <h1><field name="name" string="Name" readonly="1" required="0" /></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
 
                         <group>
-                            <group name="category">
-                                <field name="assembly_category_id" context="{'simplified': 1,
-                                                                             'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}"/>
-                                <field name="designation_int_power_level_id" context="{'simplified': 1,
-                                                                                       'form_view_ref': 'ficep_structure.abstract_power_level_form_view'}"/>
-                            </group>
-                            <group name="instance">
+                            <group name="assembly">
                                 <field name="instance_id" context="{'simplified': 1,
                                                                     'form_view_ref': 'ficep_structure.abstract_instance_form_view'}"/>
+                                <field name="assembly_category_id" context="{'simplified': 1,
+                                                                             'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}"/>
+                                <field name="partner_id" context="{'simplified': 1}" readonly="1" attrs="{'invisible': [('id','=',False)],
+                                                                                                          'required': [('id','!=',False)]}"/>
+                            </group>
+                            <group name="mandate">
+                                <field name="designation_int_power_level_id" context="{'simplified': 1,
+                                                                                       'form_view_ref': 'ficep_structure.abstract_power_level_form_view'}"/>
                                 <field name="months_before_end_of_mandate"/>
-                                <field name="partner_id" context="{'simplified': 1}" attrs="{'invisible': [('id','=',False)],
-                                                                                             'required': [('id','!=',False)]}"/>
                             </group>
                         </group>
                     </sheet>
@@ -59,7 +59,7 @@
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                             <button name="action_validate" string="Validate" type="object"
                                     confirm="Validate level: proceed anyway ?" />
-                            </div> 
+                            </div>
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
@@ -106,7 +106,7 @@
                     <field name="power_level_id"/>
                 </tree>
             </field>
-        </record>        
+        </record>
 
         <record id="abstract_instance_form_view" model="ir.ui.view">
             <field name="name">abstract.instance.form</field>
@@ -119,34 +119,34 @@
                              groups="ficep_base.ficep_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate instance: proceed anyway ?" />
-                        </div>                        
+                        </div>
                     </header>
                     <sheet>
                         <div class="oe_title">
+                            <label for="power_level_id" class="oe_edit_only"/>
+                            <h1><field name="power_level_id"/></h1>
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name"/></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                             <button string="Childs" name="childs"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
-                                context="{'search_default_parent_id': active_id,                                          
+                                context="{'search_default_parent_id': active_id,
                                           'default_parent_id' : active_id }" />
                         </div>
 
                         <group>
-                            <group  name="Parent">
+                            <group name="data_1">
                                 <field name="parent_id" context="{'simplified': 1,
                                                                   'form_view_ref': 'ficep_structure.abstract_instance_form_view'}"/>
                             </group>
-                            <group name="Power Level">
-                                <field name="power_level_id" context="{'simplified': 1,
-                                                                       'form_view_ref': 'ficep_structure.abstract_power_level_form_view'}"/>
+                            <group name="data_2">
                             </group>
                         </group>
                         <notebook>
-                            <page string="Assemblies" name="assemblies" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">	                            
+                            <page string="Assemblies" name="assemblies" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="assembly_ids" attrs="{'invisible': [('active','=',False)]}"
-                                       context="{'default_instance_id': id,
+                                       context="{'default_instance_id': active_id,
                                                  'simplified': 1,
                                                  'form_view_ref': 'ficep_structure.abstract_assembly_form_view'}">
                                     <tree>
@@ -168,7 +168,7 @@
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                             <button name="action_validate" string="Validate" type="object"
                                     confirm="Validate level: proceed anyway ?" />
-                            </div> 
+                            </div>
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
@@ -231,7 +231,7 @@
                              groups="ficep_base.ficep_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate category: proceed anyway ?" />
-                        </div>                         
+                        </div>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -283,7 +283,7 @@
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" />
-                    <field name="name" />                    
+                    <field name="name" />
                 </search>
             </field>
         </record>
@@ -312,7 +312,7 @@
                              groups="ficep_base.ficep_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate level: proceed anyway ?" />
-                        </div>                        
+                        </div>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -328,16 +328,16 @@
                         </group>
                         <notebook>
                             <page string="Assembly Categories" name="assembly_categories" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-	                            <field name="assembly_category_ids" attrs="{'invisible': [('active','=',False)]}" 
-	                                   context="{'default_power_level_id': id,
+                                <field name="assembly_category_ids" attrs="{'invisible': [('active','=',False)]}"
+                                       context="{'default_power_level_id': active_id,
                                                  'simplified': 1,
                                                  'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}">
                                     <tree>
                                         <field name="name"/>
                                     </tree>
                                 </field>
-                                <field name="assembly_category_inactive_ids" readonly = "1" attrs="{'invisible': [('active','=',True)]}" 
-                                       context="{'default_power_level_id': id,                                                 
+                                <field name="assembly_category_inactive_ids" readonly = "1" attrs="{'invisible': [('active','=',True)]}"
+                                       context="{'simplified': 1,
                                                  'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}">
                                     <tree>
                                         <field name="name"/>
@@ -348,11 +348,11 @@
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
-                            <h3>More Info</h3>     
-	                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-	                            <button name="action_validate" string="Validate" type="object"
-	                                    confirm="Validate level: proceed anyway ?" />
-	                        </div> 
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Validate level: proceed anyway ?" />
+                            </div>
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>

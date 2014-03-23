@@ -37,21 +37,28 @@ class electoral_district(orm.Model):
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Name', size=128, translate=True, select=True, track_visibility='onchange'),
-        'sta_instance_id': fields.many2one('sta.instance', 'State Instance',
-                                                 required=True, track_visibility='onchange'),
+        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
+        'sta_instance_id': fields.many2one('sta.instance', 'State Instance', required=True, track_visibility='onchange'),
         'int_instance_id': fields.related('sta_instance_id', 'int_instance_id', string='Internal Instance',
                                           type='many2one', relation="int.instance",
                                           store={
                                              'electoral.district': (lambda self, cr, uid, ids, context=None: ids, ['sta_instance_id'], 10),
                                              'sta.instance': (sta_instance.get_linked_electoral_districts, ['int_instance_id'], 20),
-                                          }, track_visibility='onchange',
+                                          },
                                          ),
-        'assembly_id': fields.many2one('sta.assembly', 'Assembly',
-                                                 required=True, track_visibility='onchange'),
-        'power_level_id': fields.related('sta_instance_id', 'power_level_id', string='Power Level',
-                                          type='many2one', relation="sta.power.level", track_visibility='onchange'
+        'assembly_id': fields.many2one('sta.assembly', 'Assembly', required=True, track_visibility='onchange'),
+        'power_level_id': fields.related('assembly_id', 'assembly_category_id', 'power_level_id', string='Power Level',
+                                         type='many2one', relation='sta.power.level'
                                         ),
         }
 
+# view methods: onchange, button
+
+    def onchange_sta_instance_id(self, cr, uid, ids, sta_instance_id, context=None):
+        return {
+            'value': {
+                'name': sta_instance_id and self.pool.get('sta.instance').name_get(cr, uid, sta_instance_id, context=context)[0][1] or False,
+                'int_instance_id': sta_instance_id and self.pool.get('sta.instance').read(cr, uid, sta_instance_id, ['int_instance_id'], context=context)['int_instance_id'] or False,
+             }
+        }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

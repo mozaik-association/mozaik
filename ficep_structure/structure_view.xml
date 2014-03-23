@@ -24,7 +24,7 @@
                 <xpath expr="//field[@name='name']" position="replace"/>
             </field>
         </record>
-        
+
         <record id="sta_assembly_category_search_view" model="ir.ui.view">
             <field name="name">sta.assembly.category.search.view</field>
             <field name="model">sta.assembly.category</field>
@@ -32,7 +32,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="power_level_id" />
-                </xpath>                
+                </xpath>
             </field>
         </record>
 
@@ -44,7 +44,7 @@
                 <xpath expr="//field[@name='name']" position="replace"/>
             </field>
         </record>
-        
+
         <record id="int_assembly_category_search_view" model="ir.ui.view">
             <field name="name">int.assembly.category.search.view</field>
             <field name="model">int.assembly.category</field>
@@ -52,7 +52,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="power_level_id" />
-                </xpath>                
+                </xpath>
             </field>
         </record>
 
@@ -285,7 +285,7 @@
                                           'default_power_level_id': active_id}" />
                 </xpath>
                 <xpath expr="//field[@name='assembly_category_ids']" position="attributes">
-                    <attribute name="context">{'default_power_level_id': id,'simplified': 1,'form_view_ref': 'ficep_structure.sta_assembly_category_form_view'}</attribute>
+                    <attribute name="context">{'default_power_level_id': active_id,'simplified': 1,'form_view_ref': 'ficep_structure.sta_assembly_category_form_view'}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='assembly_category_ids']" position="before">
                     <button string="All Details"
@@ -304,7 +304,7 @@
             <field name="inherit_id" ref="abstract_assembly_category_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='assemblies']" position="attributes">
-                    <attribute name="name">%(sta_assembly_action)d</attribute>                
+                    <attribute name="name">%(sta_assembly_action)d</attribute>
                 </xpath>
                 <xpath expr="//group[@name='mandate']" position="before">
                     <group name="data">
@@ -323,10 +323,12 @@
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='childs']" position="attributes">
                     <attribute name="name">%(sta_instance_action)d</attribute>
-                </xpath>    
+                </xpath>
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="secondary_parent_id" context="{'simplified': 1,
                                                             'form_view_ref': 'ficep_structure.sta_instance_form_view'}"/>
+                </xpath>
+                <xpath expr="//group[@name='data_2']" position="inside">
                     <field name="int_instance_id" context="{'simplified': 1,
                                                             'form_view_ref': 'ficep_structure.int_instance_form_view'}"/>
                 </xpath>
@@ -338,7 +340,7 @@
                                     context="{'search_default_sta_instance_id': active_id,
                                               'default_sta_instance_id': active_id,
                                               'search_default_all': True}"/>
-                        <field name="electoral_district_ids" context="{'default_sta_instance_id': id,
+                        <field name="electoral_district_ids" context="{'default_sta_instance_id': active_id,
                                                                        'simplified': 1,
                                                                        'form_view_ref': 'ficep_structure.electoral_districts_form_view'}">
                             <tree>
@@ -356,7 +358,7 @@
                                                'form_view_ref': 'ficep_structure.sta_power_level_form_view'}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='assembly_ids']" position="attributes">
-                    <attribute name="context">{'default_instance_id': id,
+                    <attribute name="context">{'default_instance_id': active_id,
                                                'simplified': 1,
                                                'form_view_ref': 'ficep_structure.sta_assembly_form_view'}</attribute>
                 </xpath>
@@ -393,7 +395,7 @@
                 <xpath expr="//field[@name='instance_id']" position="attributes">
                     <attribute name="context">{'simplified': 1,
                                                'form_view_ref': 'ficep_structure.sta_instance_form_view'}</attribute>
-                </xpath>                
+                </xpath>
             </field>
         </record>
 
@@ -402,7 +404,7 @@
             <field name="model">legislature</field>
             <field name="arch" type="xml">
                 <form string="Legislature" version="7.0">
-                    <header>                        
+                    <header>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -421,9 +423,9 @@
                                                                        'form_view_ref': 'ficep_structure.sta_power_level_form_view'}"/>
                             </group>
                             <group name="Dates">
-                                <field name="create_date" widget="date"/>
-                                <field name="election_date" widget="date"/>
-                                <field name="deadline_date" widget="date"/>
+                                <field name="create_date" widget="date" string="Start Date"/>
+                                <field name="election_date" />
+                                <field name="deadline_date" />
                                 <field name="expire_date" widget="date"/>
                             </group>
                         </group>
@@ -450,7 +452,7 @@
             <field name="model">electoral.district</field>
             <field name="arch" type="xml">
                 <form string="Electoral District" version="7.0">
-                    <header>                        
+                    <header>
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">
@@ -461,15 +463,16 @@
                         </div>
 
                         <group>
-                            <group  name="instance">
+                            <group name="state">
                                 <field name="sta_instance_id" context="{'simplified': 1,
-                                                                        'form_view_ref': 'ficep_structure.sta_instance_form_view'}"/>
-                                <field name="int_instance_id" context="{'simplified': 1,
-                                                                        'form_view_ref': 'ficep_structure.int_instance_form_view'}"/>
-                            </group>
-                            <group name="assembly">
+                                                                        'form_view_ref': 'ficep_structure.sta_instance_form_view'}"
+                                       default_focus="1" on_change="onchange_sta_instance_id(sta_instance_id)" />
                                 <field name="assembly_id" context="{'simplified': 1,
                                                                     'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"/>
+                            </group>
+                            <group name="internal">
+                                <field name="int_instance_id" readonly="1" context="{'simplified': 1,
+                                                                                     'form_view_ref': 'ficep_structure.int_instance_form_view'}"/>
                             </group>
                         </group>
                     </sheet>
@@ -478,6 +481,7 @@
                             <h3>More Info</h3>
                             <group name="moreinfo">
                                 <field name="id"/>
+                                <field name="power_level_id"/>
                                 <field name="active"/>
                             </group>
                         </div>
@@ -496,8 +500,8 @@
             <field name="inherit_id" ref="abstract_assembly_category_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='assemblies']" position="attributes">
-                    <attribute name="name">%(ext_assembly_action)d</attribute>                
-                </xpath> 
+                    <attribute name="name">%(ext_assembly_action)d</attribute>
+                </xpath>
             </field>
         </record>
 
@@ -506,18 +510,12 @@
             <field name="model">ext.assembly</field>
             <field name="inherit_id" ref="abstract_assembly_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[@name='title']" position="replace">
-                    <div class="oe_title" name="title">
-                        <label for="name"/>
-                        <h1><field name="name" required="1"/></h1>
-                    </div>
+                <xpath expr="//field[@name='instance_id']" position="replace">
+                     <field name="ref_partner_id" context="{'simplified': 1}" domain="[('is_company','=',True),('is_assembly','=',False)]"/>
                 </xpath>
-                <xpath expr="//field[@name='instance_id']" position="attributes">
-                    <attribute name="context">{'simplified': 1,
-                                               'form_view_ref': 'ficep_structure.int_instance_form_view'}</attribute>
-                </xpath>
-                <xpath expr="//field[@name='partner_id']" position="after">
-                     <field name="ref_partner_id" context="{'simplified': 1}"/>
+                <xpath expr="//field[@name='designation_int_power_level_id']" position="before">
+                    <field name="instance_id" context="{'simplified': 1,
+                                                        'form_view_ref': 'ficep_structure.int_instance_form_view'}"/>
                 </xpath>
             </field>
         </record>
@@ -534,7 +532,7 @@
                                           'default_power_level_id': active_id}" />
                 </xpath>
                 <xpath expr="//field[@name='assembly_category_ids']" position="attributes">
-                    <attribute name="context">{'default_power_level_id': id,'simplified': 1,'form_view_ref': 'ficep_structure.int_assembly_category_form_view'}</attribute>
+                    <attribute name="context">{'default_power_level_id': active_id,'simplified': 1,'form_view_ref': 'ficep_structure.int_assembly_category_form_view'}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='assembly_category_ids']" position="before">
                     <button string="All Details"
@@ -551,9 +549,9 @@
             <field name="name">int.assembly.category.form</field>
             <field name="model">int.assembly.category</field>
             <field name="inherit_id" ref="abstract_assembly_category_form_view"/>
-            <field name="arch" type="xml">  
+            <field name="arch" type="xml">
                  <xpath expr="//button[@name='assemblies']" position="attributes">
-                    <attribute name="name">%(int_assembly_action)d</attribute>                
+                    <attribute name="name">%(int_assembly_action)d</attribute>
                 </xpath>
                 <xpath expr="//group[@name='mandate']" position="before">
                     <group name="Info">
@@ -568,7 +566,7 @@
             <field name="model">int.instance</field>
             <field name="inherit_id" ref="abstract_instance_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='childs']" position="after">                    
+                <xpath expr="//button[@name='childs']" position="after">
                     <button string="State Instances" name="%(sta_instance_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_int_instance_id': active_id,
@@ -590,7 +588,7 @@
                                                'form_view_ref': 'ficep_structure.int_power_level_form_view'}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='assembly_ids']" position="attributes">
-                    <attribute name="context">{'default_instance_id': id,
+                    <attribute name="context">{'default_instance_id': active_id,
                                                'simplified': 1,
                                                'form_view_ref': 'ficep_structure.int_assembly_form_view'}</attribute>
                 </xpath>
@@ -602,29 +600,31 @@
                                               'default_instance_id': active_id,
                                               'search_default_all': True}"/>
                 </xpath>
-                
+
                 <xpath expr="//page[@name='assemblies']" position="after">
-                    <page string="Instances" name="instances" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                        <button string="All Details"
-                                    name="%(int_instance_action)d"
-                                    type="action"
-                                    context="{'search_default_parent_id': active_id,
-                                              'default_parent_id': active_id,
-                                              'search_default_all': True}"/>
-                        <field name="multi_instance_n2m_ids" widget="many2many" attrs="{'invisible': [('active','=',False)]}"
-                               context="{'default_instance_id': id,
+                    <page string="Multi Instances" name="multi_instances" attrs="{'invisible': [('id','=',False)]}">
+                        <separator string="Child Instances"/>
+                        <field name="multi_instance_pc_m2m_ids" widget="many2many"
+                               context="{'default_parent_id': parent_id,
+                                         'default_power_level_id': power_level_id,
                                          'simplified': 1,
                                          'form_view_ref': 'ficep_structure.int_instance_form_view'}">
                             <tree>
                                 <field name="name"/>
+                                <field name="power_level_id"/>
+                                <field name="active"/>
                             </tree>
                         </field>
-                        <field name="multi_instance_n2m_inactive_ids" widget="many2many" readonly = "1" attrs="{'invisible': [('active','=',True)]}"
-                                context="{'default_instance_id': id,
-                                          'simplified': 1,
-                                          'form_view_ref': 'ficep_structure.int_instance_form_view'}">
+                        <separator string="Parent Instances"/>
+                        <field name="multi_instance_cp_m2m_ids" widget="many2many"
+                               context="{'default_parent_id': parent_id,
+                                         'default_power_level_id': power_level_id,
+                                         'simplified': 1,
+                                         'form_view_ref': 'ficep_structure.int_instance_form_view'}">
                             <tree>
                                 <field name="name"/>
+                                <field name="power_level_id"/>
+                                <field name="active"/>
                             </tree>
                         </field>
                     </page>

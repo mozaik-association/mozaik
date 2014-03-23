@@ -98,9 +98,9 @@ class legislature(orm.Model):
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Name', size=128, translate=True, select=True),
-        'deadline_date': fields.date('Deadline Date', track_visibility='onchange'),
-        'election_date': fields.date('Election Date', track_visibility='onchange'),
+        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
+        'deadline_date': fields.date('Deadline Date', required=True, track_visibility='onchange'),
+        'election_date': fields.date('Election Date', required=True, track_visibility='onchange'),
         'power_level_id': fields.many2one('sta.power.level', 'Power Level', required=True, track_visibility='onchange'),
     }
 
