@@ -79,7 +79,7 @@ class sta_instance(orm.Model):
         return list(set(res_ids))
 
     _columns = {
-        'parent_id': fields.many2one('sta.instance', 'Parent State Instance', select=True, track_visibility='onchange'),
+        'parent_id': fields.many2one('sta.instance', 'Parent State Instance', ondelete='restrict', select=True, track_visibility='onchange'),
         'secondary_parent_id': fields.many2one('sta.instance', 'Secondary Parent State Instance', select=True, track_visibility='onchange'),
         'power_level_id': fields.many2one('sta.power.level', 'State Power Level', required=True, track_visibility='onchange'),
         'assembly_ids': fields.one2many('sta.assembly', 'instance_id', 'State Assemblies'),

@@ -60,7 +60,7 @@ class int_instance(orm.Model):
     _description = "Internal Instance"
 
     _columns = {
-        'parent_id': fields.many2one('int.instance', 'Parent Internal Instance', select=True, required=False, track_visibility='onchange'),
+        'parent_id': fields.many2one('int.instance', 'Parent Internal Instance', ondelete='restrict', select=True, track_visibility='onchange'),
         'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, track_visibility='onchange'),
         'assembly_ids': fields.one2many('int.assembly', 'instance_id', 'Internal Assemblies'),
         'assembly_inactive_ids': fields.one2many('int.assembly', 'instance_id', 'Internal Assemblies', domain=[('active', '=', False)]),

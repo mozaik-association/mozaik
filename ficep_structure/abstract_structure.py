@@ -87,6 +87,7 @@ class abstract_instance(orm.AbstractModel):
     _parent_store = True
     _parent_order = 'name'
     _order = 'parent_left'
+
 # orm methods
 
     def name_get(self, cr, uid, ids, context=None):
