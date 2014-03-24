@@ -31,25 +31,6 @@ from openerp.tools.translate import _
 INVALIDATE_ERROR = _('Invalidation impossible, at least one dependency is still active')
 
 
-def _check_active_objects(objects):
-    """
-        ==========================
-        _check_active_objects
-        ==========================
-        Check if at least one object is active in given list
-        :rparam: True if it is the case
-                 False otherwise
-        :rtype: boolean
-        """
-    for obj in objects:
-        if obj.active:
-            return True
-        else:
-            continue
-
-    return False
-
-
 class abstract_ficep_model (orm.AbstractModel):
     _name = "abstract.ficep.model"
     _description = "Abstract Ficep Model"
@@ -65,13 +46,14 @@ class abstract_ficep_model (orm.AbstractModel):
                  False otherwise
         :rtype: boolean
         """
-        ficep_models = self.browse(cr, uid, ids)
+        invalidate_ids = list(ids)
+        ficep_models = self.browse(cr, uid, invalidate_ids)
         for ficep_model in ficep_models:
             if not ficep_model.expire_date:
-                ids.remove(ficep_model.id)
+                invalidate_ids.remove(ficep_model.id)
 
-        if ids:
-            rels_dict = self.pool.get('ir.model')._get_active_relations(cr, uid, ids, self._name, context=context)
+        if invalidate_ids:
+            rels_dict = self.pool.get('ir.model')._get_active_relations(cr, uid, invalidate_ids, self._name, context=context)
 
             if len(rels_dict) > 0:
                 return False
