@@ -273,6 +273,7 @@
                             <h3>More Info</h3>
                             <group name="moreinfo">
                                 <field name="display_name" />
+                                <field name="printable_name" />
                                 <field name="is_assembly" />
                                 <field name="tz" />
                                 <field name="user_ids" attrs="{'invisible': [('user_ids','=',[])]}" />

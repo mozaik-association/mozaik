@@ -65,7 +65,47 @@ class res_partner(orm.Model):
     _trigger_fileds = ['name', 'lastname', 'firstname']
     _undo_redirect_action = 'ficep_person.all_res_partner_action'
 
-    _display_name_store_triggers = {
+# private methods
+
+    def _build_name(self, partner, reverse_mode=False):
+        if partner.is_company:
+            name = partner.name or partner.lastname
+        else:
+            names = [
+                     partner.usual_lastname or partner.lastname,
+                     partner.usual_firstname or partner.firstname or False
+                    ]
+            if reverse_mode:
+                names = list(reversed(names))
+            name = " ".join([n for n in names if n])
+        return name
+
+    def _get_partner_names(self, cr, uid, ids, name, args, context=None):
+        """
+        ==================
+        _get_partner_names
+        ==================
+        Recompute name fields of partners
+        :param ids: partner ids
+        :type ids: list
+        :rparam: dictionary for all partner ids with requested computed fields
+        :rtype: dict {partner_id:{'name': ...,
+                                  'printable_name': ...,
+                                 }}
+        Note:
+        Calling and result convention: Multiple mode
+        """
+        result = {}.fromkeys(ids, False)
+        for partner in self.browse(cr, uid, ids, context=context):
+            result[partner.id] = {
+                'name': self._build_name(partner, reverse_mode=False),
+                'printable_name': self._build_name(partner, reverse_mode=True),
+            }
+        return result
+
+# data model
+
+    _display_name_store_trigger = {
         'res.partner': (lambda self, cr, uid, ids, context=None: ids,
                         ['is_company', 'firstname', 'lastname', 'usual_firstname', 'usual_lastname', ], 10)
     }
@@ -84,6 +124,8 @@ class res_partner(orm.Model):
                                   help="ID of the user in the LDAP"),
         'usual_firstname': fields.char("Usual Firstname", track_visibility='onchange'),
         'usual_lastname': fields.char("Usual Lastname", track_visibility='onchange'),
+        'printable_name': fields.function(_get_partner_names, type='char', string='Printable Name', multi="AllNames",
+                                          store=_display_name_store_trigger),
 
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_competencies_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
         'interests_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_interests_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
@@ -93,7 +135,8 @@ class res_partner(orm.Model):
         'partner_is_object_relation_ids': fields.one2many('partner.relation', 'object_partner_id', string='Is Object Of Relation'),
 
         # Standard fields redefinition
-        'display_name': fields.function(res_partner.res_partner._display_name_compute, type='char', string='Name', store=_display_name_store_triggers),
+        'display_name': fields.function(_get_partner_names, type='char', string='Name', multi="AllNames",
+                                        store=_display_name_store_trigger),
         'website': fields.char('Main Website', size=128, track_visibility='onchange',
                                help="Main Website of Partner or Company"),
         'comment': fields.text('Notes', track_visibility='onchange'),
@@ -133,14 +176,7 @@ class res_partner(orm.Model):
                 ids = [ids]
             res = []
             for record in self.browse(cr, uid, ids, context=context):
-                if record.is_company:
-                    name = record.name or record.lastname
-                else:
-                    names = (
-                             record.usual_lastname or record.lastname,
-                             record.usual_firstname or record.firstname or False
-                            )
-                    name = " ".join([s for s in names if s])
+                name = self._build_name(record)
                 if context.get('show_email') and record.email:
                     name = "%s <%s>" % (name, record.email)
                 res.append((record.id, name))

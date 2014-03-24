@@ -84,7 +84,7 @@ class xxxx(orm.Model):
         ('choice1', 'This is the choice 1'),
         ('choice2', 'This is the choice 2'))
 
-# fields
+# data model
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
