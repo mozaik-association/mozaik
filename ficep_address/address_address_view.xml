@@ -63,13 +63,19 @@
                             </group>
                         </group>
                         <group name="streets">
-                            <field name="address_local_street_id"
-                                   domain="[('local_zip_id.id','=',address_local_zip_id)]"
+                            <group>
+                                <field name="address_local_street_id"
+                                   domain="[('local_zip','=',zip)]"
                                    attrs="{'invisible': [('country_code','!=', 'BE')]}"/>
-                            <field name="street_man"
+                                <field name="select_alternative_address_local_street" 
+                                       attrs="{'invisible': [('address_local_street_id','=', False)]}"/>
+                            </group>
+                            <group>
+                                <field name="street_man"
                                    attrs="{'invisible': [('address_local_street_id','!=', False)]}"/>
 
-                            <field name="street2" />
+                                <field name="street2" />
+                            </group>
                         </group>
                         <group name="numbers">
                             <group>
@@ -78,6 +84,9 @@
                             <group>
                                 <field name="box"/>
                             </group>
+                            <group>
+                                <field name="sequence" />
+                            </group>q
                         </group>
                         <notebook>
                             <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">

@@ -39,15 +39,36 @@ class address_local_street(orm.Model):
 
     _columns = {
         'local_street': fields.char(string='Street', required=True, select=True),
-        'local_zip_id': fields.many2one('address.local.zip', string='Zip', required=True, select=True),
+        'local_street_alternative': fields.char(string='Street Alternative', select=True),
+        'local_zip': fields.char(string='Zip', required=True, select=True),
     }
 
     _rec_name = 'local_street'
 
     _sql_constraints = [
-        ('check_unicity_street', 'unique(local_street,local_zip_id)', _('This local street already exist for this zip code!'))
+        ('check_unicity_street', 'unique(local_street,local_zip)', _('This local street already exist for this zip code!'))
     ]
 
-    _order = "local_zip_id,local_street"
+    _order = "local_zip,local_street"
+
+#orm methods
+
+    def name_get(self, cr, uid, ids, context=None):
+        """
+        If an ``local_street_alternative`` is defined then name must be show
+        like this "local_street / local_street_alternative"
+        """
+        if not ids:
+            return []
+
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+
+        res = []
+        for record in self.browse(cr, uid, ids, context=context):
+            display_name = record.local_street if not record.local_street_alternative \
+                           else ''.join([record.local_street, ' / ', \
+                                   record.local_street_alternative])
+            res.append((record['id'], display_name))
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

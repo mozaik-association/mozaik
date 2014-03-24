@@ -25,10 +25,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from collections import OrderedDict
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 COUNTRY_CODE = 'BE'
+# Do Not Add Sequence Here
+TRIGGER_FIELDS = OrderedDict([('country_id', 'id'),
+                              ('address_local_zip_id', 'id'),
+                              ('zip_man', False),
+                              ('town_man', False),
+                              ('address_local_street_id', 'id'),
+                              ('street_man', False),
+                              ('zip_man', False),
+                              ('town_man', False),
+                              ('number', False),
+                              ('box', False), ])
 
 
 class address_address(orm.Model):
@@ -49,27 +61,46 @@ class address_address(orm.Model):
         return self.pool.get('address.local.street')._get_linked_addresses(cr, uid, ids, context=context)
 
     def _get_integral_address(self, cr, uid, ids, name, args, context=None):
-        result = {}.fromkeys(ids, False)
+        result = dict((i, {}) for i in ids)
         adrs_recs = self.browse(cr, uid, ids, context=context)
         for adrs in adrs_recs:
-            elts = ['/'.join([n for n in [adrs.number or adrs.box and '-' or False, adrs.box] if n]),
+            complete_number = '%s' % adrs.number if adrs.number else '-'
+            complete_number = '%s/%s' % (complete_number, adrs.box) if \
+                              adrs.box else '%s(%s)' % (complete_number, adrs.sequence)
+            elts = [complete_number,
                     adrs.street,
                     '-',
                     (adrs.country_code == 'BE') and adrs.zip or False,
-                    adrs.city or False, 
+                    adrs.city or False,
                     (adrs.country_code != 'BE') and '-' or False,
                     (adrs.country_code != 'BE') and adrs.country_id.name or False,
                    ]
             adr = ' '.join([el for el in elts if el])
-            result[adrs.id] = adr or False
-
+            result[adrs.id]['name'] = adr or False
+        for adrs in adrs_recs:
+            technical_value = []
+            for field in TRIGGER_FIELDS.keys():
+                to_evaluate = field if not TRIGGER_FIELDS[field] else '%s.%s' % (field, TRIGGER_FIELDS[field])
+                value = eval('adrs.%s' % to_evaluate)
+                if value:
+                    technical_value.append(str(value))
+            # add sequence
+            if adrs.sequence:
+                technical_value.append(str(adrs.sequence))
+            technical_name = '#'.join(technical_value)
+            result[adrs.id]['technical_name'] = technical_name or False
         return result
 
     def _get_street(self, cr, uid, ids, name, args, context=None):
         result = {}.fromkeys(ids, False)
         adrs_recs = self.browse(cr, uid, ids, context=context)
         for adrs in adrs_recs:
-            result[adrs.id] = adrs.address_local_street_id and adrs.address_local_street_id.local_street or adrs.street_man or False
+            result[adrs.id] = adrs.address_local_street_id and adrs.select_alternative_address_local_street and \
+                              adrs.address_local_street_id.local_street_alternative and \
+                              adrs.address_local_street_id.local_street_alternative or \
+                              adrs.address_local_street_id and not adrs.select_alternative_address_local_street and \
+                              adrs.address_local_street_id.local_street or \
+                              adrs.street_man or False
 
         return result
 
@@ -92,14 +123,16 @@ class address_address(orm.Model):
             'address.local.zip': (_get_linked_addresses_from_local_zip, [], 10),
     }
     _street_store_triggers = {
-            'address.address': (lambda self, cr, uid, ids, context=None: ids, ['address_local_street_id','street_man'], 10),
+            'address.address': (lambda self, cr, uid, ids, context=None: ids, ['address_local_street_id', 'street_man', 'select_alternative_address_local_street'], 10),
             'address.local.street': (_get_linked_addresses_from_local_street, ['local_street'], 10),
     }
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.function(_get_integral_address, string='Address', type='char',
-                                store=_address_store_triggers),
+                                store=_address_store_triggers, multi='display_and_technical'),
+        'technical_name': fields.function(_get_integral_address, string='Technical Name', type='char',
+                                store=_address_store_triggers, multi='display_and_technical'),
         'country_id': fields.many2one('res.country', 'Country', required=True, track_visibility='onchange'),
         'country_code': fields.related('country_id', 'code', string='Country Code', type='char'),
 
@@ -119,21 +152,25 @@ class address_address(orm.Model):
         'address_local_street_id': fields.many2one('address.local.street', string='Referenced Street', track_visibility='onchange'),
         'street_man': fields.char(string='Street', track_visibility='onchange'),
 
+        'select_alternative_address_local_street': fields.boolean('Select Alternative Referenced Street Name'),
+
         'street2': fields.char(string='Street2', track_visibility='onchange'),
         'number': fields.char(string='Number', track_visibility='onchange'),
         'box': fields.char(string='Box', track_visibility='onchange'),
 
+        'sequence': fields.integer('Sequence'),
         'postal_coordinate_ids': fields.one2many('postal.coordinate', 'address_id', 'Postal Coordinates'),
     }
 
     _defaults = {
+        'sequence': 0,
         'country_id': lambda self, cr, uid, c:
         self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE, context=c),
         'country_code': COUNTRY_CODE,
     }
 
     _sql_constraints = [
-        ('check_unicity_number', 'unique(name)', _('This Address already exists!'))
+        ('check_unicity_number', 'unique(technical_name)', _('This Address already exists!'))
     ]
 
 # orm methods

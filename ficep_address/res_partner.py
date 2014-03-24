@@ -29,6 +29,7 @@
 from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp.addons.ficep_address.address_address import TRIGGER_FIELDS
 
 
 class res_partner(orm.Model):
@@ -86,6 +87,17 @@ class res_partner(orm.Model):
                 result[coord.partner_id.id] = coord.id
         return result
 
+    def _get_street2(self, cr, uid, ids, name, args, context=None):
+        result = {}.fromkeys(ids, False)
+        coord_obj = self.pool['postal.coordinate']
+        coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
+                                                             ('is_main', '=', True),
+                                                             ('active', '<=', True)], context=context)
+        for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
+            if coord.active == coord.partner_id.active:
+                result[coord.partner_id.id] = coord.address_id.street2
+        return result
+
     def _get_main_address_componant(self, cr, uid, ids, name, args, context=None):
         """
         ===========================
@@ -102,7 +114,7 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Multiple mode
         """
-        result = {}.fromkeys(ids, {key: False for key in ['country_id','zip','city','street','street2','address',]})
+        result = {}.fromkeys(ids, {key: False for key in ['country_id','zip','city','street','address',]})
         coord_obj = self.pool['postal.coordinate']
         coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
                                                     ('is_main', '=', True),
@@ -116,16 +128,20 @@ class res_partner(orm.Model):
                     'street': ' '.join([s for s in ['/'.join([n for n in [coord.address_id.number or coord.address_id.box and '-' or False,
                                                                                                         coord.address_id.box] if n]),
                                                                                   coord.address_id.street] if s]),
-                    'street2': coord.address_id.street2,
                     'address': 'VIP' if coord.vip else 'N/A: %s' % coord.address_id.name if coord.unauthorized else coord.address_id.name,
                 }
         return result
 
+    _street2_store_triggers = {
+        'postal.coordinate': (_get_linked_partners_from_postal_coordinates,
+            ['partner_id', 'address_id', 'is_main', 'active'], 10),
+        'address.address': (_get_linked_partners_from_address, ['street2'], 10),
+     }
+
     _postal_store_triggers = {
         'postal.coordinate': (_get_linked_partners_from_postal_coordinates,
             ['partner_id', 'address_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
-        'address.address': (_get_linked_partners_from_address,
-            ['country_id', 'address_local_zip_id', 'zip_man', 'town_man', 'address_local_street_id', 'street_man', 'street2', 'number', 'box'], 99),
+        'address.address': (_get_linked_partners_from_address, TRIGGER_FIELDS.keys(), 99),
      }
 
     _columns = {
@@ -157,10 +173,9 @@ class res_partner(orm.Model):
                                  type='char',
                                  multi='all_address_componant_in_one',
                                  store=_postal_store_triggers),
-        'street2': fields.function(_get_main_address_componant, string='Street2',
+        'street2': fields.function(_get_street2, string='Street2',
                                  type='char',
-                                 multi='all_address_componant_in_one',
-                                 store=_postal_store_triggers),
+                                 store=_street2_store_triggers),
     }
 
 # orm methods

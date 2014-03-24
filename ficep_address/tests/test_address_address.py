@@ -61,7 +61,7 @@ class test_address_address(SharedSetupTransactionCase):
         }
         adr_id = self.model_address.create(cr, uid, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.name, '7 Rue de Colard Trouillet - 4100 Seraing', 'Create address fails with wrong name')
+        self.assertEqual(adr.name, '7(0) Rue de Colard Trouillet - 4100 Seraing', 'Create address fails with wrong name')
         self.assertEqual(adr.zip, '4100', 'Create address fails with wrong zip')
         self.assertEqual(adr.street, 'Rue de Colard Trouillet', 'Create address fails with wrong street')
 
@@ -85,7 +85,7 @@ class test_address_address(SharedSetupTransactionCase):
         }
         adr_id = self.model_address.create(cr, uid, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.name, 'United Nations - New York - United States', 'Create address fails with wrong name')
+        self.assertEqual(adr.name, '-(0) United Nations - New York - United States', 'Create address fails with wrong name')
         self.assertEqual(adr.zip, '10017', 'Create address fails with wrong zip')
         self.assertEqual(adr.street, 'United Nations', 'Create address fails with wrong street')
 
