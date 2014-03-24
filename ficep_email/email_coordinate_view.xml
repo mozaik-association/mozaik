@@ -16,7 +16,7 @@
                 </xpath>
 
                 <xpath expr="//group[@name='group_by']" position="inside">
-                    <filter name="email" string="Email" domain="[]" context="{'group_by':'email'}" />
+                    <filter name="e_mail" string="Email" domain="[]" context="{'group_by':'email'}" />
                 </xpath>
 
             </field>
@@ -36,6 +36,16 @@
             </field>
         </record>
 
+        <record id="email_coordinate_action" model="ir.actions.act_window">
+            <field name="name">Email Coordinates</field>
+            <field name="res_model">email.coordinate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="email_coordinate_tree_view" />
+            <field name="search_view_id" ref="email_coordinate_search_view" />
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_email.email_coordinate_form_view'}</field>
+        </record>
+
         <record id="email_coordinate_form_view" model="ir.ui.view">
             <field name="name">email.coordinate.form</field>
             <field name="model">email.coordinate</field>
@@ -48,17 +58,14 @@
                     <h1><field name="email" attrs="{'readonly': [('id','!=',False)]}" widget="email" /></h1>
                 </xpath>
 
-            </field>
-        </record>
+                <xpath expr="//button[@name='button_all_duplicates']" position="attributes">
+                    <attribute name="name">%(email_coordinate_action)d</attribute>
+                    <attribute name="context">{'search_default_duplicate': True,
+                                               'search_default_email': email,
+                                               'default_email': email}</attribute>
+                </xpath>
 
-        <record id="email_coordinate_action" model="ir.actions.act_window">
-            <field name="name">Email Coordinates</field>
-            <field name="res_model">email.coordinate</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="email_coordinate_tree_view" />
-            <field name="search_view_id" ref="email_coordinate_search_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_email.email_coordinate_form_view'}</field>
+            </field>
         </record>
 
         <!-- Menu -->

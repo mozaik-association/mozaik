@@ -1,0 +1,17 @@
+@charset "utf-8";
+.openerp .oe_button.oe_red_link {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  color: red;
+}
+.openerp .oe_button.oe_red_link span:hover {
+  text-decoration: underline;
+}

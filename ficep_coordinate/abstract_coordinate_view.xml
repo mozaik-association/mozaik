@@ -107,8 +107,13 @@
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                             </group>
                             <group name="duplicate">
-                                <field name="is_duplicate_detected" />
-                                <field name="is_duplicate_allowed" />
+                                <label for="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
+                                <div attrs="{'invisible': [('is_duplicate_detected','=',False)]}">
+                                    <field name="is_duplicate_detected" class="oe_inline" />
+                                    <button name="button_all_duplicates" type="action" class="oe_red_link" string="⇒ Show all duplicates"/>
+                                </div>
+
+                                <field name="is_duplicate_allowed" attrs="{'invisible': [('is_duplicate_allowed','=',False)]}" />
                             </group>
                         </group>
                     </sheet>

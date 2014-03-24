@@ -67,6 +67,7 @@ FICEP Base
     'qweb': [
     ],
     'css': [
+        'static/src/css/ficep_base.css',
     ],
     'demo': [
     ],

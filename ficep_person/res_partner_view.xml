@@ -91,6 +91,36 @@
             </field>
         </record>
 
+        <record id="natural_res_partner_action" model="ir.actions.act_window">
+            <field name="name">Natural Persons</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_company', '=', False)]</field>
+            <field name="context">{'default_is_company': False, 'mail_create_nosubscribe': True}</field>
+            <field name="search_view_id" ref="res_partner_search_view" />
+        </record>
+
+        <record id="legal_res_partner_action" model="ir.actions.act_window">
+            <field name="name">Legal Persons</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_company', '=', True),('is_assembly', '=', False)]</field>
+            <field name="context">{'default_is_company': True, 'mail_create_nosubscribe': True}</field>
+            <field name="search_view_id" ref="res_partner_search_view" />
+        </record>
+
+        <record id="all_res_partner_action" model="ir.actions.act_window">
+            <field name="name">All Contacts</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'mail_create_nosubscribe': True}</field>
+            <field name="search_view_id" ref="res_partner_search_view" />
+        </record>
+
         <record id="view_partner_form_firstname" model="ir.ui.view">
             <field name="name">res.partner.form.firstname (ficep_person)</field>
             <field name="model">res.partner</field>
@@ -169,9 +199,15 @@
                         <field name="create_date" />
                         <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                     </group>
-                    <group name="duplicate" attrs="{'invisible': [('id','=',False)]}">
-                        <field name="is_duplicate_detected"/>
-                        <field name="is_duplicate_allowed"/>
+                    <group name="duplicate">
+                        <label for="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
+                        <div attrs="{'invisible': [('is_duplicate_detected','=',False)]}">
+                            <field name="is_duplicate_detected" class="oe_inline" />
+                            <button name="%(all_res_partner_action)d" type="action" class="oe_red_link" string="⇒ Show all duplicates"
+                                    context="{'search_default_duplicate': True,'search_default_name': name}"/>
+                        </div>
+
+                        <field name="is_duplicate_allowed" attrs="{'invisible': [('is_duplicate_allowed','=',False)]}" />
                     </group>
                 </xpath>
 
@@ -289,36 +325,6 @@
                 </xpath>
 
             </field>
-        </record>
-
-        <record id="natural_res_partner_action" model="ir.actions.act_window">
-            <field name="name">Natural Persons</field>
-            <field name="res_model">res.partner</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[('is_company', '=', False)]</field>
-            <field name="context">{'default_is_company': False, 'mail_create_nosubscribe': True}</field>
-            <field name="search_view_id" ref="res_partner_search_view" />
-        </record>
-
-        <record id="legal_res_partner_action" model="ir.actions.act_window">
-            <field name="name">Legal Persons</field>
-            <field name="res_model">res.partner</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[('is_company', '=', True),('is_assembly', '=', False)]</field>
-            <field name="context">{'default_is_company': True, 'mail_create_nosubscribe': True}</field>
-            <field name="search_view_id" ref="res_partner_search_view" />
-        </record>
-
-        <record id="all_res_partner_action" model="ir.actions.act_window">
-            <field name="name">All Contacts</field>
-            <field name="res_model">res.partner</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[]</field>
-            <field name="context">{'mail_create_nosubscribe': True}</field>
-            <field name="search_view_id" ref="res_partner_search_view" />
         </record>
 
     </data>

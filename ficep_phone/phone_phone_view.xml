@@ -129,6 +129,16 @@
             </field>
         </record>
 
+        <record id="phone_coordinate_action" model="ir.actions.act_window">
+            <field name="name">Phone Coordinates</field>
+            <field name="res_model">phone.coordinate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="phone_coordinate_tree_view" />
+            <field name="search_view_id" ref="phone_coordinate_search_view" />
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}</field>
+        </record>
+
         <record id="phone_coordinate_form_view" model="ir.ui.view">
             <field name="name">phone.coordinate.form</field>
             <field name="model">phone.coordinate</field>
@@ -140,17 +150,15 @@
                     <label for="phone_id" class="oe_edit_only"/>
                     <h1><field name="phone_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
                 </xpath>
-            </field>
-        </record>
 
-        <record id="phone_coordinate_action" model="ir.actions.act_window">
-            <field name="name">Phone Coordinates</field>
-            <field name="res_model">phone.coordinate</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="phone_coordinate_tree_view" />
-            <field name="search_view_id" ref="phone_coordinate_search_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}</field>
+                <xpath expr="//button[@name='button_all_duplicates']" position="attributes">
+                    <attribute name="name">%(phone_coordinate_action)d</attribute>
+                    <attribute name="context">{'search_default_duplicate': True,
+                                               'search_default_phone_id': phone_id,
+                                               'default_phone_id': phone_id}</attribute>
+                </xpath>
+
+            </field>
         </record>
 
         <!-- Menu -->

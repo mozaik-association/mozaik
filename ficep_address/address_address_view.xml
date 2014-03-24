@@ -262,6 +262,16 @@
             </field>
         </record>
 
+        <record id="postal_coordinate_action" model="ir.actions.act_window">
+            <field name="name">Postal Coordinates</field>
+            <field name="res_model">postal.coordinate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="postal_coordinate_tree_view" />
+            <field name="search_view_id" ref="postal_coordinate_search_view" />
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.postal_coordinate_form_view'}</field>
+        </record>
+
         <record id="postal_coordinate_form_view" model="ir.ui.view">
             <field name="name">postal.coordinate.form</field>
             <field name="model">postal.coordinate</field>
@@ -276,17 +286,15 @@
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="co_residency_id" />
                 </xpath>
-            </field>
-        </record>
 
-        <record id="postal_coordinate_action" model="ir.actions.act_window">
-            <field name="name">Postal Coordinates</field>
-            <field name="res_model">postal.coordinate</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="postal_coordinate_tree_view" />
-            <field name="search_view_id" ref="postal_coordinate_search_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.postal_coordinate_form_view'}</field>
+                <xpath expr="//button[@name='button_all_duplicates']" position="attributes">
+                    <attribute name="name">%(postal_coordinate_action)d</attribute>
+                    <attribute name="context">{'search_default_duplicate': True,
+                                               'search_default_address_id': address_id,
+                                               'default_address_id': address_id}</attribute>
+                </xpath>
+
+            </field>
         </record>
 
         <!-- Menu -->
