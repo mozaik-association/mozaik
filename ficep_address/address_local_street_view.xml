@@ -8,9 +8,9 @@
             <field name="arch" type="xml">
                 <search string="Local Street" version="7.0">
                     <field name="local_street" />
-                    <field name="local_zip_id" />
+                    <field name="local_zip" />
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter string="Zip" context="{'group_by': 'local_zip_id'}"/>
+                        <filter string="Zip" context="{'group_by': 'local_zip'}"/>
                     </group>
                 </search>
             </field>
@@ -21,7 +21,7 @@
             <field name="model">address.local.street</field>
             <field name="arch" type="xml">
                 <tree string="Phones" version="7.0">
-                    <field name="local_zip_id" />
+                    <field name="local_zip" />
                     <field name="local_street" />
                 </tree>
             </field>
@@ -40,7 +40,8 @@
                             <h1><field name="local_street" placeholder="Local Street..." /></h1>
                         </div>
                         <group>
-                            <field name="local_zip_id" />
+                            <field name="local_zip" />
+                            <field name="local_street_alternative" placeholder="Local Street Alternative..." />
                         </group>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">

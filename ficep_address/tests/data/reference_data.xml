@@ -17,12 +17,12 @@
 
         <record id="local_street_1" model="address.local.street">
             <field name="local_street">Place Chanoine Descamps</field>
-            <field name="local_zip_id" ref="local_zip_1"/>
+            <field name="local_zip">5000</field>
         </record>
 
         <record id="local_street_2" model="address.local.street">
             <field name="local_street">Place Léopold</field>
-            <field name="local_zip_id" ref="local_zip_2"/>
+            <field name="local_zip">6700</field>
         </record>
 
     </data>
