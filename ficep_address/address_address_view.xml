@@ -84,6 +84,9 @@
                             <group>
                                 <field name="box"/>
                             </group>
+                            <group>
+                                <field name="sequence" />
+                            </group>q
                         </group>
                         <notebook>
                             <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">

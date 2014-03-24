@@ -30,6 +30,7 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 COUNTRY_CODE = 'BE'
+# Do Not Add Sequence Here
 TRIGGER_FIELDS = OrderedDict([('country_id', 'id'),
                               ('address_local_zip_id', 'id'),
                               ('zip_man', False),
@@ -63,7 +64,10 @@ class address_address(orm.Model):
         result = dict((i, {}) for i in ids)
         adrs_recs = self.browse(cr, uid, ids, context=context)
         for adrs in adrs_recs:
-            elts = ['/'.join([n for n in [adrs.number or adrs.box and '-' or False, adrs.box] if n]),
+            complete_number = '%s' % adrs.number if adrs.number else '-'
+            complete_number = '%s/%s' % (complete_number, adrs.box) if \
+                              adrs.box else '%s(%s)' % (complete_number, adrs.sequence)
+            elts = [complete_number,
                     adrs.street,
                     '-',
                     (adrs.country_code == 'BE') and adrs.zip or False,
@@ -80,6 +84,9 @@ class address_address(orm.Model):
                 value = eval('adrs.%s' % to_evaluate)
                 if value:
                     technical_value.append(str(value))
+            # add sequence
+            if adrs.sequence:
+                technical_value.append(str(adrs.sequence))
             technical_name = '#'.join(technical_value)
             result[adrs.id]['technical_name'] = technical_name or False
         return result
@@ -151,10 +158,12 @@ class address_address(orm.Model):
         'number': fields.char(string='Number', track_visibility='onchange'),
         'box': fields.char(string='Box', track_visibility='onchange'),
 
+        'sequence': fields.integer('Sequence'),
         'postal_coordinate_ids': fields.one2many('postal.coordinate', 'address_id', 'Postal Coordinates'),
     }
 
     _defaults = {
+        'sequence': 0,
         'country_id': lambda self, cr, uid, c:
         self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE, context=c),
         'country_code': COUNTRY_CODE,
