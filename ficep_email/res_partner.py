@@ -94,10 +94,10 @@ class res_partner(orm.Model):
                 result[coord.partner_id.id] = 'VIP' if coord.vip else 'N/A: %s' % coord.email if coord.unauthorized else coord.email
         return result
 
-    _email_store_triggers = {
-                               'email.coordinate': (_get_linked_partners_from_email_coordinates,
-                                   ['partner_id', 'email', 'is_main', 'vip', 'unauthorized', 'active'], 10),
-                            }
+    _email_store_trigger = {
+       'email.coordinate': (_get_linked_partners_from_email_coordinates,
+           ['partner_id', 'email', 'is_main', 'vip', 'unauthorized', 'active'], 10),
+    }
 
     _columns = {
         'email_coordinate_ids': fields.one2many('email.coordinate', 'partner_id', 'Email Coordinates', domain=[('active', '=', True)]),
@@ -108,8 +108,8 @@ class res_partner(orm.Model):
 
         # Standard fields redefinition
         'email': fields.function(_get_main_email, string='Email',
-                                 type='char', relation="email.coordinate", select=True,
-                                 store=_email_store_triggers),
+                                 type='char', select=True,
+                                 store=_email_store_trigger),
     }
 
 # orm methods

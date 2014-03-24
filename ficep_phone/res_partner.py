@@ -120,11 +120,11 @@ class res_partner(orm.Model):
         return result
 
     _phone_store_triggers = {
-                               'phone.coordinate': (_get_linked_partners_from_phone_coordinates,
-                                   ['partner_id', 'phone_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
-                               'phone.phone': (_get_linked_partners_from_phones,
-                                   ['name', 'type'], 10),
-                            }
+       'phone.coordinate': (_get_linked_partners_from_phone_coordinates,
+           ['partner_id', 'phone_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
+       'phone.phone': (_get_linked_partners_from_phones,
+                       ['name', 'type'], 10),
+    }
 
     _columns = {
         'phone_coordinate_ids': fields.one2many('phone.coordinate', 'partner_id', 'Phone Coordinates', domain=[('active', '=', True)]),
@@ -141,14 +141,11 @@ class res_partner(orm.Model):
 
         # Standard fields redefinition
         'phone': fields.function(_get_main_phone_numbers, arg={'type': 'fix'}, string='Phone',
-                                 type='char', relation="phone.coordinate", select=True,
-                                 store=_phone_store_triggers),
+                                 type='char', select=True, store=_phone_store_triggers),
         'mobile': fields.function(_get_main_phone_numbers, arg={'type': 'mobile'}, string='Mobile',
-                                 type='char', relation="phone.coordinate", select=True,
-                                 store=_phone_store_triggers),
+                                 type='char', select=True, store=_phone_store_triggers),
         'fax': fields.function(_get_main_phone_numbers, arg={'type': 'fax'}, string='Fax',
-                                 type='char', relation="phone.coordinate", select=True,
-                                 store=_phone_store_triggers),
+                                 type='char', select=True, store=_phone_store_triggers),
     }
 
 # orm methods

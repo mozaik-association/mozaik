@@ -95,10 +95,10 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Multiple mode
         """
-        result = {}.fromkeys(ids, False)
+        result = {}.fromkeys(ids, {key: False for key in ['display_name','printable_name',]})
         for partner in self.browse(cr, uid, ids, context=context):
             result[partner.id] = {
-                'name': self._build_name(partner, reverse_mode=False),
+                'display_name': self._build_name(partner, reverse_mode=False),
                 'printable_name': self._build_name(partner, reverse_mode=True),
             }
         return result
@@ -107,7 +107,7 @@ class res_partner(orm.Model):
 
     _display_name_store_trigger = {
         'res.partner': (lambda self, cr, uid, ids, context=None: ids,
-                        ['is_company', 'firstname', 'lastname', 'usual_firstname', 'usual_lastname', ], 10)
+                        ['is_company', 'name', 'firstname', 'lastname', 'usual_firstname', 'usual_lastname', ], 10)
     }
 
     _columns = {

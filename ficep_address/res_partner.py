@@ -102,21 +102,23 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Multiple mode
         """
-        result = dict((i, {}) for i in ids)
+        result = {}.fromkeys(ids, {key: False for key in ['country_id','zip','city','street','street2','address',]})
         coord_obj = self.pool['postal.coordinate']
         coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
                                                     ('is_main', '=', True),
                                                     ('active', '<=', True)], context=context)
         for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
             if coord.active == coord.partner_id.active:
-                result[coord.partner_id.id]['country_id'] = coord.address_id.country_id.id
-                result[coord.partner_id.id]['zip'] = coord.address_id.zip
-                result[coord.partner_id.id]['city'] = coord.address_id.city
-                result[coord.partner_id.id]['street'] = ' '.join([s for s in ['/'.join([n for n in [coord.address_id.number or coord.address_id.box and '-' or False,
-                                                                                                    coord.address_id.box] if n]),
-                                                                              coord.address_id.street] if s])
-                result[coord.partner_id.id]['street2'] = coord.address_id.street2
-                result[coord.partner_id.id]['address'] = 'VIP' if coord.vip else 'N/A: %s' % coord.address_id.name if coord.unauthorized else coord.address_id.name
+                result[coord.partner_id.id] = {
+                    'country_id': coord.address_id.country_id.id,
+                    'zip': coord.address_id.zip,
+                    'city': coord.address_id.city,
+                    'street': ' '.join([s for s in ['/'.join([n for n in [coord.address_id.number or coord.address_id.box and '-' or False,
+                                                                                                        coord.address_id.box] if n]),
+                                                                                  coord.address_id.street] if s]),
+                    'street2': coord.address_id.street2,
+                    'address': 'VIP' if coord.vip else 'N/A: %s' % coord.address_id.name if coord.unauthorized else coord.address_id.name,
+                }
         return result
 
     _postal_store_triggers = {
