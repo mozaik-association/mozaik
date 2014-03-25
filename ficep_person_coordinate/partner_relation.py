@@ -34,9 +34,9 @@ class partner_relation(orm.Model):
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'subject_partner_id': fields.many2one('res.partner', string='Subject Relation', track_visibility='onchange'),
-        'object_partner_id': fields.many2one('res.partner', string='Object Relation', track_visibility='onchange'),
-        'partner_relation_category_id': fields.many2one('partner.relation.category', string='Partner Relation Category', track_visibility='onchange'),
+        'subject_partner_id': fields.many2one('res.partner', string='Subject Relation', required=True, select=True, track_visibility='onchange'),
+        'object_partner_id': fields.many2one('res.partner', string='Object Relation', required=True, select=True, track_visibility='onchange'),
+        'partner_relation_category_id': fields.many2one('partner.relation.category', string='Partner Relation Category', required=True, select=True, track_visibility='onchange'),
     }
 
 
@@ -46,8 +46,8 @@ class partner_relation_category(orm.Model):
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'subject_name': fields.char('Subject', track_visibility='onchange'),
-        'object_name': fields.char('Object', track_visibility='onchange'),
+        'subject_name': fields.char('Subject', required=True, select=True, track_visibility='onchange'),
+        'object_name': fields.char('Object', required=True, select=True, track_visibility='onchange'),
     }
 
     _rec_name = "subject_name"

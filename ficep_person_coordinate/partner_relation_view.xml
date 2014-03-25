@@ -34,6 +34,8 @@
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
                             </group>
                         </div>
                     </div>
@@ -66,7 +68,7 @@
         </record>
 
         <record id="partner_relation_subject_tree_view" model="ir.ui.view">
-            <field name="name">partner.relation.tree</field>
+            <field name="name">partner.relation.subject.tree</field>
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
                 <tree string="partner relation" version="7.0">
@@ -78,7 +80,7 @@
         </record>
 
         <record id="partner_relation_object_tree_view" model="ir.ui.view">
-            <field name="name">partner.relation.tree</field>
+            <field name="name">partner.relation.object.tree</field>
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
                 <tree string="partner relation" version="7.0">
@@ -89,8 +91,8 @@
             </field>
         </record>
 
-        <record id="subject_partner_subject_relation_form_view" model="ir.ui.view">
-            <field name="name">partner.relation.form</field>
+        <record id="partner_relation_subject_form_view" model="ir.ui.view">
+            <field name="name">partner.relation.subject.form</field>
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
                 <form string="partner relation" version="7.0">
@@ -119,11 +121,21 @@
                                 </div>
                             </group>
                         </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]} ">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
                             </group>
                         </div>
                     </div>
@@ -136,7 +148,7 @@
         </record>
 
         <record id="partner_relation_object_form_view" model="ir.ui.view">
-            <field name="name">partner.relation.form</field>
+            <field name="name">partner.relation.object.form</field>
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
                 <form string="partner relation" version="7.0">
@@ -165,11 +177,21 @@
                                 </div>
                             </group>
                         </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]} ">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
                             </group>
                         </div>
                     </div>

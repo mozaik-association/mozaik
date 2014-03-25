@@ -179,7 +179,7 @@
                             <field name="usual_firstname" />
                         </group>
                     </group>
-                    <group name="abbrev" attrs="{'invisible': [('is_company', '=', False)]}">
+                    <group name="abbrev" attrs="{'invisible': ['|',('is_company', '=', False),('is_assembly', '=', True)]}">
                         <group name="a1">
                             <field name="acronym" />
                         </group>

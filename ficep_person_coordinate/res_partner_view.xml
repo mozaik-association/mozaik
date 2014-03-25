@@ -71,7 +71,7 @@
                         <separator string="Relation Where Partner Is Subject" />
                         <field name="partner_is_subject_relation_ids" context="{'default_subject_partner_id': active_id,
                                                                  'simplified': 1,
-                                                                 'form_view_ref': 'ficep_person.partner_relation_form_view'}"
+                                                                 'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}"
                            attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                             <tree>
                                 <field name="partner_relation_category_id"/>
@@ -82,11 +82,11 @@
                         <field name="partner_is_object_relation_ids" context="{'default_object_partner_id': active_id,
                                                                  'simplified': 1,
                                                                  'object': True,
-                                                                 'form_view_ref': 'ficep_person.partner_relation_form_view'}"
+                                                                 'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}"
                             attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                             <tree>
-                                <field name="partner_relation_category_id"/>
                                 <field name="subject_partner_id" />
+                                <field name="partner_relation_category_id"/>
                             </tree>
                         </field>
                     </page>
