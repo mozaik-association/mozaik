@@ -36,8 +36,23 @@ class res_partner(orm.Model):
 
     _columns = {
         # relation fields
-        'partner_is_subject_relation_ids': fields.one2many('partner.relation', 'subject_partner_id', string='Is Subject Of Relation'),
-        'partner_is_object_relation_ids': fields.one2many('partner.relation', 'object_partner_id', string='Is Object Of Relation'),
+        'partner_is_subject_relation_ids': fields.one2many('partner.relation', 'subject_partner_id', string='Is Subject Of Relation', domain=[('active', '=', True)]),
+        'partner_is_object_relation_ids': fields.one2many('partner.relation', 'object_partner_id', string='Is Object Of Relation', domain=[('active', '=', True)]),
+
+        'partner_is_subject_relation_inactive_ids': fields.one2many('partner.relation', 'subject_partner_id', string='Is Subject Of Relation', domain=[('active', '=', False)]),
+        'partner_is_object_relation_inactive_ids': fields.one2many('partner.relation', 'object_partner_id', string='Is Object Of Relation', domain=[('active', '=', False)]),
     }
+
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        Do not copy o2m fields.
+        Reset some fields to their initial values.
+        """
+        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        res.update({
+                    'partner_is_subject_relation_ids': [],
+                    'partner_is_object_relation_ids': [],
+                    })
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

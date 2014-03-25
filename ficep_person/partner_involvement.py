@@ -25,9 +25,45 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm, fields
 
-from . import res_partner
-from . import wizard
-from . import partner_involvement
+
+class partner_involvement(orm.Model):
+
+    _name = 'partner.involvement'
+    _inherit = ['abstract.ficep.model']
+
+    _columns = {
+        'partner_id': fields.many2one('res.partner', string='Related Partner', required=True, track_visibility='onchange'),
+        'partner_involvement_category_id': fields.many2one('partner.involvement.category', required=True, string='Involvement Category', track_visibility='onchange'),
+    }
+
+    _rec_name = 'partner_involvement_category_id'
+
+#orm methods
+
+    def name_get(self, cr, uid, ids, context=None):
+        """
+        :rtype: list of tuples [(,)]
+        :rparam: the name of the involvement category for each involvement
+        """
+        if context is None:
+            context = {}
+        res = []
+        for record in self.browse(cr, uid, ids, context=context):
+            if record.partner_involvement_category_id:
+                res.append((record.id, record.partner_involvement_category_id.name))
+        return res
+
+
+class partner_involvement_category(orm.Model):
+
+    _name = 'partner.involvement.category'
+    _inherit = ['abstract.ficep.model']
+
+    _columns = {
+        'name': fields.char('Involvement Category', required=True, track_visibility='onchange'),
+        'partner_involvement_ids': fields.one2many('partner.involvement', 'partner_involvement_category_id', string='Partner Involvements'),
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

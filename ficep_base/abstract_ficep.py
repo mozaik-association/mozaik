@@ -111,6 +111,7 @@ class abstract_ficep_model (orm.AbstractModel):
             return {}
 
     _columns = {
+        'id': fields.integer('ID', readonly=True),
         'create_date': fields.datetime('Creation Date', readonly=True),
         'expire_date': fields.datetime('Expiration Date', track_visibility='onchange'),
         'active': fields.boolean('Active'),

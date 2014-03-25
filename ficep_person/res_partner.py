@@ -136,6 +136,9 @@ class res_partner(orm.Model):
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_competencies_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
         'interests_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_interests_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
 
+        'partner_involvement_ids': fields.one2many('partner.involvement', 'partner_id', string='Partner Involvements', domain=[('active', '=', True)]),
+        'partner_involvement_inactive_ids': fields.one2many('partner.involvement', 'partner_id', string='Partner Involvements', domain=[('active', '=', False)]),
+
         # Standard fields redefinition
         'display_name': fields.function(_get_partner_names, type='char', string='Name', multi="AllNames",
                                         store=_display_name_store_trigger),
