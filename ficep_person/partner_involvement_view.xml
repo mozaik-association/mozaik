@@ -40,6 +40,7 @@
             <field name="model">partner.involvement</field>
             <field name="arch" type="xml">
                 <search string="Partner Involvement">
+                    <field name="partner_involvement_category_id"/>
                     <group expand="0" string="Group By..." name="group_by">
                         <filter string="Partners" context="{'group_by': 'partner_id'}"/>
                         <filter string="Category" context="{'group_by': 'partner_involvement_category_id'}"/>
