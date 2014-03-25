@@ -14,11 +14,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name"/></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons">
-                            <button string="Involvements"
-                                    name="%(partner_involvement_action)d"
-                                    type="action"
-                                    context="{'search_default_partner_involvement_category_id': active_id, 'default_partner_involvement_category_id': active_id}"/>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
 
                     </sheet>
@@ -68,7 +64,14 @@
             <field name="model">partner.involvement</field>
             <field name="arch" type="xml">
                 <form string="partner involvement" version="7.0">
-                    <header/>
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_user">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate assembly: proceed anyway ?" />
+                        </div>
+                    </header>
                     <sheet>
                         <group col="4">
                             <group>
@@ -84,11 +87,21 @@
                                 </div>
                             </group>
                         </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]} ">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
                             </group>
                         </div>
                     </div>
@@ -123,6 +136,23 @@
         <!-- Partner Involvement Category -->
         <menuitem id="partner_involvement_category_menu" action="partner_involvement_category_action"
                   sequence="20" parent="ficep_base.persons_configuration_submenu" />
+
+        <!-- Other Inheritance: Involvement Category -->
+
+        <record id="partner_involvement_category_inherit_form_view" model="ir.ui.view">
+            <field name="name">partner.involvement.category.inherit.form</field>
+            <field name="model">partner.involvement.category</field>
+            <field name="inherit_id" ref="partner_involvement_category_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                <button string="Involvements"
+                        name="%(partner_involvement_action)d"
+                        type="action"
+                        context="{'search_default_partner_involvement_category_id': active_id,
+                                  'default_partner_involvement_category_id': active_id}"/>
+                </xpath>
+            </field>
+        </record>
 
     </data>
 </openerp>

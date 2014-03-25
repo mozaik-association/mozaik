@@ -26,15 +26,7 @@
                             <label for="subject_name" class="oe_edit_only"/>
                             <h1><field name="subject_name" /></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons">
-                            <button string="Subject Relations"
-                                    name="%(subject_relation_action)d"
-                                    type="action"
-                                    context="{'search_default_partner_relation_category_id': active_id, 'default_partner_relation_category_id': active_id}"/>
-                            <button string="Object Relations"
-                                    name="%(object_relation_action)d"
-                                    type="action"
-                                    context="{'search_default_partner_relation_category_id': active_id, 'default_partner_relation_category_id': active_id}"/>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
                         <group>
                             <field name="object_name"/>
@@ -248,6 +240,26 @@
         <!-- Partner Relation Category -->
         <menuitem id="relation_category_menu" action="partner_relation_category_action"
                   sequence="20" parent="ficep_base.persons_configuration_submenu" />
+
+        <!-- Other Inheritance: Involvement Category -->
+
+        <record id="partner_relation_category_inherit_form_view" model="ir.ui.view">
+            <field name="name">partner.relation.category.inherit.form</field>
+            <field name="model">partner.relation.category</field>
+            <field name="inherit_id" ref="partner_relation_category_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button string="Subject Relations"
+                        name="%(subject_relation_action)d"
+                        type="action"
+                        context="{'search_default_partner_relation_category_id': active_id, 'default_partner_relation_category_id': active_id}"/>
+                    <button string="Object Relations"
+                        name="%(object_relation_action)d"
+                        type="action"
+                        context="{'search_default_partner_relation_category_id': active_id, 'default_partner_relation_category_id': active_id}"/>
+                </xpath>
+            </field>
+        </record>
 
     </data>
 </openerp>
