@@ -8,8 +8,7 @@
             <field name="arch" type="xml">
                 <search string="Partner">
                     <field name="id" string="Number"/>
-                    <field name="name"
-                           filter_domain="['|',('display_name','ilike',self),('name','ilike',self)]"/>
+                    <field name="display_name" />
                     <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" filter_domain="[('competencies_m2m_ids','ilike', self)]"/>
@@ -72,7 +71,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='parent_id']" position="replace">
-                    <field name="id" />
+                    <field name="id" string="Number" />
 
                     <field name="is_duplicate_detected" invisible="1"/>
                     <field name="is_duplicate_allowed" invisible="1"/>
@@ -179,6 +178,12 @@
                             <field name="usual_lastname" />
                             <field name="usual_firstname" />
                         </group>
+                    </group>
+                    <group name="abbrev" attrs="{'invisible': [('is_company', '=', False)]}">
+                        <group name="a1">
+                            <field name="acronym" />
+                        </group>
+                        <group name="a2"/>
                     </group>
                 </xpath>
 

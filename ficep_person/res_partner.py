@@ -70,6 +70,8 @@ class res_partner(orm.Model):
     def _build_name(self, partner, reverse_mode=False):
         if partner.is_company:
             name = partner.name or partner.lastname
+            if partner.acronym and not reverse_mode:
+                name = "%s (%s)" % (name, partner.acronym)
         else:
             names = [
                      partner.usual_lastname or partner.lastname,
@@ -78,6 +80,8 @@ class res_partner(orm.Model):
             if reverse_mode:
                 names = list(reversed(names))
             name = " ".join([n for n in names if n])
+            if name != partner.name and not reverse_mode:
+                name = "%s (%s)" % (name, partner.name)
         return name
 
     def _get_partner_names(self, cr, uid, ids, name, args, context=None):
@@ -107,7 +111,8 @@ class res_partner(orm.Model):
 
     _display_name_store_trigger = {
         'res.partner': (lambda self, cr, uid, ids, context=None: ids,
-                        ['is_company', 'name', 'firstname', 'lastname', 'usual_firstname', 'usual_lastname', ], 10)
+                        # trigger priority must be greater than 10 (i.e. priority of the store=True in partner_firstname module)
+                        ['is_company', 'name', 'firstname', 'lastname', 'usual_firstname', 'usual_lastname', 'acronym', ], 20)
     }
 
     _columns = {
@@ -126,6 +131,7 @@ class res_partner(orm.Model):
         'usual_lastname': fields.char("Usual Lastname", track_visibility='onchange'),
         'printable_name': fields.function(_get_partner_names, type='char', string='Printable Name', multi="AllNames",
                                           store=_display_name_store_trigger),
+        'acronym': fields.char('Acronym', select=True, track_visibility='onchange'),
 
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_competencies_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
         'interests_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_interests_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),

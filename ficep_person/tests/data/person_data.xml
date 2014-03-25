@@ -57,11 +57,13 @@
         <record id="res_partner_fgtb" model="res.partner">
             <field name="name">F.G.T.B</field>
             <field name="is_company" eval="True" />
+            <field name="acronym">fgtb</field>
         </record>
 
         <record id="res_partner_nouvelobs" model="res.partner">
             <field name="name">Nouvel Observateur</field>
             <field name="is_company" eval="True" />
+            <field name="acronym">nouvelobs</field>
         </record>
 
         <record id="res_partner_nouvelobs_bis" model="res.partner">

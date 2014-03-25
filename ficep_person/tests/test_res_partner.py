@@ -71,13 +71,21 @@ class test_res_partner(SharedSetupTransactionCase):
         vals = partner_model.read(cr, uid, [marc_id], ['is_company'], context=context)[0]
         self.assertFalse(vals['is_company'], 'Wrong expected reference data for this test')
 
-        # Change name of a company
-        self.partner_model.write(cr, uid, [fgtb_id], {'name': 'newname'}, context=context)
+        # A/ Change various names of a company
+
+        # 1/ name
+        self.partner_model.write(cr, uid, [fgtb_id], {'name': 'newname', 'acronym': False}, context=context)
         vals = partner_model.read(cr, uid, [fgtb_id], ['name', 'display_name'], context=context)[0]
         self.assertEqual(vals['name'], 'newname', 'Update partner name fails with wrong name')
-        self.assertEqual(vals['display_name'], 'newname', 'Update partner name fails with wrong display_name')
+        self.assertEqual(vals['display_name'], vals['name'], 'Update partner name fails with wrong display_name')
 
-        # Change various names of a contact
+        # 2/ acronym
+        self.partner_model.write(cr, uid, [fgtb_id], {'acronym': 'abbrev'}, context=context)
+        vals = partner_model.read(cr, uid, [fgtb_id], ['name', 'display_name'], context=context)[0]
+        self.assertEqual(vals['name'], 'newname', 'Update partner name fails with wrong name')
+        self.assertEqual(vals['display_name'], "%s (%s)" % (vals['name'], 'abbrev'), 'Update partner name fails with wrong display_name')
+
+        # B/ Change various names of a contact
 
         # 1/ firstname, lastname
         self.partner_model.write(cr, uid, [marc_id],
@@ -91,21 +99,22 @@ class test_res_partner(SharedSetupTransactionCase):
                                  {'usual_firstname': 'ufirst'}, context=context)
         vals = partner_model.read(cr, uid, [marc_id], ['name', 'display_name'], context=context)[0]
         self.assertEqual(vals['name'], '%s %s' % ('last', 'first'), 'Update partner usual_firstname fails with wrong name')
-        self.assertEqual(vals['display_name'], '%s %s' % ('last', 'ufirst'), 'Update partner usual_firstname fails with wrong display_name')
+        self.assertEqual(vals['display_name'], '%s %s (%s)' % ('last', 'ufirst', vals['name']), 'Update partner usual_firstname fails with wrong display_name')
 
         # 3/ usual_lastname
         self.partner_model.write(cr, uid, [marc_id],
                                  {'usual_firstname': False, 'usual_lastname': 'ulast'}, context=context)
         vals = partner_model.read(cr, uid, [marc_id], ['name', 'display_name'], context=context)[0]
         self.assertEqual(vals['name'], '%s %s' % ('last', 'first'), 'Update partner usual_lastname fails with wrong name')
-        self.assertEqual(vals['display_name'], '%s %s' % ('ulast', 'first'), 'Update partner usual_lastname fails with wrong display_name')
+        self.assertEqual(vals['display_name'], '%s %s (%s)' % ('ulast', 'first', vals['name']), 'Update partner usual_lastname fails with wrong display_name')
 
         # 4/ all
         self.partner_model.write(cr, uid, [marc_id],
                                  {'firstname': 'Ian', 'lastname': 'FLEMING', 'usual_firstname': 'James', 'usual_lastname': 'BOND', }, context=context)
-        vals = partner_model.read(cr, uid, [marc_id], ['name', 'display_name'], context=context)[0]
+        vals = partner_model.read(cr, uid, [marc_id], ['name', 'display_name', 'printable_name'], context=context)[0]
         self.assertEqual(vals['name'], '%s %s' % ('FLEMING', 'Ian'), 'Update all partner names fails with wrong name')
-        self.assertEqual(vals['display_name'], '%s %s' % ('BOND', 'James'), 'Update all partner names fails with wrong display_name')
+        self.assertEqual(vals['display_name'], '%s %s (%s)' % ('BOND', 'James', vals['name']), 'Update all partner names fails with wrong display_name')
+        self.assertEqual(vals['printable_name'], '%s %s' % ('James', 'BOND'), 'Update all partner names fails with wrong printable_name')
 
     def test_res_partner_duplicates(self):
         """
