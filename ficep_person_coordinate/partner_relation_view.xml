@@ -3,6 +3,18 @@
     <data noupdate="0">
 
         <!-- Partner Relation Category -->
+
+       <record id="partner_relation_category_search_view" model="ir.ui.view">
+            <field name="name">partner.relation.category.search</field>
+            <field name="model">partner.relation.category</field>
+            <field name="arch" type="xml">
+                <search string="Partner Relation Category">
+                    <field name="subject_name"
+                           filter_domain="['|',('subject_name','ilike',self),('object_name','ilike',self)]"/>
+               </search>
+            </field>
+        </record>
+
         <record id="partner_relation_category_form_view" model="ir.ui.view">
             <field name="name">partner.relation.category.form</field>
             <field name="model">partner.relation.category</field>
@@ -35,6 +47,24 @@
 
         <!-- Partner Relation -->
 
+       <record id="partner_relation_search_view" model="ir.ui.view">
+            <field name="name">partner.relation.search</field>
+            <field name="model">partner.relation</field>
+            <field name="arch" type="xml">
+                <search string="Partner Relation">
+                    <field name="partner_relation_category_id"/>
+                    <field name="subject_partner_id" string="Partner"
+                           filter_domain="['|',('subject_partner_id','ilike',self),('object_partner_id','ilike',self)]"/>
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter string="Category" context="{'group_by': 'partner_relation_category_id'}"/>
+                        <filter string="Partner Subject" context="{'group_by': 'subject_partner_id'}"/>
+                        <filter string="Partner Object" context="{'group_by': 'object_partner_id'}"/>
+                    </group>
+
+               </search>
+            </field>
+        </record>
+
         <record id="partner_relation_subject_tree_view" model="ir.ui.view">
             <field name="name">partner.relation.tree</field>
             <field name="model">partner.relation</field>
@@ -59,20 +89,35 @@
             </field>
         </record>
 
-        <record id="partner_relation_form_view" model="ir.ui.view">
+        <record id="subject_partner_subject_relation_form_view" model="ir.ui.view">
             <field name="name">partner.relation.form</field>
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
                 <form string="partner relation" version="7.0">
                     <header/>
                     <sheet>
-                        <div class="oe_title">
-                            <label for="partner_relation_category_id" class="oe_edit_only"/>
-                            <h1><field name="partner_relation_category_id" /></h1>
-                        </div>
-                        <group>
-                            <field name="subject_partner_id"/>
-                            <field name="object_partner_id"/>
+                        <group col="6">
+                        <!-- 
+                             Subject Relation Object
+                        -->
+                            <group>
+                                <div class="oe_title">
+                                    <label for="subject_partner_id" />
+                                    <field name="subject_partner_id"/>
+                                </div>
+                            </group>
+                            <group>
+                                <div class="oe_title">
+                                    <label for="partner_relation_category_id" />
+                                    <field name="partner_relation_category_id"/>
+                                </div>
+                            </group>
+                            <group>
+                                <div class="oe_title">
+                                    <label for="object_partner_id" />
+                                    <field name="object_partner_id"/>
+                                </div>
+                            </group>
                         </group>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
@@ -89,6 +134,53 @@
                 </form>
             </field>
         </record>
+
+        <record id="partner_relation_object_form_view" model="ir.ui.view">
+            <field name="name">partner.relation.form</field>
+            <field name="model">partner.relation</field>
+            <field name="arch" type="xml">
+                <form string="partner relation" version="7.0">
+                    <header/>
+                    <sheet>
+                        <group col="6">
+                        <!-- 
+                            Object Relation Subject
+                        -->
+                            <group>
+                                <div class="oe_title">
+                                    <label for="object_partner_id" />
+                                    <field name="object_partner_id"/>
+                                </div>
+                            </group>
+                            <group>
+                                <div class="oe_title">
+                                    <label for="partner_relation_category_id" />
+                                    <field name="partner_relation_category_id"/>
+                                </div>
+                            </group>
+                            <group>
+                                <div class="oe_title">
+                                    <label for="subject_partner_id" />
+                                    <field name="subject_partner_id"/>
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
         <!-- Partner Relation Subject/object action -->
         <record id="subject_relation_action" model="ir.actions.act_window">
             <field name="name">Subject Relations</field>
@@ -96,6 +188,7 @@
             <field name="view_id" eval="partner_relation_subject_tree_view"/>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="context">{'object':False, 'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}</field>
         </record>
         <record id="object_relation_action" model="ir.actions.act_window">
             <field name="name">Object Relations</field>
@@ -103,7 +196,7 @@
             <field name="res_model">partner.relation</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{'object':True}</field>
+            <field name="context">{'object':True, 'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}</field>
         </record>
         <!-- Partner Relation Category -->
         <record id="partner_relation_category_action" model="ir.actions.act_window">
