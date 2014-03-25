@@ -40,4 +40,16 @@ class res_partner(orm.Model):
         'partner_is_object_relation_ids': fields.one2many('partner.relation', 'object_partner_id', string='Is Object Of Relation'),
     }
 
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        Do not copy o2m fields.
+        Reset some fields to their initial values.
+        """
+        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        res.update({
+                    'partner_is_subject_relation_ids': [],
+                    'partner_is_object_relation_ids': [],
+                    })
+        return res
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

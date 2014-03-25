@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Partner involvement Category -->
+
+        <record id="partner_involvement_category_form_view" model="ir.ui.view">
+            <field name="name">partner.involvement.category.form</field>
+            <field name="model">partner.involvement.category</field>
+            <field name="arch" type="xml">
+                <form string="partner involvement category" version="7.0">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="partner_involvement_category" class="oe_edit_only"/>
+                            <h1><field name="partner_involvement_category" /></h1>
+                        </div>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Partner Involvement -->
+
+       <record id="partner_involvement_search_view" model="ir.ui.view">
+            <field name="name">partner.involvement.search</field>
+            <field name="model">partner.involvement</field>
+            <field name="arch" type="xml">
+                <search string="Partner Involvement">
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter string="Partners" context="{'group_by': 'partner_id'}"/>
+                        <filter string="Category" context="{'group_by': 'partner_involvement_category_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="partner_involvement_object_tree_view" model="ir.ui.view">
+            <field name="name">partner.involvement.tree</field>
+            <field name="model">partner.involvement</field>
+            <field name="arch" type="xml">
+                <tree string="partner involvement" version="7.0">
+                    <field name="partner_id"/>
+                    <field name="partner_involvement_category_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="partner_involvement_form_view" model="ir.ui.view">
+            <field name="name">partner.involvement.form</field>
+            <field name="model">partner.involvement</field>
+            <field name="arch" type="xml">
+                <form string="partner involvement" version="7.0">
+                    <header/>
+                    <sheet>
+                        <group col="4">
+                            <group>
+                                <div class="oe_title">
+                                    <label for="partner_id" />
+                                    <field name="partner_id"/>
+                                </div>
+                            </group>
+                            <group>
+                                <div class="oe_title">
+                                    <label for="partner_involvement_category_id" />
+                                    <field name="partner_involvement_category_id"/>
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Partner involvement Subject/object action -->
+        <record id="partner_involvement_action" model="ir.actions.act_window">
+            <field name="name">Involvements</field>
+            <field name="res_model">partner.involvement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- Partner Involvement Category -->
+        <record id="partner_involvement_category_action" model="ir.actions.act_window">
+            <field name="name">Involvement Category</field>
+            <field name="res_model">partner.involvement.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- involvements menu are placed after Coordinates -->
+        <menuitem id="involvements_submenu" name="Involvements"
+                  sequence="50" parent="ficep_base.persons_root_menu" />
+        <menuitem id="partner_involvement_menu" action="partner_involvement_action"
+                  sequence="10" parent="involvements_submenu" />
+        <!-- Partner Involvement Category -->
+        <menuitem id="partner_involvement_category_menu" action="partner_involvement_category_action"
+                  sequence="20" parent="ficep_base.persons_configuration_submenu" />
+
+    </data>
+</openerp>
