@@ -26,6 +26,16 @@
                             <label for="subject_name" class="oe_edit_only"/>
                             <h1><field name="subject_name" /></h1>
                         </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                            <button string="Subject Relations"
+                                    name="%(subject_relation_action)d"
+                                    type="action"
+                                    context="{'search_default_partner_relation_category_id': active_id, 'default_partner_relation_category_id': active_id}"/>
+                            <button string="Object Relations"
+                                    name="%(object_relation_action)d"
+                                    type="action"
+                                    context="{'search_default_partner_relation_category_id': active_id, 'default_partner_relation_category_id': active_id}"/>
+                        </div>
                         <group>
                             <field name="object_name"/>
                         </group>

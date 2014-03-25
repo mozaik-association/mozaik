@@ -52,7 +52,7 @@ class partner_involvement(orm.Model):
         res = []
         for record in self.browse(cr, uid, ids, context=context):
             if record.partner_involvement_category_id:
-                res.append((record.id, record.partner_involvement_category_id.partner_involvement_category))
+                res.append((record.id, record.partner_involvement_category_id.name))
         return res
 
 
@@ -62,9 +62,8 @@ class partner_involvement_category(orm.Model):
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'partner_involvement_category': fields.char('Involvement Category', required=True, track_visibility='onchange'),
+        'name': fields.char('Involvement Category', required=True, track_visibility='onchange'),
+        'partner_involvement_ids': fields.one2many('partner.involvement', 'partner_involvement_category_id', string='Partner Involvements'),
     }
-
-    _rec_name = 'partner_involvement_category'
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

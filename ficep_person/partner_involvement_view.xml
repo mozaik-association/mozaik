@@ -11,9 +11,16 @@
                 <form string="partner involvement category" version="7.0">
                     <sheet>
                         <div class="oe_title">
-                            <label for="partner_involvement_category" class="oe_edit_only"/>
-                            <h1><field name="partner_involvement_category" /></h1>
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1>
                         </div>
+                        <div class="oe_right oe_button_box" name="buttons">
+                            <button string="Involvements"
+                                    name="%(partner_involvement_action)d"
+                                    type="action"
+                                    context="{'search_default_partner_involvement_category_id': active_id, 'default_partner_involvement_category_id': active_id}"/>
+                        </div>
+
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
