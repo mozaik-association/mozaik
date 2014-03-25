@@ -53,40 +53,33 @@
                             <group>
                                 <field name="address_local_zip_id"
                                        attrs="{'invisible': [('country_code','!=', 'BE')],
-                                               'required': [('zip_man','=', False)]}"
+                                               'required': [('country_code','=', 'BE')]}"
                                        on_change="onchange_local_zip_id(address_local_zip_id)"/>
                                 <field name="zip_man"
-                                       attrs="{'invisible': [('address_local_zip_id','!=', False)],
-                                               'required': [('address_local_zip_id','=', False)]}"/>
+                                       attrs="{'invisible': [('country_code','=', 'BE')],
+                                               'required': [('country_code','!=', 'BE')]}"/>
                                 <field name="town_man"
-                                       attrs="{'invisible': [('address_local_zip_id','!=', False)]}"/>
+                                       attrs="{'invisible': [('country_code','=', 'BE')],
+                                               'required': [('country_code','!=', 'BE')]}"/>
                             </group>
                         </group>
-                        <group name="streets">
-                            <group>
+                        <group>
+                            <group name="streets">
                                 <field name="address_local_street_id"
                                    domain="[('local_zip','=',zip)]"
-                                   attrs="{'invisible': [('country_code','!=', 'BE')]}"/>
+                                   attrs="{'invisible': [('country_code','!=', 'BE')]}"
+                                   on_change="onchange_local_street_id(address_local_street_id)"/>
                                 <field name="select_alternative_address_local_street" 
                                        attrs="{'invisible': [('address_local_street_id','=', False)]}"/>
-                            </group>
-                            <group>
                                 <field name="street_man"
                                    attrs="{'invisible': [('address_local_street_id','!=', False)]}"/>
-
                                 <field name="street2" />
                             </group>
-                        </group>
-                        <group name="numbers">
-                            <group>
+                            <group name="numbers">
                                 <field name="number"/>
-                            </group>
-                            <group>
                                 <field name="box"/>
-                            </group>
-                            <group>
                                 <field name="sequence" />
-                            </group>q
+                            </group>
                         </group>
                         <notebook>
                             <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
@@ -111,9 +104,10 @@
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="country_code"/>
-                                <field name="zip"/>
+                                <field name="zip" on_change="onchange_zip(zip)"/>
                                 <field name="city" />
                                 <field name="street"/>
+                                <field name="technical_name"/>
                             </group>
                         </div>
                     </div>

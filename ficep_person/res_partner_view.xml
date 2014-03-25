@@ -65,12 +65,13 @@
                 </xpath>
 
                 <xpath expr="//field[@name='country']" position="replace"/><!-- rid off this replace when oe will drop definitvely deprecated country field -->
+                <xpath expr="//field[@name='function']" position="replace"/>
 
                 <xpath expr="//field[@name='user_id']" position="replace">
                     <field name="active" invisible="1" />
                 </xpath>
 
-                <xpath expr="//field[@name='parent_id']" position="after">
+                <xpath expr="//field[@name='parent_id']" position="replace">
                     <field name="id" />
 
                     <field name="is_duplicate_detected" invisible="1"/>
@@ -213,10 +214,7 @@
 
                 <xpath expr="//field[@name='user_ids']" position="replace"/>
 
-                <xpath expr="//page[@string='Contacts']" position="attributes">
-                    <attribute name="groups">ficep_base.res_groups_developper</attribute>
-                    <attribute name="autofocus"/>
-                </xpath>
+                <xpath expr="//page[@string='Contacts']" position="replace"/>
                 <xpath expr="//page[@name='sales_purchases']" position="attributes">
                     <attribute name="groups">ficep_base.res_groups_developper</attribute>
                 </xpath>
@@ -313,7 +311,6 @@
                                 <field name="is_assembly" />
                                 <field name="tz" />
                                 <field name="user_ids" attrs="{'invisible': [('user_ids','=',[])]}" />
-                                <field name="parent_id" domain="[('is_company', '=', True)]" />
                             </group>
                         </div>
                     </div>

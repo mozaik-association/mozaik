@@ -38,15 +38,15 @@ class address_local_street(orm.Model):
         return self.pool.get('address.address').search(cr, uid, [('address_local_street_id', 'in', ids)], context=context)
 
     _columns = {
-        'local_street': fields.char(string='Street', required=True, select=True),
-        'local_street_alternative': fields.char(string='Street Alternative', select=True),
         'local_zip': fields.char(string='Zip', required=True, select=True),
+        'local_street': fields.char(string='Street', required=True, select=True),
+        'local_street_alternative': fields.char(string='Alternative Street', select=True),
     }
 
     _rec_name = 'local_street'
 
     _sql_constraints = [
-        ('check_unicity_street', 'unique(local_street,local_zip)', _('This local street already exist for this zip code!'))
+        ('check_unicity_street', 'unique(local_street,local_zip)', _('This local street already exists for this zip code!'))
     ]
 
     _order = "local_zip,local_street"
@@ -55,7 +55,7 @@ class address_local_street(orm.Model):
 
     def name_get(self, cr, uid, ids, context=None):
         """
-        If an ``local_street_alternative`` is defined then name must be show
+        If a ``local_street_alternative`` is defined then name must be show
         like this "local_street / local_street_alternative"
         """
         if not ids:
@@ -65,10 +65,17 @@ class address_local_street(orm.Model):
 
         res = []
         for record in self.browse(cr, uid, ids, context=context):
-            display_name = record.local_street if not record.local_street_alternative \
-                           else ''.join([record.local_street, ' / ', \
-                                   record.local_street_alternative])
+            display_name = ' / '.join([s for s in [record.local_street, record.local_street_alternative] if s])
             res.append((record['id'], display_name))
         return res
+
+    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
+        if not args:
+            args = []
+        if name:
+            ids = self.search(cr, uid, ['|',('local_street', operator, name),('local_street_alternative', operator, name)]+args, limit=limit, context=context)
+        else:
+            ids = self.search(cr, uid, args, limit=limit, context=context)
+        return self.name_get(cr, uid, ids, context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

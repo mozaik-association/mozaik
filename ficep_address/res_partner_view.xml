@@ -19,6 +19,8 @@
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
 
+                <xpath expr="//label[@for='type']" position="replace"/>
+                <xpath expr="//div[field[@name='type']]" position="replace"/>
                 <xpath expr="//label[@for='street']" position="replace">
                     <field name="postal_coordinate_id" context="{'form_view_ref': 'ficep_address.postal_coordinate_form_view'}" />
                 </xpath>

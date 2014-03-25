@@ -125,9 +125,7 @@ class res_partner(orm.Model):
                     'country_id': coord.address_id.country_id.id,
                     'zip': coord.address_id.zip,
                     'city': coord.address_id.city,
-                    'street': ' '.join([s for s in ['/'.join([n for n in [coord.address_id.number or coord.address_id.box and '-' or False,
-                                                                                                        coord.address_id.box] if n]),
-                                                                                  coord.address_id.street] if s]),
+                    'street': coord.address_id.street,
                     'address': 'VIP' if coord.vip else 'N/A: %s' % coord.address_id.name if coord.unauthorized else coord.address_id.name,
                 }
         return result
@@ -141,7 +139,7 @@ class res_partner(orm.Model):
     _postal_store_triggers = {
         'postal.coordinate': (_get_linked_partners_from_postal_coordinates,
             ['partner_id', 'address_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
-        'address.address': (_get_linked_partners_from_address, TRIGGER_FIELDS.keys(), 99),
+        'address.address': (_get_linked_partners_from_address, TRIGGER_FIELDS, 99),
      }
 
     _columns = {
@@ -157,9 +155,8 @@ class res_partner(orm.Model):
 
         # Standard fields redefinition
         'country_id': fields.function(_get_main_address_componant, string='Country',
-                                 type='many2one', select=True,
+                                 type='many2one', relation='res.country', select=True,
                                  multi='all_address_componant_in_one',
-                                 relation='res.country',
                                  store=_postal_store_triggers),
         'city': fields.function(_get_main_address_componant, string='City',
                                  type='char',

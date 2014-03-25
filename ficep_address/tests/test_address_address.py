@@ -61,9 +61,9 @@ class test_address_address(SharedSetupTransactionCase):
         }
         adr_id = self.model_address.create(cr, uid, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.name, '7(0) Rue de Colard Trouillet - 4100 Seraing', 'Create address fails with wrong name')
+        self.assertEqual(adr.name, '7 Rue de Colard Trouillet - 4100 Seraing', 'Create address fails with wrong name')
         self.assertEqual(adr.zip, '4100', 'Create address fails with wrong zip')
-        self.assertEqual(adr.street, 'Rue de Colard Trouillet', 'Create address fails with wrong street')
+        self.assertEqual(adr.street, '7 Rue de Colard Trouillet', 'Create address fails with wrong street')
 
         dic = {
             'country_id': self.ref("base.be"),
@@ -75,7 +75,17 @@ class test_address_address(SharedSetupTransactionCase):
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
         self.assertEqual(adr.name, '-/4b Place Chanoine Descamps - 5000 Namur', 'Create address fails with wrong name')
         self.assertEqual(adr.zip, '5000', 'Create address fails with wrong zip')
-        self.assertEqual(adr.street, 'Place Chanoine Descamps', 'Create address fails with wrong street')
+        self.assertEqual(adr.street, '-/4b Place Chanoine Descamps', 'Create address fails with wrong street')
+
+        dic = {
+            'number': '7',
+            'box': False,
+            'sequence': 3,
+        }
+        self.model_address.write(cr, uid, adr_id, dic)
+        adr = self.model_address.browse(cr, uid, [adr_id])[0]
+        self.assertEqual(adr.name, '[3]: 7 Place Chanoine Descamps - 5000 Namur', 'Update address fails with wrong name')
+        self.assertEqual(adr.street, '7 Place Chanoine Descamps', 'Update address fails with wrong street')
 
         dic = {
             'country_id': self.ref("base.us"),
@@ -85,7 +95,7 @@ class test_address_address(SharedSetupTransactionCase):
         }
         adr_id = self.model_address.create(cr, uid, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.name, '-(0) United Nations - New York - United States', 'Create address fails with wrong name')
+        self.assertEqual(adr.name, 'United Nations - New York - United States', 'Create address fails with wrong name')
         self.assertEqual(adr.zip, '10017', 'Create address fails with wrong zip')
         self.assertEqual(adr.street, 'United Nations', 'Create address fails with wrong street')
 

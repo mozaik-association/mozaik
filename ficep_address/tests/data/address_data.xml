@@ -26,6 +26,15 @@
             <field name="street_man">White House</field>
         </record>
 
+        <record id="address_4" model="address.address">
+            <field name="country_id" ref="base.be"/>
+            <field name="address_local_zip_id" ref="local_zip_3_bis"/>
+            <field name="address_local_street_id" ref="local_street_3"/>
+            <field name="select_alternative_address_local_street" eval="1"/>
+            <field name="number">6</field>
+            <field name="sequence">1</field>
+        </record>
+
         <!-- Postal Coordinates -->
 
         <record id="postal_coordinate_1" model="postal.coordinate">

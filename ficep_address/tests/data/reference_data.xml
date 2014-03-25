@@ -8,9 +8,25 @@
             <field name="local_zip">5000</field>
             <field name="town">Namur</field>
         </record>
+
         <record id="local_zip_2" model="address.local.zip">
             <field name="local_zip">6700</field>
             <field name="town">Arlon</field>
+        </record>
+
+        <record id="local_zip_3" model="address.local.zip">
+            <field name="local_zip">1020</field>
+            <field name="town">Bruxelles</field>
+        </record>
+
+        <record id="local_zip_3_bis" model="address.local.zip">
+            <field name="local_zip">1020</field>
+            <field name="town">Brussels</field>
+        </record>
+
+        <record id="local_zip_3_ter" model="address.local.zip">
+            <field name="local_zip">1020</field>
+            <field name="town">Laken</field>
         </record>
 
         <!-- Local Streets -->
@@ -23,6 +39,12 @@
         <record id="local_street_2" model="address.local.street">
             <field name="local_street">Place Léopold</field>
             <field name="local_zip">6700</field>
+        </record>
+
+        <record id="local_street_3" model="address.local.street">
+            <field name="local_street">Avenue des Pagodes</field>
+            <field name="local_street_alternative">Pagodenlaan</field>
+            <field name="local_zip">1020</field>
         </record>
 
     </data>
