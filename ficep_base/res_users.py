@@ -50,9 +50,12 @@ class res_users(orm.Model):
         result = super(res_users, self).context_get(cr, uid)
         user = self.browse(cr, SUPERUSER_ID, uid, context)
         _, appl_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'base', 'module_category_political_association')
+        _, dev_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'ficep_base', 'res_groups_developper')
         for g in user.groups_id:
             if g.category_id.id == appl_id:
                 result.update({'in_%s' % g.name.lower().replace(' ', '_'): 1})
+            elif g.id == dev_id:
+                result.update({'is_developper': 1})
         return result
 
     def write(self, cr, uid, ids, vals, context=None):

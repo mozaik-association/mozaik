@@ -6,9 +6,9 @@
             <field name="name">allow.duplicate.wizard</field>
             <field name="model">allow.duplicate.wizard</field>
             <field name="arch" type="xml">
-                <form string="Allow Duplicate" version="7.0">
+                <form string="Allow Duplicates" version="7.0">
                     <strong>
-                    Selected entries are not duplicates. Accept anyway?
+                    Selected entries are allowed duplicates. Accept anyway?
                     </strong>
                     <footer>
                         <span name="go-wizard">

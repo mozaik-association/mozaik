@@ -68,7 +68,7 @@ class xxxx(orm.Model):
 
     _name = 'xxx'
     _description = 'XXX'
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['abstract.ficep.model']
 
 # private methods
 
@@ -217,6 +217,12 @@ class xxxx(orm.Model):
     def fields_get(self, cr, user, allfields=None, context=None, write_access=True):
         res = super(xxxx, self).fields_get(cr, user, allfields=allfields, context=context, write_access=write_access)
         return res
+
+    def _disable_workflow_buttons(self, cr, uid, node):
+        arch = super(xxxx,self)._disable_workflow_buttons(cr, uid, node)
+        if arch.tag == 'form' and arch.xpath("//field[@name='active']"):
+            pass
+        return arch
 
 # view methods: onchange, button
 

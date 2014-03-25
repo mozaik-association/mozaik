@@ -24,7 +24,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('simplified')"
-                             groups="ficep_base.ficep_res_groups_user">
+                             groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate assembly: proceed anyway ?" />
                         </div>
@@ -116,7 +116,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('simplified')"
-                             groups="ficep_base.ficep_res_groups_user">
+                             groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate instance: proceed anyway ?" />
                         </div>
@@ -228,7 +228,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('simplified')"
-                             groups="ficep_base.ficep_res_groups_user">
+                             groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate category: proceed anyway ?" />
                         </div>
@@ -309,7 +309,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('simplified')"
-                             groups="ficep_base.ficep_res_groups_user">
+                             groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate level: proceed anyway ?" />
                         </div>

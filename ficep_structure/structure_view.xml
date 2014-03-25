@@ -405,6 +405,12 @@
             <field name="arch" type="xml">
                 <form string="Legislature" version="7.0">
                     <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_configurator">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate legislature: proceed anyway ?" />
+                        </div>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -423,12 +429,20 @@
                                                                        'form_view_ref': 'ficep_structure.sta_power_level_form_view'}"/>
                             </group>
                             <group name="Dates">
-                                <field name="create_date" widget="date" string="Start Date"/>
                                 <field name="election_date" />
                                 <field name="deadline_date" />
-                                <field name="expire_date" widget="date"/>
                             </group>
                         </group>
+
+                        <group name="status" attrs="{'invisible': [('id','=',False)]} ">
+                            <group name="validity">
+                                <field name="create_date" widget="date" string="Start Date"/>
+                                <field name="expire_date" widget="date" attrs="{'invisible': [('active','=',True)]}" readonly="1" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
+
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
@@ -453,6 +467,12 @@
             <field name="arch" type="xml">
                 <form string="Electoral District" version="7.0">
                     <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_configurator">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate electoral district: proceed anyway ?" />
+                        </div>
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">
@@ -475,6 +495,16 @@
                                                                                      'form_view_ref': 'ficep_structure.int_instance_form_view'}"/>
                             </group>
                         </group>
+
+                        <group name="status" attrs="{'invisible': [('id','=',False)]} ">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}"  readonly="1" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
+
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">

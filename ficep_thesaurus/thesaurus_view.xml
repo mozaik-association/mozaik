@@ -30,7 +30,7 @@
             <field name="arch" type="xml">
                 <form string="thesaurus" version="7.0">
                     <header>
-                        <div attrs="{'invisible': [('id','=',False)]}"
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="button_invalidate" string="Invalidate" type="object"
@@ -131,14 +131,14 @@
             <field name="arch" type="xml">
                 <form string="Thesaurus Term" version="7.0">
                     <header>
-                        <div attrs="{'invisible': [('id','=',False)]}"
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="button_confirm" string="Confirm Term" type="object" states="draft" />
                             <button name="button_cancel" string="Cancel Term" type="object" states="confirm" />
                             <button name="button_reset" string="Reset Term" type="object" states="cancel" />
                         </div>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                     </header>
                     <sheet>
                         <div class="oe_title"  name="title">

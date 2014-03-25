@@ -131,6 +131,7 @@
             <field name="arch" type="xml">
                 <form string="XXX" version="7.0">
                     <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_user">
@@ -141,28 +142,58 @@
                                     context="{'invalidate': True}"
                                     confirm="Set this coordinate as main and invalidate the previous one: proceed anyway ?" />
                         </div>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">
                             <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name" attrs="{'readonly': [('yyy_ids','!=',[])]}" placeholder="e.g. blabla" /></h1>
+                            <h1><field name="name" attrs="{'readonly': ['|',('yyy_ids','!=',[]),('active','=',False)]}" placeholder="e.g. blabla" /></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
 
                         <group name="data">
                             <group name="main">
-                                <field name="zzz" attrs="{'readonly': [('yyy_ids','!=',[])]}" />
+                                <field name="zzz" attrs="{'readonly': ['|',('yyy_ids','!=',[]),('active','=',False)]}" />
                             </group>
                             <group name="other">
-                                <field name="xxx" attrs="{'readonly': [('yyy_ids','!=',[])]}" />
+                                <field name="xxx" attrs="{'readonly': ['|',('yyy_ids','!=',[]),('active','=',False)]}" />
+                            </group>
+                        </group>
+
+                        <group name="state" attrs="{'invisible': [('id','=',False)]} ">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="duplicate">
+                                <label for="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
+                                <div attrs="{'invisible': [('is_duplicate_detected','=',False)]}">
+                                    <field name="is_duplicate_detected" class="oe_inline" />
+                                    <button name="button_all_duplicates" type="action" class="oe_red_link" string="⇒ Show all duplicates"/>
+                                </div>
+
+                                <field name="is_duplicate_allowed" attrs="{'invisible': [('is_duplicate_allowed','=',False)]}" />
                             </group>
                         </group>
 
                         <notebook>
                             <page string="YYY" name="yyy" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                                <field name="yyy_ids" context="{'default_zzz_id': id, 'simplified': 1}">
+                                <separator string="yyyy yyyy"/>
+                                <button string="All Details" name="%(yyy_action)d"
+                                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                                        context="{'search_default_partner_id': active_id,
+                                                  'default_partner_id': active_id,
+                                                  'search_default_all': True}" />
+                                <field name="yyy_ids" context="{'default_zzz_id': active_id, 'simplified': 1,
+                                                                'form_view_ref': 'ficep_yyy.yyy_form_view'}"
+                                       attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
+                                    <tree>
+                                        <field name="zzz_id"/>
+                                    </tree>
+                                </field>
+                                <field name="yyy_inactive_ids" context="{'simplified': 1,
+                                                                         'form_view_ref': 'ficep_yyy.yyy_form_view'}"
+                                       readonly="1" attrs="{'invisible': [('active','=',True)]}">
                                     <tree>
                                         <field name="zzz_id"/>
                                     </tree>
