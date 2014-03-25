@@ -25,6 +25,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from . import test_partner_relation_category
 
+fast_suite = [
+]
+
+checks = [
+    test_partner_relation_category,
+]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -28,6 +28,5 @@
 
 from . import res_partner
 from . import wizard
-from . import partner_relation
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

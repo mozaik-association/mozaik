@@ -25,6 +25,19 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm, fields
 
+
+class res_partner(orm.Model):
+
+    _inherit = ['res.partner']
+
+# data model
+
+    _columns = {
+        # relation fields
+        'partner_is_subject_relation_ids': fields.one2many('partner.relation', 'subject_partner_id', string='Is Subject Of Relation'),
+        'partner_is_object_relation_ids': fields.one2many('partner.relation', 'object_partner_id', string='Is Object Of Relation'),
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

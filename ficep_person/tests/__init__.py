@@ -27,7 +27,6 @@
 ##############################################################################
 from . import test_res_partner
 from . import test_create_user_from_partner
-from . import test_partner_relation_category
 
 fast_suite = [
 ]
@@ -35,7 +34,6 @@ fast_suite = [
 checks = [
     test_res_partner,
     test_create_user_from_partner,
-    test_partner_relation_category,
 ]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

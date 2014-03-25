@@ -60,5 +60,40 @@
             </field>
         </record>
 
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form (ficep_person_coordinate)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook" position="inside">
+                    <page name="relation" string="Relations">
+                        <separator string="Relation Where Partner Is Subject" />
+                        <field name="partner_is_subject_relation_ids" context="{'default_subject_partner_id': active_id,
+                                                                 'simplified': 1,
+                                                                 'form_view_ref': 'ficep_person.partner_relation_form_view'}"
+                           attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
+                            <tree>
+                                <field name="partner_relation_category_id"/>
+                                <field name="object_partner_id" />
+                            </tree>
+                        </field>
+                        <separator string="Relation Where Partner Is Object" />
+                        <field name="partner_is_object_relation_ids" context="{'default_object_partner_id': active_id,
+                                                                 'simplified': 1,
+                                                                 'object': True,
+                                                                 'form_view_ref': 'ficep_person.partner_relation_form_view'}"
+                            attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
+                            <tree>
+                                <field name="partner_relation_category_id"/>
+                                <field name="subject_partner_id" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
     </data>
 </openerp>

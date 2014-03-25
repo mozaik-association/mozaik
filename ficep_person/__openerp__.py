@@ -48,7 +48,6 @@ FICEP Person
         'person_view.xml',
         'wizard/create_user_from_partner_view.xml',
         'wizard/allow_duplicate_view.xml',
-        'partner_relation_view.xml',
     ],
     'js': [
     ],

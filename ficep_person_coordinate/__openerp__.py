@@ -47,6 +47,7 @@ Colors tree view.
     ],
     'data': [
         'res_partner_view.xml',
+        'partner_relation_view.xml',
     ],
     'js': [
     ],
@@ -60,7 +61,7 @@ Colors tree view.
     ],
     'sequence': 150,
     'active': False,
-    'auto_install': True, # automatically install if all depends loaded
+    'auto_install': True,  # automatically install if all depends loaded
     'installable': True,
 }
 
