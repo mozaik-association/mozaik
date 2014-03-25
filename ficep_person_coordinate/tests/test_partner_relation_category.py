@@ -36,7 +36,7 @@ class test_partner_relation_category(SharedSetupTransactionCase):
     _data_files = ('data/relation_data.xml',
                   )
 
-    _module_ns = 'ficep_person'
+    _module_ns = 'ficep_person_coordinate'
 
     def setUp(self):
         super(test_partner_relation_category, self).setUp()
@@ -51,7 +51,7 @@ class test_partner_relation_category(SharedSetupTransactionCase):
         the method name_get of partner_relation_category will return either
         subject_name or object_name depending context['object'] False or Not
         """
-        relation_id = self.ref("ficep_person.partner_relation")
+        relation_id = self.ref("ficep_person_coordinate.partner_relation")
         res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [relation_id], context=None)
         self.assertEqual('employs', res[0][1], "Without context: should be subject name")
         res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [relation_id], context={'object': False})
