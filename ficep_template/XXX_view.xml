@@ -37,16 +37,15 @@
       * default_focus="1"
     -->
 
-        <record id="REAL_ID" model="ir.ui.view">
-            <field name="name">NAME (PROJECT NAME)</field>
-            <field name="model">MODEL NAME</field>
-            <field name="inherit_id" ref="MODULE_NAME.XML_ID_NAME" />
+        <!-- to override a view -->
+        <record id="inherit_xml_id" model="ir.ui.view">
+            <field name="name">inherit name (current module)</field>
+            <field name="model">model</field>
+            <field name="inherit_id" ref="inherit_module.inherit_xml_id" />
             <field name="arch" type="xml">
-                <xpath expr="//TAG_NAME[@ATTRIBUTE_NAME='NAME']"
-                    position="after-replace-attributes-before">
-                    <attribute name="NEW_ATTRIBUTE">
-                        ATTRIBUTE VALUE
-                    </attribute>
+                <xpath expr="//field[@name='xxx']"
+                    position="replace | after | before | attributes">
+                    <attribute name="yyy">.....</attribute>
                 </xpath>
             </field>
         </record>
@@ -54,6 +53,8 @@
         <!-- to delete a record: a view for instance -->
         <delete id="module.xmlid" model="ir.ui.view"/>
         <!--  -->
+
+        <!-- All views but forms -->
 
         <record id="xxx_search_view" model="ir.ui.view">
             <field name="name">xxx.search</field>
@@ -107,6 +108,8 @@
             </field>
         </record>
 
+        <!-- Actions -->
+
         <!--delete id="xxx_action" model="ir.actions.act_window"/-->
         <record id="xxx_action" model="ir.actions.act_window">
             <field name="name">XXX</field>
@@ -115,8 +118,11 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="xxx_tree_view" />
             <field name="search_view_id" ref="xxx_search_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'module.model_form_view'}</field>
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'module.model_form_view',
+                                   'search_default_xxx': True, 'default_state': 'draft'}</field>
         </record>
+
+        <!-- Finally forms because some action ids can but used on buttons in the form with %(action_xml_id)d convention -->
 
         <!--delete id="xxx_form_view" model="ir.ui.view"/-->
         <record id="xxx_form_view" model="ir.ui.view">

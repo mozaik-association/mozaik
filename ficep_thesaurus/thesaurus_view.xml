@@ -14,6 +14,16 @@
             </field>
         </record>
 
+        <record id="thesaurus_action" model="ir.actions.act_window">
+            <field name="name">Thesaurus</field>
+            <field name="res_model">thesaurus</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="thesaurus_tree_view" />
+            <!--field name="search_view_id" ref="thesaurus_search_view" /-->
+            <field name="context">{'mail_create_nosubscribe': True}</field>
+        </record>
+
         <record id="thesaurus_form_view" model="ir.ui.view">
             <field name="name">thesaurus.form</field>
             <field name="model">thesaurus</field>
@@ -32,7 +42,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" /></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons">
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
 
                         <group name="data">
@@ -60,16 +70,6 @@
             </field>
         </record>
 
-        <record id="thesaurus_action" model="ir.actions.act_window">
-            <field name="name">Thesaurus</field>
-            <field name="res_model">thesaurus</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="thesaurus_tree_view" />
-            <!--field name="search_view_id" ref="thesaurus_search_view" /-->
-            <field name="context">{'mail_create_nosubscribe': True}</field>
-        </record>
-
         <!-- Thesaurus Terms -->
 
         <record id="thesaurus_term_search_view" model="ir.ui.view">
@@ -91,7 +91,7 @@
                         domain="[('active', '&lt;=', True)]" />
 
                     <group expand="1" string="Group By..." name="group_by">
-                        <filter string="state" domain="[]" context="{'group_by':'state'}" />
+                        <filter name="status" string="State" domain="[]" context="{'group_by':'state'}" />
                     </group>
                 </search>
             </field>
@@ -114,6 +114,17 @@
             </field>
         </record>
 
+        <!--delete id="thesaurus_term_action" model="ir.actions.act_window"/-->
+        <record id="thesaurus_term_action" model="ir.actions.act_window">
+            <field name="name">Thesaurus Terms</field>
+            <field name="res_model">thesaurus.term</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="thesaurus_term_tree_view" />
+            <field name="search_view_id" ref="thesaurus_term_search_view" />
+            <field name="context">{'mail_create_nosubscribe': True, 'search_default_draft': True}</field>
+        </record>
+
         <record id="thesaurus_term_form_view" model="ir.ui.view">
             <field name="name">thesaurus.term.form</field>
             <field name="model">thesaurus.term</field>
@@ -134,7 +145,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" /></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons">
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
 
                         <group name="data">
@@ -166,17 +177,6 @@
                     </div>
                 </form>
             </field>
-        </record>
-
-        <!--delete id="thesaurus_term_action" model="ir.actions.act_window"/-->
-        <record id="thesaurus_term_action" model="ir.actions.act_window">
-            <field name="name">Thesaurus Terms</field>
-            <field name="res_model">thesaurus.term</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="thesaurus_term_tree_view" />
-            <field name="search_view_id" ref="thesaurus_term_search_view" />
-            <field name="context">{'mail_create_nosubscribe': True}</field>
         </record>
 
         <!-- Menu -->
