@@ -25,42 +25,25 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_structure',
-        'ficep_person_coordinate',
-        'ficep_mass_editing',
-    ],
-    'description': """
-FICEP
-=====
-Loads all ficep modules
-    """,
-    'images': [
-    ],
-    'data': [
-        'data/res_users_data.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'auto_install': False,
-    'installable': True,
-}
+from openerp.osv import orm
+
+
+class mass_object(orm.Model):
+    _inherit = "mass.object"
+
+    def create_action(self, cr, uid, ids, context=None):
+        """
+        =============
+        create_action
+        =============
+        For All Actions Created, Disable it into the form view by
+        adding True into the field ``multi``
+        """
+        res = super(mass_object, self).create_action(cr, uid, ids, context=context)
+        rec_mass_objects = self.browse(cr, uid, ids, context=context)
+        for rec_mass_object in rec_mass_objects:
+            action_obj = self.pool.get('ir.actions.act_window')
+            action_obj.write(cr, uid, rec_mass_object.ref_ir_act_window.id, {'multi': True}, context=context)
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

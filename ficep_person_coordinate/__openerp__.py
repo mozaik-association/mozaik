@@ -41,7 +41,11 @@
     'description': """
 FICEP Person - Coordinate
 =========================
-Colors tree view.
+* Colors tree view.
+* Add Relation Model For Partner
+** Persons/Relations/Subject Relations
+** Persons/Relations/Object Relations
+** Persons/Configuration/Relation Category
     """,
     'images': [
     ],

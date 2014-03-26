@@ -51,7 +51,7 @@ class address_local_street(orm.Model):
 
     _order = "local_zip,local_street"
 
-#orm methods
+# orm methods
 
     def name_get(self, cr, uid, ids, context=None):
         """
@@ -73,7 +73,7 @@ class address_local_street(orm.Model):
         if not args:
             args = []
         if name:
-            ids = self.search(cr, uid, ['|',('local_street', operator, name),('local_street_alternative', operator, name)]+args, limit=limit, context=context)
+            ids = self.search(cr, uid, ['|', ('local_street', operator, name), ('local_street_alternative', operator, name)] + args, limit=limit, context=context)
         else:
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)

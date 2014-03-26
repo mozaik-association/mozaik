@@ -26,26 +26,27 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP',
+    'name': 'FICEP Mass Editing',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_structure',
-        'ficep_person_coordinate',
-        'ficep_mass_editing',
+        'ficep_address',
     ],
     'description': """
-FICEP
-=====
-Loads all ficep modules
+FICEP Mass Editing
+==================
+Customizations for Mass Editing By
+* Create Actions In Multi Mode Only
+* Create A Mass Editing Record On
+** Postal Coordinate [For: co_residency_id]
     """,
     'images': [
     ],
     'data': [
-        'data/res_users_data.xml',
+        'data/mass_editing_data.xml',
     ],
     'js': [
     ],
