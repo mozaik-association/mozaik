@@ -149,11 +149,12 @@ class abstract_assembly(orm.AbstractModel):
         Note:
         Only relevant for internal and state assemblies
         """
-        if self._columns.get('power_level_id'):
-            assemblies = self.browse(cr, uid, ids, context=context)
-            for assembly in assemblies:
-                if assembly.assembly_category_id.power_level_id.id != assembly.instance_id.power_level_id.id:
-                    return False
+        assemblies = self.browse(cr, uid, ids, context=context)
+        for assembly in assemblies:
+            if not assembly.assembly_category_id._model._columns.get('power_level_id'):
+                break
+            if assembly.assembly_category_id.power_level_id.id != assembly.instance_id.power_level_id.id:
+                return False
 
         return True
 
