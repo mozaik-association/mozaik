@@ -26,6 +26,7 @@
 #
 ##############################################################################
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
 
 
 class partner_relation(orm.Model):
@@ -37,7 +38,41 @@ class partner_relation(orm.Model):
         'subject_partner_id': fields.many2one('res.partner', string='Subject Relation', required=True, select=True, track_visibility='onchange'),
         'object_partner_id': fields.many2one('res.partner', string='Object Relation', required=True, select=True, track_visibility='onchange'),
         'partner_relation_category_id': fields.many2one('partner.relation.category', string='Partner Relation Category', required=True, select=True, track_visibility='onchange'),
+
+        # phone coordinate
+        'fix_coordinate_id': fields.many2one('phone.coordinate', string='Fix Coordinate', select=True, track_visibility='onchange'),
+        'fax_coordinate_id': fields.many2one('phone.coordinate', string='Fax Coordinate', select=True, track_visibility='onchange'),
+        'mobile_coordinate_id': fields.many2one('phone.coordinate', string='Mobile Coordinate', select=True, track_visibility='onchange'),
+
+        # address coordinate
+        'postal_coordinate_id': fields.many2one('postal.coordinate', string='Address Coordinate', select=True, track_visibility='onchange'),
+        # email coordinate
+        'email_coordinate_id': fields.many2one('email.coordinate', string='Email Coordinate', select=True, track_visibility='onchange'),
     }
+
+    def _check_relation_qualification(self, cr, uid, ids, context=None):
+        """
+        =============================
+        _check_relation_qualification
+        =============================
+        :rparam: False if object_partner_id is equals to subject_partner_id
+                 Else True
+        :rtype: Boolean
+        """
+        partner_relations = self.browse(cr, uid, ids, context=context)
+        for partner_relation in partner_relations:
+            if partner_relation.subject_partner_id.id == partner_relation.object_partner_id.id:
+                return False
+            if self.search(cr, uid, [('subject_partner_id', '=', partner_relation.object_partner_id.id),
+                                     ('object_partner_id', '=', partner_relation.subject_partner_id.id),
+                                     ('partner_relation_category_id', '=', partner_relation.partner_relation_category_id.id)], context=context):
+                return False
+        return True
+
+    _constraints = [
+        (_check_relation_qualification, _('Error! A Relation Must Be Declared Between Two Different Contact And Must Exist In Only One Way'),
+                                       ['subject_partner_id', 'object_partner_id', 'partner_relation_category_id']),
+    ]
 
 
 class partner_relation_category(orm.Model):
