@@ -139,18 +139,21 @@ class abstract_assembly(orm.AbstractModel):
 
     def _check_consistent_power_level(self, cr, uid, ids, for_unlink=False, context=None):
         """
-        ==========================
+        =============================
         _check_consistent_power_level
-        ==========================
+        =============================
         Check if power levels of assembly category and instance are consistents.
         :rparam: True if it is the case
                  False otherwise
         :rtype: boolean
+        Note:
+        Only relevant for internal and state assemblies
         """
-        assemblies = self.browse(cr, uid, ids, context=context)
-        for assembly in assemblies:
-            if assembly.assembly_category_id.power_level_id.id != assembly.instance_id.power_level_id.id:
-                return False
+        if self._columns.get('power_level_id'):
+            assemblies = self.browse(cr, uid, ids, context=context)
+            for assembly in assemblies:
+                if assembly.assembly_category_id.power_level_id.id != assembly.instance_id.power_level_id.id:
+                    return False
 
         return True
 
