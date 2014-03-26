@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Create A Mass Editing For Postal Coordinate Concern co_residency_id -->
+        <record model="mass.object" id="massobject_coresidency">
+            <field name="name">Co-Residency</field>
+            <field name="model_id" ref="ficep_address.model_postal_coordinate"/>
+            <field name="field_ids" eval="[[6,False,[ref('ficep_address.field_postal_coordinate_co_residency_id')]]]"/>
+            <field name="model_ids" eval="[[6,False,[ref('ficep_address.model_postal_coordinate')]]]"/>
+        </record>
+
+        <!-- Launch Method create_action from mass editing -->
+        <function model="mass.object" name="create_action" eval="[[ref('massobject_coresidency')]]"/>
+
+    </data>
+</openerp>

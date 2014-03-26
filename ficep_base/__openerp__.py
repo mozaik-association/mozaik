@@ -37,6 +37,7 @@
         'portal',
         'mail',
         'partner_firstname',          # from lp:~partner-contact-core-editors/partner-contact-management/7.0
+        'mass_editing'  # from lp:server-env-tools'
         #'auth_ldap',
         #'event',
         #'l10n_be',
