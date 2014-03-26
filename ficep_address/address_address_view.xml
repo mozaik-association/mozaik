@@ -174,7 +174,20 @@
                             <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="postal_coordinate_ids" context="{'simplified': 1,
                                                                               'default_co_residency_id': active_id,
-                                                                              'form_view_ref': 'ficep_address.postal_coordinate_form_view'}">
+                                                                              'form_view_ref': 'ficep_address.postal_coordinate_form_view'}"
+                                       readonly="1" attrs="{'invisible': [('active','=',False)]}">
+                                    <tree>
+                                        <field name="partner_id"/>
+                                        <field name="coordinate_category_id" />
+                                        <field name="is_main" />
+                                        <field name="unauthorized" />
+                                        <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                                    </tree>
+                                </field>
+                                <field name="postal_coordinate_inactive_ids" context="{'simplified': 1,
+                                                                              'default_co_residency_id': active_id,
+                                                                              'form_view_ref': 'ficep_address.postal_coordinate_form_view'}"
+                                       readonly="1" attrs="{'invisible': [('active','=',True)]}">
                                     <tree>
                                         <field name="partner_id"/>
                                         <field name="coordinate_category_id" />
