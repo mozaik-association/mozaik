@@ -34,7 +34,11 @@ class allow_duplicate_wizard(orm.TransientModel):
 
     _name = "allow.duplicate.wizard"
 
-    def button_allow_duplicate(self, cr, uid, ids, context=None):
+    def button_allow_duplicate(self, cr, uid, ids, vals=None, context=None):
+        if vals is None:
+            vals = {}
+        if context is None:
+            context = {}
         if not context.get('active_model', False):
             raise orm.except_orm(_('Error'), _('Missing active_model in context'))
 
@@ -58,7 +62,7 @@ class allow_duplicate_wizard(orm.TransientModel):
                                                                         ('is_duplicate_allowed', '=', True)], context=context)
             if not allowed_document_ids:
                 raise orm.except_orm(_('Error'), _('You must select more than one entry!'))
-
-        target_obj.write(cr, uid, document_ids, {'is_duplicate_detected': False, 'is_duplicate_allowed': True}, context=context)
+        vals.update(target_obj.get_fields_to_update(cr, uid, "allow", context=context))
+        target_obj.write(cr, uid, document_ids, vals, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

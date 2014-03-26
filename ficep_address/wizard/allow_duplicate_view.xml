@@ -22,5 +22,18 @@
             <field name="value" eval="'ir.actions.act_window,%s' % ref('allow_duplicate_action')" />
         </record>
 
+        <record id="allow_duplicate_wizard_inherit" model="ir.ui.view">
+            <field name="name">allow.duplicate.wizard.inherit (ficep_address)</field>
+            <field name="model">allow.duplicate.wizard</field>
+            <field name="inherit_id" ref="ficep_duplicate.allow_duplicate_wizard" />
+            <field name="arch" type="xml">
+                <xpath expr="//strong" position="before">
+                    <group>
+                        <field name="co_residency_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>
