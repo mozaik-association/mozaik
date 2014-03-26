@@ -54,6 +54,7 @@ FICEP Sample Customization
          '../ficep_person_coordinate/tests/data/relation_data.xml',
          '../ficep_thesaurus/tests/data/thesaurus_data.xml',
          '../ficep_structure/tests/data/structure_data.xml',
+         'demo/structure_demo.xml',
          'demo/sample_customization_demo.xml',  # must be the last
     ],
     'js': [

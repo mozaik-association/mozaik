@@ -25,13 +25,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import test_sta_structure
+from . import test_structure
 
 fast_suite = [
 ]
 
 checks = [
-     test_sta_structure,
+     test_structure,
 ]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
