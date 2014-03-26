@@ -77,7 +77,7 @@
         <!-- Create External Assemblies -->
 
         <record id="ext_assembly_01" model="ext.assembly">
-            <field name="instance_id" ref="int_instance_01"/>
+            <field name="instance_id" ref="ficep_structure.int_instance_01"/>
             <field name="ref_partner_id" ref="res_partner_rtbf"/>
             <field name="assembly_category_id" ref="ficep_structure.ext_assembly_category_01"/>
             <field name="designation_int_power_level_id" ref="ficep_structure.int_power_level_01"/>

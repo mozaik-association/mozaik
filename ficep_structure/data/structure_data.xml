@@ -304,5 +304,12 @@
             <field name="name">Conseil d'administration</field>
         </record>
 
+        <!-- Create Internal Instance -->
+
+        <record id="int_instance_01" model="int.instance">
+            <field name="name">Ecolo Fédéral</field>
+            <field name="power_level_id" ref="sta_power_level_01"/>
+        </record>
+
     </data>
 </openerp>

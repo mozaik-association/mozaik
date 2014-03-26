@@ -10,7 +10,7 @@
                     <field name="local_zip" />
                     <field name="town" />
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter string="Zip" context="{'group_by': 'local_zip'}"/>
+                        <filter name="zip" string="Zip" context="{'group_by': 'local_zip'}"/>
                     </group>
                 </search>
             </field>
@@ -36,11 +36,11 @@
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="local_zip" placeholder="Local Zip..." /></h1>
+                            <label for="local_zip" class="oe_edit_only"/>
+                            <h1><field name="local_zip" placeholder="1050, 4000..." /></h1>
                         </div>
-                        <group>
-                            <field name="town"  placeholder="Town..." />
+                        <group name="data">
+                            <field name="town" placeholder="Ixelles, Liège..." />
                         </group>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">

@@ -26,37 +26,28 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Sample Customization',
+    'name': 'FICEP: Structure - Address',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep',
+        'ficep_structure',
+        'ficep_address',
     ],
     'description': """
-FICEP Sample Customization
-==========================
+FICEP Structure - Address
+=========================
+Make a bridge between both Strcuture and Address Modules.
+It defines a required m2o to Internal Instance on local zip.
+It replicates this instance on partner which main address is related to this local zip, default instance otherwise.
     """,
     'images': [
     ],
     'data': [
-         'demo/company_demo.xml',
-         'demo/users_demo.xml',
-         '../ficep_base/tests/data/res_partner_data.xml',
-         '../ficep_base/tests/data/res_users_data.xml',
-         '../ficep_coordinate/tests/data/coordinate_category_data.xml',
-         '../ficep_email/tests/data/email_data.xml',
-         '../ficep_address/tests/data/reference_data.xml',
-         '../ficep_address/tests/data/address_data.xml',
-         '../ficep_phone/tests/data/phone_data.xml',
-         '../ficep_person_coordinate/tests/data/relation_data.xml',
-         '../ficep_thesaurus/tests/data/thesaurus_data.xml',
-         '../ficep_structure/tests/data/structure_data.xml',
-         '../ficep_structure_address/tests/data/structure_address_data.xml',
-         'demo/structure_demo.xml',
-         'demo/sample_customization_demo.xml',  # must be the last
+         'address_local_zip_view.xml',
+         #'../ficep_base/tests/data/res_users_data.xml',
     ],
     'js': [
     ],

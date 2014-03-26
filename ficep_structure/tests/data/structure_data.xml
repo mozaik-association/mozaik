@@ -4,15 +4,10 @@
 
         <!-- Create Internal Instance -->
 
-        <record id="int_instance_01" model="int.instance">
-            <field name="name">Ecolo Fédéral</field>
-            <field name="power_level_id" ref="ficep_structure.sta_power_level_01"/>
-        </record>
-
         <record id="int_instance_02" model="int.instance">
             <field name="name">Parlement wallon (PW)</field>
             <field name="power_level_id" ref="ficep_structure.sta_power_level_02"/>
-            <field name="parent_id" ref="int_instance_01"/>
+            <field name="parent_id" ref="ficep_structure.int_instance_01"/>
         </record>
 
         <record id="int_instance_03" model="int.instance">
@@ -60,26 +55,38 @@
                                                            (4, ref('int_instance_08')),]"/>
         </record>
 
+        <record id="int_instance_regional_bxl" model="int.instance">
+            <field name="name">Bruxelles</field>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_04"/>
+            <field name="parent_id" ref="ficep_structure.int_instance_01"/>
+        </record>
+
+        <record id="int_instance_local_bxl" model="int.instance">
+            <field name="name">Bruxelles</field>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_05"/>
+            <field name="parent_id" ref="int_instance_regional_bxl"/>
+        </record>
+
         <!-- Create State Instance -->
 
         <record id="sta_instance_01" model="sta.instance">
             <field name="name">Etat féderal</field>
             <field name="power_level_id" ref="ficep_structure.sta_power_level_01"/>
-            <field name="int_instance_id" ref="int_instance_01"/>
+            <field name="int_instance_id" ref="ficep_structure.int_instance_01"/>
         </record>
 
         <record id="sta_instance_02" model="sta.instance">
             <field name="name">Communauté française</field>
             <field name="power_level_id" ref="ficep_structure.sta_power_level_03"/>
             <field name="parent_id" ref="sta_instance_01"/>
-            <field name="int_instance_id" ref="int_instance_01"/>
+            <field name="int_instance_id" ref="ficep_structure.int_instance_01"/>
         </record>
 
         <record id="sta_instance_03" model="sta.instance">
             <field name="name">Région wallonne</field>
             <field name="power_level_id" ref="ficep_structure.sta_power_level_04"/>
              <field name="parent_id" ref="sta_instance_01"/>
-            <field name="int_instance_id" ref="int_instance_01"/>
+            <field name="int_instance_id" ref="ficep_structure.int_instance_01"/>
         </record>
 
         <record id="sta_instance_04" model="sta.instance">

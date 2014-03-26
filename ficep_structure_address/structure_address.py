@@ -25,42 +25,20 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_structure_address',
-        'ficep_person_coordinate',
-        'ficep_mass_editing',
-    ],
-    'description': """
-FICEP
-=====
-Loads all ficep modules
-    """,
-    'images': [
-    ],
-    'data': [
-        'data/res_users_data.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'active': False,
-    'auto_install': False,
-    'installable': True,
-}
+from openerp.osv import orm, fields
+from openerp.tools.translate import _
+
+
+class address_local_zip(orm.Model):
+
+    _inherit = 'address.local.zip'
+
+    _columns = {
+        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', required=True, select=True, track_visibility='onchange'),
+    }
+
+    _defaults = {
+        'int_instance_id': lambda self, cr, uid, ids, context=None: self.pool.get("ir.model.data").get_object_reference(cr, uid, "ficep_structure", "int_instance_01")[1]
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

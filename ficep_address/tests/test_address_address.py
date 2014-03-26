@@ -73,9 +73,9 @@ class test_address_address(SharedSetupTransactionCase):
         }
         adr_id = self.model_address.create(cr, uid, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.name, '-/4b Place Chanoine Descamps - 5000 Namur', 'Create address fails with wrong name')
-        self.assertEqual(adr.zip, '5000', 'Create address fails with wrong zip')
-        self.assertEqual(adr.street, '-/4b Place Chanoine Descamps', 'Create address fails with wrong street')
+        self.assertEqual(adr.name, '-/4b Grand-Place - 4500 Huy', 'Create address fails with wrong name')
+        self.assertEqual(adr.zip, '4500', 'Create address fails with wrong zip')
+        self.assertEqual(adr.street, '-/4b Grand-Place', 'Create address fails with wrong street')
 
         dic = {
             'number': '7',
@@ -84,8 +84,8 @@ class test_address_address(SharedSetupTransactionCase):
         }
         self.model_address.write(cr, uid, adr_id, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.name, '[3]: 7 Place Chanoine Descamps - 5000 Namur', 'Update address fails with wrong name')
-        self.assertEqual(adr.street, '7 Place Chanoine Descamps', 'Update address fails with wrong street')
+        self.assertEqual(adr.name, '[3]: 7 Grand-Place - 4500 Huy', 'Update address fails with wrong name')
+        self.assertEqual(adr.street, '7 Grand-Place', 'Update address fails with wrong street')
 
         dic = {
             'country_id': self.ref("base.us"),
