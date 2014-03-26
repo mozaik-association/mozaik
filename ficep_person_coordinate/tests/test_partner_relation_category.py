@@ -27,6 +27,7 @@
 ##############################################################################
 from anybox.testing.openerp import SharedSetupTransactionCase
 from openerp.tools import SUPERUSER_ID
+from openerp.osv import orm
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -51,12 +52,25 @@ class test_partner_relation_category(SharedSetupTransactionCase):
         the method name_get of partner_relation_category will return either
         subject_name or object_name depending context['object'] False or Not
         """
-        relation_id = self.ref("ficep_person_coordinate.partner_relation")
-        res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [relation_id], context=None)
+        rec_relation = self.browse_ref("ficep_person_coordinate.partner_relation")
+        res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [rec_relation.partner_relation_category_id.id], context=None)
         self.assertEqual('employs', res[0][1], "Without context: should be subject name")
-        res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [relation_id], context={'object': False})
+        res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [rec_relation.partner_relation_category_id.id], context={'object': False})
         self.assertEqual('employs', res[0][1], "Without object false into context: should be subject name")
-        res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [relation_id], context={'object': True})
+        res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [rec_relation.partner_relation_category_id.id], context={'object': True})
         self.assertEqual('is used by', res[0][1], "With object into context: should be object name")
+
+    def test_check_relation_qualification(self):
+        rec_relation = self.browse_ref("ficep_person_coordinate.partner_relation")
+        self.assertRaises(orm.except_orm, rec_relation._model.create, self.cr,
+                                          SUPERUSER_ID,
+                                          {'object_partner_id': rec_relation.subject_partner_id.id,
+                                           'subject_partner_id': rec_relation.object_partner_id.id,
+                                           'partner_relation_category_id': rec_relation.partner_relation_category_id.id})
+        self.assertRaises(orm.except_orm, rec_relation._model.create, self.cr,
+                                          SUPERUSER_ID,
+                                          {'object_partner_id': rec_relation.subject_partner_id.id,
+                                           'subject_partner_id': rec_relation.subject_partner_id.id,
+                                           'partner_relation_category_id': rec_relation.partner_relation_category_id.id})
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -131,6 +131,19 @@
                             <group name="other">
                             </group>
                         </group>
+                        <notebook>
+                            <page name="phone_coordinate" string="Phone Coordinate">
+                                <field name="fix_coordinate_id"/>
+                                <field name="fax_coordinate_id"/>
+                                <field name="mobile_coordinate_id"/>
+                            </page>
+                            <page name="postal_coordinate" string="Postal Coordinate">
+                                <field name="postal_coordinate_id"/>
+                            </page>
+                            <page name="email_coordinate" string="Email Coordinate">
+                                <field name="email_coordinate_id"/>
+                            </page>
+                        </notebook>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
@@ -187,6 +200,25 @@
                             <group name="other">
                             </group>
                         </group>
+                        <notebook>
+                            <page name="phone_coordinate" string="Phone Coordinate">
+                                <group>
+                                    <field name="fix_coordinate_id"/>
+                                    <field name="fax_coordinate_id"/>
+                                    <field name="mobile_coordinate_id"/>
+                                </group>
+                            </page>
+                            <page name="postal_coordinate" string="Postal Coordinate">
+                                <group>
+                                    <field name="postal_coordinate_id"/>
+                                </group>
+                            </page>
+                            <page name="email_coordinate" string="Email Coordinate">
+                                <group>
+                                    <field name="email_coordinate_id"/>
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
@@ -224,7 +256,7 @@
         </record>
         <!-- Partner Relation Category -->
         <record id="partner_relation_category_action" model="ir.actions.act_window">
-            <field name="name">Partner Relation Category</field>
+            <field name="name">Relation Category</field>
             <field name="res_model">partner.relation.category</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>

@@ -39,10 +39,11 @@ KEY_FIELDS = OrderedDict([
     ('address_local_street_id', 'id'),
     ('street_man', False),
     ('number', False),
-    ('box', False), 
-    ('sequence', False), 
+    ('box', False),
+    ('sequence', False),
 ])
-TRIGGER_FIELDS = KEY_FIELDS.keys()+['select_alternative_address_local_street']
+TRIGGER_FIELDS = KEY_FIELDS.keys() + ['select_alternative_address_local_street']
+
 
 class address_address(orm.Model):
 
@@ -62,7 +63,7 @@ class address_address(orm.Model):
         return self.pool.get('address.local.street')._get_linked_addresses(cr, uid, ids, context=context)
 
     def _get_integral_address(self, cr, uid, ids, name, args, context=None):
-        result = {}.fromkeys(ids, {key: False for key in ['name','technical_name',]})
+        result = {}.fromkeys(ids, {key: False for key in ['name', 'technical_name', ]})
         adrs_recs = self.browse(cr, uid, ids, context=context)
         for adrs in adrs_recs:
             elts = [
@@ -108,7 +109,7 @@ class address_address(orm.Model):
         return result
 
     def _get_zip(self, cr, uid, ids, name, args, context=None):
-        result = {}.fromkeys(ids, {key: False for key in ['zip','city',]})
+        result = {}.fromkeys(ids, {key: False for key in ['zip', 'city', ]})
         adrs_recs = self.browse(cr, uid, ids, context=context)
         for adrs in adrs_recs:
             result[adrs.id] = {
@@ -129,7 +130,7 @@ class address_address(orm.Model):
     }
     _street_store_triggers = {
             'address.address': (lambda self, cr, uid, ids, context=None: ids, ['address_local_street_id', 'select_alternative_address_local_street', 'street_man', 'number', 'box'], 10),
-            'address.local.street': (_get_linked_addresses_from_local_street, ['local_street','local_street_alternative'], 10),
+            'address.local.street': (_get_linked_addresses_from_local_street, ['local_street', 'local_street_alternative'], 10),
     }
 
     _columns = {
