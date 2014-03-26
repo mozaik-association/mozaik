@@ -25,9 +25,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp.tools import SUPERUSER_ID
 
 
 """
@@ -189,7 +189,7 @@ class thesaurus_term(orm.Model):
         :rparam: True
         :rtype: boolean
         """
-        self.write(cr, uid, ids, {'state': 'cancel', 'active': False, 'expire_date': fields.datetime.now}, context=context)
+        self.write(cr, uid, ids, {'state': 'cancel', 'active': False, 'expire_date': fields.datetime.now()}, context=context)
         return True
 
     def button_reset(self, cr, uid, ids, context=None):

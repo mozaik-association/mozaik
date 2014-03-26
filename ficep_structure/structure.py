@@ -36,7 +36,6 @@ class electoral_district(orm.Model):
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
         'sta_instance_id': fields.many2one('sta.instance', 'State Instance', required=True, track_visibility='onchange'),
         'int_instance_id': fields.related('sta_instance_id', 'int_instance_id', string='Internal Instance',

@@ -36,7 +36,6 @@ class abstract_power_level(orm.AbstractModel):
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
         'sequence': fields.integer("Sequence", required=True, track_visibility='onchange'),
         'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
         'assembly_category_ids': fields.one2many('abstract.assembly.category', 'power_level_id', 'Assembly Categories'),
@@ -57,7 +56,6 @@ class abstract_assembly_category(orm.AbstractModel):
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, select=True, required=True, track_visibility='onchange'),
         'duration': fields.integer('Duration of mandates', track_visibility='onchange'),
         'months_before_end_of_mandate': fields.integer('Months before end of mandate', track_visibility='onchange'),
@@ -73,7 +71,6 @@ class abstract_instance(orm.AbstractModel):
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, select=True, required=True, track_visibility='onchange'),
         'parent_id': fields.many2one('abstract.instance', 'Parent Abstract Instance', select=True, track_visibility='onchange'),
         'power_level_id': fields.many2one('abstract.power.level', 'Power Level', required=True, track_visibility='onchange'),
@@ -123,7 +120,6 @@ class abstract_assembly(orm.AbstractModel):
     }
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
         'assembly_category_id': fields.many2one('abstract.assembly.category', string='Category',
                                                  required=True, track_visibility='onchange'),
         'instance_id': fields.many2one('abstract.instance', string='Instance',
@@ -133,6 +129,12 @@ class abstract_assembly(orm.AbstractModel):
         'designation_int_power_level_id': fields.many2one('abstract.power.level', string='Designation Power Level',
                                                  required=True, track_visibility='onchange'),
         'months_before_end_of_mandate': fields.integer('Months before end of mandate', track_visibility='onchange'),
+    }
+
+    _defaults = {
+        'is_company': True,
+        'is_assembly': True,
+        'designation_int_power_level_id': lambda self, cr, uid, ids, context=None: self.pool.get("ir.model.data").get_object_reference(cr, uid, "ficep_structure", "int_power_level_01")[1]
     }
 
     def _check_consistent_power_level(self, cr, uid, ids, for_unlink=False, context=None):
@@ -151,12 +153,6 @@ class abstract_assembly(orm.AbstractModel):
                 return False
 
         return True
-
-    _defaults = {
-        'is_company': True,
-        'is_assembly': True,
-        'designation_int_power_level_id': lambda self, cr, uid, ids, context=None: self.pool.get("ir.model.data").get_object_reference(cr, uid, "ficep_structure", "int_power_level_01")[1]
-    }
 
     _constraints = [
         (_check_consistent_power_level, _('Power level of category and power level of instance are inconsistents'),

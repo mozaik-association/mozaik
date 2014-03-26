@@ -46,6 +46,7 @@ Colors tree view.
     'images': [
     ],
     'data': [
+        'security/ir.model.access.csv',
         'res_partner_view.xml',
         'partner_relation_view.xml',
     ],
