@@ -28,6 +28,7 @@
 from collections import OrderedDict
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp.tools import SUPERUSER_ID
 
 COUNTRY_CODE = 'BE'
 # Do Not Add Sequence Here
@@ -292,6 +293,7 @@ class postal_coordinate(orm.Model):
     _description = "Postal Coordinate"
 
     _discriminant_field = 'address_id'
+    _trigger_fileds = []
     _undo_redirect_action = 'ficep_address.postal_coordinate_action'
 
     _columns = {
@@ -316,10 +318,33 @@ class postal_coordinate(orm.Model):
         ['co_residency_id']),
     ]
 
+#orm methods
+
+    def create(self, cr, uid, vals, context=None):
+        if vals.get('co_residency_id', False):
+            if not self.search(cr, SUPERUSER_ID, [('co_residency_id', '=', vals['co_residency_id'])], context=context):
+                vals['co_residency_id'] = False
+        return super(postal_coordinate, self).create(cr, uid, vals, context=context)
+
+#public methods
+    def button_undo_allow_duplicate(self, cr, uid, ids, context=None, vals=None):
+        return super(postal_coordinate, self).button_undo_allow_duplicate(cr, uid, ids, context=None, vals={'co_residency_id': False})
+
+    def get_fields_to_update(self, cr, uid, mode, context=None):
+        """
+        """
+        if mode == 'duplicate':
+            return {'is_duplicate_detected': True,
+                    'is_duplicate_allowed': False,
+                    'co_residency_id': False,
+                   }
+        else:
+            return super(postal_coordinate, self).get_fields_to_update(cr, uid, mode, context=None)
+
 
 class co_residency(orm.Model):
     _name = 'co.residency'
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['abstract.ficep.model']
 
     _columns = {
         'id': fields.integer('ID'),
@@ -330,6 +355,11 @@ class co_residency(orm.Model):
                                                  'address_id',
                                                  'Postal Coordinates',
                                                  domain=[('active', '=', True)],
+                                                 track_visibility='onchange'),
+        'postal_coordinate_inactive_ids': fields.one2many('postal.coordinate',
+                                                 'address_id',
+                                                 'Postal Coordinates',
+                                                 domain=[('active', '=', False)],
                                                  track_visibility='onchange'),
     }
 

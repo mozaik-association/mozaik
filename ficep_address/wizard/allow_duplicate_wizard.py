@@ -25,8 +25,30 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm, fields
 
-from . import change_main_address
-from . import allow_duplicate_wizard
+
+class allow_duplicate_wizard(orm.TransientModel):
+
+    _inherit = "allow.duplicate.wizard"
+
+    _columns = {
+        'co_residency_id': fields.many2one('co.residency', string='Co-residency'),
+    }
+
+    def button_allow_duplicate(self, cr, uid, ids, context=None, vals=None):
+        """
+        ======================
+        button_allow_duplicate
+        ======================
+        add co_residency_id into vals and call super
+        """
+        if vals is None:
+            vals = {}
+        wizards = self.browse(cr, uid, ids, context=context)
+        for wizard in wizards:
+            if wizard.co_residency_id:
+                vals = {'co_residency_id': wizard.co_residency_id.id}
+        super(allow_duplicate_wizard, self).button_allow_duplicate(cr, uid, ids, vals=vals, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
