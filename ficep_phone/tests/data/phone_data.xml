@@ -39,6 +39,11 @@
             <field name="type">fix</field>
         </record>
 
+        <record id="fax_nouvelobs" model="phone.phone">
+            <field name="name">+33 01 40 23 86 13</field>
+            <field name="type">fax</field>
+        </record>
+
         <!-- Create Phone Coordinates -->
 
         <!-- Partner Pauline -->
@@ -90,31 +95,12 @@
             <field name="partner_id" ref="res_partner_thierry" />
         </record>
 
-        <!--
-            Phone Coordinates for other Partners
-        -->
+        <!-- Partner Nouvel Obs -->
 
-        <record id="fix_fgtb" model="phone.phone">
-            <field name="name">025520330</field>
-            <field name="type">fix</field>
-        </record>
-
-        <record id="fax_nouvelobs" model="phone.phone">
-            <field name="name">+33 01 40 23 86 13</field>
-            <field name="type">fax</field>
-        </record>
-
-        <record id="main_fix_ccordinate_for_fgtb" model="phone.coordinate">
-            <field name="phone_id" ref="fix_fgtb" />
-            <field name="partner_id" ref="res_partner_fgtb" />
-            <field name="is_main" eval="True" />
-        </record>
-
-        <record id="main_fax_ccordinate_for_nouvelobs" model="phone.coordinate">
+        <record id="main_fax_coordinate_for_nouvelobs" model="phone.coordinate">
             <field name="phone_id" ref="fax_nouvelobs" />
             <field name="partner_id" ref="res_partner_nouvelobs" />
             <field name="is_main" eval="True" />
-            <field name="unauthorized" eval="True" />
         </record>
 
     </data>

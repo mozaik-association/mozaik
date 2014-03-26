@@ -33,8 +33,9 @@ from openerp.tools import SUPERUSER_ID
 
 class test_res_partner(SharedSetupTransactionCase):
 
-    _data_files = ('data/person_data.xml',
-                  )
+    _data_files = (
+        '../../ficep_base/tests/data/res_partner_data.xml',
+    )
 
     _module_ns = 'ficep_person'
 

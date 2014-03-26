@@ -25,17 +25,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.addons.ficep_base.tests.test_abstract_ficep import abstract_ficep
-from openerp.osv import orm
-from anybox.testing.openerp import SharedSetupTransactionCase
 import logging
+from anybox.testing.openerp import SharedSetupTransactionCase
+
+from openerp.osv import orm
+
+from openerp.addons.ficep_base.tests.test_abstract_ficep import abstract_ficep
+
+
 _logger = logging.getLogger(__name__)
 
 
 class test_sta_structure(abstract_ficep, SharedSetupTransactionCase):
-    _data_files = ('../../ficep_structure/tests/data/structure_data.xml',
-                   'data/structure_data.xml',
-                  )
+
+    _data_files = (
+        'data/structure_data.xml',
+    )
 
     _module_ns = 'ficep_structure'
 

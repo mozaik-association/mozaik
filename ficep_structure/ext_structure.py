@@ -70,7 +70,7 @@ class ext_assembly(orm.Model):
                                                  required=True, track_visibility='onchange'),
         'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
                                                  required=True, track_visibility='onchange'),
-        'ref_partner_id': fields.many2one('res.partner', 'Reference Partner', required=True, ondelete='cascade',
+        'ref_partner_id': fields.many2one('res.partner', 'Legal Person', required=True, ondelete='cascade',
                                           context={'is_company': True, 'is_assembly': False}, track_visibility='onchange'),
     }
 

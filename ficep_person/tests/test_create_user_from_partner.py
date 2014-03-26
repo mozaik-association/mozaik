@@ -34,8 +34,10 @@ _logger = logging.getLogger(__name__)
 
 class test_create_user_from_partner(SharedSetupTransactionCase):
 
-    _data_files = ('data/person_data.xml',
-                  )
+    _data_files = (
+        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../ficep_base/tests/data/res_users_data.xml',
+    )
 
     _module_ns = 'ficep_person'
 

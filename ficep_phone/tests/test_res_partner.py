@@ -33,9 +33,10 @@ _logger = logging.getLogger(__name__)
 
 class test_phone_coordinate_wizard(SharedSetupTransactionCase):
 
-    _data_files = ('../../ficep_person/tests/data/person_data.xml',
-                   'data/phone_data.xml',
-                  )
+    _data_files = (
+        '../../ficep_base/tests/data/res_partner_data.xml',
+        'data/phone_data.xml',
+    )
 
     _module_ns = 'ficep_phone'
 

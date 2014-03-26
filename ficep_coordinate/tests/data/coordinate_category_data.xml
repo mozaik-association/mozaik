@@ -4,11 +4,11 @@
 
         <!-- Create Coordinate Category -->
 
-        <record id="coo_cat_one" model="coordinate.category">
+        <record id="coordinate_category_private" model="coordinate.category">
             <field name="name">Private</field>
         </record>
 
-        <record id="coo_cat_two" model="coordinate.category">
+        <record id="coordinate_category_professional" model="coordinate.category">
             <field name="name">Professional</field>
         </record>
 

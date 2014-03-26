@@ -2,19 +2,68 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- add some attributes to phone coordinates -->
+        <!-- Add some attributes to existing records -->
+
+        <!-- Persons -->
+
+        <record id="res_partner_paul" model="res.partner">
+            <field name="birth_date">1985-03-12</field>
+            <field name="ldap_name">pvanhaver</field>
+            <field name="ldap_id">451256</field>
+        </record>
+
+        <record id="res_partner_pauline" model="res.partner">
+            <field name="birth_date">1949-03-29</field>
+            <field name="tongue">f</field>
+            <field name="gender">f</field>
+            <field name="secondary_website">http://www.acsone.eu</field>
+            <field name="twitter">#onpc</field>
+            <field name="facebook">LEGOLAND</field>
+            <field name="website">http://www.legoland.dk/</field>
+        </record>
+
+        <record id="res_partner_jacques" model="res.partner">
+            <field name="civil_status">m</field>
+        </record>
+
+        <record id="res_partner_fgtb" model="res.partner">
+            <field name="acronym">fgtb</field>
+        </record>
+
+        <record id="res_partner_nouvelobs" model="res.partner">
+            <field name="acronym">nouvelobs</field>
+        </record>
+
+        <record id="res_partner_rtbf" model="res.partner">
+            <field name="acronym">rtbf</field>
+        </record>
+
+        <!-- Emails -->
+
+        <record id="email_coordinate_thierry_two" model="email.coordinate">
+            <field name="vip" eval="True" />
+            <field name="coordinate_category_id" ref="coordinate_category_private" />
+        </record>
+
+        <record id="email_coordinate_paul" model="email.coordinate">
+            <field name="email">pvh@google.com</field>
+            <field name="partner_id" ref="res_partner_paul" />
+            <field name="unauthorized" eval="True" />
+        </record>
+
+        <!-- Phones -->
 
         <record id="main_fix_coordinate_one" model="phone.coordinate">
-            <field name="coordinate_category_id" ref="coo_cat_two" />
+            <field name="coordinate_category_id" ref="coordinate_category_professional" />
             <field name="unauthorized" eval="True" />
         </record>
 
         <record id="main_fax_coordinate_one" model="phone.coordinate">
-            <field name="coordinate_category_id" ref="coo_cat_two" />
+            <field name="coordinate_category_id" ref="coordinate_category_professional" />
         </record>
 
         <record id="main_mobile_coordinate_one" model="phone.coordinate">
-            <field name="coordinate_category_id" ref="coo_cat_two" />
+            <field name="coordinate_category_id" ref="coordinate_category_professional" />
         </record>
 
         <record id="main_mobile_coordinate_two" model="phone.coordinate">
@@ -22,7 +71,24 @@
         </record>
 
         <record id="mobile_coordinate_two" model="phone.coordinate">
-            <field name="coordinate_category_id" ref="coo_cat_two" />
+            <field name="coordinate_category_id" ref="coordinate_category_professional" />
+        </record>
+
+        <record id="main_fax_coordinate_for_nouvelobs" model="phone.coordinate">
+            <field name="unauthorized" eval="True" />
+        </record>
+
+        <!-- Additional Coordinates -->
+
+        <record id="fix_fgtb" model="phone.phone">
+            <field name="name">025520330</field>
+            <field name="type">fix</field>
+        </record>
+
+        <record id="main_fix_coordinate_for_fgtb" model="phone.coordinate">
+            <field name="phone_id" ref="fix_fgtb" />
+            <field name="partner_id" ref="res_partner_fgtb" />
+            <field name="is_main" eval="True" />
         </record>
 
     </data>

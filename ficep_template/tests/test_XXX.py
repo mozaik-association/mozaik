@@ -36,8 +36,10 @@ ADMIN_USER_ID = common.ADMIN_USER_ID
 
 class test_NAME(SharedSetupTransactionCase):
 
-    _data_files = ('data/XXX_data.xml',
-                  )
+    _data_files = (
+        '../../ficep_base/tests/data/res_partner_data.xml',
+        'data/XXX_data.xml',
+    )
 
     _module_ns = 'ficep_XXX'
 

@@ -38,10 +38,11 @@ ADMIN_USER_ID = common.ADMIN_USER_ID
 
 class test_postal_coordinate(SharedSetupTransactionCase):
 
-    _data_files = ('../../ficep_person/tests/data/person_data.xml',
-                   'data/reference_data.xml',
-                   'data/address_data.xml',
-                  )
+    _data_files = (
+        '../../ficep_base/tests/data/res_partner_data.xml',
+        'data/reference_data.xml',
+        'data/address_data.xml',
+    )
 
     _module_ns = 'ficep_address'
 
