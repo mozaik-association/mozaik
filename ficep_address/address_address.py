@@ -315,10 +315,27 @@ class postal_coordinate(orm.Model):
 
 #public methods
     def button_undo_allow_duplicate(self, cr, uid, ids, context=None, vals=None):
+        """
+        ===========================
+        button_undo_allow_duplicate
+        ===========================
+        Override the native ``button_undo_allow_duplicate`` by adding ``{co_residency_id: False}`` into vals parameters
+        """
         return super(postal_coordinate, self).button_undo_allow_duplicate(cr, uid, ids, context=None, vals={'co_residency_id': False})
 
     def get_fields_to_update(self, cr, uid, mode, context=None):
         """
+        ====================
+        get_fields_to_update
+        ====================
+        :type mode: char
+        :param mode: is the mode that define the return value
+        :rtype: dictionary
+        :rparam: if mode is duplicate then return
+            {'is_duplicate_detected': True,
+             'is_duplicate_allowed': False,
+             'co_residency_id': False,
+            }
         """
         if mode == 'duplicate':
             return {'is_duplicate_detected': True,

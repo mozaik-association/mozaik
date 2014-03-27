@@ -88,7 +88,7 @@
                                                                              'form_view_ref': 'ficep_address.postal_coordinate_form_view'}">
                                     <tree colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
                                         <field name="partner_id"/>
-                                        <field name="co_residency_id" />
+                                        <field name="co_residency_id" readonly="1"/>
                                         <field name="coordinate_category_id" />
                                         <field name="is_main" />
                                         <field name="unauthorized" />

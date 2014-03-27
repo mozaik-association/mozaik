@@ -41,7 +41,7 @@ class allow_duplicate_wizard(orm.TransientModel):
         ======================
         button_allow_duplicate
         ======================
-        add co_residency_id into vals and call super
+        add co_residency_id into vals and call super ``button_allow_duplicate``
         """
         if vals is None:
             vals = {}

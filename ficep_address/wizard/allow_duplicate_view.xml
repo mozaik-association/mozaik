@@ -12,6 +12,7 @@
             <field name="target">new</field>
             <field name="view_id" ref="ficep_duplicate.allow_duplicate_wizard" />
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="context">{'postal_mode':True}</field>
         </record>
 
         <record id="allow_duplicate_value" model="ir.values">
@@ -29,7 +30,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//strong" position="before">
                     <group>
-                        <field name="co_residency_id"/>
+                        <field name="co_residency_id" 
+                               invisible="not context.get('postal_mode',False)"
+                               required="context.get('postal_mode',False)"/>
                     </group>
                 </xpath>
             </field>
