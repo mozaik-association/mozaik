@@ -153,7 +153,6 @@ class abstract_duplicate(orm.AbstractModel):
         :rparam: fields to update
         :rtype: dictionary
         """
-        res = {}
         if mode == 'reset':
             return {'is_duplicate_detected': False,
                     'is_duplicate_allowed': False,
@@ -202,7 +201,7 @@ class abstract_duplicate(orm.AbstractModel):
                             is_ok += 1
                             break
                     if is_ok >= 1:
-                        fields_to_update = self.get_fields_to_update(cr, uid, 'duplicate', context=None) 
+                        fields_to_update = self.get_fields_to_update(cr, uid, 'duplicate', context=None)
                 else:
                     if current_values[0]['is_duplicate_allowed'] or current_values[0]['is_duplicate_detected']:
                         fields_to_update = self.get_fields_to_update(cr, uid, 'reset', context=None)
