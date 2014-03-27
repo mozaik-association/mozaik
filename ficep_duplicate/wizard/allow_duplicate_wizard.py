@@ -58,11 +58,16 @@ class allow_duplicate_wizard(orm.TransientModel):
 
         if len(document_ids) == 1:
             discriminant = target_obj._is_discriminant_m2o() and discriminants[0].id or discriminants[0]
-            allowed_document_ids = target_obj.search(cr, SUPERUSER_ID, [(discriminant_field, '=', discriminant),
-                                                                        ('is_duplicate_allowed', '=', True)], context=context)
+            domain_search = [(discriminant_field, '=', discriminant),
+                             ('is_duplicate_allowed', '=', True)]
+            domain_search = self.get_domain_search(cr, uid, ids, domain_search, context=context)
+            allowed_document_ids = target_obj.search(cr, SUPERUSER_ID, domain_search, context=context)
             if not allowed_document_ids:
                 raise orm.except_orm(_('Error'), _('You must select more than one entry!'))
         vals.update(target_obj.get_fields_to_update(cr, uid, "allow", context=context))
         target_obj.write(cr, uid, document_ids, vals, context=context)
+
+    def get_domain_search(self, cr, uid, ids, domain, context=None):
+        return domain
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

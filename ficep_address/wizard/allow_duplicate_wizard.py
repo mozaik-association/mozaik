@@ -51,4 +51,14 @@ class allow_duplicate_wizard(orm.TransientModel):
                 vals = {'co_residency_id': wizard.co_residency_id.id}
         super(allow_duplicate_wizard, self).button_allow_duplicate(cr, uid, ids, vals=vals, context=context)
 
+    def get_domain_search(self, cr, uid, ids, domain, context=None):
+        """
+        =================
+        get_domain_search
+        =================
+        add co_residency_id's wizard to the domain
+        """
+        wizard = self.browse(cr, uid, ids, context=context)
+        return domain + [('co_residency_id', '=', wizard[0].co_residency_id.id)]
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
