@@ -41,4 +41,20 @@ class res_country(orm.Model):
     def _get_linked_addresses(self, cr, uid, ids, context=None):
         return self.pool.get('address.address').search(cr, uid, [('country_id', 'in', ids)], context=context)
 
+# public methods
+
+    def get_linked_partners(self, cr, uid, ids, context=None):
+        """
+        ===================
+        get_linked_partners
+        ===================
+        Return all partners ids linked to country ids
+        :param: ids
+        :type: list of country ids
+        :rparam: partner_ids
+        :rtype: list of ids
+        """
+        adr_ids = self._get_linked_addresses(cr, uid, ids, context=context)
+        return self.pool['address.address'].get_linked_partners(cr, uid, adr_ids, context=context)
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

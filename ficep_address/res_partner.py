@@ -113,7 +113,13 @@ class res_partner(orm.Model):
         'postal.coordinate': (lambda self, cr, uid, ids, context=None: self.pool['postal.coordinate'].get_linked_partners(cr, uid, ids, context=context),
             ['partner_id', 'address_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
         'address.address': (lambda self, cr, uid, ids, context=None: self.pool['address.address'].get_linked_partners(cr, uid, ids, context=context),
-            TRIGGER_FIELDS, 99),
+            TRIGGER_FIELDS, 30),
+        'address.local.zip': (lambda self, cr, uid, ids, context=None: self.pool['address.local.zip'].get_linked_partners(cr, uid, ids, context=context),
+            ['local_zip', 'town'], 25),
+        'address.local.street': (lambda self, cr, uid, ids, context=None: self.pool['address.local.street'].get_linked_partners(cr, uid, ids, context=context),
+            ['local_street', 'local_street_alternative'], 25),
+        'res.country': (lambda self, cr, uid, ids, context=None: self.pool['res.country'].get_linked_partners(cr, uid, ids, context=context),
+            ['name'], 25),
      }
 
     _columns = {

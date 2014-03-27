@@ -78,4 +78,20 @@ class address_local_street(orm.Model):
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)
 
+# public methods
+
+    def get_linked_partners(self, cr, uid, ids, context=None):
+        """
+        ===================
+        get_linked_partners
+        ===================
+        Return all partners ids linked to local street ids
+        :param: ids
+        :type: list of local street ids
+        :rparam: partner_ids
+        :rtype: list of ids
+        """
+        adr_ids = self._get_linked_addresses(cr, uid, ids, context=context)
+        return self.pool['address.address'].get_linked_partners(cr, uid, adr_ids, context=context)
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

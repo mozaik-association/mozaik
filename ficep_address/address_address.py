@@ -54,15 +54,6 @@ class address_address(orm.Model):
 
 # private methods
 
-    def _get_linked_addresses_from_country(self, cr, uid, ids, context=None):
-        return self.pool.get('res.country')._get_linked_addresses(cr, uid, ids, context=context)
-
-    def _get_linked_addresses_from_local_zip(self, cr, uid, ids, context=None):
-        return self.pool.get('address.local.zip')._get_linked_addresses(cr, uid, ids, context=context)
-
-    def _get_linked_addresses_from_local_street(self, cr, uid, ids, context=None):
-        return self.pool.get('address.local.street')._get_linked_addresses(cr, uid, ids, context=context)
-
     def _get_linked_coordinates(self, cr, uid, ids, context=None):
         return self.pool['postal.coordinate'].search(cr, uid, [('address_id', 'in', ids)], context=context)
 
@@ -124,17 +115,27 @@ class address_address(orm.Model):
         return result
 
     _address_store_triggers = {
-            # this MUST be executed in last for consistency: sequence is greater than other
-            'address.address': (lambda self, cr, uid, ids, context=None: ids, TRIGGER_FIELDS, 11),
-            'res.country': (_get_linked_addresses_from_country, ['name'], 10),
+        # this MUST be executed in last for consistency: sequence is greater than other
+        'address.address': (lambda self, cr, uid, ids, context=None: ids,
+            TRIGGER_FIELDS, 20),
+        'address.local.zip': (lambda self, cr, uid, ids, context=None: self.pool['address.local.zip']._get_linked_addresses(cr, uid, ids, context=context),
+            ['local_zip', 'town'], 15),
+        'address.local.street': (lambda self, cr, uid, ids, context=None: self.pool['address.local.street']._get_linked_addresses(cr, uid, ids, context=context),
+            ['local_street', 'local_street_alternative'], 15),
+        'res.country': (lambda self, cr, uid, ids, context=None: self.pool['res.country']._get_linked_addresses(cr, uid, ids, context=context),
+            ['name'], 15),
     }
     _zip_store_triggers = {
-            'address.address': (lambda self, cr, uid, ids, context=None: ids, ['address_local_zip_id', 'zip_man', 'town_man'], 10),
-            'address.local.zip': (_get_linked_addresses_from_local_zip, ['local_zip', 'town'], 10),
+        'address.address': (lambda self, cr, uid, ids, context=None: ids,
+            ['address_local_zip_id', 'zip_man', 'town_man'], 10),
+        'address.local.zip': (lambda self, cr, uid, ids, context=None: self.pool['address.local.zip']._get_linked_addresses(cr, uid, ids, context=context),
+            ['local_zip', 'town'], 10),
     }
     _street_store_triggers = {
-            'address.address': (lambda self, cr, uid, ids, context=None: ids, ['address_local_street_id', 'select_alternative_address_local_street', 'street_man', 'number', 'box'], 10),
-            'address.local.street': (_get_linked_addresses_from_local_street, ['local_street', 'local_street_alternative'], 10),
+        'address.address': (lambda self, cr, uid, ids, context=None: ids,
+            ['address_local_street_id', 'select_alternative_address_local_street', 'street_man', 'number', 'box'], 10),
+        'address.local.street': (lambda self, cr, uid, ids, context=None: self.pool['address.local.street']._get_linked_addresses(cr, uid, ids, context=context),
+            ['local_street', 'local_street_alternative'], 10),
     }
 
     _columns = {
