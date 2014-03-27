@@ -42,16 +42,29 @@
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
 
+        <!-- Need 4 Duplicate Postal Coordinate For testing all case -->
         <record id="postal_coordinate_2" model="postal.coordinate">
             <field name="address_id" ref="address_2"/>
             <field name="partner_id" ref="res_partner_jacques"/>
         </record>
-
-        <record id="postal_coordinate_2_duplicate" model="postal.coordinate">
+        <record id="postal_coordinate_2_duplicate_1" model="postal.coordinate">
             <field name="address_id" ref="address_2"/>
             <field name="partner_id" ref="res_partner_marc"/>
             <field name="unauthorized" eval="True" />
         </record>
+        <record id="postal_coordinate_2_duplicate_2" model="postal.coordinate">
+            <field name="address_id" ref="address_2"/>
+            <field name="partner_id" ref="res_partner_thierry"/>
+            <field name="is_main" eval="True" />
+            <field name="unauthorized" eval="True" />
+        </record>
+        <record id="postal_coordinate_2_duplicate_3" model="postal.coordinate">
+            <field name="address_id" ref="address_2"/>
+            <field name="partner_id" ref="res_partner_pauline"/>
+            <field name="is_main" eval="True" />
+            <field name="unauthorized" eval="True" />
+        </record>
+        <!-- ============================================================== -->
 
         <record id="postal_coordinate_3" model="postal.coordinate">
             <field name="address_id" ref="address_3"/>
@@ -63,6 +76,10 @@
 
         <record id="co_residency_id_1" model="co.residency">
             <field name="name">Familly Marsh</field>
+        </record>
+
+        <record id="co_residency_id_2" model="co.residency">
+            <field name="name">Familly Anderson</field>
         </record>
 
     </data>
