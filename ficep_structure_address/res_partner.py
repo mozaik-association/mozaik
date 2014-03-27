@@ -35,6 +35,19 @@ class res_partner(orm.Model):
 
     _inherit = "res.partner"
 
+    def _get_default_instance_id(self, cr, uid, ids=None, context=None):
+        """
+        ========================
+        _get_default_instance_id
+        ========================
+        Returns the default internal instance id
+        :param ids: unused
+        :type name: None
+        :rparam: int_instance_id
+        :rtype: integer
+        """
+        return self.pool['address.local.zip']._get_default_instance_id(cr, uid, ids=ids, context=context)
+
     def _get_instance_id(self, cr, uid, ids, name, args, context=None):
         """
         ================
@@ -49,6 +62,11 @@ class res_partner(orm.Model):
         Calling and result convention: Single mode
         """
         result = {}.fromkeys(ids, False)
+        
+        def_int_instance_id = self._get_default_instance_id(cr, uid, context=context)
+        for partner in self.browse(cr, uid, ids, context=context):
+            result[partner.id] = partner.int_instance_id.id or def_int_instance_id
+        
         coord_obj = self.pool['postal.coordinate']
         coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
                                                              ('is_main', '=', True),
@@ -57,9 +75,16 @@ class res_partner(orm.Model):
             if coord.active == coord.partner_id.active:
                 if coord.address_id.address_local_zip_id:
                     result[coord.partner_id.id] = coord.address_id.address_local_zip_id.int_instance_id.id
-                else:
-                    result[coord.partner_id.id] = self.pool.get("ir.model.data").get_object_reference(cr, uid, "ficep_structure", "int_instance_01")[1]
         return result
+
+    def _accept_anyway(self, cr, uid, id, name, value, args, context=None):
+        '''
+        Accept the modification of the internal instance (only possible if the partner
+        is not linked to a local zip code id (otherwise the field is readonly on the form)
+        Do not make a self.write here, it will indefinitively loop on itself... 
+        '''
+        cr.execute('update %s set %s = %%s where id = %s' % (self._table, name, id), (value, ))
+        return True
 
     _instance_store_triggers = {
         'postal.coordinate': (lambda self, cr, uid, ids, context=None: self.pool['postal.coordinate'].get_linked_partners(cr, uid, ids, context=context),
@@ -73,7 +98,11 @@ class res_partner(orm.Model):
     _columns = {
         'int_instance_id': fields.function(_get_instance_id, string='Internal Instance',
                                            type='many2one', relation='int.instance', select=True,
-                                           store=_instance_store_triggers),
+                                           store=_instance_store_triggers, fnct_inv=_accept_anyway),
+    }
+
+    _defaults = {
+        'int_instance_id': _get_default_instance_id,
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

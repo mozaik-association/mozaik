@@ -9,7 +9,7 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="ficep_person.res_partner_search_view" />
             <field name="arch" type="xml">
-                <xpath expr="//search" position="inside">
+                <xpath expr="//filter[1]" position="before">
                     <field string="Email" name="email" filter_domain="[('email','ilike',self)]" />
                     <field string="Address" name="street" filter_domain="[('address','ilike',self)] "/>
                     <field string="Phones" name="phone" filter_domain="['|','|',('phone','ilike',self),('mobile','ilike',self),('fax','ilike',self)]" />
@@ -28,13 +28,14 @@
                 <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="email"/>
 
+                    <field name="address" />
                     <field name="country_id"/>
                     <field name="state_id"/>
-                    <field name="city" />
+                    <field name="zip_id"/>
                     <field name="zip" />
+                    <field name="city" />
                     <field name="street" />
                     <field name="street2" />
-                    <field name="address" />
 
                     <field name="phone"/>
                     <field name="mobile" />

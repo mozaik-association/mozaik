@@ -86,7 +86,7 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Multiple mode
         """
-        result = {}.fromkeys(ids, {key: False for key in ['country_id','zip','city','street','address',]})
+        result = {}.fromkeys(ids, {key: False for key in ['country_id','zip_id','zip','city','street','address',]})
         coord_obj = self.pool['postal.coordinate']
         coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
                                                     ('is_main', '=', True),
@@ -95,6 +95,7 @@ class res_partner(orm.Model):
             if coord.active == coord.partner_id.active:
                 result[coord.partner_id.id] = {
                     'country_id': coord.address_id.country_id.id,
+                    'zip_id': coord.address_id.address_local_zip_id and coord.address_id.address_local_zip_id.id or False,
                     'zip': coord.address_id.zip,
                     'city': coord.address_id.city,
                     'street': coord.address_id.street,
@@ -139,11 +140,15 @@ class res_partner(orm.Model):
                                  type='many2one', relation='res.country', select=True,
                                  multi='all_address_componant_in_one',
                                  store=_postal_store_triggers),
-        'city': fields.function(_get_main_address_componant, string='City',
-                                 type='char',
+        'zip_id': fields.function(_get_main_address_componant, string='Zip',
+                                 type='many2one', relation='address.local.zip', select=True,
                                  multi='all_address_componant_in_one',
                                  store=_postal_store_triggers),
         'zip': fields.function(_get_main_address_componant, string='Zip Code',
+                                 type='char',
+                                 multi='all_address_componant_in_one',
+                                 store=_postal_store_triggers),
+        'city': fields.function(_get_main_address_componant, string='City',
                                  type='char',
                                  multi='all_address_componant_in_one',
                                  store=_postal_store_triggers),

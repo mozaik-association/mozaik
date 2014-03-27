@@ -41,9 +41,9 @@
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Contacts, expired or not" />
 
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter string="Gender" context="{'group_by': 'gender'}" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
-                        <filter string="Tongue" context="{'group_by': 'tongue'}" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
-                        <filter string="Country" context="{'group_by': 'country_id'}"/>
+                        <filter name="gender" string="Gender" context="{'group_by': 'gender'}" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
+                        <filter name="tongue" string="Tongue" context="{'group_by': 'tongue'}" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
+                        <filter name="country" string="Country" context="{'group_by': 'country_id'}"/>
                     </group>
                </search>
             </field>

@@ -51,7 +51,6 @@
         <record id="phone_coo_for_test_update_1" model="phone.coordinate">
             <field name="phone_id" ref="fix_for_test_update_1" />
             <field name="partner_id" ref="res_partner_pauline" />
-            <field name="is_main" eval="True" />
         </record>
 
         <!-- Partner Paul -->
@@ -59,7 +58,6 @@
         <record id="phone_coo_for_test_update_2" model="phone.coordinate">
             <field name="phone_id" ref="fix_for_test_update_1" />
             <field name="partner_id" ref="res_partner_paul" />
-            <field name="is_main" eval="True" />
         </record>
 
         <!-- Partner Marc -->
@@ -67,19 +65,16 @@
         <record id="main_fix_coordinate_one" model="phone.coordinate">
             <field name="phone_id" ref="fix_one" />
             <field name="partner_id" ref="res_partner_marc" />
-            <field name="is_main" eval="True" />
         </record>
 
         <record id="main_mobile_coordinate_one" model="phone.coordinate">
             <field name="phone_id" ref="mobile_one" />
             <field name="partner_id" ref="res_partner_marc" />
-            <field name="is_main" eval="True" />
         </record>
 
         <record id="main_fax_coordinate_one" model="phone.coordinate">
             <field name="phone_id" ref="fax_one" />
             <field name="partner_id" ref="res_partner_marc" />
-            <field name="is_main" eval="True" />
         </record>
 
         <!-- Partner Thierry -->
@@ -87,7 +82,6 @@
         <record id="main_mobile_coordinate_two" model="phone.coordinate">
             <field name="phone_id" ref="mobile_two" />
             <field name="partner_id" ref="res_partner_thierry" />
-            <field name="is_main" eval="True" />
         </record>
 
         <record id="mobile_coordinate_two" model="phone.coordinate">
@@ -100,7 +94,6 @@
         <record id="main_fax_coordinate_for_nouvelobs" model="phone.coordinate">
             <field name="phone_id" ref="fax_nouvelobs" />
             <field name="partner_id" ref="res_partner_nouvelobs" />
-            <field name="is_main" eval="True" />
         </record>
 
     </data>

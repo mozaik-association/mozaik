@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+       <record id="res_partner_search_view" model="ir.ui.view">
+            <field name="name">res.partner.search (ficep_structure_address)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_person.res_partner_search_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]" position="before">
+                    <field name="int_instance_id" />
+                </xpath>
+                <xpath expr="//filter[@name='country']" position="after">
+                    <filter name="instance" string="Internal Instance" context="{'group_by': 'int_instance_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree (ficep_structure_address)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_person.view_partner_tree" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='id']" position="before">
+                    <field name="int_instance_id" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form (ficep_structure_address)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_address.view_partner_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='postal_coordinate_id']" position="after">
+                    <field name="int_instance_id" attrs="{'readonly': [('zip_id','!=',False)]}" context="{'simplified': 1, 'form_view_ref': 'ficep_structure.sta_instance_form_view'}" />
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

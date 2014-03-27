@@ -34,19 +34,20 @@
     'category': 'Political Association',
     'depends': [
         'ficep_structure',
-        'ficep_address',
+        'ficep_person_coordinate',
     ],
     'description': """
 FICEP Structure - Address
 =========================
-Make a bridge between both Strcuture and Address Modules.
+Make a bridge between both Strcuture and Person Modules.
 It defines a required m2o to Internal Instance on local zip.
-It replicates this instance on partner which main address is related to this local zip, default instance otherwise.
+It replicates this instance on partner which main address is related to this local zip, default instance otherwise. This field is added to all views (search, tree and form) of a partner.
     """,
     'images': [
     ],
     'data': [
          'address_local_zip_view.xml',
+         'res_partner_view.xml',
          #'../ficep_base/tests/data/res_users_data.xml',
     ],
     'js': [

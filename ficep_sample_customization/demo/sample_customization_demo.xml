@@ -88,7 +88,6 @@
         <record id="main_fix_coordinate_for_fgtb" model="phone.coordinate">
             <field name="phone_id" ref="fix_fgtb" />
             <field name="partner_id" ref="res_partner_fgtb" />
-            <field name="is_main" eval="True" />
         </record>
 
     </data>
