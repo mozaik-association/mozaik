@@ -206,7 +206,7 @@
             </field>
         </record>
 
-    <!-- Abstract Assembly Category -->
+        <!-- Abstract Assembly Category -->
 
         <record id="abstract_assembly_category_tree_view" model="ir.ui.view">
             <field name="name">abstract.assembly.category.tree</field>

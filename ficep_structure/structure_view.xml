@@ -625,11 +625,6 @@
                     <attribute name="context">{'simplified': 1,
                                                'form_view_ref': 'ficep_structure.int_power_level_form_view'}</attribute>
                 </xpath>
-                <xpath expr="//field[@name='assembly_ids']" position="attributes">
-                    <attribute name="context">{'default_instance_id': active_id,
-                                               'simplified': 1,
-                                               'form_view_ref': 'ficep_structure.int_assembly_form_view'}</attribute>
-                </xpath>
                 <xpath expr="//field[@name='assembly_ids']" position="before">
                     <button string="All Details"
                                     name="%(int_assembly_action)d"
