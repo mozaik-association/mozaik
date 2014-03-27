@@ -34,20 +34,6 @@ class res_partner(orm.Model):
 
     _inherit = "res.partner"
 
-    def _get_linked_partners_from_email_coordinates(self, cr, uid, ids, context=None):
-        """
-        ===========================================
-        _get_linked_partners_from_email_coordinates
-        ===========================================
-        Return partner ids linked to coordinates ids
-        :param ids: triggered coordinates ids
-        :type name: list
-        :rparam: partner ids
-        :rtype: list
-        """
-        coord_model = self.pool['email.coordinate']
-        return coord_model.get_linked_partners(cr, uid, ids, context=context)
-
     def _get_main_email_coordinate_ids(self, cr, uid, ids, name, args, context=None):
         """
         ==============================
@@ -95,7 +81,7 @@ class res_partner(orm.Model):
         return result
 
     _email_store_trigger = {
-       'email.coordinate': (_get_linked_partners_from_email_coordinates,
+       'email.coordinate': (lambda self, cr, uid, ids, context=None: self.pool['email.coordinate'].get_linked_partners(cr, uid, ids, context=context),
            ['partner_id', 'email', 'is_main', 'vip', 'unauthorized', 'active'], 10),
     }
 
@@ -121,6 +107,7 @@ class res_partner(orm.Model):
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
         res.update({
                     'email_coordinate_ids': [],
+                    'email_coordinate_inactive_ids': [],
                    })
         return res
 

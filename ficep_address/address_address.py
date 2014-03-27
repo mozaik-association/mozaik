@@ -63,6 +63,9 @@ class address_address(orm.Model):
     def _get_linked_addresses_from_local_street(self, cr, uid, ids, context=None):
         return self.pool.get('address.local.street')._get_linked_addresses(cr, uid, ids, context=context)
 
+    def _get_linked_coordinates(self, cr, uid, ids, context=None):
+        return self.pool['postal.coordinate'].search(cr, uid, [('address_id', 'in', ids)], context=context)
+
     def _get_integral_address(self, cr, uid, ids, name, args, context=None):
         result = {}.fromkeys(ids, {key: False for key in ['name', 'technical_name', ]})
         adrs_recs = self.browse(cr, uid, ids, context=context)
@@ -259,31 +262,14 @@ class address_address(orm.Model):
         ===================
         get_linked_partners
         ===================
-        Return partner ids linked to all related coordinate linked to address ids
+        Return all partners ids linked to addresses ids
+        :param: ids
+        :type: list of addresses ids
         :rparam: partner_ids
         :rtype: list of ids
         """
-        address_rds = self.browse(cr, uid, ids, context=context)
-        partner_ids = []
-        for record in address_rds:
-            for associated_coordinate in record.postal_coordinate_ids:
-                partner_ids.append(associated_coordinate.partner_id.id)
-        return partner_ids
-
-    def get_linked_address_coordinates(self, cr, uid, ids, context=None):
-        """
-        ==============================
-        get_linked_address_coordinates
-        ==============================
-        Return address coordinate ids linked to address ids
-        :rparam: address_coordinate_ids
-        :rtype: list of ids
-        """
-        addresses = self.read(cr, uid, ids, ['address_coordinate_ids'], context=context)
-        res_ids = []
-        for address in addresses:
-            res_ids += address['address_coordinate_ids']
-        return list(set(res_ids))
+        coord_ids = self._get_linked_coordinates(cr, uid, ids, context=context)
+        return self.pool['postal.coordinate'].get_linked_partners(cr, uid, coord_ids, context=context)
 
 
 class postal_coordinate(orm.Model):

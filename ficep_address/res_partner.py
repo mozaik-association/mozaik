@@ -36,34 +36,6 @@ class res_partner(orm.Model):
 
     _inherit = "res.partner"
 
-    def _get_linked_partners_from_postal_coordinates(self, cr, uid, ids, context=None):
-        """
-        ===========================================
-        _get_linked_partners_from_postal_coordinates
-        ===========================================
-        Return partner ids linked to coordinates ids
-        :param ids: triggered coordinates ids
-        :type name: list
-        :rparam: partner ids
-        :rtype: list
-        """
-        coord_model = self.pool['postal.coordinate']
-        return coord_model.get_linked_partners(cr, uid, ids, context=context)
-
-    def _get_linked_partners_from_address(self, cr, uid, ids, context=None):
-        """
-        =================================
-        _get_linked_partners_from_address
-        =================================
-        Return partner ids linked by coordinates to address ids
-        :param ids: triggered address ids
-        :type name: list
-        :rparam: partner ids
-        :rtype: list
-        """
-        address_model = self.pool['address.address']
-        return address_model.get_linked_partners(cr, uid, ids, context=context)
-
     def _get_main_postal_coordinate_id(self, cr, uid, ids, name, args, context=None):
         """
         ==============================
@@ -131,15 +103,17 @@ class res_partner(orm.Model):
         return result
 
     _street2_store_triggers = {
-        'postal.coordinate': (_get_linked_partners_from_postal_coordinates,
+        'postal.coordinate': (lambda self, cr, uid, ids, context=None: self.pool['postal.coordinate'].get_linked_partners(cr, uid, ids, context=context),
             ['partner_id', 'address_id', 'is_main', 'active'], 10),
-        'address.address': (_get_linked_partners_from_address, ['street2'], 10),
+        'address.address': (lambda self, cr, uid, ids, context=None: self.pool['address.address'].get_linked_partners(cr, uid, ids, context=context),
+            ['street2'], 10),
      }
 
     _postal_store_triggers = {
-        'postal.coordinate': (_get_linked_partners_from_postal_coordinates,
+        'postal.coordinate': (lambda self, cr, uid, ids, context=None: self.pool['postal.coordinate'].get_linked_partners(cr, uid, ids, context=context),
             ['partner_id', 'address_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
-        'address.address': (_get_linked_partners_from_address, TRIGGER_FIELDS, 99),
+        'address.address': (lambda self, cr, uid, ids, context=None: self.pool['address.address'].get_linked_partners(cr, uid, ids, context=context),
+            TRIGGER_FIELDS, 99),
      }
 
     _columns = {
@@ -148,6 +122,7 @@ class res_partner(orm.Model):
 
         'postal_coordinate_id': fields.function(_get_main_postal_coordinate_id, string='Address',
                                                 type='many2one', relation="postal.coordinate"),
+
         'address': fields.function(_get_main_address_componant, string='Address',
                                  type='char', select=True,
                                  multi='all_address_componant_in_one',
@@ -177,17 +152,15 @@ class res_partner(orm.Model):
 
 # orm methods
 
-    def copy(self, cr, uid, ids, default=None, context=None):
+    def copy_data(self, cr, uid, ids, default=None, context=None):
         """
-        ====
-        copy
-        ====
-        Avoid to copy coordinates when duplicating partner
+        Do not copy o2m fields.
         """
-        if default is None:
-            default = {}
-        default.update({'postal_coordinate_ids': []})
-        res = super(res_partner, self).copy(cr, uid, ids, default=default, context=context)
+        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        res.update({
+                    'postal_coordinate_ids': [],
+                    'postal_coordinate_inactive_ids': [],
+                   })
         return res
 
     def write(self, cr, uid, ids, vals, context=None):

@@ -36,7 +36,7 @@ class address_local_zip(orm.Model):
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
     def _get_linked_addresses(self, cr, uid, ids, context=None):
-        return self.pool.get('address.address').search(cr, uid, [('address_local_zip_id', 'in', ids)], context=context)
+        return self.pool['address.address'].search(cr, uid, [('address_local_zip_id', 'in', ids)], context=context)
 
     _columns = {
         'local_zip': fields.char(string='Zip Code', required=True, select=True, track_visibility='onchange'),
@@ -83,5 +83,21 @@ class address_local_zip(orm.Model):
         else:
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)
+
+# public methods
+
+    def get_linked_partners(self, cr, uid, ids, context=None):
+        """
+        ===================
+        get_linked_partners
+        ===================
+        Return all partners ids linked to local zip code ids
+        :param: ids
+        :type: list of local zip code ids
+        :rparam: partner_ids
+        :rtype: list of ids
+        """
+        adr_ids = self._get_linked_addresses(cr, uid, ids, context=context)
+        return self.pool['address.address'].get_linked_partners(cr, uid, adr_ids, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

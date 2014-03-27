@@ -53,6 +53,9 @@ class phone_phone(orm.Model):
     _description = "Phone Number"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
+    def _get_linked_coordinates(self, cr, uid, ids, context=None):
+        return self.pool['phone.coordinate'].search(cr, uid, [('phone_id', 'in', ids)], context=context)
+
     def _check_and_format_number(self, cr, uid, num, context=None):
         """
         ========================
@@ -185,31 +188,14 @@ class phone_phone(orm.Model):
         ===================
         get_linked_partners
         ===================
-        Return partner ids linked to all related coordinate linked to phone ids
+        Return all partners ids linked to phones ids
+        :param: ids
+        :type: list of addresses ids
         :rparam: partner_ids
         :rtype: list of ids
         """
-        phone_rds = self.browse(cr, uid, ids, context=context)
-        partner_ids = []
-        for record in phone_rds:
-            for associated_coordinate in record.phone_coordinate_ids:
-                partner_ids.append(associated_coordinate.partner_id.id)
-        return partner_ids
-
-    def get_linked_phone_coordinates(self, cr, uid, ids, context=None):
-        """
-        ============================
-        get_linked_phone_coordinates
-        ============================
-        Return phone coordinate ids linked to phone ids
-        :rparam: phone_coordinate_ids
-        :rtype: list of ids
-        """
-        phones = self.read(cr, uid, ids, ['phone_coordinate_ids'], context=context)
-        res_ids = []
-        for phone in phones:
-            res_ids += phone['phone_coordinate_ids']
-        return list(set(res_ids))
+        coord_ids = self._get_linked_coordinates(cr, uid, ids, context=context)
+        return self.pool['phone.coordinate'].get_linked_partners(cr, uid, coord_ids, context=context)
 
 
 class phone_coordinate(orm.Model):
@@ -221,16 +207,17 @@ class phone_coordinate(orm.Model):
     _discriminant_field = 'phone_id'
     _undo_redirect_action = 'ficep_phone.phone_coordinate_action'
 
+    _type_store_triggers = {
+        'phone.coordinate': (lambda self, cr, uid, ids, context=None: ids, ['phone_id'], 10),
+        'phone.phone': (lambda self, cr, uid, ids, context=None: self.pool['phone.phone']._get_linked_coordinates(cr, uid, ids, context=context), ['type'], 10),
+    }
+
     _columns = {
         'phone_id': fields.many2one('phone.phone', string='Phone', required=True, readonly=True, select=True),
 
         'coordinate_type': fields.related('phone_id', 'type', string='Phone Type', readonly=True,
                                           type='selection', selection=PHONE_AVAILABLE_TYPES,
-                                          store={
-                                             'phone.coordinate': (lambda self, cr, uid, ids, context=None: ids, ['phone_id'], 10),
-                                             'phone.phone': (phone_phone.get_linked_phone_coordinates, ['type'], 10),
-                                          },
-                                         ),
+                                          store=_type_store_triggers),
     }
 
     _rec_name = _discriminant_field

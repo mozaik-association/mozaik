@@ -38,34 +38,6 @@ class res_partner(orm.Model):
 
     _inherit = "res.partner"
 
-    def _get_linked_partners_from_phone_coordinates(self, cr, uid, ids, context=None):
-        """
-        ===========================================
-        _get_linked_partners_from_phone_coordinates
-        ===========================================
-        Return partner ids linked to coordinates ids
-        :param ids: triggered coordinates ids
-        :type name: list
-        :rparam: partner ids
-        :rtype: list
-        """
-        coord_model = self.pool['phone.coordinate']
-        return coord_model.get_linked_partners(cr, uid, ids, context=context)
-
-    def _get_linked_partners_from_phones(self, cr, uid, ids, context=None):
-        """
-        ================================
-        _get_linked_partners_from_phones
-        ================================
-        Return partner ids linked by coordinates to phone ids
-        :param ids: triggered phone ids
-        :type name: list
-        :rparam: partner ids
-        :rtype: list
-        """
-        phone_model = self.pool['phone.phone']
-        return phone_model.get_linked_partners(cr, uid, ids, context=context)
-
     def _get_main_phone_coordinate_ids(self, cr, uid, ids, name, args, context=None):
         """
         ==============================
@@ -120,9 +92,9 @@ class res_partner(orm.Model):
         return result
 
     _phone_store_triggers = {
-       'phone.coordinate': (_get_linked_partners_from_phone_coordinates,
+       'phone.coordinate': (lambda self, cr, uid, ids, context=None: self.pool['phone.coordinate'].get_linked_partners(cr, uid, ids, context=context),
            ['partner_id', 'phone_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
-       'phone.phone': (_get_linked_partners_from_phones,
+       'phone.phone': (lambda self, cr, uid, ids, context=None: self.pool['phone.phone'].get_linked_partners(cr, uid, ids, context=context),
                        ['name', 'type'], 10),
     }
 
@@ -157,6 +129,7 @@ class res_partner(orm.Model):
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
         res.update({
                     'phone_coordinate_ids': [],
+                    'phone_coordinate_inactive_ids': [],
                    })
         return res
 
