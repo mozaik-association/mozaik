@@ -26,7 +26,7 @@
             <field name="target">new</field>
             <field name="view_id" ref="change_main_address_wizard"/>
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
-            <field name="context">{'target_model': 'address.coordinate'}</field>
+            <field name="context">{'target_model': 'postal.coordinate'}</field>
         </record>
 
         <record id="change_main_address_value" model="ir.values">
