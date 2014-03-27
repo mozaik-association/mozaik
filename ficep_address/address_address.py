@@ -229,20 +229,20 @@ class address_address(orm.Model):
         }
 
     def onchange_local_zip_id(self, cr, uid, ids, local_zip_id, context=None):
-        zip, city = False, False
+        _zip, city = False, False
         if local_zip_id:
             zip_city = self.pool.get('address.local.zip').read(cr, uid, [local_zip_id], [], context=context)[0]
-            zip, city = zip_city['local_zip'], zip_city['town']
+            _zip, city = zip_city['local_zip'], zip_city['town']
         return {
             'value': {
-                'zip': zip,
+                'zip': _zip,
                 'city': city,
                 'zip_man': False,
                 'town_man': False,
              }
         }
 
-    def onchange_zip(self, cr, uid, ids, zip, context=None):
+    def onchange_zip(self, cr, uid, ids, _zip, context=None):
         return {
             'value': {
                 'address_local_street_id': False,
