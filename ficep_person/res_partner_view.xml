@@ -151,7 +151,8 @@
                                     attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
                                     confirm="Undo allow duplicate: proceed anyway ?" />
                             <button name="button_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate contact: proceed anyway ?" />
+                                    confirm="Invalidate contact: proceed anyway ?" 
+                                    attrs="{'invisible':[('is_assembly', '=', True)]}"/>
                         </div>
                     </header>
                 </xpath>

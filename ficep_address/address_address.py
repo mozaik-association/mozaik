@@ -330,7 +330,7 @@ class postal_coordinate(orm.Model):
             }
         """
         res = super(postal_coordinate, self).get_fields_to_update(cr, uid, mode, context=context)
-        if mode == 'duplicate':
+        if mode == 'duplicate' or mode == 'reset':
             res.update({'co_residency_id': False})
         return res
 
