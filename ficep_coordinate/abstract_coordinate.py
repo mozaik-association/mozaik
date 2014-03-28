@@ -353,19 +353,26 @@ class abstract_coordinate(orm.AbstractModel):
         :param mode: return a dictionary depending on mode value
         :type mode: char
         """
+        res = super(abstract_coordinate, self).get_fields_to_update(cr, uid, mode, context=context)
         if mode == 'main':
-            return {'is_main': True}
+            res.update({
+                'is_main': True,
+            })
         if mode == 'secondary':
-            return {'is_main': False}
+            res.update({
+                'is_main': False,
+            })
+        #TODO: remove these 2 cases when we will depend on abstract_ficep_model
         if mode == 'deactivate':
-            return {'active': False,
-                    'expire_date': fields.datetime.now(),
-                   }
+            res.update({
+                'active': False,
+                'expire_date': fields.datetime.now(),
+            })
         if mode == 'activate':
-            return {'active': True,
-                    'expire_date': False,
-                   }
-
-        return super(abstract_coordinate, self).get_fields_to_update(cr, uid, mode, context=context)
+            res.update({
+                'active': True,
+                'expire_date': False,
+            })
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
