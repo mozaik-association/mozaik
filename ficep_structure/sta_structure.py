@@ -26,6 +26,7 @@
 #
 ##############################################################################'''
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
 
 
 class sta_power_level(orm.Model):
@@ -88,6 +89,24 @@ class sta_instance(orm.Model):
         'electoral_district_inactive_ids': fields.one2many('electoral.district', 'sta_instance_id', 'Electoral Districts', domain=[('active', '=', False)]),
         'int_instance_id': fields.many2one('int.instance', 'Internal Instance', select=True, track_visibility='onchange'),
     }
+
+# constraints
+
+    def _check_recursion(self, cr, uid, ids, context=None):
+        """
+        ================
+        _check_recursion
+        ================
+        Avoid recursion in instance tree regarding secondary_parent_id field
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        return orm.Model._check_recursion(self, cr, uid, ids, context=context, parent='secondary_parent_id')
+
+    _constraints = [
+        (_check_recursion, _('Error ! You can not create recursive instances'), ['secondary_parent_id']),
+    ]
 
 
 class legislature(orm.Model):

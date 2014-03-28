@@ -119,11 +119,21 @@ class xxxx(orm.Model):
         'create_date': fields.datetime('Creation Date'),
         'expire_date': fields.datetime('Expiration Date', track_visibility='onchange'),
         'active': fields.boolean('Active'),
+
+        # parent tree
+        'parent_id': fields.many2one('xxx', 'XXX Parent', select=True, track_visibility='onchange'),
+        'parent_left': fields.integer('Left Parent', select=True),
+        'parent_right': fields.integer('Right Parent', select=True),
     }
 
     _rec_name = 'name'
 
     _order = 'name'
+
+    _parent_name = "parent_id"
+    _parent_store = True
+    _parent_order = 'name'
+    _order = 'parent_left'
 
     _defaults = {
         'type': XXX_AVAILABLE_TYPES[0],
@@ -147,6 +157,7 @@ class xxxx(orm.Model):
 
     _constraints = [
         (_check_xxx, _('Error! XYZ...'), ['zzz_id']),
+        (orm.Model._check_recursion, _('Error ! You can not create recursive instances'), ['parent_id']),
     ]
 
     _sql_constraints = [

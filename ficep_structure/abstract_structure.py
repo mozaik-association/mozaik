@@ -85,6 +85,12 @@ class abstract_instance(orm.AbstractModel):
     _parent_order = 'name'
     _order = 'parent_left'
 
+# constraints
+
+    _constraints = [
+        (orm.Model._check_recursion, _('Error ! You can not create recursive instances'), ['parent_id']),
+    ]
+
 # orm methods
 
     def name_get(self, cr, uid, ids, context=None):
@@ -137,7 +143,9 @@ class abstract_assembly(orm.AbstractModel):
         'designation_int_power_level_id': lambda self, cr, uid, ids, context=None: self.pool.get("ir.model.data").get_object_reference(cr, uid, "ficep_structure", "int_power_level_01")[1]
     }
 
-    def _check_consistent_power_level(self, cr, uid, ids, for_unlink=False, context=None):
+# constraints
+
+    def _check_consistent_power_level(self, cr, uid, ids, context=None):
         """
         =============================
         _check_consistent_power_level

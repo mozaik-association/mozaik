@@ -109,7 +109,7 @@ class abstract_ficep_model (orm.AbstractModel):
 
 # constraints
 
-    def _check_invalidate(self, cr, uid, ids, for_unlink=False, context=None):
+    def _check_invalidate(self, cr, uid, ids, context=None):
         """
         =================
         _check_invalidate
