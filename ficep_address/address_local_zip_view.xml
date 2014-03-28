@@ -39,6 +39,12 @@
                             <label for="local_zip" class="oe_edit_only"/>
                             <h1><field name="local_zip" placeholder="1050, 4000..." /></h1>
                         </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
+                            <button string="Addresses"
+                                    name="%(address_address_action)d"
+                                    type="action"
+                                    context="{'search_default_address_local_zip_id': active_id,'default_address_local_zip_id': active_id}"/>
+                        </div>
                         <group name="data">
                             <field name="town" placeholder="Ixelles, Liège..." />
                         </group>
