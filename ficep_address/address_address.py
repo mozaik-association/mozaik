@@ -356,7 +356,7 @@ class co_residency(orm.Model):
         """
         Do not copy o2m fields.
         """
-        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        res = super(co_residency, self).copy_data(cr, uid, ids, default=default, context=context)
         res.update({
                     'postal_coordinate_ids': [],
                     'postal_coordinate_inactive_ids': [],

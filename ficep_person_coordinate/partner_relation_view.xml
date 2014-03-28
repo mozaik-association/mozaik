@@ -77,6 +77,13 @@
                     <field name="partner_relation_category_id"/>
                     <field name="subject_partner_id" string="Partner"
                            filter_domain="['|',('subject_partner_id','ilike',self),('object_partner_id','ilike',self)]"/>
+                    <separator />
+                    <filter name="expired" string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active','=',False)]" help="Expire Coordinate" />
+                    <filter name="all" string="All"
+                        context="{'invisible_expire_date': False}"
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter string="Category" context="{'group_by': 'partner_relation_category_id'}"/>
                         <filter string="Partner Subject" context="{'group_by': 'subject_partner_id'}"/>
@@ -115,7 +122,14 @@
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
                 <form string="Partner Relation" version="7.0">
-                    <header/>
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_user">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate involvement: proceed anyway ?" />
+                        </div>
+                    </header>
                     <sheet>
                         <group col="6">
                         <!-- 
@@ -195,7 +209,14 @@
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
                 <form string="Partner Relation" version="7.0">
-                    <header/>
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_user">
+                             <button name="action_invalidate" string="Invalidate" type="object"
+                                 confirm="Invalidate involvement: proceed anyway ?" />
+                         </div>
+                    </header>
                     <sheet>
                         <group col="6">
                         <!-- 

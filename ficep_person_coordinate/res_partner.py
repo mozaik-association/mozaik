@@ -52,6 +52,8 @@ class res_partner(orm.Model):
         res.update({
                     'partner_is_subject_relation_ids': [],
                     'partner_is_object_relation_ids': [],
+                    'partner_is_subject_relation_inactive_ids': [],
+                    'partner_is_subject_relation_inactive_ids': [],
                     })
         return res
 
