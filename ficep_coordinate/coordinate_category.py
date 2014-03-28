@@ -38,4 +38,8 @@ class coordinate_category(orm.Model):
         'name': fields.char('Name', size=128, translate=True, required=True, select=True),
     }
 
+    _sql_constraints = [
+        ('check_unicity_coordinate_category', 'unique(name)', _('This Coordinate Category already exists!'))
+    ]
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
