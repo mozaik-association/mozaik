@@ -99,4 +99,16 @@ class test_address_address(SharedSetupTransactionCase):
         self.assertEqual(adr.zip, '10017', 'Create address fails with wrong zip')
         self.assertEqual(adr.street, 'United Nations', 'Create address fails with wrong street')
 
+        #test the technical name
+        dic = {
+            'country_id': self.ref("base.be"),
+            'zip_man': '4100',
+            'town_man': 'Seraing',
+            'street_man': 'AAAAAéèçùièèé',
+            'number': '7',
+        }
+        adr_id = self.model_address.create(cr, uid, dic)
+        adr = self.model_address.browse(cr, uid, [adr_id])[0]
+        self.assertTrue('aaaaaeecuieee' in adr.technical_name, 'No Accented char and no Upper For technical name')
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

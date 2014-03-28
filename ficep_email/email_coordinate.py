@@ -57,4 +57,40 @@ class email_coordinate(orm.Model):
         (_check_email, _('Invalid Email Format'), ['email']),
     ]
 
+#orm methods
+
+    def create(self, cr, uid, vals, context=None):
+        """
+        ======
+        create
+        ======
+        format email by removing whitespace and changing upper to lower
+        """
+        if 'email' in vals:
+            vals['email'] = self.format_email(cr, uid, vals['email'], context=context)
+        return super(email_coordinate, self).create(cr, uid, vals, context=context)
+
+    def write(self, cr, uid, ids, vals, context=None):
+        """
+        =====
+        write
+        =====
+        format email by removing whitespace and changing upper to lower
+        """
+        if 'email' in vals:
+            vals['email'] = self.format_email(cr, uid, vals['email'], context=context)
+        return super(email_coordinate, self).write(cr, uid, ids, vals, context=context)
+
+    def format_email(self, cr, uid, value, context=None):
+        """
+        ============
+        format_email
+        ============
+        :type value: char
+        :rtype: char
+        :rparam value: value without space and in lower case
+        """
+        value = value.lower().strip()
+        value = value.replace(' ', '')
+        return value
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
