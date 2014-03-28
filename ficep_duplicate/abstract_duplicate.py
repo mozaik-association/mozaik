@@ -114,7 +114,7 @@ class abstract_duplicate(orm.AbstractModel):
 
 # view methods: onchange, button
 
-    def button_undo_allow_duplicate(self, cr, uid, ids, context=None, vals=None):
+    def button_undo_allow_duplicate(self, cr, uid, ids, context=None):
         """
         ===========================
         button_undo_allow_duplicate

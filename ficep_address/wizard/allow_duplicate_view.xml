@@ -28,13 +28,19 @@
             <field name="model">allow.duplicate.wizard</field>
             <field name="inherit_id" ref="ficep_duplicate.allow_duplicate_wizard" />
             <field name="arch" type="xml">
-                <xpath expr="//strong" position="before">
-                    <group>
-                        <field name="co_residency_id" 
-                               invisible="not context.get('postal_mode',False)"
-                               required="context.get('postal_mode',False)"/>
-                    </group>
+
+                <xpath expr="//strong" position="attributes">
+                    <attribute name="invisible">context.get('postal_mode',False)</attribute>
                 </xpath>
+
+                <xpath expr="//strong" position="after">
+                    <div invisible="not context.get('postal_mode',False)">
+                        <label for="co_residency_id" string="If selected entries are allowed duplicates, associate them with a co-residency:"/>
+                        <field name="co_residency_id"
+                               required="context.get('postal_mode',False)"/>
+                    </div>
+                </xpath>
+
             </field>
         </record>
 

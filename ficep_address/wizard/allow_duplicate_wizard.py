@@ -33,7 +33,7 @@ class allow_duplicate_wizard(orm.TransientModel):
     _inherit = "allow.duplicate.wizard"
 
     _columns = {
-        'co_residency_id': fields.many2one('co.residency', string='Co-residency'),
+        'co_residency_id': fields.many2one('co.residency', string='Co-Residency'),
     }
 
     def button_allow_duplicate(self, cr, uid, ids, context=None, vals=None):
@@ -41,7 +41,7 @@ class allow_duplicate_wizard(orm.TransientModel):
         ======================
         button_allow_duplicate
         ======================
-        add co_residency_id into vals and call super ``button_allow_duplicate``
+        Add co_residency_id into vals and call super ``button_allow_duplicate``
         """
         if vals is None:
             vals = {}
@@ -56,7 +56,7 @@ class allow_duplicate_wizard(orm.TransientModel):
         =================
         get_domain_search
         =================
-        add co_residency_id's wizard to the domain
+        Add co_residency_id's wizard to the domain
         """
         wizard = self.browse(cr, uid, ids, context=context)
         return domain + [('co_residency_id', '=', wizard[0].co_residency_id.id)]

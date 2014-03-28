@@ -103,7 +103,7 @@ class xxxx(orm.Model):
         'name': fields.related('relation_field', 'field_name', string='name', type='type', relation='model'),
 
         'name_id': fields.many2one('other.model', 'field_name', required=True, select=True),
-        'name_ids': fields.one2many('other.model', 'field_relation_id', 'Field Name', domain=[]),
+        'name_ids': fields.one2many('other.model', 'field_relation_id', string='Field Name', domain=[]),
         'name_m2m_ids': fields.many2many('other.model', 'cur_model_other_model_rel', id1='cur_model_relation_id', id2='other_model_relation_id', string='Tags'),
 
         # Standard fields redefinition

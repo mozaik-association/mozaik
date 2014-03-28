@@ -50,19 +50,16 @@
         <record id="postal_coordinate_2_duplicate_1" model="postal.coordinate">
             <field name="address_id" ref="address_2"/>
             <field name="partner_id" ref="res_partner_marc"/>
-            <field name="unauthorized" eval="True" />
         </record>
         <record id="postal_coordinate_2_duplicate_2" model="postal.coordinate">
             <field name="address_id" ref="address_2"/>
             <field name="partner_id" ref="res_partner_thierry"/>
             <field name="is_main" eval="True" />
-            <field name="unauthorized" eval="True" />
         </record>
         <record id="postal_coordinate_2_duplicate_3" model="postal.coordinate">
             <field name="address_id" ref="address_2"/>
             <field name="partner_id" ref="res_partner_pauline"/>
             <field name="is_main" eval="True" />
-            <field name="unauthorized" eval="True" />
         </record>
         <!-- ============================================================== -->
 

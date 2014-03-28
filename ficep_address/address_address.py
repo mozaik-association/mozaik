@@ -285,7 +285,7 @@ class postal_coordinate(orm.Model):
 
     _columns = {
         'address_id': fields.many2one('address.address', string='Address', required=True, readonly=True, select=True),
-        'co_residency_id': fields.many2one('co.residency', string='Co-residency', ondelete='restrict'),
+        'co_residency_id': fields.many2one('co.residency', string='Co-Residency', select=True, ondelete='restrict', track_visibility='onchange'),
     }
 
     _rec_name = _discriminant_field
@@ -301,11 +301,11 @@ class postal_coordinate(orm.Model):
         return True
 
     _constraints = [
-        (_check_co_residency_consistency, _('Co-Residency Could Not Be Associated With Different Address Of Postal Coordinate'),
+        (_check_co_residency_consistency, _('Co-Residency could not be associated to Postal Coordinates related to more than one Address'),
         ['co_residency_id']),
     ]
 
-#orm methods
+# orm methods
 
     def create(self, cr, uid, vals, context=None):
         if vals.get('co_residency_id', False):
@@ -313,15 +313,7 @@ class postal_coordinate(orm.Model):
                 vals['co_residency_id'] = False
         return super(postal_coordinate, self).create(cr, uid, vals, context=context)
 
-#public methods
-    def button_undo_allow_duplicate(self, cr, uid, ids, context=None, vals=None):
-        """
-        ===========================
-        button_undo_allow_duplicate
-        ===========================
-        Override the native ``button_undo_allow_duplicate`` by adding ``{co_residency_id: False}`` into vals parameters
-        """
-        return super(postal_coordinate, self).button_undo_allow_duplicate(cr, uid, ids, context=None, vals={'co_residency_id': False})
+# public methods
 
     def get_fields_to_update(self, cr, uid, mode, context=None):
         """
@@ -337,34 +329,38 @@ class postal_coordinate(orm.Model):
              'co_residency_id': False,
             }
         """
+        res = super(postal_coordinate, self).get_fields_to_update(cr, uid, mode, context=context)
         if mode == 'duplicate':
-            return {'is_duplicate_detected': True,
-                    'is_duplicate_allowed': False,
-                    'co_residency_id': False,
-                   }
-        else:
-            return super(postal_coordinate, self).get_fields_to_update(cr, uid, mode, context=None)
+            res.update({'co_residency_id': False})
+        return res
 
 
 class co_residency(orm.Model):
     _name = 'co.residency'
     _inherit = ['abstract.ficep.model']
+    _description = "Co-Residency"
 
     _columns = {
-        'id': fields.integer('ID'),
-        'name': fields.char('Name', track_visibility='onchange'),
-        'line': fields.char('Line', track_visibility='onchange'),
+        'name': fields.char('Name', required=True, select=True, track_visibility='onchange'),
+        'line': fields.char('Line 1', track_visibility='onchange'),
         'line2': fields.char('Line 2', track_visibility='onchange'),
-        'postal_coordinate_ids': fields.one2many('postal.coordinate',
-                                                 'address_id',
-                                                 'Postal Coordinates',
-                                                 domain=[('active', '=', True)],
-                                                 track_visibility='onchange'),
-        'postal_coordinate_inactive_ids': fields.one2many('postal.coordinate',
-                                                 'address_id',
-                                                 'Postal Coordinates',
-                                                 domain=[('active', '=', False)],
-                                                 track_visibility='onchange'),
+        'postal_coordinate_ids': fields.one2many('postal.coordinate', 'co_residency_id', string='Postal Coordinates',
+                                                 domain=[('active', '=', True)]),
+        'postal_coordinate_inactive_ids': fields.one2many('postal.coordinate', 'co_residency_id', string='Postal Coordinates',
+                                                 domain=[('active', '=', False)]),
     }
+
+# orm methods
+
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        Do not copy o2m fields.
+        """
+        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        res.update({
+                    'postal_coordinate_ids': [],
+                    'postal_coordinate_inactive_ids': [],
+                   })
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
