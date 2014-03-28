@@ -58,7 +58,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_validate" string="Validate" type="object"
-                                        confirm="Validate level: proceed anyway ?" />
+                                        confirm="Revalidate document: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -150,13 +150,13 @@
                                                  'simplified': 1,
                                                  'form_view_ref': 'ficep_structure.abstract_assembly_form_view'}">
                                     <tree>
-                                        <field name="name"/>
+                                        <field name="assembly_category_id"/>
                                     </tree>
                                 </field>
                                 <field name="assembly_inactive_ids" readonly = "1" attrs="{'invisible': [('active','=',True)]}"
                                        context="{'simplified': 1, 'form_view_ref': 'ficep_structure.abstract_assembly_form_view'}">
                                     <tree>
-                                        <field name="name"/>
+                                        <field name="assembly_category_id"/>
                                     </tree>
                                 </field>
                             </page>
@@ -167,7 +167,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_validate" string="Validate" type="object"
-                                        confirm="Validate level: proceed anyway ?" />
+                                        confirm="Revalidate document: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -256,7 +256,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_validate" string="Validate" type="object"
-                                        confirm="Validate category: proceed anyway ?" />
+                                        confirm="Revalidate document: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -351,7 +351,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_validate" string="Validate" type="object"
-                                        confirm="Validate level: proceed anyway ?" />
+                                        confirm="Revalidate document: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>

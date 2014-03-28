@@ -449,7 +449,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_validate" string="Validate" type="object"
-                                        confirm="Validate level: proceed anyway ?" />
+                                        confirm="Revalidate document: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -515,12 +515,12 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_validate" string="Validate" type="object"
-                                        confirm="Validate level: proceed anyway ?" />
+                                        confirm="Revalidate document: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
-                                <field name="power_level_id"/>
                                 <field name="active"/>
+                                <field name="power_level_id"/>
                             </group>
                         </div>
                     </div>

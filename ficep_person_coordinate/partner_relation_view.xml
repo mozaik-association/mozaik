@@ -53,6 +53,10 @@
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Revalidate document: proceed anyway ?" />
+                            </div>
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
@@ -176,6 +180,10 @@
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Revalidate document: proceed anyway ?" />
+                            </div>
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
@@ -232,6 +240,10 @@
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Revalidate document: proceed anyway ?" />
+                            </div>
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>

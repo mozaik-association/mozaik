@@ -144,13 +144,13 @@ class abstract_ficep_model (orm.AbstractModel):
         Reset some fields to their initial values
         """
         res = super(abstract_ficep_model, self).copy_data(cr, uid, ids, default=default, context=context)
-        res.update({
-                    'active': True,
-                    'expire_date': False,
-                   })
+        res.update(self.get_fields_to_update(self, cr, uid, 'activate', context=context))
         return res
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
+        """
+        Generate a domain on all fields to make the form readonly when document is inactive
+        """
         if view_type == 'form' and uid != SUPERUSER_ID and not context.get('is_developper'):
             context = dict(context or {}, add_readonly_condition=True) 
         res = super(abstract_ficep_model, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
