@@ -271,23 +271,19 @@
                         <br/>
                         <br/>
                     </page>
-                </xpath>
-
-                <xpath expr="//notebook" position="inside">
                     <page name="involvement" string="Involvements">
-                        <separator string="Partner's Involvements" />
                         <field name="partner_involvement_ids" context="{'default_partner_id': active_id,
-                                                                 'simplified': 1,
-                                                                 'form_view_ref': 'ficep_person.partner_involvement_form_view'}"
-                           attrs="{'invisible': [('active','=',False)]}">
+                                                                        'simplified': 1,
+                                                                        'form_view_ref': 'ficep_person.partner_involvement_form_view'}"
+                               attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                             <tree>
                                 <field name="partner_involvement_category_id" />
                             </tree>
                         </field>
                         <field name="partner_involvement_inactive_ids" context="{'default_partner_id': active_id,
-                                                                 'simplified': 1,
-                                                                 'form_view_ref': 'ficep_person.partner_involvement_form_view'}"
-                           attrs="{'invisible': [('active','=',True)]}">
+                                                                                 'simplified': 1,
+                                                                                 'form_view_ref': 'ficep_person.partner_involvement_form_view'}"
+                               readonly="1" attrs="{'invisible': [('active','=',True)]}">
                             <tree>
                                 <field name="partner_involvement_category_id" />
                             </tree>
