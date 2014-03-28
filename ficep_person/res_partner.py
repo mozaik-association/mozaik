@@ -220,6 +220,7 @@ class res_partner(orm.Model):
         :rtype: boolean
         """
         vals = self.get_fields_to_update(cr, uid, 'reset', context=context)
+        #TODO: replace this update with a recall to previous method('deactivate') cases when we will depend on abstract_ficep_model
         vals.update({'active': False,
                      'expire_date': fields.datetime.now(),
                     })

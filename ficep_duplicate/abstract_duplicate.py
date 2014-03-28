@@ -153,20 +153,24 @@ class abstract_duplicate(orm.AbstractModel):
         :rparam: fields to update
         :rtype: dictionary
         """
+        #TODO: call super to init res when we will depend on abstract_ficep_model
+        res = {}
         if mode == 'reset':
-            return {'is_duplicate_detected': False,
-                    'is_duplicate_allowed': False,
-                   }
+            res.update({
+                'is_duplicate_detected': False,
+                'is_duplicate_allowed': False,
+            })
         if mode == 'duplicate':
-            return {'is_duplicate_detected': True,
-                    'is_duplicate_allowed': False,
-                   }
+            res.update({
+                'is_duplicate_detected': True,
+                'is_duplicate_allowed': False,
+            })
         if mode == 'allow':
-            return {'is_duplicate_detected': False,
-                    'is_duplicate_allowed': True,
-                   }
-
-        raise orm.except_orm(_('ERROR'), _('Invalid mode: %s!') % mode)
+            res.update({
+                'is_duplicate_detected': False,
+                'is_duplicate_allowed': True,
+            })
+        return res
 
     def detect_and_repair_duplicate(self, cr, uid, vals, context=None):
         """

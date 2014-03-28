@@ -78,20 +78,22 @@ class abstract_ficep_model (orm.AbstractModel):
         ====================
         get_fields_to_update
         ====================
-        :param mode: return a dictionary depending on mode value
-        :type mode: char
+        Depending on a mode, builds a dictionary allowing to update validity fields
+        :rparam: fields to update
+        :rtype: dictionary
         """
-
+        res = {}
         if mode == 'deactivate':
-            return {'active': False,
-                    'expire_date': fields.datetime.now(),
-                   }
-        elif mode == 'activate':
-            return {'active': True,
-                    'expire_date': False,
-                   }
-        else:
-            return {}
+            res.update({
+                'active': False,
+                'expire_date': fields.datetime.now(),
+            })
+        if mode == 'activate':
+            res.update({
+                'active': True,
+                'expire_date': False,
+            })
+        return res
 
     _columns = {
         'id': fields.integer('ID', readonly=True),
@@ -102,6 +104,7 @@ class abstract_ficep_model (orm.AbstractModel):
 
     _defaults = {
         'active': True,
+        'expire_date': False,
     }
 
 # constraints
@@ -117,7 +120,7 @@ class abstract_ficep_model (orm.AbstractModel):
         :rtype: boolean
         """
         invalidate_ids = list(ids)
-        ficep_models = self.browse(cr, uid, invalidate_ids)
+        ficep_models = self.browse(cr, uid, invalidate_ids, context=context)
         for ficep_model in ficep_models:
             if not ficep_model.expire_date:
                 invalidate_ids.remove(ficep_model.id)
@@ -135,6 +138,17 @@ class abstract_ficep_model (orm.AbstractModel):
     ]
 
 # orm methods
+
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        Reset some fields to their initial values
+        """
+        res = super(abstract_ficep_model, self).copy_data(cr, uid, ids, default=default, context=context)
+        res.update({
+                    'active': True,
+                    'expire_date': False,
+                   })
+        return res
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
         if view_type == 'form' and uid != SUPERUSER_ID and not context.get('is_developper'):
