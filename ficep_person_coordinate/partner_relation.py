@@ -41,11 +41,11 @@ class partner_relation(orm.Model):
 
         # phone coordinate
         'fix_coordinate_id': fields.many2one('phone.coordinate', string='Fix Coordinate', select=True, track_visibility='onchange'),
-        'fax_coordinate_id': fields.many2one('phone.coordinate', string='Fax Coordinate', select=True, track_visibility='onchange'),
         'mobile_coordinate_id': fields.many2one('phone.coordinate', string='Mobile Coordinate', select=True, track_visibility='onchange'),
+        'fax_coordinate_id': fields.many2one('phone.coordinate', string='Fax Coordinate', select=True, track_visibility='onchange'),
 
         # address coordinate
-        'postal_coordinate_id': fields.many2one('postal.coordinate', string='Address Coordinate', select=True, track_visibility='onchange'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', string='Postal Coordinate', select=True, track_visibility='onchange'),
         # email coordinate
         'email_coordinate_id': fields.many2one('email.coordinate', string='Email Coordinate', select=True, track_visibility='onchange'),
     }

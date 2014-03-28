@@ -69,48 +69,46 @@
 
                 <xpath expr="//notebook" position="inside">
                     <page name="relation" string="Relations">
-                        <separator string="Relation Where Partner Is Subject" />
+                        <separator string="Relations where the partner is the subject" />
                         <!-- Active -->
                         <field name="partner_is_subject_relation_ids" context="{'default_subject_partner_id': active_id,
-                                                                 'simplified': 1,
-                                                                 'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}"
-                           attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
+                                                                                'simplified': 1,
+                                                                                'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}"
+                               attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                             <tree>
                                 <field name="partner_relation_category_id"/>
                                 <field name="object_partner_id" />
                             </tree>
                         </field>
                         <!-- Inactive -->
-                        <field name="partner_is_subject_relation_inactive_ids" context="{'default_subject_partner_id': active_id,
-                                                                 'simplified': 1,
-                                                                 'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}"
-                           attrs="{'invisible': [('active','=',True)], 'readonly': [('id','=',False)]}">
+                        <field name="partner_is_subject_relation_inactive_ids" context="{'simplified': 1,
+                                                                                         'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}"
+                               readonly="1" attrs="{'invisible': [('active','=',True)], 'readonly': [('id','=',False)]}">
                             <tree>
                                 <field name="partner_relation_category_id"/>
                                 <field name="object_partner_id" />
                             </tree>
                         </field>
-                        <separator string="Relation Where Partner Is Object" />
+                        <separator string="Relations where the partner is the object" />
                         <!-- Active -->
                         <field name="partner_is_object_relation_ids" context="{'default_object_partner_id': active_id,
-                                                                 'simplified': 1,
-                                                                 'object': True,
-                                                                 'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}"
-                            attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
+                                                                               'simplified': 1,
+                                                                               'object': True,
+                                                                               'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}"
+                               attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                             <tree>
-                                <field name="subject_partner_id" />
                                 <field name="partner_relation_category_id"/>
+                                <field name="subject_partner_id" />
                             </tree>
                         </field>
                         <!-- Inactive -->
-                        <field name="partner_is_object_relation_inactive_ids" context="{'default_object_partner_id': active_id,
-                                                                 'simplified': 1,
-                                                                 'object': True,
-                                                                 'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}"
-                            attrs="{'invisible': [('active','=',True)], 'readonly': [('id','=',False)]}">
+                        <field name="partner_is_object_relation_inactive_ids" context="{'simplified': 1,
+                                                                                        'object': True,
+                                                                                        'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}"
+                               readonly="1" attrs="{'invisible': [('active','=',True)], 'readonly': [('id','=',False)]}">
                             <tree>
-                                <field name="subject_partner_id" />
                                 <field name="partner_relation_category_id"/>
+                                <field name="subject_partner_id" />
                             </tree>
                         </field>
                     </page>

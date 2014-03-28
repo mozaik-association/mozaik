@@ -8,7 +8,7 @@
             <field name="name">partner.involvement.category.form</field>
             <field name="model">partner.involvement.category</field>
             <field name="arch" type="xml">
-                <form string="partner involvement category" version="7.0">
+                <form string="Partner Involvement Category" version="7.0">
                     <sheet>
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only"/>
@@ -16,12 +16,21 @@
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
-
+                        <group name="state" attrs="{'invisible': [('id','=',False)]} ">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
                             </group>
                         </div>
                     </div>
@@ -40,10 +49,11 @@
             <field name="model">partner.involvement</field>
             <field name="arch" type="xml">
                 <search string="Partner Involvement">
+                    <field name="partner_id"/>
                     <field name="partner_involvement_category_id"/>
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter string="Partners" context="{'group_by': 'partner_id'}"/>
-                        <filter string="Category" context="{'group_by': 'partner_involvement_category_id'}"/>
+                        <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>
+                        <filter name="category" string="Category" context="{'group_by': 'partner_involvement_category_id'}"/>
                     </group>
                </search>
             </field>
@@ -53,7 +63,7 @@
             <field name="name">partner.involvement.tree</field>
             <field name="model">partner.involvement</field>
             <field name="arch" type="xml">
-                <tree string="partner involvement" version="7.0">
+                <tree string="Partner Involvement" version="7.0">
                     <field name="partner_id"/>
                     <field name="partner_involvement_category_id"/>
                 </tree>
@@ -64,17 +74,17 @@
             <field name="name">partner.involvement.form</field>
             <field name="model">partner.involvement</field>
             <field name="arch" type="xml">
-                <form string="partner involvement" version="7.0">
+                <form string="Partner Involvement" version="7.0">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate assembly: proceed anyway ?" />
+                                    confirm="Invalidate involvement: proceed anyway ?" />
                         </div>
                     </header>
                     <sheet>
-                        <group col="4">
+                        <group>
                             <group>
                                 <div class="oe_title">
                                     <label for="partner_id" />
@@ -123,7 +133,7 @@
         </record>
         <!-- Partner Involvement Category -->
         <record id="partner_involvement_category_action" model="ir.actions.act_window">
-            <field name="name">Involvement Category</field>
+            <field name="name">Involvement Categories</field>
             <field name="res_model">partner.involvement.category</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
