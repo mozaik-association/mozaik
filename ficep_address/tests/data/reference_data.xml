@@ -47,5 +47,38 @@
             <field name="local_zip">1020</field>
         </record>
 
+        <!-- Addresses -->
+
+        <record id="address_1" model="address.address">
+            <field name="country_id" ref="base.be"/>
+            <field name="address_local_zip_id" ref="local_zip_1"/>
+            <field name="address_local_street_id" ref="local_street_1"/>
+            <field name="number">5</field>
+        </record>
+
+        <record id="address_2" model="address.address">
+            <field name="country_id" ref="base.be"/>
+            <field name="address_local_zip_id" ref="local_zip_2"/>
+            <field name="address_local_street_id" ref="local_street_2"/>
+            <field name="number">6</field>
+            <field name="box">2B</field>
+        </record>
+
+        <record id="address_3" model="address.address">
+            <field name="country_id" ref="base.us"/>
+            <field name="zip_man">20301</field>
+            <field name="town_man">Washington DC</field>
+            <field name="street_man">White House</field>
+        </record>
+
+        <record id="address_4" model="address.address">
+            <field name="country_id" ref="base.be"/>
+            <field name="address_local_zip_id" ref="local_zip_3_bis"/>
+            <field name="address_local_street_id" ref="local_street_3"/>
+            <field name="select_alternative_address_local_street" eval="1"/>
+            <field name="number">6</field>
+            <field name="sequence">1</field>
+        </record>
+
     </data>
 </openerp>

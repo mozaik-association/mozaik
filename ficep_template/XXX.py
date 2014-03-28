@@ -191,10 +191,9 @@ class xxxx(orm.Model):
         res = super(xxxx, self).unlink(cr, uid, ids, context=context)
         return res
 
-    def copy_data(self, cr, uid, ids, default=None, context=None):
-        if default is None:
-            default = {}
-        res = super(xxxx, self).copy_data(cr, uid, ids, default=default, context=context)
+    def copy_data(self, cr, uid, id, default=None, context=None):
+        res = super(xxxx, self).copy_data(cr, uid, id, default=default, context=context)
+        res.update({'key': 45})
         return res
 
     def copy(self, cr, uid, ids, default=None, context=None):

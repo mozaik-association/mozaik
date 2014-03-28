@@ -41,9 +41,8 @@ KEY_FIELDS = OrderedDict([
     ('street_man', False),
     ('number', False),
     ('box', False),
-    ('sequence', False),
 ])
-TRIGGER_FIELDS = KEY_FIELDS.keys() + ['select_alternative_address_local_street']
+TRIGGER_FIELDS = KEY_FIELDS.keys() + ['sequence', 'select_alternative_address_local_street']
 
 
 class address_address(orm.Model):
@@ -76,8 +75,7 @@ class address_address(orm.Model):
             for field in KEY_FIELDS.keys():
                 to_evaluate = field if not KEY_FIELDS[field] else '%s.%s' % (field, KEY_FIELDS[field])
                 value = eval('adrs.%s' % to_evaluate)
-                if value:
-                    technical_value.append(str(value))
+                technical_value.append(str(value or 0))
             technical_name = '#'.join(technical_value)
 
             result[adrs.id] = {
@@ -180,7 +178,7 @@ class address_address(orm.Model):
     }
 
     _sql_constraints = [
-        ('check_unicity_number', 'unique(technical_name)', _('This Address already exists!'))
+        ('check_unicity_number', 'unique(technical_name,sequence)', _('This Address already exists!'))
     ]
 
 # orm methods
@@ -206,15 +204,24 @@ class address_address(orm.Model):
             res.append((record['id'], record['name']))
         return res
 
-    def copy(self, cr, uid, ids, default=None, context=None):
+    def copy_data(self, cr, uid, ids, default=None, context=None):
         """
-        ====================
-        copy address.address
-        ====================
-        Due to the constraint: to avoid the standard except: better explanation
-        for the user
+        Increase sequence value when duplicating address
         """
-        raise orm.except_orm(_('Error'), _('An Address cannot be duplicated!'))
+        adr_id = isinstance(ids, (long, int)) and [ids] or ids
+        technical_name = self.read(cr, uid, adr_id[0], ['technical_name'], context=context)['technical_name']
+        cr.execute('SELECT MAX(sequence) FROM %s WHERE technical_name=%%s' % (self._table, ), (technical_name, ))
+        sequence = cr.fetchone()
+        sequence = sequence and sequence[0] or False
+        if not sequence:
+            raise orm.except_orm(_('Error'), _('An Address without sequence number cannot be duplicated!'))
+
+        res = super(address_address, self).copy_data(cr, uid, ids, default=default, context=context)
+        res.update({
+                    'sequence': sequence + 1,
+                    'postal_coordinate_ids': [],
+                   })
+        return res
 
 # view methods: onchange, button
 

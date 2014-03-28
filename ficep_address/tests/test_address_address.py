@@ -25,6 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm
 from anybox.testing.openerp import SharedSetupTransactionCase
 import openerp.tests.common as common
 import logging
@@ -98,5 +99,18 @@ class test_address_address(SharedSetupTransactionCase):
         self.assertEqual(adr.name, 'United Nations - New York - United States', 'Create address fails with wrong name')
         self.assertEqual(adr.zip, '10017', 'Create address fails with wrong zip')
         self.assertEqual(adr.street, 'United Nations', 'Create address fails with wrong street')
+
+    def test_copy_address(self):
+        cr, uid = self.cr, self.uid
+        adr_3 = self.ref('%s.address_3' % self._module_ns)
+        adr_4 = self.ref('%s.address_4' % self._module_ns)
+
+        # 1/ an address with a null sequence cannot be duplicated
+        self.assertRaises(orm.except_orm, self.model_address.copy, cr, uid, [adr_3])
+
+        # 2/ otherwise copy is allowed and the sequence is increased
+        adr_id = self.model_address.copy(cr, uid, adr_4)
+        adr = self.model_address.browse(cr, uid, [adr_id])[0]
+        self.assertEqual(adr.sequence, 2, 'Copy address fails with wrong sequence')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
