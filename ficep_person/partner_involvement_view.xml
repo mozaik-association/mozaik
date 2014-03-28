@@ -9,6 +9,14 @@
             <field name="model">partner.involvement.category</field>
             <field name="arch" type="xml">
                 <form string="Partner Involvement Category" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_user">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate involvement: proceed anyway ?" />
+                        </div>
+                    </header>
                     <sheet>
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only"/>
@@ -55,6 +63,14 @@
                 <search string="Partner Involvement">
                     <field name="partner_id"/>
                     <field name="partner_involvement_category_id"/>
+                    <separator />
+                    <filter name="expired" string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active','=',False)]" help="Expire Coordinate" />
+                    <filter name="all" string="All"
+                        context="{'invisible_expire_date': False}"
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>
                         <filter name="category" string="Category" context="{'group_by': 'partner_involvement_category_id'}"/>

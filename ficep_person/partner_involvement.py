@@ -63,7 +63,6 @@ class partner_involvement_category(orm.Model):
 
     _columns = {
         'name': fields.char('Involvement Category', required=True, track_visibility='onchange'),
-        'partner_involvement_ids': fields.one2many('partner.involvement', 'partner_involvement_category_id', string='Partner Involvements'),
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

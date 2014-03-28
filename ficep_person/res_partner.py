@@ -197,6 +197,8 @@ class res_partner(orm.Model):
                     'child_ids': [],
                     'user_ids': [],
                     'bank_ids': [],
+                    'partner_involvement_ids': [],
+                    'partner_involvement_inactive_ids': [],
 
                     'ldap_name': False,
                     'ldap_id': False,
