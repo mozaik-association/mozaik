@@ -26,6 +26,7 @@
 #
 ##############################################################################
 from openerp.osv import orm, fields
+from openerp.tools import SUPERUSER_ID
 
 
 class res_partner(orm.Model):
@@ -55,6 +56,24 @@ class res_partner(orm.Model):
                     'partner_is_subject_relation_inactive_ids': [],
                     'partner_is_object_relation_inactive_ids': [],
                     })
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        """
+        =====
+        write
+        =====
+        When invalidating a partner, invalidates also its partner.relation
+        """
+        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
+        if 'active' in vals and not vals['active']:
+            relation_obj = self.pool['partner.relation']
+            relations_ids = []
+            for partner in self.browse(cr, SUPERUSER_ID, ids, context=context):
+                relations_ids += [c.id for c in partner.partner_is_subject_relation_ids]
+                relations_ids += [c.id for c in partner.partner_is_object_relation_ids]
+            if relations_ids:
+                relation_obj.button_invalidate(cr, SUPERUSER_ID, relations_ids, context=context)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -25,6 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import unicodedata
+
 from collections import OrderedDict
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
@@ -77,6 +79,7 @@ class address_address(orm.Model):
                 value = eval('adrs.%s' % to_evaluate)
                 technical_value.append(str(value or 0))
             technical_name = '#'.join(technical_value)
+            technical_name = self.format_value(cr, uid, technical_name, context=context)
 
             result[adrs.id] = {
                 'name': adr or False,
@@ -279,6 +282,20 @@ class address_address(orm.Model):
         coord_ids = self._get_linked_coordinates(cr, uid, ids, context=context)
         return self.pool['postal.coordinate'].get_linked_partners(cr, uid, coord_ids, context=context)
 
+    def format_value(self, cr, uid, value, context=None):
+        """
+        ============
+        format_value
+        ============
+        :type value: char
+        :rtype: char
+        :rparam: upper to lower case for value and deletion of accented character
+        """
+        value = value.lower().strip()
+        value = ''.join(c for c in unicodedata.normalize('NFD', u'%s' % value)
+                  if unicodedata.category(c) != 'Mn')
+        return value
+
 
 class postal_coordinate(orm.Model):
 
@@ -337,7 +354,7 @@ class postal_coordinate(orm.Model):
             }
         """
         res = super(postal_coordinate, self).get_fields_to_update(cr, uid, mode, context=context)
-        if mode == 'duplicate':
+        if mode == 'duplicate' or mode == 'reset':
             res.update({'co_residency_id': False})
         return res
 

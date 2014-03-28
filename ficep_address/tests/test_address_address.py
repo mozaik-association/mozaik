@@ -100,13 +100,25 @@ class test_address_address(SharedSetupTransactionCase):
         self.assertEqual(adr.zip, '10017', 'Create address fails with wrong zip')
         self.assertEqual(adr.street, 'United Nations', 'Create address fails with wrong street')
 
+        #test the technical name
+        dic = {
+            'country_id': self.ref("base.be"),
+            'zip_man': '4100',
+            'town_man': 'Seraing',
+            'street_man': 'AAAAAéÉçùièêÈ',
+            'number': '7',
+        }
+        adr_id = self.model_address.create(cr, uid, dic)
+        adr = self.model_address.browse(cr, uid, [adr_id])[0]
+        self.assertTrue('aaaaaeecuieee' in adr.technical_name, 'No Accented char and no Upper For technical name')
+
     def test_copy_address(self):
         cr, uid = self.cr, self.uid
         adr_3 = self.ref('%s.address_3' % self._module_ns)
         adr_4 = self.ref('%s.address_4' % self._module_ns)
 
         # 1/ an address with a null sequence cannot be duplicated
-        self.assertRaises(orm.except_orm, self.model_address.copy, cr, uid, [adr_3])
+        self.assertRaises(orm.except_orm, self.model_address.copy, cr, uid, adr_3)
 
         # 2/ otherwise copy is allowed and the sequence is increased
         adr_id = self.model_address.copy(cr, uid, adr_4)

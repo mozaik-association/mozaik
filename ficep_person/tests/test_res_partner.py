@@ -25,10 +25,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from uuid import uuid4
+
 from anybox.testing.openerp import SharedSetupTransactionCase
 import logging
 _logger = logging.getLogger(__name__)
 from openerp.tools import SUPERUSER_ID
+from openerp.osv import orm
 
 
 class test_res_partner(SharedSetupTransactionCase):
@@ -46,6 +49,8 @@ class test_res_partner(SharedSetupTransactionCase):
         self.registry('ir.model.data').clear_caches()
 
         self.partner_model = self.registry('res.partner')
+        self.company_model = self.registry('res.company')
+        self.user_model = self.registry('res.users')
         self.allow_duplicate_wizard_model = self.registry('allow.duplicate.wizard')
 
         self.partner_nouvelobs_id = self.ref('%s.res_partner_nouvelobs' % self._module_ns)
@@ -194,5 +199,30 @@ class test_res_partner(SharedSetupTransactionCase):
             pid = fields.get('id')
             bools = [fields.get('is_duplicate_detected', False), fields.get('is_duplicate_allowed', False)]
             self.assertFalse(any(bools), 'Update partner name fails with wrong duplicate repairing (id=%s)' % pid)
+
+    def test_invalidate_partner(self):
+        """
+        =======================
+        test_invalidate_partner
+        =======================
+        1) create a company and a user
+        2) try to invalidate company's partner and user's partner and check that failed
+        3) set active to false for the new user
+        4) retry to invalidate the user's partner and check it succeed
+        """
+        company_test_id = self.company_model.create(self.cr, self.uid, {'name': '%s' % uuid4()})
+        user_test_id = self.user_model.create(self.cr, SUPERUSER_ID, {'name': '%s' % uuid4(),
+                                                                      'login': '%s' % uuid4()})
+
+        company_test = self.company_model.browse(self.cr, self.uid, [company_test_id])[0]
+        user_test = self.user_model.browse(self.cr, self.uid, [user_test_id])[0]
+
+        self.assertRaises(orm.except_orm, self.partner_model.button_invalidate, self.cr, self.uid, [company_test.partner_id.id])
+        self.assertRaises(orm.except_orm, self.partner_model.button_invalidate, self.cr, self.uid, [user_test.partner_id.id])
+
+        self.user_model.write(self.cr, SUPERUSER_ID, [user_test.id], {'active': False})
+        self.partner_model.button_invalidate(self.cr, self.uid, [user_test.partner_id.id])
+        self.assertFalse(self.partner_model.read(self.cr, self.uid, [user_test.partner_id.id], ['active'])[0]['active'],
+                         'Partner of The Duplicate Company Should Be Invalidate')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

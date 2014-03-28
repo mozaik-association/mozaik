@@ -28,6 +28,7 @@
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp.tools import SUPERUSER_ID
 
 from openerp.addons.base.res import res_partner
 
@@ -207,6 +208,23 @@ class res_partner(orm.Model):
                    })
         return res
 
+    def write(self, cr, uid, ids, vals, context=None):
+        """
+        =====
+        write
+        =====
+        When invalidating a partner, invalidates also its partner.involvement
+        """
+        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
+        if 'active' in vals and not vals['active']:
+            involvement_obj = self.pool['partner.involvement']
+            involvements_ids = []
+            for partner in self.browse(cr, SUPERUSER_ID, ids, context=context):
+                involvements_ids += [c.id for c in partner.partner_involvement_ids]
+            if involvements_ids:
+                involvement_obj.button_invalidate(cr, SUPERUSER_ID, involvements_ids, context=context)
+        return res
+
 # view methods: onchange, button
 
     def button_invalidate(self, cr, uid, ids, context=None):
@@ -220,9 +238,21 @@ class res_partner(orm.Model):
         and resetting its duplicate flags
         :rparam: True
         :rtype: boolean
+        **Notes**
+        If Trying to invalidate a user's partner or a company's partner:
+        If the users or the company are not invalidate themselves then orm.except_orm
         """
         vals = self.get_fields_to_update(cr, uid, 'reset', context=context)
-        #TODO: replace this update with a recall to previous method('deactivate') cases when we will depend on abstract_ficep_model
+        for partner in self.browse(cr, uid, ids, context=context):
+            if partner.user_ids:
+                for user in partner.user_ids:
+                    if user.active:
+                        raise orm.except_orm(_('Error'),
+                               _('To Invalidate A Partner You First Have to Invalidate His Referenced User'))
+            if partner.company_id:
+                if partner.company_id.partner_id.id == partner.id:
+                    raise orm.except_orm(_('Error'),
+                        _('To Invalidate A Partner You First Have to Invalidate His Referenced Company'))
         vals.update({'active': False,
                      'expire_date': fields.datetime.now(),
                     })
