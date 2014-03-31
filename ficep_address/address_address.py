@@ -26,11 +26,15 @@
 #
 ##############################################################################
 import unicodedata
+import re
 
 from collections import OrderedDict
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
+
+NOT_ALPHANUMERICS = re.compile('[^\da-zA-Z]+')
+BLANK = re.compile('  +')
 
 COUNTRY_CODE = 'BE'
 # Do Not Add Sequence Here
@@ -77,9 +81,8 @@ class address_address(orm.Model):
             for field in KEY_FIELDS.keys():
                 to_evaluate = field if not KEY_FIELDS[field] else '%s.%s' % (field, KEY_FIELDS[field])
                 value = eval('adrs.%s' % to_evaluate)
-                technical_value.append(str(value or 0))
+                technical_value.append(self.format_value(cr, uid, str(value or 0), context=context))
             technical_name = '#'.join(technical_value)
-            technical_name = self.format_value(cr, uid, technical_name, context=context)
 
             result[adrs.id] = {
                 'name': adr or False,
@@ -213,7 +216,7 @@ class address_address(orm.Model):
         """
         adr_id = isinstance(ids, (long, int)) and [ids] or ids
         technical_name = self.read(cr, uid, adr_id[0], ['technical_name'], context=context)['technical_name']
-        cr.execute('SELECT MAX(sequence) FROM %s WHERE technical_name=%%s' % (self._table, ), (technical_name, ))
+        cr.execute('SELECT MAX(sequence) FROM %s WHERE technical_name=%%s' % (self._table,), (technical_name,))
         sequence = cr.fetchone()
         sequence = sequence and sequence[0] or False
         if not sequence:
@@ -291,10 +294,11 @@ class address_address(orm.Model):
         :rtype: char
         :rparam: upper to lower case for value and deletion of accented character
         """
-        value = value.lower().strip()
         value = ''.join(c for c in unicodedata.normalize('NFD', u'%s' % value)
                   if unicodedata.category(c) != 'Mn')
-        return value
+        value = re.sub(NOT_ALPHANUMERICS, ' ', value)
+        value = re.sub(BLANK, ' ', value)
+        return value.lower().strip()
 
 
 class postal_coordinate(orm.Model):

@@ -36,8 +36,9 @@
         'base',
         'portal',
         'mail',
-        'partner_firstname',          # from lp:~partner-contact-core-editors/partner-contact-management/7.0
-        'mass_editing'  # from lp:server-env-tools'
+        'partner_firstname',  # from lp:~partner-contact-core-editors/partner-contact-management/7.0
+        'mass_editing',  # from lp:server-env-tools'
+        'document',
         #'auth_ldap',
         #'event',
         #'l10n_be',
@@ -60,6 +61,7 @@ FICEP Base
         'data/ir_filters_data.xml',
         'data/res_lang_data.xml',
         'data/res_lang_install.xml',
+        'data/ir_config_parameter_data.xml',
         'ficep_view.xml',
         'res_partner_view.xml',
     ],
