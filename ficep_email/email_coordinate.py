@@ -29,6 +29,7 @@ import re
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp.tools.mail import single_email_re
 
 
 class email_coordinate(orm.Model):
@@ -49,7 +50,7 @@ class email_coordinate(orm.Model):
     def _check_email(self, cr, uid, ids, context=None):
         coordinates = self.browse(cr, uid, ids, context=context)
         for coordinate in coordinates:
-            if not re.match("^[_a-zA-Z0-9\\-\\.\\+]+\\@[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})$", coordinate.email) != None:
+            if not re.match(single_email_re, coordinate.email) != None:
                 return False
         return True
 
