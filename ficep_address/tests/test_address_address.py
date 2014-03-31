@@ -105,12 +105,12 @@ class test_address_address(SharedSetupTransactionCase):
             'country_id': self.ref("base.be"),
             'zip_man': '4100',
             'town_man': 'Seraing',
-            'street_man': 'AAAAAéÉçùièêÈ',
+            'street_man': 'AAAAAàéÉçùièêÈ',
             'number': '7',
         }
         adr_id = self.model_address.create(cr, uid, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertTrue('aaaaaeecuieee' in adr.technical_name, 'No Accented char and no Upper For technical name')
+        self.assertTrue('aaaaaaeecuieee' in adr.technical_name, 'No Accented char and no Upper For technical name')
 
     def test_copy_address(self):
         cr, uid = self.cr, self.uid
