@@ -6,13 +6,13 @@
 
         <record id="term_confirmed_one" model="thesaurus.term">
             <field name="name">Sport</field>
-            <field name="ext_id">ID5623</field>
+            <field name="ext_identifier">ID5623</field>
             <field name="state">confirm</field>
         </record>
 
         <record id="term_confirmed_two" model="thesaurus.term">
             <field name="name">Ressources Humaines</field>
-            <field name="ext_id">ID1288</field>
+            <field name="ext_identifier">ID1288</field>
             <field name="state">confirm</field>
         </record>
 
