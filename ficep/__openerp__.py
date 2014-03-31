@@ -58,7 +58,6 @@ Loads all ficep modules
     'test': [
     ],
     'sequence': 150,
-    'active': False,
     'auto_install': False,
     'installable': True,
 }

@@ -61,7 +61,6 @@ It replicates this instance on partner which main address is related to this loc
     'test': [
     ],
     'sequence': 150,
-    'active': False,
     'auto_install': False,
     'installable': True,
 }

@@ -61,7 +61,6 @@ FICEP Coordinate
     'test': [
     ],
     'sequence': 150,
-    'active': False,
     'installable': True,
     'auto_install': False,
 }

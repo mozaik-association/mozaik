@@ -62,7 +62,6 @@ Creating a new term will send a message to all this followers requesting their v
     'test': [
     ],
     'sequence': 150,
-    'active': False,
     'installable': True,
     'auto_install': False,
 }

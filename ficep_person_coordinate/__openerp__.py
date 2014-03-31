@@ -65,7 +65,6 @@ FICEP Person - Coordinate
     'test': [
     ],
     'sequence': 150,
-    'active': False,
     'auto_install': True,  # automatically install if all depends loaded
     'installable': True,
 }

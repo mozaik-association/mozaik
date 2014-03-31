@@ -56,7 +56,6 @@ This module is a dependency of both persons and structures modules.
     'test': [
     ],
     'sequence': 150,
-    'active': False,
     'auto_install': False,
     'installable': True,
 }

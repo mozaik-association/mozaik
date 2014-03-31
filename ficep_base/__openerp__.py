@@ -75,7 +75,6 @@ FICEP Base
     'test': [
     ],
     'sequence': 150,
-    'active': True,
     'license': 'AGPL-3',
     'installable': True,
     'auto_install': False,

@@ -59,7 +59,6 @@ Customizations for Mass Editing By
     'test': [
     ],
     'sequence': 150,
-    'active': False,
     'auto_install': False,
     'installable': True,
 }

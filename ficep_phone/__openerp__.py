@@ -65,7 +65,6 @@ Numbers are normalized regarding the external python library: phonenumbers
     'test': [
     ],
     'sequence': 150,
-    'active': False,
     'installable': True,
     'auto_install': False,
 }
