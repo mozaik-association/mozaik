@@ -172,6 +172,9 @@ class abstract_duplicate(orm.AbstractModel):
             })
         return res
 
+    def are_duplicate_concerned(self, cr, uid, value, context=None):
+        return [], self.search(cr, uid, [(self._discriminant_field, '=', value)], context=context)
+
     def detect_and_repair_duplicate(self, cr, uid, vals, context=None):
         """
         ===========================
@@ -183,7 +186,7 @@ class abstract_duplicate(orm.AbstractModel):
         :type vals: list
         """
         for v in vals:
-            document_ids = self.search(cr, uid, [(self._discriminant_field, '=', v)], context=context)
+            document_to_reset_ids, document_ids = self.are_duplicate_concerned(cr, uid, v, context=None)
             if document_ids:
                 current_values = self.read(cr, uid, document_ids, ['is_duplicate_allowed', 'is_duplicate_detected'], context=context)
                 fields_to_update = {}
@@ -213,5 +216,9 @@ class abstract_duplicate(orm.AbstractModel):
                 if fields_to_update:
                     # super write method must be called here to avoid to cycle
                     super(abstract_duplicate, self).write(cr, uid, document_ids, fields_to_update, context=context)
+
+            if document_to_reset_ids:
+                fields_to_update = self.get_fields_to_update(cr, uid, 'reset', context=None)
+                super(abstract_duplicate, self).write(cr, uid, document_to_reset_ids, fields_to_update, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

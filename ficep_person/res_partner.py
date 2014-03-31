@@ -63,7 +63,7 @@ class res_partner(orm.Model):
     _inherit = ['mail.thread', 'res.partner', 'abstract.duplicate']
 
     _discriminant_field = 'name'
-    _trigger_fileds = ['name', 'lastname', 'firstname']
+    _trigger_fileds = ['name', 'lastname', 'firstname', 'birth_date']
     _undo_redirect_action = 'ficep_person.all_res_partner_action'
 
 # private methods
@@ -302,5 +302,32 @@ class res_partner(orm.Model):
         partner.write({'ldap_name': login}, context=context)
 
         return user_id
+
+    def are_duplicate_concerned(self, cr, uid, value, context=None):
+        """
+        """
+        if context is None:
+            context = {}
+        duplicate_detected_ids = []
+        buffer_not_yet_decided = {}
+        aborting = False
+        document_ids = self.search(cr, uid, [(self._discriminant_field, '=', value)], context=context)
+        if document_ids:
+            document_values = self.read(cr, uid, document_ids, ['birth_date'], context=context)
+            birth_date_list = []
+            for document_value in document_values:
+                if not document_value['birth_date']:
+                    duplicate_detected_ids = document_ids
+                    aborting = True
+                    break
+                if document_value['birth_date'] in birth_date_list:
+                    duplicate_detected_ids.append(document_value['id'])
+                    if document_value['birth_date'] in buffer_not_yet_decided:
+                        duplicate_detected_ids.append(buffer_not_yet_decided[document_value['birth_date']])
+                        del buffer_not_yet_decided[document_value['birth_date']]
+                else:
+                    birth_date_list.append(document_value['birth_date'])
+                    buffer_not_yet_decided.update({document_value['birth_date']: document_value['id']})
+        return [] if aborting else buffer_not_yet_decided.values(), duplicate_detected_ids
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
