@@ -103,12 +103,27 @@ class thesaurus_term(orm.Model):
     _description = 'Thesaurus Term'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
+    def _get_technical_name(self, cr, uid, ids, name, args, context=None):
+        result = {}.fromkeys(ids, False)
+        terms = self.browse(cr, uid, ids, context=context)
+        for term in terms:
+            elts = [
+                '%s' % term.thesaurus_id.id,
+                term.state,
+                term.state=='draft' and term.name or term.state=='confirm' and term.ext_identifier or term.expire_date
+            ]
+            result[term.id] = '#'.join([el for el in elts if el])
+
+        return result
+
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Term', required=True, translate=True, select=True, track_visibility='onchange'),
-        'ext_id': fields.char('External Identifier', readonly=True, required=False, select=True, track_visibility='onchange',
-                              states={'draft': [('readonly', False)], 'confirm': [('required', True)]}),
         'thesaurus_id': fields.many2one('thesaurus', 'Thesaurus', readonly=True, required=True),
+        'ext_identifier': fields.char('External Identifier', readonly=True, required=False, select=True, track_visibility='onchange',
+                                      states={'draft': [('readonly', False)], 'confirm': [('required', True)]}),
+        'technical_name': fields.function(_get_technical_name, string='Technical Name', type='char', select=True, required=True,
+                                          store=True),
 
         # State
         'state': fields.selection(TERM_AVAILABLE_STATES,'Status', readonly=True, required=True, track_visibility='onchange',
@@ -123,13 +138,38 @@ class thesaurus_term(orm.Model):
     _order = 'name'
 
     _defaults = {
-        'state': TERM_AVAILABLE_STATES[0][0],
         'thesaurus_id': lambda self, cr, uid, ids, context=None: self.pool['thesaurus'].search(cr, uid, [], limit=1, context=context)[0],
+        'technical_name': '#',
+        'state': TERM_AVAILABLE_STATES[0][0],
         'active': True,
     }
 
+# constraints
+
+    def _check_ext_identifier(self, cr, uid, ids, context=None):
+        """
+        =====================
+        _check_ext_identifier
+        =====================
+        Check if ext_identifier is known when validating term
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        terms = self.browse(cr, uid, ids, context=context)
+        for term in terms:
+            if term.state == 'confirm' and term.ext_identifier == False:
+                return False
+
+        return True
+
+    _constraints = [
+        (_check_ext_identifier, _('Missing External Identifier for a validated term'),
+          ['state', 'ext_identifier'])
+    ]
+
     _sql_constraints = [
-        ('check_unicity_number', 'unique(thesaurus_id, name)', _('The term must be unique in the thesaurus!'))
+        ('check_unicity_number', 'unique(technical_name)', _('The term must be unique in the thesaurus!'))
     ]
 
 # orm methods
@@ -157,9 +197,10 @@ class thesaurus_term(orm.Model):
         Reset some fields to their initial values.
         Mark the name as (copy) 
         """
-        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        res = super(thesaurus_term, self).copy_data(cr, uid, ids, default=default, context=context)
         res.update({
-                    'name': _('%s (copy)') % default.get('name'),
+                    'name': _('%s (copy)') % res.get('name'),
+                    'ext_identifier': False,
                     'active': True,
                     'expire_date': False,
                    })

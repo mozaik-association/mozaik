@@ -150,7 +150,7 @@
 
                         <group name="data">
                             <group name="main">
-                                <field name="ext_id" />
+                                <field name="ext_identifier" />
                             </group>
                             <group name="other">
                                 <field name="thesaurus_id" context="{'simplified': 1}" groups="ficep_base.ficep_res_groups_configurator" />
@@ -167,6 +167,7 @@
                             <h3>More Info</h3>
                             <group name="moreinfo">
                                 <field name="id"/>
+                                <field name="technical_name"/>
                                 <field name="active"/>
                             </group>
                         </div>
