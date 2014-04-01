@@ -205,10 +205,16 @@ class abstract_coordinate(orm.AbstractModel):
         return res
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
+        default = default or {}
+        default.update(self.get_fields_to_update(cr, uid, 'activate', context=context))
         res = super(abstract_coordinate, self).copy_data(cr, uid, ids, default=default, context=context)
-        if res.get('active', True):
+        return res
+
+    def copy(self, cr, uid, ids, default=None, context=None):
+        flds = self.read(cr, uid, ids, ['active'], context=context)
+        if flds.get('active', True):
             raise orm.except_orm(_('Error'), _('An active coordinate cannot be duplicated!'))
-        res.update(self.get_fields_to_update(cr, uid, 'activate', context=context))
+        res = super(abstract_coordinate, self).copy(cr, uid, ids, default=default, context=context)
         return res
 
 # view methods: onchange, button

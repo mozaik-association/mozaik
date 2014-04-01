@@ -70,9 +70,18 @@ class partner_relation(orm.Model):
         return True
 
     _constraints = [
-        (_check_relation_qualification, _('Error! A Relation Must Be Declared Between Two Different Contact And Must Exist In Only One Way'),
+        (_check_relation_qualification, _('Error! A relation must associate two different contacts and must exist in only one way!'),
                                        ['subject_partner_id', 'object_partner_id', 'partner_relation_category_id']),
     ]
+
+# orm methods
+
+    def copy(self, cr, uid, ids, default=None, context=None):
+        flds = self.read(cr, uid, ids, ['active'], context=context)
+        if flds.get('active', True):
+            raise orm.except_orm(_('Error'), _('An active relation cannot be duplicated!'))
+        res = super(partner_relation, self).copy(cr, uid, ids, default=default, context=context)
+        return res
 
 
 class partner_relation_category(orm.Model):

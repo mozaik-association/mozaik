@@ -49,13 +49,14 @@ class res_partner(orm.Model):
         Do not copy o2m fields.
         Reset some fields to their initial values.
         """
+        default = default or {}
+        default.update({
+            'partner_is_subject_relation_ids': [],
+            'partner_is_object_relation_ids': [],
+            'partner_is_subject_relation_inactive_ids': [],
+            'partner_is_object_relation_inactive_ids': [],
+        })
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
-        res.update({
-                    'partner_is_subject_relation_ids': [],
-                    'partner_is_object_relation_ids': [],
-                    'partner_is_subject_relation_inactive_ids': [],
-                    'partner_is_object_relation_inactive_ids': [],
-                    })
         return res
 
     def write(self, cr, uid, ids, vals, context=None):

@@ -192,8 +192,11 @@ class xxxx(orm.Model):
         return res
 
     def copy_data(self, cr, uid, id, default=None, context=None):
+        default = dict(default or {})
+        default.update({
+            'key': 45,
+        })
         res = super(xxxx, self).copy_data(cr, uid, id, default=default, context=context)
-        res.update({'key': 45})
         return res
 
     def copy(self, cr, uid, ids, default=None, context=None):

@@ -40,7 +40,7 @@ class partner_involvement(orm.Model):
 
     _rec_name = 'partner_involvement_category_id'
 
-#orm methods
+# orm methods
 
     def name_get(self, cr, uid, ids, context=None):
         """
@@ -55,6 +55,13 @@ class partner_involvement(orm.Model):
                 res.append((record.id, record.partner_involvement_category_id.name))
         return res
 
+    def copy(self, cr, uid, ids, default=None, context=None):
+        flds = self.read(cr, uid, ids, ['active'], context=context)
+        if flds.get('active', True):
+            raise orm.except_orm(_('Error'), _('An active involvement cannot be duplicated!'))
+        res = super(abstract_coordinate, self).copy(cr, uid, ids, default=default, context=context)
+        return res
+
 
 class partner_involvement_category(orm.Model):
 
@@ -62,7 +69,7 @@ class partner_involvement_category(orm.Model):
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'name': fields.char('Involvement Category', required=True, track_visibility='onchange'),
+        'name': fields.char('Involvement Category', required=True, select=True, track_visibility='onchange'),
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
