@@ -45,7 +45,7 @@ class res_users(orm.Model):
     @tools.ormcache(skiparg=2)
     def context_get(self, cr, uid, context=None):
         '''
-        Add a flag in the users's context related to each ficep group 
+        Add a flag in the users's context related to each ficep group
         '''
         result = super(res_users, self).context_get(cr, uid)
         user = self.browse(cr, SUPERUSER_ID, uid, context)

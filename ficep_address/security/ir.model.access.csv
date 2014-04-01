@@ -7,3 +7,5 @@ access_ficep_address_local_zip_res_group_base,ficep.address.local.zip.res.group.
 access_ficep_address_local_zip_res_group_user,ficep.address.local.zip.res.group.configurator,model_address_local_zip,ficep_base.ficep_res_groups_configurator,1,1,1,1
 access_ficep_address_local_street_res_group_base,ficep.address.local.street.res.group.base,model_address_local_street,ficep_base.res_groups_base,1,0,0,0
 access_ficep_address_local_street_res_group_user,ficep.address.local.street.res.group.configurator,model_address_local_street,ficep_base.ficep_res_groups_configurator,1,1,1,1
+access_ficep_co_residency_res_group_base,ficep.co.residency.res.group.base,model_co_residency,ficep_base.res_groups_base,1,0,0,0
+access_ficep_co_residency_res_group_user,ficep.co.residency.res.group.user,model_co_residency,ficep_base.ficep_res_groups_user,1,1,1,1

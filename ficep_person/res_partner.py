@@ -305,28 +305,39 @@ class res_partner(orm.Model):
 
     def are_duplicate_concerned(self, cr, uid, value, context=None):
         """
+        =======================
+        are_duplicate_concerned
+        =======================
+        :type value: char
+        :param value: value for search domain
+        :rtype: [] []
+        **Note**
+        First Get all the partner with the ``discriminant_field`` equals to ``values``
+            * If One of those partner has ``birth_date`` return will be [][all_partner_ids_found]
+            * Else Return ids of Not Duplicate in first list and duplicate found into the second list
         """
-        if context is None:
-            context = {}
         duplicate_detected_ids = []
-        buffer_not_yet_decided = {}
-        aborting = False
+        buffer_not_yet_decided = {}  # key: birth_date value: partner's id
+        aborting = False  # if a ``birth_date`` set False then abort operation and return
+
         document_ids = self.search(cr, uid, [(self._discriminant_field, '=', value)], context=context)
         if document_ids:
             document_values = self.read(cr, uid, document_ids, ['birth_date'], context=context)
-            birth_date_list = []
+            birth_date_list = []  # will contain all birth date to check duplicate
             for document_value in document_values:
                 if not document_value['birth_date']:
                     duplicate_detected_ids = document_ids
                     aborting = True
                     break
+                # If birth_date is into the birth_date_list then is is a duplicate
                 if document_value['birth_date'] in birth_date_list:
                     duplicate_detected_ids.append(document_value['id'])
+                    #If this birth date is always into the buffer it is a duplicate to pop from it
                     if document_value['birth_date'] in buffer_not_yet_decided:
-                        duplicate_detected_ids.append(buffer_not_yet_decided[document_value['birth_date']])
-                        del buffer_not_yet_decided[document_value['birth_date']]
-                else:
+                        duplicate_detected_ids.append(buffer_not_yet_decided.pop(document_value['birth_date']))
+                else:  # if not present into the list, add it
                     birth_date_list.append(document_value['birth_date'])
+                    # add key/value into the buffer to be add it too if duplicate detected later
                     buffer_not_yet_decided.update({document_value['birth_date']: document_value['id']})
         return [] if aborting else buffer_not_yet_decided.values(), duplicate_detected_ids
 

@@ -225,4 +225,74 @@ class test_res_partner(SharedSetupTransactionCase):
         self.assertFalse(self.partner_model.read(self.cr, self.uid, [user_test.partner_id.id], ['active'])[0]['active'],
                          'Partner of The Duplicate Company Should Be Invalidate')
 
+    def test_birth_date_duplicate_managment(self):
+        """
+        ===================================
+        test_birth_date_duplicate_managment
+        ===================================
+        1) Create Partner named
+            * A date 2010-10-10 (A1)
+            * A date 2010-10-11 (A2)
+            Check
+                * A1 is not duplicate detected
+                * A2 is not duplicate detected
+        2) Update birth_date of A2 with 2010-10-10
+            Check
+                * A1 is duplicate detected
+                * A2 is duplicate detected
+        3) Update birth_date of A1 with 1990-10-10
+            Check
+                * A1 is not duplicate detected
+                * A2 is not duplicate detected
+        4) Create Partner names
+            * A date False (A3)
+            Check
+                * All are duplicate detected
+        5) Update birth_date of A3 with 1990-10-10
+            Check
+                A1 and A3 are duplicate detected
+                A2 is not duplicate detected
+        """
+        cr, uid = self.cr, self.uid
+        pids = []
+        days = [10, 11]
+        # Step 1
+        for day in days:
+            pids.append(self.partner_model.create(cr, uid,
+                                         {'name': 'A',
+                                          'birth_date': '2010-10-%s' % day}))
+        document_values = self.partner_model.read(cr, uid, pids, ['is_duplicate_detected', 'is_duplicate_allowed'])
+        # Check 1 : 0 detected,0 allowed
+        for document_value in document_values:
+            bools = [document_value['is_duplicate_detected'],
+                     document_value['is_duplicate_allowed']]
+            self.assertFalse(any(bools), 'Partner %s Should Not Be Duplicate Concerned' % document_value['id'])
+        # Step 2
+        self.partner_model.write(cr, uid, [pids[1]], {'birth_date': '2010-10-%s' % days[0]})
+        document_values = self.partner_model.read(cr, uid, pids, ['is_duplicate_detected', 'is_duplicate_allowed'])
+        # Check 2 : 1 detected,0 allowed
+        for document_value in document_values:
+            bools = [not document_value['is_duplicate_detected'],
+                     document_value['is_duplicate_allowed']]
+            self.assertFalse(any(bools), 'Partner %s Should Be Duplicate Detected Only' % document_value['id'])
+        # Step 3
+        last_birth_date = {'birth_date': '1990-10-10'}
+        self.partner_model.write(cr, uid, [pids[0]], last_birth_date)
+        document_values = self.partner_model.read(cr, uid, pids, ['is_duplicate_detected', 'is_duplicate_allowed'])
+        # Check 3 : 0 detected,0 allowed
+        for document_value in document_values:
+            bools = [document_value['is_duplicate_detected'],
+                     document_value['is_duplicate_allowed']]
+            self.assertFalse(any(bools), 'Partner %s Should Not Be Duplicate Concerned' % document_value['id'])
+        # Step 4
+        pids.append(self.partner_model.create(cr, uid, {'name': 'A',
+                                                        'birth_date': last_birth_date['birth_date']}))
+        document_values = self.partner_model.read(cr, uid, pids, ['birth_date', 'is_duplicate_detected', 'is_duplicate_allowed'])
+        # Check 4 : 2 detected, 1 not detected
+        for document_value in document_values:
+            if document_value['birth_date'] == last_birth_date['birth_date']:
+                self.assertTrue(document_value['is_duplicate_detected'], 'Partner %s Should Be Duplicate Detected' % document_value['id'])
+            else:
+                self.assertFalse(document_value['is_duplicate_detected'], 'Partner %s Should Not Be Duplicate Detected' % document_value['id'])
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

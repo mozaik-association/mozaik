@@ -25,46 +25,36 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Email',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_coordinate',
-    ],
-    'description': """
-FICEP Email
-===========
-This module manages Emails.
-""",
-    'images': [
-    ],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/ir.rule.xml',
-        'wizard/change_main_email.xml',
-        'wizard/allow_duplicate_view.xml',
-        'email_coordinate_view.xml',
-        'res_partner_view.xml',
-        'coordinate_category_view.xml',
-        #'data/ir_cron_duplicate_schelduler_action.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'installable': True,
-    'auto_install': False,
-}
+from openerp.osv import orm
+from openerp.tools import mail
+
+
+class mail_mail(orm.Model):
+
+    _inherit = 'mail.mail'
+
+# public methods
+
+    def generate_email(self, cr, uid, subject, body, recipients, context=None):
+        """
+        ==============
+        generate_email
+        ==============
+        :type body: char
+        :param body: string to be converted into a HTML content
+        :type subject: char
+        :param subject: subject of the mail
+        :type recipients: [integer]
+        :param recipients: list of partner ids
+
+        **Note**
+        Create a mail.mail with a body content ``body`` and recipients ``recipients``
+        """
+        recipient_ids = [[6, False, recipients]]
+        html_body = mail.plaintext2html(body)
+        self.create(cr, uid, {'subject': subject,
+                              'recipient_ids': recipient_ids,
+                              'body_html': html_body,
+                              }, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -28,5 +28,6 @@
 
 from . import abstract_duplicate
 from . import wizard
+from . import mail_mail
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
