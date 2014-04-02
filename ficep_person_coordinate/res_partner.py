@@ -87,7 +87,7 @@ class res_partner(orm.Model):
 
 #pûblic methods
 
-    def process_notify_duplicate(self, cr, uid, ids=None,foce_send=False, context=None):
+    def process_notify_duplicate(self, cr, uid, ids=None, force_send=False, context=None):
         """
         ========================
         process_notify_duplicate
@@ -104,14 +104,16 @@ class res_partner(orm.Model):
         if configurator_group.users:
             partner_ids = [(p.partner_id.id)for p in configurator_group.users]
             if partner_ids:
-                subject = _('OpenERP-Duplicate Have Been Detected')
+                subject = _('OpenERP-Duplicate Notification')
                 content_text = []
                 for model_concerned in CONCERNED_BY_DUPLICATE:
-                    value = self.pool.get(model_concerned).get_string_duplicates(cr, uid, context=context)
+                    value = self.pool.get(model_concerned).get_string_duplicates(cr, SUPERUSER_ID, context=context)
                     if value:
-                        content_text.append()
+                        content_text.append(value)
                 if content_text:
                     text_body = '\n\n'.join(content_text)
+                else:
+                    text_body = _('There Are No Duplicate Detected')
                 recipient_ids = [[6, False, partner_ids]]
                 html_body = mail.plaintext2html(text_body)
                 return self.pool.get('mail.mail').create(cr, uid, {'subject': subject,

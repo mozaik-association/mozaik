@@ -233,9 +233,12 @@ class abstract_duplicate(orm.AbstractModel):
         for document in self.browse(cr, uid, document_ids, context=context):
             value = document.name_get()[0][1]
             values.append(value)
-        values = list(set(values))
-        values.insert(0, _('Here Is A List Of The "%s" Detected As Duplicate' % self._description))
-        string_value = '\n'.join(values)
-        return string_value
+        if value:
+            values = list(set(values))
+            values.insert(0, _('Here Is A List Of The "%s" Detected As Duplicate' % self._description))
+            string_value = '\n'.join(values)
+            return string_value
+        else:
+            return False
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
