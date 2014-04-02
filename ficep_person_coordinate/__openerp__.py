@@ -53,6 +53,7 @@ FICEP Person - Coordinate
         'security/ir.model.access.csv',
         'res_partner_view.xml',
         'partner_relation_view.xml',
+        #'data/ir_cron_duplicate.xml',
     ],
     'js': [
     ],

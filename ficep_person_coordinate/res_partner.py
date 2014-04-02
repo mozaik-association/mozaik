@@ -27,6 +27,14 @@
 ##############################################################################
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
+from openerp.tools.translate import _
+from openerp.tools import mail
+
+CONCERNED_BY_DUPLICATE = ['postal.coordinate',
+                          'email.coordinate',
+                          'phone.coordinate',
+                          'res.partner'
+                          ]
 
 
 class res_partner(orm.Model):
@@ -75,5 +83,36 @@ class res_partner(orm.Model):
             if relations_ids:
                 relation_obj.button_invalidate(cr, SUPERUSER_ID, relations_ids, context=context)
         return res
+
+#pûblic methods
+
+    def process_notify_duplicate(self, cr, uid, ids=None, context=None):
+        """
+        ========================
+        process_notify_duplicate
+        ========================
+        1) Get All Partner IDs having a configurator user
+        1") If No Configurator then abort
+        2) Search All Duplicate
+        3) Construct a Body with Needed Data
+        4) Create a mail.mail with those informations
+        5) Send Email
+        """
+        model, group_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_base', 'ficep_res_groups_configurator')
+        configurator_group = self.pool.get(model).browse(cr, uid, [group_id], context=context)[0]
+        if configurator_group.users:
+            partner_ids = [(p.partner_id.id)for p in configurator_group.users]
+            subject = _('OpenERP-Duplicate Have Been Detected')
+            content_text = []
+            for model_concerned in CONCERNED_BY_DUPLICATE:
+                content_text.append(self.pool.get(model_concerned).duplicate_detected_to_string(cr, uid, context=context))
+            text_body = '\n\n'.join(content_text)
+            recipient_ids = [[6, False, partner_ids]]
+            html_body = mail.plaintext2html(text_body)
+            return self.pool.get('mail.mail').create(cr, uid, {'subject': subject,
+                                                               'recipient_ids': recipient_ids,
+                                                               'body_html': html_body,
+                                                               }, context=context)
+        return -1
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

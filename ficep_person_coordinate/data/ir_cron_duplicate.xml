@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="0">
-        <record forcecreate="True" id="ir_cron_mail_scheduler_action" model="ir.cron">
+        <record forcecreate="True" id="ir_cron_duplicate" model="ir.cron">
             <field name="name">Duplicate Finder Night</field>
             <field name="user_id" ref="base.user_root"/>
             <field name="interval_number">1</field>
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
             <field eval="False" name="doall"/>
-            <field eval="'email.coordinate'" name="model"/>
+            <field eval="'res.partner'" name="model"/>
             <field eval="'process_notify_duplicate'" name="function"/>
             <field eval="'()'" name="args"/>
         </record>

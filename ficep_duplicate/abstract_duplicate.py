@@ -222,34 +222,16 @@ class abstract_duplicate(orm.AbstractModel):
                 fields_to_update = self.get_fields_to_update(cr, uid, 'reset', context=None)
                 super(abstract_duplicate, self).write(cr, uid, document_to_reset_ids, fields_to_update, context=context)
 
-    def process_notify_duplicate(self, cr, uid, ids=None, context=None):
-        """
-        ========================
-        process_notify_duplicate
-        ========================
-        1) Get All Partner IDs having a configurator user
-        1") If No Configurator then abort
-        2) Search All Duplicate
-        3) Construct a Body with Needed Data
-        4) Create a mail.mail with those informations
-        5) Send Email
-        """
-        _, group_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_base', 'ficep_res_groups_configurator')
-        configurator_group = self.pool.get('res.groups').browse(cr, uid, [group_id], context=context)[0]
-        if configurator_group.users:
-            partner_ids = [(p.partner_id.id)for p in configurator_group.users]
-            text_body = self.duplicate_detected_to_string(cr, uid, context=context)
-            subject = 'OpenERP-" %s ": Duplicate Have Been Detected' % self._description
-            self.pool.get('mail.mail').generate_email(cr, uid, subject, text_body, partner_ids, context=None)
-
     def duplicate_detected_to_string(self, cr, uid, context=None):
+        """
+        ============================
+        duplicate_detected_to_string
+        ============================
+        """
         document_ids = self.search(cr, uid, [('is_duplicate_detected', '=', True)], context=context)
         values = []
         for document in self.browse(cr, uid, document_ids, context=context):
-            if self._is_discriminant_m2o():
-                value = eval('document._discriminant_field.id')
-            else:
-                value = eval('document._discriminant_field')
+            value = document.name_get()[0][1]
             values.append(value)
         values = list(set(values))
         values.insert(0, _('Here Is A List Of The "%s" Detected As Duplicate' % self._description))

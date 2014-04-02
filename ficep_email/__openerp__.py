@@ -50,7 +50,6 @@ This module manages Emails.
         'email_coordinate_view.xml',
         'res_partner_view.xml',
         'coordinate_category_view.xml',
-        #'data/ir_cron_duplicate_schelduler_action.xml',
     ],
     'js': [
     ],
