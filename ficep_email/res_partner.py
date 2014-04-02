@@ -104,11 +104,12 @@ class res_partner(orm.Model):
         """
         Do not copy o2m fields.
         """
+        default = default or {}
+        default.update({
+            'email_coordinate_ids': [],
+            'email_coordinate_inactive_ids': [],
+        })
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
-        res.update({
-                    'email_coordinate_ids': [],
-                    'email_coordinate_inactive_ids': [],
-                   })
         return res
 
     def write(self, cr, uid, ids, vals, context=None):

@@ -193,19 +193,20 @@ class res_partner(orm.Model):
         Do not copy o2m fields.
         Reset some fields to their initial values.
         """
-        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
-        res.update({
-                    'child_ids': [],
-                    'user_ids': [],
-                    'bank_ids': [],
-                    'partner_involvement_ids': [],
-                    'partner_involvement_inactive_ids': [],
+        default = default or {}
+        default.update({
+            'child_ids': [],
+            'user_ids': [],
+            'bank_ids': [],
+            'partner_involvement_ids': [],
+            'partner_involvement_inactive_ids': [],
 
-                    'ldap_name': False,
-                    'ldap_id': False,
-                    'expire_date': False,
-                    'active': True,
-                   })
+            'ldap_name': False,
+            'ldap_id': False,
+            'expire_date': False,
+            'active': True,
+        })
+        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
         return res
 
     def write(self, cr, uid, ids, vals, context=None):

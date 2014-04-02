@@ -47,10 +47,11 @@ class res_partner(orm.Model):
         """
         Reset some fields to their initial values.
         """
+        default = default or {}
+        default.update({
+            'is_assembly': False,
+        })
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
-        res.update({
-                    'is_assembly': False,
-                   })
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

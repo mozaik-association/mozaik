@@ -197,13 +197,16 @@ class thesaurus_term(orm.Model):
         Reset some fields to their initial values.
         Mark the name as (copy) 
         """
+        default = default or {}
+        default.update({
+            'ext_identifier': False,
+            'active': True,
+            'expire_date': False,
+        })
         res = super(thesaurus_term, self).copy_data(cr, uid, ids, default=default, context=context)
         res.update({
-                    'name': _('%s (copy)') % res.get('name'),
-                    'ext_identifier': False,
-                    'active': True,
-                    'expire_date': False,
-                   })
+            'name': _('%s (copy)') % res.get('name'),
+        })
         return res
 
 # view methods: onchange, button

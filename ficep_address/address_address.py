@@ -222,11 +222,12 @@ class address_address(orm.Model):
         if not sequence:
             raise orm.except_orm(_('Error'), _('An Address without sequence number cannot be duplicated!'))
 
+        default = dict(default or {})
+        default.update({
+            'sequence': sequence + 1,
+            'postal_coordinate_ids': [],
+        })
         res = super(address_address, self).copy_data(cr, uid, ids, default=default, context=context)
-        res.update({
-                    'sequence': sequence + 1,
-                    'postal_coordinate_ids': [],
-                   })
         return res
 
 # view methods: onchange, button
@@ -384,11 +385,12 @@ class co_residency(orm.Model):
         """
         Do not copy o2m fields.
         """
+        default = default or {}
+        default.update({
+            'postal_coordinate_ids': [],
+            'postal_coordinate_inactive_ids': [],
+        })
         res = super(co_residency, self).copy_data(cr, uid, ids, default=default, context=context)
-        res.update({
-                    'postal_coordinate_ids': [],
-                    'postal_coordinate_inactive_ids': [],
-                   })
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
