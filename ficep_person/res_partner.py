@@ -304,10 +304,10 @@ class res_partner(orm.Model):
 
         return user_id
 
-    def are_duplicate_concerned(self, cr, uid, value, context=None):
+    def get_duplicate_ids(self, cr, uid, value, context=None):
         """
         =======================
-        are_duplicate_concerned
+        get_duplicate_ids
         =======================
         :type value: char
         :param value: value for search domain
@@ -321,7 +321,7 @@ class res_partner(orm.Model):
         buffer_not_yet_decided = {}  # key: birth_date value: partner's id
         aborting = False  # if a ``birth_date`` set False then abort operation and return
 
-        document_ids = self.search(cr, uid, [(self._discriminant_field, '=', value)], context=context)
+        document_reset_ids, document_ids = super(res_partner, self).get_duplicate_ids(cr, uid, value, context=context)
         if document_ids:
             document_values = self.read(cr, uid, document_ids, ['birth_date'], context=context)
             birth_date_list = []  # will contain all birth date to check duplicate

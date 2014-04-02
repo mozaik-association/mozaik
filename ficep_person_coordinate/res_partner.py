@@ -87,7 +87,7 @@ class res_partner(orm.Model):
 
 #pûblic methods
 
-    def process_notify_duplicate(self, cr, uid, ids=None, context=None):
+    def process_notify_duplicate(self, cr, uid, ids=None,foce_send=False, context=None):
         """
         ========================
         process_notify_duplicate
@@ -103,17 +103,21 @@ class res_partner(orm.Model):
         configurator_group = self.pool.get(model).browse(cr, uid, [group_id], context=context)[0]
         if configurator_group.users:
             partner_ids = [(p.partner_id.id)for p in configurator_group.users]
-            subject = _('OpenERP-Duplicate Have Been Detected')
-            content_text = []
-            for model_concerned in CONCERNED_BY_DUPLICATE:
-                content_text.append(self.pool.get(model_concerned).duplicate_detected_to_string(cr, uid, context=context))
-            text_body = '\n\n'.join(content_text)
-            recipient_ids = [[6, False, partner_ids]]
-            html_body = mail.plaintext2html(text_body)
-            return self.pool.get('mail.mail').create(cr, uid, {'subject': subject,
-                                                               'recipient_ids': recipient_ids,
-                                                               'body_html': html_body,
-                                                               }, context=context)
+            if partner_ids:
+                subject = _('OpenERP-Duplicate Have Been Detected')
+                content_text = []
+                for model_concerned in CONCERNED_BY_DUPLICATE:
+                    value = self.pool.get(model_concerned).get_string_duplicates(cr, uid, context=context)
+                    if value:
+                        content_text.append()
+                if content_text:
+                    text_body = '\n\n'.join(content_text)
+                recipient_ids = [[6, False, partner_ids]]
+                html_body = mail.plaintext2html(text_body)
+                return self.pool.get('mail.mail').create(cr, uid, {'subject': subject,
+                                                                   'recipient_ids': recipient_ids,
+                                                                   'body_html': html_body,
+                                                                   }, context=context)
         return -1
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

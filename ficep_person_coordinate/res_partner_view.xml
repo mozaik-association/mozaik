@@ -117,5 +117,18 @@
             </field>
         </record>
 
+        <record id="send_email_of_duplicates_action" model="ir.actions.server">
+            <field name="name">Send Email Of Duplicates</field>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_res_partner" />
+            <field name="state">code</field>
+            <field name="code">self.process_notify_duplicate(cr, uid, force_send=True,context=context)</field>
+        </record>
+
+        <!-- Send Email Of Duplicate -->
+        <menuitem id="send_email_of_duplicates_menu" action="send_email_of_duplicates_action"
+                  sequence="20" parent="ficep_base.persons_configuration_submenu" />
+
     </data>
 </openerp>
