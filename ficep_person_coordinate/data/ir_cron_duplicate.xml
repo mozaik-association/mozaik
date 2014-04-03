@@ -2,15 +2,16 @@
 <openerp>
     <data noupdate="0">
         <record forcecreate="True" id="ir_cron_duplicate" model="ir.cron">
-            <field name="name">Duplicate Finder Night</field>
+            <field name="name">Duplicates Summary Scheduler</field>
             <field name="user_id" ref="base.user_root"/>
             <field name="interval_number">1</field>
-            <field name="interval_type">minutes</field>
+            <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
-            <field eval="False" name="doall"/>
-            <field eval="'res.partner'" name="model"/>
-            <field eval="'process_notify_duplicate'" name="function"/>
-            <field eval="'()'" name="args"/>
+            <field name="doall" eval="False"/>
+            <field name="nextcall" eval="(DateTime.today() + relativedelta(days=0)).strftime('%Y-%m-%d 01:00:00')"/>
+            <field name="model" eval="'duplicate.analysis.report'"/>
+            <field name="function" eval="'process_notify_duplicates'"/>
+            <field name="args" eval="'()'"/>
         </record>
     </data>
 </openerp>

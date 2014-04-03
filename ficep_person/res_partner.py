@@ -340,6 +340,6 @@ class res_partner(orm.Model):
                     birth_date_list.append(document_value['birth_date'])
                     # add key/value into the buffer to be add it too if duplicate detected later
                     buffer_not_yet_decided.update({document_value['birth_date']: document_value['id']})
-        return [] if aborting else buffer_not_yet_decided.values(), duplicate_detected_ids
+        return document_reset_ids if aborting else buffer_not_yet_decided.values(), duplicate_detected_ids
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

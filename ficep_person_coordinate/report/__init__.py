@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
+#    Authors: Nemry Jonathan
 #    Copyright (c) 2014 Acsone SA/NV (http://www.acsone.eu)
 #    All Rights Reserved
 #
@@ -25,50 +26,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Person - Coordinate',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_person',
-        'ficep_email',
-        'ficep_address',
-        'ficep_phone',
-    ],
-    'description': """
-FICEP Person - Coordinate
-=========================
-* Colors tree view.
-* Add Relation Model For Partner
-** Persons/Relations/Subject Relations
-** Persons/Relations/Object Relations
-** Persons/Configuration/Relation Category
-    """,
-    'images': [
-    ],
-    'data': [
-        'security/ir.model.access.csv',
-        'res_partner_view.xml',
-        'partner_relation_view.xml',
-        'data/ir_cron_duplicate.xml',
-        'report/duplicates_analysis_report_view.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'auto_install': True,  # automatically install if all depends loaded
-    'installable': True,
-}
+from . import duplicates_analysis_report
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

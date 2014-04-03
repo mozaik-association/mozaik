@@ -222,10 +222,10 @@ class abstract_duplicate(orm.AbstractModel):
                 fields_to_update = self.get_fields_to_update(cr, uid, 'reset', context=None)
                 super(abstract_duplicate, self).write(cr, uid, document_to_reset_ids, fields_to_update, context=context)
 
-    def get_string_duplicates(self, cr, uid, context=None):
+    def get_duplicates_string(self, cr, uid, context=None):
         """
         =====================
-        get_string_duplicates
+        get_duplicates_string
         =====================
         """
         document_ids = self.search(cr, uid, [('is_duplicate_detected', '=', True)], context=context)
@@ -233,7 +233,7 @@ class abstract_duplicate(orm.AbstractModel):
         for document in self.browse(cr, uid, document_ids, context=context):
             value = document.name_get()[0][1]
             values.append(value)
-        if value:
+        if values:
             values = list(set(values))
             values.insert(0, _('Here Is A List Of The "%s" Detected As Duplicate' % self._description))
             string_value = '\n'.join(values)

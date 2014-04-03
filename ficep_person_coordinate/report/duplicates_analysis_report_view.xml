@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="duplicate_analysis_report_search_view" model="ir.ui.view">
+            <field name="name">duplicate.analysis.report.search</field>
+            <field name="model">duplicate.analysis.report</field>
+            <field name="arch" type="xml">
+                <search string="duplicate Analysis">
+                    <field name="model" />
+                    <group expand="1" string="Group By...">
+                        <filter string="Model" icon="terp-personal" name="mod" context="{'group_by':'model'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="duplicate_analysis_report_tree_view" model="ir.ui.view">
+            <field eval="1" name="priority"/>
+            <field name="name">duplicate.analysis.report.tree</field>
+            <field name="model">duplicate.analysis.report</field>
+            <field name="arch" type="xml">
+                <tree string="duplicate Analysis" create="false">
+                    <field name="id" />
+                    <field name="partner_name" />
+                    <field name="orig_id" />
+                    <field name="model" />
+                    <field name="name"/>
+                    <field name="seq"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="duplicate_analysis_report_action" model="ir.actions.act_window">
+            <field name="name">Duplicates Analysis</field>
+            <field name="res_model">duplicate.analysis.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="duplicate_analysis_report_search_view"/>
+            <field name="view_id" ref="duplicate_analysis_report_tree_view"/>
+            <field name="help">
+                This report provides a global duplicates summary
+            </field>
+        </record>
+
+        <menuitem id="duplicate_analysis_menu" parent="ficep_base.persons_configuration_submenu"
+                  action="duplicate_analysis_report_action" sequence="10"/>
+
+    </data>
+</openerp>
