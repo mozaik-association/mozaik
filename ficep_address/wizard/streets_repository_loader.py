@@ -25,9 +25,19 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm, fields
 
-from . import change_main_address
-from . import allow_duplicate_wizard
-from . import streets_repository_loader
+
+class streets_repository_loader(orm.TransientModel):
+
+    _name = "streets.repository.loader"
+    #_description = "Street Repository Loader"
+
+    _columns = {
+        'ref_streets': fields.binary(string='File Referential of Streets'),
+    }
+
+    def update_local_streets(self, cr, uid, ids, context=None):
+        pass
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -38,9 +38,11 @@ class address_local_street(orm.Model):
         return self.pool.get('address.address').search(cr, uid, [('address_local_street_id', 'in', ids)], context=context)
 
     _columns = {
+        'id': fields.char('ID'),
         'local_zip': fields.char(string='Zip', required=True, select=True),
         'local_street': fields.char(string='Street', required=True, select=True),
         'local_street_alternative': fields.char(string='Alternative Street', select=True),
+        'to_disable': fields.boolean(string='To Disable'),
     }
 
     _rec_name = 'local_street'
