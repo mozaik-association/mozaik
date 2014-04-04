@@ -26,12 +26,24 @@
 #
 ##############################################################################
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
+
+CANDIDATURE_AVAILABLE_STATES = [
+    ('draft', 'Draft'),
+    ('declared', 'Declared'),
+    ('suggested', 'Suggested'),
+    ('designated', 'Designated'),
+    ('rejected', 'Rejected'),
+    ('elected', 'Elected'),
+    ('non-elected', 'Non-Elected'),
+]
+
+candidature_available_states = dict(CANDIDATURE_AVAILABLE_STATES)
 
 
-class abstract_mandate(orm.AbstractModel):
-
-    _name = 'abstract.mandate'
-    _description = "Abstract Mandate"
+class abstract_mandate_base(orm.AbstractModel):
+    _name = 'abstract.mandate.base'
+    _description = "Abstract Mandate Base"
     _inherit = ['abstract.ficep.model']
 
     def _compute_name(self, cr, uid, ids, fname, arg, context=None):
@@ -54,13 +66,61 @@ class abstract_mandate(orm.AbstractModel):
                                                  required=True, track_visibility='onchange'),
         'partner_id': fields.many2one('res.partner', 'Partner', required=True, track_visibility='onchange'),
         'partner_name': fields.char('Partner Name', size=128, translate=True, select=True, track_visibility='onchange'),
-        'submission_mandate': fields.related('mandate_category_id', 'submission_mandate', string='Submission to a mandate declaration',
-                                          type='many2one', relation="mandate.category",
+        'is_replacement': fields.boolean('Replacement'),
+    }
+
+
+class abstract_mandate(orm.AbstractModel):
+
+    _name = 'abstract.mandate'
+    _description = "Abstract Mandate"
+    _inherit = ['abstract.mandate.base']
+
+    _columns = {
+        'is_submission_mandate': fields.related('mandate_category_id', 'submission_mandate', string='Submission to a mandate declaration',
+                                          type='boolean', relation="mandate.category",
                                           store=True),
-        'submission_assets': fields.related('mandate_category_id', 'submission_assets', string='Submission to an assets declaration',
-                                          type='many2one', relation="mandate.category",
+        'is_submission_assets': fields.related('mandate_category_id', 'submission_assets', string='Submission to an assets declaration',
+                                          type='boolean', relation="mandate.category",
                                           store=True),
-        'replacement': fields.boolean('Replacement'),
+    }
+
+
+class abstract_candidature(orm.AbstractModel):
+
+    _name = 'abstract.candidature'
+    _description = "Abstract Candidature"
+    _inherit = ['abstract.mandate.base']
+
+    _columns = {
+        'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
+        'selection_committee_id': fields.many2one('selection.committee', string='Selection Committee',
+                                                 required=True, track_visibility='onchange'),
+    }
+
+    def _check_partner(self, cr, uid, ids, for_unlink=False, context=None):
+        """
+        =================
+        _check_partner
+        =================
+        Check if partner doesn't have several candidatures in the same category
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        candidatures = self.browse(cr, uid, ids)
+        for candidature in candidatures:
+            if len(self.search(cr, uid, [('partner_id', '=', candidature.partner_id.id), ('id', '!=', candidature.id), ('mandate_category_id', '=', candidature.mandate_category_id.id)], context=context)) > 0:
+                return False
+
+        return True
+
+    _constraints = [
+        (_check_partner, _("A candidature already exists for this partner in this category"), ['partner_id'])
+    ]
+
+    _defaults = {
+        'state': CANDIDATURE_AVAILABLE_STATES[0][0],
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

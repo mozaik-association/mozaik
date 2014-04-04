@@ -26,20 +26,7 @@
 #
 ##############################################################################
 from openerp.osv import orm, fields
-from openerp.tools.translate import _
 from .mandate import mandate_category
-
-STA_CANDIDATURE_AVAILABLE_STATES = [
-    ('draft', 'Draft'),
-    ('declared', 'Declared'),
-    ('suggested', 'Suggested'),
-    ('designated', 'Designated'),
-    ('rejected', 'Rejected'),
-    ('elected', 'Elected'),
-    ('non-elected', 'Non-Elected'),
-]
-
-sta_candidature_available_states = dict(STA_CANDIDATURE_AVAILABLE_STATES)
 
 
 class res_partner(orm.Model):
@@ -70,7 +57,7 @@ class sta_candidature(orm.Model):
 
     _name = 'sta.candidature'
     _description = "State Candidature"
-    _inherit = ['abstract.mandate']
+    _inherit = ['abstract.candidature']
 
     def _compute_name(self, cr, uid, ids, fname, arg, context=None):
         return super(sta_candidature, self)._compute_name(cr, uid, ids, fname, arg, context=context)
@@ -86,13 +73,9 @@ class sta_candidature(orm.Model):
         'name': fields.function(_compute_name, string="Name",
                                  type="char", store=_name_store_triggers,
                                  select=True),
-        'state': fields.selection(STA_CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',
-            ),
         'electoral_district_id': fields.many2one('electoral.district', string='Electoral District',
                                                  required=True, track_visibility='onchange'),
         'legislature_id': fields.many2one('legislature', string='Legislature',
-                                                 required=True, track_visibility='onchange'),
-        'selection_committee_id': fields.many2one('selection.committee', string='Selection Committee',
                                                  required=True, track_visibility='onchange'),
         'sta_assembly_id': fields.related('electoral_district_id', 'assembly_id', string='State Assembly',
                                           type='many2one', relation="sta.assembly",
@@ -103,33 +86,7 @@ class sta_candidature(orm.Model):
         'sta_power_level_id': fields.related('sta_assembly_category_id', 'power_level_id', string='State Power Level',
                                           type='many2one', relation="sta.power.level",
                                           store=False),
-        'is_substitute': fields.boolean('Substitute ?')
         }
-
-    def _check_partner(self, cr, uid, ids, for_unlink=False, context=None):
-        """
-        =================
-        _check_partner
-        =================
-        Check if partner doesn't have several candidatures in the same category
-        :rparam: True if it is the case
-                 False otherwise
-        :rtype: boolean
-        """
-        candidatures = self.browse(cr, uid, ids)
-        for candidature in candidatures:
-            if len(self.search(cr, uid, [('partner_id', '=', candidature.partner_id.id), ('id', '!=', candidature.id)], context=context)) > 0:
-                return False
-
-        return True
-
-    _constraints = [
-        (_check_partner, _("A candidature already exists for this partner in this category"), ['partner_id'])
-    ]
-
-    _defaults = {
-        'state': 'draft',
-    }
 
     # view methods: onchange, button
     def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id, context=None):
