@@ -28,10 +28,12 @@
 
 from . import test_address_address
 from . import test_postal_coordinate
+from . import test_streets_repository_loader
 
 checks = [
     test_address_address,
-    test_postal_coordinate
+    test_postal_coordinate,
+    test_streets_repository_loader
  ]
 
 

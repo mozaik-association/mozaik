@@ -87,6 +87,7 @@ class streets_repository_loader(orm.TransientModel):
         for wiz in self.browse(cr, uid, ids, context=context):
             f = tempfile.NamedTemporaryFile(delete=False)
             f.write(base64.decodestring(wiz.ref_streets))
+            f.close()
             with open(f.name) as repository_file:
                 for line in repository_file:
                     complete_code = line[:16]  # read code
@@ -99,8 +100,8 @@ class streets_repository_loader(orm.TransientModel):
                             'local_street': False}
                     local_street_model = self.pool['address.local.street']
 
-                    domain = "[('identifier', '=', %s), ('local_zip', '=', %s)]"\
-                                 % (vals['identifier'], vals['local_zip'])
+                    domain = [('identifier', '=', vals['identifier']),
+                              ('local_zip', '=', vals['local_zip'])]
 
                     if complete_code[:8] == '99999999':
                         #create or disable
