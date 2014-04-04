@@ -157,7 +157,7 @@ class xxxx(orm.Model):
 
     _constraints = [
         (_check_xxx, _('Error! XYZ...'), ['zzz_id']),
-        (orm.Model._check_recursion, _('Error ! You can not create recursive instances'), ['parent_id']),
+        (orm.Model._check_recursion, _('Error ! You can not create recursive xxx'), ['parent_id']),
     ]
 
     _sql_constraints = [
@@ -192,22 +192,18 @@ class xxxx(orm.Model):
         return res
 
     def copy_data(self, cr, uid, id, default=None, context=None):
-        default = dict(default or {})
+        default = default or {}
         default.update({
-            'key': 45,
+            'active': True,
+            'name_ids': []
         })
         res = super(xxxx, self).copy_data(cr, uid, id, default=default, context=context)
+        res.update({
+            'name': _('%s (copy)') % res.get('name'),
+        })
         return res
 
     def copy(self, cr, uid, ids, default=None, context=None):
-        if default is None:
-            default = {}
-        default.update({
-                        'active': True,
-                        'expire_date': False,
-
-                        'm2m': [],
-                       })
         res = super(xxxx, self).copy(cr, uid, ids, default=default, context=context)
         return res
 
