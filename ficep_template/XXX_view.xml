@@ -134,9 +134,9 @@
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('simplified')"
-                             groups="ficep_base.ficep_res_groups_user">
+                             groups="ficep_base.ficep_res_groups_user"><!-- or configurator -->
                             <button name="button_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate coordinate: proceed anyway ?" />
+                                    confirm="Invalidate XXX: proceed anyway ?" />
                             <button name="set_as_main" string="Set As Main" type="object"
                                     attrs="{'invisible': [('is_main','=',True)]}"
                                     context="{'invalidate': True}"
