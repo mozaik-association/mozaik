@@ -45,9 +45,12 @@ class electoral_district(orm.Model):
                                              'sta.instance': (sta_instance.get_linked_electoral_districts, ['int_instance_id'], 20),
                                           },
                                          ),
-        'assembly_id': fields.many2one('sta.assembly', 'Assembly', required=True, track_visibility='onchange'),
+        'assembly_id': fields.many2one('sta.assembly', 'Assembly', required=True, track_visibility='onchange', domain=[('is_legislative', '=', True)]),
         'power_level_id': fields.related('assembly_id', 'assembly_category_id', 'power_level_id', string='Power Level',
                                          type='many2one', relation='sta.power.level'
+                                        ),
+        'legislature_id': fields.related('assembly_id', 'assembly_category_id', 'power_level_id', string='Legislature',
+                                         type='many2one', relation='legislature'
                                         ),
         }
 

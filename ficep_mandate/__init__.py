@@ -25,43 +25,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_structure_address',
-        'ficep_person_coordinate',
-        'ficep_mass_editing',
-        'ficep_structure',
-        'ficep_mandate',
-    ],
-    'description': """
-FICEP
-=====
-Loads all ficep modules
-    """,
-    'images': [
-    ],
-    'data': [
-        'data/res_users_data.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'auto_install': False,
-    'installable': True,
-}
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+from . import abstract_mandate
+from . import mandate
+from . import sta_mandate
