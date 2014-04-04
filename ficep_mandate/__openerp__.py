@@ -26,28 +26,25 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP',
+    'name': 'FICEP: Mandate',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_structure_address',
-        'ficep_person_coordinate',
-        'ficep_mass_editing',
         'ficep_structure',
-        'ficep_mandate',
     ],
     'description': """
-FICEP
-=====
-Loads all ficep modules
+FICEP Mandate
+=============
     """,
     'images': [
     ],
     'data': [
-        'data/res_users_data.xml',
+             'abstract_mandate_view.xml',
+             'mandate_view.xml',
+             'sta_mandate_workflow.xml'
     ],
     'js': [
     ],
@@ -60,6 +57,7 @@ Loads all ficep modules
     'test': [
     ],
     'sequence': 150,
+    'active': False,
     'auto_install': False,
     'installable': True,
 }
