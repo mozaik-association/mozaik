@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Wizard allows users to update local-streets data by loading a 
+             file repository of streets
+         -->
+
+        <record id="streets_repository_loader_view" model="ir.ui.view">
+            <field name="name">streets.repository.loader.wizard</field>
+            <field name="model">streets.repository.loader</field>
+            <field name="arch" type="xml">
+                <form string="Street Repository Loader" version="7.0">
+                    <group name="data">
+                        <field name="ref_streets" />
+                    </group>
+                    <footer>
+                        <span name="go-wizard">
+                            <button string="Load" name="update_local_streets"
+                                    type="object" class="oe_highlight" />
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

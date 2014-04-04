@@ -25,16 +25,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-from . import test_address_address
-from . import test_postal_coordinate
-from . import test_streets_repository_loader
-
-checks = [
-    test_address_address,
-    test_postal_coordinate,
-    test_streets_repository_loader
- ]
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+from . import abstract_mandate
+from . import mandate
+from . import sta_mandate

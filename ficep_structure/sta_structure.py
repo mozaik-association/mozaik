@@ -166,6 +166,9 @@ class sta_assembly(orm.Model):
                                                  required=True, track_visibility='onchange'),
         'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
                                                  required=True, track_visibility='onchange'),
+        'is_legislative': fields.related('assembly_category_id', 'is_legislative', string='Is Legislative',
+                                          type='many2one', relation="sta.assembly.category",
+                                          store=False),
     }
 
     def create(self, cr, uid, vals, context=None):

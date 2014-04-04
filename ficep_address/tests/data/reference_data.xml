@@ -32,16 +32,19 @@
         <!-- Local Streets -->
 
         <record id="local_street_1" model="address.local.street">
+            <field name="identifier">local_street_1</field>
             <field name="local_street">Grand-Place</field>
             <field name="local_zip">4500</field>
         </record>
 
         <record id="local_street_2" model="address.local.street">
+            <field name="identifier">local_street_2</field>
             <field name="local_street">Rue Louis Maréchal</field>
             <field name="local_zip">4360</field>
         </record>
 
         <record id="local_street_3" model="address.local.street">
+            <field name="identifier">local_street_3</field>
             <field name="local_street">Avenue des Pagodes</field>
             <field name="local_street_alternative">Pagodenlaan</field>
             <field name="local_zip">1020</field>
