@@ -89,6 +89,7 @@ class xxxx(orm.Model):
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, required=True, translate=True, select=True, track_visibility='onchange'),
+        'identifier': fields.char('External Identifier', required=True, select=True, track_visibility='onchange'),
         'notes': fields.text('Notes'),
         'integer': fields.integer('integer'),
         'date': fields.date('Date', select=True, track_visibility='onchange'),

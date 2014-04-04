@@ -12,6 +12,18 @@
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="secondary_parent_id"/>
                     <field name="int_instance_id"/>
+                    <field name="identifier"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sta_instance_tree_view" model="ir.ui.view">
+            <field name="name">sta.instance.tree</field>
+            <field name="model">sta.instance</field>
+            <field name="inherit_id" ref="abstract_instance_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='power_level_id']" position="after">
+                    <field name="identifier"/>
                 </xpath>
             </field>
         </record>
@@ -336,19 +348,20 @@
                 <xpath expr="//button[@name='children']" position="replace">
                     <button string="Children" name="%(sta_instance_children_action)d"
                         type="action" attrs="{'invisible': [('id','=',False)]}"
-                        context="{'default_parent_id' : active_id}" />
+                        context="{'default_parent_id': active_id}" />
                     <attribute name="name"></attribute>
                 </xpath>
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="secondary_parent_id" context="{'simplified': 1,
-                                                            'form_view_ref': 'ficep_structure.sta_instance_form_view'}"/>
+                                                                'form_view_ref': 'ficep_structure.sta_instance_form_view'}"/>
+                    <field name="identifier"/>
                 </xpath>
                 <xpath expr="//group[@name='data_2']" position="inside">
                     <field name="int_instance_id" context="{'simplified': 1,
                                                             'form_view_ref': 'ficep_structure.int_instance_form_view'}"/>
                 </xpath>
                 <xpath expr="//notebook/page[@name='assemblies']" position="after">
-                    <page string="Electoral Districts" name="electoral_districts" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
+                    <page string="Electoral Districts" name="electoral_districts" attrs="{'invisible': [('id','=',False)]}">
                         <button string="All Details"
                                     name="%(electoral_district_action)d"
                                     type="action"

@@ -83,11 +83,13 @@ class sta_instance(orm.Model):
         'parent_id': fields.many2one('sta.instance', 'Parent State Instance', ondelete='restrict', select=True, track_visibility='onchange'),
         'secondary_parent_id': fields.many2one('sta.instance', 'Secondary Parent State Instance', select=True, track_visibility='onchange'),
         'power_level_id': fields.many2one('sta.power.level', 'State Power Level', required=True, track_visibility='onchange'),
+        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', select=True, track_visibility='onchange'),
+        'identifier': fields.char('External Identifier (INS)', select=True, track_visibility='onchange'),
+
         'assembly_ids': fields.one2many('sta.assembly', 'instance_id', 'State Assemblies'),
         'assembly_inactive_ids': fields.one2many('sta.assembly', 'instance_id', 'State Assemblies', domain=[('active', '=', False)]),
         'electoral_district_ids': fields.one2many('electoral.district', 'sta_instance_id', 'Electoral Districts'),
         'electoral_district_inactive_ids': fields.one2many('electoral.district', 'sta_instance_id', 'Electoral Districts', domain=[('active', '=', False)]),
-        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', select=True, track_visibility='onchange'),
     }
 
 # constraints
@@ -108,6 +110,10 @@ class sta_instance(orm.Model):
         (_check_recursion, _('Error ! You can not create recursive instances'), ['secondary_parent_id']),
     ]
 
+    _sql_constraints = [
+        ('unique_identifier', 'UNIQUE ( identifier )', 'The external identifier (INS) must be unique.'),
+    ]
+
 
 class legislature(orm.Model):
 
@@ -117,12 +123,12 @@ class legislature(orm.Model):
 
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
-        'start_date': fields.date('Start Date', required=True, track_visibility='onchange'),
+        'start_date': fields.date('Start Date', required=True, select=True, track_visibility='onchange'),
         'deadline_date': fields.date('Deadline Date', required=True, track_visibility='onchange'),
         'election_date': fields.date('Election Date', required=True, track_visibility='onchange'),
-        'power_level_id': fields.many2one('sta.power.level', 'Power Level', required=True, track_visibility='onchange'),
+        'power_level_id': fields.many2one('sta.power.level', 'Power Level', required=True, select=True, track_visibility='onchange'),
     }
-    
+
     _sql_constraints = [
         ('date_check1', 'CHECK ( start_date <= deadline_date )', 'The start date must be anterior to the deadline date.'),
         ('date_check2', 'CHECK ( election_date <= start_date )', 'The election date must be anterior to the start date.'),
