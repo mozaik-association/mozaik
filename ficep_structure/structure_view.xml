@@ -167,6 +167,17 @@
             <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.sta_instance_form_view'}</field>
         </record>
 
+        <record id="sta_instance_children_action" model="ir.actions.act_window">
+            <field name="name">Children State Instances</field>
+            <field name="res_model">sta.instance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="sta_instance_search_view" />
+            <field name="view_id" ref="abstract_instance_tree_view" />
+            <field name="domain">['|',('parent_id','=',active_id),('secondary_parent_id','=',active_id)]</field>
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.sta_instance_form_view'}</field>
+        </record>
+
         <record id="legislature_action" model="ir.actions.act_window">
             <field name="name">Legislatures</field>
             <field name="res_model">legislature</field>
@@ -321,8 +332,11 @@
             <field name="model">sta.instance</field>
             <field name="inherit_id" ref="abstract_instance_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='childs']" position="attributes">
-                    <attribute name="name">%(sta_instance_action)d</attribute>
+                <xpath expr="//button[@name='children']" position="replace">
+                    <button string="Children" name="%(sta_instance_children_action)d"
+                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                        context="{'default_parent_id' : active_id}" />
+                    <attribute name="name"></attribute>
                 </xpath>
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="secondary_parent_id" context="{'simplified': 1,
@@ -604,7 +618,7 @@
             <field name="model">int.instance</field>
             <field name="inherit_id" ref="abstract_instance_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='childs']" position="after">
+                <xpath expr="//button[@name='children']" position="after">
                     <button string="State Instances" name="%(sta_instance_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_int_instance_id': active_id,
@@ -614,7 +628,7 @@
                                 context="{'search_default_instance_id': active_id,
                                           'default_instance_id': active_id}" />
                 </xpath>
-                <xpath expr="//button[@name='childs']" position="attributes">
+                <xpath expr="//button[@name='children']" position="attributes">
                     <attribute name="name">%(int_instance_action)d</attribute>
                 </xpath>
                 <xpath expr="//field[@name='parent_id']" position="attributes">
