@@ -30,6 +30,8 @@ import re
 import tempfile
 
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
+
 EXPR = re.compile('[/+#]')
 
 
@@ -69,7 +71,7 @@ class streets_repository_loader(orm.TransientModel):
         vals['local_street'] = street
 
     _name = "streets.repository.loader"
-    #_description = "Street Repository Loader"
+    _description = "Street Repository Loader"
 
     _columns = {
         'ref_streets': fields.binary(string='File Referential of Streets'),

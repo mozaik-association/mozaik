@@ -40,15 +40,17 @@ class address_local_street(orm.Model):
     _columns = {
         'identifier': fields.char('Identifier', required=True, select=True),
         'local_zip': fields.char(string='Zip', required=True, select=True),
+
         'local_street': fields.char(string='Street', required=True, select=True),
         'local_street_alternative': fields.char(string='Alternative Street', select=True),
+
         'to_disable': fields.boolean(string='To Disable'),
     }
 
     _rec_name = 'local_street'
 
     _sql_constraints = [
-        ('check_unicity_street', 'unique(local_zip,identifier)', _('This local street already exists for this zip code!'))
+        ('check_unicity_street', 'unique(local_zip,identifier)', _('This local street identifier already exists for this zip code!'))
     ]
 
     _order = "local_zip,local_street"
