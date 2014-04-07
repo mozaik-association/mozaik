@@ -37,6 +37,7 @@ class test_create_user_from_partner(SharedSetupTransactionCase):
     _data_files = (
         '../../ficep_base/tests/data/res_partner_data.xml',
         '../../ficep_base/tests/data/res_users_data.xml',
+        'data/res_partner_data.xml',
     )
 
     _module_ns = 'ficep_person'
@@ -49,11 +50,14 @@ class test_create_user_from_partner(SharedSetupTransactionCase):
 
         self.partner_model = self.registry('res.partner')
         self.user_model = self.registry('res.users')
+        self.p2u_wizard_model = self.registry('create.user.from.partner')
 
         self.partner_jacques_id = self.ref('%s.res_partner_jacques' % self._module_ns)
         self.partner_paul_id = self.ref('%s.res_partner_paul' % self._module_ns)
 
         self.group_fr_id = self.ref('ficep_base.ficep_res_groups_reader')
+
+        _, self.portal_id = self.registry('ir.model.data').get_object_reference(self.cr, self.uid, 'portal', 'group_portal')
 
         self.context = {}
 
@@ -62,7 +66,7 @@ class test_create_user_from_partner(SharedSetupTransactionCase):
         =============================
         test_create_user_from_partner
         =============================
-        Test the overiding of the name_get method to compute display_name
+        Test the creation of a user from a partner
         """
         cr, uid, context = self.cr, self.uid, self.context
         jacques_id, paul_id = self.partner_jacques_id, self.partner_paul_id
@@ -87,5 +91,36 @@ class test_create_user_from_partner(SharedSetupTransactionCase):
 
         # Recreate a user from a partner
         self.assertRaises(orm.except_orm, self.partner_model.create_user, cr, uid, 'popol', paul_id, [fr_id], context=context)
+
+    def test_create_portal_user_from_partner(self):
+        """
+        ====================================
+        test_create_portal_user_from_partner
+        ====================================
+        Test the creation of a portal user from a partner
+        """
+        cr, uid, context = self.cr, self.uid, self.context
+        jacques_id = self.partner_jacques_id
+        user_model = self.user_model
+        p2u_wizard_model = self.p2u_wizard_model
+        portal_id = self.portal_id
+
+        # create a wizard record
+        ctx = {
+            'active_id': jacques_id,
+        }
+        vals = {
+            'portal_only': True,
+        }
+        wz_id = p2u_wizard_model.create(cr, uid, vals, context=ctx)
+
+        # Create a portal user from a partner
+        user_id = p2u_wizard_model.create_user_from_partner(cr, uid, [wz_id], context=ctx)
+        user = user_model.browse(cr, uid, user_id, context=context)
+        grp_ids = [g.id for g in user.groups_id]
+        self.assertEqual(user.partner_id.id, jacques_id, 'Create user fails with wrong partner_id')
+        self.assertEqual(user.login, user.partner_id.email, 'Create user fails with wrong email')
+        self.assertTrue(portal_id in grp_ids, 'Create user fails with wrong group')
+        self.assertEqual(len(grp_ids), 1, 'Create user fails with wrong groups')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

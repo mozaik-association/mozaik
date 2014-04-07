@@ -293,10 +293,14 @@ class res_partner(orm.Model):
 
         vals = group_ids and {'groups_id': [(6, 0, group_ids)]} or {}
         vals.update({
-                     'partner_id': partner_id,
-                     'login': login,
-                     'password': False,  # user will be authenticated by ldap or something else without password
-                    })
+            'partner_id': partner_id,
+            'login': login,
+            'password': False,  # user will be authenticated by ldap or something else without password
+        })
+
+        context.update({
+            'no_reset_password': True,
+        })
 
         user_id = self.pool.get('res.users').create(cr, uid, vals, context=context)
 

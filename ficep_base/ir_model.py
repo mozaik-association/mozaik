@@ -34,15 +34,19 @@ class ir_model(orm.Model):
 
     def _get_active_relations(self, cr, uid, ids, model_name, context=None):
         uid = SUPERUSER_ID
-        relation_ids = self.pool.get('ir.model.fields').search(cr, uid, [('relation', '=', model_name)
-                                                                         , ('ttype', '=', 'many2one')]
-                                                                         , context=context)
+        relation_ids = self.pool.get('ir.model.fields').search(cr, uid, [('relation', '=', model_name),
+                                                                         ('ttype', '=', 'many2one')],
+                                                               context=context)
         relations = self.pool.get('ir.model.fields').browse(cr, uid, relation_ids, context=context)
 
         results = {}
         for record_id in ids:
             for relation in relations:
-                active_dep_ids = self.pool.get(relation.model).search(cr, uid, [(relation.name, '=', record_id)], context=context)
+                model = self.pool.get(relation.model, False)
+                if not model:
+                    continue
+
+                active_dep_ids = model.search(cr, uid, [(relation.name, '=', record_id)], context=context)
 
                 if len(active_dep_ids) > 0:
                     results.update({record_id: relation.model})
