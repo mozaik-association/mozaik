@@ -69,6 +69,12 @@ class test_streets_repository_loader(SharedSetupTransactionCase):
         self.assertTrue(street_value[0]['local_street'] == 'NEW', 'Local Street Should be `NEW`')
 
     def test_bad_insert(self):
+        """
+        ===============
+        test_bad_insert
+        ===============
+        bad line: first 16 characters must be digits
+        """
         data_file = base64.b64encode("""9999m999961201227Clos de /l'Estaminet(Ham-s-Heure)#
         """)
 
