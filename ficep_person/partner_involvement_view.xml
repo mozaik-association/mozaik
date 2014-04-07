@@ -12,9 +12,9 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('simplified')"
-                             groups="ficep_base.ficep_res_groups_user">
+                             groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate involvement: proceed anyway ?" />
+                                    confirm="Invalidate category: proceed anyway ?" />
                         </div>
                     </header>
                     <sheet>
@@ -86,6 +86,7 @@
                 <tree string="Partner Involvement" version="7.0">
                     <field name="partner_id"/>
                     <field name="partner_involvement_category_id"/>
+                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>

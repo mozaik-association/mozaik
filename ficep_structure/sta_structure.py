@@ -33,7 +33,7 @@ class sta_power_level(orm.Model):
 
     _name = 'sta.power.level'
     _inherit = ['abstract.power.level']
-    _description = "State Power Level"
+    _description = 'State Power Level'
 
     _columns = {
         'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
@@ -46,11 +46,11 @@ class sta_assembly_category(orm.Model):
 
     _name = 'sta.assembly.category'
     _inherit = ['abstract.assembly.category']
-    _description = "State Assembly Category"
+    _description = 'State Assembly Category'
 
     _columns = {
         'power_level_id': fields.many2one('sta.power.level', 'State Power Level', required=True, track_visibility='onchange'),
-        'is_legislative': fields.boolean("Legislative", track_visibility='onchange')
+        'is_legislative': fields.boolean('Legislative', track_visibility='onchange')
     }
 
     _defaults = {
@@ -62,7 +62,7 @@ class sta_instance(orm.Model):
 
     _name = 'sta.instance'
     _inherit = ['abstract.instance']
-    _description = "State Instance"
+    _description = 'State Instance'
 
     def get_linked_electoral_districts(self, cr, uid, ids, context=None):
         """
@@ -83,11 +83,13 @@ class sta_instance(orm.Model):
         'parent_id': fields.many2one('sta.instance', 'Parent State Instance', ondelete='restrict', select=True, track_visibility='onchange'),
         'secondary_parent_id': fields.many2one('sta.instance', 'Secondary Parent State Instance', select=True, track_visibility='onchange'),
         'power_level_id': fields.many2one('sta.power.level', 'State Power Level', required=True, track_visibility='onchange'),
+        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', select=True, track_visibility='onchange'),
+        'identifier': fields.char('External Identifier (INS)', select=True, track_visibility='onchange'),
+
         'assembly_ids': fields.one2many('sta.assembly', 'instance_id', 'State Assemblies'),
         'assembly_inactive_ids': fields.one2many('sta.assembly', 'instance_id', 'State Assemblies', domain=[('active', '=', False)]),
         'electoral_district_ids': fields.one2many('electoral.district', 'sta_instance_id', 'Electoral Districts'),
         'electoral_district_inactive_ids': fields.one2many('electoral.district', 'sta_instance_id', 'Electoral Districts', domain=[('active', '=', False)]),
-        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', select=True, track_visibility='onchange'),
     }
 
 # constraints
@@ -108,20 +110,29 @@ class sta_instance(orm.Model):
         (_check_recursion, _('Error ! You can not create recursive instances'), ['secondary_parent_id']),
     ]
 
+    _sql_constraints = [
+        ('unique_identifier', 'UNIQUE ( identifier )', 'The external identifier (INS) must be unique.'),
+    ]
+
 
 class legislature(orm.Model):
 
     _name = 'legislature'
-    _description = "Legislature"
+    _description = 'Legislature'
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
+        'start_date': fields.date('Start Date', required=True, select=True, track_visibility='onchange'),
         'deadline_date': fields.date('Deadline Date', required=True, track_visibility='onchange'),
         'election_date': fields.date('Election Date', required=True, track_visibility='onchange'),
-        'power_level_id': fields.many2one('sta.power.level', 'Power Level', required=True, track_visibility='onchange'),
+        'power_level_id': fields.many2one('sta.power.level', 'Power Level', required=True, select=True, track_visibility='onchange'),
     }
+
+    _sql_constraints = [
+        ('date_check1', 'CHECK ( start_date <= deadline_date )', 'The start date must be anterior to the deadline date.'),
+        ('date_check2', 'CHECK ( election_date <= start_date )', 'The election date must be anterior to the start date.'),
+    ]
 
     _order = 'create_date desc'
 
@@ -130,13 +141,13 @@ class sta_assembly(orm.Model):
 
     _name = 'sta.assembly'
     _inherit = ['abstract.assembly']
-    _description = "State Assembly"
+    _description = 'State Assembly'
 
     def _compute_dummy(self, cursor, uid, ids, fname, arg, context=None):
         res = {}
         assemblies = self.browse(cursor, uid, ids, context=context)
         for ass in assemblies:
-            fullname = "%s (%s) " % (ass.instance_id.name, ass.assembly_category_id.name)
+            fullname = '%s (%s) ' % (ass.instance_id.name, ass.assembly_category_id.name)
             res[ass.id] = fullname
             self.pool['res.partner'].write(cursor, uid, ass.partner_id.id, {'name': fullname}, context=context)
         return res
@@ -152,8 +163,8 @@ class sta_assembly(orm.Model):
 
     _columns = {
         # dummy: define a dummy function to update the partner name associated to the assembly
-        'dummy': fields.function(_compute_dummy, string="Dummy",
-                                 type="char", store=_name_store_triggers,
+        'dummy': fields.function(_compute_dummy, string='Dummy',
+                                 type='char', store=_name_store_triggers,
                                  select=True),
         'assembly_category_id': fields.many2one('sta.assembly.category', 'State Assembly Category',
                                                  required=True, track_visibility='onchange'),

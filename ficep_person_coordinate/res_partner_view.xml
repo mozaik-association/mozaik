@@ -117,18 +117,5 @@
             </field>
         </record>
 
-        <record id="send_summary_of_duplicates_action" model="ir.actions.server">
-            <field name="name">Send Summary Of Duplicates</field>
-            <field name="condition">True</field>
-            <field name="type">ir.actions.server</field>
-            <field name="model_id" ref="model_duplicate_analysis_report" />
-            <field name="state">code</field>
-            <field name="code">self.process_notify_duplicates(cr, uid, force_send=True,context=context)</field>
-        </record>
-
-        <!-- Send Summary Of Duplicate -->
-        <menuitem id="send_summary_of_duplicates_menu" action="send_summary_of_duplicates_action"
-                  sequence="20" parent="ficep_base.res_groups_developper" />
-
     </data>
 </openerp>
