@@ -79,7 +79,7 @@ class create_user_from_partner(orm.TransientModel):
         res.update({'nok': nok})
         if nok:
             res.update({'portal_only': False})
-            
+
         return res
 
     def create_user_from_partner(self, cr, uid, ids, context=None):
@@ -103,7 +103,7 @@ class create_user_from_partner(orm.TransientModel):
         wizard = self.browse(cr, uid, ids, context=context)[0]
         if wizard.portal_only:
             _, group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'portal', 'group_portal')
-    
+
             partner = self.pool['res.partner'].browse(cr, uid, partner_id, context=context)
 
             login = partner.email

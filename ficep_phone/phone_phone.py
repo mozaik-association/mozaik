@@ -27,7 +27,6 @@
 ##############################################################################
 import phonenumbers as pn
 
-from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 

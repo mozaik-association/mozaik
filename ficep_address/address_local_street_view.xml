@@ -49,6 +49,7 @@
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
+                                <field name="id"/>
                                 <field name="identifier"/>
                             </group>
                         </div>

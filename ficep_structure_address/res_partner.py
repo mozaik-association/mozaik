@@ -28,14 +28,13 @@
 
 from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
-from openerp.tools.translate import _
 
 
 class res_partner(orm.Model):
 
     _inherit = "res.partner"
 
-    def _get_default_instance_id(self, cr, uid, ids=None, context=None):
+    def _get_default_instance_id(self, cr, uid, context=None):
         """
         ========================
         _get_default_instance_id
@@ -46,7 +45,7 @@ class res_partner(orm.Model):
         :rparam: int_instance_id
         :rtype: integer
         """
-        return self.pool['address.local.zip']._get_default_instance_id(cr, uid, ids=ids, context=context)
+        return self.pool['address.local.zip']._get_default_instance_id(cr, uid, context=context)
 
     def _get_instance_id(self, cr, uid, ids, name, args, context=None):
         """
@@ -62,11 +61,11 @@ class res_partner(orm.Model):
         Calling and result convention: Single mode
         """
         result = {}.fromkeys(ids, False)
-        
+
         def_int_instance_id = self._get_default_instance_id(cr, uid, context=context)
         for partner in self.browse(cr, uid, ids, context=context):
             result[partner.id] = partner.int_instance_id.id or def_int_instance_id
-        
+
         coord_obj = self.pool['postal.coordinate']
         coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
                                                              ('is_main', '=', True),
@@ -77,13 +76,13 @@ class res_partner(orm.Model):
                     result[coord.partner_id.id] = coord.address_id.address_local_zip_id.int_instance_id.id
         return result
 
-    def _accept_anyway(self, cr, uid, id, name, value, args, context=None):
+    def _accept_anyway(self, cr, uid, ids, name, value, args, context=None):
         '''
         Accept the modification of the internal instance (only possible if the partner
         is not linked to a local zip code id (otherwise the field is readonly on the form)
-        Do not make a self.write here, it will indefinitively loop on itself... 
+        Do not make a self.write here, it will indefinitively loop on itself...
         '''
-        cr.execute('update %s set %s = %%s where id = %s' % (self._table, name, id), (value, ))
+        cr.execute('update %s set %s = %%s where id = %s' % (self._table, name, ids), (value, ))
         return True
 
     _instance_store_triggers = {

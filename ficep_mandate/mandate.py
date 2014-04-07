@@ -25,8 +25,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields, osv
 from openerp.tools.translate import _
+
 
 # Constants
 MANDATE_CATEGORY_AVAILABLE_TYPES = [
@@ -85,7 +87,7 @@ class mandate_category(orm.Model):
 
     _order = 'name'
 
-    def _check_unique_name(self, cr, uid, ids, for_unlink=False, context=None):
+    def _check_unique_name(self, cr, uid, ids, context=None):
 
         for category in self.browse(cr, uid, ids, context=context):
             if len(self.search(cr, uid, [('id', '!=', category.id), ('name', '=', category.name)])) > 0:
@@ -184,7 +186,7 @@ class selection_committee(orm.Model):
         if not args:
             args = []
         if name and committee_type == 'state':
-            legislature_ids = self.pool.get('legislature').search(cr, uid, [('name', operator, start_date)], context=context)
+            legislature_ids = self.pool.get('legislature').search(cr, uid, [('start_date', operator, name)], context=context)
             district_ids = self.pool.get('electoral.district').search(cr, uid, [('name', operator, name)], context=context)
             ids = self.search(cr, uid, ['|', '|', ('name', operator, name), ('legislature_id', 'in', legislature_ids), ('electoral_district_id', 'in', district_ids)] + args, limit=limit, context=context)
         else:

@@ -25,9 +25,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from .mandate import mandate_category
+
 
 STA_CANDIDATURE_AVAILABLE_STATES = [
     ('draft', 'Draft'),
@@ -106,7 +108,7 @@ class sta_candidature(orm.Model):
         'is_substitute': fields.boolean('Substitute ?')
         }
 
-    def _check_partner(self, cr, uid, ids, for_unlink=False, context=None):
+    def _check_partner(self, cr, uid, ids, context=None):
         """
         =================
         _check_partner
@@ -131,7 +133,8 @@ class sta_candidature(orm.Model):
         'state': 'draft',
     }
 
-    # view methods: onchange, button
+# view methods: onchange, button
+
     def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id, context=None):
         res = {}
         sta_category_id = False

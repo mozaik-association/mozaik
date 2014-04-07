@@ -75,7 +75,7 @@ class duplicate_analysis_report(orm.Model):
                        'email.coordinate'::varchar as model,
                        2 as sequence
                 FROM  email_coordinate e, res_partner partner
-                WHERE partner.id = e.partner_id 
+                WHERE partner.id = e.partner_id
                 AND   e.is_duplicate_detected = TRUE
 
             UNION
@@ -154,7 +154,7 @@ class duplicate_analysis_report(orm.Model):
 
         if mail_id:
             _logger.info('process_notify_duplicates: mail id %s created...', mail_id)
-            
+
         return mail_id
 
     def get_document_url(self, cr, uid, model, object_id, context=None):

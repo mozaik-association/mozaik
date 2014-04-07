@@ -26,14 +26,13 @@
 #
 ##############################################################################
 from openerp.osv import orm, fields
-from openerp.tools.translate import _
 
 
 class address_local_zip(orm.Model):
 
     _inherit = 'address.local.zip'
 
-    def _get_default_instance_id(self, cr, uid, ids=None, context=None):
+    def _get_default_instance_id(self, cr, uid, context=None):
         """
         ========================
         _get_default_instance_id

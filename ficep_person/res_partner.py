@@ -100,7 +100,7 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Multiple mode
         """
-        result = {}.fromkeys(ids, {key: False for key in ['display_name','printable_name',]})
+        result = {}.fromkeys(ids, {key: False for key in ['display_name', 'printable_name', ]})
         for partner in self.browse(cr, uid, ids, context=context):
             result[partner.id] = {
                 'display_name': self._build_name(partner, reverse_mode=False),

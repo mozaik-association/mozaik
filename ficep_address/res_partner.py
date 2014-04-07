@@ -28,7 +28,6 @@
 
 from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
-from openerp.tools.translate import _
 from openerp.addons.ficep_address.address_address import TRIGGER_FIELDS
 
 
@@ -86,7 +85,7 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Multiple mode
         """
-        result = {}.fromkeys(ids, {key: False for key in ['country_id','zip_id','zip','city','street','address',]})
+        result = {}.fromkeys(ids, {key: False for key in ['country_id', 'zip_id', 'zip', 'city', 'street', 'address', ]})
         coord_obj = self.pool['postal.coordinate']
         coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
                                                     ('is_main', '=', True),

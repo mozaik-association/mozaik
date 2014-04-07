@@ -26,10 +26,9 @@
 #
 ##############################################################################
 
-from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
-from openerp.tools import mail
+from openerp.tools import SUPERUSER_ID
 
 
 class abstract_duplicate(orm.AbstractModel):

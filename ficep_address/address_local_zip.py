@@ -79,7 +79,7 @@ class address_local_zip(orm.Model):
         if not args:
             args = []
         if name:
-            ids = self.search(cr, uid, ['|',('local_zip', operator, name),('town', operator, name)]+args, limit=limit, context=context)
+            ids = self.search(cr, uid, ['|', ('local_zip', operator, name), ('town', operator, name)] + args, limit=limit, context=context)
         else:
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)
