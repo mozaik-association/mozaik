@@ -49,14 +49,14 @@ selection_committee_available_types = dict(SELECTION_COMMITTEE_AVAILABLE_TYPES)
 class mandate_category(orm.Model):
 
     _name = 'mandate.category'
-    _description = "Mandate Category"
+    _description = 'Mandate Category'
     _inherit = ['abstract.ficep.model']
 
     def get_linked_sta_candidature_ids(self, cr, uid, ids, context=None):
         """
-        ============================
+        ==============================
         get_linked_sta_candidature_ids
-        ============================
+        ==============================
         Return State Candidature ids linked to mandate category ids
         :rparam: sta_candidature_ids
         :rtype: list of ids
@@ -68,7 +68,6 @@ class mandate_category(orm.Model):
         return list(set(res_ids))
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
         'type': fields.selection(MANDATE_CATEGORY_AVAILABLE_TYPES, 'Status', readonly=True),
         'deadline_date': fields.date('Deadline Date', required=True, track_visibility='onchange'),
@@ -82,7 +81,9 @@ class mandate_category(orm.Model):
         'sta_candidature_ids': fields.one2many('sta.candidature', 'mandate_category_id', 'State Candidatures'),
         'is_submission_mandate': fields.boolean('Submission to a mandate declaration'),
         'is_submission_assets': fields.boolean('Submission to an assets declaration'),
-        }
+    }
+
+    _order = 'name'
 
     def _check_unique_name(self, cr, uid, ids, for_unlink=False, context=None):
 
@@ -95,8 +96,6 @@ class mandate_category(orm.Model):
         (_check_unique_name, _('Name must be unique'),
           ['name'])
     ]
-
-    _order = 'name'
 
 
 class int_power_level(orm.Model):
@@ -121,7 +120,7 @@ class electoral_district(orm.Model):
 
 class selection_committee(orm.Model):
     _name = 'selection.committee'
-    _description = "Selection Committee"
+    _description = 'Selection Committee'
     _inherit = ['abstract.ficep.model']
 
     def _get_suggested_sta_candidatures(self, sta_candidature_ids):
@@ -137,7 +136,6 @@ class selection_committee(orm.Model):
         return res
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
         'committee_type': fields.selection(SELECTION_COMMITTEE_AVAILABLE_TYPES, 'Type', required=True, track_visibility='onchange',),
         'decision_date': fields.date('Decision Date', track_visibility='onchange'),
         'mandate_date': fields.date('Start date of mandate', track_visibility='onchange'),
@@ -160,9 +158,10 @@ class selection_committee(orm.Model):
 
     _defaults = {
         'is_virtual': False,
-        }
+    }
 
 # orm methods
+
     def name_get(self, cr, uid, ids, context=None):
         if not ids:
             return []
@@ -172,8 +171,8 @@ class selection_committee(orm.Model):
         res = []
         for committee in self.browse(cr, uid, ids, context=context):
             if committee.committee_type == 'state':
-                display_name = u"{name} {legislature} {electoral_district}".format(name=committee.name,
-                                                                                  legislature=committee.legislature_id.name,
+                display_name = u'{name} {legislature} {electoral_district}'.format(name=committee.name,
+                                                                                  legislature=committee.legislature_id.start_date,
                                                                                   electoral_district=committee.electoral_district_id.name)
             else:
                 display_name = committee.name
@@ -185,7 +184,7 @@ class selection_committee(orm.Model):
         if not args:
             args = []
         if name and committee_type == 'state':
-            legislature_ids = self.pool.get('legislature').search(cr, uid, [('name', operator, name)], context=context)
+            legislature_ids = self.pool.get('legislature').search(cr, uid, [('name', operator, start_date)], context=context)
             district_ids = self.pool.get('electoral.district').search(cr, uid, [('name', operator, name)], context=context)
             ids = self.search(cr, uid, ['|', '|', ('name', operator, name), ('legislature_id', 'in', legislature_ids), ('electoral_district_id', 'in', district_ids)] + args, limit=limit, context=context)
         else:
@@ -193,11 +192,12 @@ class selection_committee(orm.Model):
         return self.name_get(cr, uid, ids, context)
 
 # view methods: onchange, button
+
     def button_accept_candidatures(self, cr, uid, ids, context=None):
             """
-            ==========
+            ==========================
             button_accept_candidatures
-            ==========
+            ==========================
             This method calls the candidature workflow for each candidature_id in order to update their state
             :rparam: True
             :rtype: boolean
@@ -211,9 +211,9 @@ class selection_committee(orm.Model):
 
     def button_reject_candidatures(self, cr, uid, ids, context=None):
             """
-            ==========
+            ==========================
             button_reject_candidatures
-            ==========
+            ==========================
             This method calls the candidature workflow for each candidature_id in order to update their state
             :rparam: True
             :rtype: boolean
@@ -231,7 +231,7 @@ class selection_committee(orm.Model):
             res['value'] = dict(is_virtual=False,
                                 int_assembly_id=False,
                                 ext_assembly_id=False,
-                                power_level_id=self.pool.get("ir.model.data").get_object_reference(cr, uid, "ficep_structure", "int_power_level_01")[1])
+                                power_level_id=self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_structure', 'int_power_level_01')[1])
         elif committee_type == 'internal':
             res['value'] = dict(sta_assembly_id=False,
                                 ext_assembly_id=False,

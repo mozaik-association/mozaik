@@ -155,9 +155,14 @@
                             <group name="other">
                                 <field name="thesaurus_id" context="{'simplified': 1}" groups="ficep_base.ficep_res_groups_configurator" />
                             </group>
-                            <group name="validity" attrs="{'invisible': [('id','=',False)]}">
+                        </group>
+
+                        <group name="state" attrs="{'invisible': [('id','=',False)]} ">
+                            <group name="validity">
                                 <field name="create_date" />
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
                             </group>
                         </group>
 

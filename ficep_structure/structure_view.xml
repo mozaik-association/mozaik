@@ -12,6 +12,18 @@
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="secondary_parent_id"/>
                     <field name="int_instance_id"/>
+                    <field name="identifier"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sta_instance_tree_view" model="ir.ui.view">
+            <field name="name">sta.instance.tree</field>
+            <field name="model">sta.instance</field>
+            <field name="inherit_id" ref="abstract_instance_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='power_level_id']" position="after">
+                    <field name="identifier"/>
                 </xpath>
             </field>
         </record>
@@ -82,9 +94,9 @@
                 <tree string="Legislatures" version="7.0">
                     <field name="name"/>
                     <field name="power_level_id"/>
-                    <field name="create_date" widget="date"/>
+                    <field name="start_date"/>
                     <field name="deadline_date"/>
-                    <field name="expire_date" widget="date"/>
+                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
@@ -96,7 +108,7 @@
                 <search string="Legislature" version="7.0">
                     <field name="name" />
                     <field name="power_level_id" />
-                    <field name="create_date" />
+                    <field name="start_date" />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" />
@@ -104,7 +116,7 @@
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" />
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="year" string="Year" domain="[]" context="{'group_by':'create_date'}" />
+                        <filter name="year" string="Year" domain="[]" context="{'group_by':'start_date'}" />
                     </group>
                 </search>
             </field>
@@ -118,6 +130,7 @@
                     <field name="name"/>
                     <field name="sta_instance_id"/>
                     <field name="assembly_id"/>
+                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
@@ -128,8 +141,8 @@
             <field name="arch" type="xml">
                 <search string="Electoral District" version="7.0">
                     <field name="name" />
-                    <field name="assembly_id" />
                     <field name="sta_instance_id" />
+                    <field name="assembly_id" />
                     <field name="int_instance_id" />
                     <field name="power_level_id" />
                     <filter name="expired" string="Expired"
@@ -164,6 +177,17 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="sta_instance_search_view" />
             <field name="view_id" ref="abstract_instance_tree_view" />
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.sta_instance_form_view'}</field>
+        </record>
+
+        <record id="sta_instance_children_action" model="ir.actions.act_window">
+            <field name="name">Children State Instances</field>
+            <field name="res_model">sta.instance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="sta_instance_search_view" />
+            <field name="view_id" ref="abstract_instance_tree_view" />
+            <field name="domain">['|',('parent_id','=',active_id),('secondary_parent_id','=',active_id)]</field>
             <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.sta_instance_form_view'}</field>
         </record>
 
@@ -321,19 +345,23 @@
             <field name="model">sta.instance</field>
             <field name="inherit_id" ref="abstract_instance_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='childs']" position="attributes">
-                    <attribute name="name">%(sta_instance_action)d</attribute>
+                <xpath expr="//button[@name='children']" position="replace">
+                    <button string="Children" name="%(sta_instance_children_action)d"
+                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                        context="{'default_parent_id': active_id}" />
+                    <attribute name="name"></attribute>
                 </xpath>
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="secondary_parent_id" context="{'simplified': 1,
-                                                            'form_view_ref': 'ficep_structure.sta_instance_form_view'}"/>
+                                                                'form_view_ref': 'ficep_structure.sta_instance_form_view'}"/>
+                    <field name="identifier"/>
                 </xpath>
                 <xpath expr="//group[@name='data_2']" position="inside">
                     <field name="int_instance_id" context="{'simplified': 1,
                                                             'form_view_ref': 'ficep_structure.int_instance_form_view'}"/>
                 </xpath>
                 <xpath expr="//notebook/page[@name='assemblies']" position="after">
-                    <page string="Electoral Districts" name="electoral_districts" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
+                    <page string="Electoral Districts" name="electoral_districts" attrs="{'invisible': [('id','=',False)]}">
                         <button string="All Details"
                                     name="%(electoral_district_action)d"
                                     type="action"
@@ -430,14 +458,15 @@
                             </group>
                             <group name="Dates">
                                 <field name="election_date" />
+                                <field name="start_date" />
                                 <field name="deadline_date" />
                             </group>
                         </group>
 
                         <group name="status" attrs="{'invisible': [('id','=',False)]} ">
                             <group name="validity">
-                                <field name="create_date" widget="date" string="Start Date"/>
-                                <field name="expire_date" widget="date" attrs="{'invisible': [('active','=',True)]}" readonly="1" />
+                                <field name="create_date"/>
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                             </group>
                             <group name="other">
                             </group>
@@ -503,7 +532,7 @@
                         <group name="status" attrs="{'invisible': [('id','=',False)]} ">
                             <group name="validity">
                                 <field name="create_date" />
-                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}"  readonly="1" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                             </group>
                             <group name="other">
                             </group>
@@ -604,7 +633,7 @@
             <field name="model">int.instance</field>
             <field name="inherit_id" ref="abstract_instance_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='childs']" position="after">
+                <xpath expr="//button[@name='children']" position="after">
                     <button string="State Instances" name="%(sta_instance_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_int_instance_id': active_id,
@@ -614,7 +643,7 @@
                                 context="{'search_default_instance_id': active_id,
                                           'default_instance_id': active_id}" />
                 </xpath>
-                <xpath expr="//button[@name='childs']" position="attributes">
+                <xpath expr="//button[@name='children']" position="attributes">
                     <attribute name="name">%(int_instance_action)d</attribute>
                 </xpath>
                 <xpath expr="//field[@name='parent_id']" position="attributes">
@@ -637,7 +666,7 @@
                 <xpath expr="//page[@name='assemblies']" position="after">
                     <page string="Multi Instances" name="multi_instances" attrs="{'invisible': [('id','=',False)]}">
                         <separator string="Child Instances"/>
-                        <field name="multi_instance_pc_m2m_ids" widget="many2many"
+                        <field name="multi_instance_pc_m2m_ids"
                                context="{'default_parent_id': parent_id,
                                          'default_power_level_id': power_level_id,
                                          'simplified': 1,
@@ -649,7 +678,7 @@
                             </tree>
                         </field>
                         <separator string="Parent Instances"/>
-                        <field name="multi_instance_cp_m2m_ids" widget="many2many"
+                        <field name="multi_instance_cp_m2m_ids"
                                context="{'default_parent_id': parent_id,
                                          'default_power_level_id': power_level_id,
                                          'simplified': 1,

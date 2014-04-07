@@ -51,6 +51,7 @@ FICEP Address
         'coordinate_category_view.xml',
         'address_local_zip_view.xml',
         'address_local_street_view.xml',
+        'wizard/streets_repository_loader_view.xml',
     ],
     'js': [
     ],

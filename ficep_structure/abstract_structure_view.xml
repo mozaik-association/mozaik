@@ -12,6 +12,7 @@
                     <field name="name"/>
                     <field name="assembly_category_id"/>
                     <field name="instance_id"/>
+                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
@@ -50,6 +51,15 @@
                                 <field name="designation_int_power_level_id" context="{'simplified': 1,
                                                                                        'form_view_ref': 'ficep_structure.abstract_power_level_form_view'}"/>
                                 <field name="months_before_end_of_mandate"/>
+                            </group>
+                        </group>
+
+                        <group name="status" attrs="{'invisible': [('id','=',False)]} ">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
                             </group>
                         </group>
                     </sheet>
@@ -104,6 +114,7 @@
                 <tree string="Instances" version="7.0">
                     <field name="name"/>
                     <field name="power_level_id"/>
+                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
@@ -129,10 +140,10 @@
                             <h1><field name="name"/></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
-                            <button string="Childs" name="childs"
+                            <button string="Children" name="children"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_parent_id': active_id,
-                                          'default_parent_id' : active_id }" />
+                                          'default_parent_id' : active_id}" />
                         </div>
 
                         <group>
@@ -143,6 +154,16 @@
                             <group name="data_2">
                             </group>
                         </group>
+
+                        <group name="status" attrs="{'invisible': [('id','=',False)]} ">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
+
                         <notebook>
                             <page string="Assemblies" name="assemblies" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="assembly_ids" attrs="{'invisible': [('active','=',False)]}"
@@ -216,6 +237,7 @@
                     <field name="name"/>
                     <field name="duration"/>
                     <field name="months_before_end_of_mandate"/>
+                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
@@ -248,6 +270,15 @@
                             <group name="mandate">
                                 <field name="duration"/>
                                 <field name="months_before_end_of_mandate"/>
+                            </group>
+                        </group>
+
+                        <group name="status" attrs="{'invisible': [('id','=',False)]} ">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
                             </group>
                         </group>
                     </sheet>
@@ -297,6 +328,7 @@
                 <tree string="Power Levels" version="7.0">
                     <field name="name"/>
                     <field name="sequence"/>
+                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
@@ -324,6 +356,15 @@
                         <group>
                             <group  name="Data">
                                 <field name="sequence"/>
+                            </group>
+                        </group>
+
+                        <group name="status" attrs="{'invisible': [('id','=',False)]} ">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
                             </group>
                         </group>
                         <notebook>
