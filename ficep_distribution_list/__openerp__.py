@@ -26,62 +26,38 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Base',
+    'name': 'FICEP: Distribution List',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'base',
-        'portal',
-        'mail',
-        'partner_firstname',  # from lp:~partner-contact-core-editors/partner-contact-management/7.0
-        'mass_editing',  # from lp:server-env-tools'
-        'document',
-        'distribution_list',  # from lp:acsone-addons
-        #'auth_ldap',
-        #'event',
-        #'l10n_be',
-        #'account_accountant',
-        #'account_cancel',
-        #'mass_mailing',
+        'ficep_structure',
     ],
     'description': """
-FICEP Base
-==========
-* improve user context adding a flag by ficep group
-* provide a work-around to handle correctly the readonly attribute of the widget mail_thread
-* define ficep menus skeleton
-    """,
+FICEP Distribution List
+=======================
+Customization of the Distribution List Module
+""",
     'images': [
     ],
     'data': [
-        'data/delete_data.xml',
-        'security/base_security.xml',
-        'data/ir_filters_data.xml',
-        'data/res_lang_data.xml',
-        'data/res_lang_install.xml',
-        'data/ir_config_parameter_data.xml',
-        'ficep_view.xml',
-        'res_partner_view.xml',
+        'distribution_list_view.xml',
     ],
     'js': [
     ],
     'qweb': [
     ],
     'css': [
-        'static/src/css/ficep_base.css',
     ],
     'demo': [
     ],
     'test': [
     ],
     'sequence': 150,
-    'license': 'AGPL-3',
     'installable': True,
     'auto_install': False,
-    'application': False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
