@@ -78,5 +78,11 @@
             <field name="months_before_end_of_mandate" eval="4"/>
         </record>
 
+        <!-- Other attributes -->
+
+        <record id="sta_instance_07" model="sta.instance">
+            <field name="identifier">61031</field>
+        </record>
+
     </data>
 </openerp>

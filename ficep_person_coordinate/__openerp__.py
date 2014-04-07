@@ -51,10 +51,10 @@ FICEP Person - Coordinate
     ],
     'data': [
         'security/ir.model.access.csv',
-        'res_partner_view.xml',
-        'partner_relation_view.xml',
         'data/ir_cron_duplicate.xml',
         'report/duplicates_analysis_report_view.xml',
+        'partner_relation_view.xml',
+        'res_partner_view.xml',
     ],
     'js': [
     ],

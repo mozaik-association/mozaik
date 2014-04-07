@@ -273,6 +273,11 @@
                         <br/>
                     </page>
                     <page name="involvement" string="Involvements">
+                        <button string="All Details" name="%(partner_involvement_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_partner_id': active_id,
+                                          'default_partner_id': active_id,
+                                          'search_default_all': True}" />
                         <field name="partner_involvement_ids" context="{'default_partner_id': active_id,
                                                                         'simplified': 1,
                                                                         'form_view_ref': 'ficep_person.partner_involvement_form_view'}"
