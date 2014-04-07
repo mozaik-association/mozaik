@@ -142,8 +142,9 @@
             <field name="arch" type="xml">
                 <search string="Co-Residency" version="7.0">
                     <field name="name" />
-                    <field name="line" />
-                    <field name="line2" />
+                    <field name="line" string="Label Lines" filter_domain="['|',('line','ilike', self),('line2','ilike', self)]"/>
+                    <filter name="empty" string="Empty Co-Residencies"
+                            domain="[('postal_coordinate_ids', '=', False),('postal_coordinate_inactive_ids', '!=', False)]" />
                 </search>
             </field>
         </record>
