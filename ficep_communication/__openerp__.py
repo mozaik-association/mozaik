@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Distribution List',
+    'name': 'FICEP: Communication',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -36,14 +36,20 @@
         'ficep_structure',
     ],
     'description': """
-FICEP Distribution List
-=======================
-Customization of the Distribution List Module
+FICEP Communication
+===================
+* New Menus:
+** Communication/Natural Persons
+** Communication/Templates
+** Communication/Campaigns
+** Communication/Statistics
+* Customization of the Distribution List Module
 """,
     'images': [
     ],
     'data': [
         'distribution_list_view.xml',
+        'communication_view.xml',
     ],
     'js': [
     ],

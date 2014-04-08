@@ -34,11 +34,16 @@
 
         <menuitem id="structures_root_menu" name="Structures"
                   sequence="21" groups="res_groups_base" />
-                  
+
         <!-- Mandates -->
 
         <menuitem id="mandates_root_menu" name="Mandates"
                   sequence="31" groups="res_groups_base" />
+
+        <!-- Communication -->
+
+        <menuitem id="communication_root_menu" name="Communication"
+                  sequence="41" groups="res_groups_base"/>
 
     </data>
 </openerp>
