@@ -46,6 +46,7 @@ FICEP Sample Customization
          'demo/users_demo.xml',
          '../ficep_base/tests/data/res_partner_data.xml',
          '../ficep_base/tests/data/res_users_data.xml',
+         '../ficep_person/tests/data/res_partner_data.xml',
          '../ficep_coordinate/tests/data/coordinate_category_data.xml',
          '../ficep_email/tests/data/email_data.xml',
          '../ficep_address/tests/data/reference_data.xml',

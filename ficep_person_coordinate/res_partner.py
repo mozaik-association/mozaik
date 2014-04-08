@@ -27,14 +27,6 @@
 ##############################################################################
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
-from openerp.tools.translate import _
-from openerp.tools import mail
-
-CONCERNED_BY_DUPLICATE = ['postal.coordinate',
-                          'email.coordinate',
-                          'phone.coordinate',
-                          'res.partner'
-                          ]
 
 
 class res_partner(orm.Model):

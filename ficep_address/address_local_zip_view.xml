@@ -6,7 +6,7 @@
             <field name="name">address.local.zip.search</field>
             <field name="model">address.local.zip</field>
             <field name="arch" type="xml">
-                <search string="Local zip" version="7.0">
+                <search string="Local Zip Code" version="7.0">
                     <field name="local_zip" />
                     <field name="town" />
                     <group expand="0" string="Group By..." name="group_by">
@@ -20,18 +20,28 @@
             <field name="name">address.local.zip.tree</field>
             <field name="model">address.local.zip</field>
             <field name="arch" type="xml">
-                <tree string="Phones" version="7.0">
+                <tree string="Local Zip Code" version="7.0">
                     <field name="local_zip" />
                     <field name="town" />
                 </tree>
             </field>
         </record>
 
+        <record id="address_local_zip_action" model="ir.actions.act_window">
+            <field name="name">Local Zip Codes</field>
+            <field name="res_model">address.local.zip</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="address_local_zip_search_view" />
+            <field name="view_id" ref="address_local_zip_tree_view" />
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.address_local_zip_form_view'}</field>
+        </record>
+
         <record id="address_local_zip_form_view" model="ir.ui.view">
             <field name="name">address.local.zip.form</field>
             <field name="model">address.local.zip</field>
             <field name="arch" type="xml">
-                <form string="Address Local Zip" version="7.0">
+                <form string="Local Zip Code" version="7.0">
                     <header>
                     </header>
                     <sheet>
@@ -48,11 +58,21 @@
                         <group name="data">
                             <field name="town" placeholder="Ixelles, Liège..." />
                         </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]} ">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
                             </group>
                         </div>
                     </div>
@@ -62,14 +82,6 @@
                     </div>
                 </form>
             </field>
-        </record>
-
-        <record id="address_local_zip_action" model="ir.actions.act_window">
-            <field name="name">Local Zip Codes</field>
-            <field name="res_model">address.local.zip</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="address_local_zip_search_view" />
         </record>
 
         <menuitem id="address_local_zip_menu" action="address_local_zip_action"

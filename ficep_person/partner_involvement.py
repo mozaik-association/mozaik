@@ -59,7 +59,7 @@ class partner_involvement(orm.Model):
         flds = self.read(cr, uid, ids, ['active'], context=context)
         if flds.get('active', True):
             raise orm.except_orm(_('Error'), _('An active involvement cannot be duplicated!'))
-        res = super(abstract_coordinate, self).copy(cr, uid, ids, default=default, context=context)
+        res = super(partner_involvement, self).copy(cr, uid, ids, default=default, context=context)
         return res
 
 

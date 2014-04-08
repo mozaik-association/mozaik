@@ -60,9 +60,6 @@ class res_partner_title(orm.Model):
         res = super(res_partner_title, self).create(cr, uid, vals, context=context)
         return res
 
-class res_partner(orm.Model):
-
-    _inherit = 'res.partner'
 
 class xxxx(orm.Model):
 
@@ -73,9 +70,9 @@ class xxxx(orm.Model):
 # private methods
 
     def _your_method(self, cr, uid, ids, context=None):
-         _, xml_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'model', 'xmlid')
-         return xml_id
-     
+        _, xml_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'model', 'xmlid')
+        return xml_id
+
     def _your_field_function(self):
         pass
 
@@ -110,10 +107,10 @@ class xxxx(orm.Model):
         # Standard fields redefinition
         'partner_id': fields.many2one('res.partner', 'Contact', required=True, select=True),
         'hhh': fields.char('HHH', readonly=True, required=True, select=True, track_visibility='onchange',
-                           states={'draft': [('readonly', False),('required', False)]}),
+                           states={'draft': [('readonly', False), ('required', False)]}),
 
         # State
-        'state': fields.selection(QQQ_AVAILABLE_STATES,'Status', required=True, track_visibility='onchange',
+        'state': fields.selection(QQQ_AVAILABLE_STATES, 'Status', required=True, track_visibility='onchange',
             help='If qqq is created, the status is \'Unconfirmed\'. If qqq is confirmed the status is set to \'Confirmed\'. Finally, if event is cancelled the status is set to \'Cancelled\'.'),
 
         # Validity period
@@ -192,13 +189,13 @@ class xxxx(orm.Model):
         res = super(xxxx, self).unlink(cr, uid, ids, context=context)
         return res
 
-    def copy_data(self, cr, uid, id, default=None, context=None):
+    def copy_data(self, cr, uid, ids, default=None, context=None):
         default = default or {}
         default.update({
             'active': True,
             'name_ids': []
         })
-        res = super(xxxx, self).copy_data(cr, uid, id, default=default, context=context)
+        res = super(xxxx, self).copy_data(cr, uid, ids, default=default, context=context)
         res.update({
             'name': _('%s (copy)') % res.get('name'),
         })
@@ -229,7 +226,7 @@ class xxxx(orm.Model):
         return res
 
     def _disable_workflow_buttons(self, cr, uid, node):
-        arch = super(xxxx,self)._disable_workflow_buttons(cr, uid, node)
+        arch = super(xxxx, self)._disable_workflow_buttons(cr, uid, node)
         if arch.tag == 'form' and arch.xpath("//field[@name='active']"):
             pass
         return arch

@@ -27,7 +27,6 @@
 ##############################################################################
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
-from openerp.tools import SUPERUSER_ID
 
 
 """
@@ -97,6 +96,7 @@ class thesaurus(orm.Model):
         self.write(cr, uid, ids, {'active': False}, context=context)
         return True
 
+
 class thesaurus_term(orm.Model):
 
     _name = 'thesaurus.term'
@@ -110,7 +110,7 @@ class thesaurus_term(orm.Model):
             elts = [
                 '%s' % term.thesaurus_id.id,
                 term.state,
-                term.state=='draft' and term.name or term.state=='confirm' and term.ext_identifier or term.expire_date
+                term.state == 'draft' and term.name or term.state == 'confirm' and term.ext_identifier or term.expire_date
             ]
             result[term.id] = '#'.join([el for el in elts if el])
 
@@ -126,7 +126,7 @@ class thesaurus_term(orm.Model):
                                           store=True),
 
         # State
-        'state': fields.selection(TERM_AVAILABLE_STATES,'Status', readonly=True, required=True, track_visibility='onchange',
+        'state': fields.selection(TERM_AVAILABLE_STATES, 'Status', readonly=True, required=True, track_visibility='onchange',
             help='If term is created, the status is \'Unconfirmed\'.If term is confirmed the status is set to \'Confirmed\'. If event is cancelled the status is set to \'Cancelled\'.'),
 
         # Validity period
@@ -188,14 +188,14 @@ class thesaurus_term(orm.Model):
         # context: notrack when resetting the new term id to False
         reset_context = dict(context or {}, mail_notrack=True)
         self.pool['thesaurus'].write(cr, uid, term.thesaurus_id.id, {'new_thesaurus_term_id': False}, context=reset_context)
-        # Send a "New Term to Validate" notification to followers 
+        # Send a "New Term to Validate" notification to followers
         self.pool['thesaurus'].write(cr, uid, term.thesaurus_id.id, {'new_thesaurus_term_id': new_id}, context=context)
         return new_id
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
         """
         Reset some fields to their initial values.
-        Mark the name as (copy) 
+        Mark the name as (copy)
         """
         default = default or {}
         default.update({

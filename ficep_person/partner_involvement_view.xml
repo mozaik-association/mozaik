@@ -4,6 +4,15 @@
 
         <!-- Partner involvement Category -->
 
+        <!-- Partner Involvement Category -->
+        <record id="partner_involvement_category_action" model="ir.actions.act_window">
+            <field name="name">Involvement Categories</field>
+            <field name="res_model">partner.involvement.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_person.partner_involvement_category_form_view'}</field>
+        </record>
+
         <record id="partner_involvement_category_form_view" model="ir.ui.view">
             <field name="name">partner.involvement.category.form</field>
             <field name="model">partner.involvement.category</field>
@@ -63,7 +72,7 @@
                 <search string="Partner Involvement">
                     <field name="partner_id"/>
                     <field name="partner_involvement_category_id"/>
-                    <separator />
+
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expire Coordinate" />
@@ -89,6 +98,17 @@
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
+        </record>
+
+        <!-- Partner involvement Subject/object action -->
+        <record id="partner_involvement_action" model="ir.actions.act_window">
+            <field name="name">Involvements</field>
+            <field name="res_model">partner.involvement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="partner_involvement_search_view" />
+            <field name="view_id" eval="partner_involvement_object_tree_view"/>
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_person.partner_involvement_form_view'}</field>
         </record>
 
         <record id="partner_involvement_form_view" model="ir.ui.view">
@@ -147,21 +167,6 @@
                     </div>
                 </form>
             </field>
-        </record>
-
-        <!-- Partner involvement Subject/object action -->
-        <record id="partner_involvement_action" model="ir.actions.act_window">
-            <field name="name">Involvements</field>
-            <field name="res_model">partner.involvement</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-        <!-- Partner Involvement Category -->
-        <record id="partner_involvement_category_action" model="ir.actions.act_window">
-            <field name="name">Involvement Categories</field>
-            <field name="res_model">partner.involvement.category</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
         </record>
 
         <!-- involvements menu are placed after Coordinates -->

@@ -25,8 +25,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.addons.ficep_coordinate.tests.test_abstract_coordinate import abstract_coordinate
+
 import openerp.tests.common as common
+from openerp.addons.ficep_coordinate.tests.test_abstract_coordinate import abstract_coordinate
 
 
 class test_phone_coordinate(abstract_coordinate, common.TransactionCase):

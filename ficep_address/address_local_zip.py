@@ -33,7 +33,7 @@ class address_local_zip(orm.Model):
 
     _name = 'address.local.zip'
     _description = "Local Zip Code"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['abstract.ficep.model']
 
     def _get_linked_addresses(self, cr, uid, ids, context=None):
         return self.pool['address.address'].search(cr, uid, [('address_local_zip_id', 'in', ids)], context=context)
@@ -45,11 +45,11 @@ class address_local_zip(orm.Model):
 
     _rec_name = 'local_zip'
 
+    _order = "local_zip, town"
+
     _sql_constraints = [
         ('check_unicity_zip', 'unique(local_zip,town)', _('This zip code already exists!'))
     ]
-
-    _order = "local_zip,town"
 
 # orm methods
 
@@ -79,7 +79,7 @@ class address_local_zip(orm.Model):
         if not args:
             args = []
         if name:
-            ids = self.search(cr, uid, ['|',('local_zip', operator, name),('town', operator, name)]+args, limit=limit, context=context)
+            ids = self.search(cr, uid, ['|', ('local_zip', operator, name), ('town', operator, name)] + args, limit=limit, context=context)
         else:
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)

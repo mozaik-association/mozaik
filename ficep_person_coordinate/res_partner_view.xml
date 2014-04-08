@@ -71,6 +71,11 @@
                     <page name="relation" string="Relations">
                         <separator string="Relations where the partner is the subject" />
                         <!-- Active -->
+                        <button string="All Details" name="%(subject_relation_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_subject_partner_id': active_id,
+                                          'default_subject_partner_id': active_id,
+                                          'search_default_all': True}" />
                         <field name="partner_is_subject_relation_ids" context="{'default_subject_partner_id': active_id,
                                                                                 'simplified': 1,
                                                                                 'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}"
@@ -91,6 +96,11 @@
                         </field>
                         <separator string="Relations where the partner is the object" />
                         <!-- Active -->
+                        <button string="All Details" name="%(object_relation_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_object_partner_id': active_id,
+                                          'default_object_partner_id': active_id,
+                                          'search_default_all': True}" />
                         <field name="partner_is_object_relation_ids" context="{'default_object_partner_id': active_id,
                                                                                'simplified': 1,
                                                                                'object': True,

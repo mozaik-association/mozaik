@@ -26,9 +26,11 @@
 #
 ##############################################################################
 from anybox.testing.openerp import SharedSetupTransactionCase
+import logging
+
 from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm
-import logging
+
 _logger = logging.getLogger(__name__)
 
 
