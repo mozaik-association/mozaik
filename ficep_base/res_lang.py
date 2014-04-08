@@ -25,12 +25,25 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from datetime import datetime
+from openerp.osv import orm
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 
-import controller
-import res_users
-import abstract_ficep
-import ir_model
-import mail_thread
-import res_lang
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+class lang(orm.Model):
+    _inherit = 'res.lang'
+
+    def _get_date_format(self, cr, uid, context):
+        lang = context.get('lang')
+        if not lang:
+            lang = 'en_US'
+        lang_id = self.search(cr, uid, [('code', '=', lang)], context=context)[0]
+        return self.read(cr, uid, lang_id, ['date_format'])['date_format']
+
+    def format_date(self, cr, uid, date_to_format, context):
+        date_format = context.get('date_format')
+        if not date_format:
+            date_format = self._get_date_format(cr, uid, context)
+
+        date_obj = datetime.strptime(date_to_format, DEFAULT_SERVER_DATE_FORMAT)
+        return date_obj.strftime(date_format)

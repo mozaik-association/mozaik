@@ -27,6 +27,7 @@
 ##############################################################################
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from .mandate import mandate_category
 
 CANDIDATURE_AVAILABLE_STATES = [
     ('draft', 'Draft'),
@@ -46,26 +47,11 @@ class abstract_mandate_base(orm.AbstractModel):
     _description = "Abstract Mandate Base"
     _inherit = ['abstract.ficep.model']
 
-    def _compute_name(self, cr, uid, ids, fname, arg, context=None):
-        res = {}
-        mandates = self.browse(cr, uid, ids, context=context)
-        for mandate in mandates:
-            fullname = "%s (%s)" % (mandate.partner_name if mandate.partner_name else mandate.partner_id.name, mandate.mandate_category_id.name)
-            res[mandate.id] = fullname
-        return res
-
-    _name_store_triggers = True
-
     _columns = {
         'id': fields.integer('ID', readonly=True),
-        'name': fields.function(_compute_name, string="Name",
-                                 type="char", store=_name_store_triggers,
-                                 select=True, track_visibility='onchange'),
-        'deadline_date': fields.date('Deadline Date', required=True, track_visibility='onchange'),
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
                                                  required=True, track_visibility='onchange'),
         'partner_id': fields.many2one('res.partner', 'Partner', required=True, track_visibility='onchange'),
-        'partner_name': fields.char('Partner Name', size=128, translate=True, select=True, track_visibility='onchange'),
         'is_replacement': fields.boolean('Replacement'),
     }
 
@@ -77,13 +63,40 @@ class abstract_mandate(orm.AbstractModel):
     _inherit = ['abstract.mandate.base']
 
     _columns = {
+        'deadline_date': fields.date('Deadline Date', required=True, track_visibility='onchange'),
         'is_submission_mandate': fields.related('mandate_category_id', 'submission_mandate', string='Submission to a mandate declaration',
                                           type='boolean', relation="mandate.category",
-                                          store=True),
+                                          store={'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['is_submission_mandate'], 20)}),
         'is_submission_assets': fields.related('mandate_category_id', 'submission_assets', string='Submission to an assets declaration',
                                           type='boolean', relation="mandate.category",
-                                          store=True),
+                                          store={'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['is_submission_assets'], 20)}),
     }
+
+    # orm methods
+    def name_get(self, cr, uid, ids, context=None):
+        if not ids:
+            return []
+
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+
+        res = []
+
+        for mandate in self.browse(cr, uid, ids, context=context):
+            display_name = u'{name} {mandate_category}'.format(name=mandate.partner_id.name,
+                                                               mandate_category=mandate.mandate_category_id.name)
+            res.append((mandate['id'], display_name))
+        return res
+
+    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
+        if not args:
+            args = []
+        if name:
+            partner_ids = self.pool.get('res.partner').search(cr, uid, [('name', operator, name)], context=context)
+            category_ids = self.pool.get('mandate.category').search(cr, uid, [('name', operator, name)], context=context)
+            ids = self.search(cr, uid, ['|', ('partner_id', 'in', partner_ids), ('mandate_category_id', 'in', category_ids)] + args, limit=limit, context=context)
+        else:
+            ids = self.search(cr, uid, args, limit=limit, context=context)
+        return self.name_get(cr, uid, ids, context)
 
 
 class abstract_candidature(orm.AbstractModel):
@@ -92,10 +105,14 @@ class abstract_candidature(orm.AbstractModel):
     _description = "Abstract Candidature"
     _inherit = ['abstract.mandate.base']
 
+    _init_mandate_columns = ['mandate_category_id', 'partner_id', 'is_replacement']
+
     _columns = {
+        'partner_name': fields.char('Partner Name', size=128, translate=True, select=True, track_visibility='onchange'),
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'selection_committee_id': fields.many2one('selection.committee', string='Selection Committee',
                                                  required=True, track_visibility='onchange'),
+        'designation_int_assembly_id': fields.many2one('int.assembly', 'Designation assembly', required=True, track_visibility='onchange'),
     }
 
     def _check_partner(self, cr, uid, ids, for_unlink=False, context=None):
@@ -122,5 +139,31 @@ class abstract_candidature(orm.AbstractModel):
     _defaults = {
         'state': CANDIDATURE_AVAILABLE_STATES[0][0],
     }
+
+# orm methods
+    def name_get(self, cr, uid, ids, context=None):
+        if not ids:
+            return []
+
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+
+        res = []
+
+        for candidature in self.browse(cr, uid, ids, context=context):
+            display_name = u'{name} {mandate_category}'.format(name=candidature.partner_name or candidature.partner_id.name,
+                                                               mandate_category=candidature.mandate_category_id.name)
+            res.append((candidature['id'], display_name))
+        return res
+
+    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
+        if not args:
+            args = []
+        if name:
+            partner_ids = self.pool.get('res.partner').search(cr, uid, [('name', operator, name)], context=context)
+            category_ids = self.pool.get('mandate.category').search(cr, uid, [('name', operator, name)], context=context)
+            ids = self.search(cr, uid, ['|', '|', ('partner_name', operator, name), ('partner_id', 'in', partner_ids), ('mandate_category_id', 'in', category_ids)] + args, limit=limit, context=context)
+        else:
+            ids = self.search(cr, uid, args, limit=limit, context=context)
+        return self.name_get(cr, uid, ids, context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

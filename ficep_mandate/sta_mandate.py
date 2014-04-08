@@ -59,7 +59,8 @@ class sta_candidature(orm.Model):
 
         res['value'] = dict(legislarure_id=selection_committee.legislature_id.id or False,
                             electoral_distric_id=selection_committee.electoral_district_id.id or False,
-                            sta_assembly_id=selection_committee.sta_assembly_id.id or False)
+                            sta_assembly_id=selection_committee.sta_assembly_id.id or False,
+                            designation_int_assembly_id=selection_committee.designation_int_assembly_id.id or False)
         return res
 
     def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id, context=None):

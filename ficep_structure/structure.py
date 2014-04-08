@@ -49,9 +49,6 @@ class electoral_district(orm.Model):
         'power_level_id': fields.related('assembly_id', 'assembly_category_id', 'power_level_id', string='Power Level',
                                          type='many2one', relation='sta.power.level'
                                         ),
-        'legislature_id': fields.related('assembly_id', 'assembly_category_id', 'power_level_id', string='Legislature',
-                                         type='many2one', relation='legislature'
-                                        ),
         'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation assembly',
                                                  required=True, track_visibility='onchange'),
         }
