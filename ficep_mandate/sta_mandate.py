@@ -27,43 +27,8 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
-from .mandate import mandate_category
-
-STA_CANDIDATURE_AVAILABLE_STATES = [
-    ('draft', 'Draft'),
-    ('declared', 'Declared'),
-    ('suggested', 'Suggested'),
-    ('designated', 'Designated'),
-    ('rejected', 'Rejected'),
-    ('elected', 'Elected'),
-    ('non-elected', 'Non-Elected'),
-]
-
-sta_candidature_available_states = dict(STA_CANDIDATURE_AVAILABLE_STATES)
-
-
-class res_partner(orm.Model):
-    _name = 'res.partner'
-    _inherit = ['res.partner']
-
-    def get_linked_sta_candidature_ids(self, cr, uid, ids, context=None):
-        """
-        ============================
-        get_linked_sta_candidature_ids
-        ============================
-        Return State Candidature ids linked to partner ids
-        :rparam: sta_candidature_ids
-        :rtype: list of ids
-        """
-        partners = self.read(cr, uid, ids, ['sta_candidature_ids'], context=context)
-        res_ids = []
-        for partner in partners:
-            res_ids += partner['sta_candidature_ids']
-        return list(set(res_ids))
-
-    _columns = {
-        'sta_candidature_ids': fields.one2many('sta.candidature', 'partner_id', 'State Candidatures'),
-    }
+from .abstract_mandate import abstract_candidature
+from .structure import legislature
 
 
 class sta_candidature(orm.Model):
@@ -72,63 +37,31 @@ class sta_candidature(orm.Model):
     _description = "State Candidature"
     _inherit = ['abstract.candidature']
 
-    def _compute_name(self, cr, uid, ids, fname, arg, context=None):
-        return super(sta_candidature, self)._compute_name(cr, uid, ids, fname, arg, context=context)
-
-    _name_store_triggers = {
-        'sta.candidature': (lambda self, cr, uid, ids, context=None: ids,
-                         ['partner_name', 'partner_id', 'mandate_category_id', ], 10),
-        'mandate.category': (mandate_category.get_linked_sta_candidature_ids, ['name'], 20),
-        'res.partner': (res_partner.get_linked_sta_candidature_ids, ['name'], 20),
-    }
+    _init_mandate_columns = abstract_candidature._init_mandate_columns
+    _init_mandate_columns.extend(['legislature_id', 'sta_assembly_id'])
 
     _columns = {
-        'name': fields.function(_compute_name, string="Name",
-                                 type="char", store=_name_store_triggers,
-                                 select=True),
-        'electoral_district_id': fields.many2one('electoral.district', string='Electoral District',
-                                                 required=True, track_visibility='onchange'),
-        'legislature_id': fields.many2one('legislature', string='Legislature',
-                                                 required=True, track_visibility='onchange'),
-        'sta_assembly_id': fields.related('electoral_district_id', 'assembly_id', string='State Assembly',
+        'electoral_district_id': fields.related('selection_committee_id', 'electoral_district_id', string='Electoral District',
+                                          type='many2one', relation="electoral.district",
+                                          store=True),
+        'legislature_id': fields.related('selection_committee_id', 'legislature_id', string='Legislature',
+                                          type='many2one', relation="legislature",
+                                          store=True),
+        'sta_assembly_id': fields.related('selection_committee_id', 'sta_assembly_id', string='State Assembly',
                                           type='many2one', relation="sta.assembly",
-                                          store=False),
-        'sta_assembly_category_id': fields.related('mandate_category_id', 'sta_assembly_category_id', string='State Assembly Category',
-                                          type='many2one', relation="sta.assembly.category",
-                                          store=False),
-        'sta_power_level_id': fields.related('sta_assembly_category_id', 'power_level_id', string='State Power Level',
-                                          type='many2one', relation="sta.power.level",
-                                          store=False),
+                                          store=True),
         }
 
-
     # view methods: onchange, button
-    def _check_partner(self, cr, uid, ids, context=None):
-        """
-        =================
-        _check_partner
-        =================
-        Check if partner doesn't have several candidatures in the same category
-        :rparam: True if it is the case
-                 False otherwise
-        :rtype: boolean
-        """
-        candidatures = self.browse(cr, uid, ids)
-        for candidature in candidatures:
-            if len(self.search(cr, uid, [('partner_id', '=', candidature.partner_id.id), ('id', '!=', candidature.id)], context=context)) > 0:
-                return False
+    def onchange_selection_committee(self, cr, uid, ids, selection_committee_id, context=None):
+        res = {}
+        selection_committee = self.pool.get('selection.committee').browse(cr, uid, selection_committee_id, context)
 
-        return True
+        res['value'] = dict(legislarure_id=selection_committee.legislature_id.id or False,
+                            electoral_distric_id=selection_committee.electoral_district_id.id or False,
+                            sta_assembly_id=selection_committee.sta_assembly_id.id or False)
+        return res
 
-    _constraints = [
-        (_check_partner, _("A candidature already exists for this partner in this category"), ['partner_id'])
-    ]
-
-    _defaults = {
-        'state': 'draft',
-    }
-
-# view methods: onchange, button
     def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id, context=None):
         res = {}
         sta_category_id = False
@@ -141,34 +74,43 @@ class sta_candidature(orm.Model):
                             sta_assembly_category_id=sta_category_id)
         return res
 
-    def onchange_electoral_district_id(self, cr, uid, ids, electoral_district_id, context=None):
-        res = {}
-        sta_assembly_id = False
-        if electoral_district_id:
-            sta_assembly_id = self.pool.get('electoral.district').read(cr, uid, electoral_district_id, ['assembly_id'])['assembly_id']
-        res['value'] = dict(sta_assembly_id=sta_assembly_id)
-        return res
+    def button_create_mandate(self, cr, uid, ids, context=None):
+        for candidature_id in ids:
+            self.pool.get('sta.mandate').create_from_candidature(cr, uid, [candidature_id], context=context)
 
-    def onchange_sta_assembly_category_id(self, cr, uid, ids, sta_assembly_category_id, context=None):
-        res = {}
-        sta_power_level_id = False
-        if sta_assembly_category_id:
-            sta_power_level_id = self.pool.get('sta.assembly.category').read(cr, uid, sta_assembly_category_id, ['power_level_id'])['power_level_id']
-        res['value'] = dict(sta_power_level_id=sta_power_level_id)
-        return res
 
-    def onchange_sta_power_level_id(self, cr, uid, ids, sta_power_level_id, context=None):
-        res = {}
-        legislature_id = False
-        if sta_power_level_id:
-            SQL = '''
-                    SELECT id, max(create_date)
-                    FROM legislature
-                     WHERE power_level_id = %s
-                     AND active = True
-                    GROUP BY id LIMIT 1
-                  '''
-            cr.execute(SQL, (sta_power_level_id,))
-            legislature_id = cr.fetchone()[0]
-        res['value'] = dict(legislature_id=legislature_id)
+class sta_mandate(orm.Model):
+    _name = 'sta.mandate'
+    _description = "State Mandate"
+    _inherit = ['abstract.mandate']
+
+    _columns = {
+        'legislature_id': fields.many2one('legislature', string='Legislature',
+                                                 required=True, track_visibility='onchange'),
+        'sta_assembly_id': fields.related('electoral_district_id', 'assembly_id', string='State Assembly',
+                                          type='many2one', relation="sta.assembly",
+                                          store=False),
+        'sta_assembly_category_id': fields.related('mandate_category_id', 'sta_assembly_category_id', string='State Assembly Category',
+                                          type='many2one', relation="sta.assembly.category",
+                                          store=False),
+        'deadline_date': fields.related('legislature_id', 'deadline_date', string='Deadline Date',
+                                          type='date', relation="legislature",
+                                          store={'legislature': (legislature.get_linked_sta_mandate_ids, ['deadline_date'], 20)}),
+        }
+
+    def create_from_candidature(self, cr, uid, ids, context=None):
+        candidature_pool = self.pool.get('sta.candidature')
+        candidature_data_list = candidature_pool.read(cr, uid, ids, [], context)
+        res = False
+        for candidature_data in candidature_data_list:
+            mandate_values = {}
+            for column in candidature_pool._init_mandate_columns:
+                if column in self._columns:
+                    if candidature_pool._columns[column]._type == 'many2one':
+                        mandate_values[column] = candidature_data[column][0]
+                    else:
+                        mandate_values[column] = candidature_data[column]
+
+            if mandate_values:
+                res = self.create(cr, uid, mandate_values, context)
         return res

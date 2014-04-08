@@ -54,19 +54,19 @@ class mandate_category(orm.Model):
     _description = 'Mandate Category'
     _inherit = ['abstract.ficep.model']
 
-    def get_linked_sta_candidature_ids(self, cr, uid, ids, context=None):
+    def get_linked_sta_mandate_ids(self, cr, uid, ids, context=None):
         """
         ==============================
-        get_linked_sta_candidature_ids
+        get_linked_mandate_ids
         ==============================
-        Return State Candidature ids linked to mandate category ids
-        :rparam: sta_candidature_ids
+        Return State Mandate ids linked to mandate category ids
+        :rparam: sta_mandate_ids
         :rtype: list of ids
         """
-        mandate_categories = self.read(cr, uid, ids, ['sta_candidature_ids'], context=context)
+        mandate_categories = self.read(cr, uid, ids, ['sta_mandate_ids'], context=context)
         res_ids = []
         for mandate_category in mandate_categories:
-            res_ids += mandate_category['sta_candidature_ids']
+            res_ids += mandate_category['sta_mandate_ids']
         return list(set(res_ids))
 
     _columns = {
@@ -81,6 +81,7 @@ class mandate_category(orm.Model):
         'int_power_level_id': fields.many2one('int.power.level', string='Internal Power Level',
                                                  required=True, track_visibility='onchange'),
         'sta_candidature_ids': fields.one2many('sta.candidature', 'mandate_category_id', 'State Candidatures'),
+        'sta_mandate_ids': fields.one2many('sta.mandate', 'mandate_category_id', 'State Mandates'),
         'is_submission_mandate': fields.boolean('Submission to a mandate declaration'),
         'is_submission_assets': fields.boolean('Submission to an assets declaration'),
     }
@@ -98,26 +99,6 @@ class mandate_category(orm.Model):
         (_check_unique_name, _('Name must be unique'),
           ['name'])
     ]
-
-
-class int_power_level(orm.Model):
-
-    _name = 'int.power.level'
-    _inherit = ['int.power.level']
-
-    _columns = {
-        'mandate_category_ids': fields.one2many('mandate.category', 'int_power_level_id', 'Mandate Categories'),
-    }
-
-
-class electoral_district(orm.Model):
-
-    _name = 'electoral.district'
-    _inherit = ['electoral.district']
-
-    _columns = {
-        'selection_committee_ids': fields.one2many('selection.committee', 'electoral_district_id', 'Selection committees'),
-    }
 
 
 class selection_committee(orm.Model):
@@ -148,7 +129,7 @@ class selection_committee(orm.Model):
         'sta_assembly_id': fields.many2one('sta.assembly', string='State Assembly', track_visibility='onchange'),
         'int_assembly_id': fields.many2one('int.assembly', string='Internal Assembly', track_visibility='onchange'),
         'ext_assembly_id': fields.many2one('ext.assembly', string='External Assembly', track_visibility='onchange'),
-        'int_designation_assembly_id': fields.many2one('int.assembly', string='Internal Assembly (Designation)',
+        'designation_int_assembly_id': fields.many2one('int.assembly', string='Internal Assembly (Designation)',
                                                  required=True, track_visibility='onchange'),
         'sta_candidature_ids': fields.one2many('sta.candidature', 'selection_committee_id', 'State Candidatures',
                                                domain=[('state', 'not in', ['draft', 'rejected'])]),
@@ -156,6 +137,9 @@ class selection_committee(orm.Model):
         'legislature_id': fields.many2one('legislature', string='Legislature', track_visibility='onchange'),
         'power_level_id': fields.many2one('sta.power.level', string='Power level'),
         'int_instance_id': fields.many2one('int.instance', string='Internal Instance'),
+        'designation_int_power_level_id': fields.related('sta_assembly_id', 'designation_int_power_level_id', string='Designation Power Level',
+                                          type='many2one', relation="int.power.level",
+                                          store=True),
     }
 
     _defaults = {
@@ -171,10 +155,11 @@ class selection_committee(orm.Model):
         ids = isinstance(ids, (long, int)) and [ids] or ids
 
         res = []
+
         for committee in self.browse(cr, uid, ids, context=context):
             if committee.committee_type == 'state':
                 display_name = u'{name} {legislature} {electoral_district}'.format(name=committee.name,
-                                                                                  legislature=committee.legislature_id.start_date,
+                                                                                  legislature=self.pool.get('res.lang').format_date(cr, uid, committee.legislature_id.start_date, context),
                                                                                   electoral_district=committee.electoral_district_id.name)
             else:
                 display_name = committee.name
@@ -186,7 +171,7 @@ class selection_committee(orm.Model):
         if not args:
             args = []
         if name and committee_type == 'state':
-            legislature_ids = self.pool.get('legislature').search(cr, uid, [('start_date', operator, name)], context=context)
+            legislature_ids = self.pool.get('legislature').search(cr, uid, [('name', operator, name)], context=context)
             district_ids = self.pool.get('electoral.district').search(cr, uid, [('name', operator, name)], context=context)
             ids = self.search(cr, uid, ['|', '|', ('name', operator, name), ('legislature_id', 'in', legislature_ids), ('electoral_district_id', 'in', district_ids)] + args, limit=limit, context=context)
         else:
@@ -260,4 +245,10 @@ class selection_committee(orm.Model):
         res = {}
         res['value'] = dict(int_instance_id=district_data['int_instance_id'],
                             sta_assembly_id=district_data['assembly_id'])
+        return res
+
+    def onchange_sta_assembly_id(self, cr, uid, ids, sta_assembly_id, context=None):
+        sta_assembly_data = self.pool.get('sta.assembly').read(cr, uid, sta_assembly_id, ['designation_int_power_level_id'])
+        res = {}
+        res['value'] = dict(designation_int_power_level_id=sta_assembly_data['designation_int_power_level_id'],)
         return res
