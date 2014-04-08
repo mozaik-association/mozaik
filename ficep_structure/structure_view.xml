@@ -463,7 +463,7 @@
                             </group>
                         </group>
 
-                        <group name="status" attrs="{'invisible': [('id','=',False)]} ">
+                        <group name="status" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date"/>
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
@@ -529,7 +529,7 @@
                             </group>
                         </group>
 
-                        <group name="status" attrs="{'invisible': [('id','=',False)]} ">
+                        <group name="status" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />

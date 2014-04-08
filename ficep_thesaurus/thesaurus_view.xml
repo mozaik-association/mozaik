@@ -157,7 +157,7 @@
                             </group>
                         </group>
 
-                        <group name="state" attrs="{'invisible': [('id','=',False)]} ">
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />

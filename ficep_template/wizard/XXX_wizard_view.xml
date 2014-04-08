@@ -4,7 +4,7 @@
 
         <record id="xxx_wizard" model="ir.ui.view">
             <field name="name">xxx.wizard</field>
-            <field name="model">xxx</field>
+            <field name="model">xxx.wizard</field>
             <field name="arch" type="xml">
                 <form string="XXX" version="7.0">
                     <group name="data">

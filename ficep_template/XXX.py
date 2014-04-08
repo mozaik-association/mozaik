@@ -30,7 +30,6 @@
 # Other utilities imports
 
 # OpenERP imports
-import openerp
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
@@ -155,12 +154,13 @@ class xxxx(orm.Model):
 
     _constraints = [
         (_check_xxx, _('Error! XYZ...'), ['zzz_id']),
-        (orm.Model._check_recursion, _('Error ! You can not create recursive xxx'), ['parent_id']),
+        (orm.Model._check_recursion, _('Error! You can not create recursive xxx'), ['parent_id']),
     ]
 
     _sql_constraints = [
-        # only if all columns must be non null
-        ('col1_col2_..._unique', 'unique (col1,col2, ...)', 'The couple (column desc 2, ...) must be unique for a given column desc 1 !')
+        # only if all columns are not null
+        ('check_unicity_xxx', 'unique(col1,col2, ...)', _('This XXX already exists!')),
+        ('col1_col2_..._unique', 'unique (col1,col2, ...)', _('The couple (column desc 2, ...) must be unique for a given column desc 1!')),
     ]
 
 # orm methods
@@ -216,7 +216,7 @@ class xxxx(orm.Model):
     def browse(self, cr, uid, select, context=None, list_class=None, fields_process=None):
         res = super(xxxx, self).browse(cr, uid, select, context=context, list_class=list_class, fields_process=fields_process)
         return res
-    
+
     def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
         res = super(xxxx, self).fields_view_get(cr, user, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
         return res
