@@ -7,8 +7,9 @@
             <field name="model">address.local.street</field>
             <field name="arch" type="xml">
                 <search string="Local Street" version="7.0">
-                    <field name="local_street" />
+                    <field name="local_street" string="Street" filter_domain="['|',('local_street','ilike', self),('local_street_alternative','ilike', self)]" />
                     <field name="local_zip" />
+                    <filter name="to_disable" string="Obsolete Streets" domain="[('to_disable','=', True)]" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter string="Zip" context="{'group_by': 'local_zip'}"/>
                     </group>
@@ -20,11 +21,23 @@
             <field name="name">address.local.street.tree</field>
             <field name="model">address.local.street</field>
             <field name="arch" type="xml">
-                <tree string="Phones" version="7.0">
+                <tree string="Local Street" version="7.0">
                     <field name="local_zip" />
                     <field name="local_street" />
+                    <field name="local_street_alternative" />
+                    <field name="to_disable" />
                 </tree>
             </field>
+        </record>
+
+        <record id="address_local_street_action" model="ir.actions.act_window">
+            <field name="name">Local Streets</field>
+            <field name="res_model">address.local.street</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="address_local_street_search_view" />
+            <field name="view_id" ref="address_local_street_tree_view" />
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.address_local_street_form_view'}</field>
         </record>
 
         <record id="address_local_street_form_view" model="ir.ui.view">
@@ -58,30 +71,21 @@
             </field>
         </record>
 
-        <record id="update_local_street_action" model="ir.actions.act_window">
-            <field name="name">Update of Streets Repository</field>
+        <record id="streets_repository_loader_action" model="ir.actions.act_window">
+            <field name="name">Update Streets Repository</field>
             <field name="res_model">streets.repository.loader</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
 
-        <record id="address_local_street_action" model="ir.actions.act_window">
-            <field name="name">Local Streets</field>
-            <field name="res_model">address.local.street</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="address_local_street_search_view" />
-            <field name="view_id" ref="address_local_street_tree_view" />
-        </record>
-
-        <menuitem id="streets_reprository_menu" name="Streets Repository"
+        <menuitem id="address_local_street_submenu" name="Local Streets"
                   sequence="10" parent="ficep_base.localization_submenu" />
 
         <menuitem id="address_local_street_menu" action="address_local_street_action"
-                  sequence="10" parent="streets_reprository_menu" />
+                  sequence="10" parent="address_local_street_submenu" />
 
-        <menuitem id="update_repository_menu" action="update_local_street_action"
-                  sequence="10" parent="streets_reprository_menu"/>
+        <menuitem id="streets_repository_loader_menu" action="streets_repository_loader_action"
+                  sequence="20" parent="address_local_street_submenu"/>
     </data>
 </openerp>

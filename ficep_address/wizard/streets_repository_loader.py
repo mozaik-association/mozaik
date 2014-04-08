@@ -37,6 +37,9 @@ EXPR = re.compile('[/+#]')
 
 class streets_repository_loader(orm.TransientModel):
 
+    _name = "streets.repository.loader"
+    _description = "Street Repository Loader"
+
     def _format(self, value):
         """
         :type value: string
@@ -69,9 +72,6 @@ class streets_repository_loader(orm.TransientModel):
         street = self._format(street)
         vals['local_street_alternative'] = alternative_street
         vals['local_street'] = street
-
-    _name = "streets.repository.loader"
-    _description = "Street Repository Loader"
 
     _columns = {
         'ref_streets': fields.binary(string='File Referential of Streets'),
