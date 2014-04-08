@@ -26,7 +26,6 @@
 #
 ##############################################################################
 import logging
-from lxml import etree
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
@@ -153,13 +152,15 @@ class abstract_ficep_model (orm.AbstractModel):
         Generate a domain on all fields to make the form readonly when document is inactive
         """
         if view_type == 'form' and uid != SUPERUSER_ID and not context.get('is_developper'):
-            context = dict(context or {}, add_readonly_condition=True) 
+            context = dict(context or {}, add_readonly_condition=True)
         res = super(abstract_ficep_model, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
         return res
+
 
 # Replace the orm.transfer_node_to_modifiers functions.
 
 original_transfer_node_to_modifiers = orm.transfer_node_to_modifiers
+
 
 def transfer_node_to_modifiers(node, modifiers, context=None, in_tree_view=False):
     '''
@@ -167,7 +168,7 @@ def transfer_node_to_modifiers(node, modifiers, context=None, in_tree_view=False
     '''
     fct_src = original_transfer_node_to_modifiers
     trace = True
-    
+
     if context and context.get('add_readonly_condition'):
         context.pop('add_readonly_condition')
 

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="distribution_list_form" model="ir.ui.view">
+            <field name="name">distribution.list.form (ficep_distribution_list)</field>
+            <field name="model">distribution.list</field>
+            <field name="inherit_id" ref="distribution_list.distribution_list_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='to_exclude']" position="after">
+                    <notebook>
+                            <page name="users" string="Users" autofocus="autofocus">
+                                <field name="res_users_ids" context="{'default_distribution_list_id': id,
+                                                                             'simplified': 1,
+                                                                             'form_view_ref': 'base.view_users_form'}">
+                                    <tree>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -40,7 +40,7 @@ class create_user_from_partner(orm.TransientModel):
     _columns = {
         'portal_only': fields.boolean('Portal only'),
         'nok': fields.char('reason'),
-        'login': fields.char('Login', size=64, required=True),
+        'login': fields.char('Login', size=64),
         'group_id': fields.many2one('res.groups', string="User's group",
                                     domain="[('category_id','=',appl_id)]"),
         'appl_id': fields.many2one('ir.module.category', string="Application"),
@@ -51,13 +51,10 @@ class create_user_from_partner(orm.TransientModel):
     }
 
     def default_get(self, cr, uid, fields, context):
-        """ To get default values for the object.
-         @param self: The object pointer.
-         @param cr: A database cursor
-         @param uid: ID of the user currently logged in
-         @param fields: List of fields for which we want default values
-         @param context: A standard dictionary
-         @return: A dictionary which of fields with values.
+        """
+        Get default values for the object.
+        Compute the reason for which the portal check box is read-only
+        :raise: ERROR if no active_id found in the context
         """
         partner_id = context and context.get('active_id', False) or False
         if not partner_id:
@@ -82,7 +79,7 @@ class create_user_from_partner(orm.TransientModel):
         res.update({'nok': nok})
         if nok:
             res.update({'portal_only': False})
-            
+
         return res
 
     def create_user_from_partner(self, cr, uid, ids, context=None):
@@ -94,10 +91,9 @@ class create_user_from_partner(orm.TransientModel):
         to the choosen group
         :param ids: id of the wizard
         :type ids: int
-        :raise: ERROR if no active_id and no active_ids found in the context
 
         **Note**
-        This is not a mass wizard. Only one partner can be transformed to a user.
+        This is not a mass wizard. Only one partner can be transformed to a user at a time.
         """
         if context is None:
             context = {}
@@ -107,13 +103,14 @@ class create_user_from_partner(orm.TransientModel):
         wizard = self.browse(cr, uid, ids, context=context)[0]
         if wizard.portal_only:
             _, group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'portal', 'group_portal')
-    
+
             partner = self.pool['res.partner'].browse(cr, uid, partner_id, context=context)
 
             login = partner.email
         else:
             group_id = wizard.group_id.id
             login = wizard.login
-        self.pool.get('res.partner').create_user(cr, uid, login, partner_id, [group_id], context=context)
+
+        return self.pool['res.partner'].create_user(cr, uid, login, partner_id, [group_id], context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

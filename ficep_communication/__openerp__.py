@@ -25,8 +25,39 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
+{
+    'name': 'FICEP: Distribution List',
+    'version': '1.0',
+    "author": "ACSONE SA/NV",
+    "maintainer": "ACSONE SA/NV",
+    "website": "http://www.acsone.eu",
+    'category': 'Political Association',
+    'depends': [
+        'ficep_structure',
+    ],
+    'description': """
+FICEP Distribution List
+=======================
+Customization of the Distribution List Module
+""",
+    'images': [
+    ],
+    'data': [
+        'distribution_list_view.xml',
+    ],
+    'js': [
+    ],
+    'qweb': [
+    ],
+    'css': [
+    ],
+    'demo': [
+    ],
+    'test': [
+    ],
+    'sequence': 150,
+    'installable': True,
+    'auto_install': False,
+}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

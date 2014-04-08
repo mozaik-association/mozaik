@@ -33,6 +33,16 @@
             </field>
         </record>
 
+        <record id="partner_relation_category_action" model="ir.actions.act_window">
+            <field name="name">Relation Categories</field>
+            <field name="res_model">partner.relation.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="partner_relation_category_search_view" />
+            <field name="view_id" eval="partner_relation_category_tree_view"/>
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_person_coordinate.partner_relation_category_form_view'}</field>
+        </record>
+
         <record id="partner_relation_category_form_view" model="ir.ui.view">
             <field name="name">partner.relation.category.form</field>
             <field name="model">partner.relation.category</field>
@@ -92,19 +102,20 @@
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
                 <search string="Partner Relation">
+                    <field name="subject_partner_id"/>
+                    <field name="object_partner_id"/>
                     <field name="partner_relation_category_id"/>
-                    <field name="subject_partner_id" string="Partner"
-                           filter_domain="['|',('subject_partner_id','ilike',self),('object_partner_id','ilike',self)]"/>
-                    <separator />
+
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expire Coordinate" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter string="Category" context="{'group_by': 'partner_relation_category_id'}"/>
                         <filter string="Partner Subject" context="{'group_by': 'subject_partner_id'}"/>
+                        <filter string="Category" context="{'group_by': 'partner_relation_category_id'}"/>
                         <filter string="Partner Object" context="{'group_by': 'object_partner_id'}"/>
                     </group>
                </search>
@@ -135,6 +146,26 @@
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
+        </record>
+
+        <record id="subject_relation_action" model="ir.actions.act_window">
+            <field name="name">Subject Relations</field>
+            <field name="res_model">partner.relation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="partner_relation_search_view" />
+            <field name="view_id" eval="partner_relation_subject_tree_view"/>
+            <field name="context">{'object':False, 'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}</field>
+        </record>
+
+        <record id="object_relation_action" model="ir.actions.act_window">
+            <field name="name">Object Relations</field>
+            <field name="res_model">partner.relation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="partner_relation_search_view" />
+            <field name="view_id" eval="partner_relation_object_tree_view"/>
+            <field name="context">{'object':True, 'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}</field>
         </record>
 
         <record id="partner_relation_subject_form_view" model="ir.ui.view">
@@ -293,31 +324,6 @@
                     </div>
                 </form>
             </field>
-        </record>
-
-        <!-- Partner Relation Subject/object action -->
-        <record id="subject_relation_action" model="ir.actions.act_window">
-            <field name="name">Subject Relations</field>
-            <field name="res_model">partner.relation</field>
-            <field name="view_id" eval="partner_relation_subject_tree_view"/>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="context">{'object':False, 'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}</field>
-        </record>
-        <record id="object_relation_action" model="ir.actions.act_window">
-            <field name="name">Object Relations</field>
-            <field name="view_id" eval="partner_relation_object_tree_view"/>
-            <field name="res_model">partner.relation</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="context">{'object':True, 'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}</field>
-        </record>
-        <!-- Partner Relation Category -->
-        <record id="partner_relation_category_action" model="ir.actions.act_window">
-            <field name="name">Relation Categories</field>
-            <field name="res_model">partner.relation.category</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
         </record>
 
         <!-- Relations menu are placed after Coordinates -->

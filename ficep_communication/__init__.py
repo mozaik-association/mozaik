@@ -26,7 +26,6 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
+from . import distribution_list
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

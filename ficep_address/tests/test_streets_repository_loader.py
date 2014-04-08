@@ -36,11 +36,6 @@ _logger = logging.getLogger(__name__)
 DB = common.DB
 SUPERUSER_ID = common.ADMIN_USER_ID
 
-DATA_FILE = base64.b64encode("""9999999961201227Clos de /l'Estaminet(Ham-s-Heure)#
-1234567861201227NEW%OLD#
-9999999961201227-*-#
-""")
-
 
 class test_streets_repository_loader(SharedSetupTransactionCase):
 
@@ -59,13 +54,34 @@ class test_streets_repository_loader(SharedSetupTransactionCase):
         =========================
         Test create/update/disable with loader
         """
+        content_text = '\n'.join(["9999999961201227Clos de /l'Estaminet(Ham-s-Heure)#",
+                                 "1234567861201227NEW%OLD#",
+                                 "9999999961201227-*-#"])
+        data_file = base64.b64encode(content_text)
+
         cr = self.cr
-        wiz_id = self.streets_repository_loader_model.create(cr, SUPERUSER_ID, {'ref_streets': DATA_FILE})
+        wiz_id = self.streets_repository_loader_model.create(cr, SUPERUSER_ID, {'ref_streets': data_file})
         self.streets_repository_loader_model.update_local_streets(cr, SUPERUSER_ID, [wiz_id])
         street_value = self.address_local_street_model.search_read(cr, SUPERUSER_ID,
                                                                  [('local_zip', '=', '6120'), ('identifier', '=', '1227')],
                                                                  fields=['to_disable', 'local_street'])
         self.assertTrue(street_value[0]['to_disable'], 'Should be to disable')
         self.assertTrue(street_value[0]['local_street'] == 'NEW', 'Local Street Should be `NEW`')
+
+    def test_bad_insert(self):
+        """
+        ===============
+        test_bad_insert
+        ===============
+        bad line: first 16 characters must be digits
+        """
+        data_file = base64.b64encode("""9999m999961201227Clos de /l'Estaminet(Ham-s-Heure)#
+        """)
+
+        cr = self.cr
+        wiz_id = self.streets_repository_loader_model.create(cr, SUPERUSER_ID, {'ref_streets': data_file})
+        self.assertRaises(orm.except_orm,
+                          self.streets_repository_loader_model.update_local_streets,
+                          cr, SUPERUSER_ID, [wiz_id])
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

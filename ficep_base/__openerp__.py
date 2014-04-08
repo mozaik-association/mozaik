@@ -39,6 +39,7 @@
         'partner_firstname',  # from lp:~partner-contact-core-editors/partner-contact-management/7.0
         'mass_editing',  # from lp:server-env-tools'
         'document',
+        'distribution_list',  # from lp:acsone-addons
         #'auth_ldap',
         #'event',
         #'l10n_be',

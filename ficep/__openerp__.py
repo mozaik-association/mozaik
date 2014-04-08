@@ -36,7 +36,7 @@
         'ficep_structure_address',
         'ficep_person_coordinate',
         'ficep_mass_editing',
-        'ficep_structure',
+        'ficep_communication',
         'ficep_mandate',
     ],
     'description': """

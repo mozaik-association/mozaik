@@ -25,8 +25,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields
 from .mandate import mandate_category
+
+STA_CANDIDATURE_AVAILABLE_STATES = [
+    ('draft', 'Draft'),
+    ('declared', 'Declared'),
+    ('suggested', 'Suggested'),
+    ('designated', 'Designated'),
+    ('rejected', 'Rejected'),
+    ('elected', 'Elected'),
+    ('non-elected', 'Non-Elected'),
+]
+
+sta_candidature_available_states = dict(STA_CANDIDATURE_AVAILABLE_STATES)
 
 
 class res_partner(orm.Model):
@@ -88,7 +101,34 @@ class sta_candidature(orm.Model):
                                           store=False),
         }
 
+
     # view methods: onchange, button
+    def _check_partner(self, cr, uid, ids, context=None):
+        """
+        =================
+        _check_partner
+        =================
+        Check if partner doesn't have several candidatures in the same category
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        candidatures = self.browse(cr, uid, ids)
+        for candidature in candidatures:
+            if len(self.search(cr, uid, [('partner_id', '=', candidature.partner_id.id), ('id', '!=', candidature.id)], context=context)) > 0:
+                return False
+
+        return True
+
+    _constraints = [
+        (_check_partner, _("A candidature already exists for this partner in this category"), ['partner_id'])
+    ]
+
+    _defaults = {
+        'state': 'draft',
+    }
+
+# view methods: onchange, button
     def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id, context=None):
         res = {}
         sta_category_id = False

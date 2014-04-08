@@ -665,7 +665,7 @@
 
                 <xpath expr="//page[@name='assemblies']" position="after">
                     <page string="Multi Instances" name="multi_instances" attrs="{'invisible': [('id','=',False)]}">
-                        <separator string="Child Instances"/>
+                        <separator string="Composition"/>
                         <field name="multi_instance_pc_m2m_ids"
                                context="{'default_parent_id': parent_id,
                                          'default_power_level_id': power_level_id,
@@ -677,7 +677,7 @@
                                 <field name="active"/>
                             </tree>
                         </field>
-                        <separator string="Parent Instances"/>
+                        <separator string="Membership"/>
                         <field name="multi_instance_cp_m2m_ids"
                                context="{'default_parent_id': parent_id,
                                          'default_power_level_id': power_level_id,

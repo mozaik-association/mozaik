@@ -27,7 +27,6 @@
 ##############################################################################
 from lxml import etree
 
-from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm
 
 
@@ -44,7 +43,7 @@ class mail_thread(orm.AbstractModel):
         if context is None:
             context = {}
 
-        res = super(mail_thread,self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
+        res = super(mail_thread, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
 
         if view_type == 'form':
             if not context.get('in_ficep_user'):
