@@ -3,7 +3,7 @@
     <data noupdate="0">
 
         <record id="allow_duplicate_action" model="ir.actions.act_window">
-            <field name="name">Allow Duplicate</field>
+            <field name="name">Allow Duplicates</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model">postal.coordinate</field>
@@ -12,11 +12,11 @@
             <field name="target">new</field>
             <field name="view_id" ref="ficep_duplicate.allow_duplicate_wizard" />
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
-            <field name="context">{'postal_mode':True}</field>
+            <field name="context">{'postal_mode': True}</field>
         </record>
 
         <record id="allow_duplicate_value" model="ir.values">
-            <field name="name">Allow Duplicate</field>
+            <field name="name">Allow Duplicates</field>
             <field name="model">postal.coordinate</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
@@ -35,9 +35,9 @@
 
                 <xpath expr="//strong" position="after">
                     <div invisible="not context.get('postal_mode',False)">
-                        <label for="co_residency_id" string="If selected entries are allowed duplicates, associate them with a co-residency:"/>
-                        <field name="co_residency_id"
-                               required="context.get('postal_mode',False)"/>
+                        <label for="co_residency_id" string="Selected duplicates will be associated to the following co-residency:"/>
+                        <field name="address_id" attrs="{'invisible': [('co_residency_id','!=',False)]}" widget="selection" />
+                        <field name="co_residency_id" attrs="{'invisible': [('co_residency_id','=',False)]}" widget="selection" />
                     </div>
                 </xpath>
 

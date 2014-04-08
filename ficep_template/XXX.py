@@ -169,6 +169,8 @@ class xxxx(orm.Model):
         if not ids:
             return []
 
+        context = context or self.pool['res.users'].context_get(cr, uid)
+
         ids = isinstance(ids, (long, int)) and [ids] or ids
 
         res = []
