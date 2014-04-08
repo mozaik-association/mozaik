@@ -184,7 +184,7 @@ class address_address(orm.Model):
     }
 
     _sql_constraints = [
-        ('check_unicity_number', 'unique(technical_name,sequence)', _('This Address already exists!'))
+        ('check_unicity_address', 'unique(technical_name,sequence)', _('This Address already exists!'))
     ]
 
 # orm methods
