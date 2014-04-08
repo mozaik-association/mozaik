@@ -34,20 +34,6 @@
             <field name="designation_int_power_level_id" ref="ficep_structure.int_power_level_03"/>
         </record>
 
-        <!-- Create Electoral Districts -->
-
-        <record id="electoral_district_01" model="electoral.district">
-            <field name="name">Huy</field>
-            <field name="sta_instance_id" ref="sta_instance_07"/>
-            <field name="assembly_id" ref="sta_assembly_01"/>
-        </record>
-
-        <record id="electoral_district_02" model="electoral.district">
-            <field name="name">Huy</field>
-            <field name="sta_instance_id" ref="sta_instance_06"/>
-            <field name="assembly_id" ref="sta_assembly_02"/>
-        </record>
-
         <!-- Create Internal Assemblies -->
 
         <record id="int_assembly_01" model="int.assembly">
@@ -76,6 +62,22 @@
             <field name="assembly_category_id" ref="ficep_structure.ext_assembly_category_01"/>
             <field name="designation_int_power_level_id" ref="ficep_structure.int_power_level_01"/>
             <field name="months_before_end_of_mandate" eval="4"/>
+        </record>
+        
+        <!-- Create Electoral Districts -->
+
+        <record id="electoral_district_01" model="electoral.district">
+            <field name="name">Huy</field>
+            <field name="sta_instance_id" ref="sta_instance_07"/>
+            <field name="assembly_id" ref="sta_assembly_01"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+        </record>
+
+        <record id="electoral_district_02" model="electoral.district">
+            <field name="name">Huy</field>
+            <field name="sta_instance_id" ref="sta_instance_06"/>
+            <field name="assembly_id" ref="sta_assembly_02"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_03"/>
         </record>
 
         <!-- Other attributes -->
