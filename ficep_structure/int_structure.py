@@ -108,9 +108,6 @@ class int_assembly(orm.Model):
                                                  required=True, track_visibility='onchange'),
         'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
                                                  required=True, track_visibility='onchange'),
-        'power_level_id': fields.related('assembly_category_id', 'power_level_id', string='Power Level',
-                                          type='many2one', relation="int.power.level",
-                                          store=False),
     }
 
     def create(self, cr, uid, vals, context=None):
