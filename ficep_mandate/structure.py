@@ -25,39 +25,49 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Distribution List',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_structure',
-    ],
-    'description': """
-FICEP Distribution List
-=======================
-Customization of the Distribution List Module
-""",
-    'images': [
-    ],
-    'data': [
-        'distribution_list_view.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'installable': True,
-    'auto_install': False,
-}
+from openerp.osv import orm, fields
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class int_power_level(orm.Model):
+
+    _name = 'int.power.level'
+    _inherit = ['int.power.level']
+
+    _columns = {
+        'mandate_category_ids': fields.one2many('mandate.category', 'int_power_level_id', 'Mandate Categories'),
+    }
+
+
+class electoral_district(orm.Model):
+
+    _name = 'electoral.district'
+    _inherit = ['electoral.district']
+
+    _columns = {
+        'selection_committee_ids': fields.one2many('selection.committee', 'electoral_district_id', 'Selection committees'),
+    }
+
+
+class legislature(orm.Model):
+
+    _name = 'legislature'
+    _inherit = ['legislature']
+
+    def get_linked_sta_mandate_ids(self, cr, uid, ids, context=None):
+        """
+        ==============================
+        get_linked_mandate_ids
+        ==============================
+        Return State Mandate ids linked to legislature ids
+        :rparam: sta_mandate_ids
+        :rtype: list of ids
+        """
+        legislatures = self.read(cr, uid, ids, ['sta_mandate_ids'], context=context)
+        res_ids = []
+        for legislature in legislatures:
+            res_ids += legislature['sta_mandate_ids']
+        return list(set(res_ids))
+
+    _columns = {
+        'sta_mandate_ids': fields.one2many('sta.mandate', 'legislature_id', 'State Mandates'),
+    }

@@ -25,12 +25,45 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-import controller
-import res_users
-import abstract_ficep
-import ir_model
-import mail_thread
-import res_lang
+{
+    'name': 'FICEP: Communication',
+    'version': '1.0',
+    "author": "ACSONE SA/NV",
+    "maintainer": "ACSONE SA/NV",
+    "website": "http://www.acsone.eu",
+    'category': 'Political Association',
+    'depends': [
+        'ficep_structure',
+    ],
+    'description': """
+FICEP Communication
+===================
+* New Menus:
+** Communication/Natural Persons
+** Communication/Templates
+** Communication/Campaigns
+** Communication/Statistics
+* Customization of the Distribution List Module
+""",
+    'images': [
+    ],
+    'data': [
+        'distribution_list_view.xml',
+        'communication_view.xml',
+    ],
+    'js': [
+    ],
+    'qweb': [
+    ],
+    'css': [
+    ],
+    'demo': [
+    ],
+    'test': [
+    ],
+    'sequence': 150,
+    'installable': True,
+    'auto_install': False,
+}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

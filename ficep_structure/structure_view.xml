@@ -526,6 +526,8 @@
                             <group name="internal">
                                 <field name="int_instance_id" readonly="1" context="{'simplified': 1,
                                                                                      'form_view_ref': 'ficep_structure.int_instance_form_view'}"/>
+                                <field name="designation_int_assembly_id" context="{'simplified': 1,
+                                                                                    'form_view_ref': 'ficep_structure.int_assembly_form_view'}"/>
                             </group>
                         </group>
 

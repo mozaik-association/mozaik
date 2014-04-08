@@ -36,7 +36,7 @@
         <record id="sta_candidature_search_view" model="ir.ui.view">
             <field name="name">sta.candidature.search</field>
             <field name="model">sta.candidature</field>
-            <field name="inherit_id" ref="abstract_mandate_search_view"/>
+            <field name="inherit_id" ref="abstract_candidature_search_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='mandate_category_id']" position="after">
                     <field name="sta_assembly_id"/>
@@ -47,18 +47,18 @@
                     <filter name="selection_committee" string="Selection Committee" domain="[]" context="{'group_by':'selection_committee_id'}" />
                 </xpath>
             </field>
-        </record>
+        </record>   
         
-        <record id="sta_candidature_tree_view" model="ir.ui.view">
-            <field name="name">sta.candidature.tree</field>
-            <field name="model">sta.candidature</field>
-            <field name="inherit_id" ref="abstract_mandate_tree_view"/>
+        <record id="sta_mandate_search_view" model="ir.ui.view">
+            <field name="name">sta.mandate.search</field>
+            <field name="model">sta.mandate</field>
+            <field name="inherit_id" ref="abstract_mandate_search_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='deadline_date']" position="after">
-                    <field name="state"/>                 
-                </xpath>
+                <xpath expr="//field[@name='mandate_category_id']" position="after">
+                    <field name="sta_assembly_id"/>                    
+                </xpath>                
             </field>
-        </record>
+        </record>       
         
         <record id="selection_committee_search_view" model="ir.ui.view">
             <field name="name">selection.committee.search</field>
@@ -107,8 +107,18 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="sta_candidature_search_view" />
-            <field name="view_id" ref="abstract_mandate_tree_view" />
+            <field name="view_id" ref="abstract_candidature_tree_view" />
             <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}</field>
+        </record>
+        
+        <record id="sta_mandate_action" model="ir.actions.act_window">
+            <field name="name">State Mandates</field>
+            <field name="res_model">sta.mandate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="sta_mandate_search_view" />
+            <field name="view_id" ref="abstract_mandate_tree_view" />
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_mandate.sta_mandate_form_view'}</field>
         </record>
         
         <record id="sta_selection_committee_action" model="ir.actions.act_window">
@@ -236,37 +246,35 @@
         <record id="sta_candidature_form_view" model="ir.ui.view">
             <field name="name">sta.candidature.form</field>
             <field name="model">sta.candidature</field>
-            <field name="inherit_id" ref="abstract_mandate_form_view"/>
+            <field name="inherit_id" ref="abstract_candidature_form_view"/>
             <field name="arch" type="xml">                
-                <xpath expr="//div[@name='invalidate']" position="after">
-                    <field name="state" widget="statusbar"/>
-                </xpath>
-                <xpath expr="//button[@name='action_invalidate']" position="attributes">
-                    <attribute name="confirm">Invalidate candidature: proceed anyway ?</attribute>
-                </xpath>
                 <xpath expr="//button[@name='action_invalidate']" position="after">
-                    <button name="button_suggest" string="Suggest"
-                                    confirm="Suggest candidature: proceed anyway ?" states="declared"/>
-                    <button name="button_reject" string="Reject"
-                                    confirm="Reject candidature: proceed anyway ?" states="declared"/>
-                    <button name="button_declare" string="Declare" 
-                                    confirm="Declare candidature: proceed anyway ?" states="rejected,suggested"/>
                     <button name="button_elected" string="Elected" 
                                     confirm="Set candidature as elected: proceed anyway ?" states="designated"/>
                     <button name="button_non-elected" string="Non-Elected" 
-                                    confirm="Set candidature as non-elected: proceed anyway ?" states="designated"/>
+                                    confirm="Set candidature as non-elected: proceed anyway ?" states="designated"/>                    
                 </xpath>
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
                 </xpath>
                 <xpath expr="//field[@name='mandate_category_id']" position="after">
+                     <field name="selection_committee_id" required="1" domain="[('committee_type', '=', 'state')]" context="{'committee_type':'state'}"/>
+                     <field name="legislature_id" readonly="1"/>
+                     <field name="electoral_district_id" readonly="1"/>
                      <field name="sta_assembly_id" readonly="1"/>
-                     <field name="electoral_district_id" on_change="onchange_electoral_district_id(electoral_district_id)"
-                                                         domain="[('power_level_id', '=', sta_power_level_id)]"/>
-                     <field name="legislature_id" domain="[('power_level_id', '=', sta_power_level_id)]"/>
-                     <field name="selection_committee_id" domain="[('committee_type', '=', 'state')]" context="{'committee_type':'state'}"/>
-                     <field name="sta_assembly_category_id" on_change="onchange_sta_assembly_category_id(sta_assembly_category_id)"/>
-                     <field name="sta_power_level_id" on_change="onchange_sta_power_level_id(sta_power_level_id)"/>
+                     <field name="designation_int_assembly_id"/>
+                </xpath>
+            </field>
+        </record> 
+        
+        <record id="sta_mandate_form_view" model="ir.ui.view">
+            <field name="name">sta.mandate.form</field>
+            <field name="model">sta.mandate</field>
+            <field name="inherit_id" ref="abstract_mandate_form_view"/>
+            <field name="arch" type="xml">                              
+                <xpath expr="//field[@name='partner_id']" position="after">
+                     <field name="legislature_id"/>                     
+                     <field name="sta_assembly_id"/>
                 </xpath>
             </field>
         </record> 
@@ -303,17 +311,19 @@
                                         attrs="{'invisible': [('committee_type','!=', 'state'),],
                                                 'required': [('committee_type','=', 'state'),]}"
                                         domain="[('power_level_id', '=', power_level_id)]"
-                                        on_change="onchange_electoral_district_id(electoral_district_id)"/> 
-                                <field name="int_designation_assembly_id"/>
+                                        on_change="onchange_electoral_district_id(electoral_district_id)"/>                                 
                                 <field name="int_assembly_id"
                                         attrs="{'invisible': [('committee_type','!=', 'internal'),],
                                                 'required': [('committee_type','=', 'internal'),]}"/>
                                 <field name="sta_assembly_id"
                                         attrs="{'invisible': [('committee_type','!=', 'state'),],
-                                                'required': [('committee_type','=', 'state'),]}"/>
+                                                'required': [('committee_type','=', 'state'),]}"
+                                        on_change="onchange_sta_assembly_id(sta_assembly_id)"/>
                                 <field name="ext_assembly_id"
                                         attrs="{'invisible': [('committee_type','!=', 'external'),],
-                                                'required': [('committee_type','=', 'external'),]}"/>                                                                              
+                                                'required': [('committee_type','=', 'external'),]}"/>
+                                <field name="designation_int_assembly_id"
+                                        domain="[('power_level_id', '=', designation_int_power_level_id)]"/>                                                                     
                             </group>                            
                             <group name="Dates">
                                 <field name="create_date" widget="date" string="Start Date"/>
@@ -322,14 +332,7 @@
                                 <field name="expire_date" widget="date" readonly="1"/>
                             </group>                            
                         </group>
-                        <notebook>
-                            <page string="Members" name="members" autofocus="autofocus">
-                                <field name="partner_ids" context="{'simplified': 1}">
-                                    <tree>
-                                        <field name="name"/>
-                                    </tree>
-                                </field>
-                            </page>
+                        <notebook>                            
                             <page string="Candidatures" name="candidatures" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <button string="All Details"
                                     name="det"
@@ -340,8 +343,20 @@
                                         confirm="Reject all candidatures: proceed anyway ?"/>
                                 <field name="sta_candidature_ids" context="{'simplified': 1, 'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}" readonly="1">
                                     <tree colors="red:state == 'declared'">
-                                        <field name="name"/>
+                                        <field name="partner_id"/>
+                                        <field name="partner_name"/>
                                         <field name="state"/>
+                                        <button name="button_suggest" string="Suggest"  icon="gtk-apply"
+					                                    confirm="Suggest candidature: proceed anyway ?" states="declared"/>
+					                    <button name="button_reject" string="Reject"  icon="gtk-cancel"
+					                                    confirm="Reject candidature: proceed anyway ?" states="declared"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Members" name="members" autofocus="autofocus">
+                                <field name="partner_ids" context="{'simplified': 1}">
+                                    <tree>
+                                        <field name="name"/>
                                     </tree>
                                 </field>
                             </page>
@@ -355,13 +370,18 @@
                                     <button name="action_validate" string="Validate" type="object"
                                             confirm="Validate committee: proceed anyway ?" />
                                 </div>
-                                <field name="id"/>
-                                <field name="active"/>
-                                <field name="expire_date" widget="date"/>
-                                <field name="power_level_id"/>
-                                <field name="int_instance_id"/>
-                                <field name="committee_type"                                        
-                                       on_change="onchange_committee_type(committee_type)" />
+                                <group>
+	                                <field name="id"/>
+	                                <field name="active"/>
+	                                <field name="expire_date" widget="date"/>
+	                            </group>
+	                            <group>
+	                                <field name="power_level_id"/>
+	                                <field name="int_instance_id"/>
+	                                <field name="committee_type"                                        
+	                                       on_change="onchange_committee_type(committee_type)" />
+	                                <field name="designation_int_power_level_id"/>
+                                </group>
                             </group>
                         </div>
                     </div>
@@ -394,9 +414,12 @@
         
         <menuitem id="state_candidature_submenu" name="Candidatures" action="sta_candidature_action"
                   sequence="10" parent="state_submenu"/>
+        
+        <menuitem id="state_mandate_submenu" name="Mandates" action="sta_mandate_action"
+                  sequence="20" parent="state_submenu"/>
                   
         <menuitem id="sta_selection_committee_submenu" name="Selection Committees" action="sta_selection_committee_action"
-                  sequence="20" parent="state_submenu"/>
+                  sequence="30" parent="state_submenu"/>
             
         <menuitem id="internal_submenu" name="Internal"
                   sequence="20" parent="ficep_base.mandates_root_menu" />

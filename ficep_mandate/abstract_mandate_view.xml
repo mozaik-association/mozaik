@@ -7,7 +7,7 @@
             <field name="model">abstract.mandate</field>            
             <field name="arch" type="xml">
                 <search string="Mandate" version="7.0">
-                    <field name="name" />
+                    <field name="partner_id" />
                     <field name="mandate_category_id" />                    
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
@@ -22,21 +22,57 @@
             </field>
         </record>
         
-        <record id="abstract_mandate_tree_view" model="ir.ui.view">
+        <record id="abstract_candidature_search_view" model="ir.ui.view">
+            <field name="name">abstract.candidature.search</field>
+            <field name="model">abstract.candidature</field>            
+            <field name="arch" type="xml">
+                <search string="Mandate" version="7.0">
+                    <field name="partner_id" />
+                    <field name="partner_name" />
+                    <field name="mandate_category_id" />                    
+                    <filter name="expired" string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active','=',False)]" />
+                    <filter name="all" string="All"
+                        context="{'invisible_expire_date': False}"
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="category" string="Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+      <record id="abstract_mandate_tree_view" model="ir.ui.view">
             <field name="name">abstract.mandate.tree</field>
             <field name="model">abstract.mandate</field>            
             <field name="arch" type="xml">
-                <tree string="Mandates" version="7.0">
-                    <field name="name"/>
+                <tree string="Mandates" version="7.0">                    
                     <field name="partner_id"/>
                     <field name="create_date" widget="date"/>
-                    <field name="deadline_date" widget="date"/>
+                    <field name="deadline_date" widget="date"/>                    
+                </tree>
+            </field>
+        </record>
+        
+        <record id="abstract_candidature_tree_view" model="ir.ui.view">
+            <field name="name">abstract.candidature.tree</field>
+            <field name="model">abstract.candidature</field>            
+            <field name="arch" type="xml">
+                <tree string="Candidatures" version="7.0">                    
+                    <field name="partner_id"/>
+                    <field name="partner_name"/>
+                    <field name="create_date" widget="date"/>
+                    <field name="state"/>                     
+                    <button name="button_suggest" string="Suggest"  icon="gtk-apply"
+                                    confirm="Suggest candidature: proceed anyway ?" states="declared"/>
+                    <button name="button_reject" string="Reject"  icon="gtk-cancel"
+                                    confirm="Reject candidature: proceed anyway ?" states="declared"/>
                 </tree>
             </field>
         </record>
          
-        <!-- Form Views -->
-        
+        <!-- Form Views -->        
         <record id="abstract_mandate_form_view" model="ir.ui.view">
             <field name="name">abstract.mandate.form</field>
             <field name="model">abstract.mandate</field>
@@ -51,9 +87,7 @@
                         </div>
                     </header>
                     <sheet>
-                        <div class="oe_title">                            
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name"/></h1>
+                        <div class="oe_title">                           
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">                           
                         </div>
@@ -62,10 +96,11 @@
                             <group name="data_1">
                                 <field name="mandate_category_id" context="{'simplified': 1,
                                                                   'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"/>
+                                <field name="is_submission_mandate" readonly="1"/>
+                                <field name="is_submission_assets" readonly="1"/>
                             </group>
                             <group name="data_2">
-                                <field name="partner_id" context="{'simplified': 1}"/>
-                                <field name="partner_name" context="{'simplified': 1}"/>
+                                <field name="partner_id" context="{'simplified': 1}"/>                                
                             </group>
                             <group name="Dates">
                                 <field name="create_date" widget="date" string="Start Date"/>
@@ -80,6 +115,71 @@
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                             <button name="action_validate" string="Validate" type="object"
                                     confirm="Validate mandate: proceed anyway ?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                                <field name="expire_date" widget="date"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="abstract_candidature_form_view" model="ir.ui.view">
+            <field name="name">abstract.candidature.form</field>
+            <field name="model">abstract.candidature</field>
+            <field name="arch" type="xml">
+                <form string="Candidature" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_user" name="invalidate">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate candidature: proceed anyway ?" />
+                            <button name="button_suggest" string="Suggest"
+                                    confirm="Suggest candidature: proceed anyway ?" states="declared"/>
+		                    <button name="button_reject" string="Reject"
+		                                    confirm="Reject candidature: proceed anyway ?" states="declared"/>
+		                    <button name="button_declare" string="Declare" 
+		                                    confirm="Declare candidature: proceed anyway ?" states="rejected,suggested"/>
+		                    <button name="button_create_mandate" string="Mandate" type="object"
+                                    confirm="Create mandate form candidature: proceed anyway ?" states="elected,non-elected"/>
+                            <field name="state" widget="statusbar"/>
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">                            
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">                           
+                        </div>
+
+                        <group>
+                            <group name="data_1">
+                                <field name="mandate_category_id" context="{'simplified': 1,
+                                                                  'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"/>
+                            </group>
+                            <group name="data_2">
+                                <field name="partner_id" context="{'simplified': 1}"/>
+                                <field name="partner_name" context="{'simplified': 1}"/>
+                            </group>
+                            <group name="Dates">
+                                <field name="create_date" widget="date" string="Start Date"/>                                
+                                <field name="expire_date" widget="date" readonly="1"/>
+                            </group> 
+                        </group>                        
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                            <button name="action_validate" string="Validate" type="object"
+                                    confirm="Validate candidature: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>

@@ -56,6 +56,7 @@ class res_users(orm.Model):
                 result.update({'in_%s' % g.name.lower().replace(' ', '_'): 1})
             elif g.id == dev_id:
                 result.update({'is_developper': 1})
+        result.update({'date_format': self.pool.get('res.lang')._get_date_format(cr, uid, result)})
         return result
 
     def write(self, cr, uid, ids, vals, context=None):
