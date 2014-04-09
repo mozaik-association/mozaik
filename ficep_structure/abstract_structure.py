@@ -25,6 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
@@ -32,12 +33,13 @@ from openerp.tools.translate import _
 class abstract_power_level(orm.AbstractModel):
 
     _name = 'abstract.power.level'
-    _description = "Abstract Power Level"
     _inherit = ['abstract.ficep.model']
+    _description = 'Abstract Power Level'
 
     _columns = {
-        'sequence': fields.integer("Sequence", required=True, track_visibility='onchange'),
         'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
+        'sequence': fields.integer("Sequence", required=True, track_visibility='onchange'),
+
         'assembly_category_ids': fields.one2many('abstract.assembly.category', 'power_level_id', 'Assembly Categories'),
         'assembly_category_inactive_ids': fields.one2many('abstract.assembly.category', 'power_level_id', 'Assembly Categories', domain=[('active', '=', False)]),
     }
@@ -46,14 +48,14 @@ class abstract_power_level(orm.AbstractModel):
         'sequence': 5,
     }
 
-    _order = "sequence, name"
+    _order = 'sequence, name'
 
 
 class abstract_assembly_category(orm.AbstractModel):
 
     _name = 'abstract.assembly.category'
-    _description = "Abstract Assembly Category"
     _inherit = ['abstract.ficep.model']
+    _description = 'Abstract Assembly Category'
 
     _columns = {
         'name': fields.char('Name', size=128, select=True, required=True, track_visibility='onchange'),
@@ -61,26 +63,28 @@ class abstract_assembly_category(orm.AbstractModel):
         'months_before_end_of_mandate': fields.integer('Months before end of mandate', track_visibility='onchange'),
     }
 
-    _order = "name"
+    _order = 'name'
 
 
 class abstract_instance(orm.AbstractModel):
 
     _name = 'abstract.instance'
-    _description = "Abstract Instance"
     _inherit = ['abstract.ficep.model']
+    _description = 'Abstract Instance'
 
     _columns = {
         'name': fields.char('Name', size=128, select=True, required=True, track_visibility='onchange'),
-        'parent_id': fields.many2one('abstract.instance', 'Parent Abstract Instance', select=True, track_visibility='onchange'),
-        'power_level_id': fields.many2one('abstract.power.level', 'Power Level', required=True, track_visibility='onchange'),
-        'assembly_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies'),
-        'assembly_inactive_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies', domain=[('active', '=', False)]),
+        'power_level_id': fields.many2one('abstract.power.level', 'Power Level', select=True, required=True, track_visibility='onchange'),
+
+        'parent_id': fields.many2one('abstract.instance', 'Parent Instance', select=True, track_visibility='onchange'),
         'parent_left': fields.integer('Left Parent', select=True),
         'parent_right': fields.integer('Right Parent', select=True),
+
+        'assembly_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies'),
+        'assembly_inactive_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies', domain=[('active', '=', False)]),
     }
 
-    _parent_name = "parent_id"
+    _parent_name = 'parent_id'
     _parent_store = True
     _parent_order = 'name'
     _order = 'parent_left'
@@ -119,21 +123,21 @@ class abstract_instance(orm.AbstractModel):
 class abstract_assembly(orm.AbstractModel):
 
     _name = 'abstract.assembly'
-    _description = "Abstract Assembly"
     _inherit = ['abstract.ficep.model']
     _inherits = {
         'res.partner': 'partner_id',
     }
+    _description = 'Abstract Assembly'
 
     _columns = {
         'assembly_category_id': fields.many2one('abstract.assembly.category', string='Category',
-                                                 required=True, track_visibility='onchange'),
+                                                select=True, required=True, track_visibility='onchange'),
         'instance_id': fields.many2one('abstract.instance', string='Instance',
-                                                 required=True, track_visibility='onchange'),
-        'partner_id': fields.many2one('res.partner', 'Associated Partner', required=True, ondelete='cascade',
-                                      context={'is_company': True, 'is_assembly': True}),
+                                       select=True, required=True, track_visibility='onchange'),
+        'partner_id': fields.many2one('res.partner', string='Associated Partner',
+                                      select=True, required=True, ondelete='restrict'),
         'designation_int_power_level_id': fields.many2one('abstract.power.level', string='Designation Power Level',
-                                                 required=True, track_visibility='onchange'),
+                                                          select=True, required=True, track_visibility='onchange'),
         'months_before_end_of_mandate': fields.integer('Months before end of mandate', track_visibility='onchange'),
     }
 

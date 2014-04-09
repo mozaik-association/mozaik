@@ -32,7 +32,7 @@ class int_power_level(orm.Model):
 
     _name = 'int.power.level'
     _inherit = ['abstract.power.level']
-    _description = "Internal Power Level"
+    _description = 'Internal Power Level'
 
     _columns = {
         'assembly_category_ids': fields.one2many('int.assembly.category', 'power_level_id', 'Internal Assembly Categories'),
@@ -102,12 +102,12 @@ class int_assembly(orm.Model):
         'dummy': fields.function(_compute_dummy, string="Dummy",
                                  type="char", store=_name_store_triggers,
                                  select=True),
-        'assembly_category_id': fields.many2one('int.assembly.category', 'Internal Assembly Category',
-                                                 required=True, track_visibility='onchange'),
+        'assembly_category_id': fields.many2one('int.assembly.category', 'Assembly Category',
+                                                select=True, required=True, track_visibility='onchange'),
         'instance_id': fields.many2one('int.instance', 'Internal Instance',
-                                                 required=True, track_visibility='onchange'),
+                                       select=True, required=True, track_visibility='onchange'),
         'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
-                                                 required=True, track_visibility='onchange'),
+                                                          select=True, required=True, track_visibility='onchange'),
     }
 
     def create(self, cr, uid, vals, context=None):

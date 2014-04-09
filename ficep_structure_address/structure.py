@@ -25,8 +25,43 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import address_local_zip
-from . import res_partner
-from . import structure
+
+from openerp.osv import orm
+
+
+class abstract_assembly(orm.AbstractModel):
+
+    _name = 'abstract.assembly'
+    _inherit = ['abstract.assembly']
+
+# orm methods
+
+    def create(self, cr, uid, vals, context=None):
+        '''
+        Responsible Internal Instance is the Instance
+        Note: must be override for State Instance
+        '''
+        if 'int_instance_id' not in vals:
+            vals.update({'int_instance_id': vals['instance_id']})
+        res = super(abstract_assembly, self).create(cr, uid, vals, context=context)
+        return res
+
+
+class sta_assembly(orm.Model):
+
+    _inherit = 'sta.assembly'
+
+# orm methods
+
+    def create(self, cr, uid, vals, context=None):
+        '''
+        Responsible Internal Instance is the Internal
+        Instance attached to the State Instance
+        '''
+        instance_id = vals['instance_id']
+        int_instance_id = self.pool['sta.instance'].read(cr, uid, instance_id, ['int_instance_id'], context=context)['int_instance_id'][0]
+        vals.update({'int_instance_id': int_instance_id})
+        res = super(sta_assembly, self).create(cr, uid, vals, context=context)
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

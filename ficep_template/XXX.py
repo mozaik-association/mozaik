@@ -63,8 +63,8 @@ class res_partner_title(orm.Model):
 class xxxx(orm.Model):
 
     _name = 'xxx'
-    _description = 'XXX'
     _inherit = ['abstract.ficep.model']
+    _description = 'XXX'
 
 # private methods
 

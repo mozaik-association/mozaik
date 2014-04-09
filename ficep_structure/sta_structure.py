@@ -36,7 +36,6 @@ class sta_power_level(orm.Model):
     _description = 'State Power Level'
 
     _columns = {
-        'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
         'assembly_category_ids': fields.one2many('sta.assembly.category', 'power_level_id', 'Assembly Categories'),
         'assembly_category_inactive_ids': fields.one2many('sta.assembly.category', 'power_level_id', 'Assembly Categories', domain=[('active', '=', False)]),
     }
@@ -166,15 +165,14 @@ class sta_assembly(orm.Model):
         'dummy': fields.function(_compute_dummy, string='Dummy',
                                  type='char', store=_name_store_triggers,
                                  select=True),
-        'assembly_category_id': fields.many2one('sta.assembly.category', 'State Assembly Category',
-                                                 required=True, track_visibility='onchange'),
+        'assembly_category_id': fields.many2one('sta.assembly.category', 'Assembly Category',
+                                                select=True, required=True, track_visibility='onchange'),
         'instance_id': fields.many2one('sta.instance', 'State Instance',
-                                                 required=True, track_visibility='onchange'),
+                                       select=True, required=True, track_visibility='onchange'),
         'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
-                                                 required=True, track_visibility='onchange'),
+                                                          select=True, required=True, track_visibility='onchange'),
         'is_legislative': fields.related('assembly_category_id', 'is_legislative', string='Is Legislative',
-                                          type='many2one', relation="sta.assembly.category",
-                                          store=False),
+                                         type='many2one', relation='sta.assembly.category', store=False),
     }
 
     def create(self, cr, uid, vals, context=None):
