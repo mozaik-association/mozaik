@@ -2,9 +2,8 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Partner involvement Category -->
-
         <!-- Partner Involvement Category -->
+
         <record id="partner_involvement_category_action" model="ir.actions.act_window">
             <field name="name">Involvement Categories</field>
             <field name="res_model">partner.involvement.category</field>
@@ -33,7 +32,10 @@
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
-                        <group name="state" attrs="{'invisible': [('id','=',False)]} ">
+                        <group name="note">
+                            <field name="note" />
+                        </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
@@ -139,7 +141,10 @@
                                 </div>
                             </group>
                         </group>
-                        <group name="state" attrs="{'invisible': [('id','=',False)]} ">
+                        <group name="note">
+                            <field name="note" />
+                        </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />

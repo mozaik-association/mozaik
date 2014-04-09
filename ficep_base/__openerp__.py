@@ -35,6 +35,7 @@
     'depends': [
         'base',
         'portal',
+        'mass_mailing',
         'mail',
         'partner_firstname',  # from lp:~partner-contact-core-editors/partner-contact-management/7.0
         'mass_editing',  # from lp:server-env-tools'
@@ -45,7 +46,6 @@
         #'l10n_be',
         #'account_accountant',
         #'account_cancel',
-        #'mass_mailing',
     ],
     'description': """
 FICEP Base

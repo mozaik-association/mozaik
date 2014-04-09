@@ -65,7 +65,7 @@
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
-                        <group name="state" attrs="{'invisible': [('id','=',False)]} ">
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
@@ -205,7 +205,7 @@
                                 </div>
                             </group>
                         </group>
-                        <group name="state" attrs="{'invisible': [('id','=',False)]} ">
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
@@ -296,7 +296,7 @@
                                 </div>
                             </group>
                         </group>
-                        <group name="state" attrs="{'invisible': [('id','=',False)]} ">
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />

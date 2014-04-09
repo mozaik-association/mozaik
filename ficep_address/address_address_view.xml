@@ -2,6 +2,81 @@
 <openerp>
     <data noupdate="0">
 
+        <!-- Postal Coordinate -->
+
+        <record id="postal_coordinate_search_view" model="ir.ui.view">
+            <field name="name">postal.coordinate.search</field>
+            <field name="model">postal.coordinate</field>
+            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_search_view" />
+            <field name="priority" eval="10" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="address_id" />
+                    <field name="co_residency_id" invisible="not context.get('search_default_co_residency_id', False)"/>
+                </xpath>
+
+                <xpath expr="//group[@name='group_by']" position="inside">
+                    <filter name="address" string="Address" domain="[]" context="{'group_by':'address_id'}" />
+                    <filter name="co_residency" string="Co-Residency" domain="[]" context="{'group_by':'co_residency_id'}" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="postal_coordinate_tree_view" model="ir.ui.view">
+            <field name="name">postal.coordinate.tree</field>
+            <field name="model">postal.coordinate</field>
+            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_tree_view" />
+            <field name="priority" eval="10" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="address_id" />
+                </xpath>
+
+                <xpath expr="//field[@name='coordinate_type']" position="before">
+                    <field name="co_residency_id" groups="ficep_base.res_groups_developper"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="postal_coordinate_action" model="ir.actions.act_window">
+            <field name="name">Postal Coordinates</field>
+            <field name="res_model">postal.coordinate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="postal_coordinate_tree_view" />
+            <field name="search_view_id" ref="postal_coordinate_search_view" />
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.postal_coordinate_form_view'}</field>
+        </record>
+
+        <record id="postal_coordinate_form_view" model="ir.ui.view">
+            <field name="name">postal.coordinate.form</field>
+            <field name="model">postal.coordinate</field>
+            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_form_view" />
+            <field name="priority" eval="10" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@class='oe_title']" position="inside">
+                    <label for="address_id" class="oe_edit_only"/>
+                    <h1><field name="address_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="co_residency_id" readonly="not context.get('is_developper')" attrs="{'invisible': [('co_residency_id','=',False)]}"/>
+                </xpath>
+
+                <xpath expr="//button[@name='button_all_duplicates']" position="attributes">
+                    <attribute name="name">%(postal_coordinate_action)d</attribute>
+                    <attribute name="context">{'search_default_duplicate': True,
+                                               'search_default_address_id': address_id,
+                                               'default_address_id': address_id}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
         <!-- Address -->
 
         <record id="address_address_search_view" model="ir.ui.view">
@@ -34,6 +109,16 @@
                     <field name="country_id" />
                 </tree>
             </field>
+        </record>
+
+        <record id="address_address_action" model="ir.actions.act_window">
+            <field name="name">Addresses</field>
+            <field name="res_model">address.address</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="address_address_tree_view" />
+            <field name="search_view_id" ref="address_address_search_view" />
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.address_address_form_view'}</field>
         </record>
 
         <record id="address_address_form_view" model="ir.ui.view">
@@ -85,19 +170,43 @@
                                 <field name="sequence" />
                             </group>
                         </group>
+                        <group name="status" attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
                         <notebook>
                             <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
+                                <button string="All Details" name="%(postal_coordinate_action)d"
+                                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                                        context="{'search_default_address_id': active_id,
+                                                  'default_address_id': active_id,
+                                                  'search_default_all': True}" />
                                 <field name="postal_coordinate_ids" context="{'default_address_id': id,
                                                                               'simplified': 1,
                                                                               'form_view_ref': 'ficep_address.postal_coordinate_form_view'}">
                                     <tree colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
                                         <field name="partner_id"/>
-                                        <field name="co_residency_id"/>
                                         <field name="coordinate_category_id" />
                                         <field name="is_main" />
                                         <field name="unauthorized" />
                                         <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
                                         <field name="is_duplicate_detected" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <field name="postal_coordinate_inactive_ids" context="{'simplified': 1,
+                                                                                       'form_view_ref': 'ficep_address.postal_coordinate_form_view'}"
+                                       readonly="1" attrs="{'invisible': [('active','=',True)]}">
+                                    <tree colors="darkorange:unauthorized==True">
+                                        <field name="partner_id"/>
+                                        <field name="address_id"/>
+                                        <field name="coordinate_category_id" />
+                                        <field name="is_main" />
+                                        <field name="unauthorized" />
+                                        <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
                                     </tree>
                                 </field>
                             </page>
@@ -108,6 +217,7 @@
                             <h3>More Info</h3>
                             <group name="moreinfo">
                                 <field name="id"/>
+                                <field name="active"/>
                                 <field name="country_code"/>
                                 <field name="zip" on_change="onchange_zip(zip)"/>
                                 <field name="city" />
@@ -124,100 +234,18 @@
             </field>
         </record>
 
-        <record id="address_address_action" model="ir.actions.act_window">
-            <field name="name">Addresses</field>
-            <field name="res_model">address.address</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="address_address_tree_view" />
-            <field name="search_view_id" ref="address_address_search_view" />
-            <field name="context">{'mail_create_nosubscribe': True}</field>
-        </record>
-
-        <!-- Postal Coordinate -->
-
-        <record id="postal_coordinate_search_view" model="ir.ui.view">
-            <field name="name">postal.coordinate.search</field>
-            <field name="model">postal.coordinate</field>
-            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_search_view" />
-            <field name="priority" eval="10" />
-            <field name="arch" type="xml">
-
-                <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="address_id" />
-                    <field name="co_residency_id" />
-                </xpath>
-
-                <xpath expr="//group[@name='group_by']" position="inside">
-                    <filter name="address" string="Address" domain="[]" context="{'group_by':'address_id'}" />
-                    <filter name="co_residency" string="Co Residency" domain="[]" context="{'group_by':'co_residency_id'}" />
-                </xpath>
-
-            </field>
-        </record>
-
-        <record id="postal_coordinate_tree_view" model="ir.ui.view">
-            <field name="name">postal.coordinate.tree</field>
-            <field name="model">postal.coordinate</field>
-            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_tree_view" />
-            <field name="priority" eval="10" />
-            <field name="arch" type="xml">
-
-                <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="address_id" />
-                    <field name="co_residency_id" readonly="1"/>
-                </xpath>
-
-            </field>
-        </record>
-
-        <record id="postal_coordinate_action" model="ir.actions.act_window">
-            <field name="name">Postal Coordinates</field>
-            <field name="res_model">postal.coordinate</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="postal_coordinate_tree_view" />
-            <field name="search_view_id" ref="postal_coordinate_search_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.postal_coordinate_form_view'}</field>
-        </record>
-
-        <record id="postal_coordinate_form_view" model="ir.ui.view">
-            <field name="name">postal.coordinate.form</field>
-            <field name="model">postal.coordinate</field>
-            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_form_view" />
-            <field name="priority" eval="10" />
-            <field name="arch" type="xml">
-
-                <xpath expr="//div[@class='oe_title']" position="inside">
-                    <label for="address_id" class="oe_edit_only"/>
-                    <h1><field name="address_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
-                </xpath>
-                <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="co_residency_id" readonly="not context.get('is_developper')" attrs="{'invisible': [('co_residency_id','=',False)]}"/>
-                </xpath>
-
-                <xpath expr="//button[@name='button_all_duplicates']" position="attributes">
-                    <attribute name="name">%(postal_coordinate_action)d</attribute>
-                    <attribute name="context">{'search_default_duplicate': True,
-                                               'search_default_address_id': address_id,
-                                               'default_address_id': address_id}</attribute>
-                </xpath>
-
-            </field>
-        </record>
-
-        <!-- co_residency -->
+        <!-- Co-Residency -->
 
         <record id="co_residency_search_view" model="ir.ui.view">
             <field name="name">co.residency.search</field>
             <field name="model">co.residency</field>
             <field name="arch" type="xml">
                 <search string="Co-Residency" version="7.0">
-                    <field name="name" />
+                    <field name="address_id" />
                     <field name="line" string="Label Lines" filter_domain="['|',('line','ilike', self),('line2','ilike', self)]"/>
 
                     <filter name="empty" string="Empty Co-Residencies"
-                            domain="[('postal_coordinate_ids', '=', False),('postal_coordinate_inactive_ids', '!=', False)]" />
+                            domain="[('postal_coordinate_ids', '=', False),('postal_coordinate_inactive_ids', '=', False)]" />
                     <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
@@ -234,7 +262,7 @@
             <field name="model">co.residency</field>
             <field name="arch" type="xml">
                 <tree string="Co-Residency" version="7.0">
-                    <field name="name" />
+                    <field name="address_id" />
                     <field name="line" />
                     <field name="line2" />
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
@@ -261,13 +289,13 @@
                     <sheet>
                         <div class="oe_title">
                             <label for="name"/>
-                            <h1><field name="name" /></h1>
+                            <h1><field name="address_id" /></h1>
                         </div>
                         <group name="lines" >
                             <field name="line"/>
                             <field name="line2"/>
                         </group>
-                        <group name="status" attrs="{'invisible': [('id','=',False)]} ">
+                        <group name="status" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
@@ -280,18 +308,18 @@
                                 <button string="All Details" name="%(postal_coordinate_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
                                         context="{'search_default_co_residency_id': active_id,
-                                                  'default_co_residency_id': active_id,
                                                   'search_default_all': True}" />
                                 <field name="postal_coordinate_ids" context="{'simplified': 1,
                                                                               'form_view_ref': 'ficep_address.postal_coordinate_form_view'}"
                                        readonly="1" attrs="{'invisible': [('active','=',False)]}">
-                                    <tree colors="darkorange:unauthorized==True">
+                                    <tree colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
                                         <field name="partner_id"/>
                                         <field name="address_id"/>
                                         <field name="coordinate_category_id" />
                                         <field name="is_main" />
                                         <field name="unauthorized" />
                                         <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                                        <field name="is_duplicate_detected" invisible="1"/>
                                     </tree>
                                 </field>
                                 <field name="postal_coordinate_inactive_ids" context="{'simplified': 1,
@@ -339,24 +367,6 @@
 
         <menuitem id="co_residency_menu" action="co_residency_action"
                   sequence="25" parent="postal_coordinate_submenu" />
-
-        <!-- Other Inheritance: Address -->
-
-        <record id="address_address_inherit_form_view" model="ir.ui.view">
-            <field name="name">address.address.inherit.form</field>
-            <field name="model">address.address</field>
-            <field name="inherit_id" ref="address_address_form_view" />
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='postal_coordinate_ids']" position="before">
-                    <button string="All Details"
-                            name="%(postal_coordinate_action)d"
-                            type="action"
-                            context="{'search_default_address_id': active_id,
-                                      'default_address_id': active_id,
-                                      'search_default_all': True}"/>
-                </xpath>
-            </field>
-        </record>
 
     </data>
 </openerp>
