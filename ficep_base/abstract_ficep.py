@@ -143,7 +143,7 @@ class abstract_ficep_model (orm.AbstractModel):
         Reset some fields to their initial values
         """
         default = default or {}
-        default.update(self.get_fields_to_update(self, cr, uid, 'activate', context=context))
+        default.update(self.get_fields_to_update(cr, uid, 'activate', context=context))
         res = super(abstract_ficep_model, self).copy_data(cr, uid, ids, default=default, context=context)
         return res
 

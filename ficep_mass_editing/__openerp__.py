@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP Mass Editing',
+    'name': 'FICEP: Mass Editing',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -38,10 +38,8 @@
     'description': """
 FICEP Mass Editing
 ==================
-Customizations for Mass Editing By
-* Create Actions In Multi Mode Only
-* Create A Mass Editing Record On
-** Postal Coordinate [For: co_residency_id]
+Defines specific implementations of "Mass Editing" concept for:
+* Postal Coordinate model adding an action to set/reset co-residency
     """,
     'images': [
     ],
