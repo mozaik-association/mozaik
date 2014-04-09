@@ -33,7 +33,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_structure',
+        'ficep_structure_address',
     ],
     'description': """
 FICEP Communication
@@ -50,6 +50,7 @@ FICEP Communication
     'data': [
         'distribution_list_view.xml',
         'communication_view.xml',
+        'virtual_models_view.xml',
     ],
     'js': [
     ],
