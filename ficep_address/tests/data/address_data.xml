@@ -36,15 +36,5 @@
             <field name="vip" eval="True" />
         </record>
 
-        <!-- Co Residency -->
-
-        <record id="co_residency_id_1" model="co.residency">
-            <field name="name">Familly Marsh</field>
-        </record>
-
-        <record id="co_residency_id_2" model="co.residency">
-            <field name="name">Familly Anderson</field>
-        </record>
-
     </data>
 </openerp>

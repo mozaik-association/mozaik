@@ -3,7 +3,7 @@
     <data noupdate="0">
 
         <record id="allow_duplicate_action" model="ir.actions.act_window">
-            <field name="name">Allow Duplicate</field>
+            <field name="name">Allow Duplicates</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model">phone.coordinate</field>
@@ -15,7 +15,7 @@
         </record>
 
         <record id="allow_duplicate_value" model="ir.values">
-            <field name="name">Allow Duplicate</field>
+            <field name="name">Allow Duplicates</field>
             <field name="model">phone.coordinate</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>

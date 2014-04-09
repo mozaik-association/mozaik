@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <form string="Allow Duplicates" version="7.0">
                     <strong>
-                    Selected entries are allowed duplicates. Accept anyway?
+                    Selected duplicates are allowed. Are you sure?
                     </strong>
                     <footer>
                         <span name="go-wizard">

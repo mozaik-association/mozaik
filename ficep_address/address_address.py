@@ -31,7 +31,6 @@ import re
 from collections import OrderedDict
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
-from openerp.tools import SUPERUSER_ID
 
 NOT_ALPHANUMERICS = re.compile('[^\da-zA-Z]+')
 BLANK = re.compile('  +')
@@ -54,8 +53,8 @@ TRIGGER_FIELDS = KEY_FIELDS.keys() + ['sequence', 'select_alternative_address_lo
 class address_address(orm.Model):
 
     _name = 'address.address'
-    _description = "Address"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _description = 'Address'
+    _inherit = ['abstract.ficep.model']
 
 # private methods
 
@@ -173,7 +172,10 @@ class address_address(orm.Model):
         'box': fields.char(string='Box', track_visibility='onchange'),
         'sequence': fields.integer('Sequence', track_visibility='onchange'),
 
-        'postal_coordinate_ids': fields.one2many('postal.coordinate', 'address_id', 'Postal Coordinates'),
+        'postal_coordinate_ids': fields.one2many('postal.coordinate', 'address_id', string='Postal Coordinates',
+                                                 domain=[('active', '=', True)]),
+        'postal_coordinate_inactive_ids': fields.one2many('postal.coordinate', 'address_id', string='Postal Coordinates',
+                                                 domain=[('active', '=', False)]),
     }
 
     _defaults = {
@@ -184,31 +186,10 @@ class address_address(orm.Model):
     }
 
     _sql_constraints = [
-        ('check_unicity_number', 'unique(technical_name,sequence)', _('This Address already exists!'))
+        ('check_unicity_address', 'unique(technical_name,sequence)', _('This Address already exists!')),
     ]
 
 # orm methods
-
-    def name_get(self, cr, uid, ids, context=None):
-        """
-        ========
-        name_get
-        ========
-        :rparam: list of tuple (id, name to display)
-                 where id is the id of the object into the relation
-                 and display_name, the name of this object.
-        :rtype: [(id,name)] list of tuple
-        """
-        if not ids:
-            return []
-
-        if isinstance(ids, (long, int)):
-            ids = [ids]
-
-        res = []
-        for record in self.read(cr, uid, ids, ['name'], context=context):
-            res.append((record['id'], record['name']))
-        return res
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
         """
@@ -226,6 +207,7 @@ class address_address(orm.Model):
         default.update({
             'sequence': sequence + 1,
             'postal_coordinate_ids': [],
+            'postal_coordinate_inactive_ids': [],
         })
         res = super(address_address, self).copy_data(cr, uid, ids, default=default, context=context)
         return res
@@ -306,7 +288,7 @@ class postal_coordinate(orm.Model):
 
     _name = 'postal.coordinate'
     _inherit = ['abstract.coordinate']
-    _description = "Postal Coordinate"
+    _description = 'Postal Coordinate'
 
     _discriminant_field = 'address_id'
     _trigger_fileds = []
@@ -314,33 +296,10 @@ class postal_coordinate(orm.Model):
 
     _columns = {
         'address_id': fields.many2one('address.address', string='Address', required=True, readonly=True, select=True),
-        'co_residency_id': fields.many2one('co.residency', string='Co-Residency', select=True, ondelete='restrict', track_visibility='onchange'),
+        'co_residency_id': fields.many2one('co.residency', string='Co-Residency', ondelete='restrict', select=True),
     }
 
     _rec_name = _discriminant_field
-
-    def _check_co_residency_consistency(self, cr, uid, ids, context=None):
-        postal_coordinates = self.browse(cr, uid, ids, context=context)
-        for postal_coordinate in postal_coordinates:
-            if postal_coordinate.co_residency_id:
-                postal_co_resident_ids = self.search(cr, uid, [('co_residency_id', '=', postal_coordinate.co_residency_id.id)], context=context)
-                address_ids = [(postal_coo.address_id.id) for postal_coo in self.browse(cr, uid, postal_co_resident_ids)]
-                if len(set(address_ids)) != 1:
-                    return False
-        return True
-
-    _constraints = [
-        (_check_co_residency_consistency, _('Co-Residency could not be associated to Postal Coordinates related to more than one Address'),
-        ['co_residency_id']),
-    ]
-
-# orm methods
-
-    def create(self, cr, uid, vals, context=None):
-        if vals.get('co_residency_id', False):
-            if not self.search(cr, SUPERUSER_ID, [('co_residency_id', '=', vals['co_residency_id'])], context=context):
-                vals['co_residency_id'] = False
-        return super(postal_coordinate, self).create(cr, uid, vals, context=context)
 
 # public methods
 
@@ -350,16 +309,12 @@ class postal_coordinate(orm.Model):
         get_fields_to_update
         ====================
         :type mode: char
-        :param mode: is the mode that define the return value
+        :param mode: mode defining return values
         :rtype: dictionary
-        :rparam: if mode is duplicate then return
-            {'is_duplicate_detected': True,
-             'is_duplicate_allowed': False,
-             'co_residency_id': False,
-            }
+        :rparam: values to update
         """
         res = super(postal_coordinate, self).get_fields_to_update(cr, uid, mode, context=context)
-        if mode == 'duplicate' or mode == 'reset':
+        if mode in ['duplicate', 'reset']:
             res.update({'co_residency_id': False})
         return res
 
@@ -367,19 +322,46 @@ class postal_coordinate(orm.Model):
 class co_residency(orm.Model):
     _name = 'co.residency'
     _inherit = ['abstract.ficep.model']
-    _description = "Co-Residency"
+    _description = 'Co-Residency'
 
     _columns = {
-        'name': fields.char('Name', required=True, select=True, track_visibility='onchange'),
+        'address_id': fields.many2one('address.address', string='Address', required=True, readonly=True, select=True),
         'line': fields.char('Line 1', track_visibility='onchange'),
         'line2': fields.char('Line 2', track_visibility='onchange'),
+
         'postal_coordinate_ids': fields.one2many('postal.coordinate', 'co_residency_id', string='Postal Coordinates',
                                                  domain=[('active', '=', True)]),
         'postal_coordinate_inactive_ids': fields.one2many('postal.coordinate', 'co_residency_id', string='Postal Coordinates',
                                                  domain=[('active', '=', False)]),
     }
 
+    _rec_name = 'address_id'
+
 # orm methods
+
+# orm methods
+
+    def name_get(self, cr, uid, ids, context=None):
+        """
+        ========
+        name_get
+        ========
+        :rparam: list of (id, name)
+                 where id is the id of each object
+                 and name, the name to display.
+        :rtype: [(id, name)] list of tuple
+        """
+        if not ids:
+            return []
+
+        context = context or self.pool['res.users'].context_get(cr, uid)
+
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+
+        res = []
+        for record in self.read(cr, uid, ids, ['address_id'], context=context):
+            res.append((record['id'], record['address_id'][1]))
+        return res
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
         """

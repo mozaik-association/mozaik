@@ -25,7 +25,33 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
+
+
+class partner_involvement_category(orm.Model):
+
+    _name = 'partner.involvement.category'
+    _inherit = ['abstract.ficep.model']
+
+    _columns = {
+        'name': fields.char('Involvement Category', required=True, select=True, track_visibility='onchange'),
+        'note': fields.text('Notes', track_visibility='onchange'),
+    }
+
+    _sql_constraints = [
+        ('check_unicity_involvement_category', 'unique(name)', _('This involvement category already exists!')),
+    ]
+
+# orm methods
+
+    def copy(self, cr, uid, ids, default=None, context=None):
+        flds = self.read(cr, uid, ids, ['active'], context=context)
+        if flds.get('active', True):
+            raise orm.except_orm(_('Error'), _('An active involvement category cannot be duplicated!'))
+        res = super(partner_involvement_category, self).copy(cr, uid, ids, default=default, context=context)
+        return res
 
 
 class partner_involvement(orm.Model):
@@ -34,11 +60,16 @@ class partner_involvement(orm.Model):
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'partner_id': fields.many2one('res.partner', string='Related Partner', required=True, track_visibility='onchange'),
-        'partner_involvement_category_id': fields.many2one('partner.involvement.category', required=True, string='Involvement Category', track_visibility='onchange'),
+        'partner_id': fields.many2one('res.partner', string='Related Partner', required=True, select=True, track_visibility='onchange'),
+        'partner_involvement_category_id': fields.many2one('partner.involvement.category', string='Involvement Category', required=True, select=True, track_visibility='onchange'),
+        'note': fields.text('Notes', track_visibility='onchange'),
     }
 
     _rec_name = 'partner_involvement_category_id'
+
+    _sql_constraints = [
+        ('check_unicity_involvement', 'unique(partner_id,partner_involvement_category_id)', _('This involvement already exists!')),
+    ]
 
 # orm methods
 
@@ -61,15 +92,5 @@ class partner_involvement(orm.Model):
             raise orm.except_orm(_('Error'), _('An active involvement cannot be duplicated!'))
         res = super(partner_involvement, self).copy(cr, uid, ids, default=default, context=context)
         return res
-
-
-class partner_involvement_category(orm.Model):
-
-    _name = 'partner.involvement.category'
-    _inherit = ['abstract.ficep.model']
-
-    _columns = {
-        'name': fields.char('Involvement Category', required=True, select=True, track_visibility='onchange'),
-    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

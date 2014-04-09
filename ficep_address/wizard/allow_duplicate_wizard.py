@@ -33,23 +33,66 @@ class allow_duplicate_wizard(orm.TransientModel):
     _inherit = "allow.duplicate.wizard"
 
     _columns = {
-        'co_residency_id': fields.many2one('co.residency', string='Co-Residency'),
+        'address_id': fields.many2one('address.address', string='Co-Residency', readonly=True),
+        'co_residency_id': fields.many2one('co.residency', string='Co-Residency', readonly=True),
     }
+
+    def default_get(self, cr, uid, fields, context):
+        """
+        To get default values for the object.
+        """
+        res = super(allow_duplicate_wizard, self).default_get(cr, uid, fields, context=context)
+        context = context or {}
+        if not context.get('postal_mode', False):
+            return res
+
+        ids = context.get('active_id') and [context.get('active_id')] or context.get('active_ids') or []
+        for coord_id in ids:
+            address_id = res['address_id'] = self.pool['postal.coordinate'].read(cr, uid, coord_id, ['address_id'], context=context)['address_id'][0]
+            cor_ids = self.pool['co.residency'].search(cr, uid, [('address_id', '=', address_id)], context=context)
+            if cor_ids:
+                res['co_residency_id'] = cor_ids[0]
+            break
+
+        return res
 
     def button_allow_duplicate(self, cr, uid, ids, context=None, vals=None):
         """
         ======================
         button_allow_duplicate
         ======================
-        Add co_residency_id into vals and call super ``button_allow_duplicate``
+        Create co_residency if any.
+        Add its id to the dictionary expected by super method.
         """
-        if vals is None:
-            vals = {}
-        wizards = self.browse(cr, uid, ids, context=context)
-        for wizard in wizards:
-            if wizard.co_residency_id:
-                vals = {'co_residency_id': wizard.co_residency_id.id}
-        super(allow_duplicate_wizard, self).button_allow_duplicate(cr, uid, ids, vals=vals, context=context)
+        context = context or {}
+        if not context.get('postal_mode', False):
+            return super(allow_duplicate_wizard, self).button_allow_duplicate(cr, uid, ids, context=context, vals=vals)
+
+        wizard = self.browse(cr, uid, ids, context=context)[0]
+        new_co = False
+        if wizard.co_residency_id:
+            cor_id = wizard.co_residency_id.id
+        else:
+            context.update({'mail_create_nosubscribe': True})
+            vals = {'address_id': wizard.address_id.id}
+            cor_id = self.pool['co.residency'].create(cr, uid, vals, context=context)
+            new_co = True
+
+        vals = {'co_residency_id': cor_id}
+        super(allow_duplicate_wizard, self).button_allow_duplicate(cr, uid, ids, context=context, vals=vals)
+
+        if context and context.get('get_co_residency', False):
+            return cor_id
+
+        if new_co:
+            # go directly to the newly created co-residency
+            action = self.pool['ir.actions.act_window'].for_xml_id(cr, uid, 'ficep_address', 'co_residency_action', context=context)
+            action.pop('search_view')
+            action['res_id'] = cor_id
+            action['view_id'] = (self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_address', 'co_residency_form_view')[1], 'co-residency')
+            action['view_mode'] = 'form'
+            action['views'] = []
+            return action
 
     def get_domain_search(self, cr, uid, ids, domain, context=None):
         """
