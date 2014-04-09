@@ -40,6 +40,7 @@
             <field name="instance_id" ref="int_instance_05"/>
             <field name="assembly_category_id" ref="ficep_structure.int_assembly_category_01"/>
             <field name="designation_int_power_level_id" ref="ficep_structure.int_power_level_05"/>
+            <field name="is_designation_assembly" eval="1"/>
         </record>
 
         <record id="int_assembly_02" model="int.assembly">
@@ -52,6 +53,7 @@
             <field name="instance_id" ref="int_instance_04"/>
             <field name="assembly_category_id" ref="ficep_structure.int_assembly_category_05"/>
             <field name="designation_int_power_level_id" ref="ficep_structure.int_power_level_03"/>
+            <field name="is_designation_assembly" eval="1"/>
         </record>
 
         <!-- Create External Assemblies -->

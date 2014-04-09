@@ -27,19 +27,46 @@
 ##############################################################################
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
-from .mandate import mandate_category
 
 CANDIDATURE_AVAILABLE_STATES = [
     ('draft', 'Draft'),
     ('declared', 'Declared'),
+    ('rejected', 'Rejected'),
     ('suggested', 'Suggested'),
     ('designated', 'Designated'),
-    ('rejected', 'Rejected'),
     ('elected', 'Elected'),
     ('non-elected', 'Non-Elected'),
 ]
 
 candidature_available_states = dict(CANDIDATURE_AVAILABLE_STATES)
+
+
+def create_mandate_from_candidature(cr, uid, candidature_pool, mandate_pool, committee_pool, candidature_id, context=None):
+    """
+    ==============================
+    create_mandate_from_candidature
+    ==============================
+    Return Mandate id create on base of candidature id
+    :rparam: mandate id
+    :rtype: id
+    """
+    candidature_data = candidature_pool.read(cr, uid, candidature_id, [], context)
+    res = False
+    mandate_values = {}
+    for column in candidature_pool._init_mandate_columns:
+        if column in mandate_pool._columns:
+            if candidature_pool._columns[column]._type == 'many2one':
+                mandate_values[column] = candidature_data[column][0]
+            else:
+                mandate_values[column] = candidature_data[column]
+
+    if mandate_values:
+        committee_data = committee_pool.read(cr, uid, candidature_data['selection_committee_id'][0], ['mandate_start_date', 'mandate_deadline_date'], context=context)
+        mandate_values['start_date'] = committee_data['mandate_start_date']
+        mandate_values['deadline_date'] = committee_data['mandate_deadline_date']
+        mandate_values['candidature_id'] = candidature_data['id']
+        res = mandate_pool.create(cr, uid, mandate_values, context)
+    return res
 
 
 class abstract_mandate_base(orm.AbstractModel):
@@ -51,6 +78,8 @@ class abstract_mandate_base(orm.AbstractModel):
         'id': fields.integer('ID', readonly=True),
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
                                                  required=True, track_visibility='onchange'),
+        'designation_int_assembly_id': fields.many2one('int.assembly', 'Designation assembly', required=True,
+                                                       track_visibility='onchange', domain=[('is_designation_assembly', '=', True)]),
         'partner_id': fields.many2one('res.partner', 'Partner', required=True, track_visibility='onchange'),
         'is_replacement': fields.boolean('Replacement'),
     }
@@ -63,13 +92,15 @@ class abstract_mandate(orm.AbstractModel):
     _inherit = ['abstract.mandate.base']
 
     _columns = {
+        'start_date': fields.date('Start Date', required=True, track_visibility='onchange'),
         'deadline_date': fields.date('Deadline Date', required=True, track_visibility='onchange'),
-        'is_submission_mandate': fields.related('mandate_category_id', 'submission_mandate', string='Submission to a mandate declaration',
+        'is_submission_mandate': fields.related('mandate_category_id', 'is_submission_mandate', string='Submission to a mandate declaration',
                                           type='boolean', relation="mandate.category",
-                                          store={'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['is_submission_mandate'], 20)}),
-        'is_submission_assets': fields.related('mandate_category_id', 'submission_assets', string='Submission to an assets declaration',
+                                          store=True),
+        'is_submission_assets': fields.related('mandate_category_id', 'is_submission_assets', string='Submission to an assets declaration',
                                           type='boolean', relation="mandate.category",
-                                          store={'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['is_submission_assets'], 20)}),
+                                          store=True),
+        'candidature_id': fields.many2one('abstract.candidature', 'Candidature', track_visibility='onchange'),
     }
 
     # orm methods
@@ -105,14 +136,13 @@ class abstract_candidature(orm.AbstractModel):
     _description = "Abstract Candidature"
     _inherit = ['abstract.mandate.base']
 
-    _init_mandate_columns = ['mandate_category_id', 'partner_id', 'is_replacement']
+    _init_mandate_columns = ['mandate_category_id', 'partner_id', 'is_replacement', 'designation_int_assembly_id']
 
     _columns = {
         'partner_name': fields.char('Partner Name', size=128, translate=True, select=True, track_visibility='onchange'),
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'selection_committee_id': fields.many2one('selection.committee', string='Selection Committee',
                                                  required=True, track_visibility='onchange'),
-        'designation_int_assembly_id': fields.many2one('int.assembly', 'Designation assembly', required=True, track_visibility='onchange'),
     }
 
     def _check_partner(self, cr, uid, ids, for_unlink=False, context=None):

@@ -27,8 +27,11 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
 from .abstract_mandate import abstract_candidature
+from .abstract_mandate import create_mandate_from_candidature
 from .structure import legislature
+from .mandate import mandate_category
 
 
 class sta_candidature(orm.Model):
@@ -53,12 +56,12 @@ class sta_candidature(orm.Model):
         }
 
     # view methods: onchange, button
-    def onchange_selection_committee(self, cr, uid, ids, selection_committee_id, context=None):
+    def onchange_selection_committee_id(self, cr, uid, ids, selection_committee_id, context=None):
         res = {}
         selection_committee = self.pool.get('selection.committee').browse(cr, uid, selection_committee_id, context)
 
-        res['value'] = dict(legislarure_id=selection_committee.legislature_id.id or False,
-                            electoral_distric_id=selection_committee.electoral_district_id.id or False,
+        res['value'] = dict(legislature_id=selection_committee.legislature_id.id or False,
+                            electoral_district_id=selection_committee.electoral_district_id.id or False,
                             sta_assembly_id=selection_committee.sta_assembly_id.id or False,
                             designation_int_assembly_id=selection_committee.designation_int_assembly_id.id or False)
         return res
@@ -76,8 +79,23 @@ class sta_candidature(orm.Model):
         return res
 
     def button_create_mandate(self, cr, uid, ids, context=None):
+        self.action_invalidate(cr, uid, ids, context=context)
         for candidature_id in ids:
-            self.pool.get('sta.mandate').create_from_candidature(cr, uid, [candidature_id], context=context)
+            mandate_id = create_mandate_from_candidature(cr, uid, self.pool.get('sta.candidature'), self.pool.get('sta.mandate'), self.pool.get('selection.committee'), candidature_id, context)
+
+        view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', 'sta_mandate_form_view')
+        view_id = view_ref and view_ref[1] or False,
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Mandate'),
+            'res_model': 'sta.mandate',
+            'res_id': mandate_id,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': view_id,
+            'target': 'current',
+            'nodestroy': True,
+        }
 
 
 class sta_mandate(orm.Model):
@@ -88,30 +106,18 @@ class sta_mandate(orm.Model):
     _columns = {
         'legislature_id': fields.many2one('legislature', string='Legislature',
                                                  required=True, track_visibility='onchange'),
-        'sta_assembly_id': fields.related('electoral_district_id', 'assembly_id', string='State Assembly',
-                                          type='many2one', relation="sta.assembly",
-                                          store=False),
+        'sta_assembly_id': fields.many2one('sta.assembly', string='State Assembly'),
         'sta_assembly_category_id': fields.related('mandate_category_id', 'sta_assembly_category_id', string='State Assembly Category',
                                           type='many2one', relation="sta.assembly.category",
                                           store=False),
         'deadline_date': fields.related('legislature_id', 'deadline_date', string='Deadline Date',
                                           type='date', relation="legislature",
                                           store={'legislature': (legislature.get_linked_sta_mandate_ids, ['deadline_date'], 20)}),
+        'candidature_id': fields.many2one('sta.candidature', 'Candidature'),
+        'is_submission_mandate': fields.related('mandate_category_id', 'is_submission_mandate', string='Submission to a mandate declaration',
+                                          type='boolean', relation="mandate.category",
+                                          store={'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['is_submission_mandate'], 20)}),
+        'is_submission_assets': fields.related('mandate_category_id', 'is_submission_assets', string='Submission to an assets declaration',
+                                          type='boolean', relation="mandate.category",
+                                          store={'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['is_submission_assets'], 20)}),
         }
-
-    def create_from_candidature(self, cr, uid, ids, context=None):
-        candidature_pool = self.pool.get('sta.candidature')
-        candidature_data_list = candidature_pool.read(cr, uid, ids, [], context)
-        res = False
-        for candidature_data in candidature_data_list:
-            mandate_values = {}
-            for column in candidature_pool._init_mandate_columns:
-                if column in self._columns:
-                    if candidature_pool._columns[column]._type == 'many2one':
-                        mandate_values[column] = candidature_data[column][0]
-                    else:
-                        mandate_values[column] = candidature_data[column]
-
-            if mandate_values:
-                res = self.create(cr, uid, mandate_values, context)
-        return res

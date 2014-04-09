@@ -106,6 +106,7 @@ class int_assembly(orm.Model):
                                                  required=True, track_visibility='onchange'),
         'instance_id': fields.many2one('int.instance', 'Internal Instance',
                                                  required=True, track_visibility='onchange'),
+        'is_designation_assembly': fields.boolean("Designation assembly", track_visibility='onchange'),
         'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
                                                  required=True, track_visibility='onchange'),
     }
