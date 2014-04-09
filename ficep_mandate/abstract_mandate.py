@@ -65,6 +65,7 @@ def create_mandate_from_candidature(cr, uid, candidature_pool, mandate_pool, com
         mandate_values['start_date'] = committee_data['mandate_start_date']
         mandate_values['deadline_date'] = committee_data['mandate_deadline_date']
         mandate_values['candidature_id'] = candidature_data['id']
+        candidature_pool.action_invalidate(cr, uid, candidature_id, context=context)
         res = mandate_pool.create(cr, uid, mandate_values, context)
     return res
 

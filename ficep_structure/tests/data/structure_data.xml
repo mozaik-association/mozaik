@@ -2,8 +2,6 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Create Internal Instance -->
-
         <record id="int_instance_02" model="int.instance">
             <field name="name">Parlement wallon (PW)</field>
             <field name="power_level_id" ref="ficep_structure.sta_power_level_02"/>
@@ -116,6 +114,94 @@
             <field name="power_level_id" ref="ficep_structure.sta_power_level_05"/>
             <field name="parent_id" ref="sta_instance_06"/>
             <field name="int_instance_id" ref="int_instance_05"/>
+        </record>
+        
+         <!-- Create State Assemblies -->
+
+        <record id="sta_assembly_01" model="sta.assembly">
+            <field name="instance_id" ref="sta_instance_07"/>
+            <field name="assembly_category_id" ref="ficep_structure.sta_assembly_category_07"/>
+            <field name="designation_int_power_level_id" ref="ficep_structure.int_power_level_05"/>
+        </record>
+
+        <record id="sta_assembly_02" model="sta.assembly">
+            <field name="instance_id" ref="sta_instance_04"/>
+            <field name="assembly_category_id" ref="ficep_structure.sta_assembly_category_05"/>
+            <field name="designation_int_power_level_id" ref="ficep_structure.int_power_level_03"/>
+        </record>
+
+        <!-- Create Internal Assemblies -->
+
+        <record id="int_assembly_01" model="int.assembly">
+            <field name="instance_id" ref="int_instance_05"/>
+            <field name="assembly_category_id" ref="ficep_structure.int_assembly_category_01"/>
+            <field name="designation_int_power_level_id" ref="ficep_structure.int_power_level_05"/>
+            <field name="is_designation_assembly" eval="1"/>
+        </record>
+
+        <record id="int_assembly_02" model="int.assembly">
+            <field name="instance_id" ref="int_instance_05"/>
+            <field name="assembly_category_id" ref="ficep_structure.int_assembly_category_04"/>
+            <field name="designation_int_power_level_id" ref="ficep_structure.int_power_level_04"/>
+        </record>
+
+        <record id="int_assembly_03" model="int.assembly">
+            <field name="instance_id" ref="int_instance_04"/>
+            <field name="assembly_category_id" ref="ficep_structure.int_assembly_category_05"/>
+            <field name="designation_int_power_level_id" ref="ficep_structure.int_power_level_03"/>
+            <field name="is_designation_assembly" eval="1"/>
+        </record>
+
+        <!-- Create External Assemblies -->
+
+        <record id="ext_assembly_01" model="ext.assembly">
+            <field name="instance_id" ref="ficep_structure.int_instance_01"/>
+            <field name="ref_partner_id" ref="res_partner_rtbf"/>
+            <field name="assembly_category_id" ref="ficep_structure.ext_assembly_category_01"/>
+            <field name="designation_int_power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="months_before_end_of_mandate" eval="4"/>
+        </record>
+        
+        <!-- Create Legislature -->
+
+        <record id="legislature_01" model="legislature">
+            <field name="name">Communale 2012</field>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_05"/>
+            <field name="start_date">2012-12-03</field>
+            <field name="deadline_date">2018-12-02</field>
+            <field name="election_date">2012-10-14</field>
+        </record>
+
+        <record id="legislature_02" model="legislature">
+            <field name="name">Provinciale 2012</field>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_09"/>
+            <field name="start_date">2012-10-26</field>
+            <field name="deadline_date">2018-10-25</field>
+            <field name="election_date">2012-10-14</field>
+        </record>
+       
+        
+        <!-- Create Electoral Districts -->
+
+        <record id="electoral_district_01" model="electoral.district">
+            <field name="name">Huy</field>
+            <field name="sta_instance_id" ref="sta_instance_07"/>
+            <field name="assembly_id" ref="sta_assembly_01"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+        </record>
+
+        <record id="electoral_district_02" model="electoral.district">
+            <field name="name">Huy</field>
+            <field name="sta_instance_id" ref="sta_instance_06"/>
+            <field name="assembly_id" ref="sta_assembly_02"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_03"/>
+        </record>
+        
+
+        <!-- Other attributes -->
+
+        <record id="sta_instance_07" model="sta.instance">
+            <field name="identifier">61031</field>
         </record>
 
     </data>

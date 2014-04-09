@@ -79,7 +79,6 @@ class sta_candidature(orm.Model):
         return res
 
     def button_create_mandate(self, cr, uid, ids, context=None):
-        self.action_invalidate(cr, uid, ids, context=context)
         for candidature_id in ids:
             mandate_id = create_mandate_from_candidature(cr, uid, self.pool.get('sta.candidature'), self.pool.get('sta.mandate'), self.pool.get('selection.committee'), candidature_id, context)
 

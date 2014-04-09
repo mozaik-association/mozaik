@@ -56,7 +56,7 @@ FICEP Sample Customization
          '../ficep_thesaurus/tests/data/thesaurus_data.xml',
          '../ficep_structure/tests/data/structure_data.xml',
          '../ficep_structure_address/tests/data/structure_address_data.xml',
-         'demo/structure_demo.xml',
+         '../ficep_mandate/tests/data/mandate_data.xml',
          'demo/sample_customization_demo.xml',  # must be the last
     ],
     'js': [

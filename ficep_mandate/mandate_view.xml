@@ -231,7 +231,7 @@
                 <xpath expr="//button[@name='action_invalidate']" position="after">
                     <button name="button_elected" string="Elected"  class="oe_highlight"
                                     confirm="Set candidature as elected: proceed anyway ?" states="designated"/>
-                    <button name="button_non-elected" string="Non-Elected" class="oe_highlight"
+                    <button name="button_non_elected" string="Non-Elected" class="oe_highlight"
                                     confirm="Set candidature as non-elected: proceed anyway ?" states="designated"/>                    
                 </xpath>
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
