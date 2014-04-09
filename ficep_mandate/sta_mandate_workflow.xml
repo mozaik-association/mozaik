@@ -105,7 +105,7 @@
         <record id="trans_designated_non-elected" model="workflow.transition">
             <field name="act_from" ref="act_designated"/>
             <field name="act_to" ref="act_non-elected"/>            
-            <field name="signal">button_non-elected</field>  
+            <field name="signal">button_non_elected</field>  
         </record>  
     </data>
 </openerp>

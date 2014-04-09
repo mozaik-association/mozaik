@@ -218,7 +218,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="abstract_assembly_search_view" />
             <field name="view_id" ref="int_assembly_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.abstract_assembly_form_view'}</field>
+            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.int_assembly_form_view'}</field>
         </record>
 
         <record id="int_instance_action" model="ir.actions.act_window">
@@ -527,7 +527,7 @@
                                 <field name="int_instance_id" readonly="1" context="{'simplified': 1,
                                                                                      'form_view_ref': 'ficep_structure.int_instance_form_view'}"/>
                                 <field name="designation_int_assembly_id" context="{'simplified': 1,
-                                                                                    'form_view_ref': 'ficep_structure.int_assembly_form_view'}"/>
+                                                                                    'form_view_ref': 'ficep_structure.abstract_assembly_form_view'}"/>
                             </group>
                         </group>
 
@@ -626,6 +626,17 @@
                     <group name="Info">
                         <field name="is_secretariat"/>
                     </group>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="int_assembly_form_view" model="ir.ui.view">
+            <field name="name">int.assembly.form</field>
+            <field name="model">int.assembly</field>
+            <field name="inherit_id" ref="abstract_assembly_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='assembly_category_id']" position="after">
+                     <field name="is_designation_assembly"/>
                 </xpath>
             </field>
         </record>

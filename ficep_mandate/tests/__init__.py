@@ -25,8 +25,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from . import test_sta_mandate
+from . import test_mandate
 
-from . import distribution_list
-from . import virtual_models
+fast_suite = [
+]
+
+checks = [
+     test_mandate,
+     test_sta_mandate,
+]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

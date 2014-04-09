@@ -47,6 +47,12 @@ SELECTION_COMMITTEE_AVAILABLE_TYPES = [
 
 selection_committee_available_types = dict(SELECTION_COMMITTEE_AVAILABLE_TYPES)
 
+SELECTION_COMMITTEE_AVAILABLE_STATES = [
+    ('draft', 'In Progress'),
+    ('done', 'Closed'),
+]
+selection_committee_available_states = dict(SELECTION_COMMITTEE_AVAILABLE_STATES)
+
 
 class mandate_category(orm.Model):
 
@@ -72,7 +78,6 @@ class mandate_category(orm.Model):
     _columns = {
         'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
         'type': fields.selection(MANDATE_CATEGORY_AVAILABLE_TYPES, 'Status', readonly=True),
-        'deadline_date': fields.date('Deadline Date', required=True, track_visibility='onchange'),
         'exclusive_category_m2m_ids': fields.many2many('mandate.category', 'mandate_category_mandate_category_rel', 'id', 'exclu_id',
                                                       'Exclusive Category'),
         'sta_assembly_category_id': fields.many2one('sta.assembly.category', string='State Assembly Category', track_visibility='onchange'),
@@ -119,9 +124,12 @@ class selection_committee(orm.Model):
         return res
 
     _columns = {
+        'state': fields.selection(SELECTION_COMMITTEE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'committee_type': fields.selection(SELECTION_COMMITTEE_AVAILABLE_TYPES, 'Type', required=True, track_visibility='onchange',),
         'decision_date': fields.date('Decision Date', track_visibility='onchange'),
-        'mandate_date': fields.date('Start date of mandate', track_visibility='onchange'),
+        'mandate_start_date': fields.date('Start date of mandate', required=True, track_visibility='onchange'),
+        'mandate_deadline_date': fields.date('Deadline date of mandate', required=True, track_visibility='onchange'),
+        'meeting_date': fields.date('Meeting date', track_visibility='onchange'),
         'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
         'is_virtual': fields.boolean('Is virtual'),
         'partner_ids': fields.many2many('res.partner', 'selection_committee_res_partner_rel', 'id', 'member_id',
@@ -130,7 +138,7 @@ class selection_committee(orm.Model):
         'int_assembly_id': fields.many2one('int.assembly', string='Internal Assembly', track_visibility='onchange'),
         'ext_assembly_id': fields.many2one('ext.assembly', string='External Assembly', track_visibility='onchange'),
         'designation_int_assembly_id': fields.many2one('int.assembly', string='Internal Assembly (Designation)',
-                                                 required=True, track_visibility='onchange'),
+                                                 required=True, track_visibility='onchange', domain=[('is_designation_assembly', '=', True)]),
         'sta_candidature_ids': fields.one2many('sta.candidature', 'selection_committee_id', 'State Candidatures',
                                                domain=[('state', 'not in', ['draft', 'rejected'])]),
         'electoral_district_id': fields.many2one('electoral.district', string='Electoral District', track_visibility='onchange'),
@@ -143,12 +151,16 @@ class selection_committee(orm.Model):
     }
 
     _defaults = {
+        'state': SELECTION_COMMITTEE_AVAILABLE_STATES[0][0],
         'is_virtual': False,
     }
 
 # orm methods
 
     def name_get(self, cr, uid, ids, context=None):
+        if not context:
+            context = self.pool.get('res.users').context_get(cr, uid)
+
         if not ids:
             return []
 
@@ -181,36 +193,37 @@ class selection_committee(orm.Model):
 # view methods: onchange, button
 
     def button_accept_candidatures(self, cr, uid, ids, context=None):
-            """
-            ==========================
-            button_accept_candidatures
-            ==========================
-            This method calls the candidature workflow for each candidature_id in order to update their state
-            :rparam: True
-            :rtype: boolean
-            :raise: Error if all candidatures are not in suggested state
-            """
-            for committee in self.browse(cr, uid, ids, context=context):
-                if committee.committee_type == 'state':
-                    if committee.sta_candidature_ids:
-                        self.pool.get('sta.candidature').signal_action_designate(cr, uid, self._get_suggested_sta_candidatures(committee.sta_candidature_ids))
-            return True
+        """
+        ==========================
+        button_accept_candidatures
+        ==========================
+        This method calls the candidature workflow for each candidature_id in order to update their state
+        :rparam: True
+        :rtype: boolean
+        :raise: Error if all candidatures are not in suggested state
+        """
+        for committee in self.browse(cr, uid, ids, context=context):
+            if committee.committee_type == 'state':
+                if committee.sta_candidature_ids:
+                    self.pool.get('sta.candidature').signal_action_designate(cr, uid, self._get_suggested_sta_candidatures(committee.sta_candidature_ids))
+        self.write(cr, uid, ids, {'state': 'done'})
+        return True
 
     def button_reject_candidatures(self, cr, uid, ids, context=None):
-            """
-            ==========================
-            button_reject_candidatures
-            ==========================
-            This method calls the candidature workflow for each candidature_id in order to update their state
-            :rparam: True
-            :rtype: boolean
-            :raise: Error if all candidatures are not in suggested state
-            """
-            for committee in self.browse(cr, uid, ids, context=context):
-                if committee.committee_type == 'state':
-                    if committee.sta_candidature_ids:
-                        self.pool.get('sta.candidature').signal_button_declare(cr, uid, self._get_suggested_sta_candidatures(committee.sta_candidature_ids))
-            return True
+        """
+        ==========================
+        button_reject_candidatures
+        ==========================
+        This method calls the candidature workflow for each candidature_id in order to update their state
+        :rparam: True
+        :rtype: boolean
+        :raise: Error if all candidatures are not in suggested state
+        """
+        for committee in self.browse(cr, uid, ids, context=context):
+            if committee.committee_type == 'state':
+                if committee.sta_candidature_ids:
+                    self.pool.get('sta.candidature').signal_button_declare(cr, uid, self._get_suggested_sta_candidatures(committee.sta_candidature_ids))
+        return True
 
     def onchange_committee_type(self, cr, uid, ids, committee_type, context=None):
         res = {}
@@ -233,11 +246,10 @@ class selection_committee(orm.Model):
         return res
 
     def onchange_legislature_id(self, cr, uid, ids, legislature_id, context=None):
-        legislature_data = self.pool.get('legislature').read(cr, uid, legislature_id, ['power_level_id', 'create_date'])
+        legislature_data = self.pool.get('legislature').read(cr, uid, legislature_id, ['start_date', 'deadline_date'])
         res = {}
-        res['value'] = dict(power_level_id=legislature_data['power_level_id'],
-                            mandate_date=legislature_data['create_date'],  # TODO replace by start_date
-                            electoral_district_id=False)
+        res['value'] = dict(mandate_start_date=legislature_data['start_date'],  # TODO replace by start_date
+                            mandate_deadline_date=legislature_data['deadline_date'])
         return res
 
     def onchange_electoral_district_id(self, cr, uid, ids, electoral_district_id, context=None):

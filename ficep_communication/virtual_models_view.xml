@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="virtual_partner_involvement_search_view" model="ir.ui.view">
+            <field name="name">virtual.partner.involvement.search</field>
+            <field name="model">virtual.partner.involvement</field>
+            <field name="arch" type="xml">
+                <search string="Virtual Partner Involvement">
+                    <field name="involvement_id" />
+                    <filter string="Partner Involvement" icon="terp-personal" name="p_inv_id" context="{'group_by':'involvement_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="virtual_partner_involvement_tree_view" model="ir.ui.view">
+            <field eval="1" name="priority"/>
+            <field name="name">virtual.partner.involvement.tree</field>
+            <field name="model">virtual.partner.involvement</field>
+            <field name="arch" type="xml">
+                <tree string="Virtual Partner Involvement" create="false">
+                    <field name="involvement_id" />
+                    <field name="partner_id" />
+                    <field name="display_name" />
+                    <field name="gender" />
+                    <field name="tongue" />
+
+                    <field name="int_instance_id" />
+
+                    <field name="email_coordinate_id" />
+                    <field name="postal_vip" />
+                    <field name="postal_unauthorized" />
+
+                    <field name="email_coordinate_id" />
+                    <field name="email_vip" />
+                    <field name="email_unauthorized" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="virtual_partner_involvement_action" model="ir.actions.act_window">
+            <field name="name">Virtual Partner Involvement</field>
+            <field name="res_model">virtual.partner.involvement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="virtual_partner_involvement_search_view"/>
+            <field name="view_id" ref="virtual_partner_involvement_tree_view"/>
+        </record>
+
+        <!-- Virtual Models Menu-->
+
+        <menuitem id="virtual_models_submenu" name="Virtual Models"
+                  sequence="20" parent="ficep_base.communication_root_menu" />
+
+        <menuitem id="virtual_partner_involvement_menu" sequence="10" parent="virtual_models_submenu"
+                  action="virtual_partner_involvement_action"/>
+
+    </data>
+</openerp>

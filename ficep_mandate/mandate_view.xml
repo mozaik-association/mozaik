@@ -7,9 +7,7 @@
             <field name="name">mandate.category.search</field>
             <field name="model">mandate.category</field>            
             <field name="arch" type="xml">
-                <search string="Mandate Category" version="7.0">
-                    <field name="name" />
-                    <field name="int_power_level_id" />                    
+                <search string="Mandate Category" version="7.0">                               
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" />
@@ -38,34 +36,17 @@
             <field name="model">sta.candidature</field>
             <field name="inherit_id" ref="abstract_candidature_search_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='mandate_category_id']" position="after">
-                    <field name="sta_assembly_id"/>
-                    <field name="electoral_district_id"/>
-                    <field name="selection_committee_id"/>
-                </xpath>
                 <xpath expr="//filter[@name='category']" position="after">
                     <filter name="selection_committee" string="Selection Committee" domain="[]" context="{'group_by':'selection_committee_id'}" />
                 </xpath>
             </field>
-        </record>   
-        
-        <record id="sta_mandate_search_view" model="ir.ui.view">
-            <field name="name">sta.mandate.search</field>
-            <field name="model">sta.mandate</field>
-            <field name="inherit_id" ref="abstract_mandate_search_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='mandate_category_id']" position="after">
-                    <field name="sta_assembly_id"/>                    
-                </xpath>                
-            </field>
-        </record>       
+        </record>               
         
         <record id="selection_committee_search_view" model="ir.ui.view">
             <field name="name">selection.committee.search</field>
             <field name="model">selection.committee</field>            
             <field name="arch" type="xml">
-                <search string="Selection committee" version="7.0">
-                    <field name="name"/>                                            
+                <search string="Selection committee" version="7.0">                                                         
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" />
@@ -116,7 +97,7 @@
             <field name="res_model">sta.mandate</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="sta_mandate_search_view" />
+            <field name="search_view_id" ref="abstract_mandate_search_view" />
             <field name="view_id" ref="abstract_mandate_tree_view" />
             <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_mandate.sta_mandate_form_view'}</field>
         </record>
@@ -205,8 +186,7 @@
                                                  'form_view_ref': 'ficep_structure.ext_assembly_category_form_view'}"/>                                       
                             </group>
                             <group name="Dates">
-                                <field name="create_date" widget="date" string="Start Date"/>
-                                <field name="deadline_date" />
+                                <field name="create_date" widget="date" readonly="1"/>                                
                                 <field name="expire_date" widget="date" readonly="1"/>
                             </group>                            
                         </group>
@@ -249,20 +229,18 @@
             <field name="inherit_id" ref="abstract_candidature_form_view"/>
             <field name="arch" type="xml">                
                 <xpath expr="//button[@name='action_invalidate']" position="after">
-                    <button name="button_elected" string="Elected" 
+                    <button name="button_elected" string="Elected"  class="oe_highlight"
                                     confirm="Set candidature as elected: proceed anyway ?" states="designated"/>
-                    <button name="button_non-elected" string="Non-Elected" 
+                    <button name="button_non_elected" string="Non-Elected" class="oe_highlight"
                                     confirm="Set candidature as non-elected: proceed anyway ?" states="designated"/>                    
                 </xpath>
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
                 </xpath>
-                <xpath expr="//field[@name='mandate_category_id']" position="after">
-                     <field name="selection_committee_id" required="1" domain="[('committee_type', '=', 'state')]" context="{'committee_type':'state'}"/>
+                <xpath expr="//field[@name='designation_int_assembly_id']" position="after">                     
                      <field name="legislature_id" readonly="1"/>
                      <field name="electoral_district_id" readonly="1"/>
-                     <field name="sta_assembly_id" readonly="1"/>
-                     <field name="designation_int_assembly_id"/>
+                     <field name="sta_assembly_id" readonly="1" context="{'simplified': 1, 'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"/>
                 </xpath>
             </field>
         </record> 
@@ -273,8 +251,12 @@
             <field name="inherit_id" ref="abstract_mandate_form_view"/>
             <field name="arch" type="xml">                              
                 <xpath expr="//field[@name='partner_id']" position="after">
-                     <field name="legislature_id"/>                     
-                     <field name="sta_assembly_id"/>
+                     <field name="legislature_id" attrs="{'readonly': [('candidature_id','!=',False)]}"/>                     
+                     <field name="sta_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
+                            context="{'simplified': 1, 'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"/>
+                </xpath>
+                <xpath expr="//field[@name='candidature_id']" position="attributes">
+                     <attribute name="context">{'simplified': 1, 'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}</attribute>
                 </xpath>
             </field>
         </record> 
@@ -290,6 +272,7 @@
                              groups="ficep_base.ficep_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate committee: proceed anyway ?" />
+                            <field name='state' widget='statusbar'/>
                         </div>
                     </header>
                     <sheet>
@@ -310,7 +293,6 @@
                                 <field name="electoral_district_id"
                                         attrs="{'invisible': [('committee_type','!=', 'state'),],
                                                 'required': [('committee_type','=', 'state'),]}"
-                                        domain="[('power_level_id', '=', power_level_id)]"
                                         on_change="onchange_electoral_district_id(electoral_district_id)"/>                                 
                                 <field name="int_assembly_id"
                                         attrs="{'invisible': [('committee_type','!=', 'internal'),],
@@ -322,24 +304,31 @@
                                 <field name="ext_assembly_id"
                                         attrs="{'invisible': [('committee_type','!=', 'external'),],
                                                 'required': [('committee_type','=', 'external'),]}"/>
-                                <field name="designation_int_assembly_id"
-                                        domain="[('power_level_id', '=', designation_int_power_level_id)]"/>                                                                     
+                                <field name="designation_int_assembly_id"/>                                                                     
                             </group>                            
-                            <group name="Dates">
-                                <field name="create_date" widget="date" string="Start Date"/>
-                                <field name="decision_date" widget="date"/>
-                                <field name="mandate_date" widget="date"/>
-                                <field name="expire_date" widget="date" readonly="1"/>
+                            <group name="Dates">      
+                                <field name="mandate_start_date" widget="date"/>
+                                <field name="mandate_deadline_date" widget="date"/>                           
+                                <field name="meeting_date" widget="date"/>
+                                <field name="decision_date" widget="date"/>                                                              
+                            </group>
+                            <group name="Technical Dates">
+                                <field name="create_date" readonly="1"/>                                
+                                <field name="expire_date" readonly="1"/>
                             </group>                            
                         </group>
                         <notebook>                            
                             <page string="Candidatures" name="candidatures" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                                <button string="All Details"
-                                    name="det"
-                                    type="action"/>
+                                <button string="All Details" name="%(sta_candidature_action)d"
+                                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                                        context="{'search_default_selection_committee_id': active_id,
+                                                  'default_selection_committee_id': active_id,
+                                                  'search_default_all': True}" />
                                 <button string="Accept" name="button_accept_candidatures" type="object" class="oe_highlight"
+                                        attrs="{'invisible': ['|',('decision_date','=',False),('state','=','done')]}"
                                         confirm="Accept all candidatures: proceed anyway ?"/>
-                               <button string="Reject" name="button_reject_candidatures" type="object" class="oe_highlight"
+                                <button string="Reject" name="button_reject_candidatures" type="object" class="oe_highlight"
+                                        attrs="{'invisible': ['|',('decision_date','=',False),('state','=','done')]}"
                                         confirm="Reject all candidatures: proceed anyway ?"/>
                                 <field name="sta_candidature_ids" context="{'simplified': 1, 'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}" readonly="1">
                                     <tree colors="red:state == 'declared'">
