@@ -42,5 +42,29 @@
             </field>
         </record>
 
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form (ficep_structure_address)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_person.view_partner_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='user']" position="inside">
+                    <separator string="Internal Instances" />
+                    <field name="int_instance_m2m_ids" widget="many2many_tags" placeholder="Instances..." />
+                    <!-- Some blank lines to see the entire elapsed many2many_tags widget -->
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                </xpath>
+
+            </field>
+        </record>
+
     </data>
 </openerp>

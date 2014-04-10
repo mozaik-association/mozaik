@@ -98,10 +98,25 @@ class res_partner(orm.Model):
         'int_instance_id': fields.function(_get_instance_id, string='Internal Instance',
                                            type='many2one', relation='int.instance', select=True,
                                            store=_instance_store_triggers, fnct_inv=_accept_anyway),
+
+        'int_instance_m2m_ids': fields.many2many('int.instance', 'res_partner_int_instance_rel', id1='partner_id', id2='int_instance_id', string='Internal Instances'),
     }
 
     _defaults = {
         'int_instance_id': _get_default_instance_id,
     }
+
+# orm methods
+
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        Do not copy m2m fields.
+        """
+        default = default or {}
+        default.update({
+            'int_instance_m2m_ids': [],
+        })
+        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -244,9 +244,7 @@
                             <field name="function"/>
                             <field name="civil_status"/>
                         </group>
-                        <group name="ldap" attrs="{'invisible': [('user_ids','=',[])]}" groups="ficep_base.ficep_res_groups_configurator">
-                            <field name="ldap_name" />
-                            <field name="ldap_id" />
+                        <group name="other">
                         </group>
                     </group>
                     <group name="partner" attrs="{'invisible': [('is_company','=', False)]}">
@@ -294,6 +292,16 @@
                                 <field name="partner_involvement_category_id" />
                             </tree>
                         </field>
+                    </page>
+                    <page name="user" string="User" attrs="{'invisible': [('user_ids','=',[])]}" groups="ficep_base.ficep_res_groups_configurator">
+                        <group name="ldap">
+                            <group>
+                                <field name="ldap_name" />
+                            </group>
+                            <group>
+                                <field name="ldap_id" />
+                            </group>
+                        </group>
                     </page>
                 </xpath>
 
