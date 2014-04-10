@@ -41,8 +41,7 @@
             <field name="inherit_id" ref="ficep_coordinate.view_partner_form" />
             <field name="arch" type="xml">
 
-                <xpath expr="//page[@name='coordinates']" position="inside">
-                    <separator string="Phone Coordinates"/>
+                <xpath expr="//separator[@name='phone']" position="after">
                     <button string="All Details" name="%(phone_coordinate_action)d"
                             type="action" attrs="{'invisible': [('id','=',False)]}"
                             context="{'search_default_partner_id': active_id,

@@ -9,7 +9,11 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//notebook/page[1]" position="before">
-                    <page name="coordinates" string="Coordinates"/>
+                    <page name="coordinates" string="Coordinates">
+                        <separator name="email" string="Email Coordinates"/>
+                        <separator name="address" string="Postal Coordinates"/>
+                        <separator name="phone" string="Phone Coordinates"/>
+                    </page>
                 </xpath>
 
             </field>
