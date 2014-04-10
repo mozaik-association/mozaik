@@ -44,8 +44,8 @@ term_available_states = dict(TERM_AVAILABLE_STATES)
 class thesaurus(orm.Model):
 
     _name = 'thesaurus'
+    _inherit = ['abstract.ficep.model']
     _description = 'Thesaurus'
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
 
     _track = {
         'new_thesaurus_term_id': {
@@ -54,16 +54,8 @@ class thesaurus(orm.Model):
     }
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
         'name': fields.char('Thesaurus', size=50, required=True, track_visibility='onchange'),
         'new_thesaurus_term_id': fields.many2one('thesaurus.term', string='New Term to Validate', readonly=True, track_visibility='onchange'),
-
-        # Validity
-        'active': fields.boolean('Active', readonly=True),
-    }
-
-    _defaults = {
-        'active': True,
     }
 
     _order = 'name'
@@ -79,29 +71,28 @@ class thesaurus(orm.Model):
         """
         raise orm.except_orm(_('Error'), _('A thesaurus cannot be duplicated!'))
 
-# view methods: onchange, button
+# public methods
 
-    def button_invalidate(self, cr, uid, ids, context=None):
+    def update_notification_term(self, cr, uid, ids, newid=False, context=None):
         """
-        =================
-        button_invalidate
-        =================
-        Invalidate the thesaurus
-        :rparam: True
-        :rtype: boolean
+        ========================
+        update_notification_term
+        ========================
+        Update the field new_thesaurus_term_id producing or not a notification
         """
-        term_ids = self.pool['thesaurus.term'].search(cr, uid, [('thesaurus_id', 'in', ids)], limit=1, context=context)
-        if term_ids:
-            raise orm.except_orm(_('Error'), _('A thesaurus with active terms cannot be invalidated!'))
-        self.write(cr, uid, ids, {'active': False}, context=context)
-        return True
+        ctx = context
+        if not newid:
+            # context: notrack when resetting the new term id to False to avoid a notification
+            ctx = dict(context or {}, mail_notrack=True)
+        res = self.write(cr, uid, ids, {'new_thesaurus_term_id': newid}, context=ctx)
+        return res
 
 
 class thesaurus_term(orm.Model):
 
     _name = 'thesaurus.term'
+    _inherit = ['abstract.ficep.model']
     _description = 'Thesaurus Term'
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
 
     def _get_technical_name(self, cr, uid, ids, name, args, context=None):
         result = {}.fromkeys(ids, False)
@@ -117,8 +108,7 @@ class thesaurus_term(orm.Model):
         return result
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Term', required=True, translate=True, select=True, track_visibility='onchange'),
+        'name': fields.char('Term', required=True, select=True, track_visibility='onchange'),
         'thesaurus_id': fields.many2one('thesaurus', 'Thesaurus', readonly=True, required=True),
         'ext_identifier': fields.char('External Identifier', readonly=True, required=False, select=True, track_visibility='onchange',
                                       states={'draft': [('readonly', False)], 'confirm': [('required', True)]}),
@@ -128,20 +118,15 @@ class thesaurus_term(orm.Model):
         # State
         'state': fields.selection(TERM_AVAILABLE_STATES, 'Status', readonly=True, required=True, track_visibility='onchange',
             help='If term is created, the status is \'Unconfirmed\'.If term is confirmed the status is set to \'Confirmed\'. If event is cancelled the status is set to \'Cancelled\'.'),
-
-        # Validity period
-        'create_date': fields.datetime('Creation Date', readonly=True),
-        'expire_date': fields.datetime('Expiration Date', track_visibility='onchange'),
-        'active': fields.boolean('Active', readonly=True),
     }
 
     _order = 'name'
 
     _defaults = {
         'thesaurus_id': lambda self, cr, uid, ids, context=None: self.pool['thesaurus'].search(cr, uid, [], limit=1, context=context)[0],
-        'technical_name': '#',
+        'ext_identifier': False,
         'state': TERM_AVAILABLE_STATES[0][0],
-        'active': True,
+        'technical_name': '#',
     }
 
 # constraints
@@ -169,7 +154,7 @@ class thesaurus_term(orm.Model):
     ]
 
     _sql_constraints = [
-        ('check_unicity_number', 'unique(technical_name)', _('The term must be unique in the thesaurus!'))
+        ('check_unicity_technical_name', 'unique(technical_name)', _('The term must be unique in the thesaurus!'))
     ]
 
 # orm methods
@@ -184,12 +169,10 @@ class thesaurus_term(orm.Model):
         """
         new_id = super(thesaurus_term, self).create(cr, uid, vals, context=context)
         term = self.browse(cr, uid, new_id, context=context)
-
-        # context: notrack when resetting the new term id to False
-        reset_context = dict(context or {}, mail_notrack=True)
-        self.pool['thesaurus'].write(cr, uid, term.thesaurus_id.id, {'new_thesaurus_term_id': False}, context=reset_context)
-        # Send a "New Term to Validate" notification to followers
-        self.pool['thesaurus'].write(cr, uid, term.thesaurus_id.id, {'new_thesaurus_term_id': new_id}, context=context)
+        # Reset notification term on the thesaurus
+        self.pool['thesaurus'].update_notification_term(cr, uid, term.thesaurus_id.id, context=None)
+        # Set notification term on the thesaurus
+        self.pool['thesaurus'].update_notification_term(cr, uid, term.thesaurus_id.id, new_id, context=None)
         return new_id
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
@@ -200,8 +183,8 @@ class thesaurus_term(orm.Model):
         default = default or {}
         default.update({
             'ext_identifier': False,
-            'active': True,
-            'expire_date': False,
+            'state': TERM_AVAILABLE_STATES[0][0],
+            'technical_name': '#',
         })
         res = super(thesaurus_term, self).copy_data(cr, uid, ids, default=default, context=context)
         res.update({
@@ -220,7 +203,7 @@ class thesaurus_term(orm.Model):
         :rparam: True
         :rtype: boolean
         """
-        self.write(cr, uid, ids, {'state': 'confirm'}, context=context)
+        self.write(cr, uid, ids, {'state': TERM_AVAILABLE_STATES[1][0]}, context=context)
         return True
 
     def button_cancel(self, cr, uid, ids, context=None):
@@ -229,12 +212,16 @@ class thesaurus_term(orm.Model):
         button_cancel
         =============
         Cancel the term
-        Overriding method to kill relation with these expired terms
         :rparam: True
         :rtype: boolean
+        Note:
+        Reset the notification term to avoid the expected exception related to an active reference
         """
-        self.write(cr, uid, ids, {'state': 'cancel', 'active': False, 'expire_date': fields.datetime.now()}, context=context)
-        return True
+        term = self.browse(cr, uid, ids, context=context)[0]
+        # Reset notification term on the thesaurus
+        self.pool['thesaurus'].update_notification_term(cr, uid, term.thesaurus_id.id, context=None)
+        res = super(thesaurus_term, self).action_invalidate(cr, uid, ids, vals={'state': TERM_AVAILABLE_STATES[2][0]}, context=context)
+        return res
 
     def button_reset(self, cr, uid, ids, context=None):
         """
@@ -245,7 +232,7 @@ class thesaurus_term(orm.Model):
         :rparam: True
         :rtype: boolean
         """
-        self.write(cr, uid, ids, {'state': 'draft', 'active': True, 'expire_date': False}, context=context)
-        return True
+        res = super(thesaurus_term, self).action_validate(cr, uid, ids, vals={'state': TERM_AVAILABLE_STATES[0][0]}, context=context)
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

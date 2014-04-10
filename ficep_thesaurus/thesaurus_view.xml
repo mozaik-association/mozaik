@@ -33,7 +33,7 @@
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_configurator">
-                            <button name="button_invalidate" string="Invalidate" type="object"
+                            <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate thesaurus: proceed anyway ?" />
                         </div>
                     </header>
@@ -45,8 +45,10 @@
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
 
-                        <group name="data">
-                            <group name="main">
+                        <group name="status" attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                             </group>
                             <group name="other">
                             </group>
@@ -59,6 +61,7 @@
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
+                                <field name="new_thesaurus_term_id"/>
                             </group>
                         </div>
                     </div>

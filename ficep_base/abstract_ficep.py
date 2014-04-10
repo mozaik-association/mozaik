@@ -42,7 +42,7 @@ class abstract_ficep_model (orm.AbstractModel):
     _description = "Abstract Ficep Model"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
-    def action_invalidate(self, cr, uid, ids, context=None):
+    def action_invalidate(self, cr, uid, ids, vals=None, context=None):
         """
         =================
         action_invalidate
@@ -54,22 +54,24 @@ class abstract_ficep_model (orm.AbstractModel):
         :rtype: boolean
 
         """
-        vals = self.get_fields_to_update(cr, uid, 'deactivate', context=context)
+        vals = vals or {}
+        vals.update(self.get_fields_to_update(cr, uid, 'deactivate', context=context))
         return self.write(cr, uid, ids, vals, context=context)
 
-    def action_validate(self, cr, uid, ids, context=None):
+    def action_validate(self, cr, uid, ids, vals=None, context=None):
         """
-        =================
+        ===============
         action_validate
-        =================
-        Validates an object by setting
+        ===============
+        Reactivates an object by setting
         * active to True
         * expire_date to False
         :rparam: True
         :rtype: boolean
 
         """
-        vals = self.get_fields_to_update(cr, uid, 'activate', context=context)
+        vals = vals or {}
+        vals.update(self.get_fields_to_update(cr, uid, 'activate', context=context))
         return self.write(cr, uid, ids, vals, context=context)
 
     def get_fields_to_update(self, cr, uid, mode, context=None):
