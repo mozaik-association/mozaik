@@ -89,3 +89,5 @@ class test_sta_structure(abstract_ficep, SharedSetupTransactionCase):
         # Check for is_assembly flag on related created partner
         assembly = ext_assembly_model.browse(cr, uid, ext_id, context=context)
         self.assertTrue(assembly.partner_id.is_assembly, 'Create external assembly fails with wrong is_assembly')
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -115,8 +115,15 @@
             <field name="parent_id" ref="sta_instance_06"/>
             <field name="int_instance_id" ref="int_instance_05"/>
         </record>
-        
-         <!-- Create State Assemblies -->
+
+        <record id="sta_instance_08" model="sta.instance">
+            <field name="name">Vlaams Brabant</field>
+            <field name="power_level_id" ref="ficep_structure.sta_power_level_09"/>
+            <field name="parent_id" ref="sta_instance_01"/>
+            <field name="int_instance_id" ref="ficep_structure.int_instance_01"/>
+        </record>
+
+        <!-- Create State Assemblies -->
 
         <record id="sta_assembly_01" model="sta.assembly">
             <field name="instance_id" ref="sta_instance_07"/>

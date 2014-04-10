@@ -48,6 +48,7 @@ FICEP Communication
     'images': [
     ],
     'data': [
+        'security/ir.model.access.csv',
         'distribution_list_view.xml',
         'communication_view.xml',
         'virtual_models_view.xml',

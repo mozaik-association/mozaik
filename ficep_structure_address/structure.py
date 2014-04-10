@@ -29,39 +29,89 @@
 from openerp.osv import orm
 
 
-class abstract_assembly(orm.AbstractModel):
-
-    _name = 'abstract.assembly'
-    _inherit = ['abstract.assembly']
-
-# orm methods
-
-    def create(self, cr, uid, vals, context=None):
-        '''
-        Responsible Internal Instance is the Instance
-        Note: must be override for State Instance
-        '''
-        if 'int_instance_id' not in vals:
-            vals.update({'int_instance_id': vals['instance_id']})
-        res = super(abstract_assembly, self).create(cr, uid, vals, context=context)
-        return res
-
-
 class sta_assembly(orm.Model):
 
     _inherit = 'sta.assembly'
 
+# static methods
+
+    def _pre_update(self, cr, uid, vals, context=None):
+        '''
+        When instance_id is touched force an update of int_instance_id
+        '''
+        res = {}
+        if 'instance_id' in vals:
+            instance_id = vals['instance_id']
+            int_instance_id = self.pool['sta.instance'].read(cr, uid, instance_id, ['int_instance_id'], context=context)['int_instance_id'][0]
+            res = {'int_instance_id': int_instance_id}
+        return res
+
 # orm methods
 
     def create(self, cr, uid, vals, context=None):
         '''
-        Responsible Internal Instance is the Internal
-        Instance attached to the State Instance
+        Set the Responsible Internal Instance linked to the result Partner
         '''
-        instance_id = vals['instance_id']
-        int_instance_id = self.pool['sta.instance'].read(cr, uid, instance_id, ['int_instance_id'], context=context)['int_instance_id'][0]
-        vals.update({'int_instance_id': int_instance_id})
+        vals.update(self._pre_update(cr, uid, vals, context=context))
         res = super(sta_assembly, self).create(cr, uid, vals, context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        '''
+        Update the Responsible Internal Instance linked to the result Partner
+        '''
+        vals.update(self._pre_update(cr, uid, vals, context=context))
+        res = super(sta_assembly, self).write(cr, uid, ids, vals, context=context)
+        return res
+
+
+# these 2 classes should be merged into one inherited abstract class of abstract.assembly
+# unfortunately that does not work: methods is never called !!
+class int_assembly(orm.Model):
+
+    _inherit = 'int.assembly'
+
+# orm methods
+
+    def create(self, cr, uid, vals, context=None):
+        '''
+        Responsible Internal Instance linked to the result Partner is the Instance of the Assembly
+        '''
+        vals.update({'int_instance_id': vals['instance_id']})
+        res = super(int_assembly, self).create(cr, uid, vals, context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        '''
+        Update the Responsible Internal Instance linked to the result Partner
+        '''
+        if 'instance_id' in vals:
+            vals.update({'int_instance_id': vals['instance_id']})
+        res = super(int_assembly, self).write(cr, uid, ids, vals, context=context)
+        return res
+
+
+class ext_assembly(orm.Model):
+
+    _inherit = 'ext.assembly'
+
+# orm methods
+
+    def create(self, cr, uid, vals, context=None):
+        '''
+        Responsible Internal Instance linked to the result Partner is the Instance of the Assembly
+        '''
+        vals.update({'int_instance_id': vals['instance_id']})
+        res = super(ext_assembly, self).create(cr, uid, vals, context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        '''
+        Update the Responsible Internal Instance linked to the result Partner
+        '''
+        if 'instance_id' in vals:
+            vals.update({'int_instance_id': vals['instance_id']})
+        res = super(ext_assembly, self).write(cr, uid, ids, vals, context=context)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

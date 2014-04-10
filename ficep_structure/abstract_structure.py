@@ -59,8 +59,8 @@ class abstract_assembly_category(orm.AbstractModel):
 
     _columns = {
         'name': fields.char('Name', size=128, select=True, required=True, track_visibility='onchange'),
-        'duration': fields.integer('Duration of mandates', track_visibility='onchange'),
-        'months_before_end_of_mandate': fields.integer('Months before end of mandate', track_visibility='onchange'),
+        'duration': fields.integer('Duration of Mandates', track_visibility='onchange'),
+        'months_before_end_of_mandate': fields.integer('Months before end of Mandate', track_visibility='onchange'),
     }
 
     _order = 'name'
@@ -138,7 +138,7 @@ class abstract_assembly(orm.AbstractModel):
                                       select=True, required=True, ondelete='restrict'),
         'designation_int_power_level_id': fields.many2one('abstract.power.level', string='Designation Power Level',
                                                           select=True, required=True, track_visibility='onchange'),
-        'months_before_end_of_mandate': fields.integer('Months before end of mandate', track_visibility='onchange'),
+        'months_before_end_of_mandate': fields.integer('Months before end of Mandate', track_visibility='onchange'),
     }
 
     _defaults = {

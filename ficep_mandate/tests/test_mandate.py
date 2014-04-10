@@ -35,7 +35,7 @@ _logger = logging.getLogger(__name__)
 class test_mandate(SharedSetupTransactionCase):
 
     _data_files = (
-        '../../ficep_structure/data/structure_data.xml',
+        #'../../ficep_structure/tests/data/structure_data.xml',
     )
 
     _module_ns = 'ficep_mandate'
@@ -47,8 +47,8 @@ class test_mandate(SharedSetupTransactionCase):
         '''
             Test unique name of mandate category
         '''
-        int_power_level_01_id = self.ref('%s.int_power_level_01' % self._module_ns)
-        int_power_level_02_id = self.ref('%s.int_power_level_02' % self._module_ns)
+        int_power_level_01_id = self.ref('ficep_structure.int_power_level_01')
+        int_power_level_02_id = self.ref('ficep_structure.int_power_level_02')
 
         data = dict(name='category_01', int_power_level_id=int_power_level_01_id)
         self.registry('mandate.category').create(self.cr, self.uid, data)
