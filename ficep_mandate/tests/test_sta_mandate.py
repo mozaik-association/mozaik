@@ -169,5 +169,5 @@ class test_sta_mandate(SharedSetupTransactionCase):
         candidature_data = candidature_pool.read(self.cr, self.uid, sta_marc_id, ['state'])
         self.assertEqual(candidature_data['state'], 'elected')
 
-        mandate_ids = mandate_pool.search(self.cr, self.uid, [('candidature_id', 'in', sta_marc_id)])
+        mandate_ids = mandate_pool.search(self.cr, self.uid, [('candidature_id', 'in', [sta_marc_id])])
         self.assertEqual(len(mandate_ids), 1)
