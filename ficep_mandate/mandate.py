@@ -204,6 +204,32 @@ class selection_committee(orm.Model):
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)
 
+    def copy_data(self, cr, uid, id, default=None, context=None):
+        default = default or {}
+
+        default.update({
+            'active': True,
+            'state': SELECTION_COMMITTEE_AVAILABLE_STATES[0][0],
+            'sta_candidature_ids': [],
+            'sta_candidature_inactive_ids': [],
+            'note': False,
+            'decision_date': False,
+            'meeting_date': False,
+        })
+        res = super(selection_committee, self).copy_data(cr, uid, id, default=default, context=context)
+
+        data = self.onchange_sta_assembly_id(cr, uid, id, res.get('sta_assembly_id'), context=context)
+        legislature_id = data['value']['legislature_id']
+        legislature_data = self.onchange_legislature_id(cr, uid, id, legislature_id, context=context)
+
+        res.update({
+            'name': _('%s (copy)') % res.get('name'),
+            'legislature_id': legislature_id,
+            'mandate_start_date': legislature_data['value']['mandate_start_date'],
+            'mandate_deadline_date': legislature_data['value']['mandate_deadline_date'],
+        })
+        return res
+
 # view methods: onchange, button
     def button_accept_candidatures(self, cr, uid, ids, context=None):
         """
