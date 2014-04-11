@@ -34,7 +34,7 @@
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate thesaurus: proceed anyway ?" />
+                                    confirm="Invalidate thesaurus: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>

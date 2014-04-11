@@ -125,6 +125,8 @@ class abstract_ficep_model (orm.AbstractModel):
             rels_dict = self.pool.get('ir.model')._get_active_relations(cr, uid, invalidate_ids, self._name, context=context)
 
             if len(rels_dict) > 0:
+                for k in rels_dict.keys():
+                    _logger.info('Remaining active m2o for %s(%s): %s', self._name, k, rels_dict[k])
                 return False
 
         return True

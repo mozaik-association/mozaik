@@ -256,7 +256,7 @@ class abstract_coordinate(object):
                                                                                  self.model_coordinate._discriminant_field: self.field_id_1}, {})
         coordinate_id_2 = self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_2,
                                                                                  self.model_coordinate._discriminant_field: self.field_id_1}, {})
-        self.model_coordinate.button_invalidate(self.cr, self.uid, [coordinate_id_2])
+        self.model_coordinate.action_invalidate(self.cr, self.uid, [coordinate_id_2])
         is_duplicate_values = self.get_value_detected([coordinate_id_1])
         self.check_state_of_duplicate(is_duplicate_values)
 

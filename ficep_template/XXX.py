@@ -26,12 +26,17 @@
 #
 ##############################################################################
 # System imports
+import logging
+
 
 # Other utilities imports
 
 # OpenERP imports
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp.tools import SUPERUSER_ID
+
+_logger = logging.getLogger(__name__)
 
 # Local imports
 
@@ -184,6 +189,11 @@ class xxxx(orm.Model):
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
+        if 'active' in vals and not vals['active']:
+            PPP_obj = self.pool['zzz']
+            PPP_ids = PPP_obj.search(cr, SUPERUSER_ID, [('xxxx_id', 'in', ids)], context=context)
+            if PPP_ids:
+                PPP_obj.action_invalidate(cr, SUPERUSER_ID, PPP_ids, context=context)
         res = super(xxxx, self).write(cr, uid, ids, vals, context=context)
         return res
 
@@ -191,19 +201,21 @@ class xxxx(orm.Model):
         res = super(xxxx, self).unlink(cr, uid, ids, context=context)
         return res
 
-    def copy_data(self, cr, uid, ids, default=None, context=None):
+    def copy_data(self, cr, uid, copy_id, default=None, context=None):
         default = default or {}
         default.update({
-            'active': True,
-            'name_ids': []
+            'zzz_ids': [],
         })
-        res = super(xxxx, self).copy_data(cr, uid, ids, default=default, context=context)
+        res = super(xxxx, self).copy_data(cr, uid, copy_id, default=default, context=context)
         res.update({
             'name': _('%s (copy)') % res.get('name'),
         })
         return res
 
     def copy(self, cr, uid, ids, default=None, context=None):
+        flds = self.read(cr, uid, ids, ['active'], context=context)
+        if flds.get('active', True):
+            raise orm.except_orm(_('Error'), _('An active XXX cannot be duplicated!'))
         res = super(xxxx, self).copy(cr, uid, ids, default=default, context=context)
         return res
 

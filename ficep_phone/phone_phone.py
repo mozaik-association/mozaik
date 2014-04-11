@@ -49,8 +49,8 @@ PREFIX_CODE = 'BE'
 class phone_phone(orm.Model):
 
     _name = 'phone.phone'
-    _description = "Phone Number"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _description = 'Phone Number'
+    _inherit = ['abstract.ficep.model']
 
     def _get_linked_coordinates(self, cr, uid, ids, context=None):
         return self.pool['phone.coordinate'].search(cr, uid, [('phone_id', 'in', ids)], context=context)
@@ -84,7 +84,11 @@ class phone_phone(orm.Model):
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Number', size=50, required=True, select=True, track_visibility='onchange'),
         'type': fields.selection(PHONE_AVAILABLE_TYPES, 'Type', required=True, track_visibility='onchange'),
-        'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinates'),
+
+        'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinates',
+                                                domain=[('active', '=', True)]),
+        'phone_coordinate_inactive_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinates',
+                                                domain=[('active', '=', False)]),
     }
 
     _order = "name"

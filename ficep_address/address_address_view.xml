@@ -202,7 +202,6 @@
                                        readonly="1" attrs="{'invisible': [('active','=',True)]}">
                                     <tree colors="darkorange:unauthorized==True">
                                         <field name="partner_id"/>
-                                        <field name="address_id"/>
                                         <field name="coordinate_category_id" />
                                         <field name="is_main" />
                                         <field name="unauthorized" />
