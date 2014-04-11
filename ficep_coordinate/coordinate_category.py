@@ -33,11 +33,14 @@ from openerp.tools.translate import _
 class coordinate_category(orm.Model):
 
     _name = 'coordinate.category'
+    _inherit = ['abstract.ficep.model']
     _description = 'Coordinate Category'
 
     _columns = {
         'name': fields.char('Name', size=128, translate=True, required=True, select=True),
     }
+
+    _order = 'name'
 
     _sql_constraints = [
         ('check_unicity_coordinate_category', 'unique(name)', _('This Coordinate Category already exists!'))

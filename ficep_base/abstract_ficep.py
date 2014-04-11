@@ -38,37 +38,32 @@ INVALIDATE_ERROR = _('Invalidation impossible, at least one dependency is still 
 
 
 class abstract_ficep_model (orm.AbstractModel):
-    _name = "abstract.ficep.model"
-    _description = "Abstract Ficep Model"
+    _name = 'abstract.ficep.model'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _description = 'Abstract Ficep Model'
 
-    def action_invalidate(self, cr, uid, ids, vals=None, context=None):
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
         """
         =================
         action_invalidate
         =================
-        Invalidates an object by setting
-        * active to False
-        * expire_date to current date
+        Invalidates an object
         :rparam: True
         :rtype: boolean
-
+        Note: Argument vals must be the last in the signature
         """
         vals = vals or {}
         vals.update(self.get_fields_to_update(cr, uid, 'deactivate', context=context))
         return self.write(cr, uid, ids, vals, context=context)
 
-    def action_validate(self, cr, uid, ids, vals=None, context=None):
+    def action_validate(self, cr, uid, ids, context=None, vals=None):
         """
         ===============
         action_validate
         ===============
         Reactivates an object by setting
-        * active to True
-        * expire_date to False
         :rparam: True
         :rtype: boolean
-
         """
         vals = vals or {}
         vals.update(self.get_fields_to_update(cr, uid, 'activate', context=context))
@@ -151,10 +146,27 @@ class abstract_ficep_model (orm.AbstractModel):
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
         """
-        Generate a domain on all fields to make the form readonly when document is inactive
+        * Generate a domain on all fields to make the form readonly when document is inactive
+        * Work around the automatic form generation when it is inherited from an other model
         """
-        if view_type == 'form' and uid != SUPERUSER_ID and not context.get('is_developper'):
-            context = dict(context or {}, add_readonly_condition=True)
+        if view_type == 'form':
+            if uid != SUPERUSER_ID and not context.get('is_developper'):
+                context = dict(context or {}, add_readonly_condition=True)
+            if not view_id and not(context and context.get('form_view_ref')):
+                cr.execute("""SELECT id
+                              FROM ir_ui_view
+                              WHERE model=%s AND type=%s AND inherit_id IS NULL
+                              ORDER BY priority""", (self._name, view_type))
+                sql_res = cr.dictfetchone()
+                if not sql_res:
+                    cr.execute("""SELECT id
+                                  FROM ir_ui_view
+                                  WHERE model=%s AND type=%s
+                                  ORDER BY priority""", (self._name, view_type))
+                    sql_res = cr.dictfetchone()
+                    if sql_res:
+                        # force this existing view
+                        view_id = sql_res['id']
         res = super(abstract_ficep_model, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
         return res
 

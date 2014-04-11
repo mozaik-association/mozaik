@@ -44,11 +44,11 @@ class abstract_power_level(orm.AbstractModel):
         'assembly_category_inactive_ids': fields.one2many('abstract.assembly.category', 'power_level_id', 'Assembly Categories', domain=[('active', '=', False)]),
     }
 
+    _order = 'sequence, name'
+
     _defaults = {
         'sequence': 5,
     }
-
-    _order = 'sequence, name'
 
 
 class abstract_assembly_category(orm.AbstractModel):
