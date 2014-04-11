@@ -48,6 +48,9 @@ class ir_model(orm.Model):
                 col = model._columns[relation.name]
                 if hasattr(col, 'store') and not col.store:
                     continue
+                if hasattr(model, '_allowed_inactive_link_models'):
+                    if model_name in model._allowed_inactive_link_models:
+                        continue
 
                 active_dep_ids = model.search(cr, uid, [(relation.name, '=', record_id)], context=context)
 

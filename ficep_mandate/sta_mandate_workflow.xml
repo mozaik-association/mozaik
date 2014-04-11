@@ -36,10 +36,17 @@
             <field name="action">write({'state':'rejected'})</field>
         </record>
         
+        <record id="act_router" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_sta_candidature"/>
+            <field name="name">router</field>
+            <field name="kind">dummy</field>            
+            <field name="split_mode">OR</field>
+        </record>
+        
         <record id="act_designated" model="workflow.activity">
             <field name="wkf_id" ref="wkf_sta_candidature"/>
             <field name="name">designated</field>
-            <field name="kind">function</field>            
+            <field name="kind">function</field>       
             <field name="action">write({'state':'designated'})</field>
         </record>
         
@@ -48,7 +55,7 @@
             <field name="name">elected</field>
             <field name="kind">function</field>            
             <field name="flow_stop">True</field>
-            <field name="action">write({'state':'elected'})</field>
+            <field name="action">action_elected()</field>
         </record>
         
         <record id="act_non-elected" model="workflow.activity">
@@ -90,10 +97,22 @@
             <field name="signal">button_declare</field>  
         </record>
         
-        <record id="trans_suggest_designated" model="workflow.transition">
+        <record id="trans_suggest_router" model="workflow.transition">
             <field name="act_from" ref="act_suggested"/>
+            <field name="act_to" ref="act_router"/>   
+            <field name="signal">action_accept</field>           
+        </record>
+        
+        <record id="trans_router_designated" model="workflow.transition">
+            <field name="act_from" ref="act_router"/>
             <field name="act_to" ref="act_designated"/>
-            <field name="signal">action_designate</field>  
+            <field name="condition">is_legislative()</field>            
+        </record>
+        
+        <record id="trans_router_elected" model="workflow.transition">
+            <field name="act_from" ref="act_router"/>
+            <field name="act_to" ref="act_elected"/>
+            <field name="condition">is_not_legislative()</field>            
         </record>
         
         <record id="trans_designated_elected" model="workflow.transition">
