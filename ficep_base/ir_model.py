@@ -43,7 +43,7 @@ class ir_model(orm.Model):
         for record_id in ids:
             for relation in relations:
                 model = self.pool.get(relation.model, False)
-                if not model:
+                if not model or not model._auto:
                     continue
 
                 active_dep_ids = model.search(cr, uid, [(relation.name, '=', record_id)], context=context)
