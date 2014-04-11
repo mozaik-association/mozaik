@@ -45,6 +45,9 @@ class ir_model(orm.Model):
                 model = self.pool.get(relation.model, False)
                 if not model or not model._auto:
                     continue
+                if hasattr(model, '_allowed_inactive_link_models'):
+                    if model_name in model._allowed_inactive_link_models:
+                        continue
 
                 active_dep_ids = model.search(cr, uid, [(relation.name, '=', record_id)], context=context)
 

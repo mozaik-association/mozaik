@@ -1,19 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data noupdate="0">
-
-        <!-- Create Selection committee -->
-        <record id="sc_tete_huy_communale" model="selection.committee">
-            <field name="committee_type">state</field>
-            <field name="name">Têtes de liste</field>
-            <field name="legislature_id" ref="legislature_01"/>
-            <field name="electoral_district_id" ref="electoral_district_01"/>
-            <field name="sta_assembly_id" ref="sta_assembly_01"/>
-            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
-            <field name="mandate_start_date">2012-12-03</field>
-            <field name="mandate_deadline_date">2018-12-02</field>
-        </record>
-        
+    
         <!-- Create Mandate Category -->
         <record id="mc_conseiller_communal" model="mandate.category">
             <field name="type">sta</field>
@@ -28,6 +16,38 @@
             <field name="int_power_level_id" ref="ficep_structure.int_power_level_03"/>
             <field name="sta_assembly_category_id" ref="ficep_structure.sta_assembly_category_05"/>
         </record>
+        
+        <record id="mc_bourgmestre" model="mandate.category">
+            <field name="type">sta</field>
+            <field name="name">Bourgmestre</field>
+            <field name="int_power_level_id" ref="ficep_structure.int_power_level_03"/>
+            <field name="sta_assembly_category_id" ref="ficep_structure.sta_assembly_category_11"/>
+        </record>
+
+        <!-- Create Selection committee -->
+        <record id="sc_tete_huy_communale" model="selection.committee">
+            <field name="committee_type">state</field>
+            <field name="mandate_category_id" ref="mc_conseiller_communal"/>
+            <field name="name">Têtes de liste</field>
+            <field name="legislature_id" ref="legislature_01"/>
+            <field name="electoral_district_id" ref="electoral_district_01"/>
+            <field name="sta_assembly_id" ref="sta_assembly_01"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="mandate_start_date">2018-12-03</field>
+            <field name="mandate_deadline_date">2024-12-02</field>
+        </record> 
+        
+        <record id="sc_bourgmestre_huy" model="selection.committee">
+            <field name="committee_type">state</field>
+            <field name="mandate_category_id" ref="mc_bourgmestre"/>
+            <field name="name">Désignation</field>
+            <field name="legislature_id" ref="legislature_01"/>            
+            <field name="sta_assembly_id" ref="sta_assembly_03"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="mandate_start_date">2018-12-03</field>
+            <field name="mandate_deadline_date">2024-12-02</field>
+            <field name="auto_mandate" eval="1"/>
+        </record>     
         
         <!-- Create State candidature -->
         <record id="sta_paul_communal" model="sta.candidature">
@@ -57,6 +77,15 @@
             <field name="legislature_id" ref="legislature_01"/>
             <field name="electoral_district_id" ref="electoral_district_01"/>
             <field name="sta_assembly_id" ref="sta_assembly_01"/>
+            <field name="partner_id" ref="res_partner_marc"/>
+        </record>
+        
+        <record id="sta_marc_bourgmestre" model="sta.candidature">
+            <field name="mandate_category_id" ref="mc_bourgmestre"/>
+            <field name="selection_committee_id" ref="sc_bourgmestre_huy"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="legislature_id" ref="legislature_01"/>            
+            <field name="sta_assembly_id" ref="sta_assembly_03"/>
             <field name="partner_id" ref="res_partner_marc"/>
         </record>
         

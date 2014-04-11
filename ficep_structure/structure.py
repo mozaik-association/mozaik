@@ -51,6 +51,9 @@ class electoral_district(orm.Model):
                                         ),
         'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation assembly',
                                                  required=True, track_visibility='onchange'),
+        'assembly_category_id': fields.related('assembly_id', 'assembly_category_id', string='State assembly category',
+                                          type='many2one', relation="sta.assembly.category",
+                                          store=False),
         }
 
 # view methods: onchange, button

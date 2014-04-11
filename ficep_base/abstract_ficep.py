@@ -42,6 +42,8 @@ class abstract_ficep_model (orm.AbstractModel):
     _inherit = ['mail.thread', 'ir.needaction_mixin']
     _description = 'Abstract Ficep Model'
 
+    _allowed_inactive_links = []
+
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
         """
         =================

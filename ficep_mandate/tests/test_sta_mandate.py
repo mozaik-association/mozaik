@@ -66,9 +66,9 @@ class test_sta_mandate(SharedSetupTransactionCase):
         self.registry('sta.candidature').create(self.cr, self.uid, data)
         self.assertRaises(orm.except_orm, self.registry('sta.candidature').create, self.cr, self.uid, data)
 
-    def test_sta_candidature_process(self):
+    def test_sta_candidature_legislative_process(self):
         '''
-        Test the process of states candidatures until mandate création
+        Test the process of states candidatures for a legislative assembly until mandate creation
         '''
         candidature_pool = self.registry('sta.candidature')
         mandate_pool = self.registry('sta.mandate')
@@ -149,3 +149,25 @@ class test_sta_mandate(SharedSetupTransactionCase):
 
         mandate_ids = mandate_pool.search(self.cr, self.uid, [('candidature_id', 'in', elected_ids)])
         self.assertEqual(len(mandate_ids), len(elected_ids))
+
+    def test_sta_candidature_not_legislative_process(self):
+        '''
+        Test the process of states candidatures for a non legislative assembly until mandate creation
+        '''
+        candidature_pool = self.registry('sta.candidature')
+        mandate_pool = self.registry('sta.mandate')
+        committee_pool = self.registry('selection.committee')
+        committee_id = self.ref('%s.sc_bourgmestre_huy' % self._module_ns)
+        sta_marc_id = self.ref('%s.sta_marc_bourgmestre' % self._module_ns)
+
+        candidature_pool.signal_button_suggest(self.cr, self.uid, [sta_marc_id])
+
+        candidature_data = candidature_pool.read(self.cr, self.uid, sta_marc_id, ['state'])
+        self.assertEqual(candidature_data['state'], 'suggested')
+
+        committee_pool.button_accept_candidatures(self.cr, self.uid, [committee_id])
+        candidature_data = candidature_pool.read(self.cr, self.uid, sta_marc_id, ['state'])
+        self.assertEqual(candidature_data['state'], 'elected')
+
+        mandate_ids = mandate_pool.search(self.cr, self.uid, [('candidature_id', 'in', sta_marc_id)])
+        self.assertEqual(len(mandate_ids), 1)

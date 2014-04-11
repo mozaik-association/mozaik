@@ -41,7 +41,7 @@ CANDIDATURE_AVAILABLE_STATES = [
 candidature_available_states = dict(CANDIDATURE_AVAILABLE_STATES)
 
 
-def create_mandate_from_candidature(cr, uid, candidature_pool, mandate_pool, committee_pool, candidature_id, context=None):
+def create_mandate_from_candidature(cr, uid, candidature_pool, candidature_id, context=None):
     """
     ==============================
     create_mandate_from_candidature
@@ -50,6 +50,8 @@ def create_mandate_from_candidature(cr, uid, candidature_pool, mandate_pool, com
     :rparam: mandate id
     :rtype: id
     """
+    mandate_pool = candidature_pool.pool.get(candidature_pool._mandate_model)
+    committee_pool = candidature_pool.pool.get('selection.committee')
     candidature_data = candidature_pool.read(cr, uid, candidature_id, [], context)
     res = False
     mandate_values = {}
@@ -138,8 +140,10 @@ class abstract_candidature(orm.AbstractModel):
     _inherit = ['abstract.mandate.base']
 
     _init_mandate_columns = ['mandate_category_id', 'partner_id', 'is_replacement', 'designation_int_assembly_id']
+    _mandate_model = 'abstract.mandate'
 
     _columns = {
+        'sequence': fields.integer('N°'),
         'partner_name': fields.char('Partner Name', size=128, translate=True, select=True, track_visibility='onchange'),
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'selection_committee_id': fields.many2one('selection.committee', string='Selection Committee',
@@ -169,7 +173,10 @@ class abstract_candidature(orm.AbstractModel):
 
     _defaults = {
         'state': CANDIDATURE_AVAILABLE_STATES[0][0],
+        'sequence': 1,
     }
+
+    _order = 'selection_committee_id, sequence'
 
 # orm methods
     def name_get(self, cr, uid, ids, context=None):
