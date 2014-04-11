@@ -38,37 +38,32 @@ INVALIDATE_ERROR = _('Invalidation impossible, at least one dependency is still 
 
 
 class abstract_ficep_model (orm.AbstractModel):
-    _name = "abstract.ficep.model"
-    _description = "Abstract Ficep Model"
+    _name = 'abstract.ficep.model'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _description = 'Abstract Ficep Model'
 
-    def action_invalidate(self, cr, uid, ids, vals=None, context=None):
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
         """
         =================
         action_invalidate
         =================
-        Invalidates an object by setting
-        * active to False
-        * expire_date to current date
+        Invalidates an object
         :rparam: True
         :rtype: boolean
-
+        Note: Argument vals must be the last in the signature
         """
         vals = vals or {}
         vals.update(self.get_fields_to_update(cr, uid, 'deactivate', context=context))
         return self.write(cr, uid, ids, vals, context=context)
 
-    def action_validate(self, cr, uid, ids, vals=None, context=None):
+    def action_validate(self, cr, uid, ids, context=None, vals=None):
         """
         ===============
         action_validate
         ===============
         Reactivates an object by setting
-        * active to True
-        * expire_date to False
         :rparam: True
         :rtype: boolean
-
         """
         vals = vals or {}
         vals.update(self.get_fields_to_update(cr, uid, 'activate', context=context))
