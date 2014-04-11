@@ -8,6 +8,12 @@
             <field name="arch" type="xml">
                 <form string="Coordinate Category" version="7.0">
                     <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_configurator">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate Category: proceed anyway?" />
+                        </div>
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">
@@ -17,8 +23,10 @@
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
 
-                        <group name="data">
-                            <group name="main">
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                             </group>
                             <group name="other">
                             </group>
@@ -27,7 +35,13 @@
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Revalidate document: proceed anyway?" />
+                            </div>
                             <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
                             </group>
                         </div>
                     </div>
