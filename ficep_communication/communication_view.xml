@@ -2,6 +2,28 @@
 <openerp>
     <data noupdate="0">
 
+        <!-- Virtual Actions -->
+
+        <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
+            <field name="name">Add To Distribution List</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">virtual.partner.involvement</field>
+            <field name="res_model">distribution.list.add.filter</field>
+            <field name="multi" eval="1"/>
+            <field name="target">new</field>
+            <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+        </record>
+
+        <record id="add_filter_from_involvement_value" model="ir.values">
+            <field name="name">Add To Distribution List</field>
+            <field name="model">distribution.list.add.filter</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
+        </record>
+
         <!-- 
             Persons:
             Natural Persons

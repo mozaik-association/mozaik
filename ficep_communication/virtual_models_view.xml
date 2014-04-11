@@ -7,8 +7,11 @@
             <field name="model">virtual.partner.involvement</field>
             <field name="arch" type="xml">
                 <search string="Virtual Partner Involvement">
-                    <field name="involvement_id" />
-                    <filter string="Partner Involvement" icon="terp-personal" name="p_inv_id" context="{'group_by':'involvement_id'}"/>
+                    <field name="partner_id" />
+                    <field name="involvement_category_id" />
+                    <field name="int_instance_id" />
+                    <filter string="Involvement Category" icon="terp-personal" name="p_inv_cat_id" context="{'group_by':'involvement_category_id'}"/>
+                    <filter string="Internal Instance" icon="terp-personal" name="i_int_id" context="{'group_by':'int_instance_id'}"/>
                 </search>
             </field>
         </record>
@@ -19,21 +22,13 @@
             <field name="model">virtual.partner.involvement</field>
             <field name="arch" type="xml">
                 <tree string="Virtual Partner Involvement" create="false">
-                    <field name="involvement_id" />
                     <field name="partner_id" />
-                    <field name="display_name" />
+                    <field name="involvement_category_id" />
+                    <field name="int_instance_id" />
+
                     <field name="gender" />
                     <field name="tongue" />
 
-                    <field name="int_instance_id" />
-
-                    <field name="email_coordinate_id" />
-                    <field name="postal_vip" />
-                    <field name="postal_unauthorized" />
-
-                    <field name="email_coordinate_id" />
-                    <field name="email_vip" />
-                    <field name="email_unauthorized" />
                 </tree>
             </field>
         </record>

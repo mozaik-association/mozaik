@@ -36,21 +36,21 @@ class virtual_partner_involvement(orm.Model):
     _auto = False
 
     _columns = {
-        'partner_id': fields.many2one('res.partner', 'Partner'),
-        'involvement_id': fields.many2one('partner.involvement', 'Involvement'),
-        'int_instance_id': fields.many2one('int.instance', 'Instance'),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+        'partner_id': fields.many2one('res.partner', 'Partner', readonly=True),
+        'involvement_category_id': fields.many2one('partner.involvement.category', 'Involvement Category', readonly=True),
+        'int_instance_id': fields.many2one('int.instance', 'Instance', readonly=True),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', readonly=True),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', readonly=True),
 
-        'display_name': fields.char('Partner Display Name'),
-        'gender': fields.char('Partner Gender'),
-        'tongue': fields.char('Partner Tongue'),
+        'display_name': fields.char('Display Name', readonly=True),
+        'gender': fields.char('Gender', readonly=True),
+        'tongue': fields.char('Tongue', readonly=True),
 
-        'postal_vip': fields.boolean('Postal VIP'),
-        'postal_unauthorized': fields.boolean('Postal Unauthorized'),
+        'postal_vip': fields.boolean('Postal VIP', readonly=True),
+        'postal_unauthorized': fields.boolean('Postal Unauthorized', readonly=True),
 
-        'email_vip': fields.boolean('Email VIP'),
-        'email_unauthorized': fields.boolean('Email Unauthorized'),
+        'email_vip': fields.boolean('Email VIP', readonly=True),
+        'email_unauthorized': fields.boolean('Email Unauthorized', readonly=True),
     }
 
 # orm methods
@@ -61,15 +61,15 @@ class virtual_partner_involvement(orm.Model):
         create or replace view virtual_partner_involvement as (
         SELECT
             concat(p.id, pi.id) as id,
-            pi.id as involvement_id,
             pi.partner_id as partner_id,
+            pic.id as involvement_category_id,
             p.display_name as display_name,
             p.gender as gender,
             p.tongue as tongue,
             p.int_instance_id as int_instance_id,
             pc.id as postal_coordinate_id,
-            pc.vip as postal_vip,
             pc.unauthorized as postal_unauthorized,
+            pc.vip as postal_vip,
             e.id as email_coordinate_id,
             e.unauthorized as email_unauthorized,
             e.vip as email_vip
@@ -77,19 +77,27 @@ class virtual_partner_involvement(orm.Model):
             partner_involvement pi
         JOIN
             res_partner p
-        ON (pi.partner_id = p.id)
+        ON (pi.partner_id = p.id
+        AND p.active = True
+        AND pi.active = True)
+
+        JOIN
+            partner_involvement_category pic
+        ON (pi.partner_involvement_category_id = pic.id)
 
         LEFT OUTER JOIN
             postal_coordinate pc
         ON (pc.partner_id = p.id
         AND pc.active = True
-        AND pc.is_main = True)
+        AND pc.is_main = True
+        AND pc.unauthorized = False)
 
         LEFT OUTER JOIN
             email_coordinate e
         ON (e.partner_id = p.id
         AND e.active = True
-        AND e.is_main = True)
+        AND e.is_main = True
+        AND e.unauthorized = False)
             )""")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
