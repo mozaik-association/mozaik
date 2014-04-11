@@ -6,7 +6,13 @@
             <field name="name">abstract.mandate.search</field>
             <field name="model">abstract.mandate</field>            
             <field name="arch" type="xml">
-                <search string="Mandate" version="7.0">                                      
+                <search string="Mandate" version="7.0">
+                    <filter name="is_submission_mandate" string="Mandate Declaration"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('is_submission_mandate','=',True)]" />  
+                    <filter name="is_submission_assets" string="Assets Declaration"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('is_submission_assets','=',True)]" />                                     
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" />
@@ -156,7 +162,7 @@
 		                                    confirm="Declare candidature: proceed anyway ?" states="rejected,suggested"/>
 		                    <button name="button_create_mandate" string="Mandate" type="object"
                                     confirm="Create mandate form candidature: proceed anyway ?" states="elected,non-elected"/>
-                            <field name="state" widget="statusbar" statusbar_visible='declared,rejected,suggested,designated,elected,non-elected'/>
+                            <field name="state" widget="statusbar" statusbar_visible='declared,suggested,designated,elected,non-elected'/>
                         </div>
                     </header>
                     <sheet>
@@ -166,17 +172,20 @@
                         </div>
 
                         <group>
-                            <group name="data_1">
-                                <field name="mandate_category_id" context="{'simplified': 1,
+                            <group name="data_1">                                
+                                <field name="selection_committee_id" required="1"
+                                        attrs="{'readonly': [('id','!=',False)]}"                            
+                                        readonly="context.get('default_selection_committee_id')"
+                                        domain="[('committee_type', '=', 'state'), ('decision_date', '=', False)]" context="{'committee_type':'state'}"
+                                        on_change="onchange_selection_committee_id(selection_committee_id)"/>
+                                <field name="mandate_category_id" readonly ="1" context="{'simplified': 1,
                                                                   'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"/>
-                                <field name="selection_committee_id" required="1" 
-                                        on_change="onchange_selection_committee_id(selection_committee_id)"
-                                        domain="[('committee_type', '=', 'state'), ('decision_date', '=', False)]" context="{'committee_type':'state'}"/>
-                                <field name="designation_int_assembly_id" context="{'simplified': 1, 'form_view_ref': 'ficep_structure.int_assembly_form_view'}"/>
+                                <field name="partner_id" attrs="{'readonly': [('id','!=',False)]}"/>
+                                <field name="partner_name"/>
                             </group>
                             <group name="data_2">
-                                <field name="partner_id" context="{'simplified': 1}"/>
-                                <field name="partner_name" context="{'simplified': 1}"/>
+                                <field name="designation_int_assembly_id" readonly="1" context="{'simplified': 1, 'form_view_ref': 'ficep_structure.int_assembly_form_view'}"/>
+                                
                             </group>
                             <group name="Dates">
                                 <field name="create_date" widget="date" readonly="1"/>                                

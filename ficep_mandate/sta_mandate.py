@@ -40,8 +40,28 @@ class sta_candidature(orm.Model):
     _description = "State Candidature"
     _inherit = ['abstract.candidature']
 
+    _mandate_model = 'sta.mandate'
     _init_mandate_columns = abstract_candidature._init_mandate_columns
     _init_mandate_columns.extend(['legislature_id', 'sta_assembly_id'])
+    _allowed_inactive_link_models = ['selection.committee']
+
+    def is_legislative(self, cr, uid, ids, context=None):
+        """ Test whether the state assembly is legislative or not.
+        @return: True or False
+        """
+        res = False
+        for candidature in self.browse(cr, uid, ids, context=context):
+            if not candidature.sta_assembly_id:
+                return False
+            else:
+                res = candidature.sta_assembly_id.is_legislative
+        return res
+
+    def is_not_legislative(self, cr, uid, ids, context=None):
+        """ Test whether the state assembly is legislative or not.
+        @return: True or False
+        """
+        return not(self.is_legislative(cr, uid, ids, context))
 
     _columns = {
         'electoral_district_id': fields.related('selection_committee_id', 'electoral_district_id', string='Electoral District',
@@ -63,24 +83,20 @@ class sta_candidature(orm.Model):
         res['value'] = dict(legislature_id=selection_committee.legislature_id.id or False,
                             electoral_district_id=selection_committee.electoral_district_id.id or False,
                             sta_assembly_id=selection_committee.sta_assembly_id.id or False,
-                            designation_int_assembly_id=selection_committee.designation_int_assembly_id.id or False)
+                            designation_int_assembly_id=selection_committee.designation_int_assembly_id.id or False,
+                            mandate_category_id=selection_committee.mandate_category_id.id or False)
         return res
 
-    def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id, context=None):
-        res = {}
-        sta_category_id = False
-        if mandate_category_id:
-            sta_category_id_val = self.pool.get('mandate.category').read(cr, uid, mandate_category_id, ['sta_assembly_category_id'])['sta_assembly_category_id']
-            if sta_category_id_val:
-                sta_category_id = sta_category_id_val[0]
-
-        res['value'] = dict(electoral_distric_id=False,
-                            sta_assembly_category_id=sta_category_id)
-        return res
+    def action_elected(self, cr, uid, ids, context=None):
+        self.write(cr, uid, ids, {'state': 'elected'})
+        for candidature in self.browse(cr, uid, ids, context):
+            if candidature.selection_committee_id.auto_mandate:
+                create_mandate_from_candidature(cr, uid, self, candidature.id, context)
+        return True
 
     def button_create_mandate(self, cr, uid, ids, context=None):
         for candidature_id in ids:
-            mandate_id = create_mandate_from_candidature(cr, uid, self.pool.get('sta.candidature'), self.pool.get('sta.mandate'), self.pool.get('selection.committee'), candidature_id, context)
+            mandate_id = create_mandate_from_candidature(cr, uid, self, candidature_id, context)
 
         view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', 'sta_mandate_form_view')
         view_id = view_ref and view_ref[1] or False,
