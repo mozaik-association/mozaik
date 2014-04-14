@@ -110,8 +110,8 @@ class thesaurus_term(orm.Model):
     _columns = {
         'name': fields.char('Term', required=True, select=True, track_visibility='onchange'),
         'thesaurus_id': fields.many2one('thesaurus', 'Thesaurus', readonly=True, required=True),
-        'ext_identifier': fields.char('External Identifier', readonly=True, required=False, select=True, track_visibility='onchange',
-                                      states={'draft': [('readonly', False)], 'confirm': [('required', True)]}),
+        'ext_identifier': fields.char('External Identifier', required=False, select=True, track_visibility='onchange',
+                                      states={'confirm': [('required', True)]}),
         'technical_name': fields.function(_get_technical_name, string='Technical Name', type='char', select=True, required=True,
                                           store=True),
 
@@ -125,7 +125,7 @@ class thesaurus_term(orm.Model):
     _defaults = {
         'thesaurus_id': lambda self, cr, uid, ids, context=None: self.pool['thesaurus'].search(cr, uid, [], limit=1, context=context)[0],
         'ext_identifier': False,
-        'state': TERM_AVAILABLE_STATES[0][0],
+        'state': TERM_AVAILABLE_STATES[1][0],
         'technical_name': '#',
     }
 
@@ -159,6 +159,19 @@ class thesaurus_term(orm.Model):
 
 # orm methods
 
+    def load(self, cr, uid, fields, data, context=None):
+        """
+        Do not add messages when importing terms
+        """
+        ctx = context or {}
+        ctx.update({
+            'mail_create_nosubscribe': True,
+            'mail_create_nolog': True,
+            'mail_notrack': True,
+        })
+        res = super(thesaurus_term, self).load(cr, uid, fields, data, context=ctx)
+        return res
+
     def create(self, cr, uid, vals, context=None):
         """
         Create a new term and notify it to the thesaurus to send a message to the followers.
@@ -168,11 +181,12 @@ class thesaurus_term(orm.Model):
         :rtype: integer
         """
         new_id = super(thesaurus_term, self).create(cr, uid, vals, context=context)
-        term = self.browse(cr, uid, new_id, context=context)
-        # Reset notification term on the thesaurus
-        self.pool['thesaurus'].update_notification_term(cr, uid, term.thesaurus_id.id, context=None)
-        # Set notification term on the thesaurus
-        self.pool['thesaurus'].update_notification_term(cr, uid, term.thesaurus_id.id, new_id, context=None)
+        if context and 'default_state' in context:
+            term = self.browse(cr, uid, new_id, context=context)
+            # Reset notification term on the thesaurus
+            self.pool['thesaurus'].update_notification_term(cr, uid, term.thesaurus_id.id, context=None)
+            # Set notification term on the thesaurus
+            self.pool['thesaurus'].update_notification_term(cr, uid, term.thesaurus_id.id, new_id, context=None)
         return new_id
 
     def copy_data(self, cr, uid, ids, default=None, context=None):

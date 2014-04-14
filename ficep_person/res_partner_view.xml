@@ -253,9 +253,9 @@
                     <page name="index" string="Indexation">
                         <separator string="Competencies" attrs="{'invisible': [('is_company','=',True)]}" />
                         <separator string="Topics" attrs="{'invisible': [('is_company','=',False)]}" />
-                        <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." />
+                        <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." context="{'default_state': 'draft'}" />
                         <separator string="Interests" attrs="{'invisible': [('is_company','=',True)]}" />
-                        <field name="interests_m2m_ids" widget="many2many_tags" attrs="{'invisible': [('is_company','=',True)]}" placeholder="Terms..." />
+                        <field name="interests_m2m_ids" widget="many2many_tags" attrs="{'invisible': [('is_company','=',True)]}" placeholder="Terms..." context="{'default_state': 'draft'}" />
                         <separator string="Tags" />
                         <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
                         <!-- Some blank lines to see the entire elapsed many2many_tags widget -->
