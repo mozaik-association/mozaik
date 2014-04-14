@@ -35,7 +35,9 @@ _logger = logging.getLogger(__name__)
 class test_mandate(SharedSetupTransactionCase):
 
     _data_files = (
-        #'../../ficep_structure/tests/data/structure_data.xml',
+        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../ficep_structure/tests/data/structure_data.xml',
+        'data/mandate_data.xml',
     )
 
     _module_ns = 'ficep_mandate'
@@ -43,7 +45,7 @@ class test_mandate(SharedSetupTransactionCase):
     def setUp(self):
         super(test_mandate, self).setUp()
 
-    def test_duplicate_mandate_category(self):
+    def test_avoid_duplicate_mandate_category(self):
         '''
             Test unique name of mandate category
         '''
@@ -54,3 +56,21 @@ class test_mandate(SharedSetupTransactionCase):
         self.registry('mandate.category').create(self.cr, self.uid, data)
         data['int_power_level_id'] = int_power_level_02_id
         self.assertRaises(orm.except_orm, self.registry('mandate.category').create, self.cr, self.uid, data)
+
+    def test_copy_selection_committee(self):
+        '''
+            Test copy selection committee and keep rejected candidatures
+        '''
+        candidature_pool = self.registry('sta.candidature')
+        committee_pool = self.registry('selection.committee')
+        selection_committee = self.browse_ref('%s.sc_tete_huy_communale' % self._module_ns)
+
+        rejected_id = selection_committee.sta_candidature_ids[0]
+        candidature_pool.signal_button_reject(self.cr, self.uid, [rejected_id.id])
+
+        res = committee_pool.action_copy(self.cr, self.uid, [selection_committee.id])
+        new_committee_id = res['res_id']
+        self.assertNotEqual(new_committee_id, False)
+
+        candidature_commitee_id = candidature_pool.read(self.cr, self.uid, rejected_id.id, ['selection_committee_id'])['selection_committee_id']
+        self.assertEqual(new_committee_id, candidature_commitee_id[0])

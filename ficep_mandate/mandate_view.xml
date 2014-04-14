@@ -274,6 +274,12 @@
                                     confirm="Invalidate committee: proceed anyway ?" />
                             <field name='state' widget='statusbar'/>
                         </div>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_user">
+                            <button name="action_copy" string="Copy" type="object"
+                                    confirm="Copy committee and keep rejected candidatures: proceed anyway ?" />
+                        </div>
                     </header>
                     <sheet>
                         <div class="oe_title">

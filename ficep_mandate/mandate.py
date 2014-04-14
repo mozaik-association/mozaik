@@ -170,7 +170,6 @@ class selection_committee(orm.Model):
     }
 
 # orm methods
-
     def name_get(self, cr, uid, ids, context=None):
         if not context:
             context = self.pool.get('res.users').context_get(cr, uid)
@@ -231,6 +230,38 @@ class selection_committee(orm.Model):
         return res
 
 # view methods: onchange, button
+    def action_copy(self, cr, uid, ids, context=None):
+        """
+        ==========================
+        action_copy
+        ==========================
+        Duplicate committee and keep rejected state candidatures
+        :rparam: True
+        :rtype: boolean
+        """
+        copied_committee_id = ids[0]
+        candidature_pool = self.pool.get('sta.candidature')
+        rejected_candidature_ids = candidature_pool.search(cr, uid, [('selection_committee_id', '=', copied_committee_id),
+                                                                                     ('state', '=', 'rejected')])
+        new_committee_id = self.copy(cr, uid, copied_committee_id, None, context)
+        if rejected_candidature_ids:
+            candidature_pool.write(cr, uid, rejected_candidature_ids, {'selection_committee_id': new_committee_id})
+            candidature_pool.signal_button_declare(cr, uid, rejected_candidature_ids)
+
+        view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', 'selection_committee_form_view')
+        view_id = view_ref and view_ref[1] or False,
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Selection Committee'),
+            'res_model': 'selection.committee',
+            'res_id': new_committee_id,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': view_id,
+            'target': 'current',
+            'nodestroy': True,
+        }
+
     def button_accept_candidatures(self, cr, uid, ids, context=None):
         """
         ==========================
