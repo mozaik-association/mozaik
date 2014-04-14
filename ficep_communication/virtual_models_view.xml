@@ -38,9 +38,9 @@
                     <field name="gender" />
                     <field name="birth_date" />
 
-                    <field name="interests_m2m_ids" string="Interests" filter_domain="[('interests_m2m_ids','ilike', self)]" widget="many2one"/>
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" filter_domain="[('competencies_m2m_ids','ilike', self)]" widget="many2one" />
-                    <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]" widget="many2one" />
+                    <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="category_id" string="Tag" widget="many2one" />
 
                     <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]"/>
                     <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]"/>

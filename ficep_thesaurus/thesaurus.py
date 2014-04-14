@@ -169,6 +169,13 @@ class thesaurus_term(orm.Model):
             'mail_create_nolog': True,
             'mail_notrack': True,
         })
+        if 'id' not in fields:
+            fields.append('id')
+            j = 0
+            if len(fields) > 1 and fields[1] == 'ext_identifier':
+                j = 1
+            for i in range(len(data)):
+                data[i] += ('__IMP_THT_%s' % data[i][j],)
         res = super(thesaurus_term, self).load(cr, uid, fields, data, context=ctx)
         return res
 
