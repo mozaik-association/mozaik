@@ -63,11 +63,7 @@
 
                         <notebook>
                             <page name="coordinates" string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                                <button string="All Details" name="%(phone_coordinate_action)d"
-                                        type="action" attrs="{'invisible': [('id','=',False)]}"
-                                        context="{'search_default_phone_id': active_id,
-                                                  'default_phone_id': active_id,
-                                                  'search_default_all': True}" />
+                                
                                 <field name="phone_coordinate_ids" context="{'default_phone_id': id,
                                                                              'simplified': 1,
                                                                              'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}">
