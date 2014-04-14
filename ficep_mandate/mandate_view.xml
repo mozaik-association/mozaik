@@ -242,6 +242,23 @@
                      <field name="sta_assembly_id" readonly="1" context="{'simplified': 1, 'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"/>
                      <field name="legislature_id" readonly="1"/>
                 </xpath>
+                <xpath expr="//group[@name='data_2']" position="after">                    
+                    <group name="Effective" attrs="{'invisible': ['|',('state','=','rejected'),('is_legislative', '=', False)]}">
+                        <field name="is_effective" attrs="{'readonly': [('state','not in',['declared', 'suggested'])]}"/>
+                        <field name="list_effective_position" attrs="{'invisible':[('is_effective', '=', False)],'readonly': [('state','not in',['declared', 'suggested'])]}"/>
+                        <field name="election_effective_position"  attrs="{'invisible': ['|', ('state','!=','elected'), ('is_effective', '=', False)]}"/>
+                        <field name="effective_votes" attrs="{'invisible': ['|',('state','not in',['elected', 'non-elected']), ('is_effective', '=', False)]}"/>
+                    </group>
+                    <group name="substitute" attrs="{'invisible': ['|',('state','=','rejected'),('is_legislative', '=', False)]}">                    
+                        <field name="is_substitute" attrs="{'readonly': [('state','not in',['declared', 'suggested'])]}"/>              
+                        <field name="list_substitute_position" attrs="{'invisible':[('is_substitute', '=', False)],'readonly': [('state','not in',['declared', 'suggested'])]}"/> 
+                        <field name="election_substitute_position" attrs="{'invisible': ['|',('state','!=','non-elected'),('is_substitute', '=', False)]}"/>                       
+                        <field name="substitute_votes" attrs="{'invisible': ['|',('state','!=','non-elected'),('is_substitute', '=', False)]}"/>
+                    </group>
+                </xpath>
+                <xpath  expr="//group[@name='moreinfo']" position="inside" >
+                    <field name="is_legislative" />
+                </xpath>
             </field>
         </record> 
         
@@ -367,9 +384,7 @@
                                                                   context="{'simplified': 1, 
                                                                             'form_view_ref': 'ficep_mandate.sta_candidature_form_view',
                                                                             'default_selection_committee_id': active_id}">
-                                    <tree colors="red:state == 'declared'">
-                                        <field name="sequence" widget="handle"/>
-                                        <field name="sequence" readonly="1"/>
+                                    <tree colors="red:state == 'declared'">                                       
                                         <field name="partner_id" readonly="1"/>
                                         <field name="partner_name" readonly="1"/>
                                         <field name="state" readonly="1"/>
@@ -380,8 +395,7 @@
                                 </field>
                                 <field name="sta_candidature_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
                                        readonly="1" context="{'simplified': 1, 'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}">
-                                    <tree>                                       
-                                        <field name="sequence"/>
+                                    <tree>
                                         <field name="partner_id"/>
                                         <field name="partner_name"/>
                                         <field name="state"/>                                       
