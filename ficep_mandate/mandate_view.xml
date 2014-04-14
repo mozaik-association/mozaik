@@ -274,6 +274,12 @@
                                     confirm="Invalidate committee: proceed anyway ?" />
                             <field name='state' widget='statusbar'/>
                         </div>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_user">
+                            <button name="action_copy" string="Copy" type="object"
+                                    confirm="Copy committee and keep rejected candidatures: proceed anyway ?" />
+                        </div>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -357,7 +363,8 @@
                                 <button string="Reject" name="button_reject_candidatures" type="object" class="oe_highlight"
                                         attrs="{'invisible': ['|',('decision_date','=',False),('state','=','done')]}"
                                         confirm="Reject all candidatures: proceed anyway ?"/>
-                                <field name="sta_candidature_ids" context="{'simplified': 1, 
+                                <field name="sta_candidature_ids" attrs="{'invisible': [('active', '=', False)]}"
+                                                                  context="{'simplified': 1, 
                                                                             'form_view_ref': 'ficep_mandate.sta_candidature_form_view',
                                                                             'default_selection_committee_id': active_id}">
                                     <tree colors="red:state == 'declared'">
@@ -371,8 +378,8 @@
 					                    <button name="button_declare" string="Back to Declared"  icon="gtk-undo" states="rejected"/>
                                     </tree>
                                 </field>
-                                <field name="sta_candidature_inactive_ids" readonly="1" context="{'simplified': 1, 
-                                                                            'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}">
+                                <field name="sta_candidature_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                                       readonly="1" context="{'simplified': 1, 'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}">
                                     <tree>                                       
                                         <field name="sequence"/>
                                         <field name="partner_id"/>
