@@ -45,10 +45,17 @@
                     <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]"/>
                     <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]"/>
 
+                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
+                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
+                    <separator/>
                     <filter string="Male" name="male" domain="[('gender','=','m')]" />
                     <filter string="Female" name="female" domain="[('gender','=','f')]" />
-
-
+                    <separator/>
+                    <filter name="p_vip" string="Postal VIP" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <filter name="e_vip" string="Email VIP" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator/>
+                     <filter name="p_unauthorized" string="Postal Unauthorized" domain="[('postal_unauthorized','=',True)]"/>
+                     <filter name="e_unauthorized" string="Email Unauthorized" domain="[('email_unauthorized','=',True)]"/>
                     <group expand="0" string="Group By..." name="group_by">
                         <filter string="Involvement Category" icon="terp-personal" name="p_inv_cat_id" context="{'group_by':'involvement_category_id'}"/>
                         <filter string="Internal Instance" icon="terp-personal" name="i_int_id" context="{'group_by':'int_instance_id'}"/>
