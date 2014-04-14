@@ -167,7 +167,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="abstract_assembly_search_view" />
             <field name="view_id" ref="sta_assembly_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.sta_assembly_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.sta_assembly_form_view'}</field>
         </record>
 
         <record id="sta_instance_action" model="ir.actions.act_window">
@@ -177,7 +177,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="sta_instance_search_view" />
             <field name="view_id" ref="abstract_instance_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.sta_instance_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.sta_instance_form_view'}</field>
         </record>
 
         <record id="sta_instance_children_action" model="ir.actions.act_window">
@@ -188,7 +188,7 @@
             <field name="search_view_id" ref="sta_instance_search_view" />
             <field name="view_id" ref="abstract_instance_tree_view" />
             <field name="domain">['|',('parent_id','=',active_id),('secondary_parent_id','=',active_id)]</field>
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.sta_instance_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.sta_instance_form_view'}</field>
         </record>
 
         <record id="legislature_action" model="ir.actions.act_window">
@@ -198,7 +198,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="legislature_search_view" />
             <field name="view_id" ref="legislature_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.legislature_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.legislature_form_view'}</field>
         </record>
 
         <record id="electoral_district_action" model="ir.actions.act_window">
@@ -208,7 +208,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="electoral_district_search_view" />
             <field name="view_id" ref="electoral_district_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.electoral_district_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.electoral_district_form_view'}</field>
         </record>
 
         <record id="int_assembly_action" model="ir.actions.act_window">
@@ -218,7 +218,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="abstract_assembly_search_view" />
             <field name="view_id" ref="int_assembly_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.int_assembly_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.int_assembly_form_view'}</field>
         </record>
 
         <record id="int_instance_action" model="ir.actions.act_window">
@@ -228,7 +228,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="abstract_instance_search_view" />
             <field name="view_id" ref="abstract_instance_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.abstract_instance_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.abstract_instance_form_view'}</field>
         </record>
 
         <record id="ext_assembly_action" model="ir.actions.act_window">
@@ -238,7 +238,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="abstract_assembly_search_view" />
             <field name="view_id" ref="ext_assembly_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.ext_assembly_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.ext_assembly_form_view'}</field>
         </record>
 
         <record id="sta_power_level_action" model="ir.actions.act_window">
@@ -248,7 +248,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="abstract_power_level_search_view" />
             <field name="view_id" ref="abstract_power_level_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.sta_power_level_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.sta_power_level_form_view'}</field>
         </record>
 
         <record id="sta_assembly_category_action" model="ir.actions.act_window">
@@ -258,7 +258,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="sta_assembly_category_search_view" />
             <field name="view_id" ref="abstract_assembly_category_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.sta_assembly_category_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.sta_assembly_category_form_view'}</field>
         </record>
 
         <record id="int_power_level_action" model="ir.actions.act_window">
@@ -268,7 +268,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="abstract_power_level_search_view" />
             <field name="view_id" ref="abstract_power_level_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.int_power_level_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.int_power_level_form_view'}</field>
         </record>
 
         <record id="int_assembly_category_action" model="ir.actions.act_window">
@@ -278,7 +278,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="int_assembly_category_search_view" />
             <field name="view_id" ref="abstract_assembly_category_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.int_assembly_category_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.int_assembly_category_form_view'}</field>
         </record>
 
         <record id="ext_assembly_category_action" model="ir.actions.act_window">
@@ -288,7 +288,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="abstract_assembly_category_search_view" />
             <field name="view_id" ref="abstract_assembly_category_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_structure.ext_assembly_category_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.ext_assembly_category_form_view'}</field>
         </record>
 
         <!-- Form Views -->

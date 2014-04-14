@@ -161,14 +161,8 @@ class thesaurus_term(orm.Model):
 
     def load(self, cr, uid, fields, data, context=None):
         """
-        Do not add messages when importing terms
+        Add xml ids when importing terms
         """
-        ctx = context or {}
-        ctx.update({
-            'mail_create_nosubscribe': True,
-            'mail_create_nolog': True,
-            'mail_notrack': True,
-        })
         if 'id' not in fields:
             fields.append('id')
             j = 0
@@ -176,7 +170,7 @@ class thesaurus_term(orm.Model):
                 j = 1
             for i in range(len(data)):
                 data[i] += ('__IMP_THT_%s' % data[i][j],)
-        res = super(thesaurus_term, self).load(cr, uid, fields, data, context=ctx)
+        res = super(thesaurus_term, self).load(cr, uid, fields, data, context=context)
         return res
 
     def create(self, cr, uid, vals, context=None):

@@ -73,7 +73,6 @@ class allow_duplicate_wizard(orm.TransientModel):
         if wizard.co_residency_id:
             cor_id = wizard.co_residency_id.id
         else:
-            context.update({'mail_create_nosubscribe': True})
             vals = {'address_id': wizard.address_id.id}
             cor_id = self.pool['co.residency'].create(cr, uid, vals, context=context)
             new_co = True

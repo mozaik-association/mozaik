@@ -97,7 +97,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('is_company', '=', False)]</field>
-            <field name="context">{'default_is_company': False, 'mail_create_nosubscribe': True}</field>
+            <field name="context">{'default_is_company': False}</field>
             <field name="search_view_id" ref="res_partner_search_view" />
         </record>
 
@@ -107,7 +107,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('is_company', '=', True),('is_assembly', '=', False)]</field>
-            <field name="context">{'default_is_company': True, 'mail_create_nosubscribe': True}</field>
+            <field name="context">{'default_is_company': True}</field>
             <field name="search_view_id" ref="res_partner_search_view" />
         </record>
 
@@ -117,7 +117,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
-            <field name="context">{'mail_create_nosubscribe': True}</field>
             <field name="search_view_id" ref="res_partner_search_view" />
         </record>
 
