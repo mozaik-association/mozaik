@@ -73,6 +73,17 @@ class sta_candidature(orm.Model):
         'sta_assembly_id': fields.related('selection_committee_id', 'sta_assembly_id', string='State Assembly',
                                           type='many2one', relation="sta.assembly",
                                           store=True),
+        'is_effective': fields.boolean('Effective', track_visibility='onchange'),
+        'is_substitute': fields.boolean('Substitute', track_visibility='onchange'),
+        'list_effective_position': fields.integer('Position on effectives list', track_visibility='onchange'),
+        'list_substitute_position': fields.integer('Position on substitutes list', track_visibility='onchange'),
+        'election_effective_position': fields.integer('Effective position after election', track_visibility='onchange'),
+        'election_substitute_position': fields.integer('Substitute position after election', track_visibility='onchange'),
+        'effective_votes': fields.integer('Effective preferential votes', track_visibility='onchange'),
+        'substitute_votes': fields.integer('Substitute preferential votes', track_visibility='onchange'),
+        'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
+                                          type='boolean', relation="sta.assembly",
+                                          store=False),
         }
 
     # view methods: onchange, button
@@ -84,7 +95,8 @@ class sta_candidature(orm.Model):
                             electoral_district_id=selection_committee.electoral_district_id.id or False,
                             sta_assembly_id=selection_committee.sta_assembly_id.id or False,
                             designation_int_assembly_id=selection_committee.designation_int_assembly_id.id or False,
-                            mandate_category_id=selection_committee.mandate_category_id.id or False)
+                            mandate_category_id=selection_committee.mandate_category_id.id or False,
+                            is_legislative=selection_committee.sta_assembly_id.is_legislative or False,)
         return res
 
     def action_elected(self, cr, uid, ids, context=None):

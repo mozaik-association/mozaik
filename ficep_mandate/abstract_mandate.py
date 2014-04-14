@@ -143,7 +143,6 @@ class abstract_candidature(orm.AbstractModel):
     _mandate_model = 'abstract.mandate'
 
     _columns = {
-        'sequence': fields.integer('N°'),
         'partner_name': fields.char('Partner Name', size=128, translate=True, select=True, track_visibility='onchange'),
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'selection_committee_id': fields.many2one('selection.committee', string='Selection Committee',
@@ -173,10 +172,9 @@ class abstract_candidature(orm.AbstractModel):
 
     _defaults = {
         'state': CANDIDATURE_AVAILABLE_STATES[0][0],
-        'sequence': 1,
     }
 
-    _order = 'selection_committee_id, sequence'
+    _order = 'selection_committee_id'
 
 # orm methods
     def name_get(self, cr, uid, ids, context=None):

@@ -185,7 +185,6 @@
                             </group>
                             <group name="data_2">
                                 <field name="designation_int_assembly_id" readonly="1" context="{'simplified': 1, 'form_view_ref': 'ficep_structure.int_assembly_form_view'}"/>
-                                
                             </group>
                             <group name="Dates">
                                 <field name="create_date" widget="date" readonly="1"/>                                
