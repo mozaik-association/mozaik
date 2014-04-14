@@ -46,7 +46,16 @@
 
                         <group name="data">
                             <group name="main">
-                            <field name="type" attrs="{'readonly': [('phone_coordinate_ids','!=',[])]}" />
+                                <field name="type" attrs="{'readonly': [('phone_coordinate_ids','!=',[])]}" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
+
+                        <group name="status" attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                             </group>
                             <group name="other">
                             </group>
@@ -54,6 +63,7 @@
 
                         <notebook>
                             <page name="coordinates" string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
+                                
                                 <field name="phone_coordinate_ids" context="{'default_phone_id': id,
                                                                              'simplified': 1,
                                                                              'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}">
@@ -66,6 +76,17 @@
                                         <field name="is_duplicate_detected" invisible="1"/>
                                     </tree>
                                 </field>
+                                <field name="phone_coordinate_inactive_ids" context="{'simplified': 1,
+                                                                                      'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}"
+                                       readonly="1" attrs="{'invisible': [('active','=',True)]}">
+                                    <tree colors="darkorange:unauthorized==True">
+                                        <field name="partner_id"/>
+                                        <field name="coordinate_category_id" />
+                                        <field name="is_main" />
+                                        <field name="unauthorized" />
+                                        <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
@@ -74,6 +95,7 @@
                             <h3>More Info</h3>
                             <group name="moreinfo">
                                 <field name="id"/>
+                                <field name="active"/>
                             </group>
                         </div>
                     </div>

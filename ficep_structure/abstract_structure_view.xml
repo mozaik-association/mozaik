@@ -27,7 +27,7 @@
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate assembly: proceed anyway ?" />
+                                    confirm="Invalidate assembly: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
@@ -68,7 +68,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_validate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway ?" />
+                                        confirm="Revalidate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -129,7 +129,7 @@
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate instance: proceed anyway ?" />
+                                    confirm="Invalidate instance: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
@@ -188,7 +188,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_validate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway ?" />
+                                        confirm="Revalidate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -252,7 +252,7 @@
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate category: proceed anyway ?" />
+                                    confirm="Invalidate category: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
@@ -287,7 +287,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_validate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway ?" />
+                                        confirm="Revalidate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -343,7 +343,7 @@
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate level: proceed anyway ?" />
+                                    confirm="Invalidate level: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
@@ -392,7 +392,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_validate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway ?" />
+                                        confirm="Revalidate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>

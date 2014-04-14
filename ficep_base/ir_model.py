@@ -43,7 +43,10 @@ class ir_model(orm.Model):
         for record_id in ids:
             for relation in relations:
                 model = self.pool.get(relation.model, False)
-                if not model or not model._auto:
+                if not model or not model._auto or not model._columns.get(relation.name):
+                    continue
+                col = model._columns[relation.name]
+                if hasattr(col, 'store') and not col.store:
                     continue
                 if hasattr(model, '_allowed_inactive_link_models'):
                     if model_name in model._allowed_inactive_link_models:

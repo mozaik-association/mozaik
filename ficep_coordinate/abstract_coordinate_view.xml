@@ -52,7 +52,7 @@
                             groups="ficep_base.ficep_res_groups_user"
                             attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
                             icon="gtk-undo"
-                            confirm="Undo allow duplicate: proceed anyway ?" />
+                            confirm="Undo allow duplicate: proceed anyway?" />
 
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
@@ -75,12 +75,12 @@
                             <button name="set_as_main" string="Set As Main" type="object"
                                     attrs="{'invisible': [('is_main','=',True)]}"
                                     context="{'invalidate': True}"
-                                    confirm="Set this coordinate as main and invalidate the previous one: proceed anyway ?" />
+                                    confirm="Set this coordinate as main and invalidate the previous one: proceed anyway?" />
                             <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
                                     attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
-                                    confirm="Undo allow duplicate: proceed anyway ?" />
-                            <button name="button_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate coordinate: proceed anyway ?" />
+                                    confirm="Undo allow duplicate: proceed anyway?" />
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate coordinate: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
@@ -120,6 +120,10 @@
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Reactivate" type="object"
+                                        confirm="Reactivate document: proceed anyway?" />
+                            </div>
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>

@@ -44,7 +44,7 @@ MAIN_COORDINATE_ERROR = _('Exactly one main coordinate must exist for a given pa
 class abstract_coordinate(orm.AbstractModel):
 
     _name = 'abstract.coordinate'
-    _inherit = ['mail.thread', 'ir.needaction_mixin', 'abstract.duplicate']
+    _inherit = ['abstract.duplicate']
     _description = "Abstract Coordinate"
 
     _discriminant_field = None
@@ -52,8 +52,6 @@ class abstract_coordinate(orm.AbstractModel):
 # fields
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
-
         'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True, select=True),
         'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category', select=True, ondelete='restrict', track_visibility='onchange'),
         'coordinate_type': fields.selection(COORDINATE_AVAILABLE_TYPES, 'Coordinate Type'),
@@ -61,10 +59,6 @@ class abstract_coordinate(orm.AbstractModel):
         'is_main': fields.boolean('Is Main', readonly=True, select=True),
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
         'vip': fields.boolean('VIP', track_visibility='onchange'),
-
-        'create_date': fields.datetime('Creation Date', readonly=True),
-        'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
-        'active': fields.boolean('Active', readonly=True),
     }
 
     _defaults = {
@@ -72,7 +66,6 @@ class abstract_coordinate(orm.AbstractModel):
         'is_main': False,
         'unauthorized': False,
         'vip': False,
-        'active': True,
     }
 
     _order = "partner_id, expire_date, is_main desc, coordinate_type"
@@ -204,41 +197,12 @@ class abstract_coordinate(orm.AbstractModel):
         res = super(abstract_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
         return res
 
-    def copy_data(self, cr, uid, ids, default=None, context=None):
-        default = default or {}
-        default.update(self.get_fields_to_update(cr, uid, 'activate', context=context))
-        res = super(abstract_coordinate, self).copy_data(cr, uid, ids, default=default, context=context)
-        return res
-
     def copy(self, cr, uid, ids, default=None, context=None):
         flds = self.read(cr, uid, ids, ['active'], context=context)
         if flds.get('active', True):
             raise orm.except_orm(_('Error'), _('An active coordinate cannot be duplicated!'))
         res = super(abstract_coordinate, self).copy(cr, uid, ids, default=default, context=context)
         return res
-
-# view methods: onchange, button
-
-    def button_invalidate(self, cr, uid, ids, context=None):
-        """
-        =================
-        button_invalidate
-        =================
-        Invalidates a coordinate by setting
-        * active to False
-        * expire_date to current date
-        and resetting its duplicate flags
-        :rparam: True
-        :rtype: boolean
-
-        **Note**
-        :raise: Error if the coordinate is main
-                and another coordinate of the same type exists
-                (ref _check_one_main_coordinate constraint)
-        """
-        vals = self.get_fields_to_update(cr, uid, 'reset', context=context)
-        vals.update(self.get_fields_to_update(cr, uid, 'deactivate', context=context))
-        return self.write(cr, uid, ids, vals, context=context)
 
 # public methods
 
@@ -344,10 +308,11 @@ class abstract_coordinate(orm.AbstractModel):
         :rparam: dictionary with ``coordinate_type`` and ``partner_id`` well set
         :rtype: dictionary
         """
-        return [('partner_id', '=', partner_id),
-                ('coordinate_type', '=', coordinate_type),
-                ('is_main', '=', True),
-               ]
+        return [
+            ('partner_id', '=', partner_id),
+            ('coordinate_type', '=', coordinate_type),
+            ('is_main', '=', True),
+        ]
 
     def get_fields_to_update(self, cr, uid, mode, context=None):
         """
@@ -365,17 +330,6 @@ class abstract_coordinate(orm.AbstractModel):
         if mode == 'secondary':
             res.update({
                 'is_main': False,
-            })
-        #TODO: remove these 2 cases when we will depend on abstract_ficep_model
-        if mode == 'deactivate':
-            res.update({
-                'active': False,
-                'expire_date': fields.datetime.now(),
-            })
-        if mode == 'activate':
-            res.update({
-                'active': True,
-                'expire_date': False,
             })
         return res
 

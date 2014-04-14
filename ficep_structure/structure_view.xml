@@ -437,7 +437,7 @@
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate legislature: proceed anyway ?" />
+                                    confirm="Invalidate legislature: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
@@ -478,7 +478,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_validate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway ?" />
+                                        confirm="Revalidate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -504,7 +504,7 @@
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate electoral district: proceed anyway ?" />
+                                    confirm="Invalidate electoral district: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
@@ -546,7 +546,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_validate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway ?" />
+                                        confirm="Revalidate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>

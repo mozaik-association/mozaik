@@ -339,8 +339,6 @@ class co_residency(orm.Model):
 
 # orm methods
 
-# orm methods
-
     def name_get(self, cr, uid, ids, context=None):
         """
         ========

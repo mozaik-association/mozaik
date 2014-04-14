@@ -34,7 +34,7 @@ from openerp.tools import SUPERUSER_ID
 class abstract_duplicate(orm.AbstractModel):
 
     _name = 'abstract.duplicate'
-    # target model has to inherit from ['mail.thread']
+    _inherit = ['abstract.ficep.model']
     _description = "Abstract Duplicate"
 
     _discriminant_field = None
@@ -153,9 +153,8 @@ class abstract_duplicate(orm.AbstractModel):
         :rparam: fields to update
         :rtype: dictionary
         """
-        # TODO: call super to init res when we will depend on abstract_ficep_model
-        res = {}
-        if mode == 'reset':
+        res = super(abstract_duplicate, self).get_fields_to_update(cr, uid, mode, context=context)
+        if mode in ['reset', 'deactivate']:
             res.update({
                 'is_duplicate_detected': False,
                 'is_duplicate_allowed': False,

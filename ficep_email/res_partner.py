@@ -119,14 +119,12 @@ class res_partner(orm.Model):
         =====
         When invalidating a partner, invalidates also its email coordinates
         """
-        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         if 'active' in vals and not vals['active']:
             coord_obj = self.pool['email.coordinate']
-            coord_ids = []
-            for partner in self.browse(cr, SUPERUSER_ID, ids, context=context):
-                coord_ids += [c.id for c in partner.email_coordinate_ids]
+            coord_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids)], context=context)
             if coord_ids:
-                coord_obj.button_invalidate(cr, SUPERUSER_ID, coord_ids, context=context)
+                coord_obj.action_invalidate(cr, SUPERUSER_ID, coord_ids, context=context)
+        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -180,7 +180,7 @@ class test_res_partner(SharedSetupTransactionCase):
             self.assertFalse(any(bools), 'Update partner name fails with wrong duplicate detection (id=%s)' % pid)
 
         # Invalidate partner => duplicates: 2 detected, 0 allowed
-        partner_model.button_invalidate(cr, uid, [nouvelobs_ter_id], context=context)
+        partner_model.action_invalidate(cr, uid, [nouvelobs_ter_id], context=context)
         partner_fields = partner_model.read(cr, SUPERUSER_ID, [nouvelobs_id, nouvelobs_bis_id], flds, context=context)
         for fields in partner_fields:
             pid = fields.get('id')
@@ -217,11 +217,11 @@ class test_res_partner(SharedSetupTransactionCase):
         company_test = self.company_model.browse(self.cr, self.uid, [company_test_id])[0]
         user_test = self.user_model.browse(self.cr, self.uid, [user_test_id])[0]
 
-        self.assertRaises(orm.except_orm, self.partner_model.button_invalidate, self.cr, self.uid, [company_test.partner_id.id])
-        self.assertRaises(orm.except_orm, self.partner_model.button_invalidate, self.cr, self.uid, [user_test.partner_id.id])
+        self.assertRaises(orm.except_orm, self.partner_model.action_invalidate, self.cr, self.uid, [company_test.partner_id.id])
+        self.assertRaises(orm.except_orm, self.partner_model.action_invalidate, self.cr, self.uid, [user_test.partner_id.id])
 
         self.user_model.write(self.cr, SUPERUSER_ID, [user_test.id], {'active': False})
-        self.partner_model.button_invalidate(self.cr, self.uid, [user_test.partner_id.id])
+        self.partner_model.action_invalidate(self.cr, self.uid, [user_test.partner_id.id])
         self.assertFalse(self.partner_model.read(self.cr, self.uid, [user_test.partner_id.id], ['active'])[0]['active'],
                          'Partner of The Duplicate Company Should Be Invalidate')
 

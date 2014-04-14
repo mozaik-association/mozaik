@@ -60,7 +60,7 @@ available_tongues = dict(AVAILABLE_TONGUES)
 class res_partner(orm.Model):
 
     _name = 'res.partner'
-    _inherit = ['mail.thread', 'res.partner', 'abstract.duplicate']
+    _inherit = ['abstract.duplicate', 'res.partner']
 
     _discriminant_field = 'name'
     _trigger_fileds = ['name', 'lastname', 'firstname', 'birth_date']
@@ -149,10 +149,6 @@ class res_partner(orm.Model):
         'firstname': fields.char("Firstname", track_visibility='onchange'),
         'lastname': fields.char("Lastname", required=True, track_visibility='onchange'),
 
-        # Validity period
-        'create_date': fields.datetime('Creation Date', readonly=True),
-        'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
-
         # Special case:
         # * do not use native birthdate field, it is a char field without any control
         # * do not redefine it either, oe will silently rename twice the column (birthdate_moved12, birthdate_moved13, ...)
@@ -203,8 +199,6 @@ class res_partner(orm.Model):
 
             'ldap_name': False,
             'ldap_id': False,
-            'expire_date': False,
-            'active': True,
         })
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
         return res
@@ -214,50 +208,15 @@ class res_partner(orm.Model):
         =====
         write
         =====
-        When invalidating a partner, invalidates also its partner.involvement
+        When invalidating a partner, invalidates also its involvements
         """
-        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         if 'active' in vals and not vals['active']:
             involvement_obj = self.pool['partner.involvement']
-            involvements_ids = []
-            for partner in self.browse(cr, SUPERUSER_ID, ids, context=context):
-                involvements_ids += [c.id for c in partner.partner_involvement_ids]
+            involvements_ids = involvement_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids)], context=context)
             if involvements_ids:
-                involvement_obj.button_invalidate(cr, SUPERUSER_ID, involvements_ids, context=context)
+                involvement_obj.action_invalidate(cr, SUPERUSER_ID, involvements_ids, context=context)
+        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         return res
-
-# view methods: onchange, button
-
-    def button_invalidate(self, cr, uid, ids, context=None):
-        """
-        =================
-        button_invalidate
-        =================
-        Invalidates a partner by setting
-        * active to False
-        * expire_date to current date
-        and resetting its duplicate flags
-        :rparam: True
-        :rtype: boolean
-        **Notes**
-        If Trying to invalidate a user's partner or a company's partner:
-        If the users or the company are not invalidate themselves then orm.except_orm
-        """
-        vals = self.get_fields_to_update(cr, uid, 'reset', context=context)
-        for partner in self.browse(cr, uid, ids, context=context):
-            if partner.user_ids:
-                for user in partner.user_ids:
-                    if user.active:
-                        raise orm.except_orm(_('Error'),
-                               _('To Invalidate A Partner You First Have to Invalidate His Referenced User'))
-            if partner.company_id:
-                if partner.company_id.partner_id.id == partner.id:
-                    raise orm.except_orm(_('Error'),
-                        _('To Invalidate A Partner You First Have to Invalidate His Referenced Company'))
-        vals.update({'active': False,
-                     'expire_date': fields.datetime.now(),
-                    })
-        return self.write(cr, uid, ids, vals, context=context)
 
 # public methods
 
@@ -310,16 +269,15 @@ class res_partner(orm.Model):
 
     def get_duplicate_ids(self, cr, uid, value, context=None):
         """
-        =======================
+        =================
         get_duplicate_ids
-        =======================
+        =================
+        Get duplicated partners with the ``discriminant_field`` equals to ``value``
+        * If one of those partners has no ``birth_date`` return all duplicated partners
+        * Else return only duplicated partners with the same ``birth_date``
         :type value: char
         :param value: value for search domain
         :rtype: [] []
-        **Note**
-        First Get all the partner with the ``discriminant_field`` equals to ``values``
-            * If One of those partner has ``birth_date`` return will be [][all_partner_ids_found]
-            * Else Return ids of Not Duplicate in first list and duplicate found into the second list
         """
         duplicate_detected_ids = []
         buffer_not_yet_decided = {}  # key: birth_date value: partner's id

@@ -64,17 +64,14 @@ class res_partner(orm.Model):
         =====
         write
         =====
-        When invalidating a partner, invalidates also its partner.relation
+        When invalidating a partner, invalidates also its relations
         """
-        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         if 'active' in vals and not vals['active']:
             relation_obj = self.pool['partner.relation']
-            relations_ids = []
-            for partner in self.browse(cr, SUPERUSER_ID, ids, context=context):
-                relations_ids += [c.id for c in partner.partner_is_subject_relation_ids]
-                relations_ids += [c.id for c in partner.partner_is_object_relation_ids]
+            relations_ids = relation_obj.search(cr, SUPERUSER_ID, ['|', ('subject_partner_id', 'in', ids), ('object_partner_id', 'in', ids)], context=context)
             if relations_ids:
-                relation_obj.button_invalidate(cr, SUPERUSER_ID, relations_ids, context=context)
+                relation_obj.action_invalidate(cr, SUPERUSER_ID, relations_ids, context=context)
+        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
