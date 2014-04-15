@@ -49,7 +49,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="postal_coordinate_tree_view" />
             <field name="search_view_id" ref="postal_coordinate_search_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.postal_coordinate_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_address.postal_coordinate_form_view'}</field>
         </record>
 
         <record id="postal_coordinate_form_view" model="ir.ui.view">
@@ -118,7 +118,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="address_address_tree_view" />
             <field name="search_view_id" ref="address_address_search_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.address_address_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_address.address_address_form_view'}</field>
         </record>
 
         <record id="address_address_form_view" model="ir.ui.view">
@@ -276,7 +276,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="co_residency_tree_view" />
             <field name="search_view_id" ref="co_residency_search_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.co_residency_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_address.co_residency_form_view'}</field>
         </record>
 
         <record id="co_residency_form_view" model="ir.ui.view">

@@ -37,7 +37,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="address_local_street_search_view" />
             <field name="view_id" ref="address_local_street_tree_view" />
-            <field name="context">{'mail_create_nosubscribe': True, 'form_view_ref': 'ficep_address.address_local_street_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_address.address_local_street_form_view'}</field>
         </record>
 
         <record id="address_local_street_form_view" model="ir.ui.view">

@@ -139,6 +139,18 @@ class abstract_ficep_model (orm.AbstractModel):
 
 # orm methods
 
+    def create(self, cr, uid, vals, context=None):
+        """
+        Do not add creator to followers, nor track message on create
+        """
+        ctx = context or {}
+        ctx.update({
+            'mail_create_nosubscribe': True,
+            'mail_notrack': True,
+        })
+        new_id = super(abstract_ficep_model, self).create(cr, uid, vals, context=context)
+        return new_id
+
     def copy_data(self, cr, uid, ids, default=None, context=None):
         """
         Reset some fields to their initial values

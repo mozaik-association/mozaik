@@ -106,13 +106,13 @@
         <record id="trans_router_designated" model="workflow.transition">
             <field name="act_from" ref="act_router"/>
             <field name="act_to" ref="act_designated"/>
-            <field name="condition">is_legislative()</field>            
+            <field name="condition">is_legislative</field>            
         </record>
         
         <record id="trans_router_elected" model="workflow.transition">
             <field name="act_from" ref="act_router"/>
             <field name="act_to" ref="act_elected"/>
-            <field name="condition">is_not_legislative()</field>            
+            <field name="condition">not is_legislative</field>            
         </record>
         
         <record id="trans_designated_elected" model="workflow.transition">

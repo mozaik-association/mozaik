@@ -11,9 +11,9 @@
                     <field name="display_name" />
                     <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" filter_domain="[('competencies_m2m_ids','ilike', self)]"  widget="many2one"/>
-                    <field name="interests_m2m_ids" string="Interests" filter_domain="[('interests_m2m_ids','ilike', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" widget="many2one"/>
-                    <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]" widget="many2one"/>
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="interests_m2m_ids" string="Interests" invisible="'default_is_company' not in context or context.get('default_is_company')" widget="many2one" />
+                    <field name="category_id" string="Tag" widget="many2one"/>
                     <field name="comment" />
 
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]" invisible="'default_is_company' in context"/>
@@ -97,7 +97,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('is_company', '=', False)]</field>
-            <field name="context">{'default_is_company': False, 'mail_create_nosubscribe': True}</field>
+            <field name="context">{'default_is_company': False}</field>
             <field name="search_view_id" ref="res_partner_search_view" />
         </record>
 
@@ -107,7 +107,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('is_company', '=', True),('is_assembly', '=', False)]</field>
-            <field name="context">{'default_is_company': True, 'mail_create_nosubscribe': True}</field>
+            <field name="context">{'default_is_company': True}</field>
             <field name="search_view_id" ref="res_partner_search_view" />
         </record>
 
@@ -117,7 +117,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
-            <field name="context">{'mail_create_nosubscribe': True}</field>
             <field name="search_view_id" ref="res_partner_search_view" />
         </record>
 
@@ -253,9 +252,9 @@
                     <page name="index" string="Indexation">
                         <separator string="Competencies" attrs="{'invisible': [('is_company','=',True)]}" />
                         <separator string="Topics" attrs="{'invisible': [('is_company','=',False)]}" />
-                        <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." />
+                        <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." context="{'default_state': 'draft'}" />
                         <separator string="Interests" attrs="{'invisible': [('is_company','=',True)]}" />
-                        <field name="interests_m2m_ids" widget="many2many_tags" attrs="{'invisible': [('is_company','=',True)]}" placeholder="Terms..." />
+                        <field name="interests_m2m_ids" widget="many2many_tags" attrs="{'invisible': [('is_company','=',True)]}" placeholder="Terms..." context="{'default_state': 'draft'}" />
                         <separator string="Tags" />
                         <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
                         <!-- Some blank lines to see the entire elapsed many2many_tags widget -->
