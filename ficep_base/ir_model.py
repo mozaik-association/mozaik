@@ -30,6 +30,7 @@ from openerp.tools import SUPERUSER_ID
 
 
 class ir_model(orm.Model):
+
     _inherit = 'ir.model'
 
     def _get_active_relations(self, cr, uid, ids, model_name, context=None):
@@ -58,3 +59,26 @@ class ir_model(orm.Model):
                     results.update({record_id: relation.model})
 
         return results
+
+
+class ir_model_data(orm.Model):
+
+    _inherit = 'ir.model.data'
+
+# public methods
+
+    def get_object_alternative(self, cr, uid, module, xml_id, alt_module, alt_xml_id):
+        """
+        Returns (model, res_id) corresponding to the given (module, xml_id) couple or, if not found,
+        to the alternative given couple
+        """
+        try:
+            return self.get_object_reference(cr, uid, module, xml_id)
+        except ValueError:
+            pass
+        except:
+            raise
+
+        return self.get_object_reference(cr, uid, alt_module, alt_xml_id)
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

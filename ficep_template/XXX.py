@@ -77,6 +77,10 @@ class xxxx(orm.Model):
         _, xml_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'model', 'xmlid')
         return xml_id
 
+    def _your_default_function(self, cr, uid, ids, context=None):
+        xml_id = self.pool['ir.model.data'].get_object_alternative(cr, uid, '', '__MIG_FROM_FED2_444', 'model', 'xmlid')[1]
+        return xml_id
+
     def _your_field_function(self):
         pass
 
@@ -141,6 +145,7 @@ class xxxx(orm.Model):
         'type': XXX_AVAILABLE_TYPES[0],
         'date': fields.date.today,
         'datetime': fields.datetime.now,
+        'int_instance_id': _your_default_function,
         'active': True,
     }
 

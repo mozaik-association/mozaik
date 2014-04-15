@@ -32,25 +32,12 @@ class address_local_zip(orm.Model):
 
     _inherit = 'address.local.zip'
 
-    def _get_default_instance_id(self, cr, uid, context=None):
-        """
-        ========================
-        _get_default_instance_id
-        ========================
-        Returns the default internal instance id
-        :param ids: unused
-        :type name: None
-        :rparam: int_instance_id
-        :rtype: integer
-        """
-        return self.pool.get("ir.model.data").get_object_reference(cr, uid, "ficep_structure", "int_instance_01")[1]
-
     _columns = {
         'int_instance_id': fields.many2one('int.instance', 'Internal Instance', required=True, select=True, track_visibility='onchange'),
     }
 
     _defaults = {
-        'int_instance_id': _get_default_instance_id
+        'int_instance_id': lambda self, cr, uid, ids, context=None: self.pool.get('int.instance').get_default(cr, uid)
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -39,6 +39,15 @@ class int_power_level(orm.Model):
         'assembly_category_inactive_ids': fields.one2many('int.assembly.category', 'power_level_id', 'Internal Assembly Categories', domain=[('active', '=', False)]),
     }
 
+# public methods
+
+    def get_default(self, cr, uid, context=None):
+        """
+        Returns the default Internal Power Level
+        """
+        res = self.pool.get('ir.model.data').get_object_alternative(cr, uid, '', '__MIG_FROM_FED2_1', 'ficep_structure', 'int_power_level_01')[1]
+        return res
+
 
 class int_assembly_category(orm.Model):
 
@@ -71,6 +80,15 @@ class int_instance(orm.Model):
         'multi_instance_cp_m2m_ids': fields.many2many('int.instance', 'int_instance_int_instance_rel', 'child_id', 'id',
                                                       'Multi-Instance', domain=[('active', '<=', True)]),
     }
+
+# public methods
+
+    def get_default(self, cr, uid, context=None):
+        """
+        Returns the default Internal Instance
+        """
+        res = self.pool.get('ir.model.data').get_object_alternative(cr, uid, '', '__MIG_FROM_FED2_286', 'ficep_structure', 'int_instance_01')[1]
+        return res
 
 
 class int_assembly(orm.Model):

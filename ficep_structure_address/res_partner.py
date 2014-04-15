@@ -34,19 +34,6 @@ class res_partner(orm.Model):
 
     _inherit = "res.partner"
 
-    def _get_default_instance_id(self, cr, uid, context=None):
-        """
-        ========================
-        _get_default_instance_id
-        ========================
-        Returns the default internal instance id
-        :param ids: unused
-        :type name: None
-        :rparam: int_instance_id
-        :rtype: integer
-        """
-        return self.pool['address.local.zip']._get_default_instance_id(cr, uid, context=context)
-
     def _get_instance_id(self, cr, uid, ids, name, args, context=None):
         """
         ================
@@ -62,7 +49,7 @@ class res_partner(orm.Model):
         """
         result = {}.fromkeys(ids, False)
 
-        def_int_instance_id = self._get_default_instance_id(cr, uid, context=context)
+        def_int_instance_id = self.pool.get('int.instance').get_default(cr, uid)
         for partner in self.browse(cr, uid, ids, context=context):
             result[partner.id] = partner.int_instance_id.id or def_int_instance_id
 
@@ -103,7 +90,7 @@ class res_partner(orm.Model):
     }
 
     _defaults = {
-        'int_instance_id': _get_default_instance_id,
+        'int_instance_id': lambda self, cr, uid, ids, context=None: self.pool.get('int.instance').get_default(cr, uid),
     }
 
 # orm methods

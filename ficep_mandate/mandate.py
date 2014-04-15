@@ -301,7 +301,7 @@ class selection_committee(orm.Model):
             res['value'] = dict(is_virtual=False,
                                 int_assembly_id=False,
                                 ext_assembly_id=False,
-                                power_level_id=self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_structure', 'int_power_level_01')[1])
+                                power_level_id=self.pool.get('int.power.level').get_default(cr, uid))
         elif committee_type == 'internal':
             res['value'] = dict(sta_assembly_id=False,
                                 ext_assembly_id=False,

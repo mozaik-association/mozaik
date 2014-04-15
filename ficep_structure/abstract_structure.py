@@ -144,7 +144,7 @@ class abstract_assembly(orm.AbstractModel):
     _defaults = {
         'is_company': True,
         'is_assembly': True,
-        'designation_int_power_level_id': lambda self, cr, uid, ids, context=None: self.pool.get("ir.model.data").get_object_reference(cr, uid, "ficep_structure", "int_power_level_01")[1]
+        'designation_int_power_level_id': lambda self, cr, uid, ids, context=None: self.pool.get('int.power.level').get_default(cr, uid)
     }
 
 # constraints
