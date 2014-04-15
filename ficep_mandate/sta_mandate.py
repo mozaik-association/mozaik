@@ -45,24 +45,6 @@ class sta_candidature(orm.Model):
     _init_mandate_columns.extend(['legislature_id', 'sta_assembly_id'])
     _allowed_inactive_link_models = ['selection.committee']
 
-    def is_legislative(self, cr, uid, ids, context=None):
-        """ Test whether the state assembly is legislative or not.
-        @return: True or False
-        """
-        res = False
-        for candidature in self.browse(cr, uid, ids, context=context):
-            if not candidature.sta_assembly_id:
-                return False
-            else:
-                res = candidature.sta_assembly_id.is_legislative
-        return res
-
-    def is_not_legislative(self, cr, uid, ids, context=None):
-        """ Test whether the state assembly is legislative or not.
-        @return: True or False
-        """
-        return not(self.is_legislative(cr, uid, ids, context))
-
     _columns = {
         'electoral_district_id': fields.related('selection_committee_id', 'electoral_district_id', string='Electoral District',
                                           type='many2one', relation="electoral.district",

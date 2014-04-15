@@ -42,6 +42,8 @@ class email_coordinate(orm.Model):
     _undo_redirect_action = 'ficep_email.email_coordinate_action'
 
     _columns = {
+        'name': fields.related('partner_id', 'printable_name', string='Partner Name', type='char',
+                               relation='res.partner'),
         'email': fields.char('Email', size=100, required=True, select=True),
     }
 

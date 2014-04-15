@@ -25,9 +25,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm
 
-from . import distribution_list
-from . import virtual_models
-from . import wizard
+
+class mail_compose_message(orm.TransientModel):
+
+    _inherit = 'mail.compose.message'
+
+    def get_mail_values(self, cr, uid, wizard, res_ids, context=None):
+        values = super(mail_compose_message, self).get_mail_values(cr, uid, wizard, res_ids, context=context)
+        if wizard.model == 'email.coordinate':
+            for res_id in values.keys():
+                values[res_id]['email_to'] = self.pool[wizard.model].read(cr, uid, res_id, ['email'], context=context)['email']
+        return values
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
