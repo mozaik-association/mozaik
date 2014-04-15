@@ -49,8 +49,8 @@ class test_structure(SharedSetupTransactionCase):
         self.sta_assembly_model = self.registry('sta.assembly')
         self.ext_assembly_model = self.registry('ext.assembly')
 
-        self.sta_assembly_category_id = self.ref('ficep_structure.sta_assembly_category_13')
-        self.ext_assembly_category_id = self.ref('ficep_structure.ext_assembly_category_01')
+        self.sta_assembly_category_id = self.ref('%s.sta_assembly_category_13' % self._module_ns)
+        self.ext_assembly_category_id = self.ref('%s.ext_assembly_category_01' % self._module_ns)
 
     def test_internal_inst_of_assembly_partner(self):
         '''
