@@ -29,3 +29,4 @@ from . import abstract_mandate
 from . import mandate
 from . import sta_mandate
 from . import structure
+from . import wizard
