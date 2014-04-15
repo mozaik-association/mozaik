@@ -52,6 +52,7 @@ FICEP Communication
         'distribution_list_view.xml',
         'communication_view.xml',
         'virtual_models_view.xml',
+        'wizard/distribution_list_mailing_view.xml',
     ],
     'js': [
     ],
