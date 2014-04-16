@@ -29,6 +29,40 @@ from openerp import tools
 from openerp.osv import orm, fields
 
 
+class virtual_target(orm.Model):
+
+    _name = "virtual.target"
+    _description = "Virtual Target"
+    _auto = False
+
+    _columns = {
+        'partner_id': fields.many2one('res.partner', 'Partner', readonly=True),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', readonly=True),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', readonly=True),
+    }
+
+# orm methods
+
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, 'virtual_target')
+        cr.execute("""
+        create or replace view virtual_target as (
+        SELECT
+            concat(pc.id,'/', e.id) as id,
+            p.id as partner_id,
+            pc.id as postal_coordinate_id,
+            e.id as email_coordinate_id
+        FROM
+            res_partner p
+        LEFT OUTER JOIN
+            email_coordinate e
+        ON (e.partner_id = p.id)
+        LEFT OUTER JOIN
+            postal_coordinate pc
+        ON (pc.partner_id = pc.id)
+            )""")
+
+
 class virtual_partner_involvement(orm.Model):
 
     _name = "virtual.partner.involvement"
@@ -36,6 +70,7 @@ class virtual_partner_involvement(orm.Model):
     _auto = False
 
     _columns = {
+        'common_id': fields.char('Common ID', readonly=True),
         'partner_id': fields.many2one('res.partner', 'Partner', readonly=True),
         'involvement_category_id': fields.many2one('partner.involvement.category', 'Involvement Category', readonly=True),
         'int_instance_id': fields.many2one('int.instance', 'Instance', readonly=True),
@@ -74,6 +109,7 @@ class virtual_partner_involvement(orm.Model):
         create or replace view virtual_partner_involvement as (
         SELECT
             concat(p.id, pi.id) as id,
+            concat(pc.id,'/', e.id) as common_id,
             pi.partner_id as partner_id,
             pic.id as involvement_category_id,
             p.display_name as display_name,

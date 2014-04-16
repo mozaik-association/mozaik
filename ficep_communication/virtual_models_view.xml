@@ -2,7 +2,19 @@
 <openerp>
     <data>
 
-        <!-- Virtual Search Views -->
+        <!-- Virtual Target Tree View -->
+        <record id="virtual_target_tree_view" model="ir.ui.view">
+            <field eval="1" name="priority"/>
+            <field name="name">virtual.target.tree</field>
+            <field name="model">virtual.target</field>
+            <field name="arch" type="xml">
+                <tree string="Virtual Target" create="false">
+                    <field name="partner_id" />
+                    <field name="email_coordinate_id" />
+                    <field name="postal_coordinate_id" />
+                </tree>
+            </field>
+        </record>
 
         <!-- Search View of Virtual Partner Involvement -->
         <record id="virtual_partner_involvement_search_view" model="ir.ui.view">
@@ -42,8 +54,6 @@
             </field>
         </record>
 
-        <!-- Virtual Tree Views -->
-
         <!-- Tree View of Virtual Partner Involvement -->
         <record id="virtual_partner_involvement_tree_view" model="ir.ui.view">
             <field eval="1" name="priority"/>
@@ -63,8 +73,7 @@
             </field>
         </record>
 
-        <!-- Virtual Actions -->
-
+        <!-- Add filter virtual partner involvement -->
         <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
             <field name="view_type">form</field>
