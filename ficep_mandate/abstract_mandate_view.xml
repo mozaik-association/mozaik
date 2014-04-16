@@ -101,17 +101,21 @@
                                 <field name="mandate_category_id" 
                                        attrs="{'readonly': [('candidature_id','!=',False)]}"
                                        context="{'simplified': 1,
-                                                 'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"/>
+                                                 'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"/>                                
+                                <field name="partner_id" context="{'simplified': 1}"
+                                       attrs="{'readonly': [('candidature_id','!=',False)]}"/>
+                                <field name="email_coordinate_id" context="{'simplified': 1}"
+                                       domain="[('partner_id', '=', partner_id)]"/>
+                                <field name="postal_coordinate_id" context="{'simplified': 1}"
+                                       domain="[('partner_id', '=', partner_id)]"/>
+                            </group>
+                            <group name="data_2">
                                 <field name="designation_int_assembly_id" context="{'simplified': 1, 'form_view_ref': 'ficep_structure.int_assembly_form_view'}"/>
                                 <field name="is_submission_mandate" readonly="1"/>
                                 <field name="is_submission_assets" readonly="1"/>
                                 <field name="is_replacement"/>
-                            </group>
-                            <group name="data_2">
-                                <field name="partner_id" context="{'simplified': 1}"
-                                       attrs="{'readonly': [('candidature_id','!=',False)]}"/> 
                                 <field name="candidature_id" context="{'simplified': 1}" readonly="1"
-                                       attrs="{'invisible': [('candidature_id','=',False)]}"/>                                  
+                                       attrs="{'invisible': [('candidature_id','=',False)]}"/>                   
                             </group>
                             <group name="Dates">
                                 <field name="start_date" widget="date"/>

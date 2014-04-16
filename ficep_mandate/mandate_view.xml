@@ -267,16 +267,26 @@
             <field name="model">sta.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_form_view"/>
             <field name="arch" type="xml">                              
-                <xpath expr="//field[@name='partner_id']" position="after">
-                     <field name="legislature_id" attrs="{'readonly': [('candidature_id','!=',False)]}" 
-                                                  domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>                     
-                     <field name="sta_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
+                <xpath expr="//field[@name='mandate_category_id']" position="before">
+                    <field name="sta_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
                             required="1"
                             context="{'simplified': 1, 'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"/>
+                    <field name="legislature_id" attrs="{'readonly': [('candidature_id','!=',False)]}" 
+                                                  domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>                     
+                     
                 </xpath>
                 <xpath expr="//field[@name='candidature_id']" position="attributes">
                      <attribute name="context">{'simplified': 1, 'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}</attribute>
                 </xpath>
+                
+                <xpath expr="//group[@name='Technical Dates']" position="after">
+                    <notebook>
+	                    <page name="index" string="Indexation">
+	                        <separator string="Competencies"/>
+	                        <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." context="{'default_state': 'draft'}" />
+	                    </page>
+	                </notebook>
+	            </xpath>
             </field>
         </record> 
         

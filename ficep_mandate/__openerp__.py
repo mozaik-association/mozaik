@@ -34,6 +34,9 @@
     'category': 'Political Association',
     'depends': [
         'ficep_structure',
+        'ficep_address',
+        'ficep_email',
+        'ficep_thesaurus',
     ],
     'description': """
 FICEP Mandate

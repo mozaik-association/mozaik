@@ -128,4 +128,5 @@ class sta_mandate(orm.Model):
         'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
                                           type='boolean', relation="sta.assembly",
                                           store=True),
+        'competencies_m2m_ids': fields.many2many('thesaurus.term', 'sta_mandate_term_competencies_rel', id1='sta_mandate_id', id2='thesaurus_term_id', string='Competencies'),
         }
