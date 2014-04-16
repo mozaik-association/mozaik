@@ -32,6 +32,7 @@
             <field name="arch" type="xml">
                 <search string="Candidatures" version="7.0">
                     <field name="selection_committee_id"/>
+                    <field name="partner_id"/>
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" />

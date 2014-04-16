@@ -46,3 +46,25 @@ class electoral_district(orm.Model):
     _columns = {
         'selection_committee_ids': fields.one2many('selection.committee', 'electoral_district_id', 'Selection committees'),
     }
+
+
+class sta_assembly_category(orm.Model):
+
+    _name = 'sta.assembly.category'
+    _inherit = ['sta.assembly.category']
+
+    _columns = {
+        'mandate_category_ids': fields.one2many('mandate.category', 'sta_assembly_category_id', 'Mandate categories', domain=[('active', '=', True)]),
+        'mandate_category_inactive_ids': fields.one2many('mandate.category', 'sta_assembly_category_id', 'Mandate categories', domain=[('active', '=', False)]),
+    }
+
+
+class sta_assembly(orm.Model):
+
+    _name = 'sta.assembly'
+    _inherit = ['sta.assembly']
+
+    _columns = {
+         'selection_committee_ids': fields.one2many('selection.committee', 'sta_assembly_id', 'Selection committees', domain=[('active', '=', True)]),
+         'selection_committee_inactive_ids': fields.one2many('selection.committee', 'sta_assembly_id', 'Selection committees', domain=[('active', '=', False)]),
+    }

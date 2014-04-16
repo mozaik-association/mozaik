@@ -48,6 +48,8 @@ FICEP Mandate
              'wizard/renew_and_derived_mandate_wizard.xml',
              'abstract_mandate_view.xml',
              'mandate_view.xml',
+             'res_partner_view.xml',
+             'structure_view.xml',
              'sta_mandate_workflow.xml',
     ],
     'js': [

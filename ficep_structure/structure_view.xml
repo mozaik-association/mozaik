@@ -406,7 +406,7 @@
             <field name="model">sta.assembly</field>
             <field name="inherit_id" ref="abstract_assembly_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//sheet/div[@name='buttons']" position="after">
+                <xpath expr="//sheet/div[@name='buttons']" position="inside">
                     <button string="Electoral Districts" name="%(electoral_district_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_assembly_id': active_id,
