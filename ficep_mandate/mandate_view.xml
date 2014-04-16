@@ -268,7 +268,8 @@
             <field name="inherit_id" ref="abstract_mandate_form_view"/>
             <field name="arch" type="xml">                              
                 <xpath expr="//field[@name='partner_id']" position="after">
-                     <field name="legislature_id" attrs="{'readonly': [('candidature_id','!=',False)]}"/>                     
+                     <field name="legislature_id" attrs="{'readonly': [('candidature_id','!=',False)]}" 
+                                                  domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>                     
                      <field name="sta_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
                             context="{'simplified': 1, 'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"/>
                 </xpath>
@@ -324,7 +325,8 @@
 	                                           domain="[('is_legislative', '=', False)]"/>
 	                                    <field name="legislature_id" readonly="1"
 	                                           attrs="{'required': [('committee_type','=', 'state'),]}"
-	                                           on_change="onchange_legislature_id(legislature_id)" />
+	                                           on_change="onchange_legislature_id(legislature_id)" 
+	                                           domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>
                                     </group>
                                 </div>                        
                                 

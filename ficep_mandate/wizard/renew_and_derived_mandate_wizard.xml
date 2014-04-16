@@ -28,7 +28,8 @@
                                        invisible="context.get('active_model') != 'sta.mandate'"
                                        required="context.get('active_model') == 'sta.mandate'"
                                        attrs="{'readonly':[('action', '!=', 'renew')]}"
-                                       on_change="onchange_legislature_id(legislature_id)"/>
+                                       on_change="onchange_legislature_id(legislature_id)"
+                                       domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>
                                 <field name="partner_id"/>
                                 <field name="start_date" attrs="{'readonly':[('action', '!=', 'renew')]}"/>
                                 <field name="deadline_date" attrs="{'readonly':[('action', '!=', 'renew')]}"/>
