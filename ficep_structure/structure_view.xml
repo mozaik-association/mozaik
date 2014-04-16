@@ -65,6 +65,21 @@
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="power_level_id" />
                 </xpath>
+                <xpath expr="//group[@name='group_by']" position="inside">
+                    <filter name="level" string="Power Level" domain="[]" context="{'group_by':'power_level_id'}" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="int_assembly_category_tree_view" model="ir.ui.view">
+            <field name="name">int.assembly.category.tree.view</field>
+            <field name="model">int.assembly.category</field>
+            <field name="inherit_id" ref="abstract_assembly_category_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="power_level_id" />
+                    <field name="is_secretariat" />
+                </xpath>
             </field>
         </record>
 
@@ -624,18 +639,19 @@
                 </xpath>
                 <xpath expr="//group[@name='mandate']" position="before">
                     <group name="Info">
+                        <field name="power_level_id" />
                         <field name="is_secretariat"/>
                     </group>
                 </xpath>
             </field>
         </record>
-        
+
         <record id="int_assembly_form_view" model="ir.ui.view">
             <field name="name">int.assembly.form</field>
             <field name="model">int.assembly</field>
             <field name="inherit_id" ref="abstract_assembly_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='assembly_category_id']" position="after">
+                <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
                      <field name="is_designation_assembly"/>
                 </xpath>
             </field>
