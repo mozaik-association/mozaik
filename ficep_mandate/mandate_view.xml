@@ -36,11 +36,28 @@
             <field name="model">sta.candidature</field>
             <field name="inherit_id" ref="abstract_candidature_search_view"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="sta_assembly_id"/>
+                    <field name="legislature_id"/>
+                    <field name="electoral_district_id"/>
+                </xpath>
                 <xpath expr="//filter[@name='category']" position="after">
                     <filter name="selection_committee" string="Selection Committee" domain="[]" context="{'group_by':'selection_committee_id'}" />
                 </xpath>
             </field>
-        </record>               
+        </record>    
+        
+        <record id="sta_mandate_search_view" model="ir.ui.view">
+            <field name="name">sta.mandate.search</field>
+            <field name="model">sta.mandate</field>
+            <field name="inherit_id" ref="abstract_mandate_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='is_submission_mandate']" position="before">
+                    <field name="sta_assembly_id"/>
+                    <field name="legislature_id"/>
+                </xpath>                
+            </field>
+        </record>             
         
         <record id="selection_committee_search_view" model="ir.ui.view">
             <field name="name">selection.committee.search</field>
@@ -100,7 +117,7 @@
             <field name="res_model">sta.mandate</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="abstract_mandate_search_view" />
+            <field name="search_view_id" ref="sta_mandate_search_view" />
             <field name="view_id" ref="abstract_mandate_tree_view" />
             <field name="context">{'form_view_ref': 'ficep_mandate.sta_mandate_form_view'}</field>
         </record>
@@ -267,14 +284,26 @@
             <field name="model">sta.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_form_view"/>
             <field name="arch" type="xml">                              
-                <xpath expr="//field[@name='partner_id']" position="after">
-                     <field name="legislature_id" attrs="{'readonly': [('candidature_id','!=',False)]}"/>                     
-                     <field name="sta_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
+                <xpath expr="//field[@name='mandate_category_id']" position="before">
+                    <field name="sta_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
+                            required="1"
                             context="{'simplified': 1, 'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"/>
+                    <field name="legislature_id" attrs="{'readonly': [('candidature_id','!=',False)]}" 
+                                                  domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>                     
+                     
                 </xpath>
                 <xpath expr="//field[@name='candidature_id']" position="attributes">
                      <attribute name="context">{'simplified': 1, 'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}</attribute>
                 </xpath>
+                
+                <xpath expr="//group[@name='Technical Dates']" position="after">
+                    <notebook>
+	                    <page name="index" string="Indexation">
+	                        <separator string="Competencies"/>
+	                        <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." context="{'default_state': 'draft'}" />
+	                    </page>
+	                </notebook>
+	            </xpath>
             </field>
         </record> 
         
@@ -324,7 +353,8 @@
 	                                           domain="[('is_legislative', '=', False)]"/>
 	                                    <field name="legislature_id" readonly="1"
 	                                           attrs="{'required': [('committee_type','=', 'state'),]}"
-	                                           on_change="onchange_legislature_id(legislature_id)" />
+	                                           on_change="onchange_legislature_id(legislature_id)" 
+	                                           domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>
                                     </group>
                                 </div>                        
                                 

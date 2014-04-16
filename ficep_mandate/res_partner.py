@@ -25,9 +25,16 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import abstract_mandate
-from . import mandate
-from . import sta_mandate
-from . import structure
-from . import wizard
-from . import res_partner
+
+from openerp.osv import orm, fields
+
+
+class res_partner(orm.Model):
+
+    _name = 'res.partner'
+    _inherit = ['res.partner']
+
+    _columns = {
+        'sta_mandate_ids': fields.one2many('sta.mandate', 'partner_id', 'State Mandates', domain=[('active', '=', True)]),
+        'sta_mandate_inactive_ids': fields.one2many('sta.mandate', 'partner_id', 'State Mandates', domain=[('active', '=', False)]),
+    }

@@ -37,7 +37,7 @@
             <field name="target">new</field>
             <field name="view_id" ref="distribution_list_mailing_wizard" />
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
-            <field name="context">{'common_field':'email_coordinate_id'}</field>
+            <field name="context">{'field_mailing_object':'email_coordinate_id'}</field>
         </record>
 
         <record id="add_filter_from_involvement_value" model="ir.values">
