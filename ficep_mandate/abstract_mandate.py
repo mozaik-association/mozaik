@@ -104,6 +104,8 @@ class abstract_mandate(orm.AbstractModel):
                                           type='boolean', relation="mandate.category",
                                           store=True),
         'candidature_id': fields.many2one('abstract.candidature', 'Candidature', track_visibility='onchange'),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal coordinate'),
     }
 
     # orm methods

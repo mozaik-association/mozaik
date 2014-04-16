@@ -30,7 +30,6 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from .abstract_mandate import abstract_candidature
 from .abstract_mandate import create_mandate_from_candidature
-from .structure import legislature
 from .mandate import mandate_category
 
 
@@ -65,7 +64,7 @@ class sta_candidature(orm.Model):
         'substitute_votes': fields.integer('Substitute preferential votes', track_visibility='onchange'),
         'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
                                           type='boolean', relation="sta.assembly",
-                                          store=False),
+                                          store=True),
         }
 
     # view methods: onchange, button
@@ -119,9 +118,6 @@ class sta_mandate(orm.Model):
         'sta_assembly_category_id': fields.related('mandate_category_id', 'sta_assembly_category_id', string='State Assembly Category',
                                           type='many2one', relation="sta.assembly.category",
                                           store=False),
-        'deadline_date': fields.related('legislature_id', 'deadline_date', string='Deadline Date',
-                                          type='date', relation="legislature",
-                                          store={'legislature': (legislature.get_linked_sta_mandate_ids, ['deadline_date'], 20)}),
         'candidature_id': fields.many2one('sta.candidature', 'Candidature'),
         'is_submission_mandate': fields.related('mandate_category_id', 'is_submission_mandate', string='Submission to a mandate declaration',
                                           type='boolean', relation="mandate.category",
@@ -129,4 +125,8 @@ class sta_mandate(orm.Model):
         'is_submission_assets': fields.related('mandate_category_id', 'is_submission_assets', string='Submission to an assets declaration',
                                           type='boolean', relation="mandate.category",
                                           store={'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['is_submission_assets'], 20)}),
+        'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
+                                          type='boolean', relation="sta.assembly",
+                                          store=True),
+        'competencies_m2m_ids': fields.many2many('thesaurus.term', 'sta_mandate_term_competencies_rel', id1='sta_mandate_id', id2='thesaurus_term_id', string='Competencies'),
         }

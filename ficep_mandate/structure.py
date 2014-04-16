@@ -48,26 +48,23 @@ class electoral_district(orm.Model):
     }
 
 
-class legislature(orm.Model):
+class sta_assembly_category(orm.Model):
 
-    _name = 'legislature'
-    _inherit = ['legislature']
-
-    def get_linked_sta_mandate_ids(self, cr, uid, ids, context=None):
-        """
-        ==============================
-        get_linked_mandate_ids
-        ==============================
-        Return State Mandate ids linked to legislature ids
-        :rparam: sta_mandate_ids
-        :rtype: list of ids
-        """
-        legislatures = self.read(cr, uid, ids, ['sta_mandate_ids'], context=context)
-        res_ids = []
-        for legislature in legislatures:
-            res_ids += legislature['sta_mandate_ids']
-        return list(set(res_ids))
+    _name = 'sta.assembly.category'
+    _inherit = ['sta.assembly.category']
 
     _columns = {
-        'sta_mandate_ids': fields.one2many('sta.mandate', 'legislature_id', 'State Mandates'),
+        'mandate_category_ids': fields.one2many('mandate.category', 'sta_assembly_category_id', 'Mandate categories', domain=[('active', '=', True)]),
+        'mandate_category_inactive_ids': fields.one2many('mandate.category', 'sta_assembly_category_id', 'Mandate categories', domain=[('active', '=', False)]),
+    }
+
+
+class sta_assembly(orm.Model):
+
+    _name = 'sta.assembly'
+    _inherit = ['sta.assembly']
+
+    _columns = {
+         'selection_committee_ids': fields.one2many('selection.committee', 'sta_assembly_id', 'Selection committees', domain=[('active', '=', True)]),
+         'selection_committee_inactive_ids': fields.one2many('selection.committee', 'sta_assembly_id', 'Selection committees', domain=[('active', '=', False)]),
     }

@@ -34,6 +34,9 @@
     'category': 'Political Association',
     'depends': [
         'ficep_structure',
+        'ficep_address',
+        'ficep_email',
+        'ficep_thesaurus',
     ],
     'description': """
 FICEP Mandate
@@ -42,10 +45,12 @@ FICEP Mandate
     'images': [
     ],
     'data': [
+             'wizard/renew_and_derived_mandate_wizard.xml',
              'abstract_mandate_view.xml',
              'mandate_view.xml',
+             'res_partner_view.xml',
+             'structure_view.xml',
              'sta_mandate_workflow.xml',
-             'wizard/renew_and_derived_mandate_wizard.xml',
     ],
     'js': [
     ],
