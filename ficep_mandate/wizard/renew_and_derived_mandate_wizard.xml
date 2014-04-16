@@ -23,7 +23,12 @@
                                                'required': [('action', '==', 'derived')],}"
                                        domain="[('id', '!=', mandate_category_id)]"/>
                                 <field name="sta_assembly_id"
-                                       invisible="context.get('active_model') != 'sta.mandate'"/>
+                                       invisible="context.get('active_model') != 'sta.mandate'"
+                                       attrs="{'invisible': [('action', '==', 'derived')]}"/>
+                                <field name="new_sta_assembly_id"
+                                       attrs="{'invisible':[('action', '==', 'renew')],
+                                               'required': [('action', '==', 'derived')],}"
+                                       domain="[('id', '!=', sta_assembly_id), ('instance_id', '=', sta_instance_id), ('is_legislative', '=', False)]"/>
                                 <field name="legislature_id"
                                        invisible="context.get('active_model') != 'sta.mandate'"
                                        required="context.get('active_model') == 'sta.mandate'"
@@ -40,7 +45,8 @@
 	                            <h3>More Info</h3>
 	                            <group name="moreinfo">	                                
 	                                <field name="action"/>
-	                                <field name="is_legislative"/>    
+	                                <field name="is_legislative"/>
+	                                <field name="sta_instance_id"/>    
 	                            </group>
 	                        </div>
 	                    </div>

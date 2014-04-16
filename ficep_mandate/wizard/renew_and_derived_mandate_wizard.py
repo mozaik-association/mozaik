@@ -45,11 +45,13 @@ class renew_and_derived_mandate_wizard(orm.TransientModel):
         'new_mandate_category_id': fields.many2one('mandate.category', string='Mandate Category'),
         'partner_id': fields.many2one('res.partner', 'Partner', readonly=True),
         'sta_assembly_id': fields.many2one('sta.assembly', string='State Assembly', readonly=True),
+        'new_sta_assembly_id': fields.many2one('sta.assembly', string='State Assembly'),
         'is_legislative': fields.boolean('Is legislative'),
         'legislature_id': fields.many2one('legislature', string='Legislature'),
         'start_date': fields.date('Start Date'),
         'deadline_date': fields.date('Deadline Date'),
         'message': fields.char('Message', size=250),
+        'sta_instance_id': fields.many2one('sta.instance', 'State Instance'),
     }
 
     _defaults = {
@@ -74,9 +76,9 @@ class renew_and_derived_mandate_wizard(orm.TransientModel):
             res['mandate_category_id'] = mandate.mandate_category_id.id
 
             if mandate.deadline_date > fields.datetime.now():
-                action = WIZARD_AVAILABLE_ACTIONS[1]
+                action = WIZARD_AVAILABLE_ACTIONS[1][0]
             else:
-                action = WIZARD_AVAILABLE_ACTIONS[0]
+                action = WIZARD_AVAILABLE_ACTIONS[0][0]
 
             if isinstance(mandate._model, sta_mandate.sta_mandate):
                 legislature_ids = self.pool['legislature'].search(cr, uid, [('power_level_id', '=', mandate.sta_assembly_id.assembly_category_id.power_level_id.id),
@@ -85,13 +87,14 @@ class renew_and_derived_mandate_wizard(orm.TransientModel):
                 if legislature_ids:
                     legislature_id = legislature_ids[0]
 
-                if mandate.sta_assembly_id.is_legislative and action == WIZARD_AVAILABLE_ACTIONS[0]:
+                if mandate.sta_assembly_id.is_legislative and action == WIZARD_AVAILABLE_ACTIONS[0][0]:
                     res['message'] = _('Renew not allowed on a legislative mandate')
 
                 res['legislature_id'] = legislature_id
                 res['sta_assembly_id'] = mandate.sta_assembly_id.id
                 res['is_legislative'] = mandate.sta_assembly_id.is_legislative
                 res['sta_mandate_id'] = mandate.id
+                res['sta_instance_id'] = mandate.sta_assembly_id.instance_id.id
                 res['action'] = action
             break
 
@@ -162,8 +165,10 @@ class renew_and_derived_mandate_wizard(orm.TransientModel):
         view_id = False
         if isinstance(mandate_obj, sta_mandate.sta_mandate):
             values = dict(mandate_category_id=wizard.new_mandate_category_id.id,
+                          sta_assembly_id=wizard.new_sta_assembly_id.id,
                           start_date=wizard.start_date,
-                          deadline_date=wizard.deadline_date)
+                          deadline_date=wizard.deadline_date,
+                          candidature_id=False)
             new_mandate_id = mandate_obj.copy(cr, uid, wizard.sta_mandate_id.id, default=values, context=context)
             view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', 'sta_mandate_form_view')
             view_id = view_ref and view_ref[1] or False,
