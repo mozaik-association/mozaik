@@ -65,6 +65,7 @@ class duplicate_analysis_report(orm.Model):
                        1 as sequence
                 FROM  res_partner
                 WHERE is_duplicate_detected = TRUE
+                AND   active = TRUE
 
             UNION
 
@@ -77,6 +78,7 @@ class duplicate_analysis_report(orm.Model):
                 FROM  email_coordinate e, res_partner partner
                 WHERE partner.id = e.partner_id
                 AND   e.is_duplicate_detected = TRUE
+                AND   e.active = TRUE
 
             UNION
 
@@ -90,6 +92,7 @@ class duplicate_analysis_report(orm.Model):
                 WHERE partner.id = pc.partner_id
                 AND   a.id = pc.address_id
                 AND   pc.is_duplicate_detected = TRUE
+                AND   pc.active = TRUE
 
             UNION
 
@@ -103,6 +106,7 @@ class duplicate_analysis_report(orm.Model):
                 WHERE partner.id = phc.partner_id
                 AND   ph.id = phc.phone_id
                 AND   phc.is_duplicate_detected = TRUE
+                AND   phc.active = TRUE
 
             ORDER BY sequence, partner_name
             )
