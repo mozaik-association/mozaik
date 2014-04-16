@@ -7,82 +7,70 @@
             <field name="arch" type="xml">
                 <form string="Mandate" version="7.0">                    
                     <sheet>
-                        <div class="oe_title">                           
+                        <div class="oe_title" attrs="{'invisible': [('action', '!=', 'renew')]}">
+                           <separator string="Renew mandate"/>                     
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">                           
+                        <div class="oe_title" attrs="{'invisible': [('action', '!=', 'derived')]}">
+                           <separator string="Create a derived mandate"/>                     
                         </div>
-
                         <group>
                             <group name="data_1">
-                                <field name="mandate_category_id"
-                                       readonly="context.get('action',False) == 'renew'"/>
+                                <field name="mandate_category_id"                                      
+                                       attrs="{'readonly':[('action', '==', 'renew')],
+                                               'invisible': [('action', '==', 'derived')]}"/>
+                                <field name="new_mandate_category_id" 
+                                       attrs="{'invisible':[('action', '==', 'renew')],
+                                               'required': [('action', '==', 'derived')],}"
+                                       domain="[('id', '!=', mandate_category_id)]"/>
                                 <field name="sta_assembly_id"
                                        invisible="context.get('active_model') != 'sta.mandate'"/>
                                 <field name="legislature_id"
                                        invisible="context.get('active_model') != 'sta.mandate'"
                                        required="context.get('active_model') == 'sta.mandate'"
-                                       readonly="context.get('action', False) != 'renew'"
+                                       attrs="{'readonly':[('action', '!=', 'renew')]}"
                                        on_change="onchange_legislature_id(legislature_id)"/>
                                 <field name="partner_id"/>
-                                <field name="start_date" readonly="context.get('action', False) != 'renew'"/>
-                                <field name="deadline_date" readonly="context.get('action', False) != 'renew'"/>
+                                <field name="start_date" attrs="{'readonly':[('action', '!=', 'renew')]}"/>
+                                <field name="deadline_date" attrs="{'readonly':[('action', '!=', 'renew')]}"/>
                             </group>
                         </group>
+                        <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+	                        <div class="oe_formview oe_form_sheet_width">
+	                            <h3>More Info</h3>
+	                            <group name="moreinfo">	                                
+	                                <field name="action"/>
+	                                <field name="is_legislative"/>    
+	                            </group>
+	                        </div>
+	                    </div>
                         <footer>
 	                        <span name="go-wizard">
+	                            <field name="message" readonly="1" attrs="{'invisible': [('message', '=', False)]}"/>
 	                            <button string="Renew" name="renew_mandate"
 	                                    type="object" class="oe_highlight"
-	                                    invisible="context.get('action', False) != 'renew'" />
+	                                    attrs="{'invisible':['|', ('action', '!=', 'renew'), ('is_legislative', '=', True)]}"/>
 	                            <button string="Create" name="create_derived_mandate"
                                         type="object" class="oe_highlight" 
-                                        invisible="context.get('action', False) != 'derived'" />
+                                        attrs="{'invisible':[('action', '!=', 'derived')]}"/>
 	                            or
 	                        </span>
 	                        <button string="Cancel" class="oe_link" special="cancel" />
-                        </footer>
+                       </footer>
+                        
                    </sheet>
                 </form>                             
             </field>
         </record>
-        
-        <record id="renew_mandate_action" model="ir.actions.act_window">
-            <field name="name">Renew mandate</field>
+                
+        <record id="renew_derived_mandate_action" model="ir.actions.act_window">
+            <field name="name">Copy mandate</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model">sta.mandate</field>
             <field name="res_model">renew.and.derived.mandate.wizard</field>
             <field name="target">new</field>
             <field name="view_id" ref="renew_and_derived_mandate_wizard" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
-            <field name="context">{'action': 'renew'}</field>
-        </record>
-        
-        <record id="derived_mandate_action" model="ir.actions.act_window">
-            <field name="name">Create derived mandate</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="src_model">sta.mandate</field>
-            <field name="res_model">renew.and.derived.mandate.wizard</field>
-            <field name="target">new</field>
-            <field name="view_id" ref="renew_and_derived_mandate_wizard" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
-            <field name="context">{'action': 'derived'}</field>
-        </record>
-
-        <record id="renew_mandate" model="ir.values">
-            <field name="name">Renew mandate</field>
-            <field name="model">sta.mandate</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('renew_mandate_action')" />
-        </record>
-        
-        <record id="derived_mandate" model="ir.values">
-            <field name="name">Create derived mandate</field>
-            <field name="model">sta.mandate</field>
-            <field name="key">action</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('derived_mandate_action')" />
-        </record>
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />            
+        </record>        
     </data>
 </openerp>

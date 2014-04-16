@@ -42,10 +42,10 @@ FICEP Mandate
     'images': [
     ],
     'data': [
+             'wizard/renew_and_derived_mandate_wizard.xml',
              'abstract_mandate_view.xml',
              'mandate_view.xml',
              'sta_mandate_workflow.xml',
-             'wizard/renew_and_derived_mandate_wizard.xml',
     ],
     'js': [
     ],

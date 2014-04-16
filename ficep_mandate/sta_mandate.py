@@ -65,7 +65,7 @@ class sta_candidature(orm.Model):
         'substitute_votes': fields.integer('Substitute preferential votes', track_visibility='onchange'),
         'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
                                           type='boolean', relation="sta.assembly",
-                                          store=False),
+                                          store=True),
         }
 
     # view methods: onchange, button
@@ -129,4 +129,7 @@ class sta_mandate(orm.Model):
         'is_submission_assets': fields.related('mandate_category_id', 'is_submission_assets', string='Submission to an assets declaration',
                                           type='boolean', relation="mandate.category",
                                           store={'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['is_submission_assets'], 20)}),
+        'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
+                                          type='boolean', relation="sta.assembly",
+                                          store=True),
         }

@@ -42,11 +42,18 @@ class renew_and_derived_mandate_wizard(orm.TransientModel):
         'sta_mandate_id': fields.many2one('sta.mandate', string='State mandate', readonly=True),
         'action': fields.selection(WIZARD_AVAILABLE_ACTIONS, 'Action'),
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category'),
+        'new_mandate_category_id': fields.many2one('mandate.category', string='Mandate Category'),
         'partner_id': fields.many2one('res.partner', 'Partner', readonly=True),
         'sta_assembly_id': fields.many2one('sta.assembly', string='State Assembly', readonly=True),
+        'is_legislative': fields.boolean('Is legislative'),
         'legislature_id': fields.many2one('legislature', string='Legislature'),
         'start_date': fields.date('Start Date'),
         'deadline_date': fields.date('Deadline Date'),
+        'message': fields.char('Message', size=250),
+    }
+
+    _defaults = {
+        'is_legislative': False
     }
 
     def default_get(self, cr, uid, flds, context):
@@ -55,10 +62,6 @@ class renew_and_derived_mandate_wizard(orm.TransientModel):
         """
         res = {}
         context = context or {}
-        action = context.get('action', False)
-
-        if not action:
-            action = "renew"
 
         ids = context.get('active_id') and [context.get('active_id')] or context.get('active_ids') or []
         model = context.get('active_model', False)
@@ -66,8 +69,14 @@ class renew_and_derived_mandate_wizard(orm.TransientModel):
             return res
 
         for mandate in self.pool[model].browse(cr, uid, ids, context=context):
+            action = False
             res['partner_id'] = mandate.partner_id.id
             res['mandate_category_id'] = mandate.mandate_category_id.id
+
+            if mandate.deadline_date > fields.datetime.now():
+                action = WIZARD_AVAILABLE_ACTIONS[1]
+            else:
+                action = WIZARD_AVAILABLE_ACTIONS[0]
 
             if isinstance(mandate._model, sta_mandate.sta_mandate):
                 legislature_ids = self.pool['legislature'].search(cr, uid, [('power_level_id', '=', mandate.sta_assembly_id.assembly_category_id.power_level_id.id),
@@ -76,10 +85,14 @@ class renew_and_derived_mandate_wizard(orm.TransientModel):
                 if legislature_ids:
                     legislature_id = legislature_ids[0]
 
+                if mandate.sta_assembly_id.is_legislative and action == WIZARD_AVAILABLE_ACTIONS[0]:
+                    res['message'] = _('Renew not allowed on a legislative mandate')
+
                 res['legislature_id'] = legislature_id
                 res['sta_assembly_id'] = mandate.sta_assembly_id.id
+                res['is_legislative'] = mandate.sta_assembly_id.is_legislative
                 res['sta_mandate_id'] = mandate.id
-
+                res['action'] = action
             break
 
         return res
@@ -101,9 +114,6 @@ class renew_and_derived_mandate_wizard(orm.TransientModel):
         ====================
         Renew a mandate
         """
-        if context.get('action', False) != 'renew':
-            raise orm.except_orm(_('Error'), _('Action not allowed!'))
-
         wizard = self.browse(cr, uid, ids, context=context)[0]
         mandate_obj = self.pool[context.get('active_model')]
 
@@ -137,9 +147,6 @@ class renew_and_derived_mandate_wizard(orm.TransientModel):
         ====================
         Create a derived mandate
         """
-        if context.get('action', False) != 'derived':
-            raise orm.except_orm(_('Error'), _('Action not allowed!'))
-
         wizard = self.browse(cr, uid, ids, context=context)[0]
         mandate_obj = self.pool[context.get('active_model')]
 
@@ -154,7 +161,7 @@ class renew_and_derived_mandate_wizard(orm.TransientModel):
         new_mandate_id = False
         view_id = False
         if isinstance(mandate_obj, sta_mandate.sta_mandate):
-            values = dict(mandate_category_id=wizard.mandate_category_id.id,
+            values = dict(mandate_category_id=wizard.new_mandate_category_id.id,
                           start_date=wizard.start_date,
                           deadline_date=wizard.deadline_date)
             new_mandate_id = mandate_obj.copy(cr, uid, wizard.sta_mandate_id.id, default=values, context=context)
