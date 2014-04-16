@@ -98,5 +98,26 @@
             <field name="sta_assembly_id" ref="sta_assembly_01"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
+        
+        <!-- Create State mandate -->
+        <record id="stam_thierry_communal_2012" model="sta.mandate">
+            <field name="mandate_category_id" ref="mc_conseiller_communal"/>           
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="legislature_id" ref="legislature_closed_01"/>
+            <field name="start_date">2012-12-03</field>
+            <field name="deadline_date">2014-04-15</field>
+            <field name="sta_assembly_id" ref="sta_assembly_01"/>
+            <field name="partner_id" ref="res_partner_thierry"/>
+        </record>
+        
+        <record id="stam_thierry_bourgmestre_2012" model="sta.mandate">
+            <field name="mandate_category_id" ref="mc_bourgmestre"/>           
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="legislature_id" ref="legislature_closed_01"/>
+            <field name="start_date">2012-12-03</field>
+            <field name="deadline_date">2014-04-15</field>
+            <field name="sta_assembly_id" ref="sta_assembly_03"/>
+            <field name="partner_id" ref="res_partner_thierry"/>
+        </record>
     </data>
 </openerp>
