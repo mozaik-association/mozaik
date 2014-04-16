@@ -46,28 +46,3 @@ class electoral_district(orm.Model):
     _columns = {
         'selection_committee_ids': fields.one2many('selection.committee', 'electoral_district_id', 'Selection committees'),
     }
-
-
-class legislature(orm.Model):
-
-    _name = 'legislature'
-    _inherit = ['legislature']
-
-    def get_linked_sta_mandate_ids(self, cr, uid, ids, context=None):
-        """
-        ==============================
-        get_linked_mandate_ids
-        ==============================
-        Return State Mandate ids linked to legislature ids
-        :rparam: sta_mandate_ids
-        :rtype: list of ids
-        """
-        legislatures = self.read(cr, uid, ids, ['sta_mandate_ids'], context=context)
-        res_ids = []
-        for legislature in legislatures:
-            res_ids += legislature['sta_mandate_ids']
-        return list(set(res_ids))
-
-    _columns = {
-        'sta_mandate_ids': fields.one2many('sta.mandate', 'legislature_id', 'State Mandates'),
-    }

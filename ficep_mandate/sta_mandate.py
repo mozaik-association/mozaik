@@ -30,7 +30,6 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from .abstract_mandate import abstract_candidature
 from .abstract_mandate import create_mandate_from_candidature
-from .structure import legislature
 from .mandate import mandate_category
 
 
@@ -119,9 +118,6 @@ class sta_mandate(orm.Model):
         'sta_assembly_category_id': fields.related('mandate_category_id', 'sta_assembly_category_id', string='State Assembly Category',
                                           type='many2one', relation="sta.assembly.category",
                                           store=False),
-        'deadline_date': fields.related('legislature_id', 'deadline_date', string='Deadline Date',
-                                          type='date', relation="legislature",
-                                          store={'legislature': (legislature.get_linked_sta_mandate_ids, ['deadline_date'], 20)}),
         'candidature_id': fields.many2one('sta.candidature', 'Candidature'),
         'is_submission_mandate': fields.related('mandate_category_id', 'is_submission_mandate', string='Submission to a mandate declaration',
                                           type='boolean', relation="mandate.category",

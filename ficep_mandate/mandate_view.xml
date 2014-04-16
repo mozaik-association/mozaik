@@ -271,6 +271,7 @@
                      <field name="legislature_id" attrs="{'readonly': [('candidature_id','!=',False)]}" 
                                                   domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>                     
                      <field name="sta_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
+                            required="1"
                             context="{'simplified': 1, 'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"/>
                 </xpath>
                 <xpath expr="//field[@name='candidature_id']" position="attributes">
