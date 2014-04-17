@@ -441,6 +441,12 @@
             <field name="assembly_category_id" ref="sta_assembly_category_11"/>
             <field name="designation_int_power_level_id" ref="int_power_level_05"/>
         </record>
+        
+         <record id="sta_assembly_04" model="sta.assembly">
+            <field name="instance_id" ref="sta_instance_04"/>
+            <field name="assembly_category_id" ref="sta_assembly_category_13"/>
+            <field name="designation_int_power_level_id" ref="int_power_level_03"/>
+        </record>
 
         <!-- Create Internal Assemblies -->
 
@@ -460,6 +466,13 @@
         <record id="int_assembly_03" model="int.assembly">
             <field name="instance_id" ref="int_instance_04"/>
             <field name="assembly_category_id" ref="int_assembly_category_05"/>
+            <field name="designation_int_power_level_id" ref="int_power_level_03"/>
+            <field name="is_designation_assembly" eval="1"/>
+        </record>
+        
+        <record id="int_assembly_04" model="int.assembly">
+            <field name="instance_id" ref="int_instance_03"/>
+            <field name="assembly_category_id" ref="int_assembly_category_02"/>
             <field name="designation_int_power_level_id" ref="int_power_level_03"/>
             <field name="is_designation_assembly" eval="1"/>
         </record>
@@ -513,7 +526,7 @@
             <field name="name">Huy (Province)</field>
             <field name="sta_instance_id" ref="sta_instance_06"/>
             <field name="assembly_id" ref="sta_assembly_02"/>
-            <field name="designation_int_assembly_id" ref="int_assembly_03"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_04"/>
         </record>
 
         <!-- Other attributes -->

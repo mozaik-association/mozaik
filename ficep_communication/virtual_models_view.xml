@@ -16,6 +16,8 @@
             </field>
         </record>
 
+<!-- VIRTUAL PARTNER INVOLVEMENT START-->
+
         <!-- Search View of Virtual Partner Involvement -->
         <record id="virtual_partner_involvement_search_view" model="ir.ui.view">
             <field name="name">virtual.partner.involvement.search</field>
@@ -61,7 +63,6 @@
             <field name="model">virtual.partner.involvement</field>
             <field name="arch" type="xml">
                 <tree string="Virtual Partner Involvement" create="false">
-                    <field name="id"/>
                     <field name="partner_id" />
                     <field name="involvement_category_id" />
                     <field name="int_instance_id" />
@@ -106,6 +107,103 @@
             <field name="view_id" ref="virtual_partner_involvement_tree_view"/>
         </record>
 
+<!-- VIRTUAL PARTNER INVOLVEMENT END-->
+
+<!-- VIRTUAL PARTNER RELATION START-->
+
+        <!-- Search View of Virtual Partner relation -->
+        <record id="virtual_partner_relation_search_view" model="ir.ui.view">
+            <field name="name">virtual.partner.relation.search</field>
+            <field name="model">virtual.partner.relation</field>
+            <field name="arch" type="xml">
+                <search string="Virtual Partner Relation">
+                    <field name="partner_id" />
+                    <field name="object_partner_id" />
+                    <field name="relation_category_id" />
+                    <field name="int_instance_id" />
+                    <field name="gender" />
+                    <field name="birth_date" />
+
+                    <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="category_id" string="Tag" widget="many2one" />
+
+                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]"/>
+                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]"/>
+
+                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
+                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
+                    <separator/>
+                    <filter string="Male" name="male" domain="[('gender','=','m')]" />
+                    <filter string="Female" name="female" domain="[('gender','=','f')]" />
+                    <separator/>
+                    <filter name="p_vip" string="Postal VIP" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <filter name="e_vip" string="Email VIP" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator/>
+                     <filter name="p_unauthorized" string="Postal Unauthorized" domain="[('postal_unauthorized','=',True)]"/>
+                     <filter name="e_unauthorized" string="Email Unauthorized" domain="[('email_unauthorized','=',True)]"/>
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter string="Relation Category" icon="terp-personal" name="p_inv_cat_id" context="{'group_by':'relation_category_id'}"/>
+                        <filter string="Internal Instance" icon="terp-personal" name="i_int_id" context="{'group_by':'int_instance_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Tree View of Virtual Partner relation -->
+        <record id="virtual_partner_relation_tree_view" model="ir.ui.view">
+            <field eval="1" name="priority"/>
+            <field name="name">virtual.partner.relation.tree</field>
+            <field name="model">virtual.partner.relation</field>
+            <field name="arch" type="xml">
+                <tree string="Virtual Partner Relation" create="false">
+                    <field name="partner_id" />
+                    <field name="relation_category_id" />
+                    <field name="object_partner_id" />
+                    <field name="int_instance_id" />
+
+                    <field name="birth_date" />
+                    <field name="gender" />
+                    <field name="tongue" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Add filter virtual partner relation -->
+        <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
+            <field name="name">Add Filter To Distribution List</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">virtual.partner.relation</field>
+            <field name="res_model">distribution.list.add.filter</field>
+            <field name="multi" eval="1"/>
+            <field name="target">new</field>
+            <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+        </record>
+
+        <record id="add_filter_from_relation_values" model="ir.values">
+            <field name="name">Add Filter To Distribution List</field>
+            <field name="model">virtual.partner.relation</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
+        </record>
+
+        <!-- Virtual Model Actions -->
+
+        <!-- Action of Virtual Partner relation -->
+        <record id="virtual_partner_relation_action" model="ir.actions.act_window">
+            <field name="name">Virtual Partner Relation</field>
+            <field name="res_model">virtual.partner.relation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="virtual_partner_relation_search_view"/>
+            <field name="view_id" ref="virtual_partner_relation_tree_view"/>
+        </record>
+
+<!-- VIRTUAL PARTNER RELATION END-->
+
         <!-- Virtual Model Menus -->
 
         <!-- Sub-root menu-->
@@ -115,6 +213,10 @@
         <!-- Virtual Partner Involvement -->
         <menuitem id="virtual_partner_involvement_menu" sequence="10" parent="virtual_models_submenu"
                   action="virtual_partner_involvement_action"/>
+
+        <!-- Virtual Partner Relation -->
+        <menuitem id="virtual_partner_relation_menu" sequence="10" parent="virtual_models_submenu"
+                  action="virtual_partner_relation_action"/>
 
     </data>
 </openerp>
