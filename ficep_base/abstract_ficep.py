@@ -162,13 +162,17 @@ class abstract_ficep_model (orm.AbstractModel):
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
         """
+        * Add the "simplified" item into the context if the form will be shown as a popup
         * Generate a domain on all fields to make the form readonly when document is inactive
         * Work around the automatic form generation when it is inherited from an other model
         """
         if view_type == 'form':
+            context = context or {}
+            if not toolbar:
+                context.update(simplified=True)
             if uid != SUPERUSER_ID and not context.get('is_developper'):
-                context = dict(context or {}, add_readonly_condition=True)
-            if not view_id and not(context and context.get('form_view_ref')):
+                context.update(add_readonly_condition=True)
+            if not view_id and not context.get('form_view_ref'):
                 cr.execute("""SELECT id
                               FROM ir_ui_view
                               WHERE model=%s AND type=%s AND inherit_id IS NULL
