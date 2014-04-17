@@ -45,6 +45,21 @@
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="power_level_id" />
                 </xpath>
+                <xpath expr="//group[@name='group_by']" position="inside">
+                    <filter name="level" string="Power Level" domain="[]" context="{'group_by':'power_level_id'}" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sta_assembly_category_tree_view" model="ir.ui.view">
+            <field name="name">sta.assembly.category.tree.view</field>
+            <field name="model">sta.assembly.category</field>
+            <field name="inherit_id" ref="abstract_assembly_category_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="power_level_id" />
+                    <field name="is_legislative" />
+                </xpath>
             </field>
         </record>
 
