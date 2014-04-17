@@ -42,7 +42,7 @@
             </field>
         </record>
 
-        <record id="view_partner_form" model="ir.ui.view">
+        <record id="view_partner_2_form" model="ir.ui.view">
             <field name="name">res.partner.form (ficep_structure_address)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="ficep_person.view_partner_form" />
