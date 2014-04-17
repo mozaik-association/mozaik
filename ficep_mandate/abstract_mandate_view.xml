@@ -53,7 +53,8 @@
                 <tree string="Mandates" version="7.0">                    
                     <field name="partner_id"/>
                     <field name="mandate_category_id"/>
-                    <field name="create_date" widget="date"/>
+                    <field name="start_date" widget="date"/>
+                    <field name="end_date" widget="date"/>
                     <field name="deadline_date" widget="date"/>
                     <button name="%(renew_derived_mandate_action)d" string="Renew or create a derived mandate" type="action" icon="gtk-copy"/>
                 </tree>
@@ -88,7 +89,11 @@
                              invisible="context.get('simplified')"
                              groups="ficep_base.ficep_res_groups_user" name="invalidate">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate mandate: proceed anyway ?" />
+                                    confirm="Invalidate mandate: proceed anyway ?" 
+                                    attrs="{'invisible': [('end_date','=',False)]}" />
+                            <button name="action_finish" string="Finish" type="object"
+                                    confirm="Finish mandate now: proceed anyway ?" 
+                                    attrs="{'invisible': [('end_date','!=',False)]}"/>
                         </div>
                     </header>
                     <sheet>
@@ -120,6 +125,7 @@
                             </group>
                             <group name="Dates">
                                 <field name="start_date" widget="date"/>
+                                <field name="end_date" widget="date" readonly="1"/>
                                 <field name="deadline_date" widget="date"/>
                             </group> 
                             <group name="Technical Dates">

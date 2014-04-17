@@ -6,13 +6,27 @@
 
         <!-- Persons -->
 
+        <record id="res_partner_marc" model="res.partner">
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
+        </record>
+
+        <record id="res_partner_thierry" model="res.partner">
+            <field name="usual_lastname">BROCHANT</field>
+            <field name="usual_firstname">Pierre</field>
+        </record>
+
         <record id="res_partner_paul" model="res.partner">
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
             <field name="birth_date">1985-03-12</field>
             <field name="ldap_name">pvanhaver</field>
             <field name="ldap_id">451256</field>
         </record>
 
         <record id="res_partner_pauline" model="res.partner">
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
             <field name="birth_date">1949-03-29</field>
             <field name="tongue">f</field>
             <field name="gender">f</field>
@@ -23,6 +37,8 @@
         </record>
 
         <record id="res_partner_jacques" model="res.partner">
+            <field name="usual_firstname">Jacquou</field>
+            <field name="usual_lastname"></field>
             <field name="civil_status">m</field>
         </record>
 

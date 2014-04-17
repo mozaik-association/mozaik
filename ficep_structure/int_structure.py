@@ -45,7 +45,7 @@ class int_power_level(orm.Model):
         """
         Returns the default Internal Power Level
         """
-        res = self.pool.get('ir.model.data').get_object_alternative(cr, uid, '', '__MIG_FROM_FED2_1', 'ficep_structure', 'int_power_level_01')[1]
+        res = self.pool.get('ir.model.data').get_object_alternative(cr, uid, '', '__MIG_IPL_1', 'ficep_structure', 'int_power_level_01')[1]
         return res
 
 
@@ -87,7 +87,7 @@ class int_instance(orm.Model):
         """
         Returns the default Internal Instance
         """
-        res = self.pool.get('ir.model.data').get_object_alternative(cr, uid, '', '__MIG_FROM_FED2_286', 'ficep_structure', 'int_instance_01')[1]
+        res = self.pool.get('ir.model.data').get_object_alternative(cr, uid, '', '__MIG_II_286', 'ficep_structure', 'int_instance_01')[1]
         return res
 
 
@@ -134,7 +134,7 @@ class int_assembly(orm.Model):
         Produce the first value of the name field.
         Next values are generated in the function _compute_dummy
         '''
-        if not vals.get('name'):
+        if not vals.get('name') and not vals.get('partner_id'):
             instance = ''
             if vals.get('instance_id'):
                 instance = self.pool['int.instance'].read(cr, uid, vals.get('instance_id'), ['name'], context=context)

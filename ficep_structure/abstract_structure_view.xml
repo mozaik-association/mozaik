@@ -308,13 +308,16 @@
             <field name="model">abstract.assembly.category</field>
             <field name="arch" type="xml">
                 <search string="Assembly Category" version="7.0">
+                    <field name="name" />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" />
-                    <field name="name" />
+
+                    <group expand="0" string="Group By..." name="group_by">
+                    </group>
                 </search>
             </field>
         </record>
@@ -421,6 +424,9 @@
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+
+                    <group expand="0" string="Group By..." name="group_by">
+                    </group>
                 </search>
             </field>
         </record>

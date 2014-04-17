@@ -97,6 +97,7 @@ class abstract_mandate(orm.AbstractModel):
     _columns = {
         'start_date': fields.date('Start Date', required=True, track_visibility='onchange'),
         'deadline_date': fields.date('Deadline Date', required=True, track_visibility='onchange'),
+        'end_date': fields.date('End Date', track_visibility='onchange'),
         'is_submission_mandate': fields.related('mandate_category_id', 'is_submission_mandate', string='Submission to a mandate declaration',
                                           type='boolean', relation="mandate.category",
                                           store=True),
@@ -107,6 +108,42 @@ class abstract_mandate(orm.AbstractModel):
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal coordinate'),
     }
+
+    _defaults = {
+        'end_date': False,
+    }
+
+    def action_finish(self, cr, uid, ids, context=None):
+        """
+        =================
+        action_finish
+        =================
+        Finish mandate at the current date
+        :rparam: True
+        :rtype: boolean
+        """
+        for mandate_id in ids:
+            self.write(cr, uid, mandate_id, {'end_date': fields.datetime.now()}, context=context)
+
+        return True
+
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+        """
+        =================
+        action_invalidate
+        =================
+        Invalidates an object
+        :rparam: True
+        :rtype: boolean
+        Note: Argument vals must be the last in the signature
+        """
+        res = super(abstract_mandate, self).action_invalidate(cr, uid, ids, context=context, vals=vals)
+        for mandate in self.browse(cr, uid, ids, context=context):
+            if mandate.email_coordinate_id:
+                self.pool.get('email.coordinate').action_invalidate(cr, uid, [mandate.email_coordinate_id.id])
+            if mandate.postal_coordinate_id:
+                self.pool.get('postal.coordinate').action_invalidate(cr, uid, [mandate.postal_coordinate_id.id])
+        return res
 
     # orm methods
     def name_get(self, cr, uid, ids, context=None):
