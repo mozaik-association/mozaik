@@ -130,3 +130,26 @@ class sta_mandate(orm.Model):
                                           store=True),
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'sta_mandate_term_competencies_rel', id1='sta_mandate_id', id2='thesaurus_term_id', string='Competencies'),
         }
+
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+        """
+        =================
+        action_invalidate
+        =================
+        Invalidates an object
+        :rparam: True
+        :rtype: boolean
+        Note: Argument vals must be the last in the signature
+        """
+        return super(sta_mandate, self).action_invalidate(cr, uid, ids, context=context, vals=vals)
+
+    def action_finish(self, cr, uid, ids, context=None):
+        """
+        =================
+        action_finish
+        =================
+        Finish mandate at the current date
+        :rparam: True
+        :rtype: boolean
+        """
+        return super(sta_mandate, self).action_finish(cr, uid, ids, context=context)
