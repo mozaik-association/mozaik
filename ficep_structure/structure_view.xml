@@ -9,10 +9,12 @@
             <field name="model">sta.instance</field>
             <field name="inherit_id" ref="abstract_instance_search_view"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="identifier"/>
+                </xpath>
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="secondary_parent_id"/>
                     <field name="int_instance_id"/>
-                    <field name="identifier"/>
                 </xpath>
             </field>
         </record>
@@ -24,6 +26,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='power_level_id']" position="after">
                     <field name="identifier"/>
+                    <field name="int_instance_id"/>
                 </xpath>
             </field>
         </record>

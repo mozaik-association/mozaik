@@ -47,6 +47,7 @@ class ir_import(orm.TransientModel):
         context = context or {}
         context.update({
             'mail_create_nolog': True,
+            'mail_notrack': True,
         })
 
         try:

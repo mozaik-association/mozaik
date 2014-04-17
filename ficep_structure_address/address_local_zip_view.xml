@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="ficep_address.address_local_zip_search_view"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='local_zip']" position="after">
+                <xpath expr="//field[@name='town']" position="after">
                     <field name="int_instance_id" />
                 </xpath>
 
