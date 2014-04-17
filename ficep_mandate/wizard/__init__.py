@@ -26,3 +26,4 @@
 #
 ##############################################################################
 from . import renew_and_derived_mandate_wizard
+from . import import_candidatures_wizard
