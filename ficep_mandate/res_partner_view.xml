@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data noupdate="0">
+
          <record id="view_partner_form" model="ir.ui.view">
             <field name="name">res.partner.form (ficep_mandate)</field>
             <field name="model">res.partner</field>
@@ -8,35 +9,36 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@name='buttons']" position="inside">
                     <button string="State Candidatures" name="%(sta_candidature_action)d"
-                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                type="action" attrs="{'invisible': ['|',('id','=',False),('is_company','=',True)]}"
                                 context="{'search_default_partner_id': active_id,
-                                          'default_partner_id': active_id}" />                 
+                                          'default_partner_id': active_id}" />
                 </xpath>
                 <xpath expr="//notebook" position="inside">
-                    <page name="state mandates" string="State Mandates">
+                    <page name="state mandates" string="Mandates" attrs="{'invisible': [('is_company','=',True)]}">
                         <field name="sta_mandate_ids" attrs="{'invisible': [('active', '=', False)]}"
-                               readonly="1"               context="{'simplified': 1, 
+                               readonly="1"               context="{'simplified': 1,
                                                                    'form_view_ref': 'ficep_mandate.sta_mandate_form_view',
                                                                    'default_partner_id': active_id}">
-                           <tree>                                       
+                           <tree>
                                <field name="mandate_category_id"/>
                                <field name="create_date" widget="date"/>
-                               <field name="deadline_date" widget="date"/>                             
+                               <field name="deadline_date" widget="date"/>
                            </tree>
                        </field>
                        <field name="sta_mandate_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
-                               readonly="1"               context="{'simplified': 1, 
+                               readonly="1"               context="{'simplified': 1,
                                                                    'form_view_ref': 'ficep_mandate.sta_mandate_form_view',
                                                                    'default_partner_id': active_id}">
-                           <tree>                                       
+                           <tree>
                                <field name="mandate_category_id"/>
                                <field name="create_date" widget="date"/>
-                               <field name="deadline_date" widget="date"/>                             
+                               <field name="deadline_date" widget="date"/>
                            </tree>
                        </field>
                     </page>
                 </xpath>
             </field>
          </record>
+
     </data>
 </openerp>

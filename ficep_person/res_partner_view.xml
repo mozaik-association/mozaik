@@ -268,7 +268,7 @@
                         <br/>
                         <br/>
                     </page>
-                    <page name="involvement" string="Involvements">
+                    <page name="involvement" string="Involvements" attrs="{'invisible': [('is_assembly','=',True)]}">
                         <button string="All Details" name="%(partner_involvement_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_partner_id': active_id,

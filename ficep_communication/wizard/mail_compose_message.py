@@ -36,7 +36,20 @@ class mail_compose_message(orm.TransientModel):
         values = super(mail_compose_message, self).get_mail_values(cr, uid, wizard, res_ids, context=context)
         if wizard.model == 'email.coordinate':
             for res_id in values.keys():
-                values[res_id]['email_to'] = self.pool[wizard.model].read(cr, uid, res_id, ['email'], context=context)['email']
+                email = self.pool[wizard.model].read(cr, uid, res_id, ['email'], context=context)['email']
+                if email:
+                    values[res_id]['email_to'] = email
         return values
+
+    def get_distribution_list_ids(self, cr, uid, distribution_list_ids, context=None):
+        """
+        =========================
+        get_distribution_list_ids
+        =========================
+        Override this method to filter out the resulting ids of
+        distribution lists
+        """
+        res_ids = super(mail_compose_message, self).get_distribution_list_ids(cr, uid, distribution_list_ids, context=context)
+        return res_ids
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

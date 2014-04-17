@@ -37,8 +37,8 @@ class virtual_target(orm.Model):
 
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Partner', readonly=True),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', readonly=True),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', readonly=True),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', readonly=True),
     }
 
 # orm methods
@@ -77,6 +77,18 @@ class virtual_partner_involvement(orm.Model):
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', readonly=True),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', readonly=True),
 
+        'birth_date': fields.date('Birth Date', readonly=True),
+        'display_name': fields.char('Display Name', readonly=True),
+        'gender': fields.char('Gender', readonly=True),
+        'tongue': fields.char('Tongue', readonly=True),
+
+        'postal_vip': fields.boolean('Postal VIP', readonly=True),
+        'postal_unauthorized': fields.boolean('Postal Unauthorized', readonly=True),
+
+        'email_vip': fields.boolean('Email VIP', readonly=True),
+        'email_unauthorized': fields.boolean('Email Unauthorized', readonly=True),
+
+        #others
         'category_id': fields.related('partner_id', 'category_id', type='many2many',
                                       obj='res.partner.category',
                                       rel='res_partner_res_partner_category_rel',
@@ -89,16 +101,6 @@ class virtual_partner_involvement(orm.Model):
                                                obj='thesaurus.term',
                                                rel='res_partner_term_interests_rel',
                                                id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
-        'birth_date': fields.date('Birth Date', readonly=True),
-        'display_name': fields.char('Display Name', readonly=True),
-        'gender': fields.char('Gender', readonly=True),
-        'tongue': fields.char('Tongue', readonly=True),
-
-        'postal_vip': fields.boolean('Postal VIP', readonly=True),
-        'postal_unauthorized': fields.boolean('Postal Unauthorized', readonly=True),
-
-        'email_vip': fields.boolean('Email VIP', readonly=True),
-        'email_unauthorized': fields.boolean('Email Unauthorized', readonly=True),
     }
 
 # orm methods
@@ -112,17 +114,17 @@ class virtual_partner_involvement(orm.Model):
             concat(pc.id,'/', e.id) as common_id,
             pi.partner_id as partner_id,
             pic.id as involvement_category_id,
+            p.int_instance_id as int_instance_id,
+            e.id as email_coordinate_id,
+            pc.id as postal_coordinate_id,
+            p.birth_date as birth_date,
             p.display_name as display_name,
             p.gender as gender,
             p.tongue as tongue,
-            p.birth_date as birth_date,
-            p.int_instance_id as int_instance_id,
-            pc.id as postal_coordinate_id,
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
-            e.id as email_coordinate_id,
-            e.unauthorized as email_unauthorized,
-            e.vip as email_vip
+            e.vip as email_vip,
+            e.unauthorized as email_unauthorized
         FROM
             partner_involvement pi
         JOIN
@@ -133,7 +135,8 @@ class virtual_partner_involvement(orm.Model):
 
         JOIN
             partner_involvement_category pic
-        ON (pi.partner_involvement_category_id = pic.id)
+        ON (pi.partner_involvement_category_id = pic.id
+        AND pic.active = TRUE)
 
         LEFT OUTER JOIN
             postal_coordinate pc
@@ -148,6 +151,126 @@ class virtual_partner_involvement(orm.Model):
         AND e.active = True
         AND e.is_main = True
         AND e.unauthorized = False)
+            )""")
+
+
+class virtual_partner_relation(orm.Model):
+
+    _name = "virtual.partner.relation"
+    _description = "Virtual Partner Relation"
+    _auto = False
+
+    def _get_common_field(self, cr, uid, ids, name, arg, context=None):
+        res = {}
+        for obj in self.browse(cr, uid, ids, context=context):
+            pc_id = '%s' % obj.postal_coordinate_id.id if obj.postal_coordinate_id.id else ''
+            e_id = '%s' % obj.email_coordinate_id.id if obj.email_coordinate_id.id else ''
+            res[obj.id] = '/'.join([pc_id, e_id])
+        return res
+
+    _columns = {
+        'common_id': fields.char(string='Common ID'),
+        'partner_id': fields.many2one('res.partner', 'Subject Partner', readonly=True),
+        'relation_category_id': fields.many2one('partner.relation.category', 'Relation Category', readonly=True),
+        'object_partner_id': fields.many2one('res.partner', 'Object Partner', readonly=True),
+        'int_instance_id': fields.many2one('int.instance', 'Instance', readonly=True),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', readonly=True),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', readonly=True),
+
+        'birth_date': fields.date('Birth Date', readonly=True),
+        'display_name': fields.char('Display Name', readonly=True),
+        'gender': fields.char('Gender', readonly=True),
+        'tongue': fields.char('Tongue', readonly=True),
+
+        # others
+        'category_id': fields.related('partner_id', 'category_id', type='many2many',
+                                      obj='res.partner.category',
+                                      rel='res_partner_res_partner_category_rel',
+                                      id1='partner_id', id2='category_id', string='Tags'),
+        'competencies_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
+                                               obj='thesaurus.term',
+                                               rel='res_partner_term_competencies_rel',
+                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
+                                               obj='thesaurus.term',
+                                               rel='res_partner_term_interests_rel',
+                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+
+        'postal_vip': fields.related('postal_coordinate_id', 'vip', type='boolean',
+                                     obj='postal.coordinate', string='Postal VIP', readonly=True),
+        'postal_unauthorized': fields.related('postal_coordinate_id', 'unauthorized', type='boolean',
+                                     obj='postal.coordinate', string='Postal Unauthorized', readonly=True),
+
+        'email_vip': fields.related('email_coordinate_id', 'vip', type='boolean',
+                                     obj='email.coordinate', string='Email VIP', readonly=True),
+        'email_unauthorized': fields.related('email_coordinate_id', 'unauthorized', type='boolean',
+                                     obj='email.coordinate', string='Email Unauthorized', readonly=True),
+    }
+
+# orm methods
+
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, 'virtual_partner_relation')
+        cr.execute("""
+        create or replace view virtual_partner_relation as (
+        SELECT
+            concat(p.id, r.id) as id,
+            concat(CASE
+                   WHEN r.postal_coordinate_id IS NULL
+                   THEN pc.id
+                   ELSE r.postal_coordinate_id
+                   END,
+                   '/',
+                   CASE
+                   WHEN r.email_coordinate_id IS NULL
+                   THEN e.id
+                   ELSE r.email_coordinate_id
+                   END) as common_id,
+            r.subject_partner_id as partner_id,
+            r.object_partner_id as object_partner_id,
+            p.display_name as display_name,
+            rc.id as relation_category_id,
+            p.gender as gender,
+            p.tongue as tongue,
+            p.birth_date as birth_date,
+            p.int_instance_id as int_instance_id,
+            CASE
+                WHEN r.email_coordinate_id IS NULL
+                THEN e.id
+                ELSE r.email_coordinate_id
+            END
+            AS email_coordinate_id,
+            CASE
+                WHEN r.postal_coordinate_id IS NULL
+                THEN pc.id
+                ELSE r.postal_coordinate_id
+            END
+            AS postal_coordinate_id
+        FROM
+            partner_relation r
+        JOIN
+            res_partner p
+        ON
+            (r.subject_partner_id = p.id
+            AND p.active = TRUE
+            AND r.active = TRUE)
+        JOIN
+            partner_relation_category rc
+        ON
+            (r.partner_relation_category_id = rc.id
+            AND rc.active = TRUE)
+        LEFT OUTER JOIN
+            email_coordinate e
+        ON
+            (e.partner_id = p.id
+            AND e.is_main = TRUE
+            AND e.active = TRUE)
+        LEFT OUTER JOIN
+            postal_coordinate pc
+        ON
+            (pc.partner_id = p.id
+            AND pc.is_main = TRUE
+            AND pc.active = TRUE)
             )""")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

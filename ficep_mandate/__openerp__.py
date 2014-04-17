@@ -36,7 +36,7 @@
         'ficep_structure',
         'ficep_address',
         'ficep_email',
-        'ficep_thesaurus',
+        'ficep_person',
     ],
     'description': """
 FICEP Mandate

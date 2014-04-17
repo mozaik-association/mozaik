@@ -56,8 +56,16 @@ class email_coordinate(orm.Model):
                 return False
         return True
 
+    def _check_main_authorized(self, cr, uid, ids, context=None):
+        coordinates = self.browse(cr, uid, ids, context=context)
+        for coordinate in coordinates:
+            if coordinate.is_main and coordinate.unauthorized:
+                return False
+        return True
+
     _constraints = [
         (_check_email, _('Invalid Email Format'), ['email']),
+        (_check_main_authorized, _('Main Coordinate Could Not Be Unauthorized'), ['is_main', 'unauthorized']),
     ]
 
 #orm methods
