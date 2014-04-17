@@ -135,7 +135,7 @@
         <record id="email_coordinate_demo_4" model="email.coordinate">
             <field name="partner_id" ref="partner_of_user_4" />
             <field name="email">leon@ficep-ec.be</field>
-            <field name="unauthorized" eval="1"/>
+            <field name="unauthorized" eval="0"/>
         </record>
 
         <record id="email_coordinate_demo_5" model="email.coordinate">

@@ -48,13 +48,13 @@
         <record id="email_coordinate_paul" model="email.coordinate">
             <field name="partner_id" ref="res_partner_paul" />
             <field name="email">pvh@google.com</field>
-            <field name="unauthorized" eval="True" />
+            <field name="unauthorized" eval="False" />
         </record>
 
         <record id="email_coordinate_jacques" model="email.coordinate">
             <field name="partner_id" ref="res_partner_jacques" />
             <field name="email">jacques@ficep-ec.be</field>
-            <field name="unauthorized" eval="True" />
+            <field name="unauthorized" eval="False" />
         </record>
 
         <!-- Phones -->
