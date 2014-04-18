@@ -81,10 +81,12 @@ class import_candidatures_wizard(orm.TransientModel):
                     raise orm.except_orm(_('Error'), _('Wrong file structure, it should be: %s !' % ','.join(file_import_structure)))
                 continue
 
-            partner_id = data[file_import_structure.index('id_ecolo')]
+            identifier = data[file_import_structure.index('id_ecolo')]
 
-            if len(self.pool.get('res.partner').search(cr, uid, [('id', '=', partner_id)])) == 0:
-                raise orm.except_orm(_('Error'), _('Line %s: Partner %s not found in database, please check source file !' % (line_number, partner_id)))
+            partner_ids = self.pool.get('res.partner').search(cr, uid, [('identifier', '=', identifier)])
+            if not partner_ids:
+                raise orm.except_orm(_('Error'), _('Line %s: Partner %s not found in database, please check source file !' % (line_number, identifier)))
+            partner_id = partner_ids[0]
 
             if not wizard.selection_committee_id.sta_assembly_id.is_legislative:
                 if data[file_import_structure.index('is_effective')] == 'True':

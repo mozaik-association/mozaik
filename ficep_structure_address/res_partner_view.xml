@@ -22,7 +22,7 @@
             <field name="inherit_id" ref="ficep_person.view_partner_tree" />
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='id']" position="before">
+                <xpath expr="//field[@name='identifier']" position="before">
                     <field name="int_instance_id" />
                 </xpath>
 

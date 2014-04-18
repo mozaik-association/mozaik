@@ -7,7 +7,7 @@
             <field name="model">res.partner</field>
             <field name="arch" type="xml">
                 <search string="Partner">
-                    <field name="id" string="Number"/>
+                    <field name="identifier" string="Number"/>
                     <field name="display_name" />
                     <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
@@ -71,7 +71,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='parent_id']" position="replace">
-                    <field name="id" string="Number" />
+                    <field name="identifier" attrs="{'invisible':[('identifier', '=', 0)]}"/>
 
                     <field name="is_duplicate_detected" invisible="1"/>
                     <field name="is_duplicate_allowed" invisible="1"/>
@@ -156,7 +156,10 @@
                 </xpath>
 
                 <xpath expr="//div[@class='oe_edit_only']" position="before">
-                    <h1><label string="#" attrs="{'invisible': [('id', '=', False)]}"/><field name="id" class="oe_inline"/></h1>
+                    <h1>
+                        <label string="#" attrs="{'invisible': ['|', ('id', '=', False), ('identifier', '=', 0)]}"/>
+                        <field name="identifier" attrs="{'invisible': ['|', ('id', '=', False), ('identifier', '=', 0)]}" class="oe_inline"/>
+                    </h1>
                 </xpath>
                 <xpath expr="//div[@class='oe_edit_only']" position="replace">
                     <div name="title" class="oe_edit_only">
@@ -321,6 +324,7 @@
                             </div>
                             <h3>More Info</h3>
                             <group name="moreinfo">
+                                <field name="id"/>
                                 <field name="display_name" />
                                 <field name="printable_name" />
                                 <field name="is_assembly" />
