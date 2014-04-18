@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_ficep_virtual_target_res_group_base,ficep.virtual.target.res.group.base,model_virtual_target,ficep_base.res_groups_base,1,0,0,0
 access_ficep_virtual_partner_involvement_res_group_base,ficep.virtual.partner.involvement.res.group.base,model_virtual_partner_involvement,ficep_base.res_groups_base,1,0,0,0
 access_ficep_virtual_partner_relation_res_group_base,ficep.virtual.partner.relation.res.group.base,model_virtual_partner_relation,ficep_base.res_groups_base,1,0,0,0
+access_ficep_virtual_partner_instance_res_group_base,ficep.virtual.partner.instance.res.group.base,model_virtual_partner_instance,ficep_base.res_groups_base,1,0,0,0
