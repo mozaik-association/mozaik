@@ -58,7 +58,18 @@
                     <field name="partner_id"/>
                 </xpath>                
             </field>
-        </record>             
+        </record>
+        
+        <record id="sta_mandate_tree_view" model="ir.ui.view">
+            <field name="name">sta.mandate.tree</field>
+            <field name="model">sta.mandate</field>
+            <field name="inherit_id" ref="abstract_mandate_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="sta_assembly_id"/>                    
+                </xpath>                
+            </field>
+        </record>          
         
         <record id="selection_committee_search_view" model="ir.ui.view">
             <field name="name">selection.committee.search</field>
@@ -119,7 +130,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="sta_mandate_search_view" />
-            <field name="view_id" ref="abstract_mandate_tree_view" />
+            <field name="view_id" ref="sta_mandate_tree_view" />
             <field name="context">{'form_view_ref': 'ficep_mandate.sta_mandate_form_view'}</field>
         </record>
         
@@ -208,7 +219,7 @@
                             </group>
                             <group name="Dates">
                                 <field name="create_date" widget="date" readonly="1"/>                                
-                                <field name="expire_date" widget="date" readonly="1"/>
+                                <field name="expire_date" widget="date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
                             </group>                            
                         </group>
                         <notebook>
@@ -231,7 +242,6 @@
 	                            </div>
                                 <field name="id"/>
                                 <field name="active"/>
-                                <field name="expire_date" widget="date"/>
                                 <field name="type"/>                                
                             </group>
                         </div>
@@ -263,7 +273,7 @@
                 <xpath expr="//group[@name='data_2']" position="after">                    
                     <group name="Effective" attrs="{'invisible': ['|',('state','=','rejected'),('is_legislative', '=', False)]}">
                         <field name="is_effective" attrs="{'readonly': [('state','not in',['declared', 'suggested'])]}"/>
-                        <field name="list_effective_position" attrs="{'invisible':[('is_effective', '=', False)],'readonly': [('state','not in',['declared', 'suggested'])]}"/>
+                        <field name="list_effective_position" attrs="{'invisible':[('is_substitute', '=', True)],'readonly': [('state','not in',['declared', 'suggested'])]}"/>
                         <field name="election_effective_position"  attrs="{'invisible': ['|', ('state','!=','elected'), ('is_effective', '=', False)]}"/>
                         <field name="effective_votes" attrs="{'invisible': ['|',('state','not in',['elected', 'non-elected']), ('is_effective', '=', False)]}"/>
                     </group>
@@ -285,7 +295,7 @@
             <field name="model">sta.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_form_view"/>
             <field name="arch" type="xml">                              
-                <xpath expr="//field[@name='mandate_category_id']" position="before">
+                <xpath expr="//field[@name='email_coordinate_id']" position="before">
                     <field name="sta_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
                             required="1"
                             context="{'simplified': 1, 'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"/>
@@ -395,7 +405,7 @@
                             </group>                                                                                                                                                              
                             <group name="Dates">
                                 <field name="create_date" readonly="1"/>                                
-                                <field name="expire_date" readonly="1"/>
+                                <field name="expire_date"  widget="date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
                             </group>                            
                         </group>
                         <notebook>                            
@@ -409,9 +419,9 @@
                                         attrs="{'invisible': ['|',('decision_date','=',False),('state','=','done')]}"
                                         confirm="Accept all candidatures: proceed anyway ?"/>
                                 <button string="Reject" name="button_reject_candidatures" type="object" class="oe_highlight"
-                                        attrs="{'invisible': ['|',('decision_date','=',False),('state','=','done')]}"
+                                        attrs="{'invisible': [('state','=','done')]}"
                                         confirm="Reject all candidatures: proceed anyway ?"/>
-                                <field name="sta_candidature_ids" attrs="{'invisible': [('active', '=', False)]}"
+                                <field name="sta_candidature_ids" attrs="{'invisible': [('sta_candidature_ids', '=', [])]}"
                                                                   context="{'simplified': 1, 
                                                                             'form_view_ref': 'ficep_mandate.sta_candidature_form_view',
                                                                             'default_selection_committee_id': active_id}">
@@ -419,12 +429,13 @@
                                         <field name="partner_id" readonly="1"/>
                                         <field name="partner_name" readonly="1"/>
                                         <field name="state" readonly="1"/>
-                                        <button name="button_suggest" string="Suggest"  icon="gtk-apply" states="declared"/>
-					                    <button name="button_reject" string="Reject"  icon="gtk-cancel" states="declared"/>
-					                    <button name="button_declare" string="Back to Declared"  icon="gtk-undo" states="rejected"/>
+                                        <field name="is_selection_committee_active" invisible="1"/>
+                                        <button name="button_suggest" string="Suggest"  icon="gtk-apply" attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
+					                    <button name="button_reject" string="Reject"  icon="gtk-cancel" attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
+					                    <button name="button_declare" string="Back to Declared"  icon="gtk-undo" attrs="{'invisible': ['|',('state', '!=', 'rejected'),('is_selection_committee_active', '=', False)]}"/>
                                     </tree>
                                 </field>
-                                <field name="sta_candidature_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                                <field name="sta_candidature_inactive_ids" attrs="{'invisible': [('sta_candidature_inactive_ids', '=', [])]}"
                                        readonly="1" context="{'simplified': 1, 'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}">
                                     <tree>
                                         <field name="partner_id"/>
@@ -434,9 +445,9 @@
                                 </field>
                             </page>
                             <page string="Members" name="members" autofocus="autofocus">
-                                <field name="partner_ids" context="{'simplified': 1}">
+                                <field name="partner_ids" context="{'simplified': 1, 'default_is_company': False}">
                                     <tree>
-                                        <field name="name"/>
+                                        <field name="display_name"/>
                                     </tree>
                                 </field>
                             </page>
@@ -456,7 +467,6 @@
                                 <group>
 	                                <field name="id"/>
 	                                <field name="active"/>
-	                                <field name="expire_date" widget="date"/>
 	                            </group>
 	                            <group>
 	                                <field name="committee_type"                                        
@@ -495,15 +505,15 @@
         
         <menuitem id="state_submenu" name="State"
                   sequence="10" parent="ficep_base.mandates_root_menu" />
-        
-        <menuitem id="state_candidature_submenu" name="Candidatures" action="sta_candidature_action"
+                  
+         <menuitem id="sta_selection_committee_submenu" name="Selection Committees" action="sta_selection_committee_action"
                   sequence="10" parent="state_submenu"/>
+                  
+        <menuitem id="state_candidature_submenu" name="Candidatures" action="sta_candidature_action"
+                  sequence="20" parent="state_submenu"/>
         
         <menuitem id="state_mandate_submenu" name="Mandates" action="sta_mandate_action"
-                  sequence="20" parent="state_submenu"/>
-                  
-        <menuitem id="sta_selection_committee_submenu" name="Selection Committees" action="sta_selection_committee_action"
-                  sequence="30" parent="state_submenu"/>
+                  sequence="30" parent="state_submenu"/>                      
             
         <menuitem id="internal_submenu" name="Internal"
                   sequence="20" parent="ficep_base.mandates_root_menu" />
