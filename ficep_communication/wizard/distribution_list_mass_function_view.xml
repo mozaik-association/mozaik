@@ -40,6 +40,7 @@
                                 <group>
                                     <group>
                                         <field name="email_template_id"
+                                               domain ="[('model_id.model','=','email.coordinate')]"
                                                attrs="{'required':[('e_mass_function','=','email_coordinate_id'),
                                                                    ('trg_model','=','email.coordinate')]}"/>
                                         <field name="campaign_id"/>
