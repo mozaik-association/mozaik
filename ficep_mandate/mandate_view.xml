@@ -55,6 +55,7 @@
                 <xpath expr="//filter[@name='is_submission_mandate']" position="before">
                     <field name="sta_assembly_id"/>
                     <field name="legislature_id"/>
+                    <field name="partner_id"/>
                 </xpath>                
             </field>
         </record>             

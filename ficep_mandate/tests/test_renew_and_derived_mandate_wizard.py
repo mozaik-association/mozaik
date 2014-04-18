@@ -27,7 +27,6 @@
 ##############################################################################
 import logging
 from anybox.testing.openerp import SharedSetupTransactionCase
-from openerp.osv import orm
 
 _logger = logging.getLogger(__name__)
 

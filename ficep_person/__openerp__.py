@@ -44,6 +44,7 @@ FICEP Person
     'images': [
     ],
     'data': [
+        'data/res_partner_sequence_data.xml',
         'security/ir.model.access.csv',
         'wizard/create_user_from_partner_view.xml',
         'wizard/allow_duplicate_view.xml',

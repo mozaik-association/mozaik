@@ -117,6 +117,7 @@ class res_partner(orm.Model):
     }
 
     _columns = {
+        'identifier': fields.integer('Number'),
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue', select=True, track_visibility='onchange'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender', select=True, track_visibility='onchange'),
         'civil_status': fields.selection(AVAILABLE_CIVIL_STATUS, 'Civil Status', track_visibility='onchange'),
@@ -158,6 +159,7 @@ class res_partner(orm.Model):
 
     _defaults = {
         # Redefinition
+        'identifier': False,
         'tz': 'Europe/Brussels',
         'customer': False,
         'notification_email_send': 'none',
@@ -165,6 +167,28 @@ class res_partner(orm.Model):
         # New fields
         'tongue': lambda *args: AVAILABLE_TONGUES[0][0],
     }
+
+    def _check_identifier_unicity(self, cr, uid, ids, context=None):
+        """
+        ==============
+        _check_unicity
+        ==============
+        :rparam: False if identifier is already assigned to a partner
+                 Else True
+        :rtype: Boolean
+        """
+        partner = self.browse(cr, uid, ids, context=context)[0]
+        if partner.identifier == 0:
+            return True
+
+        res_ids = self.search(cr, uid, [('id', '!=', partner.id),
+                                        ('identifier', '=', partner.identifier),
+                                       ], context=context)
+        return len(res_ids) == 0
+
+    _constraints = [
+        (_check_identifier_unicity, _('This identifier is already assigned'), ['identifier']),
+    ]
 
 # orm methods
 
@@ -199,8 +223,30 @@ class res_partner(orm.Model):
 
             'ldap_name': False,
             'ldap_id': False,
+            'identifier': False,
         })
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        return res
+
+    def create(self, cr, uid, vals, context=None):
+        """
+        =====
+        create
+        =====
+        When create partner get identifier value from within attached sequence
+        """
+        need_identifier = True
+        if 'is_assembly' in vals and vals['is_assembly']:
+            need_identifier = False
+
+        if 'identifier' in vals and vals['identifier'] > 0:
+            need_identifier = False
+
+        if need_identifier:
+            sequence_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_person', 'identifier_res_partner_seq')
+            vals['identifier'] = self.pool.get('ir.sequence').next_by_id(cr, uid, sequence_id[1], context=context)
+
+        res = super(res_partner, self).create(cr, uid, vals, context=context)
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -304,4 +350,21 @@ class res_partner(orm.Model):
                     buffer_not_yet_decided.update({document_value['birth_date']: document_value['id']})
         return document_reset_ids if aborting else buffer_not_yet_decided.values(), duplicate_detected_ids
 
+    def update_identifier_next_number_sequence(self, cr, uid, context=None):
+        """
+        =================
+        update_identifier_next_number_sequence
+        =================
+        Change value of next identifier sequence value
+        :type next_value: integer
+        :param next_value: next value of sequence
+        :rtype: Boolean
+        """
+        result = self.pool.get("res.partner").search_read(cr, uid, [], ['identifier'], limit=1, order='identifier desc')
+        if result:
+            next_value = result[0]['identifier'] + 1
+            sequence_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_person', 'identifier_res_partner_seq')
+            return self.pool.get('ir.sequence').write(cr, uid, sequence_id[1], {'number_next': next_value}, context=context)
+
+        return False
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

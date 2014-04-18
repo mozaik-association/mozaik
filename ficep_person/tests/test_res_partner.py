@@ -295,4 +295,42 @@ class test_res_partner(SharedSetupTransactionCase):
             else:
                 self.assertFalse(document_value['is_duplicate_detected'], 'Partner %s Should Not Be Duplicate Detected' % document_value['id'])
 
+    def test_identifier_unicity(self):
+        """
+        ===================================
+        test_identifier_unicity
+        ===================================
+        """
+        result = self.partner_model.search_read(self.cr, self.uid, [], ['identifier'], limit=1, order='identifier desc')
+        if result:
+            identifier = result[0]['identifier'] + 1000
+        else:
+            identifier = 3000
+
+        self.partner_model.create(self.cr, self.uid,
+                                         {'name': 'Test-identifier',
+                                          'identifier': identifier})
+
+        self.assertRaises(orm.except_orm, self.partner_model.create, self.cr, self.uid,
+                                         {'name': 'Test-duplicate-identifier',
+                                          'identifier': identifier})
+
+    def test_change_identifier_sequence(self):
+        """
+        ===================================
+        test_change_identifier_sequence
+        ===================================
+        """
+        result = self.partner_model.search_read(self.cr, self.uid, [], ['identifier'], limit=1, order='identifier desc')
+        if result:
+            identifier = result[0]['identifier'] + 1000
+        else:
+            identifier = 3000
+
+        self.partner_model.create(self.cr, self.uid,
+                                         {'name': 'Test-identifier',
+                                          'identifier': identifier})
+        self.assertTrue(self.partner_model.update_identifier_next_number_sequence(self.cr, self.uid))
+        sequence_id = self.registry('ir.model.data').get_object_reference(self.cr, self.uid, 'ficep_person', 'identifier_res_partner_seq')
+        self.assertEqual(self.registry('ir.sequence').next_by_id(self.cr, self.uid, sequence_id[1]), str(identifier + 1))
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
