@@ -65,12 +65,6 @@ class sta_candidature(orm.Model):
         'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
                                           type='boolean', relation="sta.assembly",
                                           store=True),
-        'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
-                                          type='many2one', relation="mandate.category",
-                                          store=True),
-        'designation_int_assembly_id': fields.related('selection_committee_id', 'designation_int_assembly_id', string='Internal designation assembly',
-                                          type='many2one', relation="int.assembly",
-                                          store=True),
         }
 
     # view methods: onchange, button

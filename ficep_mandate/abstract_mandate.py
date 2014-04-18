@@ -186,6 +186,12 @@ class abstract_candidature(orm.AbstractModel):
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'selection_committee_id': fields.many2one('selection.committee', string='Selection Committee',
                                                  required=True, track_visibility='onchange'),
+        'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
+                                          type='many2one', relation="mandate.category",
+                                          store=True),
+        'designation_int_assembly_id': fields.related('selection_committee_id', 'designation_int_assembly_id', string='Internal designation assembly',
+                                          type='many2one', relation="int.assembly",
+                                          store=True),
     }
 
     def _check_partner(self, cr, uid, ids, for_unlink=False, context=None):
