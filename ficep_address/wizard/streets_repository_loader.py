@@ -68,7 +68,7 @@ class streets_repository_loader(orm.TransientModel):
         if '*' in value:
             streets = value.split('*')
             street = streets[0]
-            alternative_street = self._format(streets[1])
+            alternative_street = re.split(r'%', self._format(streets[1]), 1)[0]
         else:
             street = value
         street = self._format(street)
@@ -88,6 +88,7 @@ class streets_repository_loader(orm.TransientModel):
         create, update or set flag ``to_disable``
         of models ``address.local.street``
         """
+        _logger.info(_('Start Load Street'))
         for wiz in self.browse(cr, uid, ids, context=context):
             f = tempfile.NamedTemporaryFile(delete=False)
             f.write(base64.decodestring(wiz.ref_streets))
@@ -106,33 +107,32 @@ class streets_repository_loader(orm.TransientModel):
                     domain = [('identifier', '=', vals['identifier']),
                               ('local_zip', '=', vals['local_zip'])]
 
-                    #strip and remove bad character
+                    data = re.split(r'%', line[16:], 1)[0]
+                    self._get_streets(data, vals)
                     data = self._format(line[16:])
 
                     local_street_model = self.pool['address.local.street']
                     street_ids = local_street_model.search(cr, uid, domain, context=context)
                     if street_ids:
-                        if '-*-' in data:
+                        if '-*-' in line[16:]:
                             #disable
                             vals = {'to_disable': True}
                             self.pool['address.local.street'].write(cr, uid, street_ids,\
                                                     {'to_disable': True}, context=context)
                         else:
                             #update
-                            data = re.split(r'%', line[16:], 1)
                             if data:
-                                data = data[0]
-                                self._get_streets(data, vals)
                                 street_ids = local_street_model.search(cr, uid, domain, context=context)
                                 self.pool['address.local.street'].write(cr, uid, street_ids, vals, context=context)
                     else:
                         #create
-                        if data != '-*-':
+                        if '-*-' not in line[16:]:
                             try:
-                                self._get_streets(data, vals)
                                 self.pool['address.local.street'].create(cr, uid, vals, context=context)
                             except:
                                 _logger.warning(_('Key for address.local.street already exist'))
                                 pass
+
+        _logger.info(_('Stop Load Street'))
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
