@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="involvement_category" model="partner.involvement.category">
+            <field name="name">General Assembly 2013</field>
+        </record>
+
+        <record id="involvement" model="partner.involvement">
+            <field name="partner_id" ref="base.partner_root"/>
+            <field name="partner_involvement_category_id" ref="involvement_category"/>
+        </record>
+
+    </data>
+</openerp>

@@ -57,6 +57,8 @@ FICEP Sample Customization
          '../ficep_structure/tests/data/structure_data.xml',
          '../ficep_structure_address/tests/data/structure_address_data.xml',
          '../ficep_mandate/tests/data/mandate_data.xml',
+         '../ficep_person_coordinate/demo/person_coordinate_demo.xml',
+         '../ficep_communication/demo/communication_demo.xml',
          'demo/sample_customization_demo.xml',  # must be the last
     ],
     'js': [
