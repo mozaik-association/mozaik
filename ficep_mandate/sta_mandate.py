@@ -65,6 +65,9 @@ class sta_candidature(orm.Model):
         'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
                                           type='boolean', relation="sta.assembly",
                                           store=True),
+        'is_selection_committee_active': fields.related('selection_committee_id', 'active', string='Is selection committee active ?',
+                                          type='boolean', relation="selection.committee",
+                                          store=False),
         }
 
     # view methods: onchange, button

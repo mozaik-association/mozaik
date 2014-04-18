@@ -331,7 +331,7 @@
             <field name="model">sta.power.level</field>
             <field name="inherit_id" ref="abstract_power_level_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//sheet/div[@name='buttons']" position="after">
+                <xpath expr="//sheet/div[@name='buttons']" position="inside">
                     <button string="Legislatures" name="%(legislature_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_power_level_id': active_id,
@@ -627,7 +627,7 @@
             <field name="model">int.power.level</field>
             <field name="inherit_id" ref="abstract_power_level_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//sheet/div[@name='buttons']" position="after">
+                <xpath expr="//sheet/div[@name='buttons']" position="inside">
                     <button string="Instances" name="%(int_instance_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_power_level_id': active_id,
