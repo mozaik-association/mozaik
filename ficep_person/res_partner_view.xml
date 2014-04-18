@@ -32,7 +32,8 @@
                     <filter string="User" name="user" domain="[('user_ids', '!=', False)]" invisible="context.get('default_is_company')"/>
                     <filter string="Not User" name="not_user" domain="[('user_ids', '=', False)]" invisible="context.get('default_is_company')"/>
                     <separator />
-                    <filter name="duplicate" string="Duplicate" domain="[('is_duplicate_detected','=',True)]" />
+                    <filter name="duplicate" string="Duplicates" domain="[('is_duplicate_detected','=',True)]" />
+                    <filter name="allow_duplicate" string="Allowed Duplicates" domain="[('is_duplicate_allowed','=',True)]" />
                     <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"

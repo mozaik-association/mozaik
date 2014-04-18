@@ -17,7 +17,8 @@
                     <filter name="unauthorized" string="Unauthorized" domain="[('unauthorized','=',True)]" />
                     <filter name="vip" string="VIP" domain="[('vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator />
-                    <filter name="duplicate" string="Duplicate" domain="[('is_duplicate_detected','=',True)]" />
+                    <filter name="duplicate" string="Duplicates" domain="[('is_duplicate_detected','=',True)]" />
+                    <filter name="allow_duplicate" string="Allowed Duplicates" domain="[('is_duplicate_allowed','=',True)]" />
                     <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
