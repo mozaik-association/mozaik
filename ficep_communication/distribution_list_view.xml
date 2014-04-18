@@ -2,8 +2,21 @@
 <openerp>
     <data noupdate="0">
 
+        <!-- Distribution List Tree Inherit -->
+        <record id="distribution_list_tree" model="ir.ui.view">
+            <field name="name">distribution.list.tree (ficep_communication)</field>
+            <field name="model">distribution.list</field>
+            <field name="inherit_id" ref="distribution_list.distribution_list_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='mass_mailing']" position="replace">
+                    <button name="%(distribution_list_mass_function_action)d" type="action" icon="terp-partner" string="Mass Action"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Distribution List Form Inherit -->
         <record id="distribution_list_form" model="ir.ui.view">
-            <field name="name">distribution.list.form (ficep_distribution_list)</field>
+            <field name="name">distribution.list.form (ficep_communication)</field>
             <field name="model">distribution.list</field>
             <field name="inherit_id" ref="distribution_list.distribution_list_form" />
             <field name="arch" type="xml">
@@ -19,6 +32,21 @@
                                 </field>
                             </page>
                     </notebook>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Distribution List Line Form Inherit -->
+        <record id="distribution_list_line_form" model="ir.ui.view">
+            <field name="name">distribution.list.line.form (ficep_communication)</field>
+            <field name="model">distribution.list.line</field>
+            <field name="inherit_id" ref="distribution_list.distribution_list_line_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='src_model_id']" position="attributes">
+                    <attribute name="domain">[('model','in',['virtual.partner.involvement',
+                                                                  'virtual.partner.relation',
+                                                                  'res.partner',
+                                                                  'event.event'])]</attribute>
                 </xpath>
             </field>
         </record>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="ficep_email_template" model="email.template">
+            <field name="name">Ficep Mass Mailing</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+</openerp>

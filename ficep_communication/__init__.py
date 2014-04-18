@@ -29,5 +29,6 @@
 from . import distribution_list
 from . import virtual_models
 from . import wizard
+from . import email_template
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

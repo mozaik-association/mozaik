@@ -48,7 +48,10 @@ class distribution_list(orm.Model):
     }
 
     _defaults = {
-        'res_users_ids': _get_user_id
+        'res_users_ids': _get_user_id,
+        'dst_model_id': lambda self, cr, uid, c:
+        self.pool.get('ir.model').search(cr, uid, [('model', '=', 'virtual.target')], context=c)[0],
+        'bridge_field': 'common_id',
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
