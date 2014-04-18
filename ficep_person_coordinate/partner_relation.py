@@ -29,6 +29,59 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 
+class partner_relation_category(orm.Model):
+
+    _name = 'partner.relation.category'
+    _inherit = ['abstract.ficep.model']
+
+    _columns = {
+        'subject_name': fields.char('Subject', required=True, select=True, track_visibility='onchange'),
+        'object_name': fields.char('Object', required=True, select=True, track_visibility='onchange'),
+    }
+
+    _rec_name = 'subject_name'
+
+# orm methods
+
+    def name_get(self, cr, uid, ids, context=None):
+        """
+        ========
+        name_get
+        ========
+        :type context: dictionary
+        :param context: may contains key ``object``
+        :rtype: list(tuple)
+        :param: list that contains for all id in ids, the corresponding name
+
+        *Notes*
+        if object is false of not present into the context:
+            super is calling
+        else:
+            the name_get will be ``object_name``
+        """
+        if context is None:
+            context = {}
+        res = []
+        if context.get('object', False):
+            for record in self.browse(cr, uid, ids, context=context):
+                res.append((record.id, record.object_name))
+        else:
+            res = super(partner_relation_category, self).name_get(cr, uid, ids, context=context)
+        return res
+
+    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
+        args = args or []
+        if context.get('object', False):
+            if name:
+                ids = self.search(cr, uid, [('object_name', operator, name)], context=context)
+            else:
+                ids = self.search(cr, uid, args, limit=limit, context=context)
+            res = self.name_get(cr, uid, ids, context)
+        else:
+            res = super(partner_relation_category, self).name_search(cr, uid, name, args=args, operator=operator, context=context, limit=limit)
+        return res
+
+
 class partner_relation(orm.Model):
 
     _name = 'partner.relation'
@@ -49,6 +102,8 @@ class partner_relation(orm.Model):
         # email coordinate
         'email_coordinate_id': fields.many2one('email.coordinate', string='Email Coordinate', select=True, track_visibility='onchange'),
     }
+
+    _rec_name = 'partner_relation_category_id'
 
     def _check_relation_qualification(self, cr, uid, ids, context=None):
         """
@@ -81,47 +136,6 @@ class partner_relation(orm.Model):
         if flds.get('active', True):
             raise orm.except_orm(_('Error'), _('An active relation cannot be duplicated!'))
         res = super(partner_relation, self).copy(cr, uid, ids, default=default, context=context)
-        return res
-
-
-class partner_relation_category(orm.Model):
-
-    _name = 'partner.relation.category'
-    _inherit = ['abstract.ficep.model']
-
-    _columns = {
-        'subject_name': fields.char('Subject', required=True, select=True, track_visibility='onchange'),
-        'object_name': fields.char('Object', required=True, select=True, track_visibility='onchange'),
-    }
-
-    _rec_name = "subject_name"
-
-# orm methods
-
-    def name_get(self, cr, uid, ids, context=None):
-        """
-        ========
-        name_get
-        ========
-        :type context: dictionary
-        :param context: may contains key ``object``
-        :rtype: list(tuple)
-        :param: list that contains for all id in ids, the corresponding name
-
-        **Notes**
-        if object is false of not present into the context:
-            super is calling
-        else:
-            the name_get will be ``object_name``
-        """
-        if context is None:
-            context = {}
-        res = []
-        if context.get('object', False):
-            for record in self.browse(cr, uid, ids, context=context):
-                res.append((record.id, record.object_name))
-        else:
-            res = super(partner_relation_category, self).name_get(cr, uid, ids, context=context)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
