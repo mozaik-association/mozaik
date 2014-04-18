@@ -83,6 +83,7 @@ class virtual_partner_involvement(orm.Model):
         'display_name': fields.char('Display Name', readonly=True),
         'gender': fields.char('Gender', readonly=True),
         'tongue': fields.char('Tongue', readonly=True),
+        'employee': fields.boolean('Employee', readonly=True),
 
         'postal_vip': fields.boolean('Postal VIP', readonly=True),
         'postal_unauthorized': fields.boolean('Postal Unauthorized', readonly=True),
@@ -123,6 +124,7 @@ class virtual_partner_involvement(orm.Model):
             p.display_name as display_name,
             p.gender as gender,
             p.tongue as tongue,
+            p.employee as employee,
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
             e.vip as email_vip,
@@ -177,6 +179,7 @@ class virtual_partner_relation(orm.Model):
         'display_name': fields.char('Display Name', readonly=True),
         'gender': fields.char('Gender', readonly=True),
         'tongue': fields.char('Tongue', readonly=True),
+        'employee': fields.boolean('Employee', readonly=True),
 
         # others
         'category_id': fields.related('partner_id', 'category_id', type='many2many',
@@ -228,6 +231,7 @@ class virtual_partner_relation(orm.Model):
             rc.id as relation_category_id,
             p.gender as gender,
             p.tongue as tongue,
+            p.employee as employee,
             p.birth_date as birth_date,
             p.int_instance_id as int_instance_id,
             CASE
@@ -291,6 +295,7 @@ class virtual_partner_instance(orm.Model):
         'display_name': fields.char('Display Name', readonly=True),
         'gender': fields.char('Gender', readonly=True),
         'tongue': fields.char('Tongue', readonly=True),
+        'employee': fields.boolean('Employee', readonly=True),
 
         'postal_vip': fields.boolean('Postal VIP', readonly=True),
         'postal_unauthorized': fields.boolean('Postal Unauthorized', readonly=True),
@@ -330,6 +335,7 @@ class virtual_partner_instance(orm.Model):
             p.display_name as display_name,
             p.gender as gender,
             p.tongue as tongue,
+            p.employee as employee,
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
             e.vip as email_vip,
