@@ -8,7 +8,7 @@
             <field name="name">virtual.target.tree</field>
             <field name="model">virtual.target</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Target" create="false">
+                <tree string="Virtual Target" create="0">
                     <field name="partner_id" />
                     <field name="email_coordinate_id" />
                     <field name="postal_coordinate_id" />
@@ -62,7 +62,7 @@
             <field name="name">virtual.partner.involvement.tree</field>
             <field name="model">virtual.partner.involvement</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Involvement" create="false">
+                <tree string="Virtual Partner Involvement" create="0">
                     <field name="partner_id" />
                     <field name="involvement_category_id" />
                     <field name="int_instance_id" />
@@ -156,7 +156,7 @@
             <field name="name">virtual.partner.relation.tree</field>
             <field name="model">virtual.partner.relation</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Relation" create="false">
+                <tree string="Virtual Partner Relation" create="0">
                     <field name="partner_id" />
                     <field name="relation_category_id" />
                     <field name="object_partner_id" />

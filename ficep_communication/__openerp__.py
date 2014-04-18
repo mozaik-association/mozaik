@@ -46,6 +46,7 @@ FICEP Communication
 * Customization of the Distribution List Module
 """,
     'images': [
+        'static/src/img/icon-mass.png',
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -53,6 +54,7 @@ FICEP Communication
         'communication_view.xml',
         'virtual_models_view.xml',
         'wizard/distribution_list_mass_function_view.xml',
+        'data/email_template_data.xml',
     ],
     'js': [
     ],

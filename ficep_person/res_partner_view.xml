@@ -15,6 +15,7 @@
                     <field name="interests_m2m_ids" string="Interests" invisible="'default_is_company' not in context or context.get('default_is_company')" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one"/>
                     <field name="comment" />
+                    <field name="partner_involvement_ids"/>
 
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]" invisible="'default_is_company' in context"/>
                     <filter string="Legal Persons" name="type_company" domain="[('is_company','=',1)]" invisible="'default_is_company' in context"/>
@@ -31,7 +32,8 @@
                     <filter string="User" name="user" domain="[('user_ids', '!=', False)]" invisible="context.get('default_is_company')"/>
                     <filter string="Not User" name="not_user" domain="[('user_ids', '=', False)]" invisible="context.get('default_is_company')"/>
                     <separator />
-                    <filter name="duplicate" string="Duplicate" domain="[('is_duplicate_detected','=',True)]" />
+                    <filter name="duplicate" string="Duplicates" domain="[('is_duplicate_detected','=',True)]" />
+                    <filter name="allow_duplicate" string="Allowed Duplicates" domain="[('is_duplicate_allowed','=',True)]" />
                     <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"

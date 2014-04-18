@@ -8,7 +8,11 @@
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
 
-                <xpath expr="//notebook/page[1]" position="before">
+                <xpath expr="//page[@name='internal_notes']" position="attributes">
+                    <attribute name="autofocus">autofocus</attribute>
+                </xpath>
+
+                <xpath expr="//page[@name='internal_notes']" position="after">
                     <page name="coordinates" string="Coordinates">
                         <separator name="email" string="Email Coordinates"/>
                         <separator name="address" string="Postal Coordinates"/>
