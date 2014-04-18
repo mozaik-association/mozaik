@@ -59,7 +59,7 @@ class virtual_target(orm.Model):
         ON (e.partner_id = p.id)
         LEFT OUTER JOIN
             postal_coordinate pc
-        ON (pc.partner_id = pc.id)
+        ON (pc.partner_id = p.id)
         WHERE pc.id IS NOT NULL
         OR e.id IS NOT NULL
             )""")
