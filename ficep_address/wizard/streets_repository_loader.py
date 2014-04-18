@@ -76,7 +76,7 @@ class streets_repository_loader(orm.TransientModel):
         vals['local_street'] = street
 
     _columns = {
-        'ref_streets': fields.binary(string='File Referential of Streets'),
+        'ref_streets': fields.binary(string='File Referential of Streets', required=True),
     }
 
     def update_local_streets(self, cr, uid, ids, context=None):
