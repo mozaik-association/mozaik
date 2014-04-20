@@ -26,57 +26,22 @@
 #
 ##############################################################################
 import base64
-import re
 import tempfile
-
 import logging
+
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
-EXPR = re.compile('[/+#]')
 _logger = logging.getLogger(__name__)
 
 
 class streets_repository_loader(orm.TransientModel):
 
     _name = "streets.repository.loader"
-    _description = "Street Repository Loader"
-
-    def _format(self, value):
-        """
-        :type value: string
-        :rparam: value without character `#`,`/` and without
-                 space at the beginning or at the end of the string
-        """
-        return re.sub(EXPR, '', value).strip()
-
-    def _get_streets(self, value, vals):
-        """
-        ============
-        _get_streets
-        ============
-        :type value: char
-        :param value: contains street or street and alternative street
-                      separator is `*`
-        :type vals: {}
-        :post: update vals with
-            key:value
-            local_street_alternative:alternative_street
-            local_street:street
-        """
-        alternative_street = False
-        if '*' in value:
-            streets = value.split('*')
-            street = streets[0]
-            alternative_street = re.split(r'%', self._format(streets[1]), 1)[0]
-        else:
-            street = value
-        street = self._format(street)
-        vals['local_street_alternative'] = alternative_street
-        vals['local_street'] = street
+    _description = "Streets Repository Loader"
 
     _columns = {
-        'ref_streets': fields.binary(string='File Referential of Streets', required=True),
+        'ref_streets': fields.binary(string='File to Load', required=True),
     }
 
     def update_local_streets(self, cr, uid, ids, context=None):
@@ -84,11 +49,11 @@ class streets_repository_loader(orm.TransientModel):
         ====================
         update_local_streets
         ====================
-        Read the uploaded file of the wizard and
-        create, update or set flag ``to_disable``
-        of models ``address.local.street``
+        Read the uploaded file and
+        create, update or disable local streets
         """
-        _logger.info(_('Start Load Street'))
+        _logger.info('Start Streets Loader...')
+        local_street_model = self.pool['address.local.street']
         for wiz in self.browse(cr, uid, ids, context=context):
             f = tempfile.NamedTemporaryFile(delete=False)
             f.write(base64.decodestring(wiz.ref_streets))
@@ -100,39 +65,54 @@ class streets_repository_loader(orm.TransientModel):
                         raise orm.except_orm(_('Error'), _('Invalid File Format!'))
 
                     complete_code = complete_code[8:]  # code to use
-                    vals = {'identifier': complete_code[4:],
-                            'local_zip': complete_code[:4],
-                            'local_street_alternative': False,
-                            'local_street': False}
-                    domain = [('identifier', '=', vals['identifier']),
-                              ('local_zip', '=', vals['local_zip'])]
+                    zipcode = complete_code[:4]
+                    identifier = complete_code[4:]
 
-                    data = re.split(r'%', line[16:], 1)[0]
-                    self._get_streets(data, vals)
-                    data = self._format(line[16:])
+                    line = line[16:]
+                    line = line.split('#', 1)[0]
+                    line = line.split('%', 1)[0]
+                    line = line.replace('/', '')
+                    disabled = line == '-*-'
 
-                    local_street_model = self.pool['address.local.street']
+                    domain = [('local_zip', '=', zipcode), ('identifier', '=', identifier)]
                     street_ids = local_street_model.search(cr, uid, domain, context=context)
-                    if street_ids:
-                        if '-*-' in line[16:]:
-                            #disable
-                            vals = {'to_disable': True}
-                            self.pool['address.local.street'].write(cr, uid, street_ids,\
-                                                    {'to_disable': True}, context=context)
-                        else:
-                            #update
-                            if data:
-                                street_ids = local_street_model.search(cr, uid, domain, context=context)
-                                self.pool['address.local.street'].write(cr, uid, street_ids, vals, context=context)
-                    else:
-                        #create
-                        if '-*-' not in line[16:]:
-                            try:
-                                self.pool['address.local.street'].create(cr, uid, vals, context=context)
-                            except:
-                                _logger.warning(_('Key for address.local.street already exist'))
-                                pass
 
-        _logger.info(_('Stop Load Street'))
+                    if not disabled:
+                        alts = line.split('*', 1)
+
+                        with_alt = len(alts) == 2
+                        street1 = alts[0]
+                        street2 = with_alt and alts[1] or False
+
+                        streets = {
+                            'local_street': street1,
+                            'local_street_alternative': street2,
+                        }
+
+                        if not street_ids:
+                            if with_alt:
+                                domain = [('local_zip', '=', zip), '|', ('local_street', '=', street1), ('local_street_alternative', '=', street2)]
+                            else:
+                                domain = [('local_zip', '=', zip), ('local_street', '=', street1)]
+                            street_ids = local_street_model.search(cr, uid, domain, context=context)
+
+                        if street_ids:
+                            #update
+                            local_street_model.write(cr, uid, street_ids, streets, context=context)
+                        else:
+                            #create
+                            streets.update({
+                                'local_zip': zipcode,
+                                'identifier': identifier,
+                            })
+                            local_street_model.create(cr, uid, streets, context=context)
+                    elif street_ids:
+                        #disable
+                        vals = {'disabled': True}
+                        local_street_model.write(cr, uid, street_ids, vals, context=context)
+                    else:
+                        _logger.warning('Unknown identifier to disable %s%s' % (zipcode, identifier))
+
+        _logger.info('Stop Streets Loader')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -9,7 +9,10 @@
                 <search string="Local Street" version="7.0">
                     <field name="local_street" string="Street" filter_domain="['|',('local_street','ilike', self),('local_street_alternative','ilike', self)]" />
                     <field name="local_zip" />
-                    <filter name="to_disable" string="Obsolete Streets" domain="[('to_disable','=', True)]" />
+                    <filter name="disabled" string="Obsolete Streets" domain="[('disabled','=',True)]" />
+                    <seperator/>
+                    <filter name="with_alt" string="With Alternative" domain="[('local_street_alternative','!=',False)]" />
+                    <filter name="with_alt" string="Without Alternative" domain="[('local_street_alternative','=',False)]" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter string="Zip" context="{'group_by': 'local_zip'}"/>
                     </group>
@@ -25,7 +28,8 @@
                     <field name="local_zip" />
                     <field name="local_street" />
                     <field name="local_street_alternative" />
-                    <field name="to_disable" />
+                    <field name="disabled" />
+                    <field name="write_date" />
                 </tree>
             </field>
         </record>
@@ -49,13 +53,15 @@
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">
+                            <label for="local_zip" class="oe_edit_only"/>
+                            <h1><field name="local_zip" placeholder="1040, 4000,..." /></h1>
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="local_street" placeholder="Local Street..." /></h1>
                         </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')"/>
                         <group>
-                            <field name="local_zip" />
                             <field name="local_street_alternative" placeholder="Local Street Alternative..." />
-                            <field name="to_disable" />
+                            <field name="disabled" />
                         </group>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">

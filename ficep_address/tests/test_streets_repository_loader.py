@@ -64,8 +64,8 @@ class test_streets_repository_loader(SharedSetupTransactionCase):
         self.streets_repository_loader_model.update_local_streets(cr, SUPERUSER_ID, [wiz_id])
         street_value = self.address_local_street_model.search_read(cr, SUPERUSER_ID,
                                                                  [('local_zip', '=', '6120'), ('identifier', '=', '1227')],
-                                                                 fields=['to_disable', 'local_street'])
-        self.assertTrue(street_value[0]['to_disable'], 'Should be to disable')
+                                                                 fields=['disabled', 'local_street'])
+        self.assertTrue(street_value[0]['disabled'], 'Should be to disable')
         self.assertTrue(street_value[0]['local_street'] == 'NEW', 'Local Street Should be `NEW`')
 
     def test_bad_insert(self):

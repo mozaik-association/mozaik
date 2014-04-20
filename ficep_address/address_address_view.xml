@@ -155,7 +155,7 @@
                         <group>
                             <group name="streets">
                                 <field name="address_local_street_id"
-                                   domain="[('local_zip','=',zip)]"
+                                   domain="[('local_zip','=',zip),('disabled','=',False)]"
                                    attrs="{'invisible': [('country_code','!=', 'BE')]}"
                                    on_change="onchange_local_street_id(address_local_street_id)"/>
                                 <field name="select_alternative_address_local_street" 
