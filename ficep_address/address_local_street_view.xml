@@ -55,7 +55,7 @@
                         <div class="oe_title" name="title">
                             <label for="local_zip" class="oe_edit_only"/>
                             <h1><field name="local_zip" placeholder="1040, 4000,..." /></h1>
-                            <label for="name" class="oe_edit_only"/>
+                            <label for="local_street" class="oe_edit_only"/>
                             <h1><field name="local_street" placeholder="Local Street..." /></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')"/>

@@ -81,8 +81,8 @@ class streets_repository_loader(orm.TransientModel):
                         alts = line.split('*', 1)
 
                         with_alt = len(alts) == 2
-                        street1 = alts[0]
-                        street2 = with_alt and alts[1] or False
+                        street1 = alts[0].strip()
+                        street2 = with_alt and alts[1].strip() or False
 
                         streets = {
                             'local_street': street1,
@@ -91,9 +91,9 @@ class streets_repository_loader(orm.TransientModel):
 
                         if not street_ids:
                             if with_alt:
-                                domain = [('local_zip', '=', zip), '|', ('local_street', '=', street1), ('local_street_alternative', '=', street2)]
+                                domain = [('local_zip', '=', zipcode), '|', ('local_street', '=', street1), ('local_street_alternative', '=', street2)]
                             else:
-                                domain = [('local_zip', '=', zip), ('local_street', '=', street1)]
+                                domain = [('local_zip', '=', zipcode), ('local_street', '=', street1)]
                             street_ids = local_street_model.search(cr, uid, domain, context=context)
 
                         if street_ids:
