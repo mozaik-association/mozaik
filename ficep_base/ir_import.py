@@ -25,7 +25,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import os
 import logging
 
 from openerp.osv import orm
@@ -83,6 +82,7 @@ class ir_import(orm.TransientModel):
         preview = self.parse_preview(cr, uid, imp_id, options, context=context)
         fields = [f for f in preview['headers'] if not f.startswith('__dummy')]
 
+        _logger.info('Importing file %s' % filename)
         res = self.do(cr, uid, imp_id, fields, options, context=context)
         return res
 
