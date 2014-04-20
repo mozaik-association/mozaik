@@ -69,7 +69,7 @@ class res_partner(orm.Model):
         is not linked to a local zip code id (otherwise the field is readonly on the form)
         Do not make a self.write here, it will indefinitively loop on itself...
         '''
-        cr.execute('update %s set %s = %%s where id = %s' % (self._table, name, ids), (value, ))
+        cr.execute('update %s set %s = %%s where id = %s' % (self._table, name, ids), (value or None, ))
         return True
 
     _instance_store_triggers = {

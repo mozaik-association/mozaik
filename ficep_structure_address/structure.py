@@ -42,8 +42,9 @@ class sta_assembly(orm.Model):
         res = {}
         if 'instance_id' in vals:
             instance_id = vals['instance_id']
-            int_instance_id = self.pool['sta.instance'].read(cr, uid, instance_id, ['int_instance_id'], context=context)['int_instance_id'][0]
-            res = {'int_instance_id': int_instance_id}
+            int_instance_id = self.pool['sta.instance'].read(cr, uid, instance_id, ['int_instance_id'], context=context)['int_instance_id']
+            if int_instance_id:
+                res = {'int_instance_id': int_instance_id[0]}
         return res
 
 # orm methods

@@ -146,7 +146,7 @@ class sta_assembly(orm.Model):
         res = {}
         assemblies = self.browse(cursor, uid, ids, context=context)
         for ass in assemblies:
-            fullname = '%s (%s) ' % (ass.instance_id.name, ass.assembly_category_id.name)
+            fullname = '%s (%s)' % (ass.instance_id.name, ass.assembly_category_id.name)
             res[ass.id] = fullname
             self.pool['res.partner'].write(cursor, uid, ass.partner_id.id, {'name': fullname}, context=context)
         return res
@@ -180,7 +180,7 @@ class sta_assembly(orm.Model):
         Produce the first value of the name field.
         Next values are generated in the function _compute_dummy
         '''
-        if not vals.get('name'):
+        if not vals.get('name') and not vals.get('partner_id'):
             instance = ''
             if vals.get('instance_id'):
                 instance = self.pool['sta.instance'].read(cr, uid, vals.get('instance_id'), ['name'], context=context)
