@@ -36,12 +36,15 @@
 
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
                     <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
-                    <separator />
-                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
                     <separator/>
                     <filter string="Male" name="male" domain="[('gender','=','m')]" />
                     <filter string="Female" name="female" domain="[('gender','=','f')]" />
+                    <separator />
+                    <filter string="French" name="french" domain="[('tongue','=','f')]" />
+                    <filter string="German" name="german" domain="[('tongue','=','g')]" />
+                    <separator />
+                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
+                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
                     <separator/>
                     <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator/>
@@ -131,12 +134,15 @@
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
                     <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
                     <filter string="Assemblies" name="type_assembly" domain="[('is_assembly','!=',0)]"/>
-                    <separator />
-                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
                     <separator/>
                     <filter string="Male" name="male" domain="[('gender','=','m')]" />
                     <filter string="Female" name="female" domain="[('gender','=','f')]" />
+                    <separator />
+                    <filter string="French" name="french" domain="[('tongue','=','f')]" />
+                    <filter string="German" name="german" domain="[('tongue','=','g')]" />
+                    <separator />
+                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
+                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
                     <separator/>
                     <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator/>
@@ -225,12 +231,15 @@
 
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
                     <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
-                    <separator />
-                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
                     <separator/>
                     <filter string="Male" name="male" domain="[('gender','=','m')]" />
                     <filter string="Female" name="female" domain="[('gender','=','f')]" />
+                    <separator />
+                    <filter string="French" name="french" domain="[('tongue','=','f')]" />
+                    <filter string="German" name="german" domain="[('tongue','=','g')]" />
+                    <separator />
+                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
+                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
                     <separator/>
                     <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator/>
