@@ -35,8 +35,8 @@ class partner_relation_category(orm.Model):
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'subject_name': fields.char('Subject', required=True, select=True, track_visibility='onchange'),
-        'object_name': fields.char('Object', required=True, select=True, track_visibility='onchange'),
+        'subject_name': fields.char('Relation Subject', required=True, select=True, track_visibility='onchange'),
+        'object_name': fields.char('Relation Object', required=True, select=True, track_visibility='onchange'),
     }
 
     _rec_name = 'subject_name'
@@ -88,8 +88,8 @@ class partner_relation(orm.Model):
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'subject_partner_id': fields.many2one('res.partner', string='Subject Relation', required=True, select=True, track_visibility='onchange'),
-        'object_partner_id': fields.many2one('res.partner', string='Object Relation', required=True, select=True, track_visibility='onchange'),
+        'subject_partner_id': fields.many2one('res.partner', string='Subject', required=True, select=True, track_visibility='onchange'),
+        'object_partner_id': fields.many2one('res.partner', string='Object', required=True, select=True, track_visibility='onchange'),
         'partner_relation_category_id': fields.many2one('partner.relation.category', string='Partner Relation Category', required=True, select=True, track_visibility='onchange'),
 
         # phone coordinate
@@ -130,6 +130,18 @@ class partner_relation(orm.Model):
     ]
 
 # orm methods
+
+    def name_get(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        res = []
+        if context.get('object', False):
+            for record in self.browse(cr, uid, ids, context=context):
+                res.append((record.id, record.object_partner_id.display_name))
+        else:
+            for record in self.browse(cr, uid, ids, context=context):
+                res.append((record.id, record.subject_partner_id.display_name))
+        return res
 
     def copy(self, cr, uid, ids, default=None, context=None):
         flds = self.read(cr, uid, ids, ['active'], context=context)

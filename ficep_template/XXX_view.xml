@@ -68,13 +68,13 @@
                     <filter name="fff2" string="FFF ggg" domain="[('ggg','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator />
                     <filter name="fff3" string="FFF 3" domain="[('fff','=',True)]" />
-                    <separator />
+
                     <filter name="expired" string="Expired"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expire Coordinate" />
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Expired XXXs" />
                     <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All XXXs, expired or not" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />

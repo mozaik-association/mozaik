@@ -64,20 +64,12 @@
                         </div>
                     </header>
                     <sheet>
-                        <group>
-                            <group>
-                                <div class="oe_title">
-                                    <label for="partner_id" />
-                                    <field name="partner_id"/>
-                                </div>
-                            </group>
-                            <group>
-                                <div class="oe_title">
-                                    <label for="partner_involvement_category_id" />
-                                    <field name="partner_involvement_category_id"/>
-                                </div>
-                            </group>
-                        </group>
+                        <div class="oe_title">
+                            <label for="partner_id" class="oe_edit_only"/>
+                            <h1><field name="partner_id" domain="[('is_assembly','=',False)]" /></h1>
+                            <label for="partner_involvement_category_id" class="oe_edit_only"/>
+                            <h1><field name="partner_involvement_category_id" /></h1>
+                        </div>
                         <group name="note">
                             <field name="note" />
                         </group>

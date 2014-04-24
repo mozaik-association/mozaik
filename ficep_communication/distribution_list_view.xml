@@ -24,8 +24,8 @@
                     <notebook>
                             <page name="users" string="Users" autofocus="autofocus">
                                 <field name="res_users_ids" context="{'default_distribution_list_id': id,
-                                                                             'simplified': 1,
-                                                                             'form_view_ref': 'base.view_users_form'}">
+                                                                      'simplified': 1,
+                                                                      'form_view_ref': 'base.view_users_form'}">
                                     <tree>
                                         <field name="name"/>
                                     </tree>
@@ -44,9 +44,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='src_model_id']" position="attributes">
                     <attribute name="domain">[('model','in',['virtual.partner.involvement',
-                                                                  'virtual.partner.relation',
-                                                                  'res.partner',
-                                                                  'event.event'])]</attribute>
+                                                             'virtual.partner.relation',
+                                                             'virtual.partner.instance'])]</attribute>
                 </xpath>
             </field>
         </record>

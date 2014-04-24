@@ -4,11 +4,34 @@
 
         <!-- Abstract Assembly -->
 
+        <record id="abstract_assembly_search_view" model="ir.ui.view">
+            <field name="name">abstract.assembly.search</field>
+            <field name="model">abstract.assembly</field>
+            <field name="arch" type="xml">
+                <search string="Assembly" version="7.0">
+                    <field name="assembly_category_id" />
+                    <field name="instance_id" />
+
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Exprired Assemblies" />
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Assemblies, expired or not" />
+
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="category" string="Category" domain="[]" context="{'group_by':'assembly_category_id'}" />
+                        <filter name="instance" string="Instance" domain="[]" context="{'group_by':'instance_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
         <record id="abstract_assembly_tree_view" model="ir.ui.view">
             <field name="name">abstract.assembly.tree</field>
             <field name="model">abstract.assembly</field>
             <field name="arch" type="xml">
-                <tree string="Assemblies" version="7.0">
+                <tree string="Assembly" version="7.0">
                     <field name="name"/>
                     <field name="assembly_category_id"/>
                     <field name="instance_id"/>
@@ -32,7 +55,6 @@
                     </header>
                     <sheet>
                         <div class="oe_title" name="title" attrs="{'invisible': [('id','=',False)]}">
-                            <label for="name"/>
                             <h1><field name="name" string="Name" readonly="1" required="0" /></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
@@ -84,36 +106,40 @@
             </field>
         </record>
 
-        <record id="abstract_assembly_search_view" model="ir.ui.view">
-            <field name="name">abstract.assembly.search</field>
-            <field name="model">abstract.assembly</field>
+        <!-- Abstract Instance -->
+
+        <record id="abstract_instance_search_view" model="ir.ui.view">
+            <field name="name">abstract.instance.search</field>
+            <field name="model">abstract.instance</field>
             <field name="arch" type="xml">
-                <search string="Assembly" version="7.0">
-                    <field name="assembly_category_id" />
-                    <field name="instance_id" />
+                <search string="Instance" version="7.0">
+                    <field name="name" />
+                    <field name="power_level_id" />
+                    <field name="parent_id" />
+
                     <filter name="expired" string="Expired"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" />
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Exprired Instances" />
                     <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Instances, expired or not" />
+
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="category" string="Category" domain="[]" context="{'group_by':'assembly_category_id'}" />
-                        <filter name="instance" string="Instance" domain="[]" context="{'group_by':'instance_id'}" />
+                        <filter name="power_level" string="Power Level" domain="[]" context="{'group_by':'power_level_id'}" />
+                        <filter name="parent" string="Parent" domain="[]" context="{'group_by':'parent_id'}" />
                     </group>
                 </search>
             </field>
         </record>
 
-        <!-- Abstract Instance -->
-
         <record id="abstract_instance_tree_view" model="ir.ui.view">
             <field name="name">abstract.instance.tree</field>
             <field name="model">abstract.instance</field>
             <field name="arch" type="xml">
-                <tree string="Instances" version="7.0">
+                <tree string="Instance" version="7.0">
                     <field name="name"/>
                     <field name="power_level_id"/>
+                    <field name="parent_id" invisible="1"/>
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
@@ -204,36 +230,33 @@
             </field>
         </record>
 
-        <record id="abstract_instance_search_view" model="ir.ui.view">
-            <field name="name">abstract.instance.search</field>
-            <field name="model">abstract.instance</field>
+        <!-- Abstract Assembly Category -->
+
+        <record id="abstract_assembly_category_search_view" model="ir.ui.view">
+            <field name="name">abstract.assembly.category.search</field>
+            <field name="model">abstract.assembly.category</field>
             <field name="arch" type="xml">
-                <search string="Instance" version="7.0">
+                <search string="Assembly Category" version="7.0">
                     <field name="name" />
-                    <field name="power_level_id" />
-                    <field name="parent_id" />
+
                     <filter name="expired" string="Expired"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" />
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Exprired Categories" />
                     <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Categories, expired or not" />
 
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="parent" string="Parent" domain="[]" context="{'group_by':'parent_id'}" />
-                        <filter name="power_level" string="Power Level" domain="[]" context="{'group_by':'power_level_id'}" />
                     </group>
                 </search>
             </field>
         </record>
 
-        <!-- Abstract Assembly Category -->
-
         <record id="abstract_assembly_category_tree_view" model="ir.ui.view">
             <field name="name">abstract.assembly.category.tree</field>
             <field name="model">abstract.assembly.category</field>
             <field name="arch" type="xml">
-                <tree string="Assembly Categories" version="7.0">
+                <tree string="Assembly Category" version="7.0">
                     <field name="name"/>
                     <field name="duration"/>
                     <field name="months_before_end_of_mandate"/>
@@ -303,18 +326,22 @@
             </field>
         </record>
 
-        <record id="abstract_assembly_category_search_view" model="ir.ui.view">
-            <field name="name">abstract.assembly.category.search</field>
-            <field name="model">abstract.assembly.category</field>
+        <!-- Abstract Power Level -->
+
+        <record id="abstract_power_level_search_view" model="ir.ui.view">
+            <field name="name">abstract.power.level.search</field>
+            <field name="model">abstract.power.level</field>
             <field name="arch" type="xml">
-                <search string="Assembly Category" version="7.0">
+                <search string="Power Level" version="7.0">
                     <field name="name" />
+                    <field name="sequence" />
+
                     <filter name="expired" string="Expired"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" />
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Exprired Power Levels" />
                     <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Power Levels, expired or not" />
 
                     <group expand="0" string="Group By..." name="group_by">
                     </group>
@@ -322,13 +349,11 @@
             </field>
         </record>
 
-        <!-- Abstract Power Level -->
-
         <record id="abstract_power_level_tree_view" model="ir.ui.view">
             <field name="name">abstract.power.level.tree</field>
             <field name="model">abstract.power.level</field>
             <field name="arch" type="xml">
-                <tree string="Power Levels" version="7.0">
+                <tree string="Power Level" version="7.0">
                     <field name="name"/>
                     <field name="sequence"/>
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
@@ -408,26 +433,6 @@
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
-            </field>
-        </record>
-
-        <record id="abstract_power_level_search_view" model="ir.ui.view">
-            <field name="name">abstract.power.level.search</field>
-            <field name="model">abstract.power.level</field>
-            <field name="arch" type="xml">
-                <search string="Power Level" version="7.0">
-                    <field name="name" />
-                    <field name="sequence" />
-                    <filter name="expired" string="Expired"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" />
-                    <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
-
-                    <group expand="0" string="Group By..." name="group_by">
-                    </group>
-                </search>
             </field>
         </record>
 

@@ -36,8 +36,11 @@ _logger = logging.getLogger(__name__)
 
 class test_partner_relation_category(SharedSetupTransactionCase):
 
-    _data_files = ('data/relation_data.xml',
-                  )
+    _data_files = (
+        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../ficep_coordinate/tests/data/coordinate_category_data.xml',
+        'data/relation_data.xml',
+    )
 
     _module_ns = 'ficep_person_coordinate'
 
@@ -56,11 +59,11 @@ class test_partner_relation_category(SharedSetupTransactionCase):
         """
         rec_relation = self.browse_ref("ficep_person_coordinate.partner_relation")
         res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [rec_relation.partner_relation_category_id.id], context=None)
-        self.assertEqual('employs', res[0][1], "Without context: should be subject name")
+        self.assertEqual('is employee of', res[0][1], "Without context: should be subject name")
         res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [rec_relation.partner_relation_category_id.id], context={'object': False})
-        self.assertEqual('employs', res[0][1], "Without object false into context: should be subject name")
+        self.assertEqual('is employee of', res[0][1], "Without object false into context: should be subject name")
         res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [rec_relation.partner_relation_category_id.id], context={'object': True})
-        self.assertEqual('is used by', res[0][1], "With object into context: should be object name")
+        self.assertEqual('employs', res[0][1], "With object into context: should be object name")
 
     def test_check_relation_qualification(self):
         rec_relation = self.browse_ref("ficep_person_coordinate.partner_relation")

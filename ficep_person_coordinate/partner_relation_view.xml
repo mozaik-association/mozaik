@@ -2,99 +2,6 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Partner Relation Category -->
-
-       <record id="partner_relation_category_search_view" model="ir.ui.view">
-            <field name="name">partner.relation.category.search</field>
-            <field name="model">partner.relation.category</field>
-            <field name="arch" type="xml">
-                <search string="Partner Relation Category">
-                    <field name="subject_name" string="Relation Category"
-                           filter_domain="['|',('subject_name','ilike',self),('object_name','ilike',self)]"/>
-                    <filter name="expired" string="Expired"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" />
-                    <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
-               </search>
-            </field>
-        </record>
-
-        <record id="partner_relation_category_tree_view" model="ir.ui.view">
-            <field name="name">partner.relation.category.tree</field>
-            <field name="model">partner.relation.category</field>
-            <field name="arch" type="xml">
-                <tree string="Partner Relation Category" version="7.0">
-                    <field name="subject_name" />
-                    <field name="object_name" />
-                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
-                </tree>
-            </field>
-        </record>
-
-        <record id="partner_relation_category_action" model="ir.actions.act_window">
-            <field name="name">Relation Categories</field>
-            <field name="res_model">partner.relation.category</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="partner_relation_category_search_view" />
-            <field name="view_id" eval="partner_relation_category_tree_view"/>
-            <field name="context">{'form_view_ref': 'ficep_person_coordinate.partner_relation_category_form_view'}</field>
-        </record>
-
-        <record id="partner_relation_category_form_view" model="ir.ui.view">
-            <field name="name">partner.relation.category.form</field>
-            <field name="model">partner.relation.category</field>
-            <field name="arch" type="xml">
-                <form string="Partner Relation Category" version="7.0">
-                    <header>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
-                             groups="ficep_base.ficep_res_groups_configurator">
-                            <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate category: proceed anyway?" />
-                        </div>
-                    </header>
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="subject_name"/>
-                            <h1><field name="subject_name" /></h1>
-                            <label for="object_name"/>
-                            <h1><field name="object_name" /></h1>
-                        </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
-                        </div>
-                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
-                            <group name="validity">
-                                <field name="create_date" />
-                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
-                            </group>
-                            <group name="other">
-                            </group>
-                        </group>
-                    </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
-                        <div class="oe_formview oe_form_sheet_width">
-                            <h3>More Info</h3>
-                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_validate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway?" />
-                            </div>
-                            <group name="moreinfo">
-                                <field name="id"/>
-                                <field name="active"/>
-                            </group>
-                        </div>
-                    </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
-                        <field name="message_ids" widget="mail_thread" />
-                    </div>
-                </form>
-            </field>
-        </record>
-
         <!-- Partner Relation -->
 
        <record id="partner_relation_search_view" model="ir.ui.view">
@@ -108,10 +15,10 @@
 
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expire Coordinate" />
+                        domain="[('active','=',False)]" help="Expired Relations" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Relations, expired or not" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter string="Partner Subject" context="{'group_by': 'subject_partner_id'}"/>
@@ -182,29 +89,14 @@
                         </div>
                     </header>
                     <sheet>
-                        <group col="6">
-                        <!-- 
-                             Subject Relation Object
-                        -->
-                            <group>
-                                <div class="oe_title">
-                                    <label for="subject_partner_id" />
-                                    <field name="subject_partner_id"/>
-                                </div>
-                            </group>
-                            <group>
-                                <div class="oe_title">
-                                    <label for="partner_relation_category_id" />
-                                    <field name="partner_relation_category_id"/>
-                                </div>
-                            </group>
-                            <group>
-                                <div class="oe_title">
-                                    <label for="object_partner_id" />
-                                    <field name="object_partner_id"/>
-                                </div>
-                            </group>
-                        </group>
+                        <div class="oe_title">
+                            <label for="subject_partner_id" class="oe_edit_only"/>
+                            <h1><field name="subject_partner_id" /></h1>
+                            <label for="partner_relation_category_id" class="oe_edit_only"/>
+                            <h1><field name="partner_relation_category_id" /></h1>
+                            <label for="object_partner_id" class="oe_edit_only"/>
+                            <h1><field name="object_partner_id" /></h1>
+                        </div>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
@@ -273,29 +165,118 @@
                          </div>
                     </header>
                     <sheet>
-                        <group col="6">
-                        <!-- 
-                            Object Relation Subject
-                        -->
-                            <group>
-                                <div class="oe_title">
-                                    <label for="object_partner_id" />
-                                    <field name="object_partner_id"/>
-                                </div>
+                        <div class="oe_title">
+                            <label for="object_partner_id" class="oe_edit_only"/>
+                            <h1><field name="object_partner_id" /></h1>
+                            <label for="partner_relation_category_id" class="oe_edit_only"/>
+                            <h1><field name="partner_relation_category_id" /></h1>
+                            <label for="subject_partner_id" class="oe_edit_only"/>
+                            <h1><field name="subject_partner_id" /></h1>
+                        </div>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                             </group>
-                            <group>
-                                <div class="oe_title">
-                                    <label for="partner_relation_category_id" />
-                                    <field name="partner_relation_category_id"/>
-                                </div>
-                            </group>
-                            <group>
-                                <div class="oe_title">
-                                    <label for="subject_partner_id" />
-                                    <field name="subject_partner_id"/>
-                                </div>
+                            <group name="other">
                             </group>
                         </group>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Revalidate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Partner Relation Category -->
+
+       <record id="partner_relation_category_search_view" model="ir.ui.view">
+            <field name="name">partner.relation.category.search</field>
+            <field name="model">partner.relation.category</field>
+            <field name="arch" type="xml">
+                <search string="Partner Relation Category">
+                    <field name="subject_name" string="Relation Category"
+                           filter_domain="['|',('subject_name','ilike',self),('object_name','ilike',self)]"/>
+
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Exprired Relations" />
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Relations, expired or not" />
+               </search>
+            </field>
+        </record>
+
+        <record id="partner_relation_category_tree_view" model="ir.ui.view">
+            <field name="name">partner.relation.category.tree</field>
+            <field name="model">partner.relation.category</field>
+            <field name="arch" type="xml">
+                <tree string="Partner Relation Category" version="7.0">
+                    <field name="subject_name" />
+                    <field name="object_name" />
+                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="partner_relation_category_action" model="ir.actions.act_window">
+            <field name="name">Relation Categories</field>
+            <field name="res_model">partner.relation.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="partner_relation_category_search_view" />
+            <field name="view_id" eval="partner_relation_category_tree_view"/>
+            <field name="context">{'form_view_ref': 'ficep_person_coordinate.partner_relation_category_form_view'}</field>
+        </record>
+
+        <record id="partner_relation_category_form_view" model="ir.ui.view">
+            <field name="name">partner.relation.category.form</field>
+            <field name="model">partner.relation.category</field>
+            <field name="arch" type="xml">
+                <form string="Partner Relation Category" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_configurator">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate category: proceed anyway?" />
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="subject_name" class="oe_edit_only" />
+                            <h1><field name="subject_name" /></h1>
+                            <label for="object_name" class="oe_edit_only" />
+                            <h1><field name="object_name" /></h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
+                            <button string="Subject Relations"
+                                name="%(subject_relation_action)d"
+                                type="action"
+                                context="{'search_default_partner_relation_category_id': active_id,
+                                          'default_partner_relation_category_id': active_id}"/>
+                            <button string="Object Relations"
+                                name="%(object_relation_action)d"
+                                type="action"
+                                context="{'search_default_partner_relation_category_id': active_id,
+                                          'default_partner_relation_category_id': active_id}"/>
+                        </div>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
@@ -336,26 +317,6 @@
         <!-- Partner Relation Category -->
         <menuitem id="relation_category_menu" action="partner_relation_category_action"
                   sequence="20" parent="ficep_base.persons_configuration_submenu" />
-
-        <!-- Other Inheritance: Relation Category -->
-
-        <record id="partner_relation_category_inherit_form_view" model="ir.ui.view">
-            <field name="name">partner.relation.category.inherit.form</field>
-            <field name="model">partner.relation.category</field>
-            <field name="inherit_id" ref="partner_relation_category_form_view" />
-            <field name="arch" type="xml">
-                <xpath expr="//div[@name='buttons']" position="inside">
-                    <button string="Subject Relations"
-                        name="%(subject_relation_action)d"
-                        type="action"
-                        context="{'search_default_partner_relation_category_id': active_id, 'default_partner_relation_category_id': active_id}"/>
-                    <button string="Object Relations"
-                        name="%(object_relation_action)d"
-                        type="action"
-                        context="{'search_default_partner_relation_category_id': active_id, 'default_partner_relation_category_id': active_id}"/>
-                </xpath>
-            </field>
-        </record>
 
     </data>
 </openerp>

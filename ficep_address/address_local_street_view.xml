@@ -9,10 +9,11 @@
                 <search string="Local Street" version="7.0">
                     <field name="local_street" string="Street" filter_domain="['|',('local_street','ilike', self),('local_street_alternative','ilike', self)]" />
                     <field name="local_zip" />
+
                     <filter name="disabled" string="Obsolete Streets" domain="[('disabled','=',True)]" />
                     <seperator/>
                     <filter name="with_alt" string="With Alternative" domain="[('local_street_alternative','!=',False)]" />
-                    <filter name="with_alt" string="Without Alternative" domain="[('local_street_alternative','=',False)]" />
+                    <filter name="without_alt" string="Without Alternative" domain="[('local_street_alternative','=',False)]" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter string="Zip" context="{'group_by': 'local_zip'}"/>
                     </group>

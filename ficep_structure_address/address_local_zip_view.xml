@@ -38,7 +38,7 @@
             <field name="inherit_id" ref="ficep_address.address_local_zip_form_view"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='town']" position="after">
+                <xpath expr="//group[@name='data']" position="inside">
                     <field name="int_instance_id" context="{'form_view_ref': 'ficep_structure.int_instance_form_view'}" />
                 </xpath>
 

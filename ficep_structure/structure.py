@@ -32,28 +32,26 @@ from .sta_structure import sta_instance
 class electoral_district(orm.Model):
 
     _name = 'electoral.district'
-    _description = "Electoral District"
+    _description = 'Electoral District'
     _inherit = ['abstract.ficep.model']
 
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
-        'sta_instance_id': fields.many2one('sta.instance', 'State Instance', required=True, track_visibility='onchange'),
-        'int_instance_id': fields.related('sta_instance_id', 'int_instance_id', string='Internal Instance',
+        'sta_instance_id': fields.many2one('sta.instance', 'State Instance', required=True, select=True, track_visibility='onchange'),
+        'int_instance_id': fields.related('sta_instance_id', 'int_instance_id', string='Internal Instance', select=True,
                                           type='many2one', relation="int.instance",
                                           store={
                                              'electoral.district': (lambda self, cr, uid, ids, context=None: ids, ['sta_instance_id'], 10),
                                              'sta.instance': (sta_instance.get_linked_electoral_districts, ['int_instance_id'], 20),
                                           },
                                          ),
-        'assembly_id': fields.many2one('sta.assembly', 'Assembly', required=True, track_visibility='onchange', domain=[('is_legislative', '=', True)]),
+        'assembly_id': fields.many2one('sta.assembly', 'Assembly', required=True, select=True, track_visibility='onchange', domain=[('is_legislative', '=', True)]),
         'power_level_id': fields.related('assembly_id', 'assembly_category_id', 'power_level_id', string='Power Level',
-                                         type='many2one', relation='sta.power.level'
-                                        ),
+                                         type='many2one', relation='sta.power.level'),
         'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation assembly',
-                                                 required=True, track_visibility='onchange'),
+                                                 required=True, select=True, track_visibility='onchange'),
         'assembly_category_id': fields.related('assembly_id', 'assembly_category_id', string='State assembly category',
-                                          type='many2one', relation="sta.assembly.category",
-                                          store=False),
+                                          type='many2one', relation='sta.assembly.category'),
         }
 
 # view methods: onchange, button

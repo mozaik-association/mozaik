@@ -28,6 +28,8 @@
 from openerp import tools
 from openerp.osv import orm, fields
 
+from ficep_person.res_partner import AVAILABLE_GENDERS, AVAILABLE_TONGUES
+
 
 class virtual_target(orm.Model):
 
@@ -36,9 +38,9 @@ class virtual_target(orm.Model):
     _auto = False
 
     _columns = {
-        'partner_id': fields.many2one('res.partner', 'Partner', readonly=True),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', readonly=True),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', readonly=True),
+        'partner_id': fields.many2one('res.partner', 'Partner'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
     }
 
 # orm methods
@@ -54,12 +56,15 @@ class virtual_target(orm.Model):
             e.id as email_coordinate_id
         FROM
             res_partner p
+
         LEFT OUTER JOIN
             email_coordinate e
         ON (e.partner_id = p.id)
+
         LEFT OUTER JOIN
             postal_coordinate pc
         ON (pc.partner_id = p.id)
+
         WHERE pc.id IS NOT NULL
         OR e.id IS NOT NULL
             )""")
@@ -72,24 +77,24 @@ class virtual_partner_involvement(orm.Model):
     _auto = False
 
     _columns = {
-        'common_id': fields.char('Common ID', readonly=True),
-        'partner_id': fields.many2one('res.partner', 'Partner', readonly=True),
-        'involvement_category_id': fields.many2one('partner.involvement.category', 'Involvement Category', readonly=True),
-        'int_instance_id': fields.many2one('int.instance', 'Instance', readonly=True),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', readonly=True),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', readonly=True),
+        'common_id': fields.char('Common ID'),
+        'partner_id': fields.many2one('res.partner', 'Partner'),
+        'involvement_category_id': fields.many2one('partner.involvement.category', 'Involvement Category'),
+        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
 
-        'birth_date': fields.date('Birth Date', readonly=True),
-        'display_name': fields.char('Display Name', readonly=True),
-        'gender': fields.char('Gender', readonly=True),
-        'tongue': fields.char('Tongue', readonly=True),
-        'employee': fields.boolean('Employee', readonly=True),
+        'is_company': fields.boolean('Is a Company'),
+        'birth_date': fields.date('Birth Date'),
+        'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
+        'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
+        'employee': fields.boolean('Employee'),
 
-        'postal_vip': fields.boolean('Postal VIP', readonly=True),
-        'postal_unauthorized': fields.boolean('Postal Unauthorized', readonly=True),
+        'postal_vip': fields.boolean('Postal VIP'),
+        'postal_unauthorized': fields.boolean('Postal Unauthorized'),
 
-        'email_vip': fields.boolean('Email VIP', readonly=True),
-        'email_unauthorized': fields.boolean('Email Unauthorized', readonly=True),
+        'email_vip': fields.boolean('Email VIP'),
+        'email_unauthorized': fields.boolean('Email Unauthorized'),
 
         #others
         'category_id': fields.related('partner_id', 'category_id', type='many2many',
@@ -113,13 +118,14 @@ class virtual_partner_involvement(orm.Model):
         cr.execute("""
         create or replace view virtual_partner_involvement as (
         SELECT
-            concat(p.id, pi.id) as id,
+            pi.id as id,
             concat(pc.id, '/', e.id) as common_id,
             pi.partner_id as partner_id,
             pic.id as involvement_category_id,
             p.int_instance_id as int_instance_id,
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
+            p.is_company as is_company,
             p.birth_date as birth_date,
             p.display_name as display_name,
             p.gender as gender,
@@ -131,33 +137,33 @@ class virtual_partner_involvement(orm.Model):
             e.unauthorized as email_unauthorized
         FROM
             partner_involvement pi
+
         JOIN
             res_partner p
-        ON (pi.partner_id = p.id
-        AND p.active = True
-        AND pi.active = True)
+        ON (p.id = pi.partner_id
+        AND p.active = TRUE)
 
         JOIN
             partner_involvement_category pic
-        ON (pi.partner_involvement_category_id = pic.id
+        ON (pic.id = pi.partner_involvement_category_id
         AND pic.active = TRUE)
 
         LEFT OUTER JOIN
             postal_coordinate pc
         ON (pc.partner_id = p.id
-        AND pc.active = True
-        AND pc.is_main = True
-        AND pc.unauthorized = False)
+        AND pc.active = TRUE
+        AND pc.is_main = TRUE)
 
         LEFT OUTER JOIN
             email_coordinate e
         ON (e.partner_id = p.id
-        AND e.active = True
-        AND e.is_main = True
-        AND e.unauthorized = False)
-        WHERE pc.id IS NOT NULL
-        OR e.id IS NOT NULL
-            )""")
+        AND e.active = TRUE
+        AND e.is_main = TRUE)
+
+        WHERE pi.active = TRUE
+        AND (pc.id IS NOT NULL
+        OR e.id IS NOT NULL)
+        )""")
 
 
 class virtual_partner_relation(orm.Model):
@@ -168,18 +174,20 @@ class virtual_partner_relation(orm.Model):
 
     _columns = {
         'common_id': fields.char(string='Common ID'),
-        'partner_id': fields.many2one('res.partner', 'Subject Partner', readonly=True),
-        'relation_category_id': fields.many2one('partner.relation.category', 'Relation Category', readonly=True),
-        'object_partner_id': fields.many2one('res.partner', 'Object Partner', readonly=True),
-        'int_instance_id': fields.many2one('int.instance', 'Instance', readonly=True),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', readonly=True),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', readonly=True),
+        'partner_id': fields.many2one('res.partner', 'Subject'),
+        'relation_category_id': fields.many2one('partner.relation.category', 'Relation Category'),
+        'object_partner_id': fields.many2one('res.partner', 'Object'),
+        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
 
-        'birth_date': fields.date('Birth Date', readonly=True),
-        'display_name': fields.char('Display Name', readonly=True),
-        'gender': fields.char('Gender', readonly=True),
-        'tongue': fields.char('Tongue', readonly=True),
-        'employee': fields.boolean('Employee', readonly=True),
+        'is_company': fields.boolean('Is a Company'),
+        'is_assembly': fields.boolean('Is an Assembly'),
+        'birth_date': fields.date('Birth Date'),
+        'display_name': fields.char('Display Name'),
+        'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
+        'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
+        'employee': fields.boolean('Employee'),
 
         # others
         'category_id': fields.related('partner_id', 'category_id', type='many2many',
@@ -196,14 +204,14 @@ class virtual_partner_relation(orm.Model):
                                                id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
 
         'postal_vip': fields.related('postal_coordinate_id', 'vip', type='boolean',
-                                     obj='postal.coordinate', string='Postal VIP', readonly=True),
+                                     obj='postal.coordinate', string='VIP Address'),
         'postal_unauthorized': fields.related('postal_coordinate_id', 'unauthorized', type='boolean',
-                                     obj='postal.coordinate', string='Postal Unauthorized', readonly=True),
+                                     obj='postal.coordinate', string='Unauthorized Address'),
 
         'email_vip': fields.related('email_coordinate_id', 'vip', type='boolean',
-                                     obj='email.coordinate', string='Email VIP', readonly=True),
+                                     obj='email.coordinate', string='VIP Email'),
         'email_unauthorized': fields.related('email_coordinate_id', 'unauthorized', type='boolean',
-                                     obj='email.coordinate', string='Email Unauthorized', readonly=True),
+                                     obj='email.coordinate', string='Unauthorized Email'),
     }
 
 # orm methods
@@ -213,7 +221,7 @@ class virtual_partner_relation(orm.Model):
         cr.execute("""
         create or replace view virtual_partner_relation as (
         SELECT
-            concat(p.id, r.id) as id,
+            r.id as id,
             concat(CASE
                    WHEN r.postal_coordinate_id IS NULL
                    THEN pc.id
@@ -226,14 +234,16 @@ class virtual_partner_relation(orm.Model):
                    ELSE r.email_coordinate_id
                    END) as common_id,
             r.subject_partner_id as partner_id,
-            r.object_partner_id as object_partner_id,
-            p.display_name as display_name,
             rc.id as relation_category_id,
+            r.object_partner_id as object_partner_id,
+            p.int_instance_id as int_instance_id,
+            p.is_company as is_company,
+            p.is_assembly as is_assembly,
+            p.birth_date as birth_date,
+            p.display_name as display_name,
             p.gender as gender,
             p.tongue as tongue,
             p.employee as employee,
-            p.birth_date as birth_date,
-            p.int_instance_id as int_instance_id,
             CASE
                 WHEN r.email_coordinate_id IS NULL
                 THEN e.id
@@ -248,34 +258,35 @@ class virtual_partner_relation(orm.Model):
             AS postal_coordinate_id
         FROM
             partner_relation r
+
         JOIN
             res_partner p
-        ON
-            (r.subject_partner_id = p.id
-            AND p.active = TRUE
-            AND r.active = TRUE)
+        ON (p.id = r.subject_partner_id
+        AND p.active = TRUE)
+
         JOIN
             partner_relation_category rc
-        ON
-            (r.partner_relation_category_id = rc.id
-            AND rc.active = TRUE)
-        LEFT OUTER JOIN
-            email_coordinate e
-        ON
-            (e.partner_id = p.id
-            AND e.is_main = TRUE
-            AND e.active = TRUE)
+        ON (rc.id = r.partner_relation_category_id
+        AND rc.active = TRUE)
+
         LEFT OUTER JOIN
             postal_coordinate pc
-        ON
-            (pc.partner_id = p.id
-            AND pc.is_main = TRUE
-            AND pc.active = TRUE)
-        WHERE pc.id IS NOT NULL
+        ON (pc.partner_id = p.id
+        AND pc.active = TRUE
+        AND pc.is_main = TRUE)
+
+        LEFT OUTER JOIN
+            email_coordinate e
+        ON (e.partner_id = p.id
+        AND e.active = TRUE
+        AND e.is_main = TRUE)
+
+        WHERE r.active = TRUE
+        AND (pc.id IS NOT NULL
         OR e.id IS NOT NULL
         OR r.email_coordinate_id IS NOT NULL
-        OR r.postal_coordinate_id IS NOT NULL
-            )""")
+        OR r.postal_coordinate_id IS NOT NULL)
+        )""")
 
 
 class virtual_partner_instance(orm.Model):
@@ -286,22 +297,24 @@ class virtual_partner_instance(orm.Model):
 
     _columns = {
         'common_id': fields.char(string='Common ID'),
-        'partner_id': fields.many2one('res.partner', 'Subject Partner', readonly=True),
-        'int_instance_id': fields.many2one('int.instance', 'Instance', readonly=True),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', readonly=True),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', readonly=True),
+        'partner_id': fields.many2one('res.partner', 'Partner'),
+        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
 
-        'birth_date': fields.date('Birth Date', readonly=True),
-        'display_name': fields.char('Display Name', readonly=True),
-        'gender': fields.char('Gender', readonly=True),
-        'tongue': fields.char('Tongue', readonly=True),
-        'employee': fields.boolean('Employee', readonly=True),
+        'is_company': fields.boolean('Is a Company'),
+        'identifier': fields.integer('Number'),
+        'birth_date': fields.date('Birth Date'),
+        'display_name': fields.char('Display Name'),
+        'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
+        'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
+        'employee': fields.boolean('Employee'),
 
-        'postal_vip': fields.boolean('Postal VIP', readonly=True),
-        'postal_unauthorized': fields.boolean('Postal Unauthorized', readonly=True),
+        'postal_vip': fields.boolean('VIP Address'),
+        'postal_unauthorized': fields.boolean('Unauthorized Address'),
 
-        'email_vip': fields.boolean('Email VIP', readonly=True),
-        'email_unauthorized': fields.boolean('Email Unauthorized', readonly=True),
+        'email_vip': fields.boolean('VIP Email'),
+        'email_unauthorized': fields.boolean('Unauthorized Email'),
 
         # others
         'category_id': fields.related('partner_id', 'category_id', type='many2many',
@@ -325,13 +338,15 @@ class virtual_partner_instance(orm.Model):
         cr.execute("""
         create or replace view virtual_partner_instance as (
         SELECT
-            concat(p.id,pc.id,e.id) as id,
+            concat(pc.id, '/', e.id) as id,
             concat(pc.id, '/', e.id) as common_id,
             p.id as partner_id,
             p.int_instance_id as int_instance_id,
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
+            p.is_company as is_company,
             p.birth_date as birth_date,
+            p.identifier as identifier,
             p.display_name as display_name,
             p.gender as gender,
             p.tongue as tongue,
@@ -346,15 +361,17 @@ class virtual_partner_instance(orm.Model):
         LEFT OUTER JOIN
             postal_coordinate pc
         ON (pc.partner_id = p.id
-        AND pc.active = True)
+        AND pc.active = TRUE)
 
         LEFT OUTER JOIN
             email_coordinate e
         ON (e.partner_id = p.id
-        AND e.active = True)
-        WHERE p.active = True
-        AND e.id IS NOT NULL
-        OR pc.id IS NOT NULL
-            )""")
+        AND e.active = TRUE)
+
+        WHERE p.active = TRUE
+        AND p.is_assembly = FALSE
+        AND (e.id IS NOT NULL
+        OR pc.id IS NOT NULL)
+        )""")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

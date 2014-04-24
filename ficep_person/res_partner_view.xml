@@ -18,8 +18,8 @@
                     <field name="partner_involvement_ids"/>
 
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]" invisible="'default_is_company' in context"/>
-                    <filter string="Legal Persons" name="type_company" domain="[('is_company','=',1)]" invisible="'default_is_company' in context"/>
-                    <filter string="Assemblies" name="type_assembly" domain="[('is_assembly','=',1)]" invisible="'default_is_company' in context"/>
+                    <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]" invisible="'default_is_company' in context"/>
+                    <filter string="Assemblies" name="type_assembly" domain="[('is_assembly','!=',0)]" invisible="'default_is_company' in context"/>
                     <separator />
                     <filter string="Male" name="male" domain="[('gender','=','m')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
                     <filter string="Female" name="female" domain="[('gender','=','f')]" invisible="'default_is_company' not in context or context.get('default_is_company')"/>
@@ -29,10 +29,12 @@
                     <separator />
                     <filter string="Employee" name="employee" domain="[('employee','!=',0)]" invisible="context.get('default_is_company')"/>
                     <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" invisible="context.get('default_is_company')"/>
+                    <separator />
                     <filter string="User" name="user" domain="[('user_ids', '!=', False)]" invisible="context.get('default_is_company')"/>
                     <filter string="Not User" name="not_user" domain="[('user_ids', '=', False)]" invisible="context.get('default_is_company')"/>
                     <separator />
                     <filter name="duplicate" string="Duplicates" domain="[('is_duplicate_detected','=',True)]" />
+                    <separator />
                     <filter name="allow_duplicate" string="Allowed Duplicates" domain="[('is_duplicate_allowed','=',True)]" />
                     <separator />
                     <filter name="expired" string="Expired"

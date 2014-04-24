@@ -10,22 +10,24 @@
             <field name="arch" type="xml">
                 <search string="Coordinate" version="7.0">
                     <field name="partner_id" />
-                    <field name="coordinate_type" />
                     <field name="coordinate_category_id" />
 
                     <filter name="main" string="Main Coordinates" domain="[('is_main','=',True)]" />
+                    <separator />
                     <filter name="unauthorized" string="Unauthorized" domain="[('unauthorized','=',True)]" />
+                    <separator />
                     <filter name="vip" string="VIP" domain="[('vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator />
                     <filter name="duplicate" string="Duplicates" domain="[('is_duplicate_detected','=',True)]" />
+                    <separator />
                     <filter name="allow_duplicate" string="Allowed Duplicates" domain="[('is_duplicate_allowed','=',True)]" />
                     <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expire Coordinate" />
+                        domain="[('active','=',False)]" help="Expired Coordinates" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Coordinates, expired or not" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
@@ -58,7 +60,6 @@
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
 
-                    <field name="coordinate_type" groups="ficep_base.res_groups_developper" />
                     <field name="active" groups="ficep_base.res_groups_developper" />
                 </tree>
             </field>
@@ -86,13 +87,14 @@
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">
+                            <label for="partner_id" class="oe_edit_only"/>
+                            <h1><field name="partner_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons">
                         </div>
 
                         <group name="data">
                             <group name="main">
-                                <field name="partner_id" attrs="{'readonly': [('id','!=',False)]}" />
                                 <field name="coordinate_category_id" attrs="{'readonly': [('active','=',False)]}" />
                             </group>
                             <group name="other">

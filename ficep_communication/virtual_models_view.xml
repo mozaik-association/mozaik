@@ -2,13 +2,13 @@
 <openerp>
     <data>
 
-        <!-- Virtual Target Tree View -->
+        <!-- Virtual Target -->
+
         <record id="virtual_target_tree_view" model="ir.ui.view">
-            <field eval="1" name="priority"/>
             <field name="name">virtual.target.tree</field>
             <field name="model">virtual.target</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Target" create="0">
+                <tree string="Virtual Target" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="email_coordinate_id" />
                     <field name="postal_coordinate_id" />
@@ -16,9 +16,8 @@
             </field>
         </record>
 
-<!-- VIRTUAL PARTNER INVOLVEMENT START-->
+        <!-- Virtual Partner Involvement -->
 
-        <!-- Search View of Virtual Partner Involvement -->
         <record id="virtual_partner_involvement_search_view" model="ir.ui.view">
             <field name="name">virtual.partner.involvement.search</field>
             <field name="model">virtual.partner.involvement</field>
@@ -27,8 +26,6 @@
                     <field name="partner_id" />
                     <field name="involvement_category_id" />
                     <field name="int_instance_id" />
-                    <field name="gender" />
-                    <field name="birth_date" />
 
                     <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
@@ -37,32 +34,37 @@
                     <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]"/>
                     <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]"/>
 
+                    <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                    <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
+                    <separator />
                     <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
                     <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
                     <separator/>
                     <filter string="Male" name="male" domain="[('gender','=','m')]" />
                     <filter string="Female" name="female" domain="[('gender','=','f')]" />
                     <separator/>
-                    <filter name="p_vip" string="Postal VIP" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <filter name="e_vip" string="Email VIP" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator/>
-                     <filter name="p_unauthorized" string="Postal Unauthorized" domain="[('postal_unauthorized','=',True)]"/>
-                     <filter name="e_unauthorized" string="Email Unauthorized" domain="[('email_unauthorized','=',True)]"/>
+                    <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator/>
+                    <filter name="p_unauthorized" string="Unauthorized Address" domain="[('postal_unauthorized','=',True)]"/>
+                    <separator/>
+                    <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]"/>
+
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter string="Involvement Category" icon="terp-personal" name="p_inv_cat_id" context="{'group_by':'involvement_category_id'}"/>
-                        <filter string="Internal Instance" icon="terp-personal" name="i_int_id" context="{'group_by':'int_instance_id'}"/>
+                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter name="involvement_category" string="Involvement Category" context="{'group_by':'involvement_category_id'}"/>
+                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
                     </group>
                 </search>
             </field>
         </record>
 
-        <!-- Tree View of Virtual Partner Involvement -->
         <record id="virtual_partner_involvement_tree_view" model="ir.ui.view">
-            <field eval="1" name="priority"/>
             <field name="name">virtual.partner.involvement.tree</field>
             <field name="model">virtual.partner.involvement</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Involvement" create="0">
+                <tree string="Virtual Partner Involvement" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="involvement_category_id" />
                     <field name="int_instance_id" />
@@ -75,6 +77,7 @@
         </record>
 
         <!-- Add filter virtual partner involvement -->
+
         <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
             <field name="view_type">form</field>
@@ -95,11 +98,10 @@
             <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
         </record>
 
-        <!-- Virtual Model Actions -->
+        <!-- Action -->
 
-        <!-- Action of Virtual Partner Involvement -->
         <record id="virtual_partner_involvement_action" model="ir.actions.act_window">
-            <field name="name">Virtual Partner Involvement</field>
+            <field name="name">Involvements/Partners</field>
             <field name="res_model">virtual.partner.involvement</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
@@ -107,11 +109,8 @@
             <field name="view_id" ref="virtual_partner_involvement_tree_view"/>
         </record>
 
-<!-- VIRTUAL PARTNER INVOLVEMENT END-->
+        <!-- Virtual Partner Relation -->
 
-<!-- VIRTUAL PARTNER RELATION START-->
-
-        <!-- Search View of Virtual Partner relation -->
         <record id="virtual_partner_relation_search_view" model="ir.ui.view">
             <field name="name">virtual.partner.relation.search</field>
             <field name="model">virtual.partner.relation</field>
@@ -121,8 +120,6 @@
                     <field name="object_partner_id" />
                     <field name="relation_category_id" />
                     <field name="int_instance_id" />
-                    <field name="gender" />
-                    <field name="birth_date" />
 
                     <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
@@ -131,32 +128,38 @@
                     <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]"/>
                     <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]"/>
 
+                    <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                    <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
+                    <filter string="Assemblies" name="type_assembly" domain="[('is_assembly','!=',0)]"/>
+                    <separator />
                     <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
                     <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
                     <separator/>
                     <filter string="Male" name="male" domain="[('gender','=','m')]" />
                     <filter string="Female" name="female" domain="[('gender','=','f')]" />
                     <separator/>
-                    <filter name="p_vip" string="Postal VIP" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <filter name="e_vip" string="Email VIP" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator/>
-                     <filter name="p_unauthorized" string="Postal Unauthorized" domain="[('postal_unauthorized','=',True)]"/>
-                     <filter name="e_unauthorized" string="Email Unauthorized" domain="[('email_unauthorized','=',True)]"/>
+                    <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator/>
+                    <filter name="p_unauthorized" string="Unauthorized Address" domain="[('postal_unauthorized','=',True)]"/>
+                    <separator/>
+                    <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]"/>
+
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter string="Relation Category" icon="terp-personal" name="p_inv_cat_id" context="{'group_by':'relation_category_id'}"/>
-                        <filter string="Internal Instance" icon="terp-personal" name="i_int_id" context="{'group_by':'int_instance_id'}"/>
+                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter name="relation_category" string="Relation Category" context="{'group_by':'relation_category_id'}"/>
+                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
                     </group>
                 </search>
             </field>
         </record>
 
-        <!-- Tree View of Virtual Partner relation -->
         <record id="virtual_partner_relation_tree_view" model="ir.ui.view">
-            <field eval="1" name="priority"/>
             <field name="name">virtual.partner.relation.tree</field>
             <field name="model">virtual.partner.relation</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Relation" create="0">
+                <tree string="Virtual Partner Relation" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="relation_category_id" />
                     <field name="object_partner_id" />
@@ -170,6 +173,7 @@
         </record>
 
         <!-- Add filter virtual partner relation -->
+
         <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
             <field name="view_type">form</field>
@@ -190,11 +194,10 @@
             <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
         </record>
 
-        <!-- Virtual Model Actions -->
+        <!-- Action -->
 
-        <!-- Action of Virtual Partner relation -->
         <record id="virtual_partner_relation_action" model="ir.actions.act_window">
-            <field name="name">Virtual Partner Relation</field>
+            <field name="name">Relations/Partners</field>
             <field name="res_model">virtual.partner.relation</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
@@ -202,11 +205,8 @@
             <field name="view_id" ref="virtual_partner_relation_tree_view"/>
         </record>
 
-<!-- VIRTUAL PARTNER RELATION END-->
+        <!-- Virtual Partner Instance -->
 
-<!-- VIRTUAL PARTNER INSTANCE START-->
-
-        <!-- Search View of Virtual Partner Instance -->
         <record id="virtual_partner_instance_search_view" model="ir.ui.view">
             <field name="name">virtual.partner.instance.search</field>
             <field name="model">virtual.partner.instance</field>
@@ -214,8 +214,7 @@
                 <search string="Virtual Partner Instance">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
-                    <field name="gender" />
-                    <field name="birth_date" />
+                    <field name="identifier" />
 
                     <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
@@ -224,32 +223,36 @@
                     <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]"/>
                     <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]"/>
 
+                    <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
+                    <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
+                    <separator />
                     <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
                     <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
                     <separator/>
                     <filter string="Male" name="male" domain="[('gender','=','m')]" />
                     <filter string="Female" name="female" domain="[('gender','=','f')]" />
                     <separator/>
-                    <filter name="p_vip" string="Postal VIP" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <filter name="e_vip" string="Email VIP" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator/>
-                     <filter name="p_unauthorized" string="Postal Unauthorized" domain="[('postal_unauthorized','=',True)]"/>
-                     <filter name="e_unauthorized" string="Email Unauthorized" domain="[('email_unauthorized','=',True)]"/>
+                    <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator/>
+                    <filter name="p_unauthorized" string="Unauthorized Address" domain="[('postal_unauthorized','=',True)]"/>
+                    <separator/>
+                    <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]"/>
+
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter string="Instance Category" icon="terp-personal" name="p_inv_cat_id" context="{'group_by':'instance_category_id'}"/>
-                        <filter string="Internal Instance" icon="terp-personal" name="i_int_id" context="{'group_by':'int_instance_id'}"/>
+                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
                     </group>
                 </search>
             </field>
         </record>
 
-        <!-- Tree View of Virtual Partner Instance -->
         <record id="virtual_partner_instance_tree_view" model="ir.ui.view">
-            <field eval="1" name="priority"/>
             <field name="name">virtual.partner.instance.tree</field>
             <field name="model">virtual.partner.instance</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Instance" create="0">
+                <tree string="Virtual Partner Instance" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -261,6 +264,7 @@
         </record>
 
         <!-- Add filter virtual partner instance -->
+
         <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
             <field name="view_type">form</field>
@@ -281,19 +285,16 @@
             <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
         </record>
 
-        <!-- Virtual Model Actions -->
+        <!-- Action -->
 
-        <!-- Action of Virtual Partner Instance -->
         <record id="virtual_partner_instance_action" model="ir.actions.act_window">
-            <field name="name">Virtual Partner Instance</field>
+            <field name="name">Partners/Instances</field>
             <field name="res_model">virtual.partner.instance</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
             <field name="search_view_id" ref="virtual_partner_instance_search_view"/>
             <field name="view_id" ref="virtual_partner_instance_tree_view"/>
         </record>
-
-<!-- VIRTUAL PARTNER INSTANCE END-->
 
         <!-- Virtual Model Menus -->
 

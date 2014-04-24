@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data noupdate="0">
+
          <!-- Search and Tree Views -->
 
         <record id="mandate_category_search_view" model="ir.ui.view">
@@ -8,12 +9,18 @@
             <field name="model">mandate.category</field>
             <field name="arch" type="xml">
                 <search string="Mandate Category" version="7.0">
+                    <filter name="is_submission_mandate" string="Mandate Declaration"
+                            domain="[('is_submission_mandate','=',True)]" />
+                    <separator />
+                    <filter name="is_submission_assets" string="Assets Declaration"
+                            domain="[('is_submission_assets','=',True)]" />
+                    <separator />
                     <filter name="expired" string="Expired"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" />
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Exprired Contacts" />
                     <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Categories, expired or not" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="power_level" string="Power Level" domain="[]" context="{'group_by':'int_power_level_id'}" />
                     </group>
@@ -27,6 +34,8 @@
             <field name="arch" type="xml">
                 <tree string="Mandate Categories" version="7.0">
                     <field name="name"/>
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
@@ -37,12 +46,27 @@
             <field name="inherit_id" ref="abstract_candidature_search_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="electoral_district_id"/>
                     <field name="sta_assembly_id"/>
                     <field name="legislature_id"/>
-                    <field name="electoral_district_id"/>
                 </xpath>
                 <xpath expr="//filter[@name='category']" position="after">
-                    <filter name="selection_committee" string="Selection Committee" domain="[]" context="{'group_by':'selection_committee_id'}" />
+                    <filter name="electoral_district" string="Electoral District" domain="[]" context="{'group_by':'legislature_id'}" />
+                    <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'sta_assembly_id'}" />
+                    <filter name="legislature" string="Legislature" domain="[]" context="{'group_by':'legislature_id'}" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sta_candidature_tree_view" model="ir.ui.view">
+            <field name="name">sta.candidature.tree</field>
+            <field name="model">sta.candidature</field>
+            <field name="inherit_id" ref="abstract_candidature_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mandate_category_id']" position="after">
+                    <field name="electoral_district_id"/>
+                    <field name="sta_assembly_id" invisible="1"/>
+                    <field name="legislature_id" invisible="1"/>
                 </xpath>
             </field>
         </record>
@@ -52,10 +76,13 @@
             <field name="model">sta.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_search_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//filter[@name='is_submission_mandate']" position="before">
+                <xpath expr="//field[@name='mandate_category_id']" position="after">
                     <field name="sta_assembly_id"/>
                     <field name="legislature_id"/>
-                    <field name="partner_id"/>
+                </xpath>
+                <xpath expr="//filter[@name='category']" position="after">
+                    <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'sta_assembly_id'}" />
+                    <filter name="legislature" string="Legislature" domain="[]" context="{'group_by':'legislature_id'}" />
                 </xpath>
             </field>
         </record>
@@ -65,8 +92,9 @@
             <field name="model">sta.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_tree_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='partner_id']" position="before">
+                <xpath expr="//field[@name='mandate_category_id']" position="after">
                     <field name="sta_assembly_id"/>
+                    <field name="legislature_id" invisible="1"/>
                 </xpath>
             </field>
         </record>

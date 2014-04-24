@@ -35,7 +35,7 @@
                     <field name="address_id" />
                 </xpath>
 
-                <xpath expr="//field[@name='coordinate_type']" position="before">
+                <xpath expr="//field[@name='active']" position="before">
                     <field name="co_residency_id" groups="ficep_base.res_groups_developper"/>
                 </xpath>
 
@@ -129,7 +129,6 @@
                     <header/>
                     <sheet>
                         <div class="oe_title" attrs="{'invisible': [('id','=',False)]}">
-                            <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" /></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons">
@@ -260,7 +259,7 @@
             <field name="name">co.residency.tree</field>
             <field name="model">co.residency</field>
             <field name="arch" type="xml">
-                <tree string="Co-Residency" version="7.0">
+                <tree string="Co-Residency" version="7.0" create="0">
                     <field name="address_id" />
                     <field name="line" />
                     <field name="line2" />

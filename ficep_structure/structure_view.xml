@@ -16,6 +16,10 @@
                     <field name="secondary_parent_id"/>
                     <field name="int_instance_id"/>
                 </xpath>
+                <xpath expr="//filter[@name='parent']" position="after">
+                    <filter name="secondary_parent" string="Secondary Parent" domain="[]" context="{'group_by':'secondary_parent_id'}" />
+                    <filter name="int_instance" string="Internal Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
+                </xpath>
             </field>
         </record>
 
@@ -27,6 +31,7 @@
                 <xpath expr="//field[@name='power_level_id']" position="after">
                     <field name="identifier"/>
                     <field name="int_instance_id"/>
+                    <field name="secondary_parent_id" invisible="1"/>
                 </xpath>
             </field>
         </record>
@@ -123,20 +128,6 @@
             </field>
         </record>
 
-        <record id="legislature_tree_view" model="ir.ui.view">
-            <field name="name">legislature.tree</field>
-            <field name="model">legislature</field>
-            <field name="arch" type="xml">
-                <tree string="Legislatures" version="7.0">
-                    <field name="name"/>
-                    <field name="power_level_id"/>
-                    <field name="start_date"/>
-                    <field name="deadline_date"/>
-                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
-                </tree>
-            </field>
-        </record>
-
         <record id="legislature_search_view" model="ir.ui.view">
             <field name="name">legislature.search</field>
             <field name="model">legislature</field>
@@ -145,27 +136,31 @@
                     <field name="name" />
                     <field name="power_level_id" />
                     <field name="start_date" />
+
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" />
+                        domain="[('active','=',False)]" help="Exprired Legislatures" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Legislatures, expired or not" />
+
                     <group expand="0" string="Group By..." name="group_by">
+                        <filter name="level" string="Power Level" domain="[]" context="{'group_by':'power_level_id'}" />
                         <filter name="year" string="Year" domain="[]" context="{'group_by':'start_date'}" />
                     </group>
                 </search>
             </field>
         </record>
 
-        <record id="electoral_district_tree_view" model="ir.ui.view">
-            <field name="name">electoral.district.tree</field>
-            <field name="model">electoral.district</field>
+        <record id="legislature_tree_view" model="ir.ui.view">
+            <field name="name">legislature.tree</field>
+            <field name="model">legislature</field>
             <field name="arch" type="xml">
-                <tree string="Electoral Districts" version="7.0">
+                <tree string="Legislature" version="7.0">
                     <field name="name"/>
-                    <field name="sta_instance_id"/>
-                    <field name="assembly_id"/>
+                    <field name="power_level_id"/>
+                    <field name="start_date"/>
+                    <field name="deadline_date"/>
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
@@ -180,17 +175,35 @@
                     <field name="sta_instance_id" />
                     <field name="assembly_id" />
                     <field name="int_instance_id" />
-                    <field name="power_level_id" />
+                    <field name="designation_int_assembly_id" />
+
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+
                     <group expand="0" string="Group By..." name="group_by">
+                        <filter name="instance" string="Instance" domain="[]" context="{'group_by':'sta_instance_id'}" />
                         <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'assembly_id'}" />
+                        <filter name="int_instance" string="Internal Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
                     </group>
                 </search>
+            </field>
+        </record>
+
+        <record id="electoral_district_tree_view" model="ir.ui.view">
+            <field name="name">electoral.district.tree</field>
+            <field name="model">electoral.district</field>
+            <field name="arch" type="xml">
+                <tree string="Electoral District" version="7.0">
+                    <field name="name"/>
+                    <field name="sta_instance_id"/>
+                    <field name="assembly_id"/>
+                    <field name="int_instance_id" invisible="1"/>
+                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
+                </tree>
             </field>
         </record>
 

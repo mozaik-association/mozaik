@@ -20,7 +20,7 @@
             <field name="name">duplicate.analysis.report.tree</field>
             <field name="model">duplicate.analysis.report</field>
             <field name="arch" type="xml">
-                <tree string="duplicate Analysis" create="false">
+                <tree string="duplicate Analysis" create="0" delete="0">
                     <field name="model" />
                     <field name="partner_name" />
                     <field name="name"/>

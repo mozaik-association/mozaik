@@ -13,6 +13,7 @@
 
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="phone_id" />
+                    <field name="coordinate_type" />
                 </xpath>
 
                 <xpath expr="//group[@name='group_by']" position="inside">
@@ -32,6 +33,7 @@
 
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="phone_id" />
+                    <field name="coordinate_type" groups="ficep_base.res_groups_developper" />
                 </xpath>
 
             </field>
@@ -78,6 +80,7 @@
                 <search string="Phone" version="7.0">
                     <field name="name" />
                     <field name="type" />
+
                     <filter name="phones" string="Phones" domain="[('type','in',['fix','mobile'])]" />
                     <group expand="1" string="Group By..." name="group_by">
                         <filter string="type" domain="[]" context="{'group_by':'type'}" />
