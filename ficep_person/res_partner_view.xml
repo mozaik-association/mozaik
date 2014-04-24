@@ -158,9 +158,9 @@
                 </xpath>
 
                 <xpath expr="//div[@class='oe_edit_only']" position="before">
-                    <h1>
-                        <label string="#" attrs="{'invisible': ['|', ('id', '=', False), ('identifier', '=', 0)]}"/>
-                        <field name="identifier" reaonly="1" attrs="{'invisible': ['|', ('id', '=', False), ('identifier', '=', 0)]}" class="oe_inline"/>
+                    <h1 attrs="{'invisible': ['|', ('id', '=', False), ('identifier', '=', 0)]}">
+                        <label string="#"/>
+                        <field name="identifier" readonly="1" class="oe_inline"/>
                     </h1>
                 </xpath>
                 <xpath expr="//div[@class='oe_edit_only']" position="replace">
