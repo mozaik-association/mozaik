@@ -66,9 +66,9 @@ class address_address(orm.Model):
         adrs_recs = self.browse(cr, uid, ids, context=context)
         for adrs in adrs_recs:
             elts = [
-                adrs.sequence and '[%s]:' % adrs.sequence or False,
                 adrs.street or False,
-                adrs.street and '-' or False,
+                adrs.sequence and '[%s]' % adrs.sequence or False,
+                adrs.street and '-' or adrs.sequence and '-' or False,
                 (adrs.country_code == 'BE') and adrs.zip or False,
                 adrs.city or False,
                 (adrs.country_code != 'BE') and '-' or False,
@@ -102,7 +102,7 @@ class address_address(orm.Model):
                          adrs.address_local_street_id.local_street
             else:
                 street = adrs.street_man or False
-            result[adrs.id] = ' '.join([el for el in [number, street] if el])
+            result[adrs.id] = ' '.join([el for el in [street, number] if el])
 
         return result
 
@@ -184,6 +184,8 @@ class address_address(orm.Model):
         'country_code': COUNTRY_CODE,
         'sequence': 0,
     }
+
+    _order = 'country_id, zip, name'
 
     _sql_constraints = [
         ('check_unicity_address', 'unique(technical_name,sequence)', _('This Address already exists!')),

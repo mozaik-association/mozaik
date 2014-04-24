@@ -62,9 +62,9 @@ class test_address_address(SharedSetupTransactionCase):
         }
         adr_id = self.model_address.create(cr, uid, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.name, '7 Rue de Colard Trouillet - 4100 Seraing', 'Create address fails with wrong name')
+        self.assertEqual(adr.name, 'Rue de Colard Trouillet 7 - 4100 Seraing', 'Create address fails with wrong name')
         self.assertEqual(adr.zip, '4100', 'Create address fails with wrong zip')
-        self.assertEqual(adr.street, '7 Rue de Colard Trouillet', 'Create address fails with wrong street')
+        self.assertEqual(adr.street, 'Rue de Colard Trouillet 7', 'Create address fails with wrong street')
 
         dic = {
             'country_id': self.ref("base.be"),
@@ -74,9 +74,9 @@ class test_address_address(SharedSetupTransactionCase):
         }
         adr_id = self.model_address.create(cr, uid, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.name, '-/4b Grand-Place - 4500 Huy', 'Create address fails with wrong name')
+        self.assertEqual(adr.name, 'Grand-Place -/4b - 4500 Huy', 'Create address fails with wrong name')
         self.assertEqual(adr.zip, '4500', 'Create address fails with wrong zip')
-        self.assertEqual(adr.street, '-/4b Grand-Place', 'Create address fails with wrong street')
+        self.assertEqual(adr.street, 'Grand-Place -/4b', 'Create address fails with wrong street')
 
         dic = {
             'number': '7',
@@ -85,8 +85,8 @@ class test_address_address(SharedSetupTransactionCase):
         }
         self.model_address.write(cr, uid, adr_id, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.name, '[3]: 7 Grand-Place - 4500 Huy', 'Update address fails with wrong name')
-        self.assertEqual(adr.street, '7 Grand-Place', 'Update address fails with wrong street')
+        self.assertEqual(adr.name, 'Grand-Place 7 [3] - 4500 Huy', 'Update address fails with wrong name')
+        self.assertEqual(adr.street, 'Grand-Place 7', 'Update address fails with wrong street')
 
         dic = {
             'country_id': self.ref("base.us"),
