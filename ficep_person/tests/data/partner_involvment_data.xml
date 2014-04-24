@@ -3,12 +3,13 @@
     <data noupdate="0">
 
         <record id="involvement_category" model="partner.involvement.category">
-            <field name="name">General Assembly 2013</field>
+            <field name="name">Assemblée Générale 2013</field>
         </record>
 
         <record id="involvement" model="partner.involvement">
-            <field name="partner_id" ref="base.partner_root"/>
+            <field name="partner_id" ref="res_partner_jacques"/>
             <field name="partner_involvement_category_id" ref="involvement_category"/>
+            <field name="note">Orateur - Présentation: L'écologie de demain</field>
         </record>
 
     </data>

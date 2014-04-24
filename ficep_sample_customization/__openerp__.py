@@ -47,6 +47,7 @@ FICEP Sample Customization
          '../ficep_base/tests/data/res_partner_data.xml',
          '../ficep_base/tests/data/res_users_data.xml',
          '../ficep_person/tests/data/res_partner_data.xml',
+         '../ficep_person/tests/data/partner_involvment_data.xml',
          '../ficep_coordinate/tests/data/coordinate_category_data.xml',
          '../ficep_email/tests/data/email_data.xml',
          '../ficep_address/tests/data/reference_data.xml',
@@ -57,7 +58,6 @@ FICEP Sample Customization
          '../ficep_structure/tests/data/structure_data.xml',
          '../ficep_structure_address/tests/data/structure_address_data.xml',
          '../ficep_mandate/tests/data/mandate_data.xml',
-         '../ficep_person_coordinate/demo/person_coordinate_demo.xml',
          '../ficep_communication/demo/communication_demo.xml',
          'demo/sample_customization_demo.xml',  # must be the last
     ],

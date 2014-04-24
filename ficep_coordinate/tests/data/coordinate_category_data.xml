@@ -5,11 +5,11 @@
         <!-- Create Coordinate Category -->
 
         <record id="coordinate_category_private" model="coordinate.category">
-            <field name="name">Private</field>
+            <field name="name">Privée</field>
         </record>
 
         <record id="coordinate_category_professional" model="coordinate.category">
-            <field name="name">Professional</field>
+            <field name="name">Professionnelle</field>
         </record>
 
     </data>
