@@ -57,7 +57,7 @@
                     <field name="start_date" widget="date"/>
                     <field name="end_date" widget="date"/>
                     <field name="deadline_date" widget="date"/>
-                    <button name="%(renew_derived_mandate_action)d" string="Renew or create a derived mandate" type="action" icon="gtk-copy"/>
+                    <button name="%(renew_or_add_mandate_action)d" string="Renew or Add a Complementary Mandate" type="action" icon="gtk-copy"/>
                 </tree>
             </field>
         </record>
@@ -73,9 +73,9 @@
                     <field name="create_date" widget="date"/>
                     <field name="state"/>
                     <button name="button_suggest" string="Suggest"  icon="gtk-apply"
-                                    confirm="Suggest candidature: proceed anyway ?" states="declared"/>
+                            confirm="Suggest candidature: proceed anyway ?" states="declared"/>
                     <button name="button_reject" string="Reject"  icon="gtk-cancel"
-                                    confirm="Reject candidature: proceed anyway ?" states="declared"/>
+                            confirm="Reject candidature: proceed anyway ?" states="declared"/>
                 </tree>
             </field>
         </record>

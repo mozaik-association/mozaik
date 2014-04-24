@@ -31,7 +31,7 @@ from anybox.testing.openerp import SharedSetupTransactionCase
 _logger = logging.getLogger(__name__)
 
 
-class test_renew_and_derived_mandate_wizard(SharedSetupTransactionCase):
+class test_renew_or_add_mandate_wizard(SharedSetupTransactionCase):
     _data_files = (
         '../../ficep_base/tests/data/res_partner_data.xml',
         '../../ficep_structure/tests/data/structure_data.xml',
@@ -41,7 +41,7 @@ class test_renew_and_derived_mandate_wizard(SharedSetupTransactionCase):
     _module_ns = 'ficep_mandate'
 
     def setUp(self):
-        super(test_renew_and_derived_mandate_wizard, self).setUp()
+        super(test_renew_or_add_mandate_wizard, self).setUp()
         candidature_pool = self.registry('sta.candidature')
         committee_pool = self.registry('selection.committee')
         sta_paul_communal_id = self.ref('%s.sta_paul_communal' % self._module_ns)
@@ -68,7 +68,7 @@ class test_renew_and_derived_mandate_wizard(SharedSetupTransactionCase):
             'active_ids': [stam_thierry_communal_2012_id],
             'active_model': 'sta.mandate',
         }
-        wizard_pool = self.registry('renew.and.derived.mandate.wizard')
+        wizard_pool = self.registry('renew.or.add.mandate.wizard')
         wiz_id = wizard_pool.create(self.cr, self.uid, {}, context=context)
         wizard = wizard_pool.browse(self.cr, self.uid, wiz_id)
         self.assertEqual(wizard.action, 'renew')
@@ -86,7 +86,7 @@ class test_renew_and_derived_mandate_wizard(SharedSetupTransactionCase):
             'active_ids': [stam_thierry_bourgmestre_2012_id],
             'active_model': 'sta.mandate',
         }
-        wizard_pool = self.registry('renew.and.derived.mandate.wizard')
+        wizard_pool = self.registry('renew.or.add.mandate.wizard')
         wiz_id = wizard_pool.create(self.cr, self.uid, {}, context=context)
         wizard = wizard_pool.browse(self.cr, self.uid, wiz_id)
         self.assertEqual(wizard.action, 'renew')
@@ -112,9 +112,9 @@ class test_renew_and_derived_mandate_wizard(SharedSetupTransactionCase):
         self.assertEqual(base_mandate.is_replacement, new_mandate.is_replacement)
         self.assertNotEqual(base_mandate.candidature_id, new_mandate.candidature_id)
 
-    def test_create_derived_state_mandate(self):
+    def test_create_complementary_state_mandate(self):
         '''
-            Create a derived mandate from an existing
+        Create complementary mandate from an existing
         '''
         mandate_pool = self.registry('sta.mandate')
         sta_thierry_communal_id = self.ref('%s.sta_thierry_communal' % self._module_ns)
@@ -127,10 +127,10 @@ class test_renew_and_derived_mandate_wizard(SharedSetupTransactionCase):
             'active_model': 'sta.mandate',
         }
 
-        wizard_pool = self.registry('renew.and.derived.mandate.wizard')
+        wizard_pool = self.registry('renew.or.add.mandate.wizard')
         wiz_id = wizard_pool.create(self.cr, self.uid, {}, context=context)
         wizard = wizard_pool.browse(self.cr, self.uid, wiz_id)
-        self.assertEqual(wizard.action, 'derived')
+        self.assertEqual(wizard.action, 'add')
         self.assertEqual(wizard.message, False)
 
         data = wizard_pool.onchange_legislature_id(self.cr, self.uid, [wiz_id], wizard.legislature_id.id, context=context)
@@ -140,7 +140,7 @@ class test_renew_and_derived_mandate_wizard(SharedSetupTransactionCase):
                       new_sta_assembly_id=college_assembly_id)
         wizard_pool.write(self.cr, self.uid, wiz_id, values)
 
-        res = wizard_pool.create_derived_mandate(self.cr, self.uid, [wiz_id], context=context)
+        res = wizard_pool.add_mandate(self.cr, self.uid, [wiz_id], context=context)
         new_mandate_id = res['res_id']
         self.assertNotEqual(new_mandate_id, False)
 
@@ -155,3 +155,5 @@ class test_renew_and_derived_mandate_wizard(SharedSetupTransactionCase):
         self.assertEqual(base_mandate.is_submission_assets, new_mandate.is_submission_assets)
         self.assertEqual(base_mandate.is_replacement, new_mandate.is_replacement)
         self.assertNotEqual(base_mandate.candidature_id, new_mandate.candidature_id)
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

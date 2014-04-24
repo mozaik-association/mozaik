@@ -41,17 +41,18 @@
     'description': """
 FICEP Mandate
 =============
-    """,
+""",
     'images': [
     ],
     'data': [
-             'wizard/renew_and_derived_mandate_wizard.xml',
-             'wizard/import_candidatures_wizard.xml',
-             'abstract_mandate_view.xml',
-             'mandate_view.xml',
-             'res_partner_view.xml',
-             'structure_view.xml',
-             'sta_mandate_workflow.xml',
+        'security/ir.model.access.csv',
+        'wizard/renew_or_add_mandate_wizard.xml',
+        'wizard/import_candidatures_wizard.xml',
+        'abstract_mandate_view.xml',
+        'mandate_view.xml',
+        'res_partner_view.xml',
+        'structure_view.xml',
+        'sta_mandate_workflow.xml',
     ],
     'js': [
     ],
@@ -64,7 +65,6 @@ FICEP Mandate
     'test': [
     ],
     'sequence': 150,
-    'active': False,
     'auto_install': False,
     'installable': True,
 }

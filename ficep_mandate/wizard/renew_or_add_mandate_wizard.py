@@ -30,13 +30,13 @@ from openerp.tools.translate import _
 from openerp.addons.ficep_mandate import sta_mandate
 
 WIZARD_AVAILABLE_ACTIONS = [
-    ('renew', 'Renew mandate'),
-    ('derived', 'Create derived mandate'),
+    ('renew', 'Renew Mandate'),
+    ('add', 'Add Complementary Mandate'),
 ]
 
 
-class renew_and_derived_mandate_wizard(orm.TransientModel):
-    _name = "renew.and.derived.mandate.wizard"
+class renew_or_add_mandate_wizard(orm.TransientModel):
+    _name = "renew.or.add.mandate.wizard"
 
     _columns = {
         'sta_mandate_id': fields.many2one('sta.mandate', string='State mandate', readonly=True),
@@ -143,12 +143,12 @@ class renew_and_derived_mandate_wizard(orm.TransientModel):
 
         return res
 
-    def create_derived_mandate(self, cr, uid, ids, context=None):
+    def add_mandate(self, cr, uid, ids, context=None):
         """
-        ====================
-        create_derived_mandate
-        ====================
-        Create a derived mandate
+        ===========
+        add_mandate
+        ===========
+        Add a complementary mandate
         """
         wizard = self.browse(cr, uid, ids, context=context)[0]
         mandate_obj = self.pool[context.get('active_model')]

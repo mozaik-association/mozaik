@@ -27,7 +27,7 @@
 ##############################################################################
 from . import test_sta_mandate
 from . import test_mandate
-from . import test_renew_and_derived_mandate_wizard
+from . import test_renew_or_add_mandate_wizard
 from . import test_import_candidatures_wizard
 
 fast_suite = [
@@ -36,8 +36,8 @@ fast_suite = [
 checks = [
     test_mandate,
     test_sta_mandate,
-    test_renew_and_derived_mandate_wizard,
-     test_import_candidatures_wizard,
+    test_renew_or_add_mandate_wizard,
+    test_import_candidatures_wizard,
 ]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

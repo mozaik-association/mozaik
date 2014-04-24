@@ -25,5 +25,5 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import renew_and_derived_mandate_wizard
+from . import renew_or_add_mandate_wizard
 from . import import_candidatures_wizard
