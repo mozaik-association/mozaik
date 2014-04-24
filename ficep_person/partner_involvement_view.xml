@@ -2,69 +2,6 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Partner Involvement Category -->
-
-        <record id="partner_involvement_category_action" model="ir.actions.act_window">
-            <field name="name">Involvement Categories</field>
-            <field name="res_model">partner.involvement.category</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="context">{'form_view_ref': 'ficep_person.partner_involvement_category_form_view'}</field>
-        </record>
-
-        <record id="partner_involvement_category_form_view" model="ir.ui.view">
-            <field name="name">partner.involvement.category.form</field>
-            <field name="model">partner.involvement.category</field>
-            <field name="arch" type="xml">
-                <form string="Partner Involvement Category" version="7.0">
-                    <header>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
-                             groups="ficep_base.ficep_res_groups_configurator">
-                            <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate category: proceed anyway?" />
-                        </div>
-                    </header>
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name"/></h1>
-                        </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
-                        </div>
-                        <group name="note">
-                            <field name="note" />
-                        </group>
-                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
-                            <group name="validity">
-                                <field name="create_date" />
-                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
-                            </group>
-                            <group name="other">
-                            </group>
-                        </group>
-                    </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
-                        <div class="oe_formview oe_form_sheet_width">
-                            <h3>More Info</h3>
-                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_validate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway?" />
-                            </div>
-                            <group name="moreinfo">
-                                <field name="id"/>
-                                <field name="active"/>
-                            </group>
-                        </div>
-                    </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
-                        <field name="message_ids" widget="mail_thread" />
-                    </div>
-                </form>
-            </field>
-        </record>
-
         <!-- Partner Involvement -->
 
        <record id="partner_involvement_search_view" model="ir.ui.view">
@@ -72,6 +9,7 @@
             <field name="model">partner.involvement</field>
             <field name="arch" type="xml">
                 <search string="Partner Involvement">
+                    <field name="note"/>
                     <field name="partner_id"/>
                     <field name="partner_involvement_category_id"/>
 
@@ -102,7 +40,6 @@
             </field>
         </record>
 
-        <!-- Partner involvement Subject/object action -->
         <record id="partner_involvement_action" model="ir.actions.act_window">
             <field name="name">Involvements</field>
             <field name="res_model">partner.involvement</field>
@@ -174,31 +111,83 @@
             </field>
         </record>
 
+        <!-- Partner Involvement Category -->
+
+        <record id="partner_involvement_category_action" model="ir.actions.act_window">
+            <field name="name">Involvement Categories</field>
+            <field name="res_model">partner.involvement.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'form_view_ref': 'ficep_person.partner_involvement_category_form_view'}</field>
+        </record>
+
+        <record id="partner_involvement_category_form_view" model="ir.ui.view">
+            <field name="name">partner.involvement.category.form</field>
+            <field name="model">partner.involvement.category</field>
+            <field name="arch" type="xml">
+                <form string="Partner Involvement Category" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('simplified')"
+                             groups="ficep_base.ficep_res_groups_configurator">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate category: proceed anyway?" />
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
+                            <button string="Involvements"
+                                    name="%(partner_involvement_action)d"
+                                    type="action"
+                                    context="{'search_default_partner_involvement_category_id': active_id,
+                                              'default_partner_involvement_category_id': active_id}"/>
+                        </div>
+                        <group name="note">
+                            <field name="note" />
+                        </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Revalidate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
         <!-- involvements menu are placed after Coordinates -->
         <menuitem id="involvements_submenu" name="Involvements"
                   sequence="50" parent="ficep_base.persons_root_menu" />
         <menuitem id="partner_involvement_menu" action="partner_involvement_action"
                   sequence="10" parent="involvements_submenu" />
+
         <!-- Partner Involvement Category -->
         <menuitem id="partner_involvement_category_menu" action="partner_involvement_category_action"
                   sequence="20" parent="ficep_base.persons_configuration_submenu" />
-
-        <!-- Other Inheritance: Involvement Category -->
-
-        <record id="partner_involvement_category_inherit_form_view" model="ir.ui.view">
-            <field name="name">partner.involvement.category.inherit.form</field>
-            <field name="model">partner.involvement.category</field>
-            <field name="inherit_id" ref="partner_involvement_category_form_view" />
-            <field name="arch" type="xml">
-                <xpath expr="//div[@name='buttons']" position="inside">
-                <button string="Involvements"
-                        name="%(partner_involvement_action)d"
-                        type="action"
-                        context="{'search_default_partner_involvement_category_id': active_id,
-                                  'default_partner_involvement_category_id': active_id}"/>
-                </xpath>
-            </field>
-        </record>
 
     </data>
 </openerp>
