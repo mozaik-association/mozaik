@@ -201,7 +201,7 @@ def transfer_node_to_modifiers(node, modifiers, context=None, in_tree_view=False
     Add conditions on usefull fields (but chatting fields) to make readonly the form if the document is inactive
     '''
     fct_src = original_transfer_node_to_modifiers
-    trace = True
+    trace = False
 
     if context and context.get('add_readonly_condition'):
         context.pop('add_readonly_condition')
@@ -214,12 +214,12 @@ def transfer_node_to_modifiers(node, modifiers, context=None, in_tree_view=False
                 attrs_str = nd.get('attrs') or '{}'
                 before = after = eval(attrs_str)
                 if after.get('readonly'):
-                    dom = after.get('readonly')[1:-1]
+                    dom = str(after.get('readonly'))[1:-1]
                     if len(dom.split("'active'")) > 1:
                         continue
                     else:
-                        dom = ['|', ('active', '=', False), dom]
-                        after['readonly'] = dom
+                        dom = "['|', ('active', '=', False), %s]" % dom
+                        after['readonly'] = eval(dom)
                 else:
                     after['readonly'] = [('active', '=', False)]
                 after = str(after)
