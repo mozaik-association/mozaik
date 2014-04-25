@@ -81,7 +81,7 @@ class abstract_mandate_base(orm.AbstractModel):
         'id': fields.integer('ID', readonly=True),
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
                                                  required=True, track_visibility='onchange'),
-        'designation_int_assembly_id': fields.many2one('int.assembly', 'Designation assembly', required=True,
+        'designation_int_assembly_id': fields.many2one('int.assembly', 'Designation Assembly', required=True,
                                                        track_visibility='onchange', domain=[('is_designation_assembly', '=', True)]),
         'partner_id': fields.many2one('res.partner', 'Partner', required=True, track_visibility='onchange'),
         'is_replacement': fields.boolean('Replacement'),
@@ -98,15 +98,15 @@ class abstract_mandate(orm.AbstractModel):
         'start_date': fields.date('Start Date', required=True, track_visibility='onchange'),
         'deadline_date': fields.date('Deadline Date', required=True, track_visibility='onchange'),
         'end_date': fields.date('End Date', track_visibility='onchange'),
-        'is_submission_mandate': fields.related('mandate_category_id', 'is_submission_mandate', string='Submission to a mandate declaration',
+        'is_submission_mandate': fields.related('mandate_category_id', 'is_submission_mandate', string='Submission to a Mandate Declaration',
                                           type='boolean', relation="mandate.category",
                                           store=True),
-        'is_submission_assets': fields.related('mandate_category_id', 'is_submission_assets', string='Submission to an assets declaration',
+        'is_submission_assets': fields.related('mandate_category_id', 'is_submission_assets', string='Submission to an Assets Declaration',
                                           type='boolean', relation="mandate.category",
                                           store=True),
         'candidature_id': fields.many2one('abstract.candidature', 'Candidature', track_visibility='onchange'),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email coordinate'),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal coordinate'),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
     }
 
     _defaults = {
@@ -189,7 +189,7 @@ class abstract_candidature(orm.AbstractModel):
         'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
                                           type='many2one', relation="mandate.category",
                                           store=True),
-        'designation_int_assembly_id': fields.related('selection_committee_id', 'designation_int_assembly_id', string='Internal designation assembly',
+        'designation_int_assembly_id': fields.related('selection_committee_id', 'designation_int_assembly_id', string='Designation Assembly',
                                           type='many2one', relation="int.assembly",
                                           store=True),
     }
