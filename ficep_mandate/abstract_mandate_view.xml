@@ -114,15 +114,16 @@
                     <sheet>
                         <div class="oe_title">
                             <h1>Mandate: <field name="mandate_category_id" class="oe_inline"
-                                       attrs="{'readonly': [('candidature_id','!=',False)]}"
-                                       context="{'simplified': 1,
-                                                 'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"/></h1>
-                            <h2><field name="partner_id" context="{'simplified': 1}"
+                                                attrs="{'readonly': [('candidature_id','!=',False)]}"
+                                                context="{'simplified': 1,
+                                                          'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"/></h1>
+                            <h2><field name="partner_id" domain="[('is_company','=',False)]"
                                        attrs="{'readonly': [('candidature_id','!=',False)]}"/></h2>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
-                        <group>
+
+                        <group name="data">
                             <group name="data_1">
                                 <field name="email_coordinate_id" context="{'simplified': 1}"
                                        domain="[('partner_id', '=', partner_id)]"/>
@@ -137,14 +138,14 @@
                                 <field name="candidature_id" context="{'simplified': 1}" readonly="1"
                                        attrs="{'invisible': [('candidature_id','=',False)]}"/>
                             </group>
+                            <group name="Technical Dates">
+                                <field name="create_date" readonly="1"/>
+                                <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
+                            </group>
                             <group name="Dates">
                                 <field name="start_date" widget="date"/>
                                 <field name="end_date" widget="date" readonly="1"/>
                                 <field name="deadline_date" widget="date" attrs="{'readonly': [('id','!=', False)]}"/>
-                            </group>
-                            <group name="Technical Dates">
-                                <field name="create_date" readonly="1"/>
-                                <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
                             </group>
                         </group>
                     </sheet>
@@ -193,9 +194,11 @@
                     </header>
                     <sheet>
                         <div class="oe_title">
-                             <h1>Candidature: <field name="mandate_category_id" class="oe_inline" readonly ="1" context="{'simplified': 1,
-                                                     'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"/></h1>
-                            <h2><field name="partner_id" attrs="{'readonly': [('id','!=',False)]}"/></h2>
+                             <h1>Candidature: <field name="mandate_category_id" class="oe_inline"
+                                                     readonly ="1" context="{'simplified': 1,
+                                                                             'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"/></h1>
+                            <h2><field name="partner_id" domain="[('is_company','=',False)]"
+                                       attrs="{'readonly': [('id','!=',False)]}"/></h2>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
                         </div>
