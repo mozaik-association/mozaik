@@ -166,27 +166,41 @@ class abstract_ficep_model (orm.AbstractModel):
         * Generate a domain on all fields to make the form readonly when document is inactive
         * Work around the automatic form generation when it is inherited from an other model
         """
+        context = context or {}
+
         if view_type == 'form':
-            context = context or {}
             if not toolbar:
                 context.update(simplified=True)
             if uid != SUPERUSER_ID and not context.get('is_developper'):
                 context.update(add_readonly_condition=True)
-            if not view_id and not context.get('form_view_ref'):
+
+        if not view_id and not context.get('%s_view_ref' % view_type):
+            cr.execute("""SELECT id
+                          FROM ir_ui_view
+                          WHERE model=%s AND type=%s AND inherit_id IS NULL
+                          ORDER BY priority LIMIT 1""", (self._name, view_type))
+            sql_res = cr.dictfetchone()
+            if not sql_res:
                 cr.execute("""SELECT id
                               FROM ir_ui_view
-                              WHERE model=%s AND type=%s AND inherit_id IS NULL
-                              ORDER BY priority""", (self._name, view_type))
+                              WHERE model=%s AND type=%s
+                              ORDER BY priority LIMIT 1""", (self._name, view_type))
                 sql_res = cr.dictfetchone()
-                if not sql_res:
-                    cr.execute("""SELECT id
-                                  FROM ir_ui_view
-                                  WHERE model=%s AND type=%s
-                                  ORDER BY priority""", (self._name, view_type))
+                if sql_res:
+                    # force this existing view
+                    view_id = sql_res['id']
+                elif view_type in ['tree', 'search']:
+                    # Heuristic at this point: maybe an abstract search or tree view is declared on an ir.act.window
+                    col = view_type == 'search' and 'search_view_id' or 'view_id'
+                    cr.execute("""SELECT %s as v
+                                  FROM ir_act_window, ir_ui_view i
+                                  WHERE res_model=%%s AND i.id = %s
+                                  ORDER BY priority LIMIT 1""" % (col, col), (self._name, ))
                     sql_res = cr.dictfetchone()
                     if sql_res:
                         # force this existing view
-                        view_id = sql_res['id']
+                        view_id = sql_res['v']
+
         res = super(abstract_ficep_model, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
         return res
 
