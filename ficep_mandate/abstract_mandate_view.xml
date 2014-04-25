@@ -153,8 +153,8 @@
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                            <button name="action_validate" string="Validate" type="object"
-                                    confirm="Validate mandate: proceed anyway ?" />
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Validate mandate: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -225,8 +225,8 @@
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                            <button name="action_validate" string="Validate" type="object"
-                                    confirm="Validate candidature: proceed anyway ?" />
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Validate candidature: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>

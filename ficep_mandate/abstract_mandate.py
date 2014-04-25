@@ -78,11 +78,6 @@ class abstract_mandate_base(orm.AbstractModel):
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
-        'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
-                                                 required=True, track_visibility='onchange'),
-        'designation_int_assembly_id': fields.many2one('int.assembly', 'Designation Assembly', required=True,
-                                                       track_visibility='onchange', domain=[('is_designation_assembly', '=', True)]),
         'partner_id': fields.many2one('res.partner', 'Partner', required=True, track_visibility='onchange'),
         'is_replacement': fields.boolean('Replacement'),
     }
@@ -95,6 +90,10 @@ class abstract_mandate(orm.AbstractModel):
     _inherit = ['abstract.mandate.base']
 
     _columns = {
+        'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
+                                                 required=True, track_visibility='onchange'),
+        'designation_int_assembly_id': fields.many2one('int.assembly', 'Designation Assembly', required=True,
+                                                       track_visibility='onchange', domain=[('is_designation_assembly', '=', True)]),
         'start_date': fields.date('Start Date', required=True, track_visibility='onchange'),
         'deadline_date': fields.date('Deadline Date', required=True, track_visibility='onchange'),
         'end_date': fields.date('End Date', track_visibility='onchange'),
@@ -182,10 +181,10 @@ class abstract_candidature(orm.AbstractModel):
     _mandate_model = 'abstract.mandate'
 
     _columns = {
-        'partner_name': fields.char('Partner Name', size=128, translate=True, select=True, track_visibility='onchange'),
+        'partner_name': fields.char('Partner Name', size=128, select=True, track_visibility='onchange'),
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'selection_committee_id': fields.many2one('selection.committee', string='Selection Committee',
-                                                 required=True, track_visibility='onchange'),
+                                                 required=True, select=True, track_visibility='onchange'),
         'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
                                           type='many2one', relation="mandate.category",
                                           store=True),

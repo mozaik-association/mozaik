@@ -87,8 +87,8 @@ class mandate_category(orm.Model):
                                                  required=True, track_visibility='onchange'),
         'sta_candidature_ids': fields.one2many('sta.candidature', 'mandate_category_id', 'State Candidatures'),
         'sta_mandate_ids': fields.one2many('sta.mandate', 'mandate_category_id', 'State Mandates'),
-        'is_submission_mandate': fields.boolean('Submission to a mandate declaration'),
-        'is_submission_assets': fields.boolean('Submission to an assets declaration'),
+        'is_submission_mandate': fields.boolean('Submission to a Mandate Declaration'),
+        'is_submission_assets': fields.boolean('Submission to an Assets Declaration'),
     }
 
     _order = 'name'
@@ -126,18 +126,18 @@ class selection_committee(orm.Model):
     _columns = {
         'state': fields.selection(SELECTION_COMMITTEE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'committee_type': fields.selection(SELECTION_COMMITTEE_AVAILABLE_TYPES, 'Type', required=True, track_visibility='onchange',),
-        'decision_date': fields.date('Decision Date', track_visibility='onchange'),
-        'mandate_start_date': fields.date('Start date of mandate', required=True, track_visibility='onchange'),
-        'mandate_deadline_date': fields.date('Deadline date of mandate', required=True, track_visibility='onchange'),
-        'meeting_date': fields.date('Meeting date', track_visibility='onchange'),
+        'decision_date': fields.date('Designation Date', track_visibility='onchange'),
+        'mandate_start_date': fields.date('Start Date of Mandates', required=True, track_visibility='onchange'),
+        'mandate_deadline_date': fields.date('Deadline Date of Mandates', required=True, track_visibility='onchange'),
+        'meeting_date': fields.date('Committee Meeting Date', track_visibility='onchange'),
         'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
-        'is_virtual': fields.boolean('Is virtual'),
+        'is_virtual': fields.boolean('Is Virtual'),
         'partner_ids': fields.many2many('res.partner', 'selection_committee_res_partner_rel', 'id', 'member_id',
                                                       'Members', domain=[('is_company', '=', False)]),
         'sta_assembly_id': fields.many2one('sta.assembly', string='State Assembly', track_visibility='onchange'),
         'int_assembly_id': fields.many2one('int.assembly', string='Internal Assembly', track_visibility='onchange'),
         'ext_assembly_id': fields.many2one('ext.assembly', string='External Assembly', track_visibility='onchange'),
-        'designation_int_assembly_id': fields.many2one('int.assembly', string='Internal Assembly (Designation)',
+        'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation Assembly',
                                                  required=True, track_visibility='onchange', domain=[('is_designation_assembly', '=', True)]),
         'sta_candidature_ids': fields.one2many('sta.candidature', 'selection_committee_id', 'State Candidatures',
                                                domain=[('state', 'not in', ['draft'])]),
@@ -151,16 +151,16 @@ class selection_committee(orm.Model):
                                           type='many2one', relation="int.power.level",
                                           store=True),
         'note': fields.text('Notes', track_visibility='onchange'),
-        'sta_assembly_category_id': fields.related('mandate_category_id', 'sta_assembly_category_id', string='State assembly category',
+        'sta_assembly_category_id': fields.related('mandate_category_id', 'sta_assembly_category_id', string='State Assembly Category',
                                           type='many2one', relation="sta.assembly.category",
                                           store=False),
-        'int_assembly_category_id': fields.related('mandate_category_id', 'int_assembly_category_id', string='Internal assembly category',
+        'int_assembly_category_id': fields.related('mandate_category_id', 'int_assembly_category_id', string='Internal Assembly Category',
                                           type='many2one', relation="int.assembly.category",
                                           store=False),
-        'ext_assembly_category_id': fields.related('mandate_category_id', 'ext_assembly_category_id', string='External assembly category',
+        'ext_assembly_category_id': fields.related('mandate_category_id', 'ext_assembly_category_id', string='External Assembly Category',
                                           type='many2one', relation="ext.assembly.category",
                                           store=False),
-        'auto_mandate': fields.boolean("Create mandate after election")
+        'auto_mandate': fields.boolean("Create Mandates after Election")
     }
 
     _defaults = {
@@ -279,10 +279,10 @@ class selection_committee(orm.Model):
         self.action_invalidate(cr, uid, ids, context, {'state': 'done'})
         return True
 
-    def button_reject_candidatures(self, cr, uid, ids, context=None):
+    def button_refuse_candidatures(self, cr, uid, ids, context=None):
         """
         ==========================
-        button_reject_candidatures
+        button_refuse_candidatures
         ==========================
         This method calls the candidature workflow for each candidature_id in order to update their state
         :rparam: True
@@ -293,6 +293,7 @@ class selection_committee(orm.Model):
             if committee.committee_type == 'state':
                 if committee.sta_candidature_ids:
                     self.pool.get('sta.candidature').signal_button_declare(cr, uid, self._get_suggested_sta_candidatures(committee.sta_candidature_ids))
+            self.write(cr, uid, ids, {'decision_date': False}, context=context)
         return True
 
     def onchange_committee_type(self, cr, uid, ids, committee_type, context=None):

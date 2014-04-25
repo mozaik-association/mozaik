@@ -263,11 +263,11 @@
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
-                            <group name="moreinfo">
-                                <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_validate" string="Validate" type="object"
                                         confirm="Validate category: proceed anyway ?" />
-                              </div>
+                            </div>
+                            <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
                                 <field name="type"/>
@@ -451,21 +451,24 @@
                                 <button string="Accept" name="button_accept_candidatures" type="object" class="oe_highlight"
                                         attrs="{'invisible': ['|',('decision_date','=',False),('state','=','done')]}"
                                         confirm="Accept all candidatures: proceed anyway ?"/>
-                                <button string="Reject" name="button_reject_candidatures" type="object" class="oe_highlight"
+                                <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
                                         attrs="{'invisible': [('state','=','done')]}"
-                                        confirm="Reject all candidatures: proceed anyway ?"/>
+                                        confirm="Refuse all candidatures: proceed anyway ?"/>
                                 <field name="sta_candidature_ids" attrs="{'invisible': [('sta_candidature_ids', '=', [])]}"
                                                                   context="{'simplified': 1,
                                                                             'form_view_ref': 'ficep_mandate.sta_candidature_form_view',
                                                                             'default_selection_committee_id': active_id}">
                                     <tree colors="red:state == 'declared'">
-                                        <field name="partner_id" readonly="1"/>
-                                        <field name="partner_name" readonly="1"/>
-                                        <field name="state" readonly="1"/>
+                                        <field name="partner_id"/>
+                                        <field name="partner_name"/>
+                                        <field name="state"/>
                                         <field name="is_selection_committee_active" invisible="1"/>
-                                        <button name="button_suggest" string="Suggest"  icon="gtk-apply" attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
-                              <button name="button_reject" string="Reject"  icon="gtk-cancel" attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
-                              <button name="button_declare" string="Back to Declared"  icon="gtk-undo" attrs="{'invisible': ['|',('state', '!=', 'rejected'),('is_selection_committee_active', '=', False)]}"/>
+                                        <button name="button_suggest" string="Suggest" icon="gtk-apply"
+                                                attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
+                                        <button name="button_reject" string="Reject" icon="gtk-cancel"
+                                                attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
+                                        <button name="button_declare" string="Back to Declared" icon="gtk-undo"
+                                                attrs="{'invisible': ['|',('state', 'not in',['rejected','suggested']),('is_selection_committee_active', '=', False)]}"/>
                                     </tree>
                                 </field>
                                 <field name="sta_candidature_inactive_ids" attrs="{'invisible': [('sta_candidature_inactive_ids', '=', [])]}"
@@ -477,14 +480,14 @@
                                     </tree>
                                 </field>
                             </page>
-                            <page string="Members" name="members" autofocus="autofocus">
+                            <page string="Members" name="members">
                                 <field name="partner_ids" context="{'simplified': 1, 'default_is_company': False}">
                                     <tree>
                                         <field name="display_name"/>
                                     </tree>
                                 </field>
                             </page>
-                            <page string="Note" name="note" >
+                            <page string="Note" name="note">
                                 <field name="note"/>
                             </page>
                         </notebook>
@@ -500,14 +503,12 @@
                                 <group>
                                   <field name="id"/>
                                   <field name="active"/>
-                              </group>
-                              <group>
                                   <field name="committee_type"
                                          on_change="onchange_committee_type(committee_type)" />
                                   <field name="designation_int_power_level_id"/>
                                   <field name="sta_assembly_category_id"/>
-                                    <field name="int_assembly_category_id"/>
-                                    <field name="ext_assembly_category_id"/>
+                                  <field name="int_assembly_category_id"/>
+                                  <field name="ext_assembly_category_id"/>
                                 </group>
                             </group>
                         </div>

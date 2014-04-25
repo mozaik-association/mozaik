@@ -96,7 +96,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
         '''
             Candidatures are refused
         '''
-        committee_pool.button_reject_candidatures(self.cr, self.uid, [committee_id])
+        committee_pool.button_refuse_candidatures(self.cr, self.uid, [committee_id])
         for candidature_data in candidature_pool.read(self.cr, self.uid, candidature_ids, ['state']):
             self.assertEqual(candidature_data['state'], 'declared')
 
