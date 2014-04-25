@@ -367,4 +367,5 @@ class res_partner(orm.Model):
             return self.pool.get('ir.sequence').write(cr, uid, sequence_id[1], {'number_next': next_value}, context=context)
 
         return False
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

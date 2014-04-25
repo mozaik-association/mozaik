@@ -63,12 +63,10 @@ class sta_candidature(orm.Model):
         'effective_votes': fields.integer('Effective Preferential Votes', track_visibility='onchange'),
         'substitute_votes': fields.integer('Substitute Preferential Votes', track_visibility='onchange'),
         'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
-                                          type='boolean', relation="sta.assembly",
-                                          store=True),
+                                          type='boolean', store=True),
         'is_selection_committee_active': fields.related('selection_committee_id', 'active', string='Is Selection Committee Active ?',
-                                          type='boolean', relation="selection.committee",
-                                          store=False),
-        }
+                                          type='boolean', store=False),
+    }
 
     _order = 'selection_committee_id, list_effective_position, list_substitute_position'
 

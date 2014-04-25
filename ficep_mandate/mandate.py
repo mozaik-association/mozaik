@@ -76,7 +76,7 @@ class mandate_category(orm.Model):
         return list(set(res_ids))
 
     _columns = {
-        'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
+        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
         'type': fields.selection(MANDATE_CATEGORY_AVAILABLE_TYPES, 'Status', readonly=True),
         'exclusive_category_m2m_ids': fields.many2many('mandate.category', 'mandate_category_mandate_category_rel', 'id', 'exclu_id',
                                                       'Exclusive Category'),
@@ -158,7 +158,7 @@ class selection_committee(orm.Model):
         'ext_assembly_category_id': fields.related('mandate_category_id', 'ext_assembly_category_id', string='External Assembly Category',
                                           type='many2one', relation="ext.assembly.category",
                                           store=False),
-        'auto_mandate': fields.boolean("Create Mandates after Election")
+        'auto_mandate': fields.boolean("Create Mandates after Election"),
     }
 
     _defaults = {
@@ -227,6 +227,7 @@ class selection_committee(orm.Model):
         return res
 
 # view methods: onchange, button
+
     def action_copy(self, cr, uid, ids, context=None):
         """
         ==========================
