@@ -73,12 +73,13 @@ def create_mandate_from_candidature(cr, uid, candidature_pool, candidature_id, c
 
 
 class abstract_mandate_base(orm.AbstractModel):
+
     _name = 'abstract.mandate.base'
     _description = "Abstract Mandate Base"
     _inherit = ['abstract.ficep.model']
 
     _columns = {
-        'partner_id': fields.many2one('res.partner', 'Partner', required=True, track_visibility='onchange'),
+        'partner_id': fields.many2one('res.partner', 'Partner', required=True, select=True, track_visibility='onchange'),
         'is_replacement': fields.boolean('Replacement'),
     }
 

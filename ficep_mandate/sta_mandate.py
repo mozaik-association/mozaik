@@ -56,8 +56,8 @@ class sta_candidature(orm.Model):
                                           store=True),
         'is_effective': fields.boolean('Effective', track_visibility='onchange'),
         'is_substitute': fields.boolean('Substitute', track_visibility='onchange'),
-        'list_effective_position': fields.integer('Position on Effectives List', track_visibility='onchange'),
-        'list_substitute_position': fields.integer('Position on Substitutes List', track_visibility='onchange'),
+        'list_effective_position': fields.integer('Position on Effectives List', group_operator='max', track_visibility='onchange'),
+        'list_substitute_position': fields.integer('Position on Substitutes List', group_operator='max', track_visibility='onchange'),
         'election_effective_position': fields.integer('Effective Position after Election', track_visibility='onchange'),
         'election_substitute_position': fields.integer('Substitute Position after Election', track_visibility='onchange'),
         'effective_votes': fields.integer('Effective Preferential Votes', track_visibility='onchange'),
@@ -69,6 +69,8 @@ class sta_candidature(orm.Model):
                                           type='boolean', relation="selection.committee",
                                           store=False),
         }
+
+    _order = 'selection_committee_id, list_effective_position, list_substitute_position'
 
     # view methods: onchange, button
     def onchange_selection_committee_id(self, cr, uid, ids, selection_committee_id, context=None):
