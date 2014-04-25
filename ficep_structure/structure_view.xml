@@ -225,7 +225,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="sta_instance_search_view" />
-            <field name="view_id" ref="abstract_instance_tree_view" />
+            <field name="view_id" ref="sta_instance_tree_view" />
             <field name="context">{'form_view_ref': 'ficep_structure.sta_instance_form_view'}</field>
         </record>
 
@@ -235,7 +235,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="sta_instance_search_view" />
-            <field name="view_id" ref="abstract_instance_tree_view" />
+            <field name="view_id" ref="sta_instance_tree_view" />
             <field name="domain">['|',('parent_id','=',active_id),('secondary_parent_id','=',active_id)]</field>
             <field name="context">{'form_view_ref': 'ficep_structure.sta_instance_form_view'}</field>
         </record>
@@ -277,7 +277,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="abstract_instance_search_view" />
             <field name="view_id" ref="abstract_instance_tree_view" />
-            <field name="context">{'form_view_ref': 'ficep_structure.abstract_instance_form_view'}</field>
+            <field name="context">{'form_view_ref': 'ficep_structure.int_instance_form_view'}</field>
         </record>
 
         <record id="ext_assembly_action" model="ir.actions.act_window">
@@ -285,7 +285,7 @@
             <field name="res_model">ext.assembly</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="abstract_assembly_search_view" />
+            <field name="search_view_id" ref="ext_assembly_search_view" />
             <field name="view_id" ref="ext_assembly_tree_view" />
             <field name="context">{'form_view_ref': 'ficep_structure.ext_assembly_form_view'}</field>
         </record>
@@ -306,7 +306,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="sta_assembly_category_search_view" />
-            <field name="view_id" ref="abstract_assembly_category_tree_view" />
+            <field name="view_id" ref="sta_assembly_category_tree_view" />
             <field name="context">{'form_view_ref': 'ficep_structure.sta_assembly_category_form_view'}</field>
         </record>
 
@@ -326,7 +326,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="int_assembly_category_search_view" />
-            <field name="view_id" ref="abstract_assembly_category_tree_view" />
+            <field name="view_id" ref="int_assembly_category_tree_view" />
             <field name="context">{'form_view_ref': 'ficep_structure.int_assembly_category_form_view'}</field>
         </record>
 
@@ -576,7 +576,7 @@
                                 <field name="int_instance_id" readonly="1" context="{'simplified': 1,
                                                                                      'form_view_ref': 'ficep_structure.int_instance_form_view'}"/>
                                 <field name="designation_int_assembly_id" context="{'simplified': 1,
-                                                                                    'form_view_ref': 'ficep_structure.abstract_assembly_form_view'}"/>
+                                                                                    'form_view_ref': 'ficep_structure.int_assembly_form_view'}"/>
                             </group>
                         </group>
 
