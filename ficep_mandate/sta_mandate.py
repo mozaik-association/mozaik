@@ -156,3 +156,21 @@ class sta_mandate(orm.Model):
         :rtype: boolean
         """
         return super(sta_mandate, self).action_finish(cr, uid, ids, context=context)
+
+    # view methods: onchange, button
+    def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id, context=None):
+        res = {}
+        category_data = self.pool.get('mandate.category').read(cr, uid, mandate_category_id, ['sta_assembly_category_id'], context)
+
+        res['value'] = dict(sta_assembly_category_id=category_data['sta_assembly_category_id'] or False,)
+        return res
+
+    def onchange_legislature_id(self, cr, uid, ids, legislature_id, context=None):
+        res = {}
+        res['value'] = dict(mandate_start_date=False,
+                                mandate_deadline_date=False)
+        if legislature_id:
+            legislature_data = self.pool.get('legislature').read(cr, uid, legislature_id, ['start_date', 'deadline_date'])
+            res['value'] = dict(start_date=legislature_data['start_date'],
+                                deadline_date=legislature_data['deadline_date'])
+        return res
