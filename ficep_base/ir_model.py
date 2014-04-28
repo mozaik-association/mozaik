@@ -44,6 +44,8 @@ class ir_model(orm.Model):
         for record_id in ids:
             for relation in relations:
                 model = self.pool.get(relation.model, False)
+                if model._transient:
+                    continue
                 if not model or not model._auto or not model._columns.get(relation.name):
                     continue
                 col = model._columns[relation.name]
