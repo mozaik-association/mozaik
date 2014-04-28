@@ -28,7 +28,7 @@
 from openerp import tools
 from openerp.osv import orm, fields
 
-from ficep_person.res_partner import AVAILABLE_GENDERS, AVAILABLE_TONGUES
+from openerp.addons.ficep_person.res_partner import AVAILABLE_GENDERS, AVAILABLE_TONGUES
 
 
 class virtual_target(orm.Model):
