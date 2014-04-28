@@ -68,23 +68,6 @@ class res_partner(orm.Model):
 
 # private methods
 
-    def _build_name(self, partner, reverse_mode=False):
-        if partner.is_company:
-            name = partner.name or partner.lastname
-            if partner.acronym and not reverse_mode:
-                name = "%s (%s)" % (name, partner.acronym)
-        else:
-            names = [
-                     partner.usual_lastname or partner.lastname,
-                     partner.usual_firstname or partner.firstname or False
-                    ]
-            if reverse_mode:
-                names = list(reversed(names))
-            name = " ".join([n for n in names if n])
-            if name != partner.name and not reverse_mode:
-                name = "%s (%s)" % (name, partner.name)
-        return name
-
     def _get_partner_names(self, cr, uid, ids, name, args, context=None):
         """
         ==================
@@ -103,8 +86,8 @@ class res_partner(orm.Model):
         result = {}.fromkeys(ids, {key: False for key in ['display_name', 'printable_name', ]})
         for partner in self.browse(cr, uid, ids, context=context):
             result[partner.id] = {
-                'display_name': self._build_name(partner, reverse_mode=False),
-                'printable_name': self._build_name(partner, reverse_mode=True),
+                'display_name': self.build_name(partner, reverse_mode=False),
+                'printable_name': self.build_name(partner, reverse_mode=True),
             }
         return result
 
@@ -202,7 +185,7 @@ class res_partner(orm.Model):
                 ids = [ids]
             res = []
             for record in self.browse(cr, uid, ids, context=context):
-                name = self._build_name(record)
+                name = self.build_name(record)
                 if context.get('show_email') and record.email:
                     name = "%s <%s>" % (name, record.email)
                 res.append((record.id, name))
@@ -265,6 +248,23 @@ class res_partner(orm.Model):
         return res
 
 # public methods
+
+    def build_name(self, partner, reverse_mode=False, full_mode=True):
+        if partner.is_company:
+            name = partner.name or partner.lastname
+            if partner.acronym and not reverse_mode:
+                name = "%s (%s)" % (name, partner.acronym)
+        else:
+            names = [
+                     partner.usual_lastname or partner.lastname,
+                     partner.usual_firstname or partner.firstname or False
+                    ]
+            if reverse_mode:
+                names = list(reversed(names))
+            name = " ".join([n for n in names if n])
+            if name != partner.name and not reverse_mode and full_mode:
+                name = "%s (%s)" % (name, partner.name)
+        return name
 
     def create_user(self, cr, uid, login, partner_id, group_ids, context=None):
         """

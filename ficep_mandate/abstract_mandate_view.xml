@@ -79,7 +79,8 @@
             <field name="arch" type="xml">
                 <tree string="Candidature" version="7.0">
                     <field name="selection_committee_id"/>
-                    <field name="partner_id"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="partner_name"/>
                     <field name="mandate_category_id"/>
                     <field name="state"/>
                     <button name="button_suggest" string="Suggest"  icon="gtk-apply"
@@ -205,7 +206,6 @@
 
                         <group>
                             <group name="data_1">
-                                <field name="partner_name"/>
                                 <field name="selection_committee_id" required="1"
                                         attrs="{'readonly': [('id','!=',False)]}"
                                         readonly="context.get('default_selection_committee_id')"

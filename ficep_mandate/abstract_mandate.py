@@ -182,7 +182,7 @@ class abstract_candidature(orm.AbstractModel):
     _mandate_model = 'abstract.mandate'
 
     _columns = {
-        'partner_name': fields.char('Partner Name', size=128, select=True, track_visibility='onchange'),
+        'partner_name': fields.char('Partner Name', size=128, required=True, track_visibility='onchange'),
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'selection_committee_id': fields.many2one('selection.committee', string='Selection Committee',
                                                  required=True, select=True, track_visibility='onchange'),
@@ -222,6 +222,13 @@ class abstract_candidature(orm.AbstractModel):
     _order = 'selection_committee_id'
 
 # orm methods
+    def create(self, cr, uid, vals, context=None):
+        if ('partner_name' not in vals) or ('partner_name' in vals and not vals['partner_name']):
+            vals['partner_name'] = self.onchange_partner_id(cr, uid, False, vals['partner_id'], context)['value']['partner_name']
+
+        res = super(abstract_candidature, self).create(cr, uid, vals, context=context)
+        return res
+
     def name_get(self, cr, uid, ids, context=None):
         if not ids:
             return []
@@ -247,4 +254,12 @@ class abstract_candidature(orm.AbstractModel):
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)
 
+# view methods: onchange, button
+    def onchange_partner_id(self, cr, uid, ids, partner_id, context=None):
+        res = {}
+        partner_model = self.pool.get('res.partner')
+        partner = partner_model.browse(cr, uid, partner_id, context)
+
+        res['value'] = dict(partner_name=partner_model.build_name(partner, False, False) or False,)
+        return res
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -64,6 +64,9 @@
             <field name="inherit_id" ref="abstract_candidature_tree_view"/>
             <field name="arch" type="xml">
                 <data>
+                    <xpath expr="//field[@name='partner_id']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
                     <xpath expr="//field[@name='partner_id']" position="before">
                         <field name="list_effective_position" string="#E"
                                attrs="{'invisible': [('is_effective', '=', False),('is_substitute', '!=', False)]}"/>
@@ -306,6 +309,12 @@
                 <xpath expr="//field[@name='selection_committee_id']" position="attributes">
                     <attribute name="context">{'default_committee_type': 'state'}</attribute>
                 </xpath>
+                <xpath expr="//field[@name='selection_committee_id']" position="before">
+                    <field name="partner_name"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="on_change">onchange_partner_id(partner_id)</attribute>
+                </xpath>
                 <xpath expr="//field[@name='selection_committee_id']" position="after">
                      <field name="electoral_district_id" readonly="1"/>
                      <field name="sta_assembly_id" readonly="1" context="{'simplified': 1, 'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"/>
@@ -474,7 +483,6 @@
                                                attrs="{'invisible': [('is_effective', '=', False),('is_substitute', '!=', False)]}"/>
                                         <field name="list_substitute_position" string="#S"
                                                attrs="{'invisible': [('is_substitute', '=', False)]}"/>
-                                        <field name="partner_id"/>
                                         <field name="partner_name"/>
                                         <field name="state"/>
                                         <button name="button_suggest" string="Suggest" icon="gtk-apply"
