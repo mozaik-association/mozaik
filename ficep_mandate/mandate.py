@@ -159,6 +159,9 @@ class selection_committee(orm.Model):
                                           type='many2one', relation="ext.assembly.category",
                                           store=False),
         'auto_mandate': fields.boolean("Create Mandates after Election"),
+        'listname': fields.char('Name', size=128, track_visibility='onchange'),
+        'is_cartel': fields.boolean('Is Cartel'),
+        'cartel_composition': fields.text('Cartel composition', track_visibility='onchange'),
     }
 
     _defaults = {

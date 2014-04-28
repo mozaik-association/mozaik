@@ -500,6 +500,15 @@
                             <page string="Note" name="note">
                                 <field name="note"/>
                             </page>
+                            <page string="List" name="list"
+                                 attrs="{'invisible': [('electoral_district_id', '=', False)]}">
+                                <group>
+	                                <field name="listname"/>
+	                                <field name="is_cartel"/>
+	                                <field name="cartel_composition" 
+	                                attrs="{'invisible': [('is_cartel', '=', False)]}"/>
+                                </group>
+                            </page>
                         </notebook>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
