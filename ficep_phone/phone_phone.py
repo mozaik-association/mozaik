@@ -49,8 +49,8 @@ PREFIX_CODE = 'BE'
 class phone_phone(orm.Model):
 
     _name = 'phone.phone'
-    _description = 'Phone Number'
     _inherit = ['abstract.ficep.model']
+    _description = 'Phone Number'
 
     def _get_linked_coordinates(self, cr, uid, ids, context=None):
         return self.pool['phone.coordinate'].search(cr, uid, [('phone_id', 'in', ids)], context=context)
@@ -81,7 +81,6 @@ class phone_phone(orm.Model):
         return pn.format_number(normalized_number, pn.PhoneNumberFormat.INTERNATIONAL)
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
         'name': fields.char('Number', size=50, required=True, select=True, track_visibility='onchange'),
         'type': fields.selection(PHONE_AVAILABLE_TYPES, 'Type', required=True, track_visibility='onchange'),
 
@@ -91,15 +90,15 @@ class phone_phone(orm.Model):
                                                 domain=[('active', '=', False)]),
     }
 
-    _order = "name"
+    _order = 'name'
 
     _defaults = {
         'type': PHONE_AVAILABLE_TYPES[0][0],
     }
 
-    _sql_constraints = [
-        ('check_unicity_number', 'unique(name)', _('This phone number already exists!'))
-    ]
+# constraints
+
+    _unicity_keys = 'name'
 
 # orm methods
 
@@ -137,7 +136,8 @@ class phone_phone(orm.Model):
         :rparam: id of the new phone
         :rtype: integer
         """
-        vals['name'] = self._check_and_format_number(cr, uid, vals['name'], context=context)
+        if 'name' in vals:
+            vals['name'] = self._check_and_format_number(cr, uid, vals['name'], context=context)
         return super(phone_phone, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -152,9 +152,8 @@ class phone_phone(orm.Model):
         :rparam: True
         :rtype: boolean
         """
-        num = vals.get('name', False)
-        if num:
-            vals['name'] = self._check_and_format_number(cr, uid, num, context=context)
+        if 'name' in vals:
+            vals['name'] = self._check_and_format_number(cr, uid, vals['name'], context=context)
         return super(phone_phone, self).write(cr, uid, ids, vals, context=context)
 
     def copy(self, cr, uid, ids, default=None, context=None):
@@ -205,7 +204,7 @@ class phone_coordinate(orm.Model):
 
     _name = 'phone.coordinate'
     _inherit = ['abstract.coordinate']
-    _description = "Phone Coordinate"
+    _description = 'Phone Coordinate'
 
     _discriminant_field = 'phone_id'
     _undo_redirect_action = 'ficep_phone.phone_coordinate_action'
@@ -228,6 +227,10 @@ class phone_coordinate(orm.Model):
     _defaults = {
         'coordinate_type': False,
     }
+
+# constraints
+
+    _unicity_keys = 'partner_id, phone_id'
 
 # orm methods
 

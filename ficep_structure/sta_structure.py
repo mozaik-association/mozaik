@@ -56,6 +56,10 @@ class sta_assembly_category(orm.Model):
         'is_legislative': False,
     }
 
+# constraints
+
+    _unicity_keys = 'power_level_id, name'
+
 
 class sta_instance(orm.Model):
 
@@ -117,8 +121,8 @@ class sta_instance(orm.Model):
 class legislature(orm.Model):
 
     _name = 'legislature'
-    _description = 'Legislature'
     _inherit = ['abstract.ficep.model']
+    _description = 'Legislature'
 
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
@@ -134,6 +138,10 @@ class legislature(orm.Model):
     ]
 
     _order = 'create_date desc'
+
+# constraints
+
+    _unicity_keys = 'power_level_id, name'
 
 
 class sta_assembly(orm.Model):

@@ -27,7 +27,6 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
-from openerp.tools.translate import _
 
 
 class coordinate_category(orm.Model):
@@ -37,13 +36,13 @@ class coordinate_category(orm.Model):
     _description = 'Coordinate Category'
 
     _columns = {
-        'name': fields.char('Name', size=128, translate=True, required=True, select=True),
+        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
     }
 
     _order = 'name'
 
-    _sql_constraints = [
-        ('check_unicity_coordinate_category', 'unique(name)', _('This Coordinate Category already exists!'))
-    ]
+# constraints
+
+    _unicity_keys = 'name'
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

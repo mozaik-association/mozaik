@@ -38,6 +38,7 @@ INVALIDATE_ERROR = _('Invalidation impossible, at least one dependency is still 
 
 
 class abstract_ficep_model (orm.AbstractModel):
+
     _name = 'abstract.ficep.model'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
     _description = 'Abstract Ficep Model'
@@ -136,6 +137,36 @@ class abstract_ficep_model (orm.AbstractModel):
     _constraints = [
         (_check_invalidate, INVALIDATE_ERROR, ['expire_date'])
     ]
+
+    _unicity_keys = None
+
+    def init(self, cr):
+        if not self._auto:
+            return
+
+        if not self._unicity_keys:
+            _logger.warn('No _unicity_keys specified for model %s', self._name)
+            return
+
+        if self._unicity_keys == 'N/A':
+            return
+
+        createit = True
+        index_def = "CREATE UNIQUE INDEX %s_unique_idx ON %s USING btree (%s) WHERE (active IS TRUE)" % \
+                    (self._table, self._table, self._unicity_keys)
+        cr.execute("""SELECT indexdef
+                      FROM pg_indexes
+                      WHERE tablename = '%s' and indexname = '%s_unique_idx'""" % \
+                   (self._table, self._table))
+        sql_res = cr.dictfetchone()
+        if sql_res:
+            if sql_res['indexdef'] != index_def:
+                cr.execute("DROP INDEX %s_unique_idx" % (self._table,))
+            else:
+                createit = False
+
+        if createit:
+            cr.execute(index_def)
 
 # orm methods
 

@@ -25,6 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################'''
+
 from openerp.osv import orm, fields
 
 
@@ -32,7 +33,7 @@ class ext_assembly_category(orm.Model):
 
     _name = 'ext.assembly.category'
     _inherit = ['abstract.assembly.category']
-    _description = "External Assembly Category"
+    _description = 'External Assembly Category'
 
 
 class ext_assembly(orm.Model):
@@ -73,6 +74,12 @@ class ext_assembly(orm.Model):
         'ref_partner_id': fields.many2one('res.partner', string='Legal Person',
                                           select=True, required=True, ondelete='restrict', track_visibility='onchange'),
     }
+
+# constraints
+
+    _unicity_keys = 'ref_partner_id, assembly_category_id'
+
+# orm methods
 
     def create(self, cr, uid, vals, context=None):
         '''

@@ -53,8 +53,8 @@ TRIGGER_FIELDS = KEY_FIELDS.keys() + ['sequence', 'select_alternative_address_lo
 class address_address(orm.Model):
 
     _name = 'address.address'
-    _description = 'Address'
     _inherit = ['abstract.ficep.model']
+    _description = 'Address'
 
 # private methods
 
@@ -187,9 +187,9 @@ class address_address(orm.Model):
 
     _order = 'country_id, zip, name'
 
-    _sql_constraints = [
-        ('check_unicity_address', 'unique(technical_name,sequence)', _('This Address already exists!')),
-    ]
+# constraints
+
+    _unicity_keys = 'technical_name, sequence'
 
 # orm methods
 
@@ -303,6 +303,10 @@ class postal_coordinate(orm.Model):
 
     _rec_name = _discriminant_field
 
+# constraints
+
+    _unicity_keys = 'partner_id, %s' % _discriminant_field
+
 # public methods
 
     def get_fields_to_update(self, cr, uid, mode, context=None):
@@ -322,6 +326,7 @@ class postal_coordinate(orm.Model):
 
 
 class co_residency(orm.Model):
+
     _name = 'co.residency'
     _inherit = ['abstract.ficep.model']
     _description = 'Co-Residency'
@@ -338,6 +343,10 @@ class co_residency(orm.Model):
     }
 
     _rec_name = 'address_id'
+
+# constraints
+
+    _unicity_keys = 'address_id'
 
 # orm methods
 

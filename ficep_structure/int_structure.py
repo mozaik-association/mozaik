@@ -35,7 +35,7 @@ class int_power_level(orm.Model):
     _description = 'Internal Power Level'
 
     _columns = {
-        'assembly_category_ids': fields.one2many('int.assembly.category', 'power_level_id', 'Internal Assembly Categories'),
+        'assembly_category_ids': fields.one2many('int.assembly.category', 'power_level_id', 'Internal Assembly Categories', domain=[('active', '=', True)]),
         'assembly_category_inactive_ids': fields.one2many('int.assembly.category', 'power_level_id', 'Internal Assembly Categories', domain=[('active', '=', False)]),
     }
 
@@ -57,23 +57,27 @@ class int_assembly_category(orm.Model):
 
     _columns = {
         'is_secretariat': fields.boolean("Secretariat", track_visibility='onchange'),
-        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, track_visibility='onchange'),
-        'assembly_ids': fields.one2many('int.assembly', 'assembly_category_id', 'Internal Assemblies'),
+        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, select=True, track_visibility='onchange'),
     }
+
+# constraints
+
+    _unicity_keys = 'power_level_id, name'
 
 
 class int_instance(orm.Model):
 
     _name = 'int.instance'
     _inherit = ['abstract.instance']
-    _description = "Internal Instance"
+    _description = 'Internal Instance'
 
     _columns = {
         'parent_id': fields.many2one('int.instance', 'Parent Internal Instance', ondelete='restrict', select=True, track_visibility='onchange'),
-        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, track_visibility='onchange'),
-        'assembly_ids': fields.one2many('int.assembly', 'instance_id', 'Internal Assemblies'),
+        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, select=True, track_visibility='onchange'),
+
+        'assembly_ids': fields.one2many('int.assembly', 'instance_id', 'Internal Assemblies', domain=[('active', '=', True)]),
         'assembly_inactive_ids': fields.one2many('int.assembly', 'instance_id', 'Internal Assemblies', domain=[('active', '=', False)]),
-        'electoral_district_ids': fields.one2many('electoral.district', 'int_instance_id', 'Electoral Districts'),
+        'electoral_district_ids': fields.one2many('electoral.district', 'int_instance_id', 'Electoral Districts', domain=[('active', '=', True)]),
         'electoral_district_inactive_ids': fields.one2many('electoral.district', 'int_instance_id', 'Electoral Districts', domain=[('active', '=', False)]),
         'multi_instance_pc_m2m_ids': fields.many2many('int.instance', 'int_instance_int_instance_rel', 'id', 'child_id',
                                                       'Multi-Instance', domain=[('active', '<=', True)]),
@@ -95,7 +99,7 @@ class int_assembly(orm.Model):
 
     _name = 'int.assembly'
     _inherit = ['abstract.assembly']
-    _description = "Internal Assembly"
+    _description = 'Internal Assembly'
 
     def _compute_dummy(self, cursor, uid, ids, fname, arg, context=None):
         res = {}

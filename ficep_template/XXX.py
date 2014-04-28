@@ -173,6 +173,8 @@ class xxxx(orm.Model):
         ('col1_col2_..._unique', 'unique (col1,col2, ...)', _('The couple (column desc 2, ...) must be unique for a given column desc 1!')),
     ]
 
+    _unicity_keys = 'partner_id, type'
+
 # orm methods
 
     def name_get(self, cr, uid, ids, context=None):

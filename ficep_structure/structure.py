@@ -32,8 +32,8 @@ from .sta_structure import sta_instance
 class electoral_district(orm.Model):
 
     _name = 'electoral.district'
-    _description = 'Electoral District'
     _inherit = ['abstract.ficep.model']
+    _description = 'Electoral District'
 
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
@@ -52,7 +52,11 @@ class electoral_district(orm.Model):
                                                  required=True, select=True, track_visibility='onchange'),
         'assembly_category_id': fields.related('assembly_id', 'assembly_category_id', string='State assembly category',
                                           type='many2one', relation='sta.assembly.category'),
-        }
+    }
+
+# constraints
+
+    _unicity_keys = 'sta_instance_id, assembly_id'
 
 # view methods: onchange, button
 

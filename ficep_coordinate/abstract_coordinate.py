@@ -45,7 +45,7 @@ class abstract_coordinate(orm.AbstractModel):
 
     _name = 'abstract.coordinate'
     _inherit = ['abstract.duplicate']
-    _description = "Abstract Coordinate"
+    _description = 'Abstract Coordinate'
 
     _discriminant_field = None
 
@@ -105,24 +105,7 @@ class abstract_coordinate(orm.AbstractModel):
 
         return True
 
-    def _check_unicity(self, cr, uid, ids, context=None):
-        """
-        ==============
-        _check_unicity
-        ==============
-        :rparam: False if coordinate already exists with (self._discriminant_field,partner_id,expire_date)
-                 Else True
-        :rtype: Boolean
-        """
-        coordinate = self.browse(cr, uid, ids, context=context)[0]
-        res_ids = self.search(cr, uid, [('id', '!=', coordinate.id),
-                                        ('partner_id', '=', coordinate.partner_id.id),
-                                        (self._discriminant_field, '=', self._is_discriminant_m2o() and coordinate[self._discriminant_field].id or coordinate[self._discriminant_field]),
-                                       ], context=context)
-        return len(res_ids) == 0
-
     _constraints = [
-        (_check_unicity, _('This coordinate already exists for this contact'), ['related_field', 'partner_id', 'expire_date']),
         (_check_one_main_coordinate, MAIN_COORDINATE_ERROR, ['partner_id'])
     ]
 

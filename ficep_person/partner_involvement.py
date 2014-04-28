@@ -34,15 +34,16 @@ class partner_involvement_category(orm.Model):
 
     _name = 'partner.involvement.category'
     _inherit = ['abstract.ficep.model']
+    _description = 'Partner Involvement Category'
 
     _columns = {
         'name': fields.char('Involvement Category', required=True, select=True, track_visibility='onchange'),
         'note': fields.text('Notes', track_visibility='onchange'),
     }
 
-    _sql_constraints = [
-        ('check_unicity_involvement_category', 'unique(name)', _('This involvement category already exists!')),
-    ]
+# constraints
+
+    _unicity_keys = 'name'
 
 # orm methods
 
@@ -58,6 +59,7 @@ class partner_involvement(orm.Model):
 
     _name = 'partner.involvement'
     _inherit = ['abstract.ficep.model']
+    _description = 'Partner Involvement'
 
     _columns = {
         'partner_id': fields.many2one('res.partner', string='Related Partner', required=True, select=True, track_visibility='onchange'),
@@ -67,9 +69,9 @@ class partner_involvement(orm.Model):
 
     _rec_name = 'partner_involvement_category_id'
 
-    _sql_constraints = [
-        ('check_unicity_involvement', 'unique(partner_id,partner_involvement_category_id)', _('This involvement already exists!')),
-    ]
+# constraints
+
+    _unicity_keys = 'partner_id, partner_involvement_category_id'
 
 # orm methods
 

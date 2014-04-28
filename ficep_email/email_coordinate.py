@@ -42,12 +42,12 @@ class email_coordinate(orm.Model):
     _undo_redirect_action = 'ficep_email.email_coordinate_action'
 
     _columns = {
-        'name': fields.related('partner_id', 'printable_name', string='Partner Name', type='char',
-                               relation='res.partner'),
         'email': fields.char('Email', size=100, required=True, select=True),
     }
 
     _rec_name = _discriminant_field
+
+# constraints
 
     def _check_email(self, cr, uid, ids, context=None):
         coordinates = self.browse(cr, uid, ids, context=context)
@@ -67,6 +67,8 @@ class email_coordinate(orm.Model):
         (_check_email, _('Invalid Email Format'), ['email']),
         (_check_main_authorized, _('Main Coordinate Could Not Be Unauthorized'), ['is_main', 'unauthorized']),
     ]
+
+    _unicity_keys = 'partner_id, email'
 
 #orm methods
 

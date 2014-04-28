@@ -60,6 +60,10 @@ class thesaurus(orm.Model):
 
     _order = 'name'
 
+# constraints
+
+    _unicity_keys = 'name'
+
 # orm methods
 
     def copy(self, cr, uid, ids, default=None, context=None):
@@ -153,9 +157,7 @@ class thesaurus_term(orm.Model):
           ['state', 'ext_identifier'])
     ]
 
-    _sql_constraints = [
-        ('check_unicity_technical_name', 'unique(technical_name)', _('The term must be unique in the thesaurus!'))
-    ]
+    _unicity_keys = 'technical_name'
 
 # orm methods
 

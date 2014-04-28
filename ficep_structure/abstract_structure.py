@@ -37,10 +37,10 @@ class abstract_power_level(orm.AbstractModel):
     _description = 'Abstract Power Level'
 
     _columns = {
-        'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
-        'sequence': fields.integer("Sequence", required=True, track_visibility='onchange'),
+        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
+        'sequence': fields.integer('Sequence', required=True, track_visibility='onchange'),
 
-        'assembly_category_ids': fields.one2many('abstract.assembly.category', 'power_level_id', 'Assembly Categories'),
+        'assembly_category_ids': fields.one2many('abstract.assembly.category', 'power_level_id', 'Assembly Categories', domain=[('active', '=', True)]),
         'assembly_category_inactive_ids': fields.one2many('abstract.assembly.category', 'power_level_id', 'Assembly Categories', domain=[('active', '=', False)]),
     }
 
@@ -50,6 +50,10 @@ class abstract_power_level(orm.AbstractModel):
         'sequence': 5,
     }
 
+# constraints
+
+    _unicity_keys = 'name'
+
 
 class abstract_assembly_category(orm.AbstractModel):
 
@@ -58,12 +62,16 @@ class abstract_assembly_category(orm.AbstractModel):
     _description = 'Abstract Assembly Category'
 
     _columns = {
-        'name': fields.char('Name', size=128, select=True, required=True, track_visibility='onchange'),
+        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
         'duration': fields.integer('Duration of Mandates', track_visibility='onchange'),
         'months_before_end_of_mandate': fields.integer('Months before end of Mandate', track_visibility='onchange'),
     }
 
     _order = 'name'
+
+# constraints
+
+    _unicity_keys = 'name'
 
 
 class abstract_instance(orm.AbstractModel):
@@ -73,14 +81,14 @@ class abstract_instance(orm.AbstractModel):
     _description = 'Abstract Instance'
 
     _columns = {
-        'name': fields.char('Name', size=128, select=True, required=True, track_visibility='onchange'),
-        'power_level_id': fields.many2one('abstract.power.level', 'Power Level', select=True, required=True, track_visibility='onchange'),
+        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
+        'power_level_id': fields.many2one('abstract.power.level', 'Power Level', required=True, select=True, track_visibility='onchange'),
 
         'parent_id': fields.many2one('abstract.instance', 'Parent Instance', select=True, track_visibility='onchange'),
         'parent_left': fields.integer('Left Parent', select=True),
         'parent_right': fields.integer('Right Parent', select=True),
 
-        'assembly_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies'),
+        'assembly_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies', domain=[('active', '=', True)]),
         'assembly_inactive_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies', domain=[('active', '=', False)]),
     }
 
@@ -94,6 +102,8 @@ class abstract_instance(orm.AbstractModel):
     _constraints = [
         (orm.Model._check_recursion, _('Error ! You can not create recursive instances'), ['parent_id']),
     ]
+
+    _unicity_keys = 'power_level_id, name'
 
 # orm methods
 
@@ -137,7 +147,7 @@ class abstract_assembly(orm.AbstractModel):
         'partner_id': fields.many2one('res.partner', string='Associated Partner',
                                       select=True, required=True, ondelete='restrict'),
         'designation_int_power_level_id': fields.many2one('abstract.power.level', string='Designation Power Level',
-                                                          select=True, required=True, track_visibility='onchange'),
+                                                          select=True, track_visibility='onchange'),
         'months_before_end_of_mandate': fields.integer('Months before end of Mandate', track_visibility='onchange'),
     }
 
@@ -174,5 +184,7 @@ class abstract_assembly(orm.AbstractModel):
         (_check_consistent_power_level, _('Power level of category and power level of instance are inconsistents'),
           ['assembly_category_id', 'instance_id'])
     ]
+
+    _unicity_keys = 'instance_id, assembly_category_id'
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

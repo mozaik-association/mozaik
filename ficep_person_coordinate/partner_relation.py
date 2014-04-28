@@ -33,6 +33,7 @@ class partner_relation_category(orm.Model):
 
     _name = 'partner.relation.category'
     _inherit = ['abstract.ficep.model']
+    _description = 'Partner Relation Category'
 
     _columns = {
         'subject_name': fields.char('Relation Subject', required=True, select=True, track_visibility='onchange'),
@@ -40,6 +41,10 @@ class partner_relation_category(orm.Model):
     }
 
     _rec_name = 'subject_name'
+
+# constraints
+
+    _unicity_keys = 'subject_name'
 
 # orm methods
 
@@ -86,24 +91,24 @@ class partner_relation(orm.Model):
 
     _name = 'partner.relation'
     _inherit = ['abstract.ficep.model']
+    _description = 'Partner Relation'
 
     _columns = {
         'subject_partner_id': fields.many2one('res.partner', string='Subject', required=True, select=True, track_visibility='onchange'),
         'object_partner_id': fields.many2one('res.partner', string='Object', required=True, select=True, track_visibility='onchange'),
         'partner_relation_category_id': fields.many2one('partner.relation.category', string='Partner Relation Category', required=True, select=True, track_visibility='onchange'),
 
-        # phone coordinate
+        # coordinates
+        'email_coordinate_id': fields.many2one('email.coordinate', string='Email Coordinate', select=True, track_visibility='onchange'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', string='Postal Coordinate', select=True, track_visibility='onchange'),
         'fix_coordinate_id': fields.many2one('phone.coordinate', string='Fix Coordinate', select=True, track_visibility='onchange'),
         'mobile_coordinate_id': fields.many2one('phone.coordinate', string='Mobile Coordinate', select=True, track_visibility='onchange'),
         'fax_coordinate_id': fields.many2one('phone.coordinate', string='Fax Coordinate', select=True, track_visibility='onchange'),
-
-        # address coordinate
-        'postal_coordinate_id': fields.many2one('postal.coordinate', string='Postal Coordinate', select=True, track_visibility='onchange'),
-        # email coordinate
-        'email_coordinate_id': fields.many2one('email.coordinate', string='Email Coordinate', select=True, track_visibility='onchange'),
     }
 
     _rec_name = 'partner_relation_category_id'
+
+# constraints
 
     def _check_relation_qualification(self, cr, uid, ids, context=None):
         """
@@ -128,6 +133,8 @@ class partner_relation(orm.Model):
         (_check_relation_qualification, _('Error! A relation must associate two different contacts and must exist in only one way!'),
                                        ['subject_partner_id', 'object_partner_id', 'partner_relation_category_id']),
     ]
+
+    _unicity_keys = 'subject_partner_id, partner_relation_category_id, object_partner_id'
 
 # orm methods
 

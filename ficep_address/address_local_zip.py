@@ -25,15 +25,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields
-from openerp.tools.translate import _
 
 
 class address_local_zip(orm.Model):
 
     _name = 'address.local.zip'
-    _description = "Local Zip Code"
     _inherit = ['abstract.ficep.model']
+    _description = 'Local Zip Code'
 
     def _get_linked_addresses(self, cr, uid, ids, context=None):
         return self.pool['address.address'].search(cr, uid, [('address_local_zip_id', 'in', ids)], context=context)
@@ -47,9 +47,9 @@ class address_local_zip(orm.Model):
 
     _order = "local_zip, town"
 
-    _sql_constraints = [
-        ('check_unicity_zip', 'unique(local_zip,town)', _('This zip code already exists!'))
-    ]
+# constraints
+
+    _unicity_keys = 'local_zip, town'
 
 # orm methods
 
