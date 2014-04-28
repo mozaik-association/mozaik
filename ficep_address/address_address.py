@@ -27,8 +27,8 @@
 ##############################################################################
 import unicodedata
 import re
-
 from collections import OrderedDict
+
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
@@ -79,8 +79,8 @@ class address_address(orm.Model):
             technical_value = []
             for field in KEY_FIELDS.keys():
                 to_evaluate = field if not KEY_FIELDS[field] else '%s.%s' % (field, KEY_FIELDS[field])
-                value = eval('adrs.%s' % to_evaluate)
-                technical_value.append(self.format_value(cr, uid, str(value or 0), context=context))
+                value = eval('adrs.%s' % to_evaluate) or 0
+                technical_value.append(self.format_value(cr, uid, value, context=context))
             technical_name = '#'.join(technical_value)
 
             result[adrs.id] = {
@@ -280,7 +280,7 @@ class address_address(orm.Model):
         :rparam: upper to lower case for value and deletion of accented character
         """
         value = ''.join(c for c in unicodedata.normalize('NFD', u'%s' % value)
-                  if unicodedata.category(c) != 'Mn')
+                          if unicodedata.category(c) != 'Mn')
         value = re.sub(NOT_ALPHANUMERICS, ' ', value)
         value = re.sub(BLANK, ' ', value)
         return value.lower().strip()
