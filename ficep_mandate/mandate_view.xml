@@ -154,7 +154,29 @@
             <field name="context">{'form_view_ref': 'ficep_mandate.mandate_category_form_view', 'default_type': 'sta'}</field>
             <field name="domain">[('type', '=', 'sta')]</field>
         </record>
+        
+        <record id="int_mandate_category_action" model="ir.actions.act_window">
+            <field name="name">Mandate Categories</field>
+            <field name="res_model">mandate.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="mandate_category_search_view" />
+            <field name="view_id" ref="mandate_category_tree_view" />
+            <field name="context">{'form_view_ref': 'ficep_mandate.mandate_category_form_view', 'default_type': 'int'}</field>
+            <field name="domain">[('type', '=', 'int')]</field>
+        </record>
 
+        <record id="ext_mandate_category_action" model="ir.actions.act_window">
+            <field name="name">Mandate Categories</field>
+            <field name="res_model">mandate.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="mandate_category_search_view" />
+            <field name="view_id" ref="mandate_category_tree_view" />
+            <field name="context">{'form_view_ref': 'ficep_mandate.mandate_category_form_view', 'default_type': 'ext'}</field>
+            <field name="domain">[('type', '=', 'ext')]</field>
+        </record>
+        
         <record id="sta_candidature_action" model="ir.actions.act_window">
             <field name="name">State Candidatures</field>
             <field name="res_model">sta.candidature</field>
@@ -602,8 +624,20 @@
         <menuitem id="state_configuration_submenu" name="State"
                   sequence="10" parent="configuration_submenu"/>
 
-        <menuitem id="mandate_categories_submenu" name="Mandate Categories" action="sta_mandate_category_action"
+        <menuitem id="state_mandate_categories_submenu" name="Mandate Categories" action="sta_mandate_category_action"
                   sequence="10" parent="state_configuration_submenu"/>
+        
+        <menuitem id="internal_configuration_submenu" name="Internal"
+                  sequence="20" parent="configuration_submenu"/>
+
+        <menuitem id="internal_mandate_categories_submenu" name="Mandate Categories" action="int_mandate_category_action"
+                  sequence="10" parent="internal_configuration_submenu"/>
+                  
+        <menuitem id="external_configuration_submenu" name="External"
+                  sequence="30" parent="configuration_submenu"/>
+
+        <menuitem id="external_mandate_categories_submenu" name="Mandate Categories" action="ext_mandate_category_action"
+                  sequence="10" parent="external_configuration_submenu"/>
 
     </data>
 </openerp>
