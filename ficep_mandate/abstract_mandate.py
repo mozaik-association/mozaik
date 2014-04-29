@@ -113,6 +113,12 @@ class abstract_mandate(orm.AbstractModel):
         'end_date': False,
     }
 
+# constraints
+
+    _unicity_keys = 'partner_id, mandate_category_id, start_date'
+
+# view methods: onchange, button
+
     def action_finish(self, cr, uid, ids, context=None):
         """
         =================
@@ -145,7 +151,8 @@ class abstract_mandate(orm.AbstractModel):
                 self.pool.get('postal.coordinate').action_invalidate(cr, uid, [mandate.postal_coordinate_id.id])
         return res
 
-    # orm methods
+# orm methods
+
     def name_get(self, cr, uid, ids, context=None):
         if not ids:
             return []
@@ -194,34 +201,18 @@ class abstract_candidature(orm.AbstractModel):
                                           store=True),
     }
 
-    def _check_partner(self, cr, uid, ids, for_unlink=False, context=None):
-        """
-        =================
-        _check_partner
-        =================
-        Check if partner doesn't have several candidatures in the same category
-        :rparam: True if it is the case
-                 False otherwise
-        :rtype: boolean
-        """
-        candidatures = self.browse(cr, uid, ids)
-        for candidature in candidatures:
-            if len(self.search(cr, uid, [('partner_id', '=', candidature.partner_id.id), ('id', '!=', candidature.id), ('mandate_category_id', '=', candidature.mandate_category_id.id)], context=context)) > 0:
-                return False
-
-        return True
-
-    _constraints = [
-        (_check_partner, _("A candidature already exists for this partner in this category"), ['partner_id'])
-    ]
-
     _defaults = {
         'state': CANDIDATURE_AVAILABLE_STATES[0][0],
     }
 
-    _order = 'selection_committee_id'
+    _order = 'selection_committee_id, partner_id'
+
+# constraints
+
+    _unicity_keys = 'selection_committee_id, partner_id'
 
 # orm methods
+
     def create(self, cr, uid, vals, context=None):
         if ('partner_name' not in vals) or ('partner_name' in vals and not vals['partner_name']):
             vals['partner_name'] = self.onchange_partner_id(cr, uid, False, vals['partner_id'], context)['value']['partner_name']
@@ -255,6 +246,7 @@ class abstract_candidature(orm.AbstractModel):
         return self.name_get(cr, uid, ids, context)
 
 # view methods: onchange, button
+
     def onchange_partner_id(self, cr, uid, ids, partner_id, context=None):
         res = {}
         partner_model = self.pool.get('res.partner')

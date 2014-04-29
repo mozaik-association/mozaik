@@ -25,8 +25,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+import psycopg2
 import logging
 from anybox.testing.openerp import SharedSetupTransactionCase
+
 from openerp.osv import orm
 
 _logger = logging.getLogger(__name__)
@@ -64,7 +67,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
             partner_id=jacques_partner_id)
 
         self.registry('sta.candidature').create(self.cr, self.uid, data)
-        self.assertRaises(orm.except_orm, self.registry('sta.candidature').create, self.cr, self.uid, data)
+        self.assertRaises(psycopg2.IntegrityError, self.registry('sta.candidature').create, self.cr, self.uid, data)
 
     def test_sta_candidature_legislative_process(self):
         '''

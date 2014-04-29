@@ -28,6 +28,7 @@
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+
 from .abstract_mandate import abstract_candidature
 from .abstract_mandate import create_mandate_from_candidature
 from .mandate import mandate_category
@@ -70,7 +71,31 @@ class sta_candidature(orm.Model):
 
     _order = 'selection_committee_id, list_effective_position, list_substitute_position'
 
-    # view methods: onchange, button
+# constraints
+
+    def _check_partner(self, cr, uid, ids, for_unlink=False, context=None):
+        """
+        =================
+        _check_partner
+        =================
+        Check if partner doesn't have several candidatures in the same category
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        candidatures = self.browse(cr, uid, ids)
+        for candidature in candidatures:
+            if len(self.search(cr, uid, [('partner_id', '=', candidature.partner_id.id), ('id', '!=', candidature.id), ('mandate_category_id', '=', candidature.mandate_category_id.id)], context=context)) > 0:
+                return False
+
+        return True
+
+    _constraints = [
+        (_check_partner, _("A candidature already exists for this partner in this category"), ['partner_id'])
+    ]
+
+# view methods: onchange, button
+
     def onchange_selection_committee_id(self, cr, uid, ids, selection_committee_id, context=None):
         res = {}
         selection_committee = self.pool.get('selection.committee').browse(cr, uid, selection_committee_id, context)
@@ -110,6 +135,7 @@ class sta_candidature(orm.Model):
 
 
 class sta_mandate(orm.Model):
+
     _name = 'sta.mandate'
     _description = "State Mandate"
     _inherit = ['abstract.mandate']
@@ -132,7 +158,13 @@ class sta_mandate(orm.Model):
                                           type='boolean', relation="sta.assembly",
                                           store=True),
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'sta_mandate_term_competencies_rel', id1='sta_mandate_id', id2='thesaurus_term_id', string='Competencies'),
-        }
+    }
+
+# constraints
+
+    _unicity_keys = 'partner_id, mandate_category_id, sta_assembly_id, legislature_id'
+
+# view methods: onchange, button
 
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
         """
@@ -157,7 +189,6 @@ class sta_mandate(orm.Model):
         """
         return super(sta_mandate, self).action_finish(cr, uid, ids, context=context)
 
-    # view methods: onchange, button
     def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id, context=None):
         res = {}
         category_data = self.pool.get('mandate.category').read(cr, uid, mandate_category_id, ['sta_assembly_category_id'], context)

@@ -93,17 +93,9 @@ class mandate_category(orm.Model):
 
     _order = 'name'
 
-    def _check_unique_name(self, cr, uid, ids, context=None):
+# constraints
 
-        for category in self.browse(cr, uid, ids, context=context):
-            if len(self.search(cr, uid, [('id', '!=', category.id), ('name', '=', category.name)])) > 0:
-                return False
-        return True
-
-    _constraints = [
-        (_check_unique_name, _('Name must be unique'),
-          ['name'])
-    ]
+    _unicity_keys = 'name'
 
 
 class selection_committee(orm.Model):
@@ -170,7 +162,12 @@ class selection_committee(orm.Model):
         'auto_mandate': False,
     }
 
+# constraints
+
+    _unicity_keys = 'N/A'
+
 # orm methods
+
     def name_get(self, cr, uid, ids, context=None):
         if not context:
             context = self.pool.get('res.users').context_get(cr, uid)
