@@ -9,7 +9,7 @@
                 <form string="Coordinate Category" version="7.0">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
+                             invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate category: proceed anyway?" />
@@ -20,7 +20,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" placeholder="Name of the category..." /></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
 
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">

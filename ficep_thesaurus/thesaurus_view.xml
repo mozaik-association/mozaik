@@ -29,7 +29,7 @@
                 <form string="thesaurus" version="7.0">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
+                             invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate thesaurus: proceed anyway?" />
@@ -40,7 +40,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" /></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
 
                         <group name="status" attrs="{'invisible': [('id','=',False)]}">
@@ -63,7 +63,7 @@
                             </group>
                         </div>
                     </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
@@ -134,7 +134,7 @@
                     <header>
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
+                             invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="button_confirm" string="Confirm Term" type="object" states="draft" />
                             <button name="button_cancel" string="Cancel Term" type="object" states="confirm" />
@@ -146,7 +146,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" /></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
 
                         <group name="data">
@@ -154,7 +154,7 @@
                                 <field name="ext_identifier" />
                             </group>
                             <group name="other">
-                                <field name="thesaurus_id" context="{'simplified': 1}" groups="ficep_base.ficep_res_groups_configurator" />
+                                <field name="thesaurus_id" groups="ficep_base.ficep_res_groups_configurator" />
                             </group>
                         </group>
 
@@ -178,7 +178,7 @@
                             </group>
                         </div>
                     </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>

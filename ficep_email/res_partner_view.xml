@@ -39,7 +39,6 @@
                                       'default_partner_id': active_id,
                                       'search_default_all': True}" />
                     <field name="email_coordinate_ids" context="{'default_partner_id': active_id,
-                                                                 'simplified': 1,
                                                                  'form_view_ref': 'ficep_email.email_coordinate_form_view'}"
                            attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                         <tree colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
@@ -51,8 +50,7 @@
                             <field name="is_duplicate_detected" invisible="1"/>
                         </tree>
                     </field>
-                    <field name="email_coordinate_inactive_ids" context="{'simplified': 1,
-                                                                          'form_view_ref': 'ficep_email.email_coordinate_form_view'}"
+                    <field name="email_coordinate_inactive_ids" context="{'form_view_ref': 'ficep_email.email_coordinate_form_view'}"
                            readonly="1" attrs="{'invisible': [('active','=',True)]}">
                         <tree colors="darkorange:unauthorized==True">
                             <field name="email"/>

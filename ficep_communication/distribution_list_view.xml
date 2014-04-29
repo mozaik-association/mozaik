@@ -24,7 +24,6 @@
                     <notebook>
                             <page name="users" string="Users" autofocus="autofocus">
                                 <field name="res_users_ids" context="{'default_distribution_list_id': id,
-                                                                      'simplified': 1,
                                                                       'form_view_ref': 'base.view_users_form'}">
                                     <tree>
                                         <field name="name"/>

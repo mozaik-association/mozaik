@@ -154,7 +154,7 @@
             <field name="context">{'form_view_ref': 'ficep_mandate.mandate_category_form_view', 'default_type': 'sta'}</field>
             <field name="domain">[('type', '=', 'sta')]</field>
         </record>
-        
+
         <record id="int_mandate_category_action" model="ir.actions.act_window">
             <field name="name">Mandate Categories</field>
             <field name="res_model">mandate.category</field>
@@ -176,7 +176,7 @@
             <field name="context">{'form_view_ref': 'ficep_mandate.mandate_category_form_view', 'default_type': 'ext'}</field>
             <field name="domain">[('type', '=', 'ext')]</field>
         </record>
-        
+
         <record id="sta_candidature_action" model="ir.actions.act_window">
             <field name="name">State Candidatures</field>
             <field name="res_model">sta.candidature</field>
@@ -239,7 +239,7 @@
                 <form string="Mandate Category" version="7.0">
                     <header>
                          <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
+                             invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate category: proceed anyway ?" />
@@ -250,7 +250,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name"/></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                             <button string="State Candidatures" name="%(sta_candidature_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_mandate_category_id': active_id,
@@ -263,22 +263,18 @@
                                 <field name="is_submission_assets"/>
                             </group>
                             <group name="Power Level">
-                                <field name="int_power_level_id" context="{'simplified': 1,
-                                                                       'form_view_ref': 'ficep_structure.int_power_level_form_view'}"/>
+                                <field name="int_power_level_id" context="{'form_view_ref': 'ficep_structure.int_power_level_form_view'}"/>
                             </group>
                             <group name="Assembly Categories">
                                 <field name="sta_assembly_category_id" attrs="{'invisible': [('type','!=', 'sta')],
                                                                                'required':[('type','=', 'sta')] }"
-                                       context="{'simplified': 1,
-                                                 'form_view_ref': 'ficep_structure.sta_assembly_category_form_view'}"/>
+                                       context="{'form_view_ref': 'ficep_structure.sta_assembly_category_form_view'}"/>
                                 <field name="int_assembly_category_id" attrs="{'invisible': [('type','!=', 'int')],
                                                                                'required':[('type','=', 'int')] }"
-                                       context="{'simplified': 1,
-                                                 'form_view_ref': 'ficep_structure.int_assembly_category_form_view'}"/>
+                                       context="{'form_view_ref': 'ficep_structure.int_assembly_category_form_view'}"/>
                                <field name="ext_assembly_category_id" attrs="{'invisible': [('type','!=', 'ext')],
                                                                               'required':[('type','=', 'ext')] }"
-                                       context="{'simplified': 1,
-                                                 'form_view_ref': 'ficep_structure.ext_assembly_category_form_view'}"/>
+                                       context="{'form_view_ref': 'ficep_structure.ext_assembly_category_form_view'}"/>
                             </group>
                             <group name="Dates">
                                 <field name="create_date" readonly="1"/>
@@ -287,7 +283,7 @@
                         </group>
                         <notebook>
                             <page string="Exclusive Categories" name="exclusive_categories" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                                <field name="exclusive_category_m2m_ids" context="{'simplified': 1}">
+                                <field name="exclusive_category_m2m_ids">
                                     <tree>
                                         <field name="name"/>
                                     </tree>
@@ -309,7 +305,7 @@
                             </group>
                         </div>
                     </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
@@ -339,7 +335,7 @@
                 </xpath>
                 <xpath expr="//field[@name='selection_committee_id']" position="after">
                      <field name="electoral_district_id" readonly="1"/>
-                     <field name="sta_assembly_id" readonly="1" context="{'simplified': 1, 'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"/>
+                     <field name="sta_assembly_id" readonly="1" context="{'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"/>
                      <field name="legislature_id" readonly="1"/>
                 </xpath>
                 <xpath expr="//group[@name='data_2']" position="after">
@@ -374,7 +370,7 @@
                 <xpath expr="//field[@name='email_coordinate_id']" position="before">
                     <field name="sta_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
                             required="1"
-                            context="{'simplified': 1, 'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"
+                            context="{'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"
                             domain="[('assembly_category_id', '=', sta_assembly_category_id)]"/>
                     <field name="legislature_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
                                                   domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"
@@ -382,13 +378,13 @@
 
                 </xpath>
                 <xpath expr="//field[@name='candidature_id']" position="attributes">
-                     <attribute name="context">{'simplified': 1, 'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}</attribute>
+                     <attribute name="context">{'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}</attribute>
                 </xpath>
-                
+
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                      <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
                 </xpath>
-                
+
                 <xpath expr="//field[@name='active']" position="after">
                      <field name="sta_assembly_category_id"/>
                 </xpath>
@@ -411,14 +407,14 @@
                 <form string="Selection Committee" version="7.0">
                     <header>
                          <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
+                             invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate committee: proceed anyway ?" />
                             <field name='state' widget='statusbar'/>
                         </div>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}"
-                             invisible="context.get('simplified')"
+                             invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_user">
                             <button name="action_copy" string="Copy" type="object"
                                     confirm="Copy committee and keep rejected candidatures: proceed anyway ?" />
@@ -433,7 +429,7 @@
                               <field name="auto_mandate"/>
                           </group>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
                         <group>
                              <group name="data">
@@ -474,8 +470,7 @@
                                 <div name="all">
                                     <group>
                                     <field name="mandate_category_id"
-                                           context="{'simplified': 1,
-                                                     'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"
+                                           context="{'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"
                                            domain="[('sta_assembly_category_id', '=', sta_assembly_category_id)]"
                                            on_change="onchange_mandate_category_id(mandate_category_id)"/>
                                     <field name="mandate_start_date" widget="date"/>
@@ -507,8 +502,7 @@
                                 <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
                                         attrs="{'invisible': [('state','=','done')]}"
                                         confirm="Refuse all candidatures: proceed anyway ?"/>
-                                <field name="sta_candidature_ids" context="{'simplified': 1,
-                                                                            'form_view_ref': 'ficep_mandate.sta_candidature_form_view',
+                                <field name="sta_candidature_ids" context="{'form_view_ref': 'ficep_mandate.sta_candidature_form_view',
                                                                             'default_selection_committee_id': active_id}">
                                     <tree colors="red:state=='declared';grey:active==False">
                                         <field name="list_effective_position" string="#E"
@@ -531,7 +525,7 @@
                                 </field>
                             </page>
                             <page string="Members" name="members">
-                                <field name="partner_ids" context="{'simplified': 1, 'default_is_company': False}">
+                                <field name="partner_ids" context="{'default_is_company': False}">
                                     <tree>
                                         <field name="display_name"/>
                                     </tree>
@@ -541,12 +535,12 @@
                                 <field name="note"/>
                             </page>
                             <page string="List" name="list"
-                                 attrs="{'invisible': [('electoral_district_id', '=', False)]}">
+                                  attrs="{'invisible': [('electoral_district_id', '=', False)]}">
                                 <group>
-	                                <field name="listname"/>
-	                                <field name="is_cartel"/>
-	                                <field name="cartel_composition" 
-	                                attrs="{'invisible': [('is_cartel', '=', False)]}"/>
+                                    <field name="listname"/>
+                                    <field name="is_cartel"/>
+                                    <field name="cartel_composition"
+                                           attrs="{'invisible': [('is_cartel', '=', False)]}"/>
                                 </group>
                             </page>
                         </notebook>
@@ -570,7 +564,7 @@
                             </group>
                         </div>
                     </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
@@ -626,13 +620,13 @@
 
         <menuitem id="state_mandate_categories_submenu" name="Mandate Categories" action="sta_mandate_category_action"
                   sequence="10" parent="state_configuration_submenu"/>
-        
+
         <menuitem id="internal_configuration_submenu" name="Internal"
                   sequence="20" parent="configuration_submenu"/>
 
         <menuitem id="internal_mandate_categories_submenu" name="Mandate Categories" action="int_mandate_category_action"
                   sequence="10" parent="internal_configuration_submenu"/>
-                  
+
         <menuitem id="external_configuration_submenu" name="External"
                   sequence="30" parent="configuration_submenu"/>
 

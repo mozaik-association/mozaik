@@ -148,7 +148,7 @@
                 <xpath expr="//sheet" position="before">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
+                             invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_user">
                             <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
                                     attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
@@ -282,7 +282,6 @@
                                           'default_partner_id': active_id,
                                           'search_default_all': True}" />
                         <field name="partner_involvement_ids" context="{'default_partner_id': active_id,
-                                                                        'simplified': 1,
                                                                         'form_view_ref': 'ficep_person.partner_involvement_form_view'}"
                                attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                             <tree>
@@ -290,7 +289,6 @@
                             </tree>
                         </field>
                         <field name="partner_involvement_inactive_ids" context="{'default_partner_id': active_id,
-                                                                                 'simplified': 1,
                                                                                  'form_view_ref': 'ficep_person.partner_involvement_form_view'}"
                                readonly="1" attrs="{'invisible': [('active','=',True)]}">
                             <tree>
@@ -338,7 +336,7 @@
                         </div>
                     </div>
 
-                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>

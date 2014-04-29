@@ -133,7 +133,7 @@
                     <header>
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
+                             invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_user"><!-- or configurator -->
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate xxx: proceed anyway?" />
@@ -148,7 +148,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" attrs="{'readonly': ['|',('yyy_ids','!=',[]),('active','=',False)]}" placeholder="e.g. blabla" /></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
 
                         <group name="data">
@@ -185,15 +185,13 @@
                                                   'default_partner_id': active_id,
                                                   'search_default_all': True}" />
                                 <field name="yyy_ids" context="{'default_zzz_id': active_id,
-                                                                'simplified': 1,
                                                                 'form_view_ref': 'ficep_yyy.yyy_form_view'}"
                                        attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                                     <tree>
                                         <field name="zzz_id"/>
                                     </tree>
                                 </field>
-                                <field name="yyy_inactive_ids" context="{'simplified': 1,
-                                                                         'form_view_ref': 'ficep_yyy.yyy_form_view'}"
+                                <field name="yyy_inactive_ids" context="{'form_view_ref': 'ficep_yyy.yyy_form_view'}"
                                        readonly="1" attrs="{'invisible': [('active','=',True)]}">
                                     <tree>
                                         <field name="zzz_id"/>
@@ -215,7 +213,7 @@
                             </group>
                         </div>
                     </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>

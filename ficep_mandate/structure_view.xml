@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data noupdate="0">
+
          <record id="sta_assembly_category_form_view" model="ir.ui.view">
             <field name="name">sta.assembly.category.form.view (ficep_mandate)</field>
             <field name="model">sta.assembly.category</field>
@@ -8,29 +9,27 @@
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='status']" position="after">
                     <notebook>
-	                    <page name="mandate categories" string=" Mandates Categories">
-	                        <field name="mandate_category_ids" attrs="{'invisible': [('active', '=', False)]}"
-	                               readonly="1"               context="{'simplified': 1, 
-	                                                                   'form_view_ref': 'ficep_mandate.mandate_category_form_view',
-	                                                                   'default_mandate_category_id': active_id}">
-	                           <tree>                                       
-	                               <field name="name"/>                             
-	                           </tree>
-	                       </field>
-	                       <field name="mandate_category_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
-	                               readonly="1"               context="{'simplified': 1, 
-	                                                                   'form_view_ref': 'ficep_mandate.mandate_category_form_view',
-	                                                                   'default_mandate_category_id': active_id}">
-	                           <tree>                                       
-	                               <field name="name"/>                             
-	                           </tree>
-	                       </field>
-	                    </page>
+                        <page name="mandate categories" string=" Mandates Categories">
+                            <field name="mandate_category_ids" attrs="{'invisible': [('active', '=', False)]}"
+                                   readonly="1"               context="{'form_view_ref': 'ficep_mandate.mandate_category_form_view',
+                                                                        'default_mandate_category_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                           <field name="mandate_category_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                                   readonly="1" context="{'form_view_ref': 'ficep_mandate.mandate_category_form_view',
+                                                          'default_mandate_category_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                        </page>
                     </notebook>
                 </xpath>
             </field>
          </record>
-         
+
          <record id="sta_assembly_form_view" model="ir.ui.view">
             <field name="name">sta.assembly.form.view (ficep_mandate)</field>
             <field name="model">sta.assembly</field>
@@ -50,23 +49,21 @@
                     <notebook>
                         <page name="selection committees" string="Selection Committees">
                             <field name="selection_committee_ids" attrs="{'invisible': [('active', '=', False)]}"
-                                   readonly="1"               context="{'simplified': 1, 
-                                                                       'form_view_ref': 'ficep_mandate.selection_committee_form_view',
-                                                                       'default_sta_assembly_id': active_id}">
-                               <tree>                                       
+                                   readonly="1" context="{'form_view_ref': 'ficep_mandate.selection_committee_form_view',
+                                                          'default_sta_assembly_id': active_id}">
+                               <tree>
                                    <field name="name"/>
                                    <field name="legislature_id"/>
-                                   <field name="electoral_district_id"/>                             
+                                   <field name="electoral_district_id"/>
                                </tree>
                            </field>
                            <field name="selection_committee_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
-                                   readonly="1"               context="{'simplified': 1, 
-                                                                       'form_view_ref': 'ficep_mandate.selection_committee_form_view',
-                                                                       'default_sta_assembly_id': active_id}">
-                               <tree>                                       
+                                   readonly="1" context="{'form_view_ref': 'ficep_mandate.selection_committee_form_view',
+                                                          'default_sta_assembly_id': active_id}">
+                               <tree>
                                    <field name="name"/>
                                    <field name="legislature_id"/>
-                                   <field name="electoral_district_id"/>                                 
+                                   <field name="electoral_district_id"/>
                                </tree>
                            </field>
                         </page>
@@ -74,7 +71,7 @@
                 </xpath>
             </field>
          </record>
-         
+
          <record id="legislature_form_view" model="ir.ui.view">
             <field name="name">legislature.form (ficep_mandate)</field>
             <field name="model">legislature</field>
@@ -92,7 +89,7 @@
                  </xpath>
             </field>
          </record>
-         
+
          <record id="electoral_district_form_view" model="ir.ui.view">
             <field name="name">electoral.district.form (ficep_mandate)</field>
             <field name="model">electoral.district</field>
@@ -102,9 +99,10 @@
                     <button string="Candidatures" name="%(sta_candidature_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_electoral_district_id': active_id,
-                                          'default_electoral_district_id': active_id}" />                    
+                                          'default_electoral_district_id': active_id}" />
                  </xpath>
             </field>
          </record>
+
     </data>
 </openerp>

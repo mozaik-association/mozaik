@@ -140,7 +140,6 @@
                                                   'default_phone_id': active_id,
                                                   'search_default_all': True}"/>
                                 <field name="phone_coordinate_ids" context="{'default_phone_id': id,
-                                                                             'simplified': 1,
                                                                              'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}">
                                     <tree colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
                                         <field name="partner_id"/>
@@ -151,8 +150,7 @@
                                         <field name="is_duplicate_detected" invisible="1"/>
                                     </tree>
                                 </field>
-                                <field name="phone_coordinate_inactive_ids" context="{'simplified': 1,
-                                                                                      'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}"
+                                <field name="phone_coordinate_inactive_ids" context="{'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}"
                                        readonly="1" attrs="{'invisible': [('active','=',True)]}">
                                     <tree colors="darkorange:unauthorized==True">
                                         <field name="partner_id"/>
@@ -174,7 +172,7 @@
                             </group>
                         </div>
                     </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>

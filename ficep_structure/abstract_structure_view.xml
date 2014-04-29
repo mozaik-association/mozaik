@@ -47,7 +47,7 @@
                 <form string="Assembly" version="7.0">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
+                             invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate assembly: proceed anyway?" />
@@ -57,21 +57,18 @@
                         <div class="oe_title" name="title" attrs="{'invisible': [('id','=',False)]}">
                             <h1><field name="name" string="Name" readonly="1" required="0" /></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
 
                         <group>
                             <group name="assembly">
-                                <field name="instance_id" context="{'simplified': 1,
-                                                                    'form_view_ref': 'ficep_structure.abstract_instance_form_view'}"/>
-                                <field name="assembly_category_id" context="{'simplified': 1,
-                                                                             'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}"/>
-                                <field name="partner_id" context="{'simplified': 1}" readonly="1" attrs="{'invisible': [('id','=',False)],
-                                                                                                          'required': [('id','!=',False)]}"/>
+                                <field name="instance_id" context="{'form_view_ref': 'ficep_structure.abstract_instance_form_view'}"/>
+                                <field name="assembly_category_id" context="{'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}"/>
+                                <field name="partner_id" readonly="1" attrs="{'invisible': [('id','=',False)],
+                                                                              'required': [('id','!=',False)]}"/>
                             </group>
                             <group name="mandate">
-                                <field name="designation_int_power_level_id" context="{'simplified': 1,
-                                                                                       'form_view_ref': 'ficep_structure.abstract_power_level_form_view'}"/>
+                                <field name="designation_int_power_level_id" context="{'form_view_ref': 'ficep_structure.abstract_power_level_form_view'}"/>
                                 <field name="months_before_end_of_mandate"/>
                             </group>
                         </group>
@@ -98,7 +95,7 @@
                             </group>
                         </div>
                     </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
@@ -152,7 +149,7 @@
                 <form string="Instance" version="7.0">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
+                             invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate instance: proceed anyway?" />
@@ -165,7 +162,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name"/></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                             <button string="Children" name="children"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_parent_id': active_id,
@@ -174,8 +171,7 @@
 
                         <group>
                             <group name="data_1">
-                                <field name="parent_id" context="{'simplified': 1,
-                                                                  'form_view_ref': 'ficep_structure.abstract_instance_form_view'}"/>
+                                <field name="parent_id" context="{'form_view_ref': 'ficep_structure.abstract_instance_form_view'}"/>
                             </group>
                             <group name="data_2">
                             </group>
@@ -194,14 +190,13 @@
                             <page string="Assemblies" name="assemblies" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="assembly_ids" attrs="{'invisible': [('active','=',False)]}"
                                        context="{'default_instance_id': active_id,
-                                                 'simplified': 1,
                                                  'form_view_ref': 'ficep_structure.abstract_assembly_form_view'}">
                                     <tree>
                                         <field name="assembly_category_id"/>
                                     </tree>
                                 </field>
                                 <field name="assembly_inactive_ids" readonly = "1" attrs="{'invisible': [('active','=',True)]}"
-                                       context="{'simplified': 1, 'form_view_ref': 'ficep_structure.abstract_assembly_form_view'}">
+                                       context="{'form_view_ref': 'ficep_structure.abstract_assembly_form_view'}">
                                     <tree>
                                         <field name="assembly_category_id"/>
                                     </tree>
@@ -222,7 +217,7 @@
                             </group>
                         </div>
                     </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
@@ -272,7 +267,7 @@
                 <form string="Assembly Category" version="7.0">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
+                             invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate category: proceed anyway?" />
@@ -283,7 +278,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name"/></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                             <button string="Assemblies" name="assemblies"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_assembly_category_id': active_id,
@@ -318,7 +313,7 @@
                             </group>
                         </div>
                     </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
@@ -368,7 +363,7 @@
                 <form string="Power Level" version="7.0">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('simplified')"
+                             invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate level: proceed anyway?" />
@@ -379,7 +374,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name"/></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')">
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
                         <group>
                             <group  name="Data">
@@ -399,15 +394,13 @@
                             <page string="Assembly Categories" name="assembly_categories" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="assembly_category_ids" attrs="{'invisible': [('active','=',False)]}"
                                        context="{'default_power_level_id': active_id,
-                                                 'simplified': 1,
                                                  'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}">
                                     <tree>
                                         <field name="name"/>
                                     </tree>
                                 </field>
                                 <field name="assembly_category_inactive_ids" readonly = "1" attrs="{'invisible': [('active','=',True)]}"
-                                       context="{'simplified': 1,
-                                                 'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}">
+                                       context="{'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}">
                                     <tree>
                                         <field name="name"/>
                                     </tree>
@@ -428,7 +421,7 @@
                             </group>
                         </div>
                     </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('simplified')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>

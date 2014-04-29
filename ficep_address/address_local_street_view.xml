@@ -59,7 +59,7 @@
                             <label for="local_street" class="oe_edit_only"/>
                             <h1><field name="local_street" placeholder="Local Street..." /></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('simplified')"/>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')"/>
                         <group>
                             <field name="local_street_alternative" placeholder="Local Street Alternative..." />
                             <field name="disabled" />
