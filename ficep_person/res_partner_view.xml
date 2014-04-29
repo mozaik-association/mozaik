@@ -281,15 +281,13 @@
                                 context="{'search_default_partner_id': active_id,
                                           'default_partner_id': active_id,
                                           'search_default_all': True}" />
-                        <field name="partner_involvement_ids" context="{'default_partner_id': active_id,
-                                                                        'form_view_ref': 'ficep_person.partner_involvement_form_view'}"
+                        <field name="partner_involvement_ids" context="{'default_partner_id': active_id}"
                                attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                             <tree>
                                 <field name="partner_involvement_category_id" />
                             </tree>
                         </field>
-                        <field name="partner_involvement_inactive_ids" context="{'default_partner_id': active_id,
-                                                                                 'form_view_ref': 'ficep_person.partner_involvement_form_view'}"
+                        <field name="partner_involvement_inactive_ids" context="{'default_partner_id': active_id}"
                                readonly="1" attrs="{'invisible': [('active','=',True)]}">
                             <tree>
                                 <field name="partner_involvement_category_id" />

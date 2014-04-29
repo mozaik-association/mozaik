@@ -62,7 +62,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="partner_relation_search_view" />
             <field name="view_id" eval="partner_relation_subject_tree_view"/>
-            <field name="context">{'object': False, 'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}</field>
+            <field name="context">{'object': False}</field>
         </record>
 
         <record id="object_relation_action" model="ir.actions.act_window">
@@ -72,7 +72,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="partner_relation_search_view" />
             <field name="view_id" eval="partner_relation_object_tree_view"/>
-            <field name="context">{'object': True, 'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}</field>
+            <field name="context">{'object': True}</field>
         </record>
 
         <record id="partner_relation_subject_form_view" model="ir.ui.view">
@@ -109,23 +109,18 @@
                             <page name="email_coordinate" string="Coordinates">
                                 <group>
                                     <field name="email_coordinate_id" domain="[('partner_id','=',subject_partner_id)]"
-                                                                      context="{'default_partner_id': subject_partner_id,
-                                                                                'form_view_ref': 'ficep_email.email_coordinate_form_view'}"/>
+                                                                      context="{'default_partner_id': subject_partner_id}"/>
                                     <field name="postal_coordinate_id" domain="[('partner_id','=',subject_partner_id)]"
-                                                                       context="{'default_partner_id': subject_partner_id,
-                                                                                 'form_view_ref': 'ficep_address.postal_coordinate_form_view'}"/>
+                                                                       context="{'default_partner_id': subject_partner_id}"/>
                                     <field name="fix_coordinate_id" domain="[('partner_id','=',subject_partner_id),('coordinate_type','=','fix')]"
                                                                     context="{'default_partner_id': subject_partner_id,
-                                                                              'default_type': 'fix',
-                                                                              'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}"/>
+                                                                              'default_type': 'fix'}"/>
                                     <field name="mobile_coordinate_id" domain="[('partner_id','=',subject_partner_id),('coordinate_type','=','mobile')]"
                                                                        context="{'default_partner_id': subject_partner_id,
-                                                                                 'default_type': 'mobile',
-                                                                                 'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}"/>
+                                                                                 'default_type': 'mobile'}"/>
                                     <field name="fax_coordinate_id" domain="[('partner_id','=',subject_partner_id),('coordinate_type','=','fax')]"
                                                                     context="{'default_partner_id': subject_partner_id,
-                                                                              'default_type': 'fax',
-                                                                              'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}"/>
+                                                                              'default_type': 'fax'}"/>
                                 </group>
                             </page>
                         </notebook>
@@ -242,7 +237,6 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="partner_relation_category_search_view" />
             <field name="view_id" eval="partner_relation_category_tree_view"/>
-            <field name="context">{'form_view_ref': 'ficep_person_coordinate.partner_relation_category_form_view'}</field>
         </record>
 
         <record id="partner_relation_category_form_view" model="ir.ui.view">

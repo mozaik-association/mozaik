@@ -118,8 +118,7 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="xxx_tree_view" />
             <field name="search_view_id" ref="xxx_search_view" />
-            <field name="context">{'form_view_ref': 'module.model_form_view',
-                                   'search_default_xxx': True, 'default_state': 'draft'}</field>
+            <field name="context">{'search_default_xxx': True, 'default_state': 'draft'}</field>
         </record>
 
         <!-- Finally forms because some action ids can but used on buttons in the form with %(action_xml_id)d convention -->
@@ -184,14 +183,13 @@
                                         context="{'search_default_partner_id': active_id,
                                                   'default_partner_id': active_id,
                                                   'search_default_all': True}" />
-                                <field name="yyy_ids" context="{'default_zzz_id': active_id,
-                                                                'form_view_ref': 'ficep_yyy.yyy_form_view'}"
+                                <field name="yyy_ids" context="{'default_zzz_id': active_id}"
                                        attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                                     <tree>
                                         <field name="zzz_id"/>
                                     </tree>
                                 </field>
-                                <field name="yyy_inactive_ids" context="{'form_view_ref': 'ficep_yyy.yyy_form_view'}"
+                                <field name="yyy_inactive_ids"
                                        readonly="1" attrs="{'invisible': [('active','=',True)]}">
                                     <tree>
                                         <field name="zzz_id"/>

@@ -46,7 +46,6 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="phone_coordinate_tree_view" />
             <field name="search_view_id" ref="phone_coordinate_search_view" />
-            <field name="context">{'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}</field>
         </record>
 
         <record id="phone_coordinate_form_view" model="ir.ui.view">
@@ -139,8 +138,7 @@
                                         context="{'search_default_phone_id': active_id,
                                                   'default_phone_id': active_id,
                                                   'search_default_all': True}"/>
-                                <field name="phone_coordinate_ids" context="{'default_phone_id': id,
-                                                                             'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}">
+                                <field name="phone_coordinate_ids" context="{'default_phone_id': id}">
                                     <tree colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
                                         <field name="partner_id"/>
                                         <field name="coordinate_category_id" />
@@ -150,7 +148,7 @@
                                         <field name="is_duplicate_detected" invisible="1"/>
                                     </tree>
                                 </field>
-                                <field name="phone_coordinate_inactive_ids" context="{'form_view_ref': 'ficep_phone.phone_coordinate_form_view'}"
+                                <field name="phone_coordinate_inactive_ids"
                                        readonly="1" attrs="{'invisible': [('active','=',True)]}">
                                     <tree colors="darkorange:unauthorized==True">
                                         <field name="partner_id"/>

@@ -16,7 +16,7 @@
                                                   'default_partner_id': active_id,
                                                   'search_default_all': True}" />
                         <field name="sta_mandate_ids" attrs="{'invisible': [('active', '=', False)], 'readonly': [('id','=',False)]}"
-                               context="{'form_view_ref': 'ficep_mandate.sta_mandate_form_view'}">
+                                context="{'default_partner_id': active_id}">
                             <tree>
                                 <field name="mandate_category_id"/>
                                 <field name="sta_assembly_id"/>
@@ -25,7 +25,7 @@
                             </tree>
                         </field>
                         <field name="sta_mandate_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
-                               readonly="1" context="{'form_view_ref': 'ficep_mandate.sta_mandate_form_view'}">
+                               readonly="1">
                             <tree>
                                 <field name="mandate_category_id"/>
                                 <field name="sta_assembly_id"/>
@@ -40,7 +40,7 @@
                                                   'default_partner_id': active_id,
                                                   'search_default_all': True}" />
                         <field name="sta_candidature_ids" attrs="{'invisible': [('active', '=', False)]}"
-                               readonly="1" context="{'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}">
+                               readonly="1">
                             <tree>
                                 <field name="mandate_category_id"/>
                                 <field name="sta_assembly_id"/>
@@ -49,7 +49,7 @@
                             </tree>
                         </field>
                         <field name="sta_candidature_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
-                               readonly="1" context="{'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}">
+                               readonly="1">
                             <tree>
                                 <field name="mandate_category_id"/>
                                 <field name="sta_assembly_id"/>

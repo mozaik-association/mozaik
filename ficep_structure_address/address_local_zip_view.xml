@@ -39,7 +39,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//group[@name='data']" position="inside">
-                    <field name="int_instance_id" context="{'form_view_ref': 'ficep_structure.int_instance_form_view'}" />
+                    <field name="int_instance_id" />
                 </xpath>
 
             </field>

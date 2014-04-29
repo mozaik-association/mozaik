@@ -23,8 +23,7 @@
                 <xpath expr="//group[@name='to_exclude']" position="after">
                     <notebook>
                             <page name="users" string="Users" autofocus="autofocus">
-                                <field name="res_users_ids" context="{'default_distribution_list_id': id,
-                                                                      'form_view_ref': 'base.view_users_form'}">
+                                <field name="res_users_ids" context="{'default_distribution_list_id': id}">
                                     <tree>
                                         <field name="name"/>
                                     </tree>

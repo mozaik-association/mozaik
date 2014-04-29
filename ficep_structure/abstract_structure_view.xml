@@ -62,13 +62,13 @@
 
                         <group>
                             <group name="assembly">
-                                <field name="instance_id" context="{'form_view_ref': 'ficep_structure.abstract_instance_form_view'}"/>
-                                <field name="assembly_category_id" context="{'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}"/>
+                                <field name="instance_id"/>
+                                <field name="assembly_category_id"/>
                                 <field name="partner_id" readonly="1" attrs="{'invisible': [('id','=',False)],
                                                                               'required': [('id','!=',False)]}"/>
                             </group>
                             <group name="mandate">
-                                <field name="designation_int_power_level_id" context="{'form_view_ref': 'ficep_structure.abstract_power_level_form_view'}"/>
+                                <field name="designation_int_power_level_id"/>
                                 <field name="months_before_end_of_mandate"/>
                             </group>
                         </group>
@@ -171,7 +171,7 @@
 
                         <group>
                             <group name="data_1">
-                                <field name="parent_id" context="{'form_view_ref': 'ficep_structure.abstract_instance_form_view'}"/>
+                                <field name="parent_id"/>
                             </group>
                             <group name="data_2">
                             </group>
@@ -189,14 +189,12 @@
                         <notebook>
                             <page string="Assemblies" name="assemblies" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="assembly_ids" attrs="{'invisible': [('active','=',False)]}"
-                                       context="{'default_instance_id': active_id,
-                                                 'form_view_ref': 'ficep_structure.abstract_assembly_form_view'}">
+                                       context="{'default_instance_id': active_id}">
                                     <tree>
                                         <field name="assembly_category_id"/>
                                     </tree>
                                 </field>
-                                <field name="assembly_inactive_ids" readonly = "1" attrs="{'invisible': [('active','=',True)]}"
-                                       context="{'form_view_ref': 'ficep_structure.abstract_assembly_form_view'}">
+                                <field name="assembly_inactive_ids" readonly = "1" attrs="{'invisible': [('active','=',True)]}">
                                     <tree>
                                         <field name="assembly_category_id"/>
                                     </tree>
@@ -393,14 +391,12 @@
                         <notebook>
                             <page string="Assembly Categories" name="assembly_categories" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="assembly_category_ids" attrs="{'invisible': [('active','=',False)]}"
-                                       context="{'default_power_level_id': active_id,
-                                                 'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}">
+                                       context="{'default_power_level_id': active_id}">
                                     <tree>
                                         <field name="name"/>
                                     </tree>
                                 </field>
-                                <field name="assembly_category_inactive_ids" readonly = "1" attrs="{'invisible': [('active','=',True)]}"
-                                       context="{'form_view_ref': 'ficep_structure.abstract_assembly_category_form_view'}">
+                                <field name="assembly_category_inactive_ids" readonly = "1" attrs="{'invisible': [('active','=',True)]}">
                                     <tree>
                                         <field name="name"/>
                                     </tree>

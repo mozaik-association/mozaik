@@ -151,7 +151,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="mandate_category_search_view" />
             <field name="view_id" ref="mandate_category_tree_view" />
-            <field name="context">{'form_view_ref': 'ficep_mandate.mandate_category_form_view', 'default_type': 'sta'}</field>
+            <field name="context">{'default_type': 'sta'}</field>
             <field name="domain">[('type', '=', 'sta')]</field>
         </record>
 
@@ -162,7 +162,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="mandate_category_search_view" />
             <field name="view_id" ref="mandate_category_tree_view" />
-            <field name="context">{'form_view_ref': 'ficep_mandate.mandate_category_form_view', 'default_type': 'int'}</field>
+            <field name="context">{'default_type': 'int'}</field>
             <field name="domain">[('type', '=', 'int')]</field>
         </record>
 
@@ -173,7 +173,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="mandate_category_search_view" />
             <field name="view_id" ref="mandate_category_tree_view" />
-            <field name="context">{'form_view_ref': 'ficep_mandate.mandate_category_form_view', 'default_type': 'ext'}</field>
+            <field name="context">{'default_type': 'ext'}</field>
             <field name="domain">[('type', '=', 'ext')]</field>
         </record>
 
@@ -184,7 +184,6 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="sta_candidature_search_view" />
             <field name="view_id" ref="abstract_candidature_tree_view" />
-            <field name="context">{'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}</field>
         </record>
 
         <record id="sta_mandate_action" model="ir.actions.act_window">
@@ -194,7 +193,6 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="sta_mandate_search_view" />
             <field name="view_id" ref="sta_mandate_tree_view" />
-            <field name="context">{'form_view_ref': 'ficep_mandate.sta_mandate_form_view'}</field>
         </record>
 
         <record id="sta_selection_committee_action" model="ir.actions.act_window">
@@ -204,7 +202,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="selection_committee_search_view" />
             <field name="view_id" ref="selection_committee_tree_view" />
-            <field name="context">{'form_view_ref': 'ficep_mandate.selection_committee_form_view', 'default_committee_type': 'state', 'committee_type': 'state'}</field>
+            <field name="context">{'default_committee_type': 'state', 'committee_type': 'state'}</field>
             <field name="domain">[('committee_type', '=', 'state')]</field>
         </record>
 
@@ -215,7 +213,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="selection_committee_search_view" />
             <field name="view_id" ref="selection_committee_tree_view" />
-            <field name="context">{'form_view_ref': 'ficep_mandate.selection_committee_form_view', 'default_committee_type': 'internal', 'committee_type': 'internal'}</field>
+            <field name="context">{'default_committee_type': 'internal', 'committee_type': 'internal'}</field>
             <field name="domain">[('committee_type', '=', 'internal')]</field>
         </record>
 
@@ -226,7 +224,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="selection_committee_search_view" />
             <field name="view_id" ref="selection_committee_tree_view" />
-            <field name="context">{'form_view_ref': 'ficep_mandate.selection_committee_form_view', 'default_committee_type': 'external', 'committee_type': 'external'}</field>
+            <field name="context">{'default_committee_type': 'external', 'committee_type': 'external'}</field>
             <field name="domain">[('committee_type', '=', 'external')]</field>
         </record>
 
@@ -263,18 +261,15 @@
                                 <field name="is_submission_assets"/>
                             </group>
                             <group name="Power Level">
-                                <field name="int_power_level_id" context="{'form_view_ref': 'ficep_structure.int_power_level_form_view'}"/>
+                                <field name="int_power_level_id"/>
                             </group>
                             <group name="Assembly Categories">
                                 <field name="sta_assembly_category_id" attrs="{'invisible': [('type','!=', 'sta')],
-                                                                               'required':[('type','=', 'sta')] }"
-                                       context="{'form_view_ref': 'ficep_structure.sta_assembly_category_form_view'}"/>
+                                                                               'required':[('type','=', 'sta')] }"/>
                                 <field name="int_assembly_category_id" attrs="{'invisible': [('type','!=', 'int')],
-                                                                               'required':[('type','=', 'int')] }"
-                                       context="{'form_view_ref': 'ficep_structure.int_assembly_category_form_view'}"/>
+                                                                               'required':[('type','=', 'int')] }"/>
                                <field name="ext_assembly_category_id" attrs="{'invisible': [('type','!=', 'ext')],
-                                                                              'required':[('type','=', 'ext')] }"
-                                       context="{'form_view_ref': 'ficep_structure.ext_assembly_category_form_view'}"/>
+                                                                              'required':[('type','=', 'ext')] }"/>
                             </group>
                             <group name="Dates">
                                 <field name="create_date" readonly="1"/>
@@ -335,7 +330,7 @@
                 </xpath>
                 <xpath expr="//field[@name='selection_committee_id']" position="after">
                      <field name="electoral_district_id" readonly="1"/>
-                     <field name="sta_assembly_id" readonly="1" context="{'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"/>
+                     <field name="sta_assembly_id" readonly="1"/>
                      <field name="legislature_id" readonly="1"/>
                 </xpath>
                 <xpath expr="//group[@name='data_2']" position="after">
@@ -370,15 +365,11 @@
                 <xpath expr="//field[@name='email_coordinate_id']" position="before">
                     <field name="sta_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
                             required="1"
-                            context="{'form_view_ref': 'ficep_structure.sta_assembly_form_view'}"
                             domain="[('assembly_category_id', '=', sta_assembly_category_id)]"/>
                     <field name="legislature_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
                                                   domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"
                                                   on_change="onchange_legislature_id(legislature_id)"/>
 
-                </xpath>
-                <xpath expr="//field[@name='candidature_id']" position="attributes">
-                     <attribute name="context">{'form_view_ref': 'ficep_mandate.sta_candidature_form_view'}</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
@@ -470,7 +461,6 @@
                                 <div name="all">
                                     <group>
                                     <field name="mandate_category_id"
-                                           context="{'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"
                                            domain="[('sta_assembly_category_id', '=', sta_assembly_category_id)]"
                                            on_change="onchange_mandate_category_id(mandate_category_id)"/>
                                     <field name="mandate_start_date" widget="date"/>
@@ -502,8 +492,7 @@
                                 <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
                                         attrs="{'invisible': [('state','=','done')]}"
                                         confirm="Refuse all candidatures: proceed anyway ?"/>
-                                <field name="sta_candidature_ids" context="{'form_view_ref': 'ficep_mandate.sta_candidature_form_view',
-                                                                            'default_selection_committee_id': active_id}">
+                                <field name="sta_candidature_ids" context="{'default_selection_committee_id': active_id}">
                                     <tree colors="red:state=='declared';grey:active==False">
                                         <field name="list_effective_position" string="#E"
                                                attrs="{'invisible': [('is_effective', '=', False),('is_substitute', '!=', False)]}"/>

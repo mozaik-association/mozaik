@@ -115,8 +115,7 @@
                     <sheet>
                         <div class="oe_title">
                             <h1>Mandate: <field name="mandate_category_id" class="oe_inline"
-                                                attrs="{'readonly': [('candidature_id','!=',False)]}"
-                                                context="{'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"/></h1>
+                                                attrs="{'readonly': [('candidature_id','!=',False)]}"/></h1>
                             <h2><field name="partner_id" domain="[('is_company','=',False)]"
                                        attrs="{'readonly': [('candidature_id','!=',False)]}"/></h2>
                         </div>
@@ -129,7 +128,7 @@
                                 <field name="postal_coordinate_id" domain="[('partner_id', '=', partner_id)]"/>
                             </group>
                             <group name="data_2">
-                                <field name="designation_int_assembly_id" context="{'form_view_ref': 'ficep_structure.int_assembly_form_view'}" domain="[('is_designation_assembly', '=', True)]"/>
+                                <field name="designation_int_assembly_id" domain="[('is_designation_assembly', '=', True)]"/>
                                 <field name="is_submission_mandate" readonly="1"/>
                                 <field name="is_submission_assets" readonly="1"/>
                                 <field name="is_replacement"/>
@@ -193,7 +192,7 @@
                     <sheet>
                         <div class="oe_title">
                              <h1>Candidature: <field name="mandate_category_id" class="oe_inline"
-                                                     readonly ="1" context="{'form_view_ref': 'ficep_mandate.mandate_category_form_view'}"/></h1>
+                                                     readonly ="1"/></h1>
                             <h2><field name="partner_id" domain="[('is_company','=',False)]"
                                        attrs="{'readonly': [('id','!=',False)]}"/></h2>
                         </div>
@@ -209,7 +208,7 @@
                                         on_change="onchange_selection_committee_id(selection_committee_id)"/>
                             </group>
                             <group name="data_2">
-                                <field name="designation_int_assembly_id" readonly="1" context="{'form_view_ref': 'ficep_structure.int_assembly_form_view'}"/>
+                                <field name="designation_int_assembly_id" readonly="1"/>
                             </group>
                             <group name="Dates">
                                 <field name="create_date" readonly="1"/>
