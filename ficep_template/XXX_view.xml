@@ -175,7 +175,7 @@
                             </group>
                         </group>
 
-                        <notebook>
+                        <notebook invisible="context.get('popup')">
                             <page string="YYY" name="yyy" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <separator string="yyyy yyyy"/>
                                 <button string="All Details" name="%(yyy_action)d"

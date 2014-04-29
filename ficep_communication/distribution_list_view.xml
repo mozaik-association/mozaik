@@ -22,13 +22,13 @@
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='to_exclude']" position="after">
                     <notebook>
-                            <page name="users" string="Users" autofocus="autofocus">
-                                <field name="res_users_ids" context="{'default_distribution_list_id': id}">
-                                    <tree>
-                                        <field name="name"/>
-                                    </tree>
-                                </field>
-                            </page>
+                        <page name="users" string="Users" autofocus="autofocus">
+                            <field name="res_users_ids" context="{'default_distribution_list_id': id}">
+                                <tree>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
                     </notebook>
                 </xpath>
             </field>

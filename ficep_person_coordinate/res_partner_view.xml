@@ -70,7 +70,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//notebook" position="inside">
-                    <page name="relation" string="Relations">
+                    <page name="relation" string="Relations" invisible="context.get('popup')">
                         <separator string="Relations where the partner is the subject" />
                         <!-- Active -->
                         <button string="All Details" name="%(subject_relation_action)d"

@@ -382,10 +382,10 @@
 
                 <xpath expr="//group[@name='data']" position="after">
                     <notebook>
-                      <page name="index" string="Indexation">
-                          <separator string="Competencies"/>
-                          <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." context="{'default_state': 'draft'}" />
-                      </page>
+                        <page name="index" string="Indexation">
+                            <separator string="Competencies"/>
+                            <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." context="{'default_state': 'draft'}" />
+                        </page>
                   </notebook>
               </xpath>
             </field>
@@ -479,8 +479,10 @@
                                 <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
                             </group>
                         </group>
+
                         <notebook>
-                            <page string="Candidatures" name="candidatures" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
+                            <page string="Candidatures" name="candidatures" invisible="context.get('popup')"
+                                  attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <button string="All Details" name="%(sta_candidature_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
                                         context="{'search_default_selection_committee_id': active_id,

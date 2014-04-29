@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="ficep_structure.sta_assembly_category_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='status']" position="after">
-                    <notebook>
+                    <notebook invisible="context.get('popup')">
                         <page name="mandate categories" string=" Mandates Categories">
                             <field name="mandate_category_ids" attrs="{'invisible': [('active', '=', False)]}"
                                    readonly="1"               context="{'default_mandate_category_id': active_id}">
@@ -44,7 +44,7 @@
                                           'default_sta_assembly_id': active_id}" />
                 </xpath>
                  <xpath expr="//group[@name='status']" position="after">
-                    <notebook>
+                    <notebook invisible="context.get('popup')">
                         <page name="selection committees" string="Selection Committees">
                             <field name="selection_committee_ids" attrs="{'invisible': [('active', '=', False)]}"
                                    readonly="1" context="{'default_sta_assembly_id': active_id}">

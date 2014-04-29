@@ -186,7 +186,7 @@
                             </group>
                         </group>
 
-                        <notebook>
+                        <notebook invisible="context.get('popup')">
                             <page string="Assemblies" name="assemblies" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="assembly_ids" attrs="{'invisible': [('active','=',False)]}"
                                        context="{'default_instance_id': active_id}">
@@ -388,7 +388,8 @@
                             <group name="other">
                             </group>
                         </group>
-                        <notebook>
+
+                        <notebook invisible="context.get('popup')">
                             <page string="Assembly Categories" name="assembly_categories" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="assembly_category_ids" attrs="{'invisible': [('active','=',False)]}"
                                        context="{'default_power_level_id': active_id}">

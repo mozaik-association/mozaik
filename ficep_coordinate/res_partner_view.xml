@@ -13,7 +13,7 @@
                 </xpath>
 
                 <xpath expr="//page[@name='internal_notes']" position="after">
-                    <page name="coordinates" string="Coordinates">
+                    <page name="coordinates" string="Coordinates" invisible="context.get('popup')">
                         <separator name="email" string="Email Coordinates"/>
                         <separator name="address" string="Postal Coordinates"/>
                         <separator name="phone" string="Phone Coordinates"/>

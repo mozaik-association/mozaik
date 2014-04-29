@@ -62,7 +62,7 @@
                     <label for="address_id" class="oe_edit_only"/>
                     <h1><field name="address_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
                 </xpath>
-                <xpath expr="//field[@name='partner_id']" position="after">
+                <xpath expr="//field[@name='coordinate_category_id']" position="before">
                     <field name="co_residency_id" readonly="not context.get('is_developper')" attrs="{'invisible': [('co_residency_id','=',False)]}"/>
                 </xpath>
 
@@ -175,7 +175,7 @@
                             <group name="other">
                             </group>
                         </group>
-                        <notebook>
+                        <notebook invisible="context.get('popup')">
                             <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <button string="All Details" name="%(postal_coordinate_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
@@ -295,7 +295,7 @@
                             <group name="other">
                             </group>
                         </group>
-                        <notebook>
+                        <notebook invisible="context.get('popup')">
                             <page string="Coordinates" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <button string="All Details" name="%(postal_coordinate_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"

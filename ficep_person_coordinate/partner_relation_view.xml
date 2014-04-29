@@ -105,6 +105,7 @@
                             <group name="other">
                             </group>
                         </group>
+
                         <notebook>
                             <page name="email_coordinate" string="Coordinates">
                                 <group>

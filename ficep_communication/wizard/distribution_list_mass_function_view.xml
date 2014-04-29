@@ -33,6 +33,7 @@
                                        attrs="{'invisible':[('trg_model','!=','postal.coordinate')]}" />
                             </group>
                         </group>
+
                         <notebook>
                             <page name="mass_mailing" string="Mass Mailing" autofocus="autofocus"
                                   attrs="{'invisible':['|',('trg_model','!=','email.coordinate'),
@@ -71,6 +72,7 @@
                 </form>
             </field>
         </record>
+
         <!-- Distribution List Mass Function Action -->
 
         <record id="distribution_list_mass_function_action" model="ir.actions.act_window">
