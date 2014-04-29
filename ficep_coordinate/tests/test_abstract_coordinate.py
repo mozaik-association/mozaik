@@ -25,6 +25,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+import psycopg2
+
 from openerp.osv import orm
 
 
@@ -62,9 +65,9 @@ class abstract_coordinate(object):
         self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
                                                          self.model_coordinate._discriminant_field: self.field_id_1,
                                                          'is_main': True})
-        self.assertRaises(orm.except_orm, self.model_coordinate.create, self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                                                                  self.model_coordinate._discriminant_field: self.field_id_1,
-                                                                                                  'is_main': False})
+        self.assertRaises(psycopg2.IntegrityError, self.model_coordinate.create, self.cr, self.uid, {'partner_id': self.partner_id_1,
+                                                                                            self.model_coordinate._discriminant_field: self.field_id_1,
+                                                                                            'is_main': False})
 
     def test_create_new_main(self):
         """

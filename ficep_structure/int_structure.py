@@ -60,6 +60,8 @@ class int_assembly_category(orm.Model):
         'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, select=True, track_visibility='onchange'),
     }
 
+    _order = 'power_level_id, name'
+
 # constraints
 
     _unicity_keys = 'power_level_id, name'

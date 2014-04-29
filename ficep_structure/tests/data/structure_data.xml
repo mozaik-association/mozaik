@@ -470,6 +470,13 @@
             <field name="int_instance_id" ref="ficep_structure.int_instance_01"/>
         </record>
 
+        <record id="sta_instance_09" model="sta.instance">
+            <field name="name">Oreye</field>
+            <field name="power_level_id" ref="sta_power_level_05"/>
+            <field name="parent_id" ref="sta_instance_05"/>
+            <field name="int_instance_id" ref="int_instance_06"/>
+        </record>
+
         <!-- Create State Assemblies -->
 
         <record id="sta_assembly_01" model="sta.assembly">

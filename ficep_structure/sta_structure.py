@@ -56,6 +56,8 @@ class sta_assembly_category(orm.Model):
         'is_legislative': False,
     }
 
+    _order = 'power_level_id, name'
+
 # constraints
 
     _unicity_keys = 'power_level_id, name'

@@ -49,7 +49,7 @@ class test_structure(SharedSetupTransactionCase):
         self.sta_assembly_model = self.registry('sta.assembly')
         self.ext_assembly_model = self.registry('ext.assembly')
 
-        self.sta_assembly_category_id = self.ref('%s.sta_assembly_category_13' % self._module_ns)
+        self.sta_assembly_category_id = self.ref('%s.sta_assembly_category_14' % self._module_ns)
         self.ext_assembly_category_id = self.ref('%s.ext_assembly_category_01' % self._module_ns)
 
     def test_internal_inst_of_assembly_partner(self):
@@ -91,7 +91,7 @@ class test_structure(SharedSetupTransactionCase):
         self.assertEqual(assembly.partner_id.int_instance_id.id, instance_id, 'Update external assembly fails with wrong internal instance linked to the result partner')
 
         # 2/ For a State Assembly
-        instance_id = self.ref('%s.sta_instance_04' % self._module_ns)
+        instance_id = self.ref('%s.sta_instance_07' % self._module_ns)
 
         # 2.1/ Create the assembly
         data = dict(
@@ -106,7 +106,7 @@ class test_structure(SharedSetupTransactionCase):
         self.assertEqual(assembly.partner_id.int_instance_id.id, assembly.instance_id.int_instance_id.id, 'Create state assembly fails with wrong internal instance linked to the result partner')
 
         # 2.2/ Update the assembly
-        instance_id = self.ref('%s.sta_instance_08' % self._module_ns)
+        instance_id = self.ref('%s.sta_instance_09' % self._module_ns)
         data = dict(
             instance_id=instance_id,
         )
