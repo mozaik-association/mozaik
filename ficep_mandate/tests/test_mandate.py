@@ -30,6 +30,8 @@ import psycopg2
 import logging
 from anybox.testing.openerp import SharedSetupTransactionCase
 
+from openerp.addons.ficep_base import testtool
+
 _logger = logging.getLogger(__name__)
 
 
@@ -56,7 +58,11 @@ class test_mandate(SharedSetupTransactionCase):
         data = dict(name='category_01', int_power_level_id=int_power_level_01_id)
         self.registry('mandate.category').create(self.cr, self.uid, data)
         data['int_power_level_id'] = int_power_level_02_id
-        self.assertRaises(psycopg2.IntegrityError, self.registry('mandate.category').create, self.cr, self.uid, data)
+
+        with testtool.disable_log_error(self.cr):
+            self.assertRaises(psycopg2.IntegrityError,
+                              self.registry('mandate.category').create,
+                              self.cr, self.uid, data)
 
     def test_copy_selection_committee(self):
         '''
@@ -75,3 +81,5 @@ class test_mandate(SharedSetupTransactionCase):
 
         candidature_commitee_id = candidature_pool.read(self.cr, self.uid, rejected_id.id, ['selection_committee_id'])['selection_committee_id']
         self.assertEqual(new_committee_id, candidature_commitee_id[0])
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -26,14 +26,15 @@
 #
 ##############################################################################
 
-import controller
-import res_users
-import abstract_ficep
-import ir_model
-import mail_thread
-import res_lang
-import ir_import
-import convert
-import testtool
+from contextlib import contextmanager
+
+
+@contextmanager
+def disable_log_error(cr):
+    try:
+        cr._default_log_exceptions = False
+        yield
+    finally:
+        cr._default_log_exceptions = True
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

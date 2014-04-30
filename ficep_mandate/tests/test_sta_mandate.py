@@ -32,6 +32,8 @@ from anybox.testing.openerp import SharedSetupTransactionCase
 
 from openerp.osv import orm
 
+from openerp.addons.ficep_base import testtool
+
 _logger = logging.getLogger(__name__)
 
 
@@ -67,7 +69,11 @@ class test_sta_mandate(SharedSetupTransactionCase):
             partner_id=jacques_partner_id)
 
         self.registry('sta.candidature').create(self.cr, self.uid, data)
-        self.assertRaises(psycopg2.IntegrityError, self.registry('sta.candidature').create, self.cr, self.uid, data)
+
+        with testtool.disable_log_error(self.cr):
+            self.assertRaises(psycopg2.IntegrityError,
+                              self.registry('sta.candidature').create,
+                              self.cr, self.uid, data)
 
     def test_sta_candidature_legislative_process(self):
         '''
@@ -174,3 +180,5 @@ class test_sta_mandate(SharedSetupTransactionCase):
 
         mandate_ids = mandate_pool.search(self.cr, self.uid, [('candidature_id', '=', sta_marc_id)])
         self.assertEqual(len(mandate_ids), 1)
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

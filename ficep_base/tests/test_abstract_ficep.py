@@ -25,6 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm
 
 
@@ -59,3 +60,5 @@ class abstract_ficep(object):
         for obj in self.model_abstract.browse(self.cr, self.uid, self.validate_ids):
             self.assertEqual(obj.active, True)
             self.assertEqual(obj.expire_date, False)
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

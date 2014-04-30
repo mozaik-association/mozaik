@@ -30,6 +30,8 @@ import psycopg2
 
 from openerp.osv import orm
 
+from openerp.addons.ficep_base import testtool
+
 
 class abstract_coordinate(object):
     #unittest2 run test for the abstract class too
@@ -65,9 +67,14 @@ class abstract_coordinate(object):
         self.model_coordinate.create(self.cr, self.uid, {'partner_id': self.partner_id_1,
                                                          self.model_coordinate._discriminant_field: self.field_id_1,
                                                          'is_main': True})
-        self.assertRaises(psycopg2.IntegrityError, self.model_coordinate.create, self.cr, self.uid, {'partner_id': self.partner_id_1,
-                                                                                            self.model_coordinate._discriminant_field: self.field_id_1,
-                                                                                            'is_main': False})
+        with testtool.disable_log_error(self.cr):
+            self.assertRaises(psycopg2.IntegrityError,
+                              self.model_coordinate.create,
+                              self.cr, self.uid, {
+                                'partner_id': self.partner_id_1,
+                                self.model_coordinate._discriminant_field: self.field_id_1,
+                                'is_main': False,
+                              })
 
     def test_create_new_main(self):
         """
