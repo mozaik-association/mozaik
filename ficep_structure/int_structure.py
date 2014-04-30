@@ -131,8 +131,9 @@ class int_assembly(orm.Model):
         'instance_id': fields.many2one('int.instance', 'Internal Instance',
                                        select=True, required=True, track_visibility='onchange'),
         'is_designation_assembly': fields.boolean("Designation Assembly", track_visibility='onchange'),
-        'designation_int_power_level_id': fields.many2one('int.power.level', string='Designation Power Level',
-                                                          select=True, required=True, track_visibility='onchange'),
+        'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation assembly',
+                                                 select=True, track_visibility='onchange',
+                                                 domain=[('is_designation_assembly', '=', True)]),
     }
 
     def create(self, cr, uid, vals, context=None):

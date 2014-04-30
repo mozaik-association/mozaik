@@ -146,15 +146,12 @@ class abstract_assembly(orm.AbstractModel):
                                        select=True, required=True, track_visibility='onchange'),
         'partner_id': fields.many2one('res.partner', string='Associated Partner',
                                       select=True, required=True, ondelete='restrict'),
-        'designation_int_power_level_id': fields.many2one('abstract.power.level', string='Designation Power Level',
-                                                          select=True, track_visibility='onchange'),
         'months_before_end_of_mandate': fields.integer('Months before end of Mandate', track_visibility='onchange'),
     }
 
     _defaults = {
         'is_company': True,
         'is_assembly': True,
-        'designation_int_power_level_id': lambda self, cr, uid, ids, context=None: self.pool.get('int.power.level').get_default(cr, uid)
     }
 
 # constraints

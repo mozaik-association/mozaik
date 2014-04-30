@@ -482,52 +482,47 @@
         <record id="sta_assembly_01" model="sta.assembly">
             <field name="instance_id" ref="sta_instance_07"/>
             <field name="assembly_category_id" ref="sta_assembly_category_07"/>
-            <field name="designation_int_power_level_id" ref="int_power_level_05"/>
         </record>
 
         <record id="sta_assembly_02" model="sta.assembly">
             <field name="instance_id" ref="sta_instance_04"/>
             <field name="assembly_category_id" ref="sta_assembly_category_05"/>
-            <field name="designation_int_power_level_id" ref="int_power_level_03"/>
         </record>
 
         <record id="sta_assembly_03" model="sta.assembly">
             <field name="instance_id" ref="sta_instance_07"/>
             <field name="assembly_category_id" ref="sta_assembly_category_11"/>
-            <field name="designation_int_power_level_id" ref="int_power_level_05"/>
         </record>
 
          <record id="sta_assembly_04" model="sta.assembly">
             <field name="instance_id" ref="sta_instance_04"/>
-            <field name="assembly_category_id" ref="sta_assembly_category_13"/>
-            <field name="designation_int_power_level_id" ref="int_power_level_03"/>
+            <field name="assembly_category_id" ref="sta_assembly_category_13"/>            
         </record>
 
         <!-- Create Internal Assemblies -->
 
         <record id="int_assembly_01" model="int.assembly">
             <field name="instance_id" ref="int_instance_05"/>
-            <field name="assembly_category_id" ref="int_assembly_category_01"/>
-            <field name="designation_int_power_level_id" ref="int_power_level_05"/>
+            <field name="assembly_category_id" ref="int_assembly_category_01"/>            
             <field name="is_designation_assembly" eval="1"/>
         </record>
 
         <record id="int_assembly_02" model="int.assembly">
             <field name="instance_id" ref="int_instance_05"/>
             <field name="assembly_category_id" ref="int_assembly_category_04"/>
-            <field name="designation_int_power_level_id" ref="int_power_level_04"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
         </record>
 
         <record id="int_assembly_03" model="int.assembly">
             <field name="instance_id" ref="int_instance_04"/>
             <field name="assembly_category_id" ref="int_assembly_category_05"/>
-            <field name="designation_int_power_level_id" ref="int_power_level_03"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
         </record>
         
         <record id="int_assembly_04" model="int.assembly">
             <field name="instance_id" ref="int_instance_03"/>
             <field name="assembly_category_id" ref="int_assembly_category_02"/>
-            <field name="designation_int_power_level_id" ref="int_power_level_03"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="is_designation_assembly" eval="1"/>
         </record>
 
@@ -537,7 +532,7 @@
             <field name="instance_id" ref="ficep_structure.int_instance_01"/>
             <field name="ref_partner_id" ref="res_partner_rtbf"/>
             <field name="assembly_category_id" ref="ext_assembly_category_01"/>
-            <field name="designation_int_power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="months_before_end_of_mandate" eval="4"/>
         </record>
 

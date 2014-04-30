@@ -26,7 +26,6 @@
 #
 ##############################################################################
 from . import abstract_structure
-from . import structure
 from . import sta_structure
 from . import ext_structure
 from . import int_structure
