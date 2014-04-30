@@ -153,7 +153,7 @@
 
         <record id="sta_assembly_category_11" model="sta.assembly.category">
             <field name="name">Collège des bourgmestre et échevins</field>
-             <field name="power_level_id" ref="sta_power_level_05"/>
+            <field name="power_level_id" ref="sta_power_level_05"/>
             <field name="duration">6</field>
         </record>
 
@@ -298,51 +298,51 @@
         <record id="ext_assembly_category_01" model="ext.assembly.category">
             <field name="name">Conseil d'administration</field>
         </record>
-        
+
         <record id="ext_assembly_category_02" model="ext.assembly.category">
             <field name="name">Assemblée Générale</field>
         </record>
-        
+
         <record id="ext_assembly_category_03" model="ext.assembly.category">
             <field name="name">Exécutif</field>
         </record>
-        
+
         <record id="ext_assembly_category_04" model="ext.assembly.category">
             <field name="name">Bureau</field>
         </record>
-        
+
         <record id="ext_assembly_category_05" model="ext.assembly.category">
             <field name="name">Comité de Surveillance</field>
         </record>
-        
+
         <record id="ext_assembly_category_06" model="ext.assembly.category">
             <field name="name">Comité Exécutif</field>
         </record>
-        
+
         <record id="ext_assembly_category_07" model="ext.assembly.category">
             <field name="name">Collège des Commissaires</field>
         </record>
-        
+
         <record id="ext_assembly_category_08" model="ext.assembly.category">
             <field name="name">Assemblée Plénière</field>
         </record>
-        
+
         <record id="ext_assembly_category_09" model="ext.assembly.category">
             <field name="name">Conseil d'avis</field>
         </record>
-        
+
         <record id="ext_assembly_category_10" model="ext.assembly.category">
             <field name="name">Comité Permanent</field>
         </record>
-        
+
         <record id="ext_assembly_category_11" model="ext.assembly.category">
             <field name="name">Comité de Gestion</field>
         </record>
-        
+
         <record id="ext_assembly_category_12" model="ext.assembly.category">
             <field name="name">Comité de Direction</field>
         </record>
-        
+
         <record id="ext_assembly_category_13" model="ext.assembly.category">
             <field name="name">Comité d Attribution</field>
         </record>
@@ -523,7 +523,7 @@
             <field name="assembly_category_id" ref="int_assembly_category_05"/>
             <field name="designation_int_power_level_id" ref="int_power_level_03"/>
         </record>
-        
+
         <record id="int_assembly_04" model="int.assembly">
             <field name="instance_id" ref="int_instance_03"/>
             <field name="assembly_category_id" ref="int_assembly_category_02"/>
@@ -558,7 +558,7 @@
             <field name="deadline_date">2024-10-25</field>
             <field name="election_date">2018-10-14</field>
         </record>
-        
+
         <record id="legislature_closed_01" model="legislature">
             <field name="name">Communale 2012</field>
             <field name="power_level_id" ref="sta_power_level_05"/>
