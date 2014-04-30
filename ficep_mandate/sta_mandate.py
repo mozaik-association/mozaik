@@ -26,12 +26,199 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp.osv import orm, fields, osv
 from openerp.tools.translate import _
 
 from .abstract_mandate import abstract_candidature
 from .abstract_mandate import create_mandate_from_candidature
 from .mandate import mandate_category
+
+
+class sta_selection_committee(orm.Model):
+    _name = 'sta.selection.committee'
+    _description = 'Selection Committee'
+    _inherit = ['abstract.selection.committee']
+
+    def _get_suggested_sta_candidatures(self, sta_candidature_ids):
+        res = []
+        for candidature in sta_candidature_ids:
+            if candidature.state == 'rejected':
+                continue
+            elif candidature.state == 'suggested':
+                res.append(candidature.id)
+            else:
+                raise osv.except_osv(_('Operation Forbidden!'),
+                             _('All candidatures are not in suggested state'))
+        return res
+
+    _columns = {
+        'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
+                                                 required=True, track_visibility='onchange', domain=[('type', '=', 'sta')]),
+        'sta_assembly_id': fields.many2one('sta.assembly', string='State Assembly', track_visibility='onchange'),
+        'sta_candidature_ids': fields.one2many('sta.candidature', 'selection_committee_id', 'State Candidatures',
+                                               domain=[('active', '<=', True)]),
+        'electoral_district_id': fields.many2one('electoral.district', string='Electoral District', track_visibility='onchange'),
+        'legislature_id': fields.many2one('legislature', string='Legislature', track_visibility='onchange'),
+        'sta_assembly_category_id': fields.related('mandate_category_id', 'sta_assembly_category_id', string='State Assembly Category',
+                                          type='many2one', relation="sta.assembly.category",
+                                          store=False),
+        'listname': fields.char('Name', size=128, track_visibility='onchange'),
+        'is_cartel': fields.boolean('Is Cartel'),
+        'cartel_composition': fields.text('Cartel composition', track_visibility='onchange'),
+    }
+
+# constraints
+    _unicity_keys = 'N/A'
+
+# orm methods
+    def name_get(self, cr, uid, ids, context=None):
+        if not context:
+            context = self.pool.get('res.users').context_get(cr, uid)
+
+        if not ids:
+            return []
+
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+
+        res = []
+
+        for committee in self.browse(cr, uid, ids, context=context):
+            display_name = u'{name} {electoral_district} ({legislature_date})'.format(name=committee.name,
+                                                                                          electoral_district=committee.electoral_district_id.name or committee.sta_assembly_id.name,
+                                                                                          legislature_date=self.pool.get('res.lang').format_date(cr, uid, committee.legislature_id.start_date, context) or False,)
+            res.append((committee['id'], display_name))
+        return res
+
+    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
+        if not args:
+            args = []
+        if name:
+            legislature_ids = self.pool.get('legislature').search(cr, uid, [('name', operator, name)], context=context)
+            district_ids = self.pool.get('electoral.district').search(cr, uid, [('name', operator, name)], context=context)
+            ids = self.search(cr, uid, ['|', '|', ('name', operator, name), ('legislature_id', 'in', legislature_ids), ('electoral_district_id', 'in', district_ids)] + args, limit=limit, context=context)
+        else:
+            ids = self.search(cr, uid, args, limit=limit, context=context)
+        return self.name_get(cr, uid, ids, context)
+
+    def copy_data(self, cr, uid, id_, default=None, context=None):
+        default = default or {}
+
+        default.update({
+            'sta_candidature_ids': [],
+        })
+        res = super(sta_selection_committee, self).copy_data(cr, uid, id_, default=default, context=context)
+
+        data = self.onchange_sta_assembly_id(cr, uid, id_, res.get('sta_assembly_id'), context=context)
+        legislature_id = data['value']['legislature_id']
+        legislature_data = self.onchange_legislature_id(cr, uid, id_, legislature_id, context=context)
+
+        res.update({
+            'legislature_id': legislature_id,
+            'mandate_start_date': legislature_data['value']['mandate_start_date'],
+            'mandate_deadline_date': legislature_data['value']['mandate_deadline_date'],
+        })
+        return res
+
+# view methods: onchange, button
+
+    def action_copy(self, cr, uid, ids, context=None):
+        """
+        ==========================
+        action_copy
+        ==========================
+        Duplicate committee and keep rejected state candidatures
+        :rparam: True
+        :rtype: boolean
+        """
+        if not context:
+            context = {}
+
+        context['candidature_model'] = self.pool.get('sta.candidature')
+        res = super(sta_selection_committee, self).action_copy(cr, uid, ids, context=context)
+
+        view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', 'sta_selection_committee_form_view')
+        view_id = view_ref and view_ref[1] or False,
+
+        res['view_id'] = view_id
+        return res
+
+    def button_accept_candidatures(self, cr, uid, ids, context=None):
+        """
+        ==========================
+        button_accept_candidatures
+        ==========================
+        This method calls the candidature workflow for each candidature_id in order to update their state
+        :rparam: True
+        :rtype: boolean
+        :raise: Error if all candidatures are not in suggested state
+        """
+        for committee in self.browse(cr, uid, ids, context=context):
+            if committee.sta_candidature_ids:
+                self.pool.get('sta.candidature').signal_action_accept(cr, uid, self._get_suggested_sta_candidatures(committee.sta_candidature_ids))
+        self.action_invalidate(cr, uid, ids, context, {'state': 'done'})
+        return True
+
+    def button_refuse_candidatures(self, cr, uid, ids, context=None):
+        """
+        ==========================
+        button_refuse_candidatures
+        ==========================
+        This method calls the candidature workflow for each candidature_id in order to update their state
+        :rparam: True
+        :rtype: boolean
+        :raise: Error if all candidatures are not in suggested state
+        """
+        for committee in self.browse(cr, uid, ids, context=context):
+            if committee.sta_candidature_ids:
+                self.pool.get('sta.candidature').signal_button_declare(cr, uid, self._get_suggested_sta_candidatures(committee.sta_candidature_ids))
+            self.write(cr, uid, ids, {'decision_date': False}, context=context)
+        return True
+
+    def onchange_electoral_district_id(self, cr, uid, ids, electoral_district_id, context=None):
+        res = {}
+        res['value'] = dict(sta_assembly_id=False,
+                            sta_assembly_category_id=False,
+                            designation_int_assembly_id=False)
+        if electoral_district_id:
+            district_data = self.pool.get('electoral.district').read(cr, uid, electoral_district_id, ['assembly_id', 'designation_int_assembly_id'])
+            res['value'] = dict(sta_assembly_id=district_data['assembly_id'] or False,
+                                designation_int_assembly_id=district_data['designation_int_assembly_id'] or False)
+        return res
+
+    def onchange_legislature_id(self, cr, uid, ids, legislature_id, context=None):
+        res = {}
+        res['value'] = dict(mandate_start_date=False,
+                                mandate_deadline_date=False)
+        if legislature_id:
+            legislature_data = self.pool.get('legislature').read(cr, uid, legislature_id, ['start_date', 'deadline_date'])
+            res['value'] = dict(mandate_start_date=legislature_data['start_date'],
+                                mandate_deadline_date=legislature_data['deadline_date'])
+        return res
+
+    def onchange_sta_assembly_id(self, cr, uid, ids, sta_assembly_id, context=None):
+        res = {}
+        res['value'] = dict(sta_assembly_category_id=False,
+                            legislature_id=False,
+                            designation_int_power_level_id=False,
+                            mandate_category_id=False)
+        if sta_assembly_id:
+            sta_assembly = self.pool.get('sta.assembly').browse(cr, uid, sta_assembly_id)
+            legislature_ids = self.pool.get('legislature').search(cr, uid, [('power_level_id', '=', sta_assembly.assembly_category_id.power_level_id.id),
+                                                                            ('start_date', '>', fields.datetime.now())])
+            legislature_id = False
+            if legislature_ids:
+                legislature_id = legislature_ids[0]
+
+            mandate_category_ids = self.pool.get('mandate.category').search(cr, uid, [('sta_assembly_category_id', '=', sta_assembly.assembly_category_id.id)])
+            mandate_category_id = False
+            if mandate_category_ids:
+                mandate_category_id = mandate_category_ids[0]
+
+            res['value'] = dict(sta_assembly_category_id=sta_assembly.assembly_category_id.id or False,
+                                legislature_id=legislature_id,
+                                designation_int_power_level_id=sta_assembly.designation_int_power_level_id.id,
+                                mandate_category_id=mandate_category_id)
+        return res
 
 
 class sta_candidature(orm.Model):
@@ -41,11 +228,17 @@ class sta_candidature(orm.Model):
     _inherit = ['abstract.candidature']
 
     _mandate_model = 'sta.mandate'
+    _selection_committee_model = 'sta.selection.committee'
     _init_mandate_columns = abstract_candidature._init_mandate_columns
     _init_mandate_columns.extend(['legislature_id', 'sta_assembly_id'])
-    _allowed_inactive_link_models = ['selection.committee']
+    _allowed_inactive_link_models = ['sta.selection.committee']
 
     _columns = {
+        'selection_committee_id': fields.many2one('sta.selection.committee', string='Selection Committee',
+                                                 required=True, select=True, track_visibility='onchange'),
+        'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
+                                          type='many2one', relation="mandate.category",
+                                          store=True, domain=[('type', '=', 'sta')]),
         'electoral_district_id': fields.related('selection_committee_id', 'electoral_district_id', string='Electoral District',
                                           type='many2one', relation="electoral.district",
                                           store=True),
@@ -67,6 +260,7 @@ class sta_candidature(orm.Model):
                                           type='boolean', store=True),
         'is_selection_committee_active': fields.related('selection_committee_id', 'active', string='Is Selection Committee Active ?',
                                           type='boolean', store=False),
+
     }
 
     _order = 'selection_committee_id, list_effective_position, list_substitute_position'
@@ -98,7 +292,7 @@ class sta_candidature(orm.Model):
 
     def onchange_selection_committee_id(self, cr, uid, ids, selection_committee_id, context=None):
         res = {}
-        selection_committee = self.pool.get('selection.committee').browse(cr, uid, selection_committee_id, context)
+        selection_committee = self.pool.get('sta.selection.committee').browse(cr, uid, selection_committee_id, context)
 
         res['value'] = dict(legislature_id=selection_committee.legislature_id.id or False,
                             electoral_district_id=selection_committee.electoral_district_id.id or False,
@@ -141,6 +335,8 @@ class sta_mandate(orm.Model):
     _inherit = ['abstract.mandate']
 
     _columns = {
+        'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
+                                                 required=True, track_visibility='onchange', domain=[('type', '=', 'sta')]),
         'legislature_id': fields.many2one('legislature', string='Legislature',
                                                  required=True, track_visibility='onchange'),
         'sta_assembly_id': fields.many2one('sta.assembly', string='State Assembly'),

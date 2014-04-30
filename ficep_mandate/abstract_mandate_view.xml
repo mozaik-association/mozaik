@@ -4,7 +4,7 @@
 
          <!-- Search and Tree Views -->
 
-         <record id="abstract_mandate_search_view" model="ir.ui.view">
+        <record id="abstract_mandate_search_view" model="ir.ui.view">
             <field name="name">abstract.mandate.search</field>
             <field name="model">abstract.mandate</field>
             <field name="arch" type="xml">
@@ -32,7 +32,7 @@
             </field>
         </record>
 
-      <record id="abstract_mandate_tree_view" model="ir.ui.view">
+        <record id="abstract_mandate_tree_view" model="ir.ui.view">
             <field name="name">abstract.mandate.tree</field>
             <field name="model">abstract.mandate</field>
             <field name="arch" type="xml">
@@ -93,6 +93,31 @@
             </field>
         </record>
 
+        <record id="abstract_selection_committee_search_view" model="ir.ui.view">
+            <field name="name">abstract.selection.committee.search</field>
+            <field name="model">abstract.selection.committee</field>
+            <field name="arch" type="xml">
+                <search string="Selection committee" version="7.0">
+                    <filter name="expired" string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active','=',False)]" />
+                    <filter name="all" string="All"
+                        context="{'invisible_expire_date': False}"
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                </search>
+            </field>
+        </record>
+        
+        <record id="abstract_selection_committee_tree_view" model="ir.ui.view">
+            <field name="name">abstract.selection.committee.tree</field>
+            <field name="model">abstract.selection.committee</field>
+            <field name="arch" type="xml">
+                <tree string="Selection Committee" version="7.0">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
         <!-- Form Views -->
 
         <record id="abstract_mandate_form_view" model="ir.ui.view">
@@ -237,5 +262,93 @@
             </field>
         </record>
 
+        <record id="abstract_selection_committee_form_view" model="ir.ui.view">
+            <field name="name">abstract.selection.committee.form</field>
+            <field name="model">abstract.selection.committee</field>
+            <field name="arch" type="xml">
+                <form string="Selection Committee" version="7.0">
+                    <header>
+                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="ficep_base.ficep_res_groups_user">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate committee: proceed anyway ?" />
+                            <field name='state' widget='statusbar'/>
+                        </div>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}"
+                             invisible="context.get('popup')"
+                             groups="ficep_base.ficep_res_groups_user">
+                            <button name="action_copy" string="Copy" type="object"
+                                    confirm="Copy committee and keep rejected candidatures: proceed anyway ?" />
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1>
+                            <group>                         
+                                <field name="auto_mandate"/>
+                            </group>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                        </div>
+                        <group>
+                             <group name="assembly">
+                            </group>
+                            
+                            <group>
+                                <field name="designation_int_assembly_id"/>
+                                <field name="meeting_date" widget="date"/>
+                                <field name="decision_date" widget="date"/>
+                            </group>
+                            
+                            <group name="mandate">                                    
+                                <field name="mandate_start_date" widget="date"/>
+                                <field name="mandate_deadline_date" widget="date"/>
+                            </group>                            
+                            
+                            <group name="Dates">
+                                <field name="create_date" readonly="1"/>
+                                <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
+                            </group>
+                        </group>
+
+                        <notebook invisible="context.get('popup')">
+                            <page string="Candidatures" name="candidatures" invisible="context.get('popup')"
+                                  attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">                                
+                            </page>
+                            <page string="Members" name="members">
+                                <field name="partner_ids" context="{'default_is_company': False}">
+                                    <tree>
+                                        <field name="display_name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Note" name="note">
+                                <field name="note"/>
+                            </page>                            
+                        </notebook>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Validate committee: proceed anyway ?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
+                    </div>
+                    
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
    </data>
 </openerp>

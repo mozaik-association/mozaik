@@ -43,7 +43,7 @@ class test_renew_or_add_mandate_wizard(SharedSetupTransactionCase):
     def setUp(self):
         super(test_renew_or_add_mandate_wizard, self).setUp()
         candidature_pool = self.registry('sta.candidature')
-        committee_pool = self.registry('selection.committee')
+        committee_pool = self.registry('sta.selection.committee')
         sta_paul_communal_id = self.ref('%s.sta_paul_communal' % self._module_ns)
         sta_pauline_communal_id = self.ref('%s.sta_pauline_communal' % self._module_ns)
         sta_marc_communal_id = self.ref('%s.sta_marc_communal' % self._module_ns)

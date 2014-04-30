@@ -64,12 +64,12 @@ class test_mandate(SharedSetupTransactionCase):
                               self.registry('mandate.category').create,
                               self.cr, self.uid, data)
 
-    def test_copy_selection_committee(self):
+    def test_copy_sta_selection_committee(self):
         '''
             Test copy selection committee and keep rejected candidatures
         '''
         candidature_pool = self.registry('sta.candidature')
-        committee_pool = self.registry('selection.committee')
+        committee_pool = self.registry('sta.selection.committee')
         selection_committee = self.browse_ref('%s.sc_tete_huy_communale' % self._module_ns)
 
         rejected_id = selection_committee.sta_candidature_ids[0]

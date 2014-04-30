@@ -28,6 +28,12 @@
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
+SELECTION_COMMITTEE_AVAILABLE_STATES = [
+    ('draft', 'In Progress'),
+    ('done', 'Closed'),
+]
+selection_committee_available_states = dict(SELECTION_COMMITTEE_AVAILABLE_STATES)
+
 CANDIDATURE_AVAILABLE_STATES = [
     ('draft', 'Draft'),
     ('declared', 'Declared'),
@@ -51,7 +57,7 @@ def create_mandate_from_candidature(cr, uid, candidature_pool, candidature_id, c
     :rtype: id
     """
     mandate_pool = candidature_pool.pool.get(candidature_pool._mandate_model)
-    committee_pool = candidature_pool.pool.get('selection.committee')
+    committee_pool = candidature_pool.pool.get(candidature_pool._selection_committee_model)
     candidature_data = candidature_pool.read(cr, uid, candidature_id, [], context)
     res = False
     mandate_values = {}
@@ -70,6 +76,97 @@ def create_mandate_from_candidature(cr, uid, candidature_pool, candidature_id, c
         candidature_pool.action_invalidate(cr, uid, candidature_id, context=context)
         res = mandate_pool.create(cr, uid, mandate_values, context)
     return res
+
+
+class abstract_selection_committee(orm.AbstractModel):
+    _name = 'abstract.selection.committee'
+    _description = 'Abstract Selection Committee'
+    _inherit = ['abstract.ficep.model']
+
+    _columns = {
+        'state': fields.selection(SELECTION_COMMITTEE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
+        'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
+                                                 required=True, track_visibility='onchange'),
+        'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation Assembly',
+                                                 required=True, track_visibility='onchange', domain=[('is_designation_assembly', '=', True)]),
+        'decision_date': fields.date('Designation Date', track_visibility='onchange'),
+        'mandate_start_date': fields.date('Start Date of Mandates', required=True, track_visibility='onchange'),
+        'mandate_deadline_date': fields.date('Deadline Date of Mandates', required=True, track_visibility='onchange'),
+        'meeting_date': fields.date('Committee Meeting Date', track_visibility='onchange'),
+        'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
+        'partner_ids': fields.many2many('res.partner', 'selection_committee_res_partner_rel', 'id', 'member_id',
+                                                      'Members', domain=[('is_company', '=', False)]),
+        'note': fields.text('Notes', track_visibility='onchange'),
+        'auto_mandate': fields.boolean("Create Mandates after Election"),
+    }
+
+    _defaults = {
+        'state': SELECTION_COMMITTEE_AVAILABLE_STATES[0][0],
+        'auto_mandate': False,
+    }
+
+    # orm methods
+    def copy_data(self, cr, uid, id_, default=None, context=None):
+        default = default or {}
+
+        default.update({
+            'active': True,
+            'state': SELECTION_COMMITTEE_AVAILABLE_STATES[0][0],
+            'note': False,
+            'decision_date': False,
+            'meeting_date': False,
+        })
+        res = super(abstract_selection_committee, self).copy_data(cr, uid, id_, default=default, context=context)
+
+        res.update({
+            'name': _('%s (copy)') % res.get('name'),
+        })
+        return res
+
+    # view methods: onchange, button
+    def action_copy(self, cr, uid, ids, context=None):
+        """
+        ==========================
+        action_copy
+        ==========================
+        Duplicate committee and keep rejected state candidatures
+        :rparam: True
+        :rtype: boolean
+        """
+        copied_committee_id = ids[0]
+        candidature_pool = context.get('candidature_model')
+        rejected_candidature_ids = candidature_pool.search(cr, uid, [('selection_committee_id', '=', copied_committee_id),
+                                                                                     ('state', '=', 'rejected')])
+        new_committee_id = self.copy(cr, uid, copied_committee_id, None, context)
+        if rejected_candidature_ids:
+            candidature_pool.write(cr, uid, rejected_candidature_ids, {'selection_committee_id': new_committee_id})
+            candidature_pool.signal_button_declare(cr, uid, rejected_candidature_ids)
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Selection Committee'),
+            'res_model': candidature_pool._selection_committee_model,
+            'res_id': new_committee_id,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': False,
+            'target': 'current',
+            'nodestroy': True,
+        }
+
+    def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id, context=None):
+        res = {}
+        res['value'] = dict(sta_assembly_ctagory_id=False,
+                            int_assembly_category_id=False,
+                            ext_assembly_category_id=False,
+                            )
+        if mandate_category_id:
+            mandate_category = self.pool.get('mandate.category').browse(cr, uid, mandate_category_id, context)
+            res['value'] = dict(sta_assembly_ctagory_id=mandate_category.sta_assembly_category_id.id or False,
+                                int_assembly_category_id=mandate_category.int_assembly_category_id.id or False,
+                                ext_assembly_category_id=mandate_category.ext_assembly_category_id.id or False,
+                                )
+        return res
 
 
 class abstract_mandate_base(orm.AbstractModel):
@@ -191,7 +288,7 @@ class abstract_candidature(orm.AbstractModel):
     _columns = {
         'partner_name': fields.char('Partner Name', size=128, required=True, track_visibility='onchange'),
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
-        'selection_committee_id': fields.many2one('selection.committee', string='Selection Committee',
+        'selection_committee_id': fields.many2one('abstract.selection.committee', string='Selection Committee',
                                                  required=True, select=True, track_visibility='onchange'),
         'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
                                           type='many2one', relation="mandate.category",

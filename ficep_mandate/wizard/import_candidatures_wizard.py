@@ -32,13 +32,13 @@ import base64
 file_import_structure = ['id_ecolo', 'partner_name', 'is_effective', 'list_effective_position', 'is_substitute', 'list_substitute_position']
 
 
-class import_candidatures_wizard(orm.TransientModel):
-    _name = "import.candidatures.wizard"
+class import_sta_candidatures_wizard(orm.TransientModel):
+    _name = "import.sta.candidatures.wizard"
 
     _columns = {
-        'selection_committee_id': fields.many2one('selection.committee', string='Selection committee', readonly=True),
+        'selection_committee_id': fields.many2one('sta.selection.committee', string='Selection committee', readonly=True),
         'source_file': fields.binary('Source File'),
-        'import_lines': fields.one2many('import.candidatures.file.lines', 'wizard_id', 'File lines'),
+        'import_lines': fields.one2many('import.sta.candidatures.file.lines', 'wizard_id', 'File lines'),
         }
 
     def default_get(self, cr, uid, flds, context):
@@ -101,9 +101,9 @@ class import_candidatures_wizard(orm.TransientModel):
                         is_substitute=data[file_import_structure.index('is_substitute')] if data[file_import_structure.index('is_substitute')] != '' else False,
                         list_effective_position=data[file_import_structure.index('list_effective_position')] if data[file_import_structure.index('list_effective_position')] != '' else False,
                         list_substitute_position=data[file_import_structure.index('list_substitute_position')] if data[file_import_structure.index('list_substitute_position')] != '' else False,)
-            self.pool.get('import.candidatures.file.lines').create(cr, uid, values, context=context)
+            self.pool.get('import.sta.candidatures.file.lines').create(cr, uid, values, context=context)
 
-        model, res_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', 'import_candidatures_step2_action')
+        model, res_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', 'import_sta_candidatures_step2_action')
         action = self.pool[model].read(cr, uid, res_id, context=context)
         action['res_id'] = ids[0]
         action.pop('context', '')
@@ -112,7 +112,7 @@ class import_candidatures_wizard(orm.TransientModel):
     def import_candidatures(self, cr, uid, ids, context=None):
         """
         ====================
-        import_candidatures
+        import_sta_candidatures
         ====================
         Import candidatures and link them to selection committee
         """
@@ -143,11 +143,11 @@ class import_candidatures_wizard(orm.TransientModel):
         }
 
 
-class import_candidature_file_lines (orm.TransientModel):
-    _name = "import.candidatures.file.lines"
+class import_sta_candidature_file_lines (orm.TransientModel):
+    _name = "import.sta.candidatures.file.lines"
 
     _columns = {
-        'wizard_id': fields.many2one('import.candidatures.wizard', "Wizard"),
+        'wizard_id': fields.many2one('import.sta.candidatures.wizard', "Wizard"),
         'partner_id': fields.many2one('res.partner', 'Partner'),
         'partner_name': fields.char('Partner Name', size=128),
         'is_effective': fields.boolean('Effective'),

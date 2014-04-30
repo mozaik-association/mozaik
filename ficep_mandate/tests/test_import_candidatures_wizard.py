@@ -36,7 +36,7 @@ from openerp.addons.ficep_mandate.wizard import import_candidatures_wizard as wi
 _logger = logging.getLogger(__name__)
 
 
-class test_import_candidatures_wizard(SharedSetupTransactionCase):
+class test_import_sta_candidature_wizard(SharedSetupTransactionCase):
     _data_files = (
         '../../ficep_base/tests/data/res_partner_data.xml',
         '../../ficep_structure/tests/data/structure_data.xml',
@@ -46,7 +46,7 @@ class test_import_candidatures_wizard(SharedSetupTransactionCase):
     _module_ns = 'ficep_mandate'
 
     def setUp(self):
-        super(test_import_candidatures_wizard, self).setUp()
+        super(test_import_sta_candidature_wizard, self).setUp()
         partner_paul_id = self.ref('%s.res_partner_paul' % self._module_ns)
         self.pauline_identifier = self.ref('%s.res_partner_pauline' % self._module_ns)
         self.marc_identifier = self.ref('%s.res_partner_marc' % self._module_ns)
@@ -74,9 +74,9 @@ class test_import_candidatures_wizard(SharedSetupTransactionCase):
 
         context = {
             'active_ids': [self.sc_conseiller_provincial_id],
-            'active_model': 'selection.committee',
+            'active_model': 'sta.selection.committee',
         }
-        wizard_pool = self.registry('import.candidatures.wizard')
+        wizard_pool = self.registry('import.sta.candidatures.wizard')
         wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
         wizard_pool.validate_file(self.cr, self.uid, [wiz_id])
         wizard_pool.import_candidatures(self.cr, self.uid, [wiz_id])
@@ -98,9 +98,9 @@ class test_import_candidatures_wizard(SharedSetupTransactionCase):
 
         context = {
             'active_ids': [self.sc_conseiller_provincial_id],
-            'active_model': 'selection.committee',
+            'active_model': 'sta.selection.committee',
         }
-        wizard_pool = self.registry('import.candidatures.wizard')
+        wizard_pool = self.registry('import.sta.candidatures.wizard')
         wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
 
         self.assertRaises(orm.except_orm, wizard_pool.validate_file, self.cr, self.uid, [wiz_id])
@@ -119,9 +119,9 @@ class test_import_candidatures_wizard(SharedSetupTransactionCase):
 
         context = {
             'active_ids': [self.sc_conseiller_provincial_id],
-            'active_model': 'selection.committee',
+            'active_model': 'sta.selection.committee',
         }
-        wizard_pool = self.registry('import.candidatures.wizard')
+        wizard_pool = self.registry('import.sta.candidatures.wizard')
         wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
 
         self.assertRaises(orm.except_orm, wizard_pool.validate_file, self.cr, self.uid, [wiz_id])
@@ -139,9 +139,9 @@ class test_import_candidatures_wizard(SharedSetupTransactionCase):
 
         context = {
             'active_ids': [self.sc_conseiller_provincial_id],
-            'active_model': 'selection.committee',
+            'active_model': 'sta.selection.committee',
         }
-        wizard_pool = self.registry('import.candidatures.wizard')
+        wizard_pool = self.registry('import.sta.candidatures.wizard')
         wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
         self.assertRaises(orm.except_orm, wizard_pool.validate_file, self.cr, self.uid, [wiz_id])
 
@@ -159,9 +159,9 @@ class test_import_candidatures_wizard(SharedSetupTransactionCase):
 
         context = {
             'active_ids': [self.sc_gouverneur],
-            'active_model': 'selection.committee',
+            'active_model': 'sta.selection.committee',
         }
-        wizard_pool = self.registry('import.candidatures.wizard')
+        wizard_pool = self.registry('import.sta.candidatures.wizard')
         wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
         wizard_pool.validate_file(self.cr, self.uid, [wiz_id])
         wizard_pool.import_candidatures(self.cr, self.uid, [wiz_id])
@@ -182,9 +182,9 @@ class test_import_candidatures_wizard(SharedSetupTransactionCase):
 
         context = {
             'active_ids': [self.sc_gouverneur],
-            'active_model': 'selection.committee',
+            'active_model': 'sta.selection.committee',
         }
-        wizard_pool = self.registry('import.candidatures.wizard')
+        wizard_pool = self.registry('import.sta.candidatures.wizard')
         wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
 
         self.assertRaises(orm.except_orm, wizard_pool.validate_file, self.cr, self.uid, [wiz_id])
@@ -199,9 +199,9 @@ class test_import_candidatures_wizard(SharedSetupTransactionCase):
 
         context = {
             'active_ids': [self.sc_gouverneur],
-            'active_model': 'selection.committee',
+            'active_model': 'sta.selection.committee',
         }
-        wizard_pool = self.registry('import.candidatures.wizard')
+        wizard_pool = self.registry('import.sta.candidatures.wizard')
         wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
 
         self.assertRaises(orm.except_orm, wizard_pool.validate_file, self.cr, self.uid, [wiz_id])

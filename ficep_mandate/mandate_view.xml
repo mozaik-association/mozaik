@@ -112,33 +112,38 @@
             </field>
         </record>
 
-        <record id="selection_committee_search_view" model="ir.ui.view">
-            <field name="name">selection.committee.search</field>
-            <field name="model">selection.committee</field>
-            <field name="arch" type="xml">
-                <search string="Selection committee" version="7.0">
-                    <filter name="expired" string="Expired"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" />
-                    <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
-                </search>
+        <record id="sta_selection_committee_tree_view" model="ir.ui.view">
+            <field name="name">sta.selection.committee.tree</field>
+            <field name="model">sta.selection.committee</field>
+            <field name="inherit_id" ref="abstract_selection_committee_tree_view"/>
+            <field name="arch" type="xml">                
+                <xpath expr="//field[@name='name']" position="after">
+                   <field name="sta_assembly_id"/>
+                   <field name="legislature_id"/>
+                   <field name="electoral_district_id"/>
+                </xpath>
             </field>
         </record>
-
-        <record id="selection_committee_tree_view" model="ir.ui.view">
-            <field name="name">selection.committee.tree</field>
-            <field name="model">selection.committee</field>
-            <field name="arch" type="xml">
-                <tree string="Selection Committee" version="7.0">
-                    <field name="name"/>
-                    <field name="sta_assembly_id" invisible="context.get('committee_type', 'x')!='state'"/>
-                    <field name="int_assembly_id" invisible="context.get('committee_type', 'x')!='internal'"/>
-                    <field name="ext_assembly_id" invisible="context.get('committee_type', 'x')!='external'"/>
-                    <field name="legislature_id" invisible="context.get('committee_type', 'x')!='state'"/>
-                    <field name="electoral_district_id" invisible="context.get('committee_type', 'x')!='state'"/>
-                </tree>
+                
+        <record id="int_selection_committee_tree_view" model="ir.ui.view">
+            <field name="name">int.selection.committee.tree</field>
+            <field name="model">int.selection.committee</field>
+            <field name="inherit_id" ref="abstract_selection_committee_tree_view"/>
+            <field name="arch" type="xml">                
+                <xpath expr="//field[@name='name']" position="after">
+                   <field name="int_assembly_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+         <record id="ext_selection_committee_tree_view" model="ir.ui.view">
+            <field name="name">ext.selection.committee.tree</field>
+            <field name="model">ext.selection.committee</field>
+            <field name="inherit_id" ref="abstract_selection_committee_tree_view"/>
+            <field name="arch" type="xml">                
+                <xpath expr="//field[@name='name']" position="after">
+                   <field name="ext_assembly_id"/>
+                </xpath>
             </field>
         </record>
 
@@ -197,35 +202,29 @@
 
         <record id="sta_selection_committee_action" model="ir.actions.act_window">
             <field name="name">Selection Committee</field>
-            <field name="res_model">selection.committee</field>
+            <field name="res_model">sta.selection.committee</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="selection_committee_search_view" />
-            <field name="view_id" ref="selection_committee_tree_view" />
-            <field name="context">{'default_committee_type': 'state', 'committee_type': 'state'}</field>
-            <field name="domain">[('committee_type', '=', 'state')]</field>
+            <field name="search_view_id" ref="abstract_selection_committee_search_view" />
+            <field name="view_id" ref="sta_selection_committee_tree_view" />          
         </record>
 
         <record id="int_selection_committee_action" model="ir.actions.act_window">
             <field name="name">Selection Committee</field>
-            <field name="res_model">selection.committee</field>
+            <field name="res_model">int.selection.committee</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="selection_committee_search_view" />
-            <field name="view_id" ref="selection_committee_tree_view" />
-            <field name="context">{'default_committee_type': 'internal', 'committee_type': 'internal'}</field>
-            <field name="domain">[('committee_type', '=', 'internal')]</field>
+            <field name="search_view_id" ref="abstract_selection_committee_search_view" />
+            <field name="view_id" ref="int_selection_committee_tree_view" />
         </record>
 
         <record id="ext_selection_committee_action" model="ir.actions.act_window">
             <field name="name">Selection Committee</field>
-            <field name="res_model">selection.committee</field>
+            <field name="res_model">ext.selection.committee</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="selection_committee_search_view" />
-            <field name="view_id" ref="selection_committee_tree_view" />
-            <field name="context">{'default_committee_type': 'external', 'committee_type': 'external'}</field>
-            <field name="domain">[('committee_type', '=', 'external')]</field>
+            <field name="search_view_id" ref="abstract_selection_committee_search_view" />
+            <field name="view_id" ref="ext_selection_committee_tree_view" />
         </record>
 
          <!-- Form Views -->
@@ -391,175 +390,135 @@
             </field>
         </record>
 
-        <record id="selection_committee_form_view" model="ir.ui.view">
-            <field name="name">selection.committee.form</field>
-            <field name="model">selection.committee</field>
-            <field name="arch" type="xml">
-                <form string="Selection Committee" version="7.0">
-                    <header>
-                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_user">
-                            <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate committee: proceed anyway ?" />
-                            <field name='state' widget='statusbar'/>
-                        </div>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}"
-                             invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_user">
-                            <button name="action_copy" string="Copy" type="object"
-                                    confirm="Copy committee and keep rejected candidatures: proceed anyway ?" />
-                        </div>
-                    </header>
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name"/></h1>
-                            <group>
-                              <field name="is_virtual" attrs="{'invisible': [('committee_type','=', 'state'),]}"/>
-                              <field name="auto_mandate"/>
-                          </group>
-                        </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
-                        </div>
-                        <group>
-                             <group name="data">
-                                <div name="sta_data" attrs="{'invisible': [('committee_type','!=', 'state'),]}">
-                                    <group>
-                                      <field name="electoral_district_id"
-                                             attrs="{'required': [('sta_assembly_id','=', False),],
-                                                     'readonly': [('sta_assembly_id','!=', False),('electoral_district_id','=', False)]}"
-                                             on_change="onchange_electoral_district_id(electoral_district_id)"/>
-                                      <field name="sta_assembly_id"
-                                             attrs="{'required': [('committee_type','=', 'state'),],
-                                                     'readonly': [('electoral_district_id','!=', False)]}"
-                                             on_change="onchange_sta_assembly_id(sta_assembly_id)"
-                                             domain="[('is_legislative', '=', False)]"/>
-                                      <field name="legislature_id" readonly="1"
-                                             attrs="{'required': [('committee_type','=', 'state'),]}"
-                                             on_change="onchange_legislature_id(legislature_id)"
-                                             domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>
-                                    </group>
-                                </div>
-
-                                <div name="int_data" attrs="{'invisible': [('committee_type','!=', 'internal'),]}">
-                                    <group>
-                                      <field name="int_assembly_id"
-                                             attrs="{'required': [('committee_type','=', 'internal'),]}"
-                                             domain="[('assembly_category_id', '=', int_assembly_category_id), ('is_designation_assembly', '=', True)]"/>
-                                  </group>
-                                </div>
-
-                                <div name="ext_data" attrs="{'invisible': [('committee_type','!=', 'external'),]}">
-                                    <group>
-                                      <field name="ext_assembly_id"
-                                             attrs="{'required': [('committee_type','=', 'external'),]}"
-                                             domain="[('assembly_category_id', '=', ext_assembly_category_id)]"/>
-                                  </group>
-                                </div>
-
-                                <div name="all">
-                                    <group>
-                                    <field name="mandate_category_id"
-                                           domain="[('sta_assembly_category_id', '=', sta_assembly_category_id)]"
-                                           on_change="onchange_mandate_category_id(mandate_category_id)"/>
-                                    <field name="mandate_start_date" widget="date"/>
-                                        <field name="mandate_deadline_date" widget="date"/>
-                                </group>
-                            </div>
-                        </group>
-                            <group>
-                                <field name="designation_int_assembly_id"
-                                       attrs="{'readonly': [('electoral_district_id','!=', False),]}"/>
-                                <field name="meeting_date" widget="date"/>
-                                      <field name="decision_date" widget="date"/>
-                            </group>
-                            <group name="Dates">
-                                <field name="create_date" readonly="1"/>
-                                <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
-                            </group>
-                        </group>
-
-                        <notebook>
-                            <page string="Candidatures" name="candidatures" invisible="context.get('popup')"
-                                  attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
-                                <button string="All Details" name="%(sta_candidature_action)d"
+        <record id="sta_selection_committee_form_view" model="ir.ui.view">
+            <field name="name">sta.selection.committee.form</field>
+            <field name="model">sta.selection.committee</field>
+            <field name="inherit_id" ref="abstract_selection_committee_form_view"/>
+            <field name="arch" type="xml">               
+                <xpath expr="//group[@name='assembly']" position="inside">   
+                    <group>
+                      <field name="electoral_district_id"
+                             attrs="{'required': [('sta_assembly_id','=', False),],
+                                     'readonly': [('sta_assembly_id','!=', False),('electoral_district_id','=', False)]}"
+                             on_change="onchange_electoral_district_id(electoral_district_id)"/>
+                      <field name="sta_assembly_id"
+                             required="1"
+                             attrs="{'readonly': [('electoral_district_id','!=', False)]}"
+                             on_change="onchange_sta_assembly_id(sta_assembly_id)"
+                             domain="[('is_legislative', '=', False)]"/>
+                      <field name="legislature_id" readonly="1"
+                             required="1"
+                             on_change="onchange_legislature_id(legislature_id)"
+                             domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>
+                    </group>         
+                </xpath>
+                
+                <xpath expr="//field[@name='mandate_start_date']" position="before">   
+                    <field name="mandate_category_id"
+                           required="1"
+                           domain="[('type', '=', 'sta'), ('sta_assembly_category_id', '=', sta_assembly_category_id)]"
+                           on_change="onchange_mandate_category_id(mandate_category_id)"/>                 
+                </xpath>
+                
+                <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('electoral_district_id','!=', False),]}</attribute>                 
+                </xpath>
+                
+                <xpath expr="//page[@name='candidatures']" position="inside">
+                    <button string="All Details" name="%(sta_candidature_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
                                         context="{'search_default_selection_committee_id': active_id,
                                                   'default_selection_committee_id': active_id,
                                                   'search_default_all': True}" />
-                                <button string="Accept" name="button_accept_candidatures" type="object" class="oe_highlight"
-                                        attrs="{'invisible': ['|',('decision_date','=',False),('state','=','done')]}"
-                                        confirm="Accept all candidatures: proceed anyway ?"/>
-                                <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
-                                        attrs="{'invisible': [('state','=','done')]}"
-                                        confirm="Refuse all candidatures: proceed anyway ?"/>
-                                <field name="sta_candidature_ids" context="{'default_selection_committee_id': active_id}">
-                                    <tree colors="red:state=='declared';grey:active==False">
-                                        <field name="list_effective_position" string="#E"
-                                               attrs="{'invisible': [('is_effective', '=', False),('is_substitute', '!=', False)]}"/>
-                                        <field name="list_substitute_position" string="#S"
-                                               attrs="{'invisible': [('is_substitute', '=', False)]}"/>
-                                        <field name="partner_name"/>
-                                        <field name="state"/>
-                                        <button name="button_suggest" string="Suggest" icon="gtk-apply"
-                                                attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
-                                        <button name="button_reject" string="Reject" icon="gtk-cancel"
-                                                attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
-                                        <button name="button_declare" string="Back to Declared" icon="gtk-undo"
-                                                attrs="{'invisible': ['|',('state', 'not in',['rejected','suggested']),('is_selection_committee_active', '=', False)]}"/>
-                                        <field name="active" invisible="1"/>
-                                        <field name="is_effective" invisible="1"/>
-                                        <field name="is_substitute" invisible="1"/>
-                                        <field name="is_selection_committee_active" invisible="1"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page string="Members" name="members">
-                                <field name="partner_ids" context="{'default_is_company': False}">
-                                    <tree>
-                                        <field name="display_name"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page string="Note" name="note">
-                                <field name="note"/>
-                            </page>
-                            <page string="List" name="list"
-                                  attrs="{'invisible': [('electoral_district_id', '=', False)]}">
-                                <group>
-                                    <field name="listname"/>
-                                    <field name="is_cartel"/>
-                                    <field name="cartel_composition"
-                                           attrs="{'invisible': [('is_cartel', '=', False)]}"/>
-                                </group>
-                            </page>
-                        </notebook>
-                    </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
-                        <div class="oe_formview oe_form_sheet_width">
-                            <h3>More Info</h3>
-                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_validate" string="Validate" type="object"
-                                        confirm="Validate committee: proceed anyway ?" />
-                            </div>
-                            <group name="moreinfo">
-                                <field name="id"/>
-                                <field name="active"/>
-                                <field name="committee_type"
-                                       on_change="onchange_committee_type(committee_type)" />
-                                <field name="designation_int_power_level_id"/>
-                                <field name="sta_assembly_category_id"/>
-                                <field name="int_assembly_category_id"/>
-                                <field name="ext_assembly_category_id"/>
-                            </group>
-                        </div>
-                    </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
-                        <field name="message_ids" widget="mail_thread" />
-                    </div>
-                </form>
+                    <button string="Accept" name="button_accept_candidatures" type="object" class="oe_highlight"
+                            attrs="{'invisible': ['|',('decision_date','=',False),('state','=','done')]}"
+                            confirm="Accept all candidatures: proceed anyway ?"/>
+                    <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state','=','done')]}"
+                            confirm="Refuse all candidatures: proceed anyway ?"/>
+                    <field name="sta_candidature_ids" context="{'default_selection_committee_id': active_id}">
+                        <tree colors="red:state=='declared';grey:active==False">
+                            <field name="list_effective_position" string="#E"
+                                   attrs="{'invisible': [('is_effective', '=', False),('is_substitute', '!=', False)]}"/>
+                            <field name="list_substitute_position" string="#S"
+                                   attrs="{'invisible': [('is_substitute', '=', False)]}"/>
+                            <field name="partner_name"/>
+                            <field name="state"/>
+                            <button name="button_suggest" string="Suggest" icon="gtk-apply"
+                                    attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
+                            <button name="button_reject" string="Reject" icon="gtk-cancel"
+                                    attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
+                            <button name="button_declare" string="Back to Declared" icon="gtk-undo"
+                                    attrs="{'invisible': ['|',('state', 'not in',['rejected','suggested']),('is_selection_committee_active', '=', False)]}"/>
+                            <field name="active" invisible="1"/>
+                            <field name="is_effective" invisible="1"/>
+                            <field name="is_substitute" invisible="1"/>
+                            <field name="is_selection_committee_active" invisible="1"/>
+                        </tree>
+                    </field>             
+                </xpath>
+                
+                <xpath expr="//page[@name='note']" position="after">
+                    <page string="List" name="list"
+                          attrs="{'invisible': [('electoral_district_id', '=', False)]}">
+                        <group>
+                            <field name="listname"/>
+                            <field name="is_cartel"/>
+                            <field name="cartel_composition"
+                                   attrs="{'invisible': [('is_cartel', '=', False)]}"/>
+                        </group>
+                    </page>                 
+                </xpath>
+                
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="sta_assembly_category_id"/>                  
+                </xpath>             
+            </field>
+        </record>
+        
+        <record id="int_selection_committee_form_view" model="ir.ui.view">
+            <field name="name">int.selection.committee.form</field>
+            <field name="model">int.selection.committee</field>
+            <field name="inherit_id" ref="abstract_selection_committee_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='auto_mandate']" position="before">
+                    <field name="is_virtual"/>
+                </xpath>
+                <xpath expr="//group[@name='assembly']" position="inside"> 
+                        <field name="mandate_category_id"
+                           required="1"
+                           domain="[('type', '=', 'int')]"
+                           on_change="onchange_mandate_category_id(mandate_category_id)"/>                      
+                        <field name="int_assembly_id"
+                               required="1"
+                               domain="[('assembly_category_id', '=', int_assembly_category_id)]"/>   
+                </xpath>
+                <xpath expr="//field[@name='active']" position="after">
+                     <field name="int_assembly_category_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="ext_selection_committee_form_view" model="ir.ui.view">
+            <field name="name">ext.selection.committee.form</field>
+            <field name="model">ext.selection.committee</field>
+            <field name="inherit_id" ref="abstract_selection_committee_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='auto_mandate']" position="before">
+                    <field name="is_virtual"/>
+                </xpath>
+                <xpath expr="//group[@name='assembly']" position="inside"> 
+                        <field name="mandate_category_id"
+                           required="1"
+                           domain="[('type', '=', 'ext')]"
+                           on_change="onchange_mandate_category_id(mandate_category_id)"/>                      
+                        <field name="ext_assembly_id"
+                               required="1"
+                               domain="[('assembly_category_id', '=', ext_assembly_category_id)]"/>   
+                </xpath>
+                <xpath expr="//field[@name='active']" position="after">
+                     <field name="ext_assembly_category_id"/>
+                </xpath>
             </field>
         </record>
 

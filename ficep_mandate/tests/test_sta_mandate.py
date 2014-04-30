@@ -58,7 +58,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
         conseil_comm_cat_id = self.ref('%s.mc_conseiller_communal' % self._module_ns)
         selection_committee_id = self.ref('%s.sc_tete_huy_communale' % self._module_ns)
 
-        committee = self.registry('selection.committee').browse(self.cr, self.uid, selection_committee_id)
+        committee = self.registry('sta.selection.committee').browse(self.cr, self.uid, selection_committee_id)
 
         data = dict(mandate_category_id=conseil_comm_cat_id,
             selection_committee_id=selection_committee_id,
@@ -81,7 +81,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
         '''
         candidature_pool = self.registry('sta.candidature')
         mandate_pool = self.registry('sta.mandate')
-        committee_pool = self.registry('selection.committee')
+        committee_pool = self.registry('sta.selection.committee')
         committee_id = self.ref('%s.sc_tete_huy_communale' % self._module_ns)
         sta_paul_communal_id = self.ref('%s.sta_paul_communal' % self._module_ns)
         sta_pauline_communal_id = self.ref('%s.sta_pauline_communal' % self._module_ns)
@@ -165,7 +165,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
         '''
         candidature_pool = self.registry('sta.candidature')
         mandate_pool = self.registry('sta.mandate')
-        committee_pool = self.registry('selection.committee')
+        committee_pool = self.registry('sta.selection.committee')
         committee_id = self.ref('%s.sc_bourgmestre_huy' % self._module_ns)
         sta_marc_id = self.ref('%s.sta_marc_bourgmestre' % self._module_ns)
 

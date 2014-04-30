@@ -60,8 +60,7 @@
         </record>
         
         <!-- Create Selection committee -->
-        <record id="sc_tete_huy_communale" model="selection.committee">
-            <field name="committee_type">state</field>
+        <record id="sc_tete_huy_communale" model="sta.selection.committee">
             <field name="mandate_category_id" ref="mc_conseiller_communal"/>
             <field name="name">Têtes de liste</field>
             <field name="legislature_id" ref="legislature_01"/>
@@ -72,8 +71,7 @@
             <field name="mandate_deadline_date">2024-12-02</field>
         </record>
 
-        <record id="sc_bourgmestre_huy" model="selection.committee">
-            <field name="committee_type">state</field>
+        <record id="sc_bourgmestre_huy" model="sta.selection.committee">
             <field name="mandate_category_id" ref="mc_bourgmestre"/>
             <field name="name">Désignation</field>
             <field name="legislature_id" ref="legislature_01"/>
@@ -84,8 +82,7 @@
             <field name="auto_mandate" eval="1"/>
         </record>
         
-        <record id="sc_conseiller_provincial" model="selection.committee">
-            <field name="committee_type">state</field>
+        <record id="sc_conseiller_provincial" model="sta.selection.committee">
             <field name="mandate_category_id" ref="mc_conseiller_provincial"/>
             <field name="electoral_district_id" ref="electoral_district_02"/>
             <field name="name">Tête de liste</field>
@@ -97,8 +94,7 @@
             <field name="auto_mandate" eval="1"/>
         </record>
         
-        <record id="sc_gouverneur" model="selection.committee">
-            <field name="committee_type">state</field>
+        <record id="sc_gouverneur" model="sta.selection.committee">
             <field name="mandate_category_id" ref="mc_gouverneur"/>
             <field name="name">Designation</field>
             <field name="legislature_id" ref="legislature_02"/>            
