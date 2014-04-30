@@ -45,7 +45,6 @@ FICEP Structure
         'security/ir.model.access.csv',
         'abstract_structure_view.xml',
         'structure_view.xml',
-        'data/structure_data.xml',
     ],
     'js': [
     ],

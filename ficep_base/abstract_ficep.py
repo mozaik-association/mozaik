@@ -179,8 +179,34 @@ class abstract_ficep_model (orm.AbstractModel):
             'mail_create_nosubscribe': True,
             'mail_notrack': True,
         })
-        new_id = super(abstract_ficep_model, self).create(cr, uid, vals, context=context)
+        if ctx.get('install_mode'):
+            # optimize for tests escaping useless treatments in mail.thread
+            ctx.update({
+                'mail_create_nolog': True,
+                'mail_no_autosubscribe': True,
+                'lang': 'en_US',
+            })
+        new_id = super(abstract_ficep_model, self).create(cr, uid, vals, context=ctx)
         return new_id
+
+    def write(self, cr, uid, ids, vals, context=None):
+        ctx = context or {}
+        if ctx.get('install_mode'):
+            # optimize for tests escaping useless treatments in mail.thread
+            ctx.update({
+                'mail_notrack': True,
+                'mail_no_autosubscribe': True,
+                'lang': 'en_US',
+            })
+        res = super(abstract_ficep_model, self).write(cr, uid, ids, vals, context=ctx)
+        return res
+
+    def message_auto_subscribe(self, cr, uid, ids, updated_fields, context=None, values=None):
+        ctx = context or {}
+        if ctx.get('mail_no_autosubscribe'):
+            return True
+        res = super(abstract_ficep_model, self).message_auto_subscribe(cr, uid, ids, updated_fields, context=ctx, values=values)
+        return res
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
         """

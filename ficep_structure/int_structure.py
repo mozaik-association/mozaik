@@ -46,8 +46,8 @@ class int_power_level(orm.Model):
         Returns the default Internal Power Level
         """
         alts = [
-            ('', '__MIG_IPL_1'),
-            ('ficep_structure', 'int_power_level_01')
+            ('', '__MIG_IPL_1'),                        # Production
+            ('ficep_structure', 'int_power_level_01'),  # Test
         ]
         res = self.pool.get('ir.model.data').get_object_alternative(cr, uid, alts)[1]
         return res
@@ -98,8 +98,8 @@ class int_instance(orm.Model):
         Returns the default Internal Instance
         """
         alts = [
-            ('', '__MIG_II_286'),
-            ('ficep_structure', 'int_instance_01')
+            ('', '__MIG_II_286'),                   # Production
+            ('ficep_structure', 'int_instance_01')  # Test
         ]
         res = self.pool.get('ir.model.data').get_object_alternative(cr, uid, alts)[1]
         return res
