@@ -69,18 +69,21 @@ class ir_model_data(orm.Model):
 
 # public methods
 
-    def get_object_alternative(self, cr, uid, module, xml_id, alt_module, alt_xml_id):
+    def get_object_alternative(self, cr, uid, alts):
         """
         Returns (model, res_id) corresponding to the given (module, xml_id) couple or, if not found,
         to the alternative given couple
         """
-        try:
-            return self.get_object_reference(cr, uid, module, xml_id)
-        except ValueError:
-            pass
-        except:
-            raise
+        alts = alts or []
 
-        return self.get_object_reference(cr, uid, alt_module, alt_xml_id)
+        for alt in alts:
+            try:
+                return self.get_object_reference(cr, uid, alt[0], alt[1])
+            except ValueError:
+                pass
+            except:
+                raise
+
+        return False, False
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -53,6 +53,7 @@ FICEP Mandate
         'res_partner_view.xml',
         'structure_view.xml',
         'sta_mandate_workflow.xml',
+        'int_mandate_workflow.xml',
     ],
     'js': [
     ],

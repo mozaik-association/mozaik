@@ -199,7 +199,6 @@ class sta_selection_committee(orm.Model):
         res = {}
         res['value'] = dict(sta_assembly_category_id=False,
                             legislature_id=False,
-                            designation_int_power_level_id=False,
                             mandate_category_id=False)
         if sta_assembly_id:
             sta_assembly = self.pool.get('sta.assembly').browse(cr, uid, sta_assembly_id)
@@ -216,7 +215,6 @@ class sta_selection_committee(orm.Model):
 
             res['value'] = dict(sta_assembly_category_id=sta_assembly.assembly_category_id.id or False,
                                 legislature_id=legislature_id,
-                                designation_int_power_level_id=sta_assembly.designation_int_power_level_id.id,
                                 mandate_category_id=mandate_category_id)
         return res
 
@@ -231,10 +229,10 @@ class sta_candidature(orm.Model):
     _selection_committee_model = 'sta.selection.committee'
     _init_mandate_columns = abstract_candidature._init_mandate_columns
     _init_mandate_columns.extend(['legislature_id', 'sta_assembly_id'])
-    _allowed_inactive_link_models = ['sta.selection.committee']
+    _allowed_inactive_link_models = [_selection_committee_model]
 
     _columns = {
-        'selection_committee_id': fields.many2one('sta.selection.committee', string='Selection Committee',
+        'selection_committee_id': fields.many2one(_selection_committee_model, string='Selection Committee',
                                                  required=True, select=True, track_visibility='onchange'),
         'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
                                           type='many2one', relation="mandate.category",
@@ -258,41 +256,14 @@ class sta_candidature(orm.Model):
         'substitute_votes': fields.integer('Substitute Preferential Votes', track_visibility='onchange'),
         'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
                                           type='boolean', store=True),
-        'is_selection_committee_active': fields.related('selection_committee_id', 'active', string='Is Selection Committee Active ?',
-                                          type='boolean', store=False),
-
     }
 
     _order = 'selection_committee_id, list_effective_position, list_substitute_position'
 
-# constraints
-
-    def _check_partner(self, cr, uid, ids, for_unlink=False, context=None):
-        """
-        =================
-        _check_partner
-        =================
-        Check if partner doesn't have several candidatures in the same category
-        :rparam: True if it is the case
-                 False otherwise
-        :rtype: boolean
-        """
-        candidatures = self.browse(cr, uid, ids)
-        for candidature in candidatures:
-            if len(self.search(cr, uid, [('partner_id', '=', candidature.partner_id.id), ('id', '!=', candidature.id), ('mandate_category_id', '=', candidature.mandate_category_id.id)], context=context)) > 0:
-                return False
-
-        return True
-
-    _constraints = [
-        (_check_partner, _("A candidature already exists for this partner in this category"), ['partner_id'])
-    ]
-
 # view methods: onchange, button
-
     def onchange_selection_committee_id(self, cr, uid, ids, selection_committee_id, context=None):
         res = {}
-        selection_committee = self.pool.get('sta.selection.committee').browse(cr, uid, selection_committee_id, context)
+        selection_committee = self.pool.get(self._selection_committee_model).browse(cr, uid, selection_committee_id, context)
 
         res['value'] = dict(legislature_id=selection_committee.legislature_id.id or False,
                             electoral_district_id=selection_committee.electoral_district_id.id or False,
@@ -301,13 +272,6 @@ class sta_candidature(orm.Model):
                             mandate_category_id=selection_committee.mandate_category_id.id or False,
                             is_legislative=selection_committee.sta_assembly_id.is_legislative or False,)
         return res
-
-    def action_elected(self, cr, uid, ids, context=None):
-        self.write(cr, uid, ids, {'state': 'elected'})
-        for candidature in self.browse(cr, uid, ids, context):
-            if candidature.selection_committee_id.auto_mandate:
-                create_mandate_from_candidature(cr, uid, self, candidature.id, context)
-        return True
 
     def button_create_mandate(self, cr, uid, ids, context=None):
         for candidature_id in ids:

@@ -296,6 +296,8 @@ class abstract_candidature(orm.AbstractModel):
         'designation_int_assembly_id': fields.related('selection_committee_id', 'designation_int_assembly_id', string='Designation Assembly',
                                           type='many2one', relation="int.assembly",
                                           store=True),
+        'is_selection_committee_active': fields.related('selection_committee_id', 'active', string='Is Selection Committee Active ?',
+                                          type='boolean', store=False),
     }
 
     _defaults = {
@@ -305,6 +307,27 @@ class abstract_candidature(orm.AbstractModel):
     _order = 'selection_committee_id, partner_id'
 
 # constraints
+
+    def _check_partner(self, cr, uid, ids, for_unlink=False, context=None):
+        """
+        =================
+        _check_partner
+        =================
+        Check if partner doesn't have several candidatures in the same category
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        candidatures = self.browse(cr, uid, ids)
+        for candidature in candidatures:
+            if len(self.search(cr, uid, [('partner_id', '=', candidature.partner_id.id), ('id', '!=', candidature.id), ('mandate_category_id', '=', candidature.mandate_category_id.id)], context=context)) > 0:
+                return False
+
+        return True
+
+    _constraints = [
+        (_check_partner, _("A candidature already exists for this partner in this category"), ['partner_id'])
+    ]
 
     _unicity_keys = 'selection_committee_id, partner_id'
 
@@ -343,6 +366,12 @@ class abstract_candidature(orm.AbstractModel):
         return self.name_get(cr, uid, ids, context)
 
 # view methods: onchange, button
+    def action_elected(self, cr, uid, ids, context=None):
+        self.write(cr, uid, ids, {'state': 'elected'})
+        for candidature in self.browse(cr, uid, ids, context):
+            if candidature.selection_committee_id.auto_mandate:
+                create_mandate_from_candidature(cr, uid, self, candidature.id, context)
+        return True
 
     def onchange_partner_id(self, cr, uid, ids, partner_id, context=None):
         res = {}

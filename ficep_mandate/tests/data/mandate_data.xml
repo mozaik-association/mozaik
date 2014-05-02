@@ -16,7 +16,7 @@
             <field name="int_power_level_id" ref="int_power_level_03"/>
             <field name="sta_assembly_category_id" ref="sta_assembly_category_05"/>
         </record>
-        
+
         <record id="mc_gouverneur" model="mandate.category">
             <field name="type">sta</field>
             <field name="name">Gouverneur</field>
@@ -30,35 +30,35 @@
             <field name="int_power_level_id" ref="int_power_level_03"/>
             <field name="sta_assembly_category_id" ref="sta_assembly_category_11"/>
         </record>
-        
+
         <record id="mc_secretaire_regional" model="mandate.category">
             <field name="type">int</field>
             <field name="name">Secrétaire régional</field>
             <field name="int_power_level_id" ref="int_power_level_04"/>
             <field name="int_assembly_category_id" ref="int_assembly_category_05"/>
         </record>
-        
+
         <record id="mc_conseil_parite" model="mandate.category">
             <field name="type">int</field>
             <field name="name">Membre du Conseil de la Parité</field>
             <field name="int_power_level_id" ref="ficep_structure.int_power_level_01"/>
             <field name="int_assembly_category_id" ref="int_assembly_category_15"/>
         </record>
-        
+
         <record id="mc_administrateur" model="mandate.category">
             <field name="type">ext</field>
             <field name="name">Administrateur</field>
             <field name="int_power_level_id" ref="ficep_structure.int_power_level_01"/>
             <field name="ext_assembly_category_id" ref="ext_assembly_category_01"/>
         </record>
-        
+
         <record id="mc_membre_effectif_ag" model="mandate.category">
             <field name="type">ext</field>
             <field name="name">Membre effectif AG</field>
             <field name="int_power_level_id" ref="ficep_structure.int_power_level_01"/>
             <field name="ext_assembly_category_id" ref="ext_assembly_category_02"/>
         </record>
-        
+
         <!-- Create Selection committee -->
         <record id="sc_tete_huy_communale" model="sta.selection.committee">
             <field name="mandate_category_id" ref="mc_conseiller_communal"/>
@@ -93,17 +93,17 @@
             <field name="mandate_deadline_date">2024-12-02</field>
             <field name="auto_mandate" eval="1"/>
         </record>
-        
+
         <record id="sc_gouverneur" model="sta.selection.committee">
             <field name="mandate_category_id" ref="mc_gouverneur"/>
             <field name="name">Designation</field>
-            <field name="legislature_id" ref="legislature_02"/>            
+            <field name="legislature_id" ref="legislature_02"/>
             <field name="sta_assembly_id" ref="sta_assembly_04"/>
             <field name="designation_int_assembly_id" ref="int_assembly_04"/>
             <field name="mandate_start_date">2018-12-03</field>
             <field name="mandate_deadline_date">2024-12-02</field>
         </record>
-        
+
 
         <!-- Create State candidature -->
         <record id="sta_paul_communal" model="sta.candidature">
@@ -154,10 +154,10 @@
             <field name="sta_assembly_id" ref="sta_assembly_01"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
-        
+
         <!-- Create State mandate -->
         <record id="stam_thierry_communal_2012" model="sta.mandate">
-            <field name="mandate_category_id" ref="mc_conseiller_communal"/>           
+            <field name="mandate_category_id" ref="mc_conseiller_communal"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="legislature_id" ref="legislature_closed_01"/>
             <field name="start_date">2012-12-03</field>
@@ -165,9 +165,9 @@
             <field name="sta_assembly_id" ref="sta_assembly_01"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
-        
+
         <record id="stam_thierry_bourgmestre_2012" model="sta.mandate">
-            <field name="mandate_category_id" ref="mc_bourgmestre"/>           
+            <field name="mandate_category_id" ref="mc_bourgmestre"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="legislature_id" ref="legislature_closed_01"/>
             <field name="start_date">2012-12-03</field>

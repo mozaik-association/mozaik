@@ -29,11 +29,20 @@
 from openerp.osv import orm, fields, osv
 from openerp.tools.translate import _
 
+from .abstract_mandate import abstract_candidature
 #===============================================================================
-# from .abstract_mandate import abstract_candidature
 # from .abstract_mandate import create_mandate_from_candidature
 # from .mandate import mandate_category
 #===============================================================================
+CANDIDATURE_AVAILABLE_STATES = [
+    ('draft', 'Draft'),
+    ('declared', 'Declared'),
+    ('rejected', 'Rejected'),
+    ('suggested', 'Suggested'),
+    ('elected', 'Elected'),
+]
+
+candidature_available_states = dict(CANDIDATURE_AVAILABLE_STATES)
 
 
 class int_selection_committee(orm.Model):
@@ -61,6 +70,8 @@ class int_selection_committee(orm.Model):
         'int_assembly_category_id': fields.related('mandate_category_id', 'int_assembly_category_id', string='Internal Assembly Category',
                                           type='many2one', relation="int.assembly.category",
                                           store=False),
+        'int_candidature_ids': fields.one2many('int.candidature', 'selection_committee_id', 'Internal Candidatures',
+                                               domain=[('active', '<=', True)]),
     }
 
     _defaults = {
@@ -70,3 +81,49 @@ class int_selection_committee(orm.Model):
 # constraints
 
     _unicity_keys = 'N/A'
+
+    # view methods: onchange, button
+    def onchange_int_assembly_id(self, cr, uid, ids, int_assembly_id, context=None):
+        res = {}
+        res['value'] = dict(designation_int_assembly_id=False)
+        if int_assembly_id:
+            assembly_data = self.pool.get('int.assembly').read(cr, uid, int_assembly_id, ['designation_int_assembly_id'])
+            res['value'] = dict(designation_int_assembly_id=assembly_data['designation_int_assembly_id'] or False)
+        return res
+
+
+class int_candidature(orm.Model):
+
+    _name = 'int.candidature'
+    _description = "Internal Candidature"
+    _inherit = ['abstract.candidature']
+
+    _mandate_model = 'int.mandate'
+    _selection_committee_model = 'int.selection.committee'
+    _init_mandate_columns = abstract_candidature._init_mandate_columns
+    _init_mandate_columns.extend(['int_assembly_id'])
+    _allowed_inactive_link_models = [_selection_committee_model]
+
+    _columns = {
+        'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
+        'selection_committee_id': fields.many2one(_selection_committee_model, string='Selection Committee',
+                                                 required=True, select=True, track_visibility='onchange'),
+        'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
+                                          type='many2one', relation="mandate.category",
+                                          store=True, domain=[('type', '=', 'int')]),
+        'int_assembly_id': fields.related('selection_committee_id', 'int_assembly_id', string='Internal Assembly',
+                                          type='many2one', relation="int.assembly",
+                                          store=True),
+    }
+
+    _order = 'selection_committee_id'
+
+    # view methods: onchange, button
+    def onchange_selection_committee_id(self, cr, uid, ids, selection_committee_id, context=None):
+        res = {}
+        selection_committee = self.pool.get(self._selection_committee_model).browse(cr, uid, selection_committee_id, context)
+
+        res['value'] = dict(int_assembly_id=selection_committee.int_assembly_id.id or False,
+                            designation_int_assembly_id=selection_committee.designation_int_assembly_id.id or False,
+                            mandate_category_id=selection_committee.mandate_category_id.id or False,)
+        return res

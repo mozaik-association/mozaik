@@ -219,17 +219,19 @@
                              <h1>Candidature: <field name="mandate_category_id" class="oe_inline"
                                                      readonly ="1"/></h1>
                             <h2><field name="partner_id" domain="[('is_company','=',False)]"
-                                       attrs="{'readonly': [('id','!=',False)]}"/></h2>
+                                       attrs="{'readonly': [('id','!=',False)]}"
+                                       on_change="onchange_partner_id(partner_id)"/></h2>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
 
                         <group>
                             <group name="data_1">
+                                <field name="partner_name"/>
                                 <field name="selection_committee_id" required="1"
                                         attrs="{'readonly': [('id','!=',False)]}"
                                         readonly="context.get('default_selection_committee_id')"
-                                        domain="[('committee_type', '=', 'state'), ('decision_date', '=', False)]" context="{'committee_type':'state'}"
+                                        domain="[('decision_date', '=', False)]"
                                         on_change="onchange_selection_committee_id(selection_committee_id)"/>
                             </group>
                             <group name="data_2">
@@ -297,7 +299,7 @@
                             </group>
                             
                             <group>
-                                <field name="designation_int_assembly_id"/>
+                                <field name="designation_int_assembly_id" readonly="1"/>
                                 <field name="meeting_date" widget="date"/>
                                 <field name="decision_date" widget="date"/>
                             </group>
