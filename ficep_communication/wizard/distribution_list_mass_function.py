@@ -100,6 +100,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     pass
                 else:
                     context['field_mailing_object'] = wizard.e_mass_function
+                    context['target_model'] = wizard.trg_model
                     template_id = wizard.email_template_id.id
                     email_from = composer._get_default_from(cr, uid, context=context)
                     mail_composer_vals = {'email_from': email_from,
