@@ -147,16 +147,18 @@ class sta_mandate(orm.Model):
         'sta_assembly_category_id': fields.related('mandate_category_id', 'sta_assembly_category_id', string='State Assembly Category',
                                           type='many2one', relation="sta.assembly.category",
                                           store=False),
+        'sta_power_level_id': fields.related('mandate_category_id', 'sta_assembly_category_id', 'power_level_id', string='State Power Level',
+                                          type='many2one', relation="sta.power.level",
+                                          store=False),
         'candidature_id': fields.many2one('sta.candidature', 'Candidature'),
         'is_submission_mandate': fields.related('mandate_category_id', 'is_submission_mandate', string='Submission to a Mandate Declaration',
-                                          type='boolean', relation="mandate.category",
+                                          type='boolean',
                                           store={'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['is_submission_mandate'], 20)}),
         'is_submission_assets': fields.related('mandate_category_id', 'is_submission_assets', string='Submission to an Assets Declaration',
-                                          type='boolean', relation="mandate.category",
+                                          type='boolean',
                                           store={'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['is_submission_assets'], 20)}),
         'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
-                                          type='boolean', relation="sta.assembly",
-                                          store=True),
+                                          type='boolean', store=True),
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'sta_mandate_term_competencies_rel', id1='sta_mandate_id', id2='thesaurus_term_id', string='Competencies'),
     }
 
@@ -190,16 +192,29 @@ class sta_mandate(orm.Model):
         return super(sta_mandate, self).action_finish(cr, uid, ids, context=context)
 
     def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id, context=None):
-        res = {}
-        category_data = self.pool.get('mandate.category').read(cr, uid, mandate_category_id, ['sta_assembly_category_id'], context)
+        sta_assembly_category_id, sta_power_level_id = False, False
 
-        res['value'] = dict(sta_assembly_category_id=category_data['sta_assembly_category_id'] or False,)
-        return res
+        if mandate_category_id:
+            category_data = self.pool.get('mandate.category').read(cr, uid, mandate_category_id, ['sta_assembly_category_id'], context)
+            sta_assembly_category_id = category_data['sta_assembly_category_id'] or False
+            if sta_assembly_category_id:
+                assembly_category_data = self.pool.get('sta.assembly.category').read(cr, uid, category_data['sta_assembly_category_id'][0], ['power_level_id'], context)
+                sta_power_level_id = assembly_category_data['power_level_id'] or False
+
+        res = {
+            'sta_assembly_category_id': sta_assembly_category_id,
+            'sta_power_level_id': sta_power_level_id,
+            'sta_assembly_id': False,
+            'legislature_id': False,
+        }
+        return {
+            'value': res,
+        }
 
     def onchange_legislature_id(self, cr, uid, ids, legislature_id, context=None):
         res = {}
         res['value'] = dict(mandate_start_date=False,
-                                mandate_deadline_date=False)
+                            mandate_deadline_date=False)
         if legislature_id:
             legislature_data = self.pool.get('legislature').read(cr, uid, legislature_id, ['start_date', 'deadline_date'])
             res['value'] = dict(start_date=legislature_data['start_date'],
