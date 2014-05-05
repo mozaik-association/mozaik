@@ -276,7 +276,7 @@
                                 <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
                             </group>
                         </group>
-                        <notebook>
+                        <notebook invisible="context.get('popup')">
                             <page string="Exclusive Categories" name="exclusive_categories" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="exclusive_category_m2m_ids">
                                     <tree>
@@ -367,17 +367,13 @@
                             required="1"
                             domain="[('assembly_category_id', '=', sta_assembly_category_id)]"/>
                     <field name="legislature_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
-                                                  domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"
-                                                  on_change="onchange_legislature_id(legislature_id)"/>
+                                                 domain="[('power_level_id','=',sta_power_level_id),('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"
+                                                 on_change="onchange_legislature_id(legislature_id)"/>
 
                 </xpath>
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
-                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
-                </xpath>
-
-                <xpath expr="//field[@name='active']" position="after">
-                     <field name="sta_assembly_category_id"/>
+                    <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
                 </xpath>
 
                 <xpath expr="//group[@name='data']" position="after">
@@ -386,8 +382,13 @@
                             <separator string="Competencies"/>
                             <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." context="{'default_state': 'draft'}" />
                         </page>
-                  </notebook>
-              </xpath>
+                    </notebook>
+                </xpath>
+
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="sta_assembly_category_id"/>
+                    <field name="sta_power_level_id"/>
+                </xpath>
             </field>
         </record>
 
