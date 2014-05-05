@@ -10,7 +10,7 @@
             <field name="arch" type="xml">
                 <form string="Mass Mailing" version="7.0">
                     <sheet>
-                       <div name="title" class="oe_title">
+                       <group>
                           <field name="trg_model" 
                                  on_change="onchange_trg_model()"
                                  class="oe_title"/>
@@ -20,7 +20,7 @@
                           <field name="p_mass_function"
                                  attrs="{'invisible':[('trg_model','!=','postal.coordinate')],
                                        'required':[('trg_model','=','postal.coordinate')]}"/>
-                        </div>
+                        </group>
                         <group>
                             <group>
                                 <field name="include_unauthorized" />
