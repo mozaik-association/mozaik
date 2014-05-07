@@ -255,15 +255,8 @@
                                           'default_mandate_category_id': active_id}" />
                         </div>
 
-                        <group>
-                            <group name="Submission">
-                                <field name="is_submission_mandate"/>
-                                <field name="is_submission_assets"/>
-                            </group>
-                            <group name="Power Level">
-                                <field name="int_power_level_id"/>
-                            </group>
-                            <group name="Assembly Categories">
+                        <group name="data">
+                            <group name="main">
                                 <field name="sta_assembly_category_id" attrs="{'invisible': [('type','!=', 'sta')],
                                                                                'required':[('type','=', 'sta')] }"/>
                                 <field name="int_assembly_category_id" attrs="{'invisible': [('type','!=', 'int')],
@@ -271,11 +264,19 @@
                                <field name="ext_assembly_category_id" attrs="{'invisible': [('type','!=', 'ext')],
                                                                               'required':[('type','=', 'ext')] }"/>
                             </group>
-                            <group name="Dates">
+                            <group name="other">
+                                <field name="int_power_level_id"/>
+                                <field name="is_submission_mandate"/>
+                                <field name="is_submission_assets"/>
+                            </group>
+                        </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
                                 <field name="create_date" readonly="1"/>
                                 <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
                             </group>
                         </group>
+
                         <notebook invisible="context.get('popup')">
                             <page string="Exclusive Categories" name="exclusive_categories" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="exclusive_category_m2m_ids">
