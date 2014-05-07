@@ -250,6 +250,6 @@ class abstract_candidature(orm.AbstractModel):
         partner_model = self.pool.get('res.partner')
         partner = partner_model.browse(cr, uid, partner_id, context)
 
-        res['value'] = dict(partner_name=partner_model.build_name(partner, False, False) or False,)
+        res['value'] = dict(partner_name=partner_model.build_name(partner, capitalize_mode=True) or False,)
         return res
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

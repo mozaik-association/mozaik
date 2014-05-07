@@ -25,6 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import unicodedata
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
@@ -86,7 +87,7 @@ class res_partner(orm.Model):
         result = {}.fromkeys(ids, {key: False for key in ['display_name', 'printable_name', ]})
         for partner in self.browse(cr, uid, ids, context=context):
             result[partner.id] = {
-                'display_name': self.build_name(partner, reverse_mode=False),
+                'display_name': self.build_name(partner, full_mode=True),
                 'printable_name': self.build_name(partner, reverse_mode=True),
             }
         return result
@@ -185,7 +186,7 @@ class res_partner(orm.Model):
                 ids = [ids]
             res = []
             for record in self.browse(cr, uid, ids, context=context):
-                name = self.build_name(record)
+                name = self.build_name(record, full_mode=True)
                 if context.get('show_email') and record.email:
                     name = "%s <%s>" % (name, record.email)
                 res.append((record.id, name))
@@ -249,20 +250,32 @@ class res_partner(orm.Model):
 
 # public methods
 
-    def build_name(self, partner, reverse_mode=False, full_mode=True):
+    def build_name(self, partner, reverse_mode=False, full_mode=False, capitalize_mode=False):
         if partner.is_company:
             name = partner.name or partner.lastname
             if partner.acronym and not reverse_mode:
                 name = "%s (%s)" % (name, partner.acronym)
         else:
             names = [
-                     partner.usual_lastname or partner.lastname,
-                     partner.usual_firstname or partner.firstname or False
-                    ]
+                partner.usual_lastname or partner.lastname,
+                partner.usual_firstname or partner.firstname or False
+            ]
+            if capitalize_mode:
+                # Capitalize each word of the lastname starting with a capital letter
+                # ex: de la Sígnora di Spaña => de la SÍGNORA di SPAÑA
+                new_lastname = []
+                for s in names[0].split(' '):
+                    s = s.strip()
+                    if s:
+                        if unicodedata.category(s[0]) == 'Lu':
+                            s = u'%s' % s
+                            s = s.upper()
+                        new_lastname.append(s)
+                names[0] = ' '.join(new_lastname)
             if reverse_mode:
                 names = list(reversed(names))
             name = " ".join([n for n in names if n])
-            if name != partner.name and not reverse_mode and full_mode:
+            if name != partner.name and full_mode:
                 name = "%s (%s)" % (name, partner.name)
         return name
 
