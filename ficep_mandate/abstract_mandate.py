@@ -26,7 +26,6 @@
 #
 ##############################################################################
 from openerp.osv import orm, fields
-from openerp.tools.translate import _
 
 CANDIDATURE_AVAILABLE_STATES = [
     ('draft', 'Draft'),
@@ -72,25 +71,14 @@ def create_mandate_from_candidature(cr, uid, candidature_pool, candidature_id, c
     return res
 
 
-class abstract_mandate_base(orm.AbstractModel):
-
-    _name = 'abstract.mandate.base'
-    _description = "Abstract Mandate Base"
-    _inherit = ['abstract.ficep.model']
-
-    _columns = {
-        'partner_id': fields.many2one('res.partner', 'Partner', required=True, select=True, track_visibility='onchange'),
-        'is_replacement': fields.boolean('Replacement'),
-    }
-
-
 class abstract_mandate(orm.AbstractModel):
 
     _name = 'abstract.mandate'
     _description = 'Abstract Mandate'
-    _inherit = ['abstract.mandate.base']
+    _inherit = ['abstract.ficep.model']
 
     _columns = {
+        'partner_id': fields.many2one('res.partner', 'Representative', required=True, select=True, track_visibility='onchange'),
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
                                                  required=True, track_visibility='onchange'),
         'designation_int_assembly_id': fields.many2one('int.assembly', 'Designation Assembly', required=True,
@@ -105,6 +93,7 @@ class abstract_mandate(orm.AbstractModel):
         'candidature_id': fields.many2one('abstract.candidature', 'Candidature', track_visibility='onchange'),
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+        'is_replacement': fields.boolean('Replacement'),
     }
 
     _defaults = {
@@ -180,14 +169,15 @@ class abstract_mandate(orm.AbstractModel):
 class abstract_candidature(orm.AbstractModel):
 
     _name = 'abstract.candidature'
-    _description = "Abstract Candidature"
-    _inherit = ['abstract.mandate.base']
+    _description = 'Abstract Candidature'
+    _inherit = ['abstract.ficep.model']
 
-    _init_mandate_columns = ['mandate_category_id', 'partner_id', 'is_replacement', 'designation_int_assembly_id']
+    _init_mandate_columns = ['mandate_category_id', 'partner_id', 'designation_int_assembly_id']
     _mandate_model = 'abstract.mandate'
 
     _columns = {
-        'partner_name': fields.char('Partner Name', size=128, required=True, track_visibility='onchange'),
+        'partner_id': fields.many2one('res.partner', 'Candidate', required=True, select=True, track_visibility='onchange'),
+        'partner_name': fields.char('Candidate Name', size=128, required=True, track_visibility='onchange'),
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'selection_committee_id': fields.many2one('selection.committee', string='Selection Committee',
                                                  required=True, select=True, track_visibility='onchange'),
@@ -203,7 +193,7 @@ class abstract_candidature(orm.AbstractModel):
         'state': CANDIDATURE_AVAILABLE_STATES[0][0],
     }
 
-    _order = 'selection_committee_id, partner_id'
+    _order = 'selection_committee_id, partner_name'
 
 # constraints
 
@@ -252,4 +242,5 @@ class abstract_candidature(orm.AbstractModel):
 
         res['value'] = dict(partner_name=partner_model.build_name(partner, capitalize_mode=True) or False,)
         return res
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

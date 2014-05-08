@@ -135,7 +135,8 @@ class renew_or_add_mandate_wizard(orm.TransientModel):
         if isinstance(mandate_obj, sta_mandate.sta_mandate):
             values = dict(legislature_id=wizard.legislature_id.id,
                           start_date=wizard.start_date,
-                          deadline_date=wizard.deadline_date)
+                          deadline_date=wizard.deadline_date,
+                          end_date=False)
             new_mandate_id = mandate_obj.copy(cr, uid, wizard.sta_mandate_id.id, default=values, context=context)
             view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', 'sta_mandate_form_view')
             view_id = view_ref and view_ref[1] or False,

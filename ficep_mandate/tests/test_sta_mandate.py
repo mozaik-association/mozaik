@@ -125,8 +125,9 @@ class test_sta_mandate(SharedSetupTransactionCase):
             self.assertEqual(candidature_data['state'], 'suggested')
 
         '''
-            Candidatures are accepted
+            Accept Candidatures
         '''
+        committee_pool.write(self.cr, self.uid, [committee_id], {'decision_date': '2014-04-01'})
         committee_pool.button_accept_candidatures(self.cr, self.uid, [committee_id])
         for candidature_data in candidature_pool.read(self.cr, self.uid, candidature_ids, ['state']):
             self.assertEqual(candidature_data['state'], 'designated')
@@ -174,11 +175,25 @@ class test_sta_mandate(SharedSetupTransactionCase):
         candidature_data = candidature_pool.read(self.cr, self.uid, sta_marc_id, ['state'])
         self.assertEqual(candidature_data['state'], 'suggested')
 
+        committee_pool.write(self.cr, self.uid, [committee_id], {'decision_date': '2014-04-01'})
         committee_pool.button_accept_candidatures(self.cr, self.uid, [committee_id])
         candidature_data = candidature_pool.read(self.cr, self.uid, sta_marc_id, ['state'])
         self.assertEqual(candidature_data['state'], 'elected')
 
         mandate_ids = mandate_pool.search(self.cr, self.uid, [('candidature_id', '=', sta_marc_id)])
         self.assertEqual(len(mandate_ids), 1)
+
+    def test_no_decision_date(self):
+        '''
+        Test the process of accepting states candidatures without decision date
+        '''
+        candidature_pool = self.registry('sta.candidature')
+        committee_pool = self.registry('selection.committee')
+        committee_id = self.ref('%s.sc_bourgmestre_huy' % self._module_ns)
+        sta_marc_id = self.ref('%s.sta_marc_bourgmestre' % self._module_ns)
+
+        candidature_pool.signal_button_suggest(self.cr, self.uid, [sta_marc_id])
+
+        self.assertRaises(orm.except_orm, committee_pool.button_accept_candidatures, self.cr, self.uid, [committee_id])
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

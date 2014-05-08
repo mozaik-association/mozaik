@@ -85,10 +85,10 @@ class mandate_category(orm.Model):
         'int_assembly_category_id': fields.many2one('int.assembly.category', string='Internal Assembly Category', track_visibility='onchange'),
         'int_power_level_id': fields.many2one('int.power.level', string='Internal Power Level',
                                                  required=True, track_visibility='onchange'),
-        'sta_candidature_ids': fields.one2many('sta.candidature', 'mandate_category_id', 'State Candidatures'),
-        'sta_mandate_ids': fields.one2many('sta.mandate', 'mandate_category_id', 'State Mandates'),
         'is_submission_mandate': fields.boolean('Submission to a Mandate Declaration'),
         'is_submission_assets': fields.boolean('Submission to an Assets Declaration'),
+
+        'sta_mandate_ids': fields.one2many('sta.mandate', 'mandate_category_id', 'State Mandates'),
     }
 
     _order = 'name'
@@ -112,7 +112,7 @@ class selection_committee(orm.Model):
                 res.append(candidature.id)
             else:
                 raise osv.except_osv(_('Operation Forbidden!'),
-                             _('All candidatures are not in suggested state'))
+                                     _('Some candidatures are still in "declared" state'))
         return res
 
     _columns = {
@@ -165,6 +165,27 @@ class selection_committee(orm.Model):
 # constraints
 
     _unicity_keys = 'N/A'
+
+    def _check_decision_date(self, cr, uid, ids, context=None):
+        """
+        ====================
+        _check_decision_date
+        ====================
+        Check if decision_date is not null when accepting the proposal
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        committees = self.browse(cr, uid, ids)
+        for committee in committees:
+            if committee.state == 'done' and not committee.decision_date:
+                return False
+
+        return True
+
+    _constraints = [
+        (_check_decision_date, _("A decision date is mandatory when accepting the proposal of the committee"), ['state', 'decision_date'])
+    ]
 
 # orm methods
 

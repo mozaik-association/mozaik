@@ -33,6 +33,17 @@ from .abstract_mandate import abstract_candidature
 from .abstract_mandate import create_mandate_from_candidature
 from .mandate import mandate_category
 
+CANDIDATURE_AVAILABLE_SORT_ORDERS = {
+    'elected': '00',
+    'non-elected': '10',
+    'non-elected-non-substitute': '11',
+    'designated': '20',
+    'suggested': '22',
+    'declared': '24',
+    'rejected': '30',
+    'draft': '90',
+}
+
 
 class sta_candidature(orm.Model):
 
@@ -45,7 +56,37 @@ class sta_candidature(orm.Model):
     _init_mandate_columns.extend(['legislature_id', 'sta_assembly_id'])
     _allowed_inactive_link_models = ['selection.committee']
 
+# private methods
+
+    def _get_sort_order(self, cr, uid, ids, name, args, context=None):
+        """
+        ===============
+        _get_sort_order
+        ===============
+        Recompute sort order field
+        :param ids: candidatures ids
+        :type ids: list
+        :rparam: dictionary for all partner ids with requested computed fields
+        :rtype: dict {partner_id: sort_order}
+        Note:
+        Calling and result convention: Single mode
+        """
+        result = {}.fromkeys(ids, False)
+        for cand in self.browse(cr, uid, ids, context=context):
+            sort_order = CANDIDATURE_AVAILABLE_SORT_ORDERS.get(cand.state, '99')
+            if cand.state == 'non-elected' and not cand.is_substitute:
+                sort_order = CANDIDATURE_AVAILABLE_SORT_ORDERS['non-elected-non-substitute']
+            result[cand.id] = sort_order
+        return result
+
+    _sort_order_store_trigger = {
+        'sta.candidature': (lambda self, cr, uid, ids, context=None: ids,
+                           ['state', 'is_substitute', ], 20)
+    }
+
     _columns = {
+        'sort_order': fields.function(_get_sort_order, type='char', string='Sort Order',
+                                      store=_sort_order_store_trigger),
         'electoral_district_id': fields.related('selection_committee_id', 'electoral_district_id', string='Electoral District',
                                           type='many2one', relation="electoral.district",
                                           store=True),
@@ -69,15 +110,15 @@ class sta_candidature(orm.Model):
                                           type='boolean', store=False),
     }
 
-    _order = 'selection_committee_id, list_effective_position, list_substitute_position'
+    _order = 'selection_committee_id, sort_order, election_effective_position, election_substitute_position, list_effective_position, list_substitute_position'
 
 # constraints
 
     def _check_partner(self, cr, uid, ids, for_unlink=False, context=None):
         """
-        =================
+        ==============
         _check_partner
-        =================
+        ==============
         Check if partner doesn't have several candidatures in the same category
         :rparam: True if it is the case
                  False otherwise
@@ -98,14 +139,16 @@ class sta_candidature(orm.Model):
 
     def onchange_selection_committee_id(self, cr, uid, ids, selection_committee_id, context=None):
         res = {}
-        selection_committee = self.pool.get('selection.committee').browse(cr, uid, selection_committee_id, context)
+        selection_committee = False
+        if selection_committee_id:
+            selection_committee = self.pool.get('selection.committee').browse(cr, uid, selection_committee_id, context)
 
-        res['value'] = dict(legislature_id=selection_committee.legislature_id.id or False,
-                            electoral_district_id=selection_committee.electoral_district_id.id or False,
-                            sta_assembly_id=selection_committee.sta_assembly_id.id or False,
-                            designation_int_assembly_id=selection_committee.designation_int_assembly_id.id or False,
-                            mandate_category_id=selection_committee.mandate_category_id.id or False,
-                            is_legislative=selection_committee.sta_assembly_id.is_legislative or False,)
+        res['value'] = dict(legislature_id=selection_committee and selection_committee.legislature_id.id or False,
+                            electoral_district_id=selection_committee and selection_committee.electoral_district_id.id or False,
+                            sta_assembly_id=selection_committee and selection_committee.sta_assembly_id.id or False,
+                            designation_int_assembly_id=selection_committee and selection_committee.designation_int_assembly_id.id or False,
+                            mandate_category_id=selection_committee and selection_committee.mandate_category_id.id or False,
+                            is_legislative=selection_committee and selection_committee.sta_assembly_id.is_legislative or False,)
         return res
 
     def action_elected(self, cr, uid, ids, context=None):
