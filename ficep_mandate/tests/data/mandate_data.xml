@@ -21,7 +21,7 @@
             <field name="type">sta</field>
             <field name="name">Gouverneur</field>
             <field name="int_power_level_id" ref="int_power_level_03"/>
-            <field name="sta_assembly_category_id" ref="sta_assembly_category_16"/>
+            <field name="sta_assembly_category_id" ref="sta_assembly_category_13"/>
         </record>
 
         <record id="mc_bourgmestre" model="mandate.category">

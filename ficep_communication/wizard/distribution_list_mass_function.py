@@ -30,17 +30,17 @@ from openerp.osv import orm, fields
 
 # Constants
 SORT_BY = [
-    ('register_number', 'Register Number'),
+    ('register_number', 'Identification Number'),
     ('name', 'Name'),
-    ('zip', 'Zip'),
+    ('zip', 'Zip Code'),
 ]
 E_MASS_FUNCTION = [
     ('email_coordinate_id', 'Mass Mailing'),
-    ('csv', 'CSV'),
+    ('csv', 'CSV Extraction'),
 ]
 P_MASS_FUNCTION = [
     ('postal_coordinate_id', 'Label Printing'),
-    ('csv', 'CSV'),
+    ('csv', 'CSV Extraction'),
 ]
 TRG_MODEL = [
     ('email.coordinate', 'Email Coordinate'),
@@ -59,17 +59,17 @@ class distribution_list_mass_function(orm.TransientModel):
         'p_mass_function': fields.selection(P_MASS_FUNCTION, 'Mass Function'),
 
         'email_template_id': fields.many2one('email.template', 'Email Template', select=True),
-        'campaign_id': fields.many2one('mail.mass_mailing.campaign', 'Campaign', select=True),
-        'extract_csv': fields.boolean('Extract CSV',
+        'campaign_id': fields.many2one('mail.mass_mailing.campaign', 'Mail Campaign', select=True),
+        'extract_csv': fields.boolean('CSV Extraction',
                                       help="Get a CSV file with all partners who have no email coordinate"),
 
-        'sort_by': fields.selection(SORT_BY, 'Sort By'),
+        'sort_by': fields.selection(SORT_BY, 'Sort by'),
 
         'max_fails': fields.integer('Maximum of Fails'),
         'include_unauthorized': fields.boolean('Include Unauthorized'),
         'internal_instance_id': fields.many2one('int.instance', 'Internal Instance'),
 
-        'groupby_coresidency': fields.boolean('Group By Co-Residency'),
+        'groupby_coresidency': fields.boolean('Group by Co-Residency'),
     }
 
     _defaults = {
@@ -100,6 +100,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     pass
                 else:
                     context['field_mailing_object'] = wizard.e_mass_function
+                    context['target_model'] = wizard.trg_model
                     template_id = wizard.email_template_id.id
                     email_from = composer._get_default_from(cr, uid, context=context)
                     mail_composer_vals = {'email_from': email_from,

@@ -10,8 +10,8 @@
             <field name="arch" type="xml">
                 <tree string="Virtual Target" create="0" delete="0">
                     <field name="partner_id" />
-                    <field name="email_coordinate_id" />
-                    <field name="postal_coordinate_id" />
+                    <field name="email" />
+                    <field name="postal" />
                 </tree>
             </field>
         </record>

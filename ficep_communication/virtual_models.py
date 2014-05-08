@@ -39,8 +39,11 @@ class virtual_target(orm.Model):
 
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Partner'),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
+        'postal_coordinate_id': fields.integer('Postal Coordinate ID'),
+        'email_coordinate_id': fields.integer('Email Coordinate ID'),
+
+        'email': fields.char('Postal Coordinate'),
+        'postal': fields.char('Email Coordinate'),
     }
 
 # orm methods
@@ -53,7 +56,17 @@ class virtual_target(orm.Model):
             concat(pc.id, '/' ,e.id) as id,
             p.id as partner_id,
             pc.id as postal_coordinate_id,
-            e.id as email_coordinate_id
+            e.id as email_coordinate_id,
+            CASE
+                WHEN pc.vip is TRUE
+                THEN 'VIP'
+                ELSE adr.name
+            END as postal,
+            CASE
+                WHEN e.vip is TRUE
+                THEN 'VIP'
+                ELSE e.email
+            END as email
         FROM
             res_partner p
 
@@ -64,6 +77,10 @@ class virtual_target(orm.Model):
         LEFT OUTER JOIN
             postal_coordinate pc
         ON (pc.partner_id = p.id)
+
+        LEFT OUTER JOIN
+            address_address adr
+        ON (pc.address_id = adr.id)
 
         WHERE pc.id IS NOT NULL
         OR e.id IS NOT NULL

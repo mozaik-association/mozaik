@@ -184,7 +184,7 @@ class abstract_mandate_base(orm.AbstractModel):
 class abstract_mandate(orm.AbstractModel):
 
     _name = 'abstract.mandate'
-    _description = "Abstract Mandate"
+    _description = 'Abstract Mandate'
     _inherit = ['abstract.mandate.base']
 
     _columns = {
@@ -196,11 +196,9 @@ class abstract_mandate(orm.AbstractModel):
         'deadline_date': fields.date('Deadline Date', required=True, track_visibility='onchange'),
         'end_date': fields.date('End Date', track_visibility='onchange'),
         'is_submission_mandate': fields.related('mandate_category_id', 'is_submission_mandate', string='Submission to a Mandate Declaration',
-                                          type='boolean', relation="mandate.category",
-                                          store=True),
+                                          type='boolean', store=True),
         'is_submission_assets': fields.related('mandate_category_id', 'is_submission_assets', string='Submission to an Assets Declaration',
-                                          type='boolean', relation="mandate.category",
-                                          store=True),
+                                          type='boolean', store=True),
         'candidature_id': fields.many2one('abstract.candidature', 'Candidature', track_visibility='onchange'),
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),

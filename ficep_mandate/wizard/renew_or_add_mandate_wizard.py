@@ -75,7 +75,9 @@ class renew_or_add_mandate_wizard(orm.TransientModel):
             res['partner_id'] = mandate.partner_id.id
             res['mandate_category_id'] = mandate.mandate_category_id.id
 
-            if mandate.deadline_date > fields.datetime.now():
+            limit_date = mandate.end_date or mandate.deadline_date
+
+            if limit_date > fields.datetime.now():
                 action = WIZARD_AVAILABLE_ACTIONS[1][0]
             else:
                 action = WIZARD_AVAILABLE_ACTIONS[0][0]
