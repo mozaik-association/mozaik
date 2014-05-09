@@ -69,6 +69,7 @@
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="mandate_start_date">2018-12-03</field>
             <field name="mandate_deadline_date">2024-12-02</field>
+            <field name="decision_date">2014-04-01</field>
         </record>
 
         <record id="sc_bourgmestre_huy" model="sta.selection.committee">

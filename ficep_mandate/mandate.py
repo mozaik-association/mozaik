@@ -95,8 +95,11 @@ class mandate_category(orm.Model):
         'sta_candidature_ids': fields.one2many('sta.candidature', 'mandate_category_id', 'State Candidatures'),
         'sta_mandate_ids': fields.one2many('sta.mandate', 'mandate_category_id', 'State Mandates'),
         'int_mandate_ids': fields.one2many('int.mandate', 'mandate_category_id', 'Internal Mandates'),
+
         'is_submission_mandate': fields.boolean('Submission to a Mandate Declaration'),
         'is_submission_assets': fields.boolean('Submission to an Assets Declaration'),
+
+        'sta_mandate_ids': fields.one2many('sta.mandate', 'mandate_category_id', 'State Mandates'),
     }
 
     _order = 'name'

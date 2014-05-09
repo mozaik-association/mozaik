@@ -166,9 +166,9 @@
                                 <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
                             </group>
                             <group name="Dates">
-                                <field name="start_date" widget="date"/>
-                                <field name="end_date" widget="date" readonly="1"/>
-                                <field name="deadline_date" widget="date" attrs="{'readonly': [('id','!=', False)]}"/>
+                                <field name="start_date"/>
+                                <field name="deadline_date"/>
+                                <field name="end_date" readonly="1"/>
                             </group>
                         </group>
                     </sheet>

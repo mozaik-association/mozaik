@@ -68,10 +68,14 @@
                         <attribute name="invisible">1</attribute>
                     </xpath>
                     <xpath expr="//field[@name='partner_id']" position="before">
-                        <field name="list_effective_position" string="#E"
-                               attrs="{'invisible': [('is_effective', '=', False),('is_substitute', '!=', False)]}"/>
-                        <field name="list_substitute_position" string="#S"
-                               attrs="{'invisible': [('is_substitute', '=', False)]}"/>
+                        <field name="list_effective_position" string="#EP"
+                               attrs="{'invisible': ['|','&amp;',('is_effective', '=', False),('is_substitute', '!=', False),('state', 'in', ['elected', 'non-elected', 'rejected'])]}"/>
+                        <field name="list_substitute_position" string="#SP"
+                               attrs="{'invisible': ['|',('is_substitute', '=', False),('state', 'in', ['elected', 'non-elected', 'rejected'])]}"/>
+                        <field name="election_effective_position" string="#E"
+                               attrs="{'invisible': ['|','&amp;',('is_effective', '=', False),('is_substitute', '!=', False),('state', 'not in', ['elected', 'non-elected'])]}"/>
+                        <field name="election_substitute_position" string="#S"
+                               attrs="{'invisible': ['|',('is_substitute', '=', False),('state', 'not in', ['non-elected'])]}"/>
                         <field name="is_effective" invisible="1"/>
                         <field name="is_substitute" invisible="1"/>
                     </xpath>
@@ -283,20 +287,17 @@
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                             <button string="State Candidatures" name="%(sta_candidature_action)d"
-                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                type="action" attrs="{'invisible': ['|',('id','=',False),('type','!=','sta')]}"
+                                context="{'search_default_mandate_category_id': active_id,
+                                          'default_mandate_category_id': active_id}" />
+                            <button string="State Mandates" name="%(sta_mandate_action)d"
+                                type="action" attrs="{'invisible': ['|',('id','=',False),('type','!=','sta')]}"
                                 context="{'search_default_mandate_category_id': active_id,
                                           'default_mandate_category_id': active_id}" />
                         </div>
 
-                        <group>
-                            <group name="Submission">
-                                <field name="is_submission_mandate"/>
-                                <field name="is_submission_assets"/>
-                            </group>
-                            <group name="Power Level">
-                                <field name="int_power_level_id"/>
-                            </group>
-                            <group name="Assembly Categories">
+                        <group name="data">
+                            <group name="main">
                                 <field name="sta_assembly_category_id" attrs="{'invisible': [('type','!=', 'sta')],
                                                                                'required':[('type','=', 'sta')] }"/>
                                 <field name="int_assembly_category_id" attrs="{'invisible': [('type','!=', 'int')],
@@ -304,11 +305,19 @@
                                <field name="ext_assembly_category_id" attrs="{'invisible': [('type','!=', 'ext')],
                                                                               'required':[('type','=', 'ext')] }"/>
                             </group>
-                            <group name="Dates">
+                            <group name="other">
+                                <field name="int_power_level_id"/>
+                                <field name="is_submission_mandate"/>
+                                <field name="is_submission_assets"/>
+                            </group>
+                        </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
                                 <field name="create_date" readonly="1"/>
                                 <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
                             </group>
                         </group>
+
                         <notebook invisible="context.get('popup')">
                             <page string="Exclusive Categories" name="exclusive_categories" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                                 <field name="exclusive_category_m2m_ids">
@@ -420,6 +429,10 @@
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
                 </xpath>
 
+                <xpath expr="//field[@name='deadline_date']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('id','!=', False)]}</attribute>
+                </xpath>
+
                 <xpath expr="//group[@name='data']" position="after">
                     <notebook>
                         <page name="index" string="Indexation">
@@ -497,7 +510,7 @@
                                                   'default_selection_committee_id': active_id,
                                                   'search_default_all': True}" />
                     <button string="Accept" name="button_accept_candidatures" type="object" class="oe_highlight"
-                            attrs="{'invisible': ['|',('decision_date','=',False),('state','=','done')]}"
+                            attrs="{'invisible': [('state','=','done')]}"
                             confirm="Accept all candidatures: proceed anyway ?"/>
                     <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
                             attrs="{'invisible': [('state','=','done')]}"

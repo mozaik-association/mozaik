@@ -122,6 +122,13 @@ class test_res_partner(SharedSetupTransactionCase):
         self.assertEqual(vals['display_name'], '%s %s (%s)' % ('BOND', 'James', vals['name']), 'Update all partner names fails with wrong display_name')
         self.assertEqual(vals['printable_name'], '%s %s' % ('James', 'BOND'), 'Update all partner names fails with wrong printable_name')
 
+        # 5/ Test the capitalize mode
+        self.partner_model.write(cr, uid, [marc_id],
+                                 {'firstname': u'Carmelitá', 'lastname': u'de la Sígnora di Spaña', 'usual_firstname': False, 'usual_lastname': False, }, context=context)
+        p = self.partner_model.browse(cr, uid, [marc_id])[0]
+        name = self.partner_model.build_name(p, reverse_mode=True, capitalize_mode=True)
+        self.assertEqual(name, u'Carmelitá de la SÍGNORA di SPAÑA', 'Update all partner names fails with wrong name')
+
     def test_res_partner_duplicates(self):
         """
         ===========================

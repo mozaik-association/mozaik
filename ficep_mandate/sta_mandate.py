@@ -194,6 +194,17 @@ class sta_selection_committee(orm.Model):
             res['value']['legislature_id'] = legislature_id
         return res
 
+CANDIDATURE_AVAILABLE_SORT_ORDERS = {
+    'elected': '00',
+    'non-elected': '10',
+    'non-elected-non-substitute': '11',
+    'designated': '20',
+    'suggested': '22',
+    'declared': '24',
+    'rejected': '30',
+    'draft': '90',
+}
+
 
 class sta_candidature(orm.Model):
 
@@ -207,12 +218,43 @@ class sta_candidature(orm.Model):
     _init_mandate_columns.extend(['legislature_id', 'sta_assembly_id'])
     _allowed_inactive_link_models = [_selection_committee_model]
 
+# private methods
+
+    def _get_sort_order(self, cr, uid, ids, name, args, context=None):
+        """
+        ===============
+        _get_sort_order
+        ===============
+        Recompute sort order field
+        :param ids: candidatures ids
+        :type ids: list
+        :rparam: dictionary for all partner ids with requested computed fields
+        :rtype: dict {partner_id: sort_order}
+        Note:
+        Calling and result convention: Single mode
+        """
+        result = {}.fromkeys(ids, False)
+        for cand in self.browse(cr, uid, ids, context=context):
+            sort_order = CANDIDATURE_AVAILABLE_SORT_ORDERS.get(cand.state, '99')
+            if cand.state == 'non-elected' and not cand.is_substitute:
+                sort_order = CANDIDATURE_AVAILABLE_SORT_ORDERS['non-elected-non-substitute']
+            result[cand.id] = sort_order
+        return result
+
+    _sort_order_store_trigger = {
+        'sta.candidature': (lambda self, cr, uid, ids, context=None: ids,
+                           ['state', 'is_substitute', ], 20)
+    }
+
     _columns = {
         'selection_committee_id': fields.many2one(_selection_committee_model, string='Selection Committee',
                                                  required=True, select=True, track_visibility='onchange'),
         'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
                                           type='many2one', relation="mandate.category",
                                           store=True, domain=[('type', '=', 'sta')]),
+
+        'sort_order': fields.function(_get_sort_order, type='char', string='Sort Order',
+                                      store=_sort_order_store_trigger),
         'electoral_district_id': fields.related('selection_committee_id', 'electoral_district_id', string='Electoral District',
                                           type='many2one', relation="electoral.district",
                                           store=True),
@@ -234,7 +276,29 @@ class sta_candidature(orm.Model):
                                           type='boolean', store=True),
     }
 
-    _order = 'selection_committee_id, list_effective_position, list_substitute_position'
+    _order = 'selection_committee_id, sort_order, election_effective_position, election_substitute_position, list_effective_position, list_substitute_position'
+
+# constraints
+    def _check_partner(self, cr, uid, ids, for_unlink=False, context=None):
+        """
+        ==============
+        _check_partner
+        ==============
+        Check if partner doesn't have several candidatures in the same category
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        candidatures = self.browse(cr, uid, ids)
+        for candidature in candidatures:
+            if len(self.search(cr, uid, [('partner_id', '=', candidature.partner_id.id), ('id', '!=', candidature.id), ('mandate_category_id', '=', candidature.mandate_category_id.id)], context=context)) > 0:
+                return False
+
+        return True
+
+    _constraints = [
+        (_check_partner, _("A candidature already exists for this partner in this category"), ['partner_id'])
+    ]
 
 # view methods: onchange, button
     def onchange_selection_committee_id(self, cr, uid, ids, selection_committee_id, context=None):
