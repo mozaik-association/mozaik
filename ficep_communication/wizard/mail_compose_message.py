@@ -41,15 +41,4 @@ class mail_compose_message(orm.TransientModel):
                     values[res_id]['email_to'] = email
         return values
 
-    def get_distribution_list_ids(self, cr, uid, distribution_list_ids, context=None):
-        """
-        =========================
-        get_distribution_list_ids
-        =========================
-        Override this method to filter out the resulting ids of
-        distribution lists
-        """
-        res_ids = super(mail_compose_message, self).get_distribution_list_ids(cr, uid, distribution_list_ids, context=context)
-        return res_ids
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
