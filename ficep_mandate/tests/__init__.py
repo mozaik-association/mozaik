@@ -25,10 +25,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import test_sta_mandate
-from . import test_mandate
-from . import test_renew_or_add_mandate_wizard
-from . import test_import_candidatures_wizard
+from openerp.addons.ficep_mandate.tests import test_sta_mandate, \
+                                               test_int_mandate, \
+                                               test_mandate, \
+                                               test_renew_or_add_mandate_wizard, \
+                                               test_import_candidatures_wizard
 
 fast_suite = [
 ]
@@ -36,6 +37,7 @@ fast_suite = [
 checks = [
     test_mandate,
     test_sta_mandate,
+    test_int_mandate,
     test_renew_or_add_mandate_wizard,
     test_import_candidatures_wizard,
 ]
