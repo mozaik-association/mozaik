@@ -41,8 +41,7 @@
                     <field name="mandate_category_id"/>
                     <field name="start_date"/>
                     <field name="deadline_date"/>
-                    <field name="end_date"/>
-                    <button name="%(renew_or_add_mandate_action)d" string="Renew or Add Complementary Mandate" type="action" icon="gtk-copy"/>
+                    <field name="end_date"/>                    
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
                 </tree>
