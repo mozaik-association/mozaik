@@ -59,6 +59,8 @@ class abstract_coordinate(orm.AbstractModel):
         'is_main': fields.boolean('Is Main', readonly=True, select=True),
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
         'vip': fields.boolean('VIP', track_visibility='onchange'),
+
+        'bounce_counter': fields.integer('Bounce Counter', readonly=True),
     }
 
     _defaults = {
@@ -66,6 +68,7 @@ class abstract_coordinate(orm.AbstractModel):
         'is_main': False,
         'unauthorized': False,
         'vip': False,
+        'bounce_counter': 0,
     }
 
     _order = "partner_id, expire_date, is_main desc, coordinate_type"
