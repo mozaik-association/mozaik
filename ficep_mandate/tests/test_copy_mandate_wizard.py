@@ -31,7 +31,7 @@ from anybox.testing.openerp import SharedSetupTransactionCase
 _logger = logging.getLogger(__name__)
 
 
-class test_renew_or_add_mandate_wizard(SharedSetupTransactionCase):
+class test_copy_mandate_wizard(SharedSetupTransactionCase):
     _data_files = (
         '../../ficep_base/tests/data/res_partner_data.xml',
         '../../ficep_structure/tests/data/structure_data.xml',
@@ -41,7 +41,7 @@ class test_renew_or_add_mandate_wizard(SharedSetupTransactionCase):
     _module_ns = 'ficep_mandate'
 
     def setUp(self):
-        super(test_renew_or_add_mandate_wizard, self).setUp()
+        super(test_copy_mandate_wizard, self).setUp()
         candidature_pool = self.registry('sta.candidature')
         committee_pool = self.registry('sta.selection.committee')
         sta_paul_communal_id = self.ref('%s.sta_paul_communal' % self._module_ns)
@@ -68,7 +68,7 @@ class test_renew_or_add_mandate_wizard(SharedSetupTransactionCase):
             'active_ids': [stam_thierry_communal_2012_id],
             'active_model': 'sta.mandate',
         }
-        wizard_pool = self.registry('renew.or.add.mandate.wizard')
+        wizard_pool = self.registry('copy.sta.mandate.wizard')
         wiz_id = wizard_pool.create(self.cr, self.uid, {}, context=context)
         wizard = wizard_pool.browse(self.cr, self.uid, wiz_id)
         self.assertEqual(wizard.action, 'renew')
@@ -86,7 +86,7 @@ class test_renew_or_add_mandate_wizard(SharedSetupTransactionCase):
             'active_ids': [stam_thierry_bourgmestre_2012_id],
             'active_model': 'sta.mandate',
         }
-        wizard_pool = self.registry('renew.or.add.mandate.wizard')
+        wizard_pool = self.registry('copy.sta.mandate.wizard')
         wiz_id = wizard_pool.create(self.cr, self.uid, {}, context=context)
         wizard = wizard_pool.browse(self.cr, self.uid, wiz_id)
         self.assertEqual(wizard.action, 'renew')
@@ -127,7 +127,7 @@ class test_renew_or_add_mandate_wizard(SharedSetupTransactionCase):
             'active_model': 'sta.mandate',
         }
 
-        wizard_pool = self.registry('renew.or.add.mandate.wizard')
+        wizard_pool = self.registry('copy.sta.mandate.wizard')
         wiz_id = wizard_pool.create(self.cr, self.uid, {}, context=context)
         wizard = wizard_pool.browse(self.cr, self.uid, wiz_id)
         self.assertEqual(wizard.action, 'add')
@@ -137,7 +137,7 @@ class test_renew_or_add_mandate_wizard(SharedSetupTransactionCase):
         values = dict(start_date=data['value']['start_date'],
                       deadline_date=data['value']['deadline_date'],
                       new_mandate_category_id=mc_bourgmestre_id,
-                      new_sta_assembly_id=college_assembly_id)
+                      new_assembly_id=college_assembly_id)
         wizard_pool.write(self.cr, self.uid, wiz_id, values)
 
         res = wizard_pool.add_mandate(self.cr, self.uid, [wiz_id], context=context)

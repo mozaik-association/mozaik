@@ -46,7 +46,7 @@ FICEP Mandate
     ],
     'data': [
         'security/ir.model.access.csv',
-        'wizard/renew_or_add_mandate_wizard.xml',
+        'wizard/copy_mandate_wizard.xml',
         'wizard/import_candidatures_wizard.xml',
         'abstract_mandate_view.xml',
         'mandate_view.xml',

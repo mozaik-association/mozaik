@@ -338,6 +338,8 @@ class sta_mandate(orm.Model):
     _description = "State Mandate"
     _inherit = ['abstract.mandate']
 
+    _allowed_inactive_link_models = ['sta.candidature']
+
     _columns = {
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
                                                  required=True, track_visibility='onchange', domain=[('type', '=', 'sta')]),

@@ -141,6 +141,9 @@
                     <field name="sta_assembly_id"/>
                     <field name="legislature_id" invisible="1"/>
                 </xpath>
+                <xpath expr="//field[@name='end_date']" position="after">
+                    <button name="%(copy_sta_mandate_action)d" string="Renew or Add Complementary Mandate" type="action" icon="gtk-copy"/>
+                </xpath>
             </field>
         </record>
         
@@ -151,6 +154,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='mandate_category_id']" position="after">
                     <field name="int_assembly_id"/>
+                </xpath>
+                <xpath expr="//field[@name='end_date']" position="after">
+                    <button name="%(copy_int_mandate_action)d" string="Renew or Add Complementary Mandate" type="action" icon="gtk-copy"/>
                 </xpath>
             </field>
         </record>
@@ -358,14 +364,15 @@
                 <xpath expr="//button[@name='action_invalidate']" position="after">
                     <button name="button_elected" string="Elected"  class="oe_highlight"
                                     confirm="Set candidature as elected: proceed anyway ?"
-                                    attrs="{'invisible': ['|',('is_legislative', '=', False), ('state', 'not in', ['designated'])]}"/>
+                                    attrs="{'invisible': ['|', '|',('is_legislative', '=', False), ('state', 'not in', ['designated']),
+                                                          '&amp;', ('is_effective', '=', False),('is_substitute', '=', True)]}"/>
                     <button name="button_non_elected" string="Non-Elected" class="oe_highlight"
                                     confirm="Set candidature as non-elected: proceed anyway ?"
                                     attrs="{'invisible': ['|',('is_legislative', '=', False), ('state', 'not in', ['designated'])]}"/>
                 </xpath> 
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
                     <attribute name="attrs">{'invisible': ['|', ('state','not in', ['elected', 'non-elected']),
-                                                           '&amp;', ('state', '=', 'non-elected'), ('is_substitute', '=', False)]}</attribute>
+                                                           '&amp;', ('state', '=', 'non-elected'), ('is_effective', '=', True)]}</attribute>
                 </xpath>                                                               
                 <xpath expr="//field[@name='selection_committee_id']" position="after">
                      <field name="electoral_district_id" readonly="1"/>

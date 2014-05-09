@@ -173,6 +173,13 @@
             <field name="int_assembly_id" ref="int_assembly_04"/>
             <field name="partner_id" ref="res_partner_paul"/>
         </record>
+        
+        <record id="int_thierry_secretaire" model="int.candidature">
+            <field name="mandate_category_id" ref="mc_secretaire_regional"/>
+            <field name="selection_committee_id" ref="sc_secretaire_regional"/>
+            <field name="int_assembly_id" ref="int_assembly_04"/>
+            <field name="partner_id" ref="res_partner_thierry"/>
+        </record>
 
         <!-- Create State mandate -->
         <record id="stam_thierry_communal_2012" model="sta.mandate">
