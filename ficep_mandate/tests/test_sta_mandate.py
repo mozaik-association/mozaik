@@ -150,13 +150,9 @@ class test_sta_mandate(SharedSetupTransactionCase):
 
         '''
             Create Mandates for elected candidatures:
-                                                - candidatures are inactivated
                                                 - mandates are linked to candidatures
         '''
         candidature_pool.button_create_mandate(self.cr, self.uid, elected_ids)
-        for candidature_data in candidature_pool.read(self.cr, self.uid, elected_ids, ['active']):
-            self.assertEqual(candidature_data['active'], False)
-
         mandate_ids = mandate_pool.search(self.cr, self.uid, [('candidature_id', 'in', elected_ids)])
         self.assertEqual(len(mandate_ids), len(elected_ids))
 
