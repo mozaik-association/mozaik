@@ -36,7 +36,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='postal_coordinate_id']" position="after">
-                    <field name="int_instance_id" attrs="{'readonly': ['|',('zip_id','!=',False),('is_assembly','=',True)]}" />
+                    <field name="int_instance_id" attrs="{'readonly': [('is_assembly','=',True)]}" />
                 </xpath>
 
             </field>
