@@ -358,14 +358,15 @@
                 <xpath expr="//button[@name='action_invalidate']" position="after">
                     <button name="button_elected" string="Elected"  class="oe_highlight"
                                     confirm="Set candidature as elected: proceed anyway ?"
-                                    attrs="{'invisible': ['|',('is_legislative', '=', False), ('state', 'not in', ['designated'])]}"/>
+                                    attrs="{'invisible': ['|', '|',('is_legislative', '=', False), ('state', 'not in', ['designated']),
+                                                          '&amp;', ('is_effective', '=', False),('is_substitute', '=', True)]}"/>
                     <button name="button_non_elected" string="Non-Elected" class="oe_highlight"
                                     confirm="Set candidature as non-elected: proceed anyway ?"
                                     attrs="{'invisible': ['|',('is_legislative', '=', False), ('state', 'not in', ['designated'])]}"/>
                 </xpath> 
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
                     <attribute name="attrs">{'invisible': ['|', ('state','not in', ['elected', 'non-elected']),
-                                                           '&amp;', ('state', '=', 'non-elected'), ('is_substitute', '=', False)]}</attribute>
+                                                           '&amp;', ('state', '=', 'non-elected'), ('is_effective', '=', True)]}</attribute>
                 </xpath>                                                               
                 <xpath expr="//field[@name='selection_committee_id']" position="after">
                      <field name="electoral_district_id" readonly="1"/>

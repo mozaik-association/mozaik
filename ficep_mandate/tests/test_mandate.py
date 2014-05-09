@@ -64,22 +64,4 @@ class test_mandate(SharedSetupTransactionCase):
                               self.registry('mandate.category').create,
                               self.cr, self.uid, data)
 
-    def test_copy_sta_selection_committee(self):
-        '''
-            Test copy selection committee and keep rejected candidatures
-        '''
-        candidature_pool = self.registry('sta.candidature')
-        committee_pool = self.registry('sta.selection.committee')
-        selection_committee = self.browse_ref('%s.sc_tete_huy_communale' % self._module_ns)
-
-        rejected_id = selection_committee.candidature_ids[0]
-        candidature_pool.signal_button_reject(self.cr, self.uid, [rejected_id.id])
-
-        res = committee_pool.action_copy(self.cr, self.uid, [selection_committee.id])
-        new_committee_id = res['res_id']
-        self.assertNotEqual(new_committee_id, False)
-
-        candidature_commitee_id = candidature_pool.read(self.cr, self.uid, rejected_id.id, ['selection_committee_id'])['selection_committee_id']
-        self.assertEqual(new_committee_id, candidature_commitee_id[0])
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
