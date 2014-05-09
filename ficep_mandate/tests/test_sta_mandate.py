@@ -65,7 +65,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
             designation_int_assembly_id=committee.designation_int_assembly_id.id,
             legislature_id=committee.legislature_id.id,
             electoral_district_id=committee.electoral_district_id.id,
-            sta_assembly_id=committee.sta_assembly_id.id,
+            sta_assembly_id=committee.assembly_id.id,
             partner_id=jacques_partner_id)
 
         self.registry('sta.candidature').create(self.cr, self.uid, data)

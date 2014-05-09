@@ -72,7 +72,7 @@ class test_mandate(SharedSetupTransactionCase):
         committee_pool = self.registry('sta.selection.committee')
         selection_committee = self.browse_ref('%s.sc_tete_huy_communale' % self._module_ns)
 
-        rejected_id = selection_committee.sta_candidature_ids[0]
+        rejected_id = selection_committee.candidature_ids[0]
         candidature_pool.signal_button_reject(self.cr, self.uid, [rejected_id.id])
 
         res = committee_pool.action_copy(self.cr, self.uid, [selection_committee.id])

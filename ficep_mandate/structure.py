@@ -65,6 +65,6 @@ class sta_assembly(orm.Model):
     _inherit = ['sta.assembly']
 
     _columns = {
-         'selection_committee_ids': fields.one2many('sta.selection.committee', 'sta_assembly_id', 'Selection committees', domain=[('active', '=', True)]),
-         'selection_committee_inactive_ids': fields.one2many('sta.selection.committee', 'sta_assembly_id', 'Selection committees', domain=[('active', '=', False)]),
+         'selection_committee_ids': fields.one2many('sta.selection.committee', 'assembly_id', 'Selection committees', domain=[('active', '=', True)]),
+         'selection_committee_inactive_ids': fields.one2many('sta.selection.committee', 'assembly_id', 'Selection committees', domain=[('active', '=', False)]),
     }

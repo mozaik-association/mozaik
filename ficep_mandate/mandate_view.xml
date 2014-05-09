@@ -113,6 +113,20 @@
                 </xpath>
             </field>
         </record>
+        
+        <record id="int_mandate_search_view" model="ir.ui.view">
+            <field name="name">int.mandate.search</field>
+            <field name="model">int.mandate</field>
+            <field name="inherit_id" ref="abstract_mandate_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mandate_category_id']" position="after">
+                    <field name="int_assembly_id"/>
+                </xpath>
+                <xpath expr="//filter[@name='category']" position="after">
+                    <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'int_assembly_id'}" />
+                </xpath>
+            </field>
+        </record>
 
         <record id="sta_mandate_tree_view" model="ir.ui.view">
             <field name="name">sta.mandate.tree</field>
@@ -125,38 +139,26 @@
                 </xpath>
             </field>
         </record>
+        
+        <record id="int_mandate_tree_view" model="ir.ui.view">
+            <field name="name">int.mandate.tree</field>
+            <field name="model">int.mandate</field>
+            <field name="inherit_id" ref="abstract_mandate_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mandate_category_id']" position="after">
+                    <field name="int_assembly_id"/>
+                </xpath>
+            </field>
+        </record>
 
         <record id="sta_selection_committee_tree_view" model="ir.ui.view">
             <field name="name">sta.selection.committee.tree</field>
             <field name="model">sta.selection.committee</field>
             <field name="inherit_id" ref="abstract_selection_committee_tree_view"/>
             <field name="arch" type="xml">                
-                <xpath expr="//field[@name='name']" position="after">
-                   <field name="sta_assembly_id"/>
+                <xpath expr="//field[@name='assembly_id']" position="after">
                    <field name="legislature_id"/>
                    <field name="electoral_district_id"/>
-                </xpath>
-            </field>
-        </record>
-                
-        <record id="int_selection_committee_tree_view" model="ir.ui.view">
-            <field name="name">int.selection.committee.tree</field>
-            <field name="model">int.selection.committee</field>
-            <field name="inherit_id" ref="abstract_selection_committee_tree_view"/>
-            <field name="arch" type="xml">                
-                <xpath expr="//field[@name='name']" position="after">
-                   <field name="int_assembly_id"/>
-                </xpath>
-            </field>
-        </record>
-        
-         <record id="ext_selection_committee_tree_view" model="ir.ui.view">
-            <field name="name">ext.selection.committee.tree</field>
-            <field name="model">ext.selection.committee</field>
-            <field name="inherit_id" ref="abstract_selection_committee_tree_view"/>
-            <field name="arch" type="xml">                
-                <xpath expr="//field[@name='name']" position="after">
-                   <field name="ext_assembly_id"/>
                 </xpath>
             </field>
         </record>
@@ -222,6 +224,15 @@
             <field name="search_view_id" ref="sta_mandate_search_view" />
             <field name="view_id" ref="sta_mandate_tree_view" />
         </record>
+        
+         <record id="int_mandate_action" model="ir.actions.act_window">
+            <field name="name">Internal Mandates</field>
+            <field name="res_model">int.mandate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="int_mandate_search_view" />
+            <field name="view_id" ref="int_mandate_tree_view" />
+        </record>
 
         <record id="sta_selection_committee_action" model="ir.actions.act_window">
             <field name="name">Selection Committee</field>
@@ -238,7 +249,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="abstract_selection_committee_search_view" />
-            <field name="view_id" ref="int_selection_committee_tree_view" />
+            <field name="view_id" ref="abstract_selection_committee_tree_view" />
         </record>
 
         <record id="ext_selection_committee_action" model="ir.actions.act_window">
@@ -247,7 +258,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="abstract_selection_committee_search_view" />
-            <field name="view_id" ref="ext_selection_committee_tree_view" />
+            <field name="view_id" ref="abstract_selection_committee_tree_view" />
         </record>
 
          <!-- Form Views -->
@@ -337,10 +348,16 @@
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_invalidate']" position="after">
                     <button name="button_elected" string="Elected"  class="oe_highlight"
-                                    confirm="Set candidature as elected: proceed anyway ?" states="designated"/>
+                                    confirm="Set candidature as elected: proceed anyway ?"
+                                    attrs="{'invisible': ['|',('is_legislative', '=', False), ('state', 'not in', ['designated'])]}"/>
                     <button name="button_non_elected" string="Non-Elected" class="oe_highlight"
-                                    confirm="Set candidature as non-elected: proceed anyway ?" states="designated"/>
-                </xpath>                
+                                    confirm="Set candidature as non-elected: proceed anyway ?"
+                                    attrs="{'invisible': ['|',('is_legislative', '=', False), ('state', 'not in', ['designated'])]}"/>
+                </xpath> 
+                <xpath expr="//button[@name='button_create_mandate']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('state','not in', ['elected', 'non-elected']),
+                                                           '&amp;', ('state', '=', 'non-elected'), ('is_substitute', '=', False)]}</attribute>
+                </xpath>                                                               
                 <xpath expr="//field[@name='selection_committee_id']" position="after">
                      <field name="electoral_district_id" readonly="1"/>
                      <field name="sta_assembly_id" readonly="1"/>
@@ -374,13 +391,12 @@
             <field name="name">int.candidature.form</field>
             <field name="model">int.candidature</field>
             <field name="inherit_id" ref="abstract_candidature_form_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//button[@name='action_invalidate']" position="after">
-                    <button name="button_elected" string="Elected"  class="oe_highlight"
-                                    confirm="Set candidature as elected: proceed anyway ?" states="suggested"/>                    
-                </xpath>                
+            <field name="arch" type="xml">                              
                 <xpath expr="//field[@name='selection_committee_id']" position="after">                     
                      <field name="int_assembly_id" readonly="1"/>
+                </xpath>
+                <xpath expr="//button[@name='button_create_mandate']" position="attributes">                     
+                     <attribute name="states">elected</attribute>
                 </xpath>
             </field>
         </record>
@@ -415,7 +431,27 @@
 
                 <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="sta_assembly_category_id"/>
-                    <field name="sta_power_level_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="int_mandate_form_view" model="ir.ui.view">
+            <field name="name">int.mandate.form</field>
+            <field name="model">int.mandate</field>
+            <field name="inherit_id" ref="abstract_mandate_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email_coordinate_id']" position="before">
+                    <field name="int_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
+                            required="1"
+                            domain="[('assembly_category_id', '=', int_assembly_category_id)]"/>
+                </xpath>
+
+                <xpath expr="//field[@name='mandate_category_id']" position="attributes">
+                    <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
+                </xpath>
+
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="int_assembly_category_id"/>
                 </xpath>
             </field>
         </record>
@@ -424,29 +460,29 @@
             <field name="name">sta.selection.committee.form</field>
             <field name="model">sta.selection.committee</field>
             <field name="inherit_id" ref="abstract_selection_committee_form_view"/>
-            <field name="arch" type="xml">               
-                <xpath expr="//group[@name='assembly']" position="inside">   
-                    <group>
-                      <field name="electoral_district_id"
-                             attrs="{'required': [('sta_assembly_id','=', False),],
-                                     'readonly': [('sta_assembly_id','!=', False),('electoral_district_id','=', False)]}"
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='assembly_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('electoral_district_id','!=', False)]}</attribute>
+                    <attribute name="domain">[('is_legislative', '=', False)]</attribute>
+                </xpath>
+                <xpath expr="//field[@name='assembly_id']" position="before">   
+                       <field name="electoral_district_id"
+                             attrs="{'required': [('assembly_id','=', False),],
+                                     'readonly': [('assembly_id','!=', False),('electoral_district_id','=', False)]}"
                              on_change="onchange_electoral_district_id(electoral_district_id)"/>
-                      <field name="sta_assembly_id"
-                             required="1"
-                             attrs="{'readonly': [('electoral_district_id','!=', False)]}"
-                             on_change="onchange_sta_assembly_id(sta_assembly_id)"
-                             domain="[('is_legislative', '=', False)]"/>
-                      <field name="legislature_id" readonly="1"
+                </xpath>
+                
+                <xpath expr="//field[@name='assembly_id']" position="after">
+                    <field name="legislature_id" readonly="1"
                              required="1"
                              on_change="onchange_legislature_id(legislature_id)"
                              domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>
-                    </group>         
-                </xpath>
+                </xpath> 
                 
                 <xpath expr="//field[@name='mandate_start_date']" position="before">   
                     <field name="mandate_category_id"
                            required="1"
-                           domain="[('type', '=', 'sta'), ('sta_assembly_category_id', '=', sta_assembly_category_id)]"
+                           domain="[('type', '=', 'sta'), ('sta_assembly_category_id', '=', assembly_category_id)]"
                            on_change="onchange_mandate_category_id(mandate_category_id)"/>                 
                 </xpath>
                 
@@ -466,7 +502,7 @@
                     <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
                             attrs="{'invisible': [('state','=','done')]}"
                             confirm="Refuse all candidatures: proceed anyway ?"/>
-                    <field name="sta_candidature_ids" context="{'default_selection_committee_id': active_id}">
+                    <field name="candidature_ids" context="{'default_selection_committee_id': active_id}">
                         <tree colors="red:state=='declared';grey:active==False">
                             <field name="list_effective_position" string="#E"
                                    attrs="{'invisible': [('is_effective', '=', False),('is_substitute', '!=', False)]}"/>
@@ -498,11 +534,7 @@
                                    attrs="{'invisible': [('is_cartel', '=', False)]}"/>
                         </group>
                     </page>                 
-                </xpath>
-                
-                <xpath expr="//group[@name='moreinfo']" position="inside">
-                    <field name="sta_assembly_category_id"/>                  
-                </xpath>             
+                </xpath>        
             </field>
         </record>
         
@@ -511,18 +543,17 @@
             <field name="model">int.selection.committee</field>
             <field name="inherit_id" ref="abstract_selection_committee_form_view"/>
             <field name="arch" type="xml">
-            <xpath expr="//field[@name='auto_mandate']" position="before">
+                <xpath expr="//field[@name='auto_mandate']" position="before">
                     <field name="is_virtual"/>
                 </xpath>
-                <xpath expr="//group[@name='assembly']" position="inside"> 
+                <xpath expr="//field[@name='assembly_id']" position="attributes">
+                    <attribute name="domain">[('assembly_category_id', '=', assembly_category_id)]</attribute>
+                </xpath>
+                <xpath expr="//field[@name='assembly_id']" position="before"> 
                         <field name="mandate_category_id"
                            required="1"
                            domain="[('type', '=', 'int')]"
-                           on_change="onchange_mandate_category_id(mandate_category_id)"/>                      
-                        <field name="int_assembly_id"
-                               required="1"
-                               domain="[('assembly_category_id', '=', int_assembly_category_id)]"
-                               on_change="onchange_int_assembly_id(int_assembly_id)"/>   
+                           on_change="onchange_mandate_category_id(mandate_category_id)"/>                        
                 </xpath>
                 <xpath expr="//page[@name='candidatures']" position="inside">
                     <button string="All Details" name="%(int_candidature_action)d"
@@ -536,7 +567,7 @@
                     <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
                             attrs="{'invisible': [('state','=','done')]}"
                             confirm="Refuse all candidatures: proceed anyway ?"/>
-                    <field name="int_candidature_ids" context="{'default_selection_committee_id': active_id}">
+                    <field name="candidature_ids" context="{'default_selection_committee_id': active_id}">
                         <tree colors="red:state=='declared';grey:active==False">                            
                             <field name="partner_name"/>
                             <field name="state"/>
@@ -551,10 +582,6 @@
                         </tree>
                     </field>             
                 </xpath>
-                <xpath expr="//field[@name='active']" position="after">
-                     <field name="int_assembly_category_id"/>
-                </xpath>
-                
             </field>
         </record>
         
@@ -566,18 +593,15 @@
                 <xpath expr="//field[@name='auto_mandate']" position="before">
                     <field name="is_virtual"/>
                 </xpath>
-                <xpath expr="//group[@name='assembly']" position="inside"> 
+                 <xpath expr="//field[@name='assembly_id']" position="attributes">
+                    <attribute name="domain">[('assembly_category_id', '=', ext_assembly_category_id)]</attribute>
+                </xpath>
+                <xpath expr="//field[@name='assembly_id']" position="before"> 
                         <field name="mandate_category_id"
                            required="1"
                            domain="[('type', '=', 'ext')]"
-                           on_change="onchange_mandate_category_id(mandate_category_id)"/>                      
-                        <field name="ext_assembly_id"
-                               required="1"
-                               domain="[('assembly_category_id', '=', ext_assembly_category_id)]"/>   
-                </xpath>
-                <xpath expr="//field[@name='active']" position="after">
-                     <field name="ext_assembly_category_id"/>
-                </xpath>
+                           on_change="onchange_mandate_category_id(mandate_category_id)"/>                        
+                </xpath>           
             </field>
         </record>
 
@@ -617,6 +641,9 @@
         
         <menuitem id="int_candidature_submenu" name="Candidatures" action="int_candidature_action"
                   sequence="20" parent="int_submenu"/>
+        
+        <menuitem id="int_mandate_submenu" name="Mandates" action="int_mandate_action"
+                  sequence="30" parent="int_submenu"/>
 
         <menuitem id="ext_submenu" name="External"
                   sequence="30" parent="ficep_base.mandates_root_menu" />

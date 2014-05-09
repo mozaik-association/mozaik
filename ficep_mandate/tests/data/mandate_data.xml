@@ -65,7 +65,7 @@
             <field name="name">Têtes de liste</field>
             <field name="legislature_id" ref="legislature_01"/>
             <field name="electoral_district_id" ref="electoral_district_01"/>
-            <field name="sta_assembly_id" ref="sta_assembly_01"/>
+            <field name="assembly_id" ref="sta_assembly_01"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="mandate_start_date">2018-12-03</field>
             <field name="mandate_deadline_date">2024-12-02</field>
@@ -75,7 +75,7 @@
             <field name="mandate_category_id" ref="mc_bourgmestre"/>
             <field name="name">Désignation</field>
             <field name="legislature_id" ref="legislature_01"/>
-            <field name="sta_assembly_id" ref="sta_assembly_03"/>
+            <field name="assembly_id" ref="sta_assembly_03"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="mandate_start_date">2018-12-03</field>
             <field name="mandate_deadline_date">2024-12-02</field>
@@ -87,7 +87,7 @@
             <field name="electoral_district_id" ref="electoral_district_02"/>
             <field name="name">Tête de liste</field>
             <field name="legislature_id" ref="legislature_02"/>
-            <field name="sta_assembly_id" ref="sta_assembly_02"/>
+            <field name="assembly_id" ref="sta_assembly_02"/>
             <field name="designation_int_assembly_id" ref="int_assembly_04"/>
             <field name="mandate_start_date">2018-12-03</field>
             <field name="mandate_deadline_date">2024-12-02</field>
@@ -98,10 +98,20 @@
             <field name="mandate_category_id" ref="mc_gouverneur"/>
             <field name="name">Designation</field>
             <field name="legislature_id" ref="legislature_02"/>
-            <field name="sta_assembly_id" ref="sta_assembly_04"/>
+            <field name="assembly_id" ref="sta_assembly_04"/>
             <field name="designation_int_assembly_id" ref="int_assembly_04"/>
             <field name="mandate_start_date">2018-12-03</field>
             <field name="mandate_deadline_date">2024-12-02</field>
+        </record>
+        
+        <record id="sc_secretaire_regional" model="int.selection.committee">
+            <field name="mandate_category_id" ref="mc_secretaire_regional"/>
+            <field name="name">Designation secrétaire régional Huy-Waremme</field>            
+            <field name="assembly_id" ref="int_assembly_03"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="mandate_start_date">2014-12-12</field>
+            <field name="mandate_deadline_date">2020-12-02</field>
+            <field name="auto_mandate" eval="1"/>
         </record>
 
 
@@ -153,6 +163,14 @@
             <field name="electoral_district_id" ref="electoral_district_01"/>
             <field name="sta_assembly_id" ref="sta_assembly_01"/>
             <field name="partner_id" ref="res_partner_thierry"/>
+        </record>
+        
+        <!-- Create Internal candidature -->
+        <record id="int_paul_secretaire" model="int.candidature">
+            <field name="mandate_category_id" ref="mc_secretaire_regional"/>
+            <field name="selection_committee_id" ref="sc_secretaire_regional"/>
+            <field name="int_assembly_id" ref="int_assembly_04"/>
+            <field name="partner_id" ref="res_partner_paul"/>
         </record>
 
         <!-- Create State mandate -->

@@ -114,6 +114,7 @@
             <field name="arch" type="xml">
                 <tree string="Selection Committee" version="7.0">
                     <field name="name"/>
+                    <field name="assembly_id"/>
                 </tree>
             </field>
         </record>
@@ -210,7 +211,7 @@
                             <button name="button_declare" string="Declare" class="oe_highlight"
                                             confirm="Declare candidature: proceed anyway ?" states="rejected,suggested"/>
                             <button name="button_create_mandate" string="Mandate" type="object"
-                                        confirm="Create mandate form candidature: proceed anyway ?" states="elected,non-elected"/>
+                                        confirm="Create mandate form candidature: proceed anyway ?"/>
                             <field name="state" widget="statusbar" statusbar_visible='declared,suggested,designated,elected,non-elected'/>
                         </div>
                     </header>
@@ -296,6 +297,9 @@
                         </div>
                         <group>
                              <group name="assembly">
+                                <field name="assembly_id"
+		                             required="1"		                             
+		                             on_change="onchange_assembly_id(assembly_id)"/>
                             </group>
                             
                             <group>
@@ -304,7 +308,7 @@
                                 <field name="decision_date" widget="date"/>
                             </group>
                             
-                            <group name="mandate">                                    
+                            <group name="mandate">                         
                                 <field name="mandate_start_date" widget="date"/>
                                 <field name="mandate_deadline_date" widget="date"/>
                             </group>                            
@@ -341,6 +345,7 @@
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
+                                <field name="assembly_category_id"/>
                             </group>
                         </div>
                     </div>

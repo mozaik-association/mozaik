@@ -26,8 +26,7 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields, osv
-from openerp.tools.translate import _
+from openerp.osv import orm, fields
 
 
 # Constants
@@ -49,16 +48,38 @@ class mandate_category(orm.Model):
     def get_linked_sta_mandate_ids(self, cr, uid, ids, context=None):
         """
         ==============================
+        get_linked_sta_mandate_ids
+        ==============================
+        Return State Mandate ids linked to mandate category ids
+        :rparam: sta_mandate_ids
+        :rtype: list of ids
+        """
+        return self._get_linked_mandate_ids(cr, uid, ids, 'sta_mandate_ids', context=context)
+
+    def get_linked_int_mandate_ids(self, cr, uid, ids, context=None):
+        """
+        ==============================
+        get_linked_sta_mandate_ids
+        ==============================
+        Return Internal Mandate ids linked to mandate category ids
+        :rparam: sta_mandate_ids
+        :rtype: list of ids
+        """
+        return self._get_linked_mandate_ids(cr, uid, ids, 'int_mandate_ids', context=context)
+
+    def _get_linked_mandate_ids(self, cr, uid, ids, mandate_relation, context=None):
+        """
+        ==============================
         get_linked_mandate_ids
         ==============================
         Return State Mandate ids linked to mandate category ids
         :rparam: sta_mandate_ids
         :rtype: list of ids
         """
-        mandate_categories = self.read(cr, uid, ids, ['sta_mandate_ids'], context=context)
+        mandate_categories = self.read(cr, uid, ids, [mandate_relation], context=context)
         res_ids = []
         for mandate_category in mandate_categories:
-            res_ids += mandate_category['sta_mandate_ids']
+            res_ids += mandate_category[mandate_relation]
         return list(set(res_ids))
 
     _columns = {
@@ -73,6 +94,7 @@ class mandate_category(orm.Model):
                                                  required=True, track_visibility='onchange'),
         'sta_candidature_ids': fields.one2many('sta.candidature', 'mandate_category_id', 'State Candidatures'),
         'sta_mandate_ids': fields.one2many('sta.mandate', 'mandate_category_id', 'State Mandates'),
+        'int_mandate_ids': fields.one2many('int.mandate', 'mandate_category_id', 'Internal Mandates'),
         'is_submission_mandate': fields.boolean('Submission to a Mandate Declaration'),
         'is_submission_assets': fields.boolean('Submission to an Assets Declaration'),
     }

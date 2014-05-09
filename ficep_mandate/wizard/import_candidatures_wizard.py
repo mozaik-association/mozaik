@@ -88,7 +88,7 @@ class import_sta_candidatures_wizard(orm.TransientModel):
                 raise orm.except_orm(_('Error'), _('Line %s: Partner %s not found in database, please check source file !' % (line_number, identifier)))
             partner_id = partner_ids[0]
 
-            if not wizard.selection_committee_id.sta_assembly_id.is_legislative:
+            if not wizard.selection_committee_id.assembly_id.is_legislative:
                 if data[file_import_structure.index('is_effective')] == 'True':
                     raise orm.except_orm(_('Error'), _('Line %s: Effective feature is not managed for a non-legislative assembly !' % line_number))
                 if data[file_import_structure.index('is_substitute')] == 'True':

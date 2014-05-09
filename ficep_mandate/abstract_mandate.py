@@ -25,8 +25,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm, fields
+from openerp.osv import orm, osv, fields
 from openerp.tools.translate import _
+
+from openerp.addons.ficep_mandate.mandate import mandate_category
 
 SELECTION_COMMITTEE_AVAILABLE_STATES = [
     ('draft', 'In Progress'),
@@ -83,10 +85,43 @@ class abstract_selection_committee(orm.AbstractModel):
     _description = 'Abstract Selection Committee'
     _inherit = ['abstract.ficep.model']
 
+    _candidature_model = 'abstract.candidature'
+    _assembly_model = 'abstract.assembly'
+    _assembly_category_model = 'abstract.assembly.category'
+    _mandate_category_foreign_key = False
+    _form_view = 'abstract_selection_committee_form_view'
+
+    def _get_suggested_candidatures(self, cr, uid, ids, context=None):
+        """
+        ==============================
+        _get_suggested_candidatures
+        ==============================
+        Return list of candidature ids in suggested state
+        :rparam: committee id
+        :rtype: list of ids
+        """
+        res = []
+        committee = self.browse(cr, uid, ids[0], context=context)
+        for candidature in committee.candidature_ids:
+            if candidature.state == 'rejected':
+                continue
+            elif candidature.state == 'suggested':
+                res.append(candidature.id)
+            else:
+                raise osv.except_osv(_('Operation Forbidden!'),
+                             _('All candidatures are not in suggested state'))
+        return res
+
     _columns = {
         'state': fields.selection(SELECTION_COMMITTEE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
                                                  required=True, track_visibility='onchange'),
+        'assembly_id': fields.many2one(_assembly_model, string='Abstract Assembly', track_visibility='onchange'),
+        'candidature_ids': fields.one2many(_candidature_model, 'selection_committee_id', 'Abstract Candidatures',
+                                               domain=[('active', '<=', True)]),
+        'assembly_category_id': fields.related('mandate_category_id', _mandate_category_foreign_key, string='Abstract Assembly Category',
+                                          type='many2one', relation=_assembly_category_model,
+                                          store=False),
         'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation Assembly',
                                                  required=True, track_visibility='onchange', domain=[('is_designation_assembly', '=', True)]),
         'decision_date': fields.date('Designation Date', track_visibility='onchange'),
@@ -115,6 +150,7 @@ class abstract_selection_committee(orm.AbstractModel):
             'note': False,
             'decision_date': False,
             'meeting_date': False,
+            'candidature_ids': False,
         })
         res = super(abstract_selection_committee, self).copy_data(cr, uid, id_, default=default, context=context)
 
@@ -129,18 +165,21 @@ class abstract_selection_committee(orm.AbstractModel):
         ==========================
         action_copy
         ==========================
-        Duplicate committee and keep rejected state candidatures
+        Duplicate committee and keep rejected candidatures
         :rparam: True
         :rtype: boolean
         """
         copied_committee_id = ids[0]
-        candidature_pool = context.get('candidature_model')
+        candidature_pool = self.pool.get(self._candidature_model)
         rejected_candidature_ids = candidature_pool.search(cr, uid, [('selection_committee_id', '=', copied_committee_id),
                                                                                      ('state', '=', 'rejected')])
         new_committee_id = self.copy(cr, uid, copied_committee_id, None, context)
         if rejected_candidature_ids:
             candidature_pool.write(cr, uid, rejected_candidature_ids, {'selection_committee_id': new_committee_id})
             candidature_pool.signal_button_declare(cr, uid, rejected_candidature_ids)
+
+        view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', self._form_view)
+        view_id = view_ref and view_ref[1] or False,
 
         return {
             'type': 'ir.actions.act_window',
@@ -149,23 +188,69 @@ class abstract_selection_committee(orm.AbstractModel):
             'res_id': new_committee_id,
             'view_type': 'form',
             'view_mode': 'form',
-            'view_id': False,
+            'view_id': view_id,
             'target': 'current',
             'nodestroy': True,
         }
 
+    def button_accept_candidatures(self, cr, uid, ids, context=None):
+        """
+        ==========================
+        button_accept_candidatures
+        ==========================
+        This method calls the candidature workflow for each candidature_id in order to update their state
+        :rparam: True
+        :rtype: boolean
+        :raise: Error if all candidatures are not in suggested state
+        """
+        for committee in self.browse(cr, uid, ids, context=context):
+            if committee.candidature_ids:
+                self.pool.get(self._candidature_model).signal_action_accept(cr, uid, self._get_suggested_candidatures(cr, uid, ids, context=context))
+        self.action_invalidate(cr, uid, ids, context, {'state': 'done'})
+        return True
+
+    def button_refuse_candidatures(self, cr, uid, ids, context=None):
+        """
+        ==========================
+        button_refuse_candidatures
+        ==========================
+        This method calls the candidature workflow for each candidature_id in order to update their state
+        :rparam: True
+        :rtype: boolean
+        :raise: Error if all candidatures are not in suggested state
+        """
+        for committee in self.browse(cr, uid, ids, context=context):
+            if committee.candidature_ids:
+                self.pool.get(self._candidature_model).signal_button_declare(cr, uid, self._get_suggested_candidatures(cr, uid, ids, context=context))
+            self.write(cr, uid, ids, {'decision_date': False}, context=context)
+        return True
+
     def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id, context=None):
         res = {}
-        res['value'] = dict(sta_assembly_ctagory_id=False,
-                            int_assembly_category_id=False,
-                            ext_assembly_category_id=False,
-                            )
+        assembly_category_id = False
         if mandate_category_id:
             mandate_category = self.pool.get('mandate.category').browse(cr, uid, mandate_category_id, context)
-            res['value'] = dict(sta_assembly_ctagory_id=mandate_category.sta_assembly_category_id.id or False,
+            values = dict(sta_assembly_category_id=mandate_category.sta_assembly_category_id.id or False,
                                 int_assembly_category_id=mandate_category.int_assembly_category_id.id or False,
                                 ext_assembly_category_id=mandate_category.ext_assembly_category_id.id or False,
                                 )
+            assembly_category_id = values[self._mandate_category_foreign_key]
+        res['value'] = dict(assembly_category_id=assembly_category_id)
+        return res
+
+    def onchange_assembly_id(self, cr, uid, ids, assembly_id, context=None):
+        res = {}
+        res['value'] = dict(assembly_category_id=False,
+                            mandate_category_id=False)
+        if assembly_id:
+            assembly = self.pool.get(self._assembly_model).browse(cr, uid, assembly_id)
+            mandate_category_ids = self.pool.get('mandate.category').search(cr, uid, [(self._mandate_category_foreign_key, '=', assembly.assembly_category_id.id)])
+            mandate_category_id = False
+            if mandate_category_ids:
+                mandate_category_id = mandate_category_ids[0]
+
+            res['value'] = dict(assembly_category_id=assembly.assembly_category_id.id or False,
+                                mandate_category_id=mandate_category_id)
         return res
 
 
