@@ -24,7 +24,7 @@
                         <group>
                             <group>
                                 <field name="include_unauthorized" />
-                                <field name="max_fails" />
+                                <field name="bounce_counter" />
                                 <field name="internal_instance_id"/>
                             </group>
                             <group>

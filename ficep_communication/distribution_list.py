@@ -54,4 +54,26 @@ class distribution_list(orm.Model):
         'bridge_field': 'common_id',
     }
 
+    def get_mass_mailing_ids(self, cr, uid, ids, context=None):
+        """
+        ====================
+        get_mass_mailing_ids
+        ====================
+        Add a second filter depending on the elements into the context
+
+        :type context['more_filter']: (string, [(domain),])
+        :param context['more_filter']: concerned object and list of domain to apply to it
+        :rparm: [integer]
+        """
+        res_ids = super(distribution_list, self).get_mass_mailing_ids(cr, uid, ids, context=context)
+        if context.get('more_filter', False):
+            mailing_object = context['more_filter'][0]
+            domains = context['more_filter'][1]
+            domains.append("('id', 'in', %s)" % res_ids)
+            domain = '[%s]' % ','.join(domains)
+            res_ids = self.pool[mailing_object].search_read(cr, uid, eval(domain), fields=['id'], context=context)
+            if res_ids:
+                res_ids = [value['id'] for value in res_ids]
+        return res_ids
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
