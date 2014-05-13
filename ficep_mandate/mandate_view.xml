@@ -93,10 +93,10 @@
             <field name="model">int.candidature</field>
             <field name="inherit_id" ref="abstract_candidature_search_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='partner_id']" position="after">                    
-                    <field name="int_assembly_id"/>                    
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="int_assembly_id"/>
                 </xpath>
-                <xpath expr="//filter[@name='category']" position="after">                    
+                <xpath expr="//filter[@name='category']" position="after">
                     <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'int_assembly_id'}" />
                 </xpath>
             </field>
@@ -117,7 +117,7 @@
                 </xpath>
             </field>
         </record>
-        
+
         <record id="int_mandate_search_view" model="ir.ui.view">
             <field name="name">int.mandate.search</field>
             <field name="model">int.mandate</field>
@@ -146,7 +146,7 @@
                 </xpath>
             </field>
         </record>
-        
+
         <record id="int_mandate_tree_view" model="ir.ui.view">
             <field name="name">int.mandate.tree</field>
             <field name="model">int.mandate</field>
@@ -165,7 +165,7 @@
             <field name="name">sta.selection.committee.tree</field>
             <field name="model">sta.selection.committee</field>
             <field name="inherit_id" ref="abstract_selection_committee_tree_view"/>
-            <field name="arch" type="xml">                
+            <field name="arch" type="xml">
                 <xpath expr="//field[@name='assembly_id']" position="after">
                    <field name="legislature_id"/>
                    <field name="electoral_district_id"/>
@@ -216,7 +216,7 @@
             <field name="search_view_id" ref="sta_candidature_search_view" />
             <field name="view_id" ref="sta_candidature_tree_view" />
         </record>
-        
+
         <record id="int_candidature_action" model="ir.actions.act_window">
             <field name="name">Internal Candidatures</field>
             <field name="res_model">int.candidature</field>
@@ -234,7 +234,7 @@
             <field name="search_view_id" ref="sta_mandate_search_view" />
             <field name="view_id" ref="sta_mandate_tree_view" />
         </record>
-        
+
          <record id="int_mandate_action" model="ir.actions.act_window">
             <field name="name">Internal Mandates</field>
             <field name="res_model">int.mandate</field>
@@ -250,7 +250,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="abstract_selection_committee_search_view" />
-            <field name="view_id" ref="sta_selection_committee_tree_view" />          
+            <field name="view_id" ref="sta_selection_committee_tree_view" />
         </record>
 
         <record id="int_selection_committee_action" model="ir.actions.act_window">
@@ -369,11 +369,11 @@
                     <button name="button_non_elected" string="Non-Elected" class="oe_highlight"
                                     confirm="Set candidature as non-elected: proceed anyway ?"
                                     attrs="{'invisible': ['|',('is_legislative', '=', False), ('state', 'not in', ['designated'])]}"/>
-                </xpath> 
+                </xpath>
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
                     <attribute name="attrs">{'invisible': ['|', ('state','not in', ['elected', 'non-elected']),
                                                            '&amp;', ('state', '=', 'non-elected'), ('is_effective', '=', True)]}</attribute>
-                </xpath>                                                               
+                </xpath>
                 <xpath expr="//field[@name='selection_committee_id']" position="after">
                      <field name="electoral_district_id" readonly="1"/>
                      <field name="sta_assembly_id" readonly="1"/>
@@ -402,16 +402,16 @@
                 </xpath>
             </field>
         </record>
-        
+
         <record id="int_candidature_form_view" model="ir.ui.view">
             <field name="name">int.candidature.form</field>
             <field name="model">int.candidature</field>
             <field name="inherit_id" ref="abstract_candidature_form_view"/>
-            <field name="arch" type="xml">                              
-                <xpath expr="//field[@name='selection_committee_id']" position="after">                     
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='selection_committee_id']" position="after">
                      <field name="int_assembly_id" readonly="1"/>
                 </xpath>
-                <xpath expr="//button[@name='button_create_mandate']" position="attributes">                     
+                <xpath expr="//button[@name='button_create_mandate']" position="attributes">
                      <attribute name="states">elected</attribute>
                 </xpath>
             </field>
@@ -454,7 +454,7 @@
                 </xpath>
             </field>
         </record>
-        
+
         <record id="int_mandate_form_view" model="ir.ui.view">
             <field name="name">int.mandate.form</field>
             <field name="model">int.mandate</field>
@@ -485,31 +485,31 @@
                     <attribute name="attrs">{'readonly': [('electoral_district_id','!=', False)]}</attribute>
                     <attribute name="domain">[('is_legislative', '=', False)]</attribute>
                 </xpath>
-                <xpath expr="//field[@name='assembly_id']" position="before">   
+                <xpath expr="//field[@name='assembly_id']" position="before">
                        <field name="electoral_district_id"
                              attrs="{'required': [('assembly_id','=', False),],
                                      'readonly': [('assembly_id','!=', False),('electoral_district_id','=', False)]}"
                              on_change="onchange_electoral_district_id(electoral_district_id)"/>
                 </xpath>
-                
+
                 <xpath expr="//field[@name='assembly_id']" position="after">
                     <field name="legislature_id" readonly="1"
                              required="1"
                              on_change="onchange_legislature_id(legislature_id)"
                              domain="[('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"/>
-                </xpath> 
-                
-                <xpath expr="//field[@name='mandate_start_date']" position="before">   
+                </xpath>
+
+                <xpath expr="//field[@name='mandate_start_date']" position="before">
                     <field name="mandate_category_id"
                            required="1"
                            domain="[('type', '=', 'sta'), ('sta_assembly_category_id', '=', assembly_category_id)]"
-                           on_change="onchange_mandate_category_id(mandate_category_id)"/>                 
+                           on_change="onchange_mandate_category_id(mandate_category_id)"/>
                 </xpath>
-                
+
                 <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
-                    <attribute name="attrs">{'readonly': [('electoral_district_id','!=', False),]}</attribute>                 
+                    <attribute name="attrs">{'readonly': [('electoral_district_id','!=', False),]}</attribute>
                 </xpath>
-                
+
                 <xpath expr="//page[@name='candidatures']" position="inside">
                     <button string="All Details" name="%(sta_candidature_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
@@ -541,9 +541,9 @@
                             <field name="is_substitute" invisible="1"/>
                             <field name="is_selection_committee_active" invisible="1"/>
                         </tree>
-                    </field>             
+                    </field>
                 </xpath>
-                
+
                 <xpath expr="//page[@name='note']" position="after">
                     <page string="List" name="list"
                           attrs="{'invisible': [('electoral_district_id', '=', False)]}">
@@ -553,11 +553,11 @@
                             <field name="cartel_composition"
                                    attrs="{'invisible': [('is_cartel', '=', False)]}"/>
                         </group>
-                    </page>                 
-                </xpath>        
+                    </page>
+                </xpath>
             </field>
         </record>
-        
+
         <record id="int_selection_committee_form_view" model="ir.ui.view">
             <field name="name">int.selection.committee.form</field>
             <field name="model">int.selection.committee</field>
@@ -569,11 +569,11 @@
                 <xpath expr="//field[@name='assembly_id']" position="attributes">
                     <attribute name="domain">[('assembly_category_id', '=', assembly_category_id)]</attribute>
                 </xpath>
-                <xpath expr="//field[@name='assembly_id']" position="before"> 
+                <xpath expr="//field[@name='assembly_id']" position="before">
                         <field name="mandate_category_id"
                            required="1"
                            domain="[('type', '=', 'int')]"
-                           on_change="onchange_mandate_category_id(mandate_category_id)"/>                        
+                           on_change="onchange_mandate_category_id(mandate_category_id)"/>
                 </xpath>
                 <xpath expr="//page[@name='candidatures']" position="inside">
                     <button string="All Details" name="%(int_candidature_action)d"
@@ -588,7 +588,7 @@
                             attrs="{'invisible': [('state','=','done')]}"
                             confirm="Refuse all candidatures: proceed anyway ?"/>
                     <field name="candidature_ids" context="{'default_selection_committee_id': active_id}">
-                        <tree colors="red:state=='declared';grey:active==False">                            
+                        <tree colors="red:state=='declared';grey:active==False">
                             <field name="partner_name"/>
                             <field name="state"/>
                             <button name="button_suggest" string="Suggest" icon="gtk-apply"
@@ -600,11 +600,11 @@
                             <field name="active" invisible="1"/>
                             <field name="is_selection_committee_active" invisible="1"/>
                         </tree>
-                    </field>             
+                    </field>
                 </xpath>
             </field>
         </record>
-        
+
         <record id="ext_selection_committee_form_view" model="ir.ui.view">
             <field name="name">ext.selection.committee.form</field>
             <field name="model">ext.selection.committee</field>
@@ -616,12 +616,12 @@
                  <xpath expr="//field[@name='assembly_id']" position="attributes">
                     <attribute name="domain">[('assembly_category_id', '=', ext_assembly_category_id)]</attribute>
                 </xpath>
-                <xpath expr="//field[@name='assembly_id']" position="before"> 
+                <xpath expr="//field[@name='assembly_id']" position="before">
                         <field name="mandate_category_id"
                            required="1"
                            domain="[('type', '=', 'ext')]"
-                           on_change="onchange_mandate_category_id(mandate_category_id)"/>                        
-                </xpath>           
+                           on_change="onchange_mandate_category_id(mandate_category_id)"/>
+                </xpath>
             </field>
         </record>
 
@@ -658,10 +658,10 @@
 
         <menuitem id="int_selection_committee_submenu" name="Selection Committees" action="int_selection_committee_action"
                   sequence="10" parent="int_submenu"/>
-        
+
         <menuitem id="int_candidature_submenu" name="Candidatures" action="int_candidature_action"
                   sequence="20" parent="int_submenu"/>
-        
+
         <menuitem id="int_mandate_submenu" name="Mandates" action="int_mandate_action"
                   sequence="30" parent="int_submenu"/>
 

@@ -279,6 +279,7 @@ class sta_candidature(orm.Model):
     _order = 'selection_committee_id, sort_order, election_effective_position, election_substitute_position, list_effective_position, list_substitute_position'
 
 # constraints
+
     def _check_partner(self, cr, uid, ids, for_unlink=False, context=None):
         """
         ==============
@@ -301,16 +302,19 @@ class sta_candidature(orm.Model):
     ]
 
 # view methods: onchange, button
+
     def onchange_selection_committee_id(self, cr, uid, ids, selection_committee_id, context=None):
         res = {}
-        selection_committee = self.pool.get(self._selection_committee_model).browse(cr, uid, selection_committee_id, context)
+        selection_committee = False
+        if selection_committee_id:
+            selection_committee = self.pool.get(self._selection_committee_model).browse(cr, uid, selection_committee_id, context)
 
-        res['value'] = dict(legislature_id=selection_committee.legislature_id.id or False,
-                            electoral_district_id=selection_committee.electoral_district_id.id or False,
-                            sta_assembly_id=selection_committee.assembly_id.id or False,
-                            designation_int_assembly_id=selection_committee.designation_int_assembly_id.id or False,
-                            mandate_category_id=selection_committee.mandate_category_id.id or False,
-                            is_legislative=selection_committee.assembly_id.is_legislative or False,)
+        res['value'] = dict(legislature_id=selection_committee and selection_committee.legislature_id.id or False,
+                            electoral_district_id=selection_committee and selection_committee.electoral_district_id.id or False,
+                            sta_assembly_id=selection_committee and selection_committee.assembly_id.id or False,
+                            designation_int_assembly_id=selection_committee and selection_committee.designation_int_assembly_id.id or False,
+                            mandate_category_id=selection_committee and selection_committee.mandate_category_id.id or False,
+                            is_legislative=selection_committee and selection_committee.assembly_id.is_legislative or False,)
         return res
 
     def button_create_mandate(self, cr, uid, ids, context=None):

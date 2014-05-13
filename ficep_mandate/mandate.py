@@ -103,3 +103,5 @@ class mandate_category(orm.Model):
 # constraints
 
     _unicity_keys = 'name'
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
