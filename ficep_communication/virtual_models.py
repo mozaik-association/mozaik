@@ -42,8 +42,11 @@ class virtual_target(orm.Model):
         'postal_coordinate_id': fields.integer('Postal Coordinate ID'),
         'email_coordinate_id': fields.integer('Email Coordinate ID'),
 
-        'email': fields.char('Postal Coordinate'),
-        'postal': fields.char('Email Coordinate'),
+        'email': fields.char('Email Coordinate'),
+        'postal': fields.char('Postal Coordinate'),
+
+        'email_unauthorized': fields.boolean('Email Unauthorized'),
+        'postal_unauthorized': fields.boolean('Postal Unauthorized'),
     }
 
 # orm methods
@@ -55,8 +58,11 @@ class virtual_target(orm.Model):
         SELECT
             concat(pc.id, '/' ,e.id) as id,
             p.id as partner_id,
-            pc.id as postal_coordinate_id,
             e.id as email_coordinate_id,
+            pc.id as postal_coordinate_id,
+
+            e.unauthorized as email_unauthorized,
+            pc.unauthorized as postal_unauthorized,
             CASE
                 WHEN pc.vip is TRUE
                 THEN 'VIP'
