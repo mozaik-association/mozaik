@@ -84,6 +84,10 @@ class ir_import(orm.TransientModel):
 
         _logger.info('Importing file %s' % filename)
         res = self.do(cr, uid, imp_id, fields, options, context=context)
+        if any(m['type'] == 'error' for m in res):
+            _logger.error('Importing fails with following messages:')
+            for m in res:
+                _logger.error(m['message'])
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -71,6 +71,17 @@
             </field>
         </record>
 
+        <record id="int_assembly_search_view" model="ir.ui.view">
+            <field name="name">int.assembly.search</field>
+            <field name="model">int.assembly</field>
+            <field name="inherit_id" ref="abstract_assembly_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='instance_id']" position="after">
+                    <field name="designation_int_assembly_id" />
+                </xpath>
+            </field>
+        </record>
+
         <record id="int_assembly_tree_view" model="ir.ui.view">
             <field name="name">int.assembly.tree</field>
             <field name="model">int.assembly</field>
@@ -114,7 +125,10 @@
             <field name="model">ext.assembly</field>
             <field name="inherit_id" ref="abstract_assembly_tree_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='instance_id']" position="replace"/>
+                <xpath expr="//field[@name='name']" position="replace"/>
+                <xpath expr="//field[@name='instance_id']" position="before">
+                    <field name="ref_partner_id" />
+                </xpath>
             </field>
         </record>
 
@@ -123,8 +137,15 @@
             <field name="model">ext.assembly</field>
             <field name="inherit_id" ref="abstract_assembly_search_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='instance_id']" position="replace"/>
-                <xpath expr="//filter[@name='instance']" position="replace"/>
+                <xpath expr="//field[@name='instance_id']" position="before">
+                    <field name="ref_partner_id" />
+                </xpath>
+                <xpath expr="//field[@name='instance_id']" position="after">
+                    <field name="designation_int_assembly_id" />
+                </xpath>
+                <xpath expr="//filter[@name='instance']" position="before">
+                    <filter name="partner" string="Partner" domain="[]" context="{'group_by':'ref_partner_id'}"/>
+                </xpath>
             </field>
         </record>
 
@@ -260,7 +281,7 @@
             <field name="res_model">int.assembly</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="abstract_assembly_search_view" />
+            <field name="search_view_id" ref="int_assembly_search_view" />
             <field name="view_id" ref="int_assembly_tree_view" />
         </record>
 
@@ -583,12 +604,12 @@
             <field name="model">ext.assembly</field>
             <field name="inherit_id" ref="abstract_assembly_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='instance_id']" position="replace">
+                <xpath expr="//field[@name='instance_id']" position="before">
                      <field name="ref_partner_id" domain="[('is_company','=',True),('is_assembly','=',False)]"/>
                 </xpath>
                 <xpath expr="//field[@name='assembly_category_id']" position="after">
                      <field name="designation_int_assembly_id" required="1"/>
-                </xpath>          
+                </xpath>
             </field>
         </record>
 
