@@ -65,7 +65,7 @@ class distribution_list_mass_function(orm.TransientModel):
 
         'sort_by': fields.selection(SORT_BY, 'Sort by'),
 
-        'max_fails': fields.integer('Maximum of Fails'),
+        'bounce_counter': fields.integer('Maximum of Fails'),
         'include_unauthorized': fields.boolean('Include Unauthorized'),
         'internal_instance_id': fields.many2one('int.instance', 'Internal Instance'),
 
@@ -73,7 +73,6 @@ class distribution_list_mass_function(orm.TransientModel):
     }
 
     _defaults = {
-         'max_fails': 0,
          'trg_model': 'email.coordinate',
      }
 
@@ -85,7 +84,7 @@ class distribution_list_mass_function(orm.TransientModel):
              }
         }
 
-#public methods
+# public methods
 
     def mass_function(self, cr, uid, ids, context=None):
         """
@@ -96,6 +95,20 @@ class distribution_list_mass_function(orm.TransientModel):
         composer = self.pool['mail.compose.message']
         for wizard in self.browse(cr, uid, ids, context=context):
             if wizard.trg_model == 'email.coordinate':
+                domains = []
+                if wizard.include_unauthorized:
+                    domains.append("'|',('unauthorized','=', True),('unauthorized','=', False)")
+                else:
+                    domains.append("('unauthorized','=', False)")
+
+                if wizard.internal_instance_id:
+                    domains.append("('partner_id.int_instance_id.id','child_of', %s)" % wizard.internal_instance_id.id)
+                if wizard.bounce_counter != 0:
+                    wizard.bounce_counter = wizard.bounce_counter if wizard.bounce_counter >= 0 else 0
+                    domains.append("('bouce_counter','<=', %s)" % wizard.bounce_counter)
+
+                context['more_filter'] = (wizard.trg_model, domains)
+
                 if wizard.e_mass_function == 'csv':
                     pass
                 else:
@@ -121,7 +134,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     mail_composer_id = composer.create(cr, uid, mail_composer_vals, context=context)
                     self.pool['mail.compose.message'].send_mail(cr, uid, [mail_composer_id], context=context)
             else:
-                #TODO: label print
+                # TODO: label print
                 pass
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
