@@ -292,12 +292,20 @@
                             <h1><field name="name"/></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
-                            <button string="State Candidatures" name="%(sta_candidature_action)d"
+                            <button string="Candidatures" name="%(sta_candidature_action)d"
                                 type="action" attrs="{'invisible': ['|',('id','=',False),('type','!=','sta')]}"
                                 context="{'search_default_mandate_category_id': active_id,
                                           'default_mandate_category_id': active_id}" />
-                            <button string="State Mandates" name="%(sta_mandate_action)d"
+                            <button string="Mandates" name="%(sta_mandate_action)d"
                                 type="action" attrs="{'invisible': ['|',('id','=',False),('type','!=','sta')]}"
+                                context="{'search_default_mandate_category_id': active_id,
+                                          'default_mandate_category_id': active_id}" />
+                            <button string="Candidatures" name="%(int_candidature_action)d"
+                                type="action" attrs="{'invisible': ['|',('id','=',False),('type','!=','int')]}"
+                                context="{'search_default_mandate_category_id': active_id,
+                                          'default_mandate_category_id': active_id}" />
+                            <button string="Mandates" name="%(int_mandate_action)d"
+                                type="action" attrs="{'invisible': ['|',('id','=',False),('type','!=','int')]}"
                                 context="{'search_default_mandate_category_id': active_id,
                                           'default_mandate_category_id': active_id}" />
                         </div>

@@ -27,6 +27,32 @@
                 </xpath>
             </field>
          </record>
+         
+         <record id="int_assembly_category_form_view" model="ir.ui.view">
+            <field name="name">int.assembly.category.form.view (ficep_mandate)</field>
+            <field name="model">int.assembly.category</field>
+            <field name="inherit_id" ref="ficep_structure.int_assembly_category_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='status']" position="after">
+                    <notebook invisible="context.get('popup')">
+                        <page name="mandate categories" string=" Mandates Categories">
+                            <field name="mandate_category_ids" attrs="{'invisible': [('active', '=', False)]}"
+                                   readonly="1"               context="{'default_mandate_category_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                           <field name="mandate_category_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                                   readonly="1" context="{'default_mandate_category_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+         </record>
 
          <record id="sta_assembly_form_view" model="ir.ui.view">
             <field name="name">sta.assembly.form.view (ficep_mandate)</field>
@@ -67,7 +93,43 @@
                 </xpath>
             </field>
          </record>
-
+         
+         <record id="int_assembly_form_view" model="ir.ui.view">
+            <field name="name">int.assembly.form.view (ficep_mandate)</field>
+            <field name="model">int.assembly</field>
+            <field name="inherit_id" ref="ficep_structure.int_assembly_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[@name='buttons']" position="inside">
+                    <button string="Candidatures" name="%(int_candidature_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_int_assembly_id': active_id,
+                                          'default_int_assembly_id': active_id}" />
+                    <button string="Mandates" name="%(int_mandate_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_int_assembly_id': active_id,
+                                          'default_int_assembly_id': active_id}" />
+                </xpath>
+                <xpath expr="//group[@name='status']" position="after">
+                    <notebook invisible="context.get('popup')">
+                        <page name="selection committees" string="Selection Committees">
+                            <field name="selection_committee_ids" attrs="{'invisible': [('active', '=', False)]}"
+                                   readonly="1" context="{'default_int_assembly_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                           <field name="selection_committee_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                                   readonly="1" context="{'default_int_assembly_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+         </record>
+         
          <record id="legislature_form_view" model="ir.ui.view">
             <field name="name">legislature.form (ficep_mandate)</field>
             <field name="model">legislature</field>
