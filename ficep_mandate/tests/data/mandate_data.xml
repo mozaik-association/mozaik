@@ -37,6 +37,13 @@
             <field name="int_power_level_id" ref="int_power_level_04"/>
             <field name="int_assembly_category_id" ref="int_assembly_category_05"/>
         </record>
+        
+        <record id="mc_membre_assemblee_regionale" model="mandate.category">
+            <field name="type">int</field>
+            <field name="name">Membre de l'assemblée régionale</field>
+            <field name="int_power_level_id" ref="int_power_level_04"/>
+            <field name="int_assembly_category_id" ref="int_assembly_category_05"/>
+        </record>
 
         <record id="mc_conseil_parite" model="mandate.category">
             <field name="type">int</field>
@@ -200,6 +207,25 @@
             <field name="deadline_date">2014-04-15</field>
             <field name="sta_assembly_id" ref="sta_assembly_03"/>
             <field name="partner_id" ref="res_partner_thierry"/>
+        </record>
+        
+        <!-- Create Internal mandate -->
+        <record id="stam_thierry_secretaire" model="int.mandate">
+            <field name="mandate_category_id" ref="mc_secretaire_regional"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="int_assembly_id" ref="int_assembly_03"/>
+            <field name="start_date">2014-12-01</field>
+            <field name="deadline_date">2014-04-15</field>
+            <field name="partner_id" ref="res_partner_thierry"/>
+        </record>
+        
+        <record id="stam_paul_regional" model="int.mandate">
+            <field name="mandate_category_id" ref="mc_membre_assemblee_regionale"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="int_assembly_id" ref="int_assembly_04"/>
+            <field name="start_date">2014-12-01</field>
+            <field name="deadline_date">2018-04-15</field>
+            <field name="partner_id" ref="res_partner_paul"/>
         </record>
     </data>
 </openerp>

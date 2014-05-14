@@ -20,13 +20,12 @@
                                                'invisible': [('action', '=', 'add')]}"/>
                                 <field name="new_mandate_category_id"
                                        attrs="{'invisible':[('action', '=', 'renew')],
-                                               'required': [('action', '=', 'add')],}"
-                                       domain="[('id', '!=', mandate_category_id)]"/>
+                                               'required': [('action', '=', 'add')]}"/>
                                 <field name="assembly_id"                                       
                                        attrs="{'invisible': [('action', '=', 'add')]}"/>
                                 <field name="new_assembly_id"
                                        attrs="{'invisible':[('action', '=', 'renew')],
-                                               'required': [('action', '=', 'add')],}"
+                                               'required': [('action', '=', 'add')]}"
                                        domain="[('id', '!=', assembly_id), ('instance_id', '=', instance_id)]"/>
                                 <field name="partner_id"/>
                                 <field name="start_date" required="1"/>
