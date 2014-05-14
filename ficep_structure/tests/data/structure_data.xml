@@ -545,6 +545,14 @@
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="months_before_end_of_mandate" eval="4"/>
         </record>
+        
+         <record id="ext_assembly_02" model="ext.assembly">
+            <field name="instance_id" ref="ficep_structure.int_instance_01"/>
+            <field name="ref_partner_id" ref="res_partner_rtbf"/>
+            <field name="assembly_category_id" ref="ext_assembly_category_02"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="months_before_end_of_mandate" eval="4"/>
+        </record>
 
         <!-- Create Legislature -->
 

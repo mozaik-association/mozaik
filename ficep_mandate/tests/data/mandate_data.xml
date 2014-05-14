@@ -121,6 +121,16 @@
             <field name="mandate_deadline_date">2020-12-02</field>
             <field name="auto_mandate" eval="1"/>
         </record>
+        
+        <record id="sc_membre_effectif_ag" model="ext.selection.committee">
+            <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
+            <field name="name">Designation membres de l'AG</field>            
+            <field name="assembly_id" ref="ext_assembly_01"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="mandate_start_date">2014-12-12</field>
+            <field name="mandate_deadline_date">2020-12-02</field>
+            <field name="auto_mandate" eval="1"/>
+        </record>
 
 
         <!-- Create State candidature -->
@@ -187,6 +197,21 @@
             <field name="int_assembly_id" ref="int_assembly_04"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
+        
+        <!-- Create External candidature -->
+        <record id="ext_paul_membre_ag" model="ext.candidature">
+            <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
+            <field name="selection_committee_id" ref="sc_membre_effectif_ag"/>
+            <field name="ext_assembly_id" ref="ext_assembly_01"/>
+            <field name="partner_id" ref="res_partner_paul"/>
+        </record>
+        
+        <record id="ext_thierry_membre_ag" model="ext.candidature">
+            <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
+            <field name="selection_committee_id" ref="sc_membre_effectif_ag"/>
+            <field name="ext_assembly_id" ref="ext_assembly_01"/>
+            <field name="partner_id" ref="res_partner_thierry"/>
+        </record>
 
         <!-- Create State mandate -->
         <record id="stam_thierry_communal_2012" model="sta.mandate">
@@ -210,7 +235,7 @@
         </record>
         
         <!-- Create Internal mandate -->
-        <record id="stam_thierry_secretaire" model="int.mandate">
+        <record id="intm_thierry_secretaire" model="int.mandate">
             <field name="mandate_category_id" ref="mc_secretaire_regional"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="int_assembly_id" ref="int_assembly_03"/>
@@ -219,10 +244,29 @@
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
         
-        <record id="stam_paul_regional" model="int.mandate">
+        <record id="intm_paul_regional" model="int.mandate">
             <field name="mandate_category_id" ref="mc_membre_assemblee_regionale"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="int_assembly_id" ref="int_assembly_04"/>
+            <field name="start_date">2014-12-01</field>
+            <field name="deadline_date">2018-04-15</field>
+            <field name="partner_id" ref="res_partner_paul"/>
+        </record>
+        
+        <!-- Create External mandate -->
+        <record id="extm_thierry_membre_ag" model="ext.mandate">
+            <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="ext_assembly_id" ref="ext_assembly_01"/>
+            <field name="start_date">2014-12-01</field>
+            <field name="deadline_date">2014-04-15</field>
+            <field name="partner_id" ref="res_partner_thierry"/>
+        </record>
+        
+        <record id="extm_paul_membre_ag" model="ext.mandate">
+            <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="ext_assembly_id" ref="ext_assembly_01"/>
             <field name="start_date">2014-12-01</field>
             <field name="deadline_date">2018-04-15</field>
             <field name="partner_id" ref="res_partner_paul"/>

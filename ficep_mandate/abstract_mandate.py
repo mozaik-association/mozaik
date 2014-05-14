@@ -276,6 +276,9 @@ class abstract_selection_committee(orm.AbstractModel):
 
             res['value'] = dict(assembly_category_id=assembly.assembly_category_id.id or False,
                                 mandate_category_id=mandate_category_id)
+
+            if hasattr(assembly, 'designation_int_assembly_id'):
+                res['value']['designation_int_assembly_id'] = assembly.designation_int_assembly_id.id
         return res
 
 

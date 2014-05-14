@@ -101,6 +101,20 @@
                 </xpath>
             </field>
         </record>
+        
+        <record id="ext_candidature_search_view" model="ir.ui.view">
+            <field name="name">ext.candidature.search</field>
+            <field name="model">ext.candidature</field>
+            <field name="inherit_id" ref="abstract_candidature_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="ext_assembly_id"/>
+                </xpath>
+                <xpath expr="//filter[@name='category']" position="after">
+                    <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'ext_assembly_id'}" />
+                </xpath>
+            </field>
+        </record>
 
         <record id="sta_mandate_search_view" model="ir.ui.view">
             <field name="name">sta.mandate.search</field>
@@ -131,6 +145,20 @@
                 </xpath>
             </field>
         </record>
+        
+        <record id="ext_mandate_search_view" model="ir.ui.view">
+            <field name="name">ext.mandate.search</field>
+            <field name="model">ext.mandate</field>
+            <field name="inherit_id" ref="abstract_mandate_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mandate_category_id']" position="after">
+                    <field name="ext_assembly_id"/>
+                </xpath>
+                <xpath expr="//filter[@name='category']" position="after">
+                    <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'ext_assembly_id'}" />
+                </xpath>
+            </field>
+        </record>
 
         <record id="sta_mandate_tree_view" model="ir.ui.view">
             <field name="name">sta.mandate.tree</field>
@@ -157,6 +185,20 @@
                 </xpath>
                 <xpath expr="//field[@name='end_date']" position="after">
                     <button name="%(copy_int_mandate_action)d" string="Renew or Add Complementary Mandate" type="action" icon="gtk-copy"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="ext_mandate_tree_view" model="ir.ui.view">
+            <field name="name">ext.mandate.tree</field>
+            <field name="model">ext.mandate</field>
+            <field name="inherit_id" ref="abstract_mandate_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mandate_category_id']" position="after">
+                    <field name="ext_assembly_id"/>
+                </xpath>
+                <xpath expr="//field[@name='end_date']" position="after">
+                    <button name="%(copy_ext_mandate_action)d" string="Renew or Add Complementary Mandate" type="action" icon="gtk-copy"/>
                 </xpath>
             </field>
         </record>
@@ -225,6 +267,15 @@
             <field name="search_view_id" ref="int_candidature_search_view" />
             <field name="view_id" ref="abstract_candidature_tree_view" />
         </record>
+        
+        <record id="ext_candidature_action" model="ir.actions.act_window">
+            <field name="name">External Candidatures</field>
+            <field name="res_model">ext.candidature</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="ext_candidature_search_view" />
+            <field name="view_id" ref="abstract_candidature_tree_view" />
+        </record>
 
         <record id="sta_mandate_action" model="ir.actions.act_window">
             <field name="name">State Mandates</field>
@@ -235,13 +286,22 @@
             <field name="view_id" ref="sta_mandate_tree_view" />
         </record>
 
-         <record id="int_mandate_action" model="ir.actions.act_window">
+        <record id="int_mandate_action" model="ir.actions.act_window">
             <field name="name">Internal Mandates</field>
             <field name="res_model">int.mandate</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="int_mandate_search_view" />
             <field name="view_id" ref="int_mandate_tree_view" />
+        </record>
+        
+        <record id="ext_mandate_action" model="ir.actions.act_window">
+            <field name="name">External Mandates</field>
+            <field name="res_model">ext.mandate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="ext_mandate_search_view" />
+            <field name="view_id" ref="ext_mandate_tree_view" />
         </record>
 
         <record id="sta_selection_committee_action" model="ir.actions.act_window">
@@ -306,6 +366,14 @@
                                           'default_mandate_category_id': active_id}" />
                             <button string="Mandates" name="%(int_mandate_action)d"
                                 type="action" attrs="{'invisible': ['|',('id','=',False),('type','!=','int')]}"
+                                context="{'search_default_mandate_category_id': active_id,
+                                          'default_mandate_category_id': active_id}" />
+                            <button string="Candidatures" name="%(ext_candidature_action)d"
+                                type="action" attrs="{'invisible': ['|',('id','=',False),('type','!=','ext')]}"
+                                context="{'search_default_mandate_category_id': active_id,
+                                          'default_mandate_category_id': active_id}" />
+                            <button string="Mandates" name="%(ext_mandate_action)d"
+                                type="action" attrs="{'invisible': ['|',('id','=',False),('type','!=','ext')]}"
                                 context="{'search_default_mandate_category_id': active_id,
                                           'default_mandate_category_id': active_id}" />
                         </div>
@@ -424,6 +492,20 @@
                 </xpath>
             </field>
         </record>
+        
+        <record id="ext_candidature_form_view" model="ir.ui.view">
+            <field name="name">ext.candidature.form</field>
+            <field name="model">ext.candidature</field>
+            <field name="inherit_id" ref="abstract_candidature_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='selection_committee_id']" position="after">
+                     <field name="ext_assembly_id" readonly="1"/>
+                </xpath>
+                <xpath expr="//button[@name='button_create_mandate']" position="attributes">
+                     <attribute name="states">elected</attribute>
+                </xpath>
+            </field>
+        </record>
 
         <record id="sta_mandate_form_view" model="ir.ui.view">
             <field name="name">sta.mandate.form</field>
@@ -480,6 +562,36 @@
 
                 <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="int_assembly_category_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="ext_mandate_form_view" model="ir.ui.view">
+            <field name="name">ext.mandate.form</field>
+            <field name="model">ext.mandate</field>
+            <field name="inherit_id" ref="abstract_mandate_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email_coordinate_id']" position="before">
+                    <field name="ext_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
+                            required="1"
+                            domain="[('assembly_category_id', '=', ext_assembly_category_id)]"/>
+                </xpath>
+
+                <xpath expr="//field[@name='mandate_category_id']" position="attributes">
+                    <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
+                </xpath>
+                
+                <xpath expr="//group[@name='data']" position="after">
+                    <notebook>
+                        <page name="index" string="Indexation">
+                            <separator string="Competencies"/>
+                            <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." context="{'default_state': 'draft'}" />
+                        </page>
+                    </notebook>
+                </xpath>
+
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="ext_assembly_category_id"/>
                 </xpath>
             </field>
         </record>
@@ -590,7 +702,7 @@
                                                   'default_selection_committee_id': active_id,
                                                   'search_default_all': True}" />
                     <button string="Accept" name="button_accept_candidatures" type="object" class="oe_highlight"
-                            attrs="{'invisible': ['|',('decision_date','=',False),('state','=','done')]}"
+                            attrs="{'invisible': [('state','=','done')]}"
                             confirm="Accept all candidatures: proceed anyway ?"/>
                     <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
                             attrs="{'invisible': [('state','=','done')]}"
@@ -622,13 +734,40 @@
                     <field name="is_virtual"/>
                 </xpath>
                  <xpath expr="//field[@name='assembly_id']" position="attributes">
-                    <attribute name="domain">[('assembly_category_id', '=', ext_assembly_category_id)]</attribute>
+                    <attribute name="domain">[('assembly_category_id', '=', assembly_category_id)]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='assembly_id']" position="before">
                         <field name="mandate_category_id"
                            required="1"
                            domain="[('type', '=', 'ext')]"
                            on_change="onchange_mandate_category_id(mandate_category_id)"/>
+                </xpath>
+                <xpath expr="//page[@name='candidatures']" position="inside">
+                    <button string="All Details" name="%(ext_candidature_action)d"
+                                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                                        context="{'search_default_selection_committee_id': active_id,
+                                                  'default_selection_committee_id': active_id,
+                                                  'search_default_all': True}" />
+                    <button string="Accept" name="button_accept_candidatures" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state','=','done')]}"
+                            confirm="Accept all candidatures: proceed anyway ?"/>
+                    <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state','=','done')]}"
+                            confirm="Refuse all candidatures: proceed anyway ?"/>
+                    <field name="candidature_ids" context="{'default_selection_committee_id': active_id}">
+                        <tree colors="red:state=='declared';grey:active==False">
+                            <field name="partner_name"/>
+                            <field name="state"/>
+                            <button name="button_suggest" string="Suggest" icon="gtk-apply"
+                                    attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
+                            <button name="button_reject" string="Reject" icon="gtk-cancel"
+                                    attrs="{'invisible': ['|',('state', '!=', 'declared'),('is_selection_committee_active', '=', False)]}"/>
+                            <button name="button_declare" string="Back to Declared" icon="gtk-undo"
+                                    attrs="{'invisible': ['|',('state', 'not in',['rejected','suggested']),('is_selection_committee_active', '=', False)]}"/>
+                            <field name="active" invisible="1"/>
+                            <field name="is_selection_committee_active" invisible="1"/>
+                        </tree>
+                    </field>
                 </xpath>
             </field>
         </record>
@@ -678,6 +817,12 @@
 
         <menuitem id="ext_selection_committee_submenu" name="Selection Committees" action="ext_selection_committee_action"
                   sequence="10" parent="ext_submenu"/>
+                  
+        <menuitem id="ext_candidature_submenu" name="Candidatures" action="ext_candidature_action"
+                  sequence="20" parent="ext_submenu"/>
+
+        <menuitem id="ext_mandate_submenu" name="Mandates" action="ext_mandate_action"
+                  sequence="30" parent="ext_submenu"/>
 
         <menuitem id="configuration_submenu" name="Configuration"
                   sequence="90" parent="ficep_base.mandates_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
