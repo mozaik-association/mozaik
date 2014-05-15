@@ -25,8 +25,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import csv
+import tempfile
+from collections import OrderedDict
 
+from openerp.tools.translate import _
 from openerp.osv import orm, fields
+
+HEADER_ROW = ['name', 'address', 'email', 'phone', 'mobile', 'fax']
 
 # Constants
 SORT_BY = [
@@ -127,7 +133,6 @@ class distribution_list_mass_function(orm.TransientModel):
                                           'post': False,
                                           'partner_ids': [[6, False, []]],
                                           'notify': False,
-                                          'distribution_list_id': context.get('active_id', False),
                                           'template_id': template_id,
                                           'subject': "",
                                           'mass_mailing_campaign_id': wizard.campaign_id.id,
@@ -135,9 +140,44 @@ class distribution_list_mass_function(orm.TransientModel):
                     value = composer.onchange_template_id(cr, uid, ids, template_id, 'mass_mail', '', 0, context=context)['value']
                     mail_composer_vals.update(value)
                     mail_composer_id = composer.create(cr, uid, mail_composer_vals, context=context)
+                    # compute ids
+                    active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [context.get('active_id', False)], context=context)
+                    context['active_ids'] = active_ids
+                    if alternative_ids and wizard.extract_csv:
+                        self.render_csv(cr, uid, alternative_ids, context=context)
+
                     self.pool['mail.compose.message'].send_mail(cr, uid, [mail_composer_id], context=context)
             else:
                 # TODO: label print
                 pass
+
+    def render_csv(self, cr, uid, postal_ids, context=None):
+        """
+        ==========
+        render_csv
+        ==========
+        Get a CSV file with data of postal_ids depending of ``HEADER_ROW``
+        Send  the CSV as message into the inbox of the user
+        :type postal_ids: []
+        """
+        postal_coordinates = self.pool['postal.coordinate'].browse(cr, uid, postal_ids, context=context)
+        tmp = tempfile.NamedTemporaryFile(prefix='Extract', suffix=".csv", delete=False)
+        f = open(tmp.name, "r+")
+        writer = csv.writer(f)
+        writer.writerow(HEADER_ROW)
+        for pc in postal_coordinates:
+            export_values = OrderedDict([('name', pc.partner_id.name or ''),
+                                         ('address', pc.address_id.name),
+                                         ('email', pc.partner_id.email or ''),
+                                         ('phone', pc.partner_id.phone or ''),
+                                         ('mobile', pc.partner_id.mobile or ''),
+                                         ('fax', pc.partner_id.fax or '')])
+            writer.writerow(export_values.values())
+        f.close()
+        f = open(tmp.name, "r")
+        attachment = [(_('Extract.csv'), 'u%s' % f.read())]
+        partner_ids = self.pool['res.partner'].search(cr, uid, [('user_ids', '=', uid)], context=context)
+        if partner_ids:
+            self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context, partner_ids=partner_ids, subject=_('Export CSV'))
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
