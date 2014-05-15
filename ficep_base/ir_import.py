@@ -62,8 +62,8 @@ class ir_import(orm.TransientModel):
         except:
             _logger.error('Bad file name: %s', filename)
             return False
-        finally:
-            fp.close()
+
+        fp.close()
 
         vals = {
             'res_model': model,

@@ -25,10 +25,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+import logging
 import phonenumbers as pn
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+
+_logger = logging.getLogger(__name__)
 
 
 """
@@ -77,7 +81,12 @@ class phone_phone(orm.Model):
         try:
             normalized_number = pn.parse(num, code) if code else pn.parse(num)
         except pn.NumberParseException, e:
-            raise orm.except_orm(_('Warning!'), _('Invalid phone number: %s') % _(e))
+            errmsg = _('Invalid phone number: %s') % e
+            if context.get('install_mode', False):
+                # during data migration exception are not allowed
+                _logger.warning(errmsg)
+                return num
+            raise orm.except_orm(_('Error!'), errmsg)
         return pn.format_number(normalized_number, pn.PhoneNumberFormat.INTERNATIONAL)
 
     _columns = {
