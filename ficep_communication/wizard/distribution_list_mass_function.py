@@ -30,9 +30,9 @@ from openerp.osv import orm, fields
 
 # Constants
 SORT_BY = [
-    ('register_number', 'Identification Number'),
-    ('name', 'Name'),
-    ('zip', 'Zip Code'),
+    ('identifier desc', 'Identification Number'),
+    ('display_name desc', 'Name'),
+    ('zip desc,display_name desc', 'Zip Code'),
 ]
 E_MASS_FUNCTION = [
     ('email_coordinate_id', 'Mass Mailing'),
@@ -97,22 +97,25 @@ class distribution_list_mass_function(orm.TransientModel):
             if wizard.trg_model == 'email.coordinate':
                 domains = []
                 if wizard.include_unauthorized:
-                    domains.append("'|',('unauthorized','=', True),('unauthorized','=', False)")
+                    domains.append("'|',('email_unauthorized','=', True),('email_unauthorized','=', False)")
                 else:
-                    domains.append("('unauthorized','=', False)")
+                    domains.append("('email_unauthorized','=', False)")
 
                 if wizard.internal_instance_id:
-                    domains.append("('partner_id.int_instance_id.id','child_of', %s)" % wizard.internal_instance_id.id)
+                    domains.append("('int_instance_id','child_of', [%s])" % wizard.internal_instance_id.id)
                 if wizard.bounce_counter != 0:
                     wizard.bounce_counter = wizard.bounce_counter if wizard.bounce_counter >= 0 else 0
-                    domains.append("('bouce_counter','<=', %s)" % wizard.bounce_counter)
+                    domains.append("('email_bouce_counter','<=', %s)" % wizard.bounce_counter)
+                context['more_filter'] = domains
 
-                context['more_filter'] = (wizard.trg_model, domains)
+                if wizard.sort_by:
+                    context['sort_by'] = wizard.sort_by
 
                 if wizard.e_mass_function == 'csv':
                     pass
                 else:
-                    context['field_mailing_object'] = wizard.e_mass_function
+                    context['field_alternative_object'] = 'postal_coordinate_id'
+                    context['field_main_object'] = wizard.e_mass_function
                     context['target_model'] = wizard.trg_model
                     template_id = wizard.email_template_id.id
                     email_from = composer._get_default_from(cr, uid, context=context)
