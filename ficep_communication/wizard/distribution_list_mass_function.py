@@ -160,18 +160,27 @@ class distribution_list_mass_function(orm.TransientModel):
         Send  the CSV as message into the inbox of the user
         :type postal_ids: []
         """
+        def safe_get(o, attr, default=None):
+            try:
+                return getattr(o, attr)
+            except orm.except_orm:
+                return default
+
         postal_coordinates = self.pool['postal.coordinate'].browse(cr, uid, postal_ids, context=context)
         tmp = tempfile.NamedTemporaryFile(prefix='Extract', suffix=".csv", delete=False)
         f = open(tmp.name, "r+")
         writer = csv.writer(f)
         writer.writerow(HEADER_ROW)
         for pc in postal_coordinates:
-            export_values = OrderedDict([('name', pc.partner_id.name or ''),
+            partner = safe_get(pc, 'partner_id')
+            if not partner:
+                continue
+            export_values = OrderedDict([('name', safe_get(partner, 'name')),
                                          ('address', pc.address_id.name),
-                                         ('email', pc.partner_id.email or ''),
-                                         ('phone', pc.partner_id.phone or ''),
-                                         ('mobile', pc.partner_id.mobile or ''),
-                                         ('fax', pc.partner_id.fax or '')])
+                                         ('email', partner.email),
+                                         ('phone', partner.phone),
+                                         ('mobile', partner.mobile),
+                                         ('fax', pc.partner_id.fax)])
             writer.writerow(export_values.values())
         f.close()
         f = open(tmp.name, "r")

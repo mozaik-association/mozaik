@@ -40,6 +40,7 @@ class mail_compose_message(orm.TransientModel):
         """
         values = super(mail_compose_message, self).get_mail_values(cr, uid, wizard, res_ids, context=context)
         if wizard.model == 'email.coordinate':
+            #due to security terms
             email_values = self.pool[wizard.model].search_read(cr, uid, [('id', 'in', values.keys())], ['id', 'email'], context=context)
             for email_value in email_values:
                 if email_value['email']:
