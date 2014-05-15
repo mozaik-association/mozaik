@@ -139,6 +139,8 @@ class abstract_selection_committee(orm.AbstractModel):
         'auto_mandate': False,
     }
 
+# constraints
+
     def _check_decision_date(self, cr, uid, ids, context=None):
         """
         ====================
@@ -161,7 +163,8 @@ class abstract_selection_committee(orm.AbstractModel):
         (_check_decision_date, _("A decision date is mandatory when accepting the proposal of the committee"), ['state', 'decision_date'])
     ]
 
-    # orm methods
+# orm methods
+
     def copy_data(self, cr, uid, id_, default=None, context=None):
         default = default or {}
 
@@ -180,7 +183,8 @@ class abstract_selection_committee(orm.AbstractModel):
         })
         return res
 
-    # view methods: onchange, button
+# view methods: onchange, button
+
     def action_copy(self, cr, uid, ids, context=None):
         """
         ==========================
@@ -272,19 +276,10 @@ class abstract_selection_committee(orm.AbstractModel):
 
             res['value'] = dict(assembly_category_id=assembly.assembly_category_id.id or False,
                                 mandate_category_id=mandate_category_id)
+
+            if hasattr(assembly, 'designation_int_assembly_id'):
+                res['value']['designation_int_assembly_id'] = assembly.designation_int_assembly_id.id
         return res
-
-
-class abstract_mandate_base(orm.AbstractModel):
-
-    _name = 'abstract.mandate.base'
-    _description = "Abstract Mandate Base"
-    _inherit = ['abstract.ficep.model']
-
-    _columns = {
-        'partner_id': fields.many2one('res.partner', 'Partner', required=True, select=True, track_visibility='onchange'),
-        'is_replacement': fields.boolean('Replacement'),
-    }
 
 
 class abstract_mandate(orm.AbstractModel):

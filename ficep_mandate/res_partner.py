@@ -40,6 +40,14 @@ class res_partner(orm.Model):
         'sta_mandate_inactive_ids': fields.one2many('sta.mandate', 'partner_id', 'State Mandates', domain=[('active', '=', False)]),
         'sta_candidature_ids': fields.one2many('sta.candidature', 'partner_id', 'State Candidatures', domain=[('active', '=', True)]),
         'sta_candidature_inactive_ids': fields.one2many('sta.candidature', 'partner_id', 'State Candidatures', domain=[('active', '=', False)]),
+        'int_mandate_ids': fields.one2many('int.mandate', 'partner_id', 'Internal Mandates', domain=[('active', '=', True)]),
+        'int_mandate_inactive_ids': fields.one2many('int.mandate', 'partner_id', 'Internal Mandates', domain=[('active', '=', False)]),
+        'int_candidature_ids': fields.one2many('int.candidature', 'partner_id', 'Internal Candidatures', domain=[('active', '=', True)]),
+        'int_candidature_inactive_ids': fields.one2many('int.candidature', 'partner_id', 'Internal Candidatures', domain=[('active', '=', False)]),
+        'ext_mandate_ids': fields.one2many('ext.mandate', 'partner_id', 'External Mandates', domain=[('active', '=', True)]),
+        'ext_mandate_inactive_ids': fields.one2many('ext.mandate', 'partner_id', 'External Mandates', domain=[('active', '=', False)]),
+        'ext_candidature_ids': fields.one2many('ext.candidature', 'partner_id', 'External Candidatures', domain=[('active', '=', True)]),
+        'ext_candidature_inactive_ids': fields.one2many('ext.candidature', 'partner_id', 'External Candidatures', domain=[('active', '=', False)]),
     }
 
 # orm methods
@@ -52,6 +60,16 @@ class res_partner(orm.Model):
         default.update({
             'sta_mandate_ids': [],
             'sta_mandate_inactive_ids': [],
+            'int_mandate_ids': [],
+            'int_mandate_inactive_ids': [],
+            'ext_mandate_ids': [],
+            'ext_mandate_inactive_ids': [],
+            'sta_candidature_ids': [],
+            'sta_candidature_inactive_ids': [],
+            'int_candidature_ids': [],
+            'int_candidature_inactive_ids': [],
+            'ext_candidature_ids': [],
+            'ext_candidature_inactive_ids': [],
         })
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
         return res
@@ -64,15 +82,18 @@ class res_partner(orm.Model):
         When invalidating a partner, invalidates also its mandates and candidatures
         """
         if 'active' in vals and not vals['active']:
-            mandate_obj = self.pool['sta.mandate']
-            mandate_ids = mandate_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids)], context=context)
-            if mandate_ids:
-                mandate_obj.action_invalidate(cr, SUPERUSER_ID, mandate_ids, context=context)
+            mandate_objs = [self.pool['sta.mandate'], self.pool['int.mandate'], self.pool['ext.mandate']]
 
-            candidature_obj = self.pool['sta.candidature']
-            candidature_ids = candidature_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids)], context=context)
-            if candidature_ids:
-                candidature_obj.action_invalidate(cr, SUPERUSER_ID, candidature_ids, context=context)
+            for mandate_obj in mandate_objs:
+                mandate_ids = mandate_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids)], context=context)
+                if mandate_ids:
+                    mandate_obj.action_invalidate(cr, SUPERUSER_ID, mandate_ids, context=context)
+
+            candidature_objs = [self.pool['sta.candidature'], self.pool['int.candidature'], self.pool['ext.candidature']]
+            for candidature_obj in  candidature_objs:
+                candidature_ids = candidature_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids)], context=context)
+                if candidature_ids:
+                    candidature_obj.action_invalidate(cr, SUPERUSER_ID, candidature_ids, context=context)
 
         res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         return res

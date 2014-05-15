@@ -20,13 +20,12 @@
                                                'invisible': [('action', '=', 'add')]}"/>
                                 <field name="new_mandate_category_id"
                                        attrs="{'invisible':[('action', '=', 'renew')],
-                                               'required': [('action', '=', 'add')],}"
-                                       domain="[('id', '!=', mandate_category_id)]"/>
+                                               'required': [('action', '=', 'add')]}"/>
                                 <field name="assembly_id"                                       
                                        attrs="{'invisible': [('action', '=', 'add')]}"/>
                                 <field name="new_assembly_id"
                                        attrs="{'invisible':[('action', '=', 'renew')],
-                                               'required': [('action', '=', 'add')],}"
+                                               'required': [('action', '=', 'add')]}"
                                        domain="[('id', '!=', assembly_id), ('instance_id', '=', instance_id)]"/>
                                 <field name="partner_id"/>
                                 <field name="start_date" required="1"/>
@@ -109,6 +108,20 @@
                 </xpath>                        
             </field>
         </record>
+        
+        <record id="copy_ext_mandate_wizard" model="ir.ui.view">
+            <field name="name">copy.ext.mandate.wizard</field>
+            <field name="model">copy.ext.mandate.wizard</field>
+             <field name="inherit_id" ref="abstract_copy_mandate_wizard"/>
+            <field name="arch" type="xml">                
+                <xpath expr="//field[@name='mandate_category_id']" position="attributes">
+                    <attribute name="domain">[('type', '=', 'ext')]</attribute>
+                </xpath>
+                <xpath expr="//field[@name='new_mandate_category_id']" position="attributes">
+                    <attribute name="domain">[('id', '!=', mandate_category_id),('type', '=', 'ext')]</attribute>
+                </xpath>                        
+            </field>
+        </record>
 
         <record id="copy_sta_mandate_action" model="ir.actions.act_window">
             <field name="name">Copy Mandate</field>
@@ -127,6 +140,17 @@
             <field name="view_mode">form</field>
             <field name="src_model">int.mandate</field>
             <field name="res_model">copy.int.mandate.wizard</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="abstract_copy_mandate_wizard" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+        </record>
+        
+        <record id="copy_ext_mandate_action" model="ir.actions.act_window">
+            <field name="name">Copy Mandate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">ext.mandate</field>
+            <field name="res_model">copy.ext.mandate.wizard</field>
             <field name="target">new</field>
             <field name="view_id" ref="abstract_copy_mandate_wizard" />
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />

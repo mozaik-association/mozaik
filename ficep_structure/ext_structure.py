@@ -76,6 +76,10 @@ class ext_assembly(orm.Model):
                                           select=True, required=True, ondelete='restrict', track_visibility='onchange'),
     }
 
+    _defaults = {
+        'instance_id': lambda self, cr, uid, ids, context=None: self.pool.get('int.instance').get_default(cr, uid)
+    }
+
 # constraints
 
     _unicity_keys = 'ref_partner_id, assembly_category_id'

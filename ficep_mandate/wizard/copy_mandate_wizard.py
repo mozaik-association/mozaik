@@ -258,3 +258,42 @@ class copy_int_mandate_wizard(orm.TransientModel):
         Add a complementary mandate
         """
         return super(copy_int_mandate_wizard, self).add_mandate(cr, uid, ids, context=context)
+
+
+class copy_ext_mandate_wizard(orm.TransientModel):
+    _name = "copy.ext.mandate.wizard"
+    _inherit = ['abstract.copy.mandate.wizard']
+
+    _form_view = 'ext_mandate_form_view'
+    _mandate_assembly_foreign_key = 'ext_assembly_id'
+
+    _columns = {
+        'mandate_id': fields.many2one('ext.mandate', string='External mandate', readonly=True),
+        'assembly_id': fields.many2one('ext.assembly', string='External Assembly', readonly=True),
+        'new_assembly_id': fields.many2one('ext.assembly', string='External Assembly'),
+        'instance_id': fields.many2one('int.instance', 'Internal Instance'),
+    }
+
+    def default_get(self, cr, uid, flds, context):
+        """
+        To get default values for the object.
+        """
+        return super(copy_ext_mandate_wizard, self).default_get(cr, uid, flds, context=context)
+
+    def renew_mandate(self, cr, uid, ids, context=None):
+        """
+        ====================
+        renew_mandate
+        ====================
+        Renew a mandate
+        """
+        return super(copy_ext_mandate_wizard, self).renew_mandate(cr, uid, ids, {}, context=context)
+
+    def add_mandate(self, cr, uid, ids, context=None):
+        """
+        ===========
+        add_mandate
+        ===========
+        Add a complementary mandate
+        """
+        return super(copy_ext_mandate_wizard, self).add_mandate(cr, uid, ids, context=context)

@@ -53,7 +53,8 @@ class sta_assembly(orm.Model):
         '''
         Set the Responsible Internal Instance linked to the result Partner
         '''
-        vals.update(self._pre_update(cr, uid, vals, context=context))
+        if 'instance_id' in vals:
+            vals.update(self._pre_update(cr, uid, vals, context=context))
         res = super(sta_assembly, self).create(cr, uid, vals, context=context)
         return res
 
@@ -78,7 +79,8 @@ class int_assembly(orm.Model):
         '''
         Responsible Internal Instance linked to the result Partner is the Instance of the Assembly
         '''
-        vals.update({'int_instance_id': vals['instance_id']})
+        if 'instance_id' in vals:
+            vals.update({'int_instance_id': vals['instance_id']})
         res = super(int_assembly, self).create(cr, uid, vals, context=context)
         return res
 
@@ -102,7 +104,8 @@ class ext_assembly(orm.Model):
         '''
         Responsible Internal Instance linked to the result Partner is the Instance of the Assembly
         '''
-        vals.update({'int_instance_id': vals['instance_id']})
+        if 'instance_id' in vals:
+            vals.update({'int_instance_id': vals['instance_id']})
         res = super(ext_assembly, self).create(cr, uid, vals, context=context)
         return res
 

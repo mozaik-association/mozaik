@@ -102,7 +102,7 @@ class create_user_from_partner(orm.TransientModel):
 
         wizard = self.browse(cr, uid, ids, context=context)[0]
         if wizard.portal_only:
-            _, group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'portal', 'group_portal')
+            _, group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'base', 'group_portal')
 
             partner = self.pool['res.partner'].browse(cr, uid, partner_id, context=context)
 

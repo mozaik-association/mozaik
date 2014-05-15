@@ -180,7 +180,7 @@ class legislature(orm.Model):
         ('date_check2', 'CHECK ( election_date <= start_date )', 'The election date must be anterior to the start date.'),
     ]
 
-    _order = 'create_date desc'
+    _order = 'start_date desc'
 
 # constraints
 

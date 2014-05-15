@@ -54,6 +54,7 @@ FICEP Mandate
         'structure_view.xml',
         'sta_mandate_workflow.xml',
         'int_mandate_workflow.xml',
+        'ext_mandate_workflow.xml',
     ],
     'js': [
     ],
