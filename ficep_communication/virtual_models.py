@@ -39,6 +39,8 @@ class virtual_target(orm.Model):
 
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Partner'),
+        'display_name': fields.char('Display Name'),
+
         'postal_coordinate_id': fields.integer('Postal Coordinate ID'),
         'email_coordinate_id': fields.integer('Email Coordinate ID'),
 
@@ -47,6 +49,13 @@ class virtual_target(orm.Model):
 
         'email_unauthorized': fields.boolean('Email Unauthorized'),
         'postal_unauthorized': fields.boolean('Postal Unauthorized'),
+
+        'email_bounce_counter': fields.integer('Email Bounce Counter'),
+        'postal_bounce_counter': fields.integer('Postal Bounce Counter'),
+
+        'zip': fields.char("Zip Code"),
+
+        'int_instance_id': fields.many2one('int.instance', 'Internal Instance'),
     }
 
 # orm methods
@@ -58,11 +67,19 @@ class virtual_target(orm.Model):
         SELECT
             concat(pc.id, '/' ,e.id) as id,
             p.id as partner_id,
+            p.display_name as display_name,
+            p.identifier as identification_number,
+
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
 
+            adr.zip as zip,
+
             e.unauthorized as email_unauthorized,
             pc.unauthorized as postal_unauthorized,
+
+            i.id as int_instance_id,
+
             CASE
                 WHEN pc.vip is TRUE
                 THEN 'VIP'
@@ -87,6 +104,10 @@ class virtual_target(orm.Model):
         LEFT OUTER JOIN
             address_address adr
         ON (pc.address_id = adr.id)
+
+        LEFT OUTER JOIN
+            int_instance i
+        ON (i.id = p.int_instance_id)
 
         WHERE pc.id IS NOT NULL
         OR e.id IS NOT NULL
