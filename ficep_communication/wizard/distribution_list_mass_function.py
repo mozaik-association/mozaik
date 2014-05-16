@@ -32,13 +32,32 @@ from collections import OrderedDict
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
 
-HEADER_ROW = ['name', 'address', 'email', 'phone', 'mobile', 'fax']
+from openerp.addons.ficep_person.res_partner import available_genders, available_tongues
+
+HEADER_ROW = [
+    'Lastname',
+    'Firstname',
+    'Printable Name',
+    'Country Code',
+    'Country Name',
+    'Country Zip',
+    'Street',
+    'Street2',
+    'City',
+    'Birthdate',
+    'Gender',
+    'Tongue',
+    'Phone',
+    'Mobile',
+    'Fax',
+    'Email'
+]
 
 # Constants
 SORT_BY = [
-    ('identifier desc', 'Identification Number'),
-    ('display_name desc', 'Name'),
-    ('zip desc,display_name desc', 'Zip Code'),
+    ('identifier asc', 'Identification Number'),
+    ('display_name asc', 'Name'),
+    ('zip desc,display_name asc', 'Zip Code'),
 ]
 E_MASS_FUNCTION = [
     ('email_coordinate_id', 'Mass Mailing'),
@@ -172,23 +191,36 @@ class distribution_list_mass_function(orm.TransientModel):
         writer = csv.writer(f)
         writer.writerow(HEADER_ROW)
         for pc in postal_coordinates:
+            #test access coordinate (VIP READER)
             partner = safe_get(pc, 'partner_id')
             if not partner:
                 continue
-            export_values = OrderedDict([('name', partner.name),
-                                         ('address', pc.address_id.name),
-                                         ('email', partner.email_coordinate_id if not partner.email_coordinate_id \
-                                             else partner.email_coordinate_id.email),
-                                         ('phone', partner.fix_coordinate_id if not partner.fix_coordinate_id \
-                                             else partner.fix_coordinate_id.phone_id.name),
-                                         ('mobile', partner.mobile_coordinate_id if not partner.mobile_coordinate_id \
-                                             else partner.mobile_coordinate_id.phone_id.name),
-                                         ('fax', partner.fax_coordinate_id if not partner.fax_coordinate_id \
-                                             else partner.fax_coordinate_id.phone_id.name)])
-            writer.writerow(export_values.values())
+
+            writer.writerow([
+                 partner.lastname or None,
+                 partner.firstname or None,
+                 partner.printable_name or None,
+                 pc.address_id.country_code or None,
+                 pc.address_id.country_id.name or None,
+                 pc.address_id.zip or None,
+                 pc.address_id.street or None,
+                 pc.address_id.street2 or None,
+                 pc.address_id.city or None,
+                 partner.birth_date or None,
+                 available_genders.get(partner.gender, None),
+                 available_tongues.get(partner.tongue, None),
+                 partner.fix_coordinate_id if not partner.fix_coordinate_id \
+                    else partner.fix_coordinate_id.phone_id.name,
+                 partner.mobile_coordinate_id if not partner.mobile_coordinate_id \
+                    else partner.mobile_coordinate_id.phone_id.name,
+                 partner.fax_coordinate_id if not partner.fax_coordinate_id \
+                    else partner.fax_coordinate_id.phone_id.name,
+                 partner.email_coordinate_id if not partner.email_coordinate_id \
+                    else partner.email_coordinate_id.email
+             ])
         f.close()
         f = open(tmp.name, "r")
-        attachment = [(_('Extract.csv'), 'u%s' % f.read())]
+        attachment = [(_('Extract.csv'), '%s' % f.read())]
         partner_ids = self.pool['res.partner'].search(cr, uid, [('user_ids', '=', uid)], context=context)
         if partner_ids:
             self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context, partner_ids=partner_ids, subject=_('Export CSV'))
