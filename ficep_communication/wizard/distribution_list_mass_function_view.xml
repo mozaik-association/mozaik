@@ -27,11 +27,6 @@
                                 <field name="bounce_counter" />
                                 <field name="internal_instance_id"/>
                             </group>
-                            <group>
-                                <field name="sort_by" />
-                                <field name="groupby_coresidency"
-                                       attrs="{'invisible':[('trg_model','!=','postal.coordinate')]}" />
-                            </group>
                         </group>
 
                         <notebook>
@@ -57,9 +52,11 @@
                                 label print
                             </page>
                             <page name="csv" string="CSV" autofocus="autofocus"
-                                  attrs="{'invisible':[('e_mass_function','!=','csv'),
-                                                       ('p_mass_function','!=','csv')]}">
-                                csv
+                                  attrs="{'invisible':[('extract_csv','=',False)]}">
+                                 <group>
+                                    <field name="sort_by" />
+                                    <field name="groupby_coresidency" />
+                                </group>
                             </page>
                         </notebook>
                     </sheet>

@@ -36,8 +36,11 @@ from openerp.addons.ficep_person.res_partner import available_genders, available
 
 HEADER_ROW = [
     'Lastname',
+    'Usual Lastname',
     'Firstname',
-    'Printable Name',
+    'Usual Firstname',
+    'Co-Residency Line 1',
+    'Co-Residency Line 2',
     'Country Code',
     'Country Name',
     'Country Zip',
@@ -135,6 +138,8 @@ class distribution_list_mass_function(orm.TransientModel):
 
                 if wizard.sort_by:
                     context['sort_by'] = wizard.sort_by
+                if wizard.groupby_coresidency:
+                    context['alternative_group_by'] = 'co_residency_id'
 
                 if wizard.e_mass_function == 'csv':
                     pass
@@ -163,14 +168,14 @@ class distribution_list_mass_function(orm.TransientModel):
                     active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [context.get('active_id', False)], context=context)
                     context['active_ids'] = active_ids
                     if alternative_ids and wizard.extract_csv:
-                        self.render_csv(cr, uid, alternative_ids, context=context)
+                        self.render_csv(cr, uid, alternative_ids, wizard.groupby_coresidency, context=context)
 
                     self.pool['mail.compose.message'].send_mail(cr, uid, [mail_composer_id], context=context)
             else:
                 # TODO: label print
                 pass
 
-    def render_csv(self, cr, uid, postal_ids, context=None):
+    def render_csv(self, cr, uid, postal_ids, group_by=False, context=None):
         """
         ==========
         render_csv
@@ -190,7 +195,12 @@ class distribution_list_mass_function(orm.TransientModel):
         f = open(tmp.name, "r+")
         writer = csv.writer(f)
         writer.writerow(HEADER_ROW)
+        co_residencies = []
         for pc in postal_coordinates:
+            #case group by is ask and where a co_residency is present and already write then don't write a new row
+            if group_by and pc.co_residency_id and pc.co_residency_id.id in co_residencies:
+                continue
+            co_residencies.append(pc.co_residency_id.id)
             #test access coordinate (VIP READER)
             partner = safe_get(pc, 'partner_id')
             if not partner:
@@ -198,8 +208,14 @@ class distribution_list_mass_function(orm.TransientModel):
 
             writer.writerow([
                  partner.lastname or None,
+                 partner.usual_lastname or None,
                  partner.firstname or None,
-                 partner.printable_name or None,
+                 partner.usual_firstname or None,
+
+                 partner.printable_name if not pc.co_residency_id \
+                    else pc.co_residency_id.line,
+                 pc.co_residency_id if not pc.co_residency_id \
+                    else pc.co_residency_id.line2,
                  pc.address_id.country_code or None,
                  pc.address_id.country_id.name or None,
                  pc.address_id.zip or None,
