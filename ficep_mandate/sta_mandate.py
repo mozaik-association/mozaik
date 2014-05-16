@@ -43,6 +43,7 @@ class sta_selection_committee(orm.Model):
     _assembly_category_model = 'sta.assembly.category'
     _mandate_category_foreign_key = 'sta_assembly_category_id'
     _form_view = 'sta_selection_committee_form_view'
+    _parameters_key = 'sta_candidature_invalidation_delay'
 
     def _get_suggested_candidatures(self, cr, uid, ids, context=None):
         """
@@ -193,6 +194,17 @@ class sta_selection_committee(orm.Model):
 
             res['value']['legislature_id'] = legislature_id
         return res
+
+    def process_invalidate_candidatures_after_delay(self, cr, uid, context=None):
+        """
+        ==========================
+        invalidate_candidatures
+        ==========================
+        This method is used to invalidate candidatures after a defined elapsed time
+        :rparam: True
+        :rtype: boolean
+        """
+        return super(sta_selection_committee, self).process_invalidate_candidatures_after_delay(cr, uid, context=context)
 
 CANDIDATURE_AVAILABLE_SORT_ORDERS = {
     'elected': '00',

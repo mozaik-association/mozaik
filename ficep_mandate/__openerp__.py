@@ -56,6 +56,7 @@ FICEP Mandate
         'int_mandate_workflow.xml',
         'ext_mandate_workflow.xml',
         'data/ir_cron_mandate.xml',
+        'data/ir_config_parameter_data.xml'
     ],
     'js': [
     ],

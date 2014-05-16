@@ -52,6 +52,7 @@ class int_selection_committee(orm.Model):
     _assembly_category_model = 'int.assembly.category'
     _mandate_category_foreign_key = 'int_assembly_category_id'
     _form_view = 'int_selection_committee_form_view'
+    _parameters_key = 'int_candidature_invalidation_delay'
 
     def _get_suggested_candidatures(self, cr, uid, ids, context=None):
         """
@@ -123,6 +124,17 @@ class int_selection_committee(orm.Model):
     # view methods: onchange, button
     def onchange_assembly_id(self, cr, uid, ids, assembly_id, context=None):
         return super(int_selection_committee, self).onchange_assembly_id(cr, uid, ids, assembly_id, context=None)
+
+    def process_invalidate_candidatures_after_delay(self, cr, uid, context=None):
+        """
+        ==========================
+        invalidate_candidatures
+        ==========================
+        This method is used to invalidate candidatures after a defined elapsed time
+        :rparam: True
+        :rtype: boolean
+        """
+        return super(int_selection_committee, self).process_invalidate_candidatures_after_delay(cr, uid, context=context)
 
 
 class int_candidature(orm.Model):
