@@ -175,12 +175,16 @@ class distribution_list_mass_function(orm.TransientModel):
             partner = safe_get(pc, 'partner_id')
             if not partner:
                 continue
-            export_values = OrderedDict([('name', safe_get(partner, 'name')),
+            export_values = OrderedDict([('name', partner.name),
                                          ('address', pc.address_id.name),
-                                         ('email', partner.email),
-                                         ('phone', partner.phone),
-                                         ('mobile', partner.mobile),
-                                         ('fax', pc.partner_id.fax)])
+                                         ('email', partner.email_coordinate_id if not partner.email_coordinate_id \
+                                             else partner.email_coordinate_id.email),
+                                         ('phone', partner.fix_coordinate_id if not partner.fix_coordinate_id \
+                                             else partner.fix_coordinate_id.phone_id.name),
+                                         ('mobile', partner.mobile_coordinate_id if not partner.mobile_coordinate_id \
+                                             else partner.mobile_coordinate_id.phone_id.name),
+                                         ('fax', partner.fax_coordinate_id if not partner.fax_coordinate_id \
+                                             else partner.fax_coordinate_id.phone_id.name)])
             writer.writerow(export_values.values())
         f.close()
         f = open(tmp.name, "r")

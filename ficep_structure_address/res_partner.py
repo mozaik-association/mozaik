@@ -84,7 +84,7 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Single mode
         """
-        result = {}.fromkeys(ids, False)
+        result = {i: False for i in ids}
 
         def_int_instance_id = self.pool.get('int.instance').get_default(cr, uid)
         for partner in self.browse(cr, uid, ids, context=context):

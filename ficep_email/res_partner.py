@@ -47,7 +47,7 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Single mode
         """
-        result = {}.fromkeys(ids, False)
+        result = {i: False for i in ids}
         coord_obj = self.pool['email.coordinate']
         coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
                                                     ('is_main', '=', True),
@@ -70,7 +70,7 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Single mode
         """
-        result = {}.fromkeys(ids, False)
+        result = {i: False for i in ids}
         coord_obj = self.pool['email.coordinate']
         coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
                                                              ('is_main', '=', True),

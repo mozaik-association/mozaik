@@ -48,7 +48,7 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Single mode
         """
-        result = {}.fromkeys(ids, False)
+        result = {i: False for i in ids}
         coord_obj = self.pool['postal.coordinate']
         coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
                                                              ('is_main', '=', True),
@@ -59,7 +59,14 @@ class res_partner(orm.Model):
         return result
 
     def _get_street2(self, cr, uid, ids, name, args, context=None):
-        result = {}.fromkeys(ids, False)
+        """
+        ============
+        _get_street2
+        ============
+        :rtype: {}
+        :rparam: corresponding value for each partner_id
+        """
+        result = {i: False for i in ids}
         coord_obj = self.pool['postal.coordinate']
         coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
                                                              ('is_main', '=', True),
@@ -85,7 +92,7 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Multiple mode
         """
-        result = {}.fromkeys(ids, {key: False for key in ['country_id', 'zip_id', 'zip', 'city', 'street', 'address', ]})
+        result = {i: {key: False for key in ['country_id', 'zip_id', 'zip', 'city', 'street', 'address']} for i in ids}
         coord_obj = self.pool['postal.coordinate']
         coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
                                                     ('is_main', '=', True),
