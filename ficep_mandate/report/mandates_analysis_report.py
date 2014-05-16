@@ -75,6 +75,7 @@ class mandates_analysis_report(orm.Model):
                      JOIN int_assembly          AS assembly    ON assembly.id = mandate.int_assembly_id
                      JOIN int_assembly_category AS category    ON category.id = assembly.assembly_category_id
                     WHERE end_date IS Null
+                      AND alert_date IS NULL
                       AND deadline_date > now()
 
                     UNION
@@ -95,6 +96,7 @@ class mandates_analysis_report(orm.Model):
                      JOIN ext_assembly          AS assembly ON assembly.id = mandate.ext_assembly_id
                      JOIN ext_assembly_category AS category ON category.id = assembly.assembly_category_id
                     WHERE end_date IS Null
+                      AND alert_date IS NULL
                       AND deadline_date > now()
                        ) AS mandates
                    WHERE remaining_months_before_end_of_mandate <= months_before_end_of_mandate
@@ -143,7 +145,7 @@ class mandates_analysis_report(orm.Model):
                                 assembly_name,
                                 url.get_document_url(self, cr, uid, mandate._model._name, mandate.id, context=context),
                                 self.pool.get('res.lang').format_date(cr, uid, mandate.deadline_date, context=context)))
-
+                mandate._model.write(cr, uid, mandate.id, {'alert_date': fields.date.today()}, context=context)
             content_text.append('</table></p>')
 
             mail_vals = {
