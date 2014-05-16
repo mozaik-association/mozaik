@@ -245,7 +245,7 @@ class sta_candidature(orm.Model):
         Note:
         Calling and result convention: Single mode
         """
-        result = {}.fromkeys(ids, False)
+        result = {i: False for i in ids}
         for cand in self.browse(cr, uid, ids, context=context):
             sort_order = CANDIDATURE_AVAILABLE_SORT_ORDERS.get(cand.state, '99')
             if cand.state == 'non-elected' and not cand.is_substitute:

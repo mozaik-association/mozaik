@@ -33,12 +33,18 @@ class mail_compose_message(orm.TransientModel):
     _inherit = 'mail.compose.message'
 
     def get_mail_values(self, cr, uid, wizard, res_ids, context=None):
+        """
+        ===============
+        get_mail_values
+        ===============
+        """
         values = super(mail_compose_message, self).get_mail_values(cr, uid, wizard, res_ids, context=context)
         if wizard.model == 'email.coordinate':
-            for res_id in values.keys():
-                email = self.pool[wizard.model].read(cr, uid, res_id, ['email'], context=context)['email']
-                if email:
-                    values[res_id]['email_to'] = email
+            #due to security terms
+            email_values = self.pool[wizard.model].search_read(cr, uid, [('id', 'in', values.keys())], ['id', 'email'], context=context)
+            for email_value in email_values:
+                if email_value['email']:
+                    values[email_value['id']]['email_to'] = email_value['email']
         return values
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

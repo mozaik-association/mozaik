@@ -177,6 +177,10 @@ class xxxx(orm.Model):
 
 # orm methods
 
+    def _auto_init(self, cr, context=None):
+        res = super(xxxx, self)._auto_init(cr, context=context)
+        return res
+
     def name_get(self, cr, uid, ids, context=None):
         if not ids:
             return []

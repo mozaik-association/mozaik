@@ -25,14 +25,39 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import csv
+import tempfile
+from collections import OrderedDict
 
+from openerp.tools.translate import _
 from openerp.osv import orm, fields
+
+from openerp.addons.ficep_person.res_partner import available_genders, available_tongues
+
+HEADER_ROW = [
+    'Lastname',
+    'Firstname',
+    'Printable Name',
+    'Country Code',
+    'Country Name',
+    'Country Zip',
+    'Street',
+    'Street2',
+    'City',
+    'Birthdate',
+    'Gender',
+    'Tongue',
+    'Phone',
+    'Mobile',
+    'Fax',
+    'Email'
+]
 
 # Constants
 SORT_BY = [
-    ('register_number', 'Identification Number'),
-    ('name', 'Name'),
-    ('zip', 'Zip Code'),
+    ('identifier asc', 'Identification Number'),
+    ('display_name asc', 'Name'),
+    ('zip desc,display_name asc', 'Zip Code'),
 ]
 E_MASS_FUNCTION = [
     ('email_coordinate_id', 'Mass Mailing'),
@@ -97,22 +122,25 @@ class distribution_list_mass_function(orm.TransientModel):
             if wizard.trg_model == 'email.coordinate':
                 domains = []
                 if wizard.include_unauthorized:
-                    domains.append("'|',('unauthorized','=', True),('unauthorized','=', False)")
+                    domains.append("'|',('email_unauthorized','=', True),('email_unauthorized','=', False)")
                 else:
-                    domains.append("('unauthorized','=', False)")
+                    domains.append("('email_unauthorized','=', False)")
 
                 if wizard.internal_instance_id:
-                    domains.append("('partner_id.int_instance_id.id','child_of', %s)" % wizard.internal_instance_id.id)
+                    domains.append("('int_instance_id','child_of', [%s])" % wizard.internal_instance_id.id)
                 if wizard.bounce_counter != 0:
                     wizard.bounce_counter = wizard.bounce_counter if wizard.bounce_counter >= 0 else 0
-                    domains.append("('bouce_counter','<=', %s)" % wizard.bounce_counter)
+                    domains.append("('email_bouce_counter','<=', %s)" % wizard.bounce_counter)
+                context['more_filter'] = domains
 
-                context['more_filter'] = (wizard.trg_model, domains)
+                if wizard.sort_by:
+                    context['sort_by'] = wizard.sort_by
 
                 if wizard.e_mass_function == 'csv':
                     pass
                 else:
-                    context['field_mailing_object'] = wizard.e_mass_function
+                    context['field_alternative_object'] = 'postal_coordinate_id'
+                    context['field_main_object'] = wizard.e_mass_function
                     context['target_model'] = wizard.trg_model
                     template_id = wizard.email_template_id.id
                     email_from = composer._get_default_from(cr, uid, context=context)
@@ -124,7 +152,6 @@ class distribution_list_mass_function(orm.TransientModel):
                                           'post': False,
                                           'partner_ids': [[6, False, []]],
                                           'notify': False,
-                                          'distribution_list_id': context.get('active_id', False),
                                           'template_id': template_id,
                                           'subject': "",
                                           'mass_mailing_campaign_id': wizard.campaign_id.id,
@@ -132,9 +159,70 @@ class distribution_list_mass_function(orm.TransientModel):
                     value = composer.onchange_template_id(cr, uid, ids, template_id, 'mass_mail', '', 0, context=context)['value']
                     mail_composer_vals.update(value)
                     mail_composer_id = composer.create(cr, uid, mail_composer_vals, context=context)
+                    # compute ids
+                    active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [context.get('active_id', False)], context=context)
+                    context['active_ids'] = active_ids
+                    if alternative_ids and wizard.extract_csv:
+                        self.render_csv(cr, uid, alternative_ids, context=context)
+
                     self.pool['mail.compose.message'].send_mail(cr, uid, [mail_composer_id], context=context)
             else:
                 # TODO: label print
                 pass
+
+    def render_csv(self, cr, uid, postal_ids, context=None):
+        """
+        ==========
+        render_csv
+        ==========
+        Get a CSV file with data of postal_ids depending of ``HEADER_ROW``
+        Send  the CSV as message into the inbox of the user
+        :type postal_ids: []
+        """
+        def safe_get(o, attr, default=None):
+            try:
+                return getattr(o, attr)
+            except orm.except_orm:
+                return default
+
+        postal_coordinates = self.pool['postal.coordinate'].browse(cr, uid, postal_ids, context=context)
+        tmp = tempfile.NamedTemporaryFile(prefix='Extract', suffix=".csv", delete=False)
+        f = open(tmp.name, "r+")
+        writer = csv.writer(f)
+        writer.writerow(HEADER_ROW)
+        for pc in postal_coordinates:
+            #test access coordinate (VIP READER)
+            partner = safe_get(pc, 'partner_id')
+            if not partner:
+                continue
+
+            writer.writerow([
+                 partner.lastname or None,
+                 partner.firstname or None,
+                 partner.printable_name or None,
+                 pc.address_id.country_code or None,
+                 pc.address_id.country_id.name or None,
+                 pc.address_id.zip or None,
+                 pc.address_id.street or None,
+                 pc.address_id.street2 or None,
+                 pc.address_id.city or None,
+                 partner.birth_date or None,
+                 available_genders.get(partner.gender, None),
+                 available_tongues.get(partner.tongue, None),
+                 partner.fix_coordinate_id if not partner.fix_coordinate_id \
+                    else partner.fix_coordinate_id.phone_id.name,
+                 partner.mobile_coordinate_id if not partner.mobile_coordinate_id \
+                    else partner.mobile_coordinate_id.phone_id.name,
+                 partner.fax_coordinate_id if not partner.fax_coordinate_id \
+                    else partner.fax_coordinate_id.phone_id.name,
+                 partner.email_coordinate_id if not partner.email_coordinate_id \
+                    else partner.email_coordinate_id.email
+             ])
+        f.close()
+        f = open(tmp.name, "r")
+        attachment = [(_('Extract.csv'), '%s' % f.read())]
+        partner_ids = self.pool['res.partner'].search(cr, uid, [('user_ids', '=', uid)], context=context)
+        if partner_ids:
+            self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context, partner_ids=partner_ids, subject=_('Export CSV'))
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

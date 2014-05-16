@@ -99,7 +99,7 @@ class thesaurus_term(orm.Model):
     _description = 'Thesaurus Term'
 
     def _get_technical_name(self, cr, uid, ids, name, args, context=None):
-        result = {}.fromkeys(ids, False)
+        result = {i: False for i in ids}
         terms = self.browse(cr, uid, ids, context=context)
         for term in terms:
             elts = [
