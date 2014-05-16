@@ -25,7 +25,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################'''
+import logging
 from openerp.osv import orm, fields
+
+_logger = logging.getLogger(__name__)
 
 
 class int_power_level(orm.Model):
@@ -144,6 +147,9 @@ class int_assembly(orm.Model):
         'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation assembly',
                                                  select=True, track_visibility='onchange',
                                                  domain=[('is_designation_assembly', '=', True)]),
+        'is_secretariat': fields.related('assembly_category_id', 'is_secretariat', string='Is secretariat',
+                                          type='boolean', relation=_category_model,
+                                          store=False),
     }
 
     def create(self, cr, uid, vals, context=None):
@@ -166,4 +172,17 @@ class int_assembly(orm.Model):
     def onchange_assembly_category_id(self, cr, uid, ids, assembly_category_id, context=None):
         return super(int_assembly, self).onchange_assembly_category_id(cr, uid, ids, assembly_category_id, context=context)
 
+    # public methods
+    def get_secretariat_assembly_id(self, cr, uid, assembly_id, context=None):
+        '''
+        Return id of secretariat assembly depending on the same instance of given assembly
+        '''
+        instance_id = self.read(cr, uid, assembly_id, ['instance_id'], context=context)['instance_id'][0]
+        assembly_ids = self.search(cr, uid, [('instance_id', '=', instance_id),
+                                     ('is_secretariat', '=', True)], context=context)
+        if assembly_ids:
+            return assembly_ids[0]
+        else:
+            _logger.warning('No secretariat found for internal assembly %s', assembly_id)
+            return False
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

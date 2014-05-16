@@ -32,4 +32,5 @@ from . import int_mandate
 from . import ext_mandate
 from . import structure
 from . import wizard
+from . import report
 from . import res_partner
