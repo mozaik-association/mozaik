@@ -30,10 +30,7 @@ from openerp.osv import orm, fields
 
 from openerp.addons.ficep_mandate.abstract_mandate import abstract_candidature
 from openerp.addons.ficep_mandate.mandate import mandate_category
-#===============================================================================
-# from .abstract_mandate import create_mandate_from_candidature
-# from .mandate import mandate_category
-#===============================================================================
+
 CANDIDATURE_AVAILABLE_STATES = [
     ('draft', 'Draft'),
     ('declared', 'Declared'),

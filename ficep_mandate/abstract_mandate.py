@@ -49,36 +49,6 @@ CANDIDATURE_AVAILABLE_STATES = [
 candidature_available_states = dict(CANDIDATURE_AVAILABLE_STATES)
 
 
-def create_mandate_from_candidature(cr, uid, candidature_pool, candidature_id, context=None):
-    """
-    ==============================
-    create_mandate_from_candidature
-    ==============================
-    Return Mandate id create on base of candidature id
-    :rparam: mandate id
-    :rtype: id
-    """
-    mandate_pool = candidature_pool.pool.get(candidature_pool._mandate_model)
-    committee_pool = candidature_pool.pool.get(candidature_pool._selection_committee_model)
-    candidature_data = candidature_pool.read(cr, uid, candidature_id, [], context)
-    res = False
-    mandate_values = {}
-    for column in candidature_pool._init_mandate_columns:
-        if column in mandate_pool._columns:
-            if candidature_pool._columns[column]._type == 'many2one':
-                mandate_values[column] = candidature_data[column][0]
-            else:
-                mandate_values[column] = candidature_data[column]
-
-    if mandate_values:
-        committee_data = committee_pool.read(cr, uid, candidature_data['selection_committee_id'][0], ['mandate_start_date', 'mandate_deadline_date'], context=context)
-        mandate_values['start_date'] = committee_data['mandate_start_date']
-        mandate_values['deadline_date'] = committee_data['mandate_deadline_date']
-        mandate_values['candidature_id'] = candidature_data['id']
-        res = mandate_pool.create(cr, uid, mandate_values, context)
-    return res
-
-
 class abstract_selection_committee(orm.AbstractModel):
     _name = 'abstract.selection.committee'
     _description = 'Abstract Selection Committee'
@@ -472,7 +442,7 @@ class abstract_candidature(orm.AbstractModel):
         self.write(cr, uid, ids, {'state': 'elected'})
         for candidature in self.browse(cr, uid, ids, context):
             if candidature.selection_committee_id.auto_mandate:
-                create_mandate_from_candidature(cr, uid, self, candidature.id, context)
+                self.create_mandate_from_candidature(cr, uid, candidature.id, context)
         return True
 
     def onchange_partner_id(self, cr, uid, ids, partner_id, context=None):
@@ -481,6 +451,35 @@ class abstract_candidature(orm.AbstractModel):
         partner = partner_model.browse(cr, uid, partner_id, context)
 
         res['value'] = dict(partner_name=partner_model.build_name(partner, capitalize_mode=True) or False,)
+        return res
+
+    def create_mandate_from_candidature(self, cr, uid, candidature_id, context=None):
+        """
+        ==============================
+        create_mandate_from_candidature
+        ==============================
+        Return Mandate id create on base of candidature id
+        :rparam: mandate id
+        :rtype: id
+        """
+        mandate_pool = self.pool.get(self._mandate_model)
+        committee_pool = self.pool.get(self._selection_committee_model)
+        candidature_data = self.read(cr, uid, candidature_id, [], context)
+        res = False
+        mandate_values = {}
+        for column in self._init_mandate_columns:
+            if column in mandate_pool._columns:
+                if self._columns[column]._type == 'many2one':
+                    mandate_values[column] = candidature_data[column][0]
+                else:
+                    mandate_values[column] = candidature_data[column]
+
+        if mandate_values:
+            committee_data = committee_pool.read(cr, uid, candidature_data['selection_committee_id'][0], ['mandate_start_date', 'mandate_deadline_date'], context=context)
+            mandate_values['start_date'] = committee_data['mandate_start_date']
+            mandate_values['deadline_date'] = committee_data['mandate_deadline_date']
+            mandate_values['candidature_id'] = candidature_data['id']
+            res = mandate_pool.create(cr, uid, mandate_values, context)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
