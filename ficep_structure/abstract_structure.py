@@ -139,8 +139,10 @@ class abstract_assembly(orm.AbstractModel):
     }
     _description = 'Abstract Assembly'
 
+    _category_model = 'abstract.assembly.category'
+
     _columns = {
-        'assembly_category_id': fields.many2one('abstract.assembly.category', string='Category',
+        'assembly_category_id': fields.many2one(_category_model, string='Category',
                                                 select=True, required=True, track_visibility='onchange'),
         'instance_id': fields.many2one('abstract.instance', string='Instance',
                                        select=True, required=True, track_visibility='onchange'),
@@ -183,5 +185,16 @@ class abstract_assembly(orm.AbstractModel):
     ]
 
     _unicity_keys = 'instance_id, assembly_category_id'
+
+    # view methods: onchange, button
+    def onchange_assembly_category_id(self, cr, uid, ids, assembly_category_id, context=None):
+        res = {}
+        res['value'] = dict(months_before_end_of_mandate=False)
+        if assembly_category_id:
+            assembly_category = self.pool.get(self._category_model).browse(cr, uid, assembly_category_id)
+
+            res['value'] = dict(months_before_end_of_mandate=assembly_category.months_before_end_of_mandate)
+
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

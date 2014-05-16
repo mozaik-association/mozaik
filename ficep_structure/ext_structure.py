@@ -42,6 +42,8 @@ class ext_assembly(orm.Model):
     _inherit = ['abstract.assembly']
     _description = "External Assembly"
 
+    _category_model = 'ext.assembly.category'
+
     def _compute_dummy(self, cursor, uid, ids, fname, arg, context=None):
         res = {}
         assemblies = self.browse(cursor, uid, ids, context=context)
@@ -65,7 +67,7 @@ class ext_assembly(orm.Model):
         'dummy': fields.function(_compute_dummy, string="Dummy",
                                  type="char", store=_name_store_triggers,
                                  select=True),
-        'assembly_category_id': fields.many2one('ext.assembly.category', 'Assembly Category',
+        'assembly_category_id': fields.many2one(_category_model, 'Assembly Category',
                                                 select=True, required=True, track_visibility='onchange'),
         'instance_id': fields.many2one('int.instance', 'Internal Instance',
                                        select=True, required=True, track_visibility='onchange'),
@@ -101,5 +103,9 @@ class ext_assembly(orm.Model):
             vals['name'] = '%s (%s)' % (instance['name'], category['name'])
         res = super(ext_assembly, self).create(cr, uid, vals, context=context)
         return res
+
+    # view methods: onchange, button
+    def onchange_assembly_category_id(self, cr, uid, ids, assembly_category_id, context=None):
+        return super(ext_assembly, self).onchange_assembly_category_id(cr, uid, ids, assembly_category_id, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -25,14 +25,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from urllib import urlencode
-from urlparse import urljoin
 import logging
 
 from openerp import tools
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
+
+from openerp.addons.ficep_base import url
 
 _logger = logging.getLogger(__name__)
 
@@ -143,7 +143,7 @@ class duplicate_analysis_report(orm.Model):
                         for duplicate in duplicates:
                             reason = duplicate['name'] or _('Unknown birth date')
                             content_text.append('<tr><td><b>%s</b</td><td><a style="color:blue" href="%s">%s</a></td></tr>' %
-                               (duplicate['partner_name'], self.get_document_url(cr, uid, duplicate['model'], duplicate['orig_id'], context=context), reason))
+                               (duplicate['partner_name'], url.get_document_url(cr, uid, duplicate['model'], duplicate['orig_id'], context=context), reason))
                     content_text.append('</table><p/>')
                 elif force_send:
                     content_text.append('<p>%s</p>' % _('There are no duplicates'))
@@ -160,31 +160,5 @@ class duplicate_analysis_report(orm.Model):
             _logger.info('process_notify_duplicates: mail id %s created...', mail_id)
 
         return mail_id
-
-    def get_document_url(self, cr, uid, model, object_id, context=None):
-        """
-        ================
-        get_document_url
-        ================
-        Builds the Url to a document
-        :type model: string
-        :param model: model technical name
-        :type object_id: integer
-        :param object_id: document id
-        :rtype: string
-        :rparam: document url
-        """
-        base_url = self.pool.get('ir.config_parameter').get_param(cr, uid, 'web.base.url')
-        # the parameters to encode for the query and fragment part of url
-        query = {
-            'db': cr.dbname,
-        }
-        fragment = {
-            'action': 'mail.action_mail_redirect',
-            'model': model,
-            'res_id': object_id,
-        }
-        url = urljoin(base_url, "?%s#%s" % (urlencode(query), urlencode(fragment)))
-        return url
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

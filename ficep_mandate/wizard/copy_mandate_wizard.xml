@@ -98,7 +98,7 @@
         <record id="copy_int_mandate_wizard" model="ir.ui.view">
             <field name="name">copy.int.mandate.wizard</field>
             <field name="model">copy.int.mandate.wizard</field>
-             <field name="inherit_id" ref="abstract_copy_mandate_wizard"/>
+            <field name="inherit_id" ref="abstract_copy_mandate_wizard"/>
             <field name="arch" type="xml">                
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="domain">[('type', '=', 'int')]</attribute>
@@ -112,7 +112,7 @@
         <record id="copy_ext_mandate_wizard" model="ir.ui.view">
             <field name="name">copy.ext.mandate.wizard</field>
             <field name="model">copy.ext.mandate.wizard</field>
-             <field name="inherit_id" ref="abstract_copy_mandate_wizard"/>
+            <field name="inherit_id" ref="abstract_copy_mandate_wizard"/>
             <field name="arch" type="xml">                
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="domain">[('type', '=', 'ext')]</attribute>
@@ -141,7 +141,7 @@
             <field name="src_model">int.mandate</field>
             <field name="res_model">copy.int.mandate.wizard</field>
             <field name="target">new</field>
-            <field name="view_id" ref="abstract_copy_mandate_wizard" />
+            <field name="view_id" ref="copy_int_mandate_wizard" />
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
         </record>
         
@@ -152,7 +152,7 @@
             <field name="src_model">ext.mandate</field>
             <field name="res_model">copy.ext.mandate.wizard</field>
             <field name="target">new</field>
-            <field name="view_id" ref="abstract_copy_mandate_wizard" />
+            <field name="view_id" ref="copy_ext_mandate_wizard" />
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
         </record>
     </data>

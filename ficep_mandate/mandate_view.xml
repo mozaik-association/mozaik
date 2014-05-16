@@ -553,13 +553,18 @@
                 <xpath expr="//field[@name='email_coordinate_id']" position="before">
                     <field name="int_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
                             required="1"
-                            domain="[('assembly_category_id', '=', int_assembly_category_id)]"/>
+                            domain="[('assembly_category_id', '=', int_assembly_category_id)]"
+                            on_change="onchange_int_assembly_id(int_assembly_id)"/>
                 </xpath>
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
                 </xpath>
-
+                
+                <xpath expr="//field[@name='end_date']" position="after">
+                    <field name="months_before_end_of_mandate"/>
+                </xpath>
+                
                 <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="int_assembly_category_id"/>
                 </xpath>
@@ -574,11 +579,16 @@
                 <xpath expr="//field[@name='email_coordinate_id']" position="before">
                     <field name="ext_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
                             required="1"
-                            domain="[('assembly_category_id', '=', ext_assembly_category_id)]"/>
+                            domain="[('assembly_category_id', '=', ext_assembly_category_id)]"
+                            on_change="onchange_ext_assembly_id(ext_assembly_id)"/>
                 </xpath>
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
+                </xpath>
+                
+                <xpath expr="//field[@name='end_date']" position="after">
+                    <field name="months_before_end_of_mandate"/>
                 </xpath>
                 
                 <xpath expr="//group[@name='data']" position="after">
