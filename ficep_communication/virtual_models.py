@@ -98,15 +98,17 @@ class virtual_target(orm.Model):
 
         LEFT OUTER JOIN
             email_coordinate e
-        ON (e.partner_id = p.id)
+        ON (e.partner_id = p.id
+        AND e.active IS TRUE)
 
         LEFT OUTER JOIN
             postal_coordinate pc
-        ON (pc.partner_id = p.id)
+        ON (pc.partner_id = p.id
+        AND pc.active IS TRUE)
 
         LEFT OUTER JOIN
             address_address adr
-        ON (pc.address_id = adr.id)
+        ON (adr.id = pc.address_id)
 
         LEFT OUTER JOIN
             int_instance i
