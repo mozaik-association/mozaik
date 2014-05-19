@@ -30,10 +30,7 @@ from openerp.osv import orm, fields
 
 from openerp.addons.ficep_mandate.abstract_mandate import abstract_candidature
 from openerp.addons.ficep_mandate.mandate import mandate_category
-#===============================================================================
-# from .abstract_mandate import create_mandate_from_candidature
-# from .mandate import mandate_category
-#===============================================================================
+
 CANDIDATURE_AVAILABLE_STATES = [
     ('draft', 'Draft'),
     ('declared', 'Declared'),
@@ -55,6 +52,7 @@ class ext_selection_committee(orm.Model):
     _assembly_category_model = 'ext.assembly.category'
     _mandate_category_foreign_key = 'ext_assembly_category_id'
     _form_view = 'ext_selection_committee_form_view'
+    _parameters_key = 'ext_candidature_invalidation_delay'
 
     def _get_suggested_candidatures(self, cr, uid, ids, context=None):
         """
@@ -127,6 +125,17 @@ class ext_selection_committee(orm.Model):
     def onchange_assembly_id(self, cr, uid, ids, assembly_id, context=None):
         return super(ext_selection_committee, self).onchange_assembly_id(cr, uid, ids, assembly_id, context=None)
 
+    def process_invalidate_candidatures_after_delay(self, cr, uid, context=None):
+        """
+        ==========================
+        invalidate_candidatures
+        ==========================
+        This method is used to invalidate candidatures after a defined elapsed time
+        :rparam: True
+        :rtype: boolean
+        """
+        return super(ext_selection_committee, self).process_invalidate_candidatures_after_delay(cr, uid, context=context)
+
 
 class ext_candidature(orm.Model):
 
@@ -137,7 +146,7 @@ class ext_candidature(orm.Model):
     _mandate_model = 'ext.mandate'
     _selection_committee_model = 'ext.selection.committee'
     _init_mandate_columns = list(abstract_candidature._init_mandate_columns)
-    _init_mandate_columns.extend(['ext_assembly_id'])
+    _init_mandate_columns.extend(['ext_assembly_id', 'months_before_end_of_mandate'])
     _allowed_inactive_link_models = [_selection_committee_model]
 
     _columns = {
@@ -150,6 +159,9 @@ class ext_candidature(orm.Model):
         'ext_assembly_id': fields.related('selection_committee_id', 'assembly_id', string='External Assembly',
                                           type='many2one', relation="ext.assembly",
                                           store=True),
+         'months_before_end_of_mandate': fields.related('ext_assembly_id', 'months_before_end_of_mandate', string='Months before end of Mandate',
+                                          type='integer', relation="ext.assembly",
+                                          store=False),
     }
 
     _order = 'selection_committee_id'
@@ -186,6 +198,7 @@ class ext_mandate(orm.Model):
                                           type='boolean',
                                           store={'mandate.category': (mandate_category.get_linked_ext_mandate_ids, ['is_submission_assets'], 20)}),
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'sta_mandate_term_competencies_rel', id1='sta_mandate_id', id2='thesaurus_term_id', string='Competencies'),
+        'months_before_end_of_mandate': fields.integer('Months before end of Mandate', track_visibility='onchange'),
     }
 
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
@@ -225,3 +238,13 @@ class ext_mandate(orm.Model):
         return {
             'value': res,
         }
+
+    def onchange_ext_assembly_id(self, cr, uid, ids, ext_assembly_id, context=None):
+        res = {}
+        res['value'] = dict(months_before_end_of_mandate=False)
+        if ext_assembly_id:
+            assembly = self.pool.get('ext.assembly').browse(cr, uid, ext_assembly_id)
+
+            res['value'] = dict(months_before_end_of_mandate=assembly.months_before_end_of_mandate)
+
+        return res

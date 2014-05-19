@@ -98,6 +98,6 @@ class test_phone_phone(common.TransactionCase):
         :expected: orm_exception
         """
         cr, uid = self.cr, self.uid
-        self.assertRaises(orm.except_orm, self.model_phone._check_and_format_number, cr, uid, 'badquery')
+        self.assertRaises(orm.except_orm, self.model_phone._check_and_format_number, cr, uid, 'badquery', context={})
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

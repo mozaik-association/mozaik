@@ -29,7 +29,7 @@
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
-from openerp.addons.ficep_mandate.abstract_mandate import create_mandate_from_candidature, abstract_candidature
+from openerp.addons.ficep_mandate.abstract_mandate import abstract_candidature
 from openerp.addons.ficep_mandate.mandate import mandate_category
 
 
@@ -43,6 +43,7 @@ class sta_selection_committee(orm.Model):
     _assembly_category_model = 'sta.assembly.category'
     _mandate_category_foreign_key = 'sta_assembly_category_id'
     _form_view = 'sta_selection_committee_form_view'
+    _parameters_key = 'sta_candidature_invalidation_delay'
 
     def _get_suggested_candidatures(self, cr, uid, ids, context=None):
         """
@@ -194,6 +195,17 @@ class sta_selection_committee(orm.Model):
             res['value']['legislature_id'] = legislature_id
         return res
 
+    def process_invalidate_candidatures_after_delay(self, cr, uid, context=None):
+        """
+        ==========================
+        invalidate_candidatures
+        ==========================
+        This method is used to invalidate candidatures after a defined elapsed time
+        :rparam: True
+        :rtype: boolean
+        """
+        return super(sta_selection_committee, self).process_invalidate_candidatures_after_delay(cr, uid, context=context)
+
 CANDIDATURE_AVAILABLE_SORT_ORDERS = {
     'elected': '00',
     'non-elected': '10',
@@ -233,7 +245,7 @@ class sta_candidature(orm.Model):
         Note:
         Calling and result convention: Single mode
         """
-        result = {}.fromkeys(ids, False)
+        result = {i: False for i in ids}
         for cand in self.browse(cr, uid, ids, context=context):
             sort_order = CANDIDATURE_AVAILABLE_SORT_ORDERS.get(cand.state, '99')
             if cand.state == 'non-elected' and not cand.is_substitute:
@@ -319,7 +331,7 @@ class sta_candidature(orm.Model):
 
     def button_create_mandate(self, cr, uid, ids, context=None):
         for candidature_id in ids:
-            mandate_id = create_mandate_from_candidature(cr, uid, self, candidature_id, context)
+            mandate_id = self.create_mandate_from_candidature(cr, uid, candidature_id, context)
 
         view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', 'sta_mandate_form_view')
         view_id = view_ref and view_ref[1] or False,

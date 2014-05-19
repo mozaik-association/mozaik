@@ -32,13 +32,35 @@ from collections import OrderedDict
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
 
-HEADER_ROW = ['name', 'address', 'email', 'phone', 'mobile', 'fax']
+from openerp.addons.ficep_person.res_partner import available_genders, available_tongues
+
+HEADER_ROW = [
+    'Lastname',
+    'Usual Lastname',
+    'Firstname',
+    'Usual Firstname',
+    'Co-Residency Line 1',
+    'Co-Residency Line 2',
+    'Country Code',
+    'Country Name',
+    'Country Zip',
+    'Street',
+    'Street2',
+    'City',
+    'Birthdate',
+    'Gender',
+    'Tongue',
+    'Phone',
+    'Mobile',
+    'Fax',
+    'Email'
+]
 
 # Constants
 SORT_BY = [
-    ('identifier desc', 'Identification Number'),
-    ('display_name desc', 'Name'),
-    ('zip desc,display_name desc', 'Zip Code'),
+    ('identifier asc', 'Identification Number'),
+    ('display_name asc', 'Name'),
+    ('zip desc,display_name asc', 'Zip Code'),
 ]
 E_MASS_FUNCTION = [
     ('email_coordinate_id', 'Mass Mailing'),
@@ -116,6 +138,8 @@ class distribution_list_mass_function(orm.TransientModel):
 
                 if wizard.sort_by:
                     context['sort_by'] = wizard.sort_by
+                if wizard.groupby_coresidency:
+                    context['alternative_group_by'] = 'co_residency_id'
 
                 if wizard.e_mass_function == 'csv':
                     pass
@@ -144,14 +168,14 @@ class distribution_list_mass_function(orm.TransientModel):
                     active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [context.get('active_id', False)], context=context)
                     context['active_ids'] = active_ids
                     if alternative_ids and wizard.extract_csv:
-                        self.render_csv(cr, uid, alternative_ids, context=context)
+                        self.render_csv(cr, uid, alternative_ids, wizard.groupby_coresidency, context=context)
 
                     self.pool['mail.compose.message'].send_mail(cr, uid, [mail_composer_id], context=context)
             else:
                 # TODO: label print
                 pass
 
-    def render_csv(self, cr, uid, postal_ids, context=None):
+    def render_csv(self, cr, uid, postal_ids, group_by=False, context=None):
         """
         ==========
         render_csv
@@ -160,22 +184,59 @@ class distribution_list_mass_function(orm.TransientModel):
         Send  the CSV as message into the inbox of the user
         :type postal_ids: []
         """
+        def safe_get(o, attr, default=None):
+            try:
+                return getattr(o, attr)
+            except orm.except_orm:
+                return default
+
         postal_coordinates = self.pool['postal.coordinate'].browse(cr, uid, postal_ids, context=context)
         tmp = tempfile.NamedTemporaryFile(prefix='Extract', suffix=".csv", delete=False)
         f = open(tmp.name, "r+")
         writer = csv.writer(f)
         writer.writerow(HEADER_ROW)
+        co_residencies = []
         for pc in postal_coordinates:
-            export_values = OrderedDict([('name', pc.partner_id.name or ''),
-                                         ('address', pc.address_id.name),
-                                         ('email', pc.partner_id.email or ''),
-                                         ('phone', pc.partner_id.phone or ''),
-                                         ('mobile', pc.partner_id.mobile or ''),
-                                         ('fax', pc.partner_id.fax or '')])
-            writer.writerow(export_values.values())
+            #case group by is ask and where a co_residency is present and already write then don't write a new row
+            if group_by and pc.co_residency_id and pc.co_residency_id.id in co_residencies:
+                continue
+            co_residencies.append(pc.co_residency_id.id)
+            #test access coordinate (VIP READER)
+            partner = safe_get(pc, 'partner_id')
+            if not partner:
+                continue
+
+            writer.writerow([
+                 partner.lastname or None,
+                 partner.usual_lastname or None,
+                 partner.firstname or None,
+                 partner.usual_firstname or None,
+
+                 partner.printable_name if not pc.co_residency_id \
+                    else pc.co_residency_id.line,
+                 pc.co_residency_id if not pc.co_residency_id \
+                    else pc.co_residency_id.line2,
+                 pc.address_id.country_code or None,
+                 pc.address_id.country_id.name or None,
+                 pc.address_id.zip or None,
+                 pc.address_id.street or None,
+                 pc.address_id.street2 or None,
+                 pc.address_id.city or None,
+                 partner.birth_date or None,
+                 available_genders.get(partner.gender, None),
+                 available_tongues.get(partner.tongue, None),
+                 partner.fix_coordinate_id if not partner.fix_coordinate_id \
+                    else partner.fix_coordinate_id.phone_id.name,
+                 partner.mobile_coordinate_id if not partner.mobile_coordinate_id \
+                    else partner.mobile_coordinate_id.phone_id.name,
+                 partner.fax_coordinate_id if not partner.fax_coordinate_id \
+                    else partner.fax_coordinate_id.phone_id.name,
+                 partner.email_coordinate_id if not partner.email_coordinate_id \
+                    else partner.email_coordinate_id.email
+             ])
         f.close()
         f = open(tmp.name, "r")
-        attachment = [(_('Extract.csv'), 'u%s' % f.read())]
+        attachment = [(_('Extract.csv'), '%s' % f.read())]
         partner_ids = self.pool['res.partner'].search(cr, uid, [('user_ids', '=', uid)], context=context)
         if partner_ids:
             self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context, partner_ids=partner_ids, subject=_('Export CSV'))

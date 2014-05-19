@@ -62,7 +62,7 @@ class address_address(orm.Model):
         return self.pool['postal.coordinate'].search(cr, uid, [('address_id', 'in', ids)], context=context)
 
     def _get_integral_address(self, cr, uid, ids, name, args, context=None):
-        result = {}.fromkeys(ids, {key: False for key in ['name', 'technical_name', ]})
+        result = {i: {key: False for key in ['name', 'technical_name']} for i in ids}
         adrs_recs = self.browse(cr, uid, ids, context=context)
         for adrs in adrs_recs:
             elts = [
@@ -90,7 +90,7 @@ class address_address(orm.Model):
         return result
 
     def _get_street(self, cr, uid, ids, name, args, context=None):
-        result = {}.fromkeys(ids, False)
+        result = {i: False for i in ids}
         adrs_recs = self.browse(cr, uid, ids, context=context)
         for adrs in adrs_recs:
             number = adrs.number or '-'
@@ -107,7 +107,7 @@ class address_address(orm.Model):
         return result
 
     def _get_zip(self, cr, uid, ids, name, args, context=None):
-        result = {}.fromkeys(ids, {key: False for key in ['zip', 'city', ]})
+        result = {i: {key: False for key in ['zip', 'city', ]} for i in ids}
         adrs_recs = self.browse(cr, uid, ids, context=context)
         for adrs in adrs_recs:
             result[adrs.id] = {
