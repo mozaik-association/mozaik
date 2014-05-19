@@ -73,6 +73,9 @@ class phone_phone(orm.Model):
         :raise: pn.NumberParseException
                 * if number is not parsing due to a bad encoded value
         """
+        if context == None:
+            context = {}
+
         if context.get('install_mode', False) and num[:4] == 'tbc ':
             # during data migration suspect number are not checked
             return num
