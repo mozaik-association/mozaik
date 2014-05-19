@@ -78,7 +78,7 @@ class int_selection_committee(orm.Model):
     }
 
     _defaults = {
-        'is_virtual': False,
+        'is_virtual': True,
     }
 
     # view methods: onchange, button
@@ -148,6 +148,7 @@ class int_candidature(orm.Model):
     _init_mandate_columns = list(abstract_candidature._init_mandate_columns)
     _init_mandate_columns.extend(['int_assembly_id', 'months_before_end_of_mandate'])
     _allowed_inactive_link_models = [_selection_committee_model]
+    _mandate_form_view = 'int_mandate_form_view'
 
     _columns = {
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
@@ -162,6 +163,8 @@ class int_candidature(orm.Model):
         'months_before_end_of_mandate': fields.related('int_assembly_id', 'months_before_end_of_mandate', string='Months before end of Mandate',
                                           type='integer', relation="int.assembly",
                                           store=False),
+        'mandate_ids': fields.one2many(_mandate_model, 'candidature_id', 'Internal Mandates',
+                                       domain=[('active', '<=', True)]),
     }
 
     _order = 'selection_committee_id'
@@ -176,12 +179,17 @@ class int_candidature(orm.Model):
                             mandate_category_id=selection_committee.mandate_category_id.id or False,)
         return res
 
+    def button_create_mandate(self, cr, uid, ids, context=None):
+        return super(int_candidature, self).button_create_mandate(cr, uid, ids, context=context)
+
 
 class int_mandate(orm.Model):
 
     _name = 'int.mandate'
     _description = "Internal Mandate"
     _inherit = ['abstract.mandate']
+
+    _allowed_inactive_link_models = ['int.candidature']
 
     _columns = {
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
@@ -238,12 +246,13 @@ class int_mandate(orm.Model):
             'value': res,
         }
 
-    def onchange_int_assembly_id(self, cr, uid, ids, int_assembly_id, context=None):
+    def onchange_int_assembly_id(self, cr, uid, ids, ext_assembly_id, context=None):
         res = {}
-        res['value'] = dict(months_before_end_of_mandate=False)
-        if int_assembly_id:
-            assembly = self.pool.get('int.assembly').browse(cr, uid, int_assembly_id)
+        res['value'] = dict(months_before_end_of_mandate=False, designation_int_assembly_id=False)
+        if ext_assembly_id:
+            assembly = self.pool.get('int.assembly').browse(cr, uid, ext_assembly_id)
 
-            res['value'] = dict(months_before_end_of_mandate=assembly.months_before_end_of_mandate)
+            res['value'] = dict(months_before_end_of_mandate=assembly.months_before_end_of_mandate,
+                                designation_int_assembly_id=assembly.designation_int_assembly_id.id)
 
         return res

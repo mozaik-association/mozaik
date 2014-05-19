@@ -229,6 +229,7 @@ class sta_candidature(orm.Model):
     _init_mandate_columns = list(abstract_candidature._init_mandate_columns)
     _init_mandate_columns.extend(['legislature_id', 'sta_assembly_id'])
     _allowed_inactive_link_models = [_selection_committee_model]
+    _mandate_form_view = 'sta_mandate_form_view'
 
 # private methods
 
@@ -286,6 +287,8 @@ class sta_candidature(orm.Model):
         'substitute_votes': fields.integer('Substitute Preferential Votes', track_visibility='onchange'),
         'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
                                           type='boolean', store=True),
+        'mandate_ids': fields.one2many(_mandate_model, 'candidature_id', 'State Mandates',
+                                       domain=[('active', '<=', True)]),
     }
 
     _order = 'selection_committee_id, sort_order, election_effective_position, election_substitute_position, list_effective_position, list_substitute_position'
@@ -330,22 +333,7 @@ class sta_candidature(orm.Model):
         return res
 
     def button_create_mandate(self, cr, uid, ids, context=None):
-        for candidature_id in ids:
-            mandate_id = self.create_mandate_from_candidature(cr, uid, candidature_id, context)
-
-        view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', 'sta_mandate_form_view')
-        view_id = view_ref and view_ref[1] or False,
-        return {
-            'type': 'ir.actions.act_window',
-            'name': _('Mandate'),
-            'res_model': 'sta.mandate',
-            'res_id': mandate_id,
-            'view_type': 'form',
-            'view_mode': 'form',
-            'view_id': view_id,
-            'target': 'current',
-            'nodestroy': True,
-        }
+        return super(sta_candidature, self).button_create_mandate(cr, uid, ids, context=context)
 
 
 class sta_mandate(orm.Model):

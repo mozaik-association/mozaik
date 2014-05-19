@@ -103,6 +103,9 @@
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'assembly_id'}" />                        
+                    </group>
                 </search>
             </field>
         </record>
@@ -114,6 +117,8 @@
                 <tree string="Selection Committee" version="7.0">
                     <field name="name"/>
                     <field name="assembly_id"/>
+                     <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
@@ -211,7 +216,7 @@
                             <button name="button_declare" string="Declare" class="oe_highlight"
                                             confirm="Declare candidature: proceed anyway ?" states="rejected,suggested"/>
                             <button name="button_create_mandate" string="Mandate" type="object"
-                                        confirm="Create mandate form candidature: proceed anyway ?"/>
+                                        confirm="Create mandate from candidature: proceed anyway ?"/>
                             <field name="state" widget="statusbar" statusbar_visible='declared,suggested,designated,elected,non-elected'/>
                         </div>
                     </header>
@@ -254,6 +259,7 @@
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
+                                <field name="mandate_ids"/>
                             </group>
                         </div>
                     </div>

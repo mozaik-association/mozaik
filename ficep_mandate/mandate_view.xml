@@ -214,6 +214,18 @@
                 </xpath>
             </field>
         </record>
+        
+         <record id="sta_selection_committee_search_view" model="ir.ui.view">
+            <field name="name">sta.selection.committee.search</field>
+            <field name="model">sta.selection.committee</field>
+            <field name="inherit_id" ref="abstract_selection_committee_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='assembly']" position="after">
+                   <filter name="legislature" string="Legislature" domain="[]" context="{'group_by':'legislature_id'}" />   
+                   <filter name="electoral_district" string="Electoral District" domain="[]" context="{'group_by':'electoral_district_id'}" />  
+                </xpath>
+            </field>
+        </record>
 
          <!-- Actions -->
 
@@ -309,7 +321,7 @@
             <field name="res_model">sta.selection.committee</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="abstract_selection_committee_search_view" />
+            <field name="search_view_id" ref="sta_selection_committee_search_view" />
             <field name="view_id" ref="sta_selection_committee_tree_view" />
         </record>
 
@@ -447,8 +459,9 @@
                                     attrs="{'invisible': ['|',('is_legislative', '=', False), ('state', 'not in', ['designated'])]}"/>
                 </xpath>
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
-                    <attribute name="attrs">{'invisible': ['|', ('state','not in', ['elected', 'non-elected']),
-                                                           '&amp;', ('state', '=', 'non-elected'), ('is_effective', '=', True)]}</attribute>
+                    <attribute name="attrs">{'invisible': ['|', '|', ('state','not in', ['elected', 'non-elected']),
+                                                           '&amp;', ('state', '=', 'non-elected'), ('is_effective', '=', True)
+                                                           , ('mandate_ids', '!=', [])]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='selection_committee_id']" position="after">
                      <field name="electoral_district_id" readonly="1"/>
@@ -488,7 +501,7 @@
                      <field name="int_assembly_id" readonly="1"/>
                 </xpath>
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
-                     <attribute name="states">elected</attribute>
+                     <attribute name="attrs">{'invisible': ['|', ('state','!=', 'elected'),('mandate_ids', '!=', [])]}</attribute>
                 </xpath>
             </field>
         </record>
@@ -502,7 +515,7 @@
                      <field name="ext_assembly_id" readonly="1"/>
                 </xpath>
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
-                     <attribute name="states">elected</attribute>
+                     <attribute name="attrs">{'invisible': ['|', ('state','!=', 'elected'), ('mandate_ids', '!=', [])]}</attribute>
                 </xpath>
             </field>
         </record>
@@ -515,7 +528,8 @@
                 <xpath expr="//field[@name='email_coordinate_id']" position="before">
                     <field name="sta_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
                             required="1"
-                            domain="[('assembly_category_id', '=', sta_assembly_category_id)]"/>
+                            domain="[('assembly_category_id', '=', sta_assembly_category_id)]"
+                            on_change="onchange_sta_assembly_id(sta_assembly_id)"/>
                     <field name="legislature_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
                                                  domain="[('power_level_id','=',sta_power_level_id),('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"
                                                  on_change="onchange_legislature_id(legislature_id)"/>
@@ -556,6 +570,10 @@
                             domain="[('assembly_category_id', '=', int_assembly_category_id)]"
                             on_change="onchange_int_assembly_id(int_assembly_id)"/>
                 </xpath>
+                
+                 <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
@@ -583,6 +601,10 @@
                             on_change="onchange_ext_assembly_id(ext_assembly_id)"/>
                 </xpath>
 
+                <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
                 </xpath>
@@ -732,6 +754,9 @@
                         </tree>
                     </field>
                 </xpath>
+                <xpath expr="//page[@name='members']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_virtual','=',True)]}</attribute>
+                </xpath>
             </field>
         </record>
 
@@ -778,6 +803,9 @@
                             <field name="is_selection_committee_active" invisible="1"/>
                         </tree>
                     </field>
+                </xpath>
+                <xpath expr="//page[@name='members']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_virtual','=',True)]}</attribute>
                 </xpath>
             </field>
         </record>

@@ -308,7 +308,7 @@ class abstract_mandate(orm.AbstractModel):
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
         'is_replacement': fields.boolean('Replacement'),
-        'alert_date': fields.date('Alert Date'),
+        'alert_date': fields.date('Alert Date', track_visibility='onchange'),
     }
 
     _defaults = {
@@ -389,6 +389,7 @@ class abstract_candidature(orm.AbstractModel):
 
     _init_mandate_columns = ['mandate_category_id', 'partner_id', 'designation_int_assembly_id']
     _mandate_model = 'abstract.mandate'
+    _mandate_form_view = 'abstract_mandate_form_view'
 
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Candidate', required=True, select=True, track_visibility='onchange'),
@@ -404,6 +405,8 @@ class abstract_candidature(orm.AbstractModel):
                                           store=True),
         'is_selection_committee_active': fields.related('selection_committee_id', 'active', string='Is Selection Committee Active ?',
                                           type='boolean', store=False),
+        'mandate_ids': fields.one2many(_mandate_model, 'candidature_id', 'Abstract Mandates',
+                                       domain=[('active', '<=', True)]),
     }
 
     _defaults = {
@@ -486,6 +489,24 @@ class abstract_candidature(orm.AbstractModel):
 
         res['value'] = dict(partner_name=partner_model.build_name(partner, capitalize_mode=True) or False,)
         return res
+
+    def button_create_mandate(self, cr, uid, ids, context=None):
+        for candidature_id in ids:
+            mandate_id = self.create_mandate_from_candidature(cr, uid, candidature_id, context)
+
+        view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', self._mandate_form_view)
+        view_id = view_ref and view_ref[1] or False,
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Mandate'),
+            'res_model': self._mandate_model,
+            'res_id': mandate_id,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': view_id,
+            'target': 'current',
+            'nodestroy': True,
+        }
 
     def create_mandate_from_candidature(self, cr, uid, candidature_id, context=None):
         """

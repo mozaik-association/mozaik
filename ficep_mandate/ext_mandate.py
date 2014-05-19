@@ -78,7 +78,7 @@ class ext_selection_committee(orm.Model):
     }
 
     _defaults = {
-        'is_virtual': False,
+        'is_virtual': True,
     }
 
     # view methods: onchange, button
@@ -148,6 +148,7 @@ class ext_candidature(orm.Model):
     _init_mandate_columns = list(abstract_candidature._init_mandate_columns)
     _init_mandate_columns.extend(['ext_assembly_id', 'months_before_end_of_mandate'])
     _allowed_inactive_link_models = [_selection_committee_model]
+    _mandate_form_view = 'ext_mandate_form_view'
 
     _columns = {
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
@@ -159,9 +160,11 @@ class ext_candidature(orm.Model):
         'ext_assembly_id': fields.related('selection_committee_id', 'assembly_id', string='External Assembly',
                                           type='many2one', relation="ext.assembly",
                                           store=True),
-         'months_before_end_of_mandate': fields.related('ext_assembly_id', 'months_before_end_of_mandate', string='Months before end of Mandate',
+        'months_before_end_of_mandate': fields.related('ext_assembly_id', 'months_before_end_of_mandate', string='Months before end of Mandate',
                                           type='integer', relation="ext.assembly",
                                           store=False),
+        'mandate_ids': fields.one2many(_mandate_model, 'candidature_id', 'External Mandates',
+                                       domain=[('active', '<=', True)]),
     }
 
     _order = 'selection_committee_id'
@@ -176,12 +179,17 @@ class ext_candidature(orm.Model):
                             mandate_category_id=selection_committee.mandate_category_id.id or False,)
         return res
 
+    def button_create_mandate(self, cr, uid, ids, context=None):
+        return super(ext_candidature, self).button_create_mandate(cr, uid, ids, context=context)
+
 
 class ext_mandate(orm.Model):
 
     _name = 'ext.mandate'
     _description = "External Mandate"
     _inherit = ['abstract.mandate']
+
+    _allowed_inactive_link_models = ['ext.candidature']
 
     _columns = {
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
@@ -197,7 +205,7 @@ class ext_mandate(orm.Model):
         'is_submission_assets': fields.related('mandate_category_id', 'is_submission_assets', string='Submission to an Assets Declaration',
                                           type='boolean',
                                           store={'mandate.category': (mandate_category.get_linked_ext_mandate_ids, ['is_submission_assets'], 20)}),
-        'competencies_m2m_ids': fields.many2many('thesaurus.term', 'sta_mandate_term_competencies_rel', id1='sta_mandate_id', id2='thesaurus_term_id', string='Competencies'),
+        'competencies_m2m_ids': fields.many2many('thesaurus.term', 'ext_mandate_term_competencies_rel', id1='ext_mandate_id', id2='thesaurus_term_id', string='Competencies'),
         'months_before_end_of_mandate': fields.integer('Months before end of Mandate', track_visibility='onchange'),
     }
 
@@ -241,10 +249,11 @@ class ext_mandate(orm.Model):
 
     def onchange_ext_assembly_id(self, cr, uid, ids, ext_assembly_id, context=None):
         res = {}
-        res['value'] = dict(months_before_end_of_mandate=False)
+        res['value'] = dict(months_before_end_of_mandate=False, designation_int_assembly_id=False)
         if ext_assembly_id:
             assembly = self.pool.get('ext.assembly').browse(cr, uid, ext_assembly_id)
 
-            res['value'] = dict(months_before_end_of_mandate=assembly.months_before_end_of_mandate)
+            res['value'] = dict(months_before_end_of_mandate=assembly.months_before_end_of_mandate,
+                                designation_int_assembly_id=assembly.designation_int_assembly_id.id)
 
         return res
