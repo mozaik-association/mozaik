@@ -73,13 +73,17 @@ class phone_phone(orm.Model):
         :raise: pn.NumberParseException
                 * if number is not parsing due to a bad encoded value
         """
+        if context.get('install_mode', False) and num[:4] == 'tbc ':
+            # during data migration suspect number are not checked
+            return num
         code = False
+        numero = num
         if num[:2] == '00':
-            num = '%s%s' % (num[:2].replace('00', '+'), num[2:])
+            numero = '%s%s' % (num[:2].replace('00', '+'), num[2:])
         elif not num.startswith('+'):
             code = self.get_default_country_code(cr, uid, context=context)
         try:
-            normalized_number = pn.parse(num, code) if code else pn.parse(num)
+            normalized_number = pn.parse(numero, code) if code else pn.parse(numero)
         except pn.NumberParseException, e:
             errmsg = _('Invalid phone number: %s') % e
             if context.get('install_mode', False):
