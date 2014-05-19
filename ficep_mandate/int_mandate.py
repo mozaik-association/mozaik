@@ -148,6 +148,7 @@ class int_candidature(orm.Model):
     _init_mandate_columns = list(abstract_candidature._init_mandate_columns)
     _init_mandate_columns.extend(['int_assembly_id', 'months_before_end_of_mandate'])
     _allowed_inactive_link_models = [_selection_committee_model]
+    _mandate_form_view = 'int_mandate_form_view'
 
     _columns = {
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
@@ -162,6 +163,8 @@ class int_candidature(orm.Model):
         'months_before_end_of_mandate': fields.related('int_assembly_id', 'months_before_end_of_mandate', string='Months before end of Mandate',
                                           type='integer', relation="int.assembly",
                                           store=False),
+        'mandate_ids': fields.one2many(_mandate_model, 'candidature_id', 'Internal Mandates',
+                                       domain=[('active', '<=', True)]),
     }
 
     _order = 'selection_committee_id'
@@ -175,6 +178,9 @@ class int_candidature(orm.Model):
                             designation_int_assembly_id=selection_committee.designation_int_assembly_id.id or False,
                             mandate_category_id=selection_committee.mandate_category_id.id or False,)
         return res
+
+    def button_create_mandate(self, cr, uid, ids, context=None):
+        return super(int_candidature, self).button_create_mandate(cr, uid, ids, context=context)
 
 
 class int_mandate(orm.Model):

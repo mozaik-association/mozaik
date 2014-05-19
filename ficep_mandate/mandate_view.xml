@@ -447,8 +447,9 @@
                                     attrs="{'invisible': ['|',('is_legislative', '=', False), ('state', 'not in', ['designated'])]}"/>
                 </xpath>
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
-                    <attribute name="attrs">{'invisible': ['|', ('state','not in', ['elected', 'non-elected']),
-                                                           '&amp;', ('state', '=', 'non-elected'), ('is_effective', '=', True)]}</attribute>
+                    <attribute name="attrs">{'invisible': ['|', '|', ('state','not in', ['elected', 'non-elected']),
+                                                           '&amp;', ('state', '=', 'non-elected'), ('is_effective', '=', True)
+                                                           , ('mandate_ids', '!=', [])]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='selection_committee_id']" position="after">
                      <field name="electoral_district_id" readonly="1"/>
@@ -488,7 +489,7 @@
                      <field name="int_assembly_id" readonly="1"/>
                 </xpath>
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
-                     <attribute name="states">elected</attribute>
+                     <attribute name="attrs">{'invisible': ['|', ('state','!=', 'elected'),('mandate_ids', '!=', [])]}</attribute>
                 </xpath>
             </field>
         </record>
@@ -502,7 +503,7 @@
                      <field name="ext_assembly_id" readonly="1"/>
                 </xpath>
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
-                     <attribute name="states">elected</attribute>
+                     <attribute name="attrs">{'invisible': ['|', ('state','!=', 'elected'), ('mandate_ids', '!=', [])]}</attribute>
                 </xpath>
             </field>
         </record>
