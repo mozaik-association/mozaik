@@ -62,7 +62,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="partner_relation_search_view" />
             <field name="view_id" eval="partner_relation_subject_tree_view"/>
-            <field name="context">{'object': False}</field>
+            <field name="context">{'object': False, 'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}</field>
         </record>
 
         <record id="object_relation_action" model="ir.actions.act_window">
@@ -72,7 +72,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="partner_relation_search_view" />
             <field name="view_id" eval="partner_relation_object_tree_view"/>
-            <field name="context">{'object': True}</field>
+            <field name="context">{'object': True, 'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}</field>
         </record>
 
         <record id="partner_relation_subject_form_view" model="ir.ui.view">
