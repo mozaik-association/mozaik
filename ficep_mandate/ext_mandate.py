@@ -249,10 +249,11 @@ class ext_mandate(orm.Model):
 
     def onchange_ext_assembly_id(self, cr, uid, ids, ext_assembly_id, context=None):
         res = {}
-        res['value'] = dict(months_before_end_of_mandate=False)
+        res['value'] = dict(months_before_end_of_mandate=False, designation_int_assembly_id=False)
         if ext_assembly_id:
             assembly = self.pool.get('ext.assembly').browse(cr, uid, ext_assembly_id)
 
-            res['value'] = dict(months_before_end_of_mandate=assembly.months_before_end_of_mandate)
+            res['value'] = dict(months_before_end_of_mandate=assembly.months_before_end_of_mandate,
+                                designation_int_assembly_id=assembly.designation_int_assembly_id.id)
 
         return res

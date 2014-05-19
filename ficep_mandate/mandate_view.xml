@@ -528,7 +528,8 @@
                 <xpath expr="//field[@name='email_coordinate_id']" position="before">
                     <field name="sta_assembly_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
                             required="1"
-                            domain="[('assembly_category_id', '=', sta_assembly_category_id)]"/>
+                            domain="[('assembly_category_id', '=', sta_assembly_category_id)]"
+                            on_change="onchange_sta_assembly_id(sta_assembly_id)"/>
                     <field name="legislature_id" attrs="{'readonly': [('candidature_id','!=',False)]}"
                                                  domain="[('power_level_id','=',sta_power_level_id),('deadline_date', '>', time.strftime('%%Y-%%m-%%d'))]"
                                                  on_change="onchange_legislature_id(legislature_id)"/>
@@ -569,6 +570,10 @@
                             domain="[('assembly_category_id', '=', int_assembly_category_id)]"
                             on_change="onchange_int_assembly_id(int_assembly_id)"/>
                 </xpath>
+                
+                 <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
@@ -596,6 +601,10 @@
                             on_change="onchange_ext_assembly_id(ext_assembly_id)"/>
                 </xpath>
 
+                <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
                 </xpath>
