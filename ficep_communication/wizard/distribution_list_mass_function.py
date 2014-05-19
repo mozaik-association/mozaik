@@ -205,35 +205,30 @@ class distribution_list_mass_function(orm.TransientModel):
             partner = safe_get(pc, 'partner_id')
             if not partner:
                 continue
-
-            writer.writerow([
-                 partner.lastname or None,
-                 partner.usual_lastname or None,
-                 partner.firstname or None,
-                 partner.usual_firstname or None,
-
-                 partner.printable_name if not pc.co_residency_id \
-                    else pc.co_residency_id.line,
-                 pc.co_residency_id if not pc.co_residency_id \
-                    else pc.co_residency_id.line2,
-                 pc.address_id.country_code or None,
-                 pc.address_id.country_id.name or None,
-                 pc.address_id.zip or None,
-                 pc.address_id.street or None,
-                 pc.address_id.street2 or None,
-                 pc.address_id.city or None,
-                 partner.birth_date or None,
-                 available_genders.get(partner.gender, None),
-                 available_tongues.get(partner.tongue, None),
-                 partner.fix_coordinate_id if not partner.fix_coordinate_id \
-                    else partner.fix_coordinate_id.phone_id.name,
-                 partner.mobile_coordinate_id if not partner.mobile_coordinate_id \
-                    else partner.mobile_coordinate_id.phone_id.name,
-                 partner.fax_coordinate_id if not partner.fax_coordinate_id \
-                    else partner.fax_coordinate_id.phone_id.name,
-                 partner.email_coordinate_id if not partner.email_coordinate_id \
-                    else partner.email_coordinate_id.email
-             ])
+            export_values = OrderedDict([('name', partner.lastname.encode('utf-8')),
+                                         ('lastname', None if not partner.usual_lastname else partner.usual_lastname.encode('utf-8')),
+                                         ('firstname', None if not partner.firstname else partner.firstname.encode('utf-8')),
+                                         ('usual_firstname', None if not partner.usual_firstname else partner.usual_firstname.encode('utf-8')),
+                                         ('printable_name', partner.printable_name.encode('utf-8') if not pc.co_residency_id \
+                                             else pc.co_residency_id.line.encode('utf-8')),
+                                         ('co_residency', None if not pc.co_residency_id \
+                                             else pc.co_residency_id.line2),
+                                         ('country_code', pc.address_id.country_code or None),
+                                         ('country_name', pc.address_id.country_id.name.encode('utf-8') or None),
+                                         ('zip', pc.address_id.zip or None),
+                                         ('street', None if not pc.address_id.street else pc.address_id.street.encode('utf-8')),
+                                         ('street2', None if not pc.address_id.street2 else pc.address_id.street2.encode('utf-8')),
+                                         ('city', None if not pc.address_id.city else pc.address_id.city.encode('utf-8')),
+                                         ('birth_date', partner.birth_date or None),
+                                         ('gender', available_genders.get(partner.gender, None)),
+                                         ('tongue', available_tongues.get(partner.tongue, None)),
+                                         ('fix', None if not partner.fix_coordinate_id else partner.fix_coordinate_id.phone_id.name.encode('utf-8')),
+                                         ('mobile', None if not partner.mobile_coordinate_id else partner.mobile_coordinate_id.phone_id.name.encode('utf-8')),
+                                         ('fax', None if not partner.fax_coordinate_id else partner.fax_coordinate_id.phone_id.name.encode('utf-8')),
+                                         ('email', None if not partner.email_coordinate_id \
+                                             else partner.email_coordinate_id.email.encode('utf-8')),
+                                        ])
+            writer.writerow(export_values.values())
         f.close()
         f = open(tmp.name, "r")
         attachment = [(_('Extract.csv'), '%s' % f.read())]
