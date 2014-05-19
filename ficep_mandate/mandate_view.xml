@@ -214,6 +214,18 @@
                 </xpath>
             </field>
         </record>
+        
+         <record id="sta_selection_committee_search_view" model="ir.ui.view">
+            <field name="name">sta.selection.committee.search</field>
+            <field name="model">sta.selection.committee</field>
+            <field name="inherit_id" ref="abstract_selection_committee_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='assembly']" position="after">
+                   <filter name="legislature" string="Legislature" domain="[]" context="{'group_by':'legislature_id'}" />   
+                   <filter name="electoral_district" string="Electoral District" domain="[]" context="{'group_by':'electoral_district_id'}" />  
+                </xpath>
+            </field>
+        </record>
 
          <!-- Actions -->
 
@@ -309,7 +321,7 @@
             <field name="res_model">sta.selection.committee</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="abstract_selection_committee_search_view" />
+            <field name="search_view_id" ref="sta_selection_committee_search_view" />
             <field name="view_id" ref="sta_selection_committee_tree_view" />
         </record>
 
@@ -733,6 +745,9 @@
                         </tree>
                     </field>
                 </xpath>
+                <xpath expr="//page[@name='members']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_virtual','=',True)]}</attribute>
+                </xpath>
             </field>
         </record>
 
@@ -779,6 +794,9 @@
                             <field name="is_selection_committee_active" invisible="1"/>
                         </tree>
                     </field>
+                </xpath>
+                <xpath expr="//page[@name='members']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_virtual','=',True)]}</attribute>
                 </xpath>
             </field>
         </record>

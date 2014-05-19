@@ -78,7 +78,7 @@ class int_selection_committee(orm.Model):
     }
 
     _defaults = {
-        'is_virtual': False,
+        'is_virtual': True,
     }
 
     # view methods: onchange, button
