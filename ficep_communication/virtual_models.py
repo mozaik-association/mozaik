@@ -70,6 +70,9 @@ class virtual_target(orm.Model):
             p.display_name as display_name,
             p.identifier as identification_number,
 
+            e.bounce_counter as email_bounce_counter,
+            pc.bounce_counter as postal_bounce_coutner,
+
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
 

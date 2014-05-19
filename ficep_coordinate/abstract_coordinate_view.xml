@@ -119,6 +119,14 @@
                                 <field name="is_duplicate_allowed" attrs="{'invisible': [('is_duplicate_allowed','=',False)]}" />
                             </group>
                         </group>
+                        <notebook>
+                            <page string="Details">
+                                <group>
+                                    <field name="bounce_counter" readonly="1"/>
+                                    <field name="bounce_description" readonly="1" />
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">

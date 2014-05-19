@@ -133,7 +133,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     domains.append("('int_instance_id','child_of', [%s])" % wizard.internal_instance_id.id)
                 if wizard.bounce_counter != 0:
                     wizard.bounce_counter = wizard.bounce_counter if wizard.bounce_counter >= 0 else 0
-                    domains.append("('email_bouce_counter','<=', %s)" % wizard.bounce_counter)
+                    domains.append("('email_bounce_counter','<=', %s)" % wizard.bounce_counter)
                 context['more_filter'] = domains
 
                 if wizard.sort_by:
