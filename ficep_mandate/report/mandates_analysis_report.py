@@ -100,6 +100,7 @@ class mandates_analysis_report(orm.Model):
                       AND deadline_date > now()
                        ) AS mandates
                    WHERE remaining_months_before_end_of_mandate <= months_before_end_of_mandate
+                   AND months_before_end_of_mandate > 0
                    ORDER BY 1,3
             )
         """)
