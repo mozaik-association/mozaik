@@ -197,7 +197,7 @@ class ext_mandate(orm.Model):
         'is_submission_assets': fields.related('mandate_category_id', 'is_submission_assets', string='Submission to an Assets Declaration',
                                           type='boolean',
                                           store={'mandate.category': (mandate_category.get_linked_ext_mandate_ids, ['is_submission_assets'], 20)}),
-        'competencies_m2m_ids': fields.many2many('thesaurus.term', 'sta_mandate_term_competencies_rel', id1='sta_mandate_id', id2='thesaurus_term_id', string='Competencies'),
+        'competencies_m2m_ids': fields.many2many('thesaurus.term', 'ext_mandate_term_competencies_rel', id1='ext_mandate_id', id2='thesaurus_term_id', string='Competencies'),
         'months_before_end_of_mandate': fields.integer('Months before end of Mandate', track_visibility='onchange'),
     }
 
