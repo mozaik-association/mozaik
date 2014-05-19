@@ -58,7 +58,7 @@ HEADER_ROW = [
 
 # Constants
 SORT_BY = [
-    ('identifier asc', 'Identification Number'),
+    ('identification_number asc', 'Identification Number'),
     ('display_name asc', 'Name'),
     ('zip desc,display_name asc', 'Zip Code'),
 ]

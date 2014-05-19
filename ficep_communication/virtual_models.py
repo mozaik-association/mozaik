@@ -40,6 +40,7 @@ class virtual_target(orm.Model):
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Partner'),
         'display_name': fields.char('Display Name'),
+        'identification_number': fields.integer('Identification Number'),
 
         'postal_coordinate_id': fields.integer('Postal Coordinate ID'),
         'email_coordinate_id': fields.integer('Email Coordinate ID'),
