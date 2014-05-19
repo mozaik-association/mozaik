@@ -183,6 +183,8 @@ class ext_mandate(orm.Model):
     _description = "External Mandate"
     _inherit = ['abstract.mandate']
 
+    _allowed_inactive_link_models = ['ext.candidature']
+
     _columns = {
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
                                                  required=True, track_visibility='onchange', domain=[('type', '=', 'ext')]),
