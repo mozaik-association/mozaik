@@ -27,7 +27,7 @@
 ##############################################################################
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 
 from openerp.osv import orm, osv, fields
 from openerp.tools.translate import _
@@ -258,9 +258,9 @@ class abstract_selection_committee(orm.AbstractModel):
 
     def process_invalidate_candidatures_after_delay(self, cr, uid, context=None):
         """
-        ==========================
-        invalidate_candidatures
-        ==========================
+        ===========================================
+        process_invalidate_candidatures_after_delay
+        ===========================================
         This method is used to invalidate candidatures after a defined elapsed time
         :rparam: True
         :rtype: boolean
@@ -330,8 +330,13 @@ class abstract_mandate(orm.AbstractModel):
         :rparam: True
         :rtype: boolean
         """
-        for mandate_id in ids:
-            self.write(cr, uid, mandate_id, {'end_date': fields.datetime.now()}, context=context)
+        for mandate_data in self.read(cr, uid, ids, ['deadline_date'], context=context):
+            deadline = datetime.strptime(mandate_data['deadline_date'], DEFAULT_SERVER_DATE_FORMAT)
+            if datetime.strptime(fields.datetime.now(), DEFAULT_SERVER_DATETIME_FORMAT) >= deadline:
+                end_date = mandate_data['deadline_date']
+            else:
+                end_date = fields.datetime.now()
+            self.action_invalidate(cr, uid, [mandate_data['id']], context=context, vals={'end_date': end_date})
 
         return True
 
@@ -379,6 +384,29 @@ class abstract_mandate(orm.AbstractModel):
         else:
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)
+
+    def process_finish_and_invalidate_mandates(self, cr, uid, context=None):
+        """
+        ======================================
+        process_finish_and_invalidate_mandates
+        ======================================
+        This method is used to finish and invalidate mandates after deadline date
+        :rparam: True
+        :rtype: boolean
+        """
+        SQL_QUERY = """
+            SELECT mandate.id
+                FROM %s as mandate
+                WHERE mandate.deadline_date < current_date
+                  AND mandate.end_date IS NULL
+          """
+        cr.execute(SQL_QUERY % (self._name.replace('.', '_')))
+        mandate_ids = self.search(cr, uid, [('id', 'in', [mandate[0] for mandate in cr.fetchall()])], context=context)
+
+        if mandate_ids:
+            self.action_finish(cr, uid, mandate_ids, context=context)
+
+        return True
 
 
 class abstract_candidature(orm.AbstractModel):
