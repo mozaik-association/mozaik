@@ -38,7 +38,7 @@ class abstract_duplicate(orm.AbstractModel):
     _description = "Abstract Duplicate"
 
     _discriminant_field = None
-    _trigger_fileds = []
+    _trigger_fields = []
     _undo_redirect_action = None
 
 # private methods
@@ -82,7 +82,7 @@ class abstract_duplicate(orm.AbstractModel):
         =====
         Override write method to detect and repair duplicates.
         """
-        trigger_fields = (self._trigger_fileds or [self._discriminant_field]) + ['is_duplicate_detected', 'is_duplicate_allowed']
+        trigger_fields = (self._trigger_fields or [self._discriminant_field]) + ['is_duplicate_detected', 'is_duplicate_allowed']
         updated_trigger_fields = [fld for fld in vals.keys() if fld in trigger_fields]
         if updated_trigger_fields:
             discriminants = self.read(cr, SUPERUSER_ID, ids, [self._discriminant_field], context=context)

@@ -293,7 +293,7 @@ class postal_coordinate(orm.Model):
     _description = 'Postal Coordinate'
 
     _discriminant_field = 'address_id'
-    _trigger_fileds = []
+    _trigger_fields = []
     _undo_redirect_action = 'ficep_address.postal_coordinate_action'
 
     _columns = {

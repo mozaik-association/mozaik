@@ -64,7 +64,7 @@ class res_partner(orm.Model):
     _inherit = ['abstract.duplicate', 'res.partner']
 
     _discriminant_field = 'name'
-    _trigger_fileds = ['name', 'lastname', 'firstname', 'birth_date']
+    _trigger_fields = ['name', 'lastname', 'firstname', 'birth_date']
     _undo_redirect_action = 'ficep_person.all_res_partner_action'
 
 # private methods
