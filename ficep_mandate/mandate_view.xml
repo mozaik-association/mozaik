@@ -555,6 +555,7 @@
 
                 <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="sta_assembly_category_id"/>
+                    <field name="sta_power_level_id"/>
                 </xpath>
             </field>
         </record>

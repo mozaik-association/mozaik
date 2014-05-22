@@ -353,6 +353,9 @@ class sta_mandate(orm.Model):
         'sta_assembly_category_id': fields.related('mandate_category_id', 'sta_assembly_category_id', string='State Assembly Category',
                                           type='many2one', relation="sta.assembly.category",
                                           store=False),
+        'sta_power_level_id': fields.related('sta_assembly_category_id', 'power_level_id', string='Power Level',
+                                          type='many2one', relation="sta.power.level",
+                                          store=False),
         'candidature_id': fields.many2one('sta.candidature', 'Candidature'),
         'is_submission_mandate': fields.related('mandate_category_id', 'is_submission_mandate', string='Submission to a Mandate Declaration',
                                           type='boolean',
@@ -418,4 +421,14 @@ class sta_mandate(orm.Model):
             legislature_data = self.pool.get('legislature').read(cr, uid, legislature_id, ['start_date', 'deadline_date'])
             res['value'] = dict(start_date=legislature_data['start_date'],
                                 deadline_date=legislature_data['deadline_date'])
+        return res
+
+    def onchange_sta_assembly_id(self, cr, uid, ids, sta_assembly_id, context=None):
+        res = {}
+        res['value'] = dict(sta_power_level_id=False, designation_int_assembly_id=False)
+        if sta_assembly_id:
+            assembly = self.pool.get('sta.assembly').browse(cr, uid, sta_assembly_id)
+
+            res['value'] = dict(sta_power_level_id=assembly.assembly_category_id.power_level_id.id)
+
         return res
