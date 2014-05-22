@@ -28,7 +28,6 @@
 
 from openerp.osv import orm, fields
 
-
 # Constants
 MANDATE_CATEGORY_AVAILABLE_TYPES = [
     ('sta', 'State'),
@@ -115,5 +114,3 @@ class mandate_category(orm.Model):
 # constraints
 
     _unicity_keys = 'name'
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

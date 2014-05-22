@@ -33,6 +33,7 @@ from openerp.osv import orm, osv, fields
 from openerp.tools.translate import _
 
 from openerp.addons.ficep_mandate.mandate import mandate_category
+from openerp.addons.ficep_duplicate.abstract_duplicate import abstract_duplicate
 
 SELECTION_COMMITTEE_AVAILABLE_STATES = [
     ('draft', 'In Progress'),
@@ -289,7 +290,11 @@ class abstract_mandate(orm.AbstractModel):
 
     _name = 'abstract.mandate'
     _description = 'Abstract Mandate'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['abstract.duplicate']
+
+    _discriminant_field = 'partner_id'
+    _discriminant_model = 'generic.mandate'
+    _trigger_fields = ['mandate_category_id', 'partner_id', 'start_date', 'deadline_date']
 
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Representative', required=True, select=True, track_visibility='onchange'),
@@ -384,6 +389,47 @@ class abstract_mandate(orm.AbstractModel):
         else:
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)
+
+    def get_duplicate_ids(self, cr, uid, value, context=None):
+        reset_ids = []
+        duplicate_ids = []
+        mandate_dataset = self._get_discriminant_model().search_read(cr, uid, [(self._discriminant_field, '=', value)],
+                                                                    ['mandate_category_id', 'start_date', 'deadline_date', 'is_duplicate_detected'], context=context)
+        for mandate_data in mandate_dataset:
+            category = self.pool.get('mandate.category').browse(cr, uid, mandate_data['mandate_category_id'][0], context=context)
+            if category.exclusive_category_m2m_ids:
+                mandate_ids = self._get_discriminant_model().search(cr, uid, [(self._discriminant_field, '=', value),
+                                                                    ('mandate_category_id', 'in', [exclu.id for exclu in category.exclusive_category_m2m_ids]),
+                                                                    ('start_date', '<=', mandate_data['deadline_date']),
+                                                                    ('deadline_date', '>=', mandate_data['start_date'])], context=context)
+                if mandate_ids:
+                    mandate_ids.append(mandate_data['id'])
+                    for mandate_id in mandate_ids:
+                        if not(mandate_id in duplicate_ids):
+                            duplicate_ids.append(mandate_id)
+                        if mandate_id in reset_ids:
+                            reset_ids.remove(mandate_id)
+                elif mandate_data['is_duplicate_detected']:
+                    reset_ids.append(mandate_data['id'])
+
+            elif mandate_data['is_duplicate_detected']:
+                reset_ids.append(mandate_data['id'])
+
+        return reset_ids, duplicate_ids
+
+    def detect_and_repair_duplicate(self, cr, uid, vals, context=None, detection_model=None, columns_to_read=[], model_id_name=None):
+        """
+        ===========================
+        detect_and_repair_duplicate
+        ===========================
+        Detect automatically duplicates (setting the is_duplicate_detected flag)
+        Repair orphan allowed or detected duplicate (resetting the corresponding flag)
+        :param vals: discriminant values
+        :type vals: list
+        """
+        super(abstract_mandate, self).detect_and_repair_duplicate(cr, uid, vals, context=context,
+                                                            columns_to_read=['model', 'mandate_id'],
+                                                            model_id_name='mandate_id')
 
     def process_finish_and_invalidate_mandates(self, cr, uid, context=None):
         """

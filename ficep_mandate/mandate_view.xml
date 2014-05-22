@@ -342,7 +342,7 @@
             <field name="search_view_id" ref="abstract_selection_committee_search_view" />
             <field name="view_id" ref="abstract_selection_committee_tree_view" />
         </record>
-
+       
          <!-- Form Views -->
 
         <record id="mandate_category_form_view" model="ir.ui.view">

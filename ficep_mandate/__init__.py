@@ -30,6 +30,7 @@ from . import mandate
 from . import sta_mandate
 from . import int_mandate
 from . import ext_mandate
+from . import generic_mandate
 from . import structure
 from . import wizard
 from . import report

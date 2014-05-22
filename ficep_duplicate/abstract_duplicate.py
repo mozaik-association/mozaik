@@ -38,6 +38,7 @@ class abstract_duplicate(orm.AbstractModel):
     _description = "Abstract Duplicate"
 
     _discriminant_field = None
+    _discriminant_model = None
     _trigger_fields = []
     _undo_redirect_action = None
 
@@ -46,6 +47,11 @@ class abstract_duplicate(orm.AbstractModel):
     def _is_discriminant_m2o(self):
         return isinstance(self._columns[self._discriminant_field], fields.many2one)
 
+    def _get_discriminant_model(self):
+        if not self._discriminant_model:
+            return self
+        else:
+            return self.pool.get(self._discriminant_model)
 # fields
 
     _columns = {
@@ -174,7 +180,7 @@ class abstract_duplicate(orm.AbstractModel):
     def get_duplicate_ids(self, cr, uid, value, context=None):
         return [], self.search(cr, uid, [(self._discriminant_field, '=', value)], context=context)
 
-    def detect_and_repair_duplicate(self, cr, uid, vals, context=None):
+    def detect_and_repair_duplicate(self, cr, uid, vals, context=None, columns_to_read=[], model_id_name=None):
         """
         ===========================
         detect_and_repair_duplicate
@@ -182,12 +188,17 @@ class abstract_duplicate(orm.AbstractModel):
         Detect automatically duplicates (setting the is_duplicate_detected flag)
         Repair orphan allowed or detected duplicate (resetting the corresponding flag)
         :param vals: discriminant values
+        :param detection_model: model use to detect duplicates
+        :param columns_to_read: columns to read in detection model
+        :param model_id_name: name of id column of model
         :type vals: list
         """
+        columns_to_read.extend(['is_duplicate_allowed', 'is_duplicate_detected'])
+
         for v in vals:
             document_to_reset_ids, document_ids = self.get_duplicate_ids(cr, uid, v, context=None)
             if document_ids:
-                current_values = self.read(cr, uid, document_ids, ['is_duplicate_allowed', 'is_duplicate_detected'], context=context)
+                current_values = self._get_discriminant_model().read(cr, uid, document_ids, columns_to_read, context=context)
                 fields_to_update = {}
                 if len(document_ids) > 1:
                     is_ok = 0
@@ -214,29 +225,19 @@ class abstract_duplicate(orm.AbstractModel):
 
                 if fields_to_update:
                     # super write method must be called here to avoid to cycle
-                    super(abstract_duplicate, self).write(cr, uid, document_ids, fields_to_update, context=context)
+                    if 'model' in columns_to_read:
+                        for value in current_values:
+                            super(abstract_duplicate, self.pool.get(value['model'])).write(cr, uid, [value[model_id_name]], fields_to_update, context=context)
+                    else:
+                        super(abstract_duplicate, self).write(cr, uid, document_ids, fields_to_update, context=context)
 
             if document_to_reset_ids:
                 fields_to_update = self.get_fields_to_update(cr, uid, 'reset', context=None)
-                super(abstract_duplicate, self).write(cr, uid, document_to_reset_ids, fields_to_update, context=context)
-
-    def get_duplicates_string(self, cr, uid, context=None):
-        """
-        =====================
-        get_duplicates_string
-        =====================
-        """
-        document_ids = self.search(cr, uid, [('is_duplicate_detected', '=', True)], context=context)
-        values = []
-        for document in self.browse(cr, uid, document_ids, context=context):
-            value = document.name_get()[0][1]
-            values.append(value)
-        if values:
-            values = list(set(values))
-            values.insert(0, _('Here Is A List Of The "%s" Detected As Duplicate' % self._description))
-            string_value = '\n'.join(values)
-            return string_value
-        else:
-            return False
+                if 'model' in columns_to_read:
+                    current_values = self._get_discriminant_model().read(cr, uid, document_to_reset_ids, ['model', model_id_name], context=context)
+                    for value in current_values:
+                        super(abstract_duplicate, self.pool.get(value['model'])).write(cr, uid, [value[model_id_name]], fields_to_update, context=context)
+                else:
+                    super(abstract_duplicate, self).write(cr, uid, document_to_reset_ids, fields_to_update, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
