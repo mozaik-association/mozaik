@@ -343,6 +343,7 @@ class sta_mandate(orm.Model):
     _inherit = ['abstract.mandate']
 
     _allowed_inactive_link_models = ['sta.candidature']
+    _undo_redirect_action = 'ficep_mandate.sta_mandate_action'
 
     _columns = {
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',

@@ -51,7 +51,7 @@ class test_postal_coordinate(SharedSetupTransactionCase):
 
         self.registry('ir.model').clear_caches()
         self.registry('ir.model.data').clear_caches()
-        self.allow_duplicate_wizard_model = self.registry('allow.duplicate.wizard')
+        self.allow_duplicate_wizard_model = self.registry('allow.duplicate.address.wizard')
         self.postal_model = 'postal.coordinate'
 
     def test_all_duplicate_co_residency(self):

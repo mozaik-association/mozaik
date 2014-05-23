@@ -30,18 +30,26 @@ from openerp.osv import orm
 from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
 
+from openerp.addons.ficep_duplicate.abstract_duplicate import abstract_duplicate
+
 
 class allow_duplicate_wizard(orm.TransientModel):
 
     _name = "allow.duplicate.wizard"
 
-    def button_allow_duplicate(self, cr, uid, ids, vals=None, context=None):
+    def button_allow_duplicate(self, cr, uid, ids, context=None, vals=None):
         if vals is None:
             vals = {}
         if context is None:
             context = {}
         if not context.get('active_model', False):
             raise orm.except_orm(_('Error'), _('Missing active_model in context'))
+
+        multi_model = context.get('multi_model', False)
+        model_id_name = context.get('model_id_name', False)
+
+        if multi_model and not model_id_name:
+            raise orm.except_orm(_('Error'), _('Missing model id key name'))
 
         target_obj = self.pool[context.get('active_model')]
         discriminant_field = target_obj._discriminant_field
@@ -65,8 +73,17 @@ class allow_duplicate_wizard(orm.TransientModel):
             allowed_document_ids = target_obj.search(cr, SUPERUSER_ID, domain_search, context=context)
             if not allowed_document_ids:
                 raise orm.except_orm(_('Error'), _('You must select more than one entry!'))
-        vals.update(target_obj.get_fields_to_update(cr, uid, "allow", context=context))
-        target_obj.write(cr, uid, document_ids, vals, context=context)
+
+        if multi_model:
+            current_values = target_obj.read(cr, uid, document_ids, ['model', model_id_name], context=context)
+            for value in current_values:
+                values = dict(vals)
+                model_obj = self.pool.get(value['model'])
+                values.update(model_obj.get_fields_to_update(cr, uid, "allow", context=context))
+                super(abstract_duplicate,model_obj).write(cr, uid, [value[model_id_name]], values, context=context)
+        else:
+            vals.update(target_obj.get_fields_to_update(cr, uid, "allow", context=context))
+            target_obj.write(cr, uid, document_ids, vals, context=context)
 
     def get_domain_search(self, cr, uid, ids, domain, context=None):
         return domain

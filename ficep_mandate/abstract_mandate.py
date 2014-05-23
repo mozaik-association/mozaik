@@ -33,7 +33,6 @@ from openerp.osv import orm, osv, fields
 from openerp.tools.translate import _
 
 from openerp.addons.ficep_mandate.mandate import mandate_category
-from openerp.addons.ficep_duplicate.abstract_duplicate import abstract_duplicate
 
 SELECTION_COMMITTEE_AVAILABLE_STATES = [
     ('draft', 'In Progress'),

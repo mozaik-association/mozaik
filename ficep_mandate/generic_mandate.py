@@ -36,6 +36,11 @@ class generic_mandate(orm.Model):
     _description = 'Generic Mandate'
     _auto = False
 
+    _discriminant_field = 'partner_id'
+
+    def _is_discriminant_m2o(self):
+        return isinstance(self._columns[self._discriminant_field], fields.many2one)
+
     _columns = {
         'model': fields.char('Models'),
         'id': fields.char('ID'),

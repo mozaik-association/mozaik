@@ -64,4 +64,86 @@ class test_mandate(SharedSetupTransactionCase):
                               self.registry('mandate.category').create,
                               self.cr, self.uid, data)
 
+    def test_exclusive_mandates(self):
+        '''
+            Test detection of exclusive mandates
+        '''
+        mc_bourgmestre_id = self.ref('%s.mc_bourgmestre' % self._module_ns)
+        mc_gouverneur_id = self.ref('%s.mc_gouverneur' % self._module_ns)
+        jacques_partner_id = self.ref('%s.res_partner_jacques' % self._module_ns)
+
+        sta_mandate_pool = self.registry('sta.mandate')
+        ext_mandate_pool = self.registry('ext.mandate')
+        '''
+            Categories are exclusives
+        '''
+        self.registry('mandate.category').write(self.cr, self.uid, mc_bourgmestre_id, {'exclusive_category_m2m_ids': [[6, False, [mc_gouverneur_id]]]})
+        '''
+            Create a mandate in first category
+        '''
+        data = dict(mandate_category_id=mc_bourgmestre_id,
+                    designation_int_assembly_id=self.ref('%s.int_assembly_01' % self._module_ns),
+                    legislature_id=self.ref('%s.legislature_01' % self._module_ns),
+                    start_date="2022-12-03",
+                    deadline_date="2024-04-15",
+                    sta_assembly_id=self.ref('%s.sta_assembly_01' % self._module_ns),
+                    partner_id=jacques_partner_id)
+
+        mandate_id_1 = sta_mandate_pool.create(self.cr, self.uid, data)
+
+        '''
+            Create a mandate in first category
+        '''
+        data = dict(mandate_category_id=mc_gouverneur_id,
+                    designation_int_assembly_id=self.ref('%s.int_assembly_01' % self._module_ns),
+                    start_date="2022-12-03",
+                    deadline_date="2024-04-15",
+                    ext_assembly_id=self.ref('%s.ext_assembly_01' % self._module_ns),
+                    partner_id=jacques_partner_id)
+
+        mandate_id_2 = ext_mandate_pool.create(self.cr, self.uid, data)
+
+        '''
+            System should have detected mandates as exclusive
+        '''
+        mandata_data_1 = sta_mandate_pool.read(self.cr, self.uid, mandate_id_1, ['is_duplicate_detected', 'is_duplicate_allowed'])
+        self.assertTrue(mandata_data_1['is_duplicate_detected'])
+        self.assertFalse(mandata_data_1['is_duplicate_allowed'])
+
+        mandata_data_2 = ext_mandate_pool.read(self.cr, self.uid, mandate_id_2, ['is_duplicate_detected', 'is_duplicate_allowed'])
+        self.assertTrue(mandata_data_2['is_duplicate_detected'])
+        self.assertFalse(mandata_data_2['is_duplicate_allowed'])
+
+        '''
+            Allow exclusive mandates
+        '''
+        ids = self.registry('generic.mandate').search(self.cr, self.uid, [('mandate_id', 'in', [mandate_id_1, mandate_id_2])])
+
+        ctx = {'active_model': 'generic.mandate',
+               'active_ids': ids,
+               'multi_model': True,
+               'model_id_name': 'mandate_id'}
+
+        wz_id = self.registry('allow.duplicate.wizard').create(self.cr, self.uid, {}, context=ctx)
+        self.registry('allow.duplicate.wizard').button_allow_duplicate(self.cr, self.uid, wz_id, context=ctx)
+
+        mandata_data_1 = sta_mandate_pool.read(self.cr, self.uid, mandate_id_1, ['is_duplicate_detected', 'is_duplicate_allowed'])
+        self.assertFalse(mandata_data_1['is_duplicate_detected'])
+        self.assertTrue(mandata_data_1['is_duplicate_allowed'])
+
+        mandata_data_2 = ext_mandate_pool.read(self.cr, self.uid, mandate_id_2, ['is_duplicate_detected', 'is_duplicate_allowed'])
+        self.assertFalse(mandata_data_2['is_duplicate_detected'])
+        self.assertTrue(mandata_data_2['is_duplicate_allowed'])
+
+        '''
+            Undo allow exclusive mandates
+        '''
+        sta_mandate_pool.button_undo_allow_duplicate(self.cr, self.uid, [mandate_id_1])
+        mandata_data_1 = sta_mandate_pool.read(self.cr, self.uid, mandate_id_1, ['is_duplicate_detected', 'is_duplicate_allowed'])
+        self.assertTrue(mandata_data_1['is_duplicate_detected'])
+        self.assertFalse(mandata_data_1['is_duplicate_allowed'])
+
+        mandata_data_2 = ext_mandate_pool.read(self.cr, self.uid, mandate_id_2, ['is_duplicate_detected', 'is_duplicate_allowed'])
+        self.assertTrue(mandata_data_2['is_duplicate_detected'])
+        self.assertFalse(mandata_data_2['is_duplicate_allowed'])
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

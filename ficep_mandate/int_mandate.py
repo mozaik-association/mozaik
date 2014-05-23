@@ -190,6 +190,7 @@ class int_mandate(orm.Model):
     _inherit = ['abstract.mandate']
 
     _allowed_inactive_link_models = ['int.candidature']
+    _undo_redirect_action = 'ficep_mandate.int_mandate_action'
 
     _columns = {
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',

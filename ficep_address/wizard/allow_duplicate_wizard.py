@@ -31,6 +31,7 @@ from openerp.osv import orm, fields
 class allow_duplicate_wizard(orm.TransientModel):
 
     _inherit = "allow.duplicate.wizard"
+    _name = "allow.duplicate.address.wizard"
 
     _columns = {
         'address_id': fields.many2one('address.address', string='Co-Residency', readonly=True),

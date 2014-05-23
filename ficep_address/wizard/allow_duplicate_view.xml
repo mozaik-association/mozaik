@@ -7,7 +7,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model">postal.coordinate</field>
-            <field name="res_model">allow.duplicate.wizard</field>
+            <field name="res_model">allow.duplicate.address.wizard</field>
             <field name="multi" eval="1"/>
             <field name="target">new</field>
             <field name="view_id" ref="ficep_duplicate.allow_duplicate_wizard" />
@@ -25,7 +25,7 @@
 
         <record id="allow_duplicate_wizard_inherit" model="ir.ui.view">
             <field name="name">allow.duplicate.wizard.inherit (ficep_address)</field>
-            <field name="model">allow.duplicate.wizard</field>
+            <field name="model">allow.duplicate.address.wizard</field>
             <field name="inherit_id" ref="ficep_duplicate.allow_duplicate_wizard" />
             <field name="arch" type="xml">
 

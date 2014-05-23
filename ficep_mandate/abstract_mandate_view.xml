@@ -45,6 +45,12 @@
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
                     <field name="is_duplicate_detected" invisible ="1"/>
+                     <field name="is_duplicate_allowed" invisible ="1"/>
+                    <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
+                            groups="ficep_base.ficep_res_groups_user"
+                            attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
+                            icon="gtk-undo"
+                            confirm="Undo allow duplicate: proceed anyway?" />
                 </tree>
             </field>
         </record>
