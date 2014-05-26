@@ -146,7 +146,7 @@ class res_partner(orm.Model):
         'identifier': False,
         'tz': 'Europe/Brussels',
         'customer': False,
-        'notification_email_send': 'none',
+        'notification_email_send': 'all',
 
         # New fields
         'tongue': lambda *args: AVAILABLE_TONGUES[0][0],
