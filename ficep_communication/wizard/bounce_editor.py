@@ -84,4 +84,20 @@ class bounce_editor(orm.TransientModel):
                 active_model.write(cr, uid, [coordinate_value['id']], {'bounce_counter': bounce_counter,
                                                                        'bounce_description': wiz.description})
 
+    def default_get(self, cr, uid, fields_list, context=None):
+        """
+        ===========
+        default_get
+        ===========
+        If active model is postal.coordinate: force message to
+        'Invalid Postal Address'
+        """
+        if context is None:
+            context = {}
+        defaults = super(bounce_editor, self).default_get(cr, uid, fields_list, context=context)
+        if context.get('active_model', False):
+            defaults['description'] = _('No longer lives at the mentioned address')
+        return defaults
+
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

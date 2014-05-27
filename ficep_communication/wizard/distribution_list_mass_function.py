@@ -203,30 +203,34 @@ class distribution_list_mass_function(orm.TransientModel):
             co_residencies.append(pc.co_residency_id.id)
             #test access coordinate (VIP READER)
             partner = safe_get(pc, 'partner_id')
+
+            def _get_utf8(data):
+                return data.encode('utf-8')
+
             if not partner:
                 continue
-            export_values = OrderedDict([('name', partner.lastname.encode('utf-8')),
-                                         ('lastname', None if not partner.usual_lastname else partner.usual_lastname.encode('utf-8')),
-                                         ('firstname', None if not partner.firstname else partner.firstname.encode('utf-8')),
-                                         ('usual_firstname', None if not partner.usual_firstname else partner.usual_firstname.encode('utf-8')),
-                                         ('printable_name', partner.printable_name.encode('utf-8') if not pc.co_residency_id \
-                                             else pc.co_residency_id.line.encode('utf-8')),
+            export_values = OrderedDict([('name', _get_utf8(partner.lastname)),
+                                         ('lastname', None if not partner.usual_lastname else _get_utf8(partner.usual_lastname)),
+                                         ('firstname', None if not partner.firstname else _get_utf8(partner.firstname)),
+                                         ('usual_firstname', None if not partner.usual_firstname else _get_utf8(partner.usual_firstname)),
+                                         ('printable_name', _get_utf8(partner.printable_name) if not pc.co_residency_id \
+                                             else _get_utf8(pc.co_residency_id.line)),
                                          ('co_residency', None if not pc.co_residency_id \
-                                             else pc.co_residency_id.line2),
+                                             else _get_utf8(pc.co_residency_id.line2)),
                                          ('country_code', pc.address_id.country_code or None),
-                                         ('country_name', pc.address_id.country_id.name.encode('utf-8') or None),
+                                         ('country_name', _get_utf8(pc.address_id.country_id.name) or None),
                                          ('zip', pc.address_id.zip or None),
-                                         ('street', None if not pc.address_id.street else pc.address_id.street.encode('utf-8')),
-                                         ('street2', None if not pc.address_id.street2 else pc.address_id.street2.encode('utf-8')),
-                                         ('city', None if not pc.address_id.city else pc.address_id.city.encode('utf-8')),
+                                         ('street', None if not pc.address_id.street else _get_utf8(pc.address_id.street)),
+                                         ('street2', None if not pc.address_id.street2 else _get_utf8(pc.address_id.street2)),
+                                         ('city', None if not pc.address_id.city else _get_utf8(pc.address_id.city)),
                                          ('birth_date', partner.birth_date or None),
                                          ('gender', available_genders.get(partner.gender, None)),
                                          ('tongue', available_tongues.get(partner.tongue, None)),
-                                         ('fix', None if not partner.fix_coordinate_id else partner.fix_coordinate_id.phone_id.name.encode('utf-8')),
-                                         ('mobile', None if not partner.mobile_coordinate_id else partner.mobile_coordinate_id.phone_id.name.encode('utf-8')),
-                                         ('fax', None if not partner.fax_coordinate_id else partner.fax_coordinate_id.phone_id.name.encode('utf-8')),
+                                         ('fix', None if not partner.fix_coordinate_id else _get_utf8(partner.fix_coordinate_id.phone_id.name)),
+                                         ('mobile', None if not partner.mobile_coordinate_id else _get_utf8(partner.mobile_coordinate_id.phone_id.name)),
+                                         ('fax', None if not partner.fax_coordinate_id else _get_utf8(partner.fax_coordinate_id.phone_id.name)),
                                          ('email', None if not partner.email_coordinate_id \
-                                             else partner.email_coordinate_id.email.encode('utf-8')),
+                                             else _get_utf8(partner.email_coordinate_id.email)),
                                         ])
             writer.writerow(export_values.values())
         f.close()

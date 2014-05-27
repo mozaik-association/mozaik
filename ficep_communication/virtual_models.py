@@ -345,6 +345,10 @@ class virtual_partner_instance(orm.Model):
     _description = "Virtual Partner Instance"
     _auto = False
 
+    def test(self, cr, uid, ids, context=None):
+        print "ok"
+        pass
+
     _columns = {
         'common_id': fields.char(string='Common ID'),
         'partner_id': fields.many2one('res.partner', 'Partner'),
