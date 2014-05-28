@@ -25,11 +25,30 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm, fields
+from openerp.tools.translate import _
 
-from . import distribution_list
-from . import virtual_models
-from . import wizard
-from . import email_template
-from . import mass_mailing
+
+class MailMailStats(orm.Model):
+
+    _inherit = 'mail.mail.statistics'
+
+    def set_bounced(self, cr, uid, ids=None, mail_mail_ids=None, mail_message_ids=None, context=None):
+        """
+        ===========
+        set_bounced
+        ===========
+        """
+        res_ids = super(MailMailStats, self).set_bounced(cr, uid, ids=ids, mail_mail_ids=mail_mail_ids, mail_message_ids=mail_message_ids, context=context)
+        for stat in self.browse(cr, uid, res_ids, context=context):
+            if stat.model == 'email.coordinate' and stat.res_id:
+                ctx = context.copy()
+                ctx['active_ids'] = [stat.res_id]
+                wiz_id = self.pool['bounce.editor'].create(cr, uid, {'increase': 1,
+                                                                     'model': 'email.coordinate',
+                                                                     'description': _('Invalid Email Address'),
+                                                                      }, context=context)
+                self.pool['bounce.editor'].update_bounce_datas(cr, uid, [wiz_id], context=ctx)
+        return res_ids
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

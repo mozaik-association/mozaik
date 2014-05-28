@@ -30,7 +30,8 @@ from openerp.osv import orm, fields
 
 class distribution_list(orm.Model):
 
-    _inherit = "distribution.list"
+    _name = "distribution.list"
+    _inherit = ['distribution.list', 'mail.thread', 'ir.needaction_mixin']
 
     def _get_user_id(self, cr, uid, ids=None, context=None):
         """
@@ -42,6 +43,7 @@ class distribution_list(orm.Model):
         return [[6, False, [uid]]]
 
     _columns = {
+        'name': fields.char(string='Name', required=True, track_visibility='onchange'),
         'res_users_ids': fields.many2many('res.users', 'dist_list_res_users_rel', id1='dist_list_id', id2='res_users_id', string='Users',
                                           required=True, select=True),
         'int_instance_id': fields.many2one('int.instance', 'Internal Instance', select=True, track_visibility='onchange'),
@@ -52,6 +54,17 @@ class distribution_list(orm.Model):
         'dst_model_id': lambda self, cr, uid, c:
         self.pool.get('ir.model').search(cr, uid, [('model', '=', 'virtual.target')], context=c)[0],
         'bridge_field': 'common_id',
+    }
+
+
+class distribution_list_line(orm.Model):
+
+    _name = "distribution.list.line"
+    _inherit = ['distribution.list.line', 'mail.thread', 'ir.needaction_mixin']
+
+    _columns = {
+        'name': fields.char(string='Name', required=True, track_visibility='onchange'),
+        'domain': fields.text(string="Expression", required=True, track_visibility='onchange'),
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
