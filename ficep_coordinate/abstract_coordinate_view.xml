@@ -124,6 +124,7 @@
                                 <group>
                                     <field name="bounce_counter" readonly="1"/>
                                     <field name="bounce_description" readonly="1" />
+                                    <field name="bounce_date" readonly="1" />
                                 </group>
                             </page>
                         </notebook>

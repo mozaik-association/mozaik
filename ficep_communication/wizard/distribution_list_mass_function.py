@@ -43,7 +43,7 @@ HEADER_ROW = [
     'Co-Residency Line 2',
     'Country Code',
     'Country Name',
-    'Country Zip',
+    'Zip',
     'Street',
     'Street2',
     'City',
@@ -82,13 +82,13 @@ class distribution_list_mass_function(orm.TransientModel):
     _description = 'Distribution List Mass Function'
 
     _columns = {
-        'trg_model': fields.selection(TRG_MODEL, 'Target Model', required=True),
+        'trg_model': fields.selection(TRG_MODEL, 'Sending Mode', required=True),
         'e_mass_function': fields.selection(E_MASS_FUNCTION, 'Mass Function'),
         'p_mass_function': fields.selection(P_MASS_FUNCTION, 'Mass Function'),
 
         'email_template_id': fields.many2one('email.template', 'Email Template', select=True),
         'campaign_id': fields.many2one('mail.mass_mailing.campaign', 'Mail Campaign', select=True),
-        'extract_csv': fields.boolean('CSV Extraction',
+        'extract_csv': fields.boolean('Complementary Postal CSV',
                                       help="Get a CSV file with all partners who have no email coordinate"),
 
         'sort_by': fields.selection(SORT_BY, 'Sort by'),
@@ -105,6 +105,13 @@ class distribution_list_mass_function(orm.TransientModel):
      }
 
     def onchange_trg_model(self, cr, uid, ids, context=None):
+        """
+        ==================
+        onchange_trg_model
+        ==================
+        reset `p_mass_function` and `e_mass_function`
+        when `trg_model` is changed
+        """
         return {
             'value': {
                 'p_mass_function': '',
@@ -119,6 +126,9 @@ class distribution_list_mass_function(orm.TransientModel):
         =============
         mass function
         =============
+        This method allow to make mass function on
+        - email.coordinate
+        - postal.coordinate
         """
         composer = self.pool['mail.compose.message']
         for wizard in self.browse(cr, uid, ids, context=context):

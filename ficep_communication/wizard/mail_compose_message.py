@@ -37,6 +37,8 @@ class mail_compose_message(orm.TransientModel):
         ===============
         get_mail_values
         ===============
+        If the wizard's model is `email.coordinate` then the recipient is the
+        email of the `email.coordinate`
         """
         values = super(mail_compose_message, self).get_mail_values(cr, uid, wizard, res_ids, context=context)
         if wizard.model == 'email.coordinate':

@@ -25,6 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from datetime import datetime
+
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
 
@@ -84,7 +86,8 @@ class bounce_editor(orm.TransientModel):
                 curr_bounce_counter = coordinate_value['bounce_counter']
                 bounce_counter = curr_bounce_counter + wiz.increase
                 active_model.write(cr, uid, [coordinate_value['id']], {'bounce_counter': bounce_counter,
-                                                                       'bounce_description': wiz.description})
+                                                                       'bounce_description': wiz.description,
+                                                                       'bounce_date': datetime.today().strftime('%Y-%m-%d %H:%M:%S')})
 
     def default_get(self, cr, uid, fields_list, context=None):
         """
