@@ -47,8 +47,6 @@ Creating a new term will send a message to all this followers requesting their v
     'data': [
         'security/ir.model.access.csv',
         'data/thesaurus_data.xml',
-        #'wizard/change_main_phone.xml',
-        'thesaurus_data.xml',
         'thesaurus_view.xml',
     ],
     'js': [

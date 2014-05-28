@@ -71,6 +71,8 @@ class bounce_editor(orm.TransientModel):
         ===================
         update_bounce_datas
         ===================
+        Update the bounce information of coordinate.
+        ``ids`` of the coordinate is contained into the active_ids of the context.
         """
         for wiz in self.browse(cr, uid, ids, context=context):
             res_ids = context.get('active_ids', False)
@@ -96,7 +98,8 @@ class bounce_editor(orm.TransientModel):
             context = {}
         defaults = super(bounce_editor, self).default_get(cr, uid, fields_list, context=context)
         if context.get('active_model', False):
-            defaults['description'] = _('No longer lives at the mentioned address')
+            if context['active_model'] == 'postal.coordinate':
+                defaults['description'] = _('No longer lives at the mentioned address')
         return defaults
 
 

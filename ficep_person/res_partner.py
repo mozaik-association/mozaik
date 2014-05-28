@@ -245,6 +245,10 @@ class res_partner(orm.Model):
             involvements_ids = involvement_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids)], context=context)
             if involvements_ids:
                 involvement_obj.action_invalidate(cr, SUPERUSER_ID, involvements_ids, context=context)
+            #remove all followers when invalidate
+            mail_follower_object = self.pool['mail.followers']
+            follower_ids = mail_follower_object.search(cr, uid, [('partner_id', 'in', ids)], context=context)
+            mail_follower_object.unlink(cr, uid, follower_ids, context=context)
         res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         return res
 
