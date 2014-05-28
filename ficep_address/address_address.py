@@ -292,6 +292,12 @@ class postal_coordinate(orm.Model):
     _inherit = ['abstract.coordinate']
     _description = 'Postal Coordinate'
 
+    _track = {
+        'bounce_counter': {
+            'ficep_address.address_failure_notification': lambda self, cr, uid, obj, ctx=None: obj.bounce_counter,
+        },
+    }
+
     _discriminant_field = 'address_id'
     _trigger_fields = []
     _undo_redirect_action = 'ficep_address.postal_coordinate_action'
@@ -323,6 +329,26 @@ class postal_coordinate(orm.Model):
         if mode in ['duplicate', 'reset']:
             res.update({'co_residency_id': False})
         return res
+
+    def create(self, cr, uid, vals, context=None):
+        """
+        ======
+        create
+        ======
+        Automatically add the partner as follower of this new coordinate
+        """
+        new_id = super(postal_coordinate, self).create(cr, uid, vals, context=context)
+        #add partner_id to the followers of the new postal_coordinate
+        if vals.get('partner_id', False):
+            wiz_invite_obj = self.pool['mail.wizard.invite']
+            wiz_invite_id = wiz_invite_obj.create(cr, uid, {'res_model': self._name,
+                                                            'res_id': new_id,
+                                                            'partner_ids': [[6, False, [vals['partner_id']]]],
+                                                            'send_mail': False,
+                                                            }, context=context)
+            wiz_invite_obj.add_followers(cr, uid, [wiz_invite_id], context=context)
+
+        return new_id
 
 
 class co_residency(orm.Model):

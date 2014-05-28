@@ -38,6 +38,8 @@ class MailMailStats(orm.Model):
         ===========
         set_bounced
         ===========
+        This overload is made to spread the bounce counter to the email_coordinate.
+        Only work for message that have `email.coordinate` as model
         """
         res_ids = super(MailMailStats, self).set_bounced(cr, uid, ids=ids, mail_mail_ids=mail_mail_ids, mail_message_ids=mail_message_ids, context=context)
         for stat in self.browse(cr, uid, res_ids, context=context):
