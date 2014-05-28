@@ -42,7 +42,6 @@ FICEP Sample Customization
     'images': [
     ],
     'data': [
-         'demo/company_demo.xml',
          'demo/users_demo.xml',
          '../ficep_base/tests/data/res_partner_data.xml',
          '../ficep_base/tests/data/res_users_data.xml',

@@ -165,7 +165,7 @@
                             <label for="object_partner_id" class="oe_edit_only"/>
                             <h1><field name="object_partner_id" /></h1>
                             <label for="partner_relation_category_id" class="oe_edit_only"/>
-                            <h1><field name="partner_relation_category_id" /></h1>
+                            <h1><field name="partner_relation_category_id" context="{'object': True}" /></h1>
                             <label for="subject_partner_id" class="oe_edit_only"/>
                             <h1><field name="subject_partner_id" /></h1>
                         </div>

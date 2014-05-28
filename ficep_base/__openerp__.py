@@ -45,7 +45,6 @@
         'document',
         'distribution_list',     # from lp:acsone-addons
         'readonly_bypass',       # from lp:acsone-addons
-        #'auth_ldap',
         #'event',
         #'l10n_be',
         #'account_accountant',
