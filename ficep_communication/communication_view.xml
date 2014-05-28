@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- 
+        <!--
             Persons:
             Natural Persons
             Legal Persons
@@ -10,7 +10,7 @@
         -->
 
         <menuitem id="persons_menu" name="Persons"
-                  sequence="10" parent="ficep_base.communication_root_menu" />
+                  sequence="8" parent="ficep_base.communication_root_menu" />
         <menuitem id="natural_persons_menu" action="ficep_person.natural_res_partner_action"
                   sequence="10" parent="persons_menu" />
         <menuitem id="legal_persons_menu" action="ficep_person.legal_res_partner_action"
@@ -18,14 +18,15 @@
         <menuitem id="all_persons_menu" action="ficep_person.all_res_partner_action"
                   sequence="30" parent="persons_menu" />
 
-        <!-- 
+        <!--
             Mailing:
             - Templates
-            - Campaigns
-            - Statistics
             - Distribution List
             - Filters
+            - Campaigns
+            - Statistics
         -->
+
         <menuitem id="mailing_submenu" name="Mailing"
                   sequence="10" parent="ficep_base.communication_root_menu" />
 
@@ -36,21 +37,21 @@
 
         <record id="distribution_list.distribution_list_line" model="ir.ui.menu">
             <field name="parent_id" ref="mailing_submenu" />
-            <field name="sequence">10</field>
+            <field name="sequence">11</field>
         </record>
 
         <record id="mass_mailing.menu_email_campaigns" model="ir.ui.menu">
             <field name="parent_id" ref="mailing_submenu" />
-            <field name="sequence">10</field>
+            <field name="sequence">20</field>
         </record>
 
         <record id="mass_mailing.menu_email_mass_mailings" model="ir.ui.menu">
             <field name="parent_id" ref="mailing_submenu" />
-            <field name="sequence">10</field>
+            <field name="sequence">21</field>
         </record>
 
         <menuitem id="templates_submenu" name="Templates"
-                  sequence="10" parent="mailing_submenu" action="email_template.action_email_template_tree_all"/>
+                  sequence="5" parent="mailing_submenu" action="email_template.action_email_template_tree_all"/>
 
         <!-- Configurations -->
 
