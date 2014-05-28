@@ -105,6 +105,7 @@
         <record id="fix_fgtb" model="phone.phone">
             <field name="name">025520330</field>
             <field name="type">fix</field>
+            <field name="also_for_fax" eval="1"/>
         </record>
 
         <record id="main_fix_coordinate_for_fgtb" model="phone.coordinate">

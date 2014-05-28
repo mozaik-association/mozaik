@@ -81,8 +81,9 @@
                     <field name="type" />
 
                     <filter name="phones" string="Phones" domain="[('type','in',['fix','mobile'])]" />
+                    <filter name="faxes" string="Faxes" domain="['|',('type','=','fax'),('also_for_fax','=',True)]" />
                     <group expand="1" string="Group By..." name="group_by">
-                        <filter string="type" domain="[]" context="{'group_by':'type'}" />
+                        <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" />
                     </group>
                 </search>
             </field>
@@ -115,9 +116,10 @@
 
                         <group name="data">
                             <group name="main">
-                                <field name="type" attrs="{'readonly': [('phone_coordinate_ids','!=',[])]}" />
+                                <field name="type" attrs="{'readonly': [('phone_coordinate_ids','!=',[])]}" on_change="onchange_type(type)" />
                             </group>
                             <group name="other">
+                                <field name="also_for_fax"  attrs="{'invisible': [('type','!=','fix')]}" />
                             </group>
                         </group>
 

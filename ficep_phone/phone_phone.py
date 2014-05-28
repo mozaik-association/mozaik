@@ -45,6 +45,8 @@ PHONE_AVAILABLE_TYPES = [
     ('fax', 'Fax'),
 ]
 
+FIXFAX = _('Fix + Fax')
+
 phone_available_types = dict(PHONE_AVAILABLE_TYPES)
 
 PREFIX_CODE = 'BE'
@@ -59,13 +61,19 @@ class phone_phone(orm.Model):
     def _get_linked_coordinates(self, cr, uid, ids, context=None):
         return self.pool['phone.coordinate'].search(cr, uid, [('phone_id', 'in', ids)], context=context)
 
+    def _validate_data(self, cr, uid, vals, mode='write', context=None):
+        if 'type' in vals and vals['type'] != PHONE_AVAILABLE_TYPES[0][0]:
+            vals.update(also_for_fax=False)
+        if 'name' in vals:
+            vals['name'] = self._check_and_format_number(cr, uid, vals['name'], context=context)
+
     def _check_and_format_number(self, cr, uid, num, context=None):
         """
         ========================
         _check_and_format_number
         ========================
-        :param vals: containing at least 'name' that is the phone number
-        :type vals: dictionary
+        :param num: the phone number
+        :type num: char
         :returns: Number formated into a International Number
                   If number is not starting by '+' then check if it starts by '00'
                   and replace it with '+'. Otherwise set a code value with a PREFIX
@@ -99,6 +107,7 @@ class phone_phone(orm.Model):
     _columns = {
         'name': fields.char('Number', size=50, required=True, select=True, track_visibility='onchange'),
         'type': fields.selection(PHONE_AVAILABLE_TYPES, 'Type', required=True, track_visibility='onchange'),
+        'also_for_fax': fields.boolean('Also for fax', track_visibility='onchange'),
 
         'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinates',
                                                 domain=[('active', '=', True)]),
@@ -110,6 +119,7 @@ class phone_phone(orm.Model):
 
     _defaults = {
         'type': PHONE_AVAILABLE_TYPES[0][0],
+        'also_for_fax': False,
     }
 
 # constraints
@@ -135,8 +145,10 @@ class phone_phone(orm.Model):
             ids = [ids]
 
         res = []
-        for record in self.read(cr, uid, ids, ['name', 'type'], context=context):
-            display_name = "%s (%s)" % (record['name'], phone_available_types.get(record['type']))
+        for record in self.read(cr, uid, ids, ['name', 'type', 'also_for_fax'], context=context):
+            display_name = "%s (%s)" % (record['name'],
+                                        record['also_for_fax'] and FIXFAX
+                                                               or phone_available_types.get(record['type']))
             res.append((record['id'], display_name))
         return res
 
@@ -152,24 +164,21 @@ class phone_phone(orm.Model):
         :rparam: id of the new phone
         :rtype: integer
         """
-        if 'name' in vals:
-            vals['name'] = self._check_and_format_number(cr, uid, vals['name'], context=context)
+        self._validate_data(cr, uid, vals, mode='create', context=context)
         return super(phone_phone, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
         """
-        ==================
-        write phone.phone
-        ==================
-        This method will update a phone number after checking and format this
-        Number, calling the _check_and_format_number method
+        =====
+        write
+        =====
+        Validate data and update the record
         :param: vals
         :type: dictionary that possibly contains 'name'
         :rparam: True
         :rtype: boolean
         """
-        if 'name' in vals:
-            vals['name'] = self._check_and_format_number(cr, uid, vals['name'], context=context)
+        self._validate_data(cr, uid, vals, context=context)
         return super(phone_phone, self).write(cr, uid, ids, vals, context=context)
 
     def copy(self, cr, uid, ids, default=None, context=None):
@@ -215,6 +224,15 @@ class phone_phone(orm.Model):
         coord_ids = self._get_linked_coordinates(cr, uid, ids, context=context)
         return self.pool['phone.coordinate'].get_linked_partners(cr, uid, coord_ids, context=context)
 
+# view methods: onchange, button
+
+    def onchange_type(self, cr, uid, ids, new_type, context=None):
+        return {
+            'value': {
+                'also_for_fax': False,
+             }
+        }
+
 
 class phone_coordinate(orm.Model):
 
@@ -227,7 +245,7 @@ class phone_coordinate(orm.Model):
 
     _type_store_triggers = {
         'phone.coordinate': (lambda self, cr, uid, ids, context=None: ids, ['phone_id'], 10),
-        'phone.phone': (lambda self, cr, uid, ids, context=None: self.pool['phone.phone']._get_linked_coordinates(cr, uid, ids, context=context), ['type'], 10),
+        'phone.phone': (lambda self, cr, uid, ids, context=None: self.pool['phone.phone']._get_linked_coordinates(cr, uid, ids, context=context), ['type', 'also_for_fax'], 10),
     }
 
     _columns = {
@@ -236,6 +254,8 @@ class phone_coordinate(orm.Model):
         'coordinate_type': fields.related('phone_id', 'type', string='Phone Type', readonly=True,
                                           type='selection', selection=PHONE_AVAILABLE_TYPES,
                                           store=_type_store_triggers),
+        'also_for_fax': fields.related('phone_id', 'also_for_fax', string='Also for fax', readonly=True,
+                                          type='boolean', store=_type_store_triggers),
     }
 
     _rec_name = _discriminant_field

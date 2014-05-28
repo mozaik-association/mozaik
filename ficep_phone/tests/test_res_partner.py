@@ -90,9 +90,7 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         ========================
         test_update_phone_number
         ========================
-        Test the fact that when a number is updated for a phone_coordinate that
-        is associated with a partner, the phone value is right set for the
-        partner of this phone_coordinate
+        Test the replication of the phone number of the main coordinate on the partner
         """
         cr, uid, context = self.cr, self.uid, self.context
         partner_model, phone_model, phone_coordinate_model = self.partner_model, self.phone_model, self.phone_coordinate_model
@@ -102,6 +100,10 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         partner_value = partner_model.read(cr, uid, self.partner_pauline_id, ['phone'], context=context)
         phone_value = phone_coordinate_model.browse(cr, uid, self.phone_coordinate_id_1, context=context).phone_id.name
         self.assertEqual(partner_value['phone'] == phone_value, True, "Phone Should Be Set With The Same Value")
+
+        phone_model.write(cr, uid, [self.phone_id_2], {'also_for_fax': True}, context=context)
+        partner_value = partner_model.read(cr, uid, self.partner_pauline_id, ['fax'], context=context)
+        self.assertEqual(partner_value['fax'] == phone_value, True, "Phone and Fax must be identical")
 
     def test_invalidate_partner(self):
         """
