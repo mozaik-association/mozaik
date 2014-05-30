@@ -102,7 +102,7 @@ class abstract_selection_committee(orm.AbstractModel):
         'mandate_start_date': fields.date('Start Date of Mandates', required=True, track_visibility='onchange'),
         'mandate_deadline_date': fields.date('Deadline Date of Mandates', required=True, track_visibility='onchange'),
         'meeting_date': fields.date('Committee Meeting Date', track_visibility='onchange'),
-        'name': fields.char('Name', size=128, translate=True, select=True, required=True, track_visibility='onchange'),
+        'name': fields.char('Name', size=128, select=True, required=True, track_visibility='onchange'),
         'partner_ids': fields.many2many('res.partner', 'selection_committee_res_partner_rel', 'id', 'member_id',
                                                       'Members', domain=[('is_company', '=', False)]),
         'note': fields.text('Notes', track_visibility='onchange'),
