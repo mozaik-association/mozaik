@@ -46,14 +46,18 @@
             <field name="inherit_id" ref="abstract_candidature_search_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="electoral_district_id"/>
                     <field name="sta_assembly_id"/>
-                    <field name="legislature_id"/>
                 </xpath>
-                <xpath expr="//filter[@name='category']" position="after">
-                    <filter name="electoral_district" string="Electoral District" domain="[]" context="{'group_by':'legislature_id'}" />
+                <xpath expr="//field[@name='designation_int_assembly_id']" position="before">
+                    <field name="legislature_id"/>
+                    <field name="electoral_district_id"/>
+                </xpath>
+                <xpath expr="//filter[@name='partner']" position="after">
                     <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'sta_assembly_id'}" />
+                </xpath>
+                <xpath expr="//filter[@name='designation_assembly']" position="before">
                     <filter name="legislature" string="Legislature" domain="[]" context="{'group_by':'legislature_id'}" />
+                    <filter name="electoral_district" string="Electoral District" domain="[]" context="{'group_by':'electoral_district_id'}" />
                 </xpath>
             </field>
         </record>
@@ -64,9 +68,6 @@
             <field name="inherit_id" ref="abstract_candidature_tree_view"/>
             <field name="arch" type="xml">
                 <data>
-                    <xpath expr="//field[@name='partner_id']" position="attributes">
-                        <attribute name="invisible">1</attribute>
-                    </xpath>
                     <xpath expr="//field[@name='partner_id']" position="before">
                         <field name="list_effective_position" string="#EP"
                                attrs="{'invisible': ['|','&amp;',('is_effective', '=', False),('is_substitute', '!=', False),('state', 'in', ['elected', 'non-elected', 'rejected'])]}"/>
@@ -79,10 +80,10 @@
                         <field name="is_effective" invisible="1"/>
                         <field name="is_substitute" invisible="1"/>
                     </xpath>
-                    <xpath expr="//field[@name='mandate_category_id']" position="after">
-                        <field name="electoral_district_id"/>
+                    <xpath expr="//field[@name='mandate_start_date']" position="replace">
                         <field name="sta_assembly_id" invisible="1"/>
                         <field name="legislature_id" invisible="1"/>
+                        <field name="electoral_district_id"/>
                     </xpath>
                 </data>
             </field>
@@ -96,12 +97,12 @@
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="int_assembly_id"/>
                 </xpath>
-                <xpath expr="//filter[@name='category']" position="after">
+                <xpath expr="//filter[@name='partner']" position="after">
                     <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'int_assembly_id'}" />
                 </xpath>
             </field>
         </record>
-        
+
         <record id="ext_candidature_search_view" model="ir.ui.view">
             <field name="name">ext.candidature.search</field>
             <field name="model">ext.candidature</field>
@@ -110,7 +111,7 @@
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="ext_assembly_id"/>
                 </xpath>
-                <xpath expr="//filter[@name='category']" position="after">
+                <xpath expr="//filter[@name='partner']" position="after">
                     <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'ext_assembly_id'}" />
                 </xpath>
             </field>
@@ -145,7 +146,7 @@
                 </xpath>
             </field>
         </record>
-        
+
         <record id="ext_mandate_search_view" model="ir.ui.view">
             <field name="name">ext.mandate.search</field>
             <field name="model">ext.mandate</field>
@@ -188,7 +189,7 @@
                 </xpath>
             </field>
         </record>
-        
+
         <record id="ext_mandate_tree_view" model="ir.ui.view">
             <field name="name">ext.mandate.tree</field>
             <field name="model">ext.mandate</field>
@@ -208,21 +209,25 @@
             <field name="model">sta.selection.committee</field>
             <field name="inherit_id" ref="abstract_selection_committee_tree_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='assembly_id']" position="after">
+                <xpath expr="//field[@name='mandate_start_date']" position="replace">
                    <field name="legislature_id"/>
                    <field name="electoral_district_id"/>
                 </xpath>
             </field>
         </record>
-        
+
          <record id="sta_selection_committee_search_view" model="ir.ui.view">
             <field name="name">sta.selection.committee.search</field>
             <field name="model">sta.selection.committee</field>
             <field name="inherit_id" ref="abstract_selection_committee_search_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//filter[@name='assembly']" position="after">
-                   <filter name="legislature" string="Legislature" domain="[]" context="{'group_by':'legislature_id'}" />   
-                   <filter name="electoral_district" string="Electoral District" domain="[]" context="{'group_by':'electoral_district_id'}" />  
+                <xpath expr="//field[@name='designation_int_assembly_id']" position="before">
+                   <field name="legislature_id"/>
+                   <field name="electoral_district_id"/>
+                </xpath>
+                <xpath expr="//filter[@name='designation_assembly']" position="before">
+                   <filter name="legislature" string="Legislature" domain="[]" context="{'group_by':'legislature_id'}" />
+                   <filter name="electoral_district" string="Electoral District" domain="[]" context="{'group_by':'electoral_district_id'}" />
                 </xpath>
             </field>
         </record>
@@ -279,7 +284,7 @@
             <field name="search_view_id" ref="int_candidature_search_view" />
             <field name="view_id" ref="abstract_candidature_tree_view" />
         </record>
-        
+
         <record id="ext_candidature_action" model="ir.actions.act_window">
             <field name="name">External Candidatures</field>
             <field name="res_model">ext.candidature</field>
@@ -306,7 +311,7 @@
             <field name="search_view_id" ref="int_mandate_search_view" />
             <field name="view_id" ref="int_mandate_tree_view" />
         </record>
-        
+
         <record id="ext_mandate_action" model="ir.actions.act_window">
             <field name="name">External Mandates</field>
             <field name="res_model">ext.mandate</field>
@@ -342,7 +347,7 @@
             <field name="search_view_id" ref="abstract_selection_committee_search_view" />
             <field name="view_id" ref="abstract_selection_committee_tree_view" />
         </record>
-       
+
          <!-- Form Views -->
 
         <record id="mandate_category_form_view" model="ir.ui.view">
@@ -470,7 +475,8 @@
                 </xpath>
                 <xpath expr="//group[@name='data_2']" position="after">
                     <group name="Effective" attrs="{'invisible': ['|',('state','=','rejected'),('is_legislative', '=', False)]}">
-                        <field name="is_effective" attrs="{'readonly': [('state','not in',['draft', 'declared', 'suggested'])]}"/>
+                        <field name="is_effective" attrs="{'readonly': [('state','not in',['draft', 'declared', 'suggested'])]}"
+                               on_change="onchange_effective_substitute(is_effective, is_substitute)"/>
                         <field name="list_effective_position" attrs="{'invisible':[('is_effective', '=', False), ('is_substitute', '=', True)],
                                                                       'readonly': [('state','not in',['draft', 'declared', 'suggested'])],
                                                                       'required': ['|', ('is_effective', '!=', False), ('is_substitute', '=', False)]}"/>
@@ -478,7 +484,8 @@
                         <field name="effective_votes" attrs="{'invisible': ['|',('state','not in',['elected', 'non-elected']), '&amp;', ('is_effective', '=', False), ('is_substitute', '=', True)]}"/>
                     </group>
                     <group name="substitute" attrs="{'invisible': ['|',('state','=','rejected'),('is_legislative', '=', False)]}">
-                        <field name="is_substitute" attrs="{'readonly': [('state','not in',['draft', 'declared', 'suggested'])]}"/>
+                        <field name="is_substitute" attrs="{'readonly': [('state','not in',['draft', 'declared', 'suggested'])]}"
+                               on_change="onchange_effective_substitute(is_effective, is_substitute)"/>
                         <field name="list_substitute_position" attrs="{'invisible': [('is_substitute', '=', False)],
                                                                        'readonly': [('state','not in',['draft', 'declared', 'suggested'])],
                                                                        'required': [('is_substitute', '!=', False)]}"/>
@@ -505,7 +512,7 @@
                 </xpath>
             </field>
         </record>
-        
+
         <record id="ext_candidature_form_view" model="ir.ui.view">
             <field name="name">ext.candidature.form</field>
             <field name="model">ext.candidature</field>
@@ -571,7 +578,7 @@
                             domain="[('assembly_category_id', '=', int_assembly_category_id)]"
                             on_change="onchange_int_assembly_id(int_assembly_id)"/>
                 </xpath>
-                
+
                  <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
                     <attribute name="readonly">1</attribute>
                 </xpath>
@@ -579,17 +586,17 @@
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
                 </xpath>
-                
+
                 <xpath expr="//field[@name='end_date']" position="after">
                     <field name="months_before_end_of_mandate"/>
                 </xpath>
-                
+
                 <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="int_assembly_category_id"/>
                 </xpath>
             </field>
         </record>
-        
+
         <record id="ext_mandate_form_view" model="ir.ui.view">
             <field name="name">ext.mandate.form</field>
             <field name="model">ext.mandate</field>
@@ -605,15 +612,15 @@
                 <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
                     <attribute name="readonly">1</attribute>
                 </xpath>
-                
+
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
                 </xpath>
-                
+
                 <xpath expr="//field[@name='end_date']" position="after">
                     <field name="months_before_end_of_mandate"/>
                 </xpath>
-                
+
                 <xpath expr="//group[@name='data']" position="after">
                     <notebook>
                         <page name="index" string="Indexation">
@@ -856,7 +863,7 @@
 
         <menuitem id="ext_selection_committee_submenu" name="Selection Committees" action="ext_selection_committee_action"
                   sequence="10" parent="ext_submenu"/>
-                  
+
         <menuitem id="ext_candidature_submenu" name="Candidatures" action="ext_candidature_action"
                   sequence="20" parent="ext_submenu"/>
 

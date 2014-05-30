@@ -41,7 +41,7 @@
                     <field name="mandate_category_id"/>
                     <field name="start_date"/>
                     <field name="deadline_date"/>
-                    <field name="end_date"/>                    
+                    <field name="end_date"/>
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
                     <field name="is_duplicate_detected" invisible ="1"/>
@@ -61,8 +61,9 @@
             <field name="arch" type="xml">
                 <search string="Candidature" version="7.0">
                     <field name="selection_committee_id"/>
-                    <field name="partner_id"/>
+                    <field name="partner_id" domain="[('is_company','=',False)]"/>
                     <field name="mandate_category_id"/>
+                    <field name="designation_int_assembly_id"/>
 
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
@@ -73,7 +74,8 @@
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="committee" string="Selection Committee" domain="[]" context="{'group_by':'selection_committee_id'}" />
                         <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
-                        <filter name="category" string="Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
+                        <filter name="category" string="Mandate Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
+                        <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
                     </group>
                 </search>
             </field>
@@ -88,6 +90,8 @@
                     <field name="partner_id" invisible="1"/>
                     <field name="partner_name"/>
                     <field name="mandate_category_id"/>
+                    <field name="mandate_start_date"/>
+                    <field name="designation_int_assembly_id" invisible="1"/>
                     <field name="state"/>
                     <button name="button_suggest" string="Suggest"  icon="gtk-apply"
                             confirm="Suggest candidature: proceed anyway ?" states="declared"/>
@@ -104,6 +108,11 @@
             <field name="model">abstract.selection.committee</field>
             <field name="arch" type="xml">
                 <search string="Selection committee" version="7.0">
+                    <field name="name"/>
+                    <field name="assembly_id"/>
+                    <field name="mandate_category_id"/>
+                    <field name="designation_int_assembly_id"/>
+
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" />
@@ -111,12 +120,14 @@
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" />
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'assembly_id'}" />                        
+                        <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'assembly_id'}" />
+                        <filter name="category" string="Mandate Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
+                        <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
                     </group>
                 </search>
             </field>
         </record>
-        
+
         <record id="abstract_selection_committee_tree_view" model="ir.ui.view">
             <field name="name">abstract.selection.committee.tree</field>
             <field name="model">abstract.selection.committee</field>
@@ -124,21 +135,24 @@
                 <tree string="Selection Committee" version="7.0">
                     <field name="name"/>
                     <field name="assembly_id"/>
-                     <field name="expire_date"
+                    <field name="mandate_category_id"/>
+                    <field name="mandate_start_date"/>
+                    <field name="designation_int_assembly_id" invisible="1"/>
+                    <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
-        
+
          <record id="generic_mandate_search_view" model="ir.ui.view">
             <field name="name">generic.mandate.search</field>
             <field name="model">generic.mandate</field>
             <field name="arch" type="xml">
                 <search string="Mandates" version="7.0">
-                    <field name="partner_id"/>                 
+                    <field name="partner_id"/>
 
                     <filter name="duplicate" string="Duplicates"
-                            domain="[('is_duplicate_detected','=',True)]" />                    
+                            domain="[('is_duplicate_detected','=',True)]" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
                         <filter name="category" string="Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
@@ -146,7 +160,7 @@
                 </search>
             </field>
         </record>
-        
+
         <record id="generic_mandate_tree_view" model="ir.ui.view">
             <field name="name">generic.mandate.tree</field>
             <field name="model">generic.mandate</field>
@@ -162,9 +176,9 @@
                 </tree>
             </field>
         </record>
-        
+
         <!-- Actions -->
-         
+
         <record id="generic_mandate_action" model="ir.actions.act_window">
             <field name="name">Duplicate mandates</field>
             <field name="res_model">generic.mandate</field>
@@ -174,13 +188,13 @@
             <field name="view_id" ref="generic_mandate_tree_view" />
             <field name="context">{'search_default_duplicate': True}</field>
         </record>
-        
+
         <record id="generic_mandate_form_view" model="ir.ui.view">
             <field name="name">generic.mandate.form</field>
             <field name="model">generic.mandate</field>
             <field name="arch" type="xml">
                 <form edit="0" create="0" string="Mandate" version="7.0">
-                   
+
                     <sheet>
                         <div class="oe_title">
                             <h1>Mandate: <field name="mandate_category_id" class="oe_inline"/></h1>
@@ -199,8 +213,8 @@
             </form>
             </field>
         </record>
-        
-        
+
+
         <!-- Form Views -->
 
         <record id="abstract_mandate_form_view" model="ir.ui.view">
@@ -383,7 +397,7 @@
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name"/></h1>
-                            <group>                         
+                            <group>
                                 <field name="auto_mandate"/>
                             </group>
                         </div>
@@ -391,22 +405,21 @@
                         </div>
                         <group>
                              <group name="assembly">
-                                <field name="assembly_id"
-		                             required="1"		                             
-		                             on_change="onchange_assembly_id(assembly_id)"/>
+                                <field name="assembly_id" required="1"
+                                       on_change="onchange_assembly_id(assembly_id)"/>
                             </group>
-                            
+
                             <group>
                                 <field name="designation_int_assembly_id" readonly="1"/>
                                 <field name="meeting_date" widget="date"/>
                                 <field name="decision_date" widget="date"/>
                             </group>
-                            
-                            <group name="mandate">                         
+
+                            <group name="mandate">
                                 <field name="mandate_start_date" widget="date"/>
                                 <field name="mandate_deadline_date" widget="date"/>
-                            </group>                            
-                            
+                            </group>
+
                             <group name="Dates">
                                 <field name="create_date" readonly="1"/>
                                 <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
@@ -415,7 +428,7 @@
 
                         <notebook invisible="context.get('popup')">
                             <page string="Candidatures" name="candidatures" invisible="context.get('popup')"
-                                  attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">                                
+                                  attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                             </page>
                             <page string="Members" name="members">
                                 <field name="partner_ids" context="{'default_is_company': False}">
@@ -426,7 +439,7 @@
                             </page>
                             <page string="Note" name="note">
                                 <field name="note"/>
-                            </page>                            
+                            </page>
                         </notebook>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
@@ -443,7 +456,7 @@
                             </group>
                         </div>
                     </div>
-                    
+
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />

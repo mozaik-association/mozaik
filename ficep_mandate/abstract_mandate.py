@@ -114,6 +114,8 @@ class abstract_selection_committee(orm.AbstractModel):
         'auto_mandate': False,
     }
 
+    _order = 'assembly_id, mandate_start_date, mandate_category_id, name'
+
 # constraints
 
     def _check_decision_date(self, cr, uid, ids, context=None):
@@ -470,6 +472,8 @@ class abstract_candidature(orm.AbstractModel):
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'selection_committee_id': fields.many2one('abstract.selection.committee', string='Selection Committee',
                                                  required=True, select=True, track_visibility='onchange'),
+        'mandate_start_date': fields.related('selection_committee_id', 'mandate_start_date', string='Start Date of Mandates',
+                                          type='date', store=True),
         'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
                                           type='many2one', relation="mandate.category",
                                           store=True),
@@ -485,8 +489,6 @@ class abstract_candidature(orm.AbstractModel):
     _defaults = {
         'state': CANDIDATURE_AVAILABLE_STATES[0][0],
     }
-
-    _order = 'selection_committee_id, partner_name'
 
 # constraints
 

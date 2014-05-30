@@ -81,7 +81,12 @@ class int_selection_committee(orm.Model):
         'is_virtual': True,
     }
 
-    # view methods: onchange, button
+# constraints
+
+    _unicity_keys = 'N/A'
+
+# view methods: onchange, button
+
     def action_copy(self, cr, uid, ids, context=None):
         """
         ==========================
@@ -117,11 +122,6 @@ class int_selection_committee(orm.Model):
         """
         return super(int_selection_committee, self).button_refuse_candidatures(cr, uid, ids, context=context)
 
-# constraints
-
-    _unicity_keys = 'N/A'
-
-    # view methods: onchange, button
     def onchange_assembly_id(self, cr, uid, ids, assembly_id, context=None):
         return super(int_selection_committee, self).onchange_assembly_id(cr, uid, ids, assembly_id, context=None)
 
@@ -167,9 +167,10 @@ class int_candidature(orm.Model):
                                        domain=[('active', '<=', True)]),
     }
 
-    _order = 'selection_committee_id'
+    _order = 'int_assembly_id, mandate_start_date, mandate_category_id, partner_name'
 
-    # view methods: onchange, button
+# view methods: onchange, button
+
     def onchange_selection_committee_id(self, cr, uid, ids, selection_committee_id, context=None):
         res = {}
         selection_committee = self.pool.get(self._selection_committee_model).browse(cr, uid, selection_committee_id, context)
