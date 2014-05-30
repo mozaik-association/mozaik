@@ -9,8 +9,9 @@
             <field name="model">abstract.mandate</field>
             <field name="arch" type="xml">
                 <search string="Mandate" version="7.0">
-                    <field name="partner_id"/>
+                    <field name="partner_id" domain="[('is_company','=',False)]"/>
                     <field name="mandate_category_id"/>
+                    <field name="designation_int_assembly_id"/>
 
                     <filter name="is_submission_mandate" string="Mandate Declaration"
                             domain="[('is_submission_mandate','=',True)]" />
@@ -26,7 +27,8 @@
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Mandates, expired or not" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
-                        <filter name="category" string="Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
+                        <filter name="category" string="Mandate Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
+                        <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
                     </group>
                 </search>
             </field>
@@ -42,6 +44,7 @@
                     <field name="start_date"/>
                     <field name="deadline_date"/>
                     <field name="end_date"/>
+                    <field name="designation_int_assembly_id" invisible="1"/>
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
                     <field name="is_duplicate_detected" invisible ="1"/>
@@ -253,7 +256,6 @@
                                 <field name="designation_int_assembly_id" domain="[('is_designation_assembly', '=', True)]"/>
                                 <field name="is_submission_mandate" readonly="1"/>
                                 <field name="is_submission_assets" readonly="1"/>
-                                <field name="is_replacement"/>
                                 <field name="candidature_id" readonly="1"
                                        attrs="{'invisible': [('candidature_id','=',False)]}"/>
                             </group>

@@ -313,7 +313,6 @@ class abstract_mandate(orm.AbstractModel):
         'candidature_id': fields.many2one('abstract.candidature', 'Candidature', track_visibility='onchange'),
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
-        'is_replacement': fields.boolean('Replacement'),
         'alert_date': fields.date('Alert Date', track_visibility='onchange'),
     }
 

@@ -122,12 +122,16 @@
             <field name="model">sta.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_search_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='mandate_category_id']" position="after">
+                <xpath expr="//field[@name='mandate_category_id']" position="before">
                     <field name="sta_assembly_id"/>
+                </xpath>
+                <xpath expr="//field[@name='mandate_category_id']" position="after">
                     <field name="legislature_id"/>
                 </xpath>
-                <xpath expr="//filter[@name='category']" position="after">
+                <xpath expr="//filter[@name='category']" position="before">
                     <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'sta_assembly_id'}" />
+                </xpath>
+                <xpath expr="//filter[@name='category']" position="after">
                     <filter name="legislature" string="Legislature" domain="[]" context="{'group_by':'legislature_id'}" />
                 </xpath>
             </field>
@@ -138,10 +142,10 @@
             <field name="model">int.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_search_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='mandate_category_id']" position="after">
+                <xpath expr="//field[@name='mandate_category_id']" position="before">
                     <field name="int_assembly_id"/>
                 </xpath>
-                <xpath expr="//filter[@name='category']" position="after">
+                <xpath expr="//filter[@name='category']" position="before">
                     <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'int_assembly_id'}" />
                 </xpath>
             </field>
@@ -152,10 +156,10 @@
             <field name="model">ext.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_search_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='mandate_category_id']" position="after">
+                <xpath expr="//field[@name='mandate_category_id']" position="before">
                     <field name="ext_assembly_id"/>
                 </xpath>
-                <xpath expr="//filter[@name='category']" position="after">
+                <xpath expr="//filter[@name='category']" position="before">
                     <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'ext_assembly_id'}" />
                 </xpath>
             </field>
@@ -166,7 +170,7 @@
             <field name="model">sta.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_tree_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='mandate_category_id']" position="after">
+                <xpath expr="//field[@name='mandate_category_id']" position="before">
                     <field name="sta_assembly_id"/>
                     <field name="legislature_id" invisible="1"/>
                 </xpath>
@@ -181,7 +185,7 @@
             <field name="model">int.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_tree_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='mandate_category_id']" position="after">
+                <xpath expr="//field[@name='mandate_category_id']" position="before">
                     <field name="int_assembly_id"/>
                 </xpath>
                 <xpath expr="//field[@name='end_date']" position="after">
@@ -195,7 +199,7 @@
             <field name="model">ext.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_tree_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='mandate_category_id']" position="after">
+                <xpath expr="//field[@name='mandate_category_id']" position="before">
                     <field name="ext_assembly_id"/>
                 </xpath>
                 <xpath expr="//field[@name='end_date']" position="after">
@@ -667,6 +671,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
+                    <attribute name="readonly"/>
                     <attribute name="attrs">{'readonly': [('electoral_district_id','!=', False),]}</attribute>
                 </xpath>
 

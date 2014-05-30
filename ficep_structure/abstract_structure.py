@@ -64,7 +64,7 @@ class abstract_assembly_category(orm.AbstractModel):
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
         'duration': fields.integer('Duration of Mandates', track_visibility='onchange'),
-        'months_before_end_of_mandate': fields.integer('Months before end of Mandate', track_visibility='onchange'),
+        'months_before_end_of_mandate': fields.integer('Alert Delay (#Months)', track_visibility='onchange'),
     }
 
     _order = 'name'
@@ -148,7 +148,7 @@ class abstract_assembly(orm.AbstractModel):
                                        select=True, required=True, track_visibility='onchange'),
         'partner_id': fields.many2one('res.partner', string='Associated Partner',
                                       select=True, required=True, ondelete='restrict'),
-        'months_before_end_of_mandate': fields.integer('Months before end of Mandate', track_visibility='onchange'),
+        'months_before_end_of_mandate': fields.integer('Alert Delay (#Months)', track_visibility='onchange'),
     }
 
     _defaults = {

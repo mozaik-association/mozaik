@@ -71,7 +71,7 @@ class ext_assembly(orm.Model):
                                                 select=True, required=True, track_visibility='onchange'),
         'instance_id': fields.many2one('int.instance', 'Internal Instance',
                                        select=True, required=True, track_visibility='onchange'),
-        'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation assembly',
+        'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation Assembly',
                                                  select=True, track_visibility='onchange',
                                                  domain=[('is_designation_assembly', '=', True)]),
         'ref_partner_id': fields.many2one('res.partner', string='Legal Person',
