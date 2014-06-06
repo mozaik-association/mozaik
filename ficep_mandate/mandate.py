@@ -92,9 +92,44 @@ class mandate_category(orm.Model):
             res_ids += mandate_category[mandate_relation]
         return list(set(res_ids))
 
+    def _check_exclusive_consistency(self, cr, uid, category_id, initial_exclu_ids, new_exclu_ids, context=None):
+        """
+        ==============================
+        _check_exclusive_consistency
+        ==============================
+        Check balance between exclusive categories
+        :rparam: mandate_category ids, list of initial exclusive ids, list of new exclusive ids
+        :rtype: Boolean
+        """
+        removed_ids = list(set(initial_exclu_ids) - set(new_exclu_ids))
+        added_ids = list(set(new_exclu_ids) - set(initial_exclu_ids))
+
+        if removed_ids:
+            # category are not exclusives anymore
+            self._impact_related_exclusive_category(cr, uid, category_id, removed_ids, 'in', context=context)
+        if added_ids:
+            # category are exclusives from now
+            self._impact_related_exclusive_category(cr, uid, category_id, added_ids, 'not in', context=context, exclu_ids=[category_id])
+
+        return True
+
+    def _impact_related_exclusive_category(self, cr, uid, category_id, linked_ids, operator, context=None, exclu_ids=[]):
+        """
+        ==============================
+        _impact_related_exclusive_category
+        ==============================
+        Impact relative categories to add or remove a link to current id
+        """
+        for exclu_data in self.search_read(cr, uid, [('id', 'in', linked_ids),
+                                               ('exclusive_category_m2m_ids', operator, [category_id])],
+                                               ['exclusive_category_m2m_ids'], context=context):
+            exclu_ids.extend([exclu_id for exclu_id in exclu_data['exclusive_category_m2m_ids'] if exclu_id != category_id])
+            vals = dict(exclusive_category_m2m_ids=[[6, False, exclu_ids]])
+            super(mandate_category, self).write(cr, uid, exclu_data['id'], vals, context=context)
+
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
-        'type': fields.selection(MANDATE_CATEGORY_AVAILABLE_TYPES, 'Status', readonly=True),
+        'type': fields.selection(MANDATE_CATEGORY_AVAILABLE_TYPES, 'Type', readonly=True),
         'exclusive_category_m2m_ids': fields.many2many('mandate.category', 'mandate_category_mandate_category_rel', 'id', 'exclu_id',
                                                       'Exclusive Category'),
         'sta_assembly_category_id': fields.many2one('sta.assembly.category', string='State Assembly Category', track_visibility='onchange'),
@@ -114,3 +149,25 @@ class mandate_category(orm.Model):
 # constraints
 
     _unicity_keys = 'name'
+
+#orm methods
+    def create(self, cr, uid, vals, context=None):
+        res = super(mandate_category, self).create(cr, uid, vals, context=context)
+        if 'exclusive_category_m2m_ids' in vals:
+            new_exclu_ids = vals.get('exclusive_category_m2m_ids')[0][2]
+            self._check_exclusive_consistency(cr, uid, res, [], new_exclu_ids, context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if isinstance(ids, (int, long)):
+            ids = [ids]
+        if 'exclusive_category_m2m_ids' in vals:
+            new_exclu_ids = vals.get('exclusive_category_m2m_ids')[0][2]
+            for category in self.browse(cr, uid, ids, context=context):
+                self._check_exclusive_consistency(cr, uid, category.id, [record.id for record in category.exclusive_category_m2m_ids], new_exclu_ids, context)
+        res = super(mandate_category, self).write(cr, uid, ids, vals, context=context)
+        return res
+
+    def unlink(self, cr, uid, ids, context=None):
+        res = super(mandate_category, self).unlink(cr, uid, ids, context=context)
+        return res

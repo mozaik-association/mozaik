@@ -64,6 +64,46 @@ class test_mandate(SharedSetupTransactionCase):
                               self.registry('mandate.category').create,
                               self.cr, self.uid, data)
 
+    def test_exclusive_mandate_category_consistency(self):
+        '''
+            Test consistency between exclusive mandate categories
+        '''
+        int_power_level_01_id = self.ref('ficep_structure.int_power_level_01')
+        sta_assembly_id = self.ref('%s.sta_assembly_category_01' % self._module_ns)
+        ext_assembly_id = self.ref('%s.ext_assembly_category_01' % self._module_ns)
+
+        category_pool = self.registry('mandate.category')
+
+        test_category_id_1 = category_pool.create(self.cr, self.uid, dict(name='Category 1',
+                                                                          int_power_level_id=int_power_level_01_id,
+                                                                          type='sta',
+                                                                          sta_assembly_category_id=sta_assembly_id))
+        '''
+            Test consistency on create
+        '''
+        test_category_id_2 = category_pool.create(self.cr, self.uid, dict(name='Category 2',
+                                                                          int_power_level_id=int_power_level_01_id,
+                                                                          type='ext',
+                                                                          ext_assembly_category_id=ext_assembly_id,
+                                                                          exclusive_category_m2m_ids=[[6, False, [test_category_id_1]]]))
+
+        exclu_ids = category_pool.read(self.cr, self.uid, test_category_id_1, ['exclusive_category_m2m_ids'])['exclusive_category_m2m_ids']
+        self.assertTrue(test_category_id_2 in exclu_ids)
+
+        '''
+            Remove exclusive relation to test write method
+        '''
+        category_pool.write(self.cr, self.uid, test_category_id_2, dict(exclusive_category_m2m_ids=[[6, False, []]]))
+        exclu_ids = category_pool.read(self.cr, self.uid, test_category_id_1, ['exclusive_category_m2m_ids'])['exclusive_category_m2m_ids']
+        self.assertFalse(exclu_ids)
+
+        '''
+            Add again exclusive relation to test write method
+        '''
+        category_pool.write(self.cr, self.uid, test_category_id_2, dict(exclusive_category_m2m_ids=[[6, False, [test_category_id_1]]]))
+        exclu_ids = category_pool.read(self.cr, self.uid, test_category_id_1, ['exclusive_category_m2m_ids'])['exclusive_category_m2m_ids']
+        self.assertTrue(test_category_id_2 in exclu_ids)
+
     def test_exclusive_mandates(self):
         '''
             Test detection of exclusive mandates

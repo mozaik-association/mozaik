@@ -23,6 +23,7 @@
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Categories, expired or not" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="power_level" string="Power Level" domain="[]" context="{'group_by':'int_power_level_id'}" />
+                        <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" invisible="context.get('default_type', False)"/>
                     </group>
                 </search>
             </field>
@@ -35,7 +36,8 @@
                 <tree string="Mandate Categories" version="7.0">
                     <field name="name"/>
                     <field name="expire_date"
-                           invisible="context.get('invisible_expire_date', True)" />
+                           invisible="context.get('invisible_expire_date', True)"/>
+                    <field name="type" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -422,7 +424,7 @@
                         </group>
 
                         <notebook invisible="context.get('popup')">
-                            <page string="Exclusive Categories" name="exclusive_categories" attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
+                            <page string="Exclusive Categories" name="exclusive_categories" autofocus="autofocus">
                                 <field name="exclusive_category_m2m_ids">
                                     <tree>
                                         <field name="name"/>
