@@ -137,22 +137,5 @@ class generic_mandate(orm.Model):
         View mandates in its form view depending on model
         """
         generic_mandate = self.read(cr, uid, ids[0], ['model', 'mandate_id'], context=context)
-
-        view_ids = self.pool.get('ir.ui.view').search(cr, uid, [('model', '=', generic_mandate['model']),
-                                                           ('type', '=', 'form')], limit=1, context=context)
-
-        if not view_ids:
-            return False
-
-        return {
-            'type': 'ir.actions.act_window',
-            'name': _('Mandate'),
-            'res_model': generic_mandate['model'],
-            'res_id': generic_mandate['mandate_id'],
-            'view_type': 'form',
-            'view_mode': 'form',
-            'view_id': view_ids[0],
-            'target': 'current',
-            'nodestroy': True,
-        }
+        return self.pool.get(generic_mandate['model']).display_object_in_form_view(cr, uid, generic_mandate['mandate_id'], context=context)
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

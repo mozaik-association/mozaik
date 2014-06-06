@@ -178,20 +178,7 @@ class abstract_selection_committee(orm.AbstractModel):
             candidature_pool.write(cr, uid, rejected_candidature_ids, {'selection_committee_id': new_committee_id})
             candidature_pool.signal_button_declare(cr, uid, rejected_candidature_ids)
 
-        view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', self._form_view)
-        view_id = view_ref and view_ref[1] or False,
-
-        return {
-            'type': 'ir.actions.act_window',
-            'name': _('Selection Committee'),
-            'res_model': candidature_pool._selection_committee_model,
-            'res_id': new_committee_id,
-            'view_type': 'form',
-            'view_mode': 'form',
-            'view_id': view_id,
-            'target': 'current',
-            'nodestroy': True,
-        }
+        return self.display_object_in_form_view(cr, uid, new_committee_id, context=context)
 
     def button_accept_candidatures(self, cr, uid, ids, context=None):
         """
@@ -567,19 +554,7 @@ class abstract_candidature(orm.AbstractModel):
         for candidature_id in ids:
             mandate_id = self.create_mandate_from_candidature(cr, uid, candidature_id, context)
 
-        view_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_mandate', self._mandate_form_view)
-        view_id = view_ref and view_ref[1] or False,
-        return {
-            'type': 'ir.actions.act_window',
-            'name': _('Mandate'),
-            'res_model': self._mandate_model,
-            'res_id': mandate_id,
-            'view_type': 'form',
-            'view_mode': 'form',
-            'view_id': view_id,
-            'target': 'current',
-            'nodestroy': True,
-        }
+        return self.pool.get(self._mandate_model).display_object_in_form_view(cr, uid, mandate_id, context=context)
 
     def create_mandate_from_candidature(self, cr, uid, candidature_id, context=None):
         """

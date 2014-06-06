@@ -261,6 +261,26 @@ class abstract_ficep_model (orm.AbstractModel):
         res = super(abstract_ficep_model, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
         return res
 
+    def display_object_in_form_view(self, cr, uid, object_id, context=None):
+        """
+        Return the object (with given id) in the default form view
+        """
+        view_ids = self.pool.get('ir.ui.view').search(cr, uid, [('model', '=', self._name),
+                                                                ('type', '=', 'form')], limit=1, context=context)
+
+        res = {
+            'type': 'ir.actions.act_window',
+            'name': self._description,
+            'res_model': self._name,
+            'res_id': object_id,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': view_ids[0] if len(view_ids) > 0 else False,
+            'target': 'current',
+            'nodestroy': True,
+        } if len(view_ids) else False
+
+        return res
 
 # Replace the orm.transfer_node_to_modifiers functions.
 
