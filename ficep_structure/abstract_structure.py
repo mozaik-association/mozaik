@@ -65,6 +65,7 @@ class abstract_assembly_category(orm.AbstractModel):
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
         'duration': fields.integer('Duration of Mandates', track_visibility='onchange'),
         'months_before_end_of_mandate': fields.integer('Alert Delay (#Months)', track_visibility='onchange'),
+        'power_level_id': fields.many2one('abstract.power.level', 'Power Level', required=True, select=True, track_visibility='onchange'),
     }
 
     _order = 'name'
@@ -174,7 +175,8 @@ class abstract_assembly(orm.AbstractModel):
         for assembly in assemblies:
             if not assembly.assembly_category_id._model._columns.get('power_level_id'):
                 break
-            if assembly.assembly_category_id.power_level_id.id != assembly.instance_id.power_level_id.id:
+            if assembly.assembly_category_id.power_level_id and \
+               assembly.assembly_category_id.power_level_id.id != assembly.instance_id.power_level_id.id:
                 return False
 
         return True
