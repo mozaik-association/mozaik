@@ -27,6 +27,8 @@
 ##############################################################################
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 WIZARD_AVAILABLE_ACTIONS = [
     ('renew', 'Renew Mandate'),
@@ -81,6 +83,13 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
             res['assembly_id'] = mandate[self._mandate_assembly_foreign_key].id
             res['mandate_id'] = mandate.id
             res['instance_id'] = mandate[self._mandate_assembly_foreign_key].instance_id.id
+            if action == 'add':
+                res['start_date'] = mandate.start_date
+                res['deadline_date'] = mandate.deadline_date
+            if action == 'renew':
+                start_date = mandate.end_date if mandate.end_date else mandate.deadline_date
+                start_date = (datetime.strptime(start_date, '%Y-%m-%d') + relativedelta(days=1))
+                res['start_date'] = start_date.strftime('%Y-%m-%d')
             res['action'] = action
             break
 
