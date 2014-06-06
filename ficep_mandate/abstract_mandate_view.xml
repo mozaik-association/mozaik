@@ -74,11 +74,25 @@
                     <filter name="all" string="All"
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Candidatures, expired or not" />
+                    <separator/>
+                    <filter name="declared" string="Declared"                            
+                            domain="[('state','=', 'declared')]" help="Declared Candidatures" />
+                    <filter name="rejected" string="Rejected"                            
+                            domain="[('state','=', 'rejected')]" help="Reclared Candidatures" />
+                    <filter name="suggested" string="Suggested"                            
+                            domain="[('state','=', 'suggested')]" help="Suggested Candidatures" />
+                    <filter name="designated" string="Designated"                            
+                            domain="[('state','=', 'designated')]" help="Designated Candidatures"/>
+                    <filter name="elected" string="Elected"                            
+                            domain="[('state','=', 'elected')]" help="Elected Candidatures"/>
+                    <filter name="non-elected" string="Non-elected"                            
+                            domain="[('state','=', 'non-elected')]" help="Non-elected Candidatures"/>
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="committee" string="Selection Committee" domain="[]" context="{'group_by':'selection_committee_id'}" />
                         <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
                         <filter name="category" string="Mandate Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
                         <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
+                        <filter name="state" string="State" domain="[]" context="{'group_by':'state'}" />
                     </group>
                 </search>
             </field>
