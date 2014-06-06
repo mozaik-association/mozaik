@@ -25,48 +25,32 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Address',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_coordinate',
-    ],
-    'description': """
-FICEP Address
-=============
-""",
-    'images': [
-    ],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/ir.rule.xml',
-        'wizard/change_main_address.xml',
-        'wizard/allow_duplicate_view.xml',
-        'address_address_view.xml',
-        'res_partner_view.xml',
-        'coordinate_category_view.xml',
-        'address_local_zip_view.xml',
-        'address_local_street_view.xml',
-        'wizard/streets_repository_loader_view.xml',
-        'data/address_address_data.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'installable': True,
-    'auto_install': False,
-}
+from openerp.osv import orm, fields
+from openerp.tools.translate import _
+
+
+class MailMailStats(orm.Model):
+
+    _inherit = 'mail.mail.statistics'
+
+    def set_bounced(self, cr, uid, ids=None, mail_mail_ids=None, mail_message_ids=None, context=None):
+        """
+        ===========
+        set_bounced
+        ===========
+        This overload is made to spread the bounce counter to the email_coordinate.
+        Only work for message that have `email.coordinate` as model
+        """
+        res_ids = super(MailMailStats, self).set_bounced(cr, uid, ids=ids, mail_mail_ids=mail_mail_ids, mail_message_ids=mail_message_ids, context=context)
+        for stat in self.browse(cr, uid, res_ids, context=context):
+            if stat.model == 'email.coordinate' and stat.res_id:
+                ctx = context.copy()
+                ctx['active_ids'] = [stat.res_id]
+                wiz_id = self.pool['bounce.editor'].create(cr, uid, {'increase': 1,
+                                                                     'model': 'email.coordinate',
+                                                                     'description': _('Invalid Email Address'),
+                                                                      }, context=context)
+                self.pool['bounce.editor'].update_bounce_datas(cr, uid, [wiz_id], context=ctx)
+        return res_ids
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

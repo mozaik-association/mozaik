@@ -61,6 +61,8 @@ class res_partner(orm.Model):
                                                     ('active', '<=', True)], context=context)
         for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
             if coord.active == coord.partner_id.active:
+                if coord.phone_id.also_for_fax:
+                    result[coord.partner_id.id]['fax_coordinate_id'] = coord.id
                 result[coord.partner_id.id]['%s_coordinate_id' % coord.coordinate_type] = coord.id
         return result
 
@@ -82,10 +84,13 @@ class res_partner(orm.Model):
             raise orm.except_orm(_('ValidateError'), _('Invalid phone type: "%s"!') % args.get('type', _('Undefined')))
         result = {i: False for i in ids}
         coord_obj = self.pool['phone.coordinate']
+        if coordinate_type == 'fax':
+            domain = ['|', ('coordinate_type', '=', 'fax'), '&', ('coordinate_type', '=', 'fix'), ('also_for_fax', '=', True)]
+        else:
+            domain = [('coordinate_type', '=', coordinate_type)]
         coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
-                                                             ('coordinate_type', '=', coordinate_type),
                                                              ('is_main', '=', True),
-                                                             ('active', '<=', True)], context=context)
+                                                             ('active', '<=', True)] + domain, context=context)
         for coord in coord_obj.browse(cr, SUPERUSER_ID, coordinate_ids, context=context):
             if coord.active == coord.partner_id.active:
                 result[coord.partner_id.id] = 'VIP' if coord.vip else 'N/A: %s' % coord.phone_id.name if coord.unauthorized else coord.phone_id.name
@@ -95,7 +100,7 @@ class res_partner(orm.Model):
        'phone.coordinate': (lambda self, cr, uid, ids, context=None: self.pool['phone.coordinate'].get_linked_partners(cr, uid, ids, context=context),
            ['partner_id', 'phone_id', 'is_main', 'vip', 'unauthorized', 'active'], 10),
        'phone.phone': (lambda self, cr, uid, ids, context=None: self.pool['phone.phone'].get_linked_partners(cr, uid, ids, context=context),
-                       ['name', 'type'], 10),
+                       ['name', 'type', 'also_for_fax'], 10),
     }
 
     _columns = {

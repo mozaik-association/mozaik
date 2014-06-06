@@ -36,8 +36,8 @@ class partner_relation_category(orm.Model):
     _description = 'Partner Relation Category'
 
     _columns = {
-        'subject_name': fields.char('Relation Subject', required=True, select=True, track_visibility='onchange'),
-        'object_name': fields.char('Relation Object', required=True, select=True, track_visibility='onchange'),
+        'subject_name': fields.char('Subject Relation Name', required=True, select=True, track_visibility='onchange'),
+        'object_name': fields.char('Object Relation Name', required=True, select=True, track_visibility='onchange'),
     }
 
     _rec_name = 'subject_name'
@@ -96,7 +96,7 @@ class partner_relation(orm.Model):
     _columns = {
         'subject_partner_id': fields.many2one('res.partner', string='Subject', required=True, select=True, track_visibility='onchange'),
         'object_partner_id': fields.many2one('res.partner', string='Object', required=True, select=True, track_visibility='onchange'),
-        'partner_relation_category_id': fields.many2one('partner.relation.category', string='Partner Relation Category', required=True, select=True, track_visibility='onchange'),
+        'partner_relation_category_id': fields.many2one('partner.relation.category', string='Relation Category', required=True, select=True, track_visibility='onchange'),
 
         # coordinates
         'email_coordinate_id': fields.many2one('email.coordinate', string='Email Coordinate', select=True, track_visibility='onchange'),

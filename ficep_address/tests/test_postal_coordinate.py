@@ -25,10 +25,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
 from anybox.testing.openerp import SharedSetupTransactionCase
-import openerp.tests.common as common
 import logging
+import openerp.tests.common as common
 
 _logger = logging.getLogger(__name__)
 
@@ -87,7 +86,6 @@ class test_postal_coordinate(SharedSetupTransactionCase):
             'active_model': self.postal_model,
             'active_ids': [postal_coordinates_ids[0], postal_coordinates_ids[1]],
             'get_co_residency': True,
-            'postal_mode': True,
         }
         vals = self.allow_duplicate_wizard_model.default_get(self.cr, self.uid, [], context=ctx)
         wz_id = self.allow_duplicate_wizard_model.create(self.cr, self.uid, vals, context=ctx)
@@ -108,7 +106,6 @@ class test_postal_coordinate(SharedSetupTransactionCase):
             'active_model': self.postal_model,
             'active_ids': [postal_coordinates_ids[2], postal_coordinates_ids[3]],
             'get_co_residency': True,
-            'postal_mode': True,
         }
         vals = self.allow_duplicate_wizard_model.default_get(self.cr, self.uid, [], context=ctx)
         wz_id = self.allow_duplicate_wizard_model.create(self.cr, self.uid, vals, context=ctx)

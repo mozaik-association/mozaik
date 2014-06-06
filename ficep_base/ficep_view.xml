@@ -16,20 +16,6 @@
         <menuitem id="persons_titles_submenu" name="Titles"
                   sequence="60" parent="persons_configuration_submenu" />
 
-        <!-- Re-base standard menus -->
-
-        <menuitem id="res_partner_category_menu" action="base.action_partner_category_form"
-                  sequence="50" parent="persons_configuration_submenu" />
-
-        <menuitem id="res_country_menu" action="base.action_country"
-                  sequence="50" parent="localization_submenu" />
-
-        <menuitem id="res_partner_natural_title_menu" action="base.action_partner_title_contact"
-                  sequence="10" parent="persons_titles_submenu" />
-
-        <menuitem id="res_partner_legal_title_menu" action="base.action_partner_title_partner"
-                  sequence="20" parent="persons_titles_submenu" />
-
         <!-- Structures -->
 
         <menuitem id="structures_root_menu" name="Structures"
@@ -44,6 +30,32 @@
 
         <menuitem id="communication_root_menu" name="Communication"
                   sequence="41" groups="res_groups_base"/>
+
+        <!-- Re-base standard menus -->
+
+        <menuitem id="res_partner_category_menu" action="base.action_partner_category_form"
+                  sequence="50" parent="persons_configuration_submenu" />
+
+        <menuitem id="res_country_menu" action="base.action_country"
+                  sequence="50" parent="localization_submenu" />
+
+        <menuitem id="res_partner_natural_title_menu" action="base.action_partner_title_contact"
+                  sequence="10" parent="persons_titles_submenu" />
+
+        <menuitem id="res_partner_legal_title_menu" action="base.action_partner_title_partner"
+                  sequence="20" parent="persons_titles_submenu" />
+
+        <record id="mail.mail_feeds" model="ir.ui.menu">
+            <field name="parent_id" ref="communication_root_menu" />
+            <field name="sequence">5</field>
+        </record>
+
+        <!-- Re-assign standard menus -->
+
+        <record id="mail.mail_feeds_main" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
+                                          ]"/>
+        </record>
 
     </data>
 </openerp>

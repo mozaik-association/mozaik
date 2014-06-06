@@ -143,7 +143,7 @@ class duplicate_analysis_report(orm.Model):
                         for duplicate in duplicates:
                             reason = duplicate['name'] or _('Unknown birth date')
                             content_text.append('<tr><td><b>%s</b</td><td><a style="color:blue" href="%s">%s</a></td></tr>' %
-                               (duplicate['partner_name'], url.get_document_url(cr, uid, duplicate['model'], duplicate['orig_id'], context=context), reason))
+                               (duplicate['partner_name'], url.get_document_url(self, cr, uid, duplicate['model'], duplicate['orig_id'], context=context), reason))
                     content_text.append('</table><p/>')
                 elif force_send:
                     content_text.append('<p>%s</p>' % _('There are no duplicates'))

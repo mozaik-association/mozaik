@@ -32,6 +32,16 @@ from openerp.tools.translate import _
 from openerp.addons.ficep_mandate.abstract_mandate import abstract_candidature
 from openerp.addons.ficep_mandate.mandate import mandate_category
 
+CANDIDATURE_AVAILABLE_SORT_ORDERS = {
+    'elected': 0,
+    'non-elected': 10,
+    'designated': 20,
+    'suggested': 22,
+    'declared': 24,
+    'rejected': 30,
+    'draft': 90,
+}
+
 
 class sta_selection_committee(orm.Model):
     _name = 'sta.selection.committee'
@@ -73,9 +83,11 @@ class sta_selection_committee(orm.Model):
     }
 
 # constraints
+
     _unicity_keys = 'N/A'
 
 # orm methods
+
     def name_get(self, cr, uid, ids, context=None):
         if not context:
             context = self.pool.get('res.users').context_get(cr, uid)
@@ -108,9 +120,6 @@ class sta_selection_committee(orm.Model):
     def copy_data(self, cr, uid, id_, default=None, context=None):
         default = default or {}
 
-        default.update({
-            'candidature_ids': [],
-        })
         res = super(sta_selection_committee, self).copy_data(cr, uid, id_, default=default, context=context)
 
         data = self.onchange_assembly_id(cr, uid, id_, res.get('assembly_id'), context=context)
@@ -206,22 +215,11 @@ class sta_selection_committee(orm.Model):
         """
         return super(sta_selection_committee, self).process_invalidate_candidatures_after_delay(cr, uid, context=context)
 
-CANDIDATURE_AVAILABLE_SORT_ORDERS = {
-    'elected': '00',
-    'non-elected': '10',
-    'non-elected-non-substitute': '11',
-    'designated': '20',
-    'suggested': '22',
-    'declared': '24',
-    'rejected': '30',
-    'draft': '90',
-}
-
 
 class sta_candidature(orm.Model):
 
     _name = 'sta.candidature'
-    _description = "State Candidature"
+    _description = 'State Candidature'
     _inherit = ['abstract.candidature']
 
     _mandate_model = 'sta.mandate'
@@ -248,15 +246,17 @@ class sta_candidature(orm.Model):
         """
         result = {i: False for i in ids}
         for cand in self.browse(cr, uid, ids, context=context):
-            sort_order = CANDIDATURE_AVAILABLE_SORT_ORDERS.get(cand.state, '99')
+            sort_order = CANDIDATURE_AVAILABLE_SORT_ORDERS.get(cand.state, 99)
             if cand.state == 'non-elected' and not cand.is_substitute:
-                sort_order = CANDIDATURE_AVAILABLE_SORT_ORDERS['non-elected-non-substitute']
+                sort_order += 1
+            elif not cand.is_effective and cand.is_substitute:
+                sort_order += 1
             result[cand.id] = sort_order
         return result
 
     _sort_order_store_trigger = {
         'sta.candidature': (lambda self, cr, uid, ids, context=None: ids,
-                           ['state', 'is_substitute', ], 20)
+                           ['state', 'is_effective', 'is_substitute', ], 20)
     }
 
     _columns = {
@@ -266,7 +266,7 @@ class sta_candidature(orm.Model):
                                           type='many2one', relation="mandate.category",
                                           store=True, domain=[('type', '=', 'sta')]),
 
-        'sort_order': fields.function(_get_sort_order, type='char', string='Sort Order',
+        'sort_order': fields.function(_get_sort_order, type='integer', string='Sort Order',
                                       store=_sort_order_store_trigger),
         'electoral_district_id': fields.related('selection_committee_id', 'electoral_district_id', string='Electoral District',
                                           type='many2one', relation="electoral.district",
@@ -281,8 +281,8 @@ class sta_candidature(orm.Model):
         'is_substitute': fields.boolean('Substitute', track_visibility='onchange'),
         'list_effective_position': fields.integer('Position on Effectives List', group_operator='max', track_visibility='onchange'),
         'list_substitute_position': fields.integer('Position on Substitutes List', group_operator='max', track_visibility='onchange'),
-        'election_effective_position': fields.integer('Effective Position after Election', track_visibility='onchange'),
-        'election_substitute_position': fields.integer('Substitute Position after Election', track_visibility='onchange'),
+        'election_effective_position': fields.integer('Effective Position after Election', group_operator='max', track_visibility='onchange'),
+        'election_substitute_position': fields.integer('Substitute Position after Election', group_operator='max', track_visibility='onchange'),
         'effective_votes': fields.integer('Effective Preferential Votes', track_visibility='onchange'),
         'substitute_votes': fields.integer('Substitute Preferential Votes', track_visibility='onchange'),
         'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
@@ -291,7 +291,16 @@ class sta_candidature(orm.Model):
                                        domain=[('active', '<=', True)]),
     }
 
-    _order = 'selection_committee_id, sort_order, election_effective_position, election_substitute_position, list_effective_position, list_substitute_position'
+    _defaults = {
+        'list_effective_position': 0,
+        'list_substitute_position': 0,
+        'election_effective_position': 0,
+        'election_substitute_position': 0,
+        'effective_votes': 0,
+        'substitute_votes': 0,
+    }
+
+    _order = 'sta_assembly_id, legislature_id, mandate_category_id, sort_order, election_effective_position, election_substitute_position, list_effective_position, list_substitute_position, partner_name'
 
 # constraints
 
@@ -331,6 +340,16 @@ class sta_candidature(orm.Model):
                             mandate_category_id=selection_committee and selection_committee.mandate_category_id.id or False,
                             is_legislative=selection_committee and selection_committee.assembly_id.is_legislative or False,)
         return res
+
+    def onchange_effective_substitute(self, cr, uid, ids, is_effective, is_substitute, context=None):
+        res = {}
+        if not is_effective and is_substitute:
+            res.update(list_effective_position=False)
+        if not is_substitute:
+            res.update(list_substitute_position=False)
+        return {
+            'value': res,
+        }
 
     def button_create_mandate(self, cr, uid, ids, context=None):
         return super(sta_candidature, self).button_create_mandate(cr, uid, ids, context=context)

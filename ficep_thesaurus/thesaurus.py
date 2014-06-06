@@ -129,7 +129,7 @@ class thesaurus_term(orm.Model):
     _defaults = {
         'thesaurus_id': lambda self, cr, uid, ids, context=None: self.pool['thesaurus'].search(cr, uid, [], limit=1, context=context)[0],
         'ext_identifier': False,
-        'state': TERM_AVAILABLE_STATES[1][0],
+        'state': TERM_AVAILABLE_STATES[0][0],
         'technical_name': '#',
     }
 
@@ -165,6 +165,7 @@ class thesaurus_term(orm.Model):
         """
         Add xml ids when importing terms
         """
+        ctx = dict(context or {}, load_mode=True, default_state=TERM_AVAILABLE_STATES[1][0])
         if 'id' not in fields:
             fields.append('id')
             j = 0
@@ -172,7 +173,7 @@ class thesaurus_term(orm.Model):
                 j = 1
             for i in range(len(data)):
                 data[i] += ('__IMP_THT_%s' % data[i][j],)
-        res = super(thesaurus_term, self).load(cr, uid, fields, data, context=context)
+        res = super(thesaurus_term, self).load(cr, uid, fields, data, context=ctx)
         return res
 
     def create(self, cr, uid, vals, context=None):
@@ -184,12 +185,12 @@ class thesaurus_term(orm.Model):
         :rtype: integer
         """
         new_id = super(thesaurus_term, self).create(cr, uid, vals, context=context)
-        if context and 'default_state' in context:
+        if context and not context.get('load_mode'):
             term = self.browse(cr, uid, new_id, context=context)
             # Reset notification term on the thesaurus
-            self.pool['thesaurus'].update_notification_term(cr, uid, term.thesaurus_id.id, context=None)
+            self.pool['thesaurus'].update_notification_term(cr, uid, term.thesaurus_id.id, context=context)
             # Set notification term on the thesaurus
-            self.pool['thesaurus'].update_notification_term(cr, uid, term.thesaurus_id.id, new_id, context=None)
+            self.pool['thesaurus'].update_notification_term(cr, uid, term.thesaurus_id.id, new_id, context=context)
         return new_id
 
     def copy_data(self, cr, uid, ids, default=None, context=None):

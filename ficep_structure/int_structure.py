@@ -63,7 +63,7 @@ class int_assembly_category(orm.Model):
     _description = "Internal Assembly Category"
 
     _columns = {
-        'is_secretariat': fields.boolean("Secretariat", track_visibility='onchange'),
+        'is_secretariat': fields.boolean("Is Secretariat?", track_visibility='onchange'),
         'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, select=True, track_visibility='onchange'),
     }
 
@@ -143,11 +143,11 @@ class int_assembly(orm.Model):
                                                 select=True, required=True, track_visibility='onchange'),
         'instance_id': fields.many2one('int.instance', 'Internal Instance',
                                        select=True, required=True, track_visibility='onchange'),
-        'is_designation_assembly': fields.boolean("Designation Assembly", track_visibility='onchange'),
-        'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation assembly',
+        'is_designation_assembly': fields.boolean("Is Designation Assembly?", track_visibility='onchange'),
+        'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation Assembly',
                                                  select=True, track_visibility='onchange',
                                                  domain=[('is_designation_assembly', '=', True)]),
-        'is_secretariat': fields.related('assembly_category_id', 'is_secretariat', string='Is secretariat',
+        'is_secretariat': fields.related('assembly_category_id', 'is_secretariat', string='Is Secretariat?',
                                           type='boolean', relation=_category_model,
                                           store=False),
     }
@@ -168,11 +168,13 @@ class int_assembly(orm.Model):
         res = super(int_assembly, self).create(cr, uid, vals, context=context)
         return res
 
-    # view methods: onchange, button
+# view methods: onchange, button
+
     def onchange_assembly_category_id(self, cr, uid, ids, assembly_category_id, context=None):
         return super(int_assembly, self).onchange_assembly_category_id(cr, uid, ids, assembly_category_id, context=context)
 
-    # public methods
+# public methods
+
     def get_secretariat_assembly_id(self, cr, uid, assembly_id, context=None):
         '''
         Return id of secretariat assembly depending on the same instance of given assembly
@@ -185,4 +187,5 @@ class int_assembly(orm.Model):
         else:
             _logger.warning('No secretariat found for internal assembly %s', assembly_id)
             return False
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

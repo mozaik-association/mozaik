@@ -146,14 +146,8 @@ class res_partner(orm.Model):
         """
         Escape the recomputing of field value if not useful
         """
-        context = context or {}
-        context.update({
-            'just_4_reading': True,
-        })
-        res = super(res_partner, self)._read_flat(cr, uid, ids, fields_to_read, context=context, load=load)
-        context.update({
-            'just_4_reading': False,
-        })
+        ctx = dict(context or {}, just_4_reading=True) 
+        res = super(res_partner, self)._read_flat(cr, uid, ids, fields_to_read, context=ctx, load=load)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

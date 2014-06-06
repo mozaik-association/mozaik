@@ -30,5 +30,6 @@ from . import distribution_list
 from . import virtual_models
 from . import wizard
 from . import email_template
+from . import mass_mailing
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

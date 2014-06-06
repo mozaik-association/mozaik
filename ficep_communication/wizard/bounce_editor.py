@@ -25,6 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from datetime import datetime
+
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
 
@@ -71,6 +73,8 @@ class bounce_editor(orm.TransientModel):
         ===================
         update_bounce_datas
         ===================
+        Update the bounce information of coordinate.
+        ``ids`` of the coordinate is contained into the active_ids of the context.
         """
         for wiz in self.browse(cr, uid, ids, context=context):
             res_ids = context.get('active_ids', False)
@@ -82,6 +86,24 @@ class bounce_editor(orm.TransientModel):
                 curr_bounce_counter = coordinate_value['bounce_counter']
                 bounce_counter = curr_bounce_counter + wiz.increase
                 active_model.write(cr, uid, [coordinate_value['id']], {'bounce_counter': bounce_counter,
-                                                                       'bounce_description': wiz.description})
+                                                                       'bounce_description': wiz.description,
+                                                                       'bounce_date': datetime.today().strftime('%Y-%m-%d %H:%M:%S')})
+
+    def default_get(self, cr, uid, fields_list, context=None):
+        """
+        ===========
+        default_get
+        ===========
+        If active model is postal.coordinate: force message to
+        'Invalid Postal Address'
+        """
+        if context is None:
+            context = {}
+        defaults = super(bounce_editor, self).default_get(cr, uid, fields_list, context=context)
+        if context.get('active_model', False):
+            if context['active_model'] == 'postal.coordinate':
+                defaults['description'] = _('No longer lives at the mentioned address')
+        return defaults
+
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

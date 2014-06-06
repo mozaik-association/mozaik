@@ -44,8 +44,6 @@ class allow_duplicate_wizard(orm.TransientModel):
         """
         res = super(allow_duplicate_wizard, self).default_get(cr, uid, fields, context=context)
         context = context or {}
-        if not context.get('postal_mode', False):
-            return res
 
         ids = context.get('active_id') and [context.get('active_id')] or context.get('active_ids') or []
         for coord_id in ids:
@@ -63,11 +61,8 @@ class allow_duplicate_wizard(orm.TransientModel):
         button_allow_duplicate
         ======================
         Create co_residency if any.
-        Add its id to the dictionary expected by super method.
         """
         context = context or {}
-        if not context.get('postal_mode', False):
-            return super(allow_duplicate_wizard, self).button_allow_duplicate(cr, uid, ids, context=context, vals=vals)
 
         wizard = self.browse(cr, uid, ids, context=context)[0]
         new_co = False

@@ -6,50 +6,59 @@
             <field name="firstname">Paul</field>
             <field name="lastname">VAN HAVER</field>
             <field name="company_id" ref="base.main_company" />
+            <field name="notification_email_send">none</field>
         </record>
 
         <record id="res_partner_pauline" model="res.partner">
             <field name="lastname">MAROIS</field>
             <field name="firstname">Pauline</field>
             <field name="company_id" ref="base.main_company" />
+            <field name="notification_email_send">none</field>
         </record>
 
         <record id="res_partner_marc" model="res.partner">
             <field name="lastname">Marc</field>
             <field name="firstname"></field>
             <field name="company_id" ref="base.main_company" />
+            <field name="notification_email_send">none</field>
         </record>
 
         <record id="res_partner_thierry" model="res.partner">
             <field name="lastname">LHERMITTE</field>
             <field name="firstname">Thierry</field>
             <field name="company_id" ref="base.main_company" />
+            <field name="notification_email_send">none</field>
         </record>
 
         <record id="res_partner_jacques" model="res.partner">
             <field name="lastname">LE CROQUANT</field>
             <field name="firstname">Jacques</field>
             <field name="company_id" ref="base.main_company" />
+            <field name="notification_email_send">none</field>
         </record>
 
         <record id="res_partner_fgtb" model="res.partner">
             <field name="name">F.G.T.B</field>
             <field name="is_company" eval="True" />
+            <field name="notification_email_send">none</field>
         </record>
 
         <record id="res_partner_nouvelobs" model="res.partner">
             <field name="name">Nouvel Observateur</field>
             <field name="is_company" eval="True" />
+            <field name="notification_email_send">none</field>
         </record>
 
         <record id="res_partner_nouvelobs_bis" model="res.partner">
             <field name="name">Nouvel Observateur (Service Publicité)</field>
             <field name="is_company" eval="True" />
+            <field name="notification_email_send">none</field>
         </record>
 
         <record id="res_partner_rtbf" model="res.partner">
             <field name="name">Radio Télévision belge francophone</field>
             <field name="is_company" eval="True" />
+            <field name="notification_email_send">none</field>
         </record>
 
     </data>

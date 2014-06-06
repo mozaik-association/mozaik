@@ -61,7 +61,8 @@ class abstract_coordinate(orm.AbstractModel):
         'vip': fields.boolean('VIP', track_visibility='onchange'),
 
         'bounce_counter': fields.integer('Bounce Counter', track_visibility='onchange'),
-        'bounce_description': fields.text('Last Bounce Description', track_visibility='onchange')
+        'bounce_description': fields.text('Last Bounce Description', track_visibility='onchange'),
+        'bounce_date': fields.datetime('Last Failure Date', track_visibility='onchange')
     }
 
     _defaults = {
