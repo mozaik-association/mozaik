@@ -13,7 +13,7 @@
                             domain="[('is_submission_mandate','=',True)]" />
                     <separator />
                     <filter name="is_submission_assets" string="Assets Declaration"
-                            domain="[('is_submission_assets','=',True)]" />
+                            domain="[('is_submission_assets','=',True)]" />                   
                     <separator />
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
@@ -24,6 +24,9 @@
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="power_level" string="Power Level" domain="[]" context="{'group_by':'int_power_level_id'}" />
                         <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" invisible="context.get('default_type', False)"/>
+                        <filter name="sta_assembly_category_id" string="Assembly category" domain="[]" context="{'group_by':'sta_assembly_category_id'}" invisible="context.get('default_type', False)!='sta'"/>
+                        <filter name="int_assembly_category_id" string="Assembly category" domain="[]" context="{'group_by':'int_assembly_category_id'}" invisible="context.get('default_type', False)!='int'"/>
+                        <filter name="ext_assembly_category_id" string="Assembly category" domain="[]" context="{'group_by':'ext_assembly_category_id'}" invisible="context.get('default_type', False)!='ext'"/>
                     </group>
                 </search>
             </field>
