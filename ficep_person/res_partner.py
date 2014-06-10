@@ -118,6 +118,7 @@ class res_partner(orm.Model):
         'printable_name': fields.function(_get_partner_names, type='char', string='Printable Name', multi="AllNames",
                                           store=_display_name_store_trigger),
         'acronym': fields.char('Acronym', select=True, track_visibility='onchange'),
+        'enterprise_identifier': fields.char('Enterprise Number', size=10, track_visibility='onchange'),
 
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_competencies_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
         'interests_m2m_ids': fields.many2many('thesaurus.term', 'res_partner_term_interests_rel', id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
@@ -151,6 +152,8 @@ class res_partner(orm.Model):
         # New fields
         'tongue': lambda *args: AVAILABLE_TONGUES[0][0],
     }
+
+# constraints
 
     def _check_identifier_unicity(self, cr, uid, ids, context=None):
         """

@@ -48,6 +48,7 @@
 
         <record id="res_partner_nouvelobs" model="res.partner">
             <field name="acronym">nouvelobs</field>
+            <field name="enterprise_identifier">060544091</field>
         </record>
 
         <record id="res_partner_rtbf" model="res.partner">
