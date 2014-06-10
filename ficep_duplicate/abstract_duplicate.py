@@ -87,6 +87,8 @@ class abstract_duplicate(orm.AbstractModel):
         =====
         Override write method to detect and repair duplicates.
         """
+        if isinstance(ids, (int, long)):
+            ids = [ids]
         trigger_fields = (self._trigger_fields or [self._discriminant_field]) + ['is_duplicate_detected', 'is_duplicate_allowed']
         updated_trigger_fields = [fld for fld in vals.keys() if fld in trigger_fields]
         if updated_trigger_fields:
