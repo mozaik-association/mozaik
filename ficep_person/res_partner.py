@@ -165,7 +165,7 @@ class res_partner(orm.Model):
         :rtype: Boolean
         """
         partner = self.browse(cr, uid, ids, context=context)[0]
-        if partner.identifier == 0:
+        if not partner.identifier:
             return True
 
         res_ids = self.search(cr, uid, [('id', '!=', partner.id),
@@ -176,6 +176,8 @@ class res_partner(orm.Model):
     _constraints = [
         (_check_identifier_unicity, _('This identifier is already assigned'), ['identifier']),
     ]
+
+    _unicity_keys = 'N/A'
 
 # orm methods
 
