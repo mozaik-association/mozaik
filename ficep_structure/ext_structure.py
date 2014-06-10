@@ -35,6 +35,10 @@ class ext_assembly_category(orm.Model):
     _inherit = ['abstract.assembly.category']
     _description = 'External Assembly Category'
 
+    _columns = {
+        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', track_visibility='onchange'),
+    }
+
 
 class ext_assembly(orm.Model):
 
