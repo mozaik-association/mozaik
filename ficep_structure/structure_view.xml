@@ -656,7 +656,7 @@
                      <field name="is_designation_assembly"/>
                 </xpath>
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
-                     <field name="designation_int_assembly_id" required="1"/>
+                     <field name="designation_int_assembly_id"/>
                 </xpath>
                 <xpath expr="//field[@name='assembly_category_id']" position="attributes">
                      <attribute name="on_change">onchange_assembly_category_id(assembly_category_id)</attribute>
