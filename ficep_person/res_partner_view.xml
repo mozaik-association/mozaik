@@ -16,6 +16,7 @@
                     <field name="category_id" string="Tag" widget="many2one"/>
                     <field name="comment" />
                     <field name="partner_involvement_ids"/>
+                    <field name="enterprise_identifier" invisible="'default_is_company' not in context or not context.get('default_is_company')" />
 
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]" invisible="'default_is_company' in context"/>
                     <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]" invisible="'default_is_company' in context"/>
@@ -252,7 +253,12 @@
                         <group name="other">
                         </group>
                     </group>
-                    <group name="partner" attrs="{'invisible': [('is_company','=', False)]}">
+                    <group name="enterprise" attrs="{'invisible': ['|',('is_company','=', False),('is_assembly','=', True)]}">
+                        <group name="enterprise1">
+                            <field name="enterprise_identifier"/>
+                        </group>
+                        <group name="enterprise2">
+                        </group>
                     </group>
                 </xpath>
                 <xpath expr="//notebook" position="inside">
