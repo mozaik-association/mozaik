@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+        <record id="sta_assembly_search_view" model="ir.ui.view">
+            <field name="name">sta.assembly.search (ficep_retrocession)</field>
+            <field name="model">sta.assembly</field>
+            <field name="inherit_id" ref="ficep_structure.abstract_assembly_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='instance_id']" position="before">
+                    <field name="fractionation_id"/>
+                </xpath>
+            </field>
+        </record>   
+        
+        <record id="sta_assembly_action" model="ir.actions.act_window">
+            <field name="name">State Assemblies</field>
+            <field name="res_model">sta.assembly</field>
+            <field name="inherit_id" ref="ficep_structure.sta_assembly_action"/>     
+            <field name="search_view_id" ref="sta_assembly_search_view" />
+        </record> 
+    
+         <record id="sta_assembly_form_view" model="ir.ui.view">
+            <field name="name">sta.assembly.form.view (ficep_retrocession)</field>
+            <field name="model">sta.assembly</field>
+            <field name="inherit_id" ref="ficep_structure.sta_assembly_form_view" />
+            <field name="arch" type="xml">                
+                <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
+                      <field name="fractionation_id"/>
+                </xpath>
+            </field>
+         </record>
+         
+         <record id="ext_assembly_search_view" model="ir.ui.view">
+            <field name="name">ext.assembly.search (ficep_retrocession)</field>
+            <field name="model">ext.assembly</field>
+            <field name="inherit_id" ref="ficep_structure.ext_assembly_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='instance_id']" position="before">
+                    <field name="fractionation_id"/>
+                </xpath>
+            </field>
+        </record>
+         
+        <record id="ext_assembly_form_view" model="ir.ui.view">
+            <field name="name">ext.assembly.form.view (ficep_retrocession)</field>
+            <field name="model">ext.assembly</field>
+            <field name="inherit_id" ref="ficep_structure.ext_assembly_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
+                        <field name="fractionation_id"/>
+                </xpath>
+            </field>
+         </record>
+
+    </data>
+</openerp>

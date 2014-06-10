@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+         <!-- Search and Tree Views -->
+
+        <record id="fractionation_search_view" model="ir.ui.view">
+            <field name="name">fractionation.search</field>
+            <field name="model">fractionation</field>
+            <field name="arch" type="xml">
+                <search string="Fractionation" version="7.0">                   
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Expired Fractionations" />
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Fractionations, expired or not" />                    
+                </search>
+            </field>
+        </record>
+        
+        <record id="fractionation_tree_view" model="ir.ui.view">
+            <field name="name">fractionation.tree</field>
+            <field name="model">fractionation</field>
+            <field name="arch" type="xml">
+                <tree string="Fractionation" version="7.0" colors="red:total_percentage &lt; 100">
+                    <field name="name"/>
+                    <field name="total_percentage" attrs="{'invisible': [('total_percentage', '=', 100)]}"/>                  
+                </tree>
+            </field>
+        </record>
+        
+        <record id="fractionation_line_search_view" model="ir.ui.view">
+            <field name="name">fractionation.line.search</field>
+            <field name="model">fractionation.line</field>
+            <field name="arch" type="xml">
+                <search string="Fractionation lines" version="7.0">                   
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Expired Fractionation Lines" />
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Fractionation Lines, expired or not" />
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="fractionation_id" string="Fractionation" domain="[]" context="{'group_by':'fractionation_id'}" />
+                    </group>                    
+                </search>
+            </field>
+        </record>
+        
+        <record id="fractionation_line_tree_view" model="ir.ui.view">
+            <field name="name">fractionation.line.tree</field>
+            <field name="model">fractionation.line</field>
+            <field name="arch" type="xml">
+                <tree string="Fractionation lines" version="7.0">
+                    <field name="fractionation_id"/>
+                    <field name="power_level_id"/>
+                    <field name="percentage"/>                  
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Actions -->
+
+        <record id="fractionation_action" model="ir.actions.act_window">
+            <field name="name">Fractionation</field>
+            <field name="res_model">fractionation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="fractionation_search_view" />
+            <field name="view_id" ref="fractionation_tree_view" />
+        </record>
+        
+        <record id="fractionation_line_action" model="ir.actions.act_window">
+            <field name="name">Fractionation Lines</field>
+            <field name="res_model">fractionation.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="fractionation_line_search_view" />
+            <field name="view_id" ref="fractionation_line_tree_view" />
+        </record>
+        
+        <!-- Form Views -->
+
+        <record id="fractionation_form_view" model="ir.ui.view">
+            <field name="name">fractionation.form</field>
+            <field name="model">fractionation</field>
+            <field name="arch" type="xml">
+                <form string="Fractionation" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="ficep_base.ficep_res_groups_user" name="invalidate">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate fractionation: proceed anyway ?" />                            
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="name" class="oe_inline"/></h1>                            
+                        </div>
+                        <group name="Technical Dates">
+                            <field name="create_date" readonly="1"/>
+                            <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
+                        </group>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                            <button string="State assemblies" name="%(sta_assembly_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_fractionation_id': active_id,
+                                          'default_fractionation_id': active_id}" />
+                            <button string="External assemblies" name="%(ficep_structure.ext_assembly_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_fractionation_id': active_id,
+                                          'default_fractionation_id': active_id}" />
+                        </div>
+
+                        <notebook>
+                           <page string="Lines" name="lines">
+                               <field name="fractionation_line_ids" attrs="{'invisible': [('active', '=', False)]}">
+                                   <tree version="7.0" editable="bottom">
+                                       <field name="power_level_id"/>
+                                       <field name="percentage"/>
+                                   </tree>
+                               </field>
+                               <field name="fractionation_line_inactive_ids" attrs="{'invisible': [('active', '=', True)]}">
+                                   <tree version="7.0" editable="bottom">
+                                       <field name="power_level_id"/>
+                                       <field name="percentage"/>
+                                   </tree>
+                               </field>                               
+                               <group class="oe_subtotal_footer oe_right" colspan="2" name="total">
+                                    <field name="total_percentage"/>
+                               </group>
+                           </page>                                                      
+                           <page string="Mandate Categories" name="mandate_categories">
+                               <field name="mandate_category_ids" readonly="1" attrs="{'invisible': [('active', '=', False)]}">
+                                   <tree version="7.0" >
+                                       <field name="name"/>
+                                   </tree>
+                               </field>                              
+                           </page>                       
+                        </notebook>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Validate fractionation: proceed anyway ?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="fractionation_line_form_view" model="ir.ui.view">
+            <field name="name">fractionation.line.form</field>
+            <field name="model">fractionation.line</field>
+            <field name="arch" type="xml">
+                <form string="Fractionation Line" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="ficep_base.ficep_res_groups_user" name="invalidate">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate fractionation line: proceed anyway ?" />                            
+                        </div>
+                    </header>
+                    <sheet>                        
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                        </div>
+                        <group>
+                            <field name="fractionation_id" readonly="1"/>
+                            <field name="power_level_id"/>
+                            <field name="percentage"/>
+                        </group>
+                        <group name="Technical Dates">
+                            <field name="create_date" readonly="1"/>
+                            <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
+                        </group>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Validate fractionation line: proceed anyway ?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Menus -->
+
+        <menuitem id="fractionation_submenu" name="Fractionations"
+                  sequence="10" parent="ficep_base.retrocessions_root_menu" />
+        
+        <menuitem id="fractionation_action_submenu" name="Fractionations" action="fractionation_action"
+                  sequence="10" parent="fractionation_submenu" />
+
+        <menuitem id="configuration_submenu" name="Configuration"
+                  sequence="20" parent="ficep_base.retrocessions_root_menu" />
+        
+        <menuitem id="fractionation_line_submenu" name="Fractionation lines" action="fractionation_line_action"
+                  sequence="10" parent="configuration_submenu" />
+    </data>
+</openerp>

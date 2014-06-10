@@ -57,5 +57,9 @@
                                           ]"/>
         </record>
 
+        <!-- Retrocessions -->
+
+        <menuitem id="retrocessions_root_menu" name="Retrocessions"
+                  sequence="61" groups="res_groups_base" />
     </data>
 </openerp>
