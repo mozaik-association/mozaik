@@ -845,4 +845,158 @@ class virtual_partner_candidature(orm.Model):
         OR pc.id IS NOT NULL)
                 )""")
 
+
+class virtual_assembly_instance(orm.Model):
+
+    _name = "virtual.assembly.instance"
+    _description = "Virtual Assembly Instance"
+    _auto = False
+
+    _columns = {
+        'common_id': fields.char(string='Common ID'),
+        'partner_id': fields.many2one('res.partner', 'Partner'),
+        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'int_power_level_id': fields.many2one('int.instance', 'Internal Power Level'),
+        'sta_power_level_id': fields.many2one('int.instance', 'State Power Level'),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+
+        'postal_vip': fields.boolean('VIP Address'),
+        'postal_unauthorized': fields.boolean('Unauthorized Address'),
+
+        'email_vip': fields.boolean('VIP Email'),
+        'email_unauthorized': fields.boolean('Unauthorized Email'),
+
+        # others
+        'category_id': fields.related('partner_id', 'category_id', type='many2many',
+                                      obj='res.partner.category',
+                                      rel='res_partner_res_partner_category_rel',
+                                      id1='partner_id', id2='category_id', string='Tags'),
+        'competencies_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
+                                               obj='thesaurus.term',
+                                               rel='res_partner_term_competencies_rel',
+                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
+                                               obj='thesaurus.term',
+                                               rel='res_partner_term_interests_rel',
+                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+    }
+
+# orm methods
+
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, 'virtual_partner_instance')
+        cr.execute("""
+        create or replace view virtual_partner_instance as (
+        SELECT
+        'int.assembly' as model,
+            concat(pc.id, '/', e.id) as id,
+            concat(pc.id, '/', e.id) as common_id,
+            assembly.partner_id as partner_id,
+            i.id as int_instance_id,
+            i.power_level_id as int_power_level,
+            NULL as sta_power_level,
+            e.id as email_coordinate_id,
+            pc.id as postal_coordinate_id,
+            pc.unauthorized as postal_unauthorized,
+            pc.vip as postal_vip,
+            e.vip as email_vip,
+            e.unauthorized as email_unauthorized
+        FROM
+            int_assembly assembly
+        JOIN
+            res_partner p
+        ON p.id = assembly.partner_id
+        JOIN
+            int_instance i
+        ON i.id = assembly.instance_id
+        LEFT OUTER JOIN
+            postal_coordinate pc
+        ON (pc.partner_id = p.id
+        AND pc.active = TRUE)
+        LEFT OUTER JOIN
+            email_coordinate e
+        ON (e.partner_id = p.id
+        AND e.active = TRUE)
+        WHERE assembly.active = TRUE
+        AND p.active = TRUE
+        AND (e.id IS NOT NULL
+        OR pc.id IS NOT NULL)
+
+        UNION
+
+        SELECT
+        'sta.assembly' as model,
+            concat(pc.id, '/', e.id) as id,
+            concat(pc.id, '/', e.id) as common_id,
+            assembly.partner_id as partner_id,
+            i.int_instance_id as int_instance_id,
+            NULL as int_power_level,
+            i.power_level_id as sta_power_level,
+            e.id as email_coordinate_id,
+            pc.id as postal_coordinate_id,
+            pc.unauthorized as postal_unauthorized,
+            pc.vip as postal_vip,
+            e.vip as email_vip,
+            e.unauthorized as email_unauthorized
+        FROM
+            sta_assembly assembly
+        JOIN
+            res_partner p
+        ON p.id = assembly.partner_id
+        JOIN
+            sta_instance i
+        ON i.id = assembly.instance_id
+        LEFT OUTER JOIN
+            postal_coordinate pc
+        ON (pc.partner_id = p.id
+        AND pc.active = TRUE)
+        LEFT OUTER JOIN
+            email_coordinate e
+        ON (e.partner_id = p.id
+        AND e.active = TRUE)
+        WHERE assembly.active = TRUE
+        AND p.active = TRUE
+        AND (e.id IS NOT NULL
+        OR pc.id IS NOT NULL)
+
+        UNION
+
+        SELECT
+        'ext.assembly' as model,
+            concat(pc.id, '/', e.id) as id,
+            concat(pc.id, '/', e.id) as common_id,
+            assembly.partner_id as partner_id,
+            assembly.instance_id as int_instance_id,
+            NULL as int_power_level,
+            NULL as sta_power_level,
+            e.id as email_coordinate_id,
+            pc.id as postal_coordinate_id,
+            pc.unauthorized as postal_unauthorized,
+            pc.vip as postal_vip,
+            e.vip as email_vip,
+            e.unauthorized as email_unauthorized
+        FROM
+            ext_assembly assembly
+
+        JOIN
+            res_partner p
+        ON p.id = assembly.partner_id
+
+        LEFT OUTER JOIN
+            postal_coordinate pc
+        ON (pc.partner_id = p.id
+        AND pc.active = TRUE)
+
+        LEFT OUTER JOIN
+            email_coordinate e
+        ON (e.partner_id = p.id
+        AND e.active = TRUE)
+
+        WHERE assembly.active = TRUE
+        AND p.active = TRUE
+        AND (e.id IS NOT NULL
+        OR pc.id IS NOT NULL)
+        
+        )""")
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
