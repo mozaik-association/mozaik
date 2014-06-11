@@ -59,6 +59,7 @@ FICEP Sample Customization
          '../ficep_structure_address/tests/data/structure_address_data.xml',
          '../ficep_mandate/tests/data/mandate_data.xml',
          '../ficep_communication/demo/communication_demo.xml',
+         '../ficep_retrocession/tests/data/retrocession_data.xml',
          'demo/sample_customization_demo.xml',  # must be the last
     ],
     'js': [
