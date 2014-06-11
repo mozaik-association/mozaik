@@ -38,6 +38,7 @@
         'ficep_mass_editing',
         'ficep_communication',
         'ficep_mandate',
+        'ficep_retrocession',
     ],
     'description': """
 FICEP
