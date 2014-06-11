@@ -146,7 +146,7 @@ class virtual_partner_involvement(orm.Model):
         'email_vip': fields.boolean('Email VIP'),
         'email_unauthorized': fields.boolean('Email Unauthorized'),
 
-        #others
+        # others
         'category_id': fields.related('partner_id', 'category_id', type='many2many',
                                       obj='res.partner.category',
                                       rel='res_partner_res_partner_category_rel',
@@ -345,10 +345,6 @@ class virtual_partner_instance(orm.Model):
     _description = "Virtual Partner Instance"
     _auto = False
 
-    def test(self, cr, uid, ids, context=None):
-        print "ok"
-        pass
-
     _columns = {
         'common_id': fields.char(string='Common ID'),
         'partner_id': fields.many2one('res.partner', 'Partner'),
@@ -427,5 +423,426 @@ class virtual_partner_instance(orm.Model):
         AND (e.id IS NOT NULL
         OR pc.id IS NOT NULL)
         )""")
+
+
+class virtual_partner_mandate(orm.Model):
+
+    _name = "virtual.partner.mandate"
+    _description = "Virtual Partner Mandate"
+    _auto = False
+
+    _columns = {
+        'common_id': fields.char(string='Common ID'),
+        'partner_id': fields.many2one('res.partner', 'Partner'),
+        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+
+        'id': fields.char('ID'),
+        'model': fields.char('Model'),
+        'mandate_id': fields.char('Mandate ID'),
+        'assembly_name': fields.char("Assembly"),
+        'start_date': fields.date('Start date'),
+        'deadline_date': fields.date('Deadline date'),
+
+        'is_company': fields.boolean('Is a Company'),
+        'identifier': fields.integer('Number'),
+        'is_assembly': fields.boolean('Is an Assembly'),
+        'birth_date': fields.date('Birth Date'),
+        'display_name': fields.char('Display Name'),
+        'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
+        'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
+        'employee': fields.boolean('Employee'),
+
+        'postal_vip': fields.boolean('VIP Address'),
+        'postal_unauthorized': fields.boolean('Unauthorized Address'),
+
+        'email_vip': fields.boolean('VIP Email'),
+        'email_unauthorized': fields.boolean('Unauthorized Email'),
+
+        'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
+        # others
+        'category_id': fields.related('partner_id', 'category_id', type='many2many',
+                                      obj='res.partner.category',
+                                      rel='res_partner_res_partner_category_rel',
+                                      id1='partner_id', id2='category_id', string='Tags'),
+        'competencies_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
+                                               obj='thesaurus.term',
+                                               rel='res_partner_term_competencies_rel',
+                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
+                                               obj='thesaurus.term',
+                                               rel='res_partner_term_interests_rel',
+                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+    }
+
+# orm methods
+
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, 'virtual_partner_mandate')
+        cr.execute("""
+        create or replace view virtual_partner_mandate as (
+        SELECT 'int.mandate' AS model,
+            concat(
+                CASE
+                    WHEN mandate.postal_coordinate_id IS NULL
+                    THEN pc.id
+                    ELSE mandate.postal_coordinate_id
+                END,
+                '/',
+                CASE
+                    WHEN mandate.email_coordinate_id IS NULL
+                    THEN e.id
+                    ELSE mandate.email_coordinate_id
+                END) as common_id,
+             mandate.id + 1000000 as id,
+             mandate.id as mandate_id,
+             mandate.mandate_category_id,
+             mandate.partner_id,
+             mandate.start_date,
+             mandate.deadline_date,
+             partner.name as assembly_name,
+             partner.is_company as is_company,
+             partner.birth_date as birth_date,
+             partner.identifier as identifier,
+             partner.display_name as display_name,
+             partner.gender as gender,
+             partner.tongue as tongue,
+             partner.employee as employee,
+             partner.int_instance_id as int_instance_id,
+             CASE
+                 WHEN mandate.email_coordinate_id IS NULL
+                 THEN e.id
+                 ELSE mandate.email_coordinate_id
+             END
+             AS email_coordinate_id,
+             CASE
+                 WHEN mandate.postal_coordinate_id IS NULL
+                 THEN pc.id
+                 ELSE mandate.postal_coordinate_id
+             END
+             AS postal_coordinate_id,
+             pc.unauthorized as postal_unauthorized,
+             pc.vip as postal_vip,
+             e.vip as email_vip,
+             e.unauthorized as email_unauthorized
+         FROM int_mandate  AS mandate
+         JOIN
+             int_assembly AS assembly
+             ON assembly.id = mandate.int_assembly_id
+         JOIN res_partner AS partner
+             ON partner.id = assembly.partner_id
+         LEFT OUTER JOIN postal_coordinate pc
+             ON pc.partner_id = mandate.partner_id
+             and pc.is_main = TRUE
+         LEFT OUTER JOIN email_coordinate e
+             ON e.partner_id = mandate.partner_id
+             and e.is_main = TRUE
+         WHERE mandate.active = True
+         AND (e.id IS NOT NULL
+         OR pc.id IS NOT NULL)
+
+         UNION
+
+        SELECT 'sta.mandate' AS model,
+            concat(
+                CASE
+                    WHEN mandate.postal_coordinate_id IS NULL
+                    THEN pc.id
+                    ELSE mandate.postal_coordinate_id
+                END,
+                '/',
+                CASE
+                    WHEN mandate.email_coordinate_id IS NULL
+                    THEN e.id
+                    ELSE mandate.email_coordinate_id
+                END) as common_id,
+            mandate.id + 2000000 as id,
+            mandate.id as mandate_id,
+            mandate.mandate_category_id,
+            mandate.partner_id,
+            mandate.start_date,
+            mandate.deadline_date,
+            partner.name as assembly_name,
+            partner.is_company as is_company,
+            partner.birth_date as birth_date,
+            partner.identifier as identifier,
+            partner.display_name as display_name,
+            partner.gender as gender,
+            partner.tongue as tongue,
+            partner.employee as employee,
+            partner.int_instance_id as int_instance_id,
+            CASE
+                WHEN mandate.email_coordinate_id IS NULL
+                THEN e.id
+                ELSE mandate.email_coordinate_id
+            END
+            AS email_coordinate_id,
+            CASE
+                WHEN mandate.postal_coordinate_id IS NULL
+                THEN pc.id
+                ELSE mandate.postal_coordinate_id
+            END
+            AS postal_coordinate_id,
+            pc.unauthorized as postal_unauthorized,
+            pc.vip as postal_vip,
+            e.vip as email_vip,
+            e.unauthorized as email_unauthorized
+        FROM sta_mandate  AS mandate
+        JOIN sta_assembly AS assembly
+            ON assembly.id = mandate.sta_assembly_id
+        JOIN res_partner AS partner
+            ON partner.id = assembly.partner_id
+        LEFT OUTER JOIN postal_coordinate pc
+            ON pc.partner_id = mandate.partner_id
+            and pc.is_main = TRUE
+        LEFT OUTER JOIN email_coordinate e
+            ON e.partner_id = mandate.partner_id
+            and e.is_main = TRUE
+        WHERE mandate.active = True
+        AND (e.id IS NOT NULL
+        OR pc.id IS NOT NULL)
+
+        UNION
+
+        SELECT 'ext.mandate' AS model,
+            concat(
+                CASE
+                    WHEN mandate.postal_coordinate_id IS NULL
+                    THEN pc.id
+                    ELSE mandate.postal_coordinate_id
+                END,
+                '/',
+                CASE
+                WHEN mandate.email_coordinate_id IS NULL
+                THEN e.id
+                ELSE mandate.email_coordinate_id
+                END) as common_id,
+            mandate.id + 3000000 as id,
+            mandate.id as mandate_id,
+            mandate.mandate_category_id,
+            mandate.partner_id,
+            mandate.start_date,
+            mandate.deadline_date,
+            partner.name as assembly_name,
+            partner.is_company as is_company,
+            partner.birth_date as birth_date,
+            partner.identifier as identifier,
+            partner.display_name as display_name,
+            partner.gender as gender,
+            partner.tongue as tongue,
+            partner.employee as employee,
+            partner.int_instance_id as int_instance_id,
+            CASE
+                WHEN mandate.email_coordinate_id IS NULL
+                THEN e.id
+                ELSE mandate.email_coordinate_id
+            END
+            AS email_coordinate_id,
+            CASE
+                WHEN mandate.postal_coordinate_id IS NULL
+                THEN pc.id
+                ELSE mandate.postal_coordinate_id
+            END
+            AS postal_coordinate_id,
+            pc.unauthorized as postal_unauthorized,
+            pc.vip as postal_vip,
+            e.vip as email_vip,
+            e.unauthorized as email_unauthorized
+        FROM ext_mandate  AS mandate
+        JOIN ext_assembly AS assembly
+            ON assembly.id = mandate.ext_assembly_id
+        JOIN res_partner  AS partner
+            ON partner.id = assembly.partner_id
+        LEFT OUTER JOIN postal_coordinate pc
+            ON pc.partner_id = mandate.partner_id
+            and pc.is_main = TRUE
+        LEFT OUTER JOIN email_coordinate e
+            ON e.partner_id = mandate.partner_id
+            and e.is_main = TRUE
+        WHERE mandate.active = True
+        AND (e.id IS NOT NULL
+        OR pc.id IS NOT NULL)
+                )""")
+
+
+class virtual_partner_candidature(orm.Model):
+
+    _name = "virtual.partner.candidature"
+    _description = "Virtual Partner Mandate"
+    _auto = False
+
+    _columns = {
+        'common_id': fields.char(string='Common ID'),
+        'partner_id': fields.many2one('res.partner', 'Partner'),
+        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+
+        'id': fields.char('ID'),
+        'model': fields.char('Model'),
+        'candidature_id': fields.char('Mandate ID'),
+        'assembly_name': fields.char("Assembly"),
+        'create_date': fields.date('Start date'),
+
+        'is_company': fields.boolean('Is a Company'),
+        'identifier': fields.integer('Number'),
+        'is_assembly': fields.boolean('Is an Assembly'),
+        'birth_date': fields.date('Birth Date'),
+        'display_name': fields.char('Display Name'),
+        'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
+        'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
+        'employee': fields.boolean('Employee'),
+
+        'postal_vip': fields.boolean('VIP Address'),
+        'postal_unauthorized': fields.boolean('Unauthorized Address'),
+
+        'email_vip': fields.boolean('VIP Email'),
+        'email_unauthorized': fields.boolean('Unauthorized Email'),
+
+        'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
+        # others
+        'category_id': fields.related('partner_id', 'category_id', type='many2many',
+                                      obj='res.partner.category',
+                                      rel='res_partner_res_partner_category_rel',
+                                      id1='partner_id', id2='category_id', string='Tags'),
+        'competencies_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
+                                               obj='thesaurus.term',
+                                               rel='res_partner_term_competencies_rel',
+                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
+                                               obj='thesaurus.term',
+                                               rel='res_partner_term_interests_rel',
+                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+    }
+
+# orm methods
+
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, 'virtual_partner_candidature')
+        cr.execute("""
+        create or replace view virtual_partner_candidature as (
+        SELECT 'int.candidature' AS model,
+             concat(pc.id,
+                '/',
+                e.id) as common_id,
+             candidature.id + 1000000 as id,
+             candidature.id as candidature_id,
+             candidature.mandate_category_id,
+             candidature.partner_id,
+             candidature.create_date,
+             partner.name as assembly_name,
+             partner.is_company as is_company,
+             partner.birth_date as birth_date,
+             partner.identifier as identifier,
+             partner.display_name as display_name,
+             partner.gender as gender,
+             partner.tongue as tongue,
+             partner.employee as employee,
+             partner.int_instance_id as int_instance_id,
+             e.id AS email_coordinate_id,
+             pc.id AS postal_coordinate_id,
+             pc.unauthorized as postal_unauthorized,
+             pc.vip as postal_vip,
+             e.vip as email_vip,
+             e.unauthorized as email_unauthorized
+         FROM int_candidature  AS candidature
+         JOIN
+             int_assembly AS assembly
+             ON assembly.id = candidature.int_assembly_id
+         JOIN res_partner AS partner
+             ON partner.id = assembly.partner_id
+         LEFT OUTER JOIN postal_coordinate pc
+             ON pc.partner_id = candidature.partner_id
+             and pc.is_main = TRUE
+         LEFT OUTER JOIN email_coordinate e
+             ON e.partner_id = candidature.partner_id
+             and e.is_main = TRUE
+         WHERE candidature.active = True
+         AND (e.id IS NOT NULL
+         OR pc.id IS NOT NULL)
+
+         UNION
+
+        SELECT 'sta.candidature' AS model,
+            concat(pc.id,
+                '/',
+                e.id) as common_id,
+            candidature.id + 2000000 as id,
+            candidature.id as candidature_id,
+            candidature.mandate_category_id,
+            candidature.partner_id,
+            candidature.create_date,
+            partner.name as assembly_name,
+            partner.is_company as is_company,
+            partner.birth_date as birth_date,
+            partner.identifier as identifier,
+            partner.display_name as display_name,
+            partner.gender as gender,
+            partner.tongue as tongue,
+            partner.employee as employee,
+            partner.int_instance_id as int_instance_id,
+            e.id AS email_coordinate_id,
+            pc.id AS postal_coordinate_id,
+            pc.unauthorized as postal_unauthorized,
+            pc.vip as postal_vip,
+            e.vip as email_vip,
+            e.unauthorized as email_unauthorized
+        FROM sta_candidature  AS candidature
+        JOIN sta_assembly AS assembly
+            ON assembly.id = candidature.sta_assembly_id
+        JOIN res_partner AS partner
+            ON partner.id = assembly.partner_id
+        LEFT OUTER JOIN postal_coordinate pc
+            ON pc.partner_id = candidature.partner_id
+            and pc.is_main = TRUE
+        LEFT OUTER JOIN email_coordinate e
+            ON e.partner_id = candidature.partner_id
+            and e.is_main = TRUE
+        WHERE candidature.active = True
+        AND (e.id IS NOT NULL
+        OR pc.id IS NOT NULL)
+
+        UNION
+
+        SELECT 'ext.candidature' AS model,
+            concat(pc.id,
+                '/',
+                e.id) as common_id,
+            candidature.id + 3000000 as id,
+            candidature.id as candidature_id,
+            candidature.mandate_category_id,
+            candidature.partner_id,
+            candidature.create_date,
+            partner.name as assembly_name,
+            partner.is_company as is_company,
+            partner.birth_date as birth_date,
+            partner.identifier as identifier,
+            partner.display_name as display_name,
+            partner.gender as gender,
+            partner.tongue as tongue,
+            partner.employee as employee,
+            partner.int_instance_id as int_instance_id,
+            e.id AS email_coordinate_id,
+            pc.id postal_coordinate_id,
+            pc.unauthorized as postal_unauthorized,
+            pc.vip as postal_vip,
+            e.vip as email_vip,
+            e.unauthorized as email_unauthorized
+        FROM ext_candidature  AS candidature
+        JOIN ext_assembly AS assembly
+            ON assembly.id = candidature.ext_assembly_id
+        JOIN res_partner  AS partner
+            ON partner.id = assembly.partner_id
+        LEFT OUTER JOIN postal_coordinate pc
+            ON pc.partner_id = candidature.partner_id
+            and pc.is_main = TRUE
+        LEFT OUTER JOIN email_coordinate e
+            ON e.partner_id = candidature.partner_id
+            and e.is_main = TRUE
+        WHERE candidature.active = True
+        AND (e.id IS NOT NULL
+        OR pc.id IS NOT NULL)
+                )""")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
