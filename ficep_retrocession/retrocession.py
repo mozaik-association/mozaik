@@ -74,6 +74,8 @@ class fractionation(orm.Model):
                                  type='float', store=_total_percentage_store_trigger, select=True),
     }
 
+    _unicity_keys = 'N/A'
+
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
         """
         =================
@@ -116,6 +118,8 @@ class fractionation_line(orm.Model):
         'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, track_visibility='onchange'),
         'percentage': fields.float('Percentage', required=True, track_visibility='onchange')
     }
+
+    _unicity_keys = 'N/A'
 
 # constraints
 
@@ -162,6 +166,8 @@ class calculation_method(orm.Model):
         'mandate_category_ids': fields.one2many('mandate.category', 'calculation_method_id', 'Mandate categories'),
     }
 
+    _unicity_keys = 'N/A'
+
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
         """
         =================
@@ -194,3 +200,5 @@ class calculation_rule(orm.Model):
                                         select=True, track_visibility='onchange'),
         'percentage': fields.float('Percentage', required=True, track_visibility='onchange')
     }
+
+    _unicity_keys = 'N/A'
