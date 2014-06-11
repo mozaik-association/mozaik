@@ -37,4 +37,5 @@ class mandate_category(orm.Model):
 
     _columns = {
         'fractionation_id': fields.many2one('fractionation', string='Fractionation', track_visibility='onchange'),
+        'calculation_method_id': fields.many2one('calculation.method', string='Calculation method', track_visibility='onchange'),
     }

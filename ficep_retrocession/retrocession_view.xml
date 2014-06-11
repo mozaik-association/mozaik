@@ -34,7 +34,8 @@
             <field name="name">fractionation.line.search</field>
             <field name="model">fractionation.line</field>
             <field name="arch" type="xml">
-                <search string="Fractionation lines" version="7.0">                   
+                <search string="Fractionation lines" version="7.0">
+                    <field name="fractionation_id"/>          
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
                             domain="[('active','=',False)]" help="Expired Fractionation Lines" />
@@ -42,7 +43,7 @@
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Fractionation Lines, expired or not" />
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="fractionation_id" string="Fractionation" domain="[]" context="{'group_by':'fractionation_id'}" />
+                        <filter name="fractionation" string="Fractionation" domain="[]" context="{'group_by':'fractionation_id'}" />
                     </group>                    
                 </search>
             </field>
@@ -56,6 +57,86 @@
                     <field name="fractionation_id"/>
                     <field name="power_level_id"/>
                     <field name="percentage"/>                  
+                </tree>
+            </field>
+        </record>
+        
+        <record id="calculation_method_search_view" model="ir.ui.view">
+            <field name="name">calculation.method.search</field>
+            <field name="model">calculation.method</field>
+            <field name="arch" type="xml">
+                <search string="Calculation method" version="7.0">
+                    <filter name="fixed" string="Fixed"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('type', '=', 'fixed')]" help="All fixed calculation methods" />
+                    <filter name="variable" string="Variable"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('type', '=', 'variable')]" help="All variable calculation methods" />
+                    <filter name="mixed" string="Mixed"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('type', '=', 'Mixed')]" help="All mixed calculation methods" />
+                    <separator/>               
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Expired Calculation method" />
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Calculation methods, expired or not" />
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" />
+                    </group>                     
+                </search>
+            </field>
+        </record>
+        
+        <record id="calculation_method_tree_view" model="ir.ui.view">
+            <field name="name">calculation.method.tree</field>
+            <field name="model">calculation.method</field>
+            <field name="arch" type="xml">
+                <tree string="Calculation method" version="7.0">
+                    <field name="name"/>
+                    <field name="type"/>                  
+                </tree>
+            </field>
+        </record>
+        
+        <record id="calculation_rule_search_view" model="ir.ui.view">
+            <field name="name">calculation.rule.search</field>
+            <field name="model">calculation.rule</field>
+            <field name="arch" type="xml">
+                <search string="Calculation rule" version="7.0">
+                    <field name="calculation_method_id"/>
+                    <filter name="fixed" string="Fixed"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('type', '=', 'fixed')]" help="All fixed calculation rules" />
+                    <filter name="variable" string="Variable"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('type', '=', 'variable')]" help="All variable calculation rules" />
+                    <separator/>            
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Expired Calculation method" />
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Calculation methods, expired or not" />
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" />
+                        <filter name="method" string="Calculation Methods" domain="[('calculation_method_id', '!=', False)]" context="{'group_by':'calculation_method_id'}" />
+                        <filter name="sta_mandate" string="State mandates" domain="[('sta_mandate_id', '!=', False)]" context="{'group_by':'sta_mandate_id'}" />
+                        <filter name="ext_mandate" string="External mandates" domain="[('ext_mandate_id', '!=', False)]" context="{'group_by':'ext_mandate_id'}" />
+                    </group>                     
+                </search>
+            </field>
+        </record>
+        
+        <record id="calculation_rule_tree_view" model="ir.ui.view">
+            <field name="name">calculation.rule.tree</field>
+            <field name="model">calculation.rule</field>
+            <field name="arch" type="xml">
+                <tree string="Calculation rules" version="7.0">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="calculation_method_id"/>                
                 </tree>
             </field>
         </record>
@@ -78,6 +159,26 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="fractionation_line_search_view" />
             <field name="view_id" ref="fractionation_line_tree_view" />
+        </record>
+        
+        <record id="calculation_method_action" model="ir.actions.act_window">
+            <field name="name">Calculation methods</field>
+            <field name="res_model">calculation.method</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="calculation_method_search_view" />
+            <field name="view_id" ref="calculation_method_tree_view" />
+        </record>
+        
+        <record id="calculation_rule_action" model="ir.actions.act_window">
+            <field name="name">Calculation rules</field>
+            <field name="res_model">calculation.rule</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="calculation_rule_search_view" />
+            <field name="view_id" ref="calculation_rule_tree_view" />
+            <field name="context">{'group_by_method':1}</field>
+            <field name="domain">[('calculation_method_id', '!=', False)]</field>
         </record>
         
         <!-- Form Views -->
@@ -116,6 +217,11 @@
 
                         <notebook>
                            <page string="Lines" name="lines">
+                               <button string="All Details" name="%(fractionation_line_action)d"
+                                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                                        context="{'search_default_fractionation_id': active_id,
+                                                  'default_fractionation_id': active_id,
+                                                  'search_default_all': True}" />
                                <field name="fractionation_line_ids" attrs="{'invisible': [('active', '=', False)]}">
                                    <tree version="7.0" editable="bottom">
                                        <field name="power_level_id"/>
@@ -133,6 +239,11 @@
                                </group>
                            </page>                                                      
                            <page string="Mandate Categories" name="mandate_categories">
+                               <button string="All Details" name="%(mandate_category_action)d"
+                                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                                        context="{'search_default_fractionation_id': active_id,
+                                                  'default_fractionation_id': active_id,
+                                                  'search_default_all': True}" />
                                <field name="mandate_category_ids" readonly="1" attrs="{'invisible': [('active', '=', False)]}">
                                    <tree version="7.0" >
                                        <field name="name"/>
@@ -209,6 +320,140 @@
             </field>
         </record>
         
+        <record id="calculation_method_form_view" model="ir.ui.view">
+            <field name="name">calculation.method.form</field>
+            <field name="model">calculation.method</field>
+            <field name="arch" type="xml">
+                <form string="Calculation method" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="ficep_base.ficep_res_groups_user" name="invalidate">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate calculation method: proceed anyway ?" />                          
+                        </div>
+                    </header>
+                    <sheet>                        
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                             <button string="State assemblies" name="%(sta_assembly_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_calculation_method_id': active_id,
+                                          'default_calculation_method_id': active_id}" />
+                            <button string="External assemblies" name="%(ficep_structure.ext_assembly_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_calculation_method_id': active_id,
+                                          'default_calculation_method_id': active_id}" />
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="type"/>                           
+                        </group>
+                        <group name="Technical Dates">
+                            <field name="create_date" readonly="1"/>
+                            <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
+                        </group>
+                        <notebook>
+                           <page string="Rules" name="rules">
+                               <button string="All Details" name="%(calculation_rule_action)d"
+                                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                                        context="{'search_default_calculation_method_id': active_id,
+                                                  'default_calculation_method_id': active_id,
+                                                  'search_default_all': True}" />
+                               <field name="calculation_rule_ids" attrs="{'invisible': [('active', '=', False)]}">
+                                   <tree version="7.0" editable="bottom">
+                                       <field name="name"/>
+                                       <field name="type"/>
+                                       <field name="percentage"/>
+                                   </tree>
+                               </field>                               
+                           </page>                                                      
+                           <page string="Mandate Categories" name="mandate_categories">
+                               <button string="All Details" name="%(mandate_category_action)d"
+                                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                                        context="{'search_default_calculation_method_id': active_id,
+                                                  'default_calculation_method_id': active_id,
+                                                  'search_default_all': True}" />
+                               <field name="mandate_category_ids" readonly="1" attrs="{'invisible': [('active', '=', False)]}">
+                                   <tree version="7.0" >
+                                       <field name="name"/>
+                                   </tree>
+                               </field>                              
+                           </page>                       
+                        </notebook>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Validate calculation method: proceed anyway ?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="calculation_rule_form_view" model="ir.ui.view">
+            <field name="name">calculation.rule.form</field>
+            <field name="model">calculation.rule</field>
+            <field name="arch" type="xml">
+                <form string="Calculation rule" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="ficep_base.ficep_res_groups_user" name="invalidate">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate calculation rule: proceed anyway ?" />                            
+                        </div>
+                    </header>
+                    <sheet>                        
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="type"/>
+                            <field name="percentage"/>
+                            <field name="calculation_method_id" attrs="{'invisible': [('calculation_method_id','=',False), ('id', '!=', False)],
+                                                                        'readonly': [('id', '!=', False)],
+                                                                        'required': [('id', '=', False)]}"/>
+                            <field name="sta_mandate_id" attrs="{'invisible': [('sta_mandate_id','=',False)]}" readonly="1"/>
+                            <field name="ext_mandate_id" attrs="{'invisible': [('ext_mandate_id','=',False)]}" readonly="1"/>                            
+                        </group>
+                        <group name="Technical Dates">
+                            <field name="create_date" readonly="1"/>
+                            <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
+                        </group>                        
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Validate calculation rule: proceed anyway ?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        
         <!-- Menus -->
 
         <menuitem id="fractionation_submenu" name="Fractionations"
@@ -216,7 +461,16 @@
         
         <menuitem id="fractionation_action_submenu" name="Fractionations" action="fractionation_action"
                   sequence="10" parent="fractionation_submenu" />
+                  
+        <menuitem id="calculation_submenu" name="Calculation"
+                  sequence="10" parent="ficep_base.retrocessions_root_menu" />
 
+        <menuitem id="calculation_method_submenu" name="Calculation methods" action="calculation_method_action"
+                  sequence="10" parent="calculation_submenu" />
+        
+        <menuitem id="calculation_rule_submenu" name="Calculation rules" action="calculation_rule_action"
+                  sequence="20" parent="calculation_submenu" />
+        
         <menuitem id="configuration_submenu" name="Configuration"
                   sequence="20" parent="ficep_base.retrocessions_root_menu" />
         

@@ -29,6 +29,16 @@
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
+CALCULATION_METHOD_AVAILABLE_TYPES = [
+    ('fixed', 'Fixed'),
+    ('variable', 'Variable'),
+    ('mixed', 'Mixed'),
+]
+CALCULATION_RULE_AVAILABLE_TYPES = [
+    ('fixed', 'Fixed'),
+    ('variable', 'Variable'),
+]
+
 
 class fractionation(orm.Model):
     _name = 'fractionation'
@@ -116,3 +126,72 @@ class fractionation_line(orm.Model):
     _constraints = [
         (_check_percentage, _('Error ! Percentage should be lower or equal to 100 %'), ['percentage']),
     ]
+
+
+class calculation_method(orm.Model):
+    _name = 'calculation.method'
+    _description = 'Calculation method'
+    _inherit = ['abstract.ficep.model']
+
+    def _get_method_type(self, cr, uid, ids, fname, arg, context=None):
+        """
+        =================
+        _get_method_type
+        =================
+        Get type of calculation method
+        :rparam: Type of calculation method
+        :rtype: string
+        """
+        res = {}
+        for calculation_method in self.browse(cr, uid, ids, context=context):
+            rule_types = list(set([rules.type for rules in calculation_method.calculation_rule_ids]))
+            res[calculation_method.id] = rule_types[0] if len(rule_types) == 1 else 'mixed'
+        return res
+
+    _type_store_trigger = {
+        'calculation.rule': (lambda self, cr, uid, ids, context=None:
+                               [rule_data['calculation_method_id'][0] for rule_data in self.read(cr, uid, ids, ['calculation_method_id'], context=context)],
+                               ['type', ], 20)
+    }
+
+    _columns = {
+        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
+        'type': fields.function(_get_method_type, string='Type',
+                                 type='selection', store=_type_store_trigger, select=True, selection=CALCULATION_METHOD_AVAILABLE_TYPES),
+        'calculation_rule_ids': fields.one2many('calculation.rule', 'calculation_method_id', 'Calculation rules'),
+        'mandate_category_ids': fields.one2many('mandate.category', 'calculation_method_id', 'Mandate categories'),
+    }
+
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+        """
+        =================
+        action_invalidate
+        =================
+        Invalidates an object
+        :rparam: True
+        :rtype: boolean
+        Note: Argument vals must be the last in the signature
+        """
+        for method in self.browse(cr, uid, ids, context=context):
+            rule_ids = [line.id for line in method.calculation_rule_ids]
+        self.pool.get('calculation.rule').action_invalidate(cr, uid, rule_ids, context=context)
+        return super(calculation_method, self).action_invalidate(cr, uid, ids, context=context, vals=vals)
+
+
+class calculation_rule(orm.Model):
+    _name = 'calculation.rule'
+    _description = 'Calculation rule'
+    _inherit = ['abstract.ficep.model']
+
+    _columns = {
+        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
+        'type': fields.selection(CALCULATION_RULE_AVAILABLE_TYPES, 'Type', required=True),
+        'mandate_category_ids': fields.one2many('mandate.category', 'calculation_method_id', 'Mandate categories'),
+        'calculation_method_id': fields.many2one('calculation.method', 'Calculation method',
+                                        select=True, track_visibility='onchange'),
+        'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate',
+                                        select=True, track_visibility='onchange'),
+        'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate',
+                                        select=True, track_visibility='onchange'),
+        'percentage': fields.float('Percentage', required=True, track_visibility='onchange')
+    }

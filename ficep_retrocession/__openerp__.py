@@ -43,9 +43,9 @@ FICEP Retrocession
     'images': [
     ],
     'data': [
-             'retrocession_view.xml',
              'structure_view.xml',
-             'mandate_view.xml'
+             'mandate_view.xml',
+             'retrocession_view.xml',
     ],
     'js': [
     ],
