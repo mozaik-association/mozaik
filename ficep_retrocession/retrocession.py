@@ -74,6 +74,8 @@ class fractionation(orm.Model):
                                  type='float', store=_total_percentage_store_trigger, select=True),
     }
 
+    _unicity_keys = 'N/A'
+
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
         """
         =================
@@ -85,8 +87,8 @@ class fractionation(orm.Model):
         Note: Argument vals must be the last in the signature
         """
         for fract_record in self.browse(cr, uid, ids, context=context):
-            line_ids = [line.id for line in fract_record.fractionation_line_ids]
-        self.pool.get('fractionation.line').action_invalidate(cr, uid, line_ids, context=context)
+            self.pool.get('fractionation.line').action_invalidate(cr, uid, [line.id for line in fract_record.fractionation_line_ids], context=context)
+
         return super(fractionation, self).action_invalidate(cr, uid, ids, context=context, vals=vals)
 
 
@@ -116,6 +118,8 @@ class fractionation_line(orm.Model):
         'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, track_visibility='onchange'),
         'percentage': fields.float('Percentage', required=True, track_visibility='onchange')
     }
+
+    _unicity_keys = 'N/A'
 
 # constraints
 
@@ -162,6 +166,8 @@ class calculation_method(orm.Model):
         'mandate_category_ids': fields.one2many('mandate.category', 'calculation_method_id', 'Mandate categories'),
     }
 
+    _unicity_keys = 'N/A'
+
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
         """
         =================
@@ -186,7 +192,6 @@ class calculation_rule(orm.Model):
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
         'type': fields.selection(CALCULATION_RULE_AVAILABLE_TYPES, 'Type', required=True),
-        'mandate_category_ids': fields.one2many('mandate.category', 'calculation_method_id', 'Mandate categories'),
         'calculation_method_id': fields.many2one('calculation.method', 'Calculation method',
                                         select=True, track_visibility='onchange'),
         'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate',
@@ -195,3 +200,5 @@ class calculation_rule(orm.Model):
                                         select=True, track_visibility='onchange'),
         'percentage': fields.float('Percentage', required=True, track_visibility='onchange')
     }
+
+    _unicity_keys = 'N/A'

@@ -25,42 +25,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Retrocession',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_structure',
-        'ficep_mandate',
-    ],
-    'description': """
-FICEP Retrocession
-=============
-""",
-    'images': [
-    ],
-    'data': [
-             'structure_view.xml',
-             'mandate_view.xml',
-             'retrocession_view.xml',
-             'security/ir.model.access.csv'
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'auto_install': False,
-    'installable': True,
-}
+from . import test_retrocession
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+fast_suite = [
+]
+
+checks = [
+     test_retrocession,
+]

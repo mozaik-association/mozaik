@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Create Fractionation -->
+
+        <record id="f_sample_01" model="fractionation">
+            <field name="name">Fractionation sample 01</field>            
+        </record>
+
+        <record id="f_sample_01_line_01" model="fractionation.line">
+            <field name="fractionation_id" ref="f_sample_01"/>
+            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="percentage">30.25</field>
+        </record>
+        
+        <record id="f_sample_01_line_02" model="fractionation.line">
+            <field name="fractionation_id" ref="f_sample_01"/>
+            <field name="power_level_id" ref="int_power_level_02"/>
+            <field name="percentage">69.75</field>
+        </record>
+        
+        <record id="f_sample_02" model="fractionation">
+            <field name="name">Fractionation sample 02</field>            
+        </record>
+
+        <record id="f_sample_02_line_01" model="fractionation.line">
+            <field name="fractionation_id" ref="f_sample_02"/>
+            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="percentage">42</field>
+        </record>
+        
+        
+        <!-- Create Calculation method -->
+        <record id="cm_sample_01" model="calculation.method">
+             <field name="name">Calculation method sample 01</field>          
+        </record>
+        
+        <record id="cm_sample_02" model="calculation.method">
+             <field name="name">Calculation method sample 02</field>          
+        </record>
+        
+        <!-- Create Calculation rule -->
+        <record id="cr_sample_01" model="calculation.rule">
+             <field name="name">Calculation rule sample 01</field> 
+             <field name="calculation_method_id" ref="cm_sample_01"/>
+             <field name="type">fixed</field>
+             <field name="percentage">2.15</field>
+        </record>
+
+        <record id="cr_sample_02" model="calculation.rule">
+             <field name="name">Calculation rule sample 02</field> 
+             <field name="calculation_method_id" ref="cm_sample_01"/>
+             <field name="type">fixed</field>
+             <field name="percentage">1.25</field>
+        </record>
+        
+        <record id="cr_sample_03" model="calculation.rule">
+             <field name="name">Calculation rule sample 03</field> 
+             <field name="calculation_method_id" ref="cm_sample_01"/>
+             <field name="type">variable</field>
+             <field name="percentage">0.75</field>
+        </record>
+        
+        <record id="cr_sample_04" model="calculation.rule">
+             <field name="name">Calculation rule sample 04</field> 
+             <field name="calculation_method_id" ref="cm_sample_02"/>
+             <field name="type">fixed</field>
+             <field name="percentage">2.00</field>
+        </record>
+        
+    </data>
+</openerp>
