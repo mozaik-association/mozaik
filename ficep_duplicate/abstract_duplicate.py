@@ -181,7 +181,7 @@ class abstract_duplicate(orm.AbstractModel):
     def get_duplicate_ids(self, cr, uid, value, context=None):
         return [], self.search(cr, uid, [(self._discriminant_field, '=', value)], context=context)
 
-    def detect_and_repair_duplicate(self, cr, uid, vals, context=None, columns_to_read=[], model_id_name=None):
+    def detect_and_repair_duplicate(self, cr, uid, vals, context=None, columns_to_read=None, model_id_name=None):
         """
         ===========================
         detect_and_repair_duplicate
@@ -194,6 +194,7 @@ class abstract_duplicate(orm.AbstractModel):
         :param model_id_name: name of id column of model
         :type vals: list
         """
+        columns_to_read = columns_to_read or []
         columns_to_read.extend(['is_duplicate_allowed', 'is_duplicate_detected'])
 
         for v in vals:
