@@ -30,43 +30,6 @@ from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 
 
-class int_instance(fields.function):
-    '''
-    Implement a function field that does not recall the compute method when useless
-    in this case the get method of a simple m2o field is called
-    '''
-
-    def __init__(self, fnct, **args):
-        super(int_instance, self).__init__(fnct, **args)
-        self._auto_join = False
-
-    def get(self, cr, obj, ids, name, uid=False, context=None, values=None):
-        context = context or {}
-        if context.get('just_4_reading'):
-            # currently it is a copy/paste from fields.many2one.get
-            if values is None:
-                values = {}
-
-            res = {}
-            for r in values:
-                res[r['id']] = r[name]
-            for id in ids:
-                res.setdefault(id, '')
-            obj = obj.pool[self._obj]
-
-            records = dict(obj.name_get(cr, SUPERUSER_ID,
-                                        list(set([x for x in res.values() if isinstance(x, (int, long))])),
-                                        context=context))
-            for id in res:
-                if res[id] in records:
-                    res[id] = (res[id], records[res[id]])
-                else:
-                    res[id] = False
-        else:
-            res = super(int_instance, self).get(cr, obj, ids, name, uid=uid, context=context, values=values)
-        return res
-
-
 class res_partner(orm.Model):
 
     _inherit = "res.partner"
@@ -103,7 +66,7 @@ class res_partner(orm.Model):
     def _accept_anyway(self, cr, uid, ids, name, value, args, context=None):
         '''
         Accept the modification of the internal instance
-        Do not make a self.write here, it will indefinitively loop on itself...
+        Do not make a self.write here, it will indefinitely loop on itself...
         '''
         cr.execute('update %s set %s = %%s where id = %s' % (self._table, name, ids), (value or None, ))
         return True
@@ -118,9 +81,9 @@ class res_partner(orm.Model):
     }
 
     _columns = {
-        'int_instance_id': int_instance(_get_instance_id, string='Internal Instance',
-                                        type='many2one', relation='int.instance', select=True,
-                                        store=_instance_store_triggers, fnct_inv=_accept_anyway),
+        'int_instance_id': fields.function(_get_instance_id, string='Internal Instance',
+                                           type='many2one', relation='int.instance', select=True,
+                                           store=_instance_store_triggers, fnct_inv=_accept_anyway),
 
         'int_instance_m2m_ids': fields.many2many('int.instance', 'res_partner_int_instance_rel', id1='partner_id', id2='int_instance_id', string='Internal Instances'),
     }
@@ -140,14 +103,6 @@ class res_partner(orm.Model):
             'int_instance_m2m_ids': [],
         })
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
-        return res
-
-    def _read_flat(self, cr, uid, ids, fields_to_read, context=None, load='_classic_read'):
-        """
-        Escape the recomputing of field value if not useful
-        """
-        ctx = dict(context or {}, just_4_reading=True) 
-        res = super(res_partner, self)._read_flat(cr, uid, ids, fields_to_read, context=ctx, load=load)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
