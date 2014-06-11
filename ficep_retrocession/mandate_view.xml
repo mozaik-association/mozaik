@@ -29,7 +29,7 @@
            <field name="inherit_id" ref="ficep_mandate.mandate_category_form_view" />
            <field name="arch" type="xml">
                <xpath expr="//field[@name='int_power_level_id']" position="after">
-                     <field name="fractionation_id"/>
+                     <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"/>
                      <field name="calculation_method_id"/>
                </xpath>
            </field>

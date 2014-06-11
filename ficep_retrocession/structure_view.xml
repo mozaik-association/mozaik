@@ -19,7 +19,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>              
             <field name="search_view_id" ref="sta_assembly_search_view" />
-            <field name="view_id" ref="ficep_structure.abstract_assembly_tree_view" />
+            <field name="view_id" ref="ficep_structure.abstract_assembly_tree_view"/>
         </record> 
     
          <record id="sta_assembly_form_view" model="ir.ui.view">
@@ -28,7 +28,7 @@
             <field name="inherit_id" ref="ficep_structure.sta_assembly_form_view" />
             <field name="arch" type="xml">                
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
-                      <field name="fractionation_id"/>
+                      <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"/>
                       <field name="calculation_method_id"/>
                 </xpath>
             </field>
@@ -40,7 +40,7 @@
             <field name="inherit_id" ref="ficep_structure.ext_assembly_search_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='instance_id']" position="before">
-                    <field name="fractionation_id"/>
+                    <field name="fractionation_id"   domain="[('total_percentage', '=', '100.0')]"/>
                     <field name="calculation_method_id"/>
                 </xpath>
             </field>
