@@ -28,6 +28,12 @@
 
 from openerp.osv import orm, fields
 
+INVOICE_AVAILABLE_TYPES = [
+    ('month', 'Monthly'),
+    ('year', 'Yearly'),
+    ('none', 'None'),
+]
+
 
 class mandate_category(orm.Model):
 
@@ -38,4 +44,9 @@ class mandate_category(orm.Model):
     _columns = {
         'fractionation_id': fields.many2one('fractionation', string='Fractionation', track_visibility='onchange'),
         'calculation_method_id': fields.many2one('calculation.method', string='Calculation method', track_visibility='onchange'),
+        'invoice_type': fields.selection(INVOICE_AVAILABLE_TYPES, 'Invoicing', required=True)
+    }
+
+    _defaults = {
+        'invoice_type': INVOICE_AVAILABLE_TYPES[2][0]
     }

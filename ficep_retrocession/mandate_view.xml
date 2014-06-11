@@ -10,6 +10,17 @@
                <xpath expr="//filter[@name='is_submission_mandate']" position="before">
                     <field name="fractionation_id"/>
                     <field name="calculation_method_id"/>
+                    <separator/>
+                    <filter name="monthly_invoicing" string="Monthly invoicing"
+                            domain="[('invoice_type','=','month')]" />
+                    <filter name="yearly_invoicing" string="Yearly invoicing"
+                            domain="[('invoice_type','=','year')]" />
+                    <filter name="no_invoicing" string="No invoicing"
+                            domain="[('invoice_type','=','none')]" />
+                    <separator/>
+               </xpath>
+               <xpath expr="//filter[@name='ext_assembly_category_id']" position="after">
+                    <filter name="invoice_type" string="Invoice type" domain="[]" context="{'group_by':'invoice_type'}"/>
                </xpath>
             </field>
         </record>
@@ -30,7 +41,8 @@
            <field name="arch" type="xml">
                <xpath expr="//field[@name='int_power_level_id']" position="after">
                      <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"/>
-                     <field name="calculation_method_id"/>
+                     <field name="invoice_type"/>
+                     <field name="calculation_method_id" attrs="{'required' : [('invoice_type', '!=', 'none')]}"/>
                </xpath>
            </field>
         </record>
