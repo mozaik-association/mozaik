@@ -31,7 +31,7 @@ from openerp.osv import orm, fields
 class distribution_list(orm.Model):
 
     _name = "distribution.list"
-    _inherit = ['distribution.list', 'mail.thread', 'ir.needaction_mixin']
+    _inherit = ['distribution.list', 'abstract.ficep.model']
 
     def _get_user_id(self, cr, uid, ids=None, context=None):
         """
@@ -60,7 +60,7 @@ class distribution_list(orm.Model):
 class distribution_list_line(orm.Model):
 
     _name = "distribution.list.line"
-    _inherit = ['distribution.list.line', 'mail.thread', 'ir.needaction_mixin']
+    _inherit = ['distribution.list.line', 'abstract.ficep.model']
 
     _columns = {
         'name': fields.char(string='Name', required=True, track_visibility='onchange'),

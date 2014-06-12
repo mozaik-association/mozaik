@@ -50,6 +50,7 @@ FICEP Communication
     ],
     'data': [
         'security/ir.model.access.csv',
+        'security/communication_security.xml',
         'communication_view.xml',
         'virtual_models_view.xml',
         'wizard/distribution_list_mass_function_view.xml',

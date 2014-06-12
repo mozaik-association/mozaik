@@ -8,9 +8,12 @@
             <field name="model">distribution.list</field>
             <field name="inherit_id" ref="distribution_list.distribution_list_tree" />
             <field name="arch" type="xml">
+
+                <!-- No more mass mailing but mass function in our case -->
                 <xpath expr="//button[@name='mass_mailing']" position="replace">
                     <button name="%(distribution_list_mass_function_action)d" type="action" icon="terp-partner" string="Mass Action"/>
                 </xpath>
+
             </field>
         </record>
 
@@ -20,6 +23,8 @@
             <field name="model">distribution.list</field>
             <field name="inherit_id" ref="distribution_list.distribution_list_form" />
             <field name="arch" type="xml">
+
+                <!-- Add user tree into distribution list form -->
                 <xpath expr="//group[@name='to_exclude']" position="after">
                     <notebook>
                         <page name="users" string="Users" autofocus="autofocus">
@@ -31,12 +36,37 @@
                         </page>
                     </notebook>
                 </xpath>
+
+                <!-- Mass mailing function is now for developper -->
+                <xpath expr="//button[@name='mass_mailing']" position="attributes">
+                    <attribute name="group">ficep_base.res_groups_developper"</attribute>
+                </xpath>
+
+                <!-- Add mail_thread traking and chat -->
                 <xpath expr="//form" position="inside">
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </xpath>
+
+                <!-- Add developper tools -->
+                <xpath expr="//sheet" postition="after">
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Revalidate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
+                    </div>
+                </xpath>
+
             </field>
         </record>
 
@@ -46,15 +76,36 @@
             <field name="model">distribution.list.line</field>
             <field name="inherit_id" ref="distribution_list.distribution_list_line_form" />
             <field name="arch" type="xml">
+
+                <!-- Restrict domain with a ficep useablility scope -->
                 <xpath expr="//field[@name='src_model_id']" position="attributes">
                     <attribute name="domain">[('model','in',['virtual.partner.involvement',
                                                              'virtual.partner.relation',
                                                              'virtual.partner.instance'])]</attribute>
                 </xpath>
+
+                <!-- Add mail_thread traking and chat -->
                 <xpath expr="//form" position="inside">
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </xpath>
+
+                <!-- Add developper tools -->
+                <xpath expr="//sheet" postition="after">
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Revalidate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
                     </div>
                 </xpath>
             </field>
