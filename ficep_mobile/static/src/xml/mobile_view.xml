@@ -224,7 +224,7 @@
                         </div>
                         <button type="submit" class="btn-large btn-primary">Launch
                         </button>
-                        <a href="/">
+                        <a href="/partner_mobile">
                             <button class="btn-large btn-primary"
                                 type="button">Cancel
                             </button>

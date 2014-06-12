@@ -1,0 +1,14 @@
+<openerp>
+    <data>
+        <!-- Only the user contains into the ref_users_ids field of distribution list are
+        allowed to modify/unlink it -->
+        <record id="distribution_list_user_security" model="ir.rule">
+            <field name="name">Distribution List User Security (ficep)</field>
+            <field name="global" eval="True" />
+            <field name="model_id" ref="distribution_list.model_distribution_list" />
+            <field name="domain_force">[('res_users_ids','child_of', user.id)]</field>
+            <field name="perm_create" eval="False" />
+            <field name="perm_read" eval="False" />
+        </record>
+    </data>
+</openerp>

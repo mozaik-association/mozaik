@@ -14,7 +14,7 @@
                     <button name="%(distribution_list_mass_function_action)d" type="action" icon="terp-partner" string="Mass Action"/>
                 </xpath>
 
-            </field>
+            </field>    
         </record>
 
         <!-- Distribution List Form Inherit -->

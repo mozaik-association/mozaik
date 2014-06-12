@@ -31,7 +31,7 @@
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
-    'category': 'Web Mobile',
+    'category': 'Political Association',
     'depends': [
         'ficep',  # TO DETERMINATE!!!
     ],

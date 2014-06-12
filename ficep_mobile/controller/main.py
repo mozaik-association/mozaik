@@ -33,7 +33,7 @@ from openerp.addons.ficep_person.res_partner import available_genders, available
 
 class Mobile(main.Home):
 
-    @http.route('/', auth='public', website=True)
+    @http.route('/partner_mobile', auth='public', website=True)
     def index(self, **kw):
         """
         =====
