@@ -854,10 +854,18 @@ class virtual_assembly_instance(orm.Model):
 
     _columns = {
         'common_id': fields.char(string='Common ID'),
-        'partner_id': fields.many2one('res.partner', 'Partner'),
+        'partner_id': fields.many2one('res.partner', 'Assembly'),
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
+
+        'category': fields.char('Assembly Category'),
+
         'int_power_level_id': fields.many2one('int.instance', 'Internal Power Level'),
         'sta_power_level_id': fields.many2one('int.instance', 'State Power Level'),
+
+        'int_category_assembly_id': fields.many2one('int.assembly.category', 'Internal Category Assembly'),
+        'ext_category_assembly_id': fields.many2one('ext.assembly.category', 'External Category Assembly'),
+        'sta_category_assembly_id': fields.many2one('sta.assembly.category', 'State Category Assembly'),
+
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
 
@@ -885,17 +893,25 @@ class virtual_assembly_instance(orm.Model):
 # orm methods
 
     def init(self, cr):
-        tools.drop_view_if_exists(cr, 'virtual_partner_instance')
+        tools.drop_view_if_exists(cr, 'virtual_assembly_instance')
         cr.execute("""
-        create or replace view virtual_partner_instance as (
+        create or replace view virtual_assembly_instance as (
         SELECT
         'int.assembly' as model,
             concat(pc.id, '/', e.id) as id,
             concat(pc.id, '/', e.id) as common_id,
             assembly.partner_id as partner_id,
             i.id as int_instance_id,
-            i.power_level_id as int_power_level,
-            NULL as sta_power_level,
+
+            ica.name as category,
+
+            assembly.assembly_category_id as int_category_assembly_id,
+            NULL::int as sta_category_assembly_id,
+            NULL::int as ext_category_assembly_id,
+
+            i.power_level_id as int_power_level_id,
+            NULL as sta_power_level_id,
+
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
             pc.unauthorized as postal_unauthorized,
@@ -907,6 +923,11 @@ class virtual_assembly_instance(orm.Model):
         JOIN
             res_partner p
         ON p.id = assembly.partner_id
+
+        JOIN
+            int_assembly_category ica
+        ON ica.id = assembly.assembly_category_id
+
         JOIN
             int_instance i
         ON i.id = assembly.instance_id
@@ -931,8 +952,16 @@ class virtual_assembly_instance(orm.Model):
             concat(pc.id, '/', e.id) as common_id,
             assembly.partner_id as partner_id,
             i.int_instance_id as int_instance_id,
-            NULL as int_power_level,
-            i.power_level_id as sta_power_level,
+
+            sca.name as category,
+
+            NULL::int as int_category_assembly_id,
+            assembly.assembly_category_id as sta_category_assembly_id,
+            NULL::int as ext_category_assembly_id,
+
+            NULL as int_power_level_id,
+            i.power_level_id as sta_power_level_id,
+
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
             pc.unauthorized as postal_unauthorized,
@@ -944,6 +973,11 @@ class virtual_assembly_instance(orm.Model):
         JOIN
             res_partner p
         ON p.id = assembly.partner_id
+
+        JOIN
+            sta_assembly_category sca
+        ON sca.id = assembly.assembly_category_id
+
         JOIN
             sta_instance i
         ON i.id = assembly.instance_id
@@ -968,8 +1002,16 @@ class virtual_assembly_instance(orm.Model):
             concat(pc.id, '/', e.id) as common_id,
             assembly.partner_id as partner_id,
             assembly.instance_id as int_instance_id,
-            NULL as int_power_level,
-            NULL as sta_power_level,
+
+            eca.name as category,
+
+            NULL::int as int_category_assembly_id,
+            NULL::int as sta_category_assembly_id,
+            assembly.assembly_category_id as ext_category_assembly_id,
+
+            NULL as int_power_level_id,
+            NULL as sta_power_level_id,
+
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
             pc.unauthorized as postal_unauthorized,
@@ -982,6 +1024,10 @@ class virtual_assembly_instance(orm.Model):
         JOIN
             res_partner p
         ON p.id = assembly.partner_id
+
+        JOIN
+            ext_assembly_category eca
+        ON eca.id = assembly.assembly_category_id
 
         LEFT OUTER JOIN
             postal_coordinate pc
@@ -997,6 +1043,5 @@ class virtual_assembly_instance(orm.Model):
         AND p.active = TRUE
         AND (e.id IS NOT NULL
         OR pc.id IS NOT NULL)
-        
         )""")
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

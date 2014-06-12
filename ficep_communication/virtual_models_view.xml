@@ -524,7 +524,13 @@
                 <search string="Virtual Assembly Instance">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
-                    <field name="power_level" />
+
+                    <field name="int_category_assembly_id" string="Internal Category Assembly" widget="many2one"/>
+                    <field name="sta_category_assembly_id" string="State Category Assembly" widget="many2one"/>
+                    <field name="ext_category_assembly_id" string="External Category Assembly" widget="many2one"/>
+
+                    <field name="sta_power_level_id" string="State Power Level" widget="many2one"/>
+                    <field name="int_power_level_id" string="Internal Power Level" widget="many2one"/>
 
                     <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
@@ -554,7 +560,9 @@
                 <tree string="Virtual Assembly Instance" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
-                    <field name="power_level" />
+                    <field name="category" />
+                    <field name="sta_power_level_id" invisible="1"/>
+                    <field name="int_power_level_id" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -584,7 +592,7 @@
         <!-- Action -->
 
         <record id="virtual_assembly_instance_action" model="ir.actions.act_window">
-            <field name="name">Partners/Instances</field>
+            <field name="name">Assembly/Instances</field>
             <field name="res_model">virtual.assembly.instance</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
