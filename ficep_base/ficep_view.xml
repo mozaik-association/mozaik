@@ -2,6 +2,14 @@
 <openerp>
     <data noupdate="0">
 
+        <!-- Add web resources -->
+
+        <template id="assets_backend" name="ficep_base_css" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/ficep_base/static/src/css/ficep_base.css"/>
+            </xpath>
+        </template>
+
         <!-- Persons -->
 
         <menuitem id="persons_root_menu" name="Persons"
