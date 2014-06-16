@@ -120,7 +120,7 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Details">
+                            <page string="Failures">
                                 <group>
                                     <field name="bounce_counter" readonly="1"/>
                                     <field name="bounce_description" readonly="1" />
