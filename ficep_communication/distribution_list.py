@@ -56,6 +56,20 @@ class distribution_list(orm.Model):
         'bridge_field': 'common_id',
     }
 
+# view methods: onchange, button
+
+    def onchange_dst_model(self, cr, uid, ids, dst_model_id, context=None):
+        res = {}
+        bridge_field = False
+        if dst_model_id:
+            model = self.pool.get('ir.model').browse(cr, uid, dst_model_id, context=context)
+            if model.model == 'res.partner':
+                bridge_field = 'id'
+            else:
+                bridge_field = 'common_id'
+        res['value'] = {'bridge_field': bridge_field}
+        return res
+
 
 class distribution_list_line(orm.Model):
 

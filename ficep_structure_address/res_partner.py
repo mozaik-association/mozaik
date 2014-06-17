@@ -47,20 +47,22 @@ class res_partner(orm.Model):
         Note:
         Calling and result convention: Single mode
         """
+        context = context or {}
         result = {i: False for i in ids}
 
         def_int_instance_id = self.pool.get('int.instance').get_default(cr, uid)
         for partner in self.browse(cr, uid, ids, context=context):
             result[partner.id] = partner.int_instance_id.id or def_int_instance_id
 
-        coord_obj = self.pool['postal.coordinate']
-        coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
-                                                             ('is_main', '=', True),
-                                                             ('active', '<=', True)], context=context)
-        for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
-            if coord.active == coord.partner_id.active:
-                if coord.address_id.address_local_zip_id:
-                    result[coord.partner_id.id] = coord.address_id.address_local_zip_id.int_instance_id.id
+        if not context.get('keep_current_instance'):
+            coord_obj = self.pool['postal.coordinate']
+            coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
+                                                                 ('is_main', '=', True),
+                                                                 ('active', '<=', True)], context=context)
+            for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
+                if coord.active == coord.partner_id.active:
+                    if coord.address_id.address_local_zip_id:
+                        result[coord.partner_id.id] = coord.address_id.address_local_zip_id.int_instance_id.id
         return result
 
     def _accept_anyway(self, cr, uid, ids, name, value, args, context=None):
