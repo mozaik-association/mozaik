@@ -314,14 +314,13 @@
             <field name="model">virtual.partner.mandate</field>
             <field name="arch" type="xml">
                 <search string="Virtual Partner Mandate">
-                    <field name="partner_id" />
+                    <field name="partner_id" domain="[('is_company','=', False)]"/>
+                    <field name="assembly_id" />
                     <field name="mandate_category_id" />
                     <field name="int_instance_id" />
                     <field name="identifier" />
-
-                    <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
-                    <field name="category_id" string="Tag" widget="many2one" />
+                    <field name="ext_competencies_m2m_ids" string="State Competencies &amp; Topics" widget="many2one" />
+                    <field name="sta_competencies_m2m_ids" string="External Competencies &amp; Topics" widget="many2one" />
 
                     <field string="Start Date > ..." name="start_date" filter_domain="[('start_date','>', self)]"/>
                     <field string="Start Date &lt; ..." name="start_date" filter_domain="[('start_date','&lt;', self)]"/>
@@ -334,18 +333,6 @@
                     <filter name="ext_mod" string="External Mandate" domain="[('model','=', 'ext.mandate')]"/>
                     <filter name="sta_mod" string="State Mandate" domain="[('model','=', 'sta.mandate')]"/>
                     <separator/>
-                    <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
-                    <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
-                    <separator/>
-                    <filter string="Male" name="male" domain="[('gender','=','m')]" />
-                    <filter string="Female" name="female" domain="[('gender','=','f')]" />
-                    <separator />
-                    <filter string="French" name="french" domain="[('tongue','=','f')]" />
-                    <filter string="German" name="german" domain="[('tongue','=','g')]" />
-                    <separator />
-                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
-                    <separator/>
                     <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator/>
                     <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
@@ -357,6 +344,8 @@
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
                         <filter name="mandate_category_id" string="Mandate Category" context="{'group_by':'mandate_category_id'}"/>
+                        <filter name="assembly" string="Assembly" context="{'group_by':'assembly_id'}"/>
+                        <filter name="int_id" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
                     </group>
                 </search>
             </field>
@@ -368,6 +357,7 @@
             <field name="arch" type="xml">
                 <tree string="Virtual Partner Mandate" create="0" delete="0">
                     <field name="partner_id" />
+                    <field name="assembly_id" />
                     <field name="mandate_category_id" />
                     <field name="int_instance_id" />
 
@@ -418,7 +408,6 @@
             <field name="model">virtual.partner.candidature</field>
             <field name="arch" type="xml">
                 <search string="Virtual Partner Candidature">
-                    <field name="partner_id" />
                     <field name="mandate_category_id" />
                     <field name="int_instance_id" />
                     <field name="identifier" />
@@ -460,7 +449,7 @@
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
-                        <filter name="mandate_category_id" string="Mandate Category" context="{'group_by':'mandate_category_id'}"/>
+                        <filter name="mandate_category" string="Mandate Category" context="{'group_by':'mandate_category_id'}"/>
                     </group>
                 </search>
             </field>

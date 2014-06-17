@@ -437,19 +437,19 @@ class virtual_partner_mandate(orm.Model):
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+        'assembly_id': fields.many2one('res.partner', 'Assembly'),
 
         'id': fields.char('ID'),
         'model': fields.char('Model'),
-        'mandate_id': fields.char('Mandate ID'),
-        'assembly_name': fields.char("Assembly"),
+
+        'sta_mandate_id': fields.many2one('sta.mandate', 'Sate Mandate'),
+        'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate'),
+
         'start_date': fields.date('Start date'),
         'deadline_date': fields.date('Deadline date'),
 
-        'is_company': fields.boolean('Is a Company'),
         'identifier': fields.integer('Number'),
-        'is_assembly': fields.boolean('Is an Assembly'),
         'birth_date': fields.date('Birth Date'),
-        'display_name': fields.char('Display Name'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
         'employee': fields.boolean('Employee'),
@@ -462,18 +462,16 @@ class virtual_partner_mandate(orm.Model):
 
         'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
         # others
-        'category_id': fields.related('partner_id', 'category_id', type='many2many',
-                                      obj='res.partner.category',
-                                      rel='res_partner_res_partner_category_rel',
-                                      id1='partner_id', id2='category_id', string='Tags'),
-        'competencies_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
+        'sta_competencies_m2m_ids': fields.related('sta_mandate_id', 'competencies_m2m_ids',
+                                               type='many2many',
                                                obj='thesaurus.term',
-                                               rel='res_partner_term_competencies_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
-        'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
+                                               rel='sta_mandate_term_competencies_rel',
+                                               id1='sta_mandate_id', id2='thesaurus_term_id', string='State Competencies'),
+        'ext_competencies_m2m_ids': fields.related('ext_mandate_id', 'competencies_m2m_ids',
+                                               type='many2many',
                                                obj='thesaurus.term',
-                                               rel='res_partner_term_interests_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+                                               rel='ext_mandate_term_competencies_rel',
+                                               id1='ext_mandate_id', id2='thesaurus_term_id', string='External Competencies'),
     }
 
 # orm methods
@@ -496,12 +494,13 @@ class virtual_partner_mandate(orm.Model):
                     ELSE mandate.email_coordinate_id
                 END) as common_id,
              mandate.id + 1000000 as id,
-             mandate.id as mandate_id,
+             NULL::int as sta_mandate_id,
+             NULL::int as ext_mandate_id,
              mandate.mandate_category_id,
              mandate.partner_id,
              mandate.start_date,
              mandate.deadline_date,
-             partner.name as assembly_name,
+             partner_assembly.id as assembly_id,
              partner.is_company as is_company,
              partner.birth_date as birth_date,
              partner.identifier as identifier,
@@ -530,8 +529,11 @@ class virtual_partner_mandate(orm.Model):
          JOIN
              int_assembly AS assembly
              ON assembly.id = mandate.int_assembly_id
+
+     JOIN res_partner AS partner_assembly
+         ON partner_assembly.id = assembly.partner_id
          JOIN res_partner AS partner
-             ON partner.id = assembly.partner_id
+             ON partner.id = mandate.partner_id
          LEFT OUTER JOIN postal_coordinate pc
              ON pc.partner_id = mandate.partner_id
              and pc.is_main = TRUE
@@ -558,12 +560,13 @@ class virtual_partner_mandate(orm.Model):
                     ELSE mandate.email_coordinate_id
                 END) as common_id,
             mandate.id + 2000000 as id,
-            mandate.id as mandate_id,
+            mandate.id as sta_mandate_id,
+            NULL::int as ext_mandate_id,
             mandate.mandate_category_id,
             mandate.partner_id,
             mandate.start_date,
             mandate.deadline_date,
-            partner.name as assembly_name,
+            partner_assembly.id as assembly_name,
             partner.is_company as is_company,
             partner.birth_date as birth_date,
             partner.identifier as identifier,
@@ -591,8 +594,11 @@ class virtual_partner_mandate(orm.Model):
         FROM sta_mandate  AS mandate
         JOIN sta_assembly AS assembly
             ON assembly.id = mandate.sta_assembly_id
+
+        JOIN res_partner AS partner_assembly
+        ON partner_assembly.id = assembly.partner_id
         JOIN res_partner AS partner
-            ON partner.id = assembly.partner_id
+            ON partner.id = mandate.partner_id
         LEFT OUTER JOIN postal_coordinate pc
             ON pc.partner_id = mandate.partner_id
             and pc.is_main = TRUE
@@ -619,12 +625,13 @@ class virtual_partner_mandate(orm.Model):
                 ELSE mandate.email_coordinate_id
                 END) as common_id,
             mandate.id + 3000000 as id,
-            mandate.id as mandate_id,
+            NULL::int as sta_mandate_id,
+            mandate.id as ext_mandate_id,
             mandate.mandate_category_id,
             mandate.partner_id,
             mandate.start_date,
             mandate.deadline_date,
-            partner.name as assembly_name,
+            partner_assembly.id as assembly_name,
             partner.is_company as is_company,
             partner.birth_date as birth_date,
             partner.identifier as identifier,
@@ -652,8 +659,10 @@ class virtual_partner_mandate(orm.Model):
         FROM ext_mandate  AS mandate
         JOIN ext_assembly AS assembly
             ON assembly.id = mandate.ext_assembly_id
+        JOIN res_partner AS partner_assembly
+        ON partner_assembly.id = assembly.partner_id
         JOIN res_partner  AS partner
-            ON partner.id = assembly.partner_id
+            ON partner.id = mandate.partner_id
         LEFT OUTER JOIN postal_coordinate pc
             ON pc.partner_id = mandate.partner_id
             and pc.is_main = TRUE
