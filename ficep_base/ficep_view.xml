@@ -31,6 +31,11 @@
         <menuitem id="communication_root_menu" name="Communication"
                   sequence="41" groups="res_groups_base"/>
 
+        <!-- Membership -->
+
+        <menuitem id="membership_root_menu" name="Membership"
+                  sequence="51" groups="res_groups_base"/>
+
         <!-- Re-base standard menus -->
 
         <menuitem id="res_partner_category_menu" action="base.action_partner_category_form"
