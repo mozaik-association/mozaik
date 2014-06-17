@@ -566,7 +566,7 @@ class virtual_partner_mandate(orm.Model):
             mandate.partner_id,
             mandate.start_date,
             mandate.deadline_date,
-            partner_assembly.id as assembly_name,
+            partner_assembly.id as assembly_id,
             partner.is_company as is_company,
             partner.birth_date as birth_date,
             partner.identifier as identifier,
@@ -631,7 +631,7 @@ class virtual_partner_mandate(orm.Model):
             mandate.partner_id,
             mandate.start_date,
             mandate.deadline_date,
-            partner_assembly.id as assembly_name,
+            partner_assembly.id as assembly_id,
             partner.is_company as is_company,
             partner.birth_date as birth_date,
             partner.identifier as identifier,
@@ -690,15 +690,11 @@ class virtual_partner_candidature(orm.Model):
 
         'id': fields.char('ID'),
         'model': fields.char('Model'),
-        'candidature_id': fields.char('Mandate ID'),
-        'assembly_name': fields.char("Assembly"),
+        'assembly_id': fields.many2one('res.partner', 'Assembly'),
         'create_date': fields.date('Start date'),
 
-        'is_company': fields.boolean('Is a Company'),
         'identifier': fields.integer('Number'),
-        'is_assembly': fields.boolean('Is an Assembly'),
         'birth_date': fields.date('Birth Date'),
-        'display_name': fields.char('Display Name'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
         'employee': fields.boolean('Employee'),
@@ -740,8 +736,7 @@ class virtual_partner_candidature(orm.Model):
              candidature.mandate_category_id,
              candidature.partner_id,
              candidature.create_date,
-             partner.name as assembly_name,
-             partner.is_company as is_company,
+             partner_assembly.id as assembly_id,
              partner.birth_date as birth_date,
              partner.identifier as identifier,
              partner.display_name as display_name,
@@ -759,8 +754,10 @@ class virtual_partner_candidature(orm.Model):
          JOIN
              int_assembly AS assembly
              ON assembly.id = candidature.int_assembly_id
-         JOIN res_partner AS partner
-             ON partner.id = assembly.partner_id
+         JOIN res_partner  AS partner_assembly
+            ON partner_assembly.id = assembly.partner_id
+         JOIN res_partner  AS partner
+            ON partner.id = candidature.partner_id
          LEFT OUTER JOIN postal_coordinate pc
              ON pc.partner_id = candidature.partner_id
              and pc.is_main = TRUE
@@ -782,8 +779,7 @@ class virtual_partner_candidature(orm.Model):
             candidature.mandate_category_id,
             candidature.partner_id,
             candidature.create_date,
-            partner.name as assembly_name,
-            partner.is_company as is_company,
+            partner_assembly.id as assembly_id,
             partner.birth_date as birth_date,
             partner.identifier as identifier,
             partner.display_name as display_name,
@@ -800,8 +796,10 @@ class virtual_partner_candidature(orm.Model):
         FROM sta_candidature  AS candidature
         JOIN sta_assembly AS assembly
             ON assembly.id = candidature.sta_assembly_id
-        JOIN res_partner AS partner
-            ON partner.id = assembly.partner_id
+        JOIN res_partner  AS partner_assembly
+            ON partner_assembly.id = assembly.partner_id
+        JOIN res_partner  AS partner
+            ON partner.id = candidature.partner_id
         LEFT OUTER JOIN postal_coordinate pc
             ON pc.partner_id = candidature.partner_id
             and pc.is_main = TRUE
@@ -823,8 +821,7 @@ class virtual_partner_candidature(orm.Model):
             candidature.mandate_category_id,
             candidature.partner_id,
             candidature.create_date,
-            partner.name as assembly_name,
-            partner.is_company as is_company,
+            partner_assembly.id as assembly_id,
             partner.birth_date as birth_date,
             partner.identifier as identifier,
             partner.display_name as display_name,
@@ -841,8 +838,10 @@ class virtual_partner_candidature(orm.Model):
         FROM ext_candidature  AS candidature
         JOIN ext_assembly AS assembly
             ON assembly.id = candidature.ext_assembly_id
+        JOIN res_partner  AS partner_assembly
+            ON partner_assembly.id = assembly.partner_id
         JOIN res_partner  AS partner
-            ON partner.id = assembly.partner_id
+            ON partner.id = candidature.partner_id
         LEFT OUTER JOIN postal_coordinate pc
             ON pc.partner_id = candidature.partner_id
             and pc.is_main = TRUE
@@ -868,8 +867,8 @@ class virtual_assembly_instance(orm.Model):
 
         'category': fields.char('Assembly Category'),
 
-        'int_power_level_id': fields.many2one('int.instance', 'Internal Power Level'),
-        'sta_power_level_id': fields.many2one('int.instance', 'State Power Level'),
+        'int_power_level_id': fields.many2one('int.power.level', 'Internal Power Level'),
+        'sta_power_level_id': fields.many2one('sta.power.level', 'State Power Level'),
 
         'int_category_assembly_id': fields.many2one('int.assembly.category', 'Internal Category Assembly'),
         'ext_category_assembly_id': fields.many2one('ext.assembly.category', 'External Category Assembly'),
