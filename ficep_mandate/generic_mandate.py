@@ -26,7 +26,6 @@
 #
 ##############################################################################
 
-from openerp.tools.translate import _
 from openerp.osv import orm, fields
 from openerp     import tools
 
@@ -42,19 +41,20 @@ class generic_mandate(orm.Model):
         return isinstance(self._columns[self._discriminant_field], fields.many2one)
 
     _columns = {
-        'model': fields.char('Models'),
         'id': fields.char('ID'),
+        'model': fields.char('Models'),
         'mandate_id': fields.char('Mandate id'),
         'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
         'assembly_name': fields.char("Assembly"),
         'partner_id': fields.many2one('res.partner', 'Representative'),
         'start_date': fields.date('Start date'),
         'deadline_date': fields.date('Deadline date'),
-        'is_duplicate_detected': fields.boolean('Is Duplicate Detected'),
-        'is_duplicate_allowed': fields.boolean('Is Duplicate Allowed')
+        'is_duplicate_detected': fields.boolean('Incompatible Mandate'),
+        'is_duplicate_allowed': fields.boolean('Allowed Mandate'),
     }
 
-    # orm methods
+# orm methods
+
     def init(self, cr):
         tools.drop_view_if_exists(cr, 'generic_mandate')
         cr.execute("""
@@ -113,7 +113,6 @@ class generic_mandate(orm.Model):
             )
         """)
 
-# orm methods
     def name_get(self, cr, uid, ids, context=None):
         if not ids:
             return []
@@ -129,6 +128,7 @@ class generic_mandate(orm.Model):
         return res
 
 # view methods: onchange, button
+
     def button_view_mandate(self, cr, uid, ids, context=None):
         """
         ======
@@ -138,4 +138,5 @@ class generic_mandate(orm.Model):
         """
         generic_mandate = self.read(cr, uid, ids[0], ['model', 'mandate_id'], context=context)
         return self.pool.get(generic_mandate['model']).display_object_in_form_view(cr, uid, generic_mandate['mandate_id'], context=context)
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

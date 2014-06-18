@@ -32,6 +32,7 @@ import logging
 # Other utilities imports
 
 # OpenERP imports
+from openerp import tools
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
@@ -70,6 +71,12 @@ class xxxx(orm.Model):
     _name = 'xxx'
     _inherit = ['abstract.ficep.model']
     _description = 'XXX'
+
+# constructor
+
+    def __init__(self, *arg):
+        orm.Model.__init__(self, *arg)
+        self._additional_code = _('Some additional code...')
 
 # private methods
 
@@ -176,6 +183,16 @@ class xxxx(orm.Model):
     _unicity_keys = 'partner_id, type'
 
 # orm methods
+
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, 'VVV')
+        cr.execute("""
+        create or replace view VVV as (
+        SELECT
+            ...
+        FROM ...
+        WHERE ...
+            )""")
 
     def _auto_init(self, cr, context=None):
         res = super(xxxx, self)._auto_init(cr, context=context)

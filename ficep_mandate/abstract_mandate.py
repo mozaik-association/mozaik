@@ -27,8 +27,8 @@
 ##############################################################################
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
 from openerp.osv import orm, osv, fields
 from openerp.tools.translate import _
 
@@ -287,8 +287,8 @@ class abstract_mandate(orm.AbstractModel):
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Representative', required=True, select=True, track_visibility='onchange'),
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
-                                                 required=True, track_visibility='onchange'),
-        'designation_int_assembly_id': fields.many2one('int.assembly', 'Designation Assembly', required=True,
+                                                 required=True, select=True, track_visibility='onchange'),
+        'designation_int_assembly_id': fields.many2one('int.assembly', 'Designation Assembly', required=True, select=True,
                                                        track_visibility='onchange', domain=[('is_designation_assembly', '=', True)]),
         'start_date': fields.date('Start Date', required=True, track_visibility='onchange'),
         'deadline_date': fields.date('Deadline Date', required=True, track_visibility='onchange'),
@@ -297,10 +297,13 @@ class abstract_mandate(orm.AbstractModel):
                                           type='boolean', store=True),
         'is_submission_assets': fields.related('mandate_category_id', 'is_submission_assets', string='Submission to an Assets Declaration',
                                           type='boolean', store=True),
-        'candidature_id': fields.many2one('abstract.candidature', 'Candidature', track_visibility='onchange'),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+        'candidature_id': fields.many2one('abstract.candidature', 'Candidature'),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', track_visibility='onchange'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', track_visibility='onchange'),
         'alert_date': fields.date('Alert Date', track_visibility='onchange'),
+        # Duplicates: redefine string
+        'is_duplicate_detected': fields.boolean('Incompatible Mandate', readonly=True),
+        'is_duplicate_allowed': fields.boolean('Allowed Mandate', readonly=True, track_visibility='onchange'),
     }
 
     _defaults = {

@@ -19,6 +19,11 @@
                     <filter name="is_submission_assets" string="Assets Declaration"
                             domain="[('is_submission_assets','=',True)]" />
                     <separator />
+                    <filter name="duplicate" string="Incompatible Mandates"
+                            domain="[('is_duplicate_detected','=',True)]" />
+                    <separator/>
+                    <filter name="allow_duplicate" string="Allowed Incompatible Mandates" domain="[('is_duplicate_allowed','=',True)]"/>
+                    <separator/>
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
                             domain="[('active','=',False)]" help="Expired Mandates" />
@@ -48,12 +53,12 @@
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
                     <field name="is_duplicate_detected" invisible ="1"/>
-                     <field name="is_duplicate_allowed" invisible ="1"/>
-                    <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
-                            groups="ficep_base.ficep_res_groups_user"
+                    <field name="is_duplicate_allowed" invisible ="1"/>
+                    <button name="button_undo_allow_duplicate" string="Undo Allow Incompatible Mandate" type="object"
+                            groups="ficep_base.ficep_res_groups_configurator"
                             attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
                             icon="gtk-undo"
-                            confirm="Undo allow duplicate: proceed anyway?" />
+                            confirm="Undo allow incompatible mandate: proceed anyway?" />
                 </tree>
             </field>
         </record>
@@ -168,8 +173,11 @@
                 <search string="Mandates" version="7.0">
                     <field name="partner_id"/>
 
-                    <filter name="duplicate" string="Duplicates"
+                    <filter name="duplicate" string="Incompatible Mandates"
                             domain="[('is_duplicate_detected','=',True)]" />
+                    <separator/>
+                    <filter name="allow_duplicate" string="Allowed Incompatible Mandates" domain="[('is_duplicate_allowed','=',True)]"/>
+
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
                         <filter name="category" string="Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
@@ -197,7 +205,7 @@
         <!-- Actions -->
 
         <record id="generic_mandate_action" model="ir.actions.act_window">
-            <field name="name">Duplicate mandates</field>
+            <field name="name">Incompatible Mandates</field>
             <field name="res_model">generic.mandate</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -287,7 +295,7 @@
                                 <label for="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
                                 <div attrs="{'invisible': [('is_duplicate_detected','=',False)]}">
                                     <field name="is_duplicate_detected" class="oe_inline" />
-                                    <button name="%(generic_mandate_action)d" type="action" class="oe_red_link" string="⇒ Show all duplicates"
+                                    <button name="%(generic_mandate_action)d" type="action" class="oe_red_link" string="⇒ Show all incompatible mandates"
                                     context="{'search_default_partner_id': partner_id}"/>
                                 </div>
 

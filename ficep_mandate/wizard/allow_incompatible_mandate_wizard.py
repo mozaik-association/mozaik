@@ -25,8 +25,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import copy_mandate_wizard
-from . import import_candidatures_wizard
-from . import allow_incompatible_mandate_wizard
+from openerp.osv import orm, fields
+
+
+class allow_duplicate_wizard(orm.TransientModel):
+
+    _inherit = "allow.duplicate.wizard"
+    _name = "allow.incompatible.mandate.wizard"
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

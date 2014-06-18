@@ -2,25 +2,40 @@
 <openerp>
     <data noupdate="0">
 
-        <record id="allow_duplicate_action" model="ir.actions.act_window">
-            <field name="name">Allow Duplicate</field>
+        <record id="allow_incompatible_mandate_wizard" model="ir.ui.view">
+            <field name="name">allow.incompatible.mandate.wizard</field>
+            <field name="model">allow.incompatible.mandate.wizard</field>
+            <field name="inherit_id" ref="ficep_duplicate.allow_duplicate_wizard" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//strong" position="replace">
+                    <strong>
+                    Selected mandates are not incompatible. Are you sure?
+                    </strong>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="allow_incompatible_mandate_action" model="ir.actions.act_window">
+            <field name="name">Allow Incompatible Mandates</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model">generic.mandate</field>
-            <field name="res_model">allow.duplicate.wizard</field>
+            <field name="res_model">allow.incompatible.mandate.wizard</field>
             <field name="multi" eval="1"/>
             <field name="target">new</field>
-            <field name="view_id" ref="ficep_duplicate.allow_duplicate_wizard" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="view_id" ref="allow_incompatible_mandate_wizard" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_configurator')])]" />
             <field name="context">{'multi_model': True, 'model_id_name': 'mandate_id'}</field>
         </record>
 
-        <record id="allow_duplicate_value" model="ir.values">
-            <field name="name">Allow Duplicate</field>
+        <record id="allow_incompatible_mandate_value" model="ir.values">
+            <field name="name">Allow Incompatible Mandates</field>
             <field name="model">generic.mandate</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('allow_duplicate_action')" />
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('allow_incompatible_mandate_action')" />
         </record>
     </data>
 </openerp>
