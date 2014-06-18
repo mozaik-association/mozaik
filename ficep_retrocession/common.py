@@ -25,16 +25,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+INVOICE_AVAILABLE_TYPES = [
+    ('month', 'Monthly'),
+    ('year', 'Yearly'),
+    ('none', 'None'),
+]
 
-import controller
-import res_users
-import abstract_ficep
-import ir_model
-import mail_thread
-import res_lang
-import ir_import
-import convert
-import testtool
-import url
-import selections_translator
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+CALCULATION_METHOD_AVAILABLE_TYPES = [
+    ('fixed', 'Fixed'),
+    ('variable', 'Variable'),
+    ('mixed', 'Mixed'),
+]
+CALCULATION_RULE_AVAILABLE_TYPES = [
+    ('fixed', 'Fixed'),
+    ('variable', 'Variable'),
+]

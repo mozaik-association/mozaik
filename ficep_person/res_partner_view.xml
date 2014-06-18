@@ -325,7 +325,7 @@
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_validate" string="Reactivate" type="object"
+                                <button name="action_revalidate" string="Reactivate" type="object"
                                         confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <h3>More Info</h3>
