@@ -106,6 +106,9 @@
             <field name="arch" type="xml">
                 <search string="Calculation rule" version="7.0">
                     <field name="calculation_method_id"/>
+                    <field name="sta_mandate_id"/>
+                    <field name="ext_mandate_id"/>
+                    <field name="retrocession_id"/>
                     <filter name="fixed" string="Fixed"
                             context="{'invisible_expire_date': False}"
                             domain="[('type', '=', 'fixed')]" help="All fixed calculation rules" />
@@ -137,6 +140,42 @@
                     <field name="name"/>
                     <field name="type"/>
                     <field name="calculation_method_id"/>                
+                </tree>
+            </field>
+        </record>
+        
+         <record id="retrocession_search_view" model="ir.ui.view">
+            <field name="name">retrocession.search</field>
+            <field name="model">retrocession</field>
+            <field name="arch" type="xml">
+                <search string="Retrocession" version="7.0">
+                    <field name="sta_mandate_id"/>
+                    <field name="ext_mandate_id"/>                  
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Expired Retrocessions" />
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Retrocessions, expired or not" />
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="month" string="Month" domain="[]" context="{'group_by':'month'}" />
+                        <filter name="year" string="Year" domain="[]" context="{'group_by':'year'}" />                        
+                        <filter name="sta_mandate" string="State mandates" domain="[('sta_mandate_id', '!=', False)]" context="{'group_by':'sta_mandate_id'}" />
+                        <filter name="ext_mandate" string="External mandates" domain="[('ext_mandate_id', '!=', False)]" context="{'group_by':'ext_mandate_id'}" />
+                    </group>                    
+                </search>
+            </field>
+        </record>
+        
+        <record id="retrocession_tree_view" model="ir.ui.view">
+            <field name="name">retrocession.tree</field>
+            <field name="model">retrocession</field>
+            <field name="arch" type="xml">
+                <tree string="Retrocession" version="7.0">
+                    <field name="sta_mandate_id"/>
+                    <field name="ext_mandate_id"/>
+                    <field name="month"/>        
+                    <field name="year"/>
                 </tree>
             </field>
         </record>
@@ -179,6 +218,15 @@
             <field name="view_id" ref="calculation_rule_tree_view" />
             <field name="context">{'group_by_method':1}</field>
             <field name="domain">[('calculation_method_id', '!=', False)]</field>
+        </record>
+        
+        <record id="retrocession_action" model="ir.actions.act_window">
+            <field name="name">Retrocession</field>
+            <field name="res_model">retrocession</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="retrocession_search_view" />
+            <field name="view_id" ref="retrocession_tree_view" />
         </record>
         
         <!-- Form Views -->
@@ -454,6 +502,117 @@
             </field>
         </record>
         
+        <record id="retrocession_form_view" model="ir.ui.view">
+            <field name="name">retrocession.form</field>
+            <field name="model">retrocession</field>
+            <field name="arch" type="xml">
+                <form string="Retrocession" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="ficep_base.ficep_res_groups_user" name="invalidate">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate retrocession, proceed anyway ?" />                            
+                        </div>
+                    </header>
+                    <sheet>
+                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">                            
+                        </div>
+                        <group name='mandate'>
+                            <field name="sta_mandate_id" on_change="onchange_sta_mandate_id(sta_mandate_id)"
+                                   domain="[('invoice_type', '!=', 'none')]"
+                                   attrs="{'invisible': ['|', '&amp;', ('id','!=', False),('sta_mandate_id','=', False),
+                                                         '&amp;', ('id','=', False), ('ext_mandate_id','!=', False)],
+                                           'required': [('id','=', False), ('ext_mandate_id','=', False)],
+                                           'readonly': [('id','!=', False)]}"/>
+                            <field name="ext_mandate_id" on_change="onchange_ext_mandate_id(ext_mandate_id)"
+                                   domain="[('invoice_type', '!=', 'none')]" 
+                                   attrs="{'invisible': ['|', '&amp;', ('id','!=', False),('ext_mandate_id','=', False),
+                                                         '&amp;', ('id','=', False), ('sta_mandate_id','!=', False)],
+                                           'required': [('id','=', False), ('sta_mandate_id','=', False)],
+                                           'readonly': [('id','!=', False)]}"/>                            
+                        </group>
+                        <group name="period">
+                              <field name="month" attrs="{'invisible': [('invoice_type','!=', 'month')],
+                                                          'required': [('invoice_type','=', 'month')]}"/>
+                              <field name="year" required="1"/>
+                        </group>
+                        <group name="Technical Dates">
+                            <field name="create_date" readonly="1"/>
+                            <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
+                        </group>  
+                        <group name="amounts">
+                            <field name="total_amount" readonly="1"/>
+                        </group>                       
+
+                        <notebook>
+                           <page string="Rules" name="rules">
+                               <separator string="Fixed"/>                               
+                               <field name="fixed_rule_ids" attrs="{'invisible': [('active', '=', False)]}" readonly="1">
+                                   <tree version="7.0">
+                                       <field name="name"/>
+                                       <field name="percentage"/>
+                                       <field name="amount"/>
+                                   </tree>
+                               </field>
+                               <field name="fixed_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}">
+                                   <tree version="7.0" editable="bottom">
+                                       <field name="name"/>
+                                       <field name="percentage"/>
+                                       <field name="amount"/>
+                                   </tree>
+                               </field>
+                               <group class="oe_subtotal_footer oe_right" colspan="2" name="total">
+                                    <field name="fixed_amount"/>
+                               </group>
+                               <separator string="Variables"/>
+                               <button string="All Details" name="%(calculation_rule_action)d"
+                                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                                        context="{'search_default_retrocession_id': active_id,
+                                                  'default_retrocession_id': active_id,
+                                                  'search_default_all': True}" />
+                               <field name="variable_rule_ids" attrs="{'invisible': [('active', '=', False)]}">
+                                   <tree version="7.0" editable="bottom">
+                                       <field name="name"/>
+                                       <field name="percentage"/>
+                                       <field name="amount"/>
+                                   </tree>
+                               </field>
+                               <field name="variable_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}">
+                                   <tree version="7.0" editable="bottom">
+                                       <field name="name"/>
+                                       <field name="percentage"/>
+                                       <field name="amount"/>
+                                   </tree>
+                               </field>
+                               <group class="oe_subtotal_footer oe_right" colspan="2" name="total">
+                                    <field name="variable_amount"/>
+                               </group>
+                           </page>                                                      
+                        </notebook>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate" string="Validate" type="object"
+                                        confirm="Validate fractionation: proceed anyway ?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                                <field name="invoice_type"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+        
         <!-- Menus -->
 
         <menuitem id="fractionation_submenu" name="Fractionations"
@@ -470,10 +629,19 @@
         
         <menuitem id="calculation_rule_submenu" name="Calculation rules" action="calculation_rule_action"
                   sequence="20" parent="calculation_submenu" />
+                  
+        <menuitem id="retrocession_submenu" name="Retrocessions"
+                  sequence="30" parent="ficep_base.retrocessions_root_menu" />
+                  
+        <menuitem id="retrocession_action_submenu" name="Retrocessions" action="retrocession_action"
+                  sequence="10" parent="retrocession_submenu" />
         
         <menuitem id="configuration_submenu" name="Configuration"
                   sequence="20" parent="ficep_base.retrocessions_root_menu" />
         
+        <menuitem id="fractionation_line_submenu" name="Fractionation lines" action="fractionation_line_action"
+                  sequence="10" parent="configuration_submenu" />
+                
         <menuitem id="fractionation_line_submenu" name="Fractionation lines" action="fractionation_line_action"
                   sequence="10" parent="configuration_submenu" />
     </data>

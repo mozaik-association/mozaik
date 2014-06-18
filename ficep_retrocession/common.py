@@ -25,44 +25,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Retrocession',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_structure',
-        'ficep_mandate',
-    ],
-    'description': """
-FICEP Retrocession
-=============
-""",
-    'images': [
-    ],
-    'data': [
-             'mandate_actions.xml',
-             'structure_view.xml',
-             'retrocession_view.xml',
-             'mandate_view.xml',
-             'wizard/retrocession_factory_wizard.xml',
-             'security/ir.model.access.csv'
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'auto_install': False,
-    'installable': True,
-}
+INVOICE_AVAILABLE_TYPES = [
+    ('month', 'Monthly'),
+    ('year', 'Yearly'),
+    ('none', 'None'),
+]
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+CALCULATION_METHOD_AVAILABLE_TYPES = [
+    ('fixed', 'Fixed'),
+    ('variable', 'Variable'),
+    ('mixed', 'Mixed'),
+]
+CALCULATION_RULE_AVAILABLE_TYPES = [
+    ('fixed', 'Fixed'),
+    ('variable', 'Variable'),
+]

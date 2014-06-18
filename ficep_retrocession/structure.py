@@ -34,6 +34,19 @@ class sta_assembly(orm.Model):
     _inherit = ['sta.assembly']
     _description = 'State Assembly'
 
+    def get_linked_sta_mandate_ids(self, cr, uid, ids, context=None):
+        """
+        ==============================
+        get_linked_sta_mandate_ids
+        ==============================
+        Return State Mandate ids linked to assembly
+        :rparam: sta_mandate_ids
+        :rtype: list of ids
+        """
+        if isinstance(ids, (int, long)):
+            ids = [ids]
+        return self.pool.get('sta.mandate').search(cr, uid, [('sta_assembly_id', 'in', ids)], context=context)
+
     _columns = {
         'fractionation_id': fields.many2one('fractionation', 'Fractionation',
                                                 select=True, track_visibility='onchange'),
@@ -46,6 +59,19 @@ class ext_assembly(orm.Model):
     _name = 'ext.assembly'
     _inherit = ['ext.assembly']
     _description = 'External Assembly'
+
+    def get_linked_ext_mandate_ids(self, cr, uid, ids, context=None):
+        """
+        ==============================
+        get_linked_ext_mandate_ids
+        ==============================
+        Return External Mandate ids linked to assembly
+        :rparam: sta_mandate_ids
+        :rtype: list of ids
+        """
+        if isinstance(ids, (int, long)):
+            ids = [ids]
+        return self.pool.get('ext.mandate').search(cr, uid, [('ext_assembly_id', 'in', ids)], context=context)
 
     _columns = {
         'fractionation_id': fields.many2one('fractionation', 'Fractionation',
