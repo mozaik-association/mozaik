@@ -25,6 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import retrocession
+from . import common
 from . import structure
 from . import mandate
+from . import retrocession
+from . import wizard

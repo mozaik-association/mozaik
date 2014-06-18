@@ -43,9 +43,11 @@ FICEP Retrocession
     'images': [
     ],
     'data': [
+             'mandate_actions.xml',
              'structure_view.xml',
-             'mandate_view.xml',
              'retrocession_view.xml',
+             'mandate_view.xml',
+             'wizard/retrocession_factory_wizard.xml',
              'security/ir.model.access.csv'
     ],
     'js': [

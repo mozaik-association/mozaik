@@ -53,8 +53,8 @@ class abstract_ficep(object):
     def test_action_invalidate_fail(self):
         self.assertRaises(orm.except_orm, self.model_abstract.action_invalidate, self.cr, self.uid, self.invalidate_fail_ids)
 
-    def test_action_validate_success(self):
-        res = self.model_abstract.action_validate(self.cr, self.uid, self.validate_ids, context=None)
+    def test_action_revalidate_success(self):
+        res = self.model_abstract.action_revalidate(self.cr, self.uid, self.validate_ids, context=None)
         self.assertEqual(res, True)
 
         for obj in self.model_abstract.browse(self.cr, self.uid, self.validate_ids):

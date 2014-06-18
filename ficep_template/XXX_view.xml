@@ -202,7 +202,7 @@
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_validate" string="Reactivate" type="object"
+                                <button name="action_revalidate" string="Reactivate" type="object"
                                         confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">

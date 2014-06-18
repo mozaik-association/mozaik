@@ -55,6 +55,10 @@ class distribution_list(orm.Model):
         self.pool.get('ir.model').search(cr, uid, [('model', '=', 'virtual.target')], context=c)[0],
         'bridge_field': 'common_id',
     }
+    #No More Unique Name For distribution list
+    _sql_constraints = [('unique_name_by_company', 'check(1=1)', '')]
+
+    _unicity_keys = 'name, company_id'
 
 # view methods: onchange, button
 
@@ -80,5 +84,9 @@ class distribution_list_line(orm.Model):
         'name': fields.char(string='Name', required=True, track_visibility='onchange'),
         'domain': fields.text(string="Expression", required=True, track_visibility='onchange'),
     }
+    #No More Unique Name For distribution list
+    _sql_constraints = [('unique_name_by_company', 'check(1=1)', '')]
+
+    _unicity_keys = 'name, company_id'
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
