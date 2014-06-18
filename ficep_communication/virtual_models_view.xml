@@ -182,7 +182,7 @@
 
         <!-- Add filter virtual partner relation -->
 
-        <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
+        <record id="add_filter_from_relation_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
@@ -199,7 +199,7 @@
             <field name="model">virtual.partner.relation</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_relation_action')" />
         </record>
 
         <!-- Action -->
@@ -276,7 +276,7 @@
 
         <!-- Add filter virtual partner instance -->
 
-        <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
+        <record id="add_filter_from_instance_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
@@ -293,7 +293,7 @@
             <field name="model">virtual.partner.instance</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_instance_action')" />
         </record>
 
         <!-- Action -->
@@ -370,7 +370,7 @@
 
         <!-- Add filter virtual partner Mandate -->
 
-        <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
+        <record id="add_filter_from_mandate_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
@@ -387,7 +387,7 @@
             <field name="model">virtual.partner.mandate</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_mandate_action')" />
         </record>
 
         <!-- Action -->
@@ -464,7 +464,7 @@
 
         <!-- Add filter virtual partner candidature -->
 
-        <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
+        <record id="add_filter_from_candidature_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
@@ -481,7 +481,7 @@
             <field name="model">virtual.partner.candidature</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_candidature_action')" />
         </record>
 
         <!-- Action -->
@@ -558,7 +558,7 @@
 
         <!-- Add filter virtual assembly instance -->
 
-        <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
+        <record id="add_filter_from_assembly_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
@@ -570,12 +570,12 @@
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
         </record>
 
-        <record id="add_filter_from_instance_values" model="ir.values">
+        <record id="add_filter_from_assembly_values" model="ir.values">
             <field name="name">Add Filter To Distribution List</field>
             <field name="model">virtual.assembly.instance</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_assembly_action')" />
         </record>
 
         <!-- Action -->
