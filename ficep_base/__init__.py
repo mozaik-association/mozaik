@@ -36,4 +36,5 @@ import ir_import
 import convert
 import testtool
 import url
+import selections_translator
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
