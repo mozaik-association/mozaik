@@ -7,7 +7,7 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="ficep_person.res_partner_search_view" />
             <field name="arch" type="xml">
-                <xpath expr="//group[1]" position="before">
+                <xpath expr="//filter[1]" position="before">
                     <field name="int_instance_id" />
                 </xpath>
                 <xpath expr="//filter[@name='country']" position="after">

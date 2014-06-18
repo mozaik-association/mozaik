@@ -25,16 +25,17 @@
             <field name="model">virtual.partner.involvement</field>
             <field name="arch" type="xml">
                 <search string="Virtual Partner Involvement">
-                    <field name="partner_id" />
-                    <field name="involvement_category_id" />
+                    <field name="identifier"/>
+                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
+                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+
+                    <field name="partner_id" domain="[('is_assembly','=',False)]" />
                     <field name="int_instance_id" />
+                    <field name="involvement_category_id" />
 
                     <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
-
-                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]"/>
-                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]"/>
 
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
                     <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
@@ -58,8 +59,8 @@
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
-                        <filter name="involvement_category" string="Involvement Category" context="{'group_by':'involvement_category_id'}"/>
                         <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
+                        <filter name="involvement_category" string="Involvement Category" context="{'group_by':'involvement_category_id'}"/>
                     </group>
                 </search>
             </field>
@@ -71,8 +72,9 @@
             <field name="arch" type="xml">
                 <tree string="Virtual Partner Involvement" create="0" delete="0">
                     <field name="partner_id" />
-                    <field name="involvement_category_id" />
                     <field name="int_instance_id" />
+
+                    <field name="involvement_category_id" />
 
                     <field name="birth_date" />
                     <field name="gender" />
@@ -106,7 +108,7 @@
         <!-- Action -->
 
         <record id="virtual_partner_involvement_action" model="ir.actions.act_window">
-            <field name="name">Involvements/Partners</field>
+            <field name="name">Partners/Involvements</field>
             <field name="res_model">virtual.partner.involvement</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
@@ -121,17 +123,18 @@
             <field name="model">virtual.partner.relation</field>
             <field name="arch" type="xml">
                 <search string="Virtual Partner Relation">
+                    <field name="identifier"/>
+                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
+                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+
                     <field name="partner_id" />
-                    <field name="object_partner_id" />
-                    <field name="relation_category_id" />
                     <field name="int_instance_id" />
+                    <field name="relation_category_id" />
+                    <field name="object_partner_id" />
 
                     <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
-
-                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]"/>
-                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]"/>
 
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
                     <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
@@ -156,8 +159,8 @@
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
-                        <filter name="relation_category" string="Relation Category" context="{'group_by':'relation_category_id'}"/>
                         <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
+                        <filter name="relation_category" string="Relation Category" context="{'group_by':'relation_category_id'}"/>
                     </group>
                 </search>
             </field>
@@ -169,9 +172,10 @@
             <field name="arch" type="xml">
                 <tree string="Virtual Partner Relation" create="0" delete="0">
                     <field name="partner_id" />
+                    <field name="int_instance_id" />
+
                     <field name="relation_category_id" />
                     <field name="object_partner_id" />
-                    <field name="int_instance_id" />
 
                     <field name="birth_date" />
                     <field name="gender" />
@@ -205,7 +209,7 @@
         <!-- Action -->
 
         <record id="virtual_partner_relation_action" model="ir.actions.act_window">
-            <field name="name">Relations/Partners</field>
+            <field name="name">Partners/Relations</field>
             <field name="res_model">virtual.partner.relation</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
@@ -220,16 +224,16 @@
             <field name="model">virtual.partner.instance</field>
             <field name="arch" type="xml">
                 <search string="Virtual Partner Instance">
-                    <field name="partner_id" />
+                    <field name="identifier"/>
+                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
+                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+
+                    <field name="partner_id" domain="[('is_assembly','=',False)]" />
                     <field name="int_instance_id" />
-                    <field name="identifier" />
 
                     <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
-
-                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]"/>
-                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]"/>
 
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
                     <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
@@ -314,24 +318,34 @@
             <field name="model">virtual.partner.mandate</field>
             <field name="arch" type="xml">
                 <search string="Virtual Partner Mandate">
-                    <field name="partner_id" domain="[('is_company','=', False)]"/>
+                    <field name="identifier" />
+                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
+                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+
+                    <field string="Mandate Start Date > ..." name="start_date" filter_domain="[('start_date','>',self)]"/>
+                    <field string="Mandate Start Date &lt; ..." name="start_date" filter_domain="[('start_date','&lt;',self)]"/>
+
+                    <field name="partner_id" domain="[('is_company','=',False)]"/>
+                    <field name="int_instance_id" />
+
                     <field name="assembly_id" />
                     <field name="mandate_category_id" />
-                    <field name="int_instance_id" />
-                    <field name="identifier" />
+
                     <field name="ext_competencies_m2m_ids" string="State Competencies &amp; Topics" widget="many2one" />
                     <field name="sta_competencies_m2m_ids" string="External Competencies &amp; Topics" widget="many2one" />
 
-                    <field string="Start Date > ..." name="start_date" filter_domain="[('start_date','>', self)]"/>
-                    <field string="Start Date &lt; ..." name="start_date" filter_domain="[('start_date','&lt;', self)]"/>
-
-                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]"/>
-                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]"/>
-
-                    <separator/>
-                    <filter name="int_mod" string="Internal Mandate" domain="[('model','=', 'int.mandate')]"/>
-                    <filter name="ext_mod" string="External Mandate" domain="[('model','=', 'ext.mandate')]"/>
-                    <filter name="sta_mod" string="State Mandate" domain="[('model','=', 'sta.mandate')]"/>
+                    <filter name="sta_mod" string="State Mandate" domain="[('model','=','sta.mandate')]"/>
+                    <filter name="int_mod" string="Internal Mandate" domain="[('model','=','int.mandate')]"/>
+                    <filter name="ext_mod" string="External Mandate" domain="[('model','=','ext.mandate')]"/>
+                    <separator />
+                    <filter string="Male" name="male" domain="[('gender','=','m')]"/>
+                    <filter string="Female" name="female" domain="[('gender','=','f')]"/>
+                    <separator />
+                    <filter string="French" name="french" domain="[('tongue','=','f')]"/>
+                    <filter string="German" name="german" domain="[('tongue','=','g')]"/>
+                    <separator />
+                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]"/>
+                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]"/>
                     <separator/>
                     <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator/>
@@ -343,9 +357,9 @@
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
-                        <filter name="mandate_category_id" string="Mandate Category" context="{'group_by':'mandate_category_id'}"/>
+                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
                         <filter name="assembly" string="Assembly" context="{'group_by':'assembly_id'}"/>
-                        <filter name="int_id" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
+                        <filter name="mandate_category_id" string="Mandate Category" context="{'group_by':'mandate_category_id'}"/>
                     </group>
                 </search>
             </field>
@@ -357,9 +371,10 @@
             <field name="arch" type="xml">
                 <tree string="Virtual Partner Mandate" create="0" delete="0">
                     <field name="partner_id" />
+                    <field name="int_instance_id" />
+
                     <field name="assembly_id" />
                     <field name="mandate_category_id" />
-                    <field name="int_instance_id" />
 
                     <field name="birth_date" />
                     <field name="gender" />
@@ -408,26 +423,26 @@
             <field name="model">virtual.partner.candidature</field>
             <field name="arch" type="xml">
                 <search string="Virtual Partner Candidature">
-                    <field name="mandate_category_id" />
-                    <field name="partner_id" domain="[('is_company','=', False)]"/>
-                    <field name="int_instance_id" />
                     <field name="identifier" />
+                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
+                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+
+                    <field string="Create Date > ..." name="create_date" filter_domain="[('create_date','>',self)]"/>
+                    <field string="Create Date &lt; ..." name="create_date" filter_domain="[('create_date','&lt;',self)]"/>
+
+                    <field name="partner_id" domain="[('is_company','=',False)]"/>
+                    <field name="int_instance_id" />
+
                     <field name="assembly_id" />
+                    <field name="mandate_category_id" />
 
                     <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
-                    <field string="Create Date > ..." name="create_date" filter_domain="[('create_date','>', self)]"/>
-                    <field string="Create Date &lt; ..." name="create_date" filter_domain="[('create_date','&lt;', self)]"/>
-
-                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]"/>
-                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]"/>
-
-                    <separator/>
-                    <filter name="int_mod" string="Internal Candidature" domain="[('model','=', 'int.candidature')]"/>
-                    <filter name="ext_mod" string="External Candidature" domain="[('model','=', 'ext.candidature')]"/>
-                    <filter name="sta_mod" string="State Candidature" domain="[('model','=', 'sta.candidature')]"/>
+                    <filter name="sta_mod" string="State Candidature" domain="[('model','=','sta.candidature')]"/>
+                    <filter name="int_mod" string="Internal Candidature" domain="[('model','=','int.candidature')]"/>
+                    <filter name="ext_mod" string="External Candidature" domain="[('model','=','ext.candidature')]"/>
                     <separator/>
                     <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator/>
@@ -439,6 +454,8 @@
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
+                        <filter name="assembly" string="Assembly" context="{'group_by':'assembly_id'}"/>
                         <filter name="mandate_category" string="Mandate Category" context="{'group_by':'mandate_category_id'}"/>
                     </group>
                 </search>
@@ -451,9 +468,10 @@
             <field name="arch" type="xml">
                 <tree string="Virtual Partner Candidature" create="0" delete="0">
                     <field name="partner_id" />
+                    <field name="int_instance_id" />
+
                     <field name="assembly_id" />
                     <field name="mandate_category_id" />
-                    <field name="int_instance_id" />
 
                     <field name="birth_date" />
                     <field name="gender" />
@@ -502,7 +520,7 @@
             <field name="model">virtual.assembly.instance</field>
             <field name="arch" type="xml">
                 <search string="Virtual Assembly Instance">
-                    <field name="partner_id" domain="[('is_assembly','=', True"/>
+                    <field name="partner_id" domain="[('is_assembly','=',True)]"/>
                     <field name="int_instance_id" />
 
                     <field name="int_category_assembly_id" string="Internal Category Assembly" widget="many2one"/>
@@ -516,10 +534,9 @@
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
-                    <separator/>
-                    <filter name="int_mod" string="Internal Candidature" domain="[('model','=', 'int.candidature')]"/>
-                    <filter name="ext_mod" string="External Candidature" domain="[('model','=', 'ext.candidature')]"/>
-                    <filter name="sta_mod" string="State Candidature" domain="[('model','=', 'sta.candidature')]"/>
+                    <filter name="sta_mod" string="State Assembly" domain="[('model','=','sta.assembly')]"/>
+                    <filter name="int_mod" string="Internal Assembly" domain="[('model','=','int.assembly')]"/>
+                    <filter name="ext_mod" string="External Assembly" domain="[('model','=','ext.assembly')]"/>
                     <separator/>
                     <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
                     <separator/>
@@ -549,9 +566,8 @@
                 <tree string="Virtual Assembly Instance" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
+
                     <field name="category" />
-                    <field name="sta_power_level_id" invisible="1"/>
-                    <field name="int_power_level_id" invisible="1"/>
                 </tree>
             </field>
         </record>
