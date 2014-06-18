@@ -250,7 +250,7 @@ class thesaurus_term(orm.Model):
         :rparam: True
         :rtype: boolean
         """
-        res = super(thesaurus_term, self).action_validate(cr, uid, ids, vals={'state': TERM_AVAILABLE_STATES[0][0]}, context=context)
+        res = super(thesaurus_term, self).action_revalidate(cr, uid, ids, vals={'state': TERM_AVAILABLE_STATES[0][0]}, context=context)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

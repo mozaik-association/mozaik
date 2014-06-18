@@ -304,7 +304,7 @@
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_validate" string="Validate" type="object"
+                                <button name="action_revalidate" string="Validate" type="object"
                                         confirm="Validate fractionation: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
@@ -351,7 +351,7 @@
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_validate" string="Validate" type="object"
+                                <button name="action_revalidate" string="Validate" type="object"
                                         confirm="Validate fractionation line: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
@@ -433,7 +433,7 @@
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_validate" string="Validate" type="object"
+                                <button name="action_revalidate" string="Validate" type="object"
                                         confirm="Validate calculation method: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
@@ -485,7 +485,7 @@
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_validate" string="Validate" type="object"
+                                <button name="action_revalidate" string="Validate" type="object"
                                         confirm="Validate calculation rule: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
@@ -595,7 +595,7 @@
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_validate" string="Validate" type="object"
+                                <button name="action_revalidate" string="Validate" type="object"
                                         confirm="Validate fractionation: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">

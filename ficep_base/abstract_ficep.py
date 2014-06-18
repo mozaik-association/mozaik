@@ -44,6 +44,7 @@ class abstract_ficep_model (orm.AbstractModel):
     _description = 'Abstract Ficep Model'
 
     _allowed_inactive_links = []
+    _inactive_cascade = False
 
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
         """
@@ -59,10 +60,10 @@ class abstract_ficep_model (orm.AbstractModel):
         vals.update(self.get_fields_to_update(cr, uid, 'deactivate', context=context))
         return self.write(cr, uid, ids, vals, context=context)
 
-    def action_validate(self, cr, uid, ids, context=None, vals=None):
+    def action_revalidate(self, cr, uid, ids, context=None, vals=None):
         """
         ===============
-        action_validate
+        action_revalidate
         ===============
         Reactivates an object by setting
         :rparam: True
