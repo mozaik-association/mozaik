@@ -44,6 +44,11 @@
         <menuitem id="membership_root_menu" name="Membership"
                   sequence="51" groups="res_groups_base"/>
 
+        <!-- Retrocessions -->
+
+        <menuitem id="retrocessions_root_menu" name="Retrocessions"
+                  sequence="61" groups="res_groups_base" />
+
         <!-- Re-base standard menus -->
 
         <menuitem id="res_partner_category_menu" action="base.action_partner_category_form"
@@ -70,9 +75,34 @@
                                           ]"/>
         </record>
 
-        <!-- Retrocessions -->
+        <record id="base.marketing_menu" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
+                                          ]"/>
+        </record>
 
-        <menuitem id="retrocessions_root_menu" name="Retrocessions"
-                  sequence="61" groups="res_groups_base" />
+         <!-- Update user form !-->
+        <record model="ir.ui.view" id="res_user_form">
+            <field name="name">Users Preferences (ficep_base)</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="sales_team.res_user_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_section_id']" position="attributes">
+                    <attribute name="groups">settings_improvement.unused_features</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Update Preferences form !-->
+        <record id="view_users_form_preferences" model="ir.ui.view">
+            <field name="name">res.users.preferences.form (ficep_base)</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="sales_team.view_users_form_preferences"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_section_id']" position="attributes">
+                    <attribute name="groups">ficep_base.res_groups_developper</attribute>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>

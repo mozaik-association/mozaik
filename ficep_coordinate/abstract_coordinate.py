@@ -116,6 +116,18 @@ class abstract_coordinate(orm.AbstractModel):
 
 # orm methods
 
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        """
+        default = default or {}
+        default.update({
+            'bounce_counter': 0,
+            'bounce_description': False,
+            'bounce_date': False,
+        })
+        res = super(abstract_coordinate, self).copy_data(cr, uid, ids, default=default, context=context)
+        return res
+
     def name_get(self, cr, uid, ids, context=None):
         """
         ========
