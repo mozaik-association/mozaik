@@ -25,12 +25,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm, fields
+
+from openerp.osv import orm
 
 
-class allow_duplicate_wizard(orm.TransientModel):
+class allow_incompatible_mandate_wizard(orm.TransientModel):
 
     _inherit = "allow.duplicate.wizard"
     _name = "allow.incompatible.mandate.wizard"
+
+    def button_allow_duplicate(self, cr, uid, ids, context=None, vals=None):
+        context = context or {}
+        super(allow_incompatible_mandate_wizard, self).button_allow_duplicate(cr, uid, ids, context=context, vals=vals)
+
+        # redirect to the representative's form view
+        ids = context.get('active_ids')
+        generic_mandate = self.pool['generic.mandate'].read(cr, uid, ids[0], ['partner_id'], context=context)
+        return self.pool.get('res.partner').display_object_in_form_view(cr, uid, generic_mandate['partner_id'][0], context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
