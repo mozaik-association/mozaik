@@ -9,11 +9,15 @@
             <field name="model">mandate.category</field>
             <field name="arch" type="xml">
                 <search string="Mandate Category" version="7.0">
+                    <field name="sta_assembly_category_id" invisible="context.get('default_type', False)!='sta'"/>
+                    <field name="int_assembly_category_id" invisible="context.get('default_type', False)!='int'"/>
+                    <field name="ext_assembly_category_id" invisible="context.get('default_type', False)!='ext'"/>
+
                     <filter name="is_submission_mandate" string="Mandate Declaration"
-                            domain="[('is_submission_mandate','=',True)]" />
+                            domain="[('is_submission_mandate','=',True)]" invisible="context.get('default_type', False)=='int'" />
                     <separator />
                     <filter name="is_submission_assets" string="Assets Declaration"
-                            domain="[('is_submission_assets','=',True)]" />                   
+                            domain="[('is_submission_assets','=',True)]" invisible="context.get('default_type', False)=='int'" />
                     <separator />
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
@@ -21,12 +25,13 @@
                     <filter name="all" string="All"
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Categories, expired or not" />
+
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="power_level" string="Power Level" domain="[]" context="{'group_by':'int_power_level_id'}" />
                         <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" invisible="context.get('default_type', False)"/>
-                        <filter name="sta_assembly_category_id" string="Assembly category" domain="[]" context="{'group_by':'sta_assembly_category_id'}" invisible="context.get('default_type', False)!='sta'"/>
-                        <filter name="int_assembly_category_id" string="Assembly category" domain="[]" context="{'group_by':'int_assembly_category_id'}" invisible="context.get('default_type', False)!='int'"/>
-                        <filter name="ext_assembly_category_id" string="Assembly category" domain="[]" context="{'group_by':'ext_assembly_category_id'}" invisible="context.get('default_type', False)!='ext'"/>
+                        <filter name="sta_assembly_category_id" string="Assembly Category" domain="[]" context="{'group_by':'sta_assembly_category_id'}" invisible="context.get('default_type', False)!='sta'"/>
+                        <filter name="int_assembly_category_id" string="Assembly Category" domain="[]" context="{'group_by':'int_assembly_category_id'}" invisible="context.get('default_type', False)!='int'"/>
+                        <filter name="ext_assembly_category_id" string="Assembly Category" domain="[]" context="{'group_by':'ext_assembly_category_id'}" invisible="context.get('default_type', False)!='ext'"/>
                     </group>
                 </search>
             </field>
@@ -38,6 +43,11 @@
             <field name="arch" type="xml">
                 <tree string="Mandate Categories" version="7.0">
                     <field name="name"/>
+
+                    <field name="sta_assembly_category_id" invisible="context.get('default_type', False)!='sta'"/>
+                    <field name="int_assembly_category_id" invisible="context.get('default_type', False)!='int'"/>
+                    <field name="ext_assembly_category_id" invisible="context.get('default_type', False)!='ext'"/>
+
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)"/>
                     <field name="type" invisible="1"/>
@@ -150,6 +160,8 @@
                 <xpath expr="//field[@name='mandate_category_id']" position="before">
                     <field name="int_assembly_id"/>
                 </xpath>
+                <xpath expr="//filter[@name='is_submission_mandate']" position="replace"/>
+                <xpath expr="//filter[@name='is_submission_assets']" position="replace"/>
                 <xpath expr="//filter[@name='category']" position="before">
                     <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'int_assembly_id'}" />
                 </xpath>
@@ -406,17 +418,17 @@
 
                         <group name="data">
                             <group name="main">
-                                <field name="sta_assembly_category_id" attrs="{'invisible': [('type','!=', 'sta')],
-                                                                               'required':[('type','=', 'sta')] }"/>
-                                <field name="int_assembly_category_id" attrs="{'invisible': [('type','!=', 'int')],
-                                                                               'required':[('type','=', 'int')] }"/>
-                               <field name="ext_assembly_category_id" attrs="{'invisible': [('type','!=', 'ext')],
-                                                                              'required':[('type','=', 'ext')] }"/>
+                                <field name="sta_assembly_category_id" attrs="{'invisible': [('type','!=','sta')],
+                                                                               'required':[('type','=','sta')] }"/>
+                                <field name="int_assembly_category_id" attrs="{'invisible': [('type','!=','int')],
+                                                                               'required':[('type','=','int')] }"/>
+                               <field name="ext_assembly_category_id" attrs="{'invisible': [('type','!=','ext')],
+                                                                              'required':[('type','=','ext')] }"/>
                             </group>
                             <group name="other">
                                 <field name="int_power_level_id"/>
-                                <field name="is_submission_mandate"/>
-                                <field name="is_submission_assets"/>
+                                <field name="is_submission_mandate" attrs="{'invisible': [('type','=','int')]}"/>
+                                <field name="is_submission_assets" attrs="{'invisible': [('type','=','int')]}"/>
                             </group>
                         </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
@@ -588,9 +600,12 @@
                             on_change="onchange_int_assembly_id(int_assembly_id)"/>
                 </xpath>
 
-                 <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
+                <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
                     <attribute name="readonly">1</attribute>
                 </xpath>
+
+                <xpath expr="//field[@name='is_submission_mandate']" position="replace"/>
+                <xpath expr="//field[@name='is_submission_assets']" position="replace"/>
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
@@ -602,6 +617,8 @@
 
                 <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="int_assembly_category_id"/>
+                    <field name="is_submission_mandate"/>
+                    <field name="is_submission_assets"/>
                 </xpath>
             </field>
         </record>
