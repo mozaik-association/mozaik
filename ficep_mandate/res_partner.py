@@ -35,6 +35,9 @@ class res_partner(orm.Model):
     _name = 'res.partner'
     _inherit = ['res.partner']
 
+    _allowed_inactive_link_models = ['res.partner']
+    _inactive_cascade = True
+
     _columns = {
         'sta_mandate_ids': fields.one2many('sta.mandate', 'partner_id', 'State Mandates', domain=[('active', '=', True)]),
         'sta_mandate_inactive_ids': fields.one2many('sta.mandate', 'partner_id', 'State Mandates', domain=[('active', '=', False)]),
@@ -72,30 +75,6 @@ class res_partner(orm.Model):
             'ext_candidature_inactive_ids': [],
         })
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
-        return res
-
-    def write(self, cr, uid, ids, vals, context=None):
-        """
-        =====
-        write
-        =====
-        When invalidating a partner, invalidates also its mandates and candidatures
-        """
-        if 'active' in vals and not vals['active']:
-            mandate_objs = [self.pool['sta.mandate'], self.pool['int.mandate'], self.pool['ext.mandate']]
-
-            for mandate_obj in mandate_objs:
-                mandate_ids = mandate_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids)], context=context)
-                if mandate_ids:
-                    mandate_obj.action_invalidate(cr, SUPERUSER_ID, mandate_ids, context=context)
-
-            candidature_objs = [self.pool['sta.candidature'], self.pool['int.candidature'], self.pool['ext.candidature']]
-            for candidature_obj in  candidature_objs:
-                candidature_ids = candidature_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids)], context=context)
-                if candidature_ids:
-                    candidature_obj.action_invalidate(cr, SUPERUSER_ID, candidature_ids, context=context)
-
-        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

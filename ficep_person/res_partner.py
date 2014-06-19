@@ -63,6 +63,9 @@ class res_partner(orm.Model):
     _name = 'res.partner'
     _inherit = ['abstract.duplicate', 'res.partner']
 
+    _allowed_inactive_link_models = ['res.partner']
+    _inactive_cascade = True
+
     _discriminant_field = 'name'
     _trigger_fields = ['name', 'lastname', 'firstname', 'birth_date']
     _undo_redirect_action = 'ficep_person.all_res_partner_action'
@@ -236,25 +239,6 @@ class res_partner(orm.Model):
             vals['identifier'] = self.pool.get('ir.sequence').next_by_id(cr, uid, sequence_id[1], context=context)
 
         res = super(res_partner, self).create(cr, uid, vals, context=context)
-        return res
-
-    def write(self, cr, uid, ids, vals, context=None):
-        """
-        =====
-        write
-        =====
-        When invalidating a partner, invalidates also its involvements
-        """
-        if 'active' in vals and not vals['active']:
-            involvement_obj = self.pool['partner.involvement']
-            involvements_ids = involvement_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids)], context=context)
-            if involvements_ids:
-                involvement_obj.action_invalidate(cr, SUPERUSER_ID, involvements_ids, context=context)
-            #remove all followers when invalidate
-            mail_follower_object = self.pool['mail.followers']
-            follower_ids = mail_follower_object.search(cr, uid, [('partner_id', 'in', ids)], context=context)
-            mail_follower_object.unlink(cr, uid, follower_ids, context=context)
-        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         return res
 
 # public methods

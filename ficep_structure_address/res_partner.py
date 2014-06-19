@@ -34,6 +34,9 @@ class res_partner(orm.Model):
 
     _inherit = "res.partner"
 
+    _inactive_cascade = True
+    _allowed_inactive_link_models = ['res.partner']
+
     def _get_instance_id(self, cr, uid, ids, name, args, context=None):
         """
         ================
