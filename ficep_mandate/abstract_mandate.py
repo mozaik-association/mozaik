@@ -347,8 +347,8 @@ class abstract_mandate(orm.AbstractModel):
         res = []
 
         for mandate in self.browse(cr, uid, ids, context=context):
-            display_name = u'{name} {mandate_category}'.format(name=mandate.partner_id.name,
-                                                               mandate_category=mandate.mandate_category_id.name)
+            display_name = u'{name} ({mandate_category})'.format(name=mandate.partner_id.name,
+                                                                 mandate_category=mandate.mandate_category_id.name)
             res.append((mandate['id'], display_name))
         return res
 

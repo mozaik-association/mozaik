@@ -219,23 +219,26 @@
             <field name="model">generic.mandate</field>
             <field name="arch" type="xml">
                 <form edit="0" create="0" string="Mandate" version="7.0">
-
                     <sheet>
                         <div class="oe_title">
-                            <h1>Mandate: <field name="mandate_category_id" class="oe_inline"/></h1>
-                            <h2><field name="partner_id"/></h2>
+                            <h1><field name="mandate_ref"/></h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
-                            <button name="button_view_mandate" type="object" string="All Details"/>
-                        </div>
-                        <group name="data_1">
-                             <field name="assembly_name"/>
-                             <field name="start_date"/>
-                             <field name="deadline_date"/>
-                             <field name="is_duplicate_detected"  attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')"/>
+                        <group name="data">
+                            <group name="data_1">
+                                <field name="partner_id"/>
+                                <field name="mandate_category_id" class="oe_inline"/>
+                                <field name="assembly_name"/>
+                             </group>
+                            <group name="data_2">
+                                <field name="start_date"/>
+                                <field name="deadline_date"/>
+                                <label for="is_duplicate_detected" style="color:red;"/>
+                                <field name="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}" style="color:red;" nolabel="1"/>
+                             </group>
                          </group>
                     </sheet>
-            </form>
+                </form>
             </field>
         </record>
 

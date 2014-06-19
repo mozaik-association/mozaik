@@ -137,10 +137,10 @@ class abstract_ficep_model (orm.AbstractModel):
 
     def _invalidate_active_relations(self, cr, uid, ids, context=None):
         """
-        =================
+        =============================
         _invalidate_actives_relations
-        =================
-        Invalidate all depencies of ids object
+        =============================
+        Invalidate all dependencies of ids object
         :rparam: True if no error
                  False otherwise
         :rtype: boolean

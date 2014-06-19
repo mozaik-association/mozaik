@@ -30,6 +30,11 @@ from openerp.osv import orm, fields
 from openerp     import tools
 
 
+def _get_document_types(s, cr, uid, c=None):
+    cr.execute("SELECT model, name from ir_model WHERE model IN ('sta.mandate', 'int.mandate', 'ext.mandate') ORDER BY name")
+    return cr.fetchall()
+
+
 class generic_mandate(orm.Model):
     _name = "generic.mandate"
     _description = 'Generic Mandate'
@@ -41,9 +46,10 @@ class generic_mandate(orm.Model):
         return isinstance(self._columns[self._discriminant_field], fields.many2one)
 
     _columns = {
-        'id': fields.char('ID'),
+        'id': fields.integer('ID'),
         'model': fields.char('Models'),
-        'mandate_id': fields.char('Mandate id'),
+        'mandate_id': fields.integer('Mandate ID'),
+        'mandate_ref': fields.reference('Mandate Reference', selection=_get_document_types),
         'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
         'assembly_name': fields.char("Assembly"),
         'partner_id': fields.many2one('res.partner', 'Representative'),
@@ -53,6 +59,8 @@ class generic_mandate(orm.Model):
         'is_duplicate_allowed': fields.boolean('Allowed Mandate'),
     }
 
+    _rec_name = 'mandate_ref'
+
 # orm methods
 
     def init(self, cr):
@@ -60,8 +68,9 @@ class generic_mandate(orm.Model):
         cr.execute("""
             create or replace view generic_mandate as (
                     SELECT 'int.mandate' AS model,
-                           mandate.id + 1000000 as id,
+                           mandate.id as id,
                            mandate.id as mandate_id,
+                           concat('int.mandate,', mandate.id) as mandate_ref,
                            mandate.mandate_category_id,
                            mandate.partner_id,
                            mandate.start_date,
@@ -80,6 +89,7 @@ class generic_mandate(orm.Model):
                     SELECT 'sta.mandate' AS model,
                            mandate.id + 2000000 as id,
                            mandate.id as mandate_id,
+                           concat('sta.mandate,', mandate.id),
                            mandate.mandate_category_id,
                            mandate.partner_id,
                            mandate.start_date,
@@ -96,8 +106,9 @@ class generic_mandate(orm.Model):
                     UNION
 
                     SELECT 'ext.mandate' AS model,
-                           mandate.id + 3000000 as id,
+                           mandate.id + 4000000 as id,
                            mandate.id as mandate_id,
+                           concat('ext.mandate,', mandate.id),
                            mandate.mandate_category_id,
                            mandate.partner_id,
                            mandate.start_date,
@@ -113,20 +124,6 @@ class generic_mandate(orm.Model):
             )
         """)
 
-    def name_get(self, cr, uid, ids, context=None):
-        if not ids:
-            return []
-
-        ids = isinstance(ids, (long, int)) and [ids] or ids
-
-        res = []
-
-        for mandate in self.browse(cr, uid, ids, context=context):
-            display_name = u'{name} {mandate_category}'.format(name=mandate.partner_id.name,
-                                                               mandate_category=mandate.mandate_category_id.name)
-            res.append((mandate['id'], display_name))
-        return res
-
 # view methods: onchange, button
 
     def button_view_mandate(self, cr, uid, ids, context=None):
@@ -136,7 +133,7 @@ class generic_mandate(orm.Model):
         ======
         View mandates in its form view depending on model
         """
-        generic_mandate = self.read(cr, uid, ids[0], ['model', 'mandate_id'], context=context)
-        return self.pool.get(generic_mandate['model']).display_object_in_form_view(cr, uid, generic_mandate['mandate_id'], context=context)
+        (model, m_id) = self.read(cr, uid, ids[0], ['mandate_ref'], context=context)['mandate_ref'].split(',')
+        return self.pool[model].display_object_in_form_view(cr, uid, int(m_id), context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
