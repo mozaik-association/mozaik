@@ -244,7 +244,7 @@
          <!-- Actions -->
 
         <record id="sta_mandate_category_action" model="ir.actions.act_window">
-            <field name="name">Mandate Categories</field>
+            <field name="name">State Categories</field>
             <field name="res_model">mandate.category</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -255,7 +255,7 @@
         </record>
 
         <record id="int_mandate_category_action" model="ir.actions.act_window">
-            <field name="name">Mandate Categories</field>
+            <field name="name">Internal Categories</field>
             <field name="res_model">mandate.category</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -266,7 +266,7 @@
         </record>
 
         <record id="ext_mandate_category_action" model="ir.actions.act_window">
-            <field name="name">Mandate Categories</field>
+            <field name="name">External Categories</field>
             <field name="res_model">mandate.category</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -847,59 +847,59 @@
         <menuitem id="sta_submenu" name="State"
                   sequence="10" parent="ficep_base.mandates_root_menu" />
 
-         <menuitem id="sta_selection_committee_submenu" name="Selection Committees" action="sta_selection_committee_action"
+         <menuitem id="sta_selection_committee_submenu" action="sta_selection_committee_action"
                   sequence="10" parent="sta_submenu"/>
 
-        <menuitem id="sta_candidature_submenu" name="Candidatures" action="sta_candidature_action"
+        <menuitem id="sta_candidature_submenu" action="sta_candidature_action"
                   sequence="20" parent="sta_submenu"/>
 
-        <menuitem id="sta_mandate_submenu" name="Mandates" action="sta_mandate_action"
+        <menuitem id="sta_mandate_submenu" action="sta_mandate_action"
                   sequence="30" parent="sta_submenu"/>
 
         <menuitem id="int_submenu" name="Internal"
                   sequence="20" parent="ficep_base.mandates_root_menu" />
 
-        <menuitem id="int_selection_committee_submenu" name="Selection Committees" action="int_selection_committee_action"
+        <menuitem id="int_selection_committee_submenu" action="int_selection_committee_action"
                   sequence="10" parent="int_submenu"/>
 
-        <menuitem id="int_candidature_submenu" name="Candidatures" action="int_candidature_action"
+        <menuitem id="int_candidature_submenu" action="int_candidature_action"
                   sequence="20" parent="int_submenu"/>
 
-        <menuitem id="int_mandate_submenu" name="Mandates" action="int_mandate_action"
+        <menuitem id="int_mandate_submenu" action="int_mandate_action"
                   sequence="30" parent="int_submenu"/>
 
         <menuitem id="ext_submenu" name="External"
                   sequence="30" parent="ficep_base.mandates_root_menu" />
 
-        <menuitem id="ext_selection_committee_submenu" name="Selection Committees" action="ext_selection_committee_action"
+        <menuitem id="ext_selection_committee_submenu" action="ext_selection_committee_action"
                   sequence="10" parent="ext_submenu"/>
 
-        <menuitem id="ext_candidature_submenu" name="Candidatures" action="ext_candidature_action"
+        <menuitem id="ext_candidature_submenu" action="ext_candidature_action"
                   sequence="20" parent="ext_submenu"/>
 
-        <menuitem id="ext_mandate_submenu" name="Mandates" action="ext_mandate_action"
+        <menuitem id="ext_mandate_submenu" action="ext_mandate_action"
                   sequence="30" parent="ext_submenu"/>
+
+        <menuitem id="all_mandates_submenu" name="All Mandates"
+                  sequence="50" parent="ficep_base.mandates_root_menu" />
+
+        <menuitem id="incompatible_mandates_submenu" action="generic_mandate_action"
+                  sequence="10" parent="all_mandates_submenu"/>
 
         <menuitem id="configuration_submenu" name="Configuration"
                   sequence="90" parent="ficep_base.mandates_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
 
-        <menuitem id="sta_configuration_submenu" name="State"
-                  sequence="10" parent="configuration_submenu"/>
+        <menuitem id="mandate_category_configuration_submenu" name="Mandate Categories"
+                  sequence="10" parent="configuration_submenu" />
 
-        <menuitem id="sta_mandate_categories_submenu" name="Mandate Categories" action="sta_mandate_category_action"
-                  sequence="10" parent="sta_configuration_submenu"/>
+        <menuitem id="sta_mandate_categories_submenu" action="sta_mandate_category_action"
+                  sequence="10" parent="mandate_category_configuration_submenu"/>
 
-        <menuitem id="int_configuration_submenu" name="Internal"
-                  sequence="20" parent="configuration_submenu"/>
+        <menuitem id="int_mandate_categories_submenu" action="int_mandate_category_action"
+                  sequence="20" parent="mandate_category_configuration_submenu"/>
 
-        <menuitem id="int_mandate_categories_submenu" name="Mandate Categories" action="int_mandate_category_action"
-                  sequence="10" parent="int_configuration_submenu"/>
-
-        <menuitem id="ext_configuration_submenu" name="External"
-                  sequence="30" parent="configuration_submenu"/>
-
-        <menuitem id="ext_mandate_categories_submenu" name="Mandate Categories" action="ext_mandate_category_action"
-                  sequence="10" parent="ext_configuration_submenu"/>
+        <menuitem id="ext_mandate_categories_submenu" action="ext_mandate_category_action"
+                  sequence="30" parent="mandate_category_configuration_submenu"/>
 
     </data>
 </openerp>

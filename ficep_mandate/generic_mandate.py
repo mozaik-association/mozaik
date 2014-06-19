@@ -60,6 +60,7 @@ class generic_mandate(orm.Model):
     }
 
     _rec_name = 'mandate_ref'
+    _order = 'partner_id, mandate_category_id'
 
 # orm methods
 
