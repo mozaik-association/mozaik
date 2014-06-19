@@ -89,14 +89,4 @@ class allow_duplicate_wizard(orm.TransientModel):
             action['views'] = []
             return action
 
-    def get_domain_search(self, cr, uid, ids, domain, context=None):
-        """
-        =================
-        get_domain_search
-        =================
-        Add co_residency_id's wizard to the domain
-        """
-        wizard = self.browse(cr, uid, ids, context=context)
-        return domain + [('co_residency_id', '=', wizard[0].co_residency_id.id)]
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
