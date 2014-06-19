@@ -26,12 +26,14 @@
 #
 ##############################################################################
 from openerp.osv import orm, fields
-from openerp.tools import SUPERUSER_ID
 
 
 class res_partner(orm.Model):
 
     _inherit = 'res.partner'
+
+    _allowed_inactive_link_models = ['res.partner']
+    _inactive_cascade = True
 
 # data model
 
@@ -57,21 +59,6 @@ class res_partner(orm.Model):
             'partner_is_object_relation_inactive_ids': [],
         })
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
-        return res
-
-    def write(self, cr, uid, ids, vals, context=None):
-        """
-        =====
-        write
-        =====
-        When invalidating a partner, invalidates also its relations
-        """
-        if 'active' in vals and not vals['active']:
-            relation_obj = self.pool['partner.relation']
-            relations_ids = relation_obj.search(cr, SUPERUSER_ID, ['|', ('subject_partner_id', 'in', ids), ('object_partner_id', 'in', ids)], context=context)
-            if relations_ids:
-                relation_obj.action_invalidate(cr, SUPERUSER_ID, relations_ids, context=context)
-        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

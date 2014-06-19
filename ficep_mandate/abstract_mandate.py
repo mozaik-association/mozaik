@@ -280,6 +280,7 @@ class abstract_mandate(orm.AbstractModel):
     _description = 'Abstract Mandate'
     _inherit = ['abstract.duplicate']
 
+    _inactive_cascade = True
     _discriminant_field = 'partner_id'
     _discriminant_model = 'generic.mandate'
     _trigger_fields = ['mandate_category_id', 'partner_id', 'start_date', 'deadline_date']
@@ -334,24 +335,6 @@ class abstract_mandate(orm.AbstractModel):
             self.action_invalidate(cr, uid, [mandate_data['id']], context=context, vals={'end_date': end_date})
 
         return True
-
-    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
-        """
-        =================
-        action_invalidate
-        =================
-        Invalidates an object
-        :rparam: True
-        :rtype: boolean
-        Note: Argument vals must be the last in the signature
-        """
-        res = super(abstract_mandate, self).action_invalidate(cr, uid, ids, context=context, vals=vals)
-        for mandate in self.browse(cr, uid, ids, context=context):
-            if mandate.email_coordinate_id:
-                self.pool.get('email.coordinate').action_invalidate(cr, uid, [mandate.email_coordinate_id.id])
-            if mandate.postal_coordinate_id:
-                self.pool.get('postal.coordinate').action_invalidate(cr, uid, [mandate.postal_coordinate_id.id])
-        return res
 
 # orm methods
 

@@ -38,6 +38,9 @@ class res_partner(orm.Model):
 
     _inherit = "res.partner"
 
+    _allowed_inactive_link_models = ['res.partner']
+    _inactive_cascade = True
+
     def _get_main_phone_coordinate_ids(self, cr, uid, ids, name, args, context=None):
         """
         ==============================
@@ -137,21 +140,6 @@ class res_partner(orm.Model):
             'phone_coordinate_inactive_ids': [],
         })
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
-        return res
-
-    def write(self, cr, uid, ids, vals, context=None):
-        """
-        =====
-        write
-        =====
-        When invalidating a partner, invalidates also its phone coordinates
-        """
-        if 'active' in vals and not vals['active']:
-            coord_obj = self.pool['phone.coordinate']
-            coord_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids)], context=context)
-            if coord_ids:
-                coord_obj.action_invalidate(cr, SUPERUSER_ID, coord_ids, context=context)
-        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

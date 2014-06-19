@@ -30,6 +30,7 @@ import logging
 from openerp.osv import orm
 from anybox.testing.openerp import SharedSetupTransactionCase
 
+from openerp.osv import fields
 from openerp.addons.ficep_base import testtool
 
 _logger = logging.getLogger(__name__)
@@ -40,6 +41,7 @@ class test_retrocession(SharedSetupTransactionCase):
     _data_files = (
         '../../ficep_base/tests/data/res_partner_data.xml',
         '../../ficep_structure/tests/data/structure_data.xml',
+        '../../ficep_mandate/tests/data/mandate_data.xml',
         'data/retrocession_data.xml',
     )
 
@@ -98,7 +100,7 @@ class test_retrocession(SharedSetupTransactionCase):
             Test automatic invalidation of rules of a given calculation method
         '''
         method_pool = self.registry('calculation.method')
-        method_01 = self.browse_ref('%s.cm_sample_01' % self._module_ns)
+        method_01 = self.browse_ref('%s.cm_sample_02' % self._module_ns)
 
         method_pool.action_invalidate(self.cr, self.uid, [method_01.id])
 
@@ -120,3 +122,19 @@ class test_retrocession(SharedSetupTransactionCase):
         rule_pool.create(self.cr, self.uid, data)
 
         self.assertEqual(method_01.type, 'mixed')
+
+    def test_res_partner_invalidate(self):
+        '''
+            Test automatic invalidation
+        '''
+        mandate_id = self.ref('%s.extm_paul_membre_ag' % self._module_ns)
+        method_id = self.ref('%s.cm_sample_01' % self._module_ns)
+        retro_id = self.ref('%s.retro_paul_ag_mai_2014' % self._module_ns)
+        partner_id = self.ref('%s.res_partner_paul' % self._module_ns)
+
+        self.registry('res.partner').write(self.cr, self.uid, [partner_id], {'active': False,
+                                                                             'expire_date': fields.datetime.now(), }, context=None)
+
+        self.assertFalse(self.registry('ext.mandate').read(self.cr, self.uid, mandate_id, ['active'])['active'])
+        self.assertTrue(self.registry('calculation.method').read(self.cr, self.uid, method_id, ['active'])['active'])
+        self.assertFalse(self.registry('retrocession').read(self.cr, self.uid, retro_id, ['active'])['active'])

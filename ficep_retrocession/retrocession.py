@@ -37,6 +37,8 @@ class fractionation(orm.Model):
     _description = 'Fractionation'
     _inherit = ['abstract.ficep.model']
 
+    _inactive_cascade = True
+
     _total_percentage_store_trigger = {
         'fractionation.line': (lambda self, cr, uid, ids, context=None:
                                [line_data['fractionation_id'][0] for line_data in self.read(cr, uid, ids, ['fractionation_id'], context=context)],
@@ -67,21 +69,6 @@ class fractionation(orm.Model):
     }
 
     _unicity_keys = 'N/A'
-
-    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
-        """
-        =================
-        action_invalidate
-        =================
-        Invalidates an object
-        :rparam: True
-        :rtype: boolean
-        Note: Argument vals must be the last in the signature
-        """
-        for fract_record in self.browse(cr, uid, ids, context=context):
-            self.pool.get('fractionation.line').action_invalidate(cr, uid, [line.id for line in fract_record.fractionation_line_ids], context=context)
-
-        return super(fractionation, self).action_invalidate(cr, uid, ids, context=context, vals=vals)
 
 
 class fractionation_line(orm.Model):
@@ -128,6 +115,8 @@ class calculation_method(orm.Model):
     _name = 'calculation.method'
     _description = 'Calculation method'
     _inherit = ['abstract.ficep.model']
+
+    _inactive_cascade = True
 
     def _get_method_type(self, cr, uid, ids, fname, arg, context=None):
         """
@@ -205,21 +194,6 @@ class calculation_method(orm.Model):
 
         return True
 
-    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
-        """
-        =================
-        action_invalidate
-        =================
-        Invalidates an object
-        :rparam: True
-        :rtype: boolean
-        Note: Argument vals must be the last in the signature
-        """
-        for method in self.browse(cr, uid, ids, context=context):
-            rule_ids = [line.id for line in method.calculation_rule_ids]
-        self.pool.get('calculation.rule').action_invalidate(cr, uid, rule_ids, context=context)
-        return super(calculation_method, self).action_invalidate(cr, uid, ids, context=context, vals=vals)
-
 
 class calculation_rule(orm.Model):
     _name = 'calculation.rule'
@@ -248,6 +222,8 @@ class retrocession(orm.Model):
     _name = 'retrocession'
     _description = 'Retrocession'
     _inherit = ['abstract.ficep.model']
+
+    _inactive_cascade = True
 
     def _get_partner_id(self, cr, uid, ids, fname, arg, context=None):
         """
@@ -476,18 +452,3 @@ class retrocession(orm.Model):
             res['value'] = dict(invoice_type=invoice_type or False)
 
         return res
-
-    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
-        """
-        =================
-        action_invalidate
-        =================
-        Invalidates an object
-        :rparam: True
-        :rtype: boolean
-        Note: Argument vals must be the last in the signature
-        """
-        for retro in self.browse(cr, uid, ids, context=context):
-            self.pool.get('calculation.rule').action_invalidate(cr, uid, [rule.id for rule in retro.variable_rule_ids], context=context)
-
-        return super(fractionation, self).action_invalidate(cr, uid, ids, context=context, vals=vals)
