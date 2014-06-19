@@ -139,7 +139,7 @@ class res_partner(orm.Model):
         # * do not use native birthdate field, it is a char field without any control
         # * do not redefine it either, oe will silently rename twice the column (birthdate_moved12, birthdate_moved13, ...)
         #   losing its content and making the res_partner table with an astronomic number of columns !!
-        'birth_date': fields.date('Birthdate', select=True, track_visibility='onchange'),
+        'birth_date': fields.date('Birth Date', select=True, track_visibility='onchange'),
     }
 
     _defaults = {

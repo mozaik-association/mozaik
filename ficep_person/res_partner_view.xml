@@ -9,8 +9,8 @@
                 <search string="Partner">
                     <field name="identifier" string="Number"/>
                     <field name="display_name" />
-                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
-                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field name="enterprise_identifier" invisible="'default_is_company' not in context or not context.get('default_is_company')" />
                     <field name="comment" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
