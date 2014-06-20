@@ -56,6 +56,14 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
         'message': fields.char('Message', size=250),
     }
 
+# constraints
+
+    _sql_constraints = [
+        ('date_check', "CHECK(start_date <= deadline_date)", "The start date must be anterior to the deadline date."),
+    ]
+
+# orm methods
+
     def default_get(self, cr, uid, flds, context):
         """
         To get default values for the object.
@@ -80,7 +88,7 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
 
             res['partner_id'] = mandate.partner_id.id
             res['mandate_category_id'] = mandate.mandate_category_id.id
-            res['assembly_id'] = mandate[self._mandate_assembly_foreign_key].id
+            res['assembly_id'] = res['new_assembly_id'] = mandate[self._mandate_assembly_foreign_key].id
             res['mandate_id'] = mandate.id
             res['instance_id'] = mandate[self._mandate_assembly_foreign_key].instance_id.id
             if action == 'add':
@@ -94,6 +102,8 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
             break
 
         return res
+
+# view methods: onchange, button
 
     def renew_mandate(self, cr, uid, ids, vals, context=None):
         """
@@ -123,6 +133,8 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
 
         values[self._mandate_assembly_foreign_key] = wizard.new_assembly_id.id
         return self.copy_mandate(cr, uid, wizard.mandate_id.id, values, context=context)
+
+# public methods
 
     def copy_mandate(self, cr, uid, mandate_id, vals, context=None):
         """
@@ -194,6 +206,8 @@ class copy_sta_mandate_wizard(orm.TransientModel):
 
             res['legislature_id'] = legislature_id
             res['is_legislative'] = mandate.sta_assembly_id.is_legislative
+            if res['is_legislative']:
+                res.pop('new_assembly_id', False)
 
             break
 

@@ -118,6 +118,10 @@ class abstract_selection_committee(orm.AbstractModel):
 
     _unicity_keys = 'N/A'
 
+    _sql_constraints = [
+        ('date_check', "CHECK(mandate_start_date <= mandate_deadline_date)", "The start date must be anterior to the deadline date."),
+    ]
+
     def _check_decision_date(self, cr, uid, ids, context=None):
         """
         ====================
@@ -345,6 +349,11 @@ class abstract_mandate(orm.AbstractModel):
 
     _unicity_keys = 'N/A'
 
+    _sql_constraints = [
+        ('date_check', "CHECK(start_date <= deadline_date)", "The start date must be anterior to the deadline date."),
+        ('date_check2', "CHECK((end_date = NULL) or ((start_date <= end_date) and (end_date <= deadline_date)))", "The end date must be between start date and deadline date."),
+    ]
+
 # view methods: onchange, button
 
     def action_finish(self, cr, uid, ids, context=None):
@@ -554,6 +563,7 @@ class abstract_candidature(orm.AbstractModel):
         return self.name_get(cr, uid, ids, context)
 
 # view methods: onchange, button
+
     def action_elected(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state': 'elected'})
         for candidature in self.browse(cr, uid, ids, context):
