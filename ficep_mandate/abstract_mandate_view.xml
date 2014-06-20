@@ -341,7 +341,7 @@
                             <button name="button_suggest" string="Suggest" class="oe_highlight"
                                     confirm="Suggest candidature: proceed anyway ?" states="declared"/>
                             <button name="button_reject" string="Reject" class="oe_highlight"
-                                            confirm="Reject candidature: proceed anyway ?" states="declared"/>
+                                            confirm="Reject candidature: proceed anyway ?" states="declared,designated"/>
                             <button name="button_declare" string="Declare" class="oe_highlight"
                                             confirm="Declare candidature: proceed anyway ?" states="rejected,suggested"/>
                             <button name="button_create_mandate" string="Mandate" type="object"
@@ -437,7 +437,7 @@
                             </group>
 
                             <group>
-                                <field name="designation_int_assembly_id" readonly="1"/>
+                                <field name="designation_int_assembly_id"/>
                                 <field name="meeting_date" widget="date"/>
                                 <field name="decision_date" widget="date"/>
                             </group>

@@ -113,6 +113,12 @@
             <field name="condition">not is_legislative</field>
         </record>
 
+         <record id="sta_trans_designated_rejected" model="workflow.transition">
+            <field name="act_from" ref="sta_act_designated"/>
+            <field name="act_to" ref="sta_act_rejected"/>
+            <field name="signal">button_reject</field>
+        </record>
+
         <record id="sta_trans_designated_elected" model="workflow.transition">
             <field name="act_from" ref="sta_act_designated"/>
             <field name="act_to" ref="sta_act_elected"/>
