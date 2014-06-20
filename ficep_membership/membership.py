@@ -25,8 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from datetime import date
 from openerp.osv import orm, fields
-from openerp.tools import SUPERUSER_ID
 
 from openerp.addons.ficep_person.res_partner \
     import AVAILABLE_TONGUES, AVAILABLE_GENDERS, AVAILABLE_CIVIL_STATUS
@@ -39,8 +39,8 @@ MEMBERSHIP_AVAILABLE_STATES = [
 membership_available_states = dict(MEMBERSHIP_AVAILABLE_STATES)
 
 MEMBERSHIP_REQUEST_TYPE = [
-    ('member', 'Member'),
-    ('supporter', 'Supporter'),
+    ('m', 'Member'),
+    ('s', 'Supporter'),
 ]
 membership_request_type = dict(MEMBERSHIP_REQUEST_TYPE)
 
@@ -49,35 +49,199 @@ class membership_request(orm.Model):
 
     _name = 'membership.request'
     _inherit = ['abstract.ficep.model']
+    _description = 'Membership Request'
 
     _columns = {
         'lastname': fields.char('Lastname', required=True, track_visibility='onchange'),
         'firstname': fields.char('Firstname', required=True, track_visibility='onchange'),
         'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES, 'Status', required=True, track_visibility='onchange'),
+        'status': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Type', required=True, track_visibility='onchange'),
 
-        'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue', select=True, track_visibility='onchange'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender', select=True, track_visibility='onchange'),
-        'civil_status': fields.selection(AVAILABLE_CIVIL_STATUS, 'Civil Status', track_visibility='onchange'),
         'email': fields.char('Email', track_visibility='onchange'),
         'phone': fields.char('Phone', track_visibility='onchange'),
-        'fax': fields.char('Fax', track_visibility='onchange'),
         'mobile': fields.char('Mobile', track_visibility='onchange'),
-        'birth_date': fields.char('Birthdate', track_visibility='onchange'),
+        'day': fields.integer('Day'),
+        'month': fields.integer('Month'),
+        'year': fields.integer('Year'),
+        'birth_date': fields.date('Birthdate', track_visibility='onchange'),
 
         'country': fields.char('Country'),
         'street': fields.char('Street'),
-        'zip': fields.char('Zip'),
-        'note': fields.char('Note', track_visibility='onchange'),
+        'zip_code': fields.char('Town'),
 
-        'competencies': fields.char(string='Competencies'),
         'interests': fields.char(string='Interests'),
-        'tags': fields.char(string='Tags'),
 
         'partner_id': fields.many2one('res.partner', 'Partner', ondelete='restrict'),
+        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', ondelete='restrict'),
+        'address_local_zip_id': fields.many2one('address.local.zip', string='City', track_visibility='onchange'),
+        'address_local_street_id': fields.many2one('address.local.street', string='Street', track_visibility='onchange'),
+
+        'mobile_coordinate_id': fields.many2one('res.partner', 'Mobile Coordinate', ondelete='restrict'),
+        'mobile_id': fields.many2one('phone.phone', 'Mobile', ondelete='restrict'),
+        'phone_coordinate_id': fields.many2one('phone.coordinate', 'Phone Coordinate', ondelete='restrict'),
+        'phone_id': fields.many2one('phone.phone', 'Phone', ondelete='restrict'),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', ondelete='restrict'),
     }
 
-    defaults = {
+    _defaults = {
         'state': 'draft',
     }
+
+    #public method
+
+    def pre_process(self, cr, uid, lastname, firstname, gender, street, zip_code, town, status,
+                    day=False, month=False, year=False, email=False, mobile=False,
+                    phone=False, interest=False, context=None):
+        """
+        ===========
+        pre_process
+        ===========
+        * Try to create a birth_date if all the components are there. (day/month/year)
+        * Try to normalize email/phone/mobile
+        * Next step is to find partner by different way:
+        ** birth_date + email
+        ** birth_date + lastname + firstname
+        ** email + firstname + lastname
+        ** email
+        ** firstname + lastname
+        * Case of partner found: search email coordinate and phone coordinate for this partner
+        * Try to find street_id and zip_id
+
+        :rparam vals: dictionary used to create ``membership_request``
+        """
+        if context is None:
+            context = {}
+
+        birth_date = False
+
+        mobile_coordinate_id = False
+        mobile_id = False
+        phone_coordinate_id = False
+        phone_id = False
+        email_coordinate_id = False
+
+        if day and month and year:
+            birth_date = date(year, month, day)
+        if email:
+            email_obj = self.pool['email.coordinate']
+            if email_obj._check_email_format(cr, uid, email, context=context) != None:
+                email = email_obj.format_email(cr, uid, email, context=context)
+        if mobile or phone:
+            ctx = context.copy()
+            ctx.update({'install_mode': True})
+            phone_obj = self.pool['phone.phone']
+
+            if mobile:
+                mobile = phone_obj._check_and_format_number(cr, uid, mobile, context=ctx)
+                #try to find this number into phone.phone records with type `mobile`
+                mobile_ids = phone_obj.search(cr, uid, [('name', '=', mobile), ('type', '=', 'mobile')])
+            if phone:
+                phone = self.pool['phone.phone']._check_and_format_number(cr, uid, phone, context=ctx)
+                #try to find this number into phone.phone records with type `fix`
+                phone_ids = phone_obj.search(cr, uid, [('name', '=', phone), ('type', '=', 'fix')])
+
+        partner_obj = self.pool['virtual.partner']
+        partner_domains = ["[('birth_date', '=', '%s'),('email', '=', '%s')]" % (birth_date, email),
+                   "[('birth_date', '=', '%s'),('email', '=', '%s'),('firstname', 'ilike', '%s'), ('lastname', 'ilike', '%s')]"\
+                       % (birth_date, email, firstname, lastname),
+                   "[('email', '=', '%s')]" % (email),
+                   "[('firstname', 'ilike', '%s'),('lastname', 'ilike', '%s')]" % (firstname, lastname)]
+        partner_id = self.persist_search(cr, uid, partner_obj, partner_domains, context=context)
+
+        if partner_id:
+            #because this is not a real partner but a virtual partner
+            partner_id = partner_obj.read(cr, uid, partner_id, ['partner_id'])[0]
+            partner_id = partner_id['partner_id'][0]
+            if mobile_ids or mobile_ids:
+                phone_coo = self.pool['phone.coordinate']
+                #then try to match other datas of the partner with the input datas
+                if mobile_ids:
+                    mobile_id = mobile_ids[0]
+                    #try to find a coordinate with partner_id and mobile_id
+                    mobile_coordinate_id = phone_coo.search(cr, uid, [('partner_id', '=', partner_id), ('phone_id', '=', mobile_id)])
+                if phone_ids:
+                    phone_id = phone_ids[0]
+                    #try to find a coordinate with partner_id and fix_id
+                    phone_coordinate_id = phone_coo.search(cr, uid, [('partner_id', '=', partner_id), ('phone_id', '=', phone_id)])
+            email_domains = ["[('partner_id', '=', '%s'), ('email', '=', '%s')]" % (partner_id, email)]
+            email_coordinate_id = self.persist_search(cr, uid, self.pool['email.coordinate'], email_domains, context=context)
+
+        #Find local zip code
+        address_local_zip_obj = self.pool['address.local.zip']
+        address_local_zip_domains = ["[('local_zip', '=', '%s')]" % zip_code,
+                                     "[('local_zip', '=', '%s'),('town', '=', '%s')]" % (zip_code, town)]
+        address_local_zip_id = self.persist_search(cr, uid, address_local_zip_obj, address_local_zip_domains, context=context)
+
+        #find local street
+        address_local_street_obj = self.pool['address.local.street']
+        address_local_street_domains = ["[('local_street', '=', '%s')]" % street]
+        if address_local_zip_id:
+            address_local_street_domains.append("[('local_street','=', '%s'),('local_zip', '=', '%s')]" % (street, town))
+
+        address_local_street_id = self.persist_search(cr, uid, address_local_street_obj, address_local_street_domains, context=context)
+
+        vals = {
+            'partner_id': partner_id,
+            'lastname': lastname,
+            'firstname': firstname,
+            'gender': gender,
+            'birth_date': birth_date,
+            'day': day,
+            'month': month,
+            'year': year,
+
+            'status': status,
+            'street': street,
+            'zip_code': zip_code,
+            'town': town,
+
+            'mobile': mobile,
+            'phone': phone,
+            'email': email,
+
+            'mobile_coordinate_id': mobile_coordinate_id,
+            'mobile_id': mobile_id,
+            'phone_coordinate_id': phone_coordinate_id,
+            'phone_id': phone_id,
+            'email_coordinate_id': email_coordinate_id,
+            'address_local_zip_id': address_local_zip_id,
+            'address_local_street_id': address_local_street_id,
+
+            'interest': interest,
+        }
+
+        return vals
+
+    def persist_search(self, cr, uid, model_obj, domains, context=None):
+        """
+        ==============
+        persist_search
+        ==============
+        This method will make a search with a list of domain and return result only
+        if it is a single result
+        :type model_obj: model object into odoo (ex: res.partner)
+        :param model_obj: used to make the research
+        :type domains: []
+        :param domains: contains a list of domains
+        :rparam: result of the search
+        """
+        def rec_search(loop_counter):
+            if loop_counter >= len(domains):
+                return False
+            else:
+                model_ids = model_obj.search(cr, uid, eval(domains[loop_counter]), context=context)
+                if len(model_ids) == 1:
+                    return model_ids[0]
+                else:
+                    return rec_search(loop_counter + 1)
+
+        return rec_search(0)
+
+    def confirm_request(self, cr, uid, ids, context=None):
+        pass
+
+    def cancel_request(self, cr, uid, ids, context=None):
+        pass
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

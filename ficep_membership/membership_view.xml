@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Membership Request -->
+
+        <!-- SEARCH -->
+        <record id="membership_request_search_view" model="ir.ui.view">
+            <field name="name">membership.request.search</field>
+            <field name="model">membership.request</field>
+            <field name="arch" type="xml">
+                <search string="Membership Request" version="7.0">
+                    <field name="state" />
+
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="ste" string="State" domain="[]"
+                            context="{'group_by':'state'}" />
+                    </group>
+
+                </search>
+            </field>
+        </record>
+
+        <!-- TREE -->
+        <record id="membership_request_tree_view" model="ir.ui.view">
+            <field name="name">membership.request.tree</field>
+            <field name="model">membership.request</field>
+            <field name="arch" type="xml">
+                <tree string="Membership Request">
+                    <field name="lastname" />
+                    <field name="firstname" />
+                    <field name="state" />
+                    <field name="status" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- FORM -->
+        <record id="membership_request_form_view" model="ir.ui.view">
+            <field name="name">membership.request.form</field>
+            <field name="model">membership.request</field>
+            <field name="arch" type="xml">
+                <form string="Membership Request" version="7.0">
+                    <header>
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="draft,confirm,cancel" />
+                        <div
+                            attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                            invisible="context.get('popup')" groups="ficep_base.ficep_res_groups_user">
+                            <button name="action_invalidate"
+                                string="Invalidate" type="object"
+                                confirm="Invalidate Membership Request: proceed anyway?" />
+
+                            <!-- Confirm or Cancel State -->
+                            <button name="confirm_request"
+                                string="Confirm" type="object"
+                                confirm="Confirm Membership Request: proceed anyway?" />
+                            <button name="cancel_request" string="Cancel"
+                                type="object"
+                                confirm="Cancel Membership Request: proceed anyway?" />
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_right oe_button_box" name="buttons"
+                            invisible="context.get('popup')">
+                        </div>
+
+                        <group name="data">
+                            <group name="main">
+                                <group>
+                                    <group>
+                                        <field name="lastname" />
+                                        <field name="firstname" />
+                                        <field name="gender" />
+                                        <field name="birth_date" />
+                                        <field name="status" />
+                                        <field name="interests" />
+                                    </group>
+                                    <group>
+                                        <field name="partner_id" />
+                                        <field name="int_instance_id" />
+                                    </group>
+                                    <group>
+                                        <field name="zip_code" />
+                                        <field name="street" />
+                                    </group>
+                                    <group>
+                                        <field name="address_local_zip_id" />
+                                        <field name="address_local_street_id" />
+                                    </group>
+                                    <group>
+                                        <field name="email" />
+                                        <field name="phone" />
+                                        <field name="mobile" />
+                                    </group>
+                                    <group>
+                                        <field name="email_coordinate_id" />
+                                        <field name="phone_coordinate_id" />
+                                        <field name="phone_id" attrs="{'invisible':['|',('phone_id','=',False),
+                                                                                        '&amp;',('phone_id','!=',False),
+                                                                                            ('phone_coordinate_id', '!=', False)]}" />
+                                        <field name="mobile_coordinate_id" />
+                                        <field name="mobile_id" attrs="{'invisible':['|',('mobile_id','=',False),
+                                                                                        '&amp;',('mobile_id','!=',False),
+                                                                                            ('mobile_coordinate_id', '!=', False)]}" />
+                                    </group>
+                                </group>
+                            </group>
+                        </group>
+
+                        <group name="state"
+                            attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date"
+                                    attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                        </group>
+
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg"
+                        groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div
+                                attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate"
+                                    string="Reactivate" type="object"
+                                    confirm="Reactivate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id" />
+                                <field name="active" />
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers"
+                            groups="ficep_base.ficep_res_groups_configurator" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+
+        <record id="membership_request_action" model="ir.actions.act_window">
+            <field name="name">Membership Request</field>
+            <field name="res_model">membership.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="membership_request_search_view" />
+            <field name="context">{'search_default_state': 'draft'}</field>
+        </record>
+
+        <!-- Menu Membership: - Membership Request -->
+
+        <menuitem id="membership_menu" name="Membership"
+            sequence="8" parent="ficep_base.membership_root_menu" />
+        <menuitem id="membership_submenu" name="Membership"
+            sequence="8" parent="membership_menu" />
+
+        <menuitem id="membership_request_menu" action="membership_request_action"
+            sequence="8" parent="membership_submenu" />
+
+    </data>
+</openerp>

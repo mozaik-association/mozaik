@@ -25,6 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from datetime import date
+
 from openerp.tools import logging
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
@@ -41,8 +43,8 @@ def make_webservice_error(object_id=False, session_id=False, error_code=False, e
 class WebServiceException(Exception):
 
     def __init__(self, session_id=False, object_id=False, error_code=False, error_text=False):
-        self.object_id = object_id
         self.session_id = session_id
+        self.object_id = object_id
         self.error_code = error_code
         self.error_text = error_text
 
@@ -82,18 +84,48 @@ class membership_webservice(orm.Model):
     _inherit = ['abstract.webservice']
 
     @web_service
-    def membership_request(self, cr, uid, vals, context=None):
+    def membership_request(self, cr, uid, lastname, firstname, gender, street, zip_code, town, status,\
+                           day=False, month=False, year=False, email=False, mobile=False,
+                           phone=False, interest=False, context=None):
         """
         ==================
         membership_request
         ==================
-        :type vals: {}
-        :param vals: contains value to create `membership_request` object
+        Create a membership request.
+        Search an existing partner with email-birth_date.
+        Case where the partner exists: set the relation ``partner_id``
+        with the found partner set other relation related to this partner too
+        ``int_instance_id``
+        ``address_local_zip_id``
+        ``address_local_street_id``
+        ``country_id``
+        ``country_code``
+        :type gender: char
+        :param gender: 'f' or 'm'
+        :type day: integer
+        :param day: 01-31
+        :type month: integer
+        :param month: 01-12
+        :type year: integer
+
+        **Note**
+        If day and month and year are set then birth_date is initialized with
+        the collection of them
         """
+        #birth_date
+        #email (normalize)
+        #search on birth_date/email
+        #search on birth_date/firstname/lastname
+        #search on email/firstname/lastname
+        #
+        membership_request = self.pool['membership.request']
+        vals = membership_request.pre_process(cr, uid, lastname, firstname, gender, street, zip_code, town, status,\
+                                              day=day, month=month, year=year, email=email, mobile=mobile, phone=phone,
+                                              interest=interest, context=context)
         try:
-            res = self.pool['membership.request'].create(cr, uid, vals, context=context)
+            res = membership_request.create(cr, uid, vals, context=context)
         except Exception as e:
-            raise WebServiceException(uid, '', 'WEBSERVICE-ERROR', e.message)
+            raise WebServiceException(uid, '', 'ERROR-CREATE', e.message)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
