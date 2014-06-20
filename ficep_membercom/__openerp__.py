@@ -26,40 +26,24 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Communication',
+    'name': 'FICEP: Membership Communication',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_membercom',
-        'ficep_membership',
+        'ficep_structure_address',
+        'ficep_mandate',
     ],
     'description': """
-FICEP Communication
-===================
-* New Menus:
-** Communication/Natural Persons
-** Communication/Templates
-** Communication/Campaigns
-** Communication/Statistics
-* Customization of the Distribution List Module
+FICEP Membership Communication
+==============================
+This module contains the `virtual target` model that both membership and communication
+need to properly work
 """,
-    'images': [
-        'static/src/img/icon-mass.png',
-    ],
     'data': [
         'security/ir.model.access.csv',
-        'security/communication_security.xml',
-        'communication_view.xml',
-        'virtual_models_view.xml',
-        'wizard/distribution_list_mass_function_view.xml',
-        'distribution_list_view.xml',
-        'data/email_template_data.xml',
-        'wizard/bounce_editor_view.xml',
-    ],
-    'js': [
     ],
     'qweb': [
     ],

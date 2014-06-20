@@ -62,61 +62,22 @@ class virtual_target(orm.Model):
 # orm methods
 
     def init(self, cr):
+        """
+        ====
+        init
+        ====
+        This view will take all the columns of `virtual.partner`
+        However only the row with at least one coordinate will be take
+        """
         tools.drop_view_if_exists(cr, 'virtual_target')
         cr.execute("""
         create or replace view virtual_target as (
-        SELECT
-            concat(pc.id, '/' , e.id) as id,
-            p.id as partner_id,
-            p.display_name as display_name,
-            p.identifier as identification_number,
-
-            e.bounce_counter as email_bounce_counter,
-            pc.bounce_counter as postal_bounce_coutner,
-
-            e.id as email_coordinate_id,
-            pc.id as postal_coordinate_id,
-
-            adr.zip as zip,
-
-            e.unauthorized as email_unauthorized,
-            pc.unauthorized as postal_unauthorized,
-
-            i.id as int_instance_id,
-
-            CASE
-                WHEN pc.vip is TRUE
-                THEN 'VIP'
-                ELSE adr.name
-            END as postal,
-            CASE
-                WHEN e.vip is TRUE
-                THEN 'VIP'
-                ELSE e.email
-            END as email
+        SELECT *
         FROM
-            res_partner p
+            virtual_partner
 
-        LEFT OUTER JOIN
-            email_coordinate e
-        ON (e.partner_id = p.id
-        AND e.active IS TRUE)
-
-        LEFT OUTER JOIN
-            postal_coordinate pc
-        ON (pc.partner_id = p.id
-        AND pc.active IS TRUE)
-
-        LEFT OUTER JOIN
-            address_address adr
-        ON (adr.id = pc.address_id)
-
-        LEFT OUTER JOIN
-            int_instance i
-        ON (i.id = p.int_instance_id)
-
-        WHERE pc.id IS NOT NULL
-        OR e.id IS NOT NULL
+        WHERE email_coordinate_id IS NOT NULL
+        OR postal_coordinate_id IS NOT NULL
             )""")
 
 

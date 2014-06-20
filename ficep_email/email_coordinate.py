@@ -34,6 +34,9 @@ from openerp.tools.mail import single_email_re
 
 class email_coordinate(orm.Model):
 
+    def _check_email_format(self, cr, uid, email, context=None):
+        return re.match(single_email_re, email)
+
     _name = 'email.coordinate'
     _inherit = ['abstract.coordinate']
     _description = "Email Coordinate"
@@ -52,7 +55,7 @@ class email_coordinate(orm.Model):
     def _check_email(self, cr, uid, ids, context=None):
         coordinates = self.browse(cr, uid, ids, context=context)
         for coordinate in coordinates:
-            if not re.match(single_email_re, coordinate.email) != None:
+            if not self._check_email_format(cr, uid, coordinate.email, context=context) != None:
                 return False
         return True
 
