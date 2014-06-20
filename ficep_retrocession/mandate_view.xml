@@ -53,13 +53,13 @@
 	                                context="{'search_default_sta_mandate_id': active_id,
 	                                          'default_sta_mandate_id': active_id}" />
 	           </xpath>
-               <xpath expr="//page[@name='index']" position="after">
-                     <button string="All Details" name="%(calculation_rule_action)d"
+               <xpath expr="//page[@name='index']" position="after">                     
+                     <page name="rules" string="Rules">
+                         <button string="All Details" name="%(calculation_rule_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
                                         context="{'search_default_sta_mandate_id': active_id,
                                                   'default_sta_mandate_id': active_id,
                                                   'search_default_all': True}" />
-                     <page name="rules" string="Rules">
                          <field name="calculation_rule_ids" attrs="{'invisible': [('active', '=', False)]}">
                              <tree version="7.0" editable="bottom">
                                  <field name="name"/>
@@ -70,7 +70,7 @@
                          <field name="calculation_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}">
                              <tree version="7.0" editable="bottom">
                                  <field name="name"/>
-                                 <field name="percentage"/>
+                                 <field name="percentage"/>  
                                  <field name="amount"/>
                              </tree>
                          </field>  
@@ -94,13 +94,13 @@
                                     context="{'search_default_ext_mandate_id': active_id,
                                               'default_ext_mandate_id': active_id}" />
                </xpath>
-               <xpath expr="//page[@name='index']" position="after">
-                     <button string="All Details" name="%(calculation_rule_action)d"
+               <xpath expr="//page[@name='index']" position="after">                     
+                     <page name="rules" string="Rules">
+                         <button string="All Details" name="%(calculation_rule_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
                                         context="{'search_default_ext_mandate_id': active_id,
                                                   'default_ext_mandate_id': active_id,
                                                   'search_default_all': True}" />
-                     <page name="rules" string="Rules">
                          <field name="calculation_rule_ids" attrs="{'invisible': [('active', '=', False)]}">
                              <tree version="7.0" editable="bottom">
                                  <field name="name"/>
