@@ -10,7 +10,7 @@
 
                 <xpath expr="//strong" position="replace">
                     <strong>
-                    Selected mandates are not incompatible. Are you sure?
+                    Selected mandates are compatible. Are you sure?
                     </strong>
                 </xpath>
 

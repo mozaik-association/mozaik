@@ -26,8 +26,8 @@
             <field name="arch" type="xml">
                 <search string="Virtual Partner Involvement">
                     <field name="identifier"/>
-                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
-                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+                    <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
+                    <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
 
                     <field name="partner_id" domain="[('is_assembly','=',False)]" />
                     <field name="int_instance_id" />
@@ -124,8 +124,8 @@
             <field name="arch" type="xml">
                 <search string="Virtual Partner Relation">
                     <field name="identifier"/>
-                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
-                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+                    <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
+                    <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
@@ -225,8 +225,8 @@
             <field name="arch" type="xml">
                 <search string="Virtual Partner Instance">
                     <field name="identifier"/>
-                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
-                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+                    <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
+                    <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
 
                     <field name="partner_id" domain="[('is_assembly','=',False)]" />
                     <field name="int_instance_id" />
@@ -319,11 +319,13 @@
             <field name="arch" type="xml">
                 <search string="Virtual Partner Mandate">
                     <field name="identifier" />
-                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
-                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+                    <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
+                    <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
 
                     <field string="Mandate Start Date > ..." name="start_date" filter_domain="[('start_date','>',self)]"/>
                     <field string="Mandate Start Date &lt; ..." name="start_date" filter_domain="[('start_date','&lt;',self)]"/>
+                    <field string="Mandate End Date > ..." name="deadline_date" filter_domain="[('deadline_date','>',self)]"/>
+                    <field string="Mandate End Date &lt; ..." name="deadline_date" filter_domain="[('deadline_date','&lt;',self)]"/>
 
                     <field name="partner_id" domain="[('is_company','=',False)]"/>
                     <field name="int_instance_id" />
@@ -376,6 +378,8 @@
                     <field name="assembly_id" />
                     <field name="mandate_category_id" />
 
+                    <field name="start_date" />
+
                     <field name="birth_date" />
                     <field name="gender" />
                     <field name="tongue" />
@@ -424,11 +428,11 @@
             <field name="arch" type="xml">
                 <search string="Virtual Partner Candidature">
                     <field name="identifier" />
-                    <field string="Birthdate > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
-                    <field string="Birthdate &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+                    <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
+                    <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
 
-                    <field string="Create Date > ..." name="create_date" filter_domain="[('create_date','>',self)]"/>
-                    <field string="Create Date &lt; ..." name="create_date" filter_domain="[('create_date','&lt;',self)]"/>
+                    <field string="Mandate Start Date > ..." name="start_date" filter_domain="[('start_date','>',self)]"/>
+                    <field string="Mandate Start Date &lt; ..." name="start_date" filter_domain="[('start_date','&lt;',self)]"/>
 
                     <field name="partner_id" domain="[('is_company','=',False)]"/>
                     <field name="int_instance_id" />
@@ -472,6 +476,8 @@
 
                     <field name="assembly_id" />
                     <field name="mandate_category_id" />
+
+                    <field name="start_date" />
 
                     <field name="birth_date" />
                     <field name="gender" />

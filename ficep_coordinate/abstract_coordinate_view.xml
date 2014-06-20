@@ -22,6 +22,8 @@
                     <separator />
                     <filter name="allow_duplicate" string="Allowed Duplicates" domain="[('is_duplicate_allowed','=',True)]" />
                     <separator />
+                    <filter name="failure" string="With Failures" domain="[('bounce_counter','&gt;',0)]" />
+                    <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expired Coordinates" />
@@ -48,6 +50,7 @@
                     <field name="is_main" />
                     <field name="unauthorized" />
                     <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <field name="bounce_counter" attrs="{'invisible': [('bounce_counter','=',0)]}"/>
 
                     <field name="is_duplicate_detected" invisible="1"/>
                     <field name="is_duplicate_allowed" invisible="1"/>
@@ -119,7 +122,7 @@
                                 <field name="is_duplicate_allowed" attrs="{'invisible': [('is_duplicate_allowed','=',False)]}" />
                             </group>
                         </group>
-                        <notebook>
+                        <notebook invisible="context.get('popup')">
                             <page string="Failures">
                                 <group>
                                     <field name="bounce_counter" readonly="1"/>

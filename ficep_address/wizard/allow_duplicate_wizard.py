@@ -81,22 +81,6 @@ class allow_duplicate_wizard(orm.TransientModel):
 
         if new_co:
             # go directly to the newly created co-residency
-            action = self.pool['ir.actions.act_window'].for_xml_id(cr, uid, 'ficep_address', 'co_residency_action', context=context)
-            action.pop('search_view')
-            action['res_id'] = cor_id
-            action['view_id'] = (self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_address', 'co_residency_form_view')[1], 'co-residency')
-            action['view_mode'] = 'form'
-            action['views'] = []
-            return action
-
-    def get_domain_search(self, cr, uid, ids, domain, context=None):
-        """
-        =================
-        get_domain_search
-        =================
-        Add co_residency_id's wizard to the domain
-        """
-        wizard = self.browse(cr, uid, ids, context=context)
-        return domain + [('co_residency_id', '=', wizard[0].co_residency_id.id)]
+            return self.pool['co.residency'].display_object_in_form_view(cr, uid, cor_id, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

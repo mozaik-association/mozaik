@@ -49,7 +49,7 @@ FICEP Mandate
         'security/ir.model.access.csv',
         'wizard/copy_mandate_wizard.xml',
         'wizard/import_candidatures_wizard.xml',
-        'wizard/allow_duplicate_view.xml',
+        'wizard/allow_incompatible_mandate_wizard.xml',
         'abstract_mandate_view.xml',
         'mandate_view.xml',
         'res_partner_view.xml',
