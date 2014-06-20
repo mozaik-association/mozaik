@@ -85,13 +85,13 @@
                     </xpath>
                     <xpath expr="//field[@name='partner_name']" position="before">
                         <field name="list_effective_position" string="#EP"
-                               attrs="{'invisible': ['|','&amp;',('is_effective', '=', False),('is_substitute', '!=', False),('state', 'in', ['elected', 'non-elected', 'rejected'])]}"/>
+                               attrs="{'invisible': ['|','&amp;',('is_effective', '=', False),('is_substitute','!=',False),('state','in',['elected','non-elected','rejected'])]}"/>
                         <field name="list_substitute_position" string="#SP"
-                               attrs="{'invisible': ['|',('is_substitute', '=', False),('state', 'in', ['elected', 'non-elected', 'rejected'])]}"/>
+                               attrs="{'invisible': ['|',('is_substitute', '=', False),('state','in',['elected','non-elected','rejected'])]}"/>
                         <field name="election_effective_position" string="#E"
-                               attrs="{'invisible': ['|','&amp;',('is_effective', '=', False),('is_substitute', '!=', False),('state', 'not in', ['elected', 'non-elected'])]}"/>
+                               attrs="{'invisible': ['|',('state','!=','elected'),'&amp;',('is_effective','=',False),('is_substitute','=',True)]}"/>
                         <field name="election_substitute_position" string="#S"
-                               attrs="{'invisible': ['|',('is_substitute', '=', False),('state', 'not in', ['non-elected'])]}"/>
+                               attrs="{'invisible': ['|',('is_substitute', '=', False),('state','!=','non-elected')]}"/>
                         <field name="is_effective" invisible="1"/>
                         <field name="is_substitute" invisible="1"/>
                     </xpath>
@@ -525,8 +525,8 @@
                         <field name="list_effective_position" attrs="{'invisible':[('is_effective', '=', False), ('is_substitute', '=', True)],
                                                                       'readonly': [('state','not in',['draft', 'declared', 'suggested'])],
                                                                       'required': ['|', ('is_effective', '!=', False), ('is_substitute', '=', False)]}"/>
-                        <field name="election_effective_position"  attrs="{'invisible': ['|', ('state','!=','elected'), '&amp;', ('is_effective', '=', False), ('is_substitute', '=', True)]}"/>
-                        <field name="effective_votes" attrs="{'invisible': ['|',('state','not in',['elected', 'non-elected']), '&amp;', ('is_effective', '=', False), ('is_substitute', '=', True)]}"/>
+                        <field name="election_effective_position" attrs="{'invisible': ['|',('state','!=','elected'),'&amp;',('is_effective','=',False),('is_substitute','=',True)]}"/>
+                        <field name="effective_votes" attrs="{'invisible': ['|',('state','not in',['elected','non-elected']),'&amp;',('is_effective','=',False),('is_substitute','=',True)]}"/>
                     </group>
                     <group name="substitute" attrs="{'invisible': ['|',('state','=','rejected'),('is_legislative', '=', False)]}">
                         <field name="is_substitute" attrs="{'readonly': [('state','not in',['draft', 'declared', 'suggested'])]}"
@@ -540,6 +540,7 @@
                 </xpath>
                 <xpath  expr="//group[@name='moreinfo']" position="inside" >
                     <field name="is_legislative" />
+                    <field name="sort_order" />
                 </xpath>
             </field>
         </record>

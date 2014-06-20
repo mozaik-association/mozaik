@@ -337,12 +337,13 @@
                             <button name="button_suggest" string="Suggest" class="oe_highlight"
                                     confirm="Suggest candidature: proceed anyway ?" states="declared"/>
                             <button name="button_reject" string="Reject" class="oe_highlight"
-                                            confirm="Reject candidature: proceed anyway ?" states="declared"/>
+                                    confirm="Reject candidature: proceed anyway ?" states="declared"/>
                             <button name="button_declare" string="Declare" class="oe_highlight"
-                                            confirm="Declare candidature: proceed anyway ?" states="rejected,suggested"/>
+                                    attrs="{'invisible': ['|',('is_selection_committee_active','=',False),('state','not in', ['rejected', 'suggested'])]}"
+                                    confirm="Declare candidature: proceed anyway ?"/>
                             <button name="button_create_mandate" string="Mandate" type="object"
-                                        confirm="Create mandate from candidature: proceed anyway ?"/>
-                            <field name="state" widget="statusbar" statusbar_visible='declared,suggested,designated,elected,non-elected'/>
+                                    confirm="Create mandate from candidature: proceed anyway ?"/>
+                            <field name="state" widget="statusbar" statusbar_visible='declared,suggested,designated,elected'/>
                         </div>
                     </header>
                     <sheet>
@@ -385,6 +386,7 @@
                                 <field name="id"/>
                                 <field name="active"/>
                                 <field name="mandate_ids"/>
+                                <field name="is_selection_committee_active"/>
                             </group>
                         </div>
                     </div>

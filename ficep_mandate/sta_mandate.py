@@ -249,8 +249,9 @@ class sta_candidature(orm.Model):
         result = {i: False for i in ids}
         for cand in self.browse(cr, uid, ids, context=context):
             sort_order = CANDIDATURE_AVAILABLE_SORT_ORDERS.get(cand.state, 99)
-            if cand.state == 'non-elected' and cand.is_effective:
-                sort_order += 1
+            if cand.state == 'non-elected':
+                if cand.is_effective and not cand.is_substitute:
+                    sort_order += 1
             elif not cand.is_effective and cand.is_substitute:
                 sort_order += 1
             result[cand.id] = sort_order
