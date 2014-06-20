@@ -27,6 +27,7 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
 
 # Constants
 MANDATE_CATEGORY_AVAILABLE_TYPES = [
@@ -151,6 +152,15 @@ class mandate_category(orm.Model):
     _unicity_keys = 'name'
 
 #orm methods
+
+    def copy_data(self, cr, uid, id_, default=None, context=None):
+        res = super(mandate_category, self).copy_data(cr, uid, id_, default=default, context=context)
+
+        res.update({
+            'name': _('%s (copy)') % res.get('name'),
+        })
+        return res
+
     def create(self, cr, uid, vals, context=None):
         res = super(mandate_category, self).create(cr, uid, vals, context=context)
         if 'exclusive_category_m2m_ids' in vals:

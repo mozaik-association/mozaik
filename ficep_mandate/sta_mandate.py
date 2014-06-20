@@ -82,9 +82,11 @@ class sta_selection_committee(orm.Model):
         'cartel_composition': fields.text('Cartel composition', track_visibility='onchange'),
     }
 
+    _order = 'assembly_id, electoral_district_id, legislature_id, mandate_category_id, name'
+
 # constraints
 
-    _unicity_keys = 'N/A'
+    _unicity_keys = 'assembly_id, electoral_district_id, legislature_id, mandate_category_id, name'
 
 # orm methods
 
@@ -100,9 +102,9 @@ class sta_selection_committee(orm.Model):
         res = []
 
         for committee in self.browse(cr, uid, ids, context=context):
-            display_name = u'{name} {electoral_district} ({legislature_date})'.format(name=committee.name,
-                                                                                          electoral_district=committee.electoral_district_id.name or committee.assembly_id.name,
-                                                                                          legislature_date=self.pool.get('res.lang').format_date(cr, uid, committee.legislature_id.start_date, context) or False,)
+            display_name = u'{assembly}/{start} ({name})'.format(assembly=committee.electoral_district_id.name or committee.assembly_id.name,
+                                                                 start=self.pool.get('res.lang').format_date(cr, uid, committee.legislature_id.start_date, context) or False,
+                                                                 name=committee.name,)
             res.append((committee['id'], display_name))
         return res
 
@@ -110,9 +112,9 @@ class sta_selection_committee(orm.Model):
         if not args:
             args = []
         if name:
-            legislature_ids = self.pool.get('legislature').search(cr, uid, [('name', operator, name)], context=context)
-            district_ids = self.pool.get('electoral.district').search(cr, uid, [('name', operator, name)], context=context)
-            ids = self.search(cr, uid, ['|', '|', ('name', operator, name), ('legislature_id', 'in', legislature_ids), ('electoral_district_id', 'in', district_ids)] + args, limit=limit, context=context)
+            assembly_ids = self.pool['sta.assembly.category'].search(cr, uid, [('name', operator, name)], context=context)
+            district_ids = self.pool['electoral.district'].search(cr, uid, [('name', operator, name)], context=context)
+            ids = self.search(cr, uid, ['|', '|', ('name', operator, name), ('electoral_district_id', 'in', district_ids), '&', ('assembly_id', 'in', assembly_ids), ('electoral_district_id', '=', False)] + args, limit=limit, context=context)
         else:
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)
@@ -206,9 +208,9 @@ class sta_selection_committee(orm.Model):
 
     def process_invalidate_candidatures_after_delay(self, cr, uid, context=None):
         """
-        ==========================
-        invalidate_candidatures
-        ==========================
+        ===========================================
+        process_invalidate_candidatures_after_delay
+        ===========================================
         This method is used to invalidate candidatures after a defined elapsed time
         :rparam: True
         :rtype: boolean
@@ -247,7 +249,7 @@ class sta_candidature(orm.Model):
         result = {i: False for i in ids}
         for cand in self.browse(cr, uid, ids, context=context):
             sort_order = CANDIDATURE_AVAILABLE_SORT_ORDERS.get(cand.state, 99)
-            if cand.state == 'non-elected' and not cand.is_substitute:
+            if cand.state == 'non-elected' and cand.is_effective:
                 sort_order += 1
             elif not cand.is_effective and cand.is_substitute:
                 sort_order += 1
@@ -300,7 +302,7 @@ class sta_candidature(orm.Model):
         'substitute_votes': 0,
     }
 
-    _order = 'sta_assembly_id, legislature_id, mandate_category_id, sort_order, election_effective_position, election_substitute_position, list_effective_position, list_substitute_position, partner_name'
+    _order = 'sta_assembly_id, electoral_district_id, legislature_id, mandate_category_id, sort_order, election_effective_position, election_substitute_position, list_effective_position, list_substitute_position, partner_name'
 
 # constraints
 
@@ -388,9 +390,11 @@ class sta_mandate(orm.Model):
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'sta_mandate_term_competencies_rel', id1='sta_mandate_id', id2='thesaurus_term_id', string='Competencies'),
     }
 
+    _order = 'partner_id, sta_assembly_id, legislature_id, mandate_category_id'
+
 # constraints
 
-    _unicity_keys = 'partner_id, mandate_category_id, sta_assembly_id, legislature_id'
+    _unicity_keys = 'partner_id, sta_assembly_id, legislature_id, mandate_category_id'
 
 # view methods: onchange, button
 
