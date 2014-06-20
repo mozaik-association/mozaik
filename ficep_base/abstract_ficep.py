@@ -43,7 +43,7 @@ class abstract_ficep_model (orm.AbstractModel):
     _inherit = ['mail.thread', 'ir.needaction_mixin']
     _description = 'Abstract Ficep Model'
 
-    _allowed_inactive_links = []
+    _allowed_inactive_link_models = []
     _inactive_cascade = False
 
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
@@ -135,6 +135,30 @@ class abstract_ficep_model (orm.AbstractModel):
 
         return True
 
+    def _invalidate_active_relations(self, cr, uid, ids, context=None):
+        """
+        =============================
+        _invalidate_actives_relations
+        =============================
+        Invalidate all dependencies of ids object
+        :rparam: True if no error
+                 False otherwise
+        :rtype: boolean
+        """
+        invalidate_ids = isinstance(ids, (long, int)) and [ids] or ids
+        if invalidate_ids:
+            rels_dict = self.pool.get('ir.model')._get_active_relations(cr, uid, invalidate_ids, self._name, context=context, with_ids=True)
+            for relation_models in rels_dict.values():
+                for relation, relation_ids in relation_models.iteritems():
+                    relation_object = self.pool.get(relation)
+                    if hasattr(relation_object, 'action_invalidate'):
+                        relation_object.action_invalidate(cr, uid, relation_ids, context=context)
+                    else:
+                        if relation == 'mail.followers':
+                            relation_object.unlink(cr, uid, relation_ids, context=context)
+                        elif hasattr(relation_object, 'active'):
+                            relation_object.write(cr, uid, relation_ids, {'active': False}, context=context)
+
     _constraints = [
         (_check_invalidate, INVALIDATE_ERROR, ['expire_date'])
     ]
@@ -199,6 +223,15 @@ class abstract_ficep_model (orm.AbstractModel):
                 'mail_no_autosubscribe': True,
                 'lang': 'en_US',
             })
+        mode = False
+        if 'active' in vals:
+            mode = 'activate' if vals['active'] else 'deactivate'
+            vals.update(self.get_fields_to_update(cr, uid, mode, context=ctx))
+        if mode == 'deactivate' and self._inactive_cascade:
+            mail_follower_object = self.pool['mail.followers']
+            follower_ids = mail_follower_object.search(cr, uid, [('res_model', '=', self._name), ('res_id', 'in', ids)], context=context)
+            mail_follower_object.unlink(cr, uid, follower_ids, context=context)
+            self._invalidate_active_relations(cr, uid, ids, context=ctx)
         res = super(abstract_ficep_model, self).write(cr, uid, ids, vals, context=ctx)
         return res
 

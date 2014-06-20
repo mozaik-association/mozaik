@@ -9,11 +9,15 @@
             <field name="model">mandate.category</field>
             <field name="arch" type="xml">
                 <search string="Mandate Category" version="7.0">
+                    <field name="sta_assembly_category_id" invisible="context.get('default_type', False)!='sta'"/>
+                    <field name="int_assembly_category_id" invisible="context.get('default_type', False)!='int'"/>
+                    <field name="ext_assembly_category_id" invisible="context.get('default_type', False)!='ext'"/>
+
                     <filter name="is_submission_mandate" string="Mandate Declaration"
-                            domain="[('is_submission_mandate','=',True)]" />
+                            domain="[('is_submission_mandate','=',True)]" invisible="context.get('default_type', False)=='int'" />
                     <separator />
                     <filter name="is_submission_assets" string="Assets Declaration"
-                            domain="[('is_submission_assets','=',True)]" />                   
+                            domain="[('is_submission_assets','=',True)]" invisible="context.get('default_type', False)=='int'" />
                     <separator />
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
@@ -21,12 +25,13 @@
                     <filter name="all" string="All"
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Categories, expired or not" />
+
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="power_level" string="Power Level" domain="[]" context="{'group_by':'int_power_level_id'}" />
                         <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" invisible="context.get('default_type', False)"/>
-                        <filter name="sta_assembly_category_id" string="Assembly category" domain="[]" context="{'group_by':'sta_assembly_category_id'}" invisible="context.get('default_type', False)!='sta'"/>
-                        <filter name="int_assembly_category_id" string="Assembly category" domain="[]" context="{'group_by':'int_assembly_category_id'}" invisible="context.get('default_type', False)!='int'"/>
-                        <filter name="ext_assembly_category_id" string="Assembly category" domain="[]" context="{'group_by':'ext_assembly_category_id'}" invisible="context.get('default_type', False)!='ext'"/>
+                        <filter name="sta_assembly_category_id" string="Assembly Category" domain="[]" context="{'group_by':'sta_assembly_category_id'}" invisible="context.get('default_type', False)!='sta'"/>
+                        <filter name="int_assembly_category_id" string="Assembly Category" domain="[]" context="{'group_by':'int_assembly_category_id'}" invisible="context.get('default_type', False)!='int'"/>
+                        <filter name="ext_assembly_category_id" string="Assembly Category" domain="[]" context="{'group_by':'ext_assembly_category_id'}" invisible="context.get('default_type', False)!='ext'"/>
                     </group>
                 </search>
             </field>
@@ -38,6 +43,11 @@
             <field name="arch" type="xml">
                 <tree string="Mandate Categories" version="7.0">
                     <field name="name"/>
+
+                    <field name="sta_assembly_category_id" invisible="context.get('default_type', False)!='sta'"/>
+                    <field name="int_assembly_category_id" invisible="context.get('default_type', False)!='int'"/>
+                    <field name="ext_assembly_category_id" invisible="context.get('default_type', False)!='ext'"/>
+
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)"/>
                     <field name="type" invisible="1"/>
@@ -150,6 +160,8 @@
                 <xpath expr="//field[@name='mandate_category_id']" position="before">
                     <field name="int_assembly_id"/>
                 </xpath>
+                <xpath expr="//filter[@name='is_submission_mandate']" position="replace"/>
+                <xpath expr="//filter[@name='is_submission_assets']" position="replace"/>
                 <xpath expr="//filter[@name='category']" position="before">
                     <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'int_assembly_id'}" />
                 </xpath>
@@ -244,7 +256,7 @@
          <!-- Actions -->
 
         <record id="sta_mandate_category_action" model="ir.actions.act_window">
-            <field name="name">Mandate Categories</field>
+            <field name="name">State Categories</field>
             <field name="res_model">mandate.category</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -255,7 +267,7 @@
         </record>
 
         <record id="int_mandate_category_action" model="ir.actions.act_window">
-            <field name="name">Mandate Categories</field>
+            <field name="name">Internal Categories</field>
             <field name="res_model">mandate.category</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -266,7 +278,7 @@
         </record>
 
         <record id="ext_mandate_category_action" model="ir.actions.act_window">
-            <field name="name">Mandate Categories</field>
+            <field name="name">External Categories</field>
             <field name="res_model">mandate.category</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -406,17 +418,17 @@
 
                         <group name="data">
                             <group name="main">
-                                <field name="sta_assembly_category_id" attrs="{'invisible': [('type','!=', 'sta')],
-                                                                               'required':[('type','=', 'sta')] }"/>
-                                <field name="int_assembly_category_id" attrs="{'invisible': [('type','!=', 'int')],
-                                                                               'required':[('type','=', 'int')] }"/>
-                               <field name="ext_assembly_category_id" attrs="{'invisible': [('type','!=', 'ext')],
-                                                                              'required':[('type','=', 'ext')] }"/>
+                                <field name="sta_assembly_category_id" attrs="{'invisible': [('type','!=','sta')],
+                                                                               'required':[('type','=','sta')] }"/>
+                                <field name="int_assembly_category_id" attrs="{'invisible': [('type','!=','int')],
+                                                                               'required':[('type','=','int')] }"/>
+                               <field name="ext_assembly_category_id" attrs="{'invisible': [('type','!=','ext')],
+                                                                              'required':[('type','=','ext')] }"/>
                             </group>
                             <group name="other">
                                 <field name="int_power_level_id"/>
-                                <field name="is_submission_mandate"/>
-                                <field name="is_submission_assets"/>
+                                <field name="is_submission_mandate" attrs="{'invisible': [('type','=','int')]}"/>
+                                <field name="is_submission_assets" attrs="{'invisible': [('type','=','int')]}"/>
                             </group>
                         </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
@@ -588,9 +600,12 @@
                             on_change="onchange_int_assembly_id(int_assembly_id)"/>
                 </xpath>
 
-                 <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
+                <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
                     <attribute name="readonly">1</attribute>
                 </xpath>
+
+                <xpath expr="//field[@name='is_submission_mandate']" position="replace"/>
+                <xpath expr="//field[@name='is_submission_assets']" position="replace"/>
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
@@ -602,6 +617,8 @@
 
                 <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="int_assembly_category_id"/>
+                    <field name="is_submission_mandate"/>
+                    <field name="is_submission_assets"/>
                 </xpath>
             </field>
         </record>
@@ -847,59 +864,59 @@
         <menuitem id="sta_submenu" name="State"
                   sequence="10" parent="ficep_base.mandates_root_menu" />
 
-         <menuitem id="sta_selection_committee_submenu" name="Selection Committees" action="sta_selection_committee_action"
+         <menuitem id="sta_selection_committee_submenu" action="sta_selection_committee_action"
                   sequence="10" parent="sta_submenu"/>
 
-        <menuitem id="sta_candidature_submenu" name="Candidatures" action="sta_candidature_action"
+        <menuitem id="sta_candidature_submenu" action="sta_candidature_action"
                   sequence="20" parent="sta_submenu"/>
 
-        <menuitem id="sta_mandate_submenu" name="Mandates" action="sta_mandate_action"
+        <menuitem id="sta_mandate_submenu" action="sta_mandate_action"
                   sequence="30" parent="sta_submenu"/>
 
         <menuitem id="int_submenu" name="Internal"
                   sequence="20" parent="ficep_base.mandates_root_menu" />
 
-        <menuitem id="int_selection_committee_submenu" name="Selection Committees" action="int_selection_committee_action"
+        <menuitem id="int_selection_committee_submenu" action="int_selection_committee_action"
                   sequence="10" parent="int_submenu"/>
 
-        <menuitem id="int_candidature_submenu" name="Candidatures" action="int_candidature_action"
+        <menuitem id="int_candidature_submenu" action="int_candidature_action"
                   sequence="20" parent="int_submenu"/>
 
-        <menuitem id="int_mandate_submenu" name="Mandates" action="int_mandate_action"
+        <menuitem id="int_mandate_submenu" action="int_mandate_action"
                   sequence="30" parent="int_submenu"/>
 
         <menuitem id="ext_submenu" name="External"
                   sequence="30" parent="ficep_base.mandates_root_menu" />
 
-        <menuitem id="ext_selection_committee_submenu" name="Selection Committees" action="ext_selection_committee_action"
+        <menuitem id="ext_selection_committee_submenu" action="ext_selection_committee_action"
                   sequence="10" parent="ext_submenu"/>
 
-        <menuitem id="ext_candidature_submenu" name="Candidatures" action="ext_candidature_action"
+        <menuitem id="ext_candidature_submenu" action="ext_candidature_action"
                   sequence="20" parent="ext_submenu"/>
 
-        <menuitem id="ext_mandate_submenu" name="Mandates" action="ext_mandate_action"
+        <menuitem id="ext_mandate_submenu" action="ext_mandate_action"
                   sequence="30" parent="ext_submenu"/>
+
+        <menuitem id="all_mandates_submenu" name="All Mandates"
+                  sequence="50" parent="ficep_base.mandates_root_menu" />
+
+        <menuitem id="incompatible_mandates_submenu" action="generic_mandate_action"
+                  sequence="10" parent="all_mandates_submenu"/>
 
         <menuitem id="configuration_submenu" name="Configuration"
                   sequence="90" parent="ficep_base.mandates_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
 
-        <menuitem id="sta_configuration_submenu" name="State"
-                  sequence="10" parent="configuration_submenu"/>
+        <menuitem id="mandate_category_configuration_submenu" name="Mandate Categories"
+                  sequence="10" parent="configuration_submenu" />
 
-        <menuitem id="sta_mandate_categories_submenu" name="Mandate Categories" action="sta_mandate_category_action"
-                  sequence="10" parent="sta_configuration_submenu"/>
+        <menuitem id="sta_mandate_categories_submenu" action="sta_mandate_category_action"
+                  sequence="10" parent="mandate_category_configuration_submenu"/>
 
-        <menuitem id="int_configuration_submenu" name="Internal"
-                  sequence="20" parent="configuration_submenu"/>
+        <menuitem id="int_mandate_categories_submenu" action="int_mandate_category_action"
+                  sequence="20" parent="mandate_category_configuration_submenu"/>
 
-        <menuitem id="int_mandate_categories_submenu" name="Mandate Categories" action="int_mandate_category_action"
-                  sequence="10" parent="int_configuration_submenu"/>
-
-        <menuitem id="ext_configuration_submenu" name="External"
-                  sequence="30" parent="configuration_submenu"/>
-
-        <menuitem id="ext_mandate_categories_submenu" name="Mandate Categories" action="ext_mandate_category_action"
-                  sequence="10" parent="ext_configuration_submenu"/>
+        <menuitem id="ext_mandate_categories_submenu" action="ext_mandate_category_action"
+                  sequence="30" parent="mandate_category_configuration_submenu"/>
 
     </data>
 </openerp>

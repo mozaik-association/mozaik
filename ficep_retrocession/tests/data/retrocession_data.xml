@@ -69,5 +69,18 @@
              <field name="percentage">2.00</field>
         </record>
         
+        <!--  Update mandate category -->
+        <record id="mc_membre_effectif_ag" model="mandate.category">
+            <field name="calculation_method_id" ref ="cm_sample_01"/>
+            <field name="invoice_type">month</field>
+        </record>
+        
+        <!--  Create retrocession -->
+        <record id="retro_paul_ag_mai_2014" model="retrocession">
+            <field name="ext_mandate_id" ref ="extm_paul_membre_ag"/>
+            <field name="month">05</field>
+            <field name="year">2014</field>
+        </record>
+        
     </data>
 </openerp>

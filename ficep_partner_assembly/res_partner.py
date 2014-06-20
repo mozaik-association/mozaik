@@ -33,6 +33,9 @@ class res_partner(orm.Model):
 
     _inherit = 'res.partner'
 
+    _allowed_inactive_link_models = ['res.partner']
+    _inactive_cascade = True
+
     _columns = {
         'is_assembly': fields.boolean('Is an Assembly'),
     }

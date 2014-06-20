@@ -409,8 +409,8 @@ class virtual_partner_mandate(orm.Model):
         'sta_mandate_id': fields.many2one('sta.mandate', 'Sate Mandate'),
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate'),
 
-        'start_date': fields.date('Start date'),
-        'deadline_date': fields.date('Deadline date'),
+        'start_date': fields.date('Start Date'),
+        'deadline_date': fields.date('Deadline Date'),
 
         'identifier': fields.integer('Number'),
         'birth_date': fields.date('Birth Date'),
@@ -646,7 +646,7 @@ class virtual_partner_candidature(orm.Model):
         'assembly_id': fields.many2one('res.partner', 'Assembly'),
         'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
 
-        'create_date': fields.date('Start date'),
+        'start_date': fields.date('Mandate Start Date'),
 
         'identifier': fields.integer('Number'),
         'birth_date': fields.date('Birth Date'),
@@ -688,7 +688,7 @@ class virtual_partner_candidature(orm.Model):
             candidature.id as id,
             candidature.mandate_category_id,
             candidature.partner_id,
-            candidature.create_date,
+            candidature.mandate_start_date as start_date,
             partner_assembly.id as assembly_id,
             partner.identifier as identifier,
             partner.birth_date as birth_date,
@@ -728,7 +728,7 @@ class virtual_partner_candidature(orm.Model):
             candidature.id + 2000000 as id,
             candidature.mandate_category_id,
             candidature.partner_id,
-            candidature.create_date,
+            candidature.mandate_start_date as start_date,
             partner_assembly.id as assembly_id,
             partner.identifier as identifier,
             partner.birth_date as birth_date,
@@ -768,7 +768,7 @@ class virtual_partner_candidature(orm.Model):
             candidature.id + 4000000 as id,
             candidature.mandate_category_id,
             candidature.partner_id,
-            candidature.create_date,
+            candidature.mandate_start_date as start_date,
             partner_assembly.id as assembly_id,
             partner.identifier as identifier,
             partner.birth_date as birth_date,

@@ -34,6 +34,7 @@
     'category': 'Political Association',
     'depends': [
         'ficep_structure_address',
+        'ficep_mandate',
     ],
     'description': """
 FICEP Membership Communication

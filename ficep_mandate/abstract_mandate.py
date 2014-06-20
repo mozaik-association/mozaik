@@ -99,9 +99,9 @@ class abstract_selection_committee(orm.AbstractModel):
         'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation Assembly',
                                                  required=True, track_visibility='onchange', domain=[('is_designation_assembly', '=', True)]),
         'decision_date': fields.date('Designation Date', track_visibility='onchange'),
-        'mandate_start_date': fields.date('Start Date of Mandates', required=True, track_visibility='onchange'),
-        'mandate_deadline_date': fields.date('Deadline Date of Mandates', required=True, track_visibility='onchange'),
-        'meeting_date': fields.date('Committee Meeting Date', track_visibility='onchange'),
+        'mandate_start_date': fields.date('Mandates Start Date', required=True, track_visibility='onchange'),
+        'mandate_deadline_date': fields.date('Mandates Deadline Date', required=True, track_visibility='onchange'),
+        'meeting_date': fields.date('Meeting Date', track_visibility='onchange'),
         'name': fields.char('Name', size=128, select=True, required=True, track_visibility='onchange'),
         'partner_ids': fields.many2many('res.partner', 'selection_committee_res_partner_rel', 'id', 'member_id',
                                                       'Members', domain=[('is_company', '=', False)]),
@@ -280,6 +280,7 @@ class abstract_mandate(orm.AbstractModel):
     _description = 'Abstract Mandate'
     _inherit = ['abstract.duplicate']
 
+    _inactive_cascade = True
     _discriminant_field = 'partner_id'
     _discriminant_model = 'generic.mandate'
     _trigger_fields = ['mandate_category_id', 'partner_id', 'start_date', 'deadline_date']
@@ -300,7 +301,7 @@ class abstract_mandate(orm.AbstractModel):
         'candidature_id': fields.many2one('abstract.candidature', 'Candidature'),
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', track_visibility='onchange'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', track_visibility='onchange'),
-        'alert_date': fields.date('Alert Date', track_visibility='onchange'),
+        'alert_date': fields.date('Alert Date'),
         # Duplicates: redefine string
         'is_duplicate_detected': fields.boolean('Incompatible Mandate', readonly=True),
         'is_duplicate_allowed': fields.boolean('Allowed Mandate', readonly=True, track_visibility='onchange'),
@@ -335,24 +336,6 @@ class abstract_mandate(orm.AbstractModel):
 
         return True
 
-    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
-        """
-        =================
-        action_invalidate
-        =================
-        Invalidates an object
-        :rparam: True
-        :rtype: boolean
-        Note: Argument vals must be the last in the signature
-        """
-        res = super(abstract_mandate, self).action_invalidate(cr, uid, ids, context=context, vals=vals)
-        for mandate in self.browse(cr, uid, ids, context=context):
-            if mandate.email_coordinate_id:
-                self.pool.get('email.coordinate').action_invalidate(cr, uid, [mandate.email_coordinate_id.id])
-            if mandate.postal_coordinate_id:
-                self.pool.get('postal.coordinate').action_invalidate(cr, uid, [mandate.postal_coordinate_id.id])
-        return res
-
 # orm methods
 
     def name_get(self, cr, uid, ids, context=None):
@@ -364,8 +347,8 @@ class abstract_mandate(orm.AbstractModel):
         res = []
 
         for mandate in self.browse(cr, uid, ids, context=context):
-            display_name = u'{name} {mandate_category}'.format(name=mandate.partner_id.name,
-                                                               mandate_category=mandate.mandate_category_id.name)
+            display_name = u'{name} ({mandate_category})'.format(name=mandate.partner_id.name,
+                                                                 mandate_category=mandate.mandate_category_id.name)
             res.append((mandate['id'], display_name))
         return res
 
@@ -461,7 +444,7 @@ class abstract_candidature(orm.AbstractModel):
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'selection_committee_id': fields.many2one('abstract.selection.committee', string='Selection Committee',
                                                  required=True, select=True, track_visibility='onchange'),
-        'mandate_start_date': fields.related('selection_committee_id', 'mandate_start_date', string='Start Date of Mandates',
+        'mandate_start_date': fields.related('selection_committee_id', 'mandate_start_date', string='Mandate Start Date',
                                           type='date', store=True),
         'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
                                           type='many2one', relation="mandate.category",

@@ -33,7 +33,7 @@ class ir_model(orm.Model):
 
     _inherit = 'ir.model'
 
-    def _get_active_relations(self, cr, uid, ids, model_name, context=None):
+    def _get_active_relations(self, cr, uid, ids, model_name, context=None, with_ids=False):
         uid = SUPERUSER_ID
         relation_ids = self.pool.get('ir.model.fields').search(cr, uid, [('relation', '=', model_name),
                                                                          ('ttype', '=', 'many2one')],
@@ -42,6 +42,7 @@ class ir_model(orm.Model):
 
         results = {}
         for record_id in ids:
+            relation_models = {}
             for relation in relations:
                 model = self.pool.get(relation.model, False)
                 if not model:
@@ -58,7 +59,11 @@ class ir_model(orm.Model):
                 active_dep_ids = model.search(cr, uid, [(relation.name, '=', record_id)], context=context)
 
                 if len(active_dep_ids) > 0:
-                    results.update({record_id: relation.model})
+                    if with_ids:
+                        relation_models.update({relation.model: active_dep_ids})
+                        results.update({record_id: relation_models})
+                    else:
+                        results.update({record_id: relation.model})
 
         return results
 

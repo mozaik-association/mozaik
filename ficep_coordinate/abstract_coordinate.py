@@ -60,7 +60,7 @@ class abstract_coordinate(orm.AbstractModel):
         'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
         'vip': fields.boolean('VIP', track_visibility='onchange'),
 
-        'bounce_counter': fields.integer('Failure Counter', track_visibility='onchange'),
+        'bounce_counter': fields.integer('Failures Counter', track_visibility='onchange'),
         'bounce_description': fields.text('Last Failure Description', track_visibility='onchange'),
         'bounce_date': fields.datetime('Last Failure Date', track_visibility='onchange')
     }
