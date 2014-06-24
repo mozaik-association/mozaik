@@ -21,12 +21,12 @@
                                 <field name="new_mandate_category_id"
                                        attrs="{'invisible':[('action', '=', 'renew')],
                                                'required': [('action', '=', 'add')]}"/>
-                                <field name="assembly_id"                                       
+                                <field name="assembly_id"
                                        attrs="{'invisible': [('action', '=', 'add')]}"/>
                                 <field name="new_assembly_id"
                                        attrs="{'invisible':[('action', '=', 'renew')],
                                                'required': [('action', '=', 'add')]}"
-                                       domain="[('id', '!=', assembly_id), ('instance_id', '=', instance_id)]"/>
+                                       domain="[('instance_id', '=', instance_id)]"/>
                                 <field name="partner_id"/>
                                 <field name="start_date" required="1"/>
                                 <field name="deadline_date" required="1"/>
@@ -65,7 +65,7 @@
              <field name="inherit_id" ref="abstract_copy_mandate_wizard"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="before">
-                    <field name="legislature_id"                       
+                    <field name="legislature_id"
                        required="1"
                        attrs="{'readonly':[('action', '!=', 'renew')]}"
                        on_change="onchange_legislature_id(legislature_id)"
@@ -78,48 +78,48 @@
                     <attribute name="domain">[('id', '!=', mandate_category_id),('type', '=', 'sta')]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='new_assembly_id']" position="attributes">
-                    <attribute name="domain">[('id', '!=', assembly_id), ('instance_id', '=', instance_id), ('is_legislative', '=', False)]</attribute>
+                    <attribute name="domain">[('instance_id', '=', instance_id), ('is_legislative', '=', False)]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='instance_id']" position="before">
                     <field name="is_legislative"/>
                 </xpath>
                 <xpath expr="//button[@name='renew_mandate']" position="attributes">
                     <attribute name="attrs">{'invisible':['|', ('action', '!=', 'renew'), ('is_legislative', '=', True)]}</attribute>
-                </xpath> 
+                </xpath>
                 <xpath expr="//field[@name='start_date']" position="attributes">
                     <attribute name="attrs">{'readonly':[('action', '!=', 'renew')]}</attribute>
-                </xpath>  
+                </xpath>
                 <xpath expr="//field[@name='deadline_date']" position="attributes">
                     <attribute name="attrs">{'readonly':[('action', '!=', 'renew')]}</attribute>
-                </xpath>              
+                </xpath>
             </field>
         </record>
-        
+
         <record id="copy_int_mandate_wizard" model="ir.ui.view">
             <field name="name">copy.int.mandate.wizard</field>
             <field name="model">copy.int.mandate.wizard</field>
             <field name="inherit_id" ref="abstract_copy_mandate_wizard"/>
-            <field name="arch" type="xml">                
+            <field name="arch" type="xml">
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="domain">[('type', '=', 'int')]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='new_mandate_category_id']" position="attributes">
                     <attribute name="domain">[('id', '!=', mandate_category_id),('type', '=', 'int')]</attribute>
-                </xpath>                        
+                </xpath>
             </field>
         </record>
-        
+
         <record id="copy_ext_mandate_wizard" model="ir.ui.view">
             <field name="name">copy.ext.mandate.wizard</field>
             <field name="model">copy.ext.mandate.wizard</field>
             <field name="inherit_id" ref="abstract_copy_mandate_wizard"/>
-            <field name="arch" type="xml">                
+            <field name="arch" type="xml">
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="domain">[('type', '=', 'ext')]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='new_mandate_category_id']" position="attributes">
                     <attribute name="domain">[('id', '!=', mandate_category_id),('type', '=', 'ext')]</attribute>
-                </xpath>                        
+                </xpath>
             </field>
         </record>
 
@@ -133,7 +133,7 @@
             <field name="view_id" ref="copy_sta_mandate_wizard" />
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
         </record>
-        
+
         <record id="copy_int_mandate_action" model="ir.actions.act_window">
             <field name="name">Copy Mandate</field>
             <field name="view_type">form</field>
@@ -144,7 +144,7 @@
             <field name="view_id" ref="copy_int_mandate_wizard" />
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
         </record>
-        
+
         <record id="copy_ext_mandate_action" model="ir.actions.act_window">
             <field name="name">Copy Mandate</field>
             <field name="view_type">form</field>

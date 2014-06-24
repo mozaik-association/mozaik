@@ -37,7 +37,7 @@
             <field name="int_power_level_id" ref="int_power_level_04"/>
             <field name="int_assembly_category_id" ref="int_assembly_category_05"/>
         </record>
-        
+
         <record id="mc_membre_assemblee_regionale" model="mandate.category">
             <field name="type">int</field>
             <field name="name">Membre de l'assemblée régionale</field>
@@ -89,7 +89,7 @@
             <field name="mandate_deadline_date">2024-12-02</field>
             <field name="auto_mandate" eval="1"/>
         </record>
-        
+
         <record id="sc_conseiller_provincial" model="sta.selection.committee">
             <field name="mandate_category_id" ref="mc_conseiller_provincial"/>
             <field name="electoral_district_id" ref="electoral_district_02"/>
@@ -111,20 +111,20 @@
             <field name="mandate_start_date">2018-12-03</field>
             <field name="mandate_deadline_date">2024-12-02</field>
         </record>
-        
+
         <record id="sc_secretaire_regional" model="int.selection.committee">
             <field name="mandate_category_id" ref="mc_secretaire_regional"/>
-            <field name="name">Designation secrétaire régional Huy-Waremme</field>            
+            <field name="name">Designation secrétaire régional Huy-Waremme</field>
             <field name="assembly_id" ref="int_assembly_03"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="mandate_start_date">2014-12-12</field>
             <field name="mandate_deadline_date">2020-12-02</field>
             <field name="auto_mandate" eval="1"/>
         </record>
-        
+
         <record id="sc_membre_effectif_ag" model="ext.selection.committee">
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
-            <field name="name">Designation membres de l'AG</field>            
+            <field name="name">Designation membres de l'AG</field>
             <field name="assembly_id" ref="ext_assembly_01"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="mandate_start_date">2014-12-12</field>
@@ -182,7 +182,7 @@
             <field name="sta_assembly_id" ref="sta_assembly_01"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
-        
+
         <!-- Create Internal candidature -->
         <record id="int_paul_secretaire" model="int.candidature">
             <field name="mandate_category_id" ref="mc_secretaire_regional"/>
@@ -190,14 +190,14 @@
             <field name="int_assembly_id" ref="int_assembly_04"/>
             <field name="partner_id" ref="res_partner_paul"/>
         </record>
-        
+
         <record id="int_thierry_secretaire" model="int.candidature">
             <field name="mandate_category_id" ref="mc_secretaire_regional"/>
             <field name="selection_committee_id" ref="sc_secretaire_regional"/>
             <field name="int_assembly_id" ref="int_assembly_04"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
-        
+
         <!-- Create External candidature -->
         <record id="ext_paul_membre_ag" model="ext.candidature">
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
@@ -205,7 +205,7 @@
             <field name="ext_assembly_id" ref="ext_assembly_01"/>
             <field name="partner_id" ref="res_partner_paul"/>
         </record>
-        
+
         <record id="ext_thierry_membre_ag" model="ext.candidature">
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
             <field name="selection_committee_id" ref="sc_membre_effectif_ag"/>
@@ -233,17 +233,17 @@
             <field name="sta_assembly_id" ref="sta_assembly_03"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
-        
+
         <!-- Create Internal mandate -->
         <record id="intm_thierry_secretaire" model="int.mandate">
             <field name="mandate_category_id" ref="mc_secretaire_regional"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="int_assembly_id" ref="int_assembly_03"/>
-            <field name="start_date">2014-12-01</field>
+            <field name="start_date">2013-12-01</field>
             <field name="deadline_date">2014-04-15</field>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
-        
+
         <record id="intm_paul_regional" model="int.mandate">
             <field name="mandate_category_id" ref="mc_membre_assemblee_regionale"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
@@ -252,17 +252,17 @@
             <field name="deadline_date">2018-04-15</field>
             <field name="partner_id" ref="res_partner_paul"/>
         </record>
-        
+
         <!-- Create External mandate -->
         <record id="extm_thierry_membre_ag" model="ext.mandate">
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
             <field name="ext_assembly_id" ref="ext_assembly_01"/>
-            <field name="start_date">2014-12-01</field>
+            <field name="start_date">2013-12-01</field>
             <field name="deadline_date">2014-04-15</field>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
-        
+
         <record id="extm_paul_membre_ag" model="ext.mandate">
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>

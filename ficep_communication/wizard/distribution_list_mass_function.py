@@ -39,6 +39,7 @@ HEADER_ROW = [
     'Usual Lastname',
     'Firstname',
     'Usual Firstname',
+    'Internal Identifier',
     'Co-Residency Line 1',
     'Co-Residency Line 2',
     'Main Address',
@@ -239,9 +240,10 @@ class distribution_list_mass_function(orm.TransientModel):
                                          ('lastname', None if not partner.usual_lastname else _get_utf8(partner.usual_lastname)),
                                          ('firstname', None if not partner.firstname else _get_utf8(partner.firstname)),
                                          ('usual_firstname', None if not partner.usual_firstname else _get_utf8(partner.usual_firstname)),
-                                         ('printable_name', _get_utf8(partner.printable_name) if not pc.co_residency_id \
+                                         ('identifier', partner.identifier or None),
+                                         ('printable_name', _get_utf8(partner.printable_name) if not pc.co_residency_id.line \
                                              else _get_utf8(pc.co_residency_id.line)),
-                                         ('co_residency', None if not pc.co_residency_id \
+                                         ('co_residency', None if not pc.co_residency_id.line2 \
                                              else _get_utf8(pc.co_residency_id.line2)),
                                          ('adr_main', pc.is_main),
                                          ('adr_unauthorized', pc.unauthorized),
