@@ -59,8 +59,6 @@ FICEP Communication
         'data/email_template_data.xml',
         'wizard/bounce_editor_view.xml',
     ],
-    'js': [
-    ],
     'qweb': [
     ],
     'css': [
