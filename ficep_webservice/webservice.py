@@ -91,37 +91,28 @@ class membership_webservice(orm.Model):
         ==================
         membership_request
         ==================
-        Create a membership request.
-        Search an existing partner with email-birth_date.
-        Case where the partner exists: set the relation ``partner_id``
-        with the found partner set other relation related to this partner too
-        ``int_instance_id``
-        ``address_local_zip_id``
-        ``address_local_street_id``
-        ``country_id``
-        ``country_code``
-        :type gender: char
-        :param gender: 'f' or 'm'
-        :type day: integer
-        :param day: 01-31
-        :type month: integer
-        :param month: 01-12
-        :type year: integer
-
-        **Note**
-        If day and month and year are set then birth_date is initialized with
-        the collection of them
+        Create a `membership.request` with the giving values
         """
-        #birth_date
-        #email (normalize)
-        #search on birth_date/email
-        #search on birth_date/firstname/lastname
-        #search on email/firstname/lastname
-        #
         membership_request = self.pool['membership.request']
-        vals = membership_request.pre_process(cr, uid, lastname, firstname, gender, street, zip_code, town, status,\
-                                              day=day, month=month, year=year, email=email, mobile=mobile, phone=phone,
-                                              interest=interest, context=context)
+        vals = {
+            'lastname': lastname,
+            'firstname': firstname,
+            'gender': gender,
+            'day': day,
+            'month': month,
+            'year': year,
+
+            'status': status,
+            'street': street,
+            'zip_code': zip_code,
+            'town': town,
+
+            'mobile': mobile,
+            'phone': phone,
+            'email': email,
+
+            'interest': interest,
+        }
         try:
             res = membership_request.create(cr, uid, vals, context=context)
         except Exception as e:

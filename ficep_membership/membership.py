@@ -84,15 +84,15 @@ class membership_request(orm.Model):
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate', ondelete='restrict'),
     }
 
+    _unicity_keys = 'N/A'
+
     _defaults = {
         'state': 'draft',
     }
 
-    #public method
+    # public method
 
-    def pre_process(self, cr, uid, lastname, firstname, gender, street, zip_code, town, status,
-                    day=False, month=False, year=False, email=False, mobile=False,
-                    phone=False, interest=False, context=None):
+    def pre_process(self, cr, uid, vals, context=None):
         """
         ===========
         pre_process
@@ -114,12 +114,28 @@ class membership_request(orm.Model):
             context = {}
 
         birth_date = False
-
-        mobile_coordinate_id = False
+        mobile_coordinate_ids = False
         mobile_id = False
-        phone_coordinate_id = False
+        mobile_ids = False
+        phone_coordinate_ids = False
         phone_id = False
-        email_coordinate_id = False
+        phone_ids = False
+        email_coordinate_ids = False
+
+        firstname = vals.get('firstname', False)
+        lastname = vals.get('lastname', False)
+        day = vals.get('day', False)
+        month = vals.get('month', False)
+        year = vals.get('year', False)
+        email = vals.get('email', False)
+        mobile = vals.get('mobile', False)
+        phone = vals.get('phone', False)
+        zip_code = vals.get('zip_code', False)
+        town = vals.get('town', False)
+        street = vals.get('street', False)
+        gender = vals.get('gender', False)
+        status = vals.get('status', False)
+        interest = vals.get('interest', False)
 
         if day and month and year:
             birth_date = date(year, month, day)
@@ -134,46 +150,52 @@ class membership_request(orm.Model):
 
             if mobile:
                 mobile = phone_obj._check_and_format_number(cr, uid, mobile, context=ctx)
-                #try to find this number into phone.phone records with type `mobile`
+                # try to find this number into phone.phone records with type `mobile`
                 mobile_ids = phone_obj.search(cr, uid, [('name', '=', mobile), ('type', '=', 'mobile')])
             if phone:
                 phone = self.pool['phone.phone']._check_and_format_number(cr, uid, phone, context=ctx)
-                #try to find this number into phone.phone records with type `fix`
+                # try to find this number into phone.phone records with type `fix`
                 phone_ids = phone_obj.search(cr, uid, [('name', '=', phone), ('type', '=', 'fix')])
 
-        partner_obj = self.pool['virtual.partner']
-        partner_domains = ["[('birth_date', '=', '%s'),('email', '=', '%s')]" % (birth_date, email),
-                   "[('birth_date', '=', '%s'),('email', '=', '%s'),('firstname', 'ilike', '%s'), ('lastname', 'ilike', '%s')]"\
-                       % (birth_date, email, firstname, lastname),
-                   "[('email', '=', '%s')]" % (email),
-                   "[('firstname', 'ilike', '%s'),('lastname', 'ilike', '%s')]" % (firstname, lastname)]
+        partner_obj = self.pool['virtual.custom.partner']
+        partner_domains = []
+        if birth_date and email:
+            partner_domains.append("[('birth_date', '=', '%s'),('email', '=', '%s')]" % (birth_date, email))
+        if birth_date and email and firstname and lastname:
+            partner_domains.append("[('birth_date', '=', '%s'),('email', '=', '%s'),('firstname', 'ilike', '%s'), ('lastname', 'ilike', '%s')]"\
+                       % (birth_date, email, firstname, lastname))
+        if email:
+            partner_domains.append("[('email', '=', '%s')]" % (email))
+        if firstname and lastname:
+            partner_domains.append("[('firstname', 'ilike', '%s'),('lastname', 'ilike', '%s')]" % (firstname, lastname))
+
         partner_id = self.persist_search(cr, uid, partner_obj, partner_domains, context=context)
 
         if partner_id:
-            #because this is not a real partner but a virtual partner
-            partner_id = partner_obj.read(cr, uid, partner_id, ['partner_id'])[0]
+            # because this is not a real partner but a virtual partner
+            partner_id = partner_obj.read(cr, uid, [partner_id], ['partner_id'])[0]
             partner_id = partner_id['partner_id'][0]
             if mobile_ids or mobile_ids:
                 phone_coo = self.pool['phone.coordinate']
-                #then try to match other datas of the partner with the input datas
+                # then try to match other datas of the partner with the input datas
                 if mobile_ids:
                     mobile_id = mobile_ids[0]
-                    #try to find a coordinate with partner_id and mobile_id
-                    mobile_coordinate_id = phone_coo.search(cr, uid, [('partner_id', '=', partner_id), ('phone_id', '=', mobile_id)])
+                    # try to find a coordinate with partner_id and mobile_id
+                    mobile_coordinate_ids = phone_coo.search(cr, uid, [('partner_id', '=', partner_id), ('phone_id', '=', mobile_id)])
                 if phone_ids:
                     phone_id = phone_ids[0]
-                    #try to find a coordinate with partner_id and fix_id
-                    phone_coordinate_id = phone_coo.search(cr, uid, [('partner_id', '=', partner_id), ('phone_id', '=', phone_id)])
-            email_domains = ["[('partner_id', '=', '%s'), ('email', '=', '%s')]" % (partner_id, email)]
-            email_coordinate_id = self.persist_search(cr, uid, self.pool['email.coordinate'], email_domains, context=context)
+                    # try to find a coordinate with partner_id and fix_id
+                    phone_coordinate_ids = phone_coo.search(cr, uid, [('partner_id', '=', partner_id), ('phone_id', '=', phone_id)])
+            if email:
+                email_coordinate_ids = self.pool['email.coordinate'].search(cr, uid, [('partner_id', '=', partner_id), ('email', '=', email)], context=context)
 
-        #Find local zip code
+        # Find local zip code
         address_local_zip_obj = self.pool['address.local.zip']
         address_local_zip_domains = ["[('local_zip', '=', '%s')]" % zip_code,
                                      "[('local_zip', '=', '%s'),('town', '=', '%s')]" % (zip_code, town)]
         address_local_zip_id = self.persist_search(cr, uid, address_local_zip_obj, address_local_zip_domains, context=context)
 
-        #find local street
+        # find local street
         address_local_street_obj = self.pool['address.local.street']
         address_local_street_domains = ["[('local_street', '=', '%s')]" % street]
         if address_local_zip_id:
@@ -181,7 +203,8 @@ class membership_request(orm.Model):
 
         address_local_street_id = self.persist_search(cr, uid, address_local_street_obj, address_local_street_domains, context=context)
 
-        vals = {
+        #update vals dictionary because some inputs may have changed (and new values too)
+        vals.update({
             'partner_id': partner_id,
             'lastname': lastname,
             'firstname': firstname,
@@ -200,16 +223,16 @@ class membership_request(orm.Model):
             'phone': phone,
             'email': email,
 
-            'mobile_coordinate_id': mobile_coordinate_id,
+            'mobile_coordinate_id': mobile_coordinate_ids if not mobile_coordinate_ids else mobile_coordinate_ids[0],
             'mobile_id': mobile_id,
-            'phone_coordinate_id': phone_coordinate_id,
+            'phone_coordinate_id': phone_coordinate_ids if not phone_coordinate_ids else phone_coordinate_ids[0],
             'phone_id': phone_id,
-            'email_coordinate_id': email_coordinate_id,
+            'email_coordinate_id': email_coordinate_ids if not email_coordinate_ids else email_coordinate_ids[0],
             'address_local_zip_id': address_local_zip_id,
             'address_local_street_id': address_local_street_id,
 
             'interest': interest,
-        }
+        })
 
         return vals
 
@@ -243,5 +266,17 @@ class membership_request(orm.Model):
 
     def cancel_request(self, cr, uid, ids, context=None):
         pass
+
+# orm methods
+
+    def create(self, cr, uid, vals, context=None):
+        """
+        ======
+        create
+        ======
+        Call ``pre-process`` function to prepare input values.
+        """
+        self.pre_process(cr, uid, vals, context=context)
+        return super(membership_request, self).create(cr, uid, vals, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
