@@ -32,32 +32,10 @@ from openerp.addons.ficep_person.res_partner import AVAILABLE_GENDERS, AVAILABLE
 
 
 class virtual_target(orm.Model):
-
     _name = "virtual.target"
+    _inherit = ['virtual.master.partner']
     _description = "Virtual Target"
     _auto = False
-
-    _columns = {
-        'partner_id': fields.many2one('res.partner', 'Partner'),
-        'display_name': fields.char('Display Name'),
-        'identification_number': fields.integer('Identification Number'),
-
-        'postal_coordinate_id': fields.integer('Postal Coordinate ID'),
-        'email_coordinate_id': fields.integer('Email Coordinate ID'),
-
-        'email': fields.char('Email Coordinate'),
-        'postal': fields.char('Postal Coordinate'),
-
-        'email_unauthorized': fields.boolean('Email Unauthorized'),
-        'postal_unauthorized': fields.boolean('Postal Unauthorized'),
-
-        'email_bounce_counter': fields.integer('Email Bounce Counter'),
-        'postal_bounce_counter': fields.integer('Postal Bounce Counter'),
-
-        'zip': fields.char("Zip Code"),
-
-        'int_instance_id': fields.many2one('int.instance', 'Internal Instance'),
-    }
 
 # orm methods
 
@@ -69,12 +47,13 @@ class virtual_target(orm.Model):
         This view will take all the columns of `virtual.partner`
         However only the row with at least one coordinate will be take
         """
+        super(virtual_target, self).init(cr)
         tools.drop_view_if_exists(cr, 'virtual_target')
         cr.execute("""
         create or replace view virtual_target as (
         SELECT *
         FROM
-            virtual_partner
+            virtual_master_partner
 
         WHERE email_coordinate_id IS NOT NULL
         OR postal_coordinate_id IS NOT NULL

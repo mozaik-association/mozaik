@@ -29,10 +29,16 @@ from openerp import tools
 from openerp.osv import orm, fields
 
 
-class virtual_partner(orm.Model):
+class virtual_master_partner(orm.AbstractModel):
+    """
+    ======================
+    virtual_master_partner
+    ======================
+    All partners with their postal/email coordinates
+    """
 
-    _name = "virtual.partner"
-    _description = "Virtual Partner"
+    _name = "virtual.master.partner"
+    _description = "Virtual Master Partner"
     _auto = False
 
     _columns = {
@@ -50,6 +56,9 @@ class virtual_partner(orm.Model):
         'email': fields.char('Email Coordinate'),
         'postal': fields.char('Postal Coordinate'),
 
+        'email_is_main': fields.boolean('Email is Main'),
+        'postal_is_main': fields.boolean('Postal is Main'),
+
         'email_unauthorized': fields.boolean('Email Unauthorized'),
         'postal_unauthorized': fields.boolean('Postal Unauthorized'),
 
@@ -64,9 +73,8 @@ class virtual_partner(orm.Model):
 # orm methods
 
     def init(self, cr):
-        tools.drop_view_if_exists(cr, 'virtual_partner')
         cr.execute("""
-        create or replace view virtual_partner as (
+        create or replace view virtual_master_partner as (
         SELECT
             concat(pc.id, '/' , e.id) as id,
             p.id as partner_id,
@@ -81,6 +89,9 @@ class virtual_partner(orm.Model):
 
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
+
+            e.is_main as email_is_main,
+            pc.is_main as postal_is_main,
 
             adr.zip as zip,
 
@@ -119,6 +130,35 @@ class virtual_partner(orm.Model):
         LEFT OUTER JOIN
             int_instance i
         ON (i.id = p.int_instance_id)
+            )""")
+
+
+class virtual_custom_partner(orm.Model):
+    _name = "virtual.custom.partner"
+    _inherit = ['virtual.master.partner']
+    _description = "Virtual Custom Partner"
+    _auto = False
+
+# orm methods
+
+    def init(self, cr):
+        """
+        ====
+        init
+        ====
+        Select all row of virtual.master.partner but take only main coordinate
+        if there are
+        """
+        super(virtual_custom_partner, self).init(cr)
+        tools.drop_view_if_exists(cr, 'virtual_custom_partner')
+        cr.execute("""
+        create or replace view virtual_custom_partner as (
+        SELECT *
+        FROM
+            virtual_master_partner
+
+        WHERE (email_is_main IS TRUE or email_is_main IS NULL)
+        AND (postal_is_main IS TRUE or postal_is_main IS NULL)
             )""")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
