@@ -69,32 +69,35 @@
                             <group name="main">
                                 <group>
                                     <group>
-                                        <field name="lastname" />
-                                        <field name="firstname" />
-                                        <field name="gender" />
-                                        <field name="birth_date" />
-                                        <field name="status" />
-                                        <field name="interests" />
+                                        <field name="lastname" readonly="1"/>
+                                        <field name="firstname"  readonly="1"/>
+                                        <field name="gender"  readonly="1"/>
+                                        <field name="birth_date" attrs="{'invisible':[('birth_date', '=', False)]}" readonly="1"/>
+                                        <field name="day" attrs="{'invisible':[('birth_date', '!=', False),('day', '!=', False)]}" readonly="1"/>
+                                        <field name="month" attrs="{'invisible':[('birth_date', '!=', False),('month', '!=', False)]}" readonly="1"/>
+                                        <field name="year" attrs="{'invisible':[('birth_date', '!=', False),('year', '!=', False)]}" readonly="1"/>
+                                        <field name="status"  readonly="1"/>
+                                        <field name="interests"  readonly="1"/>
                                     </group>
                                     <group>
-                                        <field name="partner_id" />
+                                        <field name="partner_id" required="1"/>
                                         <field name="int_instance_id" />
                                     </group>
                                     <group>
-                                        <field name="zip_code" />
-                                        <field name="street" />
+                                        <field name="zip_code" readonly="1"/>
+                                        <field name="street" readonly="1"/>
                                     </group>
                                     <group>
                                         <field name="address_local_zip_id" />
                                         <field name="address_local_street_id" />
                                     </group>
                                     <group>
-                                        <field name="email" />
-                                        <field name="phone" />
-                                        <field name="mobile" />
+                                        <field name="email" readonly="1"/>
+                                        <field name="phone" readonly="1"/>
+                                        <field name="mobile" readonly="1"/>
                                     </group>
                                     <group>
-                                        <field name="email_coordinate_id" />
+                                        <field name="email_coordinate_id" required="1"/>
                                         <field name="phone_coordinate_id" />
                                         <field name="phone_id" attrs="{'invisible':['|',('phone_id','=',False),
                                                                                         '&amp;',('phone_id','!=',False),
