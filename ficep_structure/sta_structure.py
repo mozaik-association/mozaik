@@ -175,16 +175,16 @@ class legislature(orm.Model):
         'power_level_id': fields.many2one('sta.power.level', 'Power Level', required=True, select=True, track_visibility='onchange'),
     }
 
-    _sql_constraints = [
-        ('date_check1', 'CHECK ( start_date <= deadline_date )', 'The start date must be anterior to the deadline date.'),
-        ('date_check2', 'CHECK ( election_date <= start_date )', 'The election date must be anterior to the start date.'),
-    ]
-
     _order = 'start_date desc'
 
 # constraints
 
     _unicity_keys = 'power_level_id, name'
+
+    _sql_constraints = [
+        ('date_check1', 'CHECK ( start_date <= deadline_date )', 'The start date must be anterior to the deadline date.'),
+        ('date_check2', 'CHECK ( election_date <= start_date )', 'The election date must be anterior to the start date.'),
+    ]
 
 
 class sta_assembly(orm.Model):

@@ -8,7 +8,7 @@
             <field name="name">abstract.mandate.search</field>
             <field name="model">abstract.mandate</field>
             <field name="arch" type="xml">
-                <search string="Mandate" version="7.0">
+                <search string="Mandates" version="7.0">
                     <field name="partner_id" domain="[('is_company','=',False)]"/>
                     <field name="mandate_category_id"/>
                     <field name="designation_int_assembly_id"/>
@@ -30,6 +30,7 @@
                     <filter name="all" string="All"
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Mandates, expired or not" />
+
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
                         <filter name="category" string="Mandate Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
@@ -43,15 +44,11 @@
             <field name="name">abstract.mandate.tree</field>
             <field name="model">abstract.mandate</field>
             <field name="arch" type="xml">
-                <tree string="Mandate" version="7.0" colors="red:is_duplicate_detected==True">
+                <tree string="Mandates" version="7.0" colors="red:is_duplicate_detected==True">
                     <field name="partner_id"/>
-                    <field name="mandate_category_id"/>
                     <field name="start_date"/>
                     <field name="deadline_date"/>
-                    <field name="end_date"/>
-                    <field name="designation_int_assembly_id" invisible="1"/>
-                    <field name="expire_date"
-                           invisible="context.get('invisible_expire_date', True)" />
+                    <field name="mandate_category_id"/>
                     <field name="is_duplicate_detected" invisible ="1"/>
                     <field name="is_duplicate_allowed" invisible ="1"/>
                     <button name="button_undo_allow_duplicate" string="Undo Allow Incompatible Mandate" type="object"
@@ -59,6 +56,8 @@
                             attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
                             icon="gtk-undo"
                             confirm="Undo allow incompatible mandate: proceed anyway?" />
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
@@ -67,7 +66,7 @@
             <field name="name">abstract.candidature.search</field>
             <field name="model">abstract.candidature</field>
             <field name="arch" type="xml">
-                <search string="Candidature" version="7.0">
+                <search string="Candidatures" version="7.0">
                     <field name="selection_committee_id"/>
                     <field name="partner_id" domain="[('is_company','=',False)]"/>
                     <field name="mandate_category_id"/>
@@ -107,13 +106,11 @@
             <field name="name">abstract.candidature.tree</field>
             <field name="model">abstract.candidature</field>
             <field name="arch" type="xml">
-                <tree string="Candidature" version="7.0">
+                <tree string="Candidatures" version="7.0">
                     <field name="selection_committee_id"/>
-                    <field name="partner_id" invisible="1"/>
                     <field name="partner_name"/>
-                    <field name="mandate_category_id"/>
                     <field name="mandate_start_date"/>
-                    <field name="designation_int_assembly_id" invisible="1"/>
+                    <field name="mandate_category_id"/>
                     <field name="state"/>
                     <button name="button_suggest" string="Suggest"  icon="gtk-apply"
                             confirm="Suggest candidature: proceed anyway ?" states="declared"/>
@@ -129,7 +126,7 @@
             <field name="name">abstract.selection.committee.search</field>
             <field name="model">abstract.selection.committee</field>
             <field name="arch" type="xml">
-                <search string="Selection committee" version="7.0">
+                <search string="Selection Committees" version="7.0">
                     <field name="name"/>
                     <field name="assembly_id"/>
                     <field name="mandate_category_id"/>
@@ -154,12 +151,11 @@
             <field name="name">abstract.selection.committee.tree</field>
             <field name="model">abstract.selection.committee</field>
             <field name="arch" type="xml">
-                <tree string="Selection Committee" version="7.0">
+                <tree string="Selection Committees" version="7.0">
                     <field name="name"/>
                     <field name="assembly_id"/>
-                    <field name="mandate_category_id"/>
                     <field name="mandate_start_date"/>
-                    <field name="designation_int_assembly_id" invisible="1"/>
+                    <field name="mandate_category_id"/>
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
                 </tree>
@@ -192,10 +188,10 @@
             <field name="arch" type="xml">
                 <tree create="0" delete="0" string="Incompatible Mandates" version="7.0" colors="red:is_duplicate_detected==True">
                     <field name="partner_id"/>
-                    <field name="mandate_category_id"/>
                     <field name="assembly_name"/>
                     <field name="start_date"/>
                     <field name="deadline_date"/>
+                    <field name="mandate_category_id"/>
                     <field name="is_duplicate_detected" invisible="1"/>
                     <button name="button_view_mandate" type="object" string="View" icon="gtk-file"/>
                 </tree>
@@ -341,12 +337,13 @@
                             <button name="button_suggest" string="Suggest" class="oe_highlight"
                                     confirm="Suggest candidature: proceed anyway ?" states="declared"/>
                             <button name="button_reject" string="Reject" class="oe_highlight"
-                                            confirm="Reject candidature: proceed anyway ?" states="declared,designated"/>
+                                    confirm="Reject candidature: proceed anyway ?" states="declared,designated"/>
                             <button name="button_declare" string="Declare" class="oe_highlight"
-                                            confirm="Declare candidature: proceed anyway ?" states="rejected,suggested"/>
+                                    attrs="{'invisible': ['|',('is_selection_committee_active','=',False),('state','not in', ['rejected', 'suggested'])]}"
+                                    confirm="Declare candidature: proceed anyway ?"/>
                             <button name="button_create_mandate" string="Mandate" type="object"
-                                        confirm="Create mandate from candidature: proceed anyway ?"/>
-                            <field name="state" widget="statusbar" statusbar_visible='declared,suggested,designated,elected,non-elected'/>
+                                    confirm="Create mandate from candidature: proceed anyway ?"/>
+                            <field name="state" widget="statusbar" statusbar_visible='declared,suggested,designated,elected'/>
                         </div>
                     </header>
                     <sheet>
@@ -389,6 +386,7 @@
                                 <field name="id"/>
                                 <field name="active"/>
                                 <field name="mandate_ids"/>
+                                <field name="is_selection_committee_active"/>
                             </group>
                         </div>
                     </div>

@@ -25,7 +25,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import logging
 
 from openerp import tools
 from openerp.osv import orm, fields
@@ -33,8 +32,6 @@ from openerp.tools.translate import _
 from openerp.addons.ficep_mandate.int_mandate import int_mandate
 from openerp.addons.ficep_mandate.ext_mandate import ext_mandate
 from openerp.addons.ficep_base import url
-
-_logger = logging.getLogger(__name__)
 
 
 class mandates_analysis_report(orm.Model):
@@ -47,12 +44,13 @@ class mandates_analysis_report(orm.Model):
     _columns = {
         'model': fields.char('Models'),
         'id': fields.char('ID'),
-        'designation_int_assembly_id': fields.integer('Designation assembly'),
-        'months_before_end_of_mandate': fields.integer('Months before end of mandate'),
-        'remaining_months_before_end_of_mandate': fields.integer('Remaining months before end of mandate')
+        'designation_int_assembly_id': fields.integer('Designation Assembly'),
+        'months_before_end_of_mandate': fields.integer('Alert Delay (#Months)'),
+        'remaining_months_before_end_of_mandate': fields.integer('Remaining Months before End of Mandate')
     }
 
-    # orm methods
+# orm methods
+
     def init(self, cr):
         tools.drop_view_if_exists(cr, 'mandates_analysis_report')
         cr.execute("""
@@ -154,5 +152,5 @@ class mandates_analysis_report(orm.Model):
                 'body_html': '\n'.join(content_text),
                 'recipient_ids': [[6, False, [secretary.partner_id.id]]],
             }
-            mail_id = self.pool.get('mail.mail').create(cr, uid, mail_vals, context=context)
+            self.pool.get('mail.mail').create(cr, uid, mail_vals, context=context)
         return True

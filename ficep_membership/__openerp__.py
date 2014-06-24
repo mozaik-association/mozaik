@@ -33,8 +33,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_communication',
-        'ficep_person_coordinate',
+        'ficep_membercom'
     ],
     'description': """
 FICEP Membership
@@ -43,6 +42,7 @@ FICEP Membership
     'images': [
     ],
     'data': [
+        'membership_view.xml',
     ],
     'sequence': 150,
     'auto_install': False,

@@ -114,9 +114,13 @@ class abstract_selection_committee(orm.AbstractModel):
         'auto_mandate': False,
     }
 
-    _order = 'assembly_id, mandate_start_date, mandate_category_id, name'
-
 # constraints
+
+    _unicity_keys = 'N/A'
+
+    _sql_constraints = [
+        ('date_check', "CHECK(mandate_start_date <= mandate_deadline_date)", "The start date must be anterior to the deadline date."),
+    ]
 
     def _check_decision_date(self, cr, uid, ids, context=None):
         """
@@ -141,6 +145,34 @@ class abstract_selection_committee(orm.AbstractModel):
     ]
 
 # orm methods
+
+    def name_get(self, cr, uid, ids, context=None):
+        if not context:
+            context = self.pool.get('res.users').context_get(cr, uid)
+
+        if not ids:
+            return []
+
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+
+        res = []
+
+        for committee in self.browse(cr, uid, ids, context=context):
+            display_name = u'{assembly}/{start} ({name})'.format(assembly=committee.assembly_id.name,
+                                                                 start=self.pool.get('res.lang').format_date(cr, uid, committee.mandate_start_date, context) or False,
+                                                                 name=committee.name,)
+            res.append((committee['id'], display_name))
+        return res
+
+    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
+        if not args:
+            args = []
+        if name:
+            assembly_ids = self.pool[self._assembly_model].search(cr, uid, [('name', operator, name)], context=context)
+            ids = self.search(cr, uid, ['|', ('name', operator, name), ('assembly_id', 'in', assembly_ids)] + args, limit=limit, context=context)
+        else:
+            ids = self.search(cr, uid, args, limit=limit, context=context)
+        return self.name_get(cr, uid, ids, context)
 
     def copy_data(self, cr, uid, id_, default=None, context=None):
         default = default or {}
@@ -245,6 +277,8 @@ class abstract_selection_committee(orm.AbstractModel):
                 res['value']['designation_int_assembly_id'] = assembly.designation_int_assembly_id.id
         return res
 
+# public methods
+
     def process_invalidate_candidatures_after_delay(self, cr, uid, context=None):
         """
         ===========================================
@@ -313,7 +347,12 @@ class abstract_mandate(orm.AbstractModel):
 
 # constraints
 
-    _unicity_keys = 'partner_id, mandate_category_id, start_date'
+    _unicity_keys = 'N/A'
+
+    _sql_constraints = [
+        ('date_check', "CHECK(start_date <= deadline_date)", "The start date must be anterior to the deadline date."),
+        ('date_check2', "CHECK((end_date = NULL) or ((start_date <= end_date) and (end_date <= deadline_date)))", "The end date must be between start date and deadline date."),
+    ]
 
 # view methods: onchange, button
 
@@ -362,6 +401,8 @@ class abstract_mandate(orm.AbstractModel):
         else:
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)
+
+# public methods
 
     def get_duplicate_ids(self, cr, uid, value, context=None):
         reset_ids = []
@@ -526,6 +567,7 @@ class abstract_candidature(orm.AbstractModel):
         return self.name_get(cr, uid, ids, context)
 
 # view methods: onchange, button
+
     def action_elected(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state': 'elected'})
         for candidature in self.browse(cr, uid, ids, context):

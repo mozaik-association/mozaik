@@ -81,9 +81,11 @@ class ext_selection_committee(orm.Model):
         'is_virtual': True,
     }
 
+    _order = 'assembly_id, mandate_start_date, mandate_category_id, name'
+
 # constraints
 
-    _unicity_keys = 'N/A'
+    _unicity_keys = 'assembly_id, mandate_start_date, mandate_category_id, name'
 
 # view methods: onchange, button
 
@@ -127,9 +129,9 @@ class ext_selection_committee(orm.Model):
 
     def process_invalidate_candidatures_after_delay(self, cr, uid, context=None):
         """
-        ==========================
-        invalidate_candidatures
-        ==========================
+        ===========================================
+        process_invalidate_candidatures_after_delay
+        ===========================================
         This method is used to invalidate candidatures after a defined elapsed time
         :rparam: True
         :rtype: boolean
@@ -193,7 +195,7 @@ class ext_candidature(orm.Model):
         'designation_int_assembly_id': fields.related('selection_committee_id', 'designation_int_assembly_id', string='Designation Assembly',
                                           type='many2one', relation="int.assembly",
                                           store=_designation_assembly_store_trigger),
-        'months_before_end_of_mandate': fields.related('ext_assembly_id', 'months_before_end_of_mandate', string='Months before end of Mandate',
+        'months_before_end_of_mandate': fields.related('ext_assembly_id', 'months_before_end_of_mandate', string='Alert Delay (#Months)',
                                           type='integer', relation="ext.assembly",
                                           store=False),
         'mandate_ids': fields.one2many(_mandate_model, 'candidature_id', 'External Mandates',
@@ -241,8 +243,16 @@ class ext_mandate(orm.Model):
                                           type='boolean',
                                           store={'mandate.category': (mandate_category.get_linked_ext_mandate_ids, ['is_submission_assets'], 20)}),
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'ext_mandate_term_competencies_rel', id1='ext_mandate_id', id2='thesaurus_term_id', string='Competencies'),
-        'months_before_end_of_mandate': fields.integer('Months before end of Mandate', track_visibility='onchange'),
+        'months_before_end_of_mandate': fields.integer('Alert Delay (#Months)', track_visibility='onchange'),
     }
+
+    _order = 'partner_id, ext_assembly_id, start_date, mandate_category_id'
+
+# constraints
+
+    _unicity_keys = 'partner_id, ext_assembly_id, start_date, mandate_category_id'
+
+# view methods: onchange, button
 
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
         """
