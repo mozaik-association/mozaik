@@ -125,7 +125,14 @@
                         <notebook invisible="context.get('popup')">
                             <page string="Failures">
                                 <group>
-                                    <field name="bounce_counter" readonly="1"/>
+                                    <label for="bounce_counter"/>
+                                    <div>
+                                        <field name="bounce_counter" class="oe_inline" readonly="1"/>
+                                        <button name="button_reset_counter" type="object" class="oe_link" string="⇒ Reset"
+                                                attrs="{'invisible': [('bounce_counter','=',0)]}"
+                                                groups="ficep_base.ficep_res_groups_configurator"
+                                                confirm="Reset Counter: proceed anyway?"/>
+                                    </div>
                                     <field name="bounce_description" readonly="1" />
                                     <field name="bounce_date" readonly="1" />
                                 </group>

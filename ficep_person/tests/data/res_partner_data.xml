@@ -7,5 +7,9 @@
             <field name="email">jacques@ficep-ec.be</field>
         </record>
 
+        <record id="res_partner_thierry" model="res.partner">
+            <field name="birth_date">1985-04-01</field>
+        </record>
+
     </data>
 </openerp>
