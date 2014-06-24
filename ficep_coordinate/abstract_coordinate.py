@@ -204,6 +204,15 @@ class abstract_coordinate(orm.AbstractModel):
         res = super(abstract_coordinate, self).copy(cr, uid, ids, default=default, context=context)
         return res
 
+# view methods: onchange, button
+
+    def button_reset_counter(self, cr, uid, ids, context=None):
+        """
+        Reset the bounce counter
+        """
+        self.write(cr, uid, ids,
+                   {'bounce_counter': 0}, context=context)
+
 # public methods
 
     def get_linked_partners(self, cr, uid, ids, context=None):

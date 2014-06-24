@@ -107,7 +107,7 @@ class phone_phone(orm.Model):
     _columns = {
         'name': fields.char('Number', size=50, required=True, select=True, track_visibility='onchange'),
         'type': fields.selection(PHONE_AVAILABLE_TYPES, 'Type', required=True, track_visibility='onchange'),
-        'also_for_fax': fields.boolean('Also for fax', track_visibility='onchange'),
+        'also_for_fax': fields.boolean('Also for Fax', track_visibility='onchange'),
 
         'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinates',
                                                 domain=[('active', '=', True)]),
