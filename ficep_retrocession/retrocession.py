@@ -31,6 +31,13 @@ from openerp.tools.translate import _
 from openerp.addons.ficep_base.selections_translator import translate_selections
 from openerp.addons.ficep_retrocession.common import INVOICE_AVAILABLE_TYPES, CALCULATION_METHOD_AVAILABLE_TYPES, CALCULATION_RULE_AVAILABLE_TYPES
 
+RETROCESSION_AVAILABLE_STATES = [
+    ('draft', 'Ready to send'),
+    ('sent', 'Sent'),
+    ('validated', 'Validated'),
+    ('paid', 'Paid'),
+]
+
 
 class fractionation(orm.Model):
     _name = 'fractionation'
@@ -161,14 +168,20 @@ class calculation_method(orm.Model):
         Note: Argument vals must be the last in the signature
         """
         rule_pool = self.pool.get('calculation.rule')
-        rule_ids = rule_pool.search(cr, uid, [('calculation_method_id', '=', method_id),
+        rule_ids = rule_pool.search(cr, uid, [(mandate_key, '=', mandate_id),
                                               ('type', '=', 'fixed')], context=context)
-        for rule in rule_pool.browse(cr, uid, rule_ids, context=context):
-            data = dict(name=rule.name,
-                        type=rule.type,
-                        percentage=rule.percentage)
-            data[mandate_key] = mandate_id
-            rule_pool.create(cr, uid, data, context)
+        if rule_ids:
+            rule_pool.unlink(cr, uid, rule_ids, context=context)
+
+        if method_id:
+            rule_ids = rule_pool.search(cr, uid, [('calculation_method_id', '=', method_id),
+                                                  ('type', '=', 'fixed')], context=context)
+            for rule in rule_pool.browse(cr, uid, rule_ids, context=context):
+                data = dict(name=rule.name,
+                            type=rule.type,
+                            percentage=rule.percentage)
+                data[mandate_key] = mandate_id
+                rule_pool.create(cr, uid, data, context)
 
         return True
 
@@ -183,14 +196,15 @@ class calculation_method(orm.Model):
         Note: Argument vals must be the last in the signature
         """
         rule_pool = self.pool.get('calculation.rule')
-        rule_ids = rule_pool.search(cr, uid, [('calculation_method_id', '=', method_id),
-                                              ('type', '=', 'variable')], context=context)
-        for rule in rule_pool.browse(cr, uid, rule_ids, context=context):
-            data = dict(name=rule.name,
-                        type=rule.type,
-                        percentage=rule.percentage)
-            data['retrocession_id'] = retrocession_id
-            rule_pool.create(cr, uid, data, context)
+        if method_id:
+            rule_ids = rule_pool.search(cr, uid, [('calculation_method_id', '=', method_id),
+                                                  ('type', '=', 'variable')], context=context)
+            for rule in rule_pool.browse(cr, uid, rule_ids, context=context):
+                data = dict(name=rule.name,
+                            type=rule.type,
+                            percentage=rule.percentage)
+                data['retrocession_id'] = retrocession_id
+                rule_pool.create(cr, uid, data, context)
 
         return True
 
@@ -250,8 +264,14 @@ class retrocession(orm.Model):
         """
         res = {}
         for retrocession in self.browse(cr, uid, ids, context=context):
-            rules = retrocession.sta_mandate_id.calculation_rule_ids if retrocession.sta_mandate_id else retrocession.ext_mandate_id.calculation_rule_ids
-            res[retrocession.id] = [rule.id for rule in rules]
+            rule_ids = []
+            if retrocession.state in ['draft', 'sent']:
+                rules = retrocession.sta_mandate_id.calculation_rule_ids if retrocession.sta_mandate_id else retrocession.ext_mandate_id.calculation_rule_ids
+                rule_ids = [rule.id for rule in rules]
+            else:
+                rule_ids = self.pool.get('calculation.rule').search(cr, uid, [('retrocession_id', '=', retrocession.id),
+                                                                  ('type', '=', 'fixed')], context=context)
+            res[retrocession.id] = rule_ids
         return res
 
     def _get_fixed_rule_inactive_ids(self, cr, uid, ids, fname, arg, context=None):
@@ -259,16 +279,38 @@ class retrocession(orm.Model):
         =================
         _get_fixed_rule_ids
         =================
-        Get calculation rule ids linked to mandate
+        Get fice calculation rule ids linked to mandate
         :rparam: Calculation rule ids
         :rtype: one2many
         """
         res = {}
         for retrocession in self.browse(cr, uid, ids, context=context):
-            res[retrocession.id] = retrocession.sta_mandate_id.calculation_rule_inactive_ids if retrocession.sta_mandate_id else retrocession.ext_mandate_id.calculation_rule_inactive_ids
+            rule_ids = []
+            if retrocession.state in ['draft', 'sent']:
+                rules = retrocession.sta_mandate_id.calculation_rule_inactive_ids if retrocession.sta_mandate_id else retrocession.ext_mandate_id.calculation_rule_inactive_ids
+                rule_ids = [rule.id for rule in rules]
+            else:
+                rule_ids = self.pool.get('calculation.rule').search(cr, uid, [('retrocession_id', '=', retrocession.id),
+                                                                  ('type', '=', 'fixed')], context=context)
+            res[retrocession.id] = rule_ids
         return res
 
-    def _compute_amount(self, cr, uid, ids, rule_column, context=None):
+    def _get_retrocession_to_compute(self, cr, uid, ids, context=None):
+        """
+        ===========================
+        get_retrocession_to_compute
+        ===========================
+        Get computation of retrocession coming from rules
+        :rparam:  retrocession amount
+        :rtype: float
+        """
+        retrocessions = []
+        for retrocession in self.browse(cr, uid, ids, context=context):
+            if retrocession.state in ['draft', 'sent']:
+                retrocessions.append(retrocession)
+        return retrocessions
+
+    def _compute_amount(self, cr, uid, retrocessions_to_compute, rule_column, context=None):
         """
         =================
         _compute_amount
@@ -278,16 +320,14 @@ class retrocession(orm.Model):
         :rtype: float
         """
         res = {}
-        for retrocession in self.browse(cr, uid, ids, context=context):
-            if not retrocession.active:
-                rule_column.replace('ids', 'inactive_ids')
+        for retrocession in retrocessions_to_compute:
             amount = 0.0
             for rule in retrocession[rule_column]:
                 amount += (rule.amount * (rule.percentage / 100))
             res[retrocession.id] = amount
         return res
 
-    def _compute_fixed_amount(self, cr, uid, ids, fname, arg, context=None):
+    def _compute_amount_fixed(self, cr, uid, ids, fname, arg, context=None):
         """
         =================
         _compute_fixed_amount
@@ -296,33 +336,36 @@ class retrocession(orm.Model):
         :rparam: Fixed part of retrocession amount
         :rtype: float
         """
-        return self._compute_amount(cr, uid, ids, 'fixed_rule_ids', context=context)
+        retrocessions_to_compute = self._get_retrocession_to_compute(cr, uid, ids, context=context)
+        return self._compute_amount(cr, uid, retrocessions_to_compute, 'fixed_rule_ids', context=context)
 
-    def _compute_variable_amount(self, cr, uid, ids, fname, arg, context=None):
+    def _compute_amount_variable(self, cr, uid, ids, fname, arg, context=None):
         """
         =================
-        _compute_fixed_amount
+        _compute_variable_amount
         =================
-        Get computation of retrocession coming from fixed rules linked to mandate
+        Get computation of retrocession coming from variable rules linked to retrocession
         :rparam: Fixed part of retrocession amount
         :rtype: float
         """
-        return self._compute_amount(cr, uid, ids, 'variable_rule_ids', context=context)
+        retrocessions_to_compute = self._get_retrocession_to_compute(cr, uid, ids, context=context)
+        return self._compute_amount(cr, uid, retrocessions_to_compute, 'variable_rule_ids', context=context)
 
-    def _compute_total_amount(self, cr, uid, ids, fname, arg, context=None):
+    def _compute_amount_total(self, cr, uid, ids, fname, arg, context=None):
         """
-        =================
-        _compute_fixed_amount
-        =================
-        Get computation of retrocession coming from fixed rules linked to mandate
+        =====================
+        _compute_amount_total
+        =====================
+        Get total amounts of retrocession coming from fixed rules linked to mandate and variable rules
         :rparam: Fixed part of retrocession amount
         :rtype: float
         """
         res = {}
-        fixed_amounts = self._compute_amount(cr, uid, ids, 'fixed_rule_ids', context=context)
-        variable_amounts = self._compute_amount(cr, uid, ids, 'variable_rule_ids', context=context)
-        for retro_id in ids:
-            res[retro_id] = (fixed_amounts[retro_id] + variable_amounts[retro_id])
+        retrocessions_to_compute = self._get_retrocession_to_compute(cr, uid, ids, context=context)
+        fixed_amounts = self._compute_amount(cr, uid, retrocessions_to_compute, 'fixed_rule_ids', context=context)
+        variable_amounts = self._compute_amount(cr, uid, retrocessions_to_compute, 'variable_rule_ids', context=context)
+        for retro in retrocessions_to_compute:
+            res[retro.id] = (fixed_amounts[retro.id] + variable_amounts[retro.id])
         return res
 
     def _get_invoice_type(self, cr, uid, ids, fname, arg, context=None):
@@ -339,7 +382,27 @@ class retrocession(orm.Model):
             res[retrocession.id] = retrocession.sta_mandate_id.invoice_type if retrocession.sta_mandate_id else retrocession.ext_mandate_id.invoice_type
         return res
 
+    def _get_calculation_rule(self, cr, uid, ids, context=None):
+        retrocession_ids = []
+        retro_pool = self.pool.get('retrocession')
+        for rule in self.browse(cr, uid, ids, context=context):
+            if rule.retrocession_id:
+                retrocession_ids.append(rule.retrocession_id.id)
+            elif rule.ext_mandate_id:
+                retrocession_ids += retro_pool.search(cr, uid, [('ext_mandate_id', '=', rule.ext_mandate_id.id)], context=context)
+            elif rule.sta_mandate_id:
+                retrocession_ids += retro_pool.search(cr, uid, [('sta_mandate_id', '=', rule.sta_mandate_id.id)], context=context)
+
+        res = list(set(retrocession_ids))
+        return res
+
+    _amount_store_trigger = {
+        'retrocession': (lambda self, cr, uid, ids, context=None: ids, ['fixed_rule_ids', 'variable_rule_ids'], 20),
+        'calculation.rule': (_get_calculation_rule, ['amount', 'percentage'], 20),
+    }
+
     _columns = {
+        'state': fields.selection(RETROCESSION_AVAILABLE_STATES, 'State', size=128, select=True, track_visibility='onchange'),
         'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate',
                                         select=True, track_visibility='onchange'),
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate',
@@ -350,18 +413,22 @@ class retrocession(orm.Model):
                                  type='selection', selection=INVOICE_AVAILABLE_TYPES, store=False, select=True),
         'month': fields.selection(fields.date.MONTHS, 'Month', size=128, select=True, track_visibility='onchange'),
         'year': fields.char('Year', size=128, select=True, track_visibility='onchange'),
-        'variable_rule_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation variable rules', domain=[('active', '=', True)]),
-        'variable_rule_inactive_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation variable rules', domain=[('active', '=', False)]),
+        'variable_rule_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation variable rules', domain=[('active', '=', True), ('type', '=', 'variable')]),
+        'variable_rule_inactive_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation variable rules', domain=[('active', '=', False), ('type', '=', 'variable')]),
         'fixed_rule_ids': fields.function(_get_fixed_rule_ids, string='Calculation fixed rules',
                                  type='one2many', relation='calculation.rule', store=False, select=True),
         'fixed_rule_inactive_ids': fields.function(_get_fixed_rule_inactive_ids, string='Calculation fixed rules',
                                  type='one2many', relation='calculation.rule', store=False, select=True),
-        'fixed_amount': fields.function(_compute_fixed_amount, string='Fixed amount to retrocede',
-                                 type='float', store=False, select=True),
-        'variable_amount': fields.function(_compute_variable_amount, string='Variable amount to retrocede',
-                                 type='float', store=False, select=True),
-        'total_amount': fields.function(_compute_total_amount, string='Total amount to retrocede',
-                                 type='float', store=False, select=True),
+        'amount_fixed': fields.function(_compute_amount_fixed, string='Fixed amount to retrocede',
+                                 type='float', store=_amount_store_trigger, select=True),
+        'amount_variable': fields.function(_compute_amount_variable, string='Variable amount to retrocede',
+                                 type='float', store=_amount_store_trigger, select=True),
+        'amount_total': fields.function(_compute_amount_total, string='Total amount to retrocede',
+                                        type='float', store=_amount_store_trigger, select=True),
+    }
+
+    _defaults = {
+        'state': 'draft'
     }
 
     def _check_unicity(self, cr, uid, ids, for_unlink=False, context=None):
@@ -452,3 +519,30 @@ class retrocession(orm.Model):
             res['value'] = dict(invoice_type=invoice_type or False)
 
         return res
+
+    def button_dummy(self, cr, uid, retro_id, context=None):
+        return True
+
+    def action_validate(self, cr, uid, ids, context=None):
+        """
+        =================
+        action_validate
+        =================
+        Change state of retrocession to 'Validated' and generate invoice
+        :rparam: Invoice id
+        :rtype: integer
+        """
+        self.write(cr, uid, ids, {'state': 'validated'}, context=context)
+        # copy fixed rules on retrocession to keep history of calculation basis
+        for retrocession in self.browse(cr, uid, ids, context=context):
+            rules = retrocession.sta_mandate_id.calculation_rule_ids if retrocession.sta_mandate_id else retrocession.ext_mandate_id.calculation_rule_ids
+            for rule in rules:
+                data = dict(name=rule.name,
+                            type=rule.type,
+                            percentage=rule.percentage,
+                            amount=rule.amount)
+                data['retrocession_id'] = retrocession.id
+                self.pool.get('calculation.rule').create(cr, uid, data, context)
+
+        # TODO: generate invoice and send report to mandate representative and return its id
+        return False

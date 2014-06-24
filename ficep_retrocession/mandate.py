@@ -59,6 +59,8 @@ class sta_mandate(orm.Model):
     _description = 'State Mandate'
     _inherit = ['sta.mandate']
 
+    _inactive_cascade = True
+
     def _get_method_id(self, cr, uid, ids, fname, arg, context=None):
         """
         =================
@@ -104,9 +106,15 @@ class sta_mandate(orm.Model):
         'sta.assembly': (sta_assembly.get_linked_sta_mandate_ids, ['calculation_method_id'], 20),
     }
 
+    _invoice_type_store_trigger = {
+       'sta.mandate': (lambda self, cr, uid, ids, context=None: ids,
+            ['mandate_category_id'], 20),
+       'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['invoice_type'], 20),
+    }
+
     _columns = {
         'invoice_type': fields.related('mandate_category_id', 'invoice_type', string='Invoicing', type='selection',
-                                       selection=INVOICE_AVAILABLE_TYPES, store=True),
+                                       selection=INVOICE_AVAILABLE_TYPES, store=_invoice_type_store_trigger),
         'calculation_method_id': fields.function(_get_method_id, string='Calculation Method',
                                  type='many2one', relation="calculation.method", store=_method_id_store_trigger, select=True),
         'method_type': fields.related('calculation_method_id', 'type', string='Calculation method type', type='selection',
@@ -128,6 +136,9 @@ class sta_mandate(orm.Model):
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
+        if isinstance(ids, (int, long)):
+            ids = [ids]
+
         if 'sta_assembly_id' in vals or 'mandate_category_id' in vals:
             dataset = self.read(cr, uid, ids, ['calculation_method_id'], context=context)
             method_dict = {}
@@ -147,6 +158,8 @@ class ext_mandate(orm.Model):
     _name = 'ext.mandate'
     _description = 'External Mandate'
     _inherit = ['ext.mandate']
+
+    _inactive_cascade = True
 
     def _get_method_id(self, cr, uid, ids, fname, arg, context=None):
         """
@@ -193,9 +206,15 @@ class ext_mandate(orm.Model):
         'ext.assembly': (ext_assembly.get_linked_ext_mandate_ids, ['calculation_method_id'], 20),
     }
 
+    _invoice_type_store_trigger = {
+       'ext.mandate': (lambda self, cr, uid, ids, context=None: ids,
+            ['mandate_category_id'], 20),
+       'mandate.category': (mandate_category.get_linked_ext_mandate_ids, ['invoice_type'], 20),
+    }
+
     _columns = {
         'invoice_type': fields.related('mandate_category_id', 'invoice_type', string='Invoicing', type='selection',
-                                       selection=INVOICE_AVAILABLE_TYPES, store=True),
+                                       selection=INVOICE_AVAILABLE_TYPES, store=_invoice_type_store_trigger),
         'calculation_method_id': fields.function(_get_method_id, string='Calculation Method',
                                  type='many2one', relation="calculation.method", store=_method_id_store_trigger, select=True),
         'method_type': fields.related('calculation_method_id', 'type', string='Calculation method type', type='selection',
@@ -217,6 +236,9 @@ class ext_mandate(orm.Model):
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
+        if isinstance(ids, (int, long)):
+            ids = [ids]
+
         if 'ext_assembly_id' in vals or 'mandate_category_id' in vals:
             dataset = self.read(cr, uid, ids, ['calculation_method_id'], context=context)
             method_dict = {}

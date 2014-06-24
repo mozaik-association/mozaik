@@ -25,11 +25,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import test_retrocession
+from . import test_retrocession, test_retrocession_factory_wizard
 
 fast_suite = [
 ]
 
 checks = [
      test_retrocession,
+     test_retrocession_factory_wizard
 ]

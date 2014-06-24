@@ -138,3 +138,169 @@ class test_retrocession(SharedSetupTransactionCase):
         self.assertFalse(self.registry('ext.mandate').read(self.cr, self.uid, mandate_id, ['active'])['active'])
         self.assertTrue(self.registry('calculation.method').read(self.cr, self.uid, method_id, ['active'])['active'])
         self.assertFalse(self.registry('retrocession').read(self.cr, self.uid, retro_id, ['active'])['active'])
+
+    def test_ext_mandates(self):
+        '''
+            Test mandates
+        '''
+        rule_pool = self.registry('calculation.rule')
+        mandate_id = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
+
+        '''
+            Invoicing type should be monthly
+        '''
+        invoicing_type = self.registry('ext.mandate').read(self.cr, self.uid, mandate_id, ['invoice_type'])['invoice_type']
+        self.assertEqual(invoicing_type, 'month')
+
+        '''
+            Check if fixed rules has been copied from method to mandate
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id)])
+        self.assertEqual(len(rule_ids), 2)
+
+        '''
+            Check changing mandate category changes rules
+        '''
+        mandate_cat_id = self.ref('%s.mc_administrateur' % self._module_ns)
+        self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id})
+        rule_ids = rule_pool.search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id)])
+        self.assertEqual(len(rule_ids), 0)
+        mandate_cat_id = self.ref('%s.mc_membre_effectif_ag' % self._module_ns)
+        self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id})
+
+        '''
+            Check changing assembly changes rules
+        '''
+        assembly_id = self.ref('%s.ext_assembly_02' % self._module_ns)
+        self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'ext_assembly_id': assembly_id})
+        rule_ids = rule_pool.search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id)])
+        self.assertEqual(len(rule_ids), 1)
+        assembly_id = self.ref('%s.ext_assembly_01' % self._module_ns)
+        self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'ext_assembly_id': assembly_id})
+
+    def test_sta_mandates(self):
+        '''
+            Test mandates
+        '''
+        rule_pool = self.registry('calculation.rule')
+        mandate_id = self.ref('%s.stam_jacques_bourgmestre' % self._module_ns)
+
+        '''
+            Invoicing type should be yearly
+        '''
+        invoicing_type = self.registry('sta.mandate').read(self.cr, self.uid, mandate_id, ['invoice_type'])['invoice_type']
+        self.assertEqual(invoicing_type, 'year')
+
+        '''
+            Check if fixed rules has been copied from method to mandate
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id)])
+        self.assertEqual(len(rule_ids), 2)
+
+        '''
+            Check changing mandate category changes rules
+        '''
+        mandate_cat_id = self.ref('%s.mc_administrateur' % self._module_ns)
+        self.registry('sta.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id})
+        rule_ids = rule_pool.search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id)])
+        self.assertEqual(len(rule_ids), 0)
+        mandate_cat_id = self.ref('%s.mc_conseiller_communal' % self._module_ns)
+        self.registry('sta.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id})
+
+        '''
+            Check changing assembly changes rules
+        '''
+        assembly_id = self.ref('%s.sta_assembly_01' % self._module_ns)
+        self.registry('sta.mandate').write(self.cr, self.uid, mandate_id, {'sta_assembly_id': assembly_id})
+        rule_ids = rule_pool.search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id)])
+        self.assertEqual(len(rule_ids), 1)
+        assembly_id = self.ref('%s.sta_assembly_03' % self._module_ns)
+        self.registry('sta.mandate').write(self.cr, self.uid, mandate_id, {'sta_assembly_id': assembly_id})
+
+    def test_retrocession_unicity(self):
+        '''
+            Test impossibility to create several retrocession for the same mandate at the same period
+        '''
+        mandate_id = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
+        data = dict(ext_mandate_id=mandate_id,
+                    month=5, year=2014,
+                    )
+        self.assertRaises(orm.except_orm, self.registry('retrocession').create, self.cr, self.uid, data)
+
+        mandate_id = self.ref('%s.stam_jacques_bourgmestre' % self._module_ns)
+        data = dict(sta_mandate_id=mandate_id,
+                    year=2014,
+                    )
+        self.assertRaises(orm.except_orm, self.registry('retrocession').create, self.cr, self.uid, data)
+
+    def test_retrocession_ext_mandate_process(self):
+        '''
+            Test retrocessions
+        '''
+        rule_pool = self.registry('calculation.rule')
+        retro_pool = self.registry('retrocession')
+        retro_id = self.ref('%s.retro_jacques_ag_mai_2014' % self._module_ns)
+        mandate_id = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
+
+        '''
+            Check if variable rules has been copied from method to retrocession
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('retrocession_id', '=', retro_id)])
+        self.assertEqual(len(rule_ids), 1)
+
+        '''
+            Setting some amounts on fixed rules should invoke retrocession calculation
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id)])
+        rule_pool.write(self.cr, self.uid, rule_ids, {'amount': 100})
+        amounts = retro_pool.read(self.cr, self.uid, retro_id, ['amount_fixed', 'amount_total'])
+        self.assertEqual(amounts['amount_fixed'], 3.40)
+        self.assertEqual(amounts['amount_total'], 3.40)
+
+        '''
+            Setting some amounts on variable rules should invoke retrocession calculation
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('retrocession_id', '=', retro_id)])
+        rule_pool.write(self.cr, self.uid, rule_ids, {'amount': 100})
+        amounts = retro_pool.read(self.cr, self.uid, retro_id, ['amount_fixed', 'amount_variable', 'amount_total'])
+        self.assertEqual(amounts['amount_fixed'], 3.40)
+        self.assertEqual(amounts['amount_variable'], 0.75)
+        self.assertEqual(amounts['amount_total'], 4.15)
+
+        '''
+            Changing percentage of fixed rules should affect retrocession computation
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id)])
+        rule_pool.write(self.cr, self.uid, rule_ids, {'percentage': 0.25})
+        amounts = retro_pool.read(self.cr, self.uid, retro_id, ['amount_fixed', 'amount_total'])
+        self.assertEqual(amounts['amount_fixed'], 0.50)
+        self.assertEqual(amounts['amount_total'], 1.25)
+
+        '''
+            Changing percentage of variable rules should affect retrocession computation
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('retrocession_id', '=', retro_id)])
+        rule_pool.write(self.cr, self.uid, rule_ids, {'percentage': 5})
+        amounts = retro_pool.read(self.cr, self.uid, retro_id, ['amount_fixed', 'amount_variable', 'amount_total'])
+        self.assertEqual(amounts['amount_fixed'], 0.50)
+        self.assertEqual(amounts['amount_variable'], 5)
+        self.assertEqual(amounts['amount_total'], 5.5)
+
+        '''
+            After validating retrocession, no computation should occurs
+        '''
+        retro_pool.action_validate(self.cr, self.uid, [retro_id])
+        retro_state = retro_pool.read(self.cr, self.uid, retro_id, ['state'])['state']
+        self.assertEqual(retro_state, 'validated')
+
+        rule_ids = rule_pool.search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id)])
+        rule_pool.write(self.cr, self.uid, rule_ids, {'percentage': 0.55})
+        amounts = retro_pool.read(self.cr, self.uid, retro_id, ['amount_fixed', 'amount_total'])
+        self.assertEqual(amounts['amount_fixed'], 0.50)
+        self.assertEqual(amounts['amount_total'], 5.5)
+
+        '''
+            Fixed rules should have been copied on retrocession to keep computation basis history
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('retrocession_id', '=', retro_id), ('type', '=', 'variable')])
+        self.assertEqual(len(rule_ids), 1)
