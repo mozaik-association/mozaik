@@ -65,51 +65,85 @@
                             invisible="context.get('popup')">
                         </div>
 
-                        <group name="data">
-                            <group name="main">
+                        <group>
+                            <group name="partner">
+                                <group name="lastname">
+                                    <field name="lastname"
+                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email)" />
+                                </group>
                                 <group>
-                                    <group>
-                                        <field name="lastname" readonly="1"/>
-                                        <field name="firstname"  readonly="1"/>
-                                        <field name="gender"  readonly="1"/>
-                                        <field name="birth_date" attrs="{'invisible':[('birth_date', '=', False)]}" readonly="1"/>
-                                        <field name="day" attrs="{'invisible':[('birth_date', '!=', False),('day', '!=', False)]}" readonly="1"/>
-                                        <field name="month" attrs="{'invisible':[('birth_date', '!=', False),('month', '!=', False)]}" readonly="1"/>
-                                        <field name="year" attrs="{'invisible':[('birth_date', '!=', False),('year', '!=', False)]}" readonly="1"/>
-                                        <field name="status"  readonly="1"/>
-                                        <field name="interests"  readonly="1"/>
-                                    </group>
-                                    <group>
-                                        <field name="partner_id" required="1"/>
-                                        <field name="int_instance_id" />
-                                    </group>
-                                    <group>
-                                        <field name="zip_code" readonly="1"/>
-                                        <field name="street" readonly="1"/>
-                                    </group>
-                                    <group>
-                                        <field name="address_local_zip_id" />
-                                        <field name="address_local_street_id" />
-                                    </group>
-                                    <group>
-                                        <field name="email" readonly="1"/>
-                                        <field name="phone" readonly="1"/>
-                                        <field name="mobile" readonly="1"/>
-                                    </group>
-                                    <group>
-                                        <field name="email_coordinate_id" required="1"/>
-                                        <field name="phone_coordinate_id" />
-                                        <field name="phone_id" attrs="{'invisible':['|',('phone_id','=',False),
-                                                                                        '&amp;',('phone_id','!=',False),
-                                                                                            ('phone_coordinate_id', '!=', False)]}" />
-                                        <field name="mobile_coordinate_id" />
-                                        <field name="mobile_id" attrs="{'invisible':['|',('mobile_id','=',False),
-                                                                                        '&amp;',('mobile_id','!=',False),
-                                                                                            ('mobile_coordinate_id', '!=', False)]}" />
-                                    </group>
+                                    <field name="firstname"
+                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email)" />
+                                </group>
+                                <group>
+                                    <field name="email"
+                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email)" />
+                                </group>
+                                <group>
+                                    <field name="gender" />
+                                </group>
+                                <group>
+                                    <field name="interests" />
+                                </group>
+                                <group>
+                                    <field name="day"
+                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email)" />
+                                    <field name="month"
+                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email)" />
+                                    <field name="year"
+                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email)" />
+                                </group>
+                                <group>
+                                    <field name="status" />
+                                </group>
+                                <group>
+                                    <field name="country_id" on_change="onchange_country_id(country_id)"/>
+                                </group>
+                                <group>
+                                    <field name="address_local_street_id"
+                                        attrs="{'invisible': [('country_code','!=', 'BE')]}" />
+                                    <field name="street_man"
+                                        attrs="{'invisible': [('address_local_street_id','!=', False)]}" />
+                                </group>
+                                <group>
+                                    <field name="address_local_zip_id"
+                                        attrs="{'invisible': [('country_code','!=', 'BE')]}" />
+                                    <field name="zip_man"
+                                        attrs="{'invisible': [('address_local_zip_id','!=', False)]}" />
+                                    <field name="town_man"
+                                        attrs="{'invisible': [('address_local_zip_id','!=', False)]}" />
+                                </group>
+                                <group>
+                                    <field name="street2" />
+                                </group>
+                                <group>
+                                    <field name="number" />
+                                    <field name="box" />
+                                </group>
+                                <group>
+                                    <field name="phone" />
+                                    <field name="mobile" />
                                 </group>
                             </group>
                         </group>
+                        <notebook>
+                            <page string="Partner" name="partner">
+                                <group>
+                                    <field name="partner_id" />
+                                    <field name="birth_date" />
+                                    <field name="int_instance_id" />
+                                </group>
+                            </page>
+                            <page string="Coordinates" name="coordinates">
+                                <group>
+                                    <field name="phone_id" />
+                                    <field name="mobile_id" />
+                                </group>
+                                <group>
+                                    <field name="address_id" />
+                                </group>
+                            </page>
+                        </notebook>
 
                         <group name="state"
                             attrs="{'invisible': [('id','=',False)]}">
@@ -133,6 +167,7 @@
                             </div>
                             <group name="moreinfo">
                                 <field name="id" />
+                                <field name="country_code" />
                                 <field name="active" />
                             </group>
                         </div>

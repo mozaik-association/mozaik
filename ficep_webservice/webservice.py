@@ -103,9 +103,9 @@ class membership_webservice(orm.Model):
             'year': year,
 
             'status': status,
-            'street': street,
-            'zip_code': zip_code,
-            'town': town,
+            'street_man': street,
+            'zip_man': zip_code,
+            'town_man': town,
 
             'mobile': mobile,
             'phone': phone,

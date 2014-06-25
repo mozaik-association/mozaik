@@ -86,11 +86,9 @@ class test_membership(SharedSetupTransactionCase):
         }
 
         output_values = self.registry('membership.request').pre_process(cr, uid, input_values)
-        self.assertEqual(output_values.get('email_coordinate_id', False), self.rec_email.id, 'Should have same email coordinate')
         self.assertEqual(output_values.get('address_local_street_id', False), self.rec_postal.address_id.address_local_street_id.id, 'Should have the same street that the street of the postal coordinate')
         self.assertEqual(output_values.get('address_local_zip_id', False), self.rec_postal.address_id.address_local_zip_id.id, 'Should have the same code that the code of the postal coordinate')
         self.assertEqual(output_values.get('mobile_id', False), self.rec_phone.phone_id.id, 'Should have the same phone that the phone of the phone coordinate')
-        self.assertEqual(output_values.get('mobile_coordinate_id', False), self.rec_phone.id, 'Should have the same phone coordinate')
         self.assertEqual(output_values.get('partner_id', False), self.rec_partner.id, 'Should have the same partner')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
