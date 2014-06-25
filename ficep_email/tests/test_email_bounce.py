@@ -25,8 +25,24 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.addons.ficep_coordinate.tests.test_bounce import test_bounce
+from anybox.testing.openerp import SharedSetupTransactionCase
 
-from . import change_main_coordinate
-from . import bounce_editor
+
+class test_email_bounce(test_bounce, SharedSetupTransactionCase):
+
+    _data_files = (
+        '../../ficep_base/tests/data/res_partner_data.xml',
+        'data/email_data.xml',
+    )
+
+    _module_ns = 'ficep_email'
+
+    def setUp(self):
+        super(test_email_bounce, self).setUp()
+
+        # instanciate members of abstract test
+        self.model_coordinate = self.registry('email.coordinate')
+        self.model_coordinate_id = self.ref('%s.email_coordinate_thierry_two' % self._module_ns)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

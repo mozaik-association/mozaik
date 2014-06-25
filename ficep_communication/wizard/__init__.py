@@ -28,6 +28,5 @@
 
 from . import distribution_list_mass_function
 from . import mail_compose_message
-from . import bounce_editor
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

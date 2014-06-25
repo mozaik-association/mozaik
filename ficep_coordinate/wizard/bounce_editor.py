@@ -48,22 +48,8 @@ class bounce_editor(orm.TransientModel):
 
 # constraints
 
-    def _check_positive_increase(self, cr, uid, ids, context=None):
-        """
-        =============
-        _check_positif
-        =============
-        :rparam: False if ``increase`` is < 1
-                 Else True
-        :rtype: Boolean
-        """
-        for wiz in self.browse(cr, uid, ids, context=context):
-            if wiz.increase < 1:
-                return False
-        return True
-
-    _constraints = [
-        (_check_positive_increase, _('Increase Should Be a Positive Number'), ['increase']),
+    _sql_constraints = [
+        ('increase_check', 'CHECK(increase > 0)', '"increase" field should be a positive value'),
     ]
 
 # public methods
@@ -76,26 +62,29 @@ class bounce_editor(orm.TransientModel):
         Update the bounce information of coordinate.
         ``ids`` of the coordinate is contained into the active_ids of the context.
         """
+        res_ids = context.get('active_ids', False)
+        if not res_ids:
+            return
         for wiz in self.browse(cr, uid, ids, context=context):
-            res_ids = context.get('active_ids', False)
-            if not res_ids:
-                continue
+            vals = {
+                'bounce_description': wiz.description,
+                'bounce_date': datetime.today().strftime('%Y-%m-%d %H:%M:%S'),
+            }
             active_model = self.pool[wiz.model]
             coordinate_values = active_model.read(cr, uid, res_ids, ['bounce_counter'], context=context)
             for coordinate_value in coordinate_values:
-                curr_bounce_counter = coordinate_value['bounce_counter']
-                bounce_counter = curr_bounce_counter + wiz.increase
-                active_model.write(cr, uid, [coordinate_value['id']], {'bounce_counter': bounce_counter,
-                                                                       'bounce_description': wiz.description,
-                                                                       'bounce_date': datetime.today().strftime('%Y-%m-%d %H:%M:%S')})
+                bounce_counter = coordinate_value['bounce_counter']
+                vals.update({
+                    'bounce_counter': bounce_counter + wiz.increase,
+                })
+                active_model.write(cr, uid, [coordinate_value['id']], vals, context=context)
 
     def default_get(self, cr, uid, fields_list, context=None):
         """
         ===========
         default_get
         ===========
-        If active model is postal.coordinate: force message to
-        'Invalid Postal Address'
+        For postal.coordinate, propose a default description
         """
         if context is None:
             context = {}
