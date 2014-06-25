@@ -27,7 +27,6 @@
 ##############################################################################
 from datetime import datetime
 
-from openerp.tools.translate import _
 from openerp.osv import orm, fields
 
 
@@ -78,21 +77,5 @@ class bounce_editor(orm.TransientModel):
                     'bounce_counter': bounce_counter + wiz.increase,
                 })
                 active_model.write(cr, uid, [coordinate_value['id']], vals, context=context)
-
-    def default_get(self, cr, uid, fields_list, context=None):
-        """
-        ===========
-        default_get
-        ===========
-        For postal.coordinate, propose a default description
-        """
-        if context is None:
-            context = {}
-        defaults = super(bounce_editor, self).default_get(cr, uid, fields_list, context=context)
-        if context.get('active_model', False):
-            if context['active_model'] == 'postal.coordinate':
-                defaults['description'] = _('No longer lives at the mentioned address')
-        return defaults
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

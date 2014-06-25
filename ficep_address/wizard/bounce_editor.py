@@ -26,9 +26,42 @@
 #
 ##############################################################################
 
-from . import change_main_address
-from . import allow_duplicate_wizard
-from . import streets_repository_loader
-from . import bounce_editor
+from openerp.osv import orm, fields
+
+FAILURE_AVAILABLE_TYPES = [
+    ('f1', 'No longer lives at the mentioned address'),
+]
+
+
+class bounce_editor(orm.TransientModel):
+
+    _inherit = 'bounce.editor'
+
+    _columns = {
+        'reason': fields.selection(FAILURE_AVAILABLE_TYPES, 'Reason'),
+    }
+
+    _defaults = {
+        'reason': False,
+    }
+
+# view methods: onchange, button
+
+    def onchange_reason(self, cr, uid, ids, reason, context=None):
+        if not reason:
+            return {}
+        context = context or self.pool['res.users'].context_get(cr, uid)
+        src = [x[1] for x in FAILURE_AVAILABLE_TYPES if x[0] == reason][0]
+        value = False
+        if context.get('lang'):
+            name = '%s,reason' % self._inherit
+            value = self.pool['ir.translation']._get_source(cr, uid, name, 'selection', context['lang'], src)
+        if not value:
+            value = src
+        res = {'description': value}
+        return {
+            'value': res
+        }
+
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
