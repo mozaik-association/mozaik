@@ -512,7 +512,11 @@
                              invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_user" name="invalidate">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate retrocession, proceed anyway ?" />                            
+                                    confirm="Invalidate retrocession, proceed anyway ?" />
+                            <button name="action_validate" string="Validate" type="object"
+                                    confirm="Validate retrocession now: proceed anyway ?"
+                                    states="draft,sent" class="oe_highlight"/>
+                            <field name="state" widget="statusbar"/>                       
                         </div>
                     </header>
                     <sheet>
@@ -534,15 +538,26 @@
                         </group>
                         <group name="period">
                               <field name="month" attrs="{'invisible': [('invoice_type','!=', 'month')],
-                                                          'required': [('invoice_type','=', 'month')]}"/>
-                              <field name="year" required="1"/>
+                                                          'required': [('invoice_type','=', 'month')],
+                                                          'readonly': [('state','not in', ['draft','sent'])]}"/>
+                              <field name="year" required="1" attrs="{'readonly': [('state','not in', ['draft','sent'])]}"/>
                         </group>
                         <group name="Technical Dates">
                             <field name="create_date" readonly="1"/>
                             <field name="expire_date" readonly="1" attrs="{'invisible': [('active','=', True)]}"/>
                         </group>  
                         <group name="amounts">
-                            <field name="total_amount" readonly="1"/>
+                            <group>   
+	                            <group>                
+	                                <field name="amount_total" readonly="1"/>
+	                            </group>
+	                            <group>
+	                                <button name="button_dummy"
+	                                        states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>
+	                            </group>
+                            </group>
+                            <group>
+                            </group>
                         </group>                       
 
                         <notebook>
@@ -562,8 +577,14 @@
                                        <field name="amount"/>
                                    </tree>
                                </field>
-                               <group class="oe_subtotal_footer oe_right" colspan="2" name="total">
-                                    <field name="fixed_amount"/>
+                               <group class="oe_subtotal_footer oe_right oe_inline" colspan="2" name="total">
+                                    <group>
+		                            <button name="button_dummy"
+		                                    states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>
+		                            </group>
+		                            <group>
+                                    <field name="amount_fixed"/>
+                                    </group>
                                </group>
                                <separator string="Variables"/>
                                <button string="All Details" name="%(calculation_rule_action)d"
@@ -571,7 +592,8 @@
                                         context="{'search_default_retrocession_id': active_id,
                                                   'default_retrocession_id': active_id,
                                                   'search_default_all': True}" />
-                               <field name="variable_rule_ids" attrs="{'invisible': [('active', '=', False)]}">
+                               <field name="variable_rule_ids" attrs="{'invisible': [('active', '=', False)],
+                                                                       'readonly': [('state','not in', ['draft','sent'])]}">
                                    <tree version="7.0" editable="bottom">
                                        <field name="name"/>
                                        <field name="percentage"/>
@@ -586,7 +608,13 @@
                                    </tree>
                                </field>
                                <group class="oe_subtotal_footer oe_right" colspan="2" name="total">
-                                    <field name="variable_amount"/>
+                                    <group>
+		                            <button name="button_dummy"
+		                                    states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>
+		                            </group>
+		                            <group>
+                                    <field name="amount_variable"/>
+                                    </group>
                                </group>
                            </page>                                                      
                         </notebook>

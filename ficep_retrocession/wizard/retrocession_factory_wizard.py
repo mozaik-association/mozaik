@@ -74,7 +74,7 @@ class retrocession_factory_wizard(orm.TransientModel):
 
         return res
 
-    def mandate_selection_analysis(self, cr, uid, month, year, context):
+    def mandate_selection_analysis(self, cr, uid, month, year, context=None):
         """
         ===============
         mandate_selection_analysis

@@ -625,10 +625,6 @@
                             on_change="onchange_int_assembly_id(int_assembly_id)"/>
                 </xpath>
 
-                <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
-                    <attribute name="readonly">1</attribute>
-                </xpath>
-
                 <xpath expr="//field[@name='is_submission_mandate']" position="replace"/>
                 <xpath expr="//field[@name='is_submission_assets']" position="replace"/>
 
@@ -659,11 +655,7 @@
                             domain="[('assembly_category_id', '=', ext_assembly_category_id)]"
                             on_change="onchange_ext_assembly_id(ext_assembly_id)"/>
                 </xpath>
-
-                <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
-                    <attribute name="readonly">1</attribute>
-                </xpath>
-
+                
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
                 </xpath>
@@ -718,7 +710,6 @@
                 </xpath>
 
                 <xpath expr="//field[@name='designation_int_assembly_id']" position="attributes">
-                    <attribute name="readonly"/>
                     <attribute name="attrs">{'readonly': [('electoral_district_id','!=', False),]}</attribute>
                 </xpath>
 

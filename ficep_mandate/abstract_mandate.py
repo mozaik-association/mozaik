@@ -479,6 +479,10 @@ class abstract_candidature(orm.AbstractModel):
     _mandate_model = 'abstract.mandate'
     _mandate_form_view = 'abstract_mandate_form_view'
 
+    _mandate_category_store_trigger = {}
+    _designation_assembly_store_trigger = {}
+    _mandate_start_date_store_trigger = {}
+
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Candidate', required=True, select=True, track_visibility='onchange'),
         'partner_name': fields.char('Candidate Name', size=128, required=True, track_visibility='onchange'),
@@ -486,13 +490,13 @@ class abstract_candidature(orm.AbstractModel):
         'selection_committee_id': fields.many2one('abstract.selection.committee', string='Selection Committee',
                                                  required=True, select=True, track_visibility='onchange'),
         'mandate_start_date': fields.related('selection_committee_id', 'mandate_start_date', string='Mandate Start Date',
-                                          type='date', store=True),
+                                          type='date', store=_mandate_start_date_store_trigger),
         'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
                                           type='many2one', relation="mandate.category",
-                                          store=True),
+                                          store=_mandate_category_store_trigger),
         'designation_int_assembly_id': fields.related('selection_committee_id', 'designation_int_assembly_id', string='Designation Assembly',
                                           type='many2one', relation="int.assembly",
-                                          store=True),
+                                          store=_designation_assembly_store_trigger),
         'is_selection_committee_active': fields.related('selection_committee_id', 'active', string='Is Selection Committee Active ?',
                                           type='boolean', store=False),
         'mandate_ids': fields.one2many(_mandate_model, 'candidature_id', 'Abstract Mandates',

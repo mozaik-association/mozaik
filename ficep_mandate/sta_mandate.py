@@ -262,24 +262,70 @@ class sta_candidature(orm.Model):
                            ['state', 'is_effective', 'is_substitute', ], 20)
     }
 
+    _mandate_category_store_trigger = {
+        'sta.candidature': (lambda self, cr, uid, ids, context=None: ids, ['selection_committee_id'], 20),
+        _selection_committee_model: (lambda self, cr, uid, ids, context=None:
+                                    self.pool.get('sta.candidature').search(cr, uid, [('selection_committee_id', 'in', ids)], context=context),
+                                    ['mandate_category_id'], 20),
+    }
+
+    _electoral_district_store_trigger = {
+        'sta.candidature': (lambda self, cr, uid, ids, context=None: ids, ['selection_committee_id'], 20),
+        _selection_committee_model: (lambda self, cr, uid, ids, context=None:
+                                    self.pool.get('sta.candidature').search(cr, uid, [('selection_committee_id', 'in', ids)], context=context),
+                                    ['electoral_district_id'], 20),
+    }
+
+    _legislature_store_trigger = {
+        'sta.candidature': (lambda self, cr, uid, ids, context=None: ids, ['selection_committee_id'], 20),
+        _selection_committee_model: (lambda self, cr, uid, ids, context=None:
+                                    self.pool.get('sta.candidature').search(cr, uid, [('selection_committee_id', 'in', ids)], context=context),
+                                    ['legislature_id'], 20),
+    }
+
+    _sta_assembly_store_trigger = {
+        'sta.candidature': (lambda self, cr, uid, ids, context=None: ids, ['selection_committee_id'], 20),
+        _selection_committee_model: (lambda self, cr, uid, ids, context=None:
+                                    self.pool.get('sta.candidature').search(cr, uid, [('selection_committee_id', 'in', ids)], context=context),
+                                    ['sta_assembly_id'], 20),
+    }
+
+    _designation_assembly_store_trigger = {
+        'sta.candidature': (lambda self, cr, uid, ids, context=None: ids, ['selection_committee_id'], 20),
+        _selection_committee_model: (lambda self, cr, uid, ids, context=None:
+                                    self.pool.get('sta.candidature').search(cr, uid, [('selection_committee_id', 'in', ids)], context=context),
+                                    ['designation_int_assembly_id'], 20),
+    }
+
+    _mandate_start_date_store_trigger = {
+        'sta.candidature': (lambda self, cr, uid, ids, context=None: ids, ['selection_committee_id'], 20),
+        _selection_committee_model: (lambda self, cr, uid, ids, context=None:
+                                    self.pool.get('sta.candidature').search(cr, uid, [('selection_committee_id', 'in', ids)], context=context),
+                                    ['mandate_start_date'], 20),
+    }
+
     _columns = {
         'selection_committee_id': fields.many2one(_selection_committee_model, string='Selection Committee',
                                                  required=True, select=True, track_visibility='onchange'),
+        'mandate_start_date': fields.related('selection_committee_id', 'mandate_start_date', string='Mandate Start Date',
+                                          type='date', store=_mandate_start_date_store_trigger),
         'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
                                           type='many2one', relation="mandate.category",
-                                          store=True, domain=[('type', '=', 'sta')]),
-
+                                          store=_mandate_category_store_trigger, domain=[('type', '=', 'sta')]),
+        'designation_int_assembly_id': fields.related('selection_committee_id', 'designation_int_assembly_id', string='Designation Assembly',
+                                          type='many2one', relation="int.assembly",
+                                          store=_designation_assembly_store_trigger),
         'sort_order': fields.function(_get_sort_order, type='integer', string='Sort Order',
                                       store=_sort_order_store_trigger),
         'electoral_district_id': fields.related('selection_committee_id', 'electoral_district_id', string='Electoral District',
                                           type='many2one', relation="electoral.district",
-                                          store=True),
+                                          store=_electoral_district_store_trigger),
         'legislature_id': fields.related('selection_committee_id', 'legislature_id', string='Legislature',
                                           type='many2one', relation="legislature",
-                                          store=True),
+                                          store=_legislature_store_trigger),
         'sta_assembly_id': fields.related('selection_committee_id', 'assembly_id', string='State Assembly',
                                           type='many2one', relation="sta.assembly",
-                                          store=True),
+                                          store=_sta_assembly_store_trigger),
         'is_effective': fields.boolean('Effective', track_visibility='onchange'),
         'is_substitute': fields.boolean('Substitute', track_visibility='onchange'),
         'list_effective_position': fields.integer('Position on Effectives List', group_operator='max', track_visibility='onchange'),
@@ -289,7 +335,7 @@ class sta_candidature(orm.Model):
         'effective_votes': fields.integer('Effective Preferential Votes', track_visibility='onchange'),
         'substitute_votes': fields.integer('Substitute Preferential Votes', track_visibility='onchange'),
         'is_legislative': fields.related('sta_assembly_id', 'is_legislative', string='Is Legislative',
-                                          type='boolean', store=True),
+                                          type='boolean', store=False),
         'mandate_ids': fields.one2many(_mandate_model, 'candidature_id', 'State Mandates',
                                        domain=[('active', '<=', True)]),
     }

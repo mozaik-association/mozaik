@@ -59,6 +59,8 @@ class sta_mandate(orm.Model):
     _description = 'State Mandate'
     _inherit = ['sta.mandate']
 
+    _inactive_cascade = True
+
     def _get_method_id(self, cr, uid, ids, fname, arg, context=None):
         """
         =================
@@ -82,6 +84,21 @@ class sta_mandate(orm.Model):
             res[sta_mandate.id] = method_id
         return res
 
+    def _has_retrocessions_linked(self, cr, uid, ids, fname, arg, context=None):
+        """
+        =========================
+        has_retrocessions_linked
+        =========================
+        Return whether retrocessions are linked to mandate or not
+        :rparam: True if this is the case else False
+        :rtype: Boolean
+        """
+        res = {}
+        for mandate_id in ids:
+            nb_retro = len(self.pool.get('retrocession').search(cr, uid, [('sta_mandate_id', '=', mandate_id)], context=context))
+            res[mandate_id] = True if nb_retro > 0 else False
+        return res
+
     _method_id_store_trigger = {
         'sta.mandate': (lambda self, cr, uid, ids, context=None: ids,
             ['sta_assembly_id', 'mandate_category_id'], 20),
@@ -89,15 +106,23 @@ class sta_mandate(orm.Model):
         'sta.assembly': (sta_assembly.get_linked_sta_mandate_ids, ['calculation_method_id'], 20),
     }
 
+    _invoice_type_store_trigger = {
+       'sta.mandate': (lambda self, cr, uid, ids, context=None: ids,
+            ['mandate_category_id'], 20),
+       'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['invoice_type'], 20),
+    }
+
     _columns = {
         'invoice_type': fields.related('mandate_category_id', 'invoice_type', string='Invoicing', type='selection',
-                                       selection=INVOICE_AVAILABLE_TYPES, store=True),
+                                       selection=INVOICE_AVAILABLE_TYPES, store=_invoice_type_store_trigger),
         'calculation_method_id': fields.function(_get_method_id, string='Calculation Method',
                                  type='many2one', relation="calculation.method", store=_method_id_store_trigger, select=True),
         'method_type': fields.related('calculation_method_id', 'type', string='Calculation method type', type='selection',
                                        selection=CALCULATION_METHOD_AVAILABLE_TYPES, store=_method_id_store_trigger),
         'calculation_rule_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Calculation rules', domain=[('active', '=', True)]),
         'calculation_rule_inactive_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Calculation rules', domain=[('active', '=', False)]),
+        'has_retrocessions_linked': fields.function(_has_retrocessions_linked, string='Has retrocession(s) linked',
+                                 type='boolean', store=False, select=True),
     }
 
     #orm methods
@@ -110,11 +135,31 @@ class sta_mandate(orm.Model):
 
         return res
 
+    def write(self, cr, uid, ids, vals, context=None):
+        if isinstance(ids, (int, long)):
+            ids = [ids]
+
+        if 'sta_assembly_id' in vals or 'mandate_category_id' in vals:
+            dataset = self.read(cr, uid, ids, ['calculation_method_id'], context=context)
+            method_dict = {}
+            for value in dataset:
+                method_dict[value['id']] = value['calculation_method_id'][0] if type(value['calculation_method_id']) == tuple else False
+
+        res = super(sta_mandate, self).write(cr, uid, ids, vals, context=context)
+        if 'sta_assembly_id' in vals or 'mandate_category_id' in vals:
+            for mandate in self.browse(cr, uid, ids, context=context):
+                mandate_method_id = mandate.calculation_method_id.id if mandate.calculation_method_id else False
+                if mandate.id in method_dict and method_dict[mandate.id] != mandate_method_id:
+                    self.pool.get('calculation.method').copy_fixed_rules_on_mandate(cr, uid, mandate.calculation_method_id.id, mandate.id, 'sta_mandate_id', context=context)
+        return res
+
 
 class ext_mandate(orm.Model):
     _name = 'ext.mandate'
     _description = 'External Mandate'
     _inherit = ['ext.mandate']
+
+    _inactive_cascade = True
 
     def _get_method_id(self, cr, uid, ids, fname, arg, context=None):
         """
@@ -139,6 +184,21 @@ class ext_mandate(orm.Model):
             res[ext_mandate.id] = method_id
         return res
 
+    def _has_retrocessions_linked(self, cr, uid, ids, fname, arg, context=None):
+        """
+        =========================
+        has_retrocessions_linked
+        =========================
+        Return whether retrocessions are linked to mandate or not
+        :rparam: True if this is the case else False
+        :rtype: Boolean
+        """
+        res = {}
+        for mandate_id in ids:
+            nb_retro = len(self.pool.get('retrocession').search(cr, uid, [('ext_mandate_id', '=', mandate_id)], context=context))
+            res[mandate_id] = True if nb_retro > 0 else False
+        return res
+
     _method_id_store_trigger = {
         'ext.mandate': (lambda self, cr, uid, ids, context=None: ids,
             ['ext_assembly_id', 'mandate_category_id'], 20),
@@ -146,15 +206,23 @@ class ext_mandate(orm.Model):
         'ext.assembly': (ext_assembly.get_linked_ext_mandate_ids, ['calculation_method_id'], 20),
     }
 
+    _invoice_type_store_trigger = {
+       'ext.mandate': (lambda self, cr, uid, ids, context=None: ids,
+            ['mandate_category_id'], 20),
+       'mandate.category': (mandate_category.get_linked_ext_mandate_ids, ['invoice_type'], 20),
+    }
+
     _columns = {
         'invoice_type': fields.related('mandate_category_id', 'invoice_type', string='Invoicing', type='selection',
-                                       selection=INVOICE_AVAILABLE_TYPES, store=True),
+                                       selection=INVOICE_AVAILABLE_TYPES, store=_invoice_type_store_trigger),
         'calculation_method_id': fields.function(_get_method_id, string='Calculation Method',
                                  type='many2one', relation="calculation.method", store=_method_id_store_trigger, select=True),
         'method_type': fields.related('calculation_method_id', 'type', string='Calculation method type', type='selection',
                                        selection=CALCULATION_METHOD_AVAILABLE_TYPES, store=_method_id_store_trigger),
-        'calculation_rule_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Calculation rules', domain=[('active', '=', True)]),
-        'calculation_rule_inactive_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Calculation rules', domain=[('active', '=', False)]),
+        'calculation_rule_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Calculation rules', domain=[('active', '=', True)]),
+        'calculation_rule_inactive_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Calculation rules', domain=[('active', '=', False)]),
+        'has_retrocessions_linked': fields.function(_has_retrocessions_linked, string='Has retrocession(s) linked',
+                                 type='boolean', store=False, select=True),
     }
 
     #orm methods
@@ -165,4 +233,22 @@ class ext_mandate(orm.Model):
             if mandate.calculation_method_id:
                 self.pool.get('calculation.method').copy_fixed_rules_on_mandate(cr, uid, mandate.calculation_method_id.id, mandate.id, 'ext_mandate_id', context=context)
 
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if isinstance(ids, (int, long)):
+            ids = [ids]
+
+        if 'ext_assembly_id' in vals or 'mandate_category_id' in vals:
+            dataset = self.read(cr, uid, ids, ['calculation_method_id'], context=context)
+            method_dict = {}
+            for value in dataset:
+                method_dict[value['id']] = value['calculation_method_id'][0] if type(value['calculation_method_id']) == tuple else False
+
+        res = super(ext_mandate, self).write(cr, uid, ids, vals, context=context)
+        if 'ext_assembly_id' in vals or 'mandate_category_id' in vals:
+            for mandate in self.browse(cr, uid, ids, context=context):
+                mandate_method_id = mandate.calculation_method_id.id if mandate.calculation_method_id else False
+                if mandate.id in method_dict and method_dict[mandate.id] != mandate_method_id:
+                    self.pool.get('calculation.method').copy_fixed_rules_on_mandate(cr, uid, mandate.calculation_method_id.id, mandate.id, 'ext_mandate_id', context=context)
         return res

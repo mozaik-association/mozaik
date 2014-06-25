@@ -153,16 +153,49 @@ class int_candidature(orm.Model):
     _allowed_inactive_link_models = [_selection_committee_model]
     _mandate_form_view = 'int_mandate_form_view'
 
+    _mandate_category_store_trigger = {
+        'int.candidature': (lambda self, cr, uid, ids, context=None: ids, ['selection_committee_id'], 20),
+        _selection_committee_model: (lambda self, cr, uid, ids, context=None:
+                                     self.pool.get('int.candidature').search(cr, uid, [('selection_committee_id', 'in', ids)], context=context),
+                                     ['mandate_category_id'], 20),
+    }
+
+    _int_assembly_store_trigger = {
+        'int.candidature': (lambda self, cr, uid, ids, context=None: ids, ['selection_committee_id'], 20),
+        _selection_committee_model: (lambda self, cr, uid, ids, context=None:
+                                     self.pool.get('int.candidature').search(cr, uid, [('selection_committee_id', 'in', ids)], context=context),
+                                     ['int_assembly_id'], 20),
+    }
+
+    _designation_assembly_store_trigger = {
+        'int.candidature': (lambda self, cr, uid, ids, context=None: ids, ['selection_committee_id'], 20),
+        _selection_committee_model: (lambda self, cr, uid, ids, context=None:
+                                     self.pool.get('int.candidature').search(cr, uid, [('selection_committee_id', 'in', ids)], context=context),
+                                     ['designation_int_assembly_id'], 20),
+    }
+
+    _mandate_start_date_store_trigger = {
+        'int.candidature': (lambda self, cr, uid, ids, context=None: ids, ['selection_committee_id'], 20),
+        _selection_committee_model: (lambda self, cr, uid, ids, context=None:
+                                     self.pool.get('int.candidature').search(cr, uid, [('selection_committee_id', 'in', ids)], context=context),
+                                     ['mandate_start_date'], 20),
+    }
+
     _columns = {
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
         'selection_committee_id': fields.many2one(_selection_committee_model, string='Selection Committee',
                                                  required=True, select=True, track_visibility='onchange'),
         'mandate_category_id': fields.related('selection_committee_id', 'mandate_category_id', string='Mandate Category',
                                           type='many2one', relation="mandate.category",
-                                          store=True, domain=[('type', '=', 'int')]),
+                                          store=_mandate_category_store_trigger, domain=[('type', '=', 'int')]),
+        'mandate_start_date': fields.related('selection_committee_id', 'mandate_start_date', string='Mandate Start Date',
+                                          type='date', store=_mandate_start_date_store_trigger),
         'int_assembly_id': fields.related('selection_committee_id', 'assembly_id', string='Internal Assembly',
                                           type='many2one', relation="int.assembly",
-                                          store=True),
+                                          store=_int_assembly_store_trigger),
+        'designation_int_assembly_id': fields.related('selection_committee_id', 'designation_int_assembly_id', string='Designation Assembly',
+                                          type='many2one', relation="int.assembly",
+                                          store=_designation_assembly_store_trigger),
         'months_before_end_of_mandate': fields.related('int_assembly_id', 'months_before_end_of_mandate', string='Alert Delay (#Months)',
                                           type='integer', relation="int.assembly",
                                           store=False),
