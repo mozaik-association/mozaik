@@ -199,7 +199,7 @@ class abstract_ficep_model (orm.AbstractModel):
         """
         Do not add creator to followers, nor track message on create
         """
-        ctx = dict(context or {})
+        ctx = dict(context or {'tracking_disable': True})
         ctx.update({
             'mail_create_nosubscribe': True,
             'mail_notrack': True,
@@ -216,7 +216,7 @@ class abstract_ficep_model (orm.AbstractModel):
         return new_id
 
     def write(self, cr, uid, ids, vals, context=None):
-        ctx = dict(context or {})
+        ctx = dict(context or {'tracking_disable': True})
         if ctx.get('install_mode'):
             # optimize for tests escaping useless treatments in mail.thread
             ctx.update({
