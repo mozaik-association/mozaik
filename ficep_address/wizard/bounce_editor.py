@@ -29,7 +29,14 @@
 from openerp.osv import orm, fields
 
 FAILURE_AVAILABLE_TYPES = [
-    ('f1', 'No longer lives at the mentioned address'),
+    ('nomail', 'No longer receives mail at the mentioned address'),
+    ('moved', 'Moved'),
+    ('bad', 'Incomplete/Invalid address'),
+    ('unknown', 'Unknown'),
+    ('refused', 'Refused'),
+    ('deceased', 'Deceased'),
+    ('unclaimed', 'Unclaimed'),
+    ('improper', 'Improper box number'),
 ]
 
 
@@ -60,7 +67,7 @@ class bounce_editor(orm.TransientModel):
             value = src
         res = {'description': value}
         return {
-            'value': res
+            'value': res,
         }
 
 

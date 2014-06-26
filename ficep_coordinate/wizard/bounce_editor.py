@@ -28,6 +28,7 @@
 from datetime import datetime
 
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
 
 
 class bounce_editor(orm.TransientModel):
@@ -50,6 +51,27 @@ class bounce_editor(orm.TransientModel):
     _sql_constraints = [
         ('increase_check', 'CHECK(increase > 0)', '"increase" field should be a positive value'),
     ]
+
+# orm methods
+
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
+        if view_type == 'form':
+            context = context or {}
+
+            if not context.get('active_model', False):
+                raise orm.except_orm(_('Error'), _('Missing active_model in context!'))
+
+            if not context.get('active_ids', False):
+                raise orm.except_orm(_('Error'), _('Missing active_ids in context!'))
+
+            document_ids = context.get('active_ids')
+
+            ids = self.pool[context['active_model']].search(cr, uid, [('id', 'in', document_ids), ('active', '=', False)], context=context)
+            if ids:
+                raise orm.except_orm(_('Error'), _('This action is not allowed on inactive documents!'))
+
+        res = super(bounce_editor, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
+        return res
 
 # public methods
 
