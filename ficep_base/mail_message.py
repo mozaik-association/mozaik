@@ -26,17 +26,21 @@
 #
 ##############################################################################
 
-import controller
-import res_users
-import abstract_ficep
-import ir_model
-import mail_thread
-import mail_message
-import res_lang
-import ir_import
-import convert
-import testtool
-import url
-import selections_translator
+from openerp.osv import orm
+
+
+class mail_message(orm.Model):
+    _inherit = "mail.message"
+
+    def _find_allowed_model_wise(self, cr, uid, doc_model, doc_dict, context=None):
+        '''
+        Do not test the active flag when retrieving the message_ids list
+        '''
+        context = context or {}
+        ctx = context.copy()
+        ctx.update({
+            'active_test': False,
+        })
+        return super(mail_message, self)._find_allowed_model_wise(cr, uid, doc_model, doc_dict, context=ctx)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
