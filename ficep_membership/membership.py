@@ -26,12 +26,16 @@
 #
 ##############################################################################
 from datetime import date
+from collections import OrderedDict
+
+from openerp.tools import logging
 from openerp.osv import orm, fields
 
 from openerp.addons.ficep_address.address_address import COUNTRY_CODE
-
 from openerp.addons.ficep_person.res_partner \
     import AVAILABLE_TONGUES, AVAILABLE_GENDERS, AVAILABLE_CIVIL_STATUS
+
+_logger = logging.getLogger(__name__)
 
 MEMBERSHIP_AVAILABLE_STATES = [
     ('draft', 'Unconfirmed'),
@@ -122,6 +126,19 @@ class membership_request(orm.Model):
              }
         }
 
+    def onchange_address_component(self, cr, uid, ids, country_id, address_local_zip_id,\
+                                   address_local_street_id, town_man, street_man, zip_man, number, box, context=None):
+        zip_man, town_man = (False, False) if address_local_zip_id else (zip_man, town_man)
+        street_man = False if address_local_street_id else street_man
+
+        address_id = self.get_address_id(cr, uid, address_local_street_id, address_local_zip_id, number, box, town_man,\
+                                         street_man, zip_man, country_id=country_id, context=context)
+        return {
+            'value': {
+                'address_id': address_id,
+            }
+        }
+
     def onchange_partner_component(self, cr, uid, ids, day, month, year, lastname, firstname, email, context=None):
         """
         ===================
@@ -136,25 +153,48 @@ class membership_request(orm.Model):
         return {
             'value': {
                 'partner_id': partner_id,
-                'birth_date': '%s' % birth_date,
+                'birth_date': '%s' % birth_date if birth_date else False,
                 'email': email,
+            }
+        }
+
+    def onchange_mobile(self, cr, uid, ids, mobile, context=None):
+        mobile = self.get_format_phone_number(cr, uid, mobile, context=context)
+        mobile_id = self.get_phone_id(cr, uid, mobile, 'mobile', context=context)
+        return {
+            'value': {
+                'mobile_id': mobile_id,
+                'mobile': mobile,
+            }
+        }
+
+    def onchange_phone(self, cr, uid, ids, phone, context=None):
+        phone = self.get_format_phone_number(cr, uid, phone, context=context)
+        phone_id = self.get_phone_id(cr, uid, phone, 'fix', context=context)
+        return {
+            'value': {
+                'phone_id': phone_id,
+                'phone': phone,
             }
         }
 
     # public method
 
-    def get_format_email(self, cr, uid, email, context=None):
+    def get_birth_date(self, cr, uid, day, month, year, context=None):
         """
-        ================
-        get_format_email
-        ================
-        Check and format email just like `email.coordinate` do it
-        return email value
+        ==============
+        get_birth_date
+        ==============
+        Return a birth date case where all parameters day/month/year
+        are initialized
         """
-        email_obj = self.pool['email.coordinate']
-        if email_obj._check_email_format(cr, uid, email, context=context) != None:
-            email = email_obj.format_email(cr, uid, email, context=context)
-        return email
+        birth_date = False
+        if day and month and year:
+            try:
+                birth_date = date(year, month, day)
+            except:
+                _logger.info('Reset `birth_date`: invalid date')
+        return birth_date
 
     def get_partner_id(self, cr, uid, birth_date, firstname, lastname, email, context=None):
         """
@@ -185,18 +225,73 @@ class membership_request(orm.Model):
             partner_id = partner_id['partner_id'][0]
         return partner_id
 
-    def get_birth_date(self, cr, uid, day, month, year, context=None):
+    def get_address_id(self, cr, uid, address_local_street_id, address_local_zip_id,\
+        number, box, town_man, street_man, zip_man, country_id=False, context=None):
         """
         ==============
-        get_birth_date
+        get_address_id
         ==============
-        Return a birth date case where all parameters day/month/year
-        are initialized
+        Try to get a id of ``address.address`` making a search on ``technical_name``
+        :rtype: Integer or Boolean
+        :rparam: Id of ``address.address`` object or False
         """
-        birth_date = False
-        if day and month and year:
-            birth_date = date(year, month, day)
-        return birth_date
+
+        if not country_id:
+            country_id = self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE, context=context),
+        values = OrderedDict([
+            ('country_id', country_id),
+            ('address_local_zip_id', address_local_zip_id),
+            ('zip_man', zip_man),
+            ('town_man', town_man),
+            ('address_local_street_id', address_local_street_id),
+            ('street_man', street_man),
+            ('number', number),
+            ('box', box),
+        ])
+        address_obj = self.pool['address.address']
+        technical_name = address_obj._get_technical_name(cr, uid, values, context=context)
+        address_ids = address_obj.search(cr, uid, [('technical_name', '=', technical_name)], context=context)
+        return (address_ids or False) and address_ids[0]
+
+    def get_phone_id(self, cr, uid, phone_number, phone_type, context=None):
+        """
+        =============
+        get_number_id
+        =============
+        Try to find a `phone.phone` with name `number` and type `phone_type`
+        :rtype: Integer or Boolean
+        :rparam: Id of a `phone.phone` object or  False
+        """
+        phone_obj = self.pool['phone.phone']
+        mobile_ids = phone_obj.search(cr, uid, [('name', '=', phone_number), ('type', '=', '%s' % phone_type)])
+        return (mobile_ids or False) and mobile_ids[0]
+
+    def get_format_email(self, cr, uid, email, context=None):
+        """
+        ================
+        get_format_email
+        ================
+        ``Check and format`` email just like `email.coordinate` make it
+        :rparam: formated email value
+        """
+        email_obj = self.pool['email.coordinate']
+        if email_obj._check_email_format(cr, uid, email, context=context) != None:
+            email = email_obj.format_email(cr, uid, email, context=context)
+        return email
+
+    def get_format_phone_number(self, cr, uid, number, context=None):
+        """
+        =============
+        format_number
+        =============
+        Format a phone number with the same way as phone.phone do it.
+        Call with a special context to avoid exception
+        """
+        if context is None:
+            context = {}
+        ctx = context.copy()
+        ctx.update({'install_mode': True})
+        return self.pool['phone.phone']._check_and_format_number(cr, uid, number, context=ctx)
 
     def pre_process(self, cr, uid, vals, context=None):
         """
@@ -211,7 +306,6 @@ class membership_request(orm.Model):
         ** email
         ** firstname + lastname
         * Case of partner found: search email coordinate and phone coordinate for this partner
-        * Try to find street_id and zip_id
 
         :rparam vals: dictionary used to create ``membership_request``
         """
@@ -220,7 +314,6 @@ class membership_request(orm.Model):
 
         mobile_id = False
         phone_id = False
-        address_id = False
 
         firstname = vals.get('firstname', False)
         lastname = vals.get('lastname', False)
@@ -240,37 +333,15 @@ class membership_request(orm.Model):
         birth_date = self.get_birth_date(cr, uid, day, month, year, context=False)
 
         if mobile or phone:
-            ctx = context.copy()
-            ctx.update({'install_mode': True})
-            phone_obj = self.pool['phone.phone']
-
             if mobile:
-                mobile = phone_obj._check_and_format_number(cr, uid, mobile, context=ctx)
-                # try to find this number into phone.phone records with type `mobile`
-                mobile_ids = phone_obj.search(cr, uid, [('name', '=', mobile), ('type', '=', 'mobile')])
-                mobile_id = mobile_ids and mobile_ids[0]
+                mobile = self.format_number(cr, uid, mobile, context=context)
+                mobile_id = self.get_phone_id(cr, uid, mobile, 'mobile', context=context)
             if phone:
-                phone = self.pool['phone.phone']._check_and_format_number(cr, uid, phone, context=ctx)
-                # try to find this number into phone.phone records with type `fix`
-                phone_ids = phone_obj.search(cr, uid, [('name', '=', phone), ('type', '=', 'fix')])
-                phone_id = phone_ids and phone_ids[0]
+                phone = self.format_number(cr, uid, phone, context=context)
+                phone_id = self.get_phone_id(cr, uid, phone, 'fix', context=context)
 
         email = self.get_format_email(cr, uid, email, context=context)
         partner_id = self.get_partner_id(cr, uid, birth_date, email, firstname, lastname, context=False)
-
-        # Find local zip code
-        address_local_zip_obj = self.pool['address.local.zip']
-        address_local_zip_domains = ["[('local_zip', '=', '%s')]" % zip_man,
-                                     "[('local_zip', '=', '%s'),('town', '=', '%s')]" % (zip_man, town_man)]
-        address_local_zip_id = self.persist_search(cr, uid, address_local_zip_obj, address_local_zip_domains, context=context)
-
-        # find local street
-        address_local_street_obj = self.pool['address.local.street']
-        address_local_street_domains = ["[('local_street', '=', '%s')]" % street_man]
-        if address_local_zip_id:
-            address_local_street_domains.append("[('local_street','=', '%s'),('local_zip', '=', '%s')]" % (street_man, town_man))
-
-        address_local_street_id = self.persist_search(cr, uid, address_local_street_obj, address_local_street_domains, context=context)
 
         #update vals dictionary because some inputs may have changed (and new values too)
         vals.update({
@@ -294,8 +365,6 @@ class membership_request(orm.Model):
 
             'mobile_id': mobile_id,
             'phone_id': phone_id,
-            'address_local_zip_id': address_local_zip_id,
-            'address_local_street_id': address_local_street_id,
 
             'interest': interest,
         })
@@ -340,7 +409,8 @@ class membership_request(orm.Model):
         ======
         create
         ======
-        Call ``pre-process`` function to prepare input values.
+        Override native create to make a pre-process job before calling the super
+        with the updated ``vals``
         """
         self.pre_process(cr, uid, vals, context=context)
         return super(membership_request, self).create(cr, uid, vals, context=context)
