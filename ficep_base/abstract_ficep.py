@@ -207,6 +207,7 @@ class abstract_ficep_model (orm.AbstractModel):
         if ctx.get('install_mode'):
             # optimize for tests escaping useless treatments in mail.thread
             ctx.update({
+                'tracking_disable': True,
                 'mail_create_nolog': True,
                 'mail_no_autosubscribe': True,
                 'lang': 'en_US',
@@ -219,6 +220,7 @@ class abstract_ficep_model (orm.AbstractModel):
         if ctx.get('install_mode'):
             # optimize for tests escaping useless treatments in mail.thread
             ctx.update({
+                'tracking_disable': True,
                 'mail_notrack': True,
                 'mail_no_autosubscribe': True,
                 'lang': 'en_US',
@@ -337,7 +339,7 @@ def transfer_node_to_modifiers(node, modifiers, context=None, in_tree_view=False
         if node.xpath("//field[@name='active'][not(ancestor::field)]"):
             for nd in node.xpath("//field[not(ancestor::div[(@name='dev') or (@name='chat')])][not(ancestor::field)]"):
                 attrs_str = nd.get('attrs') or '{}'
-                before = after = eval(attrs_str)
+                after = eval(attrs_str)
                 if after.get('readonly'):
                     dom = str(after.get('readonly'))[1:-1]
                     if len(dom.split("'active'")) > 1:
@@ -350,7 +352,7 @@ def transfer_node_to_modifiers(node, modifiers, context=None, in_tree_view=False
                 after = str(after)
                 nd.set('attrs', after)
                 if trace:
-                    _logger.info('Field %s - attrs before: %s - after: %s', nd.get('name'), str(before), after)
+                    _logger.info('Field %s - attrs before: %s - after: %s', nd.get('name'), attrs_str, after)
 
     return fct_src(node, modifiers, context=context, in_tree_view=in_tree_view)
 
