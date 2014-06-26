@@ -97,32 +97,49 @@
                                     <field name="status" />
                                 </group>
                                 <group>
-                                    <field name="country_id" on_change="onchange_country_id(country_id)"/>
+                                    <field name="country_id"
+                                        on_change="onchange_address_component(country_id,address_local_zip_id,address_local_street_id,
+                                                   town_man, street_man, zip_man, number, box)" />
                                 </group>
                                 <group>
                                     <field name="address_local_street_id"
+                                        on_change="onchange_address_component(country_id,address_local_zip_id,address_local_street_id,
+                                                   town_man, street_man, zip_man, number, box)"
                                         attrs="{'invisible': [('country_code','!=', 'BE')]}" />
                                     <field name="street_man"
+                                        on_change="onchange_address_component(country_id,address_local_zip_id,address_local_street_id,
+                                                   town_man, street_man, zip_man, number, box)"
                                         attrs="{'invisible': [('address_local_street_id','!=', False)]}" />
                                 </group>
                                 <group>
                                     <field name="address_local_zip_id"
+                                        on_change="onchange_address_component(country_id,address_local_zip_id,address_local_street_id,
+                                                   town_man, street_man, zip_man, number, box)"
                                         attrs="{'invisible': [('country_code','!=', 'BE')]}" />
                                     <field name="zip_man"
+                                        on_change="onchange_address_component(country_id,address_local_zip_id,address_local_street_id,
+                                                   town_man, street_man, zip_man, number, box)"
                                         attrs="{'invisible': [('address_local_zip_id','!=', False)]}" />
                                     <field name="town_man"
+                                        on_change="onchange_address_component(country_id,address_local_zip_id,address_local_street_id,
+                                                   town_man, street_man, zip_man, number, box)"
                                         attrs="{'invisible': [('address_local_zip_id','!=', False)]}" />
                                 </group>
                                 <group>
                                     <field name="street2" />
                                 </group>
                                 <group>
-                                    <field name="number" />
-                                    <field name="box" />
+                                    <field name="number"
+                                        on_change="onchange_address_component(country_id,address_local_zip_id,address_local_street_id,
+                                                   town_man, street_man, zip_man, number, box)" />
+                                    <field name="box"
+                                        on_change="onchange_address_component(country_id,address_local_zip_id,address_local_street_id,
+                                                   town_man, street_man, zip_man, number, box)" />
+
                                 </group>
                                 <group>
-                                    <field name="phone" />
-                                    <field name="mobile" />
+                                    <field name="phone" on_change="onchange_phone(phone)"/>
+                                    <field name="mobile" on_change="onchange_mobile(mobile)"/>
                                 </group>
                             </group>
                         </group>

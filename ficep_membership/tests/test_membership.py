@@ -91,4 +91,15 @@ class test_membership(SharedSetupTransactionCase):
         self.assertEqual(output_values.get('mobile_id', False), self.rec_phone.phone_id.id, 'Should have the same phone that the phone of the phone coordinate')
         self.assertEqual(output_values.get('partner_id', False), self.rec_partner.id, 'Should have the same partner')
 
+    def test_get_address_id(self):
+        cr, uid = self.cr, self.uid
+        adrs = self.browse_ref('%s.address_3' % self._module_ns)
+        address_local_street_id = adrs.address_local_street_id and adrs.address_local_street_id.id
+        address_local_zip_id = adrs.address_local_zip_id and adrs.address_local_zip_id.id
+        country_id = adrs.country_id and adrs.country_id.id
+        waiting_adrs_id = self.registry['membership.request'].get_address_id(cr, uid, address_local_street_id,\
+                                                           address_local_zip_id, adrs.number,\
+                                                           adrs.box, adrs.town_man, adrs.street_man, adrs.zip_man, country_id)
+        self.assertEqual(adrs.id, waiting_adrs_id, 'Address Should be the same')
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

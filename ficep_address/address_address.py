@@ -58,6 +58,31 @@ class address_address(orm.Model):
 
 # private methods
 
+    def _get_technical_name(self, cr, uid, values, context=None):
+        """
+        ===================
+        _get_technical_name
+        ===================
+        This method produces a technical name with the content of values.
+        :type values: dictionary
+        :param values: used to create a technical address name
+            ``country_id``
+            ``address_local_zip_id``
+            ``zip_man``
+            ``town_man``
+            ``address_local_street_id``
+            ``street_man``
+            ``number``
+            ``box``
+        :rparam: formated values of ``values`` join wit a `#`.
+                0 if value is null
+        """
+        technical_value = []
+        for field in values.keys():
+            value = values[field] or 0
+            technical_value.append(self.format_value(cr, uid, value, context=context))
+        return '#'.join(technical_value)
+
     def _get_linked_coordinates(self, cr, uid, ids, context=None):
         return self.pool['postal.coordinate'].search(cr, uid, [('address_id', 'in', ids)], context=context)
 
@@ -76,12 +101,12 @@ class address_address(orm.Model):
             ]
             adr = ' '.join([el for el in elts if el])
 
-            technical_value = []
+            values = KEY_FIELDS.copy()
             for field in KEY_FIELDS.keys():
                 to_evaluate = field if not KEY_FIELDS[field] else '%s.%s' % (field, KEY_FIELDS[field])
-                value = eval('adrs.%s' % to_evaluate) or 0
-                technical_value.append(self.format_value(cr, uid, value, context=context))
-            technical_name = '#'.join(technical_value)
+                real_value = eval('adrs.%s' % to_evaluate)
+                values[field] = real_value
+            technical_name = self._get_technical_name(cr, uid, values, context=context)
 
             result[adrs.id] = {
                 'name': adr or False,
