@@ -87,7 +87,7 @@
             <field name="inherit_id" ref="sales_team.res_user_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='default_section_id']" position="attributes">
-                    <attribute name="groups">settings_improvement.unused_features</attribute>
+                    <attribute name="groups">ficep_base.res_groups_developper</attribute>
                 </xpath>
             </field>
         </record>
