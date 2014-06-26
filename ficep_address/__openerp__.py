@@ -38,21 +38,23 @@
     'description': """
 FICEP Address
 =============
+This module manages postal addresses and postal coordinates.
 """,
     'images': [
     ],
     'data': [
         'security/ir.model.access.csv',
         'security/ir.rule.xml',
-        'wizard/change_main_address.xml',
-        'wizard/allow_duplicate_view.xml',
-        'address_address_view.xml',
-        'res_partner_view.xml',
-        'coordinate_category_view.xml',
+        'data/address_address_data.xml',
         'address_local_zip_view.xml',
         'address_local_street_view.xml',
+        'address_address_view.xml',
+        'coordinate_category_view.xml',
+        'res_partner_view.xml',
         'wizard/streets_repository_loader_view.xml',
-        'data/address_address_data.xml',
+        'wizard/change_main_address.xml',
+        'wizard/allow_duplicate_view.xml',
+        'wizard/bounce_editor_view.xml',
     ],
     'js': [
     ],

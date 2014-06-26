@@ -38,18 +38,19 @@
     'description': """
 FICEP Email
 ===========
-This module manages Emails.
+This module manages email coordinates.
 """,
     'images': [
     ],
     'data': [
         'security/ir.model.access.csv',
         'security/ir.rule.xml',
+        'email_coordinate_view.xml',
+        'coordinate_category_view.xml',
+        'res_partner_view.xml',
         'wizard/change_main_email.xml',
         'wizard/allow_duplicate_view.xml',
-        'email_coordinate_view.xml',
-        'res_partner_view.xml',
-        'coordinate_category_view.xml',
+        'wizard/bounce_editor_view.xml',
     ],
     'js': [
     ],

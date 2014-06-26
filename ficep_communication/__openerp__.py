@@ -52,12 +52,11 @@ FICEP Communication
     'data': [
         'security/ir.model.access.csv',
         'security/communication_security.xml',
+        'data/email_template_data.xml',
+        'distribution_list_view.xml',
         'communication_view.xml',
         'virtual_models_view.xml',
         'wizard/distribution_list_mass_function_view.xml',
-        'distribution_list_view.xml',
-        'data/email_template_data.xml',
-        'wizard/bounce_editor_view.xml',
     ],
     'qweb': [
     ],
