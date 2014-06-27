@@ -35,6 +35,12 @@ class res_users(orm.Model):
 
     _inherit = 'res.users'
 
+    def _create_welcome_message(self, cr, uid, user, context=None):
+        '''
+        Do not send welcome message
+        '''
+        return False
+
     _defaults = {
         'groups_id': False,
         'display_groups_suggestions': False,

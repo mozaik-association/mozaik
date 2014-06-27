@@ -197,34 +197,27 @@ class abstract_ficep_model (orm.AbstractModel):
 
     def create(self, cr, uid, vals, context=None):
         """
-        Do not add creator to followers, nor track message on create
+        Do not add creator to followers nor track message on create
+        Disable tracking if possible: when testing, installing, migrating, ...
         """
-        ctx = dict(context or {'tracking_disable': True})
-        ctx.update({
-            'mail_create_nosubscribe': True,
-            'mail_notrack': True,
-        })
-        if ctx.get('install_mode'):
-            # optimize for tests escaping useless treatments in mail.thread
+        ctx = dict(context or {}, mail_no_autosubscribe=True)
+        if ctx.get('install_mode') or not 'uid' in ctx:
+            ctx['tracking_disable'] = True
+        if not ctx.get('tracking_disable'):
             ctx.update({
-                'tracking_disable': True,
-                'mail_create_nolog': True,
-                'mail_no_autosubscribe': True,
-                'lang': 'en_US',
+                'mail_create_nosubscribe': True,
+                'mail_notrack': True,
             })
         new_id = super(abstract_ficep_model, self).create(cr, uid, vals, context=ctx)
         return new_id
 
     def write(self, cr, uid, ids, vals, context=None):
-        ctx = dict(context or {'tracking_disable': True})
-        if ctx.get('install_mode'):
-            # optimize for tests escaping useless treatments in mail.thread
-            ctx.update({
-                'tracking_disable': True,
-                'mail_notrack': True,
-                'mail_no_autosubscribe': True,
-                'lang': 'en_US',
-            })
+        """
+        Disable tracking if possible: when testing, installing, migrating, ...
+        """
+        ctx = dict(context or {}, mail_no_autosubscribe=True)
+        if ctx.get('install_mode') or not 'uid' in ctx:
+            ctx['tracking_disable'] = True
         mode = False
         if 'active' in vals:
             mode = 'activate' if vals['active'] else 'deactivate'
@@ -301,20 +294,20 @@ class abstract_ficep_model (orm.AbstractModel):
         """
         Return the object (with given id) in the default form view
         """
-        view_ids = self.pool.get('ir.ui.view').search(cr, uid, [('model', '=', self._name),
-                                                                ('type', '=', 'form')], limit=1, context=context)
+        view_ids = self.pool['ir.ui.view'].search(cr, uid, [('model', '=', self._name),
+                                                            ('type', '=', 'form')], limit=1, context=context)
 
-        res = {
+        res = view_ids and {
             'type': 'ir.actions.act_window',
             'name': self._description,
             'res_model': self._name,
             'res_id': object_id,
             'view_type': 'form',
             'view_mode': 'form',
-            'view_id': view_ids[0] if len(view_ids) > 0 else False,
+            'view_id': view_ids[0],
             'target': 'current',
             'nodestroy': True,
-        } if len(view_ids) else False
+        } or False
 
         return res
 

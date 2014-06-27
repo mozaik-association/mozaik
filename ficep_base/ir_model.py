@@ -25,6 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm
 from openerp.tools import SUPERUSER_ID
 
@@ -83,7 +84,7 @@ class ir_model_data(orm.Model):
 
         for alt in alts:
             try:
-                return self.get_object_reference(cr, uid, alt[0], alt[1])
+                return self.get_object_reference(cr, SUPERUSER_ID, alt[0], alt[1])
             except ValueError:
                 pass
             except:
