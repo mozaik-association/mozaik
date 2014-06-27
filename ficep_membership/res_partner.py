@@ -75,11 +75,13 @@ class res_partner(orm.Model):
             'year': year,
 
             #country_id is mandatory
-            'country_id': postal_coordinate_id and (postal_coordinate_id.address_id.country_id.id),
-            'street_man': postal_coordinate_id and postal_coordinate_id.address_id.street,
-            'street_man': postal_coordinate_id and postal_coordinate_id.address_id.street2,
-            'zip_man': postal_coordinate_id and postal_coordinate_id.address_id.zip,
-            'town_man': postal_coordinate_id and postal_coordinate_id.address_id.city,
+            'country_id': postal_coordinate_id and postal_coordinate_id.address_id.country_id.id,
+            'address_local_street_id': postal_coordinate_id and postal_coordinate_id.address_id.address_local_street_id.id,
+            'street_man': postal_coordinate_id and postal_coordinate_id.address_id.street_man,
+            'street2': postal_coordinate_id and postal_coordinate_id.address_id.street2,
+            'address_local_zip_id': postal_coordinate_id and postal_coordinate_id.address_id.address_local_zip_id.id,
+            'zip_man': postal_coordinate_id and postal_coordinate_id.address_id.zip_man,
+            'town_man': postal_coordinate_id and postal_coordinate_id.address_id.town_man,
             'box': postal_coordinate_id and postal_coordinate_id.address_id.box,
             'number': postal_coordinate_id and postal_coordinate_id.address_id.number,
 

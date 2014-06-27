@@ -9,7 +9,7 @@
             <field name="name">membership.request.search</field>
             <field name="model">membership.request</field>
             <field name="arch" type="xml">
-                <search string="Membership Request" version="7.0">
+                <search string="Membership Requests" version="7.0">
                     <field name="state" />
 
                     <group expand="0" string="Group By..." name="group_by">
@@ -26,7 +26,7 @@
             <field name="name">membership.request.tree</field>
             <field name="model">membership.request</field>
             <field name="arch" type="xml">
-                <tree string="Membership Request">
+                <tree string="Membership Requests" version="7.0">
                     <field name="lastname" />
                     <field name="firstname" />
                     <field name="state" />
@@ -42,14 +42,9 @@
             <field name="arch" type="xml">
                 <form string="Membership Request" version="7.0">
                     <header>
-                        <field name="state" widget="statusbar"
-                            statusbar_visible="draft,confirm,cancel" />
                         <div
                             attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                             invisible="context.get('popup')" groups="ficep_base.ficep_res_groups_user">
-                            <button name="action_invalidate"
-                                string="Invalidate" type="object"
-                                confirm="Invalidate Membership Request: proceed anyway?" />
 
                             <!-- Confirm or Cancel State -->
                             <button name="confirm_request"
@@ -60,6 +55,9 @@
                                 type="object"
                                 confirm="Cancel Membership Request: proceed anyway?"
                                 groups="ficep_base.ficep_res_groups_officer"/>
+
+                            <field name="state" widget="statusbar"
+                                statusbar_visible="draft,confirm" />
                         </div>
                     </header>
                     <sheet>
@@ -194,6 +192,12 @@
                                     string="Reactivate" type="object"
                                     confirm="Reactivate document: proceed anyway?" />
                             </div>
+                            <div
+                                attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
+                                <button name="action_invalidate"
+                                    string="Invalidate" type="object"
+                                    confirm="Invalidate Membership Request: proceed anyway?" />
+                            </div>
                             <group name="moreinfo">
                                 <field name="id" />
                                 <field name="country_code" />
@@ -214,10 +218,11 @@
         <!-- Action -->
 
         <record id="membership_request_action" model="ir.actions.act_window">
-            <field name="name">Membership Request</field>
+            <field name="name">Membership Requests</field>
             <field name="res_model">membership.request</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="membership_request_tree_view" />
             <field name="search_view_id" ref="membership_request_search_view" />
             <field name="context">{'search_default_state': 'draft'}</field>
         </record>
