@@ -54,10 +54,12 @@
                             <!-- Confirm or Cancel State -->
                             <button name="confirm_request"
                                 string="Confirm" type="object"
-                                confirm="Confirm Membership Request: proceed anyway?" />
+                                confirm="Confirm Membership Request: proceed anyway?"
+                                groups="ficep_base.ficep_res_groups_officer"/>
                             <button name="cancel_request" string="Cancel"
                                 type="object"
-                                confirm="Cancel Membership Request: proceed anyway?" />
+                                confirm="Cancel Membership Request: proceed anyway?"
+                                groups="ficep_base.ficep_res_groups_officer"/>
                         </div>
                     </header>
                     <sheet>
@@ -83,7 +85,7 @@
                                     <field name="gender" />
                                 </group>
                                 <group>
-                                    <field name="interests" />
+                                    <field name="status" />
                                 </group>
                                 <group>
                                     <field name="day"
@@ -94,7 +96,10 @@
                                         on_change="onchange_partner_component(day,month,year,lastname,firstname,email)" />
                                 </group>
                                 <group>
-                                    <field name="status" />
+                                    <field name="interests" />
+                                </group>
+                                <group>
+                                    <field name="competencies" />
                                 </group>
                                 <group>
                                     <field name="country_id"
@@ -103,6 +108,7 @@
                                 </group>
                                 <group>
                                     <field name="address_local_street_id"
+                                        domain="[('local_zip','=',local_zip),('disabled','=',False)]"
                                         on_change="onchange_address_component(country_id,address_local_zip_id,address_local_street_id,
                                                    town_man, street_man, zip_man, number, box)"
                                         attrs="{'invisible': [('country_code','!=', 'BE')]}" />
@@ -151,6 +157,12 @@
                                     <field name="int_instance_id" />
                                 </group>
                             </page>
+                            <page string="Indexation" name="indexation">
+                                <group>
+                                    <field name="interest_ids" widget="many2many"/>
+                                    <field name="competence_ids" widget="many2many"/>
+                                </group>
+                            </page>
                             <page string="Coordinates" name="coordinates">
                                 <group>
                                     <field name="phone_id" />
@@ -185,6 +197,7 @@
                             <group name="moreinfo">
                                 <field name="id" />
                                 <field name="country_code" />
+                                <field name="local_zip" />
                                 <field name="active" />
                             </group>
                         </div>

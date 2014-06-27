@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ficep_membership_request_res_group_user,ficep.membership.request.res.group.user,model_membership_request,ficep_base.ficep_res_groups_user,1,1,1,1

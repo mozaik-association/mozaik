@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form (ficep_membership)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="ficep_person.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//header/div" position="inside">
+                    <button name="button_modification_request"
+                        string="Modification Request" type="object"
+                        attrs="{'invisible': [('active','=',False)]}" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
