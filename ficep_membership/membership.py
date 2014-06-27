@@ -57,10 +57,10 @@ class membership_request(orm.Model):
     _description = 'Membership Request'
 
     _columns = {
-        'lastname': fields.char('Lastname', required=True, track_visibility='onchange'),
-        'firstname': fields.char('Firstname', required=True, track_visibility='onchange'),
-        'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES, 'Status', required=True, track_visibility='onchange'),
-        'status': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Type', required=True, track_visibility='onchange'),
+        'lastname': fields.char('Lastname', track_visibility='onchange'),
+        'firstname': fields.char('Firstname', track_visibility='onchange'),
+        'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES, 'Status', track_visibility='onchange'),
+        'status': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Type', track_visibility='onchange'),
 
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender', select=True, track_visibility='onchange'),
         'email': fields.char('Email', track_visibility='onchange'),
@@ -285,9 +285,10 @@ class membership_request(orm.Model):
         ``Check and format`` email just like `email.coordinate` make it
         :rparam: formated email value
         """
-        email_obj = self.pool['email.coordinate']
-        if email_obj._check_email_format(cr, uid, email, context=context) != None:
-            email = email_obj.format_email(cr, uid, email, context=context)
+        if email:
+            email_obj = self.pool['email.coordinate']
+            if email_obj._check_email_format(cr, uid, email, context=context) != None:
+                email = email_obj.format_email(cr, uid, email, context=context)
         return email
 
     def get_format_phone_number(self, cr, uid, number, context=None):
@@ -300,9 +301,11 @@ class membership_request(orm.Model):
         """
         if context is None:
             context = {}
-        ctx = context.copy()
-        ctx.update({'install_mode': True})
-        return self.pool['phone.phone']._check_and_format_number(cr, uid, number, context=ctx)
+        if number:
+            ctx = context.copy()
+            ctx.update({'install_mode': True})
+            number = self.pool['phone.phone']._check_and_format_number(cr, uid, number, context=ctx)
+        return number
 
     def pre_process(self, cr, uid, vals, context=None):
         """

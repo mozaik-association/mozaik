@@ -28,9 +28,9 @@
 
 import controller
 import res_users
+import mail_thread
 import abstract_ficep
 import ir_model
-import mail_thread
 import mail_message
 import res_lang
 import ir_import

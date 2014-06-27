@@ -54,10 +54,12 @@
                             <!-- Confirm or Cancel State -->
                             <button name="confirm_request"
                                 string="Confirm" type="object"
-                                confirm="Confirm Membership Request: proceed anyway?" />
+                                confirm="Confirm Membership Request: proceed anyway?"
+                                groups="ficep_base.ficep_res_groups_officer"/>
                             <button name="cancel_request" string="Cancel"
                                 type="object"
-                                confirm="Cancel Membership Request: proceed anyway?" />
+                                confirm="Cancel Membership Request: proceed anyway?"
+                                groups="ficep_base.ficep_res_groups_officer"/>
                         </div>
                     </header>
                     <sheet>

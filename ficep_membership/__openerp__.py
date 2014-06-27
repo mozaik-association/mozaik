@@ -42,7 +42,9 @@ FICEP Membership
     'images': [
     ],
     'data': [
+        'security/ir.model.access.csv',
         'membership_view.xml',
+        'res_partner_view.xml',
     ],
     'sequence': 150,
     'auto_install': False,
