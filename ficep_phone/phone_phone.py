@@ -277,28 +277,7 @@ class phone_coordinate(orm.Model):
 # orm methods
 
     def create(self, cr, uid, vals, context=None):
-        """
-        ======
-        create
-        ======
-        Automatically add the partner as follower of this new coordinate
-        When 'is_main' is true the coordinate has to become the main coordinate for its
-        associated partner.
-        :rparam: id of the new coordinate
-        :rtype: integer
-        """
-        vals['coordinate_type'] = self.pool.get('phone.phone').read(cr, uid, vals['phone_id'], ['type'], context=context)['type']
-        new_id = super(phone_coordinate, self).create(cr, uid, vals, context=context)
-        #add partner_id to the followers of the new postal_coordinate
-        if vals.get('partner_id', False):
-            wiz_invite_obj = self.pool['mail.wizard.invite']
-            wiz_invite_id = wiz_invite_obj.create(cr, uid, {'res_model': self._name,
-                                                            'res_id': new_id,
-                                                            'partner_ids': [[6, False, [vals['partner_id']]]],
-                                                            'send_mail': False,
-                                                            }, context=context)
-            wiz_invite_obj.add_followers(cr, uid, [wiz_invite_id], context=context)
-
-        return new_id
+        vals['coordinate_type'] = vals.get('coordinate_type') or self.pool.get('phone.phone').read(cr, uid, vals['phone_id'], ['type'], context=context)['type']
+        return super(phone_coordinate, self).create(cr, uid, vals, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

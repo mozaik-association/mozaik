@@ -25,8 +25,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp.tools import SUPERUSER_ID
 
 """
 Available Coordinate Types:
@@ -158,6 +160,7 @@ class abstract_coordinate(orm.AbstractModel):
         ======
         When 'is_main' is true the coordinate has to become the main coordinate for its
         associated partner.
+        Automatically add the partner as follower of its coordinate
         :rparam: id of the new coordinate
         :rtype: integer
 
@@ -176,7 +179,25 @@ class abstract_coordinate(orm.AbstractModel):
             validate_fields = self.get_fields_to_update(cr, uid, mode, context)
             # assure that there are no other main coordinate of this type for this partner
             self.search_and_update(cr, uid, domain_other_active_main, validate_fields, context=context)
+        if self._track.get('bounce_counter'):
+            # automatically add the partner as follower of its coordinate
+            vals.update({
+                'message_follower_ids': [(6, 0, [vals['partner_id']])],
+            })
         new_id = super(abstract_coordinate, self).create(cr, uid, vals, context=context)
+        if vals.get('message_follower_ids'):
+            # do not chat with the coordinate owner
+            fol_obj = self.pool['mail.followers']
+            fol_ids = fol_obj.search(cr, SUPERUSER_ID, [
+                ('partner_id', '=', vals['partner_id']),
+                ('res_id', '=', new_id),
+                ('res_model', '=', self._name),
+            ], context=context)
+            if fol_ids:
+                _, discussion_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'mail', 'mt_comment')
+                fol_obj.write(cr, SUPERUSER_ID, fol_ids, {
+                    'subtype_ids': [(3, discussion_id)],
+                }, context=context)
         return new_id
 
     def unlink(self, cr, uid, ids, context=None):
@@ -300,9 +321,10 @@ class abstract_coordinate(orm.AbstractModel):
         2) Update self with ``fields_to_update``
         """
         res_ids = self.search(cr, uid, target_domain, context=context)
-        save_constraints, self._constraints = self._constraints, []
-        self.write(cr, uid, res_ids, fields_to_update, context=context)
-        self._constraints = save_constraints
+        if res_ids:
+            save_constraints, self._constraints = self._constraints, []
+            self.write(cr, uid, res_ids, fields_to_update, context=context)
+            self._constraints = save_constraints
         return len(res_ids) != 0
 
     def get_target_domain(self, partner_id, coordinate_type):
