@@ -27,16 +27,16 @@
 ##############################################################################
 
 import controller
-import res_users
-import abstract_ficep
-import ir_model
-import mail_thread
-import mail_message
-import res_lang
-import ir_import
 import convert
 import testtool
 import url
+import ir_model
+import ir_import
+import res_lang
+import res_users
+import mail_message
+import mail_thread
 import selections_translator
+import abstract_ficep
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
