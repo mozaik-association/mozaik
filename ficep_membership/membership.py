@@ -32,8 +32,7 @@ from openerp.tools import logging
 from openerp.osv import orm, fields
 
 from openerp.addons.ficep_address.address_address import COUNTRY_CODE
-from openerp.addons.ficep_person.res_partner \
-    import AVAILABLE_TONGUES, AVAILABLE_GENDERS, AVAILABLE_CIVIL_STATUS
+from openerp.addons.ficep_person.res_partner import AVAILABLE_GENDERS
 
 _logger = logging.getLogger(__name__)
 
@@ -91,12 +90,18 @@ class membership_request(orm.Model):
         'box': fields.char(string='Box', track_visibility='onchange'),
 
         'interests': fields.text(string='Interests'),
+        'competencies': fields.text(string='Competencies'),
 
         'partner_id': fields.many2one('res.partner', 'Partner', ondelete='restrict'),
+        'interest_ids': fields.many2many('thesaurus.term', 'membership_request_interests_rel',
+                                              id1='membership_id', id2='thesaurus_term_id', string='Interests'),
+        'competence_ids': fields.many2many('thesaurus.term', 'membership_request_competence_rel',
+                                              id1='membership_id', id2='thesaurus_term_id', string='Competencies'),
         'int_instance_id': fields.many2one('int.instance', 'Internal Instance', ondelete='restrict'),
         'address_local_zip_id': fields.many2one('address.local.zip', string='City', track_visibility='onchange'),
-        'address_local_street_id': fields.many2one('address.local.street', string='Street', track_visibility='onchange'),
-        'local_street': fields.related('address_local_street_id', 'local_street', 'Local Street', type='char'),
+        #used for the domain on street
+        'local_zip': fields.related('address_local_zip_id', 'local_zip', string='Local Zip', type='char'),
+        'address_local_street_id': fields.many2one('address.local.street', string='Referenced Street', track_visibility='onchange'),
         'address_id': fields.many2one('address.address', string='Address', track_visibility='onchange'),
 
         'mobile_id': fields.many2one('phone.phone', 'Mobile', ondelete='restrict'),
@@ -128,7 +133,12 @@ class membership_request(orm.Model):
 
     def onchange_address_component(self, cr, uid, ids, country_id, address_local_zip_id,\
                                    address_local_street_id, town_man, street_man, zip_man, number, box, context=None):
-        zip_man, town_man = (False, False) if address_local_zip_id else (zip_man, town_man)
+        local_zip = False
+        if address_local_zip_id:
+            zip_man, town_man = False, False
+            local_zip = self.pool['address.local.zip'].read(cr, uid, [address_local_zip_id], ['local_zip'], context=context)
+            if local_zip:
+                local_zip = local_zip[0]['local_zip']
         street_man = False if address_local_street_id else street_man
 
         address_id = self.get_address_id(cr, uid, address_local_street_id, address_local_zip_id, number, box, town_man,\
@@ -136,6 +146,7 @@ class membership_request(orm.Model):
         return {
             'value': {
                 'address_id': address_id,
+                'local_zip': local_zip
             }
         }
 
@@ -196,7 +207,7 @@ class membership_request(orm.Model):
                 _logger.info('Reset `birth_date`: invalid date')
         return birth_date
 
-    def get_partner_id(self, cr, uid, birth_date, firstname, lastname, email, context=None):
+    def get_partner_id(self, cr, uid, birth_date, lastname, firstname, email, context=None):
         """
         ==============
         get_partner_id
@@ -281,9 +292,9 @@ class membership_request(orm.Model):
 
     def get_format_phone_number(self, cr, uid, number, context=None):
         """
-        =============
-        format_number
-        =============
+        =======================
+        get_format_phone_number
+        =======================
         Format a phone number with the same way as phone.phone do it.
         Call with a special context to avoid exception
         """
@@ -334,14 +345,14 @@ class membership_request(orm.Model):
 
         if mobile or phone:
             if mobile:
-                mobile = self.format_number(cr, uid, mobile, context=context)
+                mobile = self.get_format_phone_number(cr, uid, mobile, context=context)
                 mobile_id = self.get_phone_id(cr, uid, mobile, 'mobile', context=context)
             if phone:
-                phone = self.format_number(cr, uid, phone, context=context)
+                phone = self.get_format_phone_number(cr, uid, phone, context=context)
                 phone_id = self.get_phone_id(cr, uid, phone, 'fix', context=context)
-
-        email = self.get_format_email(cr, uid, email, context=context)
-        partner_id = self.get_partner_id(cr, uid, birth_date, email, firstname, lastname, context=False)
+        if email:
+            email = self.get_format_email(cr, uid, email, context=context)
+        partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=False)
 
         #update vals dictionary because some inputs may have changed (and new values too)
         vals.update({
