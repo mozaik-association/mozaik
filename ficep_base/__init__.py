@@ -26,7 +26,6 @@
 #
 ##############################################################################
 
-import controller
 import convert
 import testtool
 import url
@@ -35,7 +34,6 @@ import ir_import
 import res_lang
 import res_users
 import mail_message
-import mail_thread
 import selections_translator
 import abstract_ficep
 

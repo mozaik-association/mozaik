@@ -25,6 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+from lxml import etree
 import logging
 
 from openerp.osv import orm, fields
@@ -37,7 +39,7 @@ _logger = logging.getLogger(__name__)
 INVALIDATE_ERROR = _('Invalidation impossible, at least one dependency is still active')
 
 
-class abstract_ficep_model (orm.AbstractModel):
+class abstract_ficep_model(orm.AbstractModel):
 
     _name = 'abstract.ficep.model'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
@@ -251,6 +253,7 @@ class abstract_ficep_model (orm.AbstractModel):
         * Add the "popup" item into the context if the form will be shown as a popup
         * Generate a domain on all fields to make the form readonly when document is inactive
         * Work around the automatic form generation when it is inherited from an other model
+        * Wrongly handle by oe, add manually the readonly attribute to message_ids if needed
         """
         context = context or {}
 
@@ -288,6 +291,12 @@ class abstract_ficep_model (orm.AbstractModel):
                         view_id = sql_res['v']
 
         res = super(abstract_ficep_model, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
+
+        if view_type == 'form' and not context.get('in_ficep_user'):
+            doc = etree.XML(res['arch'])
+            for node in doc.xpath("//field[@name='message_ids']"):
+                node.set('readonly', '1')
+            res['arch'] = etree.tostring(doc)
         return res
 
     def display_object_in_form_view(self, cr, uid, object_id, context=None):
