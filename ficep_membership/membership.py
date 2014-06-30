@@ -33,12 +33,14 @@ from openerp.osv import orm, fields
 
 from openerp.addons.ficep_address.address_address import COUNTRY_CODE
 from openerp.addons.ficep_person.res_partner import AVAILABLE_GENDERS
+from openerp.tools import SUPERUSER_ID
 
 _logger = logging.getLogger(__name__)
 
 MEMBERSHIP_AVAILABLE_STATES = [
-    ('draft', 'Unconfirmed'),
+    ('draft', 'Draft'),
     ('confirm', 'Confirmed'),
+    ('validate', 'Done'),
     ('cancel', 'Cancelled'),
 ]
 membership_available_states = dict(MEMBERSHIP_AVAILABLE_STATES)
@@ -57,7 +59,7 @@ class membership_request(orm.Model):
     _description = 'Membership Request'
 
     _columns = {
-        'lastname': fields.char('Lastname', track_visibility='onchange'),
+        'lastname': fields.char('Lastname', required=True, track_visibility='onchange'),
         'firstname': fields.char('Firstname', track_visibility='onchange'),
         'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES, 'Status', track_visibility='onchange'),
         'status': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Type', track_visibility='onchange'),
@@ -71,7 +73,7 @@ class membership_request(orm.Model):
         'year': fields.integer('Year'),
         'birth_date': fields.date('Birthdate', track_visibility='onchange'),
 
-        #address
+        # address
 
         'country_id': fields.many2one('res.country', 'Country', select=True, track_visibility='onchange'),
         'country_code': fields.related('country_id', 'code', string='Country Code', type='char'),
@@ -89,6 +91,8 @@ class membership_request(orm.Model):
         'number': fields.char(string='Number', track_visibility='onchange'),
         'box': fields.char(string='Box', track_visibility='onchange'),
 
+        'technical_name': fields.char(string='Technical Name'),
+
         'interests': fields.text(string='Interests'),
         'competencies': fields.text(string='Competencies'),
 
@@ -99,7 +103,7 @@ class membership_request(orm.Model):
                                               id1='membership_id', id2='thesaurus_term_id', string='Competencies'),
         'int_instance_id': fields.many2one('int.instance', 'Internal Instance', ondelete='restrict'),
         'address_local_zip_id': fields.many2one('address.local.zip', string='City', track_visibility='onchange'),
-        #used for the domain on street
+        # used for the domain on street
         'local_zip': fields.related('address_local_zip_id', 'local_zip', string='Local Zip', type='char'),
         'address_local_street_id': fields.many2one('address.local.street', string='Referenced Street', track_visibility='onchange'),
         'address_id': fields.many2one('address.address', string='Address', track_visibility='onchange'),
@@ -115,38 +119,56 @@ class membership_request(orm.Model):
             self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE, context=c),
         'country_code': COUNTRY_CODE,
 
-        'state': 'draft',
+        'state': 'draft'
     }
 
 # view methods: onchange, button
 
-    def onchange_country_id(self, cr, uid, ids, country_id, context=None):
+    def onchange_country_id(self, cr, uid, ids, address_local_street_id, address_local_zip_id, \
+                                 number, box, town_man, street_man, zip_man, country_id, context=None):
         return {
             'value': {
                 'country_code': self.pool.get('res.country').read(cr, uid, \
                                 [country_id], ['code'], context=context)[0]['code']
                                 if country_id else False,
                 'address_local_zip_id': False,
-                'address_local_street_id': False,
+                'technical_name': self.get_technical_name(cr, uid, address_local_street_id, address_local_zip_id, \
+                                                          number, box, town_man, street_man, zip_man, country_id, context=context)
              }
         }
 
-    def onchange_address_component(self, cr, uid, ids, country_id, address_local_zip_id,\
-                                   address_local_street_id, town_man, street_man, zip_man, number, box, context=None):
+    def onchange_local_zip_id(self, cr, uid, ids, address_local_street_id, address_local_zip_id, \
+                              number, box, town_man, street_man, zip_man, country_id, context=None):
+        # local_zip used for domain
         local_zip = False
         if address_local_zip_id:
             zip_man, town_man = False, False
             local_zip = self.pool['address.local.zip'].read(cr, uid, [address_local_zip_id], ['local_zip'], context=context)
-            if local_zip:
-                local_zip = local_zip[0]['local_zip']
-        street_man = False if address_local_street_id else street_man
-
-        address_id = self.get_address_id(cr, uid, address_local_street_id, address_local_zip_id, number, box, town_man,\
-                                         street_man, zip_man, country_id=country_id, context=context)
+        if local_zip:
+            local_zip = local_zip[0]['local_zip']
         return {
             'value': {
-                'address_id': address_id,
-                'local_zip': local_zip
+                'address_local_street_id': False,
+                'technical_name': self.get_technical_name(cr, uid, address_local_street_id, address_local_zip_id, \
+                                                          number, box, town_man, street_man, zip_man, country_id, context=context),
+                'local_zip': local_zip,
+             }
+        }
+
+    def onchange_other_address_componants(self, cr, uid, ids, address_local_street_id, address_local_zip_id, \
+                                 number, box, town_man, street_man, zip_man, country_id, context=None):
+        return {
+            'value': {
+                'technical_name': self.get_technical_name(cr, uid, address_local_street_id, address_local_zip_id, \
+                                                          number, box, town_man, street_man, zip_man, country_id, context=context)
+            }
+        }
+
+    def onchange_technical_name(self, cr, uid, ids, technical_name, context=None):
+        address_ids = self.pool['address.adress'].search(cr, uid, [('technical_name', '=', technical_name)], context=context)
+        return {
+            'value': {
+                'address_id': (address_ids or False) and address_ids[0]
             }
         }
 
@@ -219,14 +241,14 @@ class membership_request(orm.Model):
         partner_domains = []
 
         if birth_date and email:
-            partner_domains.append("[('birth_date', '=', '%s'),('email', '=', '%s')]" % (birth_date, email))
+            partner_domains.append("[('is_company', '=', False),('birth_date', '=', '%s'),('email', '=', '%s')]" % (birth_date, email))
         if birth_date and email and firstname and lastname:
-            partner_domains.append("[('birth_date', '=', '%s'),('email', '=', '%s'),('firstname', 'ilike', '%s'), ('lastname', 'ilike', '%s')]"\
+            partner_domains.append("[('is_company', '=', False),('birth_date', '=', '%s'),('email', '=', '%s'),('firstname', 'ilike', '%s'), ('lastname', 'ilike', '%s')]"\
                        % (birth_date, email, firstname, lastname))
         if email:
-            partner_domains.append("[('email', '=', '%s')]" % (email))
+            partner_domains.append("[('is_company', '=', False),('email', '=', '%s')]" % (email))
         if firstname and lastname:
-            partner_domains.append("[('firstname', 'ilike', '%s'),('lastname', 'ilike', '%s')]" % (firstname, lastname))
+            partner_domains.append("[('is_company', '=', False),('firstname', 'ilike', '%s'),('lastname', 'ilike', '%s')]" % (firstname, lastname))
 
         partner_id = False
         virtual_partner_id = self.persist_search(cr, uid, partner_obj, partner_domains, context=context)
@@ -236,22 +258,21 @@ class membership_request(orm.Model):
             partner_id = partner_id['partner_id'][0]
         return partner_id
 
-    def get_address_id(self, cr, uid, address_local_street_id, address_local_zip_id,\
+    def get_technical_name(self, cr, uid, address_local_street_id, address_local_zip_id, \
         number, box, town_man, street_man, zip_man, country_id=False, context=None):
         """
-        ==============
-        get_address_id
-        ==============
-        Try to get a id of ``address.address`` making a search on ``technical_name``
-        :rtype: Integer or Boolean
-        :rparam: Id of ``address.address`` object or False
+        ==================
+        get_technical_name
+        ==================
         """
+        street_man = True and address_local_street_id or street_man
+        address_local_zip = address_local_zip_id and self.pool['address.local.zip'].browse(cr, uid, [address_local_zip_id], context=context)[0].local_zip
 
         if not country_id:
             country_id = self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE, context=context),
         values = OrderedDict([
             ('country_id', country_id),
-            ('address_local_zip_id', address_local_zip_id),
+            ('address_local_zip', address_local_zip),
             ('zip_man', zip_man),
             ('town_man', town_man),
             ('address_local_street_id', address_local_street_id),
@@ -261,8 +282,7 @@ class membership_request(orm.Model):
         ])
         address_obj = self.pool['address.address']
         technical_name = address_obj._get_technical_name(cr, uid, values, context=context)
-        address_ids = address_obj.search(cr, uid, [('technical_name', '=', technical_name)], context=context)
-        return (address_ids or False) and address_ids[0]
+        return technical_name
 
     def get_phone_id(self, cr, uid, phone_number, phone_type, context=None):
         """
@@ -357,7 +377,7 @@ class membership_request(orm.Model):
             email = self.get_format_email(cr, uid, email, context=context)
         partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=False)
 
-        #update vals dictionary because some inputs may have changed (and new values too)
+        # update vals dictionary because some inputs may have changed (and new values too)
         vals.update({
             'partner_id': partner_id,
             'lastname': lastname,
@@ -411,6 +431,11 @@ class membership_request(orm.Model):
         return rec_search(0)
 
     def confirm_request(self, cr, uid, ids, context=None):
+        vals = {'state': 'confirm'}
+        # superuser_id because of record rules
+        return self.write(cr, SUPERUSER_ID, ids, vals, context=context)
+
+    def validate_request(self, cr, uid, ids, context=None):
         pass
 
     def cancel_request(self, cr, uid, ids, context=None):
@@ -428,5 +453,24 @@ class membership_request(orm.Model):
         """
         self.pre_process(cr, uid, vals, context=context)
         return super(membership_request, self).create(cr, uid, vals, context=context)
+
+    def name_get(self, cr, uid, ids, context=None):
+        """
+        display name is `lastname firstname`
+
+        **Note**
+        if firstname is empty then it is just lastname alone
+        """
+        if not ids:
+            return []
+
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+
+        res = []
+        for record in self.browse(cr, uid, ids, context=context):
+            display_name = '%s' % record.lastname if not record.firstname else\
+                           '%s %s' % (record.lastname, record.firstname)
+            res.append((record['id'], display_name))
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
