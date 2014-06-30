@@ -62,7 +62,7 @@
         <record id="user_1" model="res.users">
             <field name="partner_id" ref="partner_of_user_1"/>
             <field name="login">fr1</field>
-            <field name="password">a</field>
+            <field name="password">aa</field>
             <field name="signature">pierre</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_reader')),]"/>
@@ -71,7 +71,7 @@
         <record id="user_2" model="res.users">
             <field name="partner_id" ref="partner_of_user_2"/>
             <field name="login">fu1</field>
-            <field name="password">a</field>
+            <field name="password">aa</field>
             <field name="signature">claude</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_user')),]"/>
@@ -80,7 +80,7 @@
         <record id="user_3" model="res.users">
             <field name="partner_id" ref="partner_of_user_3"/>
             <field name="login">fo1</field>
-            <field name="password">a</field>
+            <field name="password">aa</field>
             <field name="signature">steve</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_officer')),]"/>
@@ -89,7 +89,7 @@
         <record id="user_4" model="res.users">
             <field name="partner_id" ref="partner_of_user_4"/>
             <field name="login">fvr1</field>
-            <field name="password">a</field>
+            <field name="password">aa</field>
             <field name="signature">leon</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_vip_reader')),]"/>
@@ -98,7 +98,7 @@
         <record id="user_5" model="res.users">
             <field name="partner_id" ref="partner_of_user_5"/>
             <field name="login">fm1</field>
-            <field name="password">a</field>
+            <field name="password">aa</field>
             <field name="signature">isabelle</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_manager')),]"/>
@@ -107,7 +107,7 @@
         <record id="user_6" model="res.users">
             <field name="partner_id" ref="partner_of_user_6"/>
             <field name="login">fc1</field>
-            <field name="password">a</field>
+            <field name="password">aa</field>
             <field name="signature">sylvie</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_configurator')),]"/>
