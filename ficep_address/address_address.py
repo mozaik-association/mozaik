@@ -40,7 +40,7 @@ COUNTRY_CODE = 'BE'
 # Do Not Add Sequence Here
 KEY_FIELDS = OrderedDict([
     ('country_id', 'id'),
-    ('address_local_zip_id', 'id'),
+    ('address_local_zip_id', 'local_zip'),
     ('zip_man', False),
     ('town_man', False),
     ('address_local_street_id', 'id'),
@@ -68,7 +68,7 @@ class address_address(orm.Model):
         :type values: dictionary
         :param values: used to create a technical address name
             ``country_id``
-            ``address_local_zip_id``
+            ``address_local_zip``
             ``zip_man``
             ``town_man``
             ``address_local_street_id``

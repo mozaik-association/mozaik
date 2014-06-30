@@ -49,6 +49,7 @@ class virtual_master_partner(orm.AbstractModel):
         'lastname': fields.char('Lastname'),
         'firstname': fields.char('Firstname'),
         'birth_date': fields.date('Birth Date'),
+        'is_company': fields.boolean('Is Company'),
 
         'postal_coordinate_id': fields.integer('Postal Coordinate ID'),
         'email_coordinate_id': fields.integer('Email Coordinate ID'),
@@ -73,6 +74,7 @@ class virtual_master_partner(orm.AbstractModel):
 # orm methods
 
     def init(self, cr):
+        tools.drop_view_if_exists(cr, 'virtual_master_partner')
         cr.execute("""
         create or replace view virtual_master_partner as (
         SELECT
@@ -83,6 +85,7 @@ class virtual_master_partner(orm.AbstractModel):
             p.lastname as lastname,
             p.firstname as firstname,
             p.birth_date as birth_date,
+            p.is_company as is_company,
 
             e.bounce_counter as email_bounce_counter,
             pc.bounce_counter as postal_bounce_coutner,

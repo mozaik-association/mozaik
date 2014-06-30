@@ -97,6 +97,8 @@ class membership_webservice(orm.Model):
         vals = {
             'lastname': lastname,
             'firstname': firstname,
+            'state': 'confirm',
+
             'gender': gender,
             'day': day,
             'month': month,
