@@ -117,8 +117,8 @@
                                 <group></group>
                                 <group>
                                     <field name="address_local_zip_id"
-                                        on_change="onchange_local_zip_id(country_id,address_local_zip_id,address_local_street_id,
-                                                   town_man, street_man, zip_man, number, box)"
+                                        on_change="onchange_local_zip_id(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)"
                                         attrs="{'invisible': [('country_code','!=', 'BE')]}" />
                                     <field name="zip_man"
                                         on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
@@ -213,10 +213,10 @@
                             </div>
                             <group name="moreinfo">
                                 <field name="id" />
-                                <field name="technical_name" />
+                                <field name="technical_name" on_change="onchange_technical_name(technical_name)"/>
                                 <field name="country_code"
                                     on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
-                                                           number, box, town_man, street_man, zip_man, country_id)" />
+                                                   number, box, town_man, street_man, zip_man, country_id)" />
                                 <field name="local_zip" />
                                 <field name="active" />
                             </group>

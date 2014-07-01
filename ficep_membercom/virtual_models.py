@@ -74,7 +74,6 @@ class virtual_master_partner(orm.AbstractModel):
 # orm methods
 
     def init(self, cr):
-        tools.drop_view_if_exists(cr, 'virtual_master_partner')
         cr.execute("""
         create or replace view virtual_master_partner as (
         SELECT

@@ -142,7 +142,6 @@ class membership_request(orm.Model):
         # local_zip used for domain
         local_zip = False
         if address_local_zip_id:
-            zip_man, town_man = False, False
             local_zip = self.pool['address.local.zip'].read(cr, uid, [address_local_zip_id], ['local_zip'], context=context)
         if local_zip:
             local_zip = local_zip[0]['local_zip']
@@ -150,7 +149,7 @@ class membership_request(orm.Model):
             'value': {
                 'address_local_street_id': False,
                 'technical_name': self.get_technical_name(cr, uid, address_local_street_id, address_local_zip_id, \
-                                                          number, box, town_man, street_man, zip_man, country_id, context=context),
+                                                          number, box, town_man, street_man, zip_man, country_id=country_id, context=context),
                 'local_zip': local_zip,
              }
         }
@@ -165,10 +164,10 @@ class membership_request(orm.Model):
         }
 
     def onchange_technical_name(self, cr, uid, ids, technical_name, context=None):
-        address_ids = self.pool['address.adress'].search(cr, uid, [('technical_name', '=', technical_name)], context=context)
+        address_ids = self.pool['address.address'].search(cr, uid, [('technical_name', '=', technical_name)], context=context)
         return {
             'value': {
-                'address_id': (address_ids or False) and address_ids[0]
+                'address_id': address_ids and address_ids[0] or False
             }
         }
 
@@ -265,11 +264,14 @@ class membership_request(orm.Model):
         get_technical_name
         ==================
         """
-        street_man = True and address_local_street_id or street_man
+        if address_local_zip_id:
+            zip_man, town_man = False, False
+        if address_local_street_id:
+            street_man = False
         address_local_zip = address_local_zip_id and self.pool['address.local.zip'].browse(cr, uid, [address_local_zip_id], context=context)[0].local_zip
 
         if not country_id:
-            country_id = self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE, context=context),
+            country_id = self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE, context=context)
         values = OrderedDict([
             ('country_id', country_id),
             ('address_local_zip', address_local_zip),
@@ -436,7 +438,16 @@ class membership_request(orm.Model):
         return self.write(cr, SUPERUSER_ID, ids, vals, context=context)
 
     def validate_request(self, cr, uid, ids, context=None):
-        pass
+        """
+        ================
+        validate_request
+        ================
+        First check if the relations are set. For those try to update
+        content
+        In Other cases then create missing required data
+        """
+        for membership_request in self.browse(cr, uid, ids, context=context):
+            pass
 
     def cancel_request(self, cr, uid, ids, context=None):
         pass

@@ -25,30 +25,29 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Web Service',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_membership',
-    ],
-    'description': """
-FICEP Web Service
-=================
-Allow specific calls from outside with XML-RPC
+import xmlrpclib
+import sys
+"""
+Can test membership web-service by running this script
+"""
+if len(sys.argv) != 4:
+    raise Exception('Three args are required to launch this script: "username,psw,dbname"')
 
-    """,
-    'images': [
-    ],
-    'data': [
-        'data/webservice_users.xml',
-    ],
-    'sequence': 150,
-    'auto_install': False,
-    'installable': True,
-}
+USERNAME = sys.argv[1]
+PWD = sys.argv[2]
+DBNAME = sys.argv[3]
+sock_common = xmlrpclib.ServerProxy('http://0.0.0.0:8069/xmlrpc/common')
+
+UID = sock_common.login(DBNAME, USERNAME, PWD)
+sock = xmlrpclib.ServerProxy('http://0.0.0.0:8069/xmlrpc/object')
+
+OBJECT = 'membership.webservice'
+METHOD = 'membership_request'
+
+res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, \
+                   'MAROIS', 'Pauline', 'f', 'Rue Louis Maréhal 6/2B', '4360', 'Oreye', 'm', 29, 03, 1949, \
+                   'pauline@gmail.com', '0489578612', '061412002', \
+                   'Foot, Snowboard')
+print res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
