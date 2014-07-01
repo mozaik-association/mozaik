@@ -46,12 +46,6 @@ class fractionation(orm.Model):
 
     _inactive_cascade = True
 
-    _total_percentage_store_trigger = {
-        'fractionation.line': (lambda self, cr, uid, ids, context=None:
-                               [line_data['fractionation_id'][0] for line_data in self.read(cr, uid, ids, ['fractionation_id'], context=context)],
-                               ['percentage', ], 20)
-    }
-
     def _compute_total_percentage(self, cr, uid, ids, fname, arg, context=None):
         """
         =================
@@ -63,8 +57,16 @@ class fractionation(orm.Model):
         """
         res = {}
         for fractionation in self.browse(cr, uid, ids, context=context):
-            res[fractionation.id] = sum([line.percentage for line in fractionation.fractionation_line_ids])
+            lines = fractionation.active and fractionation.fractionation_line_ids or fractionation.fractionation_line_inactive_ids
+            res[fractionation.id] = sum([line.percentage for line in lines])
         return res
+
+    _total_percentage_store_trigger = {
+        'fractionation': (lambda self, cr, uid, ids, context=None: ids, ['fractionation_line_ids', 'active'], 20),
+        'fractionation.line': (lambda self, cr, uid, ids, context=None:
+                               [line_data['fractionation_id'][0] for line_data in self.pool['fractionation.line'].read(cr, uid, ids, ['fractionation_id'], context=context)],
+                               ['percentage', 'active', ], 20),
+    }
 
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
@@ -72,10 +74,24 @@ class fractionation(orm.Model):
         'fractionation_line_ids': fields.one2many('fractionation.line', 'fractionation_id', 'Fractionation Lines', domain=[('active', '=', True)]),
         'fractionation_line_inactive_ids': fields.one2many('fractionation.line', 'fractionation_id', 'Fractionation Lines', domain=[('active', '=', False)]),
         'total_percentage': fields.function(_compute_total_percentage, string='Total Percentage',
-                                 type='float', store=_total_percentage_store_trigger, select=True),
+                                 type='float', store=_total_percentage_store_trigger),
     }
 
-    _unicity_keys = 'N/A'
+    _order = 'name'
+
+# constraints
+
+    _unicity_keys = 'name'
+
+# orm methods
+
+    def copy_data(self, cr, uid, id_, default=None, context=None):
+        res = super(fractionation, self).copy_data(cr, uid, id_, default=default, context=context)
+
+        res.update({
+            'name': _('%s (copy)') % res.get('name'),
+        })
+        return res
 
 
 class fractionation_line(orm.Model):
@@ -83,44 +99,28 @@ class fractionation_line(orm.Model):
     _description = 'Fractionation Line'
     _inherit = ['abstract.ficep.model']
 
-    def _check_percentage(self, cr, uid, ids, context=None):
-        """
-        =================
-        _check_percentage
-        =================
-        Check if percentage is lower or equal to 100 %
-        :rparam: True if it is the case
-                 False otherwise
-        :rtype: boolean
-        """
-        for line_data in self.read(cr, uid, ids, ['percentage'], context=context):
-            if line_data['percentage'] > 100.00:
-                return False
-        return True
-
     _columns = {
-        'fractionation_id': fields.many2one('fractionation', 'Fractionation',
-                                                select=True, required=True, track_visibility='onchange'),
-        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, track_visibility='onchange'),
+        'fractionation_id': fields.many2one('fractionation', 'Fractionation', required=True, select=True, track_visibility='onchange'),
+        'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, select=True, track_visibility='onchange'),
         'percentage': fields.float('Percentage', required=True, track_visibility='onchange')
     }
 
-    _unicity_keys = 'N/A'
+    _order = 'fractionation_id, power_level_id'
+
+    _rec_name = 'power_level_id'
 
 # constraints
 
-    _sql_constraints = [
-        ('check_unicity_line', 'unique(fractionation_id,power_level_id)', _('This power_level already exists for this fractionation!'))
-    ]
+    _unicity_keys = 'fractionation_id, power_level_id'
 
-    _constraints = [
-        (_check_percentage, _('Error ! Percentage should be lower or equal to 100 %'), ['percentage']),
+    _sql_constraints = [
+        ('lessthan100_line', 'check(percentage <= 100.0)', 'Percentage should be lower or equal to 100 %')
     ]
 
 
 class calculation_method(orm.Model):
     _name = 'calculation.method'
-    _description = 'Calculation method'
+    _description = 'Calculation Method'
     _inherit = ['abstract.ficep.model']
 
     _inactive_cascade = True
@@ -143,19 +143,25 @@ class calculation_method(orm.Model):
     _type_store_trigger = {
         'calculation.method': (lambda self, cr, uid, ids, context=None: ids, ['calculation_rule_ids'], 20),
         'calculation.rule': (lambda self, cr, uid, ids, context=None:
-                               [rule_data['calculation_method_id'][0] for rule_data in self.read(cr, uid, ids, ['calculation_method_id'], context=context) if rule_data['calculation_method_id']],
-                               ['type', ], 20)
+                               [rule_data['calculation_method_id'][0] for rule_data in self.pool['calculation.rule'].read(cr, uid, ids, ['calculation_method_id'], context=context) if rule_data['calculation_method_id']],
+                               ['type', ], 20),
     }
 
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
         'type': fields.function(_get_method_type, string='Type',
                                  type='selection', store=_type_store_trigger, select=True, selection=CALCULATION_METHOD_AVAILABLE_TYPES),
-        'calculation_rule_ids': fields.one2many('calculation.rule', 'calculation_method_id', 'Calculation rules'),
-        'mandate_category_ids': fields.one2many('mandate.category', 'calculation_method_id', 'Mandate categories'),
+        'calculation_rule_ids': fields.one2many('calculation.rule', 'calculation_method_id', 'Calculation Rules'),
+        'mandate_category_ids': fields.one2many('mandate.category', 'calculation_method_id', 'Mandate Categories'),
     }
 
-    _unicity_keys = 'N/A'
+    _order = 'name'
+
+# constraints
+
+    _unicity_keys = 'name'
+
+# public methods
 
     def copy_fixed_rules_on_mandate(self, cr, uid, method_id, mandate_id, mandate_key, context=None):
         """
@@ -217,7 +223,7 @@ class calculation_rule(orm.Model):
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
         'type': fields.selection(CALCULATION_RULE_AVAILABLE_TYPES, 'Type', required=True),
-        'calculation_method_id': fields.many2one('calculation.method', 'Calculation method',
+        'calculation_method_id': fields.many2one('calculation.method', 'Calculation Method',
                                         select=True, track_visibility='onchange'),
         'retrocession_id': fields.many2one('retrocession', 'Retrocession',
                                         select=True, track_visibility='onchange'),
@@ -228,6 +234,10 @@ class calculation_rule(orm.Model):
         'percentage': fields.float('Percentage', required=True, track_visibility='onchange'),
         'amount': fields.float('Amount', track_visibility='onchange')
     }
+
+    _order = 'calculation_method_id, name'
+
+# constraints
 
     _unicity_keys = 'N/A'
 
@@ -277,7 +287,7 @@ class retrocession(orm.Model):
     def _get_fixed_rule_inactive_ids(self, cr, uid, ids, fname, arg, context=None):
         """
         =================
-        _get_fixed_rule_ids
+        _get_fixed_rule_inactive_ids
         =================
         Get fice calculation rule ids linked to mandate
         :rparam: Calculation rule ids
@@ -458,7 +468,8 @@ class retrocession(orm.Model):
 
     _unicity_keys = 'N/A'
 
-    #orm methods
+# orm methods
+
     def create(self, cr, uid, vals, context=None):
         res = super(retrocession, self).create(cr, uid, vals, context=context)
         if res:
@@ -481,7 +492,7 @@ class retrocession(orm.Model):
         ids = isinstance(ids, (long, int)) and [ids] or ids
 
         res = []
-        for retro in self.browse(cr, uid, ids, context=context, fields_process=translate_selections):
+        for retro in self.browse(cr, uid, ids, context=context):
             mandate_id = False
             mandate_model = False
             if retro.sta_mandate_id:
@@ -504,6 +515,7 @@ class retrocession(orm.Model):
         return res
 
 # view methods: onchange, button
+
     def onchange_sta_mandate_id(self, cr, uid, ids, sta_mandate_id, context=None):
         res = {}
         if sta_mandate_id:
@@ -546,3 +558,5 @@ class retrocession(orm.Model):
 
         # TODO: generate invoice and send report to mandate representative and return its id
         return False
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

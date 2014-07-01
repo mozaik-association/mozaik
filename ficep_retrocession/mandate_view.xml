@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data noupdate="0">
-    
+
         <record id="mandate_category_search_view" model="ir.ui.view">
             <field name="name">mandate.category.search (ficep_retrocession)</field>
             <field name="model">mandate.category</field>
@@ -24,7 +24,7 @@
                </xpath>
             </field>
         </record>
-                
+
         <record id="mandate_category_form_view" model="ir.ui.view">
            <field name="name">mandate.category.form.view (ficep_retrocession)</field>
            <field name="model">mandate.category</field>
@@ -37,7 +37,7 @@
                </xpath>
            </field>
         </record>
-        
+
         <record id="sta_mandate_form_view" model="ir.ui.view">
            <field name="name">sta.mandate.form (ficep_retrocession)</field>
            <field name="model">sta.mandate</field>
@@ -48,14 +48,14 @@
                      <field name="method_type" readonly="1"/>
                </xpath>
                <xpath expr="//div[@name='buttons']" position="inside">
-	               <button string="Retrocessions" name="%(retrocession_action)d"
-	                                type="action" attrs="{'invisible': ['|',('id','=',False)]}"
-	                                context="{'search_default_sta_mandate_id': active_id,
-	                                          'default_sta_mandate_id': active_id}" />
-	           </xpath>
-               <xpath expr="//page[@name='index']" position="after">                     
+                   <button string="Retrocessions" name="%(retrocession_action)d"
+                                    type="action" attrs="{'invisible': ['|',('id','=',False)]}"
+                                    context="{'search_default_sta_mandate_id': active_id,
+                                              'default_sta_mandate_id': active_id}" />
+               </xpath>
+               <xpath expr="//page[@name='index']" position="after">
                      <page name="rules" string="Rules">
-                         <button string="All Details" name="%(calculation_rule_action)d"
+                         <button string="All Details" name="%(calculation_rule_detail_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
                                         context="{'search_default_sta_mandate_id': active_id,
                                                   'default_sta_mandate_id': active_id,
@@ -66,31 +66,31 @@
                                  <field name="percentage"/>
                                  <field name="amount"/>
                              </tree>
-                         </field>  
+                         </field>
                          <field name="calculation_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}">
                              <tree version="7.0" editable="bottom">
                                  <field name="name"/>
-                                 <field name="percentage"/>  
+                                 <field name="percentage"/>
                                  <field name="amount"/>
                              </tree>
-                         </field>  
+                         </field>
                      </page>
                </xpath>
-               <xpath expr="//group[@name='moreinfo']" position="inside"> 
+               <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="has_retrocessions_linked"/>
                </xpath>
-               <xpath expr="//field[@name='mandate_category_id']" position="attributes"> 
+               <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
-               </xpath>   
-               <xpath expr="//field[@name='sta_assembly_id']" position="attributes"> 
+               </xpath>
+               <xpath expr="//field[@name='sta_assembly_id']" position="attributes">
                     <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
-               </xpath>  
-               <xpath expr="//field[@name='partner_id']" position="attributes"> 
+               </xpath>
+               <xpath expr="//field[@name='partner_id']" position="attributes">
                     <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
-               </xpath>           
+               </xpath>
            </field>
         </record>
-        
+
         <record id="ext_mandate_form_view" model="ir.ui.view">
            <field name="name">ext.mandate.form (ficep_retrocession)</field>
            <field name="model">ext.mandate</field>
@@ -106,9 +106,9 @@
                                     context="{'search_default_ext_mandate_id': active_id,
                                               'default_ext_mandate_id': active_id}" />
                </xpath>
-               <xpath expr="//page[@name='index']" position="after">                     
+               <xpath expr="//page[@name='index']" position="after">
                      <page name="rules" string="Rules">
-                         <button string="All Details" name="%(calculation_rule_action)d"
+                         <button string="All Details" name="%(calculation_rule_detail_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
                                         context="{'search_default_ext_mandate_id': active_id,
                                                   'default_ext_mandate_id': active_id,
@@ -119,36 +119,36 @@
                                  <field name="percentage"/>
                                  <field name="amount"/>
                              </tree>
-                         </field>  
+                         </field>
                          <field name="calculation_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}">
                              <tree version="7.0" editable="bottom">
                                  <field name="name"/>
                                  <field name="percentage"/>
                                  <field name="amount"/>
                              </tree>
-                         </field>  
+                         </field>
                      </page>
                </xpath>
-               <xpath expr="//group[@name='moreinfo']" position="inside"> 
+               <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="has_retrocessions_linked"/>
                </xpath>
-               <xpath expr="//field[@name='mandate_category_id']" position="attributes"> 
+               <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
-               </xpath>   
-               <xpath expr="//field[@name='ext_assembly_id']" position="attributes"> 
+               </xpath>
+               <xpath expr="//field[@name='ext_assembly_id']" position="attributes">
                     <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
-               </xpath> 
-               <xpath expr="//field[@name='partner_id']" position="attributes"> 
+               </xpath>
+               <xpath expr="//field[@name='partner_id']" position="attributes">
                     <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
-               </xpath>  
+               </xpath>
            </field>
         </record>
-        
+
         <record id="sta_mandate_search_view" model="ir.ui.view">
            <field name="name">sta.mandate.search (ficep_retrocession)</field>
            <field name="model">sta.mandate</field>
            <field name="inherit_id" ref="ficep_mandate.sta_mandate_search_view" />
-           <field name="arch" type="xml">           
+           <field name="arch" type="xml">
                <xpath expr="//filter[@name='expired']" position="before">
                     <filter name="monthly_invoicing" string="Monthly invoicing"
                             domain="[('invoice_type','=','month')]" />
@@ -164,7 +164,7 @@
                     <filter name="variable_method" string="Variable Calculation Method"
                             domain="[('method_type','=','variable')]" />
                     <separator/>
-               </xpath>               
+               </xpath>
                <xpath expr="//group[@name='group_by']" position="inside">
                     <filter name="invoice_type" string="Invoice type" domain="[]" context="{'group_by':'invoice_type'}" />
                     <filter name="method_type" string="Method type" domain="[]" context="{'group_by':'method_type'}" />
@@ -175,7 +175,7 @@
            <field name="name">ext.mandate.search (ficep_retrocession)</field>
            <field name="model">ext.mandate</field>
            <field name="inherit_id" ref="ficep_mandate.ext_mandate_search_view" />
-           <field name="arch" type="xml">           
+           <field name="arch" type="xml">
                <xpath expr="//filter[@name='expired']" position="before">
                     <filter name="monthly_invoicing" string="Monthly invoicing"
                             domain="[('invoice_type','=','month')]" />
@@ -191,7 +191,7 @@
                     <filter name="variable_method" string="Variable Calculation Method"
                             domain="[('method_type','=','variable')]" />
                     <separator/>
-               </xpath>               
+               </xpath>
                <xpath expr="//group[@name='group_by']" position="inside">
                     <filter name="invoice_type" string="Invoice type" domain="[]" context="{'group_by':'invoice_type'}" />
                     <filter name="method_type" string="Method type" domain="[]" context="{'group_by':'method_type'}" />
