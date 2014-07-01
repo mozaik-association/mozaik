@@ -65,7 +65,7 @@ class test_res_partner(SharedSetupTransactionCase):
         ======================
         test_res_partner_names
         ======================
-        Test the overiding of the name_get method to compute display_name
+        Test the overriding of the name_get method to compute display_name
         """
         cr, uid, context = self.cr, self.uid, self.context
         fgtb_id, marc_id = self.partner_fgtb_id, self.partner_marc_id

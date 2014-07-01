@@ -113,10 +113,10 @@ class membership_webservice(orm.Model):
             'phone': phone,
             'email': email,
 
-            'interest': interest,
+            'interests': interest,
         }
         try:
-            res = membership_request.create(cr, uid, vals, context=context)
+            res = membership_request.create(cr, SUPERUSER_ID, vals, context=context)
         except Exception as e:
             raise WebServiceException(uid, '', 'ERROR-CREATE', e.message)
         return res

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="partner_of_webservice_user" model="res.partner">
+            <field name="lastname">Web Service</field>
+            <field name="firstname">Membership Request</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        <!--
+            Create user: one for each partner
+        -->
+
+        <record id="user_" model="res.users">
+            <field name="partner_id" ref="partner_of_webservice_user"/>
+            <field name="login">wsmr</field>
+            <field name="password">membership%request</field>
+            <field name="signature">wsmr</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_reader')),]"/>
+        </record>
+
+    </data>
+</openerp>
