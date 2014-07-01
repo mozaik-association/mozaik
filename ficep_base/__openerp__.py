@@ -35,6 +35,7 @@
     'depends': [
         'base',
         'settings_improvement',  # from lp:acsone-addons
+        'decimal_precision',
         'portal',
         'mass_mailing',
         'mail',

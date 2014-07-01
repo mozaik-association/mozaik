@@ -28,14 +28,16 @@
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
-from openerp.addons.ficep_base.selections_translator import translate_selections
-from openerp.addons.ficep_retrocession.common import INVOICE_AVAILABLE_TYPES, CALCULATION_METHOD_AVAILABLE_TYPES, CALCULATION_RULE_AVAILABLE_TYPES
+from .common import INVOICE_AVAILABLE_TYPES, CALCULATION_METHOD_AVAILABLE_TYPES, CALCULATION_RULE_AVAILABLE_TYPES
+
+import openerp.addons.decimal_precision as dp
 
 RETROCESSION_AVAILABLE_STATES = [
-    ('draft', 'Ready to send'),
+    ('draft', 'Ready to Send'),
     ('sent', 'Sent'),
     ('validated', 'Validated'),
-    ('paid', 'Paid'),
+    ('paid', 'Done'),
+    ('cancelled', 'Cancelled'),
 ]
 
 
@@ -64,7 +66,7 @@ class fractionation(orm.Model):
     _total_percentage_store_trigger = {
         'fractionation': (lambda self, cr, uid, ids, context=None: ids, ['fractionation_line_ids', 'active'], 20),
         'fractionation.line': (lambda self, cr, uid, ids, context=None:
-                               [line_data['fractionation_id'][0] for line_data in self.pool['fractionation.line'].read(cr, uid, ids, ['fractionation_id'], context=context)],
+                               [line_data['fractionation_id'][0] for line_data in self.read(cr, uid, ids, ['fractionation_id'], context=context)],
                                ['percentage', 'active', ], 20),
     }
 
@@ -74,7 +76,7 @@ class fractionation(orm.Model):
         'fractionation_line_ids': fields.one2many('fractionation.line', 'fractionation_id', 'Fractionation Lines', domain=[('active', '=', True)]),
         'fractionation_line_inactive_ids': fields.one2many('fractionation.line', 'fractionation_id', 'Fractionation Lines', domain=[('active', '=', False)]),
         'total_percentage': fields.function(_compute_total_percentage, string='Total Percentage',
-                                 type='float', store=_total_percentage_store_trigger),
+                                 type='float', store=_total_percentage_store_trigger, digits_compute=dp.get_precision('Percentage')),
     }
 
     _order = 'name'
@@ -102,7 +104,7 @@ class fractionation_line(orm.Model):
     _columns = {
         'fractionation_id': fields.many2one('fractionation', 'Fractionation', required=True, select=True, track_visibility='onchange'),
         'power_level_id': fields.many2one('int.power.level', 'Internal Power Level', required=True, select=True, track_visibility='onchange'),
-        'percentage': fields.float('Percentage', required=True, track_visibility='onchange')
+        'percentage': fields.float('Percentage', required=True, track_visibility='onchange', digits_compute=dp.get_precision('Percentage'))
     }
 
     _order = 'fractionation_id, power_level_id'
@@ -187,7 +189,7 @@ class calculation_method(orm.Model):
                             type=rule.type,
                             percentage=rule.percentage)
                 data[mandate_key] = mandate_id
-                rule_pool.create(cr, uid, data, context)
+                rule_pool.create(cr, uid, data, context=context)
 
         return True
 
@@ -210,29 +212,25 @@ class calculation_method(orm.Model):
                             type=rule.type,
                             percentage=rule.percentage)
                 data['retrocession_id'] = retrocession_id
-                rule_pool.create(cr, uid, data, context)
+                rule_pool.create(cr, uid, data, context=context)
 
         return True
 
 
 class calculation_rule(orm.Model):
     _name = 'calculation.rule'
-    _description = 'Calculation rule'
+    _description = 'Calculation Rule'
     _inherit = ['abstract.ficep.model']
 
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
         'type': fields.selection(CALCULATION_RULE_AVAILABLE_TYPES, 'Type', required=True),
-        'calculation_method_id': fields.many2one('calculation.method', 'Calculation Method',
-                                        select=True, track_visibility='onchange'),
-        'retrocession_id': fields.many2one('retrocession', 'Retrocession',
-                                        select=True, track_visibility='onchange'),
-        'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate',
-                                        select=True, track_visibility='onchange'),
-        'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate',
-                                        select=True, track_visibility='onchange'),
-        'percentage': fields.float('Percentage', required=True, track_visibility='onchange'),
-        'amount': fields.float('Amount', track_visibility='onchange')
+        'calculation_method_id': fields.many2one('calculation.method', 'Calculation Method', select=True),
+        'retrocession_id': fields.many2one('retrocession', 'Retrocession', select=True),
+        'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate', select=True),
+        'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate', select=True),
+        'percentage': fields.float('Percentage', required=True, track_visibility='onchange', digits_compute=dp.get_precision('Percentage')),
+        'amount': fields.float('Amount', track_visibility='onchange', digits_compute=dp.get_precision('Account')),
     }
 
     _order = 'calculation_method_id, name'
@@ -265,10 +263,12 @@ class retrocession(orm.Model):
 
     def _get_fixed_rule_ids(self, cr, uid, ids, fname, arg, context=None):
         """
-        =================
+        ===================
         _get_fixed_rule_ids
-        =================
-        Get calculation rule ids linked to mandate
+        ===================
+        Get fixed calculation rule ids linked
+        * to mandate if retrocession is working
+        * to retrocession itself otherwise
         :rparam: Calculation rule ids
         :rtype: one2many
         """
@@ -277,27 +277,6 @@ class retrocession(orm.Model):
             rule_ids = []
             if retrocession.state in ['draft', 'sent']:
                 rules = retrocession.sta_mandate_id.calculation_rule_ids if retrocession.sta_mandate_id else retrocession.ext_mandate_id.calculation_rule_ids
-                rule_ids = [rule.id for rule in rules]
-            else:
-                rule_ids = self.pool.get('calculation.rule').search(cr, uid, [('retrocession_id', '=', retrocession.id),
-                                                                  ('type', '=', 'fixed')], context=context)
-            res[retrocession.id] = rule_ids
-        return res
-
-    def _get_fixed_rule_inactive_ids(self, cr, uid, ids, fname, arg, context=None):
-        """
-        =================
-        _get_fixed_rule_inactive_ids
-        =================
-        Get fice calculation rule ids linked to mandate
-        :rparam: Calculation rule ids
-        :rtype: one2many
-        """
-        res = {}
-        for retrocession in self.browse(cr, uid, ids, context=context):
-            rule_ids = []
-            if retrocession.state in ['draft', 'sent']:
-                rules = retrocession.sta_mandate_id.calculation_rule_inactive_ids if retrocession.sta_mandate_id else retrocession.ext_mandate_id.calculation_rule_inactive_ids
                 rule_ids = [rule.id for rule in rules]
             else:
                 rule_ids = self.pool.get('calculation.rule').search(cr, uid, [('retrocession_id', '=', retrocession.id),
@@ -412,33 +391,32 @@ class retrocession(orm.Model):
     }
 
     _columns = {
-        'state': fields.selection(RETROCESSION_AVAILABLE_STATES, 'State', size=128, select=True, track_visibility='onchange'),
-        'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate',
-                                        select=True, track_visibility='onchange'),
-        'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate',
-                                        select=True, track_visibility='onchange'),
+        'state': fields.selection(RETROCESSION_AVAILABLE_STATES, 'State', size=128, required=True, select=True, track_visibility='onchange'),
+        'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate', select=True),
+        'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate', select=True),
         'partner_id': fields.function(_get_partner_id, string='Representative',
-                                 type='many2one', relation='res.partner', store=False, select=True),
+                                 type='many2one', relation='res.partner', store=False),
         'invoice_type': fields.function(_get_invoice_type, string='Invoicing',
-                                 type='selection', selection=INVOICE_AVAILABLE_TYPES, store=False, select=True),
-        'month': fields.selection(fields.date.MONTHS, 'Month', size=128, select=True, track_visibility='onchange'),
+                                 type='selection', selection=INVOICE_AVAILABLE_TYPES, store=False),
+        'month': fields.selection(fields.date.MONTHS, 'Month', select=True, track_visibility='onchange'),
         'year': fields.char('Year', size=128, select=True, track_visibility='onchange'),
-        'variable_rule_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation variable rules', domain=[('active', '=', True), ('type', '=', 'variable')]),
-        'variable_rule_inactive_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation variable rules', domain=[('active', '=', False), ('type', '=', 'variable')]),
-        'fixed_rule_ids': fields.function(_get_fixed_rule_ids, string='Calculation fixed rules',
-                                 type='one2many', relation='calculation.rule', store=False, select=True),
-        'fixed_rule_inactive_ids': fields.function(_get_fixed_rule_inactive_ids, string='Calculation fixed rules',
-                                 type='one2many', relation='calculation.rule', store=False, select=True),
-        'amount_fixed': fields.function(_compute_amount_fixed, string='Fixed amount to retrocede',
-                                 type='float', store=_amount_store_trigger, select=True),
-        'amount_variable': fields.function(_compute_amount_variable, string='Variable amount to retrocede',
-                                 type='float', store=_amount_store_trigger, select=True),
-        'amount_total': fields.function(_compute_amount_total, string='Total amount to retrocede',
-                                        type='float', store=_amount_store_trigger, select=True),
+        'variable_rule_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation Variable Rules', domain=[('active', '=', True), ('type', '=', 'variable')]),
+        'variable_rule_inactive_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation Variable Rules', domain=[('active', '=', False), ('type', '=', 'variable')]),
+        'fixed_rule_ids': fields.function(_get_fixed_rule_ids, string='Calculation Fixed Rules',
+                                 type='one2many', relation='calculation.rule', store=False),
+        'fixed_rule_inactive_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation Fixed Rules', domain=[('active', '=', False), ('type', '=', 'fixed')]),
+        'amount_fixed': fields.function(_compute_amount_fixed, string='Fixed Amount to Retrocede',
+                                 type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
+        'amount_variable': fields.function(_compute_amount_variable, string='Variable Amount to Retrocede',
+                                 type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
+        'amount_total': fields.function(_compute_amount_total, string='Retrocession',
+                                        type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
     }
 
+    _order = 'year desc, month desc, sta_mandate_id, ext_mandate_id'
+
     _defaults = {
-        'state': 'draft'
+        'state': 'draft',
     }
 
     def _check_unicity(self, cr, uid, ids, for_unlink=False, context=None):
@@ -519,7 +497,7 @@ class retrocession(orm.Model):
     def onchange_sta_mandate_id(self, cr, uid, ids, sta_mandate_id, context=None):
         res = {}
         if sta_mandate_id:
-            invoice_type = self.pool.get('sta.mandate').read(cr, uid, sta_mandate_id, ['invoice_type'], context)['invoice_type']
+            invoice_type = self.pool.get('sta.mandate').read(cr, uid, sta_mandate_id, ['invoice_type'], context=context)['invoice_type']
             res['value'] = dict(invoice_type=invoice_type or False)
 
         return res
@@ -527,7 +505,7 @@ class retrocession(orm.Model):
     def onchange_ext_mandate_id(self, cr, uid, ids, ext_mandate_id, context=None):
         res = {}
         if ext_mandate_id:
-            invoice_type = self.pool.get('ext.mandate').read(cr, uid, ext_mandate_id, ['invoice_type'], context)['invoice_type']
+            invoice_type = self.pool.get('ext.mandate').read(cr, uid, ext_mandate_id, ['invoice_type'], context=context)['invoice_type']
             res['value'] = dict(invoice_type=invoice_type or False)
 
         return res
@@ -554,9 +532,37 @@ class retrocession(orm.Model):
                             percentage=rule.percentage,
                             amount=rule.amount)
                 data['retrocession_id'] = retrocession.id
-                self.pool.get('calculation.rule').create(cr, uid, data, context)
+                self.pool['calculation.rule'].create(cr, uid, data, context=context)
 
         # TODO: generate invoice and send report to mandate representative and return its id
         return False
+
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+        """
+        =================
+        action_invalidate
+        =================
+        Cancel a Retrocession
+        """
+        vals = vals or {}
+        vals.update({'state': 'cancelled'})
+        return super(retrocession, self).action_invalidate(cr, uid, ids, context=context, vals=vals)
+
+    def action_revalidate(self, cr, uid, ids, context=None, vals=None):
+        """
+        =================
+        action_revalidate
+        =================
+        Reset Retrocession to draft state unlinking generated fixed rules
+        """
+        vals = vals or {}
+        vals.update({'state': 'draft'})
+        res = super(retrocession, self).action_revalidate(cr, uid, ids, context=context, vals=vals)
+        rule_model = self.pool['calculation.rule']
+        rule_ids = rule_model.search(cr, uid, [('retrocession_id', 'in', ids), ('type', '=', 'fixed'), ('active', '<=', True)], context=context)
+        if rule_ids:
+            rule_model.unlink(cr, uid, rule_ids, context=context)
+
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -10,7 +10,7 @@
             <field name="arch" type="xml">
                 <search string="Fractionations" version="7.0">
                     <field name="name"/>
-                    <filter name="lessthan100" string="Uncomplete"
+                    <filter name="diff100" string="Uncomplete"
                             domain="[('total_percentage', '!=', 100.0)]" help="Non 100% Fractionations" />
                     <separator/>
                     <filter name="expired" string="Expired"
@@ -78,14 +78,11 @@
                 <search string="Calculation Methods" version="7.0">
                     <field name="name"/>
                     <filter name="fixed" string="Fixed"
-                            context="{'invisible_expire_date': False}"
-                            domain="[('type', '=', 'fixed')]" help="All fixed Calculation Methods" />
+                            domain="[('type', '=', 'fixed')]" help="Fixed Calculation Methods" />
                     <filter name="variable" string="Variable"
-                            context="{'invisible_expire_date': False}"
-                            domain="[('type', '=', 'variable')]" help="All variable Calculation Methods" />
+                            domain="[('type', '=', 'variable')]" help="Variable Calculation Methods" />
                     <filter name="mixed" string="Mixed"
-                            context="{'invisible_expire_date': False}"
-                            domain="[('type', '=', 'mixed')]" help="All mixed Calculation Methods" />
+                            domain="[('type', '=', 'mixed')]" help="Mixed Calculation Methods" />
                     <separator/>
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
@@ -124,11 +121,9 @@
                     <field name="ext_mandate_id" invisible="1"/>
                     <field name="retrocession_id" invisible="1"/>
                     <filter name="fixed" string="Fixed"
-                            context="{'invisible_expire_date': False}"
-                            domain="[('type', '=', 'fixed')]" help="All fixed Calculation Rules" />
+                            domain="[('type', '=', 'fixed')]" help="Fixed Calculation Rules" />
                     <filter name="variable" string="Variable"
-                            context="{'invisible_expire_date': False}"
-                            domain="[('type', '=', 'variable')]" help="All variable Calculation Rules" />
+                            domain="[('type', '=', 'variable')]" help="Variable Calculation Rules" />
                     <separator/>
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
@@ -138,7 +133,7 @@
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Calculation Rules, expired or not" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" />
-                        <filter name="method" string="Calculation Methods" context="{'group_by':'calculation_method_id'}" invisible="not context.get('show_calculation_method_id')"/>
+                        <filter name="method" string="Calculation Method" context="{'group_by':'calculation_method_id'}" invisible="not context.get('show_calculation_method_id')"/>
                     </group>
                 </search>
             </field>
@@ -164,8 +159,19 @@
             <field name="model">retrocession</field>
             <field name="arch" type="xml">
                 <search string="Retrocessions" version="7.0">
+                    <field name="year"/>
                     <field name="sta_mandate_id"/>
                     <field name="ext_mandate_id"/>
+                    <field name="amount_total"/>
+                    <filter name="in_progress" string="Waiting Validation"
+                            domain="[('state', 'in', ['draft','sent'])]" />
+                    <filter name="invoiced" string="Invoiced"
+                            domain="[('state', '=', 'validated')]" />
+                    <filter name="done" string="Paid"
+                            domain="[('state', '=', 'paid')]" />
+                    <filter name="cancel" string="Cancelled"
+                            domain="[('state', '=', 'cancelled')]" />
+                    <separator/>
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
                             domain="[('active','=',False)]" help="Expired Retrocessions" />
@@ -173,10 +179,11 @@
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Retrocessions, expired or not" />
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="month" string="Month" domain="[]" context="{'group_by':'month'}" />
+                        <filter name="state" string="State" domain="[]" context="{'group_by':'state'}" />
                         <filter name="year" string="Year" domain="[]" context="{'group_by':'year'}" />
-                        <filter name="sta_mandate" string="State mandates" domain="[('sta_mandate_id', '!=', False)]" context="{'group_by':'sta_mandate_id'}" />
-                        <filter name="ext_mandate" string="External mandates" domain="[('ext_mandate_id', '!=', False)]" context="{'group_by':'ext_mandate_id'}" />
+                        <filter name="month" string="Month" domain="[]" context="{'group_by':'month'}" />
+                        <filter name="sta_mandate" string="State Mandate" domain="[('sta_mandate_id', '!=', False)]" context="{'group_by':'sta_mandate_id'}" />
+                        <filter name="ext_mandate" string="External Mandate" domain="[('ext_mandate_id', '!=', False)]" context="{'group_by':'ext_mandate_id'}" />
                     </group>
                 </search>
             </field>
@@ -187,10 +194,14 @@
             <field name="model">retrocession</field>
             <field name="arch" type="xml">
                 <tree string="Retrocessions" version="7.0">
+                    <field name="year"/>
+                    <field name="month"/>
                     <field name="sta_mandate_id"/>
                     <field name="ext_mandate_id"/>
-                    <field name="month"/>
-                    <field name="year"/>
+                    <field name="amount_total" sum="1"/>
+                    <field name="state"/>
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
@@ -274,11 +285,11 @@
                             <h1><field name="name" class="oe_inline"/></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
-                            <button string="State assemblies" name="%(ficep_structure.sta_assembly_action)d"
+                            <button string="State Assemblies" name="%(ficep_structure.sta_assembly_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_fractionation_id': active_id,
                                           'default_fractionation_id': active_id}" />
-                            <button string="External assemblies" name="%(ficep_structure.ext_assembly_action)d"
+                            <button string="External Assemblies" name="%(ficep_structure.ext_assembly_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_fractionation_id': active_id,
                                           'default_fractionation_id': active_id}" />
@@ -414,11 +425,11 @@
                             <h1><field name="name" class="oe_inline"/></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
-                             <button string="State assemblies" name="%(ficep_structure.sta_assembly_action)d"
+                             <button string="State Assemblies" name="%(ficep_structure.sta_assembly_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_calculation_method_id': active_id,
                                           'default_calculation_method_id': active_id}" />
-                            <button string="External assemblies" name="%(ficep_structure.ext_assembly_action)d"
+                            <button string="External Assemblies" name="%(ficep_structure.ext_assembly_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_calculation_method_id': active_id,
                                           'default_calculation_method_id': active_id}" />
@@ -484,7 +495,7 @@
             <field name="name">calculation.rule.form</field>
             <field name="model">calculation.rule</field>
             <field name="arch" type="xml">
-                <form string="Calculation rule" version="7.0">
+                <form string="Calculation Rule" version="7.0">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
@@ -545,12 +556,14 @@
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_user" name="invalidate">
-                            <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate retrocession, proceed anyway ?" />
                             <button name="action_validate" string="Validate" type="object"
-                                    confirm="Validate retrocession now: proceed anyway ?"
+                                    confirm="Validate Retrocession now: proceed anyway ?"
                                     states="draft,sent" class="oe_highlight"/>
-                            <field name="state" widget="statusbar"/>
+                            <button name="action_revalidate" string="Reset" type="object"
+                                    states="validated" confirm="Reset Retrocession: proceed anyway ?" />
+                            <button name="action_invalidate" string="Cancel" type="object"
+                                    states="sent,validated" confirm="Invalidate Retrocession, proceed anyway ?" />
+                            <field name="state" widget="statusbar" statusbar_visible="sent,validated,paid"/>
                         </div>
                     </header>
                     <sheet>
@@ -587,19 +600,25 @@
                             <page string="Rules" name="rules">
                                 <separator string="Fixed"/>
                                 <field name="fixed_rule_ids" attrs="{'invisible': [('active', '=', False)]}" readonly="1">
-                                    <tree version="7.0">
+                                    <tree version="7.0" editable="bottom">
                                         <field name="name"/>
                                         <field name="percentage"/>
-                                        <field name="amount" sum="1"/>
+                                        <field name="amount"/>
                                     </tree>
                                 </field>
                                 <field name="fixed_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
-                                    <tree version="7.0">
+                                    <tree version="7.0" editable="bottom">
                                         <field name="name"/>
                                         <field name="percentage"/>
-                                        <field name="amount" sum="1"/>
+                                        <field name="amount"/>
                                     </tree>
                                 </field>
+                                <group name="f-amounts" class="oe_subtotal_footer oe_right">
+                                    <div class="oe_subtotal_footer_separator">
+                                        <span>Subtotal:</span>
+                                    </div>
+                                    <field name="amount_fixed" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                </group>
                                 <separator string="Variables"/>
                                 <button string="All Details" name="%(calculation_rule_detail_action)d"
                                          type="action" attrs="{'invisible': [('id','=',False)]}"
@@ -607,35 +626,37 @@
                                                    'default_retrocession_id': active_id,
                                                    'search_default_all': True}" />
                                 <field name="variable_rule_ids" attrs="{'invisible': [('active', '=', False)],
-                                                                        'readonly': [('state','not in', ['draft','sent'])]}">
+                                                                        'readonly': [('state','not in', ['draft','sent'])]}"
+                                                                context="{'default_type': 'variable'}">
                                     <tree version="7.0" editable="bottom">
                                         <field name="name"/>
+                                        <field name="type" invisible="1"/>
                                         <field name="percentage"/>
-                                        <field name="amount" sum="1"/>
+                                        <field name="amount"/>
                                     </tree>
                                 </field>
                                 <field name="variable_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
-                                    <tree version="7.0">
+                                    <tree version="7.0" editable="bottom">
                                         <field name="name"/>
                                         <field name="percentage"/>
-                                        <field name="amount" sum="1"/>
+                                        <field name="amount"/>
                                     </tree>
                                 </field>
+                                <group name="v-amounts" class="oe_subtotal_footer oe_right">
+                                    <div class="oe_subtotal_footer_separator" styles="">
+                                        <span>Subtotal:</span>
+                                    </div>
+                                    <field name="amount_variable" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                </group>
                                 <group name="amounts" class="oe_subtotal_footer oe_right">
                                     <div class="oe_subtotal_footer_separator">
-                                        Total:
-                                         <button name="button_dummy"
-                                            states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                                        <span class="oe_inline">Total:</span>
+                                        <button name="button_dummy" string="(update)" type="object"
+                                                states="draft,sent" class="oe_edit_only oe_link"/>
                                     </div>
                                     <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator"/>
                                 </group>
-                                <!-- Some blank lines to see the end of sheet -->
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
+                                <div class="oe_clear"/>
                             </page>
                         </notebook>
                     </sheet>
@@ -643,15 +664,11 @@
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Validate fractionation: proceed anyway ?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
                                 <field name="invoice_type"/>
-                                <field name="amount_fixed"/>
-                                <field name="amount_variable"/>
                             </group>
                         </div>
                     </div>

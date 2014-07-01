@@ -49,8 +49,9 @@ class sta_assembly(orm.Model):
 
     _columns = {
         'fractionation_id': fields.many2one('fractionation', 'Fractionation',
-                                                select=True, track_visibility='onchange'),
-        'calculation_method_id': fields.many2one('calculation.method', string='Calculation method', track_visibility='onchange'),
+                                            select=True, track_visibility='onchange'),
+        'calculation_method_id': fields.many2one('calculation.method', string='Calculation Method',
+                                            select=True, track_visibility='onchange'),
     }
 
 
@@ -76,5 +77,8 @@ class ext_assembly(orm.Model):
     _columns = {
         'fractionation_id': fields.many2one('fractionation', 'Fractionation',
                                                 select=True, track_visibility='onchange'),
-        'calculation_method_id': fields.many2one('calculation.method', string='Calculation method', track_visibility='onchange'),
+        'calculation_method_id': fields.many2one('calculation.method', string='Calculation Method',
+                                                select=True, track_visibility='onchange'),
     }
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -79,7 +79,8 @@ class test_retrocession(SharedSetupTransactionCase):
                     power_level_id=int_power_level_02_id,
                     percentage=142)
 
-        self.assertRaises(orm.except_orm, self.registry('fractionation.line').create, self.cr, self.uid, data)
+        with testtool.disable_log_error(self.cr):
+            self.assertRaises(psycopg2.IntegrityError, self.registry('fractionation.line').create, self.cr, self.uid, data)
 
     def test_unicity_fractionation_line(self):
         '''

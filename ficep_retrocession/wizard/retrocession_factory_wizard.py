@@ -28,64 +28,62 @@
 from openerp.osv import orm, fields
 import datetime
 
+MANDATE_M2O = {
+        'sta.mandate': 'sta_mandate_id',
+        'ext.mandate': 'ext_mandate_id',
+}
+
 
 class retrocession_factory_wizard(orm.TransientModel):
     _name = "retrocession.factory.wizard"
-
-    _active_model = None
-    _mandate_key = None
-    _mandate_ids = None
-    _selected_mandate_ids = None
-    _month = None
-    _year = None
-    _cache_dict = None
+    _description = 'Retrocessions Generator'
 
     _columns = {
-        'month': fields.selection(fields.date.MONTHS, 'Month', size=128, select=True),
-        'year': fields.char('Year', size=128, select=True, required=True),
-        'mandate_selected': fields.integer('Mandate selected'),
-        'yearly_count': fields.integer('Yearly retrocession(s) to create'),
-        'yearly_duplicates': fields.integer('Yearly retrocession(s) already existing'),
-        'monthly_count': fields.integer('Monthly retrocession(s) to create'),
-        'monthly_duplicates': fields.integer('Monthly retrocession(s) already existing'),
-        'total_retrocession': fields.integer('Total retrocession to create'),
+        'model': fields.char('Model', size=128, required=True),
+        'ids': fields.text('IDS', required=True),
+        'month': fields.selection(fields.date.MONTHS, 'Month'),
+        'year': fields.char('Year', size=128, required=True),
+        'mandate_selected': fields.integer('Selected Mandates'),
+        'yearly_count': fields.integer('Yearly Retrocessions to Create'),
+        'yearly_duplicates': fields.integer('Yearly Retrocessions Already Existing'),
+        'monthly_count': fields.integer('Monthly Retrocessions to Create'),
+        'monthly_duplicates': fields.integer('Monthly Retrocessions Already Existing'),
+        'total_retrocession': fields.integer('Total Retrocessions to Create'),
     }
 
-    def default_get(self, cr, uid, flds, context):
+    def default_get(self, cr, uid, flds, context=None):
         """
         To get default values for the object.
         """
-        res = {}
         context = context or {}
 
         today = datetime.date.today()
         first = datetime.date(day=1, month=today.month, year=today.year)
         lastMonth = first - datetime.timedelta(days=1)
-        res['month'] = lastMonth.strftime("%m")
-        res['year'] = lastMonth.strftime("%Y")
+        ids = context.get('active_ids') or (context.get('active_id') and [context.get('active_id')]) or []
 
-        self._active_model = context.get('active_model', False)
-        if self._active_model == 'sta.mandate':
-            self._mandate_key = 'sta_mandate_id'
-        elif self._active_model == 'ext.mandate':
-            self._mandate_key = 'ext_mandate_id'
-
-        self._selected_mandate_ids = context.get('active_ids') or (context.get('active_id') and [context.get('active_id')]) or []
+        res = {
+            'model': context.get('active_model', False),
+            'ids': str(ids),
+            'month': lastMonth.strftime("%m"),
+            'year': lastMonth.strftime("%Y"),
+            'mandate_selected': len(ids),
+        }
 
         return res
 
-    def mandate_selection_analysis(self, cr, uid, month, year, context=None):
+    def mandate_selection_analysis(self, cr, uid, month, year, model, ids, mode='onchange', context=None):
         """
         ===============
         mandate_selection_analysis
         ==============)
         Analyse mandate selection and give an overview of expected results
         """
-        res = {}
+        mandate_key = MANDATE_M2O.get(model, False)
         rejected_ids = []
         yearly_count, yearly_duplicates, monthly_count, monthly_duplicates = 0, 0, 0, 0
-        for mandate_data in self.pool.get(self._active_model).read(cr, uid, self._selected_mandate_ids,
-                                                                   ['invoice_type', 'end_date', 'deadline_date', 'calculation_method_id'], context=context):
+        for mandate_data in self.pool[model].read(cr, uid, ids,
+                                                  ['invoice_type', 'end_date', 'deadline_date', 'calculation_method_id'], context=context):
             if mandate_data['end_date'] \
             or mandate_data['deadline_date'] <= fields.date.today() \
             or mandate_data['invoice_type'] not in ['month', 'year']\
@@ -94,7 +92,7 @@ class retrocession_factory_wizard(orm.TransientModel):
                 continue
 
             if mandate_data['invoice_type'] == 'month':
-                duplicate_ids = self.pool.get('retrocession').search(cr, uid, [(self._mandate_key, '=', mandate_data['id']),
+                duplicate_ids = self.pool.get('retrocession').search(cr, uid, [(mandate_key, '=', mandate_data['id']),
                                                                               ('month', '=', month),
                                                                               ('year', '=', year)], context=context)
 
@@ -104,34 +102,30 @@ class retrocession_factory_wizard(orm.TransientModel):
                     monthly_duplicates += 1
 
             elif mandate_data['invoice_type'] == 'year':
-                duplicate_ids = self.pool.get('retrocession').search(cr, uid, [(self._mandate_key, '=', mandate_data['id']),
+                duplicate_ids = self.pool.get('retrocession').search(cr, uid, [(mandate_key, '=', mandate_data['id']),
                                                                                ('year', '=', year)], context=context)
                 if not duplicate_ids:
                     yearly_count += 1
                 else:
                     yearly_duplicates += 1
 
-        self._mandate_ids = list(set(self._selected_mandate_ids) - set(rejected_ids))
-        res['mandate_selected'] = len(self._selected_mandate_ids)
-        res['total_retrocession'] = yearly_count + monthly_count
-        res['yearly_count'] = yearly_count
-        res['yearly_duplicates'] = yearly_duplicates
-        res['monthly_count'] = monthly_count
-        res['monthly_duplicates'] = monthly_duplicates
-
-        self._cache_dict = res
-        return res
-
-    def onchange_month_year(self, cr, uid, ids, month, year, context=None):
-        res = {}
-        if month != self._month or year != self._year:
-            self._month = month
-            self._year = year
-            res['value'] = self.mandate_selection_analysis(cr, uid, month, year, context=context)
+        if mode == 'ids':
+            res = list(set(ids) - set(rejected_ids))
         else:
-            res['value'] = self._cache_dict
+            res = {
+                'total_retrocession': yearly_count + monthly_count,
+                'yearly_count': yearly_count,
+                'yearly_duplicates': yearly_duplicates,
+                'monthly_count': monthly_count,
+                'monthly_duplicates': monthly_duplicates,
+            }
 
         return res
+
+    def onchange_month_year(self, cr, uid, ids, month, year, model, mandate_ids, context=None):
+        return {
+            'value': self.mandate_selection_analysis(cr, uid, month, year, model, eval(mandate_ids), context=context)
+        }
 
     def generate_retrocessions(self, cr, uid, ids, context=None):
         """
@@ -141,9 +135,11 @@ class retrocession_factory_wizard(orm.TransientModel):
         Generate retrocessions for valid selected mandates
         """
         wizard = self.browse(cr, uid, ids, context=context)[0]
-        for mandate_id in self._mandate_ids:
+        mandate_key = MANDATE_M2O.get(wizard.model, False)
+        res = self.mandate_selection_analysis(cr, uid, wizard.month, wizard.year, wizard.model, eval(wizard.ids), mode='ids', context=context)
+        for mandate_id in res:
             data = dict(month=wizard.month,
                       year=wizard.year)
 
-            data[self._mandate_key] = mandate_id
-            self.pool.get('retrocession').create(cr, uid, data, context=context)
+            data[mandate_key] = mandate_id
+            self.pool['retrocession'].create(cr, uid, data, context=context)
