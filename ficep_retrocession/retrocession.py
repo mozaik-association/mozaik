@@ -316,37 +316,13 @@ class retrocession(orm.Model):
             res[retrocession.id] = amount
         return res
 
-    def _compute_amount_fixed(self, cr, uid, ids, fname, arg, context=None):
-        """
-        =================
-        _compute_fixed_amount
-        =================
-        Get computation of retrocession coming from fixed rules linked to mandate
-        :rparam: Fixed part of retrocession amount
-        :rtype: float
-        """
-        retrocessions_to_compute = self._get_retrocession_to_compute(cr, uid, ids, context=context)
-        return self._compute_amount(cr, uid, retrocessions_to_compute, 'fixed_rule_ids', context=context)
-
-    def _compute_amount_variable(self, cr, uid, ids, fname, arg, context=None):
-        """
-        =================
-        _compute_variable_amount
-        =================
-        Get computation of retrocession coming from variable rules linked to retrocession
-        :rparam: Fixed part of retrocession amount
-        :rtype: float
-        """
-        retrocessions_to_compute = self._get_retrocession_to_compute(cr, uid, ids, context=context)
-        return self._compute_amount(cr, uid, retrocessions_to_compute, 'variable_rule_ids', context=context)
-
-    def _compute_amount_total(self, cr, uid, ids, fname, arg, context=None):
+    def _compute_all_amounts(self, cr, uid, ids, fname, arg, context=None):
         """
         =====================
-        _compute_amount_total
+        _compute_all_amounts
         =====================
         Get total amounts of retrocession coming from fixed rules linked to mandate and variable rules
-        :rparam: Fixed part of retrocession amount
+        :rparam: Retrocession amounts
         :rtype: float
         """
         res = {}
@@ -354,7 +330,9 @@ class retrocession(orm.Model):
         fixed_amounts = self._compute_amount(cr, uid, retrocessions_to_compute, 'fixed_rule_ids', context=context)
         variable_amounts = self._compute_amount(cr, uid, retrocessions_to_compute, 'variable_rule_ids', context=context)
         for retro in retrocessions_to_compute:
-            res[retro.id] = (fixed_amounts[retro.id] + variable_amounts[retro.id])
+            res[retro.id] = dict(amount_fixed=fixed_amounts[retro.id] or False,
+                                 amount_variable=variable_amounts[retro.id] or False,
+                                 amount_total=(fixed_amounts[retro.id] + variable_amounts[retro.id]))
         return res
 
     def _get_invoice_type(self, cr, uid, ids, fname, arg, context=None):
@@ -405,11 +383,11 @@ class retrocession(orm.Model):
         'fixed_rule_ids': fields.function(_get_fixed_rule_ids, string='Calculation Fixed Rules',
                                  type='one2many', relation='calculation.rule', store=False),
         'fixed_rule_inactive_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation Fixed Rules', domain=[('active', '=', False), ('type', '=', 'fixed')]),
-        'amount_fixed': fields.function(_compute_amount_fixed, string='Fixed Amount to Retrocede',
+        'amount_fixed': fields.function(_compute_all_amounts, string='Fixed Amount to Retrocede', multi="Allamounts",
                                  type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
-        'amount_variable': fields.function(_compute_amount_variable, string='Variable Amount to Retrocede',
+        'amount_variable': fields.function(_compute_all_amounts, string='Variable Amount to Retrocede', multi="Allamounts",
                                  type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
-        'amount_total': fields.function(_compute_amount_total, string='Retrocession',
+        'amount_total': fields.function(_compute_all_amounts, string='Retrocession', multi="Allamounts",
                                         type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
     }
 
