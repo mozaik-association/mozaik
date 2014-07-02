@@ -33,27 +33,35 @@ _logger = logging.getLogger(__name__)
 class test_membership(SharedSetupTransactionCase):
 
     _data_files = (
-        #load the partner
+        # load the partner
         '../../ficep_base/tests/data/res_partner_data.xml',
-        #load the birth_date of this partner
+        # load the birth_date of this partner
         '../../ficep_person/tests/data/res_partner_data.xml',
-        #load address of this partner
+        # load address of this partner
         '../../ficep_structure/tests/data/structure_data.xml',
         '../../ficep_address/tests/data/reference_data.xml',
-        #load postal_coordinate of this partner
+        # load postal_coordinate of this partner
         '../../ficep_address/tests/data/address_data.xml',
-        #load phone_coordinate of this partner
+        # load phone_coordinate of this partner
         '../../ficep_phone/tests/data/phone_data.xml',
+        # load phone_coordinate of this partner
+        '../../ficep_thesaurus/tests/data/thesaurus_data.xml',
+        '../../ficep_membership/tests/data/membership_request_data.xml',
     )
 
     _module_ns = 'ficep_membership'
 
     def setUp(self):
         super(test_membership, self).setUp()
+        self.mro = self.registry('membership.request')
 
         self.rec_partner = self.browse_ref('%s.res_partner_thierry' % self._module_ns)
+        self.rec_partner_pauline = self.browse_ref('%s.res_partner_pauline' % self._module_ns)
         self.rec_postal = self.browse_ref('%s.postal_coordinate_2_duplicate_2' % self._module_ns)
         self.rec_phone = self.browse_ref('%s.main_mobile_coordinate_two' % self._module_ns)
+
+        self.rec_mr_update = self.browse_ref('%s.membership_request_mp' % self._module_ns)
+        self.rec_mr_create = self.browse_ref('%s.membership_request_eh' % self._module_ns)
 
     def test_pre_process(self):
         """
@@ -81,7 +89,7 @@ class test_membership(SharedSetupTransactionCase):
             'mobile': self.rec_phone.phone_id.name,
         }
 
-        output_values = self.registry('membership.request').pre_process(cr, uid, input_values)
+        output_values = self.mro.pre_process(cr, uid, input_values)
         self.assertEqual(output_values.get('mobile_id', False), self.rec_phone.phone_id.id, 'Should have the same phone that the phone of the phone coordinate')
         self.assertEqual(output_values.get('partner_id', False), self.rec_partner.id, 'Should have the same partner')
 
@@ -91,13 +99,61 @@ class test_membership(SharedSetupTransactionCase):
         address_local_street_id = adrs.address_local_street_id and adrs.address_local_street_id.id
         address_local_zip_id = adrs.address_local_zip_id and adrs.address_local_zip_id.id
         country_id = adrs.country_id and adrs.country_id.id
-        technical_name = self.registry['membership.request'].get_technical_name(cr, uid, address_local_street_id,\
-                                                           address_local_zip_id, adrs.number,\
+        technical_name = self.mro.get_technical_name(cr, uid, address_local_street_id, \
+                                                           address_local_zip_id, adrs.number, \
                                                            adrs.box, adrs.town_man, adrs.street_man, adrs.zip_man, country_id)
         waiting_adrs_ids = self.registry['address.address'].search(cr, uid, [('technical_name', '=', technical_name)])
         waiting_adrs_id = -1
         if waiting_adrs_ids:
             waiting_adrs_id = waiting_adrs_ids[0]
         self.assertEqual(adrs.id, waiting_adrs_id, 'Address id Should be the same')
+
+    def test_validate_request(self):
+        """
+        =====================
+        test_validate_request
+        =====================
+        * Test the validate process with an update and check that
+        ** firstname
+        ** email_coordinate
+        ** new mobile
+        * Test the validate process with a create and check that
+            relations are created
+        """
+        cr, uid = self.cr, self.uid
+        partner_obj = self.registry['res.partner']
+
+        to_update_partner_id = self.rec_mr_update.partner_id.id
+
+        # validate the membership request
+        self.mro.validate_request(cr, uid, [self.rec_mr_update.id])
+        modified_partner = partner_obj.browse(cr, uid, to_update_partner_id)
+
+        self.assertEqual(self.rec_mr_update.firstname, modified_partner.firstname, \
+                         "First name should be updated with same value of the membership request")
+        self.assertEqual(self.rec_mr_update.email, modified_partner.email_coordinate_id.email, \
+                         "Email should be updated with same value of the membership request")
+        self.assertEqual(self.rec_mr_update.mobile, modified_partner.mobile_coordinate_id.phone_id.name, \
+                         "Mobile should be created with same value of the membership request")
+
+        #validation to create
+        self.mro.validate_request(cr, uid, [self.rec_mr_create.id])
+        created_partner_ids = partner_obj.search(cr, uid, [('firstname', '=', self.rec_mr_create.firstname),
+                                                          ('lastname', '=', self.rec_mr_create.lastname),
+                                                          ('birth_date', '=', self.rec_mr_create.birth_date), ])
+        self.assertEqual(len(created_partner_ids), 1, "Should have one and only one partner")
+        created_partner_id = created_partner_ids[0]
+        #now test relations
+        address_ids = self.registry['address.address'].search(cr, uid, [('technical_name', '=', self.rec_mr_create.technical_name)])
+        phone_ids = self.registry['phone.phone'].search(cr, uid, [('name', '=', self.rec_mr_create.phone),
+                                                                  ('type', '=', 'fix')])
+        #test address and a phone
+        self.assertEqual(len(address_ids), 1, "Should have one and only one address id")
+        self.assertEqual(len(phone_ids), 1, "Should have one and only one phone id")
+
+        phone_coordinate_ids = self.registry['phone.coordinate'].search(cr, uid, [('partner_id', '=', created_partner_id),
+                                                                                  ('phone_id', '=', phone_ids[0])])
+        #test that we have as well a phone.coordinate
+        self.assertEqual(len(phone_coordinate_ids), 1, "Should have one and only one phone_coordinate_id id")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -43,9 +43,6 @@ class res_partner(orm.Model):
         Create a `membership.request` object with the datas of the current partner.
         Launch it into the another form view
         """
-        if context is None:
-            context = {}
-
         partners = self.browse(cr, uid, ids, context=context)
         partner = partners and partners[0]
         if not partner:
@@ -73,6 +70,7 @@ class res_partner(orm.Model):
             'day': day,
             'month': month,
             'year': year,
+            'is_update': True,
 
             #country_id is mandatory
             'country_id': postal_coordinate_id and postal_coordinate_id.address_id.country_id.id,
@@ -87,8 +85,8 @@ class res_partner(orm.Model):
 
             'mobile': mobile_coordinate_id and mobile_coordinate_id.phone_id.name,
             'phone': fix_coordinate_id and fix_coordinate_id.phone_id.name,
-            'mobile_id': mobile_coordinate_id and mobile_coordinate_id.phone_id,
-            'phone_id': fix_coordinate_id and fix_coordinate_id.phone_id.name,
+            'mobile_id': mobile_coordinate_id and mobile_coordinate_id.phone_id.id,
+            'phone_id': fix_coordinate_id and fix_coordinate_id.phone_id.id,
 
             'email': email_coordinate_id and email_coordinate_id.email,
 
@@ -96,8 +94,8 @@ class res_partner(orm.Model):
             'address_id': postal_coordinate_id and postal_coordinate_id.address_id.id,
             'int_instance_id': int_instance_id and int_instance_id.id,
 
-            'interest_ids': [[6, False, partner.interests_m2m_ids or []]],
-            'competence_ids': [[6, False, partner.competencies_m2m_ids or []]],
+            'interests_m2m_ids': [[6, False, partner.interests_m2m_ids and [interest.id for interest in partner.interests_m2m_ids] or []]],
+            'competencies_m2m_ids': [[6, False, partner.competencies_m2m_ids and [competence.id for competence in partner.competencies_m2m_ids] or []]],
         }
         membership_request_obj = self.pool['membership.request']
         membership_request_id = membership_request_obj.create(cr, uid, values, context=context)

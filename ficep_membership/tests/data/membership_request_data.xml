@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- in reference to Marois Pauline -->
+        <record id="membership_request_mp" model="membership.request">
+            <field name="lastname">MAROIS</field>
+            <field name="firstname">Paulinne</field>
+            <field name="gender">f</field>
+            <field name="email">pauline_marois@gmail.com</field>
+            <field name="birth_date">1949-03-29</field>
+            <field name="status">m</field>
+            <field name="id_update" eval="1" />
+
+            <field name="address_id" ref="address_2" />
+            <field name="partner_id" ref="res_partner_pauline" />
+            <field name="address_local_zip_id" ref="local_zip_2" />
+            <field name="address_local_street_id" ref="local_street_2" />
+            <field name="int_instance_id" ref="int_instance_06" />
+            <field name="phone_id" ref="fix_for_test_update_1" />
+
+            <field name="phone">061458978</field>
+            <field name="mobile">0475451232</field>
+
+            <field name="month">03</field>
+            <field name="year">1949</field>
+            <field name="day">29</field>
+        </record>
+
+        <!-- new partner -->
+        <record id="membership_request_eh" model="membership.request">
+            <field name="state">confirm</field>
+            <field name="lastname">Hazard</field>
+            <field name="firstname">Eden</field>
+            <field name="gender">m</field>
+            <field name="email">eden.hazard@fifa.eu</field>
+            <field name="status">s</field>
+
+            <field name="interests_m2m_ids" eval="[[6,False,[ref('term_confirmed_one')]]]"/>
+
+            <field name="phone">064784512</field>
+            <field name="mobile">0498785612</field>
+
+            <field name="street_man">Rue du tir 59</field>
+            <field name="zip_man">7100</field>
+            <field name="town_man">La Louvière</field>
+
+            <field name="day">01</field>
+            <field name="month">07</field>
+            <field name="year">1991</field>
+
+        </record>
+    </data>
+
+</openerp>

@@ -60,6 +60,7 @@ FICEP Sample Customization
          '../ficep_mandate/tests/data/mandate_data.xml',
          '../ficep_communication/demo/communication_demo.xml',
          '../ficep_retrocession/tests/data/retrocession_data.xml',
+         '../ficep_membership/tests/data/membership_request_data.xml',
          'demo/sample_customization_demo.xml',  # must be the last
     ],
     'js': [

@@ -45,6 +45,7 @@ MEMBERSHIP_AVAILABLE_STATES = [
 ]
 membership_available_states = dict(MEMBERSHIP_AVAILABLE_STATES)
 
+EMPTY_ADDRESS = '0#0#0#0#0#0#0#0'
 MEMBERSHIP_REQUEST_TYPE = [
     ('m', 'Member'),
     ('s', 'Supporter'),
@@ -73,8 +74,9 @@ class membership_request(orm.Model):
         'year': fields.integer('Year'),
         'birth_date': fields.date('Birthdate', track_visibility='onchange'),
 
-        # address
+        'is_update': fields.boolean('Is Update'),
 
+        # address
         'country_id': fields.many2one('res.country', 'Country', select=True, track_visibility='onchange'),
         'country_code': fields.related('country_id', 'code', string='Country Code', type='char'),
 
@@ -87,6 +89,7 @@ class membership_request(orm.Model):
         'street_man': fields.char(string='Street', track_visibility='onchange'),
 
         'street2': fields.char(string='Street2', track_visibility='onchange'),
+        'sequence': fields.integer('Sequence'),
 
         'number': fields.char(string='Number', track_visibility='onchange'),
         'box': fields.char(string='Box', track_visibility='onchange'),
@@ -97,9 +100,9 @@ class membership_request(orm.Model):
         'competencies': fields.text(string='Competencies'),
 
         'partner_id': fields.many2one('res.partner', 'Partner', ondelete='restrict'),
-        'interest_ids': fields.many2many('thesaurus.term', 'membership_request_interests_rel',
+        'interests_m2m_ids': fields.many2many('thesaurus.term', 'membership_request_interests_rel',
                                               id1='membership_id', id2='thesaurus_term_id', string='Interests'),
-        'competence_ids': fields.many2many('thesaurus.term', 'membership_request_competence_rel',
+        'competencies_m2m_ids': fields.many2many('thesaurus.term', 'membership_request_competence_rel',
                                               id1='membership_id', id2='thesaurus_term_id', string='Competencies'),
         'int_instance_id': fields.many2one('int.instance', 'Internal Instance', ondelete='restrict'),
         'address_local_zip_id': fields.many2one('address.local.zip', string='City', track_visibility='onchange'),
@@ -110,6 +113,8 @@ class membership_request(orm.Model):
 
         'mobile_id': fields.many2one('phone.phone', 'Mobile', ondelete='restrict'),
         'phone_id': fields.many2one('phone.phone', 'Phone', ondelete='restrict'),
+
+        'note': fields.text('Note'),
     }
 
     _unicity_keys = 'N/A'
@@ -118,7 +123,7 @@ class membership_request(orm.Model):
         'country_id': lambda self, cr, uid, c:
             self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE, context=c),
         'country_code': COUNTRY_CODE,
-
+        'is_update': False,
         'state': 'draft'
     }
 
@@ -171,7 +176,7 @@ class membership_request(orm.Model):
             }
         }
 
-    def onchange_partner_component(self, cr, uid, ids, day, month, year, lastname, firstname, email, context=None):
+    def onchange_partner_component(self, cr, uid, ids, day, month, year, lastname, firstname, email, is_update, context=None):
         """
         ===================
         onchange_country_id
@@ -181,12 +186,34 @@ class membership_request(orm.Model):
         """
         birth_date = self.get_birth_date(cr, uid, day, month, year, context=context)
         email = self.get_format_email(cr, uid, email, context=context)
-        partner_id = self.get_partner_id(cr, uid, birth_date, firstname, lastname, email, context=context),
-        return {
+        values = {
             'value': {
-                'partner_id': partner_id,
                 'birth_date': '%s' % birth_date if birth_date else False,
                 'email': email,
+            }
+        }
+        if is_update:
+            return values
+
+        partner_id = self.get_partner_id(cr, uid, birth_date, firstname, lastname, email, context=context)
+        values['value'].update({
+            'partner_id': partner_id,
+        })
+        return values
+
+    def onchange_partner_id(self, cr, uid, ids, partner_id, context=None):
+        interests_ids = []
+        competencies_ids = []
+        if partner_id:
+            partner = self.pool['res.partner'].browse(cr, uid, partner_id, context=context)
+            interests_ids = partner.interests_m2m_ids and ([interest.id for interest in partner.interests_m2m_ids]) or False
+            competencies_ids = partner.competencies_m2m_ids and ([competence.id for competence in partner.competencies_m2m_ids]) or False
+            int_instance_id = partner.int_instance_id and partner.int_instance_id.id or False
+        return {
+            'value': {
+                'int_instance_id': int_instance_id,
+                'interests_m2m_ids': interests_ids and [[6, False, interests_ids]] or interests_ids,
+                'competencies_m2m_ids': competencies_ids and [[6, False, competencies_ids]] or competencies_ids,
             }
         }
 
@@ -286,7 +313,7 @@ class membership_request(orm.Model):
         technical_name = address_obj._get_technical_name(cr, uid, values, context=context)
         return technical_name
 
-    def get_phone_id(self, cr, uid, phone_number, phone_type, context=None):
+    def get_phone_id(self, cr, uid, phone_number, phone_type, then_create=False, context=None):
         """
         =============
         get_number_id
@@ -296,8 +323,10 @@ class membership_request(orm.Model):
         :rparam: Id of a `phone.phone` object or  False
         """
         phone_obj = self.pool['phone.phone']
-        mobile_ids = phone_obj.search(cr, uid, [('name', '=', phone_number), ('type', '=', '%s' % phone_type)])
-        return (mobile_ids or False) and mobile_ids[0]
+        phone_ids = phone_obj.search(cr, uid, [('name', '=', phone_number), ('type', '=', '%s' % phone_type)])
+        if not phone_ids and then_create:
+            phone_ids.append(phone_obj.create(cr, uid, {'name': phone_number, 'type': phone_type}, context=context))
+        return (phone_ids or False) and phone_ids[0]
 
     def get_format_email(self, cr, uid, email, context=None):
         """
@@ -359,12 +388,15 @@ class membership_request(orm.Model):
         email = vals.get('email', False)
         mobile = vals.get('mobile', False)
         phone = vals.get('phone', False)
-        zip_man = vals.get('zip_man', False)
+        address_local_street_id = vals.get('address_local_street_id', False)
+        address_local_zip_id = vals.get('address_local_zip_id', False)
+        number = vals.get('number', False)
+        box = vals.get('box', False)
         town_man = vals.get('town_man', False)
         street_man = vals.get('street_man', False)
-        gender = vals.get('gender', False)
-        status = vals.get('status', False)
-        interest = vals.get('interest', False)
+        zip_man = vals.get('zip_man', False)
+        country_id = vals.get('country_id', False)
+        partner_id = vals.get('partner_id', False)
 
         birth_date = self.get_birth_date(cr, uid, day, month, year, context=False)
 
@@ -377,23 +409,21 @@ class membership_request(orm.Model):
                 phone_id = self.get_phone_id(cr, uid, phone, 'fix', context=context)
         if email:
             email = self.get_format_email(cr, uid, email, context=context)
-        partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=False)
+        if not partner_id:
+            partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=False)
+
+        technical_name = self.get_technical_name(cr, uid, address_local_street_id, address_local_zip_id,\
+                                                 number, box, town_man, street_man, zip_man, country_id, context=context)
 
         # update vals dictionary because some inputs may have changed (and new values too)
         vals.update({
             'partner_id': partner_id,
             'lastname': lastname,
             'firstname': firstname,
-            'gender': gender,
             'birth_date': birth_date,
             'day': day,
             'month': month,
             'year': year,
-
-            'status': status,
-            'street_man': street_man,
-            'zip_man': zip_man,
-            'town_man': town_man,
 
             'mobile': mobile,
             'phone': phone,
@@ -401,8 +431,7 @@ class membership_request(orm.Model):
 
             'mobile_id': mobile_id,
             'phone_id': phone_id,
-
-            'interest': interest,
+            'technical_name': technical_name,
         })
 
         return vals
@@ -446,11 +475,67 @@ class membership_request(orm.Model):
         content
         In Other cases then create missing required data
         """
-        for membership_request in self.browse(cr, uid, ids, context=context):
-            pass
+        for mr in self.browse(cr, uid, ids, context=context):
+            # partner
+            partner_values = {
+                'lastname': mr.lastname,
+                'firstname': mr.firstname,
+                'gender': mr.gender,
+                'birth_date': mr.birth_date,
+            }
+            if not mr.partner_id:
+                partner_id = self.pool['res.partner'].create(cr, uid, partner_values, context=context)
+            else:
+                partner_id = mr.partner_id.id
+            partner = self.pool['res.partner'].browse(cr, uid, [partner_id], context=context)[0]
+            new_interests_ids = mr.interests_m2m_ids and ([interest.id for interest in mr.interests_m2m_ids]) or []
+            #competencies
+            new_competencies_ids = mr.competencies_m2m_ids and ([competence.id for competence in mr.competencies_m2m_ids]) or []
+
+            partner_values.update({'competencies_m2m_ids': [[6, False, new_interests_ids]],
+                               'interests_m2m_ids': [[6, False, new_competencies_ids]]})
+
+            #update_partner values
+            partner.write(partner_values)
+            # address if technical name is empty then means that no address required
+            address_id = mr.address_id and mr.address_id.id or False
+            if not address_id and mr.technical_name != EMPTY_ADDRESS:
+                address_values = {
+                    'country_id': mr.country_id.id,
+                    'street_man': False if mr.address_local_street_id else mr.street_man,
+                    'zip_man': False if mr.address_local_zip_id else mr.zip_man,
+                    'town_man': False if mr.address_local_zip_id else mr.town_man,
+                    'address_local_street_id': mr.address_local_street_id and mr.address_local_street_id.id or False,
+                    'address_local_zip_id': mr.address_local_zip_id and mr.address_local_zip_id.id or False,
+                    'street2': mr.street2,
+                    'number': mr.number,
+                    'box': mr.box,
+                    'sequence': mr.sequence,
+                }
+                address_id = self.pool['address.address'].create(cr, uid, address_values, context=context)
+            if address_id:
+                self.pool['postal.coordinate'].change_main_coordinate(cr, uid, [partner_id], address_id, context=context)
+
+            # case of phone number
+            self.change_main_phone(cr, uid, partner_id, mr.phone_id and mr.phone_id.id or False, mr.phone, 'fix', context=context)
+            self.change_main_phone(cr, uid, partner_id, mr.mobile_id and mr.mobile_id.id or False, mr.mobile, 'mobile', context=context)
+
+            # case of email
+            if mr.email:
+                self.pool['email.coordinate'].change_main_coordinate(cr, uid, [partner_id], mr.email, context=context)
+        vals = {'state': 'validate'}
+        # superuser_id because of record rules
+        return self.write(cr, SUPERUSER_ID, ids, vals, context=context)
 
     def cancel_request(self, cr, uid, ids, context=None):
         pass
+
+    def change_main_phone(self, cr, uid, partner_id, phone_id, phone_number, phone_type, context=None):
+        if not phone_id:
+            if phone_number:
+                phone_id = self.get_phone_id(cr, uid, phone_number, phone_type, then_create=True, context=context)
+        if phone_id:
+            self.pool['phone.coordinate'].change_main_coordinate(cr, uid, [partner_id], phone_id, context=context)
 
 # orm methods
 
