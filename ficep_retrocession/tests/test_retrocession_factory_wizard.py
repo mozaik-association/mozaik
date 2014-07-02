@@ -47,8 +47,11 @@ class test_retrocession(SharedSetupTransactionCase):
         context = dict(active_model='ext.mandate',
                      active_ids=[mandate_id])
 
-        wiz_id = wizard_pool.create(self.cr, self.uid, {'month': '05', 'year': 2014}, context=context)
-        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, '05', 2014)
+        data = wizard_pool.default_get(self.cr, self.uid, [], context=context)
+        data.update({'month': '05', 'year': 2014})
+
+        wiz_id = wizard_pool.create(self.cr, self.uid, data, context=context)
+        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, data['month'], data['year'], data['model'], eval(data['ids']))
 
         self.assertEqual(res['monthly_count'], 0)
         self.assertEqual(res['yearly_count'], 0)
@@ -56,8 +59,9 @@ class test_retrocession(SharedSetupTransactionCase):
         self.assertEqual(res['yearly_duplicates'], 0)
         self.assertEqual(res['total_retrocession'], 0)
 
-        wizard_pool.write(self.cr, self.uid, [wiz_id], {'month': '06', 'year': 2014}, context=context)
-        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, '06', 2014)
+        data.update({'month': '06'})
+        wizard_pool.write(self.cr, self.uid, [wiz_id], data, context=context)
+        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, data['month'], data['year'], data['model'], eval(data['ids']))
 
         self.assertEqual(res['monthly_count'], 1)
         self.assertEqual(res['yearly_count'], 0)
@@ -67,7 +71,7 @@ class test_retrocession(SharedSetupTransactionCase):
 
         wizard_pool.generate_retrocessions(self.cr, self.uid, [wiz_id])
 
-        retro_ids = self.registry('retrocession').search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id), ('month', '=', '06'), ('year', '=', 2014)])
+        retro_ids = self.registry('retrocession').search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id), ('month', '=', data['month']), ('year', '=', data['year'])])
         self.assertEqual(len(retro_ids), 1)
 
     def test_yearly_retrocession_factory_wizard(self):
@@ -78,8 +82,11 @@ class test_retrocession(SharedSetupTransactionCase):
         context = dict(active_model='sta.mandate',
                      active_ids=[mandate_id])
 
-        wiz_id = wizard_pool.create(self.cr, self.uid, {'year': 2014}, context=context)
-        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, False, 2014)
+        data = wizard_pool.default_get(self.cr, self.uid, [], context=context)
+        data.update({'year': 2014})
+
+        wiz_id = wizard_pool.create(self.cr, self.uid, data, context=context)
+        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, data['month'], data['year'], data['model'], eval(data['ids']))
 
         self.assertEqual(res['monthly_count'], 0)
         self.assertEqual(res['yearly_count'], 0)
@@ -87,8 +94,9 @@ class test_retrocession(SharedSetupTransactionCase):
         self.assertEqual(res['yearly_duplicates'], 1)
         self.assertEqual(res['total_retrocession'], 0)
 
-        wizard_pool.write(self.cr, self.uid, [wiz_id], {'year': 2015}, context=context)
-        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, False, 2015)
+        data.update({'year': 2015})
+        wizard_pool.write(self.cr, self.uid, [wiz_id], data, context=context)
+        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, data['month'], data['year'], data['model'], eval(data['ids']))
 
         self.assertEqual(res['monthly_count'], 0)
         self.assertEqual(res['yearly_count'], 1)
@@ -98,5 +106,5 @@ class test_retrocession(SharedSetupTransactionCase):
 
         wizard_pool.generate_retrocessions(self.cr, self.uid, [wiz_id])
 
-        retro_ids = self.registry('retrocession').search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id), ('year', '=', 2015)])
+        retro_ids = self.registry('retrocession').search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id), ('year', '=', data['year'])])
         self.assertEqual(len(retro_ids), 1)

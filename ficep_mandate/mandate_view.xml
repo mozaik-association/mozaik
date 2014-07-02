@@ -8,12 +8,12 @@
             <field name="name">mandate.category.search</field>
             <field name="model">mandate.category</field>
             <field name="arch" type="xml">
-                <search string="Mandate Category" version="7.0">
+                <search string="Mandate Categories" version="7.0">
                     <field name="sta_assembly_category_id" invisible="context.get('default_type', False)!='sta'"/>
                     <field name="int_assembly_category_id" invisible="context.get('default_type', False)!='int'"/>
                     <field name="ext_assembly_category_id" invisible="context.get('default_type', False)!='ext'"/>
 
-                    <filter name="is_submission_mandate" string="Mandate Declaration"
+                    <filter name="is_submission_mandate" string="Mandates Declaration"
                             domain="[('is_submission_mandate','=',True)]" invisible="context.get('default_type', False)=='int'" />
                     <separator />
                     <filter name="is_submission_assets" string="Assets Declaration"

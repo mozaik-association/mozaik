@@ -44,13 +44,15 @@ class mandate_category(orm.Model):
         return super(mandate_category, self).get_linked_ext_mandate_ids(cr, uid, ids, context=context)
 
     _columns = {
-        'fractionation_id': fields.many2one('fractionation', string='Fractionation', track_visibility='onchange'),
-        'calculation_method_id': fields.many2one('calculation.method', string='Calculation method', track_visibility='onchange'),
-        'invoice_type': fields.selection(INVOICE_AVAILABLE_TYPES, 'Invoicing', required=True)
+        'fractionation_id': fields.many2one('fractionation', string='Fractionation',
+                                            select=True, track_visibility='onchange'),
+        'calculation_method_id': fields.many2one('calculation.method', string='Calculation Method',
+                                            select=True, track_visibility='onchange'),
+        'invoice_type': fields.selection(INVOICE_AVAILABLE_TYPES, 'Invoicing', required=True, track_visibility='onchange'),
     }
 
     _defaults = {
-        'invoice_type': INVOICE_AVAILABLE_TYPES[2][0]
+        'invoice_type': INVOICE_AVAILABLE_TYPES[2][0],
     }
 
 
@@ -116,16 +118,17 @@ class sta_mandate(orm.Model):
         'invoice_type': fields.related('mandate_category_id', 'invoice_type', string='Invoicing', type='selection',
                                        selection=INVOICE_AVAILABLE_TYPES, store=_invoice_type_store_trigger),
         'calculation_method_id': fields.function(_get_method_id, string='Calculation Method',
-                                 type='many2one', relation="calculation.method", store=_method_id_store_trigger, select=True),
-        'method_type': fields.related('calculation_method_id', 'type', string='Calculation method type', type='selection',
+                                 type='many2one', relation="calculation.method", select=True, store=_method_id_store_trigger),
+        'method_type': fields.related('calculation_method_id', 'type', string='Calculation Method Type', type='selection',
                                        selection=CALCULATION_METHOD_AVAILABLE_TYPES, store=_method_id_store_trigger),
-        'calculation_rule_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Calculation rules', domain=[('active', '=', True)]),
-        'calculation_rule_inactive_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Calculation rules', domain=[('active', '=', False)]),
-        'has_retrocessions_linked': fields.function(_has_retrocessions_linked, string='Has retrocession(s) linked',
-                                 type='boolean', store=False, select=True),
+        'calculation_rule_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Calculation Rules', domain=[('active', '=', True)]),
+        'calculation_rule_inactive_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Calculation Rules', domain=[('active', '=', False)]),
+        'has_retrocessions_linked': fields.function(_has_retrocessions_linked, string='Has Retrocessions',
+                                 type='boolean', store=False),
     }
 
-    #orm methods
+#orm methods
+
     def create(self, cr, uid, vals, context=None):
         res = super(sta_mandate, self).create(cr, uid, vals, context=context)
         if res:
@@ -216,16 +219,17 @@ class ext_mandate(orm.Model):
         'invoice_type': fields.related('mandate_category_id', 'invoice_type', string='Invoicing', type='selection',
                                        selection=INVOICE_AVAILABLE_TYPES, store=_invoice_type_store_trigger),
         'calculation_method_id': fields.function(_get_method_id, string='Calculation Method',
-                                 type='many2one', relation="calculation.method", store=_method_id_store_trigger, select=True),
-        'method_type': fields.related('calculation_method_id', 'type', string='Calculation method type', type='selection',
+                                 type='many2one', relation="calculation.method", select=True, store=_method_id_store_trigger),
+        'method_type': fields.related('calculation_method_id', 'type', string='Calculation Method Type', type='selection',
                                        selection=CALCULATION_METHOD_AVAILABLE_TYPES, store=_method_id_store_trigger),
-        'calculation_rule_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Calculation rules', domain=[('active', '=', True)]),
-        'calculation_rule_inactive_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Calculation rules', domain=[('active', '=', False)]),
-        'has_retrocessions_linked': fields.function(_has_retrocessions_linked, string='Has retrocession(s) linked',
-                                 type='boolean', store=False, select=True),
+        'calculation_rule_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Calculation Rules', domain=[('active', '=', True)]),
+        'calculation_rule_inactive_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Calculation Rules', domain=[('active', '=', False)]),
+        'has_retrocessions_linked': fields.function(_has_retrocessions_linked, string='Has Retrocessions',
+                                 type='boolean', store=False),
     }
 
-    #orm methods
+#orm methods
+
     def create(self, cr, uid, vals, context=None):
         res = super(ext_mandate, self).create(cr, uid, vals, context=context)
         if res:
@@ -252,3 +256,5 @@ class ext_mandate(orm.Model):
                 if mandate.id in method_dict and method_dict[mandate.id] != mandate_method_id:
                     self.pool.get('calculation.method').copy_fixed_rules_on_mandate(cr, uid, mandate.calculation_method_id.id, mandate.id, 'ext_mandate_id', context=context)
         return res
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
