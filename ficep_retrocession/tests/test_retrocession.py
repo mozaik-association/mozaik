@@ -305,3 +305,75 @@ class test_retrocession(SharedSetupTransactionCase):
         '''
         rule_ids = rule_pool.search(self.cr, self.uid, [('retrocession_id', '=', retro_id), ('type', '=', 'variable')])
         self.assertEqual(len(rule_ids), 1)
+
+    def test_retrocession_sta_mandate_process(self):
+        '''
+            Test retrocessions
+        '''
+        rule_pool = self.registry('calculation.rule')
+        retro_pool = self.registry('retrocession')
+        retro_id = self.ref('%s.retro_jacques_bourg_mai_2014' % self._module_ns)
+        mandate_id = self.ref('%s.stam_jacques_bourgmestre' % self._module_ns)
+
+        '''
+            Check if variable rules has been copied from method to retrocession
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('retrocession_id', '=', retro_id)])
+        self.assertEqual(len(rule_ids), 1)
+
+        '''
+            Setting some amounts on fixed rules should invoke retrocession calculation
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id)])
+        rule_pool.write(self.cr, self.uid, rule_ids, {'amount': 100})
+        amounts = retro_pool.read(self.cr, self.uid, retro_id, ['amount_fixed', 'amount_total'])
+        self.assertEqual(amounts['amount_fixed'], 3.40)
+        self.assertEqual(amounts['amount_total'], 3.40)
+
+        '''
+            Setting some amounts on variable rules should invoke retrocession calculation
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('retrocession_id', '=', retro_id)])
+        rule_pool.write(self.cr, self.uid, rule_ids, {'amount': 100})
+        amounts = retro_pool.read(self.cr, self.uid, retro_id, ['amount_fixed', 'amount_variable', 'amount_total'])
+        self.assertEqual(amounts['amount_fixed'], 3.40)
+        self.assertEqual(amounts['amount_variable'], 0.75)
+        self.assertEqual(amounts['amount_total'], 4.15)
+
+        '''
+            Changing percentage of fixed rules should affect retrocession computation
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id)])
+        rule_pool.write(self.cr, self.uid, rule_ids, {'percentage': 0.25})
+        amounts = retro_pool.read(self.cr, self.uid, retro_id, ['amount_fixed', 'amount_total'])
+        self.assertEqual(amounts['amount_fixed'], 0.50)
+        self.assertEqual(amounts['amount_total'], 1.25)
+
+        '''
+            Changing percentage of variable rules should affect retrocession computation
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('retrocession_id', '=', retro_id)])
+        rule_pool.write(self.cr, self.uid, rule_ids, {'percentage': 5})
+        amounts = retro_pool.read(self.cr, self.uid, retro_id, ['amount_fixed', 'amount_variable', 'amount_total'])
+        self.assertEqual(amounts['amount_fixed'], 0.50)
+        self.assertEqual(amounts['amount_variable'], 5)
+        self.assertEqual(amounts['amount_total'], 5.5)
+
+        '''
+            After validating retrocession, no computation should occurs
+        '''
+        retro_pool.action_validate(self.cr, self.uid, [retro_id])
+        retro_state = retro_pool.read(self.cr, self.uid, retro_id, ['state'])['state']
+        self.assertEqual(retro_state, 'validated')
+
+        rule_ids = rule_pool.search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id)])
+        rule_pool.write(self.cr, self.uid, rule_ids, {'percentage': 0.55})
+        amounts = retro_pool.read(self.cr, self.uid, retro_id, ['amount_fixed', 'amount_total'])
+        self.assertEqual(amounts['amount_fixed'], 0.50)
+        self.assertEqual(amounts['amount_total'], 5.5)
+
+        '''
+            Fixed rules should have been copied on retrocession to keep computation basis history
+        '''
+        rule_ids = rule_pool.search(self.cr, self.uid, [('retrocession_id', '=', retro_id), ('type', '=', 'variable')])
+        self.assertEqual(len(rule_ids), 1)
