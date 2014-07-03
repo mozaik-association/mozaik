@@ -56,19 +56,19 @@
                                 attrs="{'invisible': [('state', '!=', 'draft')]}"
                                 string="Confirm" type="object"
                                 confirm="Confirm Membership Request: proceed anyway?"
-                                groups="ficep_base.ficep_res_groups_user" />
+                                groups="ficep_base.ficep_res_groups_user" class="oe_read_only"/>
 
                             <!-- Validate or Cancel State -->
                             <button name="validate_request"
-                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                attrs="{'invisible': [('state', '!=', 'confirm')]}"
                                 string="Validate" type="object"
                                 confirm="Validate Membership Request: proceed anyway?"
-                                groups="ficep_base.ficep_res_groups_officer" />
+                                groups="ficep_base.ficep_res_groups_officer" class="oe_read_only"/>
                             <button name="cancel_request" string="Cancel"
-                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                attrs="{'invisible': [('state', '!=', 'confirm')]}"
                                 type="object"
                                 confirm="Cancel Membership Request: proceed anyway?"
-                                groups="ficep_base.ficep_res_groups_officer" />
+                                groups="ficep_base.ficep_res_groups_officer" class="oe_read_only"/>
 
                             <field name="state" widget="statusbar"
                                 statusbar_visible="draft,confirm,validate" />
