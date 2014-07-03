@@ -611,6 +611,100 @@
             <field name="view_id" ref="virtual_assembly_instance_tree_view"/>
         </record>
 
+        <!-- Virtual Partner Retrocession -->
+
+        <record id="virtual_partner_retrocession_search_view" model="ir.ui.view">
+            <field name="name">virtual.partner.retrocession.search</field>
+            <field name="model">virtual.partner.retrocession</field>
+            <field name="arch" type="xml">
+                <search string="Virtual Partner Retrocession">
+                    <field name="identifier" />
+                    <field name="month" />
+                    <field name="year" />
+                    <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
+                    <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+                    <separator/>
+                    <field name="partner_id" domain="[('is_company','=',False)]"/>
+                    <field name="int_instance_id" />
+                    <field name="mandate_category_id" />
+                    <separator/>
+                    <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="category_id" string="Tag" widget="many2one" />
+                    <separator/>
+                    <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator/>
+                    <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator/>
+                    <filter name="p_unauthorized" string="Unauthorized Address" domain="[('postal_unauthorized','=',True)]"/>
+                    <separator/>
+                    <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]"/>
+
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
+                        <filter name="sta_mandate" string="State Mandate" context="{'group_by':'sta_mandate_id'}"/>
+                        <filter name="ext_mandate" string="External Mandate" context="{'group_by':'ext_mandate_id'}"/>
+                        <filter name="m" string="Month" context="{'group_by':'month'}"/>
+                        <filter name="y" string="Year" context="{'group_by':'year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="virtual_partner_retrocession_tree_view" model="ir.ui.view">
+            <field name="name">virtual.partner.retrocession.tree</field>
+            <field name="model">virtual.partner.retrocession</field>
+            <field name="arch" type="xml">
+                <tree string="Virtual Partner Retrocession" create="0" delete="0">
+                    <field name="partner_id" />
+                    <field name="int_instance_id" />
+
+                    <field name="month" />
+                    <field name="year" />
+
+                    <field name="sta_mandate_id" />
+                    <field name="ext_mandate_id" />
+
+                    <field name="birth_date" />
+                    <field name="gender" />
+                    <field name="tongue" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Add filter virtual partner retrocession -->
+
+        <record id="add_filter_from_retrocession_action" model="ir.actions.act_window">
+            <field name="name">Add Filter To Distribution List</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">virtual.partner.retrocession</field>
+            <field name="res_model">distribution.list.add.filter</field>
+            <field name="multi" eval="1"/>
+            <field name="target">new</field>
+            <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+        </record>
+
+        <record id="add_filter_from_retrocession_values" model="ir.values">
+            <field name="name">Add Filter To Distribution List</field>
+            <field name="model">virtual.partner.retrocession</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_retrocession_action')" />
+        </record>
+
+        <!-- Action -->
+
+        <record id="virtual_partner_retrocession_action" model="ir.actions.act_window">
+            <field name="name">Partner/Retrocession</field>
+            <field name="res_model">virtual.partner.retrocession</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="virtual_partner_retrocession_search_view"/>
+            <field name="view_id" ref="virtual_partner_retrocession_tree_view"/>
+        </record>
 
         <!-- Virtual Model Menus -->
 
@@ -618,28 +712,32 @@
         <menuitem id="virtual_models_submenu" name="Virtual Models"
                   sequence="20" parent="ficep_base.communication_root_menu" />
 
+        <!-- Virtual Partner Relation -->
+        <menuitem id="virtual_partner_relation_menu" sequence="1" parent="virtual_models_submenu"
+                  action="virtual_partner_relation_action"/>
+
         <!-- Virtual Partner Involvement -->
         <menuitem id="virtual_partner_involvement_menu" sequence="10" parent="virtual_models_submenu"
                   action="virtual_partner_involvement_action"/>
 
-        <!-- Virtual Partner Relation -->
-        <menuitem id="virtual_partner_relation_menu" sequence="10" parent="virtual_models_submenu"
-                  action="virtual_partner_relation_action"/>
-
         <!-- Virtual Partner Instance -->
-        <menuitem id="virtual_partner_instance_menu" sequence="10" parent="virtual_models_submenu"
+        <menuitem id="virtual_partner_instance_menu" sequence="20" parent="virtual_models_submenu"
                   action="virtual_partner_instance_action"/>
 
         <!-- Virtual Partner Mandate -->
-        <menuitem id="virtual_partner_mandate_menu" sequence="10" parent="virtual_models_submenu"
+        <menuitem id="virtual_partner_mandate_menu" sequence="30" parent="virtual_models_submenu"
                   action="virtual_partner_mandate_action"/>
 
         <!-- Virtual Partner Candidature -->
-        <menuitem id="virtual_partner_candidature_menu" sequence="10" parent="virtual_models_submenu"
+        <menuitem id="virtual_partner_candidature_menu" sequence="40" parent="virtual_models_submenu"
                   action="virtual_partner_candidature_action"/>
 
+        <!-- Virtual Partner Retrocession  -->
+        <menuitem id="virtual_partner_retrocession_menu" sequence="50" parent="virtual_models_submenu"
+                  action="virtual_partner_retrocession_action"/>
+
         <!-- Virtual Assembly Instance  -->
-        <menuitem id="virtual_assembly_instance_menu" sequence="10" parent="virtual_models_submenu"
+        <menuitem id="virtual_assembly_instance_menu" sequence="60" parent="virtual_models_submenu"
                   action="virtual_assembly_instance_action"/>
 
     </data>

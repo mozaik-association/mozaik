@@ -397,11 +397,15 @@ class virtual_partner_mandate(orm.Model):
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
         'employee': fields.boolean('Employee'),
 
-        'postal_vip': fields.boolean('VIP Address'),
-        'postal_unauthorized': fields.boolean('Unauthorized Address'),
+        'postal_vip': fields.related('postal_coordinate_id', 'vip', string='VIP Postal',
+                                     type='boolean', relation='postal.coordinate'),
+        'postal_unauthorized': fields.related('postal_coordinate_id', 'unauthorized', string='Unauthorized Address',
+                                     type='boolean', relation='postal.coordinate'),
 
-        'email_vip': fields.boolean('VIP Email'),
-        'email_unauthorized': fields.boolean('Unauthorized Email'),
+        'email_vip': fields.related('email_coordinate_id', 'vip', string='VIP Email',
+                                     type='boolean', relation='email.coordinate'),
+        'email_unauthorized': fields.related('email_coordinate_id', 'unauthorized', string='Unauthorized Email',
+                                     type='boolean', relation='email.coordinate'),
 
         # others
         'sta_competencies_m2m_ids': fields.related('sta_mandate_id', 'competencies_m2m_ids',
@@ -460,11 +464,7 @@ class virtual_partner_mandate(orm.Model):
                 THEN pc.id
                 ELSE mandate.postal_coordinate_id
             END
-            AS postal_coordinate_id,
-            pc.unauthorized as postal_unauthorized,
-            pc.vip as postal_vip,
-            e.vip as email_vip,
-            e.unauthorized as email_unauthorized
+            AS postal_coordinate_id
         FROM int_mandate  AS mandate
         JOIN int_assembly AS assembly
             ON assembly.id = mandate.int_assembly_id
@@ -522,11 +522,7 @@ class virtual_partner_mandate(orm.Model):
                 THEN pc.id
                 ELSE mandate.postal_coordinate_id
             END
-            AS postal_coordinate_id,
-            pc.unauthorized as postal_unauthorized,
-            pc.vip as postal_vip,
-            e.vip as email_vip,
-            e.unauthorized as email_unauthorized
+            AS postal_coordinate_id
         FROM sta_mandate  AS mandate
         JOIN sta_assembly AS assembly
             ON assembly.id = mandate.sta_assembly_id
@@ -584,11 +580,7 @@ class virtual_partner_mandate(orm.Model):
                 THEN pc.id
                 ELSE mandate.postal_coordinate_id
             END
-            AS postal_coordinate_id,
-            pc.unauthorized as postal_unauthorized,
-            pc.vip as postal_vip,
-            e.vip as email_vip,
-            e.unauthorized as email_unauthorized
+            AS postal_coordinate_id
         FROM ext_mandate  AS mandate
         JOIN ext_assembly AS assembly
             ON assembly.id = mandate.ext_assembly_id
@@ -952,4 +944,217 @@ class virtual_assembly_instance(orm.Model):
         AND (e.id IS NOT NULL
         OR pc.id IS NOT NULL)
         )""")
+
+
+class virtual_partner_retrocession(orm.Model):
+
+    _name = "virtual.partner.retrocession"
+    _description = "Virtual Partner Retrocession"
+    _auto = False
+
+    _columns = {
+        'common_id': fields.char(string='Common ID'),
+        'partner_id': fields.many2one('res.partner', 'Assembly'),
+        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+
+        'year': fields.char('Year'),
+        'month': fields.selection(fields.date.MONTHS, 'Month',
+                                  select=True, track_visibility='onchange'),
+
+        'identifier': fields.integer('Number'),
+        'birth_date': fields.date('Birth Date'),
+        'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
+        'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
+        'employee': fields.boolean('Employee'),
+
+        'sta_mandate_id': fields.many2one('sta.mandate', 'Sate Mandate'),
+        'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate'),
+
+        'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
+
+        'postal_vip': fields.related('postal_coordinate_id', 'vip', string='VIP Postal',
+                                     type='boolean', relation='postal.coordinate'),
+        'postal_unauthorized': fields.related('postal_coordinate_id', 'unauthorized', string='Unauthorized Address',
+                                     type='boolean', relation='postal.coordinate'),
+
+        'email_vip': fields.related('email_coordinate_id', 'vip', string='VIP Email',
+                                     type='boolean', relation='email.coordinate'),
+        'email_unauthorized': fields.related('email_coordinate_id', 'unauthorized', string='Unauthorized Email',
+                                     type='boolean', relation='email.coordinate'),
+
+
+        # others
+        'category_id': fields.related('partner_id', 'category_id', type='many2many',
+                                      obj='res.partner.category',
+                                      rel='res_partner_res_partner_category_rel',
+                                      id1='partner_id', id2='category_id', string='Tags'),
+        'competencies_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
+                                               obj='thesaurus.term',
+                                               rel='res_partner_term_competencies_rel',
+                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
+                                               obj='thesaurus.term',
+                                               rel='res_partner_term_interests_rel',
+                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+    }
+
+# orm methods
+
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, 'virtual_partner_retrocession')
+        cr.execute("""
+        create or replace view virtual_partner_retrocession as (
+            SELECT
+                concat(
+                    r.id,
+                    '/',
+                    CASE
+                        WHEN m.postal_coordinate_id IS NULL
+                        THEN pc.id
+                        ELSE m.postal_coordinate_id
+                    END,
+                    '/',
+                    CASE
+                        WHEN m.email_coordinate_id IS NULL
+                        THEN e.id
+                        ELSE m.email_coordinate_id
+                    END) as id,
+                concat(
+                    CASE
+                        WHEN m.postal_coordinate_id IS NULL
+                        THEN pc.id
+                        ELSE m.postal_coordinate_id
+                    END,
+                    '/',
+                    CASE
+                        WHEN m.email_coordinate_id IS NULL
+                        THEN e.id
+                        ELSE m.email_coordinate_id
+                    END) as common_id,
+                r.year as year,
+                r.month as month,
+                p.id as partner_id,
+                p.int_instance_id as int_instance_id,
+                p.identifier as identifier,
+                p.birth_date as birth_date,
+                p.gender as gender,
+                p.tongue as tongue,
+                p.employee as employee,
+                m.id as sta_mandate_id,
+                NULL::int as ext_mandate_id,
+                m.mandate_category_id,
+                r.state as state,
+                CASE
+                    WHEN m.email_coordinate_id IS NULL
+                    THEN e.id
+                    ELSE m.email_coordinate_id
+                END
+                AS email_coordinate_id,
+                CASE
+                    WHEN m.postal_coordinate_id IS NULL
+                    THEN pc.id
+                    ELSE m.postal_coordinate_id
+                END
+                AS postal_coordinate_id
+            FROM
+                retrocession r
+            JOIN sta_mandate m
+                ON (m.id = r.sta_mandate_id
+                AND m.active = True)
+            JOIN res_partner p
+                ON (p.id = m.partner_id
+                AND p.active = TRUE)
+            LEFT OUTER JOIN
+                postal_coordinate pc
+                ON (pc.partner_id = p.id
+                AND pc.is_main = True
+                AND pc.active = True)
+            LEFT OUTER JOIN
+                email_coordinate e
+                ON (e.partner_id = p.id
+                AND e.is_main = True
+                AND e.active = True)
+            WHERE
+                e.id is not null or pc.id is not null
+                or m.postal_coordinate_id is not null
+                or m.email_coordinate_id is not null
+            UNION
+            SELECT
+                concat(
+                    r.id,
+                    '/',
+                    CASE
+                        WHEN m.postal_coordinate_id IS NULL
+                        THEN pc.id
+                        ELSE m.postal_coordinate_id
+                    END,
+                    '/',
+                    CASE
+                        WHEN m.email_coordinate_id IS NULL
+                        THEN e.id
+                        ELSE m.email_coordinate_id
+                    END) as id,
+                concat(
+                    CASE
+                        WHEN m.postal_coordinate_id IS NULL
+                        THEN pc.id
+                        ELSE m.postal_coordinate_id
+                    END,
+                    '/',
+                    CASE
+                        WHEN m.email_coordinate_id IS NULL
+                        THEN e.id
+                        ELSE m.email_coordinate_id
+                        END) as common_id,
+                r.year as year,
+                r.month as month,
+                p.id as partner_id,
+                p.int_instance_id as int_instance_id,
+                p.identifier as identifier,
+                p.birth_date as birth_date,
+                p.gender as gender,
+                p.tongue as tongue,
+                p.employee as employee,
+                NULL::int as sta_mandate_id,
+                m.id as ext_mandate_id,
+                m.mandate_category_id,
+                r.state as state,
+                CASE
+                    WHEN m.email_coordinate_id IS NULL
+                    THEN e.id
+                    ELSE m.email_coordinate_id
+                END
+                AS email_coordinate_id,
+                    CASE
+                    WHEN m.postal_coordinate_id IS NULL
+                    THEN pc.id
+                    ELSE m.postal_coordinate_id
+                END
+                AS postal_coordinate_id
+            FROM
+                retrocession r
+            JOIN ext_mandate m
+                ON (m.id = r.ext_mandate_id
+                AND m.active = True)
+            JOIN res_partner p
+                ON (p.id = m.partner_id
+                AND p.active = TRUE)
+            LEFT OUTER JOIN
+                postal_coordinate pc
+                ON (pc.partner_id = p.id
+                AND pc.is_main = True
+                AND pc.active = True)
+            LEFT OUTER JOIN
+                email_coordinate e
+                ON (e.partner_id = p.id
+                AND e.is_main = True
+                AND e.active = True)
+            WHERE
+                e.id is not null or pc.id is not null
+                or m.postal_coordinate_id is not null
+                or m.email_coordinate_id is not null
+        )""")
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

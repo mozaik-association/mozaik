@@ -6,3 +6,4 @@ access_ficep_virtual_partner_instance_res_group_base,ficep.virtual.partner.insta
 access_ficep_virtual_partner_mandate_res_group_base,ficep.virtual.partner.mandate.res.group.base,model_virtual_partner_mandate,ficep_base.res_groups_base,1,0,0,0
 access_ficep_virtual_partner_candidature_res_group_base,ficep.virtual.partner.candidature.res.group.base,model_virtual_partner_candidature,ficep_base.res_groups_base,1,0,0,0
 access_ficep_virtual_assembly_instance_res_group_base,ficep.virtual.assembly.instance.res.group.base,model_virtual_assembly_instance,ficep_base.res_groups_base,1,0,0,0
+access_ficep_virtual_partner_retrocession_res_group_base,ficep.virtual.partner.retrocession.res.group.base,model_virtual_partner_retrocession,ficep_base.res_groups_base,1,0,0,0
