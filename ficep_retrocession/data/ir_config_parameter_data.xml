@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+
+    <data noupdate="1">
+        <record id="retrocession_by_workers_pivot" model="ir.config_parameter">
+            <field name="key">retrocession_by_workers_pivot</field>
+            <field name="value">10</field>
+        </record>
+    </data>
+
+</openerp>
