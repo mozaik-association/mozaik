@@ -33,6 +33,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
+        'connector',
         'ficep_structure',
         'ficep_mandate',
     ],
@@ -48,7 +49,8 @@ FICEP Retrocession
              'retrocession_view.xml',
              'mandate_view.xml',
              'wizard/retrocession_factory_wizard.xml',
-             'security/ir.model.access.csv'
+             'security/ir.model.access.csv',
+             'data/ir_config_parameter_data.xml'
     ],
     'js': [
     ],

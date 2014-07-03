@@ -26,6 +26,9 @@
 #
 ##############################################################################
 from openerp.osv import orm, fields
+from openerp.addons.connector.queue.job import job
+from openerp.addons.connector.session import ConnectorSession
+
 import datetime
 
 MANDATE_M2O = {
@@ -136,10 +139,28 @@ class retrocession_factory_wizard(orm.TransientModel):
         """
         wizard = self.browse(cr, uid, ids, context=context)[0]
         mandate_key = MANDATE_M2O.get(wizard.model, False)
-        res = self.mandate_selection_analysis(cr, uid, wizard.month, wizard.year, wizard.model, eval(wizard.ids), mode='ids', context=context)
-        for mandate_id in res:
-            data = dict(month=wizard.month,
-                      year=wizard.year)
+        mandate_ids = self.mandate_selection_analysis(cr, uid, wizard.month, wizard.year, wizard.model, eval(wizard.ids), mode='ids', context=context)
 
-            data[mandate_key] = mandate_id
-            self.pool['retrocession'].create(cr, uid, data, context=context)
+        worker_pivot = int(self.pool.get('ir.config_parameter').get_param(cr, uid, 'retrocession_by_workers_pivot', 10))
+
+        vals = dict(month=wizard.month,
+                    year=wizard.year)
+
+        session = ConnectorSession(cr, uid, context=context)
+        if len(mandate_ids) > worker_pivot:
+            create_retrocessions.delay(session, self._name, mandate_ids, vals, mandate_key, context)
+        else:
+            create_retrocessions(session, self._name, mandate_ids, vals, mandate_key, context)
+
+
+@job
+def create_retrocessions(session, model_name, ids, vals, mandate_key, context=None):
+    """
+    =======================
+    create_retrocessions
+    =======================
+    Create retrocessions for given mandates
+    """
+    for mandate_id in ids:
+        vals[mandate_key] = mandate_id
+        session.pool['retrocession'].create(session.cr, session.uid, vals, context=context)
