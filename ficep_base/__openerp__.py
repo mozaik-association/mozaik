@@ -46,6 +46,7 @@
         'document',
         'distribution_list',     # from lp:acsone-addons
         'readonly_bypass',       # from lp:acsone-addons
+        'connector',
         #'event',
         #'l10n_be',
         #'account_accountant',
