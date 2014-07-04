@@ -33,6 +33,11 @@ class res_partner(orm.Model):
 
     _inherit = 'res.partner'
 
+    _columns = {
+         'membership_history_m2m_ids': fields.many2many('membership.history', 'partner_membership_history_rel',\
+                                               id1='partner_id', id2='membership_history_id', string='Memberships historical'),
+    }
+
 # view methods: onchange, button
 
     def button_modification_request(self, cr, uid, ids, context=None):
