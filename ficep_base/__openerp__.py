@@ -34,20 +34,19 @@
     'category': 'Political Association',
     'depends': [
         'base',
-        'settings_improvement',  # from lp:acsone-addons
+        'settings_improvement',  # from https://github.com/acsone/acsone-addons
         'decimal_precision',
         'portal',
         'mass_mailing',
         'mail',
         'partner_firstname',     # from lp:~partner-contact-core-editors/partner-contact-management/7.0
-        'mass_editing',          # from lp:server-env-tools'
-        'cron_run_manually',     # from lp:server-env-tools'
-        'auth_admin_passkey',    # from lp:server-env-tools'
+        'mass_editing',          # from lp:~server-env-tools-core-editors/server-env-tools/7.0
+        'cron_run_manually',     # from lp:~server-env-tools-core-editors/server-env-tools/7.0
+        'auth_admin_passkey',    # from lp:~server-env-tools-core-editors/server-env-tools/7.0
         'document',
-        'distribution_list',     # from lp:acsone-addons
-        'readonly_bypass',       # from lp:acsone-addons
+        'distribution_list',     # from https://github.com/acsone/acsone-addons
+        'readonly_bypass',       # from https://github.com/acsone/acsone-addons
         #'event',
-        #'l10n_be',
         #'account_accountant',
         #'account_cancel',
     ],
