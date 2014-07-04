@@ -44,6 +44,7 @@ FICEP Membership
     'data': [
         'security/ir.model.access.csv',
         'security/membership_security.xml',
+        'membership_view.xml',
         'membership_request_view.xml',
         'res_partner_view.xml',
     ],

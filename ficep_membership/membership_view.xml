@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Menu Membership: - Membership Request -->
+
+        <menuitem id="membership_menu" name="Membership"
+            sequence="8" parent="ficep_base.membership_root_menu" />
+        <menuitem id="membership_submenu" name="Membership"
+            sequence="8" parent="membership_menu" />
+
+    </data>
+</openerp>

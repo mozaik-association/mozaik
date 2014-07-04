@@ -260,11 +260,6 @@
 
         <!-- Menu Membership: - Membership Request -->
 
-        <menuitem id="membership_menu" name="Membership"
-            sequence="8" parent="ficep_base.membership_root_menu" />
-        <menuitem id="membership_submenu" name="Membership"
-            sequence="8" parent="membership_menu" />
-
         <menuitem id="membership_request_menu" action="membership_request_action"
             sequence="8" parent="membership_submenu" />
 
