@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ficep_webservice_res_group_user,ficep.custom.webservice.res.group.user,model_custom_webservice,ficep_base.ficep_res_groups_user,1,1,1,1

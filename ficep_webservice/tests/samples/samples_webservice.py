@@ -30,9 +30,12 @@ import xmlrpclib
 import sys
 """
 Can test membership web-service by running this script
+options
+* `1` test membership request
+* `2` test get uid
 """
-if len(sys.argv) != 4:
-    raise Exception('Three args are required to launch this script: "username,psw,dbname"')
+if len(sys.argv) != 5:
+    raise Exception('Three args are required to launch this script: "username,psw,dbname,options"')
 
 USERNAME = sys.argv[1]
 PWD = sys.argv[2]
@@ -42,13 +45,19 @@ sock_common = xmlrpclib.ServerProxy('http://0.0.0.0:8069/xmlrpc/common')
 UID = sock_common.login(DBNAME, USERNAME, PWD)
 sock = xmlrpclib.ServerProxy('http://0.0.0.0:8069/xmlrpc/object')
 
-OBJECT = 'membership.webservice'
-METHOD = 'membership_request'
-
-res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, \
+OBJECT = 'custom.webservice'
+if sys.argv[4] == '1':
+    METHOD = 'membership_request'
+    res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, \
                    'MAROIS', 'Pauline', 'f', 'Rue Louis Maréhal 6/2B', '4360', 'Oreye', 'm', 29, 03, 1949, \
                    'pauline@gmail.com', '0489578612', '061412002', \
                    'Foot, Snowboard')
+elif  sys.argv[4] == '2':
+    METHOD = 'get_uid'
+    res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 'pauline@gmail.com', '1949-03-29')
+else:
+    raise Exception('1 or 2 for available options')
+
 print res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

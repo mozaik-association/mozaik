@@ -347,7 +347,7 @@ class res_partner(orm.Model):
                 # If birth_date is into the birth_date_list then is is a duplicate
                 if document_value['birth_date'] in birth_date_list:
                     duplicate_detected_ids.append(document_value['id'])
-                    #If this birth date is always into the buffer it is a duplicate to pop from it
+                    # If this birth date is always into the buffer it is a duplicate to pop from it
                     if document_value['birth_date'] in buffer_not_yet_decided:
                         duplicate_detected_ids.append(buffer_not_yet_decided.pop(document_value['birth_date']))
                 else:  # if not present into the list, add it
@@ -373,5 +373,49 @@ class res_partner(orm.Model):
             return self.pool.get('ir.sequence').write(cr, uid, sequence_id[1], {'number_next': next_value}, context=context)
 
         return False
+
+    def get_uid(self, cr, uid, email, birth_date, context=None):
+        """
+        =======
+        get_uid
+        =======
+        Try to find a user uid by searching first email of an existing partner.
+        If the found user is only into the portal group then retrun uid
+        If the partner has no user then create it into the portal user group
+        All other cases return 0
+        :type email: char
+        :param email: partner's email to search on
+        :type birth_date: char
+        :param birth_date: partner's birth_date to search on
+        :rtype: integer
+        :rparam: id or 0
+        """
+        res_uid = 0
+        if context is None:
+            context = {}
+        partner_ids = self.search(cr, uid, [('birth_date', '=', birth_date),
+                                            ('email', '=', email),
+                                            ('is_company', '=', False)], context=context)
+        if len(partner_ids) != 1:
+            return res_uid
+        partner_id = partner_ids[0]
+        user_ids = self.pool['res.users'].search(cr, uid, [('partner_id', '=', partner_id)], context=context)
+
+        if not user_ids:
+            wiz_obj = self.pool['create.user.from.partner']
+            ctx = context.copy()
+            ctx['active_id'] = partner_id
+            wiz_id = wiz_obj.create(cr, uid, {'portal_only': True}, context=ctx)
+            res_uid = wiz_obj.create_user_from_partner(cr, uid, [wiz_id], context=ctx)
+        else:
+            user = self.pool['res.users'].browse(cr, uid, user_ids[0], context=context)
+            if len(user.groups_id) != 1:
+                return res_uid
+            _, group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'base', 'group_portal')
+            if user.groups_id[0].id != group_id:
+                return res_uid
+            res_uid = user.id
+
+        return res_uid
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

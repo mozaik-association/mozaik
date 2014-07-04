@@ -44,6 +44,7 @@ Allow specific calls from outside with XML-RPC
     'images': [
     ],
     'data': [
+        'security/ir.model.access.csv',
         'data/webservice_users.xml',
     ],
     'sequence': 150,
