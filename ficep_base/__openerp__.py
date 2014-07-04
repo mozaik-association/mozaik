@@ -35,6 +35,7 @@
     'depends': [
         'base',
         'settings_improvement',  # from https://github.com/acsone/acsone-addons
+        'website',
         'decimal_precision',
         'portal',
         'mass_mailing',
@@ -46,6 +47,7 @@
         'document',
         'distribution_list',     # from https://github.com/acsone/acsone-addons
         'readonly_bypass',       # from https://github.com/acsone/acsone-addons
+        'connector',             # from https://github.com/OCA/connector.git
         #'event',
         #'account_accountant',
         #'account_cancel',

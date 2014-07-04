@@ -10,7 +10,7 @@
             <field name="email">pauline_marois@gmail.com</field>
             <field name="birth_date">1949-03-29</field>
             <field name="status">m</field>
-            <field name="id_update" eval="1" />
+            <field name="is_update" eval="1" />
 
             <field name="address_id" ref="address_2" />
             <field name="partner_id" ref="res_partner_pauline" />

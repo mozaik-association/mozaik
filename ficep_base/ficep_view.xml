@@ -13,7 +13,7 @@
         <!-- Persons -->
 
         <menuitem id="persons_root_menu" name="Persons"
-                  sequence="11" groups="res_groups_base" />
+                  sequence="10" groups="res_groups_base" />
 
         <menuitem id="persons_configuration_submenu" name="Configuration"
                   sequence="99" parent="persons_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
@@ -24,30 +24,30 @@
         <menuitem id="persons_titles_submenu" name="Titles"
                   sequence="60" parent="persons_configuration_submenu" />
 
-        <!-- Structures -->
+        <!-- Membership -->
 
-        <menuitem id="structures_root_menu" name="Structures"
-                  sequence="21" groups="res_groups_base" />
-
-        <!-- Mandates -->
-
-        <menuitem id="mandates_root_menu" name="Mandates"
-                  sequence="31" groups="res_groups_base" />
+        <menuitem id="membership_root_menu" name="Membership"
+                  sequence="12" groups="res_groups_base"/>
 
         <!-- Communication -->
 
         <menuitem id="communication_root_menu" name="Communication"
-                  sequence="41" groups="res_groups_base"/>
+                  sequence="14" groups="res_groups_base"/>
 
-        <!-- Membership -->
+        <!-- Mandates -->
 
-        <menuitem id="membership_root_menu" name="Membership"
-                  sequence="51" groups="res_groups_base"/>
+        <menuitem id="mandates_root_menu" name="Mandates"
+                  sequence="30" groups="res_groups_base" />
 
         <!-- Retrocessions -->
 
         <menuitem id="retrocessions_root_menu" name="Retrocessions"
-                  sequence="61" groups="res_groups_base" />
+                  sequence="32" groups="res_groups_base" />
+
+        <!-- Structures -->
+
+        <menuitem id="structures_root_menu" name="Structures"
+                  sequence="34" groups="res_groups_base" />
 
         <!-- Re-base standard menus -->
 
@@ -68,6 +68,10 @@
             <field name="sequence">5</field>
         </record>
 
+        <record id="connector.menu_connector_root" model="ir.ui.menu">
+            <field name="sequence">450</field>
+        </record>
+
         <!-- Re-assign standard menus -->
 
         <record id="mail.mail_feeds_main" model="ir.ui.menu">
@@ -76,6 +80,12 @@
         </record>
 
         <record id="base.marketing_menu" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
+                                          ]"/>
+        </record>
+
+        <!-- Temmporary -->
+        <record id="website.menu_website" model="ir.ui.menu">
             <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
                                           ]"/>
         </record>
