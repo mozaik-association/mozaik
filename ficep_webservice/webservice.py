@@ -73,15 +73,9 @@ def web_service(func):
     return inner
 
 
-class abstract_webservice(orm.AbstractModel):
+class custom_webservice(orm.Model):
 
-    _name = 'abstract.webservice'
-
-
-class membership_webservice(orm.Model):
-
-    _name = 'membership.webservice'
-    _inherit = ['abstract.webservice']
+    _name = 'custom.webservice'
 
     @web_service
     def membership_request(self, cr, uid, lastname, firstname, gender, street, zip_code, town, status,\
@@ -118,7 +112,16 @@ class membership_webservice(orm.Model):
         try:
             res = membership_request.create(cr, SUPERUSER_ID, vals, context=context)
         except Exception as e:
-            raise WebServiceException(uid, '', 'ERROR-CREATE', e.message)
+            raise WebServiceException(uid, 'Membership Request', 'ERROR-CREATE', e.message)
+        return res
+
+    @web_service
+    def get_uid(self, cr, uid, email, birth_date, context=None):
+        partner_obj = self.pool['res.partner']
+        try:
+            res = partner_obj.get_uid(cr, SUPERUSER_ID, email, birth_date, context=context)
+        except Exception as e:
+            raise WebServiceException(uid, "User's UID", 'ERROR CONNECT', e.message)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
