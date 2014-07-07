@@ -41,7 +41,6 @@
         'ficep_webservice',
         'ficep_mandate',
         'ficep_retrocession',
-        'ficep_account'
     ],
     'description': """
 FICEP
