@@ -91,7 +91,7 @@
                         <field name="election_effective_position" string="#E"
                                attrs="{'invisible': ['|',('state','!=','elected'),'&amp;',('is_effective','=',False),('is_substitute','=',True)]}"/>
                         <field name="election_substitute_position" string="#S"
-                               attrs="{'invisible': ['|',('is_substitute', '=', False),('state','!=','non-elected')]}"/>
+                               attrs="{'invisible': ['|',('state','!=','non-elected'),'&amp;',('is_substitute','=',False),('is_effective','=',True)]}"/>
                         <field name="is_effective" invisible="1"/>
                         <field name="is_substitute" invisible="1"/>
                     </xpath>
@@ -526,7 +526,7 @@
                                                                       'readonly': [('state','not in',['draft', 'declared', 'suggested'])],
                                                                       'required': ['|', ('is_effective', '!=', False), ('is_substitute', '=', False)]}"/>
                         <field name="election_effective_position" attrs="{'invisible': ['|',('state','!=','elected'),'&amp;',('is_effective','=',False),('is_substitute','=',True)]}"/>
-                        <field name="effective_votes" attrs="{'invisible': ['|',('state','not in',['elected','non-elected']),'&amp;',('is_effective','=',False),('is_substitute','=',True)]}"/>
+                        <field name="effective_votes" attrs="{'invisible': ['|',('state','!=','elected'),'&amp;',('is_effective','=',False),('is_substitute','=',True)]}"/>
                     </group>
                     <group name="substitute" attrs="{'invisible': ['|',('state','=','rejected'),('is_legislative', '=', False)]}">
                         <field name="is_substitute" attrs="{'readonly': [('state','not in',['draft', 'declared', 'suggested'])]}"
@@ -534,8 +534,8 @@
                         <field name="list_substitute_position" attrs="{'invisible': [('is_substitute', '=', False)],
                                                                        'readonly': [('state','not in',['draft', 'declared', 'suggested'])],
                                                                        'required': [('is_substitute', '!=', False)]}"/>
-                        <field name="election_substitute_position" attrs="{'invisible': ['|',('state','!=','non-elected'),('is_substitute', '=', False)]}"/>
-                        <field name="substitute_votes" attrs="{'invisible': ['|',('state','!=','non-elected'),('is_substitute', '=', False)]}"/>
+                        <field name="election_substitute_position" attrs="{'invisible': ['|',('state','!=','non-elected'),'&amp;',('is_substitute','=',False),('is_effective','=',True)]}"/>
+                        <field name="substitute_votes" attrs="{'invisible': ['|',('state','!=','non-elected'),'&amp;',('is_substitute','=',False),('is_effective','=',True)]}"/>
                     </group>
                 </xpath>
                 <xpath  expr="//group[@name='moreinfo']" position="inside" >
@@ -552,6 +552,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='selection_committee_id']" position="after">
                      <field name="int_assembly_id" readonly="1"/>
+                     <field name="mandate_start_date" readonly="1"/>
                 </xpath>
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
                      <attribute name="attrs">{'invisible': ['|', ('state','!=', 'elected'),('mandate_ids', '!=', [])]}</attribute>
@@ -566,6 +567,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='selection_committee_id']" position="after">
                      <field name="ext_assembly_id" readonly="1"/>
+                     <field name="mandate_start_date" readonly="1"/>
                 </xpath>
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
                      <attribute name="attrs">{'invisible': ['|', ('state','!=', 'elected'), ('mandate_ids', '!=', [])]}</attribute>

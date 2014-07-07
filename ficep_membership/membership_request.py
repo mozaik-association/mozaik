@@ -111,7 +111,7 @@ class membership_request(orm.Model):
         'int_instance_id': fields.many2one('int.instance', 'Internal Instance', ondelete='restrict'),
         'address_local_zip_id': fields.many2one('address.local.zip', string='City', track_visibility='onchange'),
         # used for the domain on street
-        'local_zip': fields.related('address_local_zip_id', 'local_zip', string='Local Zip', type='char', readonly=True),
+        'local_zip': fields.related('address_local_zip_id', 'local_zip', string='Local Zip', type='char'),
         'address_local_street_id': fields.many2one('address.local.street', string='Referenced Street', track_visibility='onchange'),
         'address_id': fields.many2one('address.address', string='Address', track_visibility='onchange'),
 
