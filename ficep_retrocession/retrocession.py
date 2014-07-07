@@ -512,7 +512,26 @@ class retrocession(orm.Model):
                 data['retrocession_id'] = retrocession.id
                 self.pool['calculation.rule'].create(cr, uid, data, context=context)
 
-        # TODO: generate invoice and send report to mandate representative and return its id
+#===============================================================================
+#             company_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'base', 'main_company')[1]
+#             retro_name = self.name_get(cr, uid, retrocession.id, context)[0][1]
+# 
+#             values = {'origin': retro_name,
+#                       'type': 'out_invoice',
+#                       'partner_id': retrocession.partner_id.id,
+#                       'account_id': retrocession.partner_id.property_account_receivable.id,
+#                       'payment_term': retrocession.partner_id.property_payment_term.id,
+#                       'fiscal_position': retrocession.partner_id.property_account_position.id,
+#                       'company_id': company_id,
+#                       'date_invoice': fields.date.today(), }
+#             invoice_id = self.pool.get('account.invoice').create(cr, uid, values, context=context)
+#             values = {'name': retro_name,
+#                       'invoice_id': invoice_id,
+#                       'price_unit': retrocession.amount_total,
+#                       }
+#             self.pool.get('account.invoice.line').create(cr, uid, values, context=context)
+#===============================================================================
+            # TODO: send report to mandate representative and return its id
         return False
 
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):

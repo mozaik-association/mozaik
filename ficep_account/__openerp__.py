@@ -25,6 +25,40 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import wizard_multi_charts_accounts
+{
+    'name': 'FICEP: Account',
+    'version': '1.0',
+    "author": "ACSONE SA/NV",
+    "maintainer": "ACSONE SA/NV",
+    "website": "http://www.acsone.eu",
+    'category': 'Political Association',
+    'depends': [
+        'account_accountant',
+    ],
+    'description': """
+FICEP Account
+=============
+Manage accounting functionalities.
+    """,
+    'images': [
+    ],
+    'data': [
+    ],
+    'js': [
+    ],
+    'qweb': [
+    ],
+    'css': [
+    ],
+    'demo': [
+    ],
+    'test': [
+    ],
+    'sequence': 150,
+    'license': 'AGPL-3',
+    'installable': True,
+    'auto_install': False,
+    'application': False,
+}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

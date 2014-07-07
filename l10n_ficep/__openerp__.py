@@ -25,6 +25,42 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import wizard_multi_charts_accounts
+{
+    'name': 'FICEP: Chart of account',
+    'version': '1.0',
+    "author": "ACSONE SA/NV",
+    "maintainer": "ACSONE SA/NV",
+    "website": "http://www.acsone.eu",
+    'category': 'Localization/Account Charts',
+    'depends': [
+        'account',
+    ],
+    'description': """
+l10n FICEP
+==========
+This is the base module to manage the generic accounting chart for Ficep
+    """,
+    'images': [
+    ],
+    'data': [
+        'data/account_ficep.xml',
+        'data/account_chart_template.xml',
+    ],
+    'js': [
+    ],
+    'qweb': [
+    ],
+    'css': [
+    ],
+    'demo': [
+    ],
+    'test': [
+    ],
+    'sequence': 150,
+    'license': 'AGPL-3',
+    'installable': True,
+    'auto_install': False,
+    'application': False,
+}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

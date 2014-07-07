@@ -34,6 +34,8 @@
     'category': 'Political Association',
     'depends': [
         'ficep',
+        'l10n_ficep',
+        'account_auto_installer',
     ],
     'description': """
 FICEP Sample Customization
@@ -44,6 +46,7 @@ FICEP Sample Customization
     'data': [
          'demo/company_demo.xml',
          'demo/users_demo.xml',
+         'demo/account_installer_demo.xml',
          '../ficep_base/tests/data/res_partner_data.xml',
          '../ficep_base/tests/data/res_users_data.xml',
          '../ficep_structure/tests/data/structure_data.xml',

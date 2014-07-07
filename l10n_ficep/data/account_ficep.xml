@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- account.account.type -->
+        <record id="ficep_user_type_view" model="account.account.type">
+            <field name="name">View</field>
+            <field name="code">view</field>
+            <field name="close_method">none</field>
+        </record>
+        
+        <!-- Chart template of Ficep -->
+        <!-- Account template definition -->
+        <record id="a_root" model="account.account.template">
+            <field name="name">FICEP Chart of Account</field>
+            <field name="code">0</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="ficep_user_type_view"/>
+        </record>
+        
+        <record id="a1" model="account.account.template">
+            <field name="name">CLASSE 1</field>
+            <field name="code">1</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field ref="a_root" name="parent_id"/>
+        </record>
+        
+        <record id="a2" model="account.account.template">
+            <field name="name">CLASSE 2</field>
+            <field name="code">2</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field ref="a_root" name="parent_id"/>
+        </record>
+        
+        <record id="a3" model="account.account.template">
+            <field name="name">CLASSE 3</field>
+            <field name="code">3</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field ref="a_root" name="parent_id"/>
+        </record>
+        
+        <record id="a4" model="account.account.template">
+            <field name="name">CLASSE 4</field>
+            <field name="code">4</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field ref="a_root" name="parent_id"/>
+        </record>
+                
+        <record id="a40" model="account.account.template">
+            <field name="name">Customers</field>
+            <field name="code">40</field>
+            <field name="type">receivable</field>
+            <field name="user_type" ref="account.data_account_type_receivable"/>
+            <field eval="True" name="reconcile"/>
+            <field ref="a4" name="parent_id"/>
+        </record>
+        
+        <record id="a5" model="account.account.template">
+            <field name="name">CLASSE 5</field>
+            <field name="code">5</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field ref="a_root" name="parent_id"/>
+        </record>
+                
+        <record id="a55" model="account.account.template">
+            <field name="name">Bank</field>
+            <field name="code">55</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="ficep_user_type_view"/>
+            <field ref="a5" name="parent_id"/>
+        </record>
+        
+        <record id="a6" model="account.account.template">
+            <field name="name">CLASSE 6</field>
+            <field name="code">6</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field ref="a_root" name="parent_id"/>
+        </record>
+        
+        <record id="a7" model="account.account.template">
+            <field name="name">CLASSE 7</field>
+            <field name="code">7</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+            <field ref="a_root" name="parent_id"/>
+        </record>
+        
+        <record id="a7492" model="account.account.template">
+            <field name="name">Retrocessions</field>
+            <field name="code">7492</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_income"/>
+            <field ref="a7" name="parent_id"/>
+        </record>
+        
+        <record id="a7493" model="account.account.template">
+            <field name="name">Subscriptions</field>
+            <field name="code">7493</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_income"/>
+            <field ref="a7" name="parent_id"/>
+        </record>
+        
+    </data>
+</openerp>
