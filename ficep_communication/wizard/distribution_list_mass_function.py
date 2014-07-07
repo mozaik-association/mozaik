@@ -131,8 +131,8 @@ class distribution_list_mass_function(orm.TransientModel):
         """
         return {
             'value': {
-                'p_mass_function': '',
-                'e_mass_function': '',
+                'p_mass_function': False,
+                'e_mass_function': False,
              }
         }
 
