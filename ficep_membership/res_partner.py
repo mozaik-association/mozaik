@@ -34,8 +34,11 @@ class res_partner(orm.Model):
     _inherit = 'res.partner'
 
     _columns = {
-         'membership_history_m2m_ids': fields.many2many('membership.history', 'partner_membership_history_rel',\
-                                               id1='partner_id', id2='membership_history_id', string='Memberships historical'),
+         'membership_id': fields.many2one('membership.membership', 'Membership', select=True, track_visibility='onchange'),
+         'membership_history_ids': fields.one2many('membership.history', 'partner_id', \
+                                                       string='Memberships historical', domain=[('active', '=', True)]),
+         'membership_history_inactive_ids': fields.one2many('membership.history', 'partner_id', \
+                                                                string='Memberships historical', domain=[('active', '=', False)]),
     }
 
 # view methods: onchange, button
@@ -77,7 +80,7 @@ class res_partner(orm.Model):
             'year': year,
             'is_update': True,
 
-            #country_id is mandatory
+            # country_id is mandatory
             'country_id': postal_coordinate_id and postal_coordinate_id.address_id.country_id.id,
             'address_local_street_id': postal_coordinate_id and postal_coordinate_id.address_id.address_local_street_id.id,
             'street_man': postal_coordinate_id and postal_coordinate_id.address_id.street_man,
@@ -103,6 +106,7 @@ class res_partner(orm.Model):
             'competencies_m2m_ids': [[6, False, partner.competencies_m2m_ids and [competence.id for competence in partner.competencies_m2m_ids] or []]],
         }
         membership_request_obj = self.pool['membership.request']
+        context['mode'] = 'ws'
         membership_request_id = membership_request_obj.create(cr, uid, values, context=context)
         return membership_request_obj.display_object_in_form_view(cr, uid, membership_request_id, context=None)
 
