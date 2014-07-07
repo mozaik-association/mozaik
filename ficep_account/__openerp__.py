@@ -34,6 +34,7 @@
     'category': 'Political Association',
     'depends': [
         'account_accountant',
+        'account_cancel',
     ],
     'description': """
 FICEP Account

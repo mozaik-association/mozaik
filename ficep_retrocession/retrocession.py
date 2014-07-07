@@ -389,6 +389,7 @@ class retrocession(orm.Model):
                                  type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
         'amount_total': fields.function(_compute_all_amounts, string='Retrocession', multi="Allamounts",
                                         type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
+        'move_id': fields.many2one('account.move', 'Journal Entry', select=True),
     }
 
     _order = 'year desc, month desc, sta_mandate_id, ext_mandate_id'
@@ -512,25 +513,42 @@ class retrocession(orm.Model):
                 data['retrocession_id'] = retrocession.id
                 self.pool['calculation.rule'].create(cr, uid, data, context=context)
 
-#===============================================================================
-#             company_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'base', 'main_company')[1]
-#             retro_name = self.name_get(cr, uid, retrocession.id, context)[0][1]
-# 
-#             values = {'origin': retro_name,
-#                       'type': 'out_invoice',
-#                       'partner_id': retrocession.partner_id.id,
-#                       'account_id': retrocession.partner_id.property_account_receivable.id,
-#                       'payment_term': retrocession.partner_id.property_payment_term.id,
-#                       'fiscal_position': retrocession.partner_id.property_account_position.id,
-#                       'company_id': company_id,
-#                       'date_invoice': fields.date.today(), }
-#             invoice_id = self.pool.get('account.invoice').create(cr, uid, values, context=context)
-#             values = {'name': retro_name,
-#                       'invoice_id': invoice_id,
-#                       'price_unit': retrocession.amount_total,
-#                       }
-#             self.pool.get('account.invoice.line').create(cr, uid, values, context=context)
-#===============================================================================
+            retro_journal_id = self.pool.get('account.journal').search(cr, uid, [('code', '=', 'RETRO')], context=context)[0]
+            retro_journal = self.pool.get('account.journal').browse(cr, uid, retro_journal_id, context=context)
+            move_obj = self.pool.get('account.move')
+            move_line_obj = self.pool.get('account.move.line')
+
+            retro_name = self.name_get(cr, uid, retrocession.id, context)[0][1]
+            move_vals = move_obj.account_move_prepare(cr, uid, retro_journal.id, ref=retro_name, context=context)
+
+            if retrocession.move_id:
+                move_id = retrocession.move_id.id
+                for line in retrocession.move_id.line_id:
+                    if line.account_id.id == retro_journal.default_debit_account_id.id:
+                        vals = {'debit': retrocession.amount_total}
+                    else:
+                        vals = {'credit': retrocession.amount_total}
+                    move_line_obj.write(cr, uid, line.id, vals, context=context)
+            else:
+                move_id = move_obj.create(cr, uid, move_vals, context=context)
+                move_line_obj.create(cr, uid, {
+                                        'name': retro_name,
+                                        'partner_id': retrocession.partner_id.id,
+                                        'account_id': retro_journal.default_debit_account_id.id,
+                                        'debit': retrocession.amount_total,
+                                        'credit': 0,
+                                        'move_id': move_id,
+                                        }, context=context)
+                move_line_obj.create(cr, uid, {
+                                        'name': retro_name,
+                                        'partner_id': retrocession.partner_id.id,
+                                        'account_id': retro_journal.default_credit_account_id.id,
+                                        'debit': 0,
+                                        'credit': retrocession.amount_total,
+                                        'move_id': move_id,
+                                }, context=context)
+                self.write(cr, uid, retrocession.id, {'move_id': move_id}, context=context)
+            move_obj.post(cr, uid, [move_id], context=context)
             # TODO: send report to mandate representative and return its id
         return False
 
@@ -543,6 +561,9 @@ class retrocession(orm.Model):
         """
         vals = vals or {}
         vals.update({'state': 'cancelled'})
+        account_move_ids = [retro_data['move_id'][0] for retro_data in self.read(cr, uid, ids, ['move_id'], context=context) if retro_data['move_id']]
+        self.pool.get('account.move').button_cancel(cr, uid, account_move_ids, context=context)
+        self.pool.get('account.move').unlink(cr, uid, account_move_ids, context=context)
         return super(retrocession, self).action_invalidate(cr, uid, ids, context=context, vals=vals)
 
     def action_revalidate(self, cr, uid, ids, context=None, vals=None):
@@ -560,6 +581,8 @@ class retrocession(orm.Model):
         if rule_ids:
             rule_model.unlink(cr, uid, rule_ids, context=context)
 
+        account_move_ids = [retro_data['move_id'][0] for retro_data in self.read(cr, uid, ids, ['move_id'], context=context) if retro_data['move_id']]
+        self.pool.get('account.move').button_cancel(cr, uid, account_move_ids, context=context)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

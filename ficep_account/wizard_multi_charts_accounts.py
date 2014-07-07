@@ -52,6 +52,7 @@ class wizard_multi_charts_accounts(orm.TransientModel):
                 'company_id': company_id,
                 'default_credit_account_id': default_credit_account,
                 'default_debit_account_id': default_debit_account,
+                'update_posted': True,
                 }
 
         journal_data.append(vals)
@@ -64,6 +65,7 @@ class wizard_multi_charts_accounts(orm.TransientModel):
                 'company_id': company_id,
                 'default_credit_account_id': default_credit_account,
                 'default_debit_account_id': default_debit_account,
+                'update_posted': True,
                 }
         journal_data.append(vals)
 
