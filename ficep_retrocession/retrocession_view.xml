@@ -274,7 +274,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_user" name="invalidate">
+                             groups="ficep_base.ficep_res_groups_configurator" name="invalidate">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate fractionation: proceed anyway ?" />
                         </div>
@@ -363,7 +363,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_user" name="invalidate">
+                             groups="ficep_base.ficep_res_groups_configurator" name="invalidate">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate fractionation line: proceed anyway ?" />
                         </div>
@@ -414,7 +414,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_user" name="invalidate">
+                             groups="ficep_base.ficep_res_groups_configurator" name="invalidate">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate calculation method: proceed anyway ?" />
                         </div>
@@ -499,7 +499,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_user" name="invalidate">
+                             groups="ficep_base.ficep_res_groups_configurator" name="invalidate">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate calculation rule: proceed anyway ?" />
                         </div>
@@ -562,7 +562,8 @@
                             <button name="action_revalidate" string="Reset" type="object"
                                     states="validated" confirm="Reset Retrocession: proceed anyway ?" />
                             <button name="action_invalidate" string="Cancel" type="object"
-                                    states="sent,validated" confirm="Invalidate Retrocession, proceed anyway ?" />
+                                    states="sent,validated" confirm="Invalidate Retrocession, proceed anyway ?"
+                                    groups="ficep_base.ficep_res_groups_configurator" />
                             <field name="state" widget="statusbar" statusbar_visible="sent,validated,paid"/>
                         </div>
                     </header>
