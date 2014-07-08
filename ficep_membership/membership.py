@@ -45,8 +45,8 @@ class abstract_membership(orm.AbstractModel):
 
     _columns = {
         'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES, 'Status', required=True, track_visibility='onchange'),
-        'partner_id': fields.many2one('res.partner', 'Partner', select=True),
-        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', select=True, track_visibility='onchange'),
+        'partner_id': fields.many2one('res.partner', 'Partner', domain=[('is_company', '=', False)], select=True),
+        'int_instance_id': fields.many2one('int.instance', string='Internal Instance', select=True, track_visibility='onchange'),
     }
 
     _defaults = {
@@ -127,6 +127,8 @@ class membership_history(orm.Model):
     _inherit = ['abstract.membership']
     _description = 'Membership History'
 
+    _order = 'create_date desc'
+
     _columns = {
         'is_current': fields.boolean('Is Current'),
         'membership_id': fields.many2one('membership.membership', 'Membership', select=True, track_visibility='onchange'),
@@ -146,7 +148,8 @@ class membership_state(orm.Model):
     _description = 'Membership State'
 
     _columns = {
-        'name': fields.char('Status'),
+        'name': fields.char('Status', required=True),
+        'value': fields.char('Value', required=True),
         'membership_m2m_ids': fields.many2many('membership.membership', 'membership_state_membership_rel', \
                                                id1='membership_state_id', id2='membership_id', string='Memberships'),
     }

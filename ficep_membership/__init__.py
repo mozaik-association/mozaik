@@ -29,5 +29,6 @@
 from . import membership_request
 from . import membership
 from . import res_partner
+from . import structure
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
