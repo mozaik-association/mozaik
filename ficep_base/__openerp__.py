@@ -51,6 +51,7 @@
         #'event',
         #'account_accountant',
         #'account_cancel',
+        'report',
     ],
     'description': """
 FICEP Base

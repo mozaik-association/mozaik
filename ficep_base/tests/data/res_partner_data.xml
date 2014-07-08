@@ -61,5 +61,12 @@
             <field name="notify_email">none</field>
         </record>
 
+        <record id="res_partner_dries" model="res.partner">
+            <field name="lastname">Dries</field>
+            <field name="firstname">Mertens</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="notify_email">none</field>
+        </record>
+
     </data>
 </openerp>

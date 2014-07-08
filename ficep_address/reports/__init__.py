@@ -1,0 +1,1 @@
+import report_postal_coordinate_label

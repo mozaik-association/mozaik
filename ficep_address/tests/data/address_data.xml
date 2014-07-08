@@ -9,31 +9,152 @@
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
 
+        <record id="postal_coordinate_1_duplicate_2" model="postal.coordinate">
+            <field name="address_id" ref="address_1"/>
+            <field name="partner_id" ref="res_partner_jacques"/>
+        </record>
+
+        <record id="postal_coordinate_1_duplicate_3" model="postal.coordinate">
+            <field name="address_id" ref="address_1"/>
+            <field name="partner_id" ref="res_partner_pauline"/>
+        </record>
+
+        <record id="postal_coordinate_1_duplicate_4" model="postal.coordinate">
+            <field name="address_id" ref="address_1"/>
+            <field name="partner_id" ref="res_partner_marc"/>
+        </record>
+
+        <record id="postal_coordinate_1_duplicate_5" model="postal.coordinate">
+            <field name="address_id" ref="address_1"/>
+            <field name="partner_id" ref="res_partner_fgtb"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_1_duplicate_6" model="postal.coordinate">
+            <field name="address_id" ref="address_1"/>
+            <field name="partner_id" ref="res_partner_nouvelobs"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_1_duplicate_7" model="postal.coordinate">
+            <field name="address_id" ref="address_1"/>
+            <field name="partner_id" ref="res_partner_nouvelobs_bis"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_1_duplicate_8" model="postal.coordinate">
+            <field name="address_id" ref="address_1"/>
+            <field name="partner_id" ref="res_partner_rtbf"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_1_duplicate_9" model="postal.coordinate">
+            <field name="address_id" ref="address_1"/>
+            <field name="partner_id" ref="res_partner_dries"/>
+            <field name="vip" eval="True"/>
+        </record>
+
         <!-- Need 4 Duplicate Postal Coordinate For testing all case -->
         <record id="postal_coordinate_2" model="postal.coordinate">
             <field name="address_id" ref="address_2"/>
             <field name="partner_id" ref="res_partner_jacques"/>
         </record>
+
         <record id="postal_coordinate_2_duplicate_1" model="postal.coordinate">
             <field name="address_id" ref="address_2"/>
             <field name="partner_id" ref="res_partner_marc"/>
         </record>
+
         <record id="postal_coordinate_2_duplicate_2" model="postal.coordinate">
             <field name="address_id" ref="address_2"/>
             <field name="partner_id" ref="res_partner_thierry"/>
-            <field name="is_main" eval="True" />
+            <field name="is_main" eval="True"/>
         </record>
+
         <record id="postal_coordinate_2_duplicate_3" model="postal.coordinate">
             <field name="address_id" ref="address_2"/>
             <field name="partner_id" ref="res_partner_pauline"/>
-            <field name="is_main" eval="True" />
+            <field name="is_main" eval="True"/>
         </record>
+
+        <record id="postal_coordinate_2_duplicate_4" model="postal.coordinate">
+            <field name="address_id" ref="address_2"/>
+            <field name="partner_id" ref="res_partner_fgtb"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_2_duplicate_5" model="postal.coordinate">
+            <field name="address_id" ref="address_2"/>
+            <field name="partner_id" ref="res_partner_nouvelobs"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_2_duplicate_6" model="postal.coordinate">
+            <field name="address_id" ref="address_2"/>
+            <field name="partner_id" ref="res_partner_nouvelobs_bis"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_2_duplicate_7" model="postal.coordinate">
+            <field name="address_id" ref="address_2"/>
+            <field name="partner_id" ref="res_partner_rtbf"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_2_duplicate_8" model="postal.coordinate">
+            <field name="address_id" ref="address_2"/>
+            <field name="partner_id" ref="res_partner_dries"/>
+            <field name="vip" eval="True"/>
+        </record>
+
         <!-- ============================================================== -->
 
         <record id="postal_coordinate_3" model="postal.coordinate">
             <field name="address_id" ref="address_3"/>
             <field name="partner_id" ref="res_partner_pauline"/>
-            <field name="vip" eval="True" />
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_3_duplicate_2" model="postal.coordinate">
+            <field name="address_id" ref="address_3"/>
+            <field name="partner_id" ref="res_partner_thierry"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_3_duplicate_3" model="postal.coordinate">
+            <field name="address_id" ref="address_3"/>
+            <field name="partner_id" ref="res_partner_marc"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_3_duplicate_4" model="postal.coordinate">
+            <field name="address_id" ref="address_3"/>
+            <field name="partner_id" ref="res_partner_jacques"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_3_duplicate_5" model="postal.coordinate">
+            <field name="address_id" ref="address_3"/>
+            <field name="partner_id" ref="res_partner_fgtb"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_3_duplicate_6" model="postal.coordinate">
+            <field name="address_id" ref="address_3"/>
+            <field name="partner_id" ref="res_partner_nouvelobs_bis"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_3_duplicate_7" model="postal.coordinate">
+            <field name="address_id" ref="address_3"/>
+            <field name="partner_id" ref="res_partner_rtbf"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_3_duplicate_8" model="postal.coordinate">
+            <field name="address_id" ref="address_3"/>
+            <field name="partner_id" ref="res_partner_dries"/>
+            <field name="vip" eval="True"/>
         </record>
 
     </data>
