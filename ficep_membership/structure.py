@@ -24,34 +24,19 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
-{
-    'name': 'FICEP: Membership',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_membercom'
-    ],
-    'description': """
-FICEP Membership
-================
-    """,
-    'images': [
-    ],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/membership_security.xml',
-        'membership_view.xml',
-        'membership_request_view.xml',
-        'res_partner_view.xml',
-        'structure_view.xml',
-    ],
-    'sequence': 150,
-    'auto_install': False,
-    'installable': True,
-}
+##############################################################################'''
+from openerp.osv import orm, fields
+
+
+class int_instance(orm.Model):
+
+    _inherit = 'int.instance'
+
+    _columns = {
+         'membership_ids': fields.one2many('membership.membership', 'int_instance_id', \
+                                                   string='Memberships', domain=[('active', '=', True)]),
+         'membership_inactive_ids': fields.one2many('membership.membership', 'int_instance_id', \
+                                                            string='Memberships', domain=[('active', '=', False)]),
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
