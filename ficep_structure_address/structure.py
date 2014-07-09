@@ -25,13 +25,19 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-from openerp.osv import orm
+from openerp.osv import orm, fields
 
 
 class sta_assembly(orm.Model):
 
     _inherit = 'sta.assembly'
+
+    _columns = {
+         'membership_ids': fields.one2many('membership.membership', 'int_instance_id', \
+                                                   string='Memberships', domain=[('active', '=', True)]),
+         'membership_inactive_ids': fields.one2many('membership.membership', 'int_instance_id', \
+                                                            string='Memberships', domain=[('active', '=', False)]),
+    }
 
 # static methods
 
