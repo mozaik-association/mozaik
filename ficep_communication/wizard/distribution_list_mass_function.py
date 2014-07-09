@@ -82,6 +82,7 @@ SORT_BY = [
 E_MASS_FUNCTION = [
     ('email_coordinate_id', 'Mass Mailing'),
     ('csv', 'CSV Extraction'),
+    ('vcard', 'VCARD Extraction'),
 ]
 P_MASS_FUNCTION = [
     ('postal_coordinate_id', 'Label Printing'),
@@ -103,8 +104,8 @@ class distribution_list_mass_function(orm.TransientModel):
         'e_mass_function': fields.selection(E_MASS_FUNCTION, 'Mass Function'),
         'p_mass_function': fields.selection(P_MASS_FUNCTION, 'Mass Function'),
 
-        'email_template_id': fields.many2one('email.template', 'Email Template', select=True),
-        'campaign_id': fields.many2one('mail.mass_mailing.campaign', 'Mail Campaign', select=True),
+        'email_template_id': fields.many2one('email.template', 'Email Template'),
+        'campaign_id': fields.many2one('mail.mass_mailing.campaign', 'Mail Campaign'),
         'extract_csv': fields.boolean('Complementary Postal CSV',
                                       help="Get a CSV file with all partners who have no email coordinate"),
 
@@ -131,8 +132,8 @@ class distribution_list_mass_function(orm.TransientModel):
         """
         return {
             'value': {
-                'p_mass_function': '',
-                'e_mass_function': '',
+                'p_mass_function': False,
+                'e_mass_function': False,
              }
         }
 

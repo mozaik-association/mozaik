@@ -33,7 +33,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_membercom',
+        'ficep_structure_address',
         'ficep_membership',
     ],
     'description': """

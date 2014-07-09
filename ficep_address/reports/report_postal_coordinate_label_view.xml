@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="ficep_address.style">
+            body {
+                font-family: Courier, monospace;
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 0;
+                margin: 0;
+            }
+
+            .page {
+                padding:20px;
+                margin:0;
+            }
+
+            .card {
+                height:3.3cm;
+                padding:6px;
+                margin:0;
+                word-wrap:break-word;
+                line-height:15px;
+                overflow: hidden;
+            }
+
+            #wrapwrap {
+                padding: 0;
+                margin:0;
+            }
+        </template>
+
+        <!-- New template based on default report.html_container to add our ficep_address.style.
+         Copied completely because inheritance/extension was not working.
+         See https://www.odoo.com/forum/Help-1/question/Qweb-HTML-report-template-inheritance-56716. -->
+        <template id="ficep_address.html_container">
+            &lt;!DOCTYPE html&gt;
+            <html t-att-lang="lang and lang.replace('_', '-')"
+                  t-att-data-editable="'1' if editable else None"
+                  t-att-data-view-xmlid="xmlid if editable else None"
+                  t-att-data-main-object="repr(main_object) if editable else None"
+                  t-att-data-report-margin-top="data_report_margin_top if data_report_margin_top else None"
+                  t-att-data-report-header-spacing="data_report_header_spacing if data_report_header_spacing else None"
+                  t-att-data-report-dpi="data_report_dpi if data_report_dpi else None"
+                  t-att-data-oe-company-name="res_company.name">
+                <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+                    <t t-if="main_object and 'website_meta_title' in main_object">
+                        <t t-set="title" t-value="main_object.website_meta_title"/>
+                    </t>
+                    <t t-if="not title and main_object and 'name' in main_object">
+                        <t t-set="additional_title" t-value="main_object.name"/>
+                    </t>
+                    <meta name="description" t-att-value="main_object and 'website_meta_description' in main_object
+                and main_object.website_meta_description or website_meta_description"/>
+                    <meta name="keywords" t-att-value="main_object and 'website_meta_keywords' in main_object
+                and main_object.website_meta_keywords or website_meta_keywords"/>
+
+                    <link id="bootstrap_css" rel='stylesheet' href='/web/static/lib/bootstrap/css/bootstrap.css'
+                          t-ignore="true"/>
+                    <link rel="stylesheet" type="text/css" href='/website/static/src/css/website.css'/>
+                    <style type="text/css">
+                        <t t-call="ficep_address.style"/>
+                    </style>
+
+                    <link rel='stylesheet' href='/web/static/lib/fontawesome/css/font-awesome.css'/>
+
+                    <script type="text/javascript" src="/web/static/lib/es5-shim/es5-shim.min.js"></script>
+                    <script type="text/javascript" src="/web/static/lib/underscore/underscore.js"></script>
+                    <script type="text/javascript"
+                            src="/web/static/lib/underscore.string/lib/underscore.string.js"></script>
+                    <script type="text/javascript" src="/web/static/lib/jquery/jquery.js"></script>
+                    <script type="text/javascript" src="/web/static/lib/bootstrap/js/bootstrap.js"></script>
+                    <script type="text/javascript" src="/web/static/lib/qweb/qweb2.js"></script>
+                    <script type="text/javascript" src="/web/static/src/js/openerpframework.js"></script>
+                    <script type="text/javascript" src="/website/static/src/js/website.js"></script>
+                    <script t-if="not translatable" type="text/javascript"
+                            src="/website/static/src/js/website.snippets.animation.js"></script>
+                    <t t-raw="head or ''" name='layout_head'/>
+                </head>
+                <body class="container">
+                    <div id="wrapwrap">
+                        <t t-raw="0"/>
+                    </div>
+                </body>
+            </html>
+        </template>
+
+        <template id="ficep_address.postal_coordinate_label_report_card">
+            <div class="col-xs-4 card">
+                <span t-esc="o.partner_id.printable_name"/>
+                <br/>
+                <div t-if="o.co_residency_id">
+                    <span t-esc="o.co_residency_id.line"/>
+                    <br/>
+                    <span t-esc="o.co_residency_id.line2"/>
+                    <br/>
+                </div>
+                <div t-if="not o.co_residency_id">
+                    <span t-if="o.address_id and o.address_id.street2" t-esc="o.address_id.street2"/>
+                    <br t-if="o.address_id and o.address_id.street2"/>
+                </div>
+                <span t-esc="o.address_id.street"/>
+                <br/>
+                <span t-esc="o.address_id.zip"/>
+                <span t-esc="o.address_id.city"/>
+                <br/>
+                <span t-esc="o.address_id and o.address_id.country_id and o.address_id.country_id.name or ''"/>
+            </div>
+        </template>
+
+        <template id="report_postal_coordinate_label">
+            <t t-call="ficep_address.html_container">
+                <div class="page">
+                    <t t-foreach="docs" t-as="o">
+                        <div style="page-break-after:always;" t-if="not o_first and modulo(o_index, 24) == 0"/>
+
+                        <t t-call="ficep_address.postal_coordinate_label_report_card">
+                            <t t-set="o" t-value="o"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>

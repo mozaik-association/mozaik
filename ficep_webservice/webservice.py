@@ -87,6 +87,7 @@ class custom_webservice(orm.Model):
         ==================
         Create a `membership.request` with the giving values
         """
+        context = context or {}
         membership_request = self.pool['membership.request']
         vals = {
             'lastname': lastname,
@@ -110,6 +111,7 @@ class custom_webservice(orm.Model):
             'interests': interest,
         }
         try:
+            context['mode'] = 'ws'
             res = membership_request.create(cr, SUPERUSER_ID, vals, context=context)
         except Exception as e:
             raise WebServiceException(uid, 'Membership Request', 'ERROR-CREATE', e.message)

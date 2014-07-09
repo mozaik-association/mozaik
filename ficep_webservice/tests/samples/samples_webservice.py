@@ -49,8 +49,8 @@ OBJECT = 'custom.webservice'
 if sys.argv[4] == '1':
     METHOD = 'membership_request'
     res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, \
-                   'MAROIS', 'Pauline', 'f', 'Rue Louis Maréhal 6/2B', '4360', 'Oreye', 'm', 29, 03, 1949, \
-                   'pauline@gmail.com', '0489578612', '061412002', \
+                   'LHERMITTE', 'Thierry', 'm', 'Rue Louis Maréhal 6/2B', '4360', 'Oreye', 'm', 01, 04, 1985, \
+                   'thierry@gmail.com', '0465000000', '061412002', \
                    'Foot, Snowboard')
 elif  sys.argv[4] == '2':
     METHOD = 'get_uid'

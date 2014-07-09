@@ -55,6 +55,10 @@ membership_request_type = dict(MEMBERSHIP_REQUEST_TYPE)
 
 class membership_request(orm.Model):
 
+    def _pop_related(self, cr, uid, vals, context=None):
+        vals.pop('local_zip', None)
+        vals.pop('country_code', None)
+
     _name = 'membership.request'
     _inherit = ['abstract.ficep.model']
     _description = 'Membership Request'
@@ -540,20 +544,21 @@ class membership_request(orm.Model):
 # orm methods
 
     def create(self, cr, uid, vals, context=None):
-        """
-        ======
-        create
-        ======
-        Override native create to make a pre-process job before calling the super
-        with the updated ``vals``
-        """
-        self.pre_process(cr, uid, vals, context=context)
+        #do not pass related fields to the orm
+        context = context or {}
+        self._pop_related(cr, uid, vals, context=context)
+        if context.get('install_mode', False) or context.get('mode', True) == 'ws':
+            self.pre_process(cr, uid, vals, context=context)
         return super(membership_request, self).create(cr, uid, vals, context=context)
+
+    def write(self, cr, uid, ids, vals, context=None):
+        #do not pass related fields to the orm
+        self._pop_related(cr, uid, vals, context=context)
+        return super(membership_request, self).write(cr, uid, ids, vals, context=context)
 
     def name_get(self, cr, uid, ids, context=None):
         """
         display name is `lastname firstname`
-
         **Note**
         if firstname is empty then it is just lastname alone
         """

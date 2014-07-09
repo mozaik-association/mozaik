@@ -41,13 +41,32 @@ class abstract_membership(orm.AbstractModel):
     _inherit = ['abstract.ficep.model']
     _description = 'Abstract Membership'
 
+    _rec_name = 'partner_id'
+
     _columns = {
         'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES, 'Status', required=True, track_visibility='onchange'),
-        'partner_id': fields.many2one('res.partner', 'Partner', select=True),
-        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', select=True, track_visibility='onchange'),
+        'partner_id': fields.many2one('res.partner', 'Partner', domain=[('is_company', '=', False)], select=True),
+        'int_instance_id': fields.many2one('int.instance', string='Internal Instance', select=True, track_visibility='onchange'),
+    }
+
+    _defaults = {
+        'state': 'member',
     }
 
     _unicity_keys = 'N/A'
+
+    def name_get(self, cr, uid, ids, context=None):
+        """
+        Name: Partner's name
+        """
+        if not ids:
+            return []
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+        res = []
+        for record in self.browse(cr, uid, ids, context=context):
+            display_name = '%s' % record.partner_id.display_name
+            res.append((record['id'], display_name))
+        return res
 
 
 class membership_membership(orm.Model):
@@ -57,8 +76,10 @@ class membership_membership(orm.Model):
     _description = 'Membership'
 
     _columns = {
-        'membership_history_m2m_ids': fields.many2many('membership.history', 'membership_membership_history_rel', \
-                                               id1='membership_id', id2='membership_history_id', string='Memberships historical'),
+        'membership_history_ids': fields.one2many('membership.history', 'membership_id', \
+                                                      string='Memberships historical', domain=[('active', '=', True)]),
+        'membership_history_inactive_ids': fields.one2many('membership.history', 'membership_id', \
+                                                               string='Memberships historical', domain=[('active', '=', False)]),
     }
 
     _unicity_keys = 'N/A'
@@ -67,23 +88,37 @@ class membership_membership(orm.Model):
 
     def create(self, cr, uid, vals, context=None):
         res_id = super(membership_membership, self).create(cr, uid, vals, context=context)
-        self.udpate_hystory(cr, uid, [res_id], vals, context=context)
+        self.update_history(cr, uid, [res_id], vals, context=context)
         return res_id
 
     def write(self, cr, uid, ids, vals, context=None):
+        res = super(membership_membership, self).write(cr, uid, ids, vals, context=context)
         if vals.get('state', False):
-            self.udpate_hystory(cr, uid, ids, vals, context=context)
-        return super(membership_membership, self).write(cr, uid, ids, vals, context=context)
+            self.update_history(cr, uid, ids, vals, context=context)
+        return res
 
     def update_history(self, cr, uid, ids, vals, context=None):
+        """
+        ==============
+        update_history
+        ==============
+        Create a new ``membership history`` for each ``ids``
+        If the membership already has a current history
+        then set ``current`` to False
+        """
+        if vals is None:
+            vals = {}
+        vals_copy = vals.copy()
         for membership in self.browse(cr, uid, ids, context=context):
             membership_history_obj = self.pool['membership.history']
-            current_history_ids = membership_history_obj.search(cr, uid, [('partner_id', '=', membership.partner_id),
-                                                                                  ('is_current', '=', membership.is_current)], context=context)
+            current_history_ids = membership_history_obj.search(cr, uid, [('partner_id', '=', membership.partner_id.id),
+                                                                                  ('is_current', '=', True)], context=context)
             if current_history_ids:
                 current_history = self.browse(cr, uid, current_history_ids[0], context=context)
                 current_history.write({'is_current': False})
-            membership_history_obj.create(cr, uid, vals, context=context)
+
+            vals_copy['membership_id'] = membership.id
+            membership_history_obj.create(cr, uid, vals_copy, context=context)
 
 
 class membership_history(orm.Model):
@@ -92,16 +127,16 @@ class membership_history(orm.Model):
     _inherit = ['abstract.membership']
     _description = 'Membership History'
 
+    _order = 'create_date desc'
+
     _columns = {
         'is_current': fields.boolean('Is Current'),
-        'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES, 'Status', required=True, track_visibility='onchange'),
         'membership_id': fields.many2one('membership.membership', 'Membership', select=True, track_visibility='onchange'),
-        'partner_id': fields.many2one('res.partner', 'Partner', select=True, track_visibility='onchange'),
     }
 
     _defaults = {
          'is_current': True,
-     }
+    }
 
     _unicity_keys = 'N/A'
 
@@ -113,7 +148,8 @@ class membership_state(orm.Model):
     _description = 'Membership State'
 
     _columns = {
-        'name': fields.char('Status'),
+        'name': fields.char('Status', required=True),
+        'value': fields.char('Value', required=True),
         'membership_m2m_ids': fields.many2many('membership.membership', 'membership_state_membership_rel', \
                                                id1='membership_state_id', id2='membership_id', string='Memberships'),
     }

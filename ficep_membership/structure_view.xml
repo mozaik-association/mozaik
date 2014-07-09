@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="int_instance_form_view" model="ir.ui.view">
+            <field name="name">int.instance.form (ficep_membership)</field>
+            <field name="model">int.instance</field>
+            <field name="inherit_id" ref="ficep_structure.int_instance_form_view"/>
+            <field name="arch" type="xml">
+
+                    <xpath expr="//notebook" position="inside">
+                        <page name="memberships" string="Memberships">
+                            <button string="All Details"
+                                name="%(membership_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_int_instance_id': active_id,
+                                      'default_int_instance_id': active_id,
+                                      'search_default_all': True}" />
+                            <field name="membership_ids"
+                                context="{'default_int_instance_id': active_id}"
+                                attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
+                            </field>
+                            <field name="membership_inactive_ids"
+                                readonly="1"
+                                attrs="{'invisible': [('active','=',True)]}">
+                            </field>
+                        </page>
+                    </xpath>
+
+            </field>
+        </record>
+    </data>
+
+</openerp>

@@ -76,6 +76,31 @@
             </field>
         </record>
 
+        <record id="postal_coordinate_label_paperformat" model="report.paperformat">
+            <field name="name">Postal Coordinate Label</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">8</field>
+            <field name="margin_bottom">1</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report string="Postal Coordinate Label"
+                id="postal_coordinate_label_report"
+                model="postal.coordinate"
+                report_type="qweb-pdf"
+                name="ficep_address.report_postal_coordinate_label"
+                file="ficep_address.report_postal_coordinate_label"/>
+
+        <record id="postal_coordinate_label_report" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="postal_coordinate_label_paperformat"/>
+        </record>
+
         <!-- Address -->
 
         <record id="address_address_search_view" model="ir.ui.view">
