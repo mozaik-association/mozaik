@@ -49,7 +49,6 @@
         'readonly_bypass',       # from lp:acsone-addons
         'connector',             # from git https://github.com/OCA/connector.git connector-addons master
         #'event',
-        #'account_cancel',
         'report',
     ],
     'description': """
