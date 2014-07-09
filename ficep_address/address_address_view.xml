@@ -81,9 +81,9 @@
             <field name="default" eval="True"/>
             <field name="format">custom</field>
             <field name="orientation">Portrait</field>
-            <field name="margin_top">10</field>
+            <field name="margin_top">8</field>
             <field name="margin_bottom">1</field>
-            <field name="margin_left">4</field>
+            <field name="margin_left">3</field>
             <field name="margin_right">1</field>
             <field name="header_line" eval="False"/>
             <field name="header_spacing">0</field>
