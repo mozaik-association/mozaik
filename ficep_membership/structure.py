@@ -24,13 +24,13 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################'''
+##############################################################################
 from openerp.osv import orm, fields
 
 
-class int_instance(orm.Model):
+class sta_assembly(orm.Model):
 
-    _inherit = 'int.instance'
+    _inherit = 'sta.assembly'
 
     _columns = {
          'membership_ids': fields.one2many('membership.membership', 'int_instance_id', \
@@ -38,5 +38,90 @@ class int_instance(orm.Model):
          'membership_inactive_ids': fields.one2many('membership.membership', 'int_instance_id', \
                                                             string='Memberships', domain=[('active', '=', False)]),
     }
+
+# static methods
+
+    def _pre_update(self, cr, uid, vals, context=None):
+        '''
+        When instance_id is touched force an update of int_instance_id
+        '''
+        res = {}
+        if 'instance_id' in vals:
+            instance_id = vals['instance_id']
+            int_instance_id = self.pool['sta.instance'].read(cr, uid, instance_id, ['int_instance_id'], context=context)['int_instance_id']
+            if int_instance_id:
+                res = {'int_instance_id': int_instance_id[0]}
+        return res
+
+# orm methods
+
+    def create(self, cr, uid, vals, context=None):
+        '''
+        Set the Responsible Internal Instance linked to the result Partner
+        '''
+        if 'instance_id' in vals:
+            vals.update(self._pre_update(cr, uid, vals, context=context))
+        res = super(sta_assembly, self).create(cr, uid, vals, context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        '''
+        Update the Responsible Internal Instance linked to the result Partner
+        '''
+        vals.update(self._pre_update(cr, uid, vals, context=context))
+        res = super(sta_assembly, self).write(cr, uid, ids, vals, context=context)
+        return res
+
+
+# these 2 classes should be merged into one inherited abstract class of abstract.assembly
+# unfortunately that does not work: methods is never called !!
+class int_assembly(orm.Model):
+
+    _inherit = 'int.assembly'
+
+# orm methods
+
+    def create(self, cr, uid, vals, context=None):
+        '''
+        Responsible Internal Instance linked to the result Partner is the Instance of the Assembly
+        '''
+        if 'instance_id' in vals:
+            vals.update({'int_instance_id': vals['instance_id']})
+        res = super(int_assembly, self).create(cr, uid, vals, context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        '''
+        Update the Responsible Internal Instance linked to the result Partner
+        '''
+        if 'instance_id' in vals:
+            vals.update({'int_instance_id': vals['instance_id']})
+        res = super(int_assembly, self).write(cr, uid, ids, vals, context=context)
+        return res
+
+
+class ext_assembly(orm.Model):
+
+    _inherit = 'ext.assembly'
+
+# orm methods
+
+    def create(self, cr, uid, vals, context=None):
+        '''
+        Responsible Internal Instance linked to the result Partner is the Instance of the Assembly
+        '''
+        if 'instance_id' in vals:
+            vals.update({'int_instance_id': vals['instance_id']})
+        res = super(ext_assembly, self).create(cr, uid, vals, context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        '''
+        Update the Responsible Internal Instance linked to the result Partner
+        '''
+        if 'instance_id' in vals:
+            vals.update({'int_instance_id': vals['instance_id']})
+        res = super(ext_assembly, self).write(cr, uid, ids, vals, context=context)
+        return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
