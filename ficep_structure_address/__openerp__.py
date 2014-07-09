@@ -39,6 +39,7 @@
     'description': """
 FICEP Structure - Address
 =========================
+need to properly work
 Make a bridge between both Strcuture and Person Modules.
 It defines a required m2o to Internal Instance on local zip.
 It replicates this instance on partner which main address is related to this local zip, default instance otherwise. This field is added to all views (search, tree and form) of a partner.
@@ -46,6 +47,7 @@ It replicates this instance on partner which main address is related to this loc
     'images': [
     ],
     'data': [
+         'security/ir.model.access.csv',
          'address_local_zip_view.xml',
          'res_partner_view.xml',
          'wizard/change_main_address.xml',

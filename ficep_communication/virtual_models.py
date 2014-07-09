@@ -33,8 +33,8 @@ from openerp.addons.ficep_person.res_partner import AVAILABLE_GENDERS, AVAILABLE
 
 class virtual_target(orm.Model):
     _name = "virtual.target"
-    _inherit = ['virtual.master.partner']
     _description = "Virtual Target"
+    _inherit = ['virtual.master.partner']
     _auto = False
 
 # orm methods
@@ -47,7 +47,6 @@ class virtual_target(orm.Model):
         This view will take all the columns of `virtual.partner`
         However only the row with at least one coordinate will be take
         """
-        super(virtual_target, self).init(cr)
         tools.drop_view_if_exists(cr, 'virtual_target')
         cr.execute("""
         create or replace view virtual_target as (
