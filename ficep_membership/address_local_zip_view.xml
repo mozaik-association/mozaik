@@ -3,7 +3,7 @@
     <data noupdate="0">
 
         <record id="address_local_zip_search_view" model="ir.ui.view">
-            <field name="name">address.local.zip.search (ficep_structure_address)</field>
+            <field name="name">address.local.zip.search (ficep_membership)</field>
             <field name="model">address.local.zip</field>
             <field name="inherit_id" ref="ficep_address.address_local_zip_search_view"/>
             <field name="arch" type="xml">
@@ -20,7 +20,7 @@
         </record>
 
         <record id="address_local_zip_tree_view" model="ir.ui.view">
-            <field name="name">address.local.zip.tree (ficep_structure_address)</field>
+            <field name="name">address.local.zip.tree (ficep_membership)</field>
             <field name="model">address.local.zip</field>
             <field name="inherit_id" ref="ficep_address.address_local_zip_tree_view"/>
             <field name="arch" type="xml">
@@ -33,7 +33,7 @@
         </record>
 
         <record id="address_local_zip_form_view" model="ir.ui.view">
-            <field name="name">address.local.zip.form (ficep_structure_address)</field>
+            <field name="name">address.local.zip.form (ficep_membership)</field>
             <field name="model">address.local.zip</field>
             <field name="inherit_id" ref="ficep_address.address_local_zip_form_view"/>
             <field name="arch" type="xml">

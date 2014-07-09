@@ -28,9 +28,9 @@
 from openerp.osv import orm, fields
 
 
-class sta_assembly(orm.Model):
+class int_instance(orm.Model):
 
-    _inherit = 'sta.assembly'
+    _inherit = 'int.instance'
 
     _columns = {
          'membership_ids': fields.one2many('membership.membership', 'int_instance_id', \
@@ -38,6 +38,11 @@ class sta_assembly(orm.Model):
          'membership_inactive_ids': fields.one2many('membership.membership', 'int_instance_id', \
                                                             string='Memberships', domain=[('active', '=', False)]),
     }
+
+
+class sta_assembly(orm.Model):
+
+    _inherit = 'sta.assembly'
 
 # static methods
 

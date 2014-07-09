@@ -33,11 +33,20 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_structure_address',
+        'ficep_person_coordinate',
+        'ficep_structure',
     ],
     'description': """
 FICEP Membership
 ================
+Add models
+* Membership
+* Membership History
+* Membership Request
+It defines a required m2o to Internal Instance on local zip.
+It replicates this instance on partner which main address is related to this local zip,
+default instance otherwise. This field is added to all views (search, tree and form) of a partner.
+
     """,
     'images': [
     ],
@@ -46,8 +55,10 @@ FICEP Membership
         'security/membership_security.xml',
         'membership_view.xml',
         'membership_request_view.xml',
-        'res_partner_view.xml',
+        'address_local_zip_view.xml',
         'structure_view.xml',
+        'res_partner_view.xml',
+        'wizard/change_main_address.xml',
     ],
     'sequence': 150,
     'auto_install': False,

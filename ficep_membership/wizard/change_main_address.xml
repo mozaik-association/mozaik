@@ -5,7 +5,7 @@
         <!-- Change Main address Wizard on res.partner -->
 
         <record id="change_main_address_wizard" model="ir.ui.view">
-            <field name="name">change.main.address.wizard (ficep_structure_address)</field>
+            <field name="name">change.main.address.wizard (ficep_membership)</field>
             <field name="model">change.main.address</field>
             <field name="inherit_id" ref="ficep_address.change_main_address_wizard" />
             <field name="arch" type="xml">
