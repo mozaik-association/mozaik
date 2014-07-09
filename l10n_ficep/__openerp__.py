@@ -33,7 +33,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Localization/Account Charts',
     'depends': [
-        'account',
+        'ficep_account',
     ],
     'description': """
 l10n FICEP
@@ -45,6 +45,7 @@ This is the base module to manage the generic accounting chart for Ficep
     'data': [
         'data/account_ficep.xml',
         'data/account_chart_template.xml',
+        'data/account_installer.xml',
     ],
     'js': [
     ],

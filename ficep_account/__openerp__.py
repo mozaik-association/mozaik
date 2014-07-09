@@ -35,6 +35,7 @@
     'depends': [
         'account_accountant',
         'account_cancel',
+        'account_auto_installer',
     ],
     'description': """
 FICEP Account
