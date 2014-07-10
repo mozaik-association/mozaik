@@ -496,7 +496,7 @@ class sta_mandate(orm.Model):
 
     def onchange_sta_assembly_id(self, cr, uid, ids, sta_assembly_id, context=None):
         res = {}
-        res['value'] = dict(sta_power_level_id=False, designation_int_assembly_id=False)
+        res['value'] = dict(sta_power_level_id=False)
         if sta_assembly_id:
             assembly = self.pool.get('sta.assembly').browse(cr, uid, sta_assembly_id)
 
