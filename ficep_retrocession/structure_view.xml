@@ -28,6 +28,7 @@
             <field name="inherit_id" ref="ficep_structure.sta_assembly_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
+                    <field name="retro_instance_id"/>
                     <field name="calculation_method_id"/>
                     <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"/>
                 </xpath>
@@ -56,6 +57,7 @@
             <field name="inherit_id" ref="ficep_structure.ext_assembly_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
+                    <field name="retro_instance_id"/>
                     <field name="calculation_method_id"/>
                     <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"/>
                 </xpath>

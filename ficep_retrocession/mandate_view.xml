@@ -60,10 +60,6 @@
             <field name="model">sta.mandate</field>
             <field name="inherit_id" ref="ficep_mandate.sta_mandate_form_view" />
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='is_submission_assets']" position="after">
-                    <field name="invoice_type" readonly="1"/>
-                    <field name="method_type" readonly="1"/>
-                </xpath>
                 <xpath expr="//div[@name='buttons']" position="inside">
                     <button string="Retrocessions" name="%(retrocession_action)d"
                             type="action" attrs="{'invisible': ['|',('id','=',False)]}"
@@ -72,6 +68,14 @@
                 </xpath>
                 <xpath expr="//page[@name='index']" position="before">
                     <page name="rules" string="Retrocessions">
+                        <group>
+	                        <field name="invoice_type"/>
+	                        <field name="method_type" readonly="1"/>
+	                        <field name="retro_instance_id" attrs="{'invisible': [('invoice_type', '=', 'none')],
+	                                                               'required': [('invoice_type', '!=', 'none')]}"/>
+	                        <field name="reference" readonly="1" 
+	                               attrs="{'invisible': ['|', ('reference', '=', False), ('invoice_type', '=', 'none')]}"/>
+                        </group>
                         <separator string="Fixed Rules"/>
                         <button string="All Details" name="%(calculation_rule_detail_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
@@ -116,10 +120,6 @@
             <field name="model">ext.mandate</field>
             <field name="inherit_id" ref="ficep_mandate.ext_mandate_form_view" />
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='is_submission_assets']" position="after">
-                    <field name="invoice_type" readonly="1"/>
-                    <field name="method_type" readonly="1"/>
-                </xpath>
                 <xpath expr="//div[@name='buttons']" position="inside">
                     <button string="Retrocessions" name="%(retrocession_action)d"
                              type="action" attrs="{'invisible': ['|',('id','=',False)]}"
@@ -128,6 +128,14 @@
                 </xpath>
                 <xpath expr="//page[@name='index']" position="before">
                     <page name="rules" string="Retrocessions">
+                        <group>
+                           <field name="invoice_type"/>
+                           <field name="method_type" readonly="1"/>
+                           <field name="retro_instance_id" attrs="{'invisible': [('invoice_type', '=', 'none')],
+                                                                  'required': [('invoice_type', '!=', 'none')]}"/>
+                           <field name="reference" readonly="1" 
+                                   attrs="{'invisible': ['|', ('reference', '=', False), ('invoice_type', '=', 'none')]}"/>
+                        </group>
                         <separator string="Fixed Rules"/>
                         <button string="All Details" name="%(calculation_rule_detail_action)d"
                                  type="action" attrs="{'invisible': [('id','=',False)]}"

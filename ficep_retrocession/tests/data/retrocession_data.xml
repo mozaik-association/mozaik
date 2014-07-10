@@ -79,6 +79,17 @@
              <field name="type">fixed</field>
              <field name="percentage">4.00</field>
         </record>
+        
+        <!--  Update assembly -->
+        <record id="ext_assembly_02" model="ext.assembly">
+            <field name="calculation_method_id" ref ="cm_sample_03"/>
+            <field name="retro_instance_id" ref ="ficep_structure.int_instance_01"/>
+        </record>
+
+         <record id="sta_assembly_01" model="sta.assembly">
+            <field name="calculation_method_id" ref ="cm_sample_03"/>
+            <field name="retro_instance_id" ref ="ficep_structure.int_instance_01"/>
+        </record>
 
         <!--  Update mandate categories -->
         <record id="mc_membre_effectif_ag" model="mandate.category">
@@ -110,15 +121,6 @@
             <field name="deadline_date">2018-04-15</field>
             <field name="sta_assembly_id" ref="sta_assembly_03"/>
             <field name="partner_id" ref="res_partner_jacques"/>
-        </record>
-
-        <!--  Update assembly -->
-        <record id="ext_assembly_02" model="ext.assembly">
-            <field name="calculation_method_id" ref ="cm_sample_03"/>
-        </record>
-
-         <record id="sta_assembly_01" model="sta.assembly">
-            <field name="calculation_method_id" ref ="cm_sample_03"/>
         </record>
 
         <!--  Create retrocession -->
