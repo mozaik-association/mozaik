@@ -268,12 +268,12 @@ class distribution_list_mass_function(orm.TransientModel):
                     if partner_ids:
                         self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context, partner_ids=partner_ids, subject=_('Export PDF'))
 
-    def _get_csv_values(self, cr, uid, model, object, context=None):
+    def _get_csv_values(self, cr, uid, model, obj, context=None):
         """
-        ==========
+        ===============
         _get_csv_values
-        ==========
-        Get the values of the specified object, which should be an instance of the specified model.
+        ===============
+        Get the values of the specified obj, which should be an instance of the specified model.
         The model should be either an email or postal coordinate.
         """
         def safe_get(o, attr, default=None):
@@ -286,17 +286,17 @@ class distribution_list_mass_function(orm.TransientModel):
             return data.encode('utf-8')
 
         # Test access coordinate (VIP READER)
-        partner = safe_get(object, 'partner_id')
+        partner = safe_get(obj, 'partner_id')
 
         if not partner:
             return False
 
         # If we have a postal coordinate, we get the mail coordinates from the partner, and vice versa.
         if model == 'postal.coordinate':
-            pc = object
+            pc = obj
             ec = partner.email_coordinate_id
         elif model == 'email.coordinate':
-            ec = object
+            ec = obj
             pc = partner.postal_coordinate_id
 
         export_values = OrderedDict([('name', _get_utf8(partner.lastname)),
@@ -304,9 +304,9 @@ class distribution_list_mass_function(orm.TransientModel):
                                      ('firstname', None if not partner.firstname else _get_utf8(partner.firstname)),
                                      ('usual_firstname', None if not partner.usual_firstname else _get_utf8(partner.usual_firstname)),
                                      ('identifier', partner.identifier or None),
-                                     ('printable_name',_get_utf8(pc.co_residency_id.line) if (pc and pc.co_residency_id.line) \
+                                     ('printable_name', _get_utf8(pc.co_residency_id.line) if (pc and pc.co_residency_id.line) \
                                          else _get_utf8(partner.printable_name)),
-                                     ('co_residency',  _get_utf8(pc.co_residency_id.line2) if (pc and pc.co_residency_id.line2) \
+                                     ('co_residency', _get_utf8(pc.co_residency_id.line2) if (pc and pc.co_residency_id.line2) \
                                          else None),
                                      ('adr_main', pc and pc.is_main),
                                      ('adr_unauthorized', pc and pc.unauthorized),
@@ -381,9 +381,9 @@ class distribution_list_mass_function(orm.TransientModel):
 
     def export_vcard(self, cr, uid, email_coordinate_ids, context=None):
         """
-        ==========
+        ============
         export_vcard
-        ==========
+        ============
         Export the specified coordinates to a VCF file.
         :type email_coordinate_ids: []
         """

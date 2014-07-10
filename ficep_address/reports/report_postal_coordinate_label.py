@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import time
 from openerp.osv import osv
 from openerp.report import report_sxw
 
