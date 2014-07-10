@@ -496,7 +496,7 @@ class virtual_partner_mandate(orm.Model):
                     THEN e.id
                     ELSE mandate.email_coordinate_id
                 END) as common_id,
-            mandate.id + 2000000 as id,
+            mandate.unique_id as id,
             mandate.id as sta_mandate_id,
             NULL::int as ext_mandate_id,
             mandate.mandate_category_id,
@@ -554,7 +554,7 @@ class virtual_partner_mandate(orm.Model):
                     THEN e.id
                     ELSE mandate.email_coordinate_id
                 END) as common_id,
-            mandate.id + 4000000 as id,
+            mandate.unique_id as id,
             NULL::int as sta_mandate_id,
             mandate.id as ext_mandate_id,
             mandate.mandate_category_id,
@@ -695,7 +695,7 @@ class virtual_partner_candidature(orm.Model):
             concat(pc.id,
                 '/',
                 e.id) as common_id,
-            candidature.id + 2000000 as id,
+            candidature.unique_id as id,
             candidature.mandate_category_id,
             candidature.partner_id,
             candidature.mandate_start_date as start_date,
@@ -735,7 +735,7 @@ class virtual_partner_candidature(orm.Model):
             concat(pc.id,
                 '/',
                 e.id) as common_id,
-            candidature.id + 4000000 as id,
+            candidature.unique_id as id,
             candidature.mandate_category_id,
             candidature.partner_id,
             candidature.mandate_start_date as start_date,

@@ -151,6 +151,7 @@ class ext_candidature(orm.Model):
     _init_mandate_columns.extend(['ext_assembly_id', 'months_before_end_of_mandate'])
     _allowed_inactive_link_models = [_selection_committee_model]
     _mandate_form_view = 'ext_mandate_form_view'
+    _unique_id_sequence = 400000000
 
     _mandate_category_store_trigger = {
         'ext.candidature': (lambda self, cr, uid, ids, context=None: ids, ['selection_committee_id'], 20),
@@ -227,6 +228,7 @@ class ext_mandate(orm.Model):
 
     _allowed_inactive_link_models = ['ext.candidature']
     _undo_redirect_action = 'ficep_mandate.ext_mandate_action'
+    _unique_id_sequence = 400000000
 
     _columns = {
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',

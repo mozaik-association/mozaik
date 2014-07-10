@@ -230,6 +230,7 @@ class sta_candidature(orm.Model):
     _init_mandate_columns.extend(['legislature_id', 'sta_assembly_id'])
     _allowed_inactive_link_models = [_selection_committee_model]
     _mandate_form_view = 'sta_mandate_form_view'
+    _unique_id_sequence = 200000000
 
 # private methods
 
@@ -412,6 +413,7 @@ class sta_mandate(orm.Model):
 
     _allowed_inactive_link_models = ['sta.candidature']
     _undo_redirect_action = 'ficep_mandate.sta_mandate_action'
+    _unique_id_sequence = 200000000
 
     _columns = {
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',

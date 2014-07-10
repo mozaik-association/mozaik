@@ -69,7 +69,7 @@ class generic_mandate(orm.Model):
         cr.execute("""
             create or replace view generic_mandate as (
                     SELECT 'int.mandate' AS model,
-                           mandate.id as id,
+                           mandate.unique_id as id,
                            mandate.id as mandate_id,
                            concat('int.mandate,', mandate.id) as mandate_ref,
                            mandate.mandate_category_id,
@@ -88,7 +88,7 @@ class generic_mandate(orm.Model):
                     UNION
 
                     SELECT 'sta.mandate' AS model,
-                           mandate.id + 2000000 as id,
+                           mandate.unique_id as id,
                            mandate.id as mandate_id,
                            concat('sta.mandate,', mandate.id),
                            mandate.mandate_category_id,
@@ -107,7 +107,7 @@ class generic_mandate(orm.Model):
                     UNION
 
                     SELECT 'ext.mandate' AS model,
-                           mandate.id + 4000000 as id,
+                           mandate.unique_id as id,
                            mandate.id as mandate_id,
                            concat('ext.mandate,', mandate.id),
                            mandate.mandate_category_id,
