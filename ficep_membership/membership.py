@@ -25,17 +25,27 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.tools import SUPERUSER_ID
 from openerp.tools import logging
 from openerp.osv import orm, fields
 
 _logger = logging.getLogger(__name__)
 
-MEMBERSHIP_AVAILABLE_STATES = [
-    ('member', 'Member'),
-]
-
 
 class abstract_membership(orm.AbstractModel):
+
+    def _get_instance_id(self, cr, uid, ids, name, arg, context=None):
+        """
+        ================
+        _get_instance_id
+        ================
+        get instance_id of the partner for each ids
+        """
+        result = {i: False for i in ids}
+        for obj in self.browse(cr, uid, ids, context=context):
+            result[obj.id] = obj.partner_id.int_instance_id and obj.partner_id.int_instance_id \
+                                or False
+        return result
 
     _name = 'abstract.membership'
     _inherit = ['abstract.ficep.model']
@@ -43,17 +53,20 @@ class abstract_membership(orm.AbstractModel):
 
     _rec_name = 'partner_id'
 
+    _instance_store_triggers = {
+        'membership.memberhip': (lambda self, cr, uid, ids, context=None: ids, [], 10),
+     }
+
     _columns = {
-        'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES, 'Status', required=True, track_visibility='onchange'),
-        'partner_id': fields.many2one('res.partner', 'Partner', domain=[('is_company', '=', False)], select=True),
-        'int_instance_id': fields.many2one('int.instance', string='Internal Instance', select=True, track_visibility='onchange'),
+        'partner_id': fields.many2one('res.partner', 'Partner', required=True,
+                                       domain=[('is_company', '=', False)], select=True),
+        'membership_state_id': fields.many2one('membership.state', 'State', select=True),
+        'int_instance_id': fields.function(_get_instance_id, type='many2one', relation='int.instance',
+                                           string='Internal Instance', select=True,
+                                           track_visibility='onchange', store=_instance_store_triggers),
     }
 
-    _defaults = {
-        'state': 'member',
-    }
-
-    _unicity_keys = 'N/A'
+    _unicity_keys = 'partner_id'
 
     def name_get(self, cr, uid, ids, context=None):
         """
@@ -81,8 +94,6 @@ class membership_membership(orm.Model):
         'membership_history_inactive_ids': fields.one2many('membership.history', 'membership_id', \
                                                                string='Memberships historical', domain=[('active', '=', False)]),
     }
-
-    _unicity_keys = 'N/A'
 
 # orm methods
 
@@ -148,12 +159,14 @@ class membership_state(orm.Model):
     _description = 'Membership State'
 
     _columns = {
-        'name': fields.char('Status', required=True),
-        'value': fields.char('Value', required=True),
-        'membership_m2m_ids': fields.many2many('membership.membership', 'membership_state_membership_rel', \
-                                               id1='membership_state_id', id2='membership_id', string='Memberships'),
+        'name': fields.char('Status', required=True, track_visibility='onchange'),
+        'code': fields.char('Code', required=True, track_visibility='onchange'),
+        'membership_ids': fields.one2many('membership.membership', 'membership_state_id',
+                                           string='Memberships', domain=[('active', '=', True)]),
+        'membership_inactive_ids': fields.one2many('membership.membership', 'membership_state_id',
+                                           string='Memberships', domain=[('active', '=', False)]),
     }
 
-    _unicity_keys = 'N/A'
+    _unicity_keys = 'code'
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

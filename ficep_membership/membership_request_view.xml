@@ -261,7 +261,7 @@
         <!-- Menu Membership: - Membership Request -->
 
         <menuitem id="membership_request_menu" action="membership_request_action"
-            sequence="10" parent="membership_submenu" />
+            sequence="10" parent="membership_menu" />
 
     </data>
 </openerp>

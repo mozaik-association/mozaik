@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_ficep_virtual_master_partner_res_group_base,ficep.virtual.master.partner.res.group.base,model_virtual_master_partner,ficep_base.res_groups_base,1,0,0,0
-access_ficep_virtual_custom_partner_res_group_base,ficep.virtual.custom.partner.res.group.base,model_virtual_custom_partner,ficep_base.res_groups_base,1,0,0,0

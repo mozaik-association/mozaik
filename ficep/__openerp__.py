@@ -35,6 +35,7 @@
     'depends': [
         'ficep_account',
         'ficep_structure_address',
+        'ficep_membership',
         'ficep_person_coordinate',
         'ficep_mass_editing',
         'ficep_communication',
