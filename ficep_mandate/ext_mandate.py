@@ -230,7 +230,15 @@ class ext_mandate(orm.Model):
     _undo_redirect_action = 'ficep_mandate.ext_mandate_action'
     _unique_id_sequence = 400000000
 
+    _unique_id_store_trigger = {
+            'ext.mandate': (lambda self, cr, uid, ids, context=None: ids, ['partner_id'], 20),
+    }
+
+    def _compute_unique_id(self, cr, uid, ids, fname, arg, context=None):
+        return super(ext_mandate, self)._compute_unique_id(cr, uid, ids, fname, arg, context=context)
+
     _columns = {
+        'unique_id': fields.function(_compute_unique_id, type="integer", String="Unique id", store=_unique_id_store_trigger),
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
                                                  required=True, track_visibility='onchange', domain=[('type', '=', 'ext')]),
         'ext_assembly_id': fields.many2one('ext.assembly', 'External Assembly'),

@@ -319,8 +319,18 @@ class abstract_mandate(orm.AbstractModel):
     _discriminant_model = 'generic.mandate'
     _trigger_fields = ['mandate_category_id', 'partner_id', 'start_date', 'deadline_date']
 
+    _unique_id_store_trigger = {
+    }
+
+    def _compute_unique_id(self, cr, uid, ids, fname, arg, context=None):
+        res = {}
+        for retro_id in ids:
+            res[retro_id] = retro_id + self._unique_id_sequence
+
+        return res
+
     _columns = {
-        'unique_id': fields.integer("Unique id"),
+        'unique_id': fields.function(_compute_unique_id, type="integer", String="Unique id", store=_unique_id_store_trigger),
         'partner_id': fields.many2one('res.partner', 'Representative', required=True, select=True, track_visibility='onchange'),
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
                                                  required=True, select=True, track_visibility='onchange'),
@@ -379,7 +389,6 @@ class abstract_mandate(orm.AbstractModel):
 # orm methods
     def create(self, cr, uid, vals, context=None):
         res = super(abstract_mandate, self).create(cr, uid, vals, context=context)
-        self.write(cr, uid, res, {'unique_id': res + self._unique_id_sequence})
         return res
 
     def name_get(self, cr, uid, ids, context=None):
