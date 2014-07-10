@@ -179,11 +179,11 @@ class sta_mandate(orm.Model):
         if 'invoice_type' not in vals:
             mandate_category_id = vals['mandate_category_id']
             category = self.pool.get('mandate.category').browse(cr, uid, mandate_category_id)
-            vals['invoice_type'] = category.retro_instance_id.id
+            vals['invoice_type'] = category.invoice_type
 
         if ('retro_instance_id' not in vals or vals['retro_instance_id'] == False) and vals['invoice_type'] != 'none':
-            ext_assembly_id = vals['ext_assembly_id']
-            assembly = self.pool.get('ext.assembly').browse(cr, uid, ext_assembly_id)
+            sta_assembly_id = vals['sta_assembly_id']
+            assembly = self.pool.get('sta.assembly').browse(cr, uid, sta_assembly_id)
             vals['retro_instance_id'] = assembly.retro_instance_id.id
 
         vals['reference'] = generate_random_reference()
@@ -313,7 +313,7 @@ class ext_mandate(orm.Model):
         if 'invoice_type' not in vals:
             mandate_category_id = vals['mandate_category_id']
             category = self.pool.get('mandate.category').browse(cr, uid, mandate_category_id)
-            vals['invoice_type'] = category.retro_instance_id.id
+            vals['invoice_type'] = category.invoice_type
 
         if ('retro_instance_id' not in vals or vals['retro_instance_id'] == False) and vals['invoice_type'] != 'none':
             ext_assembly_id = vals['ext_assembly_id']
