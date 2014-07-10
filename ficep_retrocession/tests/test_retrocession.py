@@ -140,6 +140,23 @@ class test_retrocession(SharedSetupTransactionCase):
         self.assertTrue(self.registry('calculation.method').read(self.cr, self.uid, method_id, ['active'])['active'])
         self.assertFalse(self.registry('retrocession').read(self.cr, self.uid, retro_id, ['active'])['active'])
 
+    def test_retro_instance_on_assemblies(self):
+        '''
+            If a mandate category has a invoicing type, all assemblies impacted should have
+            a retrocession management instance specified
+        '''
+        mandate_category_id = self.ref('%s.sta_assembly_category_11' % self._module_ns)
+        self.assertRaises(orm.except_orm, self.registry('mandate.category').write, self.cr, self.uid, mandate_category_id, {'invoice_type': 'month'})
+
+    def test_mandate_reference(self):
+        '''
+            All state and external mandates should have a reference
+        '''
+        mandate_ids = self.registry('sta.mandate').search(self.cr, self.uid, [('reference', '=', False)])
+        self.assertEqual(len(mandate_ids), 0)
+        mandate_ids = self.registry('ext.mandate').search(self.cr, self.uid, [('reference', '=', False)])
+        self.assertEqual(len(mandate_ids), 0)
+
     def test_ext_mandates(self):
         '''
             Test mandates

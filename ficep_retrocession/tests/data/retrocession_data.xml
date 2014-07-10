@@ -86,8 +86,12 @@
             <field name="retro_instance_id" ref ="ficep_structure.int_instance_01"/>
         </record>
 
-         <record id="sta_assembly_01" model="sta.assembly">
+        <record id="sta_assembly_01" model="sta.assembly">
             <field name="calculation_method_id" ref ="cm_sample_03"/>
+            <field name="retro_instance_id" ref ="ficep_structure.int_instance_01"/>
+        </record>
+
+        <record id="sta_assembly_03" model="sta.assembly">
             <field name="retro_instance_id" ref ="ficep_structure.int_instance_01"/>
         </record>
 
