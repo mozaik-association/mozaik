@@ -90,21 +90,20 @@ class mandate_category(orm.Model):
     ]
 
 
-def generate_random_reference():
+def generate_mandate_reference(unique_id):
     """
     ==========================
-    _generate_random_reference
+    generate_mandate_reference
     ==========================
     Generate structured reference
     :rparam: structured reference
     :rtype: char
     """
-    base = random.randint(1, 9999999999)
-    bbacomm = str(base).rjust(10, '0')
-    base = int(bbacomm)
+    base = 8000000000 + unique_id
     mod = base % 97 or 97
     mod = str(mod).rjust(2, '0')
-    return '+++%s/%s/%s%s+++' % (bbacomm[:3], bbacomm[3:7], bbacomm[7:], mod)
+    base_str = str(base)
+    return '+++%s/%s/%s%s+++' % (base_str[:3], base_str[3:7], base_str[7:], mod)
 
 
 class sta_mandate(orm.Model):
@@ -186,8 +185,11 @@ class sta_mandate(orm.Model):
             assembly = self.pool.get('sta.assembly').browse(cr, uid, sta_assembly_id)
             vals['retro_instance_id'] = assembly.retro_instance_id.id
 
-        vals['reference'] = generate_random_reference()
         res = super(sta_mandate, self).create(cr, uid, vals, context=context)
+
+        unique_id = self.read(cr, uid, res, ['unique_id'])['unique_id']
+        reference = generate_mandate_reference(unique_id)
+        self.write(cr, uid, res, {'reference': reference}, context=context)
         if res:
             mandate = self.browse(cr, uid, res, context=context)
             if mandate.calculation_method_id:
@@ -320,9 +322,11 @@ class ext_mandate(orm.Model):
             assembly = self.pool.get('ext.assembly').browse(cr, uid, ext_assembly_id)
             vals['retro_instance_id'] = assembly.retro_instance_id.id
 
-        vals['reference'] = generate_random_reference()
-
         res = super(ext_mandate, self).create(cr, uid, vals, context=context)
+        unique_id = self.read(cr, uid, res, ['unique_id'])['unique_id']
+        reference = generate_mandate_reference(unique_id)
+        self.write(cr, uid, res, {'reference': reference}, context=context)
+
         if res:
             mandate = self.browse(cr, uid, res, context=context)
             if mandate.calculation_method_id:
