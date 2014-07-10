@@ -30,10 +30,6 @@ from openerp.osv import orm, fields
 
 _logger = logging.getLogger(__name__)
 
-MEMBERSHIP_AVAILABLE_STATES = [
-    ('member', 'Member'),
-]
-
 
 class abstract_membership(orm.AbstractModel):
 
@@ -44,13 +40,10 @@ class abstract_membership(orm.AbstractModel):
     _rec_name = 'partner_id'
 
     _columns = {
-        'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES, 'Status', required=True, track_visibility='onchange'),
-        'partner_id': fields.many2one('res.partner', 'Partner', domain=[('is_company', '=', False)], select=True),
+        'partner_id': fields.many2one('res.partner', 'Partner', required=True,
+                                       domain=[('is_company', '=', False)], select=True),
+        'membership_state_id': fields.many2one('membership.state', 'State', select=True),
         'int_instance_id': fields.many2one('int.instance', string='Internal Instance', select=True, track_visibility='onchange'),
-    }
-
-    _defaults = {
-        'state': 'member',
     }
 
     _unicity_keys = 'N/A'
@@ -148,10 +141,12 @@ class membership_state(orm.Model):
     _description = 'Membership State'
 
     _columns = {
-        'name': fields.char('Status', required=True),
-        'value': fields.char('Value', required=True),
-        'membership_m2m_ids': fields.many2many('membership.membership', 'membership_state_membership_rel', \
-                                               id1='membership_state_id', id2='membership_id', string='Memberships'),
+        'name': fields.char('Status', required=True, track_visibility='onchange'),
+        'code': fields.char('Code', required=True, track_visibility='onchange'),
+        'membership_ids': fields.one2many('membership.membership', 'membership_state_id',
+                                           string='Memberships', domain=[('active', '=', True)]),
+        'membership_inactive_ids': fields.one2many('membership.membership', 'membership_state_id',
+                                           string='Memberships', domain=[('active', '=', False)]),
     }
 
     _unicity_keys = 'N/A'

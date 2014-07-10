@@ -59,6 +59,7 @@ default instance otherwise. This field is added to all views (search, tree and f
         'structure_view.xml',
         'res_partner_view.xml',
         'wizard/change_main_address.xml',
+        'data/ficep_membership_state_data.xml',
     ],
     'sequence': 150,
     'auto_install': False,
