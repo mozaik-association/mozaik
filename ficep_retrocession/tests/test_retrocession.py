@@ -140,6 +140,23 @@ class test_retrocession(SharedSetupTransactionCase):
         self.assertTrue(self.registry('calculation.method').read(self.cr, self.uid, method_id, ['active'])['active'])
         self.assertFalse(self.registry('retrocession').read(self.cr, self.uid, retro_id, ['active'])['active'])
 
+    def test_retro_instance_on_assemblies(self):
+        '''
+            If a mandate category has a invoicing type, all assemblies impacted should have
+            a retrocession management instance specified
+        '''
+        mandate_category_id = self.ref('%s.sta_assembly_category_11' % self._module_ns)
+        self.assertRaises(orm.except_orm, self.registry('mandate.category').write, self.cr, self.uid, mandate_category_id, {'invoice_type': 'month'})
+
+    def test_mandate_reference(self):
+        '''
+            All state and external mandates should have a reference
+        '''
+        mandate_ids = self.registry('sta.mandate').search(self.cr, self.uid, [('reference', '=', False)])
+        self.assertEqual(len(mandate_ids), 0)
+        mandate_ids = self.registry('ext.mandate').search(self.cr, self.uid, [('reference', '=', False)])
+        self.assertEqual(len(mandate_ids), 0)
+
     def test_ext_mandates(self):
         '''
             Test mandates
@@ -156,28 +173,22 @@ class test_retrocession(SharedSetupTransactionCase):
         '''
             Check if fixed rules has been copied from method to mandate
         '''
-        rule_ids = rule_pool.search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id)])
+        rule_ids = rule_pool.search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id), ('type', '=', 'fixed')])
         self.assertEqual(len(rule_ids), 2)
 
         '''
-            Check changing mandate category changes rules
+            Check changing mandate category and assembly changes rules
         '''
+        assembly_id = self.ref('%s.ext_assembly_01' % self._module_ns)
         mandate_cat_id = self.ref('%s.mc_administrateur' % self._module_ns)
-        self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id})
+        self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id,
+                                                                           'ext_assembly_id': assembly_id})
         rule_ids = rule_pool.search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id)])
         self.assertEqual(len(rule_ids), 0)
-        mandate_cat_id = self.ref('%s.mc_membre_effectif_ag' % self._module_ns)
-        self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id})
-
-        '''
-            Check changing assembly changes rules
-        '''
         assembly_id = self.ref('%s.ext_assembly_02' % self._module_ns)
-        self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'ext_assembly_id': assembly_id})
-        rule_ids = rule_pool.search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id)])
-        self.assertEqual(len(rule_ids), 1)
-        assembly_id = self.ref('%s.ext_assembly_01' % self._module_ns)
-        self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'ext_assembly_id': assembly_id})
+        mandate_cat_id = self.ref('%s.mc_membre_effectif_ag' % self._module_ns)
+        self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id,
+                                                                           'ext_assembly_id': assembly_id})
 
     def test_sta_mandates(self):
         '''
@@ -246,7 +257,7 @@ class test_retrocession(SharedSetupTransactionCase):
         '''
             Check if variable rules has been copied from method to retrocession
         '''
-        rule_ids = rule_pool.search(self.cr, self.uid, [('retrocession_id', '=', retro_id)])
+        rule_ids = rule_pool.search(self.cr, self.uid, [('retrocession_id', '=', retro_id), ('type', '=', 'variable')])
         self.assertEqual(len(rule_ids), 1)
 
         '''
@@ -377,3 +388,17 @@ class test_retrocession(SharedSetupTransactionCase):
         '''
         rule_ids = rule_pool.search(self.cr, self.uid, [('retrocession_id', '=', retro_id), ('type', '=', 'variable')])
         self.assertEqual(len(rule_ids), 1)
+
+        '''
+            Account move should have been generated
+        '''
+        retro_data = self.registry('retrocession').read(self.cr, self.uid, retro_id, ['move_id', 'unique_id'])
+        self.assertNotEqual(retro_data['move_id'][0], False)
+        self.assertNotEqual(retro_data['unique_id'], False)
+
+        state = self.registry('account.move').read(self.cr, self.uid, retro_data['move_id'][0], ['state'])['state']
+        self.assertEqual(state, 'posted')
+
+        line_ids = self.registry('account.move.line').search(self.cr, self.uid, [('move_id', '=', retro_data['move_id'][0]),
+                                                                                 ('name', '=', retro_data['unique_id'])])
+        self.assertEqual(len(line_ids), 2)

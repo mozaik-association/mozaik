@@ -39,7 +39,7 @@ class test_structure(SharedSetupTransactionCase):
         '../../ficep_structure/tests/data/structure_data.xml',
     )
 
-    _module_ns = 'ficep_structure_address'
+    _module_ns = 'ficep_membership'
 
     def setUp(self):
         super(test_structure, self).setUp()

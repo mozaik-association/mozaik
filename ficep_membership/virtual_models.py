@@ -29,7 +29,7 @@ from openerp import tools
 from openerp.osv import orm, fields
 
 
-class virtual_master_partner(orm.AbstractModel):
+class virtual_master_partner(orm.Model):
     """
     ======================
     virtual_master_partner
@@ -152,7 +152,6 @@ class virtual_custom_partner(orm.Model):
         if there are
         """
         super(virtual_custom_partner, self).init(cr)
-        tools.drop_view_if_exists(cr, 'virtual_custom_partner')
         cr.execute("""
         create or replace view virtual_custom_partner as (
         SELECT *

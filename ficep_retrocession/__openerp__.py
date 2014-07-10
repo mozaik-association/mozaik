@@ -35,6 +35,7 @@
     'depends': [
         'ficep_structure',
         'ficep_mandate',
+        'ficep_account',
     ],
     'description': """
 FICEP Retrocession

@@ -319,7 +319,18 @@ class abstract_mandate(orm.AbstractModel):
     _discriminant_model = 'generic.mandate'
     _trigger_fields = ['mandate_category_id', 'partner_id', 'start_date', 'deadline_date']
 
+    _unique_id_store_trigger = {
+    }
+
+    def _compute_unique_id(self, cr, uid, ids, fname, arg, context=None):
+        res = {}
+        for retro_id in ids:
+            res[retro_id] = retro_id + self._unique_id_sequence
+
+        return res
+
     _columns = {
+        'unique_id': fields.function(_compute_unique_id, type="integer", String="Unique id", store=_unique_id_store_trigger),
         'partner_id': fields.many2one('res.partner', 'Representative', required=True, select=True, track_visibility='onchange'),
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
                                                  required=True, select=True, track_visibility='onchange'),
@@ -376,6 +387,9 @@ class abstract_mandate(orm.AbstractModel):
         return True
 
 # orm methods
+    def create(self, cr, uid, vals, context=None):
+        res = super(abstract_mandate, self).create(cr, uid, vals, context=context)
+        return res
 
     def name_get(self, cr, uid, ids, context=None):
         if not ids:
@@ -484,6 +498,7 @@ class abstract_candidature(orm.AbstractModel):
     _mandate_start_date_store_trigger = {}
 
     _columns = {
+        'unique_id': fields.integer("Unique id"),
         'partner_id': fields.many2one('res.partner', 'Candidate', required=True, select=True, track_visibility='onchange'),
         'partner_name': fields.char('Candidate Name', size=128, required=True, track_visibility='onchange'),
         'state': fields.selection(CANDIDATURE_AVAILABLE_STATES, 'Status', readonly=True, track_visibility='onchange',),
@@ -539,6 +554,7 @@ class abstract_candidature(orm.AbstractModel):
             vals['partner_name'] = self.onchange_partner_id(cr, uid, False, vals['partner_id'], context)['value']['partner_name']
 
         res = super(abstract_candidature, self).create(cr, uid, vals, context=context)
+        self.write(cr, uid, res, {'unique_id': res + self._unique_id_sequence})
         return res
 
     def name_get(self, cr, uid, ids, context=None):

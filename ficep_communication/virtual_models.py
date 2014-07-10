@@ -33,8 +33,8 @@ from openerp.addons.ficep_person.res_partner import AVAILABLE_GENDERS, AVAILABLE
 
 class virtual_target(orm.Model):
     _name = "virtual.target"
-    _inherit = ['virtual.master.partner']
     _description = "Virtual Target"
+    _inherit = ['virtual.master.partner']
     _auto = False
 
 # orm methods
@@ -47,7 +47,6 @@ class virtual_target(orm.Model):
         This view will take all the columns of `virtual.partner`
         However only the row with at least one coordinate will be take
         """
-        super(virtual_target, self).init(cr)
         tools.drop_view_if_exists(cr, 'virtual_target')
         cr.execute("""
         create or replace view virtual_target as (
@@ -497,7 +496,7 @@ class virtual_partner_mandate(orm.Model):
                     THEN e.id
                     ELSE mandate.email_coordinate_id
                 END) as common_id,
-            mandate.id + 2000000 as id,
+            mandate.unique_id as id,
             mandate.id as sta_mandate_id,
             NULL::int as ext_mandate_id,
             mandate.mandate_category_id,
@@ -555,7 +554,7 @@ class virtual_partner_mandate(orm.Model):
                     THEN e.id
                     ELSE mandate.email_coordinate_id
                 END) as common_id,
-            mandate.id + 4000000 as id,
+            mandate.unique_id as id,
             NULL::int as sta_mandate_id,
             mandate.id as ext_mandate_id,
             mandate.mandate_category_id,
@@ -696,7 +695,7 @@ class virtual_partner_candidature(orm.Model):
             concat(pc.id,
                 '/',
                 e.id) as common_id,
-            candidature.id + 2000000 as id,
+            candidature.unique_id as id,
             candidature.mandate_category_id,
             candidature.partner_id,
             candidature.mandate_start_date as start_date,
@@ -736,7 +735,7 @@ class virtual_partner_candidature(orm.Model):
             concat(pc.id,
                 '/',
                 e.id) as common_id,
-            candidature.id + 4000000 as id,
+            candidature.unique_id as id,
             candidature.mandate_category_id,
             candidature.partner_id,
             candidature.mandate_start_date as start_date,

@@ -45,12 +45,10 @@
         'cron_run_manually',     # from lp:~server-env-tools-core-editors/server-env-tools/7.0
         'auth_admin_passkey',    # from lp:~server-env-tools-core-editors/server-env-tools/7.0
         'document',
-        'distribution_list',     # from https://github.com/acsone/acsone-addons
-        'readonly_bypass',       # from https://github.com/acsone/acsone-addons
-        'connector',             # from https://github.com/OCA/connector.git
+        'distribution_list',     # from lp:acsone-addons
+        'readonly_bypass',       # from lp:acsone-addons
+        'connector',             # from git https://github.com/OCA/connector.git connector-addons master
         #'event',
-        #'account_accountant',
-        #'account_cancel',
         'report',
     ],
     'description': """

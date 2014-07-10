@@ -202,14 +202,14 @@
         <record id="ext_paul_membre_ag" model="ext.candidature">
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
             <field name="selection_committee_id" ref="sc_membre_effectif_ag"/>
-            <field name="ext_assembly_id" ref="ext_assembly_01"/>
+            <field name="ext_assembly_id" ref="ext_assembly_02"/>
             <field name="partner_id" ref="res_partner_paul"/>
         </record>
 
         <record id="ext_thierry_membre_ag" model="ext.candidature">
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
             <field name="selection_committee_id" ref="sc_membre_effectif_ag"/>
-            <field name="ext_assembly_id" ref="ext_assembly_01"/>
+            <field name="ext_assembly_id" ref="ext_assembly_02"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
 

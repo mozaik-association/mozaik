@@ -19,11 +19,12 @@
             }
 
             .card {
-                height:3.5cm;
-                padding:0;
+                height:3.3cm;
+                padding:6px;
                 margin:0;
                 word-wrap:break-word;
                 line-height:15px;
+                overflow: hidden;
             }
 
             #wrapwrap {
@@ -59,8 +60,9 @@
                     <meta name="keywords" t-att-value="main_object and 'website_meta_keywords' in main_object
                 and main_object.website_meta_keywords or website_meta_keywords"/>
 
-                    <link id="bootstrap_css" rel='stylesheet' href='/web/static/lib/bootstrap/css/bootstrap.css' t-ignore="true"/>
-                    <link rel="stylesheet" type="text/css"  href='/website/static/src/css/website.css'/>
+                    <link id="bootstrap_css" rel='stylesheet' href='/web/static/lib/bootstrap/css/bootstrap.css'
+                          t-ignore="true"/>
+                    <link rel="stylesheet" type="text/css" href='/website/static/src/css/website.css'/>
                     <style type="text/css">
                         <t t-call="ficep_address.style"/>
                     </style>
@@ -69,13 +71,15 @@
 
                     <script type="text/javascript" src="/web/static/lib/es5-shim/es5-shim.min.js"></script>
                     <script type="text/javascript" src="/web/static/lib/underscore/underscore.js"></script>
-                    <script type="text/javascript" src="/web/static/lib/underscore.string/lib/underscore.string.js"></script>
+                    <script type="text/javascript"
+                            src="/web/static/lib/underscore.string/lib/underscore.string.js"></script>
                     <script type="text/javascript" src="/web/static/lib/jquery/jquery.js"></script>
                     <script type="text/javascript" src="/web/static/lib/bootstrap/js/bootstrap.js"></script>
                     <script type="text/javascript" src="/web/static/lib/qweb/qweb2.js"></script>
                     <script type="text/javascript" src="/web/static/src/js/openerpframework.js"></script>
                     <script type="text/javascript" src="/website/static/src/js/website.js"></script>
-                    <script t-if="not translatable" type="text/javascript" src="/website/static/src/js/website.snippets.animation.js"></script>
+                    <script t-if="not translatable" type="text/javascript"
+                            src="/website/static/src/js/website.snippets.animation.js"></script>
                     <t t-raw="head or ''" name='layout_head'/>
                 </head>
                 <body class="container">
@@ -96,7 +100,7 @@
                     <span t-esc="o.co_residency_id.line2"/>
                     <br/>
                 </div>
-                <div t-if="o.co_residency_id == false">
+                <div t-if="not o.co_residency_id">
                     <span t-if="o.address_id and o.address_id.street2" t-esc="o.address_id.street2"/>
                     <br t-if="o.address_id and o.address_id.street2"/>
                 </div>
@@ -113,17 +117,7 @@
             <t t-call="ficep_address.html_container">
                 <div class="page">
                     <t t-foreach="docs" t-as="o">
-                        <!-- One page will show 24 labels, 8 rows of 3.
-                        As the XML should remain valid, we cannot open and close div
-                        where we want, so we call methods and show their results with t-raw -->
-
-                        <!-- new page every 24 objects -->
-                        <t t-raw="closediv" t-if="!o_first and o_index+1 % 24 == 0"/>
-                        <t t-raw="getpage" t-if="o_first or (o_index+1 % 24 == 0 and !o_last)"/>
-
-                        <!-- new row every 3 objects -->
-                        <t t-raw="closediv" t-if="!o_first and o_index+1 % 3 == 0"/>
-                        <t t-raw="getrow" t-if="o_first or (o_index+1 % 3 == 0 and !o_last)"/>
+                        <div style="page-break-after:always;" t-if="not o_first and modulo(o_index, 24) == 0"/>
 
                         <t t-call="ficep_address.postal_coordinate_label_report_card">
                             <t t-set="o" t-value="o"/>
