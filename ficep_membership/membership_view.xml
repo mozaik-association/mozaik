@@ -147,6 +147,8 @@
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="membership_state" string="Membership State"
                             domain="[]" context="{'group_by':'membership_state_id'}" />
+                        <filter name="membership" string="Membership"
+                            domain="[]" context="{'group_by':'membership_id'}" />
                     </group>
 
                 </search>
