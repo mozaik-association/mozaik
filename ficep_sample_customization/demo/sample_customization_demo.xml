@@ -55,6 +55,15 @@
             <field name="acronym">rtbf</field>
         </record>
 
+        <record id="res_partner_dries" model="res.partner">
+            <field name="lastname">MERTENS</field>
+            <field name="firstname">Dries</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="gender">m</field>
+            <field name="twitter">#red-devil</field>
+            <field name="notify_email">none</field>
+        </record>
+
         <!-- Emails -->
 
         <record id="email_coordinate_thierry_two" model="email.coordinate">
@@ -101,6 +110,36 @@
             <field name="unauthorized" eval="True" />
         </record>
 
+        <!-- Addresses -->
+
+        <record id="local_zip_wemmel" model="address.local.zip">
+            <field name="local_zip">1780</field>
+            <field name="town">Wemmel</field>
+        </record>
+
+        <record id="local_street_rsw" model="address.local.street">
+            <field name="identifier">local_street_rsw</field>
+            <field name="local_street">Romeinsesteenweg</field>
+            <field name="local_zip">1780</field>
+        </record>
+
+        <record id="address_wemmel_rsw" model="address.address">
+            <field name="country_id" ref="base.be"/>
+            <field name="address_local_zip_id" ref="local_zip_wemmel"/>
+            <field name="address_local_street_id" ref="local_street_rsw"/>
+            <field name="number">950</field>
+        </record>
+
+        <record id="address_wemmel_bulg" model="address.address">
+            <field name="country_id" ref="base.bg"/>
+            <field name="zip_man">8455</field>
+            <field name="town_man">Профил</field>
+            <field name="street_man">визитка на нашия</field>
+            <field name="street2">да създадеш своя профил</field>
+            <field name="number">58</field>
+            <field name="box">4b</field>
+        </record>
+
         <!-- Additional Coordinates -->
 
         <record id="fix_fgtb" model="phone.phone">
@@ -112,6 +151,18 @@
         <record id="main_fix_coordinate_for_fgtb" model="phone.coordinate">
             <field name="phone_id" ref="fix_fgtb" />
             <field name="partner_id" ref="res_partner_fgtb" />
+        </record>
+
+        <record id="postal_coordinate_for_dries" model="postal.coordinate">
+            <field name="address_id" ref="address_wemmel_rsw"/>
+            <field name="partner_id" ref="res_partner_dries"/>
+            <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_for_dries_bg" model="postal.coordinate">
+            <field name="address_id" ref="address_wemmel_bulg"/>
+            <field name="partner_id" ref="res_partner_dries"/>
+            <field name="unauthorized" eval="True" />
         </record>
 
     </data>

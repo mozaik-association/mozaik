@@ -36,22 +36,22 @@
         'base',
         'settings_improvement',  # from https://github.com/acsone/acsone-addons
         'website',
-        'decimal_precision',
         'portal',
         'mass_mailing',
         'mail',
+        'report',
+        'product',
+        'board',
+        'edi',
         'partner_firstname',     # from lp:~partner-contact-core-editors/partner-contact-management/7.0
         'mass_editing',          # from lp:~server-env-tools-core-editors/server-env-tools/7.0
         'cron_run_manually',     # from lp:~server-env-tools-core-editors/server-env-tools/7.0
         'auth_admin_passkey',    # from lp:~server-env-tools-core-editors/server-env-tools/7.0
         'document',
-        'distribution_list',     # from https://github.com/acsone/acsone-addons
-        'readonly_bypass',       # from https://github.com/acsone/acsone-addons
-        'connector',             # from https://github.com/OCA/connector.git
+        'distribution_list',     # from lp:acsone-addons
+        'readonly_bypass',       # from lp:acsone-addons
+        'connector',             # from git https://github.com/OCA/connector.git connector-addons master
         #'event',
-        #'account_accountant',
-        #'account_cancel',
-        'report',
     ],
     'description': """
 FICEP Base

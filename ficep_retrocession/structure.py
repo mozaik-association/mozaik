@@ -52,6 +52,8 @@ class sta_assembly(orm.Model):
                                             select=True, track_visibility='onchange'),
         'calculation_method_id': fields.many2one('calculation.method', string='Calculation Method',
                                             select=True, track_visibility='onchange'),
+        'retro_instance_id': fields.many2one('int.instance', 'Retrocession Management Instance',
+                                       select=True, track_visibility='onchange'),
     }
 
 
@@ -79,6 +81,8 @@ class ext_assembly(orm.Model):
                                                 select=True, track_visibility='onchange'),
         'calculation_method_id': fields.many2one('calculation.method', string='Calculation Method',
                                                 select=True, track_visibility='onchange'),
+        'retro_instance_id': fields.many2one('int.instance', 'Retrocession Management Instance',
+                                       select=True, track_visibility='onchange'),
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

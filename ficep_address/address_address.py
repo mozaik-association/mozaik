@@ -26,15 +26,13 @@
 #
 ##############################################################################
 
+import string
 import unicodedata
 import re
 from collections import OrderedDict
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
-
-NOT_ALPHANUMERICS = re.compile('[^\da-zA-Z]+')
-BLANK = re.compile('  +')
 
 COUNTRY_CODE = 'BE'
 # Do Not Add Sequence Here
@@ -49,6 +47,25 @@ KEY_FIELDS = OrderedDict([
     ('box', False),
 ])
 TRIGGER_FIELDS = KEY_FIELDS.keys() + ['sequence', 'select_alternative_address_local_street']
+
+CHARS_TO_ESCAPE = re.compile('[%s\s]+' % re.escape(string.punctuation))
+
+
+def format_value(value):
+    """
+    ============
+    format_value
+    ============
+    :type value: char
+    :rtype: char
+    :rparam: upper to lower case for value stripping all special characters to one space
+    """
+    if value:
+        value = ''.join(c for c in unicodedata.normalize('NFD', u'%s' % value)
+                          if unicodedata.category(c) != 'Mn')
+        value = re.sub(CHARS_TO_ESCAPE, ' ', value)
+        value = value.lower().strip()
+    return value
 
 
 class address_address(orm.Model):
@@ -80,8 +97,8 @@ class address_address(orm.Model):
         """
         technical_value = []
         for field in values.keys():
-            value = values[field] or 0
-            technical_value.append(self.format_value(cr, uid, value, context=context))
+            value = values[field] or u'0'
+            technical_value.append(format_value(value))
         return '#'.join(technical_value)
 
     def _get_linked_coordinates(self, cr, uid, ids, context=None):
@@ -295,21 +312,6 @@ class address_address(orm.Model):
         """
         coord_ids = self._get_linked_coordinates(cr, uid, ids, context=context)
         return self.pool['postal.coordinate'].get_linked_partners(cr, uid, coord_ids, context=context)
-
-    def format_value(self, cr, uid, value, context=None):
-        """
-        ============
-        format_value
-        ============
-        :type value: char
-        :rtype: char
-        :rparam: upper to lower case for value and deletion of accented character
-        """
-        value = ''.join(c for c in unicodedata.normalize('NFD', u'%s' % value)
-                          if unicodedata.category(c) != 'Mn')
-        value = re.sub(NOT_ALPHANUMERICS, ' ', value)
-        value = re.sub(BLANK, ' ', value)
-        return value.lower().strip()
 
 
 class postal_coordinate(orm.Model):

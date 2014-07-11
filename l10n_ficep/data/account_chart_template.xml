@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data noupdate="0">
+
+        <!-- Chart template -->
+        <record id="ficep_chart_template" model="account.chart.template">
+            <field name="name">FICEP Chart of Account</field>
+            <field name="account_root_id" ref="a_root"/>
+            <field name="bank_account_view_id" ref="a55"/>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="complete_tax_set" eval="False" />
+            <field name="property_account_receivable" ref="a40"/>
+        </record>
+  </data>
+</openerp>

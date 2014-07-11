@@ -159,12 +159,13 @@
             <field name="model">retrocession</field>
             <field name="arch" type="xml">
                 <search string="Retrocessions" version="7.0">
+                    <field name="unique_id"/>
                     <field name="year"/>
                     <field name="sta_mandate_id"/>
                     <field name="ext_mandate_id"/>
                     <field name="amount_total"/>
                     <filter name="in_progress" string="Waiting Validation"
-                            domain="[('state', 'in', ['draft','sent'])]" />
+                            domain="[('state', '=', 'draft')]" />
                     <filter name="invoiced" string="Invoiced"
                             domain="[('state', '=', 'validated')]" />
                     <filter name="done" string="Paid"
@@ -194,6 +195,7 @@
             <field name="model">retrocession</field>
             <field name="arch" type="xml">
                 <tree string="Retrocessions" version="7.0">
+                    <field name="unique_id"/>
                     <field name="year"/>
                     <field name="month"/>
                     <field name="sta_mandate_id"/>
@@ -558,18 +560,19 @@
                              groups="ficep_base.ficep_res_groups_user" name="invalidate">
                             <button name="action_validate" string="Validate" type="object"
                                     confirm="Validate Retrocession now: proceed anyway ?"
-                                    states="draft,sent" class="oe_highlight"/>
+                                    states="draft" class="oe_highlight"/>
                             <button name="action_revalidate" string="Reset" type="object"
                                     states="validated" confirm="Reset Retrocession: proceed anyway ?" />
                             <button name="action_invalidate" string="Cancel" type="object"
-                                    states="sent,validated" confirm="Invalidate Retrocession, proceed anyway ?"
+                                    states="validated" confirm="Invalidate Retrocession, proceed anyway ?"
                                     groups="ficep_base.ficep_res_groups_configurator" />
-                            <field name="state" widget="statusbar" statusbar_visible="sent,validated,paid"/>
+                            <field name="state" widget="statusbar" statusbar_visible="draft,validated,paid"/>
                         </div>
                     </header>
                     <sheet>
                         <div class="oe_title" name="title1" attrs="{'invisible': ['|', '&amp;', ('id','!=', False),('sta_mandate_id','=', False),
                                                                                   '&amp;', ('id','=', False), ('ext_mandate_id','!=', False)]}">
+                            
                             <label for="sta_mandate_id" class="oe_edit_only"/>
                             <h1><field name="sta_mandate_id" on_change="onchange_sta_mandate_id(sta_mandate_id)"
                                    domain="[('invoice_type', '!=', 'none')]"
@@ -587,10 +590,11 @@
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
                         <group name="period">
+                              <field name="unique_id" attrs="{'invisible': [('unique_id', '=', False)]}"/>
                               <field name="month" attrs="{'invisible': [('invoice_type','!=', 'month')],
                                                           'required': [('invoice_type','=', 'month')],
-                                                          'readonly': [('state','not in', ['draft','sent'])]}"/>
-                              <field name="year" required="1" attrs="{'readonly': [('state','not in', ['draft','sent'])]}"/>
+                                                          'readonly': [('state','not in', ['draft'])]}"/>
+                              <field name="year" required="1" attrs="{'readonly': [('state','not in', ['draft'])]}"/>
                         </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <field name="create_date" />
@@ -627,7 +631,7 @@
                                                    'default_retrocession_id': active_id,
                                                    'search_default_all': True}" />
                                 <field name="variable_rule_ids" attrs="{'invisible': [('active', '=', False)],
-                                                                        'readonly': [('state','not in', ['draft','sent'])]}"
+                                                                        'readonly': [('state','not in', ['draft'])]}"
                                                                 context="{'default_type': 'variable'}">
                                     <tree version="7.0" editable="bottom">
                                         <field name="name"/>
@@ -653,7 +657,7 @@
                                     <div class="oe_subtotal_footer_separator">
                                         <span class="oe_inline">Total:</span>
                                         <button name="button_dummy" string="(update)" type="object"
-                                                states="draft,sent" class="oe_edit_only oe_link"/>
+                                                states="draft" class="oe_edit_only oe_link"/>
                                     </div>
                                     <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator"/>
                                 </group>

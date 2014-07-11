@@ -182,13 +182,14 @@ class abstract_assembly(orm.AbstractModel):
         return True
 
     _constraints = [
-        (_check_consistent_power_level, _('Power level of category and power level of instance are inconsistents'),
+        (_check_consistent_power_level, _('Power level of category and power level of instance are inconsistent'),
           ['assembly_category_id', 'instance_id'])
     ]
 
     _unicity_keys = 'instance_id, assembly_category_id'
 
-    # view methods: onchange, button
+# view methods: onchange, button
+
     def onchange_assembly_category_id(self, cr, uid, ids, assembly_category_id, context=None):
         res = {}
         res['value'] = dict(months_before_end_of_mandate=False)

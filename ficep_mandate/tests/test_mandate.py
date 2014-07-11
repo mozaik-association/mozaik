@@ -109,7 +109,7 @@ class test_mandate(SharedSetupTransactionCase):
             Test detection of exclusive mandates
         '''
         mc_bourgmestre_id = self.ref('%s.mc_bourgmestre' % self._module_ns)
-        mc_gouverneur_id = self.ref('%s.mc_gouverneur' % self._module_ns)
+        mc_membre_effectif_ag_id = self.ref('%s.mc_membre_effectif_ag' % self._module_ns)
         jacques_partner_id = self.ref('%s.res_partner_jacques' % self._module_ns)
 
         sta_mandate_pool = self.registry('sta.mandate')
@@ -117,7 +117,7 @@ class test_mandate(SharedSetupTransactionCase):
         '''
             Categories are exclusives
         '''
-        self.registry('mandate.category').write(self.cr, self.uid, mc_bourgmestre_id, {'exclusive_category_m2m_ids': [[6, False, [mc_gouverneur_id]]]})
+        self.registry('mandate.category').write(self.cr, self.uid, mc_bourgmestre_id, {'exclusive_category_m2m_ids': [[6, False, [mc_membre_effectif_ag_id]]]})
         '''
             Create a mandate in first category
         '''
@@ -134,11 +134,11 @@ class test_mandate(SharedSetupTransactionCase):
         '''
             Create a mandate in first category
         '''
-        data = dict(mandate_category_id=mc_gouverneur_id,
+        data = dict(mandate_category_id=mc_membre_effectif_ag_id,
                     designation_int_assembly_id=self.ref('%s.int_assembly_01' % self._module_ns),
                     start_date="2022-12-03",
                     deadline_date="2024-04-15",
-                    ext_assembly_id=self.ref('%s.ext_assembly_01' % self._module_ns),
+                    ext_assembly_id=self.ref('%s.ext_assembly_02' % self._module_ns),
                     partner_id=jacques_partner_id)
 
         mandate_id_2 = ext_mandate_pool.create(self.cr, self.uid, data)

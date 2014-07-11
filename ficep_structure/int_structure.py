@@ -25,10 +25,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################'''
+
 import logging
+
 from openerp.osv import orm, fields
+from openerp import tools
 
 _logger = logging.getLogger(__name__)
+
+
+@tools.ormcache(skiparg=3)
+def _get_cached_default(self, cr, uid, alts):
+    """
+    Returns an object id with possible alternatives
+    """
+    res = self.pool.get('ir.model.data').get_object_alternative(cr, uid, alts)[1]
+    return res
 
 
 class int_power_level(orm.Model):
@@ -52,7 +64,9 @@ class int_power_level(orm.Model):
             ('', '__MIG_IPL_1'),                        # Production
             ('ficep_structure', 'int_power_level_01'),  # Test
         ]
-        res = self.pool.get('ir.model.data').get_object_alternative(cr, uid, alts)[1]
+        res = _get_cached_default(self, cr, uid, alts)
+        if not res:
+            _get_cached_default.clear_cache(self)
         return res
 
 
@@ -104,7 +118,9 @@ class int_instance(orm.Model):
             ('', '__MIG_II_286'),                   # Production
             ('ficep_structure', 'int_instance_01')  # Test
         ]
-        res = self.pool.get('ir.model.data').get_object_alternative(cr, uid, alts)[1]
+        res = _get_cached_default(self, cr, uid, alts)
+        if not res:
+            _get_cached_default.clear_cache(self)
         return res
 
 

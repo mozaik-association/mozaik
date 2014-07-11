@@ -230,6 +230,7 @@ class sta_candidature(orm.Model):
     _init_mandate_columns.extend(['legislature_id', 'sta_assembly_id'])
     _allowed_inactive_link_models = [_selection_committee_model]
     _mandate_form_view = 'sta_mandate_form_view'
+    _unique_id_sequence = 200000000
 
 # private methods
 
@@ -412,8 +413,17 @@ class sta_mandate(orm.Model):
 
     _allowed_inactive_link_models = ['sta.candidature']
     _undo_redirect_action = 'ficep_mandate.sta_mandate_action'
+    _unique_id_sequence = 200000000
+
+    _unique_id_store_trigger = {
+            'sta.mandate': (lambda self, cr, uid, ids, context=None: ids, ['partner_id'], 20),
+    }
+
+    def _compute_unique_id(self, cr, uid, ids, fname, arg, context=None):
+        return super(sta_mandate, self)._compute_unique_id(cr, uid, ids, fname, arg, context=context)
 
     _columns = {
+        'unique_id': fields.function(_compute_unique_id, type="integer", String="Unique id", store=_unique_id_store_trigger),
         'mandate_category_id': fields.many2one('mandate.category', string='Mandate Category',
                                                  required=True, track_visibility='onchange', domain=[('type', '=', 'sta')]),
         'legislature_id': fields.many2one('legislature', string='Legislature',
@@ -496,7 +506,7 @@ class sta_mandate(orm.Model):
 
     def onchange_sta_assembly_id(self, cr, uid, ids, sta_assembly_id, context=None):
         res = {}
-        res['value'] = dict(sta_power_level_id=False, designation_int_assembly_id=False)
+        res['value'] = dict(sta_power_level_id=False)
         if sta_assembly_id:
             assembly = self.pool.get('sta.assembly').browse(cr, uid, sta_assembly_id)
 

@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Create Fractionation -->
+        <!-- Create Fractionations -->
 
         <record id="f_sample_01" model="fractionation">
             <field name="name">Fractionation sample 01</field>
@@ -30,57 +30,75 @@
             <field name="percentage">42</field>
         </record>
 
+        <!-- Create Calculation methods -->
 
-        <!-- Create Calculation method -->
         <record id="cm_sample_01" model="calculation.method">
-             <field name="name">Calculation method sample 01</field>
+            <field name="name">Calculation method sample 01</field>
         </record>
 
         <record id="cm_sample_02" model="calculation.method">
-             <field name="name">Calculation method sample 02</field>
+            <field name="name">Calculation method sample 02</field>
         </record>
 
         <record id="cm_sample_03" model="calculation.method">
-             <field name="name">Calculation method sample 03</field>
+            <field name="name">Calculation method sample 03</field>
         </record>
 
-        <!-- Create Calculation rule -->
+        <!-- Create Calculation rules -->
+
         <record id="cr_sample_01" model="calculation.rule">
-             <field name="name">Calculation rule sample 01</field>
-             <field name="calculation_method_id" ref="cm_sample_01"/>
-             <field name="type">fixed</field>
-             <field name="percentage">2.15</field>
+            <field name="name">Calculation rule sample 01</field>
+            <field name="calculation_method_id" ref="cm_sample_01"/>
+            <field name="type">fixed</field>
+            <field name="percentage">2.15</field>
         </record>
 
         <record id="cr_sample_02" model="calculation.rule">
-             <field name="name">Calculation rule sample 02</field>
-             <field name="calculation_method_id" ref="cm_sample_01"/>
-             <field name="type">fixed</field>
-             <field name="percentage">1.25</field>
+            <field name="name">Calculation rule sample 02</field>
+            <field name="calculation_method_id" ref="cm_sample_01"/>
+            <field name="type">fixed</field>
+            <field name="percentage">1.25</field>
         </record>
 
         <record id="cr_sample_03" model="calculation.rule">
-             <field name="name">Calculation rule sample 03</field>
-             <field name="calculation_method_id" ref="cm_sample_01"/>
-             <field name="type">variable</field>
-             <field name="percentage">0.75</field>
+            <field name="name">Calculation rule sample 03</field>
+            <field name="calculation_method_id" ref="cm_sample_01"/>
+            <field name="type">variable</field>
+            <field name="percentage">0.75</field>
         </record>
 
         <record id="cr_sample_04" model="calculation.rule">
-             <field name="name">Calculation rule sample 04</field>
-             <field name="calculation_method_id" ref="cm_sample_02"/>
-             <field name="type">fixed</field>
-             <field name="percentage">2.00</field>
+            <field name="name">Calculation rule sample 04</field>
+            <field name="calculation_method_id" ref="cm_sample_02"/>
+            <field name="type">fixed</field>
+            <field name="percentage">2.00</field>
         </record>
 
         <record id="cr_sample_05" model="calculation.rule">
-             <field name="name">Calculation rule sample 05</field>
-             <field name="calculation_method_id" ref="cm_sample_03"/>
-             <field name="type">fixed</field>
-             <field name="percentage">4.00</field>
+            <field name="name">Calculation rule sample 05</field>
+            <field name="calculation_method_id" ref="cm_sample_03"/>
+            <field name="type">fixed</field>
+            <field name="percentage">4.00</field>
         </record>
 
-        <!--  Update mandate categories -->
+        <!-- Update assemblies -->
+
+        <record id="ext_assembly_02" model="ext.assembly">
+            <field name="calculation_method_id" ref ="cm_sample_01"/>
+            <field name="retro_instance_id" ref ="ficep_structure.int_instance_01"/>
+        </record>
+
+        <record id="sta_assembly_01" model="sta.assembly">
+            <field name="calculation_method_id" ref ="cm_sample_03"/>
+            <field name="retro_instance_id" ref ="ficep_structure.int_instance_01"/>
+        </record>
+
+        <record id="sta_assembly_03" model="sta.assembly">
+            <field name="retro_instance_id" ref ="ficep_structure.int_instance_01"/>
+        </record>
+
+        <!-- Update mandate categories -->
+
         <record id="mc_membre_effectif_ag" model="mandate.category">
             <field name="calculation_method_id" ref ="cm_sample_01"/>
             <field name="invoice_type">month</field>
@@ -91,12 +109,12 @@
             <field name="invoice_type">year</field>
         </record>
 
-        <!--  Create mandates -->
+        <!-- Create mandates -->
 
          <record id="extm_jacques_membre_ag" model="ext.mandate">
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
-            <field name="ext_assembly_id" ref="ext_assembly_01"/>
+            <field name="ext_assembly_id" ref="ext_assembly_02"/>
             <field name="start_date">2013-12-01</field>
             <field name="deadline_date">2018-04-15</field>
             <field name="partner_id" ref="res_partner_jacques"/>
@@ -112,16 +130,8 @@
             <field name="partner_id" ref="res_partner_jacques"/>
         </record>
 
-        <!--  Update assembly -->
-        <record id="ext_assembly_02" model="ext.assembly">
-            <field name="calculation_method_id" ref ="cm_sample_03"/>
-        </record>
+        <!-- Create retrocessions -->
 
-         <record id="sta_assembly_01" model="sta.assembly">
-            <field name="calculation_method_id" ref ="cm_sample_03"/>
-        </record>
-
-        <!--  Create retrocession -->
         <record id="retro_paul_ag_mai_2014" model="retrocession">
             <field name="ext_mandate_id" ref ="extm_paul_membre_ag"/>
             <field name="month">05</field>
