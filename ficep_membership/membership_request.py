@@ -124,7 +124,7 @@ class membership_request(orm.Model):
     _unicity_keys = 'N/A'
 
     _defaults = {
-        'country_id': lambda self, cr, ids, uid, c=None:
+        'country_id': lambda self, cr, uid, ids, c=None:
             self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE),
         'country_code': COUNTRY_CODE,
         'is_update': False,
@@ -254,7 +254,7 @@ class membership_request(orm.Model):
         birth_date = False
         if day and month and year:
             try:
-                birth_date = date(year, month, day)
+                birth_date = date(year, month, day).strftime('%Y-%m-%d')
             except:
                 _logger.info('Reset `birth_date`: invalid date')
         return birth_date
