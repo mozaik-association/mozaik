@@ -124,8 +124,8 @@ class membership_request(orm.Model):
     _unicity_keys = 'N/A'
 
     _defaults = {
-        'country_id': lambda self, cr, ids, uid, c:
-            self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE, context=c),
+        'country_id': lambda self, cr, ids, uid, c=None:
+            self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE),
         'country_code': COUNTRY_CODE,
         'is_update': False,
         'state': 'draft'

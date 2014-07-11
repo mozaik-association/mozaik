@@ -95,8 +95,8 @@ class res_partner(orm.Model):
 
     _defaults = {
         'int_instance_id': lambda self, cr, uid, ids, context = None: self.pool.get('int.instance').get_default(cr, uid),
-        'membership_state_id': lambda self, cr, uid, ids, c: \
-                self.pool['membership.state']._state_default_get(cr, uid, context=c),
+        'membership_state_id': lambda self, cr, uid, ids, context = None: \
+                self.pool['membership.state']._state_default_get(cr, uid),
     }
 
 # view methods: onchange, button

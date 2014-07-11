@@ -72,9 +72,9 @@ class membership_state(orm.Model):
             parameter_ids = parameter_obj.search(cr, uid, [('default_membership_state', '=', DEFAULT_STATE)],
                                                                 context=context)
             if parameter_ids:
-                default_state = parameter_obj.read(cr, uid, parameter_ids[0], context=context)['default_membership_state']
+                other_default_state = parameter_obj.read(cr, uid, parameter_ids[0], context=context)['default_membership_state']
 
-        state_ids = self.search(cr, uid, [('code', '=', default_state)], context=context)
+        state_ids = self.search(cr, uid, [('code', '=', other_default_state)], context=context)
         return state_ids and state_ids[0] or False
 
     _name = 'membership.state'
