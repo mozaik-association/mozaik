@@ -130,6 +130,16 @@
             <field name="number">950</field>
         </record>
 
+        <record id="address_wemmel_bulg" model="address.address">
+            <field name="country_id" ref="base.bg"/>
+            <field name="zip_man">8455</field>
+            <field name="town_man">Профил</field>
+            <field name="street_man">визитка на нашия</field>
+            <field name="street2">да създадеш своя профил</field>
+            <field name="number">58</field>
+            <field name="box">4b</field>
+        </record>
+
         <!-- Additional Coordinates -->
 
         <record id="fix_fgtb" model="phone.phone">
@@ -147,6 +157,12 @@
             <field name="address_id" ref="address_wemmel_rsw"/>
             <field name="partner_id" ref="res_partner_dries"/>
             <field name="vip" eval="True"/>
+        </record>
+
+        <record id="postal_coordinate_for_dries_bg" model="postal.coordinate">
+            <field name="address_id" ref="address_wemmel_bulg"/>
+            <field name="partner_id" ref="res_partner_dries"/>
+            <field name="unauthorized" eval="True" />
         </record>
 
     </data>

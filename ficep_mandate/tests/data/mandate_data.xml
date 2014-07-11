@@ -2,7 +2,8 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Create Mandate Category -->
+        <!-- Create Mandate Categories -->
+
         <record id="mc_conseiller_communal" model="mandate.category">
             <field name="type">sta</field>
             <field name="name">Conseiller communal</field>
@@ -66,7 +67,8 @@
             <field name="ext_assembly_category_id" ref="ext_assembly_category_02"/>
         </record>
 
-        <!-- Create Selection committee -->
+        <!-- Create Selection committees -->
+
         <record id="sc_tete_huy_communale" model="sta.selection.committee">
             <field name="mandate_category_id" ref="mc_conseiller_communal"/>
             <field name="name">Têtes de liste</field>
@@ -132,8 +134,8 @@
             <field name="auto_mandate" eval="1"/>
         </record>
 
+        <!-- Create State candidatures -->
 
-        <!-- Create State candidature -->
         <record id="sta_paul_communal" model="sta.candidature">
             <field name="mandate_category_id" ref="mc_conseiller_communal"/>
             <field name="selection_committee_id" ref="sc_tete_huy_communale"/>
@@ -183,7 +185,8 @@
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
 
-        <!-- Create Internal candidature -->
+        <!-- Create Internal candidatures -->
+
         <record id="int_paul_secretaire" model="int.candidature">
             <field name="mandate_category_id" ref="mc_secretaire_regional"/>
             <field name="selection_committee_id" ref="sc_secretaire_regional"/>
@@ -198,7 +201,8 @@
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
 
-        <!-- Create External candidature -->
+        <!-- Create External candidatures -->
+
         <record id="ext_paul_membre_ag" model="ext.candidature">
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
             <field name="selection_committee_id" ref="sc_membre_effectif_ag"/>
@@ -213,7 +217,8 @@
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
 
-        <!-- Create State mandate -->
+        <!-- Create State mandates -->
+
         <record id="stam_thierry_communal_2012" model="sta.mandate">
             <field name="mandate_category_id" ref="mc_conseiller_communal"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
@@ -234,7 +239,8 @@
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
 
-        <!-- Create Internal mandate -->
+        <!-- Create Internal mandates -->
+
         <record id="intm_thierry_secretaire" model="int.mandate">
             <field name="mandate_category_id" ref="mc_secretaire_regional"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
@@ -253,7 +259,8 @@
             <field name="partner_id" ref="res_partner_paul"/>
         </record>
 
-        <!-- Create External mandate -->
+        <!-- Create External mandates -->
+
         <record id="extm_thierry_membre_ag" model="ext.mandate">
             <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
@@ -271,5 +278,6 @@
             <field name="deadline_date">2018-04-15</field>
             <field name="partner_id" ref="res_partner_paul"/>
         </record>
+
     </data>
 </openerp>
