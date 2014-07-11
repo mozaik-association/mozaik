@@ -26,13 +26,14 @@
 #
 ##############################################################################
 
+from datetime import datetime
+
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
-from datetime import datetime
 from openerp.addons.ficep_base.selections_translator import translate_selections
-from .common import INVOICE_AVAILABLE_TYPES, CALCULATION_METHOD_AVAILABLE_TYPES, CALCULATION_RULE_AVAILABLE_TYPES
-
 import openerp.addons.decimal_precision as dp
+
+from .common import INVOICE_AVAILABLE_TYPES, CALCULATION_METHOD_AVAILABLE_TYPES, CALCULATION_RULE_AVAILABLE_TYPES
 
 RETROCESSION_AVAILABLE_STATES = [
     ('draft', 'Open'),
@@ -117,7 +118,7 @@ class fractionation_line(orm.Model):
     _unicity_keys = 'fractionation_id, power_level_id'
 
     _sql_constraints = [
-        ('lessthan100_line', 'check(percentage <= 100.0)', 'Percentage should be lower or equal to 100 %')
+        ('lessthan100_line', 'check(0.0 < percentage and percentage <= 100.0)', 'Percentage should be greater than zero and lower or equal to 100 %')
     ]
 
 
@@ -225,7 +226,7 @@ class calculation_rule(orm.Model):
 
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
-        'type': fields.selection(CALCULATION_RULE_AVAILABLE_TYPES, 'Type', required=True),
+        'type': fields.selection(CALCULATION_RULE_AVAILABLE_TYPES, 'Amount Type', required=True, track_visibility='onchange'),
         'calculation_method_id': fields.many2one('calculation.method', 'Calculation Method', select=True),
         'retrocession_id': fields.many2one('retrocession', 'Retrocession', select=True),
         'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate', select=True),

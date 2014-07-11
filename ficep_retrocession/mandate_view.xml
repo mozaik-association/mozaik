@@ -69,12 +69,12 @@
                 <xpath expr="//page[@name='index']" position="before">
                     <page name="rules" string="Retrocessions">
                         <group>
-	                        <field name="invoice_type"/>
-	                        <field name="method_type" readonly="1"/>
-	                        <field name="retro_instance_id" attrs="{'invisible': [('invoice_type', '=', 'none')],
-	                                                               'required': [('invoice_type', '!=', 'none')]}"/>
-	                        <field name="reference" readonly="1" 
-	                               attrs="{'invisible': ['|', ('reference', '=', False), ('invoice_type', '=', 'none')]}"/>
+                            <field name="invoice_type"/>
+                            <field name="method_type" readonly="1" attrs="{'invisible': [('invoice_type', '=', 'none')]}"/>
+                            <field name="retro_instance_id" attrs="{'invisible': [('invoice_type', '=', 'none')],
+                                                                   'required': [('invoice_type', '!=', 'none')]}"/>
+                            <field name="reference" readonly="1" 
+                                   attrs="{'invisible': ['|', ('reference', '=', False), ('invoice_type', '=', 'none')]}"/>
                         </group>
                         <separator string="Fixed Rules"/>
                         <button string="All Details" name="%(calculation_rule_detail_action)d"
@@ -130,7 +130,7 @@
                     <page name="rules" string="Retrocessions">
                         <group>
                            <field name="invoice_type"/>
-                           <field name="method_type" readonly="1"/>
+                           <field name="method_type" readonly="1" attrs="{'invisible': [('invoice_type', '=', 'none')]}"/>
                            <field name="retro_instance_id" attrs="{'invisible': [('invoice_type', '=', 'none')],
                                                                   'required': [('invoice_type', '!=', 'none')]}"/>
                            <field name="reference" readonly="1" 

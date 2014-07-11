@@ -18,15 +18,15 @@
             </field>
         </record>
 
+        <delete id="membership.view_partner_tree" model="ir.ui.view"/>
+
         <record id="view_partner_tree" model="ir.ui.view">
-            <field name="name">res.partner.tree (ficep_membership)
-            </field>
+            <field name="name">res.partner.tree (ficep_membership)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="ficep_person.view_partner_tree" />
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='identifier']"
-                    position="before">
+                <xpath expr="//field[@name='identifier']" position="before">
                     <field name="int_instance_id" />
                 </xpath>
 
@@ -50,8 +50,7 @@
         </record>
 
         <record id="view_partner_2_form" model="ir.ui.view">
-            <field name="name">res.partner.form (ficep_membership)
-            </field>
+            <field name="name">res.partner.form (ficep_membership)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="ficep_person.view_partner_form" />
             <field name="arch" type="xml">
