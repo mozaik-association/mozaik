@@ -78,7 +78,6 @@
             <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
                                           ]"/>
         </record>
-
         <record id="base.marketing_menu" model="ir.ui.menu">
             <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
                                           ]"/>
