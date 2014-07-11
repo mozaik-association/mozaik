@@ -25,19 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm, fields
-
-
-class int_instance(orm.Model):
-
-    _inherit = 'int.instance'
-
-    _columns = {
-         'membership_ids': fields.one2many('membership.membership', 'int_instance_id', \
-                                                   string='Memberships', domain=[('active', '=', True)]),
-         'membership_inactive_ids': fields.one2many('membership.membership', 'int_instance_id', \
-                                                            string='Memberships', domain=[('active', '=', False)]),
-    }
+from openerp.osv import orm
 
 
 class sta_assembly(orm.Model):

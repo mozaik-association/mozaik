@@ -25,134 +25,57 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.tools import SUPERUSER_ID
 from openerp.tools import logging
 from openerp.osv import orm, fields
 
 _logger = logging.getLogger(__name__)
+DEFAULT_STATE = 'without_membership'
 
 
-class abstract_membership(orm.AbstractModel):
+class membership_membership_line(orm.Model):
 
-    def _get_instance_id(self, cr, uid, ids, name, arg, context=None):
-        """
-        ================
-        _get_instance_id
-        ================
-        get instance_id of the partner for each ids
-        """
-        result = {i: False for i in ids}
-        for obj in self.browse(cr, uid, ids, context=context):
-            result[obj.id] = obj.partner_id.int_instance_id and obj.partner_id.int_instance_id \
-                                or False
-        return result
-
-    _name = 'abstract.membership'
-    _inherit = ['abstract.ficep.model']
-    _description = 'Abstract Membership'
-
-    _rec_name = 'partner_id'
-
-    _instance_store_triggers = {
-        'membership.memberhip': (lambda self, cr, uid, ids, context=None: ids, [], 10),
-     }
+    _name = 'membership.membership_line'
+    _inherit = ['membership.membership_line', 'abstract.ficep.model']
 
     _columns = {
-        'partner_id': fields.many2one('res.partner', 'Partner', required=True,
-                                       domain=[('is_company', '=', False)], select=True),
-        'membership_state_id': fields.many2one('membership.state', 'State', select=True),
-        'int_instance_id': fields.function(_get_instance_id, type='many2one', relation='int.instance',
-                                           string='Internal Instance', select=True,
-                                           track_visibility='onchange', store=_instance_store_triggers),
+        'membership_state_id': fields.many2one('membership.state', 'State'),
     }
 
-    _unicity_keys = 'partner_id'
-
-    def name_get(self, cr, uid, ids, context=None):
-        """
-        Name: Partner's name
-        """
-        if not ids:
-            return []
-        ids = isinstance(ids, (long, int)) and [ids] or ids
-        res = []
-        for record in self.browse(cr, uid, ids, context=context):
-            display_name = '%s' % record.partner_id.display_name
-            res.append((record['id'], display_name))
-        return res
-
-
-class membership_membership(orm.Model):
-
-    _name = 'membership.membership'
-    _inherit = ['abstract.membership']
-    _description = 'Membership'
-
-    _columns = {
-        'membership_history_ids': fields.one2many('membership.history', 'membership_id', \
-                                                      string='Memberships historical', domain=[('active', '=', True)]),
-        'membership_history_inactive_ids': fields.one2many('membership.history', 'membership_id', \
-                                                               string='Memberships historical', domain=[('active', '=', False)]),
-    }
-
-# orm methods
-
-    def create(self, cr, uid, vals, context=None):
-        res_id = super(membership_membership, self).create(cr, uid, vals, context=context)
-        self.update_history(cr, uid, [res_id], vals, context=context)
-        return res_id
-
-    def write(self, cr, uid, ids, vals, context=None):
-        res = super(membership_membership, self).write(cr, uid, ids, vals, context=context)
-        if vals.get('state', False):
-            self.update_history(cr, uid, ids, vals, context=context)
-        return res
-
-    def update_history(self, cr, uid, ids, vals, context=None):
-        """
-        ==============
-        update_history
-        ==============
-        Create a new ``membership history`` for each ``ids``
-        If the membership already has a current history
-        then set ``current`` to False
-        """
-        if vals is None:
-            vals = {}
-        vals_copy = vals.copy()
-        for membership in self.browse(cr, uid, ids, context=context):
-            membership_history_obj = self.pool['membership.history']
-            current_history_ids = membership_history_obj.search(cr, uid, [('partner_id', '=', membership.partner_id.id),
-                                                                                  ('is_current', '=', True)], context=context)
-            if current_history_ids:
-                current_history = self.browse(cr, uid, current_history_ids[0], context=context)
-                current_history.write({'is_current': False})
-
-            vals_copy['membership_id'] = membership.id
-            membership_history_obj.create(cr, uid, vals_copy, context=context)
-
-
-class membership_history(orm.Model):
-
-    _name = 'membership.history'
-    _inherit = ['abstract.membership']
-    _description = 'Membership History'
-
-    _order = 'create_date desc'
-
-    _columns = {
-        'is_current': fields.boolean('Is Current'),
-        'membership_id': fields.many2one('membership.membership', 'Membership', select=True, track_visibility='onchange'),
-    }
-
-    _defaults = {
-         'is_current': True,
+    defaults = {
+        'membership_state_id': lambda self, cr, uid, ids, c: \
+                self.pool['membership.state']._state_default_get(cr, uid, context=c),
     }
 
     _unicity_keys = 'N/A'
 
 
 class membership_state(orm.Model):
+
+    def _state_default_get(self, cr, uid, other_default_state=False, context=None):
+        """
+        ==================
+        _state_default_get
+        ==================
+        :type other_default_state: string
+        :param other_default_state: an other code of membership_state
+
+        :rparam: id of a membership state with a default_code found into
+            * ir.config.parameter's default_membership_state
+            * other_default_state if not False
+
+        **Note**
+        other_default_state has priority
+        """
+
+        if other_default_state:
+            parameter_obj = self.pool['ir.config.parameter']
+            parameter_ids = parameter_obj.search(cr, uid, [('default_membership_state', '=', DEFAULT_STATE)],
+                                                                context=context)
+            if parameter_ids:
+                default_state = parameter_obj.read(cr, uid, parameter_ids[0], context=context)['default_membership_state']
+
+        state_ids = self.search(cr, uid, [('code', '=', default_state)], context=context)
+        return state_ids and state_ids[0] or False
 
     _name = 'membership.state'
     _inherit = ['abstract.ficep.model']
@@ -161,10 +84,6 @@ class membership_state(orm.Model):
     _columns = {
         'name': fields.char('Status', required=True, track_visibility='onchange'),
         'code': fields.char('Code', required=True, track_visibility='onchange'),
-        'membership_ids': fields.one2many('membership.membership', 'membership_state_id',
-                                           string='Memberships', domain=[('active', '=', True)]),
-        'membership_inactive_ids': fields.one2many('membership.membership', 'membership_state_id',
-                                           string='Memberships', domain=[('active', '=', False)]),
     }
 
     _unicity_keys = 'code'

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="membership_product_category" model="product.category">
+            <field name="name">Subscription</field>
+        </record>
+
+        <record id="membership_product_isolated" model="product.product">
+            <field name="name">Isolated</field>
+            <field name="categ_id" ref="membership_product_category" />
+            <field name="membership" eval="1" />
+        </record>
+        <record id="membership_product_live_together" model="product.product">
+            <field name="name">Live Together</field>
+            <field name="categ_id" ref="membership_product_category" />
+            <field name="membership" eval="1" />
+        </record>
+        <record id="membership_product_other" model="product.product">
+            <field name="name">Student or Pensioner</field>
+            <field name="categ_id" ref="membership_product_category" />
+            <field name="membership" eval="1" />
+        </record>
+
+    </data>
+</openerp>

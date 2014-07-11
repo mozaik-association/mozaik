@@ -161,10 +161,10 @@
                 </xpath>
 
                 <xpath expr="//div[@class='oe_edit_only']" position="before">
-                    <h1 attrs="{'invisible': ['|', ('id', '=', False), ('identifier', '=', 0)]}">
+                    <h3 attrs="{'invisible': ['|', ('id', '=', False), ('identifier', '=', 0)]}">
                         <label string="#"/>
                         <field name="identifier" readonly="1" class="oe_inline"/>
-                    </h1>
+                    </h3>
                 </xpath>
                 <xpath expr="//div[@class='oe_edit_only']" position="replace">
                     <div name="title" class="oe_edit_only">

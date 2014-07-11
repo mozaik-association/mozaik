@@ -73,7 +73,7 @@ class res_partner(orm.Model):
         Accept the modification of the internal instance
         Do not make a self.write here, it will indefinitely loop on itself...
         '''
-        cr.execute('update %s set %s = %%s where id = %s' % (self._table, name, ids), (value or None, ))
+        cr.execute('update %s set %s = %%s where id = %s' % (self._table, name, ids), (value or None,))
         return True
 
     _instance_store_triggers = {
@@ -90,15 +90,13 @@ class res_partner(orm.Model):
                                            type='many2one', relation='int.instance', select=True,
                                            store=_instance_store_triggers, fnct_inv=_accept_anyway),
          'int_instance_m2m_ids': fields.many2many('int.instance', 'res_partner_int_instance_rel', id1='partner_id', id2='int_instance_id', string='Internal Instances'),
-         'membership_id': fields.many2one('membership.membership', 'Membership', select=True, track_visibility='onchange'),
-         'membership_history_ids': fields.one2many('membership.history', 'partner_id', \
-                                                       string='Memberships historical', domain=[('active', '=', True)]),
-         'membership_history_inactive_ids': fields.one2many('membership.history', 'partner_id', \
-                                                                string='Memberships historical', domain=[('active', '=', False)]),
+         'membership_state_id': fields.many2one('membership.state', string='State')
     }
 
     _defaults = {
-        'int_instance_id': lambda self, cr, uid, ids, context=None: self.pool.get('int.instance').get_default(cr, uid),
+        'int_instance_id': lambda self, cr, uid, ids, context = None: self.pool.get('int.instance').get_default(cr, uid),
+        'membership_state_id': lambda self, cr, uid, ids, c: \
+                self.pool['membership.state']._state_default_get(cr, uid, context=c),
     }
 
 # view methods: onchange, button

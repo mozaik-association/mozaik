@@ -2,6 +2,10 @@
 <openerp>
     <data noupdate="0">
 
+        <record id="without_membership" model="membership.state">
+            <field name="name">Without Membership</field>
+            <field name="code">without_membership</field>
+        </record>
         <record id="supporter" model="membership.state">
             <field name="name">Supporter</field>
             <field name="code">supporter</field>
