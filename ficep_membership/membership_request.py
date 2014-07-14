@@ -67,7 +67,7 @@ class membership_request(orm.Model):
         'lastname': fields.char('Lastname', required=True, track_visibility='onchange'),
         'firstname': fields.char('Firstname', track_visibility='onchange'),
         'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES, 'Status', track_visibility='onchange'),
-        'status': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Type', track_visibility='onchange'),
+        'status': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Request Type', track_visibility='onchange'),
 
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender', select=True, track_visibility='onchange'),
         'email': fields.char('Email', track_visibility='onchange'),
@@ -124,8 +124,6 @@ class membership_request(orm.Model):
     _unicity_keys = 'N/A'
 
     _defaults = {
-        'country_id': lambda self, cr, uid, ids, c=None:
-            self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE),
         'country_code': COUNTRY_CODE,
         'is_update': False,
         'state': 'draft'
@@ -527,12 +525,14 @@ class membership_request(orm.Model):
             # case of email
             if mr.email:
                 self.pool['email.coordinate'].change_main_coordinate(cr, uid, [partner_id], mr.email, context=context)
-        vals = {'state': 'validate'}
         # superuser_id because of record rules
-        return self.write(cr, SUPERUSER_ID, ids, vals, context=context)
+        self.action_invalidate(cr, SUPERUSER_ID, ids, context=context, vals={'state': 'validate'})
+        return True
 
     def cancel_request(self, cr, uid, ids, context=None):
-        pass
+        # superuser_id because of record rules
+        self.action_invalidate(cr, SUPERUSER_ID, ids, context=context, vals={'state': 'cancel'})
+        return True
 
     def change_main_phone(self, cr, uid, partner_id, phone_id, phone_number, phone_type, context=None):
         if not phone_id:

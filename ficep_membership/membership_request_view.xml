@@ -18,11 +18,18 @@
                         domain="[('state','=', 'validate')]" />
                     <filter name="state_cancelled" string="Cancelled"
                         domain="[('state','=', 'cancel')]" />
+                    <separator />
+                    <filter name="expired" string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active','=',False)]" help="Exprired Requests" />
+                    <filter name="all" string="All"
+                        context="{'invisible_expire_date': False}"
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Requests, expired or not" />
+
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="ste" string="State" domain="[]"
                             context="{'group_by':'state'}" />
                     </group>
-
                 </search>
             </field>
         </record>
@@ -35,8 +42,11 @@
                 <tree string="Membership Requests" version="7.0">
                     <field name="lastname" />
                     <field name="firstname" />
-                    <field name="state" />
                     <field name="status" />
+                    <field name="state" />
+
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
@@ -48,7 +58,7 @@
             <field name="arch" type="xml">
                 <form string="Membership Request" version="7.0">
                     <header>
-                        <div
+                        <span
                             attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                             invisible="context.get('popup')" groups="ficep_base.ficep_res_groups_user">
 
@@ -56,23 +66,23 @@
                                 attrs="{'invisible': [('state', '!=', 'draft')]}"
                                 string="Confirm" type="object"
                                 confirm="Confirm Membership Request: proceed anyway?"
-                                groups="ficep_base.ficep_res_groups_user" class="oe_read_only"/>
+                                groups="ficep_base.ficep_res_groups_user"/>
 
                             <!-- Validate or Cancel State -->
                             <button name="validate_request"
                                 attrs="{'invisible': [('state', '!=', 'confirm')]}"
                                 string="Validate" type="object"
                                 confirm="Validate Membership Request: proceed anyway?"
-                                groups="ficep_base.ficep_res_groups_officer" class="oe_read_only"/>
+                                groups="ficep_base.ficep_res_groups_officer"/>
                             <button name="cancel_request" string="Cancel"
                                 attrs="{'invisible': [('state', '!=', 'confirm')]}"
                                 type="object"
                                 confirm="Cancel Membership Request: proceed anyway?"
-                                groups="ficep_base.ficep_res_groups_officer" class="oe_read_only"/>
+                                groups="ficep_base.ficep_res_groups_officer"/>
 
-                            <field name="state" widget="statusbar"
-                                statusbar_visible="draft,confirm,validate" />
-                        </div>
+                        </span>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,confirm,validate" />
                     </header>
                     <sheet>
                         <div class="oe_right oe_button_box" name="buttons"
@@ -167,6 +177,15 @@
                                 </group>
                             </group>
                         </group>
+                        <group name="state"
+                            attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date"
+                                    attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                        </group>
+
                         <notebook groups="ficep_base.ficep_res_groups_officer">
                             <page string="Partner" name="partner">
                                 <group>
@@ -190,23 +209,12 @@
                             </page>
                             <page string="Indexation" name="indexation">
                                 <group>
-                                    <field name="interests_m2m_ids"
-                                        widget="many2many" />
-                                    <field name="competencies_m2m_ids"
-                                        widget="many2many" />
+                                    <field name="interests_m2m_ids" widget="many2many_tags" />
+                                    <field name="competencies_m2m_ids" widget="many2many_tags" />
                                 </group>
+                                <div class="oe_clear"><br/><br/></div>
                             </page>
                         </notebook>
-
-                        <group name="state"
-                            attrs="{'invisible': [('id','=',False)]}">
-                            <group name="validity">
-                                <field name="create_date" />
-                                <field name="expire_date"
-                                    attrs="{'invisible': [('active','=',True)]}" />
-                            </group>
-                        </group>
-
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg"
                         groups="ficep_base.res_groups_developper">

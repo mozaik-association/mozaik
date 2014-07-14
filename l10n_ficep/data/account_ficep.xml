@@ -48,12 +48,21 @@
             <field name="user_type" ref="account.data_account_type_liability"/>
             <field ref="a_root" name="parent_id"/>
         </record>
-                
+
         <record id="a40" model="account.account.template">
             <field name="name">Customers</field>
             <field name="code">40</field>
             <field name="type">receivable</field>
             <field name="user_type" ref="account.data_account_type_receivable"/>
+            <field eval="True" name="reconcile"/>
+            <field ref="a4" name="parent_id"/>
+        </record>
+
+        <record id="a440" model="account.account.template">
+            <field name="name">Suppliers</field>
+            <field name="code">440</field>
+            <field name="type">payable</field>
+            <field name="user_type" ref="account.data_account_type_payable"/>
             <field eval="True" name="reconcile"/>
             <field ref="a4" name="parent_id"/>
         </record>
