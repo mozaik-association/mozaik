@@ -51,30 +51,29 @@ class membership_membership_line(orm.Model):
 
 class membership_state(orm.Model):
 
-    def _state_default_get(self, cr, uid, other_default_state=False, context=None):
+    def _state_default_get(self, cr, uid, default_state=False, context=None):
         """
         ==================
         _state_default_get
         ==================
-        :type other_default_state: string
-        :param other_default_state: an other code of membership_state
+        :type default_state: string
+        :param default_state: an other code of membership_state
 
         :rparam: id of a membership state with a default_code found into
-            * ir.config.parameter's default_membership_state
-            * other_default_state if not False
+            * ir.config.parameter's membership_state
+            * default_state if not False
 
         **Note**
-        other_default_state has priority
+        default_state has priority
         """
 
-        if other_default_state:
-            parameter_obj = self.pool['ir.config.parameter']
-            parameter_ids = parameter_obj.search(cr, uid, [('default_membership_state', '=', DEFAULT_STATE)],
-                                                                context=context)
+        if not default_state:
+            parameter_obj = self.pool['ir.config_parameter']
+            parameter_ids = parameter_obj.search(cr, uid, [('key', '=', 'default_membership_state')], context=context)
             if parameter_ids:
-                other_default_state = parameter_obj.read(cr, uid, parameter_ids[0], context=context)['default_membership_state']
+                default_state = parameter_obj.read(cr, uid, parameter_ids[0], context=context)['value']
 
-        state_ids = self.search(cr, uid, [('code', '=', other_default_state)], context=context)
+        state_ids = self.search(cr, uid, [('code', '=', default_state)], context=context)
         return state_ids and state_ids[0] or False
 
     _name = 'membership.state'
