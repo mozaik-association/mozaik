@@ -19,7 +19,6 @@
 
                 <xpath expr="//field[@name='member_lines']" position="before">
                     <div name="state_management">
-                        <button name=""></button>
                     </div>
                 </xpath>
 
@@ -150,11 +149,16 @@
         <menuitem id="membership_menu" name="Membership"
             sequence="15" parent="ficep_base.persons_root_menu" />
 
-        <menuitem sequence="20" id="membership_product_menu"
-            parent="membership_menu" action="membership_product_action" />
+        <!-- Menu -->
 
-        <menuitem sequence="70" id="membership_state_menu_action"
-            parent="ficep_base.persons_configuration_submenu" action="membership_state_action" />
+        <menuitem id="membership_submenu" name="Membership"
+                  sequence="30" parent="ficep_base.persons_configuration_submenu" />
+
+        <menuitem id="membership_state_menu" action="membership_state_action"
+                  sequence="10" parent="membership_submenu" />
+
+        <menuitem id="membership_product_menu" action="membership_product_action"
+                  sequence="15" parent="membership_submenu" />
 
     </data>
 </openerp>
