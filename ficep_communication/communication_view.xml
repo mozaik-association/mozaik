@@ -53,6 +53,21 @@
         <menuitem id="templates_submenu" name="Templates"
                   sequence="5" parent="mailing_submenu" action="email_template.action_email_template_tree_all"/>
 
+        <!--
+            Postal Mailing:
+            - Postal Mail
+            - History
+        -->
+
+        <menuitem id="postal_mailing_submenu" name="Postal Mailing"
+                  sequence="12" parent="ficep_base.communication_root_menu" />
+
+        <menuitem id="postal_mailing_postal_mail_submenu" name="Postal Mail"
+                  sequence="15" parent="postal_mailing_submenu" action="postal_mail_action"/>
+
+        <menuitem id="postal_mailing_postal_mail_history_submenu" name="History"
+                  sequence="20" parent="postal_mailing_submenu" action="postal_mail_log_action"/>
+
         <!-- Configurations -->
 
         <menuitem id="configuration_submenu" name="Configuration"

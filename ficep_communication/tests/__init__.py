@@ -25,50 +25,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Communication',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_membership',
-    ],
-    'description': """
-FICEP Communication
-===================
-* New Menus:
-** Communication/Natural Persons
-** Communication/Templates
-** Communication/Campaigns
-** Communication/Statistics
-* Customization of the Distribution List Module
-""",
-    'images': [
-        'static/src/img/icon-mass.png',
-    ],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/communication_security.xml',
-        'data/email_template_data.xml',
-        'wizard/distribution_list_mass_function_view.xml',
-        'distribution_list_view.xml',
-        'postal_mail_view.xml',
-        'communication_view.xml',
-        'virtual_models_view.xml',
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'installable': True,
-    'auto_install': False,
-}
+from openerp.addons.ficep_communication.tests import test_postal_mail
+
+fast_suite = [
+]
+
+checks = [
+    test_postal_mail,
+]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
