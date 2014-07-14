@@ -67,7 +67,6 @@ class membership_request(orm.Model):
         'lastname': fields.char('Lastname', required=True, track_visibility='onchange'),
         'firstname': fields.char('Firstname', track_visibility='onchange'),
         'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES, 'Status', track_visibility='onchange'),
-        'status': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Type', track_visibility='onchange'),
 
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender', select=True, track_visibility='onchange'),
         'email': fields.char('Email', track_visibility='onchange'),
@@ -77,6 +76,11 @@ class membership_request(orm.Model):
         'month': fields.integer('Month'),
         'year': fields.integer('Year'),
         'birth_date': fields.date('Birthdate', track_visibility='onchange'),
+
+        'status': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Request Status', track_visibility='onchange'),
+        #current status related to the associated partner
+        'membership_state_id': fields.many2one('membership.state', 'Current Status', track_visibility='onchange'),
+        'resulting_status': fields.text('Resulting status'),
 
         'is_update': fields.boolean('Is Update'),
 
@@ -205,16 +209,42 @@ class membership_request(orm.Model):
         })
         return values
 
-    def onchange_partner_id(self, cr, uid, ids, partner_id, context=None):
+    def onchange_partner_id(self, cr, uid, ids, request_status, partner_id, context=None):
+        """
+        ===================
+        onchange_partner_id
+        ===================
+        Take current
+            * membership_state_id
+            * int_instance_id
+            * interests_m2m_ids
+            * competencies_m2m_ids
+        of ``partner_id``
+        And set corresponding fields into the ``membership.request``
+
+        **Note**
+        fields are similarly named
+        """
         interests_ids = []
         competencies_ids = []
         if partner_id:
-            partner = self.pool['res.partner'].browse(cr, uid, partner_id, context=context)
+            res_partner_obj = self.pool['res.partner']
+            partner = res_partner_obj.browse(cr, uid, partner_id, context=context)
+
+            # take current status of partner
+            partner_status = partner.membership_state_id and partner.membership_state_id.id or False
+
             interests_ids = partner.interests_m2m_ids and ([interest.id for interest in partner.interests_m2m_ids]) or False
             competencies_ids = partner.competencies_m2m_ids and ([competence.id for competence in partner.competencies_m2m_ids]) or False
             int_instance_id = partner.int_instance_id and partner.int_instance_id.id or False
+        else:
+            partner_status_id = self.pool['membership.state']._state_default_get(cr, uid, context=context)
+
+        resulting_status = self.get_resulting_status(cr, uid, request_status, partner_status_id, context=context)
+
         return {
             'value': {
+                'membership_state_id': partner_status,
                 'int_instance_id': int_instance_id,
                 'interests_m2m_ids': interests_ids and [[6, False, interests_ids]] or interests_ids,
                 'competencies_m2m_ids': competencies_ids and [[6, False, competencies_ids]] or competencies_ids,
@@ -242,6 +272,9 @@ class membership_request(orm.Model):
         }
 
     # public method
+
+    def get_resulting_status(self, cr, uid, membership_state_id, request_status, context=None):
+        pass
 
     def get_birth_date(self, cr, uid, day, month, year, context=None):
         """
