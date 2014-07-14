@@ -26,8 +26,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import xmlrpclib
 import sys
+import xmlrpclib
 """
 Can test membership web-service by running this script
 options
@@ -35,15 +35,15 @@ options
 * `2` test get uid
 """
 if len(sys.argv) != 5:
-    raise Exception('Three args are required to launch this script: "username,psw,dbname,options"')
+    raise Exception('Four arguments are required to launch this sample: "user password db {1 | 2}"')
 
 USERNAME = sys.argv[1]
 PWD = sys.argv[2]
 DBNAME = sys.argv[3]
-sock_common = xmlrpclib.ServerProxy('http://0.0.0.0:8069/xmlrpc/common')
+sock_common = xmlrpclib.ServerProxy('http://localhost:8069/xmlrpc/common')
 
 UID = sock_common.login(DBNAME, USERNAME, PWD)
-sock = xmlrpclib.ServerProxy('http://0.0.0.0:8069/xmlrpc/object')
+sock = xmlrpclib.ServerProxy('http://localhost:8069/xmlrpc/object')
 
 OBJECT = 'custom.webservice'
 if sys.argv[4] == '1':

@@ -25,8 +25,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from anybox.testing.openerp import SharedSetupTransactionCase
+
 import logging
+from anybox.testing.openerp import SharedSetupTransactionCase
+
+from openerp.addons.ficep_address.address_address import COUNTRY_CODE
+
 _logger = logging.getLogger(__name__)
 
 
@@ -137,6 +141,7 @@ class test_membership(SharedSetupTransactionCase):
                          "Mobile should be created with same value of the membership request")
 
         #validation to create
+        self.mro.write(cr, uid, [self.rec_mr_create.id], {'country_id': self.registry('res.country')._country_default_get(cr, uid, COUNTRY_CODE)})
         self.mro.validate_request(cr, uid, [self.rec_mr_create.id])
         created_partner_ids = partner_obj.search(cr, uid, [('firstname', '=', self.rec_mr_create.firstname),
                                                           ('lastname', '=', self.rec_mr_create.lastname),
