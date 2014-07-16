@@ -14,11 +14,22 @@
 
                 <xpath expr="//group[descendant::field[@name='free_member']]"
                     position="attributes">
-                    <attribute name="groups">settings_improvement.unused_features</attribute>
+                    <attribute name="groups">settings_improvement.unused_features
+                    </attribute>
                 </xpath>
 
-                <xpath expr="//field[@name='member_lines']" position="before">
+                <xpath expr="//field[@name='member_lines']"
+                    position="before">
                     <div name="state_management">
+                        <button name="free_pass" string="Next Activity"
+                            groups="ficep_base.res_groups_developper"
+                            attrs="{'invisible': [
+                                ('membership_state_code', '!=', 'candidate_member'),
+                                ('membership_state_code', '!=', 'future_commitee_member'),
+                                ('membership_state_code', '!=', 'member'),
+                                ('membership_state_code', '!=', 'supporter'),
+                                ('membership_state_code', '!=', 'old_member'),
+                                ('membership_state_code', '!=', 'old_commitee_member')]}" />
                     </div>
                 </xpath>
 
@@ -142,8 +153,9 @@
 
         <!-- hide native menu -->
         <record id="base.menu_association" model="ir.ui.menu">
-            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
-                                          ]"/>
+            <field name="groups_id"
+                eval="[(6, 0, [ref('settings_improvement.unused_features')]),
+                                          ]" />
         </record>
 
         <menuitem id="membership_menu" name="Membership"
@@ -152,13 +164,13 @@
         <!-- Menu -->
 
         <menuitem id="membership_submenu" name="Membership"
-                  sequence="30" parent="ficep_base.persons_configuration_submenu" />
+            sequence="30" parent="ficep_base.persons_configuration_submenu" />
 
         <menuitem id="membership_state_menu" action="membership_state_action"
-                  sequence="10" parent="membership_submenu" />
+            sequence="10" parent="membership_submenu" />
 
         <menuitem id="membership_product_menu" action="membership_product_action"
-                  sequence="15" parent="membership_submenu" />
+            sequence="15" parent="membership_submenu" />
 
     </data>
 </openerp>

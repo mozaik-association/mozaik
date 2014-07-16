@@ -197,10 +197,10 @@ class test_partner(SharedSetupTransactionCase):
         wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
         partner = self.get_partner(partner.id)
 
-        # member -> old_member
+        # member -> resignation_old_member
         partner.write({'resignation_date': date.today().strftime('%Y-%m-%d')})
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'break_old_member', 'Should be "break_old_member"')
+        self.assertEquals(partner.membership_state_id.code, 'resignation_old_member', 'Should be "break_old_member"')
 
     def get_partner(self, partner_id=False):
         """

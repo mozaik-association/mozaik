@@ -25,6 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import uuid
 from datetime import date
 from collections import OrderedDict
 
@@ -77,8 +78,8 @@ class membership_request(orm.Model):
         'year': fields.integer('Year'),
         'birth_date': fields.date('Birthdate', track_visibility='onchange'),
 
-        'status': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Request Status', track_visibility='onchange'),
-        #current status related to the associated partner
+        'request_status': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Request Status', track_visibility='onchange'),
+        # current status related to the associated partner
         'membership_state_id': fields.many2one('membership.state', 'Current Status', track_visibility='onchange'),
         'resulting_status': fields.text('Resulting status'),
 
@@ -128,7 +129,7 @@ class membership_request(orm.Model):
     _unicity_keys = 'N/A'
 
     _defaults = {
-        'country_id': lambda self, cr, uid, ids, c=None:
+        'country_id': lambda self, cr, uid, ids, c = None:
             self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE),
         'country_code': COUNTRY_CODE,
         'is_update': False,
@@ -227,24 +228,30 @@ class membership_request(orm.Model):
         """
         interests_ids = []
         competencies_ids = []
+        int_instance_id = False
         if partner_id:
             res_partner_obj = self.pool['res.partner']
             partner = res_partner_obj.browse(cr, uid, partner_id, context=context)
 
             # take current status of partner
-            partner_status = partner.membership_state_id and partner.membership_state_id.id or False
+            partner_status_id = partner.membership_state_id and partner.membership_state_id.id or False
 
             interests_ids = partner.interests_m2m_ids and ([interest.id for interest in partner.interests_m2m_ids]) or False
             competencies_ids = partner.competencies_m2m_ids and ([competence.id for competence in partner.competencies_m2m_ids]) or False
             int_instance_id = partner.int_instance_id and partner.int_instance_id.id or False
         else:
             partner_status_id = self.pool['membership.state']._state_default_get(cr, uid, context=context)
-
-        resulting_status = self.get_resulting_status(cr, uid, request_status, partner_status_id, context=context)
+        context = context or {}
+        ctx = context.copy()
+        ctx['rollback'] = True
+        partner_data = partner_id and {} or {'lastname': '%s' % uuid.uuid4()}
+        #(status,partner_id)
+        resulting_status = self.get_partner_preview(cr, uid, request_status, partner_id, partner_data, context=ctx)[0]
 
         return {
             'value': {
-                'membership_state_id': partner_status,
+                'membership_state_id': partner_status_id,
+                'resulting_status': resulting_status,
                 'int_instance_id': int_instance_id,
                 'interests_m2m_ids': interests_ids and [[6, False, interests_ids]] or interests_ids,
                 'competencies_m2m_ids': competencies_ids and [[6, False, competencies_ids]] or competencies_ids,
@@ -273,8 +280,63 @@ class membership_request(orm.Model):
 
     # public method
 
-    def get_resulting_status(self, cr, uid, membership_state_id, request_status, context=None):
-        pass
+    def get_partner_preview(self, cr, uid, request_status, partner_id=False, partner_datas={}, context=None):
+        """
+        ====================
+        get_resulting_status
+        ====================
+        Try to advancing workflow of partner
+        If no partner then create one.
+        :type context: {}
+        :param context: rollback if contains the key `rollback` set to `True`
+        :type request_status: char
+        :param request_status: m or s (member or supporter)
+        :type partner_id: integer
+        :type partner_data: {}
+        :param partner_datas: if no partner id, use this to create a partner
+        :rtype: char
+        :rparam: next step of partner's workflow depending of `request_status`
+
+        **Warning**
+        partner_data is reset if used
+        """
+        context = context or {}
+        partner_obj = self.pool['res.partner']
+        if not partner_id:
+            partner_id = partner_obj.create(cr, uid, partner_datas, context=None)
+            partner_datas = {}
+        status = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][1]
+        vals = self.get_status_values(cr, uid, request_status, context=context)
+        if vals:
+            partner_obj.write(cr, uid, partner_id, vals, context=context)
+            status = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][1]
+
+        if context.get('rollback', False):
+            cr.rollback()
+        return status, partner_id
+
+    def get_status_values(self, cr, uid, request_status, context=None):
+        """
+        =================
+        get_status_values
+        =================
+        :type request_status: char
+        :param request_status: m or s for member or supporter.
+            `False` if not defined
+        :rtype: dict
+        :rparam: affected date resulting of the `request_status`
+            and the `status`
+        """
+        if request_status:
+            vals = {
+                'accepted_date': date.today().strftime('%Y-%m-%d')
+            }
+            if request_status == 'm':
+                vals['free_member'] = False
+            elif request_status == 's':
+                vals['free_member'] = True
+            return vals
+        return {}
 
     def get_birth_date(self, cr, uid, day, month, year, context=None):
         """
@@ -449,7 +511,7 @@ class membership_request(orm.Model):
         if not partner_id:
             partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=False)
 
-        technical_name = self.get_technical_name(cr, uid, address_local_street_id, address_local_zip_id,\
+        technical_name = self.get_technical_name(cr, uid, address_local_street_id, address_local_zip_id, \
                                                  number, box, town_man, street_man, zip_man, country_id, context=context)
 
         # update vals dictionary because some inputs may have changed (and new values too)
@@ -520,19 +582,23 @@ class membership_request(orm.Model):
                 'gender': mr.gender,
                 'birth_date': mr.birth_date,
             }
-            if not mr.partner_id:
-                partner_id = self.pool['res.partner'].create(cr, uid, partner_values, context=context)
-            else:
+            partner_id = False
+            if mr.partner_id:
                 partner_id = mr.partner_id.id
+            #(status, partner_id) partner_values is reset if partner is created
+            partner_id = self.get_partner_preview(cr, uid, mr.request_status, partner_id, partner_values, context=context)[1]
             partner = self.pool['res.partner'].browse(cr, uid, [partner_id], context=context)[0]
+
             new_interests_ids = mr.interests_m2m_ids and ([interest.id for interest in mr.interests_m2m_ids]) or []
-            #competencies
+            # competencies
             new_competencies_ids = mr.competencies_m2m_ids and ([competence.id for competence in mr.competencies_m2m_ids]) or []
 
-            partner_values.update({'competencies_m2m_ids': [[6, False, new_interests_ids]],
-                               'interests_m2m_ids': [[6, False, new_competencies_ids]]})
+            partner_values.update({
+                'competencies_m2m_ids': [[6, False, new_interests_ids]],
+                'interests_m2m_ids': [[6, False, new_competencies_ids]]
+            })
 
-            #update_partner values
+            # update_partner values
             partner.write(partner_values)
             # address if technical name is empty then means that no address required
             address_id = mr.address_id and mr.address_id.id or False
@@ -577,7 +643,7 @@ class membership_request(orm.Model):
 # orm methods
 
     def create(self, cr, uid, vals, context=None):
-        #do not pass related fields to the orm
+        # do not pass related fields to the orm
         context = context or {}
         self._pop_related(cr, uid, vals, context=context)
         if context.get('install_mode', False) or context.get('mode', True) == 'ws':
@@ -585,7 +651,7 @@ class membership_request(orm.Model):
         return super(membership_request, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
-        #do not pass related fields to the orm
+        # do not pass related fields to the orm
         self._pop_related(cr, uid, vals, context=context)
         return super(membership_request, self).write(cr, uid, ids, vals, context=context)
 
