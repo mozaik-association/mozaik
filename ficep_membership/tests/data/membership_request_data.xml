@@ -30,7 +30,7 @@
         <!-- new partner -->
         <record id="membership_request_eh" model="membership.request">
             <field name="state">confirm</field>
-            <field name="lastname">Hazard</field>
+            <field name="lastname">HAZARD</field>
             <field name="firstname">Eden</field>
             <field name="gender">m</field>
             <field name="email">eden.hazard@fifa.eu</field>
@@ -48,8 +48,7 @@
             <field name="day">01</field>
             <field name="month">07</field>
             <field name="year">1991</field>
-
         </record>
-    </data>
 
+    </data>
 </openerp>

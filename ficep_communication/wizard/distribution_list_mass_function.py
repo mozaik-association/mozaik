@@ -30,6 +30,7 @@ import tempfile
 from collections import OrderedDict
 import vobject
 import codecs
+from datetime import datetime
 
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
@@ -110,6 +111,8 @@ class distribution_list_mass_function(orm.TransientModel):
         'campaign_id': fields.many2one('mail.mass_mailing.campaign', 'Mail Campaign'),
         'extract_csv': fields.boolean('Complementary Postal CSV',
                                       help="Get a CSV file with all partners who have no email coordinate"),
+
+        'postal_mail_id': fields.many2one('postal.mail', 'Postal mail'),
 
         'sort_by': fields.selection(SORT_BY, 'Sort by'),
 
@@ -231,21 +234,24 @@ class distribution_list_mass_function(orm.TransientModel):
 
                 if wizard.internal_instance_id:
                     domains.append("('int_instance_id','child_of', [%s])" % wizard.internal_instance_id.id)
+                if wizard.sort_by:
+                    context['sort_by'] = wizard.sort_by
+                if wizard.groupby_coresidency:
+                    context['alternative_group_by'] = 'co_residency_id'
+
+                context['more_filter'] = domains
 
                 if wizard.p_mass_function == 'csv':
                     #
                     # Get CSV containing postal coordinates
                     #
-                    if wizard.sort_by:
-                        context['sort_by'] = wizard.sort_by
-                    if wizard.groupby_coresidency:
-                        context['alternative_group_by'] = 'co_residency_id'
-
-                    context['more_filter'] = domains
                     context['field_main_object'] = 'postal_coordinate_id'
                     context['target_model'] = wizard.trg_model
                     active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [context.get('active_id', False)], context=context)
                     self.render_csv(cr, uid, wizard.trg_model, active_ids, context=context)
+
+                    if wizard.postal_mail_id:
+                        self._generate_postal_log(cr, uid, wizard.postal_mail_id.id, active_ids, context=context)
 
                 if wizard.p_mass_function == 'postal_coordinate_id':
                     #
@@ -263,10 +269,37 @@ class distribution_list_mass_function(orm.TransientModel):
                     })
                     report = self.pool['report'].get_pdf(cr, uid, active_ids, report_name='ficep_address.report_postal_coordinate_label', context=ctx)
 
+                    if wizard.postal_mail_id:
+                        self._generate_postal_log(cr, uid, wizard.postal_mail_id.id, active_ids, context=context)
+
                     attachment = [(_('Report.pdf'), '%s' % report)]
                     partner_ids = self.pool['res.partner'].search(cr, uid, [('user_ids', '=', uid)], context=context)
                     if partner_ids:
                         self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context, partner_ids=partner_ids, subject=_('Export PDF'))
+
+    def _generate_postal_log(self, cr, uid, postal_mail_id, postal_coordinate_ids, context=None):
+        """
+        ====================
+        _generate_postal_log
+        ====================
+        Generate a postal mail log for each coordinate for the specified postal mail.
+        """
+        if not context:
+            context = {}
+
+        postal_mail_log_obj = self.pool['postal.mail.log']
+        now = datetime.now()
+
+        for postal_coordinate_id in postal_coordinate_ids:
+            postal_mail_log_obj.create(cr, uid, {
+                'postal_mail_id': postal_mail_id,
+                'postal_coordinate_id': postal_coordinate_id,
+                'sent_date': now,
+            }, context=context)
+
+        self.pool['postal.mail'].write(cr, uid, postal_mail_id, {'sent_date': now}, context=context)
+
+        return True
 
     def _get_csv_values(self, cr, uid, model, obj, context=None):
         """

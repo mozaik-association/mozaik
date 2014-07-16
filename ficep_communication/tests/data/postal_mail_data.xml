@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+        <record id="postal_mail_1" model="postal.mail">
+            <field name="Test Postal Mail"/>
+        </record>
+
+        <record id="res_partner_paul" model="res.partner">
+            <field name="firstname">Paul</field>
+            <field name="lastname">VAN HAVER</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="notify_email">none</field>
+        </record>
+
+        <record id="int_power_level_01" model="int.power.level">
+            <field name="name">Fédéral</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="int_instance_01" model="int.instance">
+            <field name="name">Ecolo Fédéral</field>
+            <field name="power_level_id" ref="int_power_level_01"/>
+        </record>
+
+        <record id="local_zip_1" model="address.local.zip">
+            <field name="local_zip">4500</field>
+            <field name="town">Huy</field>
+            <field name="int_instance_id" ref="int_instance_01"/>
+        </record>
+
+        <record id="local_street_1" model="address.local.street">
+            <field name="identifier">local_street_1</field>
+            <field name="local_street">Grand-Place</field>
+            <field name="local_zip">4500</field>
+        </record>
+
+        <record id="address_1" model="address.address">
+            <field name="country_id" ref="base.be"/>
+            <field name="address_local_zip_id" ref="local_zip_1"/>
+            <field name="address_local_street_id" ref="local_street_1"/>
+            <field name="number">5</field>
+        </record>
+
+        <record id="postal_coordinate_1" model="postal.coordinate">
+            <field name="address_id" ref="address_1"/>
+            <field name="partner_id" ref="res_partner_paul"/>
+        </record>
+
+    </data>
+</openerp>

@@ -77,7 +77,6 @@ class membership_request(orm.Model):
         'month': fields.integer('Month'),
         'year': fields.integer('Year'),
         'birth_date': fields.date('Birthdate', track_visibility='onchange'),
-
         'request_status': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Request Status', track_visibility='onchange'),
         # current status related to the associated partner
         'membership_state_id': fields.many2one('membership.state', 'Current Status', track_visibility='onchange'),
@@ -129,8 +128,6 @@ class membership_request(orm.Model):
     _unicity_keys = 'N/A'
 
     _defaults = {
-        'country_id': lambda self, cr, uid, ids, c = None:
-            self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE),
         'country_code': COUNTRY_CODE,
         'is_update': False,
         'state': 'draft'
@@ -626,12 +623,14 @@ class membership_request(orm.Model):
             # case of email
             if mr.email:
                 self.pool['email.coordinate'].change_main_coordinate(cr, uid, [partner_id], mr.email, context=context)
-        vals = {'state': 'validate'}
         # superuser_id because of record rules
-        return self.write(cr, SUPERUSER_ID, ids, vals, context=context)
+        self.action_invalidate(cr, SUPERUSER_ID, ids, context=context, vals={'state': 'validate'})
+        return True
 
     def cancel_request(self, cr, uid, ids, context=None):
-        pass
+        # superuser_id because of record rules
+        self.action_invalidate(cr, SUPERUSER_ID, ids, context=context, vals={'state': 'cancel'})
+        return True
 
     def change_main_phone(self, cr, uid, partner_id, phone_id, phone_number, phone_type, context=None):
         if not phone_id:

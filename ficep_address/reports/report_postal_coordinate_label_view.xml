@@ -3,6 +3,11 @@
     <data>
 
         <template id="ficep_address.style">
+            html,body {
+                padding: 0;
+                margin: 0;
+                margin-left: -1mm; // cancels the 1mm of margin_left defined in the paperformat
+            }
             body {
                 font-family: Courier, monospace;
                 font-size: 14px;
@@ -14,17 +19,23 @@
             }
 
             .page {
-                padding:20px;
+                padding:0;
                 margin:0;
             }
 
             .card {
-                height:3.3cm;
+                height:2.5cm;
+                width: 64mm;
                 padding:6px;
-                margin:0;
+                margin:-1px;
+                margin-left: 2mm;
                 word-wrap:break-word;
                 line-height:15px;
                 overflow: hidden;
+            }
+
+            .pageTop {
+                height: 8mm; // +1mm of margin_top defined in the paperformat
             }
 
             #wrapwrap {
@@ -91,7 +102,10 @@
         </template>
 
         <template id="ficep_address.postal_coordinate_label_report_card">
-            <div class="col-xs-4 card">
+            <!-- Put more margin-left for the second and third sticker so they will be centered -->
+            <div class="col-xs-4 card" t-att-style="modulo(o_index, 3) != 0 and 'margin-left: 5mm;' or ''">
+                <span t-esc="'(' + str(o.partner_id.identifier) + ')'" t-if="o.partner_id.identifier"/>
+                <br t-if="o.partner_id.identifier"/>
                 <span t-esc="o.partner_id.printable_name"/>
                 <br/>
                 <div t-if="o.co_residency_id">
@@ -117,10 +131,12 @@
             <t t-call="ficep_address.html_container">
                 <div class="page">
                     <t t-foreach="docs" t-as="o">
-                        <div style="page-break-after:always;" t-if="not o_first and modulo(o_index, 24) == 0"/>
+                        <div style="page-break-after:always;" t-if="not o_first and modulo(o_index, 33) == 0"/>
+                        <div class="pageTop" t-if="o_first or modulo(o_index, 33) == 0"/>
 
                         <t t-call="ficep_address.postal_coordinate_label_report_card">
                             <t t-set="o" t-value="o"/>
+                            <t t-set="o_index" t-value="o_index"/>
                         </t>
                     </t>
                 </div>

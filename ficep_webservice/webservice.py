@@ -25,10 +25,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from datetime import date
 
 from openerp.tools import logging
-from openerp.osv import orm, fields
+from openerp.osv import orm
 from openerp.tools import SUPERUSER_ID
 
 logger = logging.getLogger(__name__)
@@ -110,8 +109,8 @@ class custom_webservice(orm.Model):
 
             'interests': interest,
         }
+        context['mode'] = 'ws'
         try:
-            context['mode'] = 'ws'
             res = membership_request.create(cr, SUPERUSER_ID, vals, context=context)
         except Exception as e:
             raise WebServiceException(uid, 'Membership Request', 'ERROR-CREATE', e.message)

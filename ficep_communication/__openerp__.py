@@ -54,6 +54,7 @@ FICEP Communication
         'data/email_template_data.xml',
         'wizard/distribution_list_mass_function_view.xml',
         'distribution_list_view.xml',
+        'postal_mail_view.xml',
         'communication_view.xml',
         'virtual_models_view.xml',
     ],
