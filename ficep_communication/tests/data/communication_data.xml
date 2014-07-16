@@ -3,14 +3,14 @@
     <data noupdate="0">
 
         <record id="filter_all_prts_int" model="distribution.list.line">
-            <field name="name">Partner/Instances</field>
+            <field name="name">All Natural Persons</field>
             <field name="src_model_id" ref="ficep_communication.model_virtual_partner_instance" />
             <field name="domain">[]</field>
             <field name="company_id" ref='base.main_company'/>
         </record>
 
         <record id="distribution_list" model="distribution.list">
-            <field name="name">Virtual Model Distribution List</field>
+            <field name="name">Everybody</field>
             <field name="company_id" ref='base.main_company'/>
             <field name="to_include_distribution_list_line_ids" eval="[[4,ref('filter_all_prts_int')]]"/>
         </record>
@@ -18,6 +18,11 @@
         <record id="campaign" model="mail.mass_mailing.campaign">
             <field name="name">Mass Mailing Campaign</field>
             <field name="user_id" ref='base.partner_root'/>
+        </record>
+
+        <record id="ficep_email_template" model="email.template">
+            <field name="name">Ficep Mass Mailing</field>
+            <field name="auto_delete" eval="0"/>
         </record>
 
     </data>

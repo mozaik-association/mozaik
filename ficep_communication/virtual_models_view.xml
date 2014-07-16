@@ -709,7 +709,7 @@
         <!-- Virtual Model Menus -->
 
         <!-- Sub-root menu-->
-        <menuitem id="virtual_models_submenu" name="Virtual Models"
+        <menuitem id="virtual_models_submenu" name="Searching Models"
                   sequence="20" parent="ficep_base.communication_root_menu" />
 
         <!-- Virtual Partner Instance -->

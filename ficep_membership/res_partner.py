@@ -181,4 +181,16 @@ class res_partner(orm.Model):
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
         return res
 
+    def write(self, cr, uid, ids, vals, context=None):
+        """
+        Invalidate rules cache when changing set of instances related to the user
+        """
+        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
+        if 'int_instance_m2m_ids' in vals:
+            rule_obj = self.pool['ir.rule']
+            for partner in self.browse(cr, uid, ids, context=context):
+                for u in partner.user_ids:
+                    rule_obj.clear_cache(cr, u.id)
+        return res
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

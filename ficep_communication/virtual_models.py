@@ -33,7 +33,7 @@ from openerp.addons.ficep_person.res_partner import AVAILABLE_GENDERS, AVAILABLE
 
 class virtual_target(orm.Model):
     _name = "virtual.target"
-    _description = "Virtual Target"
+    _description = "Searching Result"
     _inherit = ['virtual.master.partner']
     _auto = False
 
@@ -62,7 +62,7 @@ class virtual_target(orm.Model):
 class virtual_partner_involvement(orm.Model):
 
     _name = "virtual.partner.involvement"
-    _description = "Virtual Partner Involvement"
+    _description = "Partner/Involvement"
     _auto = False
 
     _columns = {
@@ -160,7 +160,7 @@ class virtual_partner_involvement(orm.Model):
 class virtual_partner_relation(orm.Model):
 
     _name = "virtual.partner.relation"
-    _description = "Virtual Partner Relation"
+    _description = "Partner/Relation"
     _auto = False
 
     _columns = {
@@ -285,7 +285,7 @@ class virtual_partner_relation(orm.Model):
 class virtual_partner_instance(orm.Model):
 
     _name = "virtual.partner.instance"
-    _description = "Virtual Partner Instance"
+    _description = "Partner/Instance"
     _auto = False
 
     _columns = {
@@ -369,7 +369,7 @@ class virtual_partner_instance(orm.Model):
 class virtual_partner_mandate(orm.Model):
 
     _name = "virtual.partner.mandate"
-    _description = "Virtual Partner Mandate"
+    _description = "Partner/Mandate"
     _auto = False
 
     _columns = {
@@ -602,7 +602,7 @@ class virtual_partner_mandate(orm.Model):
 class virtual_partner_candidature(orm.Model):
 
     _name = "virtual.partner.candidature"
-    _description = "Virtual Partner Candidature"
+    _description = "Partner/Candidature"
     _auto = False
 
     _columns = {
@@ -774,7 +774,7 @@ class virtual_partner_candidature(orm.Model):
 class virtual_assembly_instance(orm.Model):
 
     _name = "virtual.assembly.instance"
-    _description = "Virtual Assembly Instance"
+    _description = "Assembly/Instance"
     _auto = False
 
     _columns = {
@@ -948,7 +948,7 @@ class virtual_assembly_instance(orm.Model):
 class virtual_partner_retrocession(orm.Model):
 
     _name = "virtual.partner.retrocession"
-    _description = "Virtual Partner Retrocession"
+    _description = "Partner/Retrocession"
     _auto = False
 
     _columns = {
