@@ -42,16 +42,11 @@
                 <tree string="Membership Requests" version="7.0">
                     <field name="lastname" />
                     <field name="firstname" />
-<<<<<<< HEAD
                     <field name="state" />
                     <field name="request_status" />
-=======
-                    <field name="status" />
-                    <field name="state" />
 
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
->>>>>>> 6d4f4169556746c74817eb9f8f9f5109b26d5c15
                 </tree>
             </field>
         </record>
