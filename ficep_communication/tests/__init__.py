@@ -25,12 +25,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.addons.ficep_communication.tests import test_postal_mail
 
-from . import distribution_list
-from . import virtual_models
-from . import wizard
-from . import email_template
-from . import mass_mailing
-from . import postal_mail
+fast_suite = [
+]
+
+checks = [
+    test_postal_mail,
+]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

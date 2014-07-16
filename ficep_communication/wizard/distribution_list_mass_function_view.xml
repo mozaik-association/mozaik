@@ -46,11 +46,14 @@
                                     </group>
                                 </group>
                             </page>
-                            <page name="csv" string="CSV" autofocus="autofocus"
-                                  attrs="{'invisible':[('extract_csv','=',False),('e_mass_function','!=','csv'),('p_mass_function','!=','csv')]}">
-                                 <group>
-                                    <field name="sort_by" />
-                                    <field name="groupby_coresidency" />
+                            <page name="postal_mailing" string="Postal Mailing" autofocus="autofocus"
+                                  attrs="{'invisible':[('trg_model','!=','postal.coordinate')]}">
+                                <group>
+                                    <group>
+                                        <field name="postal_mail_id"/>
+                                        <field name="sort_by" />
+                                        <field name="groupby_coresidency" />
+                                    </group>
                                 </group>
                             </page>
                         </notebook>
