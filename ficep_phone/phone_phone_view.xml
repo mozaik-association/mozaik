@@ -16,6 +16,11 @@
                     <field name="coordinate_type" />
                 </xpath>
 
+                <xpath expr="//filter[@name='main']" position="before">
+                    <filter name="malformed" string="Malformed Phones" domain="[('phone_id','not like',' % ')]"/>
+                    <separator/>
+                </xpath>
+
                 <xpath expr="//group[@name='group_by']" position="inside">
                     <filter name="phone" string="Phone" domain="[]" context="{'group_by':'phone_id'}" />
                     <filter name="type" string="Phone Type" domain="[]" context="{'group_by':'coordinate_type'}" />
@@ -80,8 +85,11 @@
                     <field name="name" />
                     <field name="type" />
 
+                    <filter name="malformed" string="Malformed Phones" domain="[('name','not like',' % ')]"/>
+                    <separator/>
                     <filter name="phones" string="Phones" domain="[('type','in',['fix','mobile'])]" />
                     <filter name="faxes" string="Faxes" domain="['|',('type','=','fax'),('also_for_fax','=',True)]" />
+
                     <group expand="1" string="Group By..." name="group_by">
                         <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" />
                     </group>
