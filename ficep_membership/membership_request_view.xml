@@ -122,8 +122,9 @@
                                         readonly="1" />
                                 </group>
                                 <group>
-                                    <field name="resulting_status"
-                                        readonly="1" />
+                                    <field name="product_id" attrs="{'invisible':[('request_status','!=','m')],
+                                                                     'required':[('request_status','=','m')]}" />
+                                    <field name="resulting_status" readonly="1" />
                                 </group>
                                 <group>
                                     <field name="interests" />

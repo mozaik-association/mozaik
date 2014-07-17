@@ -31,6 +31,7 @@ from collections import OrderedDict
 
 from openerp.tools import logging
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
 
 from openerp.addons.ficep_address.address_address import COUNTRY_CODE
 from openerp.addons.ficep_person.res_partner import AVAILABLE_GENDERS
@@ -81,6 +82,8 @@ class membership_request(orm.Model):
         # current status related to the associated partner
         'membership_state_id': fields.many2one('membership.state', 'Current Status', track_visibility='onchange'),
         'resulting_status': fields.text('Resulting status'),
+        'product_id': fields.many2one('product.product', string="Subscription", select=True,
+                                           track_visibility='onchange', domain=[('membership', '=', True)]),
 
         'is_update': fields.boolean('Is Update'),
 
@@ -128,7 +131,6 @@ class membership_request(orm.Model):
     _unicity_keys = 'N/A'
 
     _defaults = {
-        'country_code': COUNTRY_CODE,
         'is_update': False,
         'state': 'draft'
     }
@@ -223,6 +225,7 @@ class membership_request(orm.Model):
         **Note**
         fields are similarly named
         """
+        res_value = {'value': {}}
         interests_ids = []
         competencies_ids = []
         int_instance_id = False
@@ -245,15 +248,16 @@ class membership_request(orm.Model):
         #(status,partner_id)
         resulting_status = self.get_partner_preview(cr, uid, request_status, partner_id, partner_data, context=ctx)[0]
 
-        return {
-            'value': {
-                'membership_state_id': partner_status_id,
-                'resulting_status': resulting_status,
-                'int_instance_id': int_instance_id,
-                'interests_m2m_ids': interests_ids and [[6, False, interests_ids]] or interests_ids,
-                'competencies_m2m_ids': competencies_ids and [[6, False, competencies_ids]] or competencies_ids,
-            }
+        res_value['value'] = {
+            'membership_state_id': partner_status_id,
+            'resulting_status': resulting_status,
+            'int_instance_id': int_instance_id,
+            'interests_m2m_ids': interests_ids and [[6, False, interests_ids]] or interests_ids,
+            'competencies_m2m_ids': competencies_ids and [[6, False, competencies_ids]] or competencies_ids,
         }
+        if request_status == 'm':
+            res_value['value']['product_id'] = False
+        return res_value
 
     def onchange_mobile(self, cr, uid, ids, mobile, context=None):
         mobile = self.get_format_phone_number(cr, uid, mobile, context=context)
@@ -557,7 +561,14 @@ class membership_request(orm.Model):
 
         return rec_search(0)
 
+    def _check_product_consistency(self, cr, uid, request_status, product_id, context=None):
+        if request_status == 'm':
+            if not product_id:
+                raise orm.except_orm(_('Error'), _('Member Must Have a Product Subscription'))
+
     def confirm_request(self, cr, uid, ids, context=None):
+        for mr in self.browse(cr, uid, ids, context=context):
+            self._check_product_consistency(cr, uid, mr.request_status, mr.product_id, context=context)
         vals = {'state': 'confirm'}
         # superuser_id because of record rules
         return self.write(cr, SUPERUSER_ID, ids, vals, context=context)
@@ -572,12 +583,14 @@ class membership_request(orm.Model):
         In Other cases then create missing required data
         """
         for mr in self.browse(cr, uid, ids, context=context):
+            self._check_product_consistency(cr, uid, mr.request_status, mr.product_id, context=context)
             # partner
             partner_values = {
                 'lastname': mr.lastname,
                 'firstname': mr.firstname,
                 'gender': mr.gender,
                 'birth_date': mr.birth_date,
+                'subscription_product_id': mr.product_id and mr.product_id.id or False,
             }
             partner_id = False
             if mr.partner_id:
@@ -645,13 +658,16 @@ class membership_request(orm.Model):
         # do not pass related fields to the orm
         context = context or {}
         self._pop_related(cr, uid, vals, context=context)
+
         if context.get('install_mode', False) or context.get('mode', True) == 'ws':
             self.pre_process(cr, uid, vals, context=context)
+
         return super(membership_request, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
         # do not pass related fields to the orm
         self._pop_related(cr, uid, vals, context=context)
+
         return super(membership_request, self).write(cr, uid, ids, vals, context=context)
 
     def name_get(self, cr, uid, ids, context=None):

@@ -37,16 +37,22 @@ class membership_membership_line(orm.Model):
     _name = 'membership.membership_line'
     _inherit = ['membership.membership_line', 'abstract.ficep.model']
 
+    _order = 'date_from desc'
+
     _columns = {
-        'membership_state_id': fields.many2one('membership.state', 'State'),
+        'partner': fields.many2one('res.partner', 'Partner', ondelete='cascade', select=1, required=True),
+        'membership_id': fields.many2one('product.product', string="Membership"),
+        'membership_state_id': fields.many2one('membership.state', type='many2one', string='State'),
+        'is_current': fields.boolean('Is Current'),
     }
 
-    defaults = {
-        'membership_state_id': lambda self, cr, uid, ids, c: \
-                self.pool['membership.state']._state_default_get(cr, uid, context=c),
+    _defaults = {
+        'is_current': True,
     }
 
     _unicity_keys = 'N/A'
+
+#orm methods
 
 
 class membership_state(orm.Model):

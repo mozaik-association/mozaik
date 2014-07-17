@@ -25,6 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from datetime import date
+
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
@@ -94,7 +96,9 @@ class res_partner(orm.Model):
                                            store=_instance_store_triggers, fnct_inv=_accept_anyway),
          'int_instance_m2m_ids': fields.many2many('int.instance', 'res_partner_int_instance_rel', id1='partner_id', id2='int_instance_id', string='Internal Instances'),
 
-         #membership fields
+         'subscription_product_id': fields.many2one('product.product', string="Subscription", select=True,\
+                                                    track_visibility='onchange'),
+         # membership fields: track visibility is done into membership history management
          'membership_state_id': fields.many2one('membership.state', string='State'),
          'membership_state_code': fields.related('membership_state_id', 'code',
                                                  string='Membership State Code', type="char",
@@ -223,7 +227,48 @@ class res_partner(orm.Model):
             'resignation_date': False,
             'exclusion_date': False,
         }
-        return self.write(cr, uid, ids, vals, context=context)
+        res = self.write(cr, uid, ids, vals, context=context)
+        state_id = membership_state_obj._state_default_get(cr, uid, context=context)
+        default_code = membership_state_obj.read(cr, uid, state_id, ['code'], context=context)['code']
+        if membership_state_code != default_code:
+            self.update_membership_line(cr, uid, ids, context=context)
+        return res
+
+    def update_membership_line(self, cr, uid, ids, context=None):
+        """
+        ======================
+        update_membership_line
+        ======================
+        Search a current `membership.membership_line` for each partner
+        If no membership_line found then create one
+        If a membership_line is found then set `is_current` to False
+        and `date_from` to today
+        """
+        values = {}
+        membership_line_obj = self.pool['membership.membership_line']
+        today = date.today().strftime('%Y-%m-%d')
+        values['date_from'] = today
+        for partner in self.browse(cr, uid, ids, context=context):
+            values['membership_state_id'] = partner.membership_state_id.id
+            current_membership_line_ids = membership_line_obj.search(cr, uid, [('partner', '=', partner.id),
+                                                                              ('is_current', '=', True)], context=context)
+            current_membership_line_id = current_membership_line_ids and current_membership_line_ids[0] or False
+            if current_membership_line_id:
+                # copy and update it
+                new_membership_line_id = membership_line_obj.copy(cr, uid, current_membership_line_id, default=values, context=context)
+                membership_line_obj.write(cr, uid, [current_membership_line_id], {'is_current': False,
+                                                                                  'date_to': today}, context=context)
+            else:
+                # create first membership_line
+                vals = values.copy()
+                vals['partner'] = partner.id
+                vals['date'] = today
+                vals['date_from'] = today
+                vals['membership_state_id'] = partner.membership_state_id.id
+                vals['membership_id'] = partner.subscription_product_id and partner.subscription_product_id.id or False
+                vals['member_price'] = partner.subscription_product_id and partner.subscription_product_id.lst_price or False
+                new_membership_line_id = membership_line_obj.create(cr, uid, vals, context=context)
+            partner.write({'member_lines': [[4, new_membership_line_id]]})
 
     def write(self, cr, uid, ids, vals, context=None):
         """
