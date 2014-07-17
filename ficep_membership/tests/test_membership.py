@@ -85,7 +85,7 @@ class test_membership(SharedSetupTransactionCase):
             'month': 04,
             'year': 1985,
 
-            'status': 'm',
+            'request_status': 's',
             'street': self.rec_postal.address_id.address_local_street_id.local_street,
             'zip_code': self.rec_postal.address_id.address_local_zip_id.local_zip,
             'town': self.rec_postal.address_id.address_local_zip_id.town,

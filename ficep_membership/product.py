@@ -25,13 +25,20 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import product
-from . import membership_request
-from . import membership
-from . import res_partner
-from . import structure
-from . import address_local_zip
-from . import wizard
-from . import virtual_models
+from openerp.osv import orm
+
+
+class product_product(orm.Model):
+
+    _inherit = 'product.product'
+
+    def _get_default_subscription(self, cr, uid, context=None):
+        """
+        =========================
+        _get_default_subscription
+        =========================
+        return id of a default membership product
+        """
+        return self.pool['ir.model.data'].get_object_reference(cr, uid, 'ficep_membership', 'membership_product_isolated')[1]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

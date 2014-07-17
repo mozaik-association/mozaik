@@ -5,9 +5,7 @@
         <!-- Inherit Membership -->
 
         <record id="view_partner_form" model="ir.ui.view">
-            <field name="name">res.partner.form.inherit
-                (ficep_membership)
-            </field>
+            <field name="name">res.partner.form.inherit (ficep_membership)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="membership.view_partner_form" />
             <field name="arch" type="xml">
@@ -31,6 +29,20 @@
                                 ('membership_state_code', '!=', 'old_member'),
                                 ('membership_state_code', '!=', 'old_commitee_member')]}" />
                     </div>
+                </xpath>
+
+                <xpath expr="//field[@name='member_lines']" position="replace">
+                    <field name="member_lines" nolabel="1" readonly="1">
+                        <tree colors="green:is_current==True" string="Memberships Lines">
+                            <field name="partner"/>
+                            <field name="membership_id"/>
+                            <field name="member_price"/>
+                            <field name="membership_state_id"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="is_current" invisible="1"/>
+                        </tree>
+                    </field>
                 </xpath>
 
                 <xpath
