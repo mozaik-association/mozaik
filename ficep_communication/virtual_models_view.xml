@@ -235,6 +235,12 @@
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
+                    <field name="email_category_id" string="Email Category" widget="many2one" />
+                    <field name="postal_category_id" string="Postal Category" widget="many2one" />
+
+                    <filter string="Main Postal" name="main_postal" domain="[('main_postal','=',1)]"/>
+                    <filter string="Main Email" name="main_email" domain="[('main_email','=',1)]"/>
+                    <separator/>
                     <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
                     <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
                     <separator/>

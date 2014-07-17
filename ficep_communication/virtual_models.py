@@ -303,9 +303,13 @@ class virtual_partner_instance(orm.Model):
         'employee': fields.boolean('Employee'),
 
         'postal_vip': fields.boolean('VIP Address'),
+        'main_postal': fields.boolean('Main Postal'),
         'postal_unauthorized': fields.boolean('Unauthorized Address'),
+        'postal_category_id': fields.many2one('coordinate.category', 'Postal Coordinate Category'),
 
         'email_vip': fields.boolean('VIP Email'),
+        'email_category_id': fields.many2one('coordinate.category', 'Email Coordinate Category'),
+        'main_email': fields.boolean('Main Email'),
         'email_unauthorized': fields.boolean('Unauthorized Email'),
 
         # others
@@ -336,6 +340,7 @@ class virtual_partner_instance(orm.Model):
             p.int_instance_id as int_instance_id,
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
+            pc.coordinate_category_id as postal_category_id,
             p.is_company as is_company,
             p.identifier as identifier,
             p.birth_date as birth_date,
@@ -344,7 +349,10 @@ class virtual_partner_instance(orm.Model):
             p.employee as employee,
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
+            pc.is_main as main_postal,
             e.vip as email_vip,
+            e.coordinate_category_id as email_category_id,
+            e.is_main as main_email,
             e.unauthorized as email_unauthorized
         FROM
             res_partner p
