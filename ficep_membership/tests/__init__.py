@@ -27,11 +27,13 @@
 ##############################################################################
 from . import test_structure
 from . import test_membership
+from . import test_partner
 
 fast_suite = [
 ]
 
 checks = [
+     test_partner,
      test_structure,
      test_membership,
 ]

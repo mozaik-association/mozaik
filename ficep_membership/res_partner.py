@@ -90,13 +90,21 @@ class res_partner(orm.Model):
                                            type='many2one', relation='int.instance', select=True,
                                            store=_instance_store_triggers, fnct_inv=_accept_anyway),
          'int_instance_m2m_ids': fields.many2many('int.instance', 'res_partner_int_instance_rel', id1='partner_id', id2='int_instance_id', string='Internal Instances'),
-         'membership_state_id': fields.many2one('membership.state', string='State')
+
+         #membership fields
+         'membership_state_id': fields.many2one('membership.state', string='State'),
+         'membership_state_code': fields.related('membership_state_id', 'code',
+                                                 string='Membership State Code', type="char",
+                                                 readonly=True),
+         'accepted_date': fields.date('Accepted Date'),
+         'decline_payment_date': fields.date('Decline Payment Date'),
+         'rejected_date': fields.date('Rejected Date'),
+         'resignation_date': fields.date('Resignation Date'),
+         'exclusion_date': fields.date('Exclusion Date'),
     }
 
     _defaults = {
         'int_instance_id': lambda self, cr, uid, ids, context = None: self.pool.get('int.instance').get_default(cr, uid),
-        'membership_state_id': lambda self, cr, uid, ids, context = None: \
-                self.pool['membership.state']._state_default_get(cr, uid),
     }
 
 # view methods: onchange, button
@@ -180,6 +188,38 @@ class res_partner(orm.Model):
         })
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
         return res
+# public methods
+
+    def update_state(self, cr, uid, ids, membership_state_code, context=None):
+        """
+        ============
+        update_state
+        ============
+        Partner membership_state_id is updated with the `membership.state` having the `code`
+        `membership_state_code`
+
+        :type membership_state_code: char
+        :param membership_state_code: code of `membership.state`
+        :raise orm.except_orm: If no membership_state_id found with `membership_state_code`
+        """
+
+        membership_state_obj = self.pool['membership.state']
+        membership_state_ids = membership_state_obj.search(cr, uid, [('code', '=', membership_state_code)], context)
+
+        if not membership_state_ids:
+            raise orm.except_orm(_('Error'), _('Try to set an undefined "Membership State" on partner'))
+
+        membership_state_id = membership_state_ids[0]
+
+        vals = {
+            'membership_state_id': membership_state_id,
+            'accepted_date': False,
+            'decline_payment_date': False,
+            'rejected_date': False,
+            'resignation_date': False,
+            'exclusion_date': False,
+        }
+        return self.write(cr, uid, ids, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
         """

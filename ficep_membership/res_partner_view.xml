@@ -66,6 +66,16 @@
                         )
                     </span>
                 </xpath>
+                <xpath expr="//group[@name='moreinfo']"
+                    position="inside">
+                    <field name="membership_state_code" />
+                    <field name="free_member"/>
+                    <field name="accepted_date" />
+                    <field name="decline_payment_date" />
+                    <field name="rejected_date" />
+                    <field name="resignation_date" />
+                    <field name="exclusion_date" />
+                </xpath>
 
                 <xpath expr="//header/div" position="inside">
                     <button name="button_modification_request"

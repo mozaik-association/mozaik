@@ -42,8 +42,8 @@
                 <tree string="Membership Requests" version="7.0">
                     <field name="lastname" />
                     <field name="firstname" />
-                    <field name="status" />
                     <field name="state" />
+                    <field name="request_status" />
 
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
@@ -107,15 +107,23 @@
                                     <field name="gender" />
                                 </group>
                                 <group>
-                                    <field name="status" />
-                                </group>
-                                <group>
                                     <field name="day"
                                         on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
                                     <field name="month"
                                         on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
                                     <field name="year"
                                         on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
+                                </group>
+                                <group></group>
+                                <group>
+                                    <field name="request_status"
+                                        on_change="onchange_partner_id(request_status, partner_id)" />
+                                    <field name="membership_state_id"
+                                        readonly="1" />
+                                </group>
+                                <group>
+                                    <field name="resulting_status"
+                                        readonly="1" />
                                 </group>
                                 <group>
                                     <field name="interests" />
@@ -193,9 +201,10 @@
                                         domain="[('is_company','=', False)]"
                                         attrs="{'readonly':[('is_update', '=', True)],
                                                    'required':[('is_update', '=', True)]}"
-                                        on_change="onchange_partner_id(partner_id)" />
+                                        on_change="onchange_partner_id(request_status, partner_id)" />
                                     <field name="birth_date" />
-                                    <field name="int_instance_id" readonly="1"/>
+                                    <field name="int_instance_id"
+                                        readonly="1" />
                                 </group>
                             </page>
                             <page string="Coordinates" name="coordinates">

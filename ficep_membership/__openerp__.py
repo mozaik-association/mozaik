@@ -55,6 +55,7 @@ default instance otherwise. This field is added to all views (search, tree and f
     'data': [
         'security/ir.model.access.csv',
         'security/membership_security.xml',
+        'membership_workflow.xml',
         'membership_view.xml',
         'membership_request_view.xml',
         'address_local_zip_view.xml',
