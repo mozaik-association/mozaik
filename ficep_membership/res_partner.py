@@ -37,6 +37,9 @@ class res_partner(orm.Model):
     _inactive_cascade = True
     _allowed_inactive_link_models = ['res.partner']
 
+    # ready for workflow !
+    _enable_wkf = True
+
     def _get_instance_id(self, cr, uid, ids, name, args, context=None):
         """
         ================
@@ -188,6 +191,7 @@ class res_partner(orm.Model):
         })
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
         return res
+
 # public methods
 
     def update_state(self, cr, uid, ids, membership_state_code, context=None):

@@ -44,7 +44,7 @@ This module manages email coordinates.
     ],
     'data': [
         'security/ir.model.access.csv',
-        'security/ir.rule.xml',
+        'security/ficep_email_security.xml',
         'email_coordinate_view.xml',
         'coordinate_category_view.xml',
         'res_partner_view.xml',

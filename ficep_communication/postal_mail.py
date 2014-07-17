@@ -31,37 +31,59 @@ from openerp.osv import orm, fields
 class postal_mail(orm.Model):
     _name = "postal.mail"
     _inherit = ['abstract.ficep.model']
+    _description = 'Postal Mail'
 
     def _postal_mail_log_count(self, cr, uid, ids, field_name, arg, context=None):
         PostalMailLog = self.pool('postal.mail.log')
         return {
-            postal_mail_id: {
-                'postal_mail_log_count': PostalMailLog.search_count(cr, uid, [('postal_mail_id', '=', postal_mail_id)],
-                                                                    context=context),
-            }
+            postal_mail_id: PostalMailLog.search_count(cr, uid, [('postal_mail_id', '=', postal_mail_id)],
+                                                       context=context)
             for postal_mail_id in ids
         }
 
     _columns = {
-        'name': fields.char('Name', size=256),
-        'sent_date': fields.datetime('Sent date'),
+        'name': fields.char('Name', size=256, track_visibility='onchange'),
+        'sent_date': fields.datetime('Sent date', track_visibility='onchange'),
         'postal_mail_log_ids': fields.one2many('postal.mail.log', 'postal_mail_id', 'Postal Mail Logs'),
-        'postal_mail_log_count': fields.function(_postal_mail_log_count, string="Journal Items", type="integer",
-                                                 multi="invoice_journal"),
+        'postal_mail_log_count': fields.function(_postal_mail_log_count, string="Log Count", type="integer"),
     }
 
+# constraints
+
     _unicity_keys = 'name'
+
+# orm methods
+
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        Do not copy o2m fields.
+        Reset some fields to their initial values.
+        """
+        default = default or {}
+        default.update({
+            'postal_mail_log_ids': [],
+            'sent_date': False,
+        })
+        res = super(postal_mail, self).copy_data(cr, uid, ids, default=default, context=context)
+        return res
 
 
 class postal_mail_log(orm.Model):
     _name = "postal.mail.log"
     _inherit = ['abstract.ficep.model']
+    _description = 'Postal Mail Log'
 
     _columns = {
-        'name': fields.char('Name', size=256),
+        'name': fields.char('Name', size=256, track_visibility='onchange'),
         'sent_date': fields.datetime('Sent date'),
         'postal_mail_id': fields.many2one('postal.mail', 'Postal Mail', track_visibility='onchange'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
         'partner_id': fields.related('postal_coordinate_id', 'partner_id', string='Partner', type='many2one',
                                      relation='res.partner'),
     }
+
+# constraints
+
+    _unicity_keys = 'N/A'
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

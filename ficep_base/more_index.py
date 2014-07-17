@@ -25,44 +25,23 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: XXX',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_base',
-    ],
-    'description': """
-FICEP
-=====
-    """,
-    'images': [
-    ],
-    'data': [
-        #'security/ficep_XXX.xml',
-        #'XXX.xml,',
-        #'wizard/XXX.xml',
-        #'data/XXX.xml'
-    ],
-    'js': [
-        #'static/src/js/XXX.js',
-    ],
-    'qweb': [
-        #'static/src/xml/XXX.css',
-    ],
-    'css': [
-        #'static/src/css/XXX.css',
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'auto_install': False,
-    'installable': False,
-}
+
+from openerp.addons.document.content_index import indexer, cntIndex
+
+
+class CsvNoIndex(indexer):
+    def _getMimeTypes(self):
+        return ['text/csv']
+
+    def _getExtensions(self):
+        #better return no extension, and let 'file' do its magic
+        return ['.csv']
+        #return ['.csv']
+
+    def _doIndexContent(self, content):
+        return 'csv'
+
+
+cntIndex.register(CsvNoIndex())
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

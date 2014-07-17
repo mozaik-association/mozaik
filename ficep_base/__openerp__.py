@@ -64,7 +64,7 @@ FICEP Base
     ],
     'data': [
         'data/delete_data.xml',
-        'security/base_security.xml',
+        'security/ficep_base_security.xml',
         'data/ir_filters_data.xml',
         'data/res_lang_data.xml',
         'data/res_lang_install.xml',

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data noupdate="1">
+    <data noupdate="0">
 
         <record id="draft_membership_request_user_rule" model="ir.rule">
-            <field name="name">Membership Request Draft for User</field>
+            <field name="name">Membership Request Draft for Ficep User</field>
             <field name="model_id" ref="model_membership_request"/>
             <field name="domain_force">[('state','=','draft')]</field>
             <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_user'))]"/>
         </record>
 
         <record id="confirmed_membership_request_user_rule" model="ir.rule">
-            <field name="name">Membership Request Confirmed for User</field>
+            <field name="name">Membership Request Confirmed for Ficep User</field>
             <field name="model_id" ref="model_membership_request"/>
             <field name="domain_force">[('state','=','confirm')]</field>
             <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_user'))]"/>
@@ -20,10 +20,17 @@
         </record>
 
         <record id="membership_request_officier_rule" model="ir.rule">
-            <field name="name">Membership Request for Officier</field>
+            <field name="name">Membership Request for Ficep Officer</field>
             <field name="model_id" ref="model_membership_request"/>
             <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_officer'))]"/>
+        </record>
+
+        <record id="res_partner_base_rule" model="ir.rule">
+            <field name="name">Partner for Ficep Base</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[('int_instance_id','child_of',[i.id for i in user.partner_id.int_instance_m2m_ids])]</field>
+            <field name="groups" eval="[(4,ref('ficep_base.res_groups_base'))]"/>
         </record>
 
     </data>

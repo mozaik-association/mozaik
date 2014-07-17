@@ -25,44 +25,25 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: XXX',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_base',
-    ],
-    'description': """
-FICEP
-=====
-    """,
-    'images': [
-    ],
-    'data': [
-        #'security/ficep_XXX.xml',
-        #'XXX.xml,',
-        #'wizard/XXX.xml',
-        #'data/XXX.xml'
-    ],
-    'js': [
-        #'static/src/js/XXX.js',
-    ],
-    'qweb': [
-        #'static/src/xml/XXX.css',
-    ],
-    'css': [
-        #'static/src/css/XXX.css',
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'auto_install': False,
-    'installable': False,
-}
+
+from openerp.osv import orm
+
+
+class res_partner(orm.Model):
+
+    _inherit = 'res.partner'
+
+    # Do not launch workflow if not yet ready for
+    _enable_wkf = False
+
+# public methods
+
+    def create_workflow(self, cr, uid, ids, context=None):
+        """
+        Do not launch workflow if not yet ready for
+        """
+        if self._enable_wkf:
+            return super(res_partner, self).create_workflow(cr, uid, ids, context=context)
+        return True
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

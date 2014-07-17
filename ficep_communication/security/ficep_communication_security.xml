@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Distribution Lists Owners can modify/unlink them ... -->
+        <record id="distribution_list_user_rule" model="ir.rule">
+            <field name="name">Distribution List for Ficep User</field>
+            <field name="model_id" ref="distribution_list.model_distribution_list" />
+            <field name="domain_force">[('res_users_ids','in', [user.id])]</field>
+            <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_user'))]"/>
+            <field name="perm_create" eval="False" />
+            <field name="perm_read" eval="False" />
+        </record>
+
+        <!-- ... and Configurator too -->
+        <record id="distribution_list_configurator_rule" model="ir.rule">
+            <field name="name">Distribution List for Ficep Configurator</field>
+            <field name="model_id" ref="distribution_list.model_distribution_list" />
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_configurator'))]"/>
+            <field name="perm_create" eval="False" />
+            <field name="perm_read" eval="False" />
+        </record>
+
+    </data>
+</openerp>

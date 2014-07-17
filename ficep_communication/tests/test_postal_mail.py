@@ -30,7 +30,6 @@ import psycopg2
 import logging
 from anybox.testing.openerp import SharedSetupTransactionCase
 
-from openerp.osv import orm
 from openerp.addons.ficep_base import testtool
 
 _logger = logging.getLogger(__name__)
@@ -38,7 +37,10 @@ _logger = logging.getLogger(__name__)
 
 class test_postal_mail(SharedSetupTransactionCase):
     _data_files = (
-        '../../ficep_communication/demo/communication_demo.xml',
+        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../ficep_address/tests/data/reference_data.xml',
+        '../../ficep_address/tests/data/address_data.xml',
+        'data/communication_data.xml',
         'data/postal_mail_data.xml',
     )
 
@@ -48,10 +50,9 @@ class test_postal_mail(SharedSetupTransactionCase):
         super(test_postal_mail, self).setUp()
         self._postal_mail_pool = self.registry('postal.mail')
         self._postal_mail_log_pool = self.registry('postal.mail.log')
-        self._distribution_pool = self.registry('distribution.list')
 
         self.test_postal_mail = self.ref('%s.postal_mail_1' % self._module_ns)
-        self.virtual_distribution_list = self.ref('ficep_communication.distribution_list')
+        self.test_distribution_list = self.ref('%s.distribution_list' % self._module_ns)
 
     def test_unique_postal_mail(self):
         '''
@@ -70,12 +71,14 @@ class test_postal_mail(SharedSetupTransactionCase):
         wiz_id = mass_function_obj.create(self.cr, self.uid, {
             'trg_model': 'postal.coordinate',
             'p_mass_function': 'csv',
-            'postal_mail_id': self.test_postal_mail
+            'postal_mail_id': self.test_postal_mail,
         })
         mcontext = {
-            'active_id': self.virtual_distribution_list
+            'active_id': self.test_distribution_list
         }
         postal_mail_logs_before = self._postal_mail_log_pool.search_count(self.cr, self.uid, [])
         mass_function_obj.mass_function(self.cr, self.uid, [wiz_id], context=mcontext)
         postal_mail_logs_after = self._postal_mail_log_pool.search_count(self.cr, self.uid, [])
         self.assertTrue(postal_mail_logs_after - postal_mail_logs_before > 0)
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

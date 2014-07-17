@@ -55,6 +55,9 @@ class distribution_list(orm.Model):
         self.pool.get('ir.model').search(cr, uid, [('model', '=', 'virtual.target')], context=c)[0],
         'bridge_field': 'common_id',
     }
+
+# constraints
+
     #No More Unique Name For distribution list
     _sql_constraints = [('unique_name_by_company', 'check(1=1)', '')]
 
@@ -84,6 +87,9 @@ class distribution_list_line(orm.Model):
         'name': fields.char(string='Name', required=True, track_visibility='onchange'),
         'domain': fields.text(string="Expression", required=True, track_visibility='onchange'),
     }
+
+# constraints
+
     #No More Unique Name For distribution list
     _sql_constraints = [('unique_name_by_company', 'check(1=1)', '')]
 

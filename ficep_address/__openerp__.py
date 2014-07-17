@@ -44,7 +44,7 @@ This module manages postal addresses and postal coordinates.
     ],
     'data': [
         'security/ir.model.access.csv',
-        'security/ir.rule.xml',
+        'security/ficep_address_security.xml',
         'data/address_address_data.xml',
         'address_address_view.xml',
         'address_local_zip_view.xml',

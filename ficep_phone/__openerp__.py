@@ -46,7 +46,7 @@ Numbers are normalized regarding the external python library: phonenumbers
     ],
     'data': [
         'security/ir.model.access.csv',
-        'security/ir.rule.xml',
+        'security/ficep_phone_security.xml',
         'data/ir_config_parameter_data.xml',
         'data/phone_phone_data.xml',
         'phone_phone_view.xml',

@@ -33,8 +33,10 @@ import ir_model
 import ir_import
 import res_lang
 import res_users
+import res_partner
 import mail_message
 import selections_translator
+import more_index
 import abstract_ficep
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
