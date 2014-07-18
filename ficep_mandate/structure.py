@@ -28,16 +28,6 @@
 from openerp.osv import orm, fields
 
 
-class int_power_level(orm.Model):
-
-    _name = 'int.power.level'
-    _inherit = ['int.power.level']
-
-    _columns = {
-        'mandate_category_ids': fields.one2many('mandate.category', 'int_power_level_id', 'Mandate Categories'),
-    }
-
-
 class electoral_district(orm.Model):
 
     _name = 'electoral.district'
