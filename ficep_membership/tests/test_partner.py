@@ -250,7 +250,7 @@ class test_partner(SharedSetupTransactionCase):
         test raise if partner does not exist
         """
         mr_obj, partner, cr, uid, context = self.mr_obj, self.rec_partner, self.cr, self.uid, {}
-        res = self.partner_obj.button_modification_request(cr, uid, partner.id, context=context)
+        res = self.partner_obj.button_modification_request(cr, uid, [partner.id], context=context)
         mr = mr_obj.browse(cr, uid, res['res_id'], context=context)
         postal_coordinate_id = partner.postal_coordinate_id or False
         mobile_coordinate_id = partner.mobile_coordinate_id or False
