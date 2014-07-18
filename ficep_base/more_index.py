@@ -42,4 +42,18 @@ class CsvNoIndex(indexer):
 
 cntIndex.register(CsvNoIndex())
 
+
+class vCardNoIndex(indexer):
+    def _getMimeTypes(self):
+        return ['text/vcard']
+
+    def _getExtensions(self):
+        return ['.vcf']
+
+    def _doIndexContent(self, content):
+        return 'vcard'
+
+
+cntIndex.register(vCardNoIndex())
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
