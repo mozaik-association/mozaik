@@ -34,6 +34,7 @@
     'category': 'Political Association',
     'depends': [
         'ficep',
+        'l10n_ficep',
     ],
     'description': """
 FICEP Sample Customization
