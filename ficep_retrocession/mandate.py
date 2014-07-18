@@ -210,6 +210,13 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         reference = '+++%s/%s/%s%s+++' % (base_str[:3], base_str[3:7], base_str[7:], mod)
         return self.write(cr, uid, mandate_id, {'reference': reference}, context=context)
 
+    def get_retro_instance_id(self, cr, uid, assembly_id, context=None):
+        if assembly_id:
+            assembly = self.pool.get(self._assembly_model).browse(cr, uid, assembly_id)
+            return assembly.retro_instance_id.id
+
+        return False
+
 
 class sta_mandate(orm.Model):
     _name = 'sta.mandate'
@@ -252,11 +259,7 @@ class sta_mandate(orm.Model):
 
     def onchange_sta_assembly_id(self, cr, uid, ids, sta_assembly_id, context=None):
         res = super(sta_mandate, self).onchange_sta_assembly_id(cr, uid, ids, sta_assembly_id, context=context)
-
-        if sta_assembly_id:
-            assembly = self.pool.get('sta.assembly').browse(cr, uid, sta_assembly_id)
-
-            res['value']['retro_instance_id'] = assembly.retro_instance_id.id
+        res['value']['retro_instance_id'] = self.get_retro_instance_id(cr, uid, sta_assembly_id, context=context)
 
         return res
 
@@ -313,11 +316,7 @@ class ext_mandate(orm.Model):
 
     def onchange_ext_assembly_id(self, cr, uid, ids, ext_assembly_id, context=None):
         res = super(ext_mandate, self).onchange_ext_assembly_id(cr, uid, ids, ext_assembly_id, context=context)
-
-        if ext_assembly_id:
-            assembly = self.pool.get('ext.assembly').browse(cr, uid, ext_assembly_id)
-
-            res['value']['retro_instance_id'] = assembly.retro_instance_id.id
+        res['value']['retro_instance_id'] = self.get_retro_instance_id(cr, uid, ext_assembly_id, context=context)
 
         return res
 
