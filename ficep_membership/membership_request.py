@@ -203,7 +203,7 @@ class membership_request(orm.Model):
         if is_update:
             return values
 
-        partner_id = self.get_partner_id(cr, uid, birth_date, firstname, lastname, email, context=context)
+        partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=context)
         values['value'].update({
             'partner_id': partner_id,
         })
@@ -373,8 +373,11 @@ class membership_request(orm.Model):
                        % (birth_date, email, firstname, lastname))
         if email:
             partner_domains.append("[('is_company', '=', False),('email', '=', '%s')]" % (email))
-        if firstname and lastname:
-            partner_domains.append("[('is_company', '=', False),('firstname', 'ilike', '%s'),('lastname', 'ilike', '%s')]" % (firstname, lastname))
+        if lastname:
+            if firstname:
+                partner_domains.append("[('is_company', '=', False),('firstname', 'ilike', '%s'),('lastname', 'ilike', '%s')]" % (firstname, lastname))
+            else:
+                partner_domains.append("[('is_company', '=', False),('lastname', 'ilike', '%s')]" % (firstname, lastname))
 
         partner_id = False
         virtual_partner_id = self.persist_search(cr, uid, partner_obj, partner_domains, context=context)
