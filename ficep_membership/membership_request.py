@@ -110,7 +110,7 @@ class membership_request(orm.Model):
         'interests': fields.text(string='Interests'),
         'competencies': fields.text(string='Competencies'),
 
-        'partner_id': fields.many2one('res.partner', 'Partner', ondelete='restrict'),
+        'partner_id': fields.many2one('res.partner', 'Partner', ondelete='restrict', domain="[('membership_state_id', '!=', False)]"),
         'interests_m2m_ids': fields.many2many('thesaurus.term', 'membership_request_interests_rel',
                                               id1='membership_id', id2='thesaurus_term_id', string='Interests'),
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'membership_request_competence_rel',

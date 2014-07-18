@@ -79,7 +79,8 @@
                 <xpath expr="//header/div" position="inside">
                     <button name="button_modification_request"
                         string="Modification Request" type="object"
-                        attrs="{'invisible': [('is_company','=',True)]}" />
+                        attrs="{'invisible': ['|',('is_company','=',True),
+                                                  ('membership_state_id', '=', False)]}" />
                 </xpath>
 
                 <xpath expr="//page[@name='user']" position="inside">
