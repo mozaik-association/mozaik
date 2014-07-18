@@ -116,7 +116,7 @@ class res_partner(orm.Model):
 
 # view methods: onchange, button
 
-    def button_modification_request(self, cr, uid, ids, context=None):
+    def button_modification_request(self, cr, uid, partner_id, context=None):
         """
         ====================
         modification_request
@@ -124,7 +124,7 @@ class res_partner(orm.Model):
         Create a `membership.request` object with the datas of the current partner.
         Launch it into the another form view
         """
-        partners = self.browse(cr, uid, ids, context=context)
+        partners = self.browse(cr, uid, [partner_id], context=context)
         partner = partners and partners[0]
         if not partner:
             raise orm.except_orm(_('Error'), _('Modification request must be launch with a valid partner id'))

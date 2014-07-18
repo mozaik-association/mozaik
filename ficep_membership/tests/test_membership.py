@@ -27,6 +27,7 @@
 ##############################################################################
 
 import logging
+from uuid import uuid4
 from anybox.testing.openerp import SharedSetupTransactionCase
 
 from openerp.addons.ficep_address.address_address import COUNTRY_CODE
@@ -58,6 +59,7 @@ class test_membership(SharedSetupTransactionCase):
     def setUp(self):
         super(test_membership, self).setUp()
         self.mro = self.registry('membership.request')
+        self.mrs = self.registry('membership.state')
 
         self.rec_partner = self.browse_ref('%s.res_partner_thierry' % self._module_ns)
         self.rec_partner_pauline = self.browse_ref('%s.res_partner_pauline' % self._module_ns)
@@ -160,5 +162,25 @@ class test_membership(SharedSetupTransactionCase):
                                                                                   ('phone_id', '=', phone_ids[0])])
         #test that we have as well a phone.coordinate
         self.assertEqual(len(phone_coordinate_ids), 1, "Should have one and only one phone_coordinate_id id")
+
+    def test_state_default_get(self):
+        """
+        Test the default state of `membership.state`
+        'without_membership' is used as technical state
+
+        Test default state with another default_state
+        """
+        mrs, cr, uid, context = self.mrs, self.cr, self.uid, {}
+
+        without_membership_id = mrs._state_default_get(cr, uid, context=context)
+        uniq_code_membership = mrs.browse(cr, uid, without_membership_id, context=context)
+        self.assertEqual('without_membership', uniq_code_membership.code, "Code should be without_membership")
+
+        code = '%s' % uuid4()
+        mrs.create(cr, uid, {'name': 'test_state',
+                                  'code': code}, context=context)
+        uniq_code_membership_id = mrs._state_default_get(cr, uid, default_state=code, context=context)
+        uniq_code_membership = mrs.browse(cr, uid, uniq_code_membership_id, context=context)
+        self.assertEqual(code, uniq_code_membership.code, "Code should be %s" % code)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -482,6 +482,7 @@ class membership_request(orm.Model):
 
         firstname = vals.get('firstname', False)
         lastname = vals.get('lastname', False)
+        birth_date = vals.get('birth_date', False)
         day = vals.get('day', False)
         month = vals.get('month', False)
         year = vals.get('year', False)
@@ -498,7 +499,8 @@ class membership_request(orm.Model):
         country_id = vals.get('country_id', False)
         partner_id = vals.get('partner_id', False)
 
-        birth_date = self.get_birth_date(cr, uid, day, month, year, context=False)
+        if not birth_date:
+            birth_date = self.get_birth_date(cr, uid, day, month, year, context=context)
 
         if mobile or phone:
             if mobile:
@@ -510,7 +512,7 @@ class membership_request(orm.Model):
         if email:
             email = self.get_format_email(cr, uid, email, context=context)
         if not partner_id:
-            partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=False)
+            partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=context)
 
         technical_name = self.get_technical_name(cr, uid, address_local_street_id, address_local_zip_id, \
                                                  number, box, town_man, street_man, zip_man, country_id, context=context)
