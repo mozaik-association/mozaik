@@ -136,8 +136,6 @@ class mandate_category(orm.Model):
         'sta_assembly_category_id': fields.many2one('sta.assembly.category', string='State Assembly Category', track_visibility='onchange'),
         'ext_assembly_category_id': fields.many2one('ext.assembly.category', string='External Assembly Category', track_visibility='onchange'),
         'int_assembly_category_id': fields.many2one('int.assembly.category', string='Internal Assembly Category', track_visibility='onchange'),
-        'int_power_level_id': fields.many2one('int.power.level', string='Internal Power Level',
-                                                 required=True, track_visibility='onchange'),
         'sta_mandate_ids': fields.one2many('sta.mandate', 'mandate_category_id', 'State Mandates'),
         'int_mandate_ids': fields.one2many('int.mandate', 'mandate_category_id', 'Internal Mandates'),
         'ext_mandate_ids': fields.one2many('ext.mandate', 'mandate_category_id', 'External Mandates'),

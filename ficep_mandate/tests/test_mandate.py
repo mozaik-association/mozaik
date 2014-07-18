@@ -52,12 +52,8 @@ class test_mandate(SharedSetupTransactionCase):
         '''
             Test unique name of mandate category
         '''
-        int_power_level_01_id = self.ref('ficep_structure.int_power_level_01')
-        int_power_level_02_id = self.ref('%s.int_power_level_02' % self._module_ns)
-
-        data = dict(name='category_01', int_power_level_id=int_power_level_01_id)
+        data = dict(name='category_01')
         self.registry('mandate.category').create(self.cr, self.uid, data)
-        data['int_power_level_id'] = int_power_level_02_id
 
         with testtool.disable_log_error(self.cr):
             self.assertRaises(psycopg2.IntegrityError,
@@ -68,21 +64,18 @@ class test_mandate(SharedSetupTransactionCase):
         '''
             Test consistency between exclusive mandate categories
         '''
-        int_power_level_01_id = self.ref('ficep_structure.int_power_level_01')
         sta_assembly_id = self.ref('%s.sta_assembly_category_01' % self._module_ns)
         ext_assembly_id = self.ref('%s.ext_assembly_category_01' % self._module_ns)
 
         category_pool = self.registry('mandate.category')
 
         test_category_id_1 = category_pool.create(self.cr, self.uid, dict(name='Category 1',
-                                                                          int_power_level_id=int_power_level_01_id,
                                                                           type='sta',
                                                                           sta_assembly_category_id=sta_assembly_id))
         '''
             Test consistency on create
         '''
         test_category_id_2 = category_pool.create(self.cr, self.uid, dict(name='Category 2',
-                                                                          int_power_level_id=int_power_level_01_id,
                                                                           type='ext',
                                                                           ext_assembly_category_id=ext_assembly_id,
                                                                           exclusive_category_m2m_ids=[[6, False, [test_category_id_1]]]))
