@@ -36,7 +36,7 @@ class res_partner(orm.Model):
     # Do not launch workflow if not yet ready for
     _enable_wkf = False
 
-# public methods
+# orm methods
 
     def create_workflow(self, cr, uid, ids, context=None):
         """

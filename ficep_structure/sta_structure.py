@@ -139,10 +139,10 @@ class electoral_district(orm.Model):
         'assembly_id': fields.many2one('sta.assembly', 'Assembly', required=True, select=True, track_visibility='onchange', domain=[('is_legislative', '=', True)]),
         'power_level_id': fields.related('assembly_id', 'assembly_category_id', 'power_level_id', string='Power Level',
                                          type='many2one', relation='sta.power.level'),
-        'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation assembly',
+        'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation Assembly',
                                                  required=True, select=True, track_visibility='onchange',
                                                  domain=[('is_designation_assembly', '=', True)]),
-        'assembly_category_id': fields.related('assembly_id', 'assembly_category_id', string='State assembly category',
+        'assembly_category_id': fields.related('assembly_id', 'assembly_category_id', string='State Assembly Category',
                                           type='many2one', relation='sta.assembly.category'),
     }
 

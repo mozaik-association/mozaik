@@ -34,9 +34,7 @@ class CsvNoIndex(indexer):
         return ['text/csv']
 
     def _getExtensions(self):
-        #better return no extension, and let 'file' do its magic
         return ['.csv']
-        #return ['.csv']
 
     def _doIndexContent(self, content):
         return 'csv'
