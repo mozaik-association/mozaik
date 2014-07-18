@@ -224,6 +224,34 @@ class calculation_rule(orm.Model):
     _description = 'Calculation Rule'
     _inherit = ['abstract.ficep.model']
 
+    def _compute_subtotal(self, cr, uid, ids, fname, arg, context=None):
+        """
+        =================
+        _compute_subtotal
+        =================
+        compute subtotal of rule
+        :rparam: subtotal
+        :rtype: float
+        """
+        res = {}
+        for rule in self.browse(cr, uid, ids, context=context):
+            coef = -1 if rule.is_deductible else 1
+            res[rule.id] = (rule.amount * (rule.percentage / 100)) * coef
+        return res
+
+    def _check_percentage(self, cr, uid, ids, for_unlink=False, context=None):
+        """
+        =================
+        _check_percentage
+        =================
+        Check if percentage is positive for deductible rule
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        for rule in self.browse(cr, uid, ids, context=context):
+            return False if (rule.is_deductible and rule.percentage < 0) else True
+
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
         'type': fields.selection(CALCULATION_RULE_AVAILABLE_TYPES, 'Amount Type', required=True, track_visibility='onchange'),
@@ -233,13 +261,27 @@ class calculation_rule(orm.Model):
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate', select=True),
         'percentage': fields.float('Percentage', required=True, track_visibility='onchange', digits_compute=dp.get_precision('Percentage')),
         'amount': fields.float('Amount', track_visibility='onchange', digits_compute=dp.get_precision('Account')),
+        'amount_subtotal': fields.function(_compute_subtotal, string='Subtotal', type='float', store=False, digits_compute=dp.get_precision('Account')),
+        'is_deductible': fields.boolean('To deduct')
     }
 
+    _defaults = {
+        'type': 'variable',
+        'is_deductible': False,
+    }
     _order = 'calculation_method_id, name'
 
 # constraints
 
     _unicity_keys = 'N/A'
+
+    _constraints = [
+        (_check_percentage, _("Percentage must be positive for a deductible rule."), ['percentage', 'is_deductible'])
+    ]
+
+    _sql_constraints = [
+        ('positive_amount', 'check(amount >= 0.0)', 'Amount of rule must be positive.')
+    ]
 
 
 class retrocession(orm.Model):
@@ -261,29 +303,6 @@ class retrocession(orm.Model):
         res = {}
         for retrocession in self.browse(cr, uid, ids, context=context):
             res[retrocession.id] = retrocession.sta_mandate_id.partner_id if retrocession.sta_mandate_id else retrocession.ext_mandate_id.partner_id
-        return res
-
-    def _get_fixed_rule_ids(self, cr, uid, ids, fname, arg, context=None):
-        """
-        ===================
-        _get_fixed_rule_ids
-        ===================
-        Get fixed calculation rule ids linked
-        * to mandate if retrocession is working
-        * to retrocession itself otherwise
-        :rparam: Calculation rule ids
-        :rtype: one2many
-        """
-        res = {}
-        for retrocession in self.browse(cr, uid, ids, context=context):
-            rule_ids = []
-            if retrocession.state in ['draft', 'sent']:
-                rules = retrocession.sta_mandate_id.calculation_rule_ids if retrocession.sta_mandate_id else retrocession.ext_mandate_id.calculation_rule_ids
-                rule_ids = [rule.id for rule in rules]
-            else:
-                rule_ids = self.pool.get('calculation.rule').search(cr, uid, [('retrocession_id', '=', retrocession.id),
-                                                                  ('type', '=', 'fixed')], context=context)
-            res[retrocession.id] = rule_ids
         return res
 
     def _get_retrocession_to_compute(self, cr, uid, ids, context=None):
@@ -312,10 +331,7 @@ class retrocession(orm.Model):
         """
         res = {}
         for retrocession in retrocessions_to_compute:
-            amount = 0.0
-            for rule in retrocession[rule_column]:
-                amount += (rule.amount * (rule.percentage / 100))
-            res[retrocession.id] = amount
+            res[retrocession.id] = sum([rule.amount_subtotal for rule in retrocession[rule_column]])
         return res
 
     def _compute_all_amounts(self, cr, uid, ids, fname, arg, context=None):
@@ -329,12 +345,12 @@ class retrocession(orm.Model):
         """
         res = {}
         retrocessions_to_compute = self._get_retrocession_to_compute(cr, uid, ids, context=context)
-        fixed_amounts = self._compute_amount(cr, uid, retrocessions_to_compute, 'fixed_rule_ids', context=context)
-        variable_amounts = self._compute_amount(cr, uid, retrocessions_to_compute, 'variable_rule_ids', context=context)
+        retrocede_amounts = self._compute_amount(cr, uid, retrocessions_to_compute, 'rule_ids', context=context)
+        deductible_amounts = self._compute_amount(cr, uid, retrocessions_to_compute, 'deductible_rule_ids', context=context)
         for retro in retrocessions_to_compute:
-            res[retro.id] = dict(amount_fixed=fixed_amounts[retro.id] or False,
-                                 amount_variable=variable_amounts[retro.id] or False,
-                                 amount_total=(fixed_amounts[retro.id] + variable_amounts[retro.id]))
+            res[retro.id] = dict(amount_retrocession=retrocede_amounts[retro.id] or False,
+                                 amount_deduction=deductible_amounts[retro.id] or False,
+                                 amount_total=(retrocede_amounts[retro.id] - deductible_amounts[retro.id]))
         return res
 
     def _need_account_management(self, cr, uid, ids, fname, arg, context=None):
@@ -464,14 +480,13 @@ class retrocession(orm.Model):
                                  type='selection', selection=INVOICE_AVAILABLE_TYPES, store=False),
         'month': fields.selection(fields.date.MONTHS, 'Month', select=True, track_visibility='onchange'),
         'year': fields.char('Year', size=128, select=True, track_visibility='onchange'),
-        'variable_rule_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation Variable Rules', domain=[('active', '=', True), ('type', '=', 'variable')]),
-        'variable_rule_inactive_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation Variable Rules', domain=[('active', '=', False), ('type', '=', 'variable')]),
-        'fixed_rule_ids': fields.function(_get_fixed_rule_ids, string='Calculation Fixed Rules',
-                                 type='one2many', relation='calculation.rule', store=False),
-        'fixed_rule_inactive_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation Fixed Rules', domain=[('active', '=', False), ('type', '=', 'fixed')]),
-        'amount_fixed': fields.function(_compute_all_amounts, string='Fixed Amount to Retrocede', multi="Allamounts",
+        'rule_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation Rules', domain=[('active', '=', True), ('is_deductible', '=', False)]),
+        'rule_inactive_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation Rules', domain=[('active', '=', False), ('is_deductible', '=', False)]),
+        'deductible_rule_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Deductible Calculation Rules', domain=[('active', '=', True), ('is_deductible', '=', True)]),
+        'deductible_rule_inactive_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Deductible Calculation Rules', domain=[('active', '=', False), ('is_deductible', '=', True)]),
+        'amount_retrocession': fields.function(_compute_all_amounts, string='Amount to Retrocede', multi="Allamounts",
                                  type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
-        'amount_variable': fields.function(_compute_all_amounts, string='Variable Amount to Retrocede', multi="Allamounts",
+        'amount_deduction': fields.function(_compute_all_amounts, string='Amount deductible', multi="Allamounts",
                                  type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
         'amount_total': fields.function(_compute_all_amounts, string='Retrocession', multi="Allamounts",
                                         type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
@@ -526,6 +541,14 @@ class retrocession(orm.Model):
 
             if mandate_rec.calculation_method_id:
                 self.pool.get('calculation.method').copy_variable_rules_on_retrocession(cr, uid, mandate_rec.calculation_method_id.id, retro.id, context=context)
+
+            for rule in mandate_rec.calculation_rule_ids:
+                data = dict(retrocession_id=retro.id,
+                            name=rule.name,
+                            type=rule.type,
+                            percentage=rule.percentage,
+                            amount=rule.amount)
+                self.pool['calculation.rule'].create(cr, uid, data, context=context)
 
         return res
 
@@ -599,15 +622,6 @@ class retrocession(orm.Model):
                 self.write(cr, uid, retrocession.id, {'unique_id': retro_number}, context=context)
                 retrocession = self.browse(cr, uid, retrocession.id, context=context)
 
-            rules = retrocession.sta_mandate_id.calculation_rule_ids if retrocession.sta_mandate_id else retrocession.ext_mandate_id.calculation_rule_ids
-            for rule in rules:
-                data = dict(name=rule.name,
-                            type=rule.type,
-                            percentage=rule.percentage,
-                            amount=rule.amount)
-                data['retrocession_id'] = retrocession.id
-                self.pool['calculation.rule'].create(cr, uid, data, context=context)
-
             if retrocession.need_account_management:
                 self._generate_account_move(cr, uid, retrocession, context)
             # TODO: send report to mandate representative and return its id
@@ -637,11 +651,6 @@ class retrocession(orm.Model):
         vals = vals or {}
         vals.update({'state': 'draft'})
         res = super(retrocession, self).action_revalidate(cr, uid, ids, context=context, vals=vals)
-        rule_model = self.pool['calculation.rule']
-        rule_ids = rule_model.search(cr, uid, [('retrocession_id', 'in', ids), ('type', '=', 'fixed'), ('active', '<=', True)], context=context)
-        if rule_ids:
-            rule_model.unlink(cr, uid, rule_ids, context=context)
-
         account_move_ids = [retro_data['move_id'][0] for retro_data in self.read(cr, uid, ids, ['move_id'], context=context) if retro_data['move_id']]
         self.pool.get('account.move').button_cancel(cr, uid, account_move_ids, context=context)
         return res

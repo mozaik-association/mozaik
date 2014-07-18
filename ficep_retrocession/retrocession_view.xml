@@ -125,6 +125,9 @@
                     <filter name="variable" string="Variable"
                             domain="[('type', '=', 'variable')]" help="Variable Calculation Rules" />
                     <separator/>
+                    <filter name="is_deductible" string="Deductible"
+                            domain="[('is_deductible', '=', 'True')]" help="Deductible Calculation Rules" />
+                    <separator/>
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
                             domain="[('active','=',False)]" help="Expired Calculation Rules" />
@@ -454,6 +457,7 @@
                                    <tree version="7.0" editable="bottom">
                                        <field name="name"/>
                                        <field name="type"/>
+                                       <field name="is_deductible"/>
                                        <field name="percentage"/>
                                    </tree>
                                </field>
@@ -516,6 +520,7 @@
                         <group name="data">
                             <field name="type"/>
                             <field name="percentage"/>
+                            <field name="is_deductible"/>
                             <field name="calculation_method_id" attrs="{'invisible': [('calculation_method_id','=',False), ('id', '!=', False)],
                                                                         'readonly': [('id', '!=', False)],
                                                                         'required': [('id', '=', False)]}"/>
@@ -603,56 +608,59 @@
 
                         <notebook invisible="context.get('popup')">
                             <page string="Rules" name="rules">
-                                <separator string="Fixed"/>
-                                <field name="fixed_rule_ids" attrs="{'invisible': [('active', '=', False)]}" readonly="1">
-                                    <tree version="7.0" editable="bottom">
-                                        <field name="name"/>
-                                        <field name="percentage"/>
-                                        <field name="amount"/>
-                                    </tree>
-                                </field>
-                                <field name="fixed_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
-                                    <tree version="7.0" editable="bottom">
-                                        <field name="name"/>
-                                        <field name="percentage"/>
-                                        <field name="amount"/>
-                                    </tree>
-                                </field>
-                                <group name="f-amounts" class="oe_subtotal_footer oe_right">
-                                    <div class="oe_subtotal_footer_separator">
-                                        <span>Subtotal:</span>
-                                    </div>
-                                    <field name="amount_fixed" nolabel="1" class="oe_subtotal_footer_separator"/>
-                                </group>
-                                <separator string="Variables"/>
+                                <separator string="To retrocede"/>
                                 <button string="All Details" name="%(calculation_rule_detail_action)d"
                                          type="action" attrs="{'invisible': [('id','=',False)]}"
                                          context="{'search_default_retrocession_id': active_id,
                                                    'default_retrocession_id': active_id,
-                                                   'search_default_all': True}" />
-                                <field name="variable_rule_ids" attrs="{'invisible': [('active', '=', False)],
+                                                   'search_default_all': True,
+                                                   'search_default_is_deductible': False}" />
+                                <field name="rule_ids" attrs="{'invisible': [('active', '=', False)],
+                                                                       'readonly': [('state','not in', ['draft'])]}"
+                                                                context="{'default_is_deductible': False}">
+                                    <tree version="7.0" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="percentage"/>
+                                        <field name="amount"/>
+                                        <field name="amount_subtotal" sum="1"/>                                     
+                                        <field name="is_deductible" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <field name="rule_inactive_ids" sum="1" attrs="{'invisible': [('active', '=', True)],
+                                                                                'readonly': [('state','not in', ['draft'])]}">
+                                    <tree version="7.0" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="percentage"/>
+                                        <field name="amount"/>
+                                        <field name="amount_subtotal" sum="1"/>  
+                                    </tree>
+                                </field>                                
+                                <separator string="To deduct"/>
+                                <button string="All Details" name="%(calculation_rule_detail_action)d"
+                                         type="action" attrs="{'invisible': [('id','=',False)]}"
+                                         context="{'search_default_retrocession_id': active_id,
+                                                   'default_retrocession_id': active_id,
+                                                   'search_default_all': True,
+                                                   'search_default_is_deductible': True}" />
+                                <field name="deductible_rule_ids" attrs="{'invisible': [('active', '=', False)],
                                                                         'readonly': [('state','not in', ['draft'])]}"
-                                                                context="{'default_type': 'variable'}">
-                                    <tree version="7.0" editable="bottom">
-                                        <field name="name"/>
-                                        <field name="type" invisible="1"/>
-                                        <field name="percentage"/>
-                                        <field name="amount"/>
-                                    </tree>
-                                </field>
-                                <field name="variable_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                                                                context="{'default_is_deductible': 'True'}">
                                     <tree version="7.0" editable="bottom">
                                         <field name="name"/>
                                         <field name="percentage"/>
                                         <field name="amount"/>
+                                        <field name="amount_subtotal" sum="1"/>  
+                                        <field name="is_deductible" invisible="1"/>
                                     </tree>
                                 </field>
-                                <group name="v-amounts" class="oe_subtotal_footer oe_right">
-                                    <div class="oe_subtotal_footer_separator" styles="">
-                                        <span>Subtotal:</span>
-                                    </div>
-                                    <field name="amount_variable" nolabel="1" class="oe_subtotal_footer_separator"/>
-                                </group>
+                                <field name="deductible_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                                    <tree version="7.0" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="percentage"/>
+                                        <field name="amount"/>
+                                        <field name="amount_subtotal" sum="1"/>  
+                                    </tree>
+                                </field>                                
                                 <group name="amounts" class="oe_subtotal_footer oe_right">
                                     <div class="oe_subtotal_footer_separator">
                                         <span class="oe_inline">Total:</span>
