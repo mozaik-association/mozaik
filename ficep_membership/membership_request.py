@@ -110,7 +110,7 @@ class membership_request(orm.Model):
         'interests': fields.text(string='Interests'),
         'competencies': fields.text(string='Competencies'),
 
-        'partner_id': fields.many2one('res.partner', 'Partner', ondelete='restrict'),
+        'partner_id': fields.many2one('res.partner', 'Partner', ondelete='restrict', domain="[('membership_state_id', '!=', False)]"),
         'interests_m2m_ids': fields.many2many('thesaurus.term', 'membership_request_interests_rel',
                                               id1='membership_id', id2='thesaurus_term_id', string='Interests'),
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'membership_request_competence_rel',
@@ -203,7 +203,7 @@ class membership_request(orm.Model):
         if is_update:
             return values
 
-        partner_id = self.get_partner_id(cr, uid, birth_date, firstname, lastname, email, context=context)
+        partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=context)
         values['value'].update({
             'partner_id': partner_id,
         })
@@ -373,8 +373,11 @@ class membership_request(orm.Model):
                        % (birth_date, email, firstname, lastname))
         if email:
             partner_domains.append("[('is_company', '=', False),('email', '=', '%s')]" % (email))
-        if firstname and lastname:
-            partner_domains.append("[('is_company', '=', False),('firstname', 'ilike', '%s'),('lastname', 'ilike', '%s')]" % (firstname, lastname))
+        if lastname:
+            if firstname:
+                partner_domains.append("[('is_company', '=', False),('firstname', 'ilike', '%s'),('lastname', 'ilike', '%s')]" % (firstname, lastname))
+            else:
+                partner_domains.append("[('is_company', '=', False),('lastname', 'ilike', '%s')]" % (firstname, lastname))
 
         partner_id = False
         virtual_partner_id = self.persist_search(cr, uid, partner_obj, partner_domains, context=context)
@@ -482,6 +485,7 @@ class membership_request(orm.Model):
 
         firstname = vals.get('firstname', False)
         lastname = vals.get('lastname', False)
+        birth_date = vals.get('birth_date', False)
         day = vals.get('day', False)
         month = vals.get('month', False)
         year = vals.get('year', False)
@@ -498,7 +502,8 @@ class membership_request(orm.Model):
         country_id = vals.get('country_id', False)
         partner_id = vals.get('partner_id', False)
 
-        birth_date = self.get_birth_date(cr, uid, day, month, year, context=False)
+        if not birth_date:
+            birth_date = self.get_birth_date(cr, uid, day, month, year, context=context)
 
         if mobile or phone:
             if mobile:
@@ -510,7 +515,7 @@ class membership_request(orm.Model):
         if email:
             email = self.get_format_email(cr, uid, email, context=context)
         if not partner_id:
-            partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=False)
+            partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=context)
 
         technical_name = self.get_technical_name(cr, uid, address_local_street_id, address_local_zip_id, \
                                                  number, box, town_man, street_man, zip_man, country_id, context=context)
