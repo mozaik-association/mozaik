@@ -144,6 +144,8 @@ class res_partner(orm.Model):
             year = datas[0]
 
         values = {
+            'membership_state_id': partner.membership_state_id and partner.membership_state_id.id  or False,
+            'identifier': partner.identifier,
             'lastname': partner.lastname,
             'firstname': partner.firstname,
             'gender': partner.gender,
@@ -181,7 +183,7 @@ class res_partner(orm.Model):
         membership_request_obj = self.pool['membership.request']
         context['mode'] = 'ws'
         membership_request_id = membership_request_obj.create(cr, uid, values, context=context)
-        return membership_request_obj.display_object_in_form_view(cr, uid, membership_request_id, context=None)
+        return membership_request_obj.display_object_in_form_view(cr, uid, membership_request_id, context=context)
 
 # orm methods
 

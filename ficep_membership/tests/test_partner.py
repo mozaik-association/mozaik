@@ -30,6 +30,7 @@ import uuid
 from openerp import netsvc
 from datetime import date
 import logging
+from openerp.addons.ficep_membership import membership_request
 
 
 wf_service = netsvc.LocalService("workflow")
@@ -59,9 +60,11 @@ class test_partner(SharedSetupTransactionCase):
     def setUp(self):
         super(test_partner, self).setUp()
 
+        self.mr_obj = self.registry('membership.request')
+        membership_request._set_disable_rollback_for_test(True)
+
         self.partner_obj = self.registry('res.partner')
         self.ms_obj = self.registry('membership.state')
-        self.mr_obj = self.registry('membership.request')
         self.ml_obj = self.registry('membership.membership_line')
 
         self.rec_partner = self.browse_ref('%s.res_partner_thierry' % self._module_ns)
@@ -266,7 +269,8 @@ class test_partner(SharedSetupTransactionCase):
             day = datas[2]
             month = datas[1]
             year = datas[0]
-
+        self.assertEqual(mr.membership_state_id, partner.membership_state_id, '[memb.req.]membership_state_id should be the same that [partner]membership_state_id ')
+        self.assertEqual(mr.identifier, partner.identifier, '[memb.req.]identifier should be the same that [partner]identifier ')
         self.assertEqual(mr.lastname, partner.lastname, '[memb.req.]lastname should be the same that [partner]lastname ')
         self.assertEqual(mr.firstname, partner.firstname, '[memb.req.]firstname should be the same that [partner]firstname ')
         self.assertEqual(mr.gender, partner.gender, '[memb.req.]gender should be the same that [partner]gender ')

@@ -31,6 +31,7 @@ from uuid import uuid4
 from anybox.testing.openerp import SharedSetupTransactionCase
 
 from openerp.addons.ficep_address.address_address import COUNTRY_CODE
+from openerp.addons.ficep_membership import membership_request
 
 _logger = logging.getLogger(__name__)
 
@@ -59,6 +60,7 @@ class test_membership(SharedSetupTransactionCase):
     def setUp(self):
         super(test_membership, self).setUp()
         self.mro = self.registry('membership.request')
+        membership_request._set_disable_rollback_for_test(True)
         self.mrs = self.registry('membership.state')
 
         self.rec_partner = self.browse_ref('%s.res_partner_thierry' % self._module_ns)
@@ -77,7 +79,7 @@ class test_membership(SharedSetupTransactionCase):
         Test that input values to create a ``membership.request``
         are found and matched with existing data
         """
-        cr, uid = self.cr, self.uid
+        cr, uid, context = self.cr, self.uid, {}
 
         input_values = {
             'lastname': self.rec_partner.lastname,
@@ -95,7 +97,7 @@ class test_membership(SharedSetupTransactionCase):
             'mobile': self.rec_phone.phone_id.name,
         }
 
-        output_values = self.mro.pre_process(cr, uid, input_values)
+        output_values = self.mro.pre_process(cr, uid, input_values, context=context)
         self.assertEqual(output_values.get('mobile_id', False), self.rec_phone.phone_id.id, 'Should have the same phone that the phone of the phone coordinate')
         self.assertEqual(output_values.get('partner_id', False), self.rec_partner.id, 'Should have the same partner')
 

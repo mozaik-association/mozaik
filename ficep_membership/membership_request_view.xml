@@ -24,7 +24,8 @@
                         domain="[('active','=',False)]" help="Exprired Requests" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Requests, expired or not" />
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]"
+                        help="All Requests, expired or not" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="ste" string="State" domain="[]"
@@ -46,7 +47,7 @@
                     <field name="request_status" />
 
                     <field name="expire_date"
-                           invisible="context.get('invisible_expire_date', True)" />
+                        invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
@@ -66,133 +67,147 @@
                                 attrs="{'invisible': [('state', '!=', 'draft')]}"
                                 string="Confirm" type="object"
                                 confirm="Confirm Membership Request: proceed anyway?"
-                                groups="ficep_base.ficep_res_groups_user"/>
+                                groups="ficep_base.ficep_res_groups_user" />
 
                             <!-- Validate or Cancel State -->
                             <button name="validate_request"
                                 attrs="{'invisible': [('state', '!=', 'confirm')]}"
                                 string="Validate" type="object"
                                 confirm="Validate Membership Request: proceed anyway?"
-                                groups="ficep_base.ficep_res_groups_officer"/>
+                                groups="ficep_base.ficep_res_groups_officer" />
                             <button name="cancel_request" string="Cancel"
                                 attrs="{'invisible': [('state', '!=', 'confirm')]}"
                                 type="object"
                                 confirm="Cancel Membership Request: proceed anyway?"
-                                groups="ficep_base.ficep_res_groups_officer"/>
+                                groups="ficep_base.ficep_res_groups_officer" />
 
                         </span>
                         <field name="state" widget="statusbar"
-                               statusbar_visible="draft,confirm,validate" />
+                            statusbar_visible="draft,confirm,validate" />
                     </header>
                     <sheet>
                         <div class="oe_right oe_button_box" name="buttons"
                             invisible="context.get('popup')">
                         </div>
-
-                        <group>
-                            <group name="partner">
-                                <group name="lastname">
-                                    <field name="lastname"
-                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
-                                </group>
-                                <group>
-                                    <field name="firstname"
-                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
-                                </group>
-                                <group>
-                                    <field name="email"
-                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
-                                </group>
-                                <group>
-                                    <field name="gender" />
-                                </group>
-                                <group>
-                                    <field name="day"
-                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
-                                    <field name="month"
-                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
-                                    <field name="year"
-                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
-                                </group>
-                                <group></group>
-                                <group>
-                                    <field name="request_status"
-                                        on_change="onchange_partner_id(request_status, partner_id)" />
-                                    <field name="membership_state_id"
-                                        readonly="1" />
-                                </group>
-                                <group>
-                                    <field name="product_id" attrs="{'invisible':[('request_status','!=','m')],
-                                                                     'required':[('request_status','=','m')]}" />
-                                    <field name="resulting_status" readonly="1" />
-                                </group>
-                                <group>
-                                    <field name="interests" />
-                                </group>
-                                <group>
-                                    <field name="competencies" />
-                                </group>
-                                <group>
-                                    <field name="country_id"
-                                        on_change="onchange_country_id(address_local_street_id, address_local_zip_id,
-                                                   number, box, town_man, street_man, zip_man, country_id)" />
-                                </group>
-                                <group></group>
-                                <group>
-                                    <field name="address_local_zip_id"
-                                        on_change="onchange_local_zip_id(address_local_street_id, address_local_zip_id,
-                                                   number, box, town_man, street_man, zip_man, country_id)"
-                                        attrs="{'invisible': [('country_code','!=', 'BE')],
-                                                'required': [('country_code','=', 'BE')]}" />
-                                    <field name="zip_man"
-                                        on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
-                                                   number, box, town_man, street_man, zip_man, country_id)"
-                                        attrs="{'invisible': [('address_local_zip_id','!=', False)]}" />
-                                    <field name="town_man"
-                                        on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
-                                                   number, box, town_man, street_man, zip_man, country_id)"
-                                        attrs="{'invisible': [('address_local_zip_id','!=', False)]}" />
-                                </group>
-                                <group>
-                                    <field name="address_local_street_id"
-                                        domain="[('local_zip','=',local_zip),('disabled','=',False)]"
-                                        on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
-                                                   number, box, town_man, street_man, zip_man, country_id)"
-                                        attrs="{'invisible': [('country_code','!=', 'BE')]}" />
-                                    <field name="street_man"
-                                        on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
-                                                   number, box, town_man, street_man, zip_man, country_id)"
-                                        attrs="{'invisible': [('address_local_street_id','!=', False)]}" />
-                                    <field name="street2" />
-                                </group>
-                                <group>
-                                    <field name="number"
-                                        on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
-                                                   number, box, town_man, street_man, zip_man, country_id)" />
-                                    <field name="box"
-                                        on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
-                                                   number, box, town_man, street_man, zip_man, country_id)" />
-                                    <field name="sequence" />
-
-                                </group>
-                                <group>
-                                    <field name="phone"
-                                        on_change="onchange_phone(phone)" />
-                                    <field name="mobile"
-                                        on_change="onchange_mobile(mobile)" />
-                                </group>
-                                <group>
-                                    <field name="note" />
-                                </group>
+                        <h3 attrs="{'invisible': [('id', '=', False)]}">
+                            <label string="#" />
+                            <field name="identifier" readonly="1"
+                                attrs="{'invisible': [('identifier', '=', 0)]}"
+                                class="oe_inline" />
+                            <span
+                                attrs="{'invisible':[('partner_id', '!=', False)]}">
+                                NEW
+                            </span>
+                            <span> (
+                                <field name="membership_state_id"
+                                    readonly="1" class="oe_inline"
+                                    attrs="{'invisible':['|',('partner_id', '=', False),
+                                                         ('membership_state_id', '=', False)]}" />
+                                to
+                                <field name="result_type_id"
+                                        readonly="1" class="oe_inline" />
+                                    )
+                            </span>
+                        </h3>
+                        <group name="partner">
+                            <group name="partner_info1">
+                                <field name="lastname"
+                                    on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
+                                <field name="firstname"
+                                    on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
+                            </group>
+                            <group name="request_info">
+                                <field name="request_status"
+                                    on_change="onchange_partner_id(request_status, partner_id)" />
+                                <field name="product_id"
+                                    attrs="{'invisible':[('request_status','!=','m')],
+                                                         'required':[('request_status','=','m')]}" />
                             </group>
                         </group>
-                        <group name="state"
-                            attrs="{'invisible': [('id','=',False)]}">
-                            <group name="validity">
-                                <field name="create_date" />
-                                <field name="expire_date"
-                                    attrs="{'invisible': [('active','=',True)]}" />
+
+                        <group name="partner_more_info">
+                            <group name="gender_bdate">
+                                <group name="split_birth_date"
+                                    col="6" colspan="2">
+                                    <label for="day" string="Birth Date" />
+                                    <field name="day" nolabel="1"
+                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
+                                    <label string="/" />
+                                    <field name="month" nolabel="1"
+                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
+                                    <label string="/" />
+                                    <field name="year" nolabel="1"
+                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
+                                </group>
+                                <group name="gender">
+                                    <field name="gender" />
+                                </group>
                             </group>
+                            <group name="coordinates">
+                                <field name="phone"
+                                    on_change="onchange_phone(phone)" />
+                                <field name="mobile"
+                                    on_change="onchange_mobile(mobile)" />
+                                <field name="email"
+                                    on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
+                            </group>
+                        </group>
+
+                        <group name="address_informations">
+                            <group name="country">
+                                <field name="country_id"
+                                    on_change="onchange_country_id(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)" />
+                            </group>
+                            <group name="city">
+                                <field name="address_local_zip_id"
+                                    on_change="onchange_local_zip_id(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)"
+                                    attrs="{'invisible': [('country_code','!=', 'BE')],
+                                                'required': [('country_code','=', 'BE')]}" />
+                                <field name="zip_man"
+                                    on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)"
+                                    attrs="{'invisible': [('address_local_zip_id','!=', False)]}" />
+                                <field name="town_man"
+                                    on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)"
+                                    attrs="{'invisible': [('address_local_zip_id','!=', False)]}" />
+                            </group>
+                            <group name="streets">
+                                <field name="address_local_street_id"
+                                    domain="[('local_zip','=',local_zip),('disabled','=',False)]"
+                                    on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)"
+                                    attrs="{'invisible': [('country_code','!=', 'BE')]}" />
+                                <field name="street_man"
+                                    on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)"
+                                    attrs="{'invisible': [('address_local_street_id','!=', False)]}" />
+                                <field name="street2" />
+                            </group>
+                            <group name="numbers">
+                                <field name="number"
+                                    on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)" />
+                                <field name="box"
+                                    on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)" />
+                                <field name="sequence" />
+                            </group>
+                        </group>
+
+                        <group name="comp_int">
+                            <group name="competencies">
+                                <field name="competencies" />
+                            </group>
+                            <group name="interests">
+                                <field name="interests" />
+                            </group>
+                        </group>
+
+                        <group name="note">
+                            <field name="note" />
                         </group>
 
                         <notebook groups="ficep_base.ficep_res_groups_officer">
@@ -208,21 +223,26 @@
                                         readonly="1" />
                                 </group>
                             </page>
+                            <page string="Indexation" name="indexation">
+                                <group>
+                                    <field name="competencies_m2m_ids"
+                                        widget="many2many_tags" />
+                                    <field name="interests_m2m_ids"
+                                        widget="many2many_tags" />
+                                </group>
+                                <div class="oe_clear">
+                                    <br />
+                                    <br />
+                                </div>
+                            </page>
                             <page string="Coordinates" name="coordinates">
+                                <group>
+                                    <field name="address_id" />
+                                </group>
                                 <group>
                                     <field name="phone_id" />
                                     <field name="mobile_id" />
                                 </group>
-                                <group>
-                                    <field name="address_id" />
-                                </group>
-                            </page>
-                            <page string="Indexation" name="indexation">
-                                <group>
-                                    <field name="interests_m2m_ids" widget="many2many_tags" />
-                                    <field name="competencies_m2m_ids" widget="many2many_tags" />
-                                </group>
-                                <div class="oe_clear"><br/><br/></div>
                             </page>
                         </notebook>
                     </sheet>
