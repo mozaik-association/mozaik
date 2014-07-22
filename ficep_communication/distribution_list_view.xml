@@ -10,7 +10,10 @@
             <field name="model">distribution.list</field>
             <field name="inherit_id" ref="distribution_list.distribution_list_search" />
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='dst_model_id']" position="after">
+                <xpath expr="//field[@name='dst_model_id']" position="replace"/>
+                <xpath expr="//filter[@name='dst_model']" position="replace"/>
+
+                <xpath expr="//field[@name='name']" position="after">
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expired Coordinates" />
@@ -30,6 +33,10 @@
 
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="active" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='dst_model_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
                 </xpath>
 
                 <!-- No more mass mailing but mass function in our case -->

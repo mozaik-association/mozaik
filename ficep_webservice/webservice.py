@@ -119,10 +119,10 @@ class custom_webservice(orm.Model):
         return res
 
     @web_service
-    def get_uid(self, cr, uid, email, birth_date, context=None):
+    def get_login(self, cr, uid, email, birth_date, context=None):
         partner_obj = self.pool['res.partner']
         try:
-            res = partner_obj.get_uid(cr, SUPERUSER_ID, email, birth_date, context=context)
+            res = partner_obj.get_login(cr, SUPERUSER_ID, email, birth_date, context=context)
         except Exception as e:
             raise WebServiceException(uid, "User's UID", 'ERROR CONNECT', e.message)
         return res

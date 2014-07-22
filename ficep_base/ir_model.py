@@ -80,7 +80,7 @@ class ir_model_data(orm.Model):
         Returns (model, res_id) corresponding to the given (module, xml_id) couple or, if not found,
         to the alternative given couple
         """
-        alts = alts or []
+        alts = alts or ()
 
         for alt in alts:
             try:

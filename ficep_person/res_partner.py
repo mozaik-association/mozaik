@@ -374,30 +374,32 @@ class res_partner(orm.Model):
 
         return False
 
-    def get_uid(self, cr, uid, email, birth_date, context=None):
+    def get_login(self, cr, uid, email, birth_date, context=None):
         """
-        =======
-        get_uid
-        =======
-        Try to find a user uid by searching first email of an existing partner.
-        If the found user is only into the portal group then retrun uid
+        =========
+        get_login
+        =========
+        Try to find a user login by searching first email of an existing partner.
+        If the found user is only into the portal group then retrun login
         If the partner has no user then create it into the portal user group
         All other cases return 0
         :type email: char
         :param email: partner's email to search on
         :type birth_date: char
         :param birth_date: partner's birth_date to search on
-        :rtype: integer
-        :rparam: id or 0
+        :rtype: char
+        :rparam: login or ''
         """
         res_uid = 0
+        returned_data = ''
+        user_obj = self.pool['res.users']
         if context is None:
             context = {}
         partner_ids = self.search(cr, uid, [('birth_date', '=', birth_date),
                                             ('email', '=', email),
                                             ('is_company', '=', False)], context=context)
         if len(partner_ids) != 1:
-            return res_uid
+            return returned_data
         partner_id = partner_ids[0]
         user_ids = self.pool['res.users'].search(cr, uid, [('partner_id', '=', partner_id)], context=context)
 
@@ -408,14 +410,16 @@ class res_partner(orm.Model):
             wiz_id = wiz_obj.create(cr, uid, {'portal_only': True}, context=ctx)
             res_uid = wiz_obj.create_user_from_partner(cr, uid, [wiz_id], context=ctx)
         else:
-            user = self.pool['res.users'].browse(cr, uid, user_ids[0], context=context)
+            user = user_obj.browse(cr, uid, user_ids[0], context=context)
             if len(user.groups_id) != 1:
-                return res_uid
+                return returned_data
             _, group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'base', 'group_portal')
             if user.groups_id[0].id != group_id:
-                return res_uid
+                return returned_data
             res_uid = user.id
 
-        return res_uid
+        if res_uid:
+            return user_obj.read(cr, uid, res_uid, ['login'], context=context)['login']
+        return ''
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -25,25 +25,32 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import logging
+from anybox.testing.openerp import SharedSetupTransactionCase
 
-from openerp.osv import orm
+
+_logger = logging.getLogger(__name__)
 
 
-class res_partner(orm.Model):
+class test_product(SharedSetupTransactionCase):
 
-    _inherit = 'res.partner'
+    _module_ns = 'ficep_membership'
 
-    # Do not launch workflow if not yet ready for
-    _enable_wkf = False
+    def setUp(self):
+        super(test_product, self).setUp()
 
-# orm methods
+        self.model_product = self.registry('product.product')
 
-    def create_workflow(self, cr, uid, ids, context=None):
+    def test_get_default_subscription(self):
         """
-        Do not launch workflow if not yet ready for
+        =============================
+        test_get_default_subscription
+        =============================
+        Test that there is a default subscription.
+        Required for right behavior of the request membership management
         """
-        if self._enable_wkf:
-            return super(res_partner, self).create_workflow(cr, uid, ids, context=context)
-        return True
+        cr, uid, context = self.cr, self.uid, {}
+        default_id = self.model_product._get_default_subscription(cr, uid, context=context)
+        self.assertTrue(default_id, "Seems like 'default subscription' product has been deleting")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

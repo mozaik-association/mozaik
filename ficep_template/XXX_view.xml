@@ -130,8 +130,7 @@
             <field name="arch" type="xml">
                 <form string="XXX" version="7.0">
                     <header>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                        <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
                              groups="ficep_base.ficep_res_groups_user"><!-- or configurator -->
                             <button name="action_invalidate" string="Invalidate" type="object"
@@ -140,7 +139,8 @@
                                     attrs="{'invisible': [('is_main','=',True)]}"
                                     context="{'invalidate': True}"
                                     confirm="Set this coordinate as main and invalidate the previous one: proceed anyway?" />
-                        </div>
+                        </span>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">

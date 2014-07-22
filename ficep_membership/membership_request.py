@@ -53,6 +53,13 @@ MEMBERSHIP_REQUEST_TYPE = [
     ('s', 'Supporter'),
 ]
 membership_request_type = dict(MEMBERSHIP_REQUEST_TYPE)
+#do not rollback during tests (no savepoint)
+_ROLLBACK_DISABLED_FOR_TESTS = False
+
+
+def _set_disable_rollback_for_test(is_disabled):
+    global _ROLLBACK_DISABLED_FOR_TESTS
+    _ROLLBACK_DISABLED_FOR_TESTS = is_disabled
 
 
 class membership_request(orm.Model):
@@ -66,6 +73,7 @@ class membership_request(orm.Model):
     _description = 'Membership Request'
 
     _columns = {
+        'identifier': fields.integer('Identifier'),
         'lastname': fields.char('Lastname', required=True, track_visibility='onchange'),
         'firstname': fields.char('Firstname', track_visibility='onchange'),
         'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES, 'Status', track_visibility='onchange'),
@@ -81,7 +89,7 @@ class membership_request(orm.Model):
         'request_status': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Request Status', track_visibility='onchange'),
         # current status related to the associated partner
         'membership_state_id': fields.many2one('membership.state', 'Current Status', track_visibility='onchange'),
-        'resulting_status': fields.text('Resulting status'),
+        'result_type_id': fields.many2one('membership.state', 'Result Type', track_visibility='onchange'),
         'product_id': fields.many2one('product.product', string="Subscription", select=True,
                                            track_visibility='onchange', domain=[('membership', '=', True)]),
 
@@ -110,7 +118,7 @@ class membership_request(orm.Model):
         'interests': fields.text(string='Interests'),
         'competencies': fields.text(string='Competencies'),
 
-        'partner_id': fields.many2one('res.partner', 'Partner', ondelete='restrict'),
+        'partner_id': fields.many2one('res.partner', 'Partner', ondelete='restrict', domain="[('membership_state_id', '!=', False)]"),
         'interests_m2m_ids': fields.many2many('thesaurus.term', 'membership_request_interests_rel',
                                               id1='membership_id', id2='thesaurus_term_id', string='Interests'),
         'competencies_m2m_ids': fields.many2many('thesaurus.term', 'membership_request_competence_rel',
@@ -203,7 +211,7 @@ class membership_request(orm.Model):
         if is_update:
             return values
 
-        partner_id = self.get_partner_id(cr, uid, birth_date, firstname, lastname, email, context=context)
+        partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=context)
         values['value'].update({
             'partner_id': partner_id,
         })
@@ -229,13 +237,13 @@ class membership_request(orm.Model):
         interests_ids = []
         competencies_ids = []
         int_instance_id = False
+        identifier = False
         if partner_id:
             res_partner_obj = self.pool['res.partner']
             partner = res_partner_obj.browse(cr, uid, partner_id, context=context)
-
             # take current status of partner
             partner_status_id = partner.membership_state_id and partner.membership_state_id.id or False
-
+            identifier = partner.identifier
             interests_ids = partner.interests_m2m_ids and ([interest.id for interest in partner.interests_m2m_ids]) or False
             competencies_ids = partner.competencies_m2m_ids and ([competence.id for competence in partner.competencies_m2m_ids]) or False
             int_instance_id = partner.int_instance_id and partner.int_instance_id.id or False
@@ -246,11 +254,12 @@ class membership_request(orm.Model):
         ctx['rollback'] = True
         partner_data = partner_id and {} or {'lastname': '%s' % uuid.uuid4()}
         #(status,partner_id)
-        resulting_status = self.get_partner_preview(cr, uid, request_status, partner_id, partner_data, context=ctx)[0]
+        result_type_id = self.get_partner_preview(cr, uid, request_status, partner_id, partner_data, context=ctx)[0]
 
         res_value['value'] = {
+            'identifier': identifier,
             'membership_state_id': partner_status_id,
-            'resulting_status': resulting_status,
+            'result_type_id': result_type_id,
             'int_instance_id': int_instance_id,
             'interests_m2m_ids': interests_ids and [[6, False, interests_ids]] or interests_ids,
             'competencies_m2m_ids': competencies_ids and [[6, False, competencies_ids]] or competencies_ids,
@@ -283,9 +292,9 @@ class membership_request(orm.Model):
 
     def get_partner_preview(self, cr, uid, request_status, partner_id=False, partner_datas={}, context=None):
         """
-        ====================
-        get_resulting_status
-        ====================
+        ==================
+        get_result_type_id
+        ==================
         Try to advancing workflow of partner
         If no partner then create one.
         :type context: {}
@@ -306,15 +315,16 @@ class membership_request(orm.Model):
         if not partner_id:
             partner_id = partner_obj.create(cr, uid, partner_datas, context=None)
             partner_datas = {}
-        status = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][1]
+        type_id = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][0]
         vals = self.get_status_values(cr, uid, request_status, context=context)
         if vals:
             partner_obj.write(cr, uid, partner_id, vals, context=context)
-            status = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][1]
+            type_id = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][0]
 
-        if context.get('rollback', False):
-            cr.rollback()
-        return status, partner_id
+        if not _ROLLBACK_DISABLED_FOR_TESTS:
+            if context.get('rollback', False):
+                cr.rollback()
+        return type_id, partner_id
 
     def get_status_values(self, cr, uid, request_status, context=None):
         """
@@ -373,8 +383,11 @@ class membership_request(orm.Model):
                        % (birth_date, email, firstname, lastname))
         if email:
             partner_domains.append("[('is_company', '=', False),('email', '=', '%s')]" % (email))
-        if firstname and lastname:
-            partner_domains.append("[('is_company', '=', False),('firstname', 'ilike', '%s'),('lastname', 'ilike', '%s')]" % (firstname, lastname))
+        if lastname:
+            if firstname:
+                partner_domains.append("[('is_company', '=', False),('firstname', 'ilike', '%s'),('lastname', 'ilike', '%s')]" % (firstname, lastname))
+            else:
+                partner_domains.append("[('is_company', '=', False),('lastname', 'ilike', '%s')]" % (firstname, lastname))
 
         partner_id = False
         virtual_partner_id = self.persist_search(cr, uid, partner_obj, partner_domains, context=context)
@@ -482,9 +495,12 @@ class membership_request(orm.Model):
 
         firstname = vals.get('firstname', False)
         lastname = vals.get('lastname', False)
+        birth_date = vals.get('birth_date', False)
         day = vals.get('day', False)
         month = vals.get('month', False)
         year = vals.get('year', False)
+        identifier = vals.get('identifier', False)
+        membership_state_id = vals.get('membership_state_id', False)
         email = vals.get('email', False)
         mobile = vals.get('mobile', False)
         phone = vals.get('phone', False)
@@ -495,10 +511,14 @@ class membership_request(orm.Model):
         town_man = vals.get('town_man', False)
         street_man = vals.get('street_man', False)
         zip_man = vals.get('zip_man', False)
+
         country_id = vals.get('country_id', False)
         partner_id = vals.get('partner_id', False)
+        result_type_id = vals.get('result_type_id', False)
+        request_status = vals.get('request_status', False)
 
-        birth_date = self.get_birth_date(cr, uid, day, month, year, context=False)
+        if not birth_date:
+            birth_date = self.get_birth_date(cr, uid, day, month, year, context=context)
 
         if mobile or phone:
             if mobile:
@@ -510,17 +530,31 @@ class membership_request(orm.Model):
         if email:
             email = self.get_format_email(cr, uid, email, context=context)
         if not partner_id:
-            partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=False)
+            partner_id = self.get_partner_id(cr, uid, birth_date, lastname, firstname, email, context=context)
 
         technical_name = self.get_technical_name(cr, uid, address_local_street_id, address_local_zip_id, \
                                                  number, box, town_man, street_man, zip_man, country_id, context=context)
 
+        if partner_id:
+            partner = self.pool['res.partner'].browse(cr, uid, partner_id, context=context)
+            identifier = partner.identifier
+            membership_state_id = partner.membership_state_id and partner.membership_state_id.id or False
+
+        if not result_type_id:
+            context['rollback'] = True
+            temp_name = '%s' % uuid.uuid4()
+            result_type_id = self.get_partner_preview(cr, uid, request_status, partner_id, {'lastname': temp_name}, context=context)[0]
+
         # update vals dictionary because some inputs may have changed (and new values too)
         vals.update({
+            'identifier': identifier,
+            'membership_state_id': membership_state_id,
             'partner_id': partner_id,
             'lastname': lastname,
             'firstname': firstname,
+            'result_type_id': result_type_id,
             'birth_date': birth_date,
+
             'day': day,
             'month': month,
             'year': year,
