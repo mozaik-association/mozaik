@@ -343,26 +343,26 @@ class test_res_partner(SharedSetupTransactionCase):
         sequence_id = self.registry('ir.model.data').get_object_reference(self.cr, self.uid, 'ficep_person', 'identifier_res_partner_seq')
         self.assertEqual(self.registry('ir.sequence').next_by_id(self.cr, self.uid, sequence_id[1]), str(identifier + 1))
 
-    def test_get_uid(self):
+    def test_get_login(self):
         """
-        ============
-        test_get_uid
-        ============
-        * Try to get uid with an email an a birth date unknown
+        ==============
+        test_get_login
+        ==============
+        * Try to get login with an email an a birth date unknown
             ** Check that we receive 0 because no partner found
         * Create a partner with the previous email/birth_date
-        * Re-Try to get uid with same email and birth_date
-            ** Check that uid is uid of a created user
+        * Re-Try to get login with same email and birth_date
+            ** Check that login is login of a created user
             ** Check that the partner of this user has an identical partner_id
                 that the created partner
             ** Check that user's group is only portal group
-        * Re-try to get uid with same email and birth_date
-            ** Check that uid is the same that before
+        * Re-try to get login with same email and birth_date
+            ** Check that login is the same that before
         * Create a partner with same email and same birth_date
-        * Re-try to get uid with same email and same birth_date
-            ** Check that uid is 0 because partner search is ambiguous
+        * Re-try to get login with same email and same birth_date
+            ** Check that login is '' because partner search is ambiguous
         * Add groups to the created user
-            ** Check that uid is 0 because only portal user are admit
+            ** Check that login is '' because only portal user are admit
         Create a partner with an email and a birth date
         """
         cr, uid = self.cr, self.uid
@@ -373,23 +373,24 @@ class test_res_partner(SharedSetupTransactionCase):
         name = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
         email = '%s@tst.te' % name
         birth_date = '1492-10-12'
-        BAD_UID = 'Bad received UID'
+        BAD_LOGIN = 'Bad received LOGIN'
         BAD_GROUP = 'Should be into Portal and only into Portal'
 
         # no partner with this email and this birth_date -> 0
-        self.assertEqual(partner_obj.get_uid(cr, uid, email, birth_date), 0, BAD_UID)
+        self.assertEqual(partner_obj.get_login(cr, uid, email, birth_date), '', BAD_LOGIN)
 
         partner_id = partner_obj.create(cr, uid, {'name': name,
                                                   'email': email,
                                                   'birth_date': birth_date})
-        created_uid = partner_obj.get_uid(cr, uid, email, birth_date)
+        login = partner_obj.get_login(cr, uid, email, birth_date)
 
         #test that user is created
-        self.assertFalse(created_uid == 0, BAD_UID)
+        self.assertFalse(login == '', BAD_LOGIN)
 
         #test that the partner is related to the user as well
-        user = user_obj.browse(cr, uid, created_uid)
-        self.assertEquals(user.partner_id.id, partner_id, BAD_UID)
+        user_ids = user_obj.search(cr, uid, [('login', '=', login)])
+        user = user_obj.browse(cr, uid, user_ids)[0]
+        self.assertEquals(user.partner_id.id, partner_id, BAD_LOGIN)
 
         #test group
         _, group_id = imd_obj.get_object_reference(cr, uid, 'base', 'group_portal')
@@ -397,19 +398,19 @@ class test_res_partner(SharedSetupTransactionCase):
                          user.groups_id[0].id == group_id, BAD_GROUP)
 
         #re-try to find the same
-        duplicated_uid = partner_obj.get_uid(cr, uid, email, birth_date)
-        self.assertEqual(created_uid, duplicated_uid, BAD_UID)
+        duplicated_uid = partner_obj.get_login(cr, uid, email, birth_date)
+        self.assertEqual(login, duplicated_uid, BAD_LOGIN)
         partner_obj.create(cr, uid, {'name': '%s-2' % name,
                                                   'email': email,
                                                   'birth_date': birth_date})
 
         #0 because of two partners are present into the database
-        self.assertTrue(partner_obj.get_uid(cr, uid, email, birth_date) == 0, BAD_UID)
+        self.assertTrue(partner_obj.get_login(cr, uid, email, birth_date) == '', BAD_LOGIN)
 
         _, other_group_id = imd_obj.get_object_reference(cr, uid, 'base', 'group_user')
         user.write({'groups_id': [[4, other_group_id]]})
 
         #0 because this is not only portal group
-        self.assertTrue(partner_obj.get_uid(cr, uid, email, birth_date) == 0, BAD_GROUP)
+        self.assertTrue(partner_obj.get_login(cr, uid, email, birth_date) == '', BAD_GROUP)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

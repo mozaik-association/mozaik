@@ -53,7 +53,7 @@ if sys.argv[4] == '1':
                    'thierry@gmail.com', '0465000000', '061412002', \
                    'Foot, Snowboard')
 elif  sys.argv[4] == '2':
-    METHOD = 'get_uid'
+    METHOD = 'get_login'
     res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 'pauline@gmail.com', '1949-03-29')
 else:
     raise Exception('1 or 2 for available options')
