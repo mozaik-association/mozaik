@@ -35,11 +35,22 @@
             <field name="model">mandate.category</field>
             <field name="inherit_id" ref="ficep_mandate.mandate_category_form_view" />
             <field name="arch" type="xml">
-                 <xpath expr="//field[@name='is_submission_mandate']" position="before">
-                     <field name="invoice_type" attrs="{'invisible' : [('type', '=', 'int')]}"/>
-                     <field name="calculation_method_id" attrs="{'required' : [('invoice_type', '!=', 'none')], 'invisible' : [('type', '=', 'int')]}"/>
-                     <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"
-                            attrs="{'required' : [('invoice_type', '!=', 'none')], 'invisible' : [('type', '=', 'int')]}"/>
+                 <xpath expr="//page[@name='exclusive_categories']" position="after">
+                    <page string="Retrocessions" name="retrocession" autofocus="autofocus">
+                        <group>
+	                        <field name="invoice_type" attrs="{'invisible' : [('type', '=', 'int')]}"/>
+	                        <field name="calculation_method_id" attrs="{'required' : [('invoice_type', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('invoice_type', '=', 'none')]}"/>
+	                        <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"
+	                               attrs="{'required' : [('invoice_type', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('invoice_type', '=', 'none')]}"/>
+	                    </group>
+	                    <separator string="Accounting"/>
+	                    <group>
+	                        <field name ="property_retrocession_account"
+	                               attrs="{'required' : [('invoice_type', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('invoice_type', '=', 'none')]}"/>
+	                        <field name ="property_retrocession_cost_account"
+	                               attrs="{'required' : [('invoice_type', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('invoice_type', '=', 'none')]}"/>
+                        </group>
+                    </page>
                  </xpath>
             </field>
         </record>

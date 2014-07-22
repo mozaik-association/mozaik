@@ -77,6 +77,12 @@ class mandate_category(orm.Model):
         'calculation_method_id': fields.many2one('calculation.method', string='Calculation Method',
                                             select=True, track_visibility='onchange'),
         'invoice_type': fields.selection(INVOICE_AVAILABLE_TYPES, 'Invoicing', required=True, track_visibility='onchange'),
+        'property_retrocession_account': fields.property(type='many2one',
+                                                              relation='account.account',
+                                                              string='Retrocession Account',),
+        'property_retrocession_cost_account': fields.property(type='many2one',
+                                                 relation='account.account',
+                                                 string='Cost Account',),
     }
 
     _defaults = {

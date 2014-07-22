@@ -38,22 +38,53 @@ class wizard_multi_charts_accounts(orm.TransientModel):
     """
     _inherit = 'wizard.multi.charts.accounts'
 
+    def generate_properties(self, cr, uid, chart_template_id, acc_template_ref, company_id, context=None):
+        super(wizard_multi_charts_accounts, self).generate_properties(cr, uid, chart_template_id, acc_template_ref, company_id, context=context)
+
+        property_obj = self.pool.get('ir.property')
+        field_obj = self.pool.get('ir.model.fields')
+        todo_list = [
+            ('property_retrocession_account', 'mandate.category', 'account.account'),
+            ('property_retrocession_cost_account', 'mandate.category', 'account.account'),
+        ]
+        template = self.pool.get('account.chart.template').browse(cr, uid, chart_template_id, context=context)
+        for record in todo_list:
+            account = getattr(template, record[0])
+            value = account and 'account.account,' + str(acc_template_ref[account.id]) or False
+            if value:
+                field = field_obj.search(cr, uid, [('name', '=', record[0]), ('model', '=', record[1]), ('relation', '=', record[2])], context=context)
+                vals = {
+                    'name': record[0],
+                    'company_id': company_id,
+                    'fields_id': field[0],
+                    'value': value,
+                }
+                property_ids = property_obj.search(cr, uid, [('name', '=', record[0]), ('company_id', '=', company_id)], context=context)
+                if property_ids:
+                    #the property exist: modify it
+                    property_obj.write(cr, uid, property_ids, vals, context=context)
+                else:
+                    #create the property
+                    property_obj.create(cr, uid, vals, context=context)
+        return True
+
     def _prepare_all_journals(self, cr, uid, chart_template_id, acc_template_ref, company_id, context=None):
         journal_data = super(wizard_multi_charts_accounts, self)._prepare_all_journals(cr, uid, chart_template_id, acc_template_ref, company_id, context=context)
 
         template = self.pool.get('account.chart.template').browse(cr, uid, chart_template_id, context=context)
         default_debit_account = acc_template_ref.get(template.property_account_receivable.id)
+        default_credit_account = self.pool.get('account.account').search(cr, uid, [('code', '=', '749200'), ('company_id', '=', company_id)], context=context, limit=1)[0]
 
-        default_credit_account = self.pool.get('account.account').search(cr, uid, [('code', '=', '749300'), ('company_id', '=', company_id)], context=context, limit=1)[0]
         vals = {
                 'type': 'sale',
-                'name': 'SUBSCRIPTIONS',
-                'code': 'SUB',
+                'name': 'RETROCESSIONS',
+                'code': 'RETRO',
                 'company_id': company_id,
                 'default_credit_account_id': default_credit_account,
                 'default_debit_account_id': default_debit_account,
                 'update_posted': True,
                 }
+
         journal_data.append(vals)
 
         return journal_data

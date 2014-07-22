@@ -92,7 +92,7 @@
         </record>
         
         <record id="a6504" model="account.account.template">
-            <field name="name">Charges de mandat</field>
+            <field name="name">Mandates costs</field>
             <field name="code">6504</field>
             <field name="type">other</field>
             <field name="user_type" ref="account.data_account_type_expense"/>
