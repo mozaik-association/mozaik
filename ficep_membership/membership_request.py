@@ -25,7 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import uuid
+from uuid import uuid4
 from datetime import date
 from collections import OrderedDict
 
@@ -249,12 +249,9 @@ class membership_request(orm.Model):
             int_instance_id = partner.int_instance_id and partner.int_instance_id.id or False
         else:
             partner_status_id = self.pool['membership.state']._state_default_get(cr, uid, context=context)
-        context = context or {}
-        ctx = context.copy()
-        ctx['rollback'] = True
-        partner_data = partner_id and {} or {'lastname': '%s' % uuid.uuid4()}
+        partner_data = partner_id and {} or {'lastname': '%s' % uuid4()}
         #(status,partner_id)
-        result_type_id = self.get_partner_preview(cr, uid, request_status, partner_id, partner_data, context=ctx)[0]
+        result_type_id = self.get_partner_preview(cr, uid, request_status, partner_id, partner_data, context=context)
 
         res_value['value'] = {
             'identifier': identifier,
@@ -290,7 +287,7 @@ class membership_request(orm.Model):
 
     # public method
 
-    def get_partner_preview(self, cr, uid, request_status, partner_id=False, partner_datas={}, context=None):
+    def get_partner_preview(self, cr, uid, request_status, partner_id=False, partner_datas={'lastname': '%s' % uuid4()}, context=None):
         """
         ==================
         get_result_type_id
@@ -306,15 +303,11 @@ class membership_request(orm.Model):
         :param partner_datas: if no partner id, use this to create a partner
         :rtype: char
         :rparam: next step of partner's workflow depending of `request_status`
-
-        **Warning**
-        partner_data is reset if used
         """
         context = context or {}
         partner_obj = self.pool['res.partner']
         if not partner_id:
             partner_id = partner_obj.create(cr, uid, partner_datas, context=None)
-            partner_datas = {}
         type_id = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][0]
         vals = self.get_status_values(cr, uid, request_status, context=context)
         if vals:
@@ -322,9 +315,8 @@ class membership_request(orm.Model):
             type_id = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][0]
 
         if not _ROLLBACK_DISABLED_FOR_TESTS:
-            if context.get('rollback', False):
-                cr.rollback()
-        return type_id, partner_id
+            cr.rollback()
+        return type_id
 
     def get_status_values(self, cr, uid, request_status, context=None):
         """
@@ -387,7 +379,7 @@ class membership_request(orm.Model):
             if firstname:
                 partner_domains.append("[('is_company', '=', False),('firstname', 'ilike', '%s'),('lastname', 'ilike', '%s')]" % (firstname, lastname))
             else:
-                partner_domains.append("[('is_company', '=', False),('lastname', 'ilike', '%s')]" % (firstname, lastname))
+                partner_domains.append("[('is_company', '=', False),('lastname', 'ilike', '%s')]" % (lastname))
 
         partner_id = False
         virtual_partner_id = self.persist_search(cr, uid, partner_obj, partner_domains, context=context)
@@ -500,7 +492,6 @@ class membership_request(orm.Model):
         month = vals.get('month', False)
         year = vals.get('year', False)
         identifier = vals.get('identifier', False)
-        membership_state_id = vals.get('membership_state_id', False)
         email = vals.get('email', False)
         mobile = vals.get('mobile', False)
         phone = vals.get('phone', False)
@@ -514,8 +505,10 @@ class membership_request(orm.Model):
 
         country_id = vals.get('country_id', False)
         partner_id = vals.get('partner_id', False)
-        result_type_id = vals.get('result_type_id', False)
+
+        membership_state_id = vals.get('membership_state_id', False)
         request_status = vals.get('request_status', False)
+        result_type_id = vals.get('result_type_id', False)
 
         if not birth_date:
             birth_date = self.get_birth_date(cr, uid, day, month, year, context=context)
@@ -539,21 +532,18 @@ class membership_request(orm.Model):
             partner = self.pool['res.partner'].browse(cr, uid, partner_id, context=context)
             identifier = partner.identifier
             membership_state_id = partner.membership_state_id and partner.membership_state_id.id or False
-
-        if not result_type_id:
-            context['rollback'] = True
-            temp_name = '%s' % uuid.uuid4()
-            result_type_id = self.get_partner_preview(cr, uid, request_status, partner_id, {'lastname': temp_name}, context=context)[0]
+            result_type_id = self.get_partner_preview(cr, uid, request_status, partner.id, context=context)
 
         # update vals dictionary because some inputs may have changed (and new values too)
         vals.update({
             'identifier': identifier,
-            'membership_state_id': membership_state_id,
             'partner_id': partner_id,
             'lastname': lastname,
             'firstname': firstname,
-            'result_type_id': result_type_id,
             'birth_date': birth_date,
+
+            'membership_state_id': membership_state_id,
+            'result_type_id': result_type_id,
 
             'day': day,
             'month': month,
@@ -616,6 +606,7 @@ class membership_request(orm.Model):
         content
         In Other cases then create missing required data
         """
+        partner_obj = self.pool['res.partner']
         for mr in self.browse(cr, uid, ids, context=context):
             self._check_product_consistency(cr, uid, mr.request_status, mr.product_id, context=context)
             # partner
@@ -624,20 +615,22 @@ class membership_request(orm.Model):
                 'firstname': mr.firstname,
                 'gender': mr.gender,
                 'birth_date': mr.birth_date,
-                'subscription_product_id': mr.product_id and mr.product_id.id or False,
             }
             partner_id = False
             if mr.partner_id:
                 partner_id = mr.partner_id.id
-            #(status, partner_id) partner_values is reset if partner is created
-            partner_id = self.get_partner_preview(cr, uid, mr.request_status, partner_id, partner_values, context=context)[1]
-            partner = self.pool['res.partner'].browse(cr, uid, [partner_id], context=context)[0]
+            else:
+                partner_id = partner_obj.create(cr, uid, partner_values, context=context)
+                partner_values = {}
+
+            partner = partner_obj.browse(cr, uid, [partner_id], context=context)[0]
 
             new_interests_ids = mr.interests_m2m_ids and ([interest.id for interest in mr.interests_m2m_ids]) or []
-            # competencies
             new_competencies_ids = mr.competencies_m2m_ids and ([competence.id for competence in mr.competencies_m2m_ids]) or []
 
+            partner_values.update(self.get_status_values(cr, uid, mr.request_status, context=context))
             partner_values.update({
+                'subscription_product_id': mr.product_id and mr.product_id.id or False,
                 'competencies_m2m_ids': [[6, False, new_interests_ids]],
                 'interests_m2m_ids': [[6, False, new_competencies_ids]]
             })
@@ -703,6 +696,9 @@ class membership_request(orm.Model):
         self._pop_related(cr, uid, vals, context=context)
 
         return super(membership_request, self).write(cr, uid, ids, vals, context=context)
+
+    def force_commit(self, cr, uid, context=None):
+        cr.commit()
 
     def name_get(self, cr, uid, ids, context=None):
         """
