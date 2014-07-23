@@ -203,7 +203,8 @@
                              groups="ficep_base.ficep_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate Filter: proceed anyway?" />
-                            <button name="get_list_from_domain" type="object" string="See Filter Result" />
+                            <button name="get_list_from_domain" class="oe_read_only"
+                                type="object" string="See Filter Result" />
                         </div>
                     </header>
                 </xpath>
