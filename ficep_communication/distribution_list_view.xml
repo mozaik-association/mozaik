@@ -217,7 +217,8 @@
                                                              'virtual.partner.instance',
                                                              'virtual.partner.mandate',
                                                              'virtual.partner.candidature',
-                                                             'virtual.assembly.instance'])]</attribute>
+                                                             'virtual.assembly.instance',
+                                                             'virtual.partner.retrocession'])]</attribute>
                 </xpath>
 
                 <xpath expr="//button[@name='action_partner_selection']" position="attributes">
