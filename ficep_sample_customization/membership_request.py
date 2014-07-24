@@ -25,7 +25,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm
 
-from . import membership_request
+
+class membership_request(orm.Model):
+
+    _inherit = 'membership.request'
+
+    def force_commit(self, cr, uid, context=None):
+        cr.commit()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

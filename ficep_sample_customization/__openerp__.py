@@ -61,6 +61,7 @@ FICEP Sample Customization
          '../ficep_membership/tests/data/structure_address_data.xml',
          '../ficep_mandate/tests/data/mandate_data.xml',
          '../ficep_retrocession/tests/data/retrocession_data.xml',
+         'demo/membership_request_demo.xml',
          '../ficep_membership/tests/data/membership_request_data.xml',
          '../ficep_communication/tests/data/communication_data.xml',
          '../ficep_communication/tests/data/postal_mail_data.xml',

@@ -98,15 +98,16 @@
                                 attrs="{'invisible':[('partner_id', '!=', False)]}">
                                 NEW
                             </span>
-                            <span> (
+                            <span
+                                attrs="{'invisible':['|',('partner_id', '=', False),
+                                                        ('membership_state_id', '=', False)]}">
+                                (
                                 <field name="membership_state_id"
-                                    readonly="1" class="oe_inline"
-                                    attrs="{'invisible':['|',('partner_id', '=', False),
-                                                         ('membership_state_id', '=', False)]}" />
+                                    readonly="1" class="oe_inline" />
                                 to
                                 <field name="result_type_id"
-                                        readonly="1" class="oe_inline" />
-                                    )
+                                    readonly="1" class="oe_inline" />
+                                )
                             </span>
                         </h3>
                         <group name="partner">
