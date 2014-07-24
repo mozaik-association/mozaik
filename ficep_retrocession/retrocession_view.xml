@@ -455,6 +455,7 @@
                                                   'search_default_all': True}" />
                                <field name="calculation_rule_ids" attrs="{'invisible': [('active', '=', False)]}">
                                    <tree version="7.0" editable="bottom">
+                                       <field name="sequence" widget="handle"/>
                                        <field name="name"/>
                                        <field name="type"/>
                                        <field name="is_deductible"/>
@@ -518,6 +519,7 @@
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
                         <group name="data">
+                            <field name="sequence"/>
                             <field name="type"/>
                             <field name="percentage"/>
                             <field name="is_deductible"/>

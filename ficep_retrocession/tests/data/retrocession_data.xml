@@ -51,6 +51,7 @@
             <field name="calculation_method_id" ref="cm_sample_01"/>
             <field name="type">fixed</field>
             <field name="percentage">2.15</field>
+            <field name="sequence">1</field>
         </record>
 
         <record id="cr_sample_02" model="calculation.rule">
@@ -58,6 +59,7 @@
             <field name="calculation_method_id" ref="cm_sample_01"/>
             <field name="type">fixed</field>
             <field name="percentage">1.25</field>
+            <field name="sequence">2</field>
         </record>
 
         <record id="cr_sample_03" model="calculation.rule">
@@ -65,6 +67,7 @@
             <field name="calculation_method_id" ref="cm_sample_01"/>
             <field name="type">variable</field>
             <field name="percentage">0.75</field>
+            <field name="sequence">3</field>
         </record>
 
         <record id="cr_sample_04" model="calculation.rule">
@@ -72,6 +75,7 @@
             <field name="calculation_method_id" ref="cm_sample_02"/>
             <field name="type">fixed</field>
             <field name="percentage">2.00</field>
+            <field name="sequence">1</field>
         </record>
 
         <record id="cr_sample_05" model="calculation.rule">
@@ -79,6 +83,7 @@
             <field name="calculation_method_id" ref="cm_sample_03"/>
             <field name="type">fixed</field>
             <field name="percentage">4.00</field>
+            <field name="sequence">1</field>
         </record>
         
         <record id="cr_sample_06" model="calculation.rule">
@@ -87,6 +92,7 @@
             <field name="type">variable</field>
             <field name="percentage">100</field>
             <field name="is_deductible" eval="1"/>
+            <field name="sequence">4</field>
         </record>
 
         <!-- Update assemblies -->

@@ -248,6 +248,7 @@ class calculation_rule(orm.Model):
 
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
+        'sequence': fields.integer('Sequence'),
         'type': fields.selection(CALCULATION_RULE_AVAILABLE_TYPES, 'Amount Type', required=True, track_visibility='onchange'),
         'calculation_method_id': fields.many2one('calculation.method', 'Calculation Method', select=True),
         'retrocession_id': fields.many2one('retrocession', 'Retrocession', select=True),
@@ -263,7 +264,7 @@ class calculation_rule(orm.Model):
         'type': 'variable',
         'is_deductible': False,
     }
-    _order = 'calculation_method_id, name'
+    _order = 'calculation_method_id, sequence, name'
 
 # constraints
 
