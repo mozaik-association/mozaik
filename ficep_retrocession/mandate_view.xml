@@ -36,7 +36,8 @@
             <field name="inherit_id" ref="ficep_mandate.mandate_category_form_view" />
             <field name="arch" type="xml">
                  <xpath expr="//page[@name='exclusive_categories']" position="after">
-                    <page string="Retrocessions" name="retrocession" autofocus="autofocus">
+                    <page string="Retrocessions" name="retrocession" autofocus="autofocus"
+                          attrs="{'invisible': [('type', '=', 'int')]}">
                         <group>
 	                        <field name="retrocession_mode" attrs="{'invisible' : [('type', '=', 'int')]}"/>
 	                        <field name="calculation_method_id" attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
