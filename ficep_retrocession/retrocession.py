@@ -597,7 +597,12 @@ class retrocession(orm.Model):
             if mandate_rec.calculation_method_id:
                 self.pool.get('calculation.method').copy_variable_rules_on_retrocession(cr, uid, mandate_rec.calculation_method_id.id, retro.id, context=context)
 
-            for rule in mandate_rec.calculation_rule_ids:
+            for rule in mandate_rec.rule_ids:
+                data = self.pool['calculation.rule'].get_copy_fields_value(cr, uid, rule)
+                data['retrocession_id'] = retro.id
+                self.pool['calculation.rule'].create(cr, uid, data, context=context)
+
+            for rule in mandate_rec.deductible_rule_ids:
                 data = self.pool['calculation.rule'].get_copy_fields_value(cr, uid, rule)
                 data['retrocession_id'] = retro.id
                 self.pool['calculation.rule'].create(cr, uid, data, context=context)
