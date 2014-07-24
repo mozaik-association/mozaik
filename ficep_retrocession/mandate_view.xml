@@ -260,6 +260,9 @@
            <field name="model">sta.mandate</field>
            <field name="inherit_id" ref="ficep_mandate.sta_mandate_search_view" />
            <field name="arch" type="xml">
+               <xpath expr="//field[@name='legislature_id']" position="after">
+                    <field name="reference"/>
+               </xpath>
                <xpath expr="//filter[@name='expired']" position="before">
                     <filter name="monthly_retrocession" string="Monthly retrocession"
                             domain="[('retrocession_mode','=','month')]" />
@@ -288,6 +291,9 @@
            <field name="model">ext.mandate</field>
            <field name="inherit_id" ref="ficep_mandate.ext_mandate_search_view" />
            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ext_assembly_id']" position="after">
+                    <field name="reference"/>
+               </xpath>
                <xpath expr="//filter[@name='expired']" position="before">
                     <filter name="monthly_retrocession" string="Monthly Retrocession"
                             domain="[('retrocession_mode','=','month')]" />
