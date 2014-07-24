@@ -697,9 +697,6 @@ class membership_request(orm.Model):
 
         return super(membership_request, self).write(cr, uid, ids, vals, context=context)
 
-    def force_commit(self, cr, uid, context=None):
-        cr.commit()
-
     def name_get(self, cr, uid, ids, context=None):
         """
         display name is `lastname firstname`
