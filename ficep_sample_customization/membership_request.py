@@ -33,6 +33,15 @@ class membership_request(orm.Model):
     _inherit = 'membership.request'
 
     def force_commit(self, cr, uid, context=None):
+        """
+        ============
+        force_commit
+        ============
+        Membership Request Creation must launch a `rollback` for technical
+        reason. During installation of demo data of `ficep_sample_customization`
+        making a rollback will crash database. Workaround found with commit before
+        creation of membership.request
+        """
         cr.commit()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
