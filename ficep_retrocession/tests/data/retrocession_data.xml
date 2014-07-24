@@ -80,6 +80,14 @@
             <field name="type">fixed</field>
             <field name="percentage">4.00</field>
         </record>
+        
+        <record id="cr_sample_06" model="calculation.rule">
+            <field name="name">Calculation rule sample 06</field>
+            <field name="calculation_method_id" ref="cm_sample_01"/>
+            <field name="type">variable</field>
+            <field name="percentage">100</field>
+            <field name="is_deductible" eval="1"/>
+        </record>
 
         <!-- Update assemblies -->
 

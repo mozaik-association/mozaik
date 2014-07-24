@@ -169,13 +169,12 @@ class calculation_method(orm.Model):
 
     def copy_fixed_rules_on_mandate(self, cr, uid, method_id, mandate_id, mandate_key, context=None):
         """
-        =================
+        ===========================
         copy_fixed_rules_on_mandate
-        =================
+        ===========================
         copy all fixed linked to method on given mandate
         :rparam: result
         :rtype: Boolean
-        Note: Argument vals must be the last in the signature
         """
         rule_pool = self.pool.get('calculation.rule')
         rule_ids = rule_pool.search(cr, uid, [(mandate_key, '=', mandate_id),
@@ -187,9 +186,7 @@ class calculation_method(orm.Model):
             rule_ids = rule_pool.search(cr, uid, [('calculation_method_id', '=', method_id),
                                                   ('type', '=', 'fixed')], context=context)
             for rule in rule_pool.browse(cr, uid, rule_ids, context=context):
-                data = dict(name=rule.name,
-                            type=rule.type,
-                            percentage=rule.percentage)
+                data = rule_pool.get_copy_fields_value(cr, uid, rule)
                 data[mandate_key] = mandate_id
                 rule_pool.create(cr, uid, data, context=context)
 
@@ -197,22 +194,19 @@ class calculation_method(orm.Model):
 
     def copy_variable_rules_on_retrocession(self, cr, uid, method_id, retrocession_id, context=None):
         """
-        =================
-        copy_fixed_rules_on_mandate
-        =================
-        copy all fixed linked to method on given mandate
+        ===================================
+        copy_variable_rules_on_retrocession
+        ===================================
+        copy all variable rules linked to method on given retrocession
         :rparam: result
         :rtype: Boolean
-        Note: Argument vals must be the last in the signature
         """
         rule_pool = self.pool.get('calculation.rule')
         if method_id:
             rule_ids = rule_pool.search(cr, uid, [('calculation_method_id', '=', method_id),
                                                   ('type', '=', 'variable')], context=context)
             for rule in rule_pool.browse(cr, uid, rule_ids, context=context):
-                data = dict(name=rule.name,
-                            type=rule.type,
-                            percentage=rule.percentage)
+                data = rule_pool.get_copy_fields_value(cr, uid, rule)
                 data['retrocession_id'] = retrocession_id
                 rule_pool.create(cr, uid, data, context=context)
 
@@ -283,6 +277,21 @@ class calculation_rule(orm.Model):
         ('positive_amount', 'check(amount >= 0.0)', 'Amount of rule must be positive.')
     ]
 
+    def get_copy_fields_value(self, cr, uid, rule, context=None):
+        """
+        ==============================
+        _get_rule_to_copy_fields_value
+        ==============================
+        Get dictionary of fields to copy for rule
+        :rparam: dictionary of fields
+        :rtype: dict
+        """
+        return dict(name=rule.name,
+                    type=rule.type,
+                    percentage=rule.percentage,
+                    is_deductible=rule.is_deductible,
+                    amount=rule.amount)
+
 
 class retrocession(orm.Model):
     _name = 'retrocession'
@@ -350,7 +359,7 @@ class retrocession(orm.Model):
         for retro in retrocessions_to_compute:
             res[retro.id] = dict(amount_retrocession=retrocede_amounts[retro.id] or False,
                                  amount_deduction=deductible_amounts[retro.id] or False,
-                                 amount_total=(retrocede_amounts[retro.id] - deductible_amounts[retro.id]))
+                                 amount_total=(retrocede_amounts[retro.id] + deductible_amounts[retro.id]))
         return res
 
     def _need_account_management(self, cr, uid, ids, fname, arg, context=None):
@@ -411,6 +420,26 @@ class retrocession(orm.Model):
         'calculation.rule': (_get_calculation_rule, ['amount', 'percentage'], 20),
     }
 
+    def _get_defaults_account(self, cr, uid, ids, fname, arg, context=None):
+        """
+        ========================
+        _get_defaults_account
+        ========================
+        Return all account needed for accounting moves
+        :rparam: Accounts link
+        :rtype: Many2one
+        """
+        res = {}
+        for retro in self.browse(cr, uid, ids, context=None):
+            if retro.sta_mandate_id:
+                key = "sta_mandate_id"
+            else:
+                key = "ext_mandate_id"
+
+            res[retro.id] = dict(default_credit_account=retro[key].mandate_category_id.property_retrocession_account.id or False,
+                                 default_debit_account=retro[key].mandate_category_id.property_retrocession_cost_account.id or False)
+        return res
+
     def _generate_account_move(self, cr, uid, retrocession, context=None):
         """
         ======================
@@ -440,33 +469,39 @@ class retrocession(orm.Model):
 
         move_vals = move_obj.account_move_prepare(cr, uid, retro_journal.id, date=date_account_move, ref=reference, context=context)
 
-        if retrocession.move_id:
-            move_id = retrocession.move_id.id
-            for line in retrocession.move_id.line_id:
-                if line.account_id.id == retro_journal.default_debit_account_id.id:
-                    vals = {'debit': retrocession.amount_total}
-                else:
-                    vals = {'credit': retrocession.amount_total}
-                move_line_obj.write(cr, uid, line.id, vals, context=context)
+        move_id = move_obj.create(cr, uid, move_vals, context=context)
+
+        line_vals = dict(name=retrocession.unique_id,
+                           partner_id=retrocession.partner_id.id,
+                           account_id=False,
+                           debit=0,
+                           credit=0,
+                           move_id=move_id)
+
+        if retrocession.amount_deduction < 0:
+            line_vals['credit'] = 0
+            line_vals['debit'] = -retrocession.amount_deduction
+            if retrocession.default_debit_account:
+                line_vals['account_id'] = retrocession.default_debit_account.id
+            else:
+                raise orm.except_orm(_('Error!'), _('Please set a retrocession costs account on mandate category.'))
+
+            move_line_obj.create(cr, uid, line_vals)
+
+        line_vals['credit'] = retrocession.amount_retrocession
+        line_vals['debit'] = 0
+        if retrocession.default_credit_account:
+            line_vals['account_id'] = retrocession.default_credit_account.id
         else:
-            move_id = move_obj.create(cr, uid, move_vals, context=context)
-            move_line_obj.create(cr, uid, {
-                                    'name': retrocession.unique_id,
-                                    'partner_id': retrocession.partner_id.id,
-                                    'account_id': retro_journal.default_debit_account_id.id,
-                                    'debit': retrocession.amount_total,
-                                    'credit': 0,
-                                    'move_id': move_id,
-                                    }, context=context)
-            move_line_obj.create(cr, uid, {
-                                    'name': retrocession.unique_id,
-                                    'partner_id': retrocession.partner_id.id,
-                                    'account_id': retro_journal.default_credit_account_id.id,
-                                    'debit': 0,
-                                    'credit': retrocession.amount_total,
-                                    'move_id': move_id,
-                            }, context=context)
-            self.write(cr, uid, retrocession.id, {'move_id': move_id}, context=context)
+            raise orm.except_orm(_('Error!'), _('Please set a retrocession account on mandate category.'))
+        move_line_obj.create(cr, uid, line_vals)
+
+        line_vals['credit'] = 0
+        line_vals['debit'] = retrocession.amount_total
+        line_vals['account_id'] = retro_journal.default_debit_account_id.id
+        move_line_obj.create(cr, uid, line_vals)
+
+        self.write(cr, uid, retrocession.id, {'move_id': move_id}, context=context)
         move_obj.post(cr, uid, [move_id], context=context)
 
     _columns = {
@@ -491,7 +526,9 @@ class retrocession(orm.Model):
         'amount_total': fields.function(_compute_all_amounts, string='Retrocession', multi="Allamounts",
                                         type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
         'move_id': fields.many2one('account.move', 'Journal Entry', select=True),
-        'need_account_management': fields.function(_need_account_management, string='Need accounting management', type='boolean', store=False)
+        'need_account_management': fields.function(_need_account_management, string='Need accounting management', type='boolean', store=False),
+        'default_debit_account': fields.function(_get_defaults_account, string="Default debit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
+        'default_credit_account': fields.function(_get_defaults_account, string="Default credit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
     }
 
     _order = 'year desc, month desc, sta_mandate_id, ext_mandate_id'
@@ -521,8 +558,25 @@ class retrocession(orm.Model):
 
         return True
 
+    def _check_value(self, cr, uid, ids, for_unlink=False, context=None):
+        """
+        =================
+        _check_value
+        =================
+        Check if retrocession amount is positive
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        for retro in self.browse(cr, uid, ids):
+            if retro.state == 'validated' and retro.amount_total < 0:
+                return False
+
+        return True
+
     _constraints = [
-        (_check_unicity, _("A retrocession already exists for this mandate at this period"), ['sta_mandate_id', 'ext_mandate_id'])
+        (_check_unicity, _("A retrocession already exists for this mandate at this period"), ['sta_mandate_id', 'ext_mandate_id']),
+        (_check_value, _("You can not validate a negative retrocession"), ['amount_total'])
     ]
 
     _unicity_keys = 'N/A'
@@ -543,11 +597,8 @@ class retrocession(orm.Model):
                 self.pool.get('calculation.method').copy_variable_rules_on_retrocession(cr, uid, mandate_rec.calculation_method_id.id, retro.id, context=context)
 
             for rule in mandate_rec.calculation_rule_ids:
-                data = dict(retrocession_id=retro.id,
-                            name=rule.name,
-                            type=rule.type,
-                            percentage=rule.percentage,
-                            amount=rule.amount)
+                data = self.pool['calculation.rule'].get_copy_fields_value(cr, uid, rule)
+                data['retrocession_id'] = retro.id
                 self.pool['calculation.rule'].create(cr, uid, data, context=context)
 
         return res
@@ -622,7 +673,7 @@ class retrocession(orm.Model):
                 self.write(cr, uid, retrocession.id, {'unique_id': retro_number}, context=context)
                 retrocession = self.browse(cr, uid, retrocession.id, context=context)
 
-            if retrocession.need_account_management:
+            if retrocession.need_account_management and retrocession.amount_total > 0:
                 self._generate_account_move(cr, uid, retrocession, context)
             # TODO: send report to mandate representative and return its id
         return False
@@ -653,6 +704,7 @@ class retrocession(orm.Model):
         res = super(retrocession, self).action_revalidate(cr, uid, ids, context=context, vals=vals)
         account_move_ids = [retro_data['move_id'][0] for retro_data in self.read(cr, uid, ids, ['move_id'], context=context) if retro_data['move_id']]
         self.pool.get('account.move').button_cancel(cr, uid, account_move_ids, context=context)
+        self.pool.get('account.move').unlink(cr, uid, account_move_ids, context=context)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
