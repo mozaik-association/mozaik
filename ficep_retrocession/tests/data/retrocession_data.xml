@@ -115,12 +115,12 @@
 
         <record id="mc_membre_effectif_ag" model="mandate.category">
             <field name="calculation_method_id" ref ="cm_sample_01"/>
-            <field name="invoice_type">month</field>
+            <field name="retrocession_mode">month</field>
         </record>
 
         <record id="mc_bourgmestre" model="mandate.category">
             <field name="calculation_method_id" ref ="cm_sample_01"/>
-            <field name="invoice_type">year</field>
+            <field name="retrocession_mode">year</field>
         </record>
 
         <!-- Create mandates -->

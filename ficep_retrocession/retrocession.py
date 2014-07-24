@@ -33,7 +33,7 @@ from openerp.tools.translate import _
 from openerp.addons.ficep_base.selections_translator import translate_selections
 import openerp.addons.decimal_precision as dp
 
-from .common import INVOICE_AVAILABLE_TYPES, CALCULATION_METHOD_AVAILABLE_TYPES, CALCULATION_RULE_AVAILABLE_TYPES
+from .common import RETROCESSION_MODES_AVAILABLE, CALCULATION_METHOD_AVAILABLE_TYPES, CALCULATION_RULE_AVAILABLE_TYPES
 
 RETROCESSION_AVAILABLE_STATES = [
     ('draft', 'Open'),
@@ -375,7 +375,7 @@ class retrocession(orm.Model):
         res = {}
         for retro in self.browse(cr, uid, ids, context=context):
             bVal = False
-            if retro.invoice_type != 'none':
+            if retro.retrocession_mode != 'none':
                 if retro.sta_mandate_id:
                     key = 'sta_mandate_id'
                 else:
@@ -388,18 +388,18 @@ class retrocession(orm.Model):
 
         return res
 
-    def _get_invoice_type(self, cr, uid, ids, fname, arg, context=None):
+    def _get_retrocession_mode(self, cr, uid, ids, fname, arg, context=None):
         """
         =================
-        _get_invoice_type
+        _get_retrocession_mode
         =================
-        Get invoice_type linked to mandate
-        :rparam: Invoice type
+        Get retrocession_mode linked to mandate
+        :rparam: retrocession mode
         :rtype: String
         """
         res = {}
         for retrocession in self.browse(cr, uid, ids, context=context):
-            res[retrocession.id] = retrocession.sta_mandate_id.invoice_type if retrocession.sta_mandate_id else retrocession.ext_mandate_id.invoice_type
+            res[retrocession.id] = retrocession.sta_mandate_id.retrocession_mode if retrocession.sta_mandate_id else retrocession.ext_mandate_id.retrocession_mode
         return res
 
     def _get_calculation_rule(self, cr, uid, ids, context=None):
@@ -512,8 +512,8 @@ class retrocession(orm.Model):
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate', select=True),
         'partner_id': fields.function(_get_partner_id, string='Representative',
                                  type='many2one', relation='res.partner', store=False),
-        'invoice_type': fields.function(_get_invoice_type, string='Invoicing',
-                                 type='selection', selection=INVOICE_AVAILABLE_TYPES, store=False),
+        'retrocession_mode': fields.function(_get_retrocession_mode, string='Retrocession Mode',
+                                 type='selection', selection=RETROCESSION_MODES_AVAILABLE, store=False),
         'month': fields.selection(fields.date.MONTHS, 'Month', select=True, track_visibility='onchange'),
         'year': fields.char('Year', size=128, select=True, track_visibility='onchange'),
         'rule_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation Rules', domain=[('active', '=', True), ('is_deductible', '=', False)]),
@@ -639,16 +639,16 @@ class retrocession(orm.Model):
     def onchange_sta_mandate_id(self, cr, uid, ids, sta_mandate_id, context=None):
         res = {}
         if sta_mandate_id:
-            invoice_type = self.pool.get('sta.mandate').read(cr, uid, sta_mandate_id, ['invoice_type'], context=context)['invoice_type']
-            res['value'] = dict(invoice_type=invoice_type or False)
+            retrocession_mode = self.pool.get('sta.mandate').read(cr, uid, sta_mandate_id, ['retrocession_mode'], context=context)['retrocession_mode']
+            res['value'] = dict(retrocession_mode=retrocession_mode or False)
 
         return res
 
     def onchange_ext_mandate_id(self, cr, uid, ids, ext_mandate_id, context=None):
         res = {}
         if ext_mandate_id:
-            invoice_type = self.pool.get('ext.mandate').read(cr, uid, ext_mandate_id, ['invoice_type'], context=context)['invoice_type']
-            res['value'] = dict(invoice_type=invoice_type or False)
+            retrocession_mode = self.pool.get('ext.mandate').read(cr, uid, ext_mandate_id, ['retrocession_mode'], context=context)['retrocession_mode']
+            res['value'] = dict(retrocession_mode=retrocession_mode or False)
 
         return res
 
@@ -661,8 +661,8 @@ class retrocession(orm.Model):
         action_validate
         =================
         Change state of retrocession to 'Validated' and generate account move if needed
-        :rparam: Invoice id
-        :rtype: integer
+        :rparam: False
+        :rtype: Boolean
         """
         self.write(cr, uid, ids, {'state': 'validated'}, context=context)
         # copy fixed rules on retrocession to keep history of calculation basis

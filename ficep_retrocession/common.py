@@ -25,7 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-INVOICE_AVAILABLE_TYPES = [
+RETROCESSION_MODES_AVAILABLE = [
     ('month', 'Monthly'),
     ('year', 'Yearly'),
     ('none', 'None'),

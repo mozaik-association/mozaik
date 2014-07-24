@@ -142,11 +142,11 @@ class test_retrocession(SharedSetupTransactionCase):
 
     def test_retro_instance_on_assemblies(self):
         '''
-            If a mandate category has a invoicing type, all assemblies impacted should have
+            If a mandate category has a retrocession mode, all assemblies impacted should have
             a retrocession management instance specified
         '''
         mandate_category_id = self.ref('%s.sta_assembly_category_11' % self._module_ns)
-        self.assertRaises(orm.except_orm, self.registry('mandate.category').write, self.cr, self.uid, mandate_category_id, {'invoice_type': 'month'})
+        self.assertRaises(orm.except_orm, self.registry('mandate.category').write, self.cr, self.uid, mandate_category_id, {'retrocession_mode': 'month'})
 
     def test_mandate_reference(self):
         '''
@@ -165,10 +165,10 @@ class test_retrocession(SharedSetupTransactionCase):
         mandate_id = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
 
         '''
-            Invoicing type should be monthly
+            Retrocession mode should be monthly
         '''
-        invoicing_type = self.registry('ext.mandate').read(self.cr, self.uid, mandate_id, ['invoice_type'])['invoice_type']
-        self.assertEqual(invoicing_type, 'month')
+        retrocession_mode = self.registry('ext.mandate').read(self.cr, self.uid, mandate_id, ['retrocession_mode'])['retrocession_mode']
+        self.assertEqual(retrocession_mode, 'month')
 
         '''
             Check if fixed rules has been copied from method to mandate
@@ -198,10 +198,10 @@ class test_retrocession(SharedSetupTransactionCase):
         mandate_id = self.ref('%s.stam_jacques_bourgmestre' % self._module_ns)
 
         '''
-            Invoicing type should be yearly
+            Retrocession mode should be yearly
         '''
-        invoicing_type = self.registry('sta.mandate').read(self.cr, self.uid, mandate_id, ['invoice_type'])['invoice_type']
-        self.assertEqual(invoicing_type, 'year')
+        retrocession_mode = self.registry('sta.mandate').read(self.cr, self.uid, mandate_id, ['retrocession_mode'])['retrocession_mode']
+        self.assertEqual(retrocession_mode, 'year')
 
         '''
             Check if fixed rules has been copied from method to mandate

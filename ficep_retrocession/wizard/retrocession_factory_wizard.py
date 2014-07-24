@@ -86,15 +86,15 @@ class retrocession_factory_wizard(orm.TransientModel):
         rejected_ids = []
         yearly_count, yearly_duplicates, monthly_count, monthly_duplicates = 0, 0, 0, 0
         for mandate_data in self.pool[model].read(cr, uid, ids,
-                                                  ['invoice_type', 'end_date', 'deadline_date', 'calculation_method_id'], context=context):
+                                                  ['retrocession_mode', 'end_date', 'deadline_date', 'calculation_method_id'], context=context):
             if mandate_data['end_date'] \
             or mandate_data['deadline_date'] <= fields.date.today() \
-            or mandate_data['invoice_type'] not in ['month', 'year']\
+            or mandate_data['retrocession_mode'] not in ['month', 'year']\
             or not mandate_data['calculation_method_id']:
                 rejected_ids.append(mandate_data['id'])
                 continue
 
-            if mandate_data['invoice_type'] == 'month':
+            if mandate_data['retrocession_mode'] == 'month':
                 duplicate_ids = self.pool.get('retrocession').search(cr, uid, [(mandate_key, '=', mandate_data['id']),
                                                                               ('month', '=', month),
                                                                               ('year', '=', year)], context=context)
@@ -104,7 +104,7 @@ class retrocession_factory_wizard(orm.TransientModel):
                 else:
                     monthly_duplicates += 1
 
-            elif mandate_data['invoice_type'] == 'year':
+            elif mandate_data['retrocession_mode'] == 'year':
                 duplicate_ids = self.pool.get('retrocession').search(cr, uid, [(mandate_key, '=', mandate_data['id']),
                                                                                ('year', '=', year)], context=context)
                 if not duplicate_ids:

@@ -32,7 +32,7 @@
                         <separator name="details" string="Details"/>
                         <table class="oe_form_retrocession">
                             <tr>
-                                <td class="oe_retrocession_grey" width="160px"><label string="Invoicing Method"/></td>
+                                <td class="oe_retrocession_grey" width="160px"><label string="Retrocession Mode"/></td>
                                 <th class="oe_retrocession_grey" width="100px"><label string="#Existing"/></th>
                                 <th class="oe_retrocession_grey" width="100px"><label string="#To Create"/></th>
                             </tr><tr name="yearly">
