@@ -126,7 +126,9 @@
                             domain="[('type', '=', 'variable')]" help="Variable Calculation Rules" />
                     <separator/>
                     <filter name="is_deductible" string="Deductible"
-                            domain="[('is_deductible', '=', 'True')]" help="Deductible Calculation Rules" />
+                            domain="[('is_deductible', '=', True)]" help="Deductible Calculation Rules" />
+                    <filter name="is_not_deductible" string="Non-Deductible"
+                            domain="[('is_deductible', '=', False)]" help="Non-Deductible Calculation Rules" />
                     <separator/>
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
@@ -610,13 +612,13 @@
 
                         <notebook invisible="context.get('popup')">
                             <page string="Rules" name="rules">
-                                <separator string="To retrocede"/>
+                                <separator string="Imputable Rules"/>
                                 <button string="All Details" name="%(calculation_rule_detail_action)d"
                                          type="action" attrs="{'invisible': [('id','=',False)]}"
                                          context="{'search_default_retrocession_id': active_id,
                                                    'default_retrocession_id': active_id,
                                                    'search_default_all': True,
-                                                   'search_default_is_deductible': False}" />
+                                                   'search_default_is_not_deductible': True" />
                                 <field name="rule_ids" attrs="{'invisible': [('active', '=', False)],
                                                                        'readonly': [('state','not in', ['draft'])]}"
                                                                 context="{'default_is_deductible': False}">
@@ -637,7 +639,7 @@
                                         <field name="amount_subtotal" sum="1"/>  
                                     </tree>
                                 </field>                                
-                                <separator string="To deduct"/>
+                                <separator string="Deductible Rules"/>
                                 <button string="All Details" name="%(calculation_rule_detail_action)d"
                                          type="action" attrs="{'invisible': [('id','=',False)]}"
                                          context="{'search_default_retrocession_id': active_id,

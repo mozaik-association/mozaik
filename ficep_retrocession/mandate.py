@@ -259,8 +259,10 @@ class sta_mandate(orm.Model):
                                  type='many2one', relation="calculation.method", select=True, store=_method_id_store_trigger),
         'method_type': fields.related('calculation_method_id', 'type', string='Calculation Method Type', type='selection',
                                        selection=CALCULATION_METHOD_AVAILABLE_TYPES, store=_method_id_store_trigger),
-        'calculation_rule_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Calculation Rules', domain=[('active', '=', True)]),
-        'calculation_rule_inactive_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Calculation Rules', domain=[('active', '=', False)]),
+        'rule_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Imputable Fixed Rules', domain=[('active', '=', True), ('is_deductible', '=', False)]),
+        'rule_inactive_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Imputable Fixed Rules', domain=[('active', '=', False), ('is_deductible', '=', False)]),
+        'deductible_rule_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Deductible Fixed Rules', domain=[('active', '=', True), ('is_deductible', '=', True)]),
+        'deductible_rule_inactive_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Fixed Calculation Rules', domain=[('active', '=', False), ('is_deductible', '=', True)]),
     }
 
     def onchange_sta_assembly_id(self, cr, uid, ids, sta_assembly_id, context=None):
@@ -316,8 +318,10 @@ class ext_mandate(orm.Model):
                                  type='many2one', relation="calculation.method", select=True, store=_method_id_store_trigger),
         'method_type': fields.related('calculation_method_id', 'type', string='Calculation Method Type', type='selection',
                                        selection=CALCULATION_METHOD_AVAILABLE_TYPES, store=_method_id_store_trigger),
-        'calculation_rule_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Calculation Rules', domain=[('active', '=', True)]),
-        'calculation_rule_inactive_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Calculation Rules', domain=[('active', '=', False)]),
+        'rule_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Imputable Fixed Rules', domain=[('active', '=', True), ('is_deductible', '=', False)]),
+        'rule_inactive_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Imputable Fixed Rules', domain=[('active', '=', False), ('is_deductible', '=', False)]),
+        'deductible_rule_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Deductible Fixed Rules', domain=[('active', '=', True), ('is_deductible', '=', True)]),
+        'deductible_rule_inactive_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Fixed Calculation Rules', domain=[('active', '=', False), ('is_deductible', '=', True)]),
     }
 
     def onchange_ext_assembly_id(self, cr, uid, ids, ext_assembly_id, context=None):

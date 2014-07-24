@@ -88,22 +88,56 @@
                             <field name="reference" readonly="1" 
                                    attrs="{'invisible': ['|', ('reference', '=', False), ('retrocession_mode', '=', 'none')]}"/>
                         </group>
-                        <separator string="Fixed Rules"/>
+                        <separator string="Imputable Fixed Rules"/>
                         <button string="All Details" name="%(calculation_rule_detail_action)d"
-                                type="action" attrs="{'invisible': [('id','=',False)]}"
-                                context="{'search_default_sta_mandate_id': active_id,
-                                          'default_sta_mandate_id': active_id,
-                                          'search_default_all': True}" />
-                        <field name="calculation_rule_ids" attrs="{'invisible': [('active', '=', False)]}"
-                               context="{'default_type': 'fixed'}">
+                                 type="action" attrs="{'invisible': [('id','=',False)]}"
+                                 context="{'search_default_sta_mandate_id': active_id,
+                                           'default_sta_mandate_id': active_id,
+                                           'search_default_all': True,
+                                           'search_default_is_not_deductible': True,
+                                           'default_is_deductible': False,
+                                           'default_type': 'fixed'}" />
+                        <field name="rule_ids" attrs="{'invisible': [('active', '=', False)]}" 
+                               context="{'default_type': 'fixed',
+                                         'default_is_deductible': False,
+                                         'default_sta_mandate_id': active_id}">
                             <tree version="7.0" editable="bottom">
                                 <field name="name"/>
                                 <field name="type" invisible="1"/>
                                 <field name="percentage"/>
                                 <field name="amount"/>
+                                <field name="is_deductible" invisible="1"/>
                             </tree>
                         </field>
-                        <field name="calculation_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                        <field name="rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                            </tree>
+                        </field>
+                        <separator string="Deductible Fixed Rules"/>
+                        <button string="All Details" name="%(calculation_rule_detail_action)d"
+                                 type="action" attrs="{'invisible': [('id','=',False)]}"
+                                 context="{'search_default_sta_mandate_id': active_id,
+                                           'default_sta_mandate_id': active_id,
+                                           'search_default_all': True,
+                                           'search_default_is_deductible': True,
+                                           'default_is_deductible': True,
+                                           'default_type': 'fixed'}" />
+                        <field name="deductible_rule_ids" attrs="{'invisible': [('active', '=', False)]}" 
+                               context="{'default_type': 'fixed',
+                                         'default_is_deductible': True,
+                                         'default_sta_mandate_id': active_id}">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="type" invisible="1"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                                <field name="is_deductible" invisible="1"/>
+                            </tree>
+                        </field>
+                        <field name="deductible_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
                             <tree version="7.0" editable="bottom">
                                 <field name="name"/>
                                 <field name="percentage"/>
@@ -148,22 +182,56 @@
                            <field name="reference" readonly="1" 
                                    attrs="{'invisible': ['|', ('reference', '=', False), ('retrocession_mode', '=', 'none')]}"/>
                         </group>
-                        <separator string="Fixed Rules"/>
+                        <separator string="Imputable Fixed Rules"/>
                         <button string="All Details" name="%(calculation_rule_detail_action)d"
                                  type="action" attrs="{'invisible': [('id','=',False)]}"
                                  context="{'search_default_ext_mandate_id': active_id,
                                            'default_ext_mandate_id': active_id,
-                                           'search_default_all': True}" />
-                        <field name="calculation_rule_ids" attrs="{'invisible': [('active', '=', False)]}"
-                               context="{'default_type': 'fixed'}">
+                                           'search_default_all': True,
+                                           'search_default_is_not_deductible': True,
+                                           'default_is_deductible': False,
+                                           'default_type': 'fixed'}" />
+                        <field name="rule_ids" attrs="{'invisible': [('active', '=', False)]}"
+                               context="{'default_type': 'fixed',
+                                         'default_is_deductible': False,
+                                         'default_ext_mandate_id': active_id}">
                             <tree version="7.0" editable="bottom">
                                 <field name="name"/>
                                 <field name="type" invisible="1"/>
                                 <field name="percentage"/>
                                 <field name="amount"/>
+                                <field name="is_deductible" invisible="1"/>
                             </tree>
                         </field>
-                        <field name="calculation_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                        <field name="rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                            </tree>
+                        </field>
+                        <separator string="Deductible Fixed Rules"/>
+                        <button string="All Details" name="%(calculation_rule_detail_action)d"
+                                 type="action" attrs="{'invisible': [('id','=',False)]}"
+                                 context="{'search_default_ext_mandate_id': active_id,
+                                           'default_ext_mandate_id': active_id,
+                                           'search_default_all': True,
+                                           'search_default_is_deductible': True,
+                                           'default_is_deductible': True,
+                                           'default_type': 'fixed'}" />
+                        <field name="deductible_rule_ids" attrs="{'invisible': [('active', '=', False)]}"
+                               context="{'default_type': 'fixed',
+                                         'default_is_deductible': 1,
+                                         'default_ext_mandate_id': active_id}">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="type" invisible="1"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                                <field name="is_deductible" invisible="1"/>
+                            </tree>
+                        </field>
+                        <field name="deductible_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
                             <tree version="7.0" editable="bottom">
                                 <field name="name"/>
                                 <field name="percentage"/>
