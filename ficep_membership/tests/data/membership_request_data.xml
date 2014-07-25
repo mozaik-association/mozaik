@@ -9,7 +9,7 @@
             <field name="gender">f</field>
             <field name="email">pauline_marois@gmail.com</field>
             <field name="birth_date">1949-03-29</field>
-            <field name="request_status">s</field>
+            <field name="request_type">s</field>
             <field name="is_update" eval="1" />
 
             <field name="address_id" ref="address_2" />
@@ -34,7 +34,7 @@
             <field name="firstname">Eden</field>
             <field name="gender">m</field>
             <field name="email">eden.hazard@fifa.eu</field>
-            <field name="request_status">s</field>
+            <field name="request_type">s</field>
 
             <field name="interests_m2m_ids" eval="[[6,False,[ref('term_confirmed_one')]]]"/>
 

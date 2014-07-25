@@ -86,7 +86,7 @@ class membership_request(orm.Model):
         'month': fields.integer('Month'),
         'year': fields.integer('Year'),
         'birth_date': fields.date('Birthdate', track_visibility='onchange'),
-        'request_status': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Request Status', track_visibility='onchange'),
+        'request_type': fields.selection(MEMBERSHIP_REQUEST_TYPE, 'Request Type', track_visibility='onchange'),
         # current status related to the associated partner
         'membership_state_id': fields.many2one('membership.state', 'Current Status', track_visibility='onchange'),
         'result_type_id': fields.many2one('membership.state', 'Result Type', track_visibility='onchange'),
@@ -217,7 +217,7 @@ class membership_request(orm.Model):
         })
         return values
 
-    def onchange_partner_id(self, cr, uid, ids, request_status, partner_id, context=None):
+    def onchange_partner_id(self, cr, uid, ids, request_type, partner_id, context=None):
         """
         ===================
         onchange_partner_id
@@ -251,7 +251,7 @@ class membership_request(orm.Model):
             partner_status_id = self.pool['membership.state']._state_default_get(cr, uid, context=context)
         partner_data = partner_id and {} or {'lastname': '%s' % uuid4()}
         #(status,partner_id)
-        result_type_id = self.get_partner_preview(cr, uid, request_status, partner_id, partner_data, context=context)
+        result_type_id = self.get_partner_preview(cr, uid, request_type, partner_id, partner_data, context=context)
 
         res_value['value'] = {
             'identifier': identifier,
@@ -261,7 +261,7 @@ class membership_request(orm.Model):
             'interests_m2m_ids': interests_ids and [[6, False, interests_ids]] or interests_ids,
             'competencies_m2m_ids': competencies_ids and [[6, False, competencies_ids]] or competencies_ids,
         }
-        if request_status == 'm':
+        if request_type == 'm':
             res_value['value']['product_id'] = False
         return res_value
 
@@ -287,7 +287,7 @@ class membership_request(orm.Model):
 
     # public method
 
-    def get_partner_preview(self, cr, uid, request_status, partner_id=False, partner_datas={'lastname': '%s' % uuid4()}, context=None):
+    def get_partner_preview(self, cr, uid, request_type, partner_id=False, partner_datas={'lastname': '%s' % uuid4()}, context=None):
         """
         ==================
         get_result_type_id
@@ -296,20 +296,20 @@ class membership_request(orm.Model):
         If no partner then create one.
         :type context: {}
         :param context: rollback if contains the key `rollback` set to `True`
-        :type request_status: char
-        :param request_status: m or s (member or supporter)
+        :type request_type: char
+        :param request_type: m or s (member or supporter)
         :type partner_id: integer
         :type partner_data: {}
         :param partner_datas: if no partner id, use this to create a partner
         :rtype: char
-        :rparam: next step of partner's workflow depending of `request_status`
+        :rparam: next step of partner's workflow depending of `request_type`
         """
         context = context or {}
         partner_obj = self.pool['res.partner']
         if not partner_id:
             partner_id = partner_obj.create(cr, uid, partner_datas, context=None)
         type_id = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][0]
-        vals = self.get_status_values(cr, uid, request_status, context=context)
+        vals = self.get_status_values(cr, uid, request_type, context=context)
         if vals:
             partner_obj.write(cr, uid, partner_id, vals, context=context)
             type_id = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][0]
@@ -318,25 +318,25 @@ class membership_request(orm.Model):
             cr.rollback()
         return type_id
 
-    def get_status_values(self, cr, uid, request_status, context=None):
+    def get_status_values(self, cr, uid, request_type, context=None):
         """
         =================
         get_status_values
         =================
-        :type request_status: char
-        :param request_status: m or s for member or supporter.
+        :type request_type: char
+        :param request_type: m or s for member or supporter.
             `False` if not defined
         :rtype: dict
-        :rparam: affected date resulting of the `request_status`
+        :rparam: affected date resulting of the `request_type`
             and the `status`
         """
-        if request_status:
+        if request_type:
             vals = {
                 'accepted_date': date.today().strftime('%Y-%m-%d')
             }
-            if request_status == 'm':
+            if request_type == 'm':
                 vals['free_member'] = False
-            elif request_status == 's':
+            elif request_type == 's':
                 vals['free_member'] = True
             return vals
         return {}
@@ -507,7 +507,7 @@ class membership_request(orm.Model):
         partner_id = vals.get('partner_id', False)
 
         membership_state_id = vals.get('membership_state_id', False)
-        request_status = vals.get('request_status', False)
+        request_type = vals.get('request_type', False)
         result_type_id = vals.get('result_type_id', False)
 
         if not birth_date:
@@ -532,7 +532,7 @@ class membership_request(orm.Model):
             partner = self.pool['res.partner'].browse(cr, uid, partner_id, context=context)
             identifier = partner.identifier
             membership_state_id = partner.membership_state_id and partner.membership_state_id.id or False
-            result_type_id = self.get_partner_preview(cr, uid, request_status, partner.id, context=context)
+            result_type_id = self.get_partner_preview(cr, uid, request_type, partner.id, context=context)
 
         # update vals dictionary because some inputs may have changed (and new values too)
         vals.update({
@@ -585,14 +585,14 @@ class membership_request(orm.Model):
 
         return rec_search(0)
 
-    def _check_product_consistency(self, cr, uid, request_status, product_id, context=None):
-        if request_status == 'm':
+    def _check_product_consistency(self, cr, uid, request_type, product_id, context=None):
+        if request_type == 'm':
             if not product_id:
                 raise orm.except_orm(_('Error'), _('Member Must Have a Product Subscription'))
 
     def confirm_request(self, cr, uid, ids, context=None):
         for mr in self.browse(cr, uid, ids, context=context):
-            self._check_product_consistency(cr, uid, mr.request_status, mr.product_id, context=context)
+            self._check_product_consistency(cr, uid, mr.request_type, mr.product_id, context=context)
         vals = {'state': 'confirm'}
         # superuser_id because of record rules
         return self.write(cr, SUPERUSER_ID, ids, vals, context=context)
@@ -608,7 +608,7 @@ class membership_request(orm.Model):
         """
         partner_obj = self.pool['res.partner']
         for mr in self.browse(cr, uid, ids, context=context):
-            self._check_product_consistency(cr, uid, mr.request_status, mr.product_id, context=context)
+            self._check_product_consistency(cr, uid, mr.request_type, mr.product_id, context=context)
             # partner
             partner_values = {
                 'lastname': mr.lastname,
@@ -628,7 +628,7 @@ class membership_request(orm.Model):
             new_interests_ids = mr.interests_m2m_ids and ([interest.id for interest in mr.interests_m2m_ids]) or []
             new_competencies_ids = mr.competencies_m2m_ids and ([competence.id for competence in mr.competencies_m2m_ids]) or []
 
-            partner_values.update(self.get_status_values(cr, uid, mr.request_status, context=context))
+            partner_values.update(self.get_status_values(cr, uid, mr.request_type, context=context))
             partner_values.update({
                 'subscription_product_id': mr.product_id and mr.product_id.id or False,
                 'competencies_m2m_ids': [[6, False, new_interests_ids]],

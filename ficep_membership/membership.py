@@ -27,6 +27,7 @@
 ##############################################################################
 from openerp.tools import logging
 from openerp.osv import orm, fields
+from datetime import date
 
 _logger = logging.getLogger(__name__)
 DEFAULT_STATE = 'without_membership'
@@ -38,6 +39,19 @@ class membership_membership_line(orm.Model):
     _inherit = ['membership.membership_line', 'abstract.ficep.model']
 
     _order = 'date_from desc'
+
+    def _generate_membership_reference(self, cr, uid, membership_line_id, context=None):
+        """
+        ==============================
+        _generate_membership_reference
+        ==============================
+        """
+        mml = self.browse(cr, uid, membership_line_id, context=context)
+        base_identifier = '0000000'
+        identifier = '%s' % mml.partner.identifier
+        base = '9%s%s' % (('%s' % date.today().year)[2:], ''.join((base_identifier[:-len(identifier)], identifier)))
+        comm_struct = '%s%s' % (base, int(base) % 97 or 97)
+        return '+++%s/%s/%s+++' % (comm_struct[:3], comm_struct[3:7], comm_struct[7:])
 
     _columns = {
         'partner': fields.many2one('res.partner', 'Partner', ondelete='cascade', select=1, required=True),
@@ -51,8 +65,6 @@ class membership_membership_line(orm.Model):
     }
 
     _unicity_keys = 'N/A'
-
-#orm methods
 
 
 class membership_state(orm.Model):
