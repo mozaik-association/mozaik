@@ -98,7 +98,7 @@ class custom_webservice(orm.Model):
             'month': month,
             'year': year,
 
-            'request_status': status,
+            'request_type': status,
             'street_man': street,
             'zip_man': zip_code,
             'town_man': town,
@@ -109,7 +109,7 @@ class custom_webservice(orm.Model):
 
             'interests': interest,
         }
-        if vals['request_status'] == 'm':
+        if vals['request_type'] == 'm':
             vals['product_id'] = self.pool['product.product']._get_default_subscription(self, cr, uid, context=context)
         context['mode'] = 'ws'
         try:
