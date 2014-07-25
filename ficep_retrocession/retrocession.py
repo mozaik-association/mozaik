@@ -530,12 +530,14 @@ class retrocession(orm.Model):
         'need_account_management': fields.function(_need_account_management, string='Need accounting management', type='boolean', store=False),
         'default_debit_account': fields.function(_get_defaults_account, string="Default debit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
         'default_credit_account': fields.function(_get_defaults_account, string="Default credit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
+        'is_regulation': fields.boolean('Regulation Retrocession ?')
     }
 
     _order = 'year desc, month desc, sta_mandate_id, ext_mandate_id'
 
     _defaults = {
         'state': 'draft',
+        'is_regulation': False
     }
 
     def _check_unicity(self, cr, uid, ids, for_unlink=False, context=None):
@@ -554,8 +556,25 @@ class retrocession(orm.Model):
                 key = 'sta_mandate_id'
             else:
                 key = 'ext_mandate_id'
-            if len(self.search(cr, uid, [(key, '=', retro[key].id), ('id', '!=', retro.id), ('month', '=', retro.month), ('year', '=', retro.year)], context=context)) > 0:
-                return False
+            nb_retro = len(self.search(cr, uid, [(key, '=', retro[key].id),
+                                                 ('id', '!=', retro.id),
+                                                 ('month', '=', retro.month),
+                                                 ('year', '=', retro.year),
+                                                 ('is_regulation', '=', False)], context=context))
+
+            if nb_retro > 0:
+                if int(retro.month) != 12:
+                    return False
+                else:
+                    if retro.is_regulation:
+                        if len(self.search(cr, uid, [(key, '=', retro[key].id),
+                                                             ('id', '!=', retro.id),
+                                                             ('month', '=', retro.month),
+                                                             ('year', '=', retro.year),
+                                                             ('is_regulation', '=', True)], context=context)) > 0:
+                            return False
+                    else:
+                        return False
 
         return True
 
@@ -575,9 +594,26 @@ class retrocession(orm.Model):
 
         return True
 
+    def _check_regulation(self, cr, uid, ids, for_unlink=False, context=None):
+        """
+        =================
+        _check_regulation
+        =================
+        A regulation retrocession should only occur on December
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        for retro in self.browse(cr, uid, ids):
+            if retro.is_regulation and int(retro.month) != 12:
+                return False
+
+        return True
+
     _constraints = [
         (_check_unicity, _("A retrocession already exists for this mandate at this period"), ['sta_mandate_id', 'ext_mandate_id']),
-        (_check_value, _("You can not validate a negative retrocession"), ['amount_total'])
+        (_check_value, _("You can not validate a negative retrocession"), ['amount_total']),
+        (_check_regulation, _("A regulation retrocession should only occur on December"), ['is_regulation'])
     ]
 
     _unicity_keys = 'N/A'
@@ -673,9 +709,10 @@ class retrocession(orm.Model):
         # copy fixed rules on retrocession to keep history of calculation basis
         for retrocession in self.browse(cr, uid, ids, context=context):
             if not retrocession.unique_id:
-                retro_number = '{mandate}/{year}{month}'.format(mandate=retrocession.sta_mandate_id.unique_id if retrocession.sta_mandate_id else retrocession.ext_mandate_id.unique_id,
+                retro_number = '{mandate}/{year}{month}{regulation}'.format(mandate=retrocession.sta_mandate_id.unique_id if retrocession.sta_mandate_id else retrocession.ext_mandate_id.unique_id,
                                                                 year=retrocession.year,
-                                                                month=str(retrocession.month).rjust(2, '0') if retrocession.month else "00")
+                                                                month=str(retrocession.month).rjust(2, '0') if retrocession.month else "00",
+                                                                regulation='1' if retrocession.is_regulation else '0')
                 self.write(cr, uid, retrocession.id, {'unique_id': retro_number}, context=context)
                 retrocession = self.browse(cr, uid, retrocession.id, context=context)
 

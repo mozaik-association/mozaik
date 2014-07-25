@@ -235,7 +235,7 @@ class test_retrocession(SharedSetupTransactionCase):
         '''
         mandate_id = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
         data = dict(ext_mandate_id=mandate_id,
-                    month=5, year=2014,
+                    month='05', year=2014,
                     )
         self.assertRaises(orm.except_orm, self.registry('retrocession').create, self.cr, self.uid, data)
 
@@ -244,3 +244,33 @@ class test_retrocession(SharedSetupTransactionCase):
                     year=2014,
                     )
         self.assertRaises(orm.except_orm, self.registry('retrocession').create, self.cr, self.uid, data)
+
+    def test_regulation_retrocession(self):
+        '''
+            Test regulation retrocession
+        '''
+        mandate_id = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
+
+        '''
+            Try to create a regulation retrocession for May
+        '''
+        data = {'ext_mandate_id': mandate_id,
+                      'month': '05',
+                      'year': 2014
+                      }
+        self.assertRaises(orm.except_orm, self.registry('retrocession').create, self.cr, self.uid, data)
+
+        '''
+            Create a regulation retrocession for December
+        '''
+        data = {'ext_mandate_id': mandate_id,
+                'month': '12',
+                'year': 2014
+                }
+
+        self.registry('retrocession').create(self.cr, self.uid, data)
+        self.assertRaises(orm.except_orm, self.registry('retrocession').create, self.cr, self.uid, data)
+
+        data['is_regulation'] = True
+        retro_id = self.registry('retrocession').create(self.cr, self.uid, data)
+        self.assertNotEqual(retro_id, False)

@@ -598,12 +598,13 @@
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
-                        <group name="period">
-                              <field name="unique_id" attrs="{'invisible': [('unique_id', '=', False)]}"/>
-                              <field name="month" attrs="{'invisible': [('retrocession_mode','!=', 'month')],
+                        <group name="data">
+                            <field name="unique_id" attrs="{'invisible': [('unique_id', '=', False)]}"/>
+                            <field name="month" attrs="{'invisible': [('retrocession_mode','!=', 'month')],
                                                           'required': [('retrocession_mode','=', 'month')],
                                                           'readonly': [('state','not in', ['draft'])]}"/>
-                              <field name="year" required="1" attrs="{'readonly': [('state','not in', ['draft'])]}"/>
+                            <field name="year" required="1" attrs="{'readonly': [('state','not in', ['draft'])]}"/>
+                            <field name="is_regulation" attrs="{'invisible': [('retrocession_mode','!=', 'month')]}"/>                            
                         </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <field name="create_date" />

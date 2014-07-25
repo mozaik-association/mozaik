@@ -97,7 +97,8 @@ class retrocession_factory_wizard(orm.TransientModel):
             if mandate_data['retrocession_mode'] == 'month':
                 duplicate_ids = self.pool.get('retrocession').search(cr, uid, [(mandate_key, '=', mandate_data['id']),
                                                                               ('month', '=', month),
-                                                                              ('year', '=', year)], context=context)
+                                                                              ('year', '=', year),
+                                                                              ('is_regulation', '=', False)], context=context)
 
                 if not duplicate_ids:
                     monthly_count += 1
