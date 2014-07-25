@@ -43,6 +43,7 @@ FICEP Sample Customization
     'images': [
     ],
     'data': [
+         '../ficep_account/tests/data/account_installer.xml',
          'demo/company_demo.xml',
          'demo/users_demo.xml',
          '../ficep_base/tests/data/res_partner_data.xml',
@@ -64,7 +65,6 @@ FICEP Sample Customization
          '../ficep_membership/tests/data/membership_request_data.xml',
          '../ficep_communication/tests/data/communication_data.xml',
          '../ficep_communication/tests/data/postal_mail_data.xml',
-         '../ficep_account/tests/data/account_installer.xml',
          'demo/sample_customization_demo.xml',  # must be the last
     ],
     'js': [

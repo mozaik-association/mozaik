@@ -91,6 +91,14 @@
             <field ref="a_root" name="parent_id"/>
         </record>
         
+        <record id="a6504" model="account.account.template">
+            <field name="name">Mandates costs</field>
+            <field name="code">6504</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_expense"/>
+            <field ref="a6" name="parent_id"/>
+        </record>
+        
         <record id="a7" model="account.account.template">
             <field name="name">CLASSE 7</field>
             <field name="code">7</field>
