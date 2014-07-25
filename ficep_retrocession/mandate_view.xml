@@ -72,6 +72,14 @@
             <field name="model">sta.mandate</field>
             <field name="inherit_id" ref="ficep_mandate.sta_mandate_form_view" />
             <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_finish']" position="after">
+                    <button string="Send mail" name="send_email_for_reference"
+                            confirm="Send email with structured reference now: proceed anyway ?"
+                            type="object" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='alert_date']" position="after">
+                    <field name="email_date" readonly="1" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>
+                </xpath>
                 <xpath expr="//div[@name='buttons']" position="inside">
                     <button string="Retrocessions" name="%(retrocession_action)d"
                             type="action" attrs="{'invisible': ['|',('id','=',False)]}"
@@ -81,7 +89,7 @@
                 <xpath expr="//page[@name='index']" position="before">
                     <page name="rules" string="Retrocessions">
                         <group>
-                            <field name="retrocession_mode"/>
+                            <field name="retrocession_mode" readonly="1"/>
                             <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
                             <field name="retro_instance_id" attrs="{'invisible': [('retrocession_mode', '=', 'none')],
                                                                    'required': [('retrocession_mode', '!=', 'none')]}"/>
@@ -166,6 +174,14 @@
             <field name="model">ext.mandate</field>
             <field name="inherit_id" ref="ficep_mandate.ext_mandate_form_view" />
             <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_finish']" position="after">
+                    <button string="Send mail" name="send_email_for_reference"
+                            confirm="Send email with structured reference now: proceed anyway ?"
+                            type="object" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='alert_date']" position="after">
+                    <field name="email_date" readonly ="1" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>
+                </xpath>
                 <xpath expr="//div[@name='buttons']" position="inside">
                     <button string="Retrocessions" name="%(retrocession_action)d"
                              type="action" attrs="{'invisible': ['|',('id','=',False)]}"
@@ -175,7 +191,7 @@
                 <xpath expr="//page[@name='index']" position="before">
                     <page name="rules" string="Retrocessions">
                         <group>
-                           <field name="retrocession_mode"/>
+                           <field name="retrocession_mode" readonly="1"/>
                            <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
                            <field name="retro_instance_id" attrs="{'invisible': [('retrocession_mode', '=', 'none')],
                                                                   'required': [('retrocession_mode', '!=', 'none')]}"/>
