@@ -33,7 +33,7 @@ from openerp.tools.translate import _
 from openerp.addons.ficep_base.selections_translator import translate_selections
 import openerp.addons.decimal_precision as dp
 
-from .common import INVOICE_AVAILABLE_TYPES, CALCULATION_METHOD_AVAILABLE_TYPES, CALCULATION_RULE_AVAILABLE_TYPES
+from .common import RETROCESSION_MODES_AVAILABLE, CALCULATION_METHOD_AVAILABLE_TYPES, CALCULATION_RULE_AVAILABLE_TYPES
 
 RETROCESSION_AVAILABLE_STATES = [
     ('draft', 'Open'),
@@ -375,7 +375,7 @@ class retrocession(orm.Model):
         res = {}
         for retro in self.browse(cr, uid, ids, context=context):
             bVal = False
-            if retro.invoice_type != 'none':
+            if retro.retrocession_mode != 'none':
                 if retro.sta_mandate_id:
                     key = 'sta_mandate_id'
                 else:
@@ -388,18 +388,18 @@ class retrocession(orm.Model):
 
         return res
 
-    def _get_invoice_type(self, cr, uid, ids, fname, arg, context=None):
+    def _get_retrocession_mode(self, cr, uid, ids, fname, arg, context=None):
         """
         =================
-        _get_invoice_type
+        _get_retrocession_mode
         =================
-        Get invoice_type linked to mandate
-        :rparam: Invoice type
+        Get retrocession_mode linked to mandate
+        :rparam: retrocession mode
         :rtype: String
         """
         res = {}
         for retrocession in self.browse(cr, uid, ids, context=context):
-            res[retrocession.id] = retrocession.sta_mandate_id.invoice_type if retrocession.sta_mandate_id else retrocession.ext_mandate_id.invoice_type
+            res[retrocession.id] = retrocession.sta_mandate_id.retrocession_mode if retrocession.sta_mandate_id else retrocession.ext_mandate_id.retrocession_mode
         return res
 
     def _get_calculation_rule(self, cr, uid, ids, context=None):
@@ -512,8 +512,8 @@ class retrocession(orm.Model):
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate', select=True),
         'partner_id': fields.function(_get_partner_id, string='Representative',
                                  type='many2one', relation='res.partner', store=False),
-        'invoice_type': fields.function(_get_invoice_type, string='Invoicing',
-                                 type='selection', selection=INVOICE_AVAILABLE_TYPES, store=False),
+        'retrocession_mode': fields.function(_get_retrocession_mode, string='Retrocession Mode',
+                                 type='selection', selection=RETROCESSION_MODES_AVAILABLE, store=False),
         'month': fields.selection(fields.date.MONTHS, 'Month', select=True, track_visibility='onchange'),
         'year': fields.char('Year', size=128, select=True, track_visibility='onchange'),
         'rule_ids': fields.one2many('calculation.rule', 'retrocession_id', 'Calculation Rules', domain=[('active', '=', True), ('is_deductible', '=', False)]),
@@ -530,12 +530,14 @@ class retrocession(orm.Model):
         'need_account_management': fields.function(_need_account_management, string='Need accounting management', type='boolean', store=False),
         'default_debit_account': fields.function(_get_defaults_account, string="Default debit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
         'default_credit_account': fields.function(_get_defaults_account, string="Default credit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
+        'is_regulation': fields.boolean('Regulation Retrocession ?')
     }
 
     _order = 'year desc, month desc, sta_mandate_id, ext_mandate_id'
 
     _defaults = {
         'state': 'draft',
+        'is_regulation': False
     }
 
     def _check_unicity(self, cr, uid, ids, for_unlink=False, context=None):
@@ -554,8 +556,25 @@ class retrocession(orm.Model):
                 key = 'sta_mandate_id'
             else:
                 key = 'ext_mandate_id'
-            if len(self.search(cr, uid, [(key, '=', retro[key].id), ('id', '!=', retro.id), ('month', '=', retro.month), ('year', '=', retro.year)], context=context)) > 0:
-                return False
+            nb_retro = len(self.search(cr, uid, [(key, '=', retro[key].id),
+                                                 ('id', '!=', retro.id),
+                                                 ('month', '=', retro.month),
+                                                 ('year', '=', retro.year),
+                                                 ('is_regulation', '=', False)], context=context))
+
+            if nb_retro > 0:
+                if int(retro.month) != 12:
+                    return False
+                else:
+                    if retro.is_regulation:
+                        if len(self.search(cr, uid, [(key, '=', retro[key].id),
+                                                             ('id', '!=', retro.id),
+                                                             ('month', '=', retro.month),
+                                                             ('year', '=', retro.year),
+                                                             ('is_regulation', '=', True)], context=context)) > 0:
+                            return False
+                    else:
+                        return False
 
         return True
 
@@ -575,9 +594,26 @@ class retrocession(orm.Model):
 
         return True
 
+    def _check_regulation(self, cr, uid, ids, for_unlink=False, context=None):
+        """
+        =================
+        _check_regulation
+        =================
+        A regulation retrocession should only occur on December
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        for retro in self.browse(cr, uid, ids):
+            if retro.is_regulation and int(retro.month) != 12:
+                return False
+
+        return True
+
     _constraints = [
         (_check_unicity, _("A retrocession already exists for this mandate at this period"), ['sta_mandate_id', 'ext_mandate_id']),
-        (_check_value, _("You can not validate a negative retrocession"), ['amount_total'])
+        (_check_value, _("You can not validate a negative retrocession"), ['amount_total']),
+        (_check_regulation, _("A regulation retrocession should only occur on December"), ['is_regulation'])
     ]
 
     _unicity_keys = 'N/A'
@@ -597,7 +633,12 @@ class retrocession(orm.Model):
             if mandate_rec.calculation_method_id:
                 self.pool.get('calculation.method').copy_variable_rules_on_retrocession(cr, uid, mandate_rec.calculation_method_id.id, retro.id, context=context)
 
-            for rule in mandate_rec.calculation_rule_ids:
+            for rule in mandate_rec.rule_ids:
+                data = self.pool['calculation.rule'].get_copy_fields_value(cr, uid, rule)
+                data['retrocession_id'] = retro.id
+                self.pool['calculation.rule'].create(cr, uid, data, context=context)
+
+            for rule in mandate_rec.deductible_rule_ids:
                 data = self.pool['calculation.rule'].get_copy_fields_value(cr, uid, rule)
                 data['retrocession_id'] = retro.id
                 self.pool['calculation.rule'].create(cr, uid, data, context=context)
@@ -639,16 +680,16 @@ class retrocession(orm.Model):
     def onchange_sta_mandate_id(self, cr, uid, ids, sta_mandate_id, context=None):
         res = {}
         if sta_mandate_id:
-            invoice_type = self.pool.get('sta.mandate').read(cr, uid, sta_mandate_id, ['invoice_type'], context=context)['invoice_type']
-            res['value'] = dict(invoice_type=invoice_type or False)
+            retrocession_mode = self.pool.get('sta.mandate').read(cr, uid, sta_mandate_id, ['retrocession_mode'], context=context)['retrocession_mode']
+            res['value'] = dict(retrocession_mode=retrocession_mode or False)
 
         return res
 
     def onchange_ext_mandate_id(self, cr, uid, ids, ext_mandate_id, context=None):
         res = {}
         if ext_mandate_id:
-            invoice_type = self.pool.get('ext.mandate').read(cr, uid, ext_mandate_id, ['invoice_type'], context=context)['invoice_type']
-            res['value'] = dict(invoice_type=invoice_type or False)
+            retrocession_mode = self.pool.get('ext.mandate').read(cr, uid, ext_mandate_id, ['retrocession_mode'], context=context)['retrocession_mode']
+            res['value'] = dict(retrocession_mode=retrocession_mode or False)
 
         return res
 
@@ -661,16 +702,17 @@ class retrocession(orm.Model):
         action_validate
         =================
         Change state of retrocession to 'Validated' and generate account move if needed
-        :rparam: Invoice id
-        :rtype: integer
+        :rparam: False
+        :rtype: Boolean
         """
         self.write(cr, uid, ids, {'state': 'validated'}, context=context)
         # copy fixed rules on retrocession to keep history of calculation basis
         for retrocession in self.browse(cr, uid, ids, context=context):
             if not retrocession.unique_id:
-                retro_number = '{mandate}/{year}{month}'.format(mandate=retrocession.sta_mandate_id.unique_id if retrocession.sta_mandate_id else retrocession.ext_mandate_id.unique_id,
+                retro_number = '{mandate}/{year}{month}{regulation}'.format(mandate=retrocession.sta_mandate_id.unique_id if retrocession.sta_mandate_id else retrocession.ext_mandate_id.unique_id,
                                                                 year=retrocession.year,
-                                                                month=str(retrocession.month).rjust(2, '0') if retrocession.month else "00")
+                                                                month=str(retrocession.month).rjust(2, '0') if retrocession.month else "00",
+                                                                regulation='1' if retrocession.is_regulation else '0')
                 self.write(cr, uid, retrocession.id, {'unique_id': retro_number}, context=context)
                 retrocession = self.browse(cr, uid, retrocession.id, context=context)
 

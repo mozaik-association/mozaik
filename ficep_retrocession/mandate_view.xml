@@ -11,16 +11,16 @@
                     <field name="calculation_method_id" invisible="context.get('default_type','')=='int'"/>
                     <field name="fractionation_id" invisible="context.get('default_type','')=='int'"/>
                     <separator/>
-                    <filter name="monthly_invoicing" string="Monthly Invoicing"
-                            domain="[('invoice_type','=','month')]" invisible="context.get('default_type','')=='int'" />
-                    <filter name="yearly_invoicing" string="Yearly Invoicing"
-                            domain="[('invoice_type','=','year')]" invisible="context.get('default_type','')=='int'" />
-                    <filter name="no_invoicing" string="No Invoicing"
-                            domain="[('invoice_type','=','none')]" invisible="context.get('default_type','')=='int'" />
+                    <filter name="monthly_retrocession" string="Monthly retrocession"
+                            domain="[('retrocession_mode','=','month')]" invisible="context.get('default_type','')=='int'" />
+                    <filter name="yearly_retrocession" string="Yearly retrocession"
+                            domain="[('retrocession_mode','=','year')]" invisible="context.get('default_type','')=='int'" />
+                    <filter name="no_retrocession" string="No retrocesssion"
+                            domain="[('retrocession_mode','=','none')]" invisible="context.get('default_type','')=='int'" />
                     <separator/>
                 </xpath>
                 <xpath expr="//filter[@name='ext_assembly_category_id']" position="after">
-                    <filter name="invoice_type" string="Invoicing Type" context="{'group_by':'invoice_type'}"
+                    <filter name="retrocession_mode" string="Retrocession mode" context="{'group_by':'retrocession_mode'}"
                             invisible="context.get('default_type','')=='int'"/>
                     <filter name="calculation_method" string="Calculation Method" context="{'group_by':'calculation_method_id'}"
                             invisible="context.get('default_type','')=='int'"/>
@@ -36,19 +36,20 @@
             <field name="inherit_id" ref="ficep_mandate.mandate_category_form_view" />
             <field name="arch" type="xml">
                  <xpath expr="//page[@name='exclusive_categories']" position="after">
-                    <page string="Retrocessions" name="retrocession" autofocus="autofocus">
+                    <page string="Retrocessions" name="retrocession" autofocus="autofocus"
+                          attrs="{'invisible': [('type', '=', 'int')]}">
                         <group>
-	                        <field name="invoice_type" attrs="{'invisible' : [('type', '=', 'int')]}"/>
-	                        <field name="calculation_method_id" attrs="{'required' : [('invoice_type', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('invoice_type', '=', 'none')]}"/>
+	                        <field name="retrocession_mode" attrs="{'invisible' : [('type', '=', 'int')]}"/>
+	                        <field name="calculation_method_id" attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
 	                        <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"
-	                               attrs="{'required' : [('invoice_type', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('invoice_type', '=', 'none')]}"/>
+	                               attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
 	                    </group>
 	                    <separator string="Accounting"/>
 	                    <group>
 	                        <field name ="property_retrocession_account"
-	                               attrs="{'required' : [('invoice_type', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('invoice_type', '=', 'none')]}"/>
+	                               attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
 	                        <field name ="property_retrocession_cost_account"
-	                               attrs="{'required' : [('invoice_type', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('invoice_type', '=', 'none')]}"/>
+	                               attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
                         </group>
                     </page>
                  </xpath>
@@ -61,7 +62,7 @@
             <field name="inherit_id" ref="ficep_mandate.mandate_category_tree_view" />
             <field name="arch" type="xml">
                  <xpath expr="//tree" position="inside">
-                     <field name="invoice_type" invisible="1"/>
+                     <field name="retrocession_mode" invisible="1"/>
                  </xpath>
             </field>
         </record>
@@ -71,6 +72,14 @@
             <field name="model">sta.mandate</field>
             <field name="inherit_id" ref="ficep_mandate.sta_mandate_form_view" />
             <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_finish']" position="after">
+                    <button string="Send mail" name="send_email_for_reference"
+                            confirm="Send email with structured reference now: proceed anyway ?"
+                            type="object" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='alert_date']" position="after">
+                    <field name="email_date" readonly="1" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>
+                </xpath>
                 <xpath expr="//div[@name='buttons']" position="inside">
                     <button string="Retrocessions" name="%(retrocession_action)d"
                             type="action" attrs="{'invisible': ['|',('id','=',False)]}"
@@ -80,29 +89,63 @@
                 <xpath expr="//page[@name='index']" position="before">
                     <page name="rules" string="Retrocessions">
                         <group>
-                            <field name="invoice_type"/>
-                            <field name="method_type" readonly="1" attrs="{'invisible': [('invoice_type', '=', 'none')]}"/>
-                            <field name="retro_instance_id" attrs="{'invisible': [('invoice_type', '=', 'none')],
-                                                                   'required': [('invoice_type', '!=', 'none')]}"/>
+                            <field name="retrocession_mode" readonly="1"/>
+                            <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
+                            <field name="retro_instance_id" attrs="{'invisible': [('retrocession_mode', '=', 'none')],
+                                                                   'required': [('retrocession_mode', '!=', 'none')]}"/>
                             <field name="reference" readonly="1" 
-                                   attrs="{'invisible': ['|', ('reference', '=', False), ('invoice_type', '=', 'none')]}"/>
+                                   attrs="{'invisible': ['|', ('reference', '=', False), ('retrocession_mode', '=', 'none')]}"/>
                         </group>
-                        <separator string="Fixed Rules"/>
+                        <separator string="Imputable Fixed Rules"/>
                         <button string="All Details" name="%(calculation_rule_detail_action)d"
-                                type="action" attrs="{'invisible': [('id','=',False)]}"
-                                context="{'search_default_sta_mandate_id': active_id,
-                                          'default_sta_mandate_id': active_id,
-                                          'search_default_all': True}" />
-                        <field name="calculation_rule_ids" attrs="{'invisible': [('active', '=', False)]}"
-                               context="{'default_type': 'fixed'}">
+                                 type="action" attrs="{'invisible': [('id','=',False)]}"
+                                 context="{'search_default_sta_mandate_id': active_id,
+                                           'default_sta_mandate_id': active_id,
+                                           'search_default_all': True,
+                                           'search_default_is_not_deductible': True,
+                                           'default_is_deductible': False,
+                                           'default_type': 'fixed'}" />
+                        <field name="rule_ids" attrs="{'invisible': [('active', '=', False)]}" 
+                               context="{'default_type': 'fixed',
+                                         'default_is_deductible': False,
+                                         'default_sta_mandate_id': active_id}">
                             <tree version="7.0" editable="bottom">
                                 <field name="name"/>
                                 <field name="type" invisible="1"/>
                                 <field name="percentage"/>
                                 <field name="amount"/>
+                                <field name="is_deductible" invisible="1"/>
                             </tree>
                         </field>
-                        <field name="calculation_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                        <field name="rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                            </tree>
+                        </field>
+                        <separator string="Deductible Fixed Rules"/>
+                        <button string="All Details" name="%(calculation_rule_detail_action)d"
+                                 type="action" attrs="{'invisible': [('id','=',False)]}"
+                                 context="{'search_default_sta_mandate_id': active_id,
+                                           'default_sta_mandate_id': active_id,
+                                           'search_default_all': True,
+                                           'search_default_is_deductible': True,
+                                           'default_is_deductible': True,
+                                           'default_type': 'fixed'}" />
+                        <field name="deductible_rule_ids" attrs="{'invisible': [('active', '=', False)]}" 
+                               context="{'default_type': 'fixed',
+                                         'default_is_deductible': True,
+                                         'default_sta_mandate_id': active_id}">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="type" invisible="1"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                                <field name="is_deductible" invisible="1"/>
+                            </tree>
+                        </field>
+                        <field name="deductible_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
                             <tree version="7.0" editable="bottom">
                                 <field name="name"/>
                                 <field name="percentage"/>
@@ -131,6 +174,14 @@
             <field name="model">ext.mandate</field>
             <field name="inherit_id" ref="ficep_mandate.ext_mandate_form_view" />
             <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_finish']" position="after">
+                    <button string="Send mail" name="send_email_for_reference"
+                            confirm="Send email with structured reference now: proceed anyway ?"
+                            type="object" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='alert_date']" position="after">
+                    <field name="email_date" readonly ="1" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>
+                </xpath>
                 <xpath expr="//div[@name='buttons']" position="inside">
                     <button string="Retrocessions" name="%(retrocession_action)d"
                              type="action" attrs="{'invisible': ['|',('id','=',False)]}"
@@ -140,29 +191,63 @@
                 <xpath expr="//page[@name='index']" position="before">
                     <page name="rules" string="Retrocessions">
                         <group>
-                           <field name="invoice_type"/>
-                           <field name="method_type" readonly="1" attrs="{'invisible': [('invoice_type', '=', 'none')]}"/>
-                           <field name="retro_instance_id" attrs="{'invisible': [('invoice_type', '=', 'none')],
-                                                                  'required': [('invoice_type', '!=', 'none')]}"/>
+                           <field name="retrocession_mode" readonly="1"/>
+                           <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
+                           <field name="retro_instance_id" attrs="{'invisible': [('retrocession_mode', '=', 'none')],
+                                                                  'required': [('retrocession_mode', '!=', 'none')]}"/>
                            <field name="reference" readonly="1" 
-                                   attrs="{'invisible': ['|', ('reference', '=', False), ('invoice_type', '=', 'none')]}"/>
+                                   attrs="{'invisible': ['|', ('reference', '=', False), ('retrocession_mode', '=', 'none')]}"/>
                         </group>
-                        <separator string="Fixed Rules"/>
+                        <separator string="Imputable Fixed Rules"/>
                         <button string="All Details" name="%(calculation_rule_detail_action)d"
                                  type="action" attrs="{'invisible': [('id','=',False)]}"
                                  context="{'search_default_ext_mandate_id': active_id,
                                            'default_ext_mandate_id': active_id,
-                                           'search_default_all': True}" />
-                        <field name="calculation_rule_ids" attrs="{'invisible': [('active', '=', False)]}"
-                               context="{'default_type': 'fixed'}">
+                                           'search_default_all': True,
+                                           'search_default_is_not_deductible': True,
+                                           'default_is_deductible': False,
+                                           'default_type': 'fixed'}" />
+                        <field name="rule_ids" attrs="{'invisible': [('active', '=', False)]}"
+                               context="{'default_type': 'fixed',
+                                         'default_is_deductible': False,
+                                         'default_ext_mandate_id': active_id}">
                             <tree version="7.0" editable="bottom">
                                 <field name="name"/>
                                 <field name="type" invisible="1"/>
                                 <field name="percentage"/>
                                 <field name="amount"/>
+                                <field name="is_deductible" invisible="1"/>
                             </tree>
                         </field>
-                        <field name="calculation_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                        <field name="rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                            </tree>
+                        </field>
+                        <separator string="Deductible Fixed Rules"/>
+                        <button string="All Details" name="%(calculation_rule_detail_action)d"
+                                 type="action" attrs="{'invisible': [('id','=',False)]}"
+                                 context="{'search_default_ext_mandate_id': active_id,
+                                           'default_ext_mandate_id': active_id,
+                                           'search_default_all': True,
+                                           'search_default_is_deductible': True,
+                                           'default_is_deductible': True,
+                                           'default_type': 'fixed'}" />
+                        <field name="deductible_rule_ids" attrs="{'invisible': [('active', '=', False)]}"
+                               context="{'default_type': 'fixed',
+                                         'default_is_deductible': 1,
+                                         'default_ext_mandate_id': active_id}">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="type" invisible="1"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                                <field name="is_deductible" invisible="1"/>
+                            </tree>
+                        </field>
+                        <field name="deductible_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
                             <tree version="7.0" editable="bottom">
                                 <field name="name"/>
                                 <field name="percentage"/>
@@ -191,13 +276,16 @@
            <field name="model">sta.mandate</field>
            <field name="inherit_id" ref="ficep_mandate.sta_mandate_search_view" />
            <field name="arch" type="xml">
+               <xpath expr="//field[@name='legislature_id']" position="after">
+                    <field name="reference"/>
+               </xpath>
                <xpath expr="//filter[@name='expired']" position="before">
-                    <filter name="monthly_invoicing" string="Monthly Invoicing"
-                            domain="[('invoice_type','=','month')]" />
-                    <filter name="yearly_invoicing" string="Yearly Invoicing"
-                            domain="[('invoice_type','=','year')]" />
-                    <filter name="no_invoicing" string="No Invoicing"
-                            domain="[('invoice_type','=','none')]" />
+                    <filter name="monthly_retrocession" string="Monthly retrocession"
+                            domain="[('retrocession_mode','=','month')]" />
+                    <filter name="yearly_retrocession" string="Yearly retrocession"
+                            domain="[('retrocession_mode','=','year')]" />
+                    <filter name="no_retrocession" string="No retrocession"
+                            domain="[('retrocession_mode','=','none')]" />
                     <separator/>
                     <filter name="mixed_method" string="Mixed Calculation Method"
                             domain="[('method_type','=','mixed')]" />
@@ -208,7 +296,7 @@
                     <separator/>
                </xpath>
                <xpath expr="//group[@name='group_by']" position="inside">
-                    <filter name="invoice_type" string="Invoicing Type" domain="[]" context="{'group_by':'invoice_type'}" />
+                    <filter name="retrocession_mode" string="Retrocession Mode" domain="[]" context="{'group_by':'retrocession_mode'}" />
                     <filter name="method_type" string="Method Type" domain="[]" context="{'group_by':'method_type'}" />
                </xpath>
            </field>
@@ -219,13 +307,16 @@
            <field name="model">ext.mandate</field>
            <field name="inherit_id" ref="ficep_mandate.ext_mandate_search_view" />
            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ext_assembly_id']" position="after">
+                    <field name="reference"/>
+               </xpath>
                <xpath expr="//filter[@name='expired']" position="before">
-                    <filter name="monthly_invoicing" string="Monthly Invoicing"
-                            domain="[('invoice_type','=','month')]" />
-                    <filter name="yearly_invoicing" string="Yearly Invoicing"
-                            domain="[('invoice_type','=','year')]" />
-                    <filter name="no_invoicing" string="No Invoicing"
-                            domain="[('invoice_type','=','none')]" />
+                    <filter name="monthly_retrocession" string="Monthly Retrocession"
+                            domain="[('retrocession_mode','=','month')]" />
+                    <filter name="yearly_retrocession" string="Yearly Retrocession"
+                            domain="[('retrocession_mode','=','year')]" />
+                    <filter name="no_retrocession" string="No Retrocession"
+                            domain="[('retrocession_mode','=','none')]" />
                     <separator/>
                     <filter name="mixed_method" string="Mixed Calculation Method"
                             domain="[('method_type','=','mixed')]" />
@@ -236,7 +327,7 @@
                     <separator/>
                </xpath>
                <xpath expr="//group[@name='group_by']" position="inside">
-                    <filter name="invoice_type" string="Invoicing Type" domain="[]" context="{'group_by':'invoice_type'}" />
+                    <filter name="retrocession_mode" string="Retrocession mode" domain="[]" context="{'group_by':'retrocession_mode'}" />
                     <filter name="method_type" string="Method Type" domain="[]" context="{'group_by':'method_type'}" />
                </xpath>
            </field>

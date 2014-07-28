@@ -126,7 +126,9 @@
                             domain="[('type', '=', 'variable')]" help="Variable Calculation Rules" />
                     <separator/>
                     <filter name="is_deductible" string="Deductible"
-                            domain="[('is_deductible', '=', 'True')]" help="Deductible Calculation Rules" />
+                            domain="[('is_deductible', '=', True)]" help="Deductible Calculation Rules" />
+                    <filter name="is_not_deductible" string="Non-Deductible"
+                            domain="[('is_deductible', '=', False)]" help="Non-Deductible Calculation Rules" />
                     <separator/>
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
@@ -169,7 +171,7 @@
                     <field name="amount_total"/>
                     <filter name="in_progress" string="Waiting Validation"
                             domain="[('state', '=', 'draft')]" />
-                    <filter name="invoiced" string="Invoiced"
+                    <filter name="validated" string="Validated"
                             domain="[('state', '=', 'validated')]" />
                     <filter name="done" string="Paid"
                             domain="[('state', '=', 'paid')]" />
@@ -582,7 +584,7 @@
                             
                             <label for="sta_mandate_id" class="oe_edit_only"/>
                             <h1><field name="sta_mandate_id" on_change="onchange_sta_mandate_id(sta_mandate_id)"
-                                   domain="[('invoice_type', '!=', 'none')]"
+                                   domain="[('retrocession_mode', '!=', 'none')]"
                                    attrs="{'required': [('id','=', False), ('ext_mandate_id','=', False)],
                                            'readonly': [('id','!=', False)]}"/></h1>
                         </div>
@@ -590,18 +592,19 @@
                                                                                   '&amp;', ('id','=', False), ('sta_mandate_id','!=', False)]}">
                             <label for="ext_mandate_id" class="oe_edit_only"/>
                             <h1><field name="ext_mandate_id" on_change="onchange_ext_mandate_id(ext_mandate_id)"
-                                   domain="[('invoice_type', '!=', 'none')]"
+                                   domain="[('retrocession_mode', '!=', 'none')]"
                                    attrs="{'required': [('id','=', False), ('sta_mandate_id','=', False)],
                                            'readonly': [('id','!=', False)]}"/></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
-                        <group name="period">
-                              <field name="unique_id" attrs="{'invisible': [('unique_id', '=', False)]}"/>
-                              <field name="month" attrs="{'invisible': [('invoice_type','!=', 'month')],
-                                                          'required': [('invoice_type','=', 'month')],
+                        <group name="data">
+                            <field name="unique_id" attrs="{'invisible': [('unique_id', '=', False)]}"/>
+                            <field name="month" attrs="{'invisible': [('retrocession_mode','!=', 'month')],
+                                                          'required': [('retrocession_mode','=', 'month')],
                                                           'readonly': [('state','not in', ['draft'])]}"/>
-                              <field name="year" required="1" attrs="{'readonly': [('state','not in', ['draft'])]}"/>
+                            <field name="year" required="1" attrs="{'readonly': [('state','not in', ['draft'])]}"/>
+                            <field name="is_regulation" attrs="{'invisible': [('retrocession_mode','!=', 'month')]}"/>                            
                         </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <field name="create_date" />
@@ -610,13 +613,13 @@
 
                         <notebook invisible="context.get('popup')">
                             <page string="Rules" name="rules">
-                                <separator string="To retrocede"/>
+                                <separator string="Imputable Rules"/>
                                 <button string="All Details" name="%(calculation_rule_detail_action)d"
                                          type="action" attrs="{'invisible': [('id','=',False)]}"
                                          context="{'search_default_retrocession_id': active_id,
                                                    'default_retrocession_id': active_id,
                                                    'search_default_all': True,
-                                                   'search_default_is_deductible': False}" />
+                                                   'search_default_is_not_deductible': True" />
                                 <field name="rule_ids" attrs="{'invisible': [('active', '=', False)],
                                                                        'readonly': [('state','not in', ['draft'])]}"
                                                                 context="{'default_is_deductible': False}">
@@ -637,7 +640,7 @@
                                         <field name="amount_subtotal" sum="1"/>  
                                     </tree>
                                 </field>                                
-                                <separator string="To deduct"/>
+                                <separator string="Deductible Rules"/>
                                 <button string="All Details" name="%(calculation_rule_detail_action)d"
                                          type="action" attrs="{'invisible': [('id','=',False)]}"
                                          context="{'search_default_retrocession_id': active_id,
@@ -683,7 +686,7 @@
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
-                                <field name="invoice_type"/>
+                                <field name="retrocession_mode"/>
                             </group>
                         </div>
                     </div>

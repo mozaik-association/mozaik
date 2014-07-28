@@ -28,7 +28,7 @@
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
 from structure import sta_assembly, ext_assembly
-from openerp.addons.ficep_retrocession.common import INVOICE_AVAILABLE_TYPES, CALCULATION_METHOD_AVAILABLE_TYPES
+from openerp.addons.ficep_retrocession.common import RETROCESSION_MODES_AVAILABLE, CALCULATION_METHOD_AVAILABLE_TYPES
 
 
 class mandate_category(orm.Model):
@@ -54,7 +54,7 @@ class mandate_category(orm.Model):
         :rtype: boolean
         """
         for category in self.browse(cr, uid, ids, context=context):
-            if category.invoice_type != 'none':
+            if category.retrocession_mode != 'none':
                 if category.type == 'sta':
                     assembly_cat_id = category['sta_assembly_category_id'].id
                     assembly_model = 'sta.assembly'
@@ -76,7 +76,7 @@ class mandate_category(orm.Model):
                                             select=True, track_visibility='onchange'),
         'calculation_method_id': fields.many2one('calculation.method', string='Calculation Method',
                                             select=True, track_visibility='onchange'),
-        'invoice_type': fields.selection(INVOICE_AVAILABLE_TYPES, 'Invoicing', required=True, track_visibility='onchange'),
+        'retrocession_mode': fields.selection(RETROCESSION_MODES_AVAILABLE, 'Retrocession Mode', required=True, track_visibility='onchange'),
         'property_retrocession_account': fields.property(type='many2one',
                                                               relation='account.account',
                                                               string='Retrocession Account',),
@@ -86,11 +86,11 @@ class mandate_category(orm.Model):
     }
 
     _defaults = {
-        'invoice_type': INVOICE_AVAILABLE_TYPES[2][0],
+        'retrocession_mode': RETROCESSION_MODES_AVAILABLE[2][0],
     }
 
     _constraints = [
-        (_check_retro_instance_on_assemblies, _("Some impacted assemblies has no retrocession management instance set!"), ['invoice_type'])
+        (_check_retro_instance_on_assemblies, _("Some impacted assemblies has no retrocession management instance set!"), ['retrocession_mode'])
     ]
 
 
@@ -105,7 +105,7 @@ class abstract_mandate_retrocession(orm.AbstractModel):
     _assembly_model = False
 
     _method_id_store_trigger = {}
-    _invoice_type_store_trigger = {}
+    _retrocession_mode_store_trigger = {}
 
     def _get_method_id(self, cr, uid, ids, fname, arg, context=None):
         """
@@ -146,8 +146,8 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         return res
 
     _columns = {
-        'invoice_type': fields.related('mandate_category_id', 'invoice_type', string='Invoicing', type='selection',
-                               selection=INVOICE_AVAILABLE_TYPES, store=_invoice_type_store_trigger),
+        'retrocession_mode': fields.related('mandate_category_id', 'retrocession_mode', string='Retrocession Mode', type='selection',
+                               selection=RETROCESSION_MODES_AVAILABLE, store=_retrocession_mode_store_trigger),
         'calculation_method_id': fields.function(_get_method_id, string='Calculation Method',
                                  type='many2one', relation="calculation.method", select=True, store=_method_id_store_trigger),
         'method_type': fields.related('calculation_method_id', 'type', string='Calculation Method Type', type='selection',
@@ -157,14 +157,15 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         'retro_instance_id': fields.many2one('int.instance', 'Retrocession Management Instance',
                                        select=True, track_visibility='onchange'),
         'reference': fields.char('Communication', size=64, help="The mandate reference for payments."),
+        'email_date': fields.date('Last email sent')
     }
 
     #orm methods
     def create(self, cr, uid, vals, context=None):
-        if 'invoice_type' not in vals:
+        if 'retrocession_mode' not in vals:
             mandate_category_id = vals['mandate_category_id']
             category = self.pool.get('mandate.category').browse(cr, uid, mandate_category_id)
-            vals['invoice_type'] = category.invoice_type
+            vals['retrocession_mode'] = category.retrocession_mode
 
         if ('retro_instance_id' not in vals or vals['retro_instance_id'] == False):
             assembly_id = vals[self._assembly_foreign_key]
@@ -179,6 +180,8 @@ class abstract_mandate_retrocession(orm.AbstractModel):
             if mandate.calculation_method_id:
                 self.pool.get('calculation.method').copy_fixed_rules_on_mandate(cr, uid, mandate.calculation_method_id.id, mandate.id, self._retrocession_foreign_key, context=context)
 
+        if vals['retrocession_mode'] != 'None':
+            self.send_email_for_reference(cr, uid, [res])
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -223,6 +226,33 @@ class abstract_mandate_retrocession(orm.AbstractModel):
 
         return False
 
+    def send_email_for_reference(self, cr, uid, ids, context=None):
+        """
+        ==========================
+        send_email_for_reference
+        ==========================
+        Send a email to partner to communicate reference for payments
+        """
+        for mandate in self.browse(cr, uid, ids, context=context):
+            content_text = ["<p>%s</p>" % _("Hello,")]
+            content_text.append('<p>%s <b>%s</b>%s</p>' % (_('Please use'),
+                                                    mandate.reference,
+                                                    _(' as structured reference for all payments concerning following mandate:')))
+            content_text.append('<p><table>')
+            content_text.append('<tr><td><u>%s</u></td><td><b>%s</b></td></tr>' % (_('Representative:'), mandate.partner_id.name))
+            content_text.append('<tr><td><u>%s</u></td><td><b>%s</b></td></tr>' % (_('Type:'), mandate.mandate_category_id.name))
+            content_text.append('<tr><td><u>%s</u></td><td><b>%s</b></td></tr>' % (_('Assembly:'), mandate[self._assembly_foreign_key].name))
+            content_text.append('</table></p>')
+            content_text.append('<p>%s</p>' % _('Regards,'))
+            content_text.append('<br><p style="font-size:12px;color:grey">%s</p>' % _('This message is automatically generated by FICEP, please do not reply directly.'))
+            mail_vals = {
+                'subject': _('Reference for payments'),
+                'body_html': '\n'.join(content_text),
+                'recipient_ids': [[6, False, [mandate.partner_id.id]]],
+            }
+            self.pool.get('mail.mail').create(cr, uid, mail_vals, context=context)
+            self.write(cr, uid, mandate.id, {'email_date': fields.date.today()}, context=context)
+
 
 class sta_mandate(orm.Model):
     _name = 'sta.mandate'
@@ -246,21 +276,23 @@ class sta_mandate(orm.Model):
         'sta.assembly': (sta_assembly.get_linked_sta_mandate_ids, ['calculation_method_id'], 20),
     }
 
-    _invoice_type_store_trigger = {
+    _retrocession_mode_store_trigger = {
        'sta.mandate': (lambda self, cr, uid, ids, context=None: ids,
             ['mandate_category_id'], 20),
-       'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['invoice_type'], 20),
+       'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['retrocession_mode'], 20),
     }
 
     _columns = {
-        'invoice_type': fields.related('mandate_category_id', 'invoice_type', string='Invoicing', type='selection',
-                               selection=INVOICE_AVAILABLE_TYPES, store=_invoice_type_store_trigger),
+        'retrocession_mode': fields.related('mandate_category_id', 'retrocession_mode', string='Retrocession Mode', type='selection',
+                               selection=RETROCESSION_MODES_AVAILABLE, store=_retrocession_mode_store_trigger),
         'calculation_method_id': fields.function(_get_method_id, string='Calculation Method',
                                  type='many2one', relation="calculation.method", select=True, store=_method_id_store_trigger),
         'method_type': fields.related('calculation_method_id', 'type', string='Calculation Method Type', type='selection',
                                        selection=CALCULATION_METHOD_AVAILABLE_TYPES, store=_method_id_store_trigger),
-        'calculation_rule_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Calculation Rules', domain=[('active', '=', True)]),
-        'calculation_rule_inactive_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Calculation Rules', domain=[('active', '=', False)]),
+        'rule_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Imputable Fixed Rules', domain=[('active', '=', True), ('is_deductible', '=', False)]),
+        'rule_inactive_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Imputable Fixed Rules', domain=[('active', '=', False), ('is_deductible', '=', False)]),
+        'deductible_rule_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Deductible Fixed Rules', domain=[('active', '=', True), ('is_deductible', '=', True)]),
+        'deductible_rule_inactive_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Fixed Calculation Rules', domain=[('active', '=', False), ('is_deductible', '=', True)]),
     }
 
     def onchange_sta_assembly_id(self, cr, uid, ids, sta_assembly_id, context=None):
@@ -273,10 +305,10 @@ class sta_mandate(orm.Model):
         res = super(sta_mandate, self).onchange_mandate_category_id(cr, uid, ids, mandate_category_id, context=context)
 
         if mandate_category_id:
-            category_data = self.pool.get('mandate.category').read(cr, uid, mandate_category_id, ['invoice_type'], context)
-            invoice_type = category_data['invoice_type'] or False
+            category_data = self.pool.get('mandate.category').read(cr, uid, mandate_category_id, ['retrocession_mode'], context)
+            retrocession_mode = category_data['retrocession_mode'] or False
 
-            res['value']['invoice_type'] = invoice_type
+            res['value']['retrocession_mode'] = retrocession_mode
         return res
 
 
@@ -303,21 +335,23 @@ class ext_mandate(orm.Model):
         'ext.assembly': (ext_assembly.get_linked_ext_mandate_ids, ['calculation_method_id'], 20),
     }
 
-    _invoice_type_store_trigger = {
+    _retrocession_mode_store_trigger = {
        'ext.mandate': (lambda self, cr, uid, ids, context=None: ids,
             ['mandate_category_id'], 20),
-       'mandate.category': (mandate_category.get_linked_ext_mandate_ids, ['invoice_type'], 20),
+       'mandate.category': (mandate_category.get_linked_ext_mandate_ids, ['retrocession_mode'], 20),
     }
 
     _columns = {
-        'invoice_type': fields.related('mandate_category_id', 'invoice_type', string='Invoicing', type='selection',
-                                       selection=INVOICE_AVAILABLE_TYPES, store=_invoice_type_store_trigger),
+        'retrocession_mode': fields.related('mandate_category_id', 'retrocession_mode', string='Retrocession Mode', type='selection',
+                                       selection=RETROCESSION_MODES_AVAILABLE, store=_retrocession_mode_store_trigger),
         'calculation_method_id': fields.function(_get_method_id, string='Calculation Method',
                                  type='many2one', relation="calculation.method", select=True, store=_method_id_store_trigger),
         'method_type': fields.related('calculation_method_id', 'type', string='Calculation Method Type', type='selection',
                                        selection=CALCULATION_METHOD_AVAILABLE_TYPES, store=_method_id_store_trigger),
-        'calculation_rule_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Calculation Rules', domain=[('active', '=', True)]),
-        'calculation_rule_inactive_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Calculation Rules', domain=[('active', '=', False)]),
+        'rule_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Imputable Fixed Rules', domain=[('active', '=', True), ('is_deductible', '=', False)]),
+        'rule_inactive_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Imputable Fixed Rules', domain=[('active', '=', False), ('is_deductible', '=', False)]),
+        'deductible_rule_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Deductible Fixed Rules', domain=[('active', '=', True), ('is_deductible', '=', True)]),
+        'deductible_rule_inactive_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Fixed Calculation Rules', domain=[('active', '=', False), ('is_deductible', '=', True)]),
     }
 
     def onchange_ext_assembly_id(self, cr, uid, ids, ext_assembly_id, context=None):
@@ -330,9 +364,9 @@ class ext_mandate(orm.Model):
         res = super(ext_mandate, self).onchange_mandate_category_id(cr, uid, ids, mandate_category_id, context=context)
 
         if mandate_category_id:
-            category_data = self.pool.get('mandate.category').read(cr, uid, mandate_category_id, ['invoice_type'], context)
-            invoice_type = category_data['invoice_type'] or False
+            category_data = self.pool.get('mandate.category').read(cr, uid, mandate_category_id, ['retrocession_mode'], context)
+            retrocession_mode = category_data['retrocession_mode'] or False
 
-            res['value']['invoice_type'] = invoice_type
+            res['value']['retrocession_mode'] = retrocession_mode
         return res
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
