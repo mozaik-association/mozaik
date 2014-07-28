@@ -216,15 +216,6 @@
             </field>
         </record>
 
-        <!-- Old Commitee Member To Member -->
-        <record id="membership_trans_ocm_m" model="workflow.transition">
-            <field name="act_from" ref="partner_act_old_commitee_member" />
-            <field name="act_to" ref="partner_act_member" />
-            <field name="condition">
-                accepted_date != False
-            </field>
-        </record>
-
         <!-- Old Commitee Member To Inappropriate Old Member -->
         <record id="membership_trans_ocm_iom" model="workflow.transition">
             <field name="act_from" ref="partner_act_old_commitee_member" />
@@ -243,6 +234,15 @@
             </field>
         </record>
 
+        <!-- Old Member To Old Member -->
+        <record id="membership_trans_om_bom" model="workflow.transition">
+            <field name="act_from" ref="partner_act_old_member" />
+            <field name="act_to" ref="partner_act_old_member" />
+            <field name="condition">
+                accepted_date != False
+            </field>
+        </record>
+
         <!-- Old Member To Inappropriate Old Member -->
         <record id="membership_trans_om_iom" model="workflow.transition">
             <field name="act_from" ref="partner_act_old_member" />
@@ -254,11 +254,19 @@
 
         <!-- MANUAL OPTION -->
 
+        <!-- Member TO Member Via button -->
+        <record id="membership_trans_member_member_button" model="workflow.transition">
+            <field name="act_from" ref="partner_act_member" />
+            <field name="act_to" ref="partner_act_member" />
+            <field name="signal">paid_simulated</field>
+            <field name="condition">True</field>
+        </record>
+
         <!-- Supporter TO Future Commitee Member Via button -->
         <record id="membership_trans_supp_osupp_button" model="workflow.transition">
             <field name="act_from" ref="partner_act_supporter" />
             <field name="act_to" ref="partner_act_future_commitee_member" />
-            <field name="signal">free_pass</field>
+            <field name="signal">paid_simulated</field>
             <field name="condition">True</field>
         </record>
 
@@ -266,15 +274,7 @@
         <record id="membership_trans_cm_fcm_button" model="workflow.transition">
             <field name="act_from" ref="partner_act_candidate_member" />
             <field name="act_to" ref="partner_act_future_commitee_member" />
-            <field name="signal">free_pass</field>
-            <field name="condition">True</field>
-        </record>
-
-        <!-- Future Commitee Member TO Member Via button -->
-        <record id="membership_trans_fcm_m_button" model="workflow.transition">
-            <field name="act_from" ref="partner_act_future_commitee_member" />
-            <field name="act_to" ref="partner_act_member" />
-            <field name="signal">free_pass</field>
+            <field name="signal">paid_simulated</field>
             <field name="condition">True</field>
         </record>
 
@@ -282,7 +282,23 @@
         <record id="membership_trans_om_m_button" model="workflow.transition">
             <field name="act_from" ref="partner_act_old_member" />
             <field name="act_to" ref="partner_act_old_commitee_member" />
-            <field name="signal">free_pass</field>
+            <field name="signal">paid_simulated</field>
+            <field name="condition">True</field>
+        </record>
+
+        <!-- Old Commitee Member To Member -->
+        <record id="membership_trans_ocm_m" model="workflow.transition">
+            <field name="act_from" ref="partner_act_old_commitee_member" />
+            <field name="act_to" ref="partner_act_member" />
+            <field name="signal">accept</field>
+            <field name="condition">True</field>
+        </record>
+
+        <!-- Future Commitee Member TO Member Via button -->
+        <record id="membership_trans_fcm_m_button" model="workflow.transition">
+            <field name="act_from" ref="partner_act_future_commitee_member" />
+            <field name="act_to" ref="partner_act_member" />
+            <field name="signal">accept</field>
             <field name="condition">True</field>
         </record>
 

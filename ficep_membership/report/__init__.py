@@ -25,14 +25,4 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import product
-from . import membership_request
-from . import membership
-from . import res_partner
-from . import structure
-from . import address_local_zip
-from . import wizard
-from . import virtual_models
-from . import report
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+from . import waiting_member_report

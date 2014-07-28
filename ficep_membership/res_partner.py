@@ -116,6 +116,18 @@ class res_partner(orm.Model):
 
 # view methods: onchange, button
 
+    def decline_payment(self, cr, uid, ids, context=None):
+        return self.write(cr, uid, ids, {'decline_payment_date': date.today().strftime('%Y-%m-%d')}, context=context)
+
+    def reject(self, cr, uid, ids, context=None):
+        return self.write(cr, uid, ids, {'rejected_date': date.today().strftime('%Y-%m-%d')}, context=context)
+
+    def exclude(self, cr, uid, ids, context=None):
+        return self.write(cr, uid, ids, {'exclusion_date': date.today().strftime('%Y-%m-%d')}, context=context)
+
+    def resign(self, cr, uid, ids, context=None):
+        return self.write(cr, uid, ids, {'resignation_date': date.today().strftime('%Y-%m-%d')}, context=context)
+
     def button_modification_request(self, cr, uid, ids, context=None):
         """
         ====================

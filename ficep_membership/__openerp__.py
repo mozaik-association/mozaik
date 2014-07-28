@@ -64,6 +64,7 @@ default instance otherwise. This field is added to all views (search, tree and f
         'data/ficep_membership_state_data.xml',
         'data/ir_config_parameter_data.xml',
         'data/product_data.xml',
+        'data/ir_cron_membership.xml',
     ],
     'sequence': 150,
     'auto_install': False,

@@ -19,15 +19,41 @@
                 <xpath expr="//field[@name='member_lines']"
                     position="before">
                     <div name="state_management">
-                        <button name="free_pass" string="Next Activity"
+                        <button name="accept" string="Accept"
+                            groups="ficep_base.res_groups_developper"
+                            attrs="{'invisible': [
+                                ('membership_state_code', '!=', 'future_commitee_member'),
+                                ('membership_state_code', '!=', 'old_commitee_member')]}" />
+
+                        <button name="paid_simulated" string="Paid Simulate"
                             groups="ficep_base.res_groups_developper"
                             attrs="{'invisible': [
                                 ('membership_state_code', '!=', 'candidate_member'),
-                                ('membership_state_code', '!=', 'future_commitee_member'),
                                 ('membership_state_code', '!=', 'member'),
                                 ('membership_state_code', '!=', 'supporter'),
+                                ('membership_state_code', '!=', 'old_member'),]}" />
+
+                        <button name="decline_payment" string="Decline Payment"
+                            type="object" attrs="{'invisible': [
+                                ('membership_state_code', '!=', 'candidate_member'),
+                                ('membership_state_code', '!=', 'member')]}" />
+
+                        <button name="reject" string="Reject"
+                            type="object" attrs="{'invisible': [
+                                ('membership_state_code', '!=', 'candidate_member'),
+                                ('membership_state_code', '!=', 'future_commitee_member')]}" />
+
+                        <button name="exclude" string="Exclude"
+                            type="object" attrs="{'invisible': [
+                                ('membership_state_code', '!=', 'member'),
                                 ('membership_state_code', '!=', 'old_member'),
                                 ('membership_state_code', '!=', 'old_commitee_member')]}" />
+
+                        <button name="resign" string="Resign"
+                            type="object" attrs="{'invisible': [
+                                ('membership_state_code', '!=', 'member'),
+                                ('membership_state_code', '!=', 'old_member'),
+                                ('membership_state_code', '!=', 'supporter')]}" />
                     </div>
                 </xpath>
 
