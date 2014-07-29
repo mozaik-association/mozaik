@@ -570,6 +570,9 @@
                             <button name="action_validate" string="Validate" type="object"
                                     confirm="Validate Retrocession now: proceed anyway ?"
                                     states="draft" class="oe_highlight"/>
+                            <button name="action_paid" string="Paid" type="object"
+                                    confirm="Mark Retrocession as Paid: proceed anyway ?" class="oe_highlight"
+                                    attrs="{'invisible': ['|', ('state', '!=', 'validated'),('need_account_management', '=', True)]}"/>
                             <button name="action_revalidate" string="Reset" type="object"
                                     states="validated" confirm="Reset Retrocession: proceed anyway ?" />
                             <button name="action_invalidate" string="Cancel" type="object"
@@ -599,7 +602,7 @@
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
                         <group name="data">
-                            <field name="unique_id" attrs="{'invisible': [('unique_id', '=', False)]}"/>
+                            <field name="unique_id" readonly="1" attrs="{'invisible': [('unique_id', '=', False)]}"/>
                             <field name="month" attrs="{'invisible': [('retrocession_mode','!=', 'month')],
                                                           'required': [('retrocession_mode','=', 'month')],
                                                           'readonly': [('state','not in', ['draft'])]}"/>
@@ -676,6 +679,18 @@
                                 </group>
                                 <div class="oe_clear"/>
                             </page>
+                            <page string="Accounting" name="accounting" attrs="{'invisible': [('state', '=', 'draft')]}">  
+                                    <separator string="Amounts"/>
+                                    <group>
+	                                    <field name="provision" attrs="{'readonly': [('need_account_management', '=', True)]}"/>
+	                                    <field name="amount_topay"/>
+	                                    <field name="amount_paid"  attrs="{'readonly': [('need_account_management', '=', True)]}"/>
+	                                </group>
+                                    <separator string="Journal Entry" attrs="{'invisible': [('move_id', '=', False)]}"/>
+                                    <group>
+                                        <field name="move_id" attrs="{'invisible': [('move_id', '=', False)]}"/>
+                                    </group>
+                            </page>
                         </notebook>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
@@ -687,6 +702,7 @@
                                 <field name="id"/>
                                 <field name="active"/>
                                 <field name="retrocession_mode"/>
+                                <field name="need_account_management"/>
                             </group>
                         </div>
                     </div>

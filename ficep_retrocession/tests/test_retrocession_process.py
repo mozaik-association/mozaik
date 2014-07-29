@@ -126,13 +126,6 @@ class test_retrocession_process(object):
         self.assertEqual(retro_state, 'validated')
 
         '''
-            No computation should occurs
-        '''
-        rule_pool.write(self.cr, self.uid, fixed_rule_ids, {'percentage': 0.55})
-        amounts = retro_pool.read(self.cr, self.uid, self.retro.id, ['amount_total'])
-        self.assertEqual(amounts['amount_total'], 1.20)
-
-        '''
             Account move should exist
         '''
         move_id = retro_pool.read(self.cr, self.uid, self.retro.id, ['move_id'])['move_id']

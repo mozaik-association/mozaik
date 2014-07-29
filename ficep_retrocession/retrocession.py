@@ -315,21 +315,6 @@ class retrocession(orm.Model):
             res[retrocession.id] = retrocession.sta_mandate_id.partner_id if retrocession.sta_mandate_id else retrocession.ext_mandate_id.partner_id
         return res
 
-    def _get_retrocession_to_compute(self, cr, uid, ids, context=None):
-        """
-        ===========================
-        get_retrocession_to_compute
-        ===========================
-        Get computation of retrocession coming from rules
-        :rparam:  retrocession amount
-        :rtype: float
-        """
-        retrocessions = []
-        for retrocession in self.browse(cr, uid, ids, context=context):
-            if retrocession.state in ['draft', 'sent']:
-                retrocessions.append(retrocession)
-        return retrocessions
-
     def _compute_amount(self, cr, uid, retrocessions_to_compute, rule_column, context=None):
         """
         =================
@@ -354,13 +339,17 @@ class retrocession(orm.Model):
         :rtype: float
         """
         res = {}
-        retrocessions_to_compute = self._get_retrocession_to_compute(cr, uid, ids, context=context)
+        retrocessions_to_compute = self.browse(cr, uid, ids, context=context)
         retrocede_amounts = self._compute_amount(cr, uid, retrocessions_to_compute, 'rule_ids', context=context)
         deductible_amounts = self._compute_amount(cr, uid, retrocessions_to_compute, 'deductible_rule_ids', context=context)
         for retro in retrocessions_to_compute:
-            res[retro.id] = dict(amount_retrocession=retrocede_amounts[retro.id] or False,
-                                 amount_deduction=deductible_amounts[retro.id] or False,
-                                 amount_total=(retrocede_amounts[retro.id] + deductible_amounts[retro.id]))
+            amounts = {}
+            amount_total = (retrocede_amounts[retro.id] + deductible_amounts[retro.id])
+            amounts['amount_retrocession'] = retrocede_amounts[retro.id] or False
+            amounts['amount_deduction'] = deductible_amounts[retro.id] or False
+            amounts['amount_total'] = amount_total
+            amounts['amount_topay'] = amount_total - retro.provision
+            res[retro.id] = amounts
         return res
 
     def _need_account_management(self, cr, uid, ids, fname, arg, context=None):
@@ -417,7 +406,7 @@ class retrocession(orm.Model):
         return res
 
     _amount_store_trigger = {
-        'retrocession': (lambda self, cr, uid, ids, context=None: ids, ['fixed_rule_ids', 'variable_rule_ids'], 20),
+        'retrocession': (lambda self, cr, uid, ids, context=None: ids, ['rule_ids', 'deductible_rule_ids', 'provision'], 20),
         'calculation.rule': (_get_calculation_rule, ['amount', 'percentage'], 20),
     }
 
@@ -524,13 +513,17 @@ class retrocession(orm.Model):
                                  type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
         'amount_deduction': fields.function(_compute_all_amounts, string='Amount deductible', multi="Allamounts",
                                  type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
-        'amount_total': fields.function(_compute_all_amounts, string='Retrocession', multi="Allamounts",
+        'amount_total': fields.function(_compute_all_amounts, string='Total', multi="Allamounts",
                                         type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
+        'amount_topay': fields.function(_compute_all_amounts, string='To Pay', multi="Allamounts",
+                                        type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
+        'amount_paid': fields.float('Amount Paid'),
         'move_id': fields.many2one('account.move', 'Journal Entry', select=True),
         'need_account_management': fields.function(_need_account_management, string='Need accounting management', type='boolean', store=False),
         'default_debit_account': fields.function(_get_defaults_account, string="Default debit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
         'default_credit_account': fields.function(_get_defaults_account, string="Default credit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
-        'is_regulation': fields.boolean('Regulation Retrocession ?')
+        'is_regulation': fields.boolean('Regulation Retrocession ?'),
+        'provision': fields.float('Provision'),
     }
 
     _order = 'year desc, month desc, sta_mandate_id, ext_mandate_id'
@@ -610,10 +603,27 @@ class retrocession(orm.Model):
 
         return True
 
+    def _check_paid(self, cr, uid, ids, for_unlink=False, context=None):
+        """
+        =================
+        _check_paid
+        =================
+        A paid retrocession should have a non-zero paid amount
+        :rparam: True if it is the case
+                 False otherwise
+        :rtype: boolean
+        """
+        for retro in self.browse(cr, uid, ids):
+            if retro.state == 'paid' and retro.amount_paid == 0:
+                return False
+
+        return True
+
     _constraints = [
         (_check_unicity, _("A retrocession already exists for this mandate at this period"), ['sta_mandate_id', 'ext_mandate_id']),
         (_check_value, _("You can not validate a negative retrocession"), ['amount_total']),
-        (_check_regulation, _("A regulation retrocession should only occur on December"), ['is_regulation'])
+        (_check_regulation, _("A regulation retrocession should only occur on December"), ['is_regulation']),
+        (_check_paid, _("No amount paid specified."), ['state'])
     ]
 
     _unicity_keys = 'N/A'
@@ -750,4 +760,12 @@ class retrocession(orm.Model):
         self.pool.get('account.move').unlink(cr, uid, account_move_ids, context=context)
         return res
 
+    def action_paid(self, cr, uid, ids, context=None, vals=None):
+        """
+        =================
+        action_paid
+        =================
+        Mark a retrocession as paid
+        """
+        self.write(cr, uid, ids, {'state': 'paid'}, context=context)
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
