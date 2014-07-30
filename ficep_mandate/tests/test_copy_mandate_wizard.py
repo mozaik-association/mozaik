@@ -42,6 +42,8 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
 
     def setUp(self):
         super(test_copy_mandate_wizard, self).setUp()
+        cr, uid, context = self.cr, self.uid, {}
+
         sta_candidature_pool = self.registry('sta.candidature')
         sta_committee_pool = self.registry('sta.selection.committee')
         sta_paul_communal_id = self.ref('%s.sta_paul_communal' % self._module_ns)
@@ -52,10 +54,11 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
 
         accepted_ids = [sta_thierry_communal_id]
         rejected_ids = [sta_pauline_communal_id, sta_marc_communal_id, sta_paul_communal_id]
-        sta_candidature_pool.signal_button_suggest(self.cr, self.uid, accepted_ids)
-        sta_candidature_pool.signal_button_reject(self.cr, self.uid, rejected_ids)
-        sta_committee_pool.button_accept_candidatures(self.cr, self.uid, [selection_committee_id])
-        sta_candidature_pool.signal_button_elected(self.cr, self.uid, accepted_ids)
+
+        sta_candidature_pool.signal_workflow(cr, uid, accepted_ids, 'button_suggest', context={})
+        sta_candidature_pool.signal_workflow(cr, uid, rejected_ids, 'button_reject', context={})
+        sta_committee_pool.button_accept_candidatures(cr, uid, [selection_committee_id])
+        sta_candidature_pool.signal_workflow(cr, uid, accepted_ids, 'button_elected', context={})
         sta_candidature_pool.button_create_mandate(self.cr, self.uid, accepted_ids)
 
     def test_renew_legislative_state_mandate(self):

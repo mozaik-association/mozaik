@@ -226,7 +226,8 @@ class abstract_selection_committee(orm.AbstractModel):
         """
         for committee in self.browse(cr, uid, ids, context=context):
             if committee.candidature_ids:
-                self.pool.get(self._candidature_model).signal_action_accept(cr, uid, self._get_suggested_candidatures(cr, uid, ids, context=context))
+                self.pool.get(self._candidature_model).signal_workflow(cr, uid,\
+                    self._get_suggested_candidatures(cr, uid, ids, context=context), 'action_accept', context=context)
         self.action_invalidate(cr, uid, ids, context, {'state': 'done'})
         return True
 

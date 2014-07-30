@@ -30,7 +30,7 @@ from openerp.osv import orm, fields
 from openerp     import tools
 
 
-def _get_document_types(s, cr, uid, c=None):
+def _get_document_types(s, cr, uid, context=None):
     cr.execute("SELECT model, name from ir_model WHERE model IN ('sta.mandate', 'int.mandate', 'ext.mandate') ORDER BY name")
     return cr.fetchall()
 

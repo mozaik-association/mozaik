@@ -68,9 +68,9 @@
             <field name="sequence">5</field>
         </record>
 
-        <record id="connector.menu_connector_root" model="ir.ui.menu">
+        <!--record id="connector.menu_connector_root" model="ir.ui.menu">
             <field name="sequence">450</field>
-        </record>
+        </record -->
 
         <!-- Re-assign standard menus -->
 
