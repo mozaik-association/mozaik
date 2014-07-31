@@ -75,11 +75,11 @@ class postal_mail_log(orm.Model):
 
     _columns = {
         'name': fields.char('Name', size=256, track_visibility='onchange'),
-        'sent_date': fields.datetime('Sent date'),
+        'sent_date': fields.datetime('Sent date', track_visibility='onchange'),
         'postal_mail_id': fields.many2one('postal.mail', 'Postal Mail', track_visibility='onchange'),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', track_visibility='onchange'),
         'partner_id': fields.related('postal_coordinate_id', 'partner_id', string='Partner', type='many2one',
-                                     relation='res.partner'),
+                                     relation='res.partner', track_visibility='onchange'),
     }
 
 # constraints

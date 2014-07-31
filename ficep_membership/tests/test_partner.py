@@ -28,7 +28,7 @@
 from anybox.testing.openerp import SharedSetupTransactionCase
 import uuid
 from openerp import netsvc
-from datetime import date
+from datetime import date, timedelta
 import logging
 from openerp.addons.ficep_membership import membership_request
 
@@ -82,7 +82,7 @@ class test_partner(SharedSetupTransactionCase):
                 'name': name,
             }
             partner_id = self.partner_obj.create(self.cr, self.uid, partner_values)
-        #check each tume the current state cs
+        # check each tume the current state cs
         return self.partner_obj.browse(self.cr, self.uid, partner_id)
 
     def test_workflow(self):
@@ -108,62 +108,62 @@ class test_partner(SharedSetupTransactionCase):
         """
         cr, uid, partner_obj = self.cr, self.uid, self.partner_obj
 
-        #create = without_membership
+        # create = without_membership
         partner = self.get_partner()
         self.assertEquals(partner.membership_state_id.code, 'without_membership', 'Create: should be "without_status"')
 
-        #without_status -> candidate_member
+        # without_status -> candidate_member
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'candidate_member', 'Should be "candidate_member"')
 
-        #without_status -> supporter
+        # without_status -> supporter
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': True})
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'supporter', 'Should be "supporter"')
 
-        #supporter -> candidate_member
+        # supporter -> candidate_member
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'candidate_member', 'Should be "candidate_member"')
 
-        #candidate_member -> future_commitee_member
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
+        # candidate_member -> future_commitee_member
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'future_commitee_member', 'Should be "future_commitee_member"')
 
-        #future_commitee_member -> refused_candidate_member
+        # future_commitee_member -> refused_candidate_member
         partner.write({'rejected_date': date.today().strftime('%Y-%m-%d')})
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'refused_candidate_member', 'Should be "refused_candidate_member"')
 
-        #refused candidate_member -> candidate_member
+        # refused candidate_member -> candidate_member
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'candidate_member', 'Should be "candidate_member"')
 
-        #candidate_member ->supporter
+        # candidate_member ->supporter
         partner.write({'decline_payment_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': True})
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'supporter', 'Should be "supporter"')
 
-        #supporter -> old_supporter
+        # supporter -> old_supporter
         partner.write({'resignation_date': date.today().strftime('%Y-%m-%d')})
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'old_supporter', 'Should be "old_supporter"')
 
-        #go to member state
+        # go to member state
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', self.cr)
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'member', 'Should be "member"')
 
@@ -173,7 +173,7 @@ class test_partner(SharedSetupTransactionCase):
         self.assertEquals(partner.membership_state_id.code, 'old_member', 'Should be "old member"')
 
         # old_member -> old_commitee_member
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'old_commitee_member', 'Should be "old_commitee_member"')
 
@@ -186,8 +186,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', self.cr)
         partner = self.get_partner(partner.id)
 
         # member -> resignation_old_member
@@ -199,8 +199,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', self.cr)
         partner = self.get_partner(partner.id)
 
         # member -> expulsion_old_member
@@ -212,8 +212,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', self.cr)
         partner = self.get_partner(partner.id)
 
         # member -> old_member
@@ -222,11 +222,11 @@ class test_partner(SharedSetupTransactionCase):
         self.assertEquals(partner.membership_state_id.code, 'old_member', 'Should be "old member"')
 
         # old_member -> old_commitee_member
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'old_commitee_member', 'Should be "old_commitee_member"')
 
-        #old_commitee_member -> break_old_member
+        # old_commitee_member -> break_old_member
         partner.write({'resignation_date': date.today().strftime('%Y-%m-%d')})
         partner = self.get_partner(partner.id)
 
@@ -234,8 +234,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'free_pass', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', self.cr)
         partner = self.get_partner(partner.id)
 
         # member -> resignation_old_member
@@ -279,42 +279,42 @@ class test_partner(SharedSetupTransactionCase):
         self.assertEqual(mr.month, month and int(month), '[memb.req.]month should be the same that [partner]month ')
         self.assertEqual(mr.year, year and int(year), '[memb.req.]year should be the same that [partner]year ')
         self.assertEqual(mr.is_update, True, '[memb.req.]is_update should be True')
-        self.assertEqual(mr.country_id and mr.country_id.id or False, postal_coordinate_id and postal_coordinate_id.address_id.country_id.id,\
+        self.assertEqual(mr.country_id and mr.country_id.id or False, postal_coordinate_id and postal_coordinate_id.address_id.country_id.id, \
                          '[memb.req.]country_id should be the same that [partner]country_id ')
-        self.assertEqual(mr.address_local_street_id and mr.address_local_street_id.id or False, postal_coordinate_id and postal_coordinate_id.address_id.address_local_street_id.id,\
+        self.assertEqual(mr.address_local_street_id and mr.address_local_street_id.id or False, postal_coordinate_id and postal_coordinate_id.address_id.address_local_street_id.id, \
                          '[memb.req.]address_local_street_id should be the same that [partner]address_local_street_id ')
-        self.assertEqual(mr.street_man, postal_coordinate_id and postal_coordinate_id.address_id.street_man,\
+        self.assertEqual(mr.street_man, postal_coordinate_id and postal_coordinate_id.address_id.street_man, \
                          '[memb.req.]street_man should be the same that [partner]street_man ')
-        self.assertEqual(mr.street2, postal_coordinate_id and postal_coordinate_id.address_id.street2,\
+        self.assertEqual(mr.street2, postal_coordinate_id and postal_coordinate_id.address_id.street2, \
                          '[memb.req.]street2 should be the same that [partner]street2 ')
-        self.assertEqual(mr.address_local_zip_id and mr.address_local_zip_id.id or False, postal_coordinate_id and postal_coordinate_id.address_id.address_local_zip_id.id,\
+        self.assertEqual(mr.address_local_zip_id and mr.address_local_zip_id.id or False, postal_coordinate_id and postal_coordinate_id.address_id.address_local_zip_id.id, \
                          '[memb.req.]address_local_zip_id should be the same that [partner]address_local_zip_id ')
-        self.assertEqual(mr.zip_man, postal_coordinate_id and postal_coordinate_id.address_id.zip_man,\
+        self.assertEqual(mr.zip_man, postal_coordinate_id and postal_coordinate_id.address_id.zip_man, \
                          '[memb.req.]zip_man should be the same that [partner]zip_man ')
-        self.assertEqual(mr.town_man, postal_coordinate_id and postal_coordinate_id.address_id.town_man,\
+        self.assertEqual(mr.town_man, postal_coordinate_id and postal_coordinate_id.address_id.town_man, \
                          '[memb.req.]town_man should be the same that [partner]town_man ')
-        self.assertEqual(mr.box, postal_coordinate_id and postal_coordinate_id.address_id.box,\
+        self.assertEqual(mr.box, postal_coordinate_id and postal_coordinate_id.address_id.box, \
                          '[memb.req.]box should be the same that [partner]box ')
-        self.assertEqual(mr.number, postal_coordinate_id and postal_coordinate_id.address_id.number,\
+        self.assertEqual(mr.number, postal_coordinate_id and postal_coordinate_id.address_id.number, \
                          '[memb.req.]number should be the same that [partner]number ')
-        self.assertEqual(mr.mobile, mobile_coordinate_id and mobile_coordinate_id.phone_id.name,\
+        self.assertEqual(mr.mobile, mobile_coordinate_id and mobile_coordinate_id.phone_id.name, \
                          '[memb.req.]mobile should be the same that [partner]mobile ')
-        self.assertEqual(mr.phone, fix_coordinate_id and fix_coordinate_id.phone_id.name,\
+        self.assertEqual(mr.phone, fix_coordinate_id and fix_coordinate_id.phone_id.name, \
                          '[memb.req.]phone should be the same that [partner]phone ')
-        self.assertEqual(mr.mobile_id and mr.mobile_id.id or False, mobile_coordinate_id and mobile_coordinate_id.phone_id.id,\
+        self.assertEqual(mr.mobile_id and mr.mobile_id.id or False, mobile_coordinate_id and mobile_coordinate_id.phone_id.id, \
                          '[memb.req.]mobile_id should be the same that [partner]mobile_id ')
-        self.assertEqual(mr.phone_id and mr.phone_id.id or False, fix_coordinate_id and fix_coordinate_id.phone_id.id,\
+        self.assertEqual(mr.phone_id and mr.phone_id.id or False, fix_coordinate_id and fix_coordinate_id.phone_id.id, \
                          '[memb.req.]phone_id should be the same that [partner]phone_id ')
-        self.assertEqual(mr.email, email_coordinate_id and email_coordinate_id.email,\
+        self.assertEqual(mr.email, email_coordinate_id and email_coordinate_id.email, \
                          '[memb.req.]email should be the same that [partner]email ')
-        self.assertEqual(mr.address_id and mr.address_id.id or False, postal_coordinate_id and postal_coordinate_id.address_id.id,\
+        self.assertEqual(mr.address_id and mr.address_id.id or False, postal_coordinate_id and postal_coordinate_id.address_id.id, \
                          '[memb.req.]address_id should be the same that [partner]address_id ')
-        self.assertEqual(mr.int_instance_id and mr.int_instance_id.id or False, int_instance_id and int_instance_id.id,\
+        self.assertEqual(mr.int_instance_id and mr.int_instance_id.id or False, int_instance_id and int_instance_id.id, \
                          '[memb.req.]int_instance_id should be the same that [partner]int_instance_id ')
-        self.assertEqual(mr.interests_m2m_ids or [[6, False, []]], [[6, False, partner.interests_m2m_ids and [interest.id for interest in partner.interests_m2m_ids] or []]],\
+        self.assertEqual(mr.interests_m2m_ids or [[6, False, []]], [[6, False, partner.interests_m2m_ids and [interest.id for interest in partner.interests_m2m_ids] or []]], \
                          '[memb.req.]interests_m2m_ids should be the same that [partner]interests_m2m_ids ')
         self.assertEqual(mr.partner_id and mr.partner_id.id, partner.id, '[memb.req.]partner_id should be the same that [partner]partner_id ')
-        self.assertEqual(mr.competencies_m2m_ids or [[6, False, []]], [[6, False, partner.competencies_m2m_ids and [competence.id for competence in partner.competencies_m2m_ids] or []]],\
+        self.assertEqual(mr.competencies_m2m_ids or [[6, False, []]], [[6, False, partner.competencies_m2m_ids and [competence.id for competence in partner.competencies_m2m_ids] or []]], \
                          '[memb.req.]competencies_m2m_ids should be the same that [partner]competencies_m2m_ids ')
 
     def test_update_membership_line(self):
@@ -350,7 +350,7 @@ class test_partner(SharedSetupTransactionCase):
 
         for membership_line in partner.member_lines:
             self.assertEqual(membership_line.date_from, today, 'Date From should be: today')
-            self.assertEqual(membership_line.membership_state_id.id, membership_state_id,\
+            self.assertEqual(membership_line.membership_state_id.id, membership_state_id, \
                              'State of membership must be the same that state of partner')
             self.assertTrue(membership_line.is_current, 'First membership should be the current one')
             self.assertFalse(membership_line.date_to, 'Should not have a date_to because this is the current membership')
@@ -363,12 +363,56 @@ class test_partner(SharedSetupTransactionCase):
         for membership_line in partner.member_lines:
             if membership_line.is_current == True:
                 one_current = True
-                self.assertTrue(membership_line.membership_state_id == partner.membership_state_id,\
+                self.assertTrue(membership_line.membership_state_id == partner.membership_state_id, \
                                  'State Should be the same than partner')
             else:
-                self.assertTrue(membership_line.membership_state_id.id == membership_state_id,\
+                self.assertTrue(membership_line.membership_state_id.id == membership_state_id, \
                                  'State Should be the same than before')
                 self.assertTrue(membership_line.date_to, '`date_to` should has been set')
         self.assertTrue(one_current, 'Should at least have one current')
+
+    def test_waiting_member(self):
+        """
+        ===================
+        test_waiting_member
+        ===================
+        Test will identify member with the status
+        `future_commitee_member` and `old_commitee_member`
+        and make them pass into `member` status only if they are
+        into the previous state for (or more than) one month
+        """
+        cr, uid, context = self.cr, self.uid, {}
+        wmr = self.registry['waiting.member.report']
+        vals = {
+            'lastname': '%s' % uuid.uuid4()
+        }
+        partner_id = self.partner_obj.create(cr, uid, vals, context=context)
+        # futur commitee member less than one month
+        partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
+
+        partner.write({
+            'accepted_date': date.today().strftime('%Y-%m-%d'),
+            'free_member': False
+        })
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
+
+        partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
+        current_state = partner.membership_state_id
+        # now into future commitee member
+        wmr.process_accept_members(cr, uid)
+        partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
+
+        self.assertEqual(partner.membership_state_id, current_state, "State Should be the same than before")
+
+        for member_line in partner.member_lines:
+            if member_line.is_current:
+                member_line.write({'date_from': '%s' % (date.today() -\
+                    timedelta(days=31)).strftime('%Y-%m-%d')})
+
+        wmr.process_accept_members(cr, uid)
+        partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
+
+        self.assertNotEqual(partner.membership_state_id, current_state, "State Should not be the same than before")
+        self.assertEqual(partner.membership_state_id.code, 'member', "State Should be 'member'")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -230,14 +230,17 @@
 
                     <field name="partner_id" domain="[('is_assembly','=',False)]" />
                     <field name="int_instance_id" />
+                    <separator/>
+                    <field name="membership_state_id" />
+                    <separator/>
 
                     <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
-
+                    <separator/>
                     <field name="email_category_id" string="Email Category" widget="many2one" />
                     <field name="postal_category_id" string="Postal Category" widget="many2one" />
-
+                    <separator/>
                     <filter string="Main Postal" name="main_postal" domain="[('main_postal','=',1)]"/>
                     <filter string="Main Email" name="main_email" domain="[('main_email','=',1)]"/>
                     <separator/>
@@ -263,6 +266,7 @@
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter name="ste" string="State" context="{'group_by':'membership_state_id'}"/>
                         <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
                     </group>
                 </search>
@@ -276,6 +280,8 @@
                 <tree string="Virtual Partner Instance" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
+
+                    <field name="membership_state_id" />
 
                     <field name="birth_date" />
                     <field name="gender" />
@@ -630,6 +636,8 @@
                     <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
                     <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
                     <separator/>
+                    <field name="state" />
+                    <separator/>
                     <field name="partner_id" domain="[('is_company','=',False)]"/>
                     <field name="int_instance_id" />
                     <field name="mandate_category_id" />
@@ -648,6 +656,7 @@
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
+                        <filter name="sta" string="State" context="{'group_by':'state'}"/>
                         <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
                         <filter name="sta_mandate" string="State Mandate" context="{'group_by':'sta_mandate_id'}"/>
                         <filter name="ext_mandate" string="External Mandate" context="{'group_by':'ext_mandate_id'}"/>
@@ -665,6 +674,8 @@
                 <tree string="Virtual Partner Retrocession" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
+
+                    <field name="state" />
 
                     <field name="month" />
                     <field name="year" />
@@ -704,7 +715,7 @@
         <!-- Action -->
 
         <record id="virtual_partner_retrocession_action" model="ir.actions.act_window">
-            <field name="name">Partners/Retrocession</field>
+            <field name="name">Partners/Retrocessions</field>
             <field name="res_model">virtual.partner.retrocession</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>

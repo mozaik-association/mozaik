@@ -29,6 +29,7 @@ from openerp import tools
 from openerp.osv import orm, fields
 
 from openerp.addons.ficep_person.res_partner import AVAILABLE_GENDERS, AVAILABLE_TONGUES
+from openerp.addons.ficep_retrocession.retrocession import RETROCESSION_AVAILABLE_STATES
 
 
 class virtual_target(orm.Model):
@@ -291,6 +292,7 @@ class virtual_partner_instance(orm.Model):
     _columns = {
         'common_id': fields.char(string='Common ID'),
         'partner_id': fields.many2one('res.partner', 'Partner'),
+        'membership_state_id': fields.many2one('membership.state', 'Sate'),
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
@@ -353,9 +355,13 @@ class virtual_partner_instance(orm.Model):
             e.vip as email_vip,
             e.coordinate_category_id as email_category_id,
             e.is_main as main_email,
-            e.unauthorized as email_unauthorized
+            e.unauthorized as email_unauthorized,
+            ms.id as membership_state_id
         FROM
             res_partner p
+        JOIN
+            membership_state ms
+        ON ms.id = p.membership_state_id
 
         LEFT OUTER JOIN
             postal_coordinate pc
@@ -965,6 +971,8 @@ class virtual_partner_retrocession(orm.Model):
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+
+        'state': fields.selection(RETROCESSION_AVAILABLE_STATES, 'State'),
 
         'year': fields.char('Year'),
         'month': fields.selection(fields.date.MONTHS, 'Month',

@@ -38,7 +38,7 @@ class membership_membership_line(orm.Model):
     _name = 'membership.membership_line'
     _inherit = ['membership.membership_line', 'abstract.ficep.model']
 
-    _order = 'date_from desc'
+    _order = 'date_from desc, date_to desc'
 
     def _generate_membership_reference(self, cr, uid, membership_line_id, context=None):
         """

@@ -91,7 +91,7 @@ class mandates_analysis_report(orm.Model):
                         + (EXTRACT(day FROM age(deadline_date,now()))/30)
                            ) AS remaining_months_before_end_of_mandate
                     FROM  ext_mandate           AS mandate
-                     JOIN ext_assembly          AS assembly ON assembly.id = mandate.ext_assembly_id
+                     JOIN ext_assembly          AS assembly ON     assembly.id = mandate.ext_assembly_id
                      JOIN ext_assembly_category AS category ON category.id = assembly.assembly_category_id
                     WHERE end_date IS Null
                       AND alert_date IS NULL
