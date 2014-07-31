@@ -25,48 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Retrocession',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_structure',
-        'ficep_mandate',
-        'ficep_account',
-    ],
-    'description': """
-FICEP Retrocession
-=============
-""",
-    'images': [
-    ],
-    'data': [
-             'mandate_actions.xml',
-             'structure_view.xml',
-             'retrocession_view.xml',
-             'mandate_view.xml',
-             'account_view.xml',
-             'wizard/retrocession_factory_wizard.xml',
-             'security/ir.model.access.csv',
-             'data/ir_config_parameter_data.xml',
-             'reports/report_payment_request_view.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'auto_install': False,
-    'installable': True,
-}
+
+import report_payment_request
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

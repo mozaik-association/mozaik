@@ -523,7 +523,7 @@ class retrocession(orm.Model):
         'default_debit_account': fields.function(_get_defaults_account, string="Default debit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
         'default_credit_account': fields.function(_get_defaults_account, string="Default credit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
         'is_regulation': fields.boolean('Regulation Retrocession ?'),
-        'provision': fields.float('Provision'),
+        'provision': fields.float('Provision', digits_compute=dp.get_precision('Account')),
     }
 
     _order = 'year desc, month desc, sta_mandate_id, ext_mandate_id'

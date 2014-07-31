@@ -25,48 +25,27 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Retrocession',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_structure',
-        'ficep_mandate',
-        'ficep_account',
-    ],
-    'description': """
-FICEP Retrocession
-=============
-""",
-    'images': [
-    ],
-    'data': [
-             'mandate_actions.xml',
-             'structure_view.xml',
-             'retrocession_view.xml',
-             'mandate_view.xml',
-             'account_view.xml',
-             'wizard/retrocession_factory_wizard.xml',
-             'security/ir.model.access.csv',
-             'data/ir_config_parameter_data.xml',
-             'reports/report_payment_request_view.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'auto_install': False,
-    'installable': True,
-}
+
+from openerp.osv import osv
+from openerp.report import report_sxw
+
+
+class report_payment_request(report_sxw.rml_parse):
+
+    def __init__(self, cr, uid, name, context):
+        super(report_payment_request, self).__init__(cr, uid, name, context=context)
+        self.localcontext.update({
+            'modulo': self._modulo,
+        })
+
+    def _modulo(self, number, modulo):
+        return number % modulo
+
+
+class report_payment_request_wrapper(osv.AbstractModel):
+    _name = 'report.ficep_retrocession.report_payment_request'
+    _inherit = 'report.abstract_report'
+    _template = 'ficep_retrocession.report_payment_request'
+    _wrapped_report_class = report_payment_request
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
