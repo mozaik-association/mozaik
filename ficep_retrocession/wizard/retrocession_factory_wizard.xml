@@ -66,7 +66,7 @@
                                 <h3>More Info</h3>
                                 <group name="moreinfo">
                                     <field name="model"/>
-                                    <field name="ids"/>
+                                    <field name="mandate_ids"/>
                                 </group>
                             </div>
                         </div>

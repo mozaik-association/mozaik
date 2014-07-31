@@ -51,7 +51,7 @@ class test_retrocession(SharedSetupTransactionCase):
         data.update({'month': '05', 'year': 2014})
 
         wiz_id = wizard_pool.create(self.cr, self.uid, data, context=context)
-        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, data['month'], data['year'], data['model'], eval(data['ids']))
+        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, data['month'], data['year'], data['model'], eval(data['mandate_ids']))
 
         self.assertEqual(res['monthly_count'], 0)
         self.assertEqual(res['yearly_count'], 0)
@@ -61,7 +61,7 @@ class test_retrocession(SharedSetupTransactionCase):
 
         data.update({'month': '06'})
         wizard_pool.write(self.cr, self.uid, [wiz_id], data, context=context)
-        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, data['month'], data['year'], data['model'], eval(data['ids']))
+        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, data['month'], data['year'], data['model'], eval(data['mandate_ids']))
 
         self.assertEqual(res['monthly_count'], 1)
         self.assertEqual(res['yearly_count'], 0)
@@ -86,7 +86,7 @@ class test_retrocession(SharedSetupTransactionCase):
         data.update({'year': 2014})
 
         wiz_id = wizard_pool.create(self.cr, self.uid, data, context=context)
-        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, data['month'], data['year'], data['model'], eval(data['ids']))
+        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, data['month'], data['year'], data['model'], eval(data['mandate_ids']))
 
         self.assertEqual(res['monthly_count'], 0)
         self.assertEqual(res['yearly_count'], 0)
@@ -96,7 +96,7 @@ class test_retrocession(SharedSetupTransactionCase):
 
         data.update({'year': 2015})
         wizard_pool.write(self.cr, self.uid, [wiz_id], data, context=context)
-        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, data['month'], data['year'], data['model'], eval(data['ids']))
+        res = wizard_pool.mandate_selection_analysis(self.cr, self.uid, data['month'], data['year'], data['model'], eval(data['mandate_ids']))
 
         self.assertEqual(res['monthly_count'], 0)
         self.assertEqual(res['yearly_count'], 1)
