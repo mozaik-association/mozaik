@@ -50,7 +50,7 @@
         'document',
         'distribution_list',     # from lp:acsone-addons
         'readonly_bypass',       # from lp:acsone-addons
-        #'connector',             # from git https://github.com/OCA/connector.git connector-addons master
+        'connector',             # from git https://github.com/OCA/connector.git connector-addons master
         #'event',
     ],
     'description': """

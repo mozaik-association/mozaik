@@ -18,8 +18,8 @@
                     <sheet>
                         <group name="data">
                             <group name="data_1">
-                                <field name="month" attrs="{'required': [('monthly_count', '&gt;', 0)]}" on_change="onchange_month_year(month, year, model, ids)"/>
-                                <field name="year" on_change="onchange_month_year(month, year, model, ids)"/>
+                                <field name="month" attrs="{'required': [('monthly_count', '&gt;', 0)]}" on_change="onchange_month_year(month, year, model, mandate_ids)"/>
+                                <field name="year" on_change="onchange_month_year(month, year, model, mandate_ids)"/>
                             </group>
                             <group name="data_2"/>
                         </group>

@@ -674,8 +674,11 @@ class retrocession(orm.Model):
             mandate_name = self.pool.get(mandate_model).name_get(cr, uid, mandate_id, context=context)
 
             if retro.month:
-                translator = self.browse(cr, uid, retro.id, context=context, fields_process=translate_selections)
-                display_name = u'{mandate} ({month} {year})'.format(month=translator.month,
+                fields = self.fields_get(cr, uid, ['month'], context=context)
+                interval_type_selection = dict(fields['month']['selection'])
+
+                display_month = interval_type_selection.get(retro.month)
+                display_name = u'{mandate} ({month} {year})'.format(month=display_month,
                                                                     year=retro.year,
                                                                     mandate=mandate_name[0][1])
             else:
