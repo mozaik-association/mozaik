@@ -8,16 +8,22 @@
             <field name="name">Fractionation sample 01</field>
         </record>
 
-        <!-- record id="f_sample_01_line_01" model="fractionation.line">
+        <record id="f_sample_01_line_01" model="fractionation.line">
             <field name="fractionation_id" ref="f_sample_01"/>
             <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
             <field name="percentage">30.25</field>
-        </record-->
+        </record>
 
         <record id="f_sample_01_line_02" model="fractionation.line">
             <field name="fractionation_id" ref="f_sample_01"/>
             <field name="power_level_id" ref="int_power_level_02"/>
             <field name="percentage">69.75</field>
+        </record>
+
+        <record id="f_sample_01" model="fractionation">
+            <field name="fractionation_line_ids"
+                   eval="[(4,ref('f_sample_01_line_01')),
+                          (4,ref('f_sample_01_line_02'))]"/>
         </record>
 
         <record id="f_sample_02" model="fractionation">
@@ -28,6 +34,11 @@
             <field name="fractionation_id" ref="f_sample_02"/>
             <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
             <field name="percentage">42</field>
+        </record>
+
+        <record id="f_sample_02" model="fractionation">
+            <field name="fractionation_line_ids"
+                   eval="[(4,ref('f_sample_02_line_01'))]"/>
         </record>
 
         <!-- Create Calculation methods -->
