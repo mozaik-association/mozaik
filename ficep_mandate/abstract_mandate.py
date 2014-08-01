@@ -210,7 +210,7 @@ class abstract_selection_committee(orm.AbstractModel):
         new_committee_id = self.copy(cr, uid, copied_committee_id, None, context)
         if rejected_candidature_ids:
             candidature_pool.write(cr, uid, rejected_candidature_ids, {'selection_committee_id': new_committee_id})
-            candidature_pool.signal_button_declare(cr, uid, rejected_candidature_ids)
+            candidature_pool.signal_workflow(cr, uid, rejected_candidature_ids, 'button_declare', context=context)
 
         return self.display_object_in_form_view(cr, uid, new_committee_id, context=context)
 
@@ -226,7 +226,8 @@ class abstract_selection_committee(orm.AbstractModel):
         """
         for committee in self.browse(cr, uid, ids, context=context):
             if committee.candidature_ids:
-                self.pool.get(self._candidature_model).signal_action_accept(cr, uid, self._get_suggested_candidatures(cr, uid, ids, context=context))
+                self.pool.get(self._candidature_model).signal_workflow(cr, uid, \
+                    self._get_suggested_candidatures(cr, uid, ids, context=context), 'action_accept', context=context)
         self.action_invalidate(cr, uid, ids, context, {'state': 'done'})
         return True
 
@@ -242,7 +243,7 @@ class abstract_selection_committee(orm.AbstractModel):
         """
         for committee in self.browse(cr, uid, ids, context=context):
             if committee.candidature_ids:
-                self.pool.get(self._candidature_model).signal_button_declare(cr, uid, self._get_suggested_candidatures(cr, uid, ids, context=context))
+                self.pool.get(self._candidature_model).signal_workflow(cr, uid, self._get_suggested_candidatures(cr, uid, ids, context=context), 'button_declare', context=context)
             self.write(cr, uid, ids, {'decision_date': False}, context=context)
         return True
 

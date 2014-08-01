@@ -43,7 +43,7 @@ class retrocession_factory_wizard(orm.TransientModel):
 
     _columns = {
         'model': fields.char('Model', size=128, required=True),
-        'ids': fields.text('IDS', required=True),
+        'mandate_ids': fields.text('IDS', required=True),
         'month': fields.selection(fields.date.MONTHS, 'Month'),
         'year': fields.char('Year', size=128, required=True),
         'mandate_selected': fields.integer('Selected Mandates'),
@@ -67,7 +67,7 @@ class retrocession_factory_wizard(orm.TransientModel):
 
         res = {
             'model': context.get('active_model', False),
-            'ids': str(ids),
+            'mandate_ids': str(ids),
             'month': lastMonth.strftime("%m"),
             'year': lastMonth.strftime("%Y"),
             'mandate_selected': len(ids),
@@ -140,7 +140,7 @@ class retrocession_factory_wizard(orm.TransientModel):
         """
         wizard = self.browse(cr, uid, ids, context=context)[0]
         mandate_key = MANDATE_M2O.get(wizard.model, False)
-        mandate_ids = self.mandate_selection_analysis(cr, uid, wizard.month, wizard.year, wizard.model, eval(wizard.ids), mode='ids', context=context)
+        mandate_ids = self.mandate_selection_analysis(cr, uid, wizard.month, wizard.year, wizard.model, eval(wizard.mandate_ids), mode='ids', context=context)
 
         worker_pivot = int(self.pool.get('ir.config_parameter').get_param(cr, uid, 'retrocession_by_workers_pivot', 10))
 

@@ -42,6 +42,8 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
 
     def setUp(self):
         super(test_copy_mandate_wizard, self).setUp()
+        cr, uid, context = self.cr, self.uid, {}
+
         sta_candidature_pool = self.registry('sta.candidature')
         sta_committee_pool = self.registry('sta.selection.committee')
         sta_paul_communal_id = self.ref('%s.sta_paul_communal' % self._module_ns)
@@ -52,10 +54,11 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
 
         accepted_ids = [sta_thierry_communal_id]
         rejected_ids = [sta_pauline_communal_id, sta_marc_communal_id, sta_paul_communal_id]
-        sta_candidature_pool.signal_button_suggest(self.cr, self.uid, accepted_ids)
-        sta_candidature_pool.signal_button_reject(self.cr, self.uid, rejected_ids)
-        sta_committee_pool.button_accept_candidatures(self.cr, self.uid, [selection_committee_id])
-        sta_candidature_pool.signal_button_elected(self.cr, self.uid, accepted_ids)
+
+        sta_candidature_pool.signal_workflow(cr, uid, accepted_ids, 'button_suggest', context={})
+        sta_candidature_pool.signal_workflow(cr, uid, rejected_ids, 'button_reject', context={})
+        sta_committee_pool.button_accept_candidatures(cr, uid, [selection_committee_id])
+        sta_candidature_pool.signal_workflow(cr, uid, accepted_ids, 'button_elected', context={})
         sta_candidature_pool.button_create_mandate(self.cr, self.uid, accepted_ids)
 
     def test_renew_legislative_state_mandate(self):
@@ -109,7 +112,6 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
         self.assertEqual(base_mandate.sta_assembly_id, new_mandate.sta_assembly_id)
         self.assertEqual(base_mandate.is_submission_mandate, new_mandate.is_submission_mandate)
         self.assertEqual(base_mandate.is_submission_assets, new_mandate.is_submission_assets)
-        self.assertNotEqual(base_mandate.candidature_id, new_mandate.candidature_id)
 
     def test_create_complementary_state_mandate(self):
         '''
@@ -152,7 +154,6 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
         self.assertNotEqual(base_mandate.sta_assembly_id, new_mandate.sta_assembly_id)
         self.assertEqual(base_mandate.is_submission_mandate, new_mandate.is_submission_mandate)
         self.assertEqual(base_mandate.is_submission_assets, new_mandate.is_submission_assets)
-        self.assertNotEqual(base_mandate.candidature_id, new_mandate.candidature_id)
 
     def test_renew_internal_mandate(self):
         '''
@@ -187,7 +188,6 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
         self.assertEqual(base_mandate.int_assembly_id, new_mandate.int_assembly_id)
         self.assertEqual(base_mandate.is_submission_mandate, new_mandate.is_submission_mandate)
         self.assertEqual(base_mandate.is_submission_assets, new_mandate.is_submission_assets)
-        self.assertNotEqual(base_mandate.candidature_id, new_mandate.candidature_id)
 
     def test_create_complementary_internal_mandate(self):
         '''
@@ -227,7 +227,6 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
         self.assertNotEqual(base_mandate.int_assembly_id, new_mandate.int_assembly_id)
         self.assertEqual(base_mandate.is_submission_mandate, new_mandate.is_submission_mandate)
         self.assertEqual(base_mandate.is_submission_assets, new_mandate.is_submission_assets)
-        self.assertNotEqual(base_mandate.candidature_id, new_mandate.candidature_id)
 
     def test_renew_external_mandate(self):
         '''
@@ -262,7 +261,6 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
         self.assertEqual(base_mandate.ext_assembly_id, new_mandate.ext_assembly_id)
         self.assertEqual(base_mandate.is_submission_mandate, new_mandate.is_submission_mandate)
         self.assertEqual(base_mandate.is_submission_assets, new_mandate.is_submission_assets)
-        self.assertNotEqual(base_mandate.candidature_id, new_mandate.candidature_id)
 
     def test_create_complementary_external_mandate(self):
         '''
@@ -302,6 +300,5 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
         self.assertNotEqual(base_mandate.ext_assembly_id, new_mandate.ext_assembly_id)
         self.assertEqual(base_mandate.is_submission_mandate, new_mandate.is_submission_mandate)
         self.assertEqual(base_mandate.is_submission_assets, new_mandate.is_submission_assets)
-        self.assertNotEqual(base_mandate.candidature_id, new_mandate.candidature_id)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

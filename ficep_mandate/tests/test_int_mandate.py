@@ -60,12 +60,14 @@ class test_int_mandate(SharedSetupTransactionCase):
         '''
             Test copy selection committee and keep rejected candidatures
         '''
+        cr, uid, context = self.cr, self.uid, {}
+
         selection_committee = self.browse_ref('%s.sc_secretaire_regional' % self._module_ns)
 
         rejected_id = selection_committee.candidature_ids[0]
-        self._candidature_pool.signal_button_reject(self.cr, self.uid, [rejected_id.id])
+        self._candidature_pool.signal_workflow(cr, uid, [rejected_id.id], 'button_reject', context=context)
 
-        res = self._committee_pool.action_copy(self.cr, self.uid, [selection_committee.id])
+        res = self._committee_pool.action_copy(cr, uid, [selection_committee.id])
         new_committee_id = res['res_id']
         self.assertNotEqual(new_committee_id, False)
 
@@ -99,6 +101,8 @@ class test_int_mandate(SharedSetupTransactionCase):
         '''
         Test the process of internal candidatures until mandate creation
         '''
+        cr, uid, context = self.cr, self.uid, {}
+
         committee_id = self.ref('%s.sc_secretaire_regional' % self._module_ns)
         int_paul_id = self.ref('%s.int_paul_secretaire' % self._module_ns)
         int_thierry_secretaire_id = self.ref('%s.int_thierry_secretaire' % self._module_ns)
@@ -111,7 +115,7 @@ class test_int_mandate(SharedSetupTransactionCase):
         '''
             Paul and Thierry are suggested
         '''
-        self._candidature_pool.signal_button_suggest(self.cr, self.uid, candidature_ids)
+        self._candidature_pool.signal_workflow(cr, uid, candidature_ids, 'button_suggest', context=context)
 
         '''
             Candidatures are refused
@@ -123,14 +127,14 @@ class test_int_mandate(SharedSetupTransactionCase):
         '''
             Paul candidature is rejected
         '''
-        self._candidature_pool.signal_button_reject(self.cr, self.uid, [int_paul_id])
+        self._candidature_pool.signal_workflow(cr, uid, [int_paul_id], 'button_reject', context=context)
         self.assertEqual(self._candidature_pool.read(self.cr, self.uid, int_paul_id, ['state'])['state'], 'rejected')
 
         '''
             Thierry is suggested again
         '''
         candidature_ids = [int_thierry_secretaire_id]
-        self._candidature_pool.signal_button_suggest(self.cr, self.uid, candidature_ids)
+        self._candidature_pool.signal_workflow(cr, uid, candidature_ids, 'button_suggest', context=context)
 
         for candidature_data in self._candidature_pool.read(self.cr, self.uid, candidature_ids, ['state']):
             self.assertEqual(candidature_data['state'], 'suggested')
@@ -154,12 +158,14 @@ class test_int_mandate(SharedSetupTransactionCase):
         '''
         Test the process of accepting internal candidatures without decision date
         '''
+        cr, uid, context = self.cr, self.uid, {}
+
         committee_id = self.ref('%s.sc_secretaire_regional' % self._module_ns)
         int_paul_id = self.ref('%s.int_paul_secretaire' % self._module_ns)
         int_thierry_secretaire_id = self.ref('%s.int_thierry_secretaire' % self._module_ns)
 
-        self._candidature_pool.signal_button_suggest(self.cr, self.uid, [int_thierry_secretaire_id])
-        self._candidature_pool.signal_button_reject(self.cr, self.uid, [int_paul_id])
+        self._candidature_pool.signal_workflow(cr, uid, [int_thierry_secretaire_id], 'button_suggest', context=context)
+        self._candidature_pool.signal_workflow(cr, uid, [int_paul_id], 'button_reject', context=context)
         self.assertRaises(orm.except_orm, self._committee_pool.button_accept_candidatures, self.cr, self.uid, [committee_id])
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
