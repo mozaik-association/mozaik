@@ -320,6 +320,9 @@ class abstract_ficep_model(orm.AbstractModel):
 
         return res
 
+    def get_relation_column_name(self, cr, uid, relation_model, context=None):
+        return self.pool.get('ir.model')._get_relation_column_name(cr, uid, self._name, relation_model, context=context)
+
 # Replace the orm.transfer_node_to_modifiers functions.
 
 original_transfer_node_to_modifiers = orm.transfer_node_to_modifiers

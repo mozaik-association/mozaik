@@ -68,6 +68,16 @@ class ir_model(orm.Model):
 
         return results
 
+    def _get_relation_column_name(self, cr, uid, model_name, relation_model_name, context=None):
+        relation_ids = self.pool.get('ir.model.fields').search_read(cr, uid, [('model', '=', model_name),
+                                                                              ('relation', '=', relation_model_name),
+                                                                              ('ttype', '=', 'many2one')],
+                                                                              fields=['name'], context=context)
+        if relation_ids:
+            return relation_ids[0]['name']
+
+        return False
+
 
 class ir_model_data(orm.Model):
 

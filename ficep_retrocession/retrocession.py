@@ -430,6 +430,55 @@ class retrocession(orm.Model):
                                  default_debit_account=retro[key].mandate_category_id.property_retrocession_cost_account.id or False)
         return res
 
+    def _get_coordinate(self, cr, uid, ids, model, foreign_key, context=None):
+        """
+        ========================
+        _get_coordinate
+        ========================
+        Return email for representative
+        :rparam: Coordinate link
+        :rtype: Many2one
+        """
+        res = {}
+        for retro in self.browse(cr, uid, ids, context=None):
+            if retro.sta_mandate_id:
+                key = "sta_mandate_id"
+            else:
+                key = "ext_mandate_id"
+
+            coordinate_id = False
+            if retro[key][foreign_key]:
+                coordinate_id = retro[key][foreign_key].id
+            else:
+                coordinate_ids = self.pool.get(model).search(cr, uid, [('partner_id', '=', retro.partner_id.id),
+                                                                             ('is_main', '=', True)], context=context)
+                if coordinate_ids:
+                    coordinate_id = coordinate_ids[0]
+            res[retro.id] = coordinate_id
+        return res
+
+    def _get_postal_coordinate(self, cr, uid, ids, fname, arg, context=None):
+        """
+        ========================
+        _get_postal_coordinate
+        ========================
+        Return postal coordinate for representative
+        :rparam: Email coordinate link
+        :rtype: Many2one
+        """
+        return self._get_coordinate(cr, uid, ids, 'postal.coordinate', 'postal_coordinate_id', context=context)
+
+    def _get_email_coordinate(self, cr, uid, ids, fname, arg, context=None):
+        """
+        ========================
+        _get_email_coordinate
+        ========================
+        Return email coordinate for representative
+        :rparam: Email coordinate link
+        :rtype: Many2one
+        """
+        return self._get_coordinate(cr, uid, ids, 'email.coordinate', 'email_coordinate_id', context=context)
+
     def _generate_account_move(self, cr, uid, retrocession, context=None):
         """
         ======================
@@ -524,6 +573,11 @@ class retrocession(orm.Model):
         'default_credit_account': fields.function(_get_defaults_account, string="Default credit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
         'is_regulation': fields.boolean('Regulation Retrocession ?'),
         'provision': fields.float('Provision', digits_compute=dp.get_precision('Account')),
+        'email_date': fields.date('Last email sent'),
+        'email_coordinate_id': fields.function(_get_email_coordinate, string='Email Coordinate',
+                                 type='many2one', relation='email.coordinate', store=False),
+        'postal_coordinate_id': fields.function(_get_postal_coordinate, string='Postal Coordinate',
+                                 type='many2one', relation='postal.coordinate', store=False),
     }
 
     _order = 'year desc, month desc, sta_mandate_id, ext_mandate_id'
@@ -768,4 +822,42 @@ class retrocession(orm.Model):
         Mark a retrocession as paid
         """
         self.write(cr, uid, ids, {'state': 'paid'}, context=context)
+
+    def action_request_for_payment_send(self, cr, uid, ids, context=None):
+        """
+        ================================
+        action_request_for_payment_send
+        ================================
+        Send an email with request for payment attached
+        """
+        ir_model_data = self.pool.get('ir.model.data')
+        retro = self.browse(cr, uid, ids[0], context=context)
+        if not retro.email_coordinate_id:
+            raise orm.except_orm(_('Error!'), _('Representative has no email template specified'))
+        try:
+            template_id = ir_model_data.get_object_reference(cr, uid, 'ficep_retrocession', 'email_template_request_payment_retrocession')[1]
+        except ValueError:
+            raise orm.except_orm(_('Error!'), _('Email template %s not found !' % 'email_template_request_payment_retrocession'))
+
+        if template_id:
+            composer = self.pool['mail.compose.message']
+            mail_composer_vals = {'parent_id': False,
+                                  'use_active_domain': False,
+                                  'composition_mode': 'mass_mail',
+                                  'same_thread': True,
+                                  'post': False,
+                                  'partner_ids': [[6, False, []]],
+                                  'notify': False,
+                                  'template_id': template_id,
+                                  'subject': "",
+                                  'model': 'retrocession',
+                                  }
+            context['email_coordinate_path'] = 'email_coordinate_id.email'
+            context['active_ids'] = [retro.id]
+            value = composer.onchange_template_id(cr, uid, retro.id, template_id, 'mass_mail', '', 0, context=context)['value']
+            value['email_from'] = composer._get_default_from(cr, uid, context=context)
+            mail_composer_vals.update(value)
+            mail_composer_id = composer.create(cr, uid, mail_composer_vals, context=context)
+            composer.send_mail(cr, uid, [mail_composer_id], context=context)
+            self.write(cr, uid, retro.id, {'email_date': fields.date.today()}, context=context)
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

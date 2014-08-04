@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="email_template_request_payment_retrocession" model="email.template">
+            <field name="name">Retrocession: Request for Payment</field>            
+            <field name="auto_delete" eval="0"/>
+            <field name="email_from"></field>
+            <field name="partner_to"></field>
+            <field name="subject">Retrocession ${object.unique_id}: Request for payment</field>
+            <field name="model_id" ref="ficep_retrocession.model_retrocession"/>
+             <field name="report_template" ref="action_report_payment_request"/>
+            <field name="report_name">Retrocession_${(object.unique_id or '').replace('/','_')}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<div style="font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+    <p>Hello ${object.partner_id.name},</p>
+
+    <p>A new request for payment is available for you: </p>
+    
+    <p style="border-left: 1px solid #8e0000; margin-left: 30px;">
+       &nbsp;&nbsp;<strong>REFERENCES</strong><br />
+       &nbsp;&nbsp;Retrocession: <strong>${object.unique_id}</strong><br />
+       &nbsp;&nbsp;Period: <strong>${object.month or ''} ${object.year}</strong><br/>
+       &nbsp;&nbsp;Amount: <strong>${object.amount_topay} ${object.partner_id.company_id.currency_id.name}</strong><br/>
+    </p>  
+    <br/>
+    <p>If you have any question, do not hesitate to contact us.</p>
+    <br/>
+    <br/>
+</div>
+            ]]></field>
+        </record>
+    </data>
+</openerp>

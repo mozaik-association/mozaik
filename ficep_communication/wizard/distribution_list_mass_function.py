@@ -213,6 +213,7 @@ class distribution_list_mass_function(orm.TransientModel):
 
                     active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [context.get('active_id', False)], context=context)
                     context['active_ids'] = active_ids
+                    context['email_coordinate_path'] = 'email'
                     if alternative_ids and wizard.extract_csv:
                         self.render_csv(cr, uid, 'postal.coordinate', alternative_ids, wizard.groupby_coresidency, context=context)
 

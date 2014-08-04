@@ -53,6 +53,7 @@ FICEP Retrocession
              'security/ir.model.access.csv',
              'data/ir_config_parameter_data.xml',
              'reports/report_payment_request_view.xml',
+             'data/email_template_data.xml',
     ],
     'js': [
     ],

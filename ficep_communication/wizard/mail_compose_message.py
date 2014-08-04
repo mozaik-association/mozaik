@@ -41,12 +41,13 @@ class mail_compose_message(orm.TransientModel):
         email of the `email.coordinate`
         """
         values = super(mail_compose_message, self).get_mail_values(cr, uid, wizard, res_ids, context=context)
-        if wizard.model == 'email.coordinate':
-            #due to security terms
-            email_values = self.pool[wizard.model].search_read(cr, uid, [('id', 'in', values.keys())], ['id', 'email'], context=context)
-            for email_value in email_values:
-                if email_value['email']:
-                    values[email_value['id']]['email_to'] = email_value['email']
+        email_path = context.get('email_coordinate_path', False)
+        if email_path:
+            for model_obj in self.pool[wizard.model].browse(cr, uid, values.keys(), context=context):
+                email = eval('%s.%s' % ('model_obj', email_path))
+                if email:
+                    values[model_obj['id']].pop('recipient_ids', [])
+                    values[model_obj['id']]['email_to'] = email
         return values
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

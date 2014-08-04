@@ -578,6 +578,8 @@
                             <button name="action_invalidate" string="Cancel" type="object"
                                     states="validated" confirm="Invalidate Retrocession, proceed anyway ?"
                                     groups="ficep_base.ficep_res_groups_configurator" />
+                            <button name="action_request_for_payment_send" string="Send By Email" type="object"
+                                    states="validated" confirm="Send request for payment by email, proceed anyway ?"/>
                             <field name="state" widget="statusbar" statusbar_visible="draft,validated,paid"/>
                         </div>
                     </header>
@@ -612,6 +614,7 @@
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <field name="create_date" />
                             <field name="expire_date" attrs="{'invisible': [('active','=', True)]}"/>
+                            <field name="email_date" attrs="{'invisible': [('email_date','=', False)]}"/>
                         </group>
 
                         <notebook invisible="context.get('popup')">
