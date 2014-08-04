@@ -43,8 +43,8 @@
         'product',
         'board',
         'edi',
-        'partner_firstname',     # from lp:~partner-contact-core-editors/partner-contact-management/7.0
-                                 # need to merge with https://code.launchpad.net/~nemry/partner-contact-management/7.0-8.0-compatibility
+        'partner_firstname',     # from https://github.com/OCA/partner-contact
+                                 # need to merge https://github.com/eLBati/partner-contact partner-contact 8.0
         'mass_editing',          # from lp:~server-env-tools-core-editors/server-env-tools/7.0
         'cron_run_manually',     # from lp:~server-env-tools-core-editors/server-env-tools/7.0
         'auth_admin_passkey',    # from lp:~server-env-tools-core-editors/server-env-tools/7.0
