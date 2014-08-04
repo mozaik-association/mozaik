@@ -44,11 +44,13 @@
         'board',
         'edi',
         'partner_firstname',     # from lp:~partner-contact-core-editors/partner-contact-management/7.0
+                                 # need to merge with https://code.launchpad.net/~nemry/partner-contact-management/7.0-8.0-compatibility
         'mass_editing',          # from lp:~server-env-tools-core-editors/server-env-tools/7.0
         'cron_run_manually',     # from lp:~server-env-tools-core-editors/server-env-tools/7.0
         'auth_admin_passkey',    # from lp:~server-env-tools-core-editors/server-env-tools/7.0
         'document',
         'distribution_list',     # from lp:acsone-addons
+                                 # need to merge with acsone-addons/acsone-addons-distribution-list-improvements
         'readonly_bypass',       # from lp:acsone-addons
         'connector',             # from git https://github.com/OCA/connector.git connector-addons master
         #'event',
