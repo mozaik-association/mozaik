@@ -70,7 +70,7 @@ class address_local_zip(orm.Model):
             ids = [ids]
 
         res = []
-        for record in self.read(cr, uid, ids, [], context=context):
+        for record in self.read(cr, uid, ids, ['local_zip', 'town'], context=context):
             display_name = "%s %s" % (record['local_zip'], record['town'])
             res.append((record['id'], display_name))
         return res

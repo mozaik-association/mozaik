@@ -21,37 +21,31 @@
                     <div name="state_management">
                         <button name="accept" string="Accept"
                             groups="ficep_base.res_groups_developper"
-                            attrs="{'invisible': [
-                                ('membership_state_code', '!=', 'future_commitee_member'),
+                            attrs="{'invisible': [('membership_state_code', '!=', 'future_commitee_member'),
                                 ('membership_state_code', '!=', 'old_commitee_member')]}" />
 
                         <button name="paid_simulated" string="Paid Simulate"
                             groups="ficep_base.res_groups_developper"
-                            attrs="{'invisible': [
-                                ('membership_state_code', '!=', 'candidate_member'),
+                            attrs="{'invisible': [('membership_state_code', '!=', 'candidate_member'),
                                 ('membership_state_code', '!=', 'member'),
                                 ('membership_state_code', '!=', 'supporter'),
                                 ('membership_state_code', '!=', 'old_member'),]}" />
 
                         <button name="decline_payment" string="Decline Payment"
-                            type="object" attrs="{'invisible': [
-                                ('membership_state_code', '!=', 'candidate_member'),
+                            type="object" attrs="{'invisible': [('membership_state_code', '!=', 'candidate_member'),
                                 ('membership_state_code', '!=', 'member')]}" />
 
                         <button name="reject" string="Reject"
-                            type="object" attrs="{'invisible': [
-                                ('membership_state_code', '!=', 'candidate_member'),
+                            type="object" attrs="{'invisible': [('membership_state_code', '!=', 'candidate_member'),
                                 ('membership_state_code', '!=', 'future_commitee_member')]}" />
 
                         <button name="exclude" string="Exclude"
-                            type="object" attrs="{'invisible': [
-                                ('membership_state_code', '!=', 'member'),
+                            type="object" attrs="{'invisible': [('membership_state_code', '!=', 'member'),
                                 ('membership_state_code', '!=', 'old_member'),
                                 ('membership_state_code', '!=', 'old_commitee_member')]}" />
 
                         <button name="resign" string="Resign"
-                            type="object" attrs="{'invisible': [
-                                ('membership_state_code', '!=', 'member'),
+                            type="object" attrs="{'invisible': [('membership_state_code', '!=', 'member'),
                                 ('membership_state_code', '!=', 'old_member'),
                                 ('membership_state_code', '!=', 'supporter')]}" />
                     </div>
@@ -74,9 +68,7 @@
                 <xpath
                     expr="//notebook/page[descendant::field[@name='free_member']]"
                     position="attributes">
-                    <attribute name="attrs">{'invisible':
-                        [('is_company', '=', True)]}
-                    </attribute>
+                    <attribute name="attrs">{'invisible':[('is_company', '=', True)]}</attribute>
                 </xpath>
             </field>
         </record>
@@ -192,8 +184,7 @@
         <!-- hide native menu -->
         <record id="base.menu_association" model="ir.ui.menu">
             <field name="groups_id"
-                eval="[(6, 0, [ref('settings_improvement.unused_features')]),
-                                          ]" />
+                eval="[(6, 0, [ref('settings_improvement.unused_features')])]" />
         </record>
 
         <menuitem id="membership_menu" name="Membership"

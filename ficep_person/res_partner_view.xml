@@ -68,7 +68,6 @@
                     <field name="birth_date" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                 </xpath>
 
-                <xpath expr="//field[@name='country']" position="replace"/><!-- rid off this replace when oe will drop definitvely deprecated country field -->
                 <xpath expr="//field[@name='function']" position="replace"/>
 
                 <xpath expr="//field[@name='user_id']" position="replace">

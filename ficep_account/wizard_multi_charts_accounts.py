@@ -26,8 +26,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from openerp.osv import orm
+from openerp.tools.translate import _
+
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -44,17 +45,23 @@ class wizard_multi_charts_accounts(orm.TransientModel):
         template = self.pool.get('account.chart.template').browse(cr, uid, chart_template_id, context=context)
         default_debit_account = acc_template_ref.get(template.property_account_receivable.id)
 
-        default_credit_account = self.pool.get('account.account').search(cr, uid, [('code', '=', '749300'), ('company_id', '=', company_id)], context=context, limit=1)[0]
+        default_credit_account_ids = self.pool.get('account.account').search(cr, uid, [('code', '=', '749300'), ('company_id', '=', company_id)], context=context, limit=1)
+        default_credit_account_id = default_credit_account_ids and \
+                    default_credit_account_ids[0] or False
+        if not default_credit_account_id:
+            _logger.warning(_('WARNING'), _('No credit account found'))
+
         vals = {
                 'type': 'sale',
                 'name': 'SUBSCRIPTIONS',
                 'code': 'SUB',
                 'company_id': company_id,
-                'default_credit_account_id': default_credit_account,
+                'default_credit_account_id': default_credit_account_id,
                 'default_debit_account_id': default_debit_account,
                 'update_posted': True,
                 }
         journal_data.append(vals)
 
         return journal_data
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

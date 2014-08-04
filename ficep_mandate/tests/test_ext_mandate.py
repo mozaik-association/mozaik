@@ -60,10 +60,11 @@ class test_ext_mandate(SharedSetupTransactionCase):
         '''
             Test copy selection committee and keep rejected candidatures
         '''
+        cr, uid, context = self.cr, self.uid, {}
         selection_committee = self.browse_ref('%s.sc_membre_effectif_ag' % self._module_ns)
 
         rejected_id = selection_committee.candidature_ids[0]
-        self._candidature_pool.signal_button_reject(self.cr, self.uid, [rejected_id.id])
+        self._candidature_pool.signal_workflow(cr, uid, [rejected_id.id], 'button_reject', context=context)
 
         res = self._committee_pool.action_copy(self.cr, self.uid, [selection_committee.id])
         new_committee_id = res['res_id']
@@ -99,6 +100,8 @@ class test_ext_mandate(SharedSetupTransactionCase):
         '''
         Test the process of internal candidatures until mandate creation
         '''
+        cr, uid, context = self.cr, self.uid, {}
+
         committee_id = self.ref('%s.sc_membre_effectif_ag' % self._module_ns)
         ext_paul_id = self.ref('%s.ext_paul_membre_ag' % self._module_ns)
         ext_thierry_id = self.ref('%s.ext_thierry_membre_ag' % self._module_ns)
@@ -106,31 +109,31 @@ class test_ext_mandate(SharedSetupTransactionCase):
         '''
            Attempt to accept candidatures before suggesting them
         '''
-        self.assertRaises(orm.except_orm, self._committee_pool.button_accept_candidatures, self.cr, self.uid, [committee_id])
+        self.assertRaises(orm.except_orm, self._committee_pool.button_accept_candidatures, cr, uid, [committee_id])
 
         '''
             Paul and Thierry are suggested
         '''
-        self._candidature_pool.signal_button_suggest(self.cr, self.uid, candidature_ids)
+        self._candidature_pool.signal_workflow(cr, uid, candidature_ids, 'button_suggest', context=context)
 
         '''
             Candidatures are refused
         '''
-        self._committee_pool.button_refuse_candidatures(self.cr, self.uid, [committee_id])
-        for candidature_data in self._candidature_pool.read(self.cr, self.uid, candidature_ids, ['state']):
+        self._committee_pool.button_refuse_candidatures(cr, uid, [committee_id])
+        for candidature_data in self._candidature_pool.read(cr, uid, candidature_ids, ['state']):
             self.assertEqual(candidature_data['state'], 'declared')
 
         '''
             Paul candidature is rejected
         '''
-        self._candidature_pool.signal_button_reject(self.cr, self.uid, [ext_paul_id])
-        self.assertEqual(self._candidature_pool.read(self.cr, self.uid, ext_paul_id, ['state'])['state'], 'rejected')
+        self._candidature_pool.signal_workflow(cr, uid, [ext_paul_id], 'button_reject', context=context)
+        self.assertEqual(self._candidature_pool.read(cr, uid, ext_paul_id, ['state'])['state'], 'rejected')
 
         '''
             Thierry is suggested again
         '''
         candidature_ids = [ext_thierry_id]
-        self._candidature_pool.signal_button_suggest(self.cr, self.uid, candidature_ids)
+        self._candidature_pool.signal_workflow(cr, uid, candidature_ids, 'button_suggest', context=context)
 
         for candidature_data in self._candidature_pool.read(self.cr, self.uid, candidature_ids, ['state']):
             self.assertEqual(candidature_data['state'], 'suggested')
@@ -154,12 +157,14 @@ class test_ext_mandate(SharedSetupTransactionCase):
         '''
         Test the process of accepting internal candidatures without decision date
         '''
+        cr, uid, context = self.cr, self.uid, {}
+
         committee_id = self.ref('%s.sc_membre_effectif_ag' % self._module_ns)
         ext_paul_id = self.ref('%s.ext_paul_membre_ag' % self._module_ns)
         ext_thierry_id = self.ref('%s.ext_thierry_membre_ag' % self._module_ns)
 
-        self._candidature_pool.signal_button_suggest(self.cr, self.uid, [ext_thierry_id])
-        self._candidature_pool.signal_button_reject(self.cr, self.uid, [ext_paul_id])
-        self.assertRaises(orm.except_orm, self._committee_pool.button_accept_candidatures, self.cr, self.uid, [committee_id])
+        self._candidature_pool.signal_workflow(cr, uid, [ext_thierry_id], 'button_suggest', context=context)
+        self._candidature_pool.signal_workflow(cr, uid, [ext_paul_id], 'button_reject', context=context)
+        self.assertRaises(orm.except_orm, self._committee_pool.button_accept_candidatures, cr, uid, [committee_id])
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

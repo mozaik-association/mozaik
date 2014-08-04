@@ -31,6 +31,8 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools.mail import single_email_re
 
+from openerp.addons.ficep_base.abstract_ficep import format_email
+
 
 class email_coordinate(orm.Model):
 
@@ -83,7 +85,7 @@ class email_coordinate(orm.Model):
         format email by removing whitespace and changing upper to lower
         """
         if 'email' in vals:
-            vals['email'] = self.format_email(cr, uid, vals['email'], context=context)
+            vals['email'] = format_email(vals['email'])
         return super(email_coordinate, self).create(cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -94,19 +96,7 @@ class email_coordinate(orm.Model):
         format email by removing whitespace and changing upper to lower
         """
         if 'email' in vals:
-            vals['email'] = self.format_email(cr, uid, vals['email'], context=context)
+            vals['email'] = format_email(vals['email'])
         return super(email_coordinate, self).write(cr, uid, ids, vals, context=context)
 
-    def format_email(self, cr, uid, value, context=None):
-        """
-        ============
-        format_email
-        ============
-        :type value: char
-        :rtype: char
-        :rparam value: value without space and in lower case
-        """
-        value = value.lower().strip()
-        value = value.replace(' ', '')
-        return value
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

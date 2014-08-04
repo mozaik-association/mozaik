@@ -33,6 +33,7 @@ from openerp.tools import logging
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
+from openerp.addons.ficep_base.abstract_ficep import format_email
 from openerp.addons.ficep_address.address_address import COUNTRY_CODE
 from openerp.addons.ficep_person.res_partner import AVAILABLE_GENDERS
 from openerp.tools import SUPERUSER_ID
@@ -444,7 +445,7 @@ class membership_request(orm.Model):
         if email:
             email_obj = self.pool['email.coordinate']
             if email_obj._check_email_format(cr, uid, email, context=context) != None:
-                email = email_obj.format_email(cr, uid, email, context=context)
+                email = format_email(email)
         return email
 
     def get_format_phone_number(self, cr, uid, number, context=None):

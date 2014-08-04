@@ -22,7 +22,7 @@
             
         </template>
         
-        <template id="html_container" inherit_id="report.html_container">
+        <template id="layout" inherit_id="report.layout">
             <xpath expr="//style[@type='text/css']" position="replace">
                 <style type="text/css">
                     <t t-call="ficep_retrocession.style"/>

@@ -315,7 +315,7 @@ class res_partner(orm.Model):
 
         user_id = self.pool.get('res.users').create(cr, uid, vals, context=context)
 
-        partner.write({'ldap_name': login}, context=context)
+        partner.with_context(context).write({'ldap_name': login})
 
         return user_id
 

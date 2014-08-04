@@ -372,7 +372,7 @@ class test_res_partner(SharedSetupTransactionCase):
 
         name = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
         email = '%s@tst.te' % name
-        birth_date = '1492-10-12'
+        birth_date = '1901-10-12'
         BAD_LOGIN = 'Bad received LOGIN'
         BAD_GROUP = 'Should be into Portal and only into Portal'
 
