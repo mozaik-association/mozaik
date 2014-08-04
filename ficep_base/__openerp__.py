@@ -34,7 +34,6 @@
     'category': 'Political Association',
     'depends': [
         'base',
-        'settings_improvement',  # from https://github.com/acsone/acsone-addons
         'website',
         'portal',
         'mass_mailing',
@@ -43,18 +42,19 @@
         'product',
         'board',
         'edi',
+        'document',
+        #'event',
         'partner_firstname',     # from https://github.com/OCA/partner-contact
                                  # need to merge https://github.com/eLBati/partner-contact/8.0
-        'mass_editing',          # from lp:~server-env-tools-core-editors/server-env-tools/7.0
-        'cron_run_manually',     # from lp:~server-env-tools-core-editors/server-env-tools/7.0
-        'auth_admin_passkey',    # from lp:~server-env-tools-core-editors/server-env-tools/7.0
-        'document',
+        'mass_editing',          # from https://github.com/OCA/server-tools/7.0
+        'cron_run_manually',     # from https://github.com/OCA/server-tools/7.0
+        'auth_admin_passkey',    # from https://github.com/OCA/server-tools/7.0
+        'settings_improvement',  # from https://github.com/acsone/acsone-addons
         'distribution_list',     # from https://github.com/acsone/acsone-addons
                                  # need to merge with https://github.com/acsone/acsone-addons/acsone-addons-distribution-list-improvements
         'readonly_bypass',       # from https://github.com/acsone/acsone-addons
         'connector',             # from git https://github.com/OCA/connector.git connector-addons master
                                  # need to merge https://github.com/acsone/connector/compatibility_odoo_master
-        #'event',
     ],
     'description': """
 FICEP Base
