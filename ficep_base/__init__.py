@@ -26,7 +26,6 @@
 #
 ##############################################################################
 
-import convert
 import testtool
 import url
 import ir_model
