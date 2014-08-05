@@ -31,7 +31,7 @@ from anybox.testing.openerp import SharedSetupTransactionCase
 _logger = logging.getLogger(__name__)
 
 
-class test_retrocession_process(object):
+class test_retrocession_with_accounting(object):
 
     _data_files = (
         '../../l10n_ficep/data/account_ficep.xml',
@@ -46,7 +46,7 @@ class test_retrocession_process(object):
     _module_ns = 'ficep_retrocession'
 
     def setUp(self):
-        super(test_retrocession_process, self).setUp()
+        super(test_retrocession_with_accounting, self).setUp()
         wiz_id = self.ref('%s.pcmn_ficep' % self._module_ns)
         self.registry('wizard.multi.charts.accounts').execute(self.cr, self.uid, [wiz_id])
 
@@ -113,10 +113,11 @@ class test_retrocession_process(object):
             Changing percentage of variable rules should affect retrocession computation
         '''
         rule_pool.write(self.cr, self.uid, deductible_rule_ids, {'percentage': 5})
-        amounts = retro_pool.read(self.cr, self.uid, self.retro.id, ['amount_retrocession', 'amount_deduction', 'amount_total'])
+        amounts = retro_pool.read(self.cr, self.uid, self.retro.id, ['amount_retrocession', 'amount_deduction', 'amount_total', 'amount_reconcilied'])
         self.assertEqual(amounts['amount_retrocession'], 1.25)
         self.assertEqual(amounts['amount_deduction'], -0.05)
         self.assertEqual(amounts['amount_total'], 1.20)
+        self.assertEqual(amounts['amount_reconcilied'], 0.00)
 
         '''
             Validating retrocession
@@ -188,8 +189,48 @@ class test_retrocession_process(object):
         move_id = retro_pool.read(self.cr, self.uid, self.retro.id, ['move_id'])['move_id']
         self.assertFalse(move_id)
 
+        '''
+            Validating retrocession again
+        '''
+        retro_pool.action_validate(self.cr, self.uid, [self.retro.id])
+        retro_state = retro_pool.read(self.cr, self.uid, self.retro.id, ['state'])['state']
+        self.assertEqual(retro_state, 'validated')
 
-class test_retrocession_ext_mandate_process(test_retrocession_process, SharedSetupTransactionCase):
+        '''
+            Creating bank statement for retrocession
+        '''
+        b_statement_id = self.registry('account.bank.statement').create(self.cr, self.uid, {'name': ('/%s' % self.retro.unique_id)}, context={'journal_type': 'bank'})
+        statement_line_vals = {'statement_id': b_statement_id,
+                               'name': self.retro.unique_id,
+                               'amount': 1.20,
+                               'partner_id': self.retro.partner_id.id,
+                               'ref': self.retro.sta_mandate_id.reference if self.retro.sta_mandate_id else self.retro.ext_mandate_id.reference
+                               }
+        line_id = self.registry('account.bank.statement.line').create(self.cr, self.uid, statement_line_vals)
+
+        '''
+            Check provision computation
+        '''
+        if self.retro.retrocession_mode == 'year':
+            provision = retro_pool.read(self.cr, self.uid, self.retro.id, ['provision'])['provision']
+            self.assertEqual(provision, 1.20)
+
+        '''
+            Reconcile statement
+        '''
+        ret = self.registry('account.bank.statement.line').get_move_lines_counterparts_id(self.cr, self.uid, [line_id])
+        vals = {'counterpart_move_line_id': ret[0]['id'],
+                'debit': ret[0]['debit'],
+                'credit': ret[0]['credit'],
+                }
+        self.registry('account.bank.statement.line').process_reconciliation(self.cr, self.uid, line_id, [vals])
+
+        data = retro_pool.read(self.cr, self.uid, self.retro.id, ['amount_reconcilied', 'state'])
+        self.assertEqual(data['amount_reconcilied'], 1.20)
+        self.assertEqual(data['state'], 'done')
+
+
+class test_retrocession_ext_mandate_process(test_retrocession_with_accounting, SharedSetupTransactionCase):
 
     def setUp(self):
         super(test_retrocession_ext_mandate_process, self).setUp()
@@ -197,9 +238,9 @@ class test_retrocession_ext_mandate_process(test_retrocession_process, SharedSet
         self.retro = self.browse_ref('%s.retro_jacques_ag_mai_2014' % self._module_ns)
 
 
-class test_retrocession_sta_mandate_process(test_retrocession_process, SharedSetupTransactionCase):
+class test_retrocession_sta_mandate_process(test_retrocession_with_accounting, SharedSetupTransactionCase):
 
     def setUp(self):
         super(test_retrocession_sta_mandate_process, self).setUp()
 
-        self.retro = self.browse_ref('%s.retro_jacques_bourg_mai_2014' % self._module_ns)
+        self.retro = self.browse_ref('%s.retro_jacques_bourg_2014' % self._module_ns)

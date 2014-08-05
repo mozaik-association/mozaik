@@ -169,7 +169,7 @@
             <field name="year">2014</field>
         </record>
 
-        <record id="retro_jacques_bourg_mai_2014" model="retrocession">
+        <record id="retro_jacques_bourg_2014" model="retrocession">
             <field name="sta_mandate_id" ref ="stam_jacques_bourgmestre"/>
             <field name="year">2014</field>
         </record>
