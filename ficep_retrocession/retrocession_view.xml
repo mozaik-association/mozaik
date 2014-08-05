@@ -173,8 +173,8 @@
                             domain="[('state', '=', 'draft')]" />
                     <filter name="validated" string="Validated"
                             domain="[('state', '=', 'validated')]" />
-                    <filter name="done" string="Paid"
-                            domain="[('state', '=', 'paid')]" />
+                    <filter name="done" string="Done"
+                            domain="[('state', '=', 'done')]" />
                     <filter name="cancel" string="Cancelled"
                             domain="[('state', '=', 'cancelled')]" />
                     <separator/>
@@ -570,8 +570,8 @@
                             <button name="action_validate" string="Validate" type="object"
                                     confirm="Validate Retrocession now: proceed anyway ?"
                                     states="draft" class="oe_highlight"/>
-                            <button name="action_paid" string="Paid" type="object"
-                                    confirm="Mark Retrocession as Paid: proceed anyway ?" class="oe_highlight"
+                            <button name="action_done" string="Done" type="object"
+                                    confirm="Mark Retrocession as Done: proceed anyway ?" class="oe_highlight"
                                     attrs="{'invisible': ['|', ('state', '!=', 'validated'),('need_account_management', '=', True)]}"/>
                             <button name="action_revalidate" string="Reset" type="object"
                                     states="validated" confirm="Reset Retrocession: proceed anyway ?" />
@@ -580,7 +580,7 @@
                                     groups="ficep_base.ficep_res_groups_configurator" />
                             <button name="action_request_for_payment_send" string="Send By Email" type="object"
                                     states="validated" confirm="Send request for payment by email, proceed anyway ?"/>
-                            <field name="state" widget="statusbar" statusbar_visible="draft,validated,paid"/>
+                            <field name="state" widget="statusbar" statusbar_visible="draft,validated,done"/>
                         </div>
                     </header>
                     <sheet>
@@ -617,8 +617,8 @@
                             <field name="email_date" attrs="{'invisible': [('email_date','=', False)]}"/>
                         </group>
 
-                        <notebook invisible="context.get('popup')">
-                            <page string="Rules" name="rules">
+                        <notebook invisible="context.get('popup')" attrs="{'invisible': [('id','=',False)]}">
+                            <page string="Rules" name="rules" >
                                 <separator string="Imputable Rules"/>
                                 <button string="All Details" name="%(calculation_rule_detail_action)d"
                                          type="action" attrs="{'invisible': [('id','=',False)]}"
@@ -682,12 +682,13 @@
                                 </group>
                                 <div class="oe_clear"/>
                             </page>
-                            <page string="Accounting" name="accounting" attrs="{'invisible': [('state', '=', 'draft')]}">  
+                            <page string="Accounting" name="accounting">  
                                     <separator string="Amounts"/>
                                     <group>
-	                                    <field name="provision" attrs="{'readonly': [('need_account_management', '=', True)]}"/>
+	                                    <field name="provision" attrs="{'readonly': [('need_account_management', '=', True)],
+	                                                                    'invisible': [('retrocession_mode','=', 'month')]}"/>
 	                                    <field name="amount_topay"/>
-	                                    <field name="amount_paid"  attrs="{'readonly': [('need_account_management', '=', True)]}"/>
+	                                    <field name="amount_reconcilied"  attrs="{'readonly': [('need_account_management', '=', True)]}"/>
 	                                </group>
                                     <separator string="Journal Entry" attrs="{'invisible': [('move_id', '=', False)]}"/>
                                     <group>

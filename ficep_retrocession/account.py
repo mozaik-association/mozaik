@@ -35,3 +35,21 @@ class account_chart_template(orm.Model):
         'property_retrocession_account': fields.many2one('account.account.template', 'Retrocessions Account'),
         'property_retrocession_cost_account': fields.many2one('account.account.template', 'Retrocessions Cost Account'),
     }
+
+
+class account_move_line(orm.Model):
+    _inherit = "account.move.line"
+
+    def write(self, cr, uid, ids, vals, context=None, check=True, update_check=True):
+        """
+        Change state of retrocession during reconciliation process
+        """
+        res = super(account_move_line, self).write(cr, uid, ids, vals, context=context, check=check, update_check=check)
+        if vals.get('reconcile_id', False):
+            retro_obj = self.pool['retrocession']
+            move_ids = [line.move_id.id for line in self.browse(cr, uid, ids, context=context) if line.reconcile_id]
+            if move_ids:
+                retro_ids = retro_obj.search(cr, uid, [('move_id', 'in', move_ids)], context=context)
+                if retro_ids:
+                    retro_obj.action_done(cr, uid, retro_ids, context=context)
+        return res
