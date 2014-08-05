@@ -297,6 +297,8 @@ class virtual_partner_instance(orm.Model):
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
 
+        'del_doc_date': fields.date('Delivery Welcome Document Date'),
+
         'is_company': fields.boolean('Is a Company'),
         'identifier': fields.integer('Number'),
         'birth_date': fields.date('Birth Date'),
@@ -340,6 +342,7 @@ class virtual_partner_instance(orm.Model):
             concat(pc.id, '/', e.id) as common_id,
             p.id as partner_id,
             p.int_instance_id as int_instance_id,
+            p.del_doc_date as del_doc_date,
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
             pc.coordinate_category_id as postal_category_id,
