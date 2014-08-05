@@ -71,7 +71,7 @@ class waiting_member_report(orm.Model):
                         ON ml.partner = p.id
                     WHERE
                         p.is_company = false AND
-                        ms.code = 'future_commitee_member' AND
+                        ms.code = 'member_committee' AND
                         ml.is_current = true
                     ) as partner
                 WHERE one_month >= 1

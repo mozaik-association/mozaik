@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+
         <record id="wkf_membership" model="workflow">
             <field name="name">res.partner.basic</field>
             <field name="osv">res.partner</field>
@@ -24,50 +25,50 @@
             <field name="action">update_state('supporter')</field>
         </record>
 
-        <record id="partner_act_candidate_member" model="workflow.activity">
+        <record id="partner_act_member_candidate" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
-            <field name="name">candidate_member</field>
+            <field name="name">member_candidate</field>
             <field name="kind">function</field>
-            <field name="action">update_state('candidate_member')</field>
+            <field name="action">update_state('member_candidate')</field>
         </record>
 
-        <record id="partner_act_old_supporter" model="workflow.activity">
+        <record id="partner_act_former_supporter" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
-            <field name="name">old_supporter</field>
+            <field name="name">former_supporter</field>
             <field name="flow_stop" eval="1" />
             <field name="kind">function</field>
-            <field name="action">update_state('old_supporter')</field>
+            <field name="action">update_state('former_supporter')</field>
         </record>
 
-        <record id="partner_act_refused_candidate_member" model="workflow.activity">
+        <record id="partner_act_refused_member_candidate" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
-            <field name="name">refused_candidate_member</field>
+            <field name="name">refused_member_candidate</field>
             <field name="kind">function</field>
-            <field name="action">update_state('refused_candidate_member')
+            <field name="action">update_state('refused_member_candidate')
             </field>
         </record>
 
-        <record id="partner_act_future_commitee_member" model="workflow.activity">
+        <record id="partner_act_member_committee" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
-            <field name="name">future_commitee_member</field>
+            <field name="name">member_committee</field>
             <field name="kind">function</field>
-            <field name="action">update_state('future_commitee_member')
+            <field name="action">update_state('member_committee')
             </field>
         </record>
 
-        <record id="partner_act_old_commitee_member" model="workflow.activity">
+        <record id="partner_act_former_member_committee" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
-            <field name="name">old_commitee_member</field>
+            <field name="name">former_member_committee</field>
             <field name="kind">function</field>
-            <field name="action">update_state('old_commitee_member')
+            <field name="action">update_state('former_member_committee')
             </field>
         </record>
 
-        <record id="partner_act_old_member" model="workflow.activity">
+        <record id="partner_act_former_member" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
-            <field name="name">old_member</field>
+            <field name="name">former_member</field>
             <field name="kind">function</field>
-            <field name="action">update_state('old_member')</field>
+            <field name="action">update_state('former_member')</field>
         </record>
 
         <record id="partner_act_member" model="workflow.activity">
@@ -77,39 +78,39 @@
             <field name="action">update_state('member')</field>
         </record>
 
-        <record id="partner_act_expulsion_old_member" model="workflow.activity">
+        <record id="partner_act_expulsion_former_member" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
-            <field name="name">expulsion_old_member</field>
+            <field name="name">expulsion_former_member</field>
             <field name="flow_stop" eval="1" />
             <field name="kind">function</field>
-            <field name="action">update_state('expulsion_old_member')
+            <field name="action">update_state('expulsion_former_member')
             </field>
         </record>
 
-        <record id="partner_act_resignation_old_member" model="workflow.activity">
+        <record id="partner_act_resignation_former_member" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
-            <field name="name">resignation_old_member</field>
+            <field name="name">resignation_former_member</field>
             <field name="flow_stop" eval="1" />
             <field name="kind">function</field>
-            <field name="action">update_state('resignation_old_member')
+            <field name="action">update_state('resignation_former_member')
             </field>
         </record>
 
-        <record id="partner_act_inappropriate_old_member" model="workflow.activity">
+        <record id="partner_act_inappropriate_former_member" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
-            <field name="name">inappropriate_old_member</field>
+            <field name="name">inappropriate_former_member</field>
             <field name="flow_stop" eval="1" />
             <field name="kind">function</field>
-            <field name="action">update_state('inappropriate_old_member')
+            <field name="action">update_state('inappropriate_former_member')
             </field>
         </record>
 
-        <record id="partner_act_break_old_member" model="workflow.activity">
+        <record id="partner_act_break_former_member" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
-            <field name="name">break_old_member</field>
+            <field name="name">break_former_member</field>
             <field name="flow_stop" eval="1" />
             <field name="kind">function</field>
-            <field name="action">update_state('break_old_member')</field>
+            <field name="action">update_state('break_former_member')</field>
         </record>
 
         <!-- Transition -->
@@ -117,29 +118,29 @@
         <!-- Without Status TO Candidate Member -->
         <record id="membership_trans_ws_cm" model="workflow.transition">
             <field name="act_from" ref="partner_act_without_membership" />
-            <field name="act_to" ref="partner_act_candidate_member" />
+            <field name="act_to" ref="partner_act_member_candidate" />
             <field name="condition">
                 accepted_date != False and free_member != True
             </field>
         </record>
 
-        <!-- Future Commitee Member TO Refused Candidate Member -->
+        <!-- Future Committee Member TO Refused Candidate Member -->
         <record id="membership_trans_fcm_rcm" model="workflow.transition">
-            <field name="act_from" ref="partner_act_future_commitee_member" />
-            <field name="act_to" ref="partner_act_refused_candidate_member" />
+            <field name="act_from" ref="partner_act_member_committee" />
+            <field name="act_to" ref="partner_act_refused_member_candidate" />
             <field name="condition">rejected_date != False</field>
         </record>
 
         <!-- Candidate Member TO Refused Candidate Member -->
         <record id="membership_trans_cm_rcm" model="workflow.transition">
-            <field name="act_from" ref="partner_act_candidate_member" />
-            <field name="act_to" ref="partner_act_refused_candidate_member" />
+            <field name="act_from" ref="partner_act_member_candidate" />
+            <field name="act_to" ref="partner_act_refused_member_candidate" />
             <field name="condition">rejected_date != False</field>
         </record>
 
         <!-- Refused Candidate Member TO Supporter -->
         <record id="membership_trans_rcm_supp" model="workflow.transition">
-            <field name="act_from" ref="partner_act_refused_candidate_member" />
+            <field name="act_from" ref="partner_act_refused_member_candidate" />
             <field name="act_to" ref="partner_act_supporter" />
             <field name="condition">
                 accepted_date != False and free_member == True
@@ -148,8 +149,8 @@
 
         <!-- Refused Candidate Member TO Candidate Member -->
         <record id="membership_trans_rcm_cm" model="workflow.transition">
-            <field name="act_from" ref="partner_act_refused_candidate_member" />
-            <field name="act_to" ref="partner_act_candidate_member" />
+            <field name="act_from" ref="partner_act_refused_member_candidate" />
+            <field name="act_to" ref="partner_act_member_candidate" />
             <field name="condition">
                 accepted_date != False and free_member != True
             </field>
@@ -157,7 +158,7 @@
 
         <!-- Candidate Member TO Supporter -->
         <record id="membership_trans_cm_supp" model="workflow.transition">
-            <field name="act_from" ref="partner_act_candidate_member" />
+            <field name="act_from" ref="partner_act_member_candidate" />
             <field name="act_to" ref="partner_act_supporter" />
             <field name="condition">decline_payment_date != False and free_member == True</field>
         </record>
@@ -174,79 +175,79 @@
         <!-- Supporter TO Candidate Member -->
         <record id="membership_trans_supp_cm" model="workflow.transition">
             <field name="act_from" ref="partner_act_supporter" />
-            <field name="act_to" ref="partner_act_candidate_member" />
+            <field name="act_to" ref="partner_act_member_candidate" />
             <field name="condition">
                 accepted_date != False and free_member == False
             </field>
         </record>
 
-        <!-- Supporter TO Old Supporter -->
+        <!-- Supporter TO Former Supporter -->
         <record id="membership_trans_supp_osupp" model="workflow.transition">
             <field name="act_from" ref="partner_act_supporter" />
-            <field name="act_to" ref="partner_act_old_supporter" />
+            <field name="act_to" ref="partner_act_former_supporter" />
             <field name="condition">
                 resignation_date != False
             </field>
         </record>
 
-        <!-- Member To Resignation Old Member -->
+        <!-- Member To Resignation Former Member -->
         <record id="membership_trans_m_rom" model="workflow.transition">
             <field name="act_from" ref="partner_act_member" />
-            <field name="act_to" ref="partner_act_resignation_old_member" />
+            <field name="act_to" ref="partner_act_resignation_former_member" />
             <field name="condition">
                 resignation_date != False
             </field>
         </record>
 
-        <!-- Member To Expulsion Old Member -->
+        <!-- Member To Expulsion Former Member -->
         <record id="membership_trans_m_eom" model="workflow.transition">
             <field name="act_from" ref="partner_act_member" />
-            <field name="act_to" ref="partner_act_expulsion_old_member" />
+            <field name="act_to" ref="partner_act_expulsion_former_member" />
             <field name="condition">
                 exclusion_date != False
             </field>
         </record>
 
-        <!-- Member To Old Member -->
+        <!-- Member To Former Member -->
         <record id="membership_trans_m_om" model="workflow.transition">
             <field name="act_from" ref="partner_act_member" />
-            <field name="act_to" ref="partner_act_old_member" />
+            <field name="act_to" ref="partner_act_former_member" />
             <field name="condition">
                 decline_payment_date != False
             </field>
         </record>
 
-        <!-- Old Commitee Member To Inappropriate Old Member -->
+        <!-- Former Committee Member To Inappropriate Former Member -->
         <record id="membership_trans_ocm_iom" model="workflow.transition">
-            <field name="act_from" ref="partner_act_old_commitee_member" />
-            <field name="act_to" ref="partner_act_inappropriate_old_member" />
+            <field name="act_from" ref="partner_act_former_member_committee" />
+            <field name="act_to" ref="partner_act_inappropriate_former_member" />
             <field name="condition">
                 exclusion_date != False
             </field>
         </record>
 
-        <!-- Old Member To Break Old Member -->
+        <!-- Former Member To Break Former Member -->
         <record id="membership_trans_om_bom" model="workflow.transition">
-            <field name="act_from" ref="partner_act_old_member" />
-            <field name="act_to" ref="partner_act_break_old_member" />
+            <field name="act_from" ref="partner_act_former_member" />
+            <field name="act_to" ref="partner_act_break_former_member" />
             <field name="condition">
                 resignation_date != False
             </field>
         </record>
 
-        <!-- Old Member To Old Member -->
+        <!-- Former Member To Former Member -->
         <record id="membership_trans_om_bom" model="workflow.transition">
-            <field name="act_from" ref="partner_act_old_member" />
-            <field name="act_to" ref="partner_act_old_member" />
+            <field name="act_from" ref="partner_act_former_member" />
+            <field name="act_to" ref="partner_act_former_member" />
             <field name="condition">
                 accepted_date != False
             </field>
         </record>
 
-        <!-- Old Member To Inappropriate Old Member -->
+        <!-- Former Member To Inappropriate Former Member -->
         <record id="membership_trans_om_iom" model="workflow.transition">
-            <field name="act_from" ref="partner_act_old_member" />
-            <field name="act_to" ref="partner_act_inappropriate_old_member" />
+            <field name="act_from" ref="partner_act_former_member" />
+            <field name="act_to" ref="partner_act_inappropriate_former_member" />
             <field name="condition">
                 exclusion_date != False
             </field>
@@ -262,41 +263,41 @@
             <field name="condition">True</field>
         </record>
 
-        <!-- Supporter TO Future Commitee Member Via button -->
+        <!-- Supporter TO Future Committee Member Via button -->
         <record id="membership_trans_supp_osupp_button" model="workflow.transition">
             <field name="act_from" ref="partner_act_supporter" />
-            <field name="act_to" ref="partner_act_future_commitee_member" />
+            <field name="act_to" ref="partner_act_member_committee" />
             <field name="signal">paid_simulated</field>
             <field name="condition">True</field>
         </record>
 
-        <!-- Candidate Member TO Future Commitee Member Via button -->
+        <!-- Candidate Member TO Future Committee Member Via button -->
         <record id="membership_trans_cm_fcm_button" model="workflow.transition">
-            <field name="act_from" ref="partner_act_candidate_member" />
-            <field name="act_to" ref="partner_act_future_commitee_member" />
+            <field name="act_from" ref="partner_act_member_candidate" />
+            <field name="act_to" ref="partner_act_member_committee" />
             <field name="signal">paid_simulated</field>
             <field name="condition">True</field>
         </record>
 
-        <!-- Old Member To Old Commitee Member button -->
+        <!-- Former Member To Former Committee Member button -->
         <record id="membership_trans_om_m_button" model="workflow.transition">
-            <field name="act_from" ref="partner_act_old_member" />
-            <field name="act_to" ref="partner_act_old_commitee_member" />
+            <field name="act_from" ref="partner_act_former_member" />
+            <field name="act_to" ref="partner_act_former_member_committee" />
             <field name="signal">paid_simulated</field>
             <field name="condition">True</field>
         </record>
 
-        <!-- Old Commitee Member To Member -->
+        <!-- Former Committee Member To Member -->
         <record id="membership_trans_ocm_m" model="workflow.transition">
-            <field name="act_from" ref="partner_act_old_commitee_member" />
+            <field name="act_from" ref="partner_act_former_member_committee" />
             <field name="act_to" ref="partner_act_member" />
             <field name="signal">accept</field>
             <field name="condition">True</field>
         </record>
 
-        <!-- Future Commitee Member TO Member Via button -->
+        <!-- Future Committee Member TO Member Via button -->
         <record id="membership_trans_fcm_m_button" model="workflow.transition">
-            <field name="act_from" ref="partner_act_future_commitee_member" />
+            <field name="act_from" ref="partner_act_member_committee" />
             <field name="act_to" ref="partner_act_member" />
             <field name="signal">accept</field>
             <field name="condition">True</field>

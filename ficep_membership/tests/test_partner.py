@@ -25,16 +25,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+from datetime import date, timedelta
 from anybox.testing.openerp import SharedSetupTransactionCase
 import uuid
-from openerp import netsvc
-from datetime import date, timedelta
-import logging
-from openerp.addons.ficep_membership import membership_request
 
+from openerp import netsvc
 
 wf_service = netsvc.LocalService("workflow")
-_logger = logging.getLogger(__name__)
 
 
 class test_partner(SharedSetupTransactionCase):
@@ -51,7 +49,7 @@ class test_partner(SharedSetupTransactionCase):
         '../../ficep_address/tests/data/address_data.xml',
         # load phone_coordinate of this partner
         '../../ficep_phone/tests/data/phone_data.xml',
-        # load phone_coordinate of this partner
+        # load terms
         '../../ficep_thesaurus/tests/data/thesaurus_data.xml',
     )
 
@@ -61,8 +59,6 @@ class test_partner(SharedSetupTransactionCase):
         super(test_partner, self).setUp()
 
         self.mr_obj = self.registry('membership.request')
-        membership_request._set_disable_rollback_for_test(True)
-
         self.partner_obj = self.registry('res.partner')
         self.ms_obj = self.registry('membership.state')
         self.ml_obj = self.registry('membership.membership_line')
@@ -82,7 +78,7 @@ class test_partner(SharedSetupTransactionCase):
                 'name': name,
             }
             partner_id = self.partner_obj.create(self.cr, self.uid, partner_values)
-        # check each tume the current state cs
+        # check each time the current state cs
         return self.partner_obj.browse(self.cr, self.uid, partner_id)
 
     def test_workflow(self):
@@ -93,30 +89,30 @@ class test_partner(SharedSetupTransactionCase):
         Test all possible ways of partner membership workflow
         Check `state_membership_id`:
         * create = without_membership
-        * without_status -> candidate_member
-        * without_status -> supporter -> candidate_member
-            -> future_commitee_member -> refused_candidate_member
-            -> supporter -> future_commitee_member -> refused_candidate_member
-            -> candidate_member -> supporter -> old_supporter
-        * without_status -> candidate_member -> future_commitee_member
-            -> member -> old_member -> old_commitee_member -> member
-            -> old_member -> old_commitee_member -> inappropriate_old_member
-        * old_member -> inappropriate_old_member
-        * old_member -> break_old_member
-        * member -> expulsion_old_member
-        * member -> resignation_old_member
+        * without_status -> member_candidate
+        * without_status -> supporter -> member_candidate
+            -> member_committee -> refused_member_candidate
+            -> supporter -> member_committee -> refused_member_candidate
+            -> member_candidate -> supporter -> former_supporter
+        * without_status -> member_candidate -> member_committee
+            -> member -> former_member -> former_member_committee -> member
+            -> former_member -> former_member_committee -> inappropriate_former_member
+        * former_member -> inappropriate_former_member
+        * former_member -> break_former_member
+        * member -> expulsion_former_member
+        * member -> resignation_former_member
         """
-        cr, uid, partner_obj = self.cr, self.uid, self.partner_obj
+        cr, uid = self.cr, self.uid
 
         # create = without_membership
         partner = self.get_partner()
         self.assertEquals(partner.membership_state_id.code, 'without_membership', 'Create: should be "without_status"')
 
-        # without_status -> candidate_member
+        # without_status -> member_candidate
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'candidate_member', 'Should be "candidate_member"')
+        self.assertEquals(partner.membership_state_id.code, 'member_candidate', 'Should be "member_candidate"')
 
         # without_status -> supporter
         partner = self.get_partner()
@@ -125,123 +121,123 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'supporter', 'Should be "supporter"')
 
-        # supporter -> candidate_member
+        # supporter -> member_candidate
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'candidate_member', 'Should be "candidate_member"')
+        self.assertEquals(partner.membership_state_id.code, 'member_candidate', 'Should be "member_candidate"')
 
-        # candidate_member -> future_commitee_member
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
+        # member_candidate -> member_committee
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', cr)
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'future_commitee_member', 'Should be "future_commitee_member"')
+        self.assertEquals(partner.membership_state_id.code, 'member_committee', 'Should be "member_committee"')
 
-        # future_commitee_member -> refused_candidate_member
+        # member_committee -> refused_member_candidate
         partner.write({'rejected_date': date.today().strftime('%Y-%m-%d')})
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'refused_candidate_member', 'Should be "refused_candidate_member"')
+        self.assertEquals(partner.membership_state_id.code, 'refused_member_candidate', 'Should be "refused_member_candidate"')
 
-        # refused candidate_member -> candidate_member
+        # refused_member_candidate -> member_candidate
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'candidate_member', 'Should be "candidate_member"')
+        self.assertEquals(partner.membership_state_id.code, 'member_candidate', 'Should be "member_candidate"')
 
-        # candidate_member ->supporter
+        # member_candidate -> supporter
         partner.write({'decline_payment_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': True})
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'supporter', 'Should be "supporter"')
 
-        # supporter -> old_supporter
+        # supporter -> former_supporter
         partner.write({'resignation_date': date.today().strftime('%Y-%m-%d')})
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'old_supporter', 'Should be "old_supporter"')
+        self.assertEquals(partner.membership_state_id.code, 'former_supporter', 'Should be "former_supporter"')
 
         # go to member state
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'member', 'Should be "member"')
 
-        # member -> old_member
+        # member -> former_member
         partner.write({'decline_payment_date': date.today().strftime('%Y-%m-%d')})
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'old_member', 'Should be "old member"')
+        self.assertEquals(partner.membership_state_id.code, 'former_member', 'Should be "former_member"')
 
-        # old_member -> old_commitee_member
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
+        # former_member -> former_member_committee
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', cr)
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'old_commitee_member', 'Should be "old_commitee_member"')
+        self.assertEquals(partner.membership_state_id.code, 'former_member_committee', 'Should be "former_member_committee"')
 
-        # old_commitee_member -> inappropriate_old_member
+        # former_member_committee -> inappropriate_former_member
         partner.write({'exclusion_date': date.today().strftime('%Y-%m-%d')})
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'inappropriate_old_member', 'Should be "inappropriate_old_member"')
+        self.assertEquals(partner.membership_state_id.code, 'inappropriate_former_member', 'Should be "inappropriate_former_member"')
 
         # Go to member
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
         partner = self.get_partner(partner.id)
 
-        # member -> resignation_old_member
+        # member -> resignation_former_member
         partner.write({'resignation_date': date.today().strftime('%Y-%m-%d')})
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'resignation_old_member', 'Should be "resignation_old_member"')
+        self.assertEquals(partner.membership_state_id.code, 'resignation_former_member', 'Should be "resignation_former_member"')
 
         # Go to member
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
         partner = self.get_partner(partner.id)
 
-        # member -> expulsion_old_member
+        # member -> expulsion_former_member
         partner.write({'exclusion_date': date.today().strftime('%Y-%m-%d')})
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'expulsion_old_member', 'Should be "expulsion_old_member"')
+        self.assertEquals(partner.membership_state_id.code, 'expulsion_former_member', 'Should be "expulsion_former_member"')
 
-        # Go to old commitee member
+        # Go to former committee member
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
         partner = self.get_partner(partner.id)
 
-        # member -> old_member
+        # member -> former_member
         partner.write({'decline_payment_date': date.today().strftime('%Y-%m-%d')})
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'old_member', 'Should be "old member"')
+        self.assertEquals(partner.membership_state_id.code, 'former_member', 'Should be "former member"')
 
-        # old_member -> old_commitee_member
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
+        # former_member -> former_member_committee
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', cr)
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'old_commitee_member', 'Should be "old_commitee_member"')
+        self.assertEquals(partner.membership_state_id.code, 'former_member_committee', 'Should be "former_member_committee"')
 
-        # old_commitee_member -> break_old_member
+        # former_member_committee -> break_former_member
         partner.write({'resignation_date': date.today().strftime('%Y-%m-%d')})
         partner = self.get_partner(partner.id)
 
-        # go to old member
+        # go to former member
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
         partner = self.get_partner(partner.id)
 
-        # member -> resignation_old_member
+        # member -> resignation_former_member
         partner.write({'resignation_date': date.today().strftime('%Y-%m-%d')})
         partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'resignation_old_member', 'Should be "break_old_member"')
+        self.assertEquals(partner.membership_state_id.code, 'resignation_former_member', 'Should be "break_former_member"')
 
     def test_button_modification_request(self):
         """
@@ -342,7 +338,7 @@ class test_partner(SharedSetupTransactionCase):
         change status of the partner: this action will automatically launch `update_membership_line`
         and then the second process will be executed
         """
-        ml_obj, partner, partner_obj, cr, uid, context = self.ml_obj, self.rec_partner, self.partner_obj, self.cr, self.uid, {}
+        partner, partner_obj, cr, uid, context = self.rec_partner, self.partner_obj, self.cr, self.uid, {}
         partner_obj.update_membership_line(cr, uid, [partner.id], context=context)
         partner = partner_obj.browse(cr, uid, partner.id, context=context)
         today = date.today().strftime('%Y-%m-%d')
@@ -377,7 +373,7 @@ class test_partner(SharedSetupTransactionCase):
         test_waiting_member
         ===================
         Test will identify member with the status
-        `future_commitee_member` and `old_commitee_member`
+        `member_committee` and `former_member_committee`
         and make them pass into `member` status only if they are
         into the previous state for (or more than) one month
         """
@@ -387,18 +383,19 @@ class test_partner(SharedSetupTransactionCase):
             'lastname': '%s' % uuid.uuid4()
         }
         partner_id = self.partner_obj.create(cr, uid, vals, context=context)
-        # futur commitee member less than one month
+        # member committee less than one month
         partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
 
         partner.write({
             'accepted_date': date.today().strftime('%Y-%m-%d'),
             'free_member': False
         })
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', self.cr)
+        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', cr)
 
         partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
         current_state = partner.membership_state_id
-        # now into future commitee member
+
+        # now into future committee member
         wmr.process_accept_members(cr, uid)
         partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
 
