@@ -49,6 +49,9 @@
                                 ('membership_state_code', '!=', 'old_member'),
                                 ('membership_state_code', '!=', 'supporter')]}" />
                     </div>
+                    <group name="membership_datas">
+                        <field name="del_doc_date" attrs="{'invisible': [('del_doc_date', '=', False)]}" />
+                    </group>
                 </xpath>
 
                 <xpath expr="//field[@name='member_lines']" position="replace">
