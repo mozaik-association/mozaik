@@ -25,11 +25,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.tools import logging
-from openerp.osv import orm, fields
+
 from datetime import date
 
-_logger = logging.getLogger(__name__)
+from openerp.tools import logging
+from openerp.osv import orm, fields
+
 DEFAULT_STATE = 'without_membership'
 
 
@@ -37,8 +38,6 @@ class membership_membership_line(orm.Model):
 
     _name = 'membership.membership_line'
     _inherit = ['membership.membership_line', 'abstract.ficep.model']
-
-    _order = 'date_from desc, date_to desc'
 
     def _generate_membership_reference(self, cr, uid, membership_line_id, context=None):
         """
@@ -60,14 +59,22 @@ class membership_membership_line(orm.Model):
         'is_current': fields.boolean('Is Current'),
     }
 
+    _order = 'date_from desc, date_to desc'
+
     _defaults = {
         'is_current': True,
     }
+
+# constraints
 
     _unicity_keys = 'N/A'
 
 
 class membership_state(orm.Model):
+
+    _name = 'membership.state'
+    _inherit = ['abstract.ficep.model']
+    _description = 'Membership State'
 
     def _state_default_get(self, cr, uid, default_state=False, context=None):
         """
@@ -94,14 +101,14 @@ class membership_state(orm.Model):
         state_ids = self.search(cr, uid, [('code', '=', default_state)], context=context)
         return state_ids and state_ids[0] or False
 
-    _name = 'membership.state'
-    _inherit = ['abstract.ficep.model']
-    _description = 'Membership State'
-
     _columns = {
         'name': fields.char('Status', required=True, track_visibility='onchange'),
         'code': fields.char('Code', required=True, track_visibility='onchange'),
     }
+
+    _order = 'name'
+
+# constraints
 
     _unicity_keys = 'code'
 

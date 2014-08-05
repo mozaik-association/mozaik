@@ -77,6 +77,7 @@ class waiting_member_report(orm.Model):
                 WHERE one_month >= 1
             )
         """)
+
 # public methods
 
     def process_accept_members(self, cr, uid, ids=None, context=None):
