@@ -106,5 +106,5 @@ class test_retrocession(SharedSetupTransactionCase):
 
         wizard_pool.generate_retrocessions(self.cr, self.uid, [wiz_id])
 
-        retro_ids = self.registry('retrocession').search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id), ('year', '=', data['year'])])
+        retro_ids = self.registry('retrocession').search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id), ('year', '=', data['year']), ('month', '=', False)])
         self.assertEqual(len(retro_ids), 1)

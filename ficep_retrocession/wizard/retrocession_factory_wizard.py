@@ -142,16 +142,27 @@ class retrocession_factory_wizard(orm.TransientModel):
         mandate_key = MANDATE_M2O.get(wizard.model, False)
         mandate_ids = self.mandate_selection_analysis(cr, uid, wizard.month, wizard.year, wizard.model, eval(wizard.mandate_ids), mode='ids', context=context)
 
+        monthly_mandate_ids = [mandate['id'] for mandate in self.pool.get(wizard.model).read(cr, uid, mandate_ids, ['retrocession_mode'])\
+                                             if mandate['retrocession_mode']=='month']
+        yearly_mandate_ids = list(set(mandate_ids) - set(monthly_mandate_ids))
+
         worker_pivot = int(self.pool.get('ir.config_parameter').get_param(cr, uid, 'retrocession_by_workers_pivot', 10))
 
         vals = dict(month=wizard.month,
                     year=wizard.year)
 
         session = ConnectorSession(cr, uid, context=context)
-        if len(mandate_ids) > worker_pivot:
-            create_retrocessions.delay(session, self._name, mandate_ids, vals, mandate_key, context)
+        if len(monthly_mandate_ids) > worker_pivot:
+            create_retrocessions.delay(session, self._name, monthly_mandate_ids, vals, mandate_key, context)
         else:
-            create_retrocessions(session, self._name, mandate_ids, vals, mandate_key, context)
+            create_retrocessions(session, self._name, monthly_mandate_ids, vals, mandate_key, context)
+
+        vals.pop('month')
+
+        if len(yearly_mandate_ids) > worker_pivot:
+            create_retrocessions.delay(session, self._name, yearly_mandate_ids, vals, mandate_key, context)
+        else:
+            create_retrocessions(session, self._name, yearly_mandate_ids, vals, mandate_key, context)
 
 
 @job
