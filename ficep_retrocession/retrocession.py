@@ -593,7 +593,7 @@ class retrocession(orm.Model):
         """
         retrocessions = self.browse(cr, uid, ids)
         for retro in retrocessions:
-            domain = [(self.get_relation_column_name(cr, uid, retro.mandate_ref._model, context=context), '=', retro.mandate_ref.id),
+            domain = [(self.get_relation_column_name(cr, uid, retro.mandate_ref._name, context=context), '=', retro.mandate_ref.id),
                       ('id', '!=', retro.id),
                       ('month', '=', retro.month),
                       ('year', '=', retro.year),
@@ -702,7 +702,7 @@ class retrocession(orm.Model):
 
         res = []
         for retro in self.browse(cr, uid, ids, context=context):
-            mandate_name = self.pool.get(retro.mandate_ref._model).name_get(cr, uid, retro.mandate_ref.id, context=context)
+            mandate_name = self.pool.get(retro.mandate_ref._name).name_get(cr, uid, retro.mandate_ref.id, context=context)
 
             if retro.month:
                 fields = self.fields_get(cr, uid, ['month'], context=context)
