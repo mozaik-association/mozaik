@@ -54,24 +54,17 @@ MEMBERSHIP_REQUEST_TYPE = [
     ('s', 'Supporter'),
 ]
 membership_request_type = dict(MEMBERSHIP_REQUEST_TYPE)
-#do not rollback during tests (no savepoint)
-_ROLLBACK_DISABLED_FOR_TESTS = False
-
-
-def _set_disable_rollback_for_test(is_disabled):
-    global _ROLLBACK_DISABLED_FOR_TESTS
-    _ROLLBACK_DISABLED_FOR_TESTS = is_disabled
 
 
 class membership_request(orm.Model):
 
-    def _pop_related(self, cr, uid, vals, context=None):
-        vals.pop('local_zip', None)
-        vals.pop('country_code', None)
-
     _name = 'membership.request'
     _inherit = ['abstract.ficep.model']
     _description = 'Membership Request'
+
+    def _pop_related(self, cr, uid, vals, context=None):
+        vals.pop('local_zip', None)
+        vals.pop('country_code', None)
 
     _columns = {
         'identifier': fields.integer('Identifier'),
@@ -137,12 +130,14 @@ class membership_request(orm.Model):
         'note': fields.text('Note'),
     }
 
-    _unicity_keys = 'N/A'
+# constraints
 
     _defaults = {
         'is_update': False,
         'state': 'draft'
     }
+
+    _unicity_keys = 'N/A'
 
 # view methods: onchange, button
 
@@ -286,7 +281,7 @@ class membership_request(orm.Model):
             }
         }
 
-    # public method
+# public method
 
     def get_partner_preview(self, cr, uid, request_type, partner_id=False, partner_datas={'lastname': '%s' % uuid4()}, context=None):
         """
@@ -303,21 +298,24 @@ class membership_request(orm.Model):
         :type partner_data: {}
         :param partner_datas: if no partner id, use this to create a partner
         :rtype: char
-        :rparam: next step of partner's workflow depending of `request_type`
+        :rparam: next status in partner's workflow depending on `request_type`
         """
         context = context or {}
+
+        cr.execute('SAVEPOINT preview')
+
         partner_obj = self.pool['res.partner']
         if not partner_id:
             partner_id = partner_obj.create(cr, uid, partner_datas, context=None)
-        type_id = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][0]
+        status_id = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][0]
         vals = self.get_status_values(cr, uid, request_type, context=context)
         if vals:
             partner_obj.write(cr, uid, partner_id, vals, context=context)
-            type_id = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][0]
+            status_id = partner_obj.read(cr, uid, partner_id, ['membership_state_id'], context=context)['membership_state_id'][0]
 
-        if not _ROLLBACK_DISABLED_FOR_TESTS:
-            cr.rollback()
-        return type_id
+        cr.execute('ROLLBACK TO SAVEPOINT preview')
+
+        return status_id
 
     def get_status_values(self, cr, uid, request_type, context=None):
         """

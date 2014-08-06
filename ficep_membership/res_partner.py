@@ -108,6 +108,8 @@ class res_partner(orm.Model):
          'rejected_date': fields.date('Rejected Date'),
          'resignation_date': fields.date('Resignation Date'),
          'exclusion_date': fields.date('Exclusion Date'),
+
+         'del_doc_date': fields.date('Delivery Document Date'),
     }
 
     _defaults = {

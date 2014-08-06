@@ -49,6 +49,7 @@ class WebServiceException(Exception):
 
 
 def web_service(func):
+
     def inner(self, cr, uid, *args, **kwargs):
         try:
             logger.info("WEB SERVICE REQUEST %s <- %s %s", func.__name__, repr(('self', 'cr', uid) + args), kwargs and repr(kwargs) or '')
@@ -75,6 +76,7 @@ def web_service(func):
 class custom_webservice(orm.Model):
 
     _name = 'custom.webservice'
+    _auto = False
 
     @web_service
     def membership_request(self, cr, uid, lastname, firstname, gender, street, zip_code, town, status,\
@@ -115,7 +117,7 @@ class custom_webservice(orm.Model):
         try:
             res = membership_request.create(cr, SUPERUSER_ID, vals, context=context)
         except Exception as e:
-            raise WebServiceException(uid, 'Membership Request', 'ERROR-CREATE', e.message)
+            raise WebServiceException(uid, 'Membership Request', 'CREATE ERROR', e.message)
         return res
 
     @web_service
@@ -124,7 +126,7 @@ class custom_webservice(orm.Model):
         try:
             res = partner_obj.get_login(cr, SUPERUSER_ID, email, birth_date, context=context)
         except Exception as e:
-            raise WebServiceException(uid, "User's UID", 'ERROR CONNECT', e.message)
+            raise WebServiceException(uid, "User's logname", 'SEARCH ERROR', e.message)
         return res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

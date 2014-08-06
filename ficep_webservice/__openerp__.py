@@ -45,7 +45,6 @@ Allow specific calls from outside with XML-RPC
     ],
     'data': [
         'security/ir.model.access.csv',
-        'data/webservice_users.xml',
     ],
     'sequence': 150,
     'auto_install': False,

@@ -20,47 +20,68 @@
 
         <!-- Virtual Partner Involvement -->
 
-        <record id="virtual_partner_involvement_search_view" model="ir.ui.view">
+        <record id="virtual_partner_involvement_search_view"
+            model="ir.ui.view">
             <field name="name">virtual.partner.involvement.search</field>
             <field name="model">virtual.partner.involvement</field>
             <field name="arch" type="xml">
                 <search string="Virtual Partner Involvement">
-                    <field name="identifier"/>
-                    <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
-                    <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+                    <field name="identifier" />
+                    <field string="Birth Date > ..." name="birth_date"
+                        filter_domain="[('birth_date','>',self)]" />
+                    <field string="Birth Date &lt; ..." name="birth_date"
+                        filter_domain="[('birth_date','&lt;',self)]" />
 
                     <field name="partner_id" domain="[('is_assembly','=',False)]" />
                     <field name="int_instance_id" />
                     <field name="involvement_category_id" />
 
-                    <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="interests_m2m_ids" string="Interests"
+                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
+                        widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
-                    <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
-                    <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
-                    <separator/>
-                    <filter string="Male" name="male" domain="[('gender','=','m')]" />
-                    <filter string="Female" name="female" domain="[('gender','=','f')]" />
+                    <filter string="Natural Persons" name="type_person"
+                        domain="[('is_company','=',0)]" />
+                    <filter string="Legal Persons" name="type_company"
+                        domain="[('is_company','!=',0)]" />
                     <separator />
-                    <filter string="French" name="french" domain="[('tongue','=','f')]" />
-                    <filter string="German" name="german" domain="[('tongue','=','g')]" />
+                    <filter string="Male" name="male"
+                        domain="[('gender','=','m')]" />
+                    <filter string="Female" name="female"
+                        domain="[('gender','=','f')]" />
                     <separator />
-                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
-                    <separator/>
-                    <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="p_unauthorized" string="Unauthorized Address" domain="[('postal_unauthorized','=',True)]"/>
-                    <separator/>
-                    <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]"/>
+                    <filter string="French" name="french"
+                        domain="[('tongue','=','f')]" />
+                    <filter string="German" name="german"
+                        domain="[('tongue','=','g')]" />
+                    <separator />
+                    <filter string="Employee" name="employee"
+                        domain="[('employee','!=',0)]" />
+                    <filter string="Not Employee" name="not_employee"
+                        domain="[('employee','=',0)]" />
+                    <separator />
+                    <filter name="p_vip" string="VIP Address"
+                        domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="e_vip" string="VIP Email"
+                        domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="p_unauthorized" string="Unauthorized Address"
+                        domain="[('postal_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="e_unauthorized" string="Unauthorized Email"
+                        domain="[('email_unauthorized','=',True)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
-                        <filter name="involvement_category" string="Involvement Category" context="{'group_by':'involvement_category_id'}"/>
+                        <filter name="partner" string="Partner"
+                            context="{'group_by':'partner_id'}" />
+                        <filter name="int_instance" string="Internal Instance"
+                            context="{'group_by':'int_instance_id'}" />
+                        <filter name="involvement_category"
+                            string="Involvement Category"
+                            context="{'group_by':'involvement_category_id'}" />
                     </group>
                 </search>
             </field>
@@ -70,7 +91,8 @@
             <field name="name">virtual.partner.involvement.tree</field>
             <field name="model">virtual.partner.involvement</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Involvement" create="0" delete="0">
+                <tree string="Virtual Partner Involvement" create="0"
+                    delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -91,10 +113,12 @@
             <field name="view_mode">form</field>
             <field name="src_model">virtual.partner.involvement</field>
             <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1"/>
+            <field name="multi" eval="1" />
             <field name="target">new</field>
-            <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="view_id"
+                ref="distribution_list.distribution_list_add_filter" />
+            <field name="groups_id"
+                eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_involvement_values" model="ir.values">
@@ -102,7 +126,8 @@
             <field name="model">virtual.partner.involvement</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
+            <field name="value"
+                eval="'ir.actions.act_window,%s' % ref('add_filter_from_invovlement_action')" />
         </record>
 
         <!-- Action -->
@@ -112,8 +137,8 @@
             <field name="res_model">virtual.partner.involvement</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_involvement_search_view"/>
-            <field name="view_id" ref="virtual_partner_involvement_tree_view"/>
+            <field name="search_view_id" ref="virtual_partner_involvement_search_view" />
+            <field name="view_id" ref="virtual_partner_involvement_tree_view" />
         </record>
 
         <!-- Virtual Partner Relation -->
@@ -123,44 +148,64 @@
             <field name="model">virtual.partner.relation</field>
             <field name="arch" type="xml">
                 <search string="Virtual Partner Relation">
-                    <field name="identifier"/>
-                    <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
-                    <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+                    <field name="identifier" />
+                    <field string="Birth Date > ..." name="birth_date"
+                        filter_domain="[('birth_date','>',self)]" />
+                    <field string="Birth Date &lt; ..." name="birth_date"
+                        filter_domain="[('birth_date','&lt;',self)]" />
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
                     <field name="relation_category_id" />
                     <field name="object_partner_id" />
 
-                    <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="interests_m2m_ids" string="Interests"
+                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
+                        widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
-                    <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
-                    <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
-                    <filter string="Assemblies" name="type_assembly" domain="[('is_assembly','!=',0)]"/>
-                    <separator/>
-                    <filter string="Male" name="male" domain="[('gender','=','m')]" />
-                    <filter string="Female" name="female" domain="[('gender','=','f')]" />
+                    <filter string="Natural Persons" name="type_person"
+                        domain="[('is_company','=',0)]" />
+                    <filter string="Legal Persons" name="type_company"
+                        domain="[('is_company','!=',0)]" />
+                    <filter string="Assemblies" name="type_assembly"
+                        domain="[('is_assembly','!=',0)]" />
                     <separator />
-                    <filter string="French" name="french" domain="[('tongue','=','f')]" />
-                    <filter string="German" name="german" domain="[('tongue','=','g')]" />
+                    <filter string="Male" name="male"
+                        domain="[('gender','=','m')]" />
+                    <filter string="Female" name="female"
+                        domain="[('gender','=','f')]" />
                     <separator />
-                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
-                    <separator/>
-                    <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="p_unauthorized" string="Unauthorized Address" domain="[('postal_unauthorized','=',True)]"/>
-                    <separator/>
-                    <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]"/>
+                    <filter string="French" name="french"
+                        domain="[('tongue','=','f')]" />
+                    <filter string="German" name="german"
+                        domain="[('tongue','=','g')]" />
+                    <separator />
+                    <filter string="Employee" name="employee"
+                        domain="[('employee','!=',0)]" />
+                    <filter string="Not Employee" name="not_employee"
+                        domain="[('employee','=',0)]" />
+                    <separator />
+                    <filter name="p_vip" string="VIP Address"
+                        domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="e_vip" string="VIP Email"
+                        domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="p_unauthorized" string="Unauthorized Address"
+                        domain="[('postal_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="e_unauthorized" string="Unauthorized Email"
+                        domain="[('email_unauthorized','=',True)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
-                        <filter name="relation_category" string="Relation Category" context="{'group_by':'relation_category_id'}"/>
+                        <filter name="partner" string="Partner"
+                            context="{'group_by':'partner_id'}" />
+                        <filter name="int_instance" string="Internal Instance"
+                            context="{'group_by':'int_instance_id'}" />
+                        <filter name="relation_category" string="Relation Category"
+                            context="{'group_by':'relation_category_id'}" />
                     </group>
                 </search>
             </field>
@@ -170,7 +215,8 @@
             <field name="name">virtual.partner.relation.tree</field>
             <field name="model">virtual.partner.relation</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Relation" create="0" delete="0">
+                <tree string="Virtual Partner Relation" create="0"
+                    delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -192,10 +238,12 @@
             <field name="view_mode">form</field>
             <field name="src_model">virtual.partner.relation</field>
             <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1"/>
+            <field name="multi" eval="1" />
             <field name="target">new</field>
-            <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="view_id"
+                ref="distribution_list.distribution_list_add_filter" />
+            <field name="groups_id"
+                eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_relation_values" model="ir.values">
@@ -203,7 +251,8 @@
             <field name="model">virtual.partner.relation</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_relation_action')" />
+            <field name="value"
+                eval="'ir.actions.act_window,%s' % ref('add_filter_from_relation_action')" />
         </record>
 
         <!-- Action -->
@@ -213,8 +262,8 @@
             <field name="res_model">virtual.partner.relation</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_relation_search_view"/>
-            <field name="view_id" ref="virtual_partner_relation_tree_view"/>
+            <field name="search_view_id" ref="virtual_partner_relation_search_view" />
+            <field name="view_id" ref="virtual_partner_relation_tree_view" />
         </record>
 
         <!-- Virtual Partner Instance -->
@@ -224,50 +273,80 @@
             <field name="model">virtual.partner.instance</field>
             <field name="arch" type="xml">
                 <search string="Virtual Partner Instance">
-                    <field name="identifier"/>
-                    <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
-                    <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+                    <field name="identifier" />
+                    <field string="Birth Date > ..." name="birth_date"
+                        filter_domain="[('birth_date','>',self)]" />
+                    <field string="Birth Date &lt; ..." name="birth_date"
+                        filter_domain="[('birth_date','&lt;',self)]" />
+
+                    <field string="Delivery Welcome Document Date &lt; ..."
+                        name="birth_date" filter_domain="[('birth_date','&lt;',self)]" />
 
                     <field name="partner_id" domain="[('is_assembly','=',False)]" />
                     <field name="int_instance_id" />
-                    <separator/>
+                    <separator />
                     <field name="membership_state_id" />
-                    <separator/>
-
-                    <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <separator />
+                    <filter string="Waiting Delivery Welcome Document"
+                        name="del_doc_date"
+                        domain="[('del_doc_date','=', False),
+                                     ('membership_state_id.code','!=', 'without_membership')]" />
+                    <separator />
+                    <field name="interests_m2m_ids" string="Interests"
+                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
+                        widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
-                    <separator/>
-                    <field name="email_category_id" string="Email Category" widget="many2one" />
-                    <field name="postal_category_id" string="Postal Category" widget="many2one" />
-                    <separator/>
-                    <filter string="Main Postal" name="main_postal" domain="[('main_postal','=',1)]"/>
-                    <filter string="Main Email" name="main_email" domain="[('main_email','=',1)]"/>
-                    <separator/>
-                    <filter string="Natural Persons" name="type_person" domain="[('is_company','=',0)]"/>
-                    <filter string="Legal Persons" name="type_company" domain="[('is_company','!=',0)]"/>
-                    <separator/>
-                    <filter string="Male" name="male" domain="[('gender','=','m')]" />
-                    <filter string="Female" name="female" domain="[('gender','=','f')]" />
                     <separator />
-                    <filter string="French" name="french" domain="[('tongue','=','f')]" />
-                    <filter string="German" name="german" domain="[('tongue','=','g')]" />
+                    <field name="email_category_id" string="Email Category"
+                        widget="many2one" />
+                    <field name="postal_category_id" string="Postal Category"
+                        widget="many2one" />
                     <separator />
-                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]" />
-                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]" />
-                    <separator/>
-                    <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="p_unauthorized" string="Unauthorized Address" domain="[('postal_unauthorized','=',True)]"/>
-                    <separator/>
-                    <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]"/>
+                    <filter string="Main Postal" name="main_postal"
+                        domain="[('main_postal','=',1)]" />
+                    <filter string="Main Email" name="main_email"
+                        domain="[('main_email','=',1)]" />
+                    <separator />
+                    <filter string="Natural Persons" name="type_person"
+                        domain="[('is_company','=',0)]" />
+                    <filter string="Legal Persons" name="type_company"
+                        domain="[('is_company','!=',0)]" />
+                    <separator />
+                    <filter string="Male" name="male"
+                        domain="[('gender','=','m')]" />
+                    <filter string="Female" name="female"
+                        domain="[('gender','=','f')]" />
+                    <separator />
+                    <filter string="French" name="french"
+                        domain="[('tongue','=','f')]" />
+                    <filter string="German" name="german"
+                        domain="[('tongue','=','g')]" />
+                    <separator />
+                    <filter string="Employee" name="employee"
+                        domain="[('employee','!=',0)]" />
+                    <filter string="Not Employee" name="not_employee"
+                        domain="[('employee','=',0)]" />
+                    <separator />
+                    <filter name="p_vip" string="VIP Address"
+                        domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="e_vip" string="VIP Email"
+                        domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="p_unauthorized" string="Unauthorized Address"
+                        domain="[('postal_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="e_unauthorized" string="Unauthorized Email"
+                        domain="[('email_unauthorized','=',True)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
-                        <filter name="ste" string="State" context="{'group_by':'membership_state_id'}"/>
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
+                        <filter name="partner" string="Partner"
+                            context="{'group_by':'partner_id'}" />
+                        <filter name="ste" string="State"
+                            context="{'group_by':'membership_state_id'}" />
+                        <filter name="int_instance" string="Internal Instance"
+                            context="{'group_by':'int_instance_id'}" />
                     </group>
                 </search>
             </field>
@@ -277,7 +356,8 @@
             <field name="name">virtual.partner.instance.tree</field>
             <field name="model">virtual.partner.instance</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Instance" create="0" delete="0">
+                <tree string="Virtual Partner Instance" create="0"
+                    delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -298,10 +378,12 @@
             <field name="view_mode">form</field>
             <field name="src_model">virtual.partner.instance</field>
             <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1"/>
+            <field name="multi" eval="1" />
             <field name="target">new</field>
-            <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="view_id"
+                ref="distribution_list.distribution_list_add_filter" />
+            <field name="groups_id"
+                eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_instance_values" model="ir.values">
@@ -309,7 +391,8 @@
             <field name="model">virtual.partner.instance</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_instance_action')" />
+            <field name="value"
+                eval="'ir.actions.act_window,%s' % ref('add_filter_from_instance_action')" />
         </record>
 
         <!-- Action -->
@@ -319,8 +402,8 @@
             <field name="res_model">virtual.partner.instance</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_instance_search_view"/>
-            <field name="view_id" ref="virtual_partner_instance_tree_view"/>
+            <field name="search_view_id" ref="virtual_partner_instance_search_view" />
+            <field name="view_id" ref="virtual_partner_instance_tree_view" />
         </record>
 
         <!-- Virtual Partner Mandate -->
@@ -331,49 +414,75 @@
             <field name="arch" type="xml">
                 <search string="Virtual Partner Mandate">
                     <field name="identifier" />
-                    <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
-                    <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+                    <field string="Birth Date > ..." name="birth_date"
+                        filter_domain="[('birth_date','>',self)]" />
+                    <field string="Birth Date &lt; ..." name="birth_date"
+                        filter_domain="[('birth_date','&lt;',self)]" />
 
-                    <field string="Mandate Start Date > ..." name="start_date" filter_domain="[('start_date','>',self)]"/>
-                    <field string="Mandate Start Date &lt; ..." name="start_date" filter_domain="[('start_date','&lt;',self)]"/>
-                    <field string="Mandate End Date > ..." name="deadline_date" filter_domain="[('deadline_date','>',self)]"/>
-                    <field string="Mandate End Date &lt; ..." name="deadline_date" filter_domain="[('deadline_date','&lt;',self)]"/>
+                    <field string="Mandate Start Date > ..." name="start_date"
+                        filter_domain="[('start_date','>',self)]" />
+                    <field string="Mandate Start Date &lt; ..."
+                        name="start_date" filter_domain="[('start_date','&lt;',self)]" />
+                    <field string="Mandate End Date > ..." name="deadline_date"
+                        filter_domain="[('deadline_date','>',self)]" />
+                    <field string="Mandate End Date &lt; ..."
+                        name="deadline_date" filter_domain="[('deadline_date','&lt;',self)]" />
 
-                    <field name="partner_id" domain="[('is_company','=',False)]"/>
+                    <field name="partner_id" domain="[('is_company','=',False)]" />
                     <field name="int_instance_id" />
 
                     <field name="assembly_id" />
                     <field name="mandate_category_id" />
 
-                    <field name="ext_competencies_m2m_ids" string="State Competencies &amp; Topics" widget="many2one" />
-                    <field name="sta_competencies_m2m_ids" string="External Competencies &amp; Topics" widget="many2one" />
+                    <field name="ext_competencies_m2m_ids" string="State Competencies &amp; Topics"
+                        widget="many2one" />
+                    <field name="sta_competencies_m2m_ids"
+                        string="External Competencies &amp; Topics"
+                        widget="many2one" />
 
-                    <filter name="sta_mod" string="State Mandate" domain="[('model','=','sta.mandate')]"/>
-                    <filter name="int_mod" string="Internal Mandate" domain="[('model','=','int.mandate')]"/>
-                    <filter name="ext_mod" string="External Mandate" domain="[('model','=','ext.mandate')]"/>
+                    <filter name="sta_mod" string="State Mandate"
+                        domain="[('model','=','sta.mandate')]" />
+                    <filter name="int_mod" string="Internal Mandate"
+                        domain="[('model','=','int.mandate')]" />
+                    <filter name="ext_mod" string="External Mandate"
+                        domain="[('model','=','ext.mandate')]" />
                     <separator />
-                    <filter string="Male" name="male" domain="[('gender','=','m')]"/>
-                    <filter string="Female" name="female" domain="[('gender','=','f')]"/>
+                    <filter string="Male" name="male"
+                        domain="[('gender','=','m')]" />
+                    <filter string="Female" name="female"
+                        domain="[('gender','=','f')]" />
                     <separator />
-                    <filter string="French" name="french" domain="[('tongue','=','f')]"/>
-                    <filter string="German" name="german" domain="[('tongue','=','g')]"/>
+                    <filter string="French" name="french"
+                        domain="[('tongue','=','f')]" />
+                    <filter string="German" name="german"
+                        domain="[('tongue','=','g')]" />
                     <separator />
-                    <filter string="Employee" name="employee" domain="[('employee','!=',0)]"/>
-                    <filter string="Not Employee" name="not_employee" domain="[('employee','=',0)]"/>
-                    <separator/>
-                    <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="p_unauthorized" string="Unauthorized Address" domain="[('postal_unauthorized','=',True)]"/>
-                    <separator/>
-                    <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]"/>
+                    <filter string="Employee" name="employee"
+                        domain="[('employee','!=',0)]" />
+                    <filter string="Not Employee" name="not_employee"
+                        domain="[('employee','=',0)]" />
+                    <separator />
+                    <filter name="p_vip" string="VIP Address"
+                        domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="e_vip" string="VIP Email"
+                        domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="p_unauthorized" string="Unauthorized Address"
+                        domain="[('postal_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="e_unauthorized" string="Unauthorized Email"
+                        domain="[('email_unauthorized','=',True)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
-                        <filter name="assembly" string="Assembly" context="{'group_by':'assembly_id'}"/>
-                        <filter name="mandate_category_id" string="Mandate Category" context="{'group_by':'mandate_category_id'}"/>
+                        <filter name="partner" string="Partner"
+                            context="{'group_by':'partner_id'}" />
+                        <filter name="int_instance" string="Internal Instance"
+                            context="{'group_by':'int_instance_id'}" />
+                        <filter name="assembly" string="Assembly"
+                            context="{'group_by':'assembly_id'}" />
+                        <filter name="mandate_category_id"
+                            string="Mandate Category" context="{'group_by':'mandate_category_id'}" />
                     </group>
                 </search>
             </field>
@@ -383,7 +492,8 @@
             <field name="name">virtual.partner.mandate.tree</field>
             <field name="model">virtual.partner.mandate</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Mandate" create="0" delete="0">
+                <tree string="Virtual Partner Mandate" create="0"
+                    delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -407,10 +517,12 @@
             <field name="view_mode">form</field>
             <field name="src_model">virtual.partner.mandate</field>
             <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1"/>
+            <field name="multi" eval="1" />
             <field name="target">new</field>
-            <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="view_id"
+                ref="distribution_list.distribution_list_add_filter" />
+            <field name="groups_id"
+                eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_mandate_values" model="ir.values">
@@ -418,7 +530,8 @@
             <field name="model">virtual.partner.mandate</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_mandate_action')" />
+            <field name="value"
+                eval="'ir.actions.act_window,%s' % ref('add_filter_from_mandate_action')" />
         </record>
 
         <!-- Action -->
@@ -428,51 +541,69 @@
             <field name="res_model">virtual.partner.mandate</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_mandate_search_view"/>
-            <field name="view_id" ref="virtual_partner_mandate_tree_view"/>
+            <field name="search_view_id" ref="virtual_partner_mandate_search_view" />
+            <field name="view_id" ref="virtual_partner_mandate_tree_view" />
         </record>
 
         <!-- Virtual Partner Candidature -->
 
-        <record id="virtual_partner_candidature_search_view" model="ir.ui.view">
+        <record id="virtual_partner_candidature_search_view"
+            model="ir.ui.view">
             <field name="name">virtual.partner.candidature.search</field>
             <field name="model">virtual.partner.candidature</field>
             <field name="arch" type="xml">
                 <search string="Virtual Partner Candidature">
                     <field name="identifier" />
-                    <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
-                    <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
+                    <field string="Birth Date > ..." name="birth_date"
+                        filter_domain="[('birth_date','>',self)]" />
+                    <field string="Birth Date &lt; ..." name="birth_date"
+                        filter_domain="[('birth_date','&lt;',self)]" />
 
-                    <field string="Mandate Start Date > ..." name="start_date" filter_domain="[('start_date','>',self)]"/>
-                    <field string="Mandate Start Date &lt; ..." name="start_date" filter_domain="[('start_date','&lt;',self)]"/>
+                    <field string="Mandate Start Date > ..." name="start_date"
+                        filter_domain="[('start_date','>',self)]" />
+                    <field string="Mandate Start Date &lt; ..."
+                        name="start_date" filter_domain="[('start_date','&lt;',self)]" />
 
-                    <field name="partner_id" domain="[('is_company','=',False)]"/>
+                    <field name="partner_id" domain="[('is_company','=',False)]" />
                     <field name="int_instance_id" />
 
                     <field name="assembly_id" />
                     <field name="mandate_category_id" />
 
-                    <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="interests_m2m_ids" string="Interests"
+                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
+                        widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
-                    <filter name="sta_mod" string="State Candidature" domain="[('model','=','sta.candidature')]"/>
-                    <filter name="int_mod" string="Internal Candidature" domain="[('model','=','int.candidature')]"/>
-                    <filter name="ext_mod" string="External Candidature" domain="[('model','=','ext.candidature')]"/>
-                    <separator/>
-                    <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="p_unauthorized" string="Unauthorized Address" domain="[('postal_unauthorized','=',True)]"/>
-                    <separator/>
-                    <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]"/>
+                    <filter name="sta_mod" string="State Candidature"
+                        domain="[('model','=','sta.candidature')]" />
+                    <filter name="int_mod" string="Internal Candidature"
+                        domain="[('model','=','int.candidature')]" />
+                    <filter name="ext_mod" string="External Candidature"
+                        domain="[('model','=','ext.candidature')]" />
+                    <separator />
+                    <filter name="p_vip" string="VIP Address"
+                        domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="e_vip" string="VIP Email"
+                        domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="p_unauthorized" string="Unauthorized Address"
+                        domain="[('postal_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="e_unauthorized" string="Unauthorized Email"
+                        domain="[('email_unauthorized','=',True)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
-                        <filter name="assembly" string="Assembly" context="{'group_by':'assembly_id'}"/>
-                        <filter name="mandate_category" string="Mandate Category" context="{'group_by':'mandate_category_id'}"/>
+                        <filter name="partner" string="Partner"
+                            context="{'group_by':'partner_id'}" />
+                        <filter name="int_instance" string="Internal Instance"
+                            context="{'group_by':'int_instance_id'}" />
+                        <filter name="assembly" string="Assembly"
+                            context="{'group_by':'assembly_id'}" />
+                        <filter name="mandate_category" string="Mandate Category"
+                            context="{'group_by':'mandate_category_id'}" />
                     </group>
                 </search>
             </field>
@@ -482,7 +613,8 @@
             <field name="name">virtual.partner.candidature.tree</field>
             <field name="model">virtual.partner.candidature</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Candidature" create="0" delete="0">
+                <tree string="Virtual Partner Candidature" create="0"
+                    delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -506,10 +638,12 @@
             <field name="view_mode">form</field>
             <field name="src_model">virtual.partner.candidature</field>
             <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1"/>
+            <field name="multi" eval="1" />
             <field name="target">new</field>
-            <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="view_id"
+                ref="distribution_list.distribution_list_add_filter" />
+            <field name="groups_id"
+                eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_candidature_values" model="ir.values">
@@ -517,7 +651,8 @@
             <field name="model">virtual.partner.candidature</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_candidature_action')" />
+            <field name="value"
+                eval="'ir.actions.act_window,%s' % ref('add_filter_from_candidature_action')" />
         </record>
 
         <!-- Action -->
@@ -527,8 +662,8 @@
             <field name="res_model">virtual.partner.candidature</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_candidature_search_view"/>
-            <field name="view_id" ref="virtual_partner_candidature_tree_view"/>
+            <field name="search_view_id" ref="virtual_partner_candidature_search_view" />
+            <field name="view_id" ref="virtual_partner_candidature_tree_view" />
         </record>
 
         <!-- Virtual Assembly Instance -->
@@ -538,40 +673,61 @@
             <field name="model">virtual.assembly.instance</field>
             <field name="arch" type="xml">
                 <search string="Virtual Assembly Instance">
-                    <field name="partner_id" domain="[('is_assembly','=',True)]"/>
+                    <field name="partner_id" domain="[('is_assembly','=',True)]" />
                     <field name="int_instance_id" />
 
-                    <field name="int_category_assembly_id" string="Internal Category Assembly" widget="many2one"/>
-                    <field name="sta_category_assembly_id" string="State Category Assembly" widget="many2one"/>
-                    <field name="ext_category_assembly_id" string="External Category Assembly" widget="many2one"/>
+                    <field name="int_category_assembly_id" string="Internal Category Assembly"
+                        widget="many2one" />
+                    <field name="sta_category_assembly_id" string="State Category Assembly"
+                        widget="many2one" />
+                    <field name="ext_category_assembly_id" string="External Category Assembly"
+                        widget="many2one" />
 
-                    <field name="sta_power_level_id" string="State Power Level" widget="many2one"/>
-                    <field name="int_power_level_id" string="Internal Power Level" widget="many2one"/>
+                    <field name="sta_power_level_id" string="State Power Level"
+                        widget="many2one" />
+                    <field name="int_power_level_id" string="Internal Power Level"
+                        widget="many2one" />
 
-                    <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="interests_m2m_ids" string="Interests"
+                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
+                        widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
-                    <filter name="sta_mod" string="State Assembly" domain="[('model','=','sta.assembly')]"/>
-                    <filter name="int_mod" string="Internal Assembly" domain="[('model','=','int.assembly')]"/>
-                    <filter name="ext_mod" string="External Assembly" domain="[('model','=','ext.assembly')]"/>
-                    <separator/>
-                    <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="p_unauthorized" string="Unauthorized Address" domain="[('postal_unauthorized','=',True)]"/>
-                    <separator/>
-                    <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]"/>
+                    <filter name="sta_mod" string="State Assembly"
+                        domain="[('model','=','sta.assembly')]" />
+                    <filter name="int_mod" string="Internal Assembly"
+                        domain="[('model','=','int.assembly')]" />
+                    <filter name="ext_mod" string="External Assembly"
+                        domain="[('model','=','ext.assembly')]" />
+                    <separator />
+                    <filter name="p_vip" string="VIP Address"
+                        domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="e_vip" string="VIP Email"
+                        domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="p_unauthorized" string="Unauthorized Address"
+                        domain="[('postal_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="e_unauthorized" string="Unauthorized Email"
+                        domain="[('email_unauthorized','=',True)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
-                        <filter name="int_ass_category" string="Internal Assembly Category" context="{'group_by':'int_category_assembly_id'}"/>
-                        <filter name="ext_ass_category" string="External Assembly Category" context="{'group_by':'ext_category_assembly_id'}"/>
-                        <filter name="sta_ass_category" string="State Assembly Category" context="{'group_by':'sta_category_assembly_id'}"/>
-                        <filter name="int_pl" string="Internal Power Level" context="{'group_by':'int_power_level_id'}"/>
-                        <filter name="sta_pl" string="State Power Level" context="{'group_by':'sta_power_level_id'}"/>
+                        <filter name="partner" string="Partner"
+                            context="{'group_by':'partner_id'}" />
+                        <filter name="int_instance" string="Internal Instance"
+                            context="{'group_by':'int_instance_id'}" />
+                        <filter name="int_ass_category" string="Internal Assembly Category"
+                            context="{'group_by':'int_category_assembly_id'}" />
+                        <filter name="ext_ass_category" string="External Assembly Category"
+                            context="{'group_by':'ext_category_assembly_id'}" />
+                        <filter name="sta_ass_category" string="State Assembly Category"
+                            context="{'group_by':'sta_category_assembly_id'}" />
+                        <filter name="int_pl" string="Internal Power Level"
+                            context="{'group_by':'int_power_level_id'}" />
+                        <filter name="sta_pl" string="State Power Level"
+                            context="{'group_by':'sta_power_level_id'}" />
                     </group>
                 </search>
             </field>
@@ -581,7 +737,8 @@
             <field name="name">virtual.assembly.instance.tree</field>
             <field name="model">virtual.assembly.instance</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Assembly Instance" create="0" delete="0">
+                <tree string="Virtual Assembly Instance" create="0"
+                    delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -598,10 +755,12 @@
             <field name="view_mode">form</field>
             <field name="src_model">virtual.assembly.instance</field>
             <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1"/>
+            <field name="multi" eval="1" />
             <field name="target">new</field>
-            <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="view_id"
+                ref="distribution_list.distribution_list_add_filter" />
+            <field name="groups_id"
+                eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_assembly_values" model="ir.values">
@@ -609,7 +768,8 @@
             <field name="model">virtual.assembly.instance</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_assembly_action')" />
+            <field name="value"
+                eval="'ir.actions.act_window,%s' % ref('add_filter_from_assembly_action')" />
         </record>
 
         <!-- Action -->
@@ -619,59 +779,78 @@
             <field name="res_model">virtual.assembly.instance</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_assembly_instance_search_view"/>
-            <field name="view_id" ref="virtual_assembly_instance_tree_view"/>
+            <field name="search_view_id" ref="virtual_assembly_instance_search_view" />
+            <field name="view_id" ref="virtual_assembly_instance_tree_view" />
         </record>
 
         <!-- Virtual Partner Retrocession -->
 
-        <record id="virtual_partner_retrocession_search_view" model="ir.ui.view">
-            <field name="name">virtual.partner.retrocession.search</field>
+        <record id="virtual_partner_retrocession_search_view"
+            model="ir.ui.view">
+            <field name="name">virtual.partner.retrocession.search
+            </field>
             <field name="model">virtual.partner.retrocession</field>
             <field name="arch" type="xml">
                 <search string="Virtual Partner Retrocession">
                     <field name="identifier" />
                     <field name="month" />
                     <field name="year" />
-                    <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>',self)]"/>
-                    <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;',self)]"/>
-                    <separator/>
+                    <field string="Birth Date > ..." name="birth_date"
+                        filter_domain="[('birth_date','>',self)]" />
+                    <field string="Birth Date &lt; ..." name="birth_date"
+                        filter_domain="[('birth_date','&lt;',self)]" />
+                    <separator />
                     <field name="state" />
-                    <separator/>
-                    <field name="partner_id" domain="[('is_company','=',False)]"/>
+                    <separator />
+                    <field name="partner_id" domain="[('is_company','=',False)]" />
                     <field name="int_instance_id" />
                     <field name="mandate_category_id" />
-                    <separator/>
-                    <field name="interests_m2m_ids" string="Interests" widget="many2one"/>
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <separator />
+                    <field name="interests_m2m_ids" string="Interests"
+                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
+                        widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
-                    <separator/>
-                    <filter name="p_vip" string="VIP Address" domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="e_vip" string="VIP Email" domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
-                    <separator/>
-                    <filter name="p_unauthorized" string="Unauthorized Address" domain="[('postal_unauthorized','=',True)]"/>
-                    <separator/>
-                    <filter name="e_unauthorized" string="Unauthorized Email" domain="[('email_unauthorized','=',True)]"/>
+                    <separator />
+                    <filter name="p_vip" string="VIP Address"
+                        domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="e_vip" string="VIP Email"
+                        domain="[('email_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
+                    <separator />
+                    <filter name="p_unauthorized" string="Unauthorized Address"
+                        domain="[('postal_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="e_unauthorized" string="Unauthorized Email"
+                        domain="[('email_unauthorized','=',True)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}"/>
-                        <filter name="sta" string="State" context="{'group_by':'state'}"/>
-                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}"/>
-                        <filter name="sta_mandate" string="State Mandate" context="{'group_by':'sta_mandate_id'}"/>
-                        <filter name="ext_mandate" string="External Mandate" context="{'group_by':'ext_mandate_id'}"/>
-                        <filter name="m" string="Month" context="{'group_by':'month'}"/>
-                        <filter name="y" string="Year" context="{'group_by':'year'}"/>
+                        <filter name="partner" string="Partner"
+                            context="{'group_by':'partner_id'}" />
+                        <filter name="sta" string="State"
+                            context="{'group_by':'state'}" />
+                        <filter name="int_instance" string="Internal Instance"
+                            context="{'group_by':'int_instance_id'}" />
+                        <filter name="sta_mandate" string="State Mandate"
+                            context="{'group_by':'sta_mandate_id'}" />
+                        <filter name="ext_mandate" string="External Mandate"
+                            context="{'group_by':'ext_mandate_id'}" />
+                        <filter name="m" string="Month"
+                            context="{'group_by':'month'}" />
+                        <filter name="y" string="Year"
+                            context="{'group_by':'year'}" />
                     </group>
                 </search>
             </field>
         </record>
 
-        <record id="virtual_partner_retrocession_tree_view" model="ir.ui.view">
+        <record id="virtual_partner_retrocession_tree_view"
+            model="ir.ui.view">
             <field name="name">virtual.partner.retrocession.tree</field>
             <field name="model">virtual.partner.retrocession</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Retrocession" create="0" delete="0">
+                <tree string="Virtual Partner Retrocession" create="0"
+                    delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -698,10 +877,12 @@
             <field name="view_mode">form</field>
             <field name="src_model">virtual.partner.retrocession</field>
             <field name="res_model">distribution.list.add.filter</field>
-            <field name="multi" eval="1"/>
+            <field name="multi" eval="1" />
             <field name="target">new</field>
-            <field name="view_id" ref="distribution_list.distribution_list_add_filter" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="view_id"
+                ref="distribution_list.distribution_list_add_filter" />
+            <field name="groups_id"
+                eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_retrocession_values" model="ir.values">
@@ -709,7 +890,8 @@
             <field name="model">virtual.partner.retrocession</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('add_filter_from_retrocession_action')" />
+            <field name="value"
+                eval="'ir.actions.act_window,%s' % ref('add_filter_from_retrocession_action')" />
         </record>
 
         <!-- Action -->
@@ -719,43 +901,43 @@
             <field name="res_model">virtual.partner.retrocession</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="virtual_partner_retrocession_search_view"/>
-            <field name="view_id" ref="virtual_partner_retrocession_tree_view"/>
+            <field name="search_view_id" ref="virtual_partner_retrocession_search_view" />
+            <field name="view_id" ref="virtual_partner_retrocession_tree_view" />
         </record>
 
         <!-- Virtual Model Menus -->
 
-        <!-- Sub-root menu-->
+        <!-- Sub-root menu -->
         <menuitem id="virtual_models_submenu" name="Searching Models"
-                  sequence="20" parent="ficep_base.communication_root_menu" />
+            sequence="20" parent="ficep_base.communication_root_menu" />
 
         <!-- Virtual Partner Instance -->
-        <menuitem id="virtual_partner_instance_menu" sequence="10" parent="virtual_models_submenu"
-                  action="virtual_partner_instance_action"/>
+        <menuitem id="virtual_partner_instance_menu" sequence="10"
+            parent="virtual_models_submenu" action="virtual_partner_instance_action" />
 
         <!-- Virtual Partner Relation -->
-        <menuitem id="virtual_partner_relation_menu" sequence="12" parent="virtual_models_submenu"
-                  action="virtual_partner_relation_action"/>
+        <menuitem id="virtual_partner_relation_menu" sequence="12"
+            parent="virtual_models_submenu" action="virtual_partner_relation_action" />
 
         <!-- Virtual Partner Involvement -->
-        <menuitem id="virtual_partner_involvement_menu" sequence="14" parent="virtual_models_submenu"
-                  action="virtual_partner_involvement_action"/>
+        <menuitem id="virtual_partner_involvement_menu"
+            sequence="14" parent="virtual_models_submenu" action="virtual_partner_involvement_action" />
 
         <!-- Virtual Partner Mandate -->
-        <menuitem id="virtual_partner_mandate_menu" sequence="30" parent="virtual_models_submenu"
-                  action="virtual_partner_mandate_action"/>
+        <menuitem id="virtual_partner_mandate_menu" sequence="30"
+            parent="virtual_models_submenu" action="virtual_partner_mandate_action" />
 
         <!-- Virtual Partner Candidature -->
-        <menuitem id="virtual_partner_candidature_menu" sequence="32" parent="virtual_models_submenu"
-                  action="virtual_partner_candidature_action"/>
+        <menuitem id="virtual_partner_candidature_menu"
+            sequence="32" parent="virtual_models_submenu" action="virtual_partner_candidature_action" />
 
-        <!-- Virtual Partner Retrocession  -->
-        <menuitem id="virtual_partner_retrocession_menu" sequence="34" parent="virtual_models_submenu"
-                  action="virtual_partner_retrocession_action"/>
+        <!-- Virtual Partner Retrocession -->
+        <menuitem id="virtual_partner_retrocession_menu"
+            sequence="34" parent="virtual_models_submenu" action="virtual_partner_retrocession_action" />
 
-        <!-- Virtual Assembly Instance  -->
-        <menuitem id="virtual_assembly_instance_menu" sequence="40" parent="virtual_models_submenu"
-                  action="virtual_assembly_instance_action"/>
+        <!-- Virtual Assembly Instance -->
+        <menuitem id="virtual_assembly_instance_menu" sequence="40"
+            parent="virtual_models_submenu" action="virtual_assembly_instance_action" />
 
     </data>
 </openerp>

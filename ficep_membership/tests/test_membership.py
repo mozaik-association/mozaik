@@ -25,15 +25,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from datetime import date
-import logging
 from uuid import uuid4
 from anybox.testing.openerp import SharedSetupTransactionCase
 
 from openerp.addons.ficep_address.address_address import COUNTRY_CODE
-from openerp.addons.ficep_membership import membership_request
-
-_logger = logging.getLogger(__name__)
 
 
 class test_membership(SharedSetupTransactionCase):
@@ -50,9 +47,9 @@ class test_membership(SharedSetupTransactionCase):
         '../../ficep_address/tests/data/address_data.xml',
         # load phone_coordinate of this partner
         '../../ficep_phone/tests/data/phone_data.xml',
-        # load phone_coordinate of this partner
+        # load terms and requests
         '../../ficep_thesaurus/tests/data/thesaurus_data.xml',
-        '../../ficep_membership/tests/data/membership_request_data.xml',
+        'data/membership_request_data.xml',
     )
 
     _module_ns = 'ficep_membership'
@@ -62,7 +59,6 @@ class test_membership(SharedSetupTransactionCase):
         self.partner_obj = self.registry['res.partner']
 
         self.mro = self.registry('membership.request')
-        membership_request._set_disable_rollback_for_test(True)
         self.mrs = self.registry('membership.state')
 
         self.rec_partner = self.browse_ref('%s.res_partner_thierry' % self._module_ns)
