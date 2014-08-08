@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Add web resources -->
+
+        <template id="assets_backend" name="ficep_retrocession_css" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/ficep_retrocession/static/src/css/ficep_retrocession.css"/>
+            </xpath>
+        </template>
+
+        <record id="retrocession_payment_certificate_wizard_view" model="ir.ui.view">
+            <field name="name">report.payment.certificate.wizard.view</field>
+            <field name="model">report.payment.certificate.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Payments certificates" version="7.0">
+                    <sheet>
+                        <group name="data">
+                            <group name="data_1">                                
+                                <field name="year" on_change="onchange_year(year, model, mandate_ids)"/>
+                            </group>
+                        </group>
+
+                        <separator string="Overview"/>
+                        <group name="counter">
+                            <field name="mandate_selected" readonly="1"/>
+                        </group>
+
+                        <separator name="details" string="Details"/>
+                        <table class="oe_form_retrocession">
+                            <tr>
+                                <td class="oe_retrocession_grey" width="160px"><label string="Retrocession Mode"/></td>
+                                <th class="oe_retrocession_grey" width="100px"><label string="#Selected"/></th>
+                                <th class="oe_retrocession_grey" width="100px"><label string="#To Print"/></th>
+                            </tr><tr name="yearly">
+                                <td class="oe_retrocession_grey">
+                                    <label string="Yearly"/>
+                                </td><td>
+                                    <field class="oe_inline" name="yearly_count" readonly="1"/>
+                                </td><td>
+                                    <field class="oe_inline" name="yearly_print" readonly="1"/>
+                                </td>
+                            </tr><tr name="monthly">
+                                <td class="oe_retrocession_grey">
+                                    <label string="Monthly"/>
+                                </td><td>
+                                    <field class="oe_inline" name="monthly_count" readonly="1"/>
+                                </td><td>
+                                    <field class="oe_inline" name="monthly_print" readonly="1"/>
+                                </td>
+                            </tr><tr name="total">
+                                <td class="oe_retrocession_grey">
+                                    <label string="Total"/>
+                                </td><td class="oe_retrocession_grey">
+                                </td><td class="oe_retrocession_grey">
+                                    <field name="total_certificate" class="oe_inline" readonly="1"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                            <div class="oe_formview oe_form_sheet_width">
+                                <h3>More Info</h3>
+                                <group name="moreinfo">
+                                    <field name="model"/>
+                                    <field name="mandate_ids"/>
+                                </group>
+                            </div>
+                        </div>
+
+                        <footer>
+                            <span name="go-wizard" attrs="{'invisible': [('total_certificate', '=', 0)]}">
+                                <button string="Print" name="print_certificates"
+                                        type="object" class="oe_highlight"/>
+                                or
+                            </span>
+                            <button string="Cancel" class="oe_link" special="cancel" />
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="report_payment_certificate_wizard_action" model="ir.actions.act_window">
+            <field name="name">Print Payment Certificate(s)</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model"></field>
+            <field name="res_model">report.payment.certificate.wizard</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="retrocession_payment_certificate_wizard_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+        </record>
+
+        <record id="sta_mandate_payment_certificate" model="ir.values">
+            <field name="name">Print Payment Certificate(s)</field>
+            <field name="model">sta.mandate</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('report_payment_certificate_wizard_action')" />
+        </record>
+
+        <record id="ext_mandate_payment_certificate" model="ir.values">
+            <field name="name">Print Payment Certificate(s)</field>
+            <field name="model">ext.mandate</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('report_payment_certificate_wizard_action')" />
+        </record>
+
+    </data>
+</openerp>

@@ -101,7 +101,7 @@ class test_retrocession(SharedSetupTransactionCase):
             Test automatic invalidation of rules of a given calculation method
         '''
         method_pool = self.registry('calculation.method')
-        method_01 = self.browse_ref('%s.cm_sample_02' % self._module_ns)
+        method_01 = self.browse_ref('%s.cm_sample_04' % self._module_ns)
 
         method_pool.action_invalidate(self.cr, self.uid, [method_01.id])
 
@@ -184,7 +184,7 @@ class test_retrocession(SharedSetupTransactionCase):
         self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id,
                                                                            'ext_assembly_id': assembly_id})
         rule_ids = rule_pool.search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id)])
-        self.assertEqual(len(rule_ids), 0)
+        self.assertEqual(len(rule_ids), 1)
         assembly_id = self.ref('%s.ext_assembly_02' % self._module_ns)
         mandate_cat_id = self.ref('%s.mc_membre_effectif_ag' % self._module_ns)
         self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id,
@@ -215,7 +215,7 @@ class test_retrocession(SharedSetupTransactionCase):
         mandate_cat_id = self.ref('%s.mc_administrateur' % self._module_ns)
         self.registry('sta.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id})
         rule_ids = rule_pool.search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id)])
-        self.assertEqual(len(rule_ids), 0)
+        self.assertEqual(len(rule_ids), 1)
         mandate_cat_id = self.ref('%s.mc_conseiller_communal' % self._module_ns)
         self.registry('sta.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id})
 
