@@ -2,79 +2,6 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Inherit Membership -->
-
-        <record id="view_partner_form" model="ir.ui.view">
-            <field name="name">res.partner.form.inherit (ficep_membership)</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="membership.view_partner_form" />
-            <field name="arch" type="xml">
-
-                <xpath expr="//group[descendant::field[@name='free_member']]" position="attributes">
-                    <attribute name="groups">settings_improvement.unused_features</attribute>
-                </xpath>
-
-                <xpath expr="//field[@name='member_lines']"
-                    position="before">
-                    <div name="state_management">
-                        <button name="accept" string="Accept"
-                            groups="ficep_base.res_groups_developper"
-                            attrs="{'invisible': [('membership_state_code', '!=', 'member_committee'),
-                                ('membership_state_code', '!=', 'former_member_committee')]}" />
-
-                        <button name="paid_simulated" string="Paid Simulate"
-                            groups="ficep_base.res_groups_developper"
-                            attrs="{'invisible': [('membership_state_code', '!=', 'member_candidate'),
-                                ('membership_state_code', '!=', 'member'),
-                                ('membership_state_code', '!=', 'supporter'),
-                                ('membership_state_code', '!=', 'former_member'),]}" />
-
-                        <button name="decline_payment" string="Decline Payment"
-                            type="object" attrs="{'invisible': [('membership_state_code', '!=', 'member_candidate'),
-                                ('membership_state_code', '!=', 'member')]}" />
-
-                        <button name="reject" string="Reject"
-                            type="object" attrs="{'invisible': [('membership_state_code', '!=', 'member_candidate'),
-                                ('membership_state_code', '!=', 'member_committee')]}" />
-
-                        <button name="exclude" string="Exclude"
-                            type="object" attrs="{'invisible': [('membership_state_code', '!=', 'member'),
-                                ('membership_state_code', '!=', 'former_member'),
-                                ('membership_state_code', '!=', 'former_member_committee')]}" />
-
-                        <button name="resign" string="Resign"
-                            type="object" attrs="{'invisible': [('membership_state_code', '!=', 'member'),
-                                ('membership_state_code', '!=', 'former_member'),
-                                ('membership_state_code', '!=', 'supporter')]}" />
-                    </div>
-                    <group name="membership_datas">
-                        <field name="del_doc_date" attrs="{'invisible': [('del_doc_date', '=', False)]}" />
-                    </group>
-                </xpath>
-
-                <xpath expr="//field[@name='member_lines']" position="replace">
-                    <field name="member_lines" 
-                        nolabel="1" readonly="1">
-                        <tree colors="green:is_current==True" string="Memberships Lines">
-                            <field name="partner"/>
-                            <field name="membership_id"/>
-                            <field name="membership_state_id"/>
-                            <field name="int_instance_id"/>
-                            <field name="date_from"/>
-                            <field name="date_to"/>
-                            <field name="is_current" invisible="1"/>
-                        </tree>
-                    </field>
-                </xpath>
-
-                <xpath expr="//notebook/page[descendant::field[@name='free_member']]" position="attributes">
-                    <attribute name="attrs">{'invisible':['|', '|',
-                                            ('membership_state_code', '=', 'without_membership'),
-                                            ('is_company', '=', True), ('membership_state_id', '=', False)]}</attribute>
-                </xpath>
-            </field>
-        </record>
-
         <!-- Membership State -->
 
         <!-- SEARCH -->
@@ -171,7 +98,7 @@
 
         <record id="membership_product_action" model="ir.actions.act_window">
             <field name="name">Subscriptions</field>
-            <field name="res_model">product.product</field>
+            <field name="res_model">product.template</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('membership', '=', 1)]</field>
@@ -255,9 +182,6 @@
 
         <menuitem id="membership_state_menu" action="membership_state_action"
             sequence="10" parent="membership_submenu" />
-
-        <menuitem id="membership_product_menu" action="membership_product_action"
-            sequence="15" parent="membership_submenu" />
 
     </data>
 </openerp>

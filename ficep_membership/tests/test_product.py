@@ -39,7 +39,7 @@ class test_product(SharedSetupTransactionCase):
     def setUp(self):
         super(test_product, self).setUp()
 
-        self.model_product = self.registry('product.product')
+        self.model_product = self.registry('product.template')
 
     def test_get_default_subscription(self):
         """

@@ -10,16 +10,19 @@
             <field name="name">Isolated</field>
             <field name="categ_id" ref="membership_product_category" />
             <field name="membership" eval="1" />
+            <field name="type">service</field>
         </record>
         <record id="membership_product_live_together" model="product.product">
             <field name="name">Live Together</field>
             <field name="categ_id" ref="membership_product_category" />
             <field name="membership" eval="1" />
+            <field name="type">service</field>
         </record>
         <record id="membership_product_other" model="product.product">
             <field name="name">Student or Pensioner</field>
             <field name="categ_id" ref="membership_product_category" />
             <field name="membership" eval="1" />
+            <field name="type">service</field>
         </record>
 
     </data>

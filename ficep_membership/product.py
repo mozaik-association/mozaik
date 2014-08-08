@@ -28,9 +28,15 @@
 from openerp.osv import orm
 
 
-class product_product(orm.Model):
+class product_template(orm.Model):
 
-    _inherit = 'product.product'
+    _inherit = ['product.template']
+
+    def __init__(self, pool, cr):
+        super(product_template, self).__init__(pool, cr)
+        self._columns['name'].track_visibility = True
+        self._columns['list_price'].track_visibility = True
+        return
 
     def _get_default_subscription(self, cr, uid, context=None):
         """
