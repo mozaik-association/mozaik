@@ -13,6 +13,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//filter[1]" position="before">
                     <field name="int_instance_id" />
+                    <field name="membership_state_id" />
                     <field string="Delivery Welcome Document Date &lt; ..." name="del_doc_date"
                         filter_domain="[('del_doc_date','&lt;', self)]"
                         invisible="'default_is_company' not in context or context.get('default_is_company')" />
@@ -24,19 +25,21 @@
                 <xpath expr="//filter[@name='country']" position="after">
                     <filter name="instance" string="Internal Instance"
                         context="{'group_by': 'int_instance_id'}" />
+                    <filter name="membership_state" string="Membership State"
+                        context="{'group_by': 'membership_state_id'}" />
                 </xpath>
             </field>
         </record>
 
         <record id="view_partner_tree" model="ir.ui.view">
-            <field name="name">res.partner.tree (ficep_membership)
-            </field>
+            <field name="name">res.partner.tree (ficep_membership)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="ficep_person.view_partner_tree" />
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='identifier']"
                     position="before">
+                    <field name="membership_state_id" />
                     <field name="int_instance_id" />
                 </xpath>
 

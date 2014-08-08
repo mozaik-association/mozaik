@@ -315,9 +315,6 @@ class test_partner(SharedSetupTransactionCase):
 
     def test_update_membership_line(self):
         """
-        ======================
-        update_membership_line
-        ======================
         Check that calling this method will first create a membership_line
         for a giving partner and then call it a second time to check that an update is
         made for the first membership line and a new creation
@@ -366,50 +363,5 @@ class test_partner(SharedSetupTransactionCase):
                                  'State Should be the same than before')
                 self.assertTrue(membership_line.date_to, '`date_to` should has been set')
         self.assertTrue(one_current, 'Should at least have one current')
-
-    def test_waiting_member(self):
-        """
-        ===================
-        test_waiting_member
-        ===================
-        Test will identify member with the status
-        `member_committee` and `former_member_committee`
-        and make them pass into `member` status only if they are
-        into the previous state for (or more than) one month
-        """
-        cr, uid, context = self.cr, self.uid, {}
-        wmr = self.registry['waiting.member.report']
-        vals = {
-            'lastname': '%s' % uuid.uuid4()
-        }
-        partner_id = self.partner_obj.create(cr, uid, vals, context=context)
-        # member committee less than one month
-        partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
-
-        partner.write({
-            'accepted_date': date.today().strftime('%Y-%m-%d'),
-            'free_member': False
-        })
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'paid_simulated', cr)
-
-        partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
-        current_state = partner.membership_state_id
-
-        # now into future committee member
-        wmr.process_accept_members(cr, uid)
-        partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
-
-        self.assertEqual(partner.membership_state_id, current_state, "State Should be the same than before")
-
-        for member_line in partner.member_lines:
-            if member_line.is_current:
-                member_line.write({'date_from': '%s' % (date.today() -\
-                    timedelta(days=31)).strftime('%Y-%m-%d')})
-
-        wmr.process_accept_members(cr, uid)
-        partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
-
-        self.assertNotEqual(partner.membership_state_id, current_state, "State Should not be the same than before")
-        self.assertEqual(partner.membership_state_id.code, 'member', "State Should be 'member'")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
