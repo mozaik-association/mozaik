@@ -65,6 +65,7 @@ default instance otherwise. This field is added to all views (search, tree and f
         'data/ir_config_parameter_data.xml',
         'data/product_data.xml',
         'data/ir_cron_membership.xml',
+        'report/waiting_member_report_view.xml',
     ],
     'sequence': 150,
     'auto_install': False,

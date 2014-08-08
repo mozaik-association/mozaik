@@ -266,8 +266,9 @@ class res_partner(orm.Model):
         values['date_from'] = today
         for partner in self.browse(cr, uid, ids, context=context):
             values['membership_state_id'] = partner.membership_state_id.id
-            current_membership_line_ids = membership_line_obj.search(cr, uid, [('partner', '=', partner.id),
-                                                                              ('is_current', '=', True)], context=context)
+            current_membership_line_ids = membership_line_obj.search(
+                cr, uid, [('partner', '=', partner.id),
+                          ('is_current', '=', True)], context=context)
             current_membership_line_id = current_membership_line_ids and current_membership_line_ids[0] or False
             if current_membership_line_id:
                 # copy and update it
@@ -278,12 +279,17 @@ class res_partner(orm.Model):
                 # create first membership_line
                 vals = values.copy()
                 vals['partner'] = partner.id
+                vals['int_instance_id'] = partner.int_instance_id and \
+                    partner.int_instance_id.id or False
                 vals['date'] = today
                 vals['date_from'] = today
                 vals['membership_state_id'] = partner.membership_state_id.id
-                vals['membership_id'] = partner.subscription_product_id and partner.subscription_product_id.id or False
-                vals['member_price'] = partner.subscription_product_id and partner.subscription_product_id.lst_price or False
-                new_membership_line_id = membership_line_obj.create(cr, uid, vals, context=context)
+                vals['membership_id'] = partner.subscription_product_id and \
+                    partner.subscription_product_id.id or False
+                vals['member_price'] = partner.subscription_product_id and \
+                    partner.subscription_product_id.lst_price or False
+                new_membership_line_id = membership_line_obj.create(
+                    cr, uid, vals, context=context)
             partner.write({'member_lines': [[4, new_membership_line_id]]})
 
     def write(self, cr, uid, ids, vals, context=None):

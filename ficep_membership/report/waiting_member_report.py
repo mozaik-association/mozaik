@@ -25,20 +25,27 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import logging
+
 from openerp import tools
 from openerp.osv import orm, fields
+
+DEFAULT_NB_DAYS = 30
+_logger = logging.getLogger(__name__)
 
 
 class waiting_member_report(orm.Model):
 
     _name = "waiting.member.report"
-    _description = 'Waiting Member Report'
+    _description = 'Members Committee'
     _auto = False
 
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Natural Persons'),
-        'membership_state_id': fields.many2one('membership.state', 'Membership State'),
-        'one_month': fields.float('One Month')
+        'identifier': fields.integer('Identifier'),
+        'membership_state_id': fields.many2one('membership.state',
+                                               'Membership State'),
+        'nb_days': fields.integer('Age')
     }
 
 # orm methods
@@ -55,14 +62,15 @@ class waiting_member_report(orm.Model):
                 FROM
                     (SELECT p.id as id,
                             p.id as partner_id,
+                            p.identifier as identifier,
                             ms.id as membership_state_id,
+                            ABS(EXTRACT
+                                (year FROM age(ml.date_from))*365 +
                             EXTRACT
-                                (year FROM age(ml.date_from))*12 +
+                                (month FROM age(ml.date_from))*30 +
                             EXTRACT
-                                (month FROM age(ml.date_from)) +
-                            EXTRACT
-                                (day FROM age(ml.date_from))/30 AS
-                            one_month
+                                (day FROM age(ml.date_from))) AS
+                            nb_days
                     FROM res_partner p
                     JOIN membership_state ms
                         ON ms.id = p.membership_state_id
@@ -71,10 +79,10 @@ class waiting_member_report(orm.Model):
                         ON ml.partner = p.id
                     WHERE
                         p.is_company = false AND
-                        ms.code = 'member_committee' AND
-                        ml.is_current = true
+                        ml.is_current = true AND
+                        ms.code = 'member_committee' OR
+                        ms.code = 'former_member_committee'
                     ) as partner
-                WHERE one_month >= 1
             )
         """)
 
@@ -82,14 +90,30 @@ class waiting_member_report(orm.Model):
 
     def process_accept_members(self, cr, uid, ids=None, context=None):
         """
-        ======================
-        process_accept_members
-        ======================
         push the workflow for all
         found partner with the signal `accept`
         """
+        nb_days = ''
+        param_obj = self.pool['ir.config_parameter']
+        param_ids = param_obj.\
+            search(cr, uid, [('key', '=', 'nb_days')], context=context)
+        if param_ids:
+            nb_days = param_obj.read(
+                cr, uid, param_ids, ['value'], context=context)[0]['value']
+
+        try:
+            nb_days = int(nb_days)
+        except:
+            nb_days = DEFAULT_NB_DAYS
+            _logger.info("It seems that number of days is now a \
+                string.DEFAULT_NB_DAYS(%s) is now used" % DEFAULT_NB_DAYS)
+            pass
+
         if ids is None:
-            ids = self.search(cr, uid, [], context=context)
+            ids = self.search(
+                cr, uid, [('nb_days', '>', nb_days)], context=context)
+
         for waiting_member in self.browse(cr, uid, ids, context=context):
             waiting_member.partner_id.signal_workflow('accept')
+
         return True

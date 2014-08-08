@@ -10,10 +10,8 @@
             <field name="inherit_id" ref="membership.view_partner_form" />
             <field name="arch" type="xml">
 
-                <xpath expr="//group[descendant::field[@name='free_member']]"
-                    position="attributes">
-                    <attribute name="groups">settings_improvement.unused_features
-                    </attribute>
+                <xpath expr="//group[descendant::field[@name='free_member']]" position="attributes">
+                    <attribute name="groups">settings_improvement.unused_features</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='member_lines']"
@@ -55,12 +53,13 @@
                 </xpath>
 
                 <xpath expr="//field[@name='member_lines']" position="replace">
-                    <field name="member_lines" nolabel="1" readonly="1">
+                    <field name="member_lines" 
+                        nolabel="1" readonly="1">
                         <tree colors="green:is_current==True" string="Memberships Lines">
                             <field name="partner"/>
                             <field name="membership_id"/>
-                            <field name="member_price"/>
                             <field name="membership_state_id"/>
+                            <field name="int_instance_id"/>
                             <field name="date_from"/>
                             <field name="date_to"/>
                             <field name="is_current" invisible="1"/>
@@ -68,10 +67,10 @@
                     </field>
                 </xpath>
 
-                <xpath
-                    expr="//notebook/page[descendant::field[@name='free_member']]"
-                    position="attributes">
-                    <attribute name="attrs">{'invisible':[('is_company', '=', True)]}</attribute>
+                <xpath expr="//notebook/page[descendant::field[@name='free_member']]" position="attributes">
+                    <attribute name="attrs">{'invisible':['|', '|',
+                                            ('membership_state_code', '=', 'without_membership'),
+                                            ('is_company', '=', True), ('membership_state_id', '=', False)]}</attribute>
                 </xpath>
             </field>
         </record>
@@ -182,6 +181,63 @@
             <field name="domain">[('membership', '=', 1)]</field>
         </record>
 
+        <!-- Membership Lines -->
+
+        <!-- Search View -->
+       <record id="membership_line_search_view" model="ir.ui.view">
+            <field name="name">membership.membership_line.search (ficep_membership)</field>
+            <field name="model">membership.membership_line</field>
+            <field name="arch" type="xml">
+                <search string="">
+                    <field name="membership_state_id"/>
+                    <field name="partner"/>
+                    <field name="int_instance_id"/>
+                    <separator/>
+                    <filter name="expired" string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active','=',False)]" help="Expired Relations" />
+                    <filter name="all" string="All"
+                        context="{'invisible_expire_date': False}"
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Relations, expired or not" />
+
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter string="State" context="{'group_by': 'membership_state_id'}"/>
+                        <filter string="Partner" context="{'group_by': 'partner'}"/>
+                        <filter string="Instance" context="{'group_by': 'int_instance_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="membership_line_tree_view" model="ir.ui.view">
+            <field name="name">membership.membership_line.tree</field>
+            <field name="model">membership.membership_line</field>
+            <field name="arch" type="xml">
+                <tree colors="green:is_current==True" string="Membership Lines"
+                      create="0" delete="0" version="7.0">
+                    <field name="partner"/>
+                    <field name="membership_id"/>
+                    <field name="membership_state_id"/>
+                    <field name="int_instance_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="is_current" invisible="1"/>
+                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="membership_line_action" model="ir.actions.act_window">
+            <field name="name">Membership Lines</field>
+            <field name="res_model">membership.membership_line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="membership_line_search_view" />
+            <field name="view_id" eval="membership_line_tree_view"/>
+        </record>
+
         <!-- Membership Menu -->
 
         <!-- hide native menu -->
@@ -192,6 +248,9 @@
 
         <menuitem id="membership_menu" name="Membership"
             sequence="15" parent="ficep_base.persons_root_menu" />
+
+        <menuitem id="membership_line_submenu" sequence="15"
+            parent="membership_menu" action="membership_line_action"/>
 
         <!-- Menu -->
 

@@ -598,9 +598,6 @@ class membership_request(orm.Model):
 
     def validate_request(self, cr, uid, ids, context=None):
         """
-        ================
-        validate_request
-        ================
         First check if the relations are set. For those try to update
         content
         In Other cases then create missing required data

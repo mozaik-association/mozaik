@@ -29,6 +29,7 @@ from . import test_structure
 from . import test_membership
 from . import test_partner
 from . import test_product
+from . import test_waiting_member_report
 
 fast_suite = [
 ]
@@ -38,6 +39,7 @@ checks = [
      test_product,
      test_structure,
      test_membership,
+     test_waiting_member_report,
 ]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
