@@ -105,27 +105,19 @@
             <field name="model">membership.state</field>
             <field name="arch" type="xml">
                 <form string="Membership State" version="7.0">
+                    <header>
+                        <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="ficep_base.ficep_res_groups_configurator">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate Membership State: proceed anyway?" />
+                        </span>
+                    </header>
                     <sheet>
-                        <div class="oe_right oe_button_box" name="buttons"
-                            invisible="context.get('popup')">
-                            <div
-                                attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_validate"
-                                    string="Reactivate" type="object"
-                                    confirm="Reactivate document: proceed anyway?" />
-                            </div>
-                            <div
-                                attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
-                                <button name="action_invalidate"
-                                    string="Invalidate" type="object"
-                                    confirm="Invalidate Membership Request: proceed anyway?" />
-                            </div>
-                        </div>
                         <div class="oe_title" name="title">
                             <label for="name" class="oe_edit_only" />
                             <h1>
-                                <field name="name"
-                                    attrs="{'readonly': [('id','!=',False)]}" />
+                                <field name="name" />
                             </h1>
                         </div>
                         <group>
@@ -147,6 +139,10 @@
                         groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_revalidate" string="Reactivate" type="object"
+                                        confirm="Reactivate document: proceed anyway?" />
+                            </div>
                             <group name="moreinfo">
                                 <field name="id" />
                                 <field name="active" />

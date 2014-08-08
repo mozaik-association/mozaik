@@ -110,9 +110,8 @@ class membership_state(orm.Model):
 
     _columns = {
         'name': fields.char('Status', required=True,
-                            track_visibility='onchange'),
-        'code': fields.char('Code', required=True,
-                            track_visibility='onchange'),
+                            track_visibility='onchange', translate=True),
+        'code': fields.char('Code', required=True),
     }
 
     _order = 'name'
