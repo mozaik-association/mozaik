@@ -37,11 +37,24 @@ class abstract_power_level(orm.AbstractModel):
     _description = 'Abstract Power Level'
 
     _columns = {
-        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
-        'sequence': fields.integer('Sequence', required=True, track_visibility='onchange'),
-
-        'assembly_category_ids': fields.one2many('abstract.assembly.category', 'power_level_id', 'Assembly Categories', domain=[('active', '=', True)]),
-        'assembly_category_inactive_ids': fields.one2many('abstract.assembly.category', 'power_level_id', 'Assembly Categories', domain=[('active', '=', False)]),
+        'name': fields.char('Name',
+                            size=128,
+                            required=True,
+                            select=True,
+                            track_visibility='onchange'),
+        'sequence': fields.integer('Sequence',
+                                   required=True,
+                                   track_visibility='onchange'),
+        'assembly_category_ids': fields.one2many(
+                                             'abstract.assembly.category',
+                                             'power_level_id',
+                                             'Assembly Categories',
+                                             domain=[('active', '=', True)]),
+        'assembly_category_inactive_ids': fields.one2many(
+                                            'abstract.assembly.category',
+                                            'power_level_id',
+                                            'Assembly Categories',
+                                            domain=[('active', '=', False)]),
     }
 
     _order = 'sequence, name'
@@ -62,10 +75,21 @@ class abstract_assembly_category(orm.AbstractModel):
     _description = 'Abstract Assembly Category'
 
     _columns = {
-        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
-        'duration': fields.integer('Duration of Mandates', track_visibility='onchange'),
-        'months_before_end_of_mandate': fields.integer('Alert Delay (#Months)', track_visibility='onchange'),
-        'power_level_id': fields.many2one('abstract.power.level', 'Power Level', required=True, select=True, track_visibility='onchange'),
+        'name': fields.char('Name',
+                            size=128,
+                            required=True,
+                            select=True,
+                            track_visibility='onchange'),
+        'duration': fields.integer('Duration of Mandates',
+                                   track_visibility='onchange'),
+        'months_before_end_of_mandate': fields.integer(
+                                            'Alert Delay (#Months)',
+                                            track_visibility='onchange'),
+        'power_level_id': fields.many2one('abstract.power.level',
+                                          'Power Level',
+                                          required=True,
+                                          select=True,
+                                          track_visibility='onchange'),
     }
 
     _order = 'name'
@@ -82,15 +106,32 @@ class abstract_instance(orm.AbstractModel):
     _description = 'Abstract Instance'
 
     _columns = {
-        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
-        'power_level_id': fields.many2one('abstract.power.level', 'Power Level', required=True, select=True, track_visibility='onchange'),
+        'name': fields.char('Name',
+                            size=128,
+                            required=True,
+                            select=True,
+                            track_visibility='onchange'),
+        'power_level_id': fields.many2one('abstract.power.level',
+                                          'Power Level',
+                                          required=True,
+                                          select=True,
+                                          track_visibility='onchange'),
 
-        'parent_id': fields.many2one('abstract.instance', 'Parent Instance', select=True, track_visibility='onchange'),
+        'parent_id': fields.many2one('abstract.instance',
+                                     'Parent Instance',
+                                     select=True,
+                                     track_visibility='onchange'),
         'parent_left': fields.integer('Left Parent', select=True),
         'parent_right': fields.integer('Right Parent', select=True),
 
-        'assembly_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies', domain=[('active', '=', True)]),
-        'assembly_inactive_ids': fields.one2many('abstract.assembly', 'assembly_category_id', 'Assemblies', domain=[('active', '=', False)]),
+        'assembly_ids': fields.one2many('abstract.assembly',
+                                        'assembly_category_id',
+                                        'Assemblies',
+                                        domain=[('active', '=', True)]),
+        'assembly_inactive_ids': fields.one2many('abstract.assembly',
+                                                 'assembly_category_id',
+                                                 'Assemblies',
+                                        domain=[('active', '=', False)]),
     }
 
     _parent_name = 'parent_id'
@@ -101,7 +142,8 @@ class abstract_instance(orm.AbstractModel):
 # constraints
 
     _constraints = [
-        (orm.Model._check_recursion, _('Error ! You can not create recursive instances'), ['parent_id']),
+        (orm.Model._check_recursion,
+         _('Error ! You can not create recursive instances'), ['parent_id']),
     ]
 
     _unicity_keys = 'power_level_id, name'
@@ -125,8 +167,10 @@ class abstract_instance(orm.AbstractModel):
             ids = [ids]
 
         res = []
-        for record in self.read(cr, uid, ids, ['name', 'power_level_id'], context=context):
-            display_name = '%s (%s)' % (record['name'], record['power_level_id'][1])
+        for record in self.read(cr, uid, ids, ['name', 'power_level_id'],
+                                context=context):
+            display_name = '%s (%s)' % \
+                           (record['name'], record['power_level_id'][1])
             res.append((record['id'], display_name))
         return res
 
@@ -143,13 +187,23 @@ class abstract_assembly(orm.AbstractModel):
     _category_model = 'abstract.assembly.category'
 
     _columns = {
-        'assembly_category_id': fields.many2one(_category_model, string='Category',
-                                                select=True, required=True, track_visibility='onchange'),
-        'instance_id': fields.many2one('abstract.instance', string='Instance',
-                                       select=True, required=True, track_visibility='onchange'),
-        'partner_id': fields.many2one('res.partner', string='Associated Partner',
-                                      select=True, required=True, ondelete='restrict'),
-        'months_before_end_of_mandate': fields.integer('Alert Delay (#Months)', track_visibility='onchange'),
+        'assembly_category_id': fields.many2one(_category_model,
+                                                string='Category',
+                                                select=True,
+                                                required=True,
+                                                track_visibility='onchange'),
+        'instance_id': fields.many2one('abstract.instance',
+                                       string='Instance',
+                                       select=True,
+                                       required=True,
+                                       track_visibility='onchange'),
+        'partner_id': fields.many2one('res.partner',
+                                      string='Associated Partner',
+                                      select=True,
+                                      required=True,
+                                      ondelete='restrict'),
+        'months_before_end_of_mandate': fields.integer('Alert Delay (#Months)',
+                                                track_visibility='onchange'),
     }
 
     _defaults = {
@@ -164,7 +218,8 @@ class abstract_assembly(orm.AbstractModel):
         =============================
         _check_consistent_power_level
         =============================
-        Check if power levels of assembly category and instance are consistents.
+        Check if power levels of assembly category and instance are
+        consistents.
         :rparam: True if it is the case
                  False otherwise
         :rtype: boolean
@@ -173,16 +228,20 @@ class abstract_assembly(orm.AbstractModel):
         """
         assemblies = self.browse(cr, uid, ids, context=context)
         for assembly in assemblies:
-            if not assembly.assembly_category_id._model._columns.get('power_level_id'):
+            if not assembly.assembly_category_id._model._columns.\
+                   get('power_level_id'):
                 break
             if assembly.assembly_category_id.power_level_id and \
-               assembly.assembly_category_id.power_level_id.id != assembly.instance_id.power_level_id.id:
+               assembly.assembly_category_id.power_level_id.id !=\
+               assembly.instance_id.power_level_id.id:
                 return False
 
         return True
 
     _constraints = [
-        (_check_consistent_power_level, _('Power level of category and power level of instance are inconsistent'),
+        (_check_consistent_power_level,
+         _('Power level of category and power level of instance are \
+            inconsistent'),
           ['assembly_category_id', 'instance_id'])
     ]
 
@@ -190,14 +249,14 @@ class abstract_assembly(orm.AbstractModel):
 
 # view methods: onchange, button
 
-    def onchange_assembly_category_id(self, cr, uid, ids, assembly_category_id, context=None):
+    def onchange_assembly_category_id(self, cr, uid, ids, assembly_category_id,
+                                      context=None):
         res = {}
         res['value'] = dict(months_before_end_of_mandate=False)
         if assembly_category_id:
-            assembly_category = self.pool.get(self._category_model).browse(cr, uid, assembly_category_id)
-
-            res['value'] = dict(months_before_end_of_mandate=assembly_category.months_before_end_of_mandate)
+            assembly_category = self.pool.get(self._category_model).browse(\
+                                        cr, uid, assembly_category_id)
+            value = assembly_category.months_before_end_of_mandate
+            res['value'] = dict(months_before_end_of_mandate=value)
 
         return res
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
