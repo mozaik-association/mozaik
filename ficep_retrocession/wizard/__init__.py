@@ -26,3 +26,4 @@
 #
 ##############################################################################
 import retrocession_factory_wizard
+import report_payment_certificate_wizard

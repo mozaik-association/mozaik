@@ -92,7 +92,7 @@
                        <t t-set="o" t-value="o"/>
                    </t>  
          
-                   <div class="row">
+                   <div class="row">                       
                        <div class="col-xs-4 pull-right">
                         <table class="table table-condensed">
                             <tr>

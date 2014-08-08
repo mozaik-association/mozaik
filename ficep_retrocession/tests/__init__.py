@@ -25,7 +25,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import test_retrocession, test_retrocession_factory_wizard, test_retrocession_process
+from . import test_retrocession
+from . import test_retrocession_factory_wizard
+from . import test_retrocession_process
+from . import test_report_payment_certificate_wizard
 
 fast_suite = [
 ]
@@ -34,4 +37,5 @@ checks = [
      test_retrocession,
      test_retrocession_factory_wizard,
      test_retrocession_process,
+     test_report_payment_certificate_wizard,
 ]
