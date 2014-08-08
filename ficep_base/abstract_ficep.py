@@ -313,26 +313,22 @@ class abstract_ficep_model(orm.AbstractModel):
             res['arch'] = etree.tostring(doc)
         return res
 
+    def get_formview_id(self, cr, uid, id, context=None):
+        """ Return an view id to open the document with.
+
+            :param int id: id of the document to open
+        """
+        view_ids = self.pool['ir.ui.view'].search(cr, uid,
+                                            [('model', '=', self._name),
+                                             ('type', '=', 'form')],
+                                             limit=1, context=context)
+        return view_ids[0] if view_ids else False
+
     def display_object_in_form_view(self, cr, uid, object_id, context=None):
         """
         Return the object (with given id) in the default form view
         """
-        view_ids = self.pool['ir.ui.view'].search(cr, uid, [('model', '=', self._name),
-                                                            ('type', '=', 'form')], limit=1, context=context)
-
-        res = view_ids and {
-            'type': 'ir.actions.act_window',
-            'name': self._description,
-            'res_model': self._name,
-            'res_id': object_id,
-            'view_type': 'form',
-            'view_mode': 'form',
-            'view_id': view_ids[0],
-            'target': 'current',
-            'nodestroy': True,
-        } or False
-
-        return res
+        return self.get_formview_action(cr, uid, object_id, context=None)
 
     def get_relation_column_name(self, cr, uid, relation_model, context=None):
         return self.pool.get('ir.model')._get_relation_column_name(cr, uid, self._name, relation_model, context=context)

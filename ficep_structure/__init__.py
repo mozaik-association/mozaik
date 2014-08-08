@@ -29,5 +29,3 @@ from . import abstract_structure
 from . import sta_structure
 from . import ext_structure
 from . import int_structure
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
