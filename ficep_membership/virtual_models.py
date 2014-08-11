@@ -25,15 +25,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import tools
 from openerp.osv import orm, fields
 
 
 class virtual_master_partner(orm.Model):
     """
-    ======================
-    virtual_master_partner
-    ======================
     All partners with their postal/email coordinates
     """
 
@@ -68,7 +64,8 @@ class virtual_master_partner(orm.Model):
 
         'zip': fields.char("Zip Code"),
 
-        'int_instance_id': fields.many2one('int.instance', 'Internal Instance'),
+        'int_instance_id': fields.many2one('int.instance',
+                                           'Internal Instance'),
     }
 
 # orm methods
@@ -161,5 +158,3 @@ class virtual_custom_partner(orm.Model):
         WHERE (email_is_main IS TRUE or email_is_main IS NULL)
         AND (postal_is_main IS TRUE or postal_is_main IS NULL)
             )""")
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

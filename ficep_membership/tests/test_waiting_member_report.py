@@ -12,7 +12,7 @@
 #    Service Company.
 #
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
+#    it under the terms of the GNU Affero General Public License aspetivoir
 #    published by the Free Software Foundation, either version 3 of the
 #    License, or (at your option) any later version.
 #
@@ -122,5 +122,3 @@ class test_membership(SharedSetupTransactionCase):
         self.assertTrue(self.pauline.membership_state_id.
                         code == 'member', 'Should not be a member:\
                         nb_days is greater than value of DEFAULT_NB_DAYS')
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

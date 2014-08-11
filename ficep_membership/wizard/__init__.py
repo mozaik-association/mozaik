@@ -27,5 +27,3 @@
 ##############################################################################
 
 from . import change_main_address
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -41,7 +41,9 @@ class sta_assembly(orm.Model):
         res = {}
         if 'instance_id' in vals:
             instance_id = vals['instance_id']
-            int_instance_id = self.pool['sta.instance'].read(cr, uid, instance_id, ['int_instance_id'], context=context)['int_instance_id']
+            int_instance_id = self.pool['sta.instance'].\
+                read(cr, uid, instance_id, ['int_instance_id'],
+                     context=context)['int_instance_id']
             if int_instance_id:
                 res = {'int_instance_id': int_instance_id[0]}
         return res
@@ -62,11 +64,13 @@ class sta_assembly(orm.Model):
         Update the Responsible Internal Instance linked to the result Partner
         '''
         vals.update(self._pre_update(cr, uid, vals, context=context))
-        res = super(sta_assembly, self).write(cr, uid, ids, vals, context=context)
+        res = super(sta_assembly, self).write(
+            cr, uid, ids, vals, context=context)
         return res
 
 
-# these 2 classes should be merged into one inherited abstract class of abstract.assembly
+# these 2 classes should be merged into one inherited abstract class of
+# abstract.assembly
 # unfortunately that does not work: methods is never called !!
 class int_assembly(orm.Model):
 
@@ -76,7 +80,8 @@ class int_assembly(orm.Model):
 
     def create(self, cr, uid, vals, context=None):
         '''
-        Responsible Internal Instance linked to the result Partner is the Instance of the Assembly
+        Responsible Internal Instance linked to the result Partner is the \
+        Instance of the Assembly
         '''
         if 'instance_id' in vals:
             vals.update({'int_instance_id': vals['instance_id']})
@@ -89,7 +94,8 @@ class int_assembly(orm.Model):
         '''
         if 'instance_id' in vals:
             vals.update({'int_instance_id': vals['instance_id']})
-        res = super(int_assembly, self).write(cr, uid, ids, vals, context=context)
+        res = super(int_assembly, self).\
+            write(cr, uid, ids, vals, context=context)
         return res
 
 
@@ -101,7 +107,8 @@ class ext_assembly(orm.Model):
 
     def create(self, cr, uid, vals, context=None):
         '''
-        Responsible Internal Instance linked to the result Partner is the Instance of the Assembly
+        Responsible Internal Instance linked to the result Partner is \
+        the Instance of the Assembly
         '''
         if 'instance_id' in vals:
             vals.update({'int_instance_id': vals['instance_id']})
@@ -114,7 +121,6 @@ class ext_assembly(orm.Model):
         '''
         if 'instance_id' in vals:
             vals.update({'int_instance_id': vals['instance_id']})
-        res = super(ext_assembly, self).write(cr, uid, ids, vals, context=context)
+        res = super(ext_assembly, self).write(cr, uid, ids, vals,
+                                              context=context)
         return res
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
