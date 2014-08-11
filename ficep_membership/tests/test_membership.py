@@ -222,7 +222,7 @@ class test_membership(SharedSetupTransactionCase):
         """
         check the membership reference is correct.
         Comm. Struct. = '9' + year without century +
-            id. ecolo of member on 7 positions + % 97
+            member identifier on 7 positions + % 97
         """
         cr, uid, context = self.cr, self.uid, {}
         membership_line_obj = self.registry['membership.membership_line']
