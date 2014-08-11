@@ -12,7 +12,7 @@
         <!-- Create Internal Instance -->
 
         <record id="ficep_structure.int_instance_01" model="int.instance"><!-- force id on ficep_structure module -->
-            <field name="name">Ecolo Fédéral</field>
+            <field name="name">Ficep Fédéral</field>
             <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
         </record>
 

@@ -90,7 +90,7 @@ class test_import_sta_candidature_wizard(SharedSetupTransactionCase):
         temp_file = tempfile.SpooledTemporaryFile(mode='w+r')
         header = []
         header.extend(wizard.file_import_structure)
-        header.remove('id_ecolo')
+        header.remove('identifier')
         temp_file.write(','.join(header) + '\n')
         temp_file.seek(0)
         data_file = temp_file.read()

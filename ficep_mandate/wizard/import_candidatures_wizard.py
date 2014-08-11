@@ -29,7 +29,7 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 import base64
 
-file_import_structure = ['id_ecolo', 'partner_name', 'is_effective', 'list_effective_position', 'is_substitute', 'list_substitute_position']
+file_import_structure = ['identifier', 'partner_name', 'is_effective', 'list_effective_position', 'is_substitute', 'list_substitute_position']
 
 
 class import_sta_candidatures_wizard(orm.TransientModel):
@@ -81,7 +81,7 @@ class import_sta_candidatures_wizard(orm.TransientModel):
                     raise orm.except_orm(_('Error'), _('Wrong file structure, it should be: %s !' % ','.join(file_import_structure)))
                 continue
 
-            identifier = data[file_import_structure.index('id_ecolo')]
+            identifier = data[file_import_structure.index('identifier')]
 
             partner_ids = self.pool.get('res.partner').search(cr, uid, [('identifier', '=', identifier)])
             if not partner_ids:
