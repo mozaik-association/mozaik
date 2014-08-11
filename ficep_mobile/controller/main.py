@@ -28,6 +28,7 @@
 from openerp import http
 from openerp.addons.web.controllers import main
 
+from openerp.addons.ficep_base.abstract_ficep import format_email
 from openerp.addons.ficep_person.res_partner import available_genders, available_civil_status, available_tongues
 
 
@@ -89,7 +90,14 @@ class Mobile(main.Home):
         object_relation_ids = relation_obj.search(cr, uid, [('object_partner_id', '=', partner.id)], context=context)
         object_relation_records = relation_obj.browse(cr, uid, object_relation_ids, context=context)
 
+        to_show_phone_coo = False
+        for phone_coo in phone_coordinate_records:
+            if not phone_coo.is_main:
+                to_show_phone_coo = True
+                break
+
         return http.request.render('ficep_mobile.show_partner', {'partner': partner,
+                                                                 'to_show_phone_coo': to_show_phone_coo,
                                                                  'email_coordinates': email_coordinate_records,
                                                                  'postal_coordinates': postal_coordinate_records,
                                                                  'phone_coordinates': phone_coordinate_records,
@@ -124,13 +132,28 @@ class Mobile(main.Home):
         Call the qweb index with the resulting list of partner records
         """
         cr, uid, context = http.request.cr, http.request.uid, http.request.context
-        partner_obj = http.request.registry['res.partner']
-        domain = []
+        partner_ids = []
         form = http.request.params
         if form:
-            domain = "[('%s', 'ilike', '%s')]" % (form['search_on'], form['search_value'])
-        partner_ids = partner_obj.search(cr, uid, eval(domain), context=context)
-        partners = partner_obj.browse(cr, uid, partner_ids, context=context)
+            domain = "[('%s', 'ilike', '%s')]" % (form['search_on'],
+                                                  form['search_value'])
+            partner_obj = http.request.registry['res.partner']
+            if form['search_on'] == 'name':
+                #search on partner
+                partner_ids = partner_obj.search(cr, uid, eval(domain),context=context)
+            else:
+                coordinate_obj = http.request.registry['%s.coordinate' % form['search_on']]
+                if form['search_on'] == 'email':
+                    form['search_value'] = format_email(form['search_value'])
+                if form['search_on'] == 'phone':
+                    domain = "[('phone_id.name', 'ilike', '%s')]" % (form['search_value'])
+
+                coordinate_ids = coordinate_obj.search(cr, uid, eval(domain), context=context)
+                for coordinate in coordinate_obj.browse(cr, uid, coordinate_ids, context=context):
+                    partner_ids.append(coordinate.partner_id.id)
+
+            partners = partner_obj.browse(cr, uid, partner_ids, context=context)
+
         return http.request.render('ficep_mobile.mobile_index', {"partners": partners})
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
