@@ -227,7 +227,7 @@
         </record>
 
         <!-- Former Member To Break Former Member -->
-        <record id="membership_trans_om_bom" model="workflow.transition">
+        <record id="membership_trans_fm_bfm" model="workflow.transition">
             <field name="act_from" ref="partner_act_former_member" />
             <field name="act_to" ref="partner_act_break_former_member" />
             <field name="condition">
@@ -236,7 +236,7 @@
         </record>
 
         <!-- Former Member To Former Member -->
-        <record id="membership_trans_om_bom" model="workflow.transition">
+        <record id="membership_trans_fm_fm" model="workflow.transition">
             <field name="act_from" ref="partner_act_former_member" />
             <field name="act_to" ref="partner_act_former_member" />
             <field name="condition">

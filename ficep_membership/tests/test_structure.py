@@ -36,7 +36,7 @@ class test_structure(SharedSetupTransactionCase):
 
     _data_files = (
         '../../ficep_base/tests/data/res_partner_data.xml',
-        '../../ficep_structure/tests/data/structure_data.xml',
+        '../../ficep_structure/tests/data/structure_data.xml'
     )
 
     _module_ns = 'ficep_membership'
@@ -49,17 +49,22 @@ class test_structure(SharedSetupTransactionCase):
         self.sta_assembly_model = self.registry('sta.assembly')
         self.ext_assembly_model = self.registry('ext.assembly')
 
-        self.sta_assembly_category_id = self.ref('%s.sta_assembly_category_14' % self._module_ns)
-        self.ext_assembly_category_id = self.ref('%s.ext_assembly_category_01' % self._module_ns)
+        self.sta_assembly_category_id = self.ref('%s.sta_assembly_category_14'
+                                                 % self._module_ns)
+        self.ext_assembly_category_id = self.ref('%s.ext_assembly_category_01'
+                                                 % self._module_ns)
 
     def test_internal_inst_of_assembly_partner(self):
         '''
-        When creating or updating an assembly the responsible Internal Instance of the result Partner must be automatically set
+        When creating or updating an assembly the responsible Internal
+        Instance of the result Partner must be automatically set
         '''
         cr, uid, context = self.cr, self.uid, {}
-        sta_assembly_model, ext_assembly_model = self.sta_assembly_model, self.ext_assembly_model
+        sta_assembly_model = self.sta_assembly_model
+        ext_assembly_model = self.ext_assembly_model
 
-        sta_assembly_category_id, ext_assembly_category_id = self.sta_assembly_category_id, self.ext_assembly_category_id
+        sta_assembly_category_id, ext_assembly_category_id = \
+            self.sta_assembly_category_id, self.ext_assembly_category_id
 
         # 1/ For an external Assembly
         instance_id = self.ref('%s.int_instance_04' % self._module_ns)
@@ -76,7 +81,9 @@ class test_structure(SharedSetupTransactionCase):
 
         # Check for int_instance_id on related created partner
         assembly = ext_assembly_model.browse(cr, uid, ext_id, context=context)
-        self.assertEqual(assembly.partner_id.int_instance_id.id, instance_id, 'Create external assembly fails with wrong internal instance linked to the result partner')
+        self.assertEqual(assembly.partner_id.int_instance_id.id, instance_id,
+                         'Create external assembly fails with wrong internal \
+                         instance linked to the result partner')
 
         # 1.2/ Update the assembly
         instance_id = self.ref('%s.int_instance_09' % self._module_ns)
@@ -88,7 +95,9 @@ class test_structure(SharedSetupTransactionCase):
 
         # Check for int_instance_id on related partner
         assembly = ext_assembly_model.browse(cr, uid, ext_id, context=context)
-        self.assertEqual(assembly.partner_id.int_instance_id.id, instance_id, 'Update external assembly fails with wrong internal instance linked to the result partner')
+        self.assertEqual(assembly.partner_id.int_instance_id.id, instance_id,
+                         'Update external assembly fails with wrong internal \
+                         instance linked to the result partner')
 
         # 2/ For a State Assembly
         instance_id = self.ref('%s.sta_instance_07' % self._module_ns)
@@ -103,7 +112,10 @@ class test_structure(SharedSetupTransactionCase):
 
         # Check for is_assembly flag on related created partner
         assembly = sta_assembly_model.browse(cr, uid, sta_id, context=context)
-        self.assertEqual(assembly.partner_id.int_instance_id.id, assembly.instance_id.int_instance_id.id, 'Create state assembly fails with wrong internal instance linked to the result partner')
+        self.assertEqual(assembly.partner_id.int_instance_id.id,
+                         assembly.instance_id.int_instance_id.id,
+                         'Create state assembly fails with wrong internal \
+                         instance linked to the result partner')
 
         # 2.2/ Update the assembly
         instance_id = self.ref('%s.sta_instance_09' % self._module_ns)
@@ -115,6 +127,7 @@ class test_structure(SharedSetupTransactionCase):
 
         # Check for int_instance_id on related partner
         assembly = sta_assembly_model.browse(cr, uid, sta_id, context=context)
-        self.assertEqual(assembly.partner_id.int_instance_id.id, assembly.instance_id.int_instance_id.id, 'Update state assembly fails with wrong internal instance linked to the result partner')
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        self.assertEqual(assembly.partner_id.int_instance_id.id,
+                         assembly.instance_id.int_instance_id.id,
+                         'Update state assembly fails with wrong internal \
+                         instance linked to the result partner')

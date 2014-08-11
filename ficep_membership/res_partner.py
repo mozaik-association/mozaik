@@ -58,19 +58,25 @@ class res_partner(orm.Model):
         context = context or {}
         result = {i: False for i in ids}
 
-        def_int_instance_id = self.pool.get('int.instance').get_default(cr, uid)
+        def_int_instance_id = self.pool.get('int.instance').get_default(
+            cr, uid)
         for partner in self.browse(cr, uid, ids, context=context):
-            result[partner.id] = partner.int_instance_id.id or def_int_instance_id
+            result[partner.id] = partner.int_instance_id.id or \
+                def_int_instance_id
 
         if not context.get('keep_current_instance'):
             coord_obj = self.pool['postal.coordinate']
-            coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
-                                                                 ('is_main', '=', True),
-                                                                 ('active', '<=', True)], context=context)
-            for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
+            coordinate_ids = coord_obj.search(cr, SUPERUSER_ID,
+                                              [('partner_id', 'in', ids),
+                                               ('is_main', '=', True),
+                                               ('active', '<=', True)],
+                                              context=context)
+            for coord in coord_obj.browse(cr, uid, coordinate_ids,
+                                          context=context):
                 if coord.active == coord.partner_id.active:
                     if coord.address_id.address_local_zip_id:
-                        result[coord.partner_id.id] = coord.address_id.address_local_zip_id.int_instance_id.id
+                        result[coord.partner_id.id] = coord.address_id.\
+                            address_local_zip_id.int_instance_id.id
         return result
 
     def _accept_anyway(self, cr, uid, ids, name, value, args, context=None):
@@ -78,70 +84,94 @@ class res_partner(orm.Model):
         Accept the modification of the internal instance
         Do not make a self.write here, it will indefinitely loop on itself...
         '''
-        cr.execute('update %s set %s = %%s where id = %s' % (self._table, name, ids), (value or None,))
+        cr.execute('update %s set %s = %%s where id = %s'
+                   % (self._table, name, ids), (value or None,))
         return True
 
     _instance_store_triggers = {
-        'postal.coordinate': (lambda self, cr, uid, ids, context=None: self.pool['postal.coordinate'].get_linked_partners(cr, uid, ids, context=context),
-            ['partner_id', 'address_id', 'is_main', 'active'], 10),
-        'address.address': (lambda self, cr, uid, ids, context=None: self.pool['address.address'].get_linked_partners(cr, uid, ids, context=context),
-            ['address_local_zip_id'], 10),
-        'address.local.zip': (lambda self, cr, uid, ids, context=None: self.pool['address.local.zip'].get_linked_partners(cr, uid, ids, context=context),
-            ['int_instance_id'], 10),
+        'postal.coordinate': (lambda self, cr, uid, ids, context=None:
+                              self.pool['postal.coordinate'].
+                              get_linked_partners(cr, uid, ids,
+                                                  context=context),
+                              ['partner_id', 'address_id', 'is_main',
+                                  'active'], 10),
+        'address.address': (lambda self, cr, uid, ids, context=None:
+                            self.pool['address.address'].
+                            get_linked_partners(cr, uid, ids, context=context),
+                            ['address_local_zip_id'], 10),
+        'address.local.zip': (lambda self, cr, uid, ids, context=None:
+                              self.pool['address.local.zip'].
+                              get_linked_partners(cr, uid, ids,
+                                                  context=context),
+                              ['int_instance_id'], 10),
     }
 
     _columns = {
-         'int_instance_id': fields.function(_get_instance_id, string='Internal Instance',
-                                           type='many2one', relation='int.instance', select=True,
-                                           store=_instance_store_triggers, fnct_inv=_accept_anyway),
-         'int_instance_m2m_ids': fields.many2many('int.instance', 'res_partner_int_instance_rel', id1='partner_id', id2='int_instance_id', string='Internal Instances'),
+        'int_instance_id': fields.function(
+            _get_instance_id, string='Internal Instance', type='many2one',
+            relation='int.instance', select=True,
+            store=_instance_store_triggers, fnct_inv=_accept_anyway),
+        'int_instance_m2m_ids': fields.many2many(
+            'int.instance', 'res_partner_int_instance_rel', id1='partner_id',
+            id2='int_instance_id', string='Internal Instances'),
 
-         'subscription_product_id': fields.many2one('product.product', string="Subscription", select=True,\
-                                                    track_visibility='onchange'),
-         # membership fields: track visibility is done into membership history management
-         'membership_state_id': fields.many2one('membership.state', string='State'),
-         'membership_state_code': fields.related('membership_state_id', 'code',
-                                                 string='Membership State Code', type="char",
-                                                 readonly=True),
-         'accepted_date': fields.date('Accepted Date'),
-         'decline_payment_date': fields.date('Decline Payment Date'),
-         'rejected_date': fields.date('Rejected Date'),
-         'resignation_date': fields.date('Resignation Date'),
-         'exclusion_date': fields.date('Exclusion Date'),
+        'subscription_product_id': fields.many2one(
+            'product.product', string="Subscription", select=True,
+            track_visibility='onchange'),
+        # membership fields: track visibility is done into membership history
+        # management
+        'membership_state_id': fields.many2one('membership.state',
+                                               string='State'),
+        'membership_state_code': fields.related('membership_state_id', 'code',
+                                                string='Membership State Code',
+                                                type="char", readonly=True),
+        'accepted_date': fields.date('Accepted Date'),
+        'decline_payment_date': fields.date('Decline Payment Date'),
+        'rejected_date': fields.date('Rejected Date'),
+        'resignation_date': fields.date('Resignation Date'),
+        'exclusion_date': fields.date('Exclusion Date'),
 
-         'del_doc_date': fields.date('Delivery Document Date'),
+        'del_doc_date': fields.date('Delivery Document Date'),
     }
 
     _defaults = {
-        'int_instance_id': lambda self, cr, uid, ids, context = None: self.pool.get('int.instance').get_default(cr, uid),
+        'int_instance_id': lambda self, cr, uid, ids, context = None:
+            self.pool.get('int.instance').get_default(cr, uid),
     }
 
 # view methods: onchange, button
 
     def decline_payment(self, cr, uid, ids, context=None):
-        return self.write(cr, uid, ids, {'decline_payment_date': date.today().strftime('%Y-%m-%d')}, context=context)
+        return self.write(cr, uid, ids, {'decline_payment_date':
+                                         date.today().strftime('%Y-%m-%d')},
+                          context=context)
 
     def reject(self, cr, uid, ids, context=None):
-        return self.write(cr, uid, ids, {'rejected_date': date.today().strftime('%Y-%m-%d')}, context=context)
+        return self.write(cr, uid, ids, {'rejected_date': date.today().
+                                         strftime('%Y-%m-%d')},
+                          context=context)
 
     def exclude(self, cr, uid, ids, context=None):
-        return self.write(cr, uid, ids, {'exclusion_date': date.today().strftime('%Y-%m-%d')}, context=context)
+        return self.write(cr, uid, ids, {'exclusion_date': date.today().
+                                         strftime('%Y-%m-%d')},
+                          context=context)
 
     def resign(self, cr, uid, ids, context=None):
-        return self.write(cr, uid, ids, {'resignation_date': date.today().strftime('%Y-%m-%d')}, context=context)
+        return self.write(cr, uid, ids, {'resignation_date': date.today().
+                                         strftime('%Y-%m-%d')},
+                          context=context)
 
     def button_modification_request(self, cr, uid, ids, context=None):
         """
-        ====================
-        modification_request
-        ====================
-        Create a `membership.request` object with the datas of the current partner.
-        Launch it into the another form view
+        Create a `membership.request` object with the datas of the current \
+        partner. Launch it into the another form view
         """
         partners = self.browse(cr, uid, ids, context=context)
         partner = partners and partners[0]
         if not partner:
-            raise orm.except_orm(_('Error'), _('Modification request must be launch with a valid partner id'))
+            raise orm.except_orm(_('Error'),
+                                 _('Modification request must be launch with \
+                                     a valid partner id'))
         postal_coordinate_id = partner.postal_coordinate_id or False
         mobile_coordinate_id = partner.mobile_coordinate_id or False
         fix_coordinate_id = partner.fix_coordinate_id or False
@@ -158,7 +188,8 @@ class res_partner(orm.Model):
             year = datas[0]
 
         values = {
-            'membership_state_id': partner.membership_state_id and partner.membership_state_id.id  or False,
+            'membership_state_id': partner.membership_state_id and
+            partner.membership_state_id.id or False,
             'identifier': partner.identifier,
             'lastname': partner.lastname,
             'firstname': partner.firstname,
@@ -170,34 +201,53 @@ class res_partner(orm.Model):
             'is_update': True,
 
             # country_id is mandatory
-            'country_id': postal_coordinate_id and postal_coordinate_id.address_id.country_id.id,
-            'address_local_street_id': postal_coordinate_id and postal_coordinate_id.address_id.address_local_street_id.id,
-            'street_man': postal_coordinate_id and postal_coordinate_id.address_id.street_man,
-            'street2': postal_coordinate_id and postal_coordinate_id.address_id.street2,
-            'address_local_zip_id': postal_coordinate_id and postal_coordinate_id.address_id.address_local_zip_id.id,
-            'zip_man': postal_coordinate_id and postal_coordinate_id.address_id.zip_man,
-            'town_man': postal_coordinate_id and postal_coordinate_id.address_id.town_man,
-            'box': postal_coordinate_id and postal_coordinate_id.address_id.box,
-            'number': postal_coordinate_id and postal_coordinate_id.address_id.number,
+            'country_id': postal_coordinate_id and postal_coordinate_id.
+            address_id.country_id.id,
+            'address_local_street_id': postal_coordinate_id and
+            postal_coordinate_id.address_id.address_local_street_id.id,
+            'street_man': postal_coordinate_id and postal_coordinate_id.
+            address_id.street_man,
+            'street2': postal_coordinate_id and postal_coordinate_id.
+            address_id.street2,
+            'address_local_zip_id': postal_coordinate_id and
+            postal_coordinate_id.address_id.address_local_zip_id.id,
+            'zip_man': postal_coordinate_id and
+            postal_coordinate_id.address_id.zip_man,
+            'town_man': postal_coordinate_id and
+            postal_coordinate_id.address_id.town_man,
+            'box': postal_coordinate_id and
+            postal_coordinate_id.address_id.box,
+            'number': postal_coordinate_id and
+            postal_coordinate_id.address_id.number,
 
-            'mobile': mobile_coordinate_id and mobile_coordinate_id.phone_id.name,
+            'mobile': mobile_coordinate_id and
+            mobile_coordinate_id.phone_id.name,
             'phone': fix_coordinate_id and fix_coordinate_id.phone_id.name,
-            'mobile_id': mobile_coordinate_id and mobile_coordinate_id.phone_id.id,
+            'mobile_id': mobile_coordinate_id and
+            mobile_coordinate_id.phone_id.id,
             'phone_id': fix_coordinate_id and fix_coordinate_id.phone_id.id,
 
             'email': email_coordinate_id and email_coordinate_id.email,
 
             'partner_id': partner.id,
-            'address_id': postal_coordinate_id and postal_coordinate_id.address_id.id,
+            'address_id': postal_coordinate_id and postal_coordinate_id.
+            address_id.id,
             'int_instance_id': int_instance_id and int_instance_id.id,
 
-            'interests_m2m_ids': [[6, False, partner.interests_m2m_ids and [interest.id for interest in partner.interests_m2m_ids] or []]],
-            'competencies_m2m_ids': [[6, False, partner.competencies_m2m_ids and [competence.id for competence in partner.competencies_m2m_ids] or []]],
+            'interests_m2m_ids': [[6, False, partner.interests_m2m_ids and
+                                   [interest.id for interest in partner.
+                                    interests_m2m_ids] or []]],
+            'competencies_m2m_ids': [[6, False, partner.competencies_m2m_ids
+                                      and [competence.id for competence in
+                                           partner.competencies_m2m_ids] or
+                                      []]],
         }
         membership_request_obj = self.pool['membership.request']
         context['mode'] = 'ws'
-        membership_request_id = membership_request_obj.create(cr, uid, values, context=context)
-        return membership_request_obj.display_object_in_form_view(cr, uid, membership_request_id, context=context)
+        membership_request_id = membership_request_obj.create(cr, uid, values,
+                                                              context=context)
+        return membership_request_obj.display_object_in_form_view(
+            cr, uid, membership_request_id, context=context)
 
 # orm methods
 
@@ -209,29 +259,30 @@ class res_partner(orm.Model):
         default.update({
             'int_instance_m2m_ids': [],
         })
-        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        res = super(res_partner, self).copy_data(cr, uid, ids, default=default,
+                                                 context=context)
         return res
 
 # public methods
 
     def update_state(self, cr, uid, ids, membership_state_code, context=None):
         """
-        ============
-        update_state
-        ============
-        Partner membership_state_id is updated with the `membership.state` having the `code`
-        `membership_state_code`
+        Partner membership_state_id is updated with the `membership.state`\
+        having the `code` `membership_state_code`
 
         :type membership_state_code: char
         :param membership_state_code: code of `membership.state`
-        :raise orm.except_orm: If no membership_state_id found with `membership_state_code`
+        :raise orm.except_orm: If no membership_state_id found with \
+        `membership_state_code`
         """
 
         membership_state_obj = self.pool['membership.state']
-        membership_state_ids = membership_state_obj.search(cr, uid, [('code', '=', membership_state_code)], context)
+        membership_state_ids = membership_state_obj.\
+            search(cr, uid, [('code', '=', membership_state_code)], context)
 
         if not membership_state_ids:
-            raise orm.except_orm(_('Error'), _('Try to set an undefined "Membership State" on partner'))
+            raise orm.except_orm(_('Error'), _('Try to set an undefined \
+                "Membership State" on partner'))
 
         membership_state_id = membership_state_ids[0]
 
@@ -244,17 +295,16 @@ class res_partner(orm.Model):
             'exclusion_date': False,
         }
         res = self.write(cr, uid, ids, vals, context=context)
-        state_id = membership_state_obj._state_default_get(cr, uid, context=context)
-        default_code = membership_state_obj.read(cr, uid, state_id, ['code'], context=context)['code']
+        state_id = membership_state_obj._state_default_get(cr, uid,
+                                                           context=context)
+        default_code = membership_state_obj.read(cr, uid, state_id, ['code'],
+                                                 context=context)['code']
         if membership_state_code != default_code:
             self.update_membership_line(cr, uid, ids, context=context)
         return res
 
     def update_membership_line(self, cr, uid, ids, context=None):
         """
-        ======================
-        update_membership_line
-        ======================
         Search a current `membership.membership_line` for each partner
         If no membership_line found then create one
         If a membership_line is found then set `is_current` to False
@@ -269,12 +319,16 @@ class res_partner(orm.Model):
             current_membership_line_ids = membership_line_obj.search(
                 cr, uid, [('partner', '=', partner.id),
                           ('is_current', '=', True)], context=context)
-            current_membership_line_id = current_membership_line_ids and current_membership_line_ids[0] or False
+            current_membership_line_id = current_membership_line_ids and \
+                current_membership_line_ids[0] or False
             if current_membership_line_id:
                 # copy and update it
-                new_membership_line_id = membership_line_obj.copy(cr, uid, current_membership_line_id, default=values, context=context)
-                membership_line_obj.write(cr, uid, [current_membership_line_id], {'is_current': False,
-                                                                                  'date_to': today}, context=context)
+                new_membership_line_id = membership_line_obj.copy(
+                    cr, uid, current_membership_line_id, default=values,
+                    context=context)
+                membership_line_obj.write(
+                    cr, uid, [current_membership_line_id],
+                    {'is_current': False, 'date_to': today}, context=context)
             else:
                 # create first membership_line
                 vals = values.copy()
@@ -294,14 +348,14 @@ class res_partner(orm.Model):
 
     def write(self, cr, uid, ids, vals, context=None):
         """
-        Invalidate rules cache when changing set of instances related to the user
+        Invalidate rules cache when changing set of instances related to \
+        the user
         """
-        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
+        res = super(res_partner, self).write(cr, uid, ids, vals,
+                                             context=context)
         if 'int_instance_m2m_ids' in vals:
             rule_obj = self.pool['ir.rule']
             for partner in self.browse(cr, uid, ids, context=context):
                 for u in partner.user_ids:
                     rule_obj.clear_cache(cr, u.id)
         return res
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

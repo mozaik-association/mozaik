@@ -35,24 +35,30 @@ class change_main_address(orm.TransientModel):
 
     _columns = {
         'keeping_mode': fields.integer(string='Mode'),
-            # 1: mandatory
-            # 2: user's choice
-            # 3: forbiden
-        'keep_instance': fields.boolean(string='Keep Current Internal Instance?'),
-        'old_int_instance_id': fields.many2one('int.instance', 'Current Internal Instance'),
-        'new_int_instance_id': fields.many2one('int.instance', 'New Internal Instance'),
+        # 1: mandatory
+        # 2: user's choice
+        # 3: forbiden
+        'keep_instance': fields.boolean(
+            string='Keep Current Internal Instance?'),
+        'old_int_instance_id': fields.many2one('int.instance',
+                                               'Current Internal Instance'),
+        'new_int_instance_id': fields.many2one('int.instance',
+                                               'New Internal Instance'),
     }
 
     def default_get(self, cr, uid, fields, context):
         """
         To get default values for the object.
         """
-        res = super(change_main_address, self).default_get(cr, uid, fields, context=context)
+        res = super(change_main_address, self).default_get(cr, uid, fields,
+                                                           context=context)
         context = context or {}
 
-        ids = context.get('active_id') and [context.get('active_id')] or context.get('active_ids') or []
+        ids = context.get('active_id') and [context.get('active_id')] or \
+            context.get('active_ids') or []
         if ids:
-            for partner in self.pool['res.partner'].browse(cr, uid, ids, context=context):
+            for partner in self.pool['res.partner'].browse(cr, uid, ids,
+                                                           context=context):
                 if partner.int_instance_id:
                     res['keep_instance'] = partner.is_company
                     res['old_int_instance_id'] = partner.int_instance_id.id
@@ -65,29 +71,30 @@ class change_main_address(orm.TransientModel):
 
 # view methods: onchange, button
 
-    def onchange_address_id(self, cr, uid, ids, address_id, old_int_instance_id, context=None):
+    def onchange_address_id(self, cr, uid, ids, address_id,
+                            old_int_instance_id, context=None):
         res = {}
         new_int_instance_id = False
         keeping_mode = 3
         if address_id:
-            adr = self.pool['address.address'].browse(cr, uid, address_id, context=context)
+            adr = self.pool['address.address'].browse(cr, uid, address_id,
+                                                      context=context)
             if adr.address_local_zip_id:
-                new_int_instance_id = adr.address_local_zip_id.int_instance_id.id
+                new_int_instance_id = \
+                    adr.address_local_zip_id.int_instance_id.id
             else:
-                new_int_instance_id = self.pool['int.instance'].get_default(cr, uid, context=None)
-            keeping_mode = not old_int_instance_id and 1 \
-                           or old_int_instance_id != new_int_instance_id and 2 \
-                           or 3
-        res.update({'new_int_instance_id': new_int_instance_id, 'keeping_mode': keeping_mode})
+                new_int_instance_id = self.pool['int.instance'].\
+                    get_default(cr, uid, context=None)
+            keeping_mode = not old_int_instance_id and 1 or \
+                old_int_instance_id != new_int_instance_id and 2 or 3
+        res.update({'new_int_instance_id': new_int_instance_id,
+                    'keeping_mode': keeping_mode})
         return {'value': res}
 
 # public methods
 
     def button_change_main_coordinate(self, cr, uid, ids, context=None):
         """
-        =============================
-        button_change_main_coordinate
-        =============================
         Change main coordinate for a list of partners
         * a new main coordinate is created for each partner
         * the previsous main coordinate is invalidates or not regarding
@@ -103,6 +110,5 @@ class change_main_address(orm.TransientModel):
         if wizard.keeping_mode == 2 and wizard.keep_instance:
             context.update({'keep_current_instance': True})
 
-        return super(change_main_address, self).button_change_main_coordinate(cr, uid, ids, context=context)
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        return super(change_main_address, self).button_change_main_coordinate(
+            cr, uid, ids, context=context)

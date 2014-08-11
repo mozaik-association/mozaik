@@ -45,6 +45,6 @@ class product_template(orm.Model):
         =========================
         return id of a default membership product
         """
-        return self.pool['ir.model.data'].get_object_reference(cr, uid, 'ficep_membership', 'membership_product_isolated')[1]
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        return self.pool['ir.model.data'].\
+            get_object_reference(cr, uid, 'ficep_membership',
+                                 'membership_product_isolated')[1]
