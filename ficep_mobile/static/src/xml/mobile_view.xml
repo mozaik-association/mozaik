@@ -3,195 +3,196 @@
 
         <!-- INDEX: List of Partners -->
         <template id="mobile_index" name="Mobile Index">
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <div class="container">
-                <div id="header_content">
-
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <div style="display:inline-block;">
-                                <label style="font-size:20px;">
-                                    Partners List
-                                </label>
-                            </div>
-                            <div style="display:inline-block;"
-                                class="pull-right">
-                                <a href="/partner_search_form/">
-                                    <button class="btn-large btn-primary"
-                                        type="button">Advanced Search
-                                    </button>
-                                </a>
+            <t t-call="website.layout">
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <div class="container">
+                    <div id="header_content">
+    
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div style="display:inline-block;">
+                                    <label style="font-size:20px;">
+                                        Partners List
+                                    </label>
+                                </div>
+                                <div style="display:inline-block;"
+                                    class="pull-right">
+                                    <a href="/partner_search_form/">
+                                        <button class="btn-large btn-primary"
+                                            type="button">Advanced Search
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <br />
+                    <div id="partners_list">
+                        <t t-foreach='partners' t-as="partner">
+                            <a class="list-group-item" t-attf-href="/partner_view/{{partner['id']}}/">
+                                <t t-esc="partner['display_name']" />
+                            </a>
+                        </t>
+                    </div>
                 </div>
-                <br />
-                <div id="partners_list">
-                    <t t-foreach='partners' t-as="partner">
-                        <a class="list-group-item" t-attf-href="/partner_view/{{partner['id']}}/">
-                            <t t-esc="partner['display_name']" />
-                        </a>
-                    </t>
-                </div>
-            </div>
-            <link rel="stylesheet" href="/ficep_mobile/static/src/css/bootstrap.css" />
+            </t>
         </template>
 
         <!-- Partner View -->
         <template id="show_partner" name="Show Partner">
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <div class="container">
-                <h1 t-esc="partner.display_name" />
-                <div t-if="partner.is_company != 1" id="info_natural_person">
-                    <div t-if="partner.usual_lastname" id="usual_lastname_container">
-                        <label for="usual_lastname">Usual Lastname:</label>
-                        <span id="usual_lastname" t-esc="partner.usual_lastname" />
+            <t t-call="website.layout">
+                <div class="container">
+                    <h1 t-esc="partner.display_name" />
+                    <div t-if="partner.is_company != 1" id="info_natural_person">
+                        <div t-if="partner.usual_lastname" id="usual_lastname_container">
+                            <label for="usual_lastname">Usual Lastname:</label>
+                            <span id="usual_lastname" t-esc="partner.usual_lastname" />
+                        </div>
+                        <div t-if="partner.usual_firstname" id="usual_firstname_container">
+                            <label for="usual_firstname">Usual Firstname:</label>
+                            <span id="usual_firstname" t-esc="partner.usual_firstname" />
+                        </div>
+                        <div t-if="partner.tongue" id="tongue_container">
+                            <label for="tongue">Tongue:</label>
+                            <span id="tongue" t-esc="available_tongues[partner.tongue]" />
+                        </div>
+                        <div t-if="partner.gender" id="gender_container">
+                            <label for="gender">Gender:</label>
+                            <span id="gender" t-esc="available_genders[partner.gender]" />
+                        </div>
+                        <div t-if="partner.civil_status" id="civil_status_container">
+                            <label for="civil_status">Civil Status:</label>
+                            <span id="civil_status"
+                                t-esc="available_civil_status[partner.civil_status]" />
+                        </div>
+                        <div t-if="partner.fix_coordinate_id" id="fix_coordinate_container">
+                            <label for="fix">Main Phone:</label>
+                            <span id="fix"
+                                t-esc="partner['fix_coordinate_id']['phone_id']['name']" />
+                        </div>
+                        <div t-if="partner.fax_coordinate_id" id="fax_coordinate_container">
+                            <label for="fax">Main Fax:</label>
+                            <span id="fax"
+                                t-esc="partner['fax_coordinate_id']['phone_id']['name']" />
+                        </div>
+                        <div t-if="partner.mobile_coordinate_id" id="mobile_coordinate_container">
+                            <label for="mobile">Main Mobile:</label>
+                            <span id="Mobile"
+                                t-esc="partner['mobile_coordinate_id']['phone_id']['name']" />
+                        </div>
+                        <div t-if="partner.email_coordinate_id" id="email_coordinate_container">
+                            <label for="email">Main Email:</label>
+                            <span id="email"
+                                t-esc="partner['email_coordinate_id']['email']" />
+                        </div>
+    
+                        <fieldset t-if="len(subject_relation_records) != 0">
+                            <legend>Relation (Subject)</legend>
+                            <t t-foreach='subject_relation_records' t-as="subject_relation_record">
+                                <div class="form-group">
+                                    <p class="list-group-item">
+                                        <t
+                                            t-esc="subject_relation_record['partner_relation_category_id']['subject_name']" />
+                                        <br />
+                                        <t
+                                            t-esc="subject_relation_record['object_partner_id']['display_name']" />
+                                    </p>
+                                </div>
+                            </t>
+                        </fieldset>
+                        <fieldset t-if="len(object_relation_records) != 0">
+                            <legend>Relation (Object)</legend>
+                            <t t-foreach='object_relation_records' t-as="object_relation_record">
+                                <div class="form-group">
+                                    <p class="list-group-item">
+                                        <t
+                                            t-esc="object_relation_record['subject_partner_id']['display_name']" />
+                                        <t
+                                            t-esc="object_relation_record['partner_relation_category_id']['object_name']" />
+                                        <br />
+                                    </p>
+                                </div>
+                            </t>
+                        </fieldset>
+                        <fieldset t-if="len(sta_mandate_records) != 0">
+                            <legend>State Mandates</legend>
+                            <t t-foreach='sta_mandate_records' t-as="sta_mandate_record">
+                                <div class="form-group">
+                                    <p class="list-group-item">
+                                        <span
+                                            t-esc="sta_mandate_record['mandate_category_id']['name']" />
+                                        <br/>
+                                        <span
+                                            t-esc="sta_mandate_record['start_date']" />
+                                        To
+                                        <span
+                                            t-esc="sta_mandate_record['deadline_date']" />
+                                    </p>
+                                </div>
+                            </t>
+                        </fieldset>
+                        <fieldset t-if="len(int_mandate_records) != 0">
+                            <legend>Internal Mandates</legend>
+                            <t t-foreach='int_mandate_records' t-as="int_mandate_record">
+                                <div class="form-group">
+                                    <p class="list-group-item">
+                                        <span
+                                            t-esc="int_mandate_record['mandate_category_id']['name']" />
+                                        <br/>
+                                        <span
+                                            t-esc="int_mandate_record['start_date']" />
+                                        To
+                                        <span
+                                            t-esc="int_mandate_record['deadline_date']" />
+                                    </p>
+                                </div>
+                            </t>
+                        </fieldset>
+                        <fieldset t-if="len(ext_mandate_records) != 0">
+                            <legend>External Mandates</legend>
+                            <t t-foreach='ext_mandate_records' t-as="ext_mandate_record">
+                                <div class="form-group">
+                                    <p class="list-group-item">
+                                        <span
+                                            t-esc="ext_mandate_record['mandate_category_id']['name']" />
+                                        <br/>
+                                        <span
+                                            t-esc="ext_mandate_record['start_date']" />
+                                        To
+                                        <span
+                                            t-esc="ext_mandate_record['deadline_date']" />
+                                    </p>
+                                </div>
+                            </t>
+                        </fieldset>
                     </div>
-                    <div t-if="partner.usual_firstname" id="usual_firstname_container">
-                        <label for="usual_firstname">Usual Firstname:</label>
-                        <span id="usual_firstname" t-esc="partner.usual_firstname" />
-                    </div>
-                    <div t-if="partner.tongue" id="tongue_container">
-                        <label for="tongue">Tongue:</label>
-                        <span id="tongue" t-esc="available_tongues[partner.tongue]" />
-                    </div>
-                    <div t-if="partner.gender" id="gender_container">
-                        <label for="gender">Gender:</label>
-                        <span id="gender" t-esc="available_genders[partner.gender]" />
-                    </div>
-                    <div t-if="partner.civil_status" id="civil_status_container">
-                        <label for="civil_status">Civil Status:</label>
-                        <span id="civil_status"
-                            t-esc="available_civil_status[partner.civil_status]" />
-                    </div>
-                    <div t-if="partner.fix_coordinate_id" id="fix_coordinate_container">
-                        <label for="fix">Main Phone:</label>
-                        <span id="fix"
-                            t-esc="partner['fix_coordinate_id']['phone_id']['name']" />
-                    </div>
-                    <div t-if="partner.fax_coordinate_id" id="fax_coordinate_container">
-                        <label for="fax">Main Fax:</label>
-                        <span id="fax"
-                            t-esc="partner['fax_coordinate_id']['phone_id']['name']" />
-                    </div>
-                    <div t-if="partner.mobile_coordinate_id" id="mobile_coordinate_container">
-                        <label for="mobile">Main Mobile:</label>
-                        <span id="Mobile"
-                            t-esc="partner['mobile_coordinate_id']['phone_id']['name']" />
-                    </div>
-                    <div t-if="partner.email_coordinate_id" id="email_coordinate_container">
-                        <label for="email">Main Email:</label>
-                        <span id="email"
-                            t-esc="partner['email_coordinate_id']['email']" />
-                    </div>
-
-                    <fieldset t-if="len(subject_relation_records) != 0">
-                        <legend>Relation (Subject)</legend>
-                        <t t-foreach='subject_relation_records' t-as="subject_relation_record">
-                            <div class="form-group">
-                                <p class="list-group-item">
-                                    <t
-                                        t-esc="subject_relation_record['partner_relation_category_id']['subject_name']" />
-                                    <br />
-                                    <t
-                                        t-esc="subject_relation_record['object_partner_id']['display_name']" />
-                                </p>
-                            </div>
+    
+                    <fieldset t-if="len(email_coordinates) != 0">
+                        <legend>Email Coordinates</legend>
+                        <t t-foreach='email_coordinates' t-as="email_coordinate">
+                            <p class="list-group-item">
+                                <t t-esc="email_coordinate['email']" />
+                            </p>
                         </t>
                     </fieldset>
-                    <fieldset t-if="len(object_relation_records) != 0">
-                        <legend>Relation (Object)</legend>
-                        <t t-foreach='object_relation_records' t-as="object_relation_record">
-                            <div class="form-group">
-                                <p class="list-group-item">
-                                    <t
-                                        t-esc="object_relation_record['subject_partner_id']['display_name']" />
-                                    <t
-                                        t-esc="object_relation_record['partner_relation_category_id']['object_name']" />
-                                    <br />
-                                </p>
-                            </div>
+                    <fieldset t-if="len(phone_coordinates) != 0">
+                        <legend>Phone Coordinates</legend>
+                        <t t-foreach='phone_coordinates' t-as="phone_coordinate">
+                            <p class="list-group-item">
+                                <t t-esc="phone_coordinate['phone_id']['name']" />
+                            </p>
                         </t>
                     </fieldset>
-                    <fieldset t-if="len(sta_mandate_records) != 0">
-                        <legend>State Mandates</legend>
-                        <t t-foreach='sta_mandate_records' t-as="sta_mandate_record">
-                            <div class="form-group">
-                                <p class="list-group-item">
-                                    <span
-                                        t-esc="sta_mandate_record['mandate_category_id']['name']" />
-                                    <br/>
-                                    <span
-                                        t-esc="sta_mandate_record['start_date']" />
-                                    To
-                                    <span
-                                        t-esc="sta_mandate_record['deadline_date']" />
-                                </p>
-                            </div>
-                        </t>
-                    </fieldset>
-                    <fieldset t-if="len(int_mandate_records) != 0">
-                        <legend>Internal Mandates</legend>
-                        <t t-foreach='int_mandate_records' t-as="int_mandate_record">
-                            <div class="form-group">
-                                <p class="list-group-item">
-                                    <span
-                                        t-esc="int_mandate_record['mandate_category_id']['name']" />
-                                    <br/>
-                                    <span
-                                        t-esc="int_mandate_record['start_date']" />
-                                    To
-                                    <span
-                                        t-esc="int_mandate_record['deadline_date']" />
-                                </p>
-                            </div>
-                        </t>
-                    </fieldset>
-                    <fieldset t-if="len(ext_mandate_records) != 0">
-                        <legend>External Mandates</legend>
-                        <t t-foreach='ext_mandate_records' t-as="ext_mandate_record">
-                            <div class="form-group">
-                                <p class="list-group-item">
-                                    <span
-                                        t-esc="ext_mandate_record['mandate_category_id']['name']" />
-                                    <br/>
-                                    <span
-                                        t-esc="ext_mandate_record['start_date']" />
-                                    To
-                                    <span
-                                        t-esc="ext_mandate_record['deadline_date']" />
-                                </p>
-                            </div>
+                    <fieldset t-if="len(postal_coordinates) != 0">
+                        <legend>Postal Coordinates</legend>
+                        <t t-foreach='postal_coordinates' t-as="postal_coordinate">
+                            <p class="list-group-item">
+                                <t t-esc="postal_coordinate['address_id']['name']" />
+                            </p>
                         </t>
                     </fieldset>
                 </div>
-
-                <fieldset t-if="len(email_coordinates) != 0">
-                    <legend>Email Coordinates</legend>
-                    <t t-foreach='email_coordinates' t-as="email_coordinate">
-                        <p class="list-group-item">
-                            <t t-esc="email_coordinate['email']" />
-                        </p>
-                    </t>
-                </fieldset>
-                <fieldset t-if="len(phone_coordinates) != 0">
-                    <legend>Phone Coordinates</legend>
-                    <t t-foreach='phone_coordinates' t-as="phone_coordinate">
-                        <p class="list-group-item">
-                            <t t-esc="phone_coordinate['phone_id']['name']" />
-                        </p>
-                    </t>
-                </fieldset>
-                <fieldset t-if="len(postal_coordinates) != 0">
-                    <legend>Postal Coordinates</legend>
-                    <t t-foreach='postal_coordinates' t-as="postal_coordinate">
-                        <p class="list-group-item">
-                            <t t-esc="postal_coordinate['address_id']['name']" />
-                        </p>
-                    </t>
-                </fieldset>
-            </div>
-            <link rel="stylesheet" href="/ficep_mobile/static/src/css/bootstrap.css" />
+            </t>
         </template>
 
         <!-- Search Form on 
@@ -199,41 +200,40 @@
             * phone
             * email -->
         <template id="partner_search_form" name="Partner Advanced Search">
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <div class="container">
-                <form role="form" t-attf-action="/partner_search_action"
-                    method="post">
-                    <fieldset>
-                        <legend>Partner Search</legend>
-                        <div class="form-group">
-                            <label for="search_on">Search on</label>
-                            <select id="search_on" name="search_on"
-                                class="form-control" t-att-value="search_on"
-                                required="required">
-                                <option value="name">Name</option>
-                                <option value="phone">Phone</option>
-                                <option value="email">Email</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="search_value">Search value</label>
-                            <input type="text" placeholder="Value"
-                                name="search_value" t-att-value="search_value"
-                                id="search_value" class="form-control"
-                                required="required" autofocus="autofocus" />
-                        </div>
-                        <button type="submit" class="btn-large btn-primary">Launch
-                        </button>
-                        <a href="/partner_mobile">
-                            <button class="btn-large btn-primary"
-                                type="button">Cancel
+            <t t-call="website.layout">
+                <div class="container">
+                    <form role="form" t-attf-action="/partner_search_action"
+                        method="post">
+                        <fieldset>
+                            <legend>Partner Search</legend>
+                            <div class="form-group">
+                                <label for="search_on">Search on</label>
+                                <select id="search_on" name="search_on"
+                                    class="form-control" t-att-value="search_on"
+                                    required="required">
+                                    <option value="name">Name</option>
+                                    <option value="phone">Phone</option>
+                                    <option value="email">Email</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="search_value">Search value</label>
+                                <input type="text" placeholder="Value"
+                                    name="search_value" t-att-value="search_value"
+                                    id="search_value" class="form-control"
+                                    required="required" autofocus="autofocus" />
+                            </div>
+                            <button type="submit" class="btn-large btn-primary">Launch
                             </button>
-                        </a>
-                    </fieldset>
-                </form>
-            </div>
-            <!-- bootstrap with special theme -->
-            <link rel="stylesheet" href="/ficep_mobile/static/src/css/bootstrap.css" />
+                            <a href="/partner_mobile">
+                                <button class="btn-large btn-primary"
+                                    type="button">Cancel
+                                </button>
+                            </a>
+                        </fieldset>
+                    </form>
+                </div>
+            </t>
         </template>
 
     </data>
