@@ -38,11 +38,12 @@ from openerp.osv import orm, fields
 from openerp.addons.ficep_person.res_partner import available_genders, available_tongues
 
 HEADER_ROW = [
-    'Lastname',
-    'Usual Lastname',
-    'Firstname',
-    'Usual Firstname',
     'Internal Identifier',
+    'Name',
+    'Lastname',
+    'Firstname',
+    'Usual Lastname',
+    'Usual Firstname',
     'Co-Residency Line 1',
     'Co-Residency Line 2',
     'Main Address',
@@ -317,6 +318,8 @@ class distribution_list_mass_function(orm.TransientModel):
                 return default
 
         def _get_utf8(data):
+            if not data:
+                return None
             return data.encode('utf-8')
 
         # Test access coordinate (VIP READER)
@@ -328,50 +331,55 @@ class distribution_list_mass_function(orm.TransientModel):
         # If we have a postal coordinate, we get the mail coordinates from the partner, and vice versa.
         if model == 'postal.coordinate':
             pc = obj
-            ec = partner.email_coordinate_id
+            ec = partner.email_coordinate_id or None
         elif model == 'email.coordinate':
             ec = obj
-            pc = partner.postal_coordinate_id
+            pc = partner.postal_coordinate_id or None
 
-        export_values = OrderedDict([('name', _get_utf8(partner.lastname)),
-                                     ('lastname', None if not partner.usual_lastname else _get_utf8(partner.usual_lastname)),
-                                     ('firstname', None if not partner.firstname else _get_utf8(partner.firstname)),
-                                     ('usual_firstname', None if not partner.usual_firstname else _get_utf8(partner.usual_firstname)),
-                                     ('identifier', partner.identifier or None),
-                                     ('printable_name', _get_utf8(pc.co_residency_id.line) if (pc and pc.co_residency_id.line) \
-                                         else _get_utf8(partner.printable_name)),
-                                     ('co_residency', _get_utf8(pc.co_residency_id.line2) if (pc and pc.co_residency_id.line2) \
-                                         else None),
-                                     ('adr_main', pc and pc.is_main),
-                                     ('adr_unauthorized', pc and pc.unauthorized),
-                                     ('adr_vip', pc and pc.vip),
-                                     ('country_code', pc and pc.address_id.country_code or None),
-                                     ('country_name', _get_utf8(pc.address_id.country_id.name) if pc else None),
-                                     ('zip', pc and pc.address_id.zip or None),
-                                     ('street', None if not pc or not pc.address_id.street else _get_utf8(pc.address_id.street)),
-                                     ('street2', None if not pc or not pc.address_id.street2 else _get_utf8(pc.address_id.street2)),
-                                     ('city', None if not pc or pc.address_id.city else _get_utf8(pc.address_id.city)),
-                                     ('instance', partner.int_instance_id and _get_utf8(partner.int_instance_id.name) or None),
+        xc = partner.fix_coordinate_id or None
+        mc = partner.mobile_coordinate_id or None
+        fc = partner.fax_coordinate_id or None
+
+        cc = pc and pc.co_residency_id
+        ic = partner.int_instance_id
+
+        export_values = OrderedDict([('identifier', partner.identifier or None),
+                                     ('name', _get_utf8(partner.name)),
+                                     ('lastname', _get_utf8(partner.lastname)),
+                                     ('firstname', _get_utf8(partner.firstname)),
+                                     ('usual_lastname', _get_utf8(partner.usual_lastname)),
+                                     ('usual_firstname', _get_utf8(partner.usual_firstname)),
+                                     ('printable_name', cc and _get_utf8(cc.line) or _get_utf8(partner.printable_name)),
+                                     ('co_residency', cc and _get_utf8(cc.line2)),
+                                     ('adr_main', pc and pc.is_main or False),
+                                     ('adr_unauthorized', pc and pc.unauthorized or False),
+                                     ('adr_vip', pc and pc.vip or False),
+                                     ('country_code', pc and pc.address_id.country_code),
+                                     ('country_name', pc and _get_utf8(pc.address_id.country_id.name)),
+                                     ('zip', pc and pc.address_id.zip),
+                                     ('street', pc and _get_utf8(pc.address_id.street)),
+                                     ('street2', pc and _get_utf8(pc.address_id.street2)),
+                                     ('city', pc and _get_utf8(pc.address_id.city)),
+                                     ('instance', ic and _get_utf8(ic.name)),
                                      ('birth_date', partner.birth_date or None),
                                      ('gender', available_genders.get(partner.gender, None)),
                                      ('tongue', available_tongues.get(partner.tongue, None)),
-                                     ('fix_main', partner.fix_coordinate_id and partner.fix_coordinate_id.is_main or False),
-                                     ('fix_unauthorized', partner.fix_coordinate_id and partner.fix_coordinate_id.unauthorized or False),
-                                     ('fix_vip', partner.fix_coordinate_id and partner.fix_coordinate_id.vip or False),
-                                     ('fix', None if not partner.fix_coordinate_id else _get_utf8(partner.fix_coordinate_id.phone_id.name)),
-                                     ('mobile_main', partner.mobile_coordinate_id and partner.mobile_coordinate_id.is_main or False),
-                                     ('mobile_unauthorized', partner.mobile_coordinate_id and partner.mobile_coordinate_id.unauthorized or False),
-                                     ('mobile_vip', partner.mobile_coordinate_id and partner.mobile_coordinate_id.vip or False),
-                                     ('mobile', None if not partner.mobile_coordinate_id else _get_utf8(partner.mobile_coordinate_id.phone_id.name)),
-                                     ('fax_main', partner.fax_coordinate_id and partner.fax_coordinate_id.is_main or False),
-                                     ('fax_unauthorized', partner.fax_coordinate_id and partner.fax_coordinate_id.unauthorized or False),
-                                     ('fax_vip', partner.fax_coordinate_id and partner.fax_coordinate_id.vip or False),
-                                     ('fax', None if not partner.fax_coordinate_id else _get_utf8(partner.fax_coordinate_id.phone_id.name)),
+                                     ('fix_main', xc and xc.is_main or False),
+                                     ('fix_unauthorized', xc and xc.unauthorized or False),
+                                     ('fix_vip', xc and xc.vip or False),
+                                     ('fix', xc and _get_utf8(xc.phone_id.name)),
+                                     ('mobile_main', mc and mc.is_main or False),
+                                     ('mobile_unauthorized', mc and mc.unauthorized or False),
+                                     ('mobile_vip', mc and mc.vip or False),
+                                     ('mobile', mc and _get_utf8(mc.phone_id.name)),
+                                     ('fax_main', fc and fc.is_main or False),
+                                     ('fax_unauthorized', fc and fc.unauthorized or False),
+                                     ('fax_vip', fc and fc.vip or False),
+                                     ('fax', fc and _get_utf8(fc.phone_id.name)),
                                      ('email_main', ec and ec.is_main or False),
                                      ('email_unauthorized', ec and ec.unauthorized or False),
                                      ('email_vip', ec and ec.vip or False),
-                                     ('email', None if not partner.email_coordinate_id \
-                                         else _get_utf8(partner.email_coordinate_id.email)),
+                                     ('email', ec and _get_utf8(ec.email)),
                                      ])
         return export_values
 
