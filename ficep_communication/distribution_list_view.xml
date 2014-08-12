@@ -104,11 +104,7 @@
                 <xpath expr="//div[@name='to_exclude']" position="after">
                     <notebook>
                         <page name="owners" string="Owners" autofocus="autofocus">
-                            <field name="res_users_ids" context="{'default_distribution_list_id': id}">
-                                <tree>
-                                    <field name="name"/>
-                                </tree>
-                            </field>
+                            <field name="res_users_ids" widget="many2many_tags" create="0"/>
                         </page>
                     </notebook>
                 </xpath>
