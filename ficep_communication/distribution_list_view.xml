@@ -103,10 +103,8 @@
                 <!-- Add user tree into distribution list form -->
                 <xpath expr="//div[@name='to_exclude']" position="after">
                     <notebook>
-                        <div name="users">
-                            <field name="res_users_ids" widget="many2many_tags"
-                                create="0"/>
-                        </div>
+                        <field name="res_users_ids" widget="many2many_tags"
+                               create="0"/>
                     </notebook>
                 </xpath>
 
