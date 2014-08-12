@@ -103,13 +103,10 @@
                 <!-- Add user tree into distribution list form -->
                 <xpath expr="//div[@name='to_exclude']" position="after">
                     <notebook>
-                        <page name="owners" string="Owners" autofocus="autofocus">
-                            <field name="res_users_ids" context="{'default_distribution_list_id': id}">
-                                <tree>
-                                    <field name="name"/>
-                                </tree>
-                            </field>
-                        </page>
+                        <div name="users">
+                            <field name="res_users_ids" widget="many2many_tags"
+                                create="0"/>
+                        </div>
                     </notebook>
                 </xpath>
 
