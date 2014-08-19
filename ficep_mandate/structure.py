@@ -34,7 +34,10 @@ class electoral_district(orm.Model):
     _inherit = ['electoral.district']
 
     _columns = {
-        'selection_committee_ids': fields.one2many('sta.selection.committee', 'electoral_district_id', 'Selection committees'),
+        'selection_committee_ids': fields.one2many(
+                                            'sta.selection.committee',
+                                            'electoral_district_id',
+                                            'Selection committees'),
     }
 
 
@@ -44,8 +47,16 @@ class sta_assembly_category(orm.Model):
     _inherit = ['sta.assembly.category']
 
     _columns = {
-        'mandate_category_ids': fields.one2many('mandate.category', 'sta_assembly_category_id', 'Mandate categories', domain=[('active', '=', True)]),
-        'mandate_category_inactive_ids': fields.one2many('mandate.category', 'sta_assembly_category_id', 'Mandate categories', domain=[('active', '=', False)]),
+        'mandate_category_ids': fields.one2many(
+                                            'mandate.category',
+                                            'sta_assembly_category_id',
+                                            'Mandate categories',
+                                            domain=[('active', '=', True)]),
+        'mandate_category_inactive_ids': fields.one2many(
+                                            'mandate.category',
+                                            'sta_assembly_category_id',
+                                            'Mandate categories',
+                                            domain=[('active', '=', False)]),
     }
 
 
@@ -55,8 +66,16 @@ class int_assembly_category(orm.Model):
     _inherit = ['int.assembly.category']
 
     _columns = {
-        'mandate_category_ids': fields.one2many('mandate.category', 'int_assembly_category_id', 'Mandate categories', domain=[('active', '=', True)]),
-        'mandate_category_inactive_ids': fields.one2many('mandate.category', 'int_assembly_category_id', 'Mandate categories', domain=[('active', '=', False)]),
+        'mandate_category_ids': fields.one2many(
+                                            'mandate.category',
+                                            'int_assembly_category_id',
+                                            'Mandate categories',
+                                            domain=[('active', '=', True)]),
+        'mandate_category_inactive_ids': fields.one2many(
+                                            'mandate.category',
+                                            'int_assembly_category_id',
+                                            'Mandate categories',
+                                            domain=[('active', '=', False)]),
     }
 
 
@@ -66,8 +85,16 @@ class ext_assembly_category(orm.Model):
     _inherit = ['ext.assembly.category']
 
     _columns = {
-        'mandate_category_ids': fields.one2many('mandate.category', 'ext_assembly_category_id', 'Mandate categories', domain=[('active', '=', True)]),
-        'mandate_category_inactive_ids': fields.one2many('mandate.category', 'ext_assembly_category_id', 'Mandate categories', domain=[('active', '=', False)]),
+        'mandate_category_ids': fields.one2many(
+                                            'mandate.category',
+                                            'ext_assembly_category_id',
+                                            'Mandate categories',
+                                            domain=[('active', '=', True)]),
+        'mandate_category_inactive_ids': fields.one2many(
+                                            'mandate.category',
+                                            'ext_assembly_category_id',
+                                            'Mandate categories',
+                                            domain=[('active', '=', False)]),
     }
 
 
@@ -77,8 +104,16 @@ class sta_assembly(orm.Model):
     _inherit = ['sta.assembly']
 
     _columns = {
-         'selection_committee_ids': fields.one2many('sta.selection.committee', 'assembly_id', 'Selection committees', domain=[('active', '=', True)]),
-         'selection_committee_inactive_ids': fields.one2many('sta.selection.committee', 'assembly_id', 'Selection committees', domain=[('active', '=', False)]),
+         'selection_committee_ids': fields.one2many(
+                                            'sta.selection.committee',
+                                            'assembly_id',
+                                            'Selection committees',
+                                            domain=[('active', '=', True)]),
+         'selection_committee_inactive_ids': fields.one2many(
+                                            'sta.selection.committee',
+                                            'assembly_id',
+                                            'Selection committees',
+                                            domain=[('active', '=', False)]),
     }
 
 
@@ -88,8 +123,16 @@ class int_assembly(orm.Model):
     _inherit = ['int.assembly']
 
     _columns = {
-         'selection_committee_ids': fields.one2many('int.selection.committee', 'assembly_id', 'Selection committees', domain=[('active', '=', True)]),
-         'selection_committee_inactive_ids': fields.one2many('int.selection.committee', 'assembly_id', 'Selection committees', domain=[('active', '=', False)]),
+         'selection_committee_ids': fields.one2many(
+                                            'int.selection.committee',
+                                            'assembly_id',
+                                            'Selection committees',
+                                            domain=[('active', '=', True)]),
+         'selection_committee_inactive_ids': fields.one2many(
+                                            'int.selection.committee',
+                                            'assembly_id',
+                                            'Selection committees',
+                                            domain=[('active', '=', False)]),
     }
 
 
@@ -99,6 +142,14 @@ class ext_assembly(orm.Model):
     _inherit = ['ext.assembly']
 
     _columns = {
-         'selection_committee_ids': fields.one2many('ext.selection.committee', 'assembly_id', 'Selection committees', domain=[('active', '=', True)]),
-         'selection_committee_inactive_ids': fields.one2many('ext.selection.committee', 'assembly_id', 'Selection committees', domain=[('active', '=', False)]),
+         'selection_committee_ids': fields.one2many(
+                                            'ext.selection.committee',
+                                            'assembly_id',
+                                            'Selection committees',
+                                            domain=[('active', '=', True)]),
+         'selection_committee_inactive_ids': fields.one2many(
+                                            'ext.selection.committee',
+                                            'assembly_id',
+                                            'Selection committees',
+                                            domain=[('active', '=', False)]),
     }

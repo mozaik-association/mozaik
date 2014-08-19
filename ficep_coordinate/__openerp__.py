@@ -50,6 +50,7 @@ FICEP Coordinate
         'res_partner_view.xml',
         'wizard/change_main_coordinate.xml',
         'wizard/bounce_editor_view.xml',
+        'wizard/export_csv_view.xml',
     ],
     'js': [
     ],
