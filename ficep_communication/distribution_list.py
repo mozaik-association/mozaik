@@ -40,7 +40,7 @@ class distribution_list(orm.Model):
         ============
         Return user id value for many2many field
         """
-        return [[6, False, [uid]]]
+        return [uid]
 
     _columns = {
         'name': fields.char(string='Name', required=True, track_visibility='onchange'),

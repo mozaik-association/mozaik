@@ -258,11 +258,6 @@
             <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
         </record>
 
-        <record id="int_assembly_category_14" model="int.assembly.category">
-            <field name="name">Bureau fédéral Ecolo-Agalev</field>
-            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
-        </record>
-
         <record id="int_assembly_category_15" model="int.assembly.category">
             <field name="name">Conseil de la parité</field>
             <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>

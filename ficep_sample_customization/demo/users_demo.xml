@@ -129,7 +129,7 @@
 
         <record id="email_coordinate_demo_3" model="email.coordinate">
             <field name="partner_id" ref="partner_of_user_3" />
-            <field name="email">openerptest2@ecolo.be</field>
+            <field name="email">steve@ficep-ec.be</field>
         </record>
 
         <record id="email_coordinate_demo_4" model="email.coordinate">
@@ -145,7 +145,7 @@
 
         <record id="email_coordinate_demo_6" model="email.coordinate">
             <field name="partner_id" ref="partner_of_user_6" />
-            <field name="email">openerptest1@ecolo.be</field>
+            <field name="email">sylvie@ficep-ec.be</field>
         </record>
 
     </data>

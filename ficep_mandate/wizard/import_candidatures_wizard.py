@@ -95,7 +95,7 @@ class import_sta_candidatures_wizard(orm.TransientModel):
                       ','.join(file_import_structure)))
                 continue
 
-            identifier = data[file_import_structure.index('id_ecolo')]
+            identifier = data[file_import_structure.index('identifier')]
 
             partner_ids = self.pool.get('res.partner').search(cr,
                                                               uid,

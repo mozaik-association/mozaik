@@ -33,11 +33,12 @@ class address_local_zip(orm.Model):
     _inherit = 'address.local.zip'
 
     _columns = {
-        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', required=True, select=True, track_visibility='onchange'),
+        'int_instance_id': fields.many2one('int.instance', 'Internal Instance',
+                                           required=True, select=True,
+                                           track_visibility='onchange'),
     }
 
     _defaults = {
-        'int_instance_id': lambda self, cr, uid, ids, context=None: self.pool.get('int.instance').get_default(cr, uid)
+        'int_instance_id': lambda self, cr, uid, ids, context=None:
+        self.pool.get('int.instance').get_default(cr, uid)
     }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

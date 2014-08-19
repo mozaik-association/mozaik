@@ -28,9 +28,15 @@
 from openerp.osv import orm
 
 
-class product_product(orm.Model):
+class product_template(orm.Model):
 
-    _inherit = 'product.product'
+    _inherit = ['product.template']
+
+    def __init__(self, pool, cr):
+        super(product_template, self).__init__(pool, cr)
+        self._columns['name'].track_visibility = True
+        self._columns['list_price'].track_visibility = True
+        return
 
     def _get_default_subscription(self, cr, uid, context=None):
         """
@@ -39,6 +45,6 @@ class product_product(orm.Model):
         =========================
         return id of a default membership product
         """
-        return self.pool['ir.model.data'].get_object_reference(cr, uid, 'ficep_membership', 'membership_product_isolated')[1]
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        return self.pool['ir.model.data'].\
+            get_object_reference(cr, uid, 'ficep_membership',
+                                 'membership_product_isolated')[1]

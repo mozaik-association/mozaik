@@ -61,19 +61,22 @@ class test_membership(SharedSetupTransactionCase):
         self.mro = self.registry('membership.request')
         self.mrs = self.registry('membership.state')
 
-        self.rec_partner = self.browse_ref('%s.res_partner_thierry' % self._module_ns)
-        self.rec_partner_pauline = self.browse_ref('%s.res_partner_pauline' % self._module_ns)
-        self.rec_postal = self.browse_ref('%s.postal_coordinate_2_duplicate_2' % self._module_ns)
-        self.rec_phone = self.browse_ref('%s.main_mobile_coordinate_two' % self._module_ns)
+        self.rec_partner = self.browse_ref(
+            '%s.res_partner_thierry' % self._module_ns)
+        self.rec_partner_pauline = self.browse_ref(
+            '%s.res_partner_pauline' % self._module_ns)
+        self.rec_postal = self.browse_ref(
+            '%s.postal_coordinate_2_duplicate_2' % self._module_ns)
+        self.rec_phone = self.browse_ref(
+            '%s.main_mobile_coordinate_two' % self._module_ns)
 
-        self.rec_mr_update = self.browse_ref('%s.membership_request_mp' % self._module_ns)
-        self.rec_mr_create = self.browse_ref('%s.membership_request_eh' % self._module_ns)
+        self.rec_mr_update = self.browse_ref(
+            '%s.membership_request_mp' % self._module_ns)
+        self.rec_mr_create = self.browse_ref(
+            '%s.membership_request_eh' % self._module_ns)
 
     def test_pre_process(self):
         """
-        ================
-        test_pre_precess
-        ================
         Test that input values to create a ``membership.request``
         are found and matched with existing data
         """
@@ -88,31 +91,43 @@ class test_membership(SharedSetupTransactionCase):
             'year': 1985,
 
             'request_type': 's',
-            'street': self.rec_postal.address_id.address_local_street_id.local_street,
-            'zip_code': self.rec_postal.address_id.address_local_zip_id.local_zip,
+            'street': self.rec_postal.address_id.address_local_street_id.
+                            local_street,
+            'zip_code': self.rec_postal.address_id.address_local_zip_id.
+                            local_zip,
             'town': self.rec_postal.address_id.address_local_zip_id.town,
 
             'mobile': self.rec_phone.phone_id.name,
         }
 
-        output_values = self.mro.pre_process(cr, uid, input_values, context=context)
-        self.assertEqual(output_values.get('mobile_id', False), self.rec_phone.phone_id.id, 'Should have the same phone that the phone of the phone coordinate')
-        self.assertEqual(output_values.get('partner_id', False), self.rec_partner.id, 'Should have the same partner')
+        output_values = self.mro.pre_process(cr, uid, input_values,
+                                             context=context)
+        self.assertEqual(output_values.get('mobile_id', False),
+                         self.rec_phone.phone_id.id,
+                         'Should have the same phone that the phone of the \
+                         phone coordinate')
+        self.assertEqual(output_values.get('partner_id', False),
+                         self.rec_partner.id, 'Should have the same partner')
 
     def test_get_address_id(self):
         cr, uid = self.cr, self.uid
         adrs = self.browse_ref('%s.address_3' % self._module_ns)
-        address_local_street_id = adrs.address_local_street_id and adrs.address_local_street_id.id
-        address_local_zip_id = adrs.address_local_zip_id and adrs.address_local_zip_id.id
+        address_local_street_id = adrs.address_local_street_id and \
+            adrs.address_local_street_id.id
+        address_local_zip_id = adrs.address_local_zip_id and \
+            adrs.address_local_zip_id.id
         country_id = adrs.country_id and adrs.country_id.id
-        technical_name = self.mro.get_technical_name(cr, uid, address_local_street_id, \
-                                                           address_local_zip_id, adrs.number, \
-                                                           adrs.box, adrs.town_man, adrs.street_man, adrs.zip_man, country_id)
-        waiting_adrs_ids = self.registry['address.address'].search(cr, uid, [('technical_name', '=', technical_name)])
+        technical_name = self.mro.get_technical_name(
+            cr, uid, address_local_street_id, address_local_zip_id,
+            adrs.number, adrs.box, adrs.town_man, adrs.street_man,
+            adrs.zip_man, country_id)
+        waiting_adrs_ids = self.registry['address.address'].search(
+            cr, uid, [('technical_name', '=', technical_name)])
         waiting_adrs_id = -1
         if waiting_adrs_ids:
             waiting_adrs_id = waiting_adrs_ids[0]
-        self.assertEqual(adrs.id, waiting_adrs_id, 'Address id Should be the same')
+        self.assertEqual(adrs.id, waiting_adrs_id,
+                         'Address id Should be the same')
 
     def test_validate_request(self):
         """
@@ -135,33 +150,47 @@ class test_membership(SharedSetupTransactionCase):
         self.mro.validate_request(cr, uid, [self.rec_mr_update.id])
         modified_partner = partner_obj.browse(cr, uid, to_update_partner_id)
 
-        self.assertEqual(self.rec_mr_update.firstname, modified_partner.firstname, \
-                         "First name should be updated with same value of the membership request")
-        self.assertEqual(self.rec_mr_update.email, modified_partner.email_coordinate_id.email, \
-                         "Email should be updated with same value of the membership request")
-        self.assertEqual(self.rec_mr_update.mobile, modified_partner.mobile_coordinate_id.phone_id.name, \
-                         "Mobile should be created with same value of the membership request")
-
-        #validation to create
-        self.mro.write(cr, uid, [self.rec_mr_create.id], {'country_id': self.registry('res.country')._country_default_get(cr, uid, COUNTRY_CODE)})
+        self.assertEqual(self.rec_mr_update.firstname, modified_partner.
+                         firstname, "First name should be updated with same \
+                         value of the membership request")
+        self.assertEqual(self.rec_mr_update.email, modified_partner.
+                         email_coordinate_id.email, "Email should be updated \
+                         with same value of the membership request")
+        self.assertEqual(self.rec_mr_update.mobile, modified_partner.
+                         mobile_coordinate_id.phone_id.name, "Mobile should \
+                         be created with same value of the membership request")
+        # validation to create
+        self.mro.write(
+            cr, uid, [self.rec_mr_create.id],
+            {'country_id': self.registry('res.country').
+             _country_default_get(cr, uid, COUNTRY_CODE)})
         self.mro.validate_request(cr, uid, [self.rec_mr_create.id])
-        created_partner_ids = partner_obj.search(cr, uid, [('firstname', '=', self.rec_mr_create.firstname),
-                                                          ('lastname', '=', self.rec_mr_create.lastname),
-                                                          ('birth_date', '=', self.rec_mr_create.birth_date), ])
-        self.assertEqual(len(created_partner_ids), 1, "Should have one and only one partner")
+        created_partner_ids = partner_obj.search(
+            cr, uid, [('firstname', '=', self.rec_mr_create.firstname),
+                      ('lastname', '=', self.rec_mr_create.lastname),
+                      ('birth_date', '=', self.rec_mr_create.birth_date), ])
+        self.assertEqual(len(created_partner_ids), 1, "Should have one and \
+            only one partner")
         created_partner_id = created_partner_ids[0]
-        #now test relations
-        address_ids = self.registry['address.address'].search(cr, uid, [('technical_name', '=', self.rec_mr_create.technical_name)])
-        phone_ids = self.registry['phone.phone'].search(cr, uid, [('name', '=', self.rec_mr_create.phone),
-                                                                  ('type', '=', 'fix')])
-        #test address and a phone
-        self.assertEqual(len(address_ids), 1, "Should have one and only one address id")
-        self.assertEqual(len(phone_ids), 1, "Should have one and only one phone id")
+        # now test relations
+        address_ids = self.registry['address.address'].search(
+            cr, uid, [('technical_name', '=',
+                       self.rec_mr_create.technical_name)])
+        phone_ids = self.registry['phone.phone'].search(
+            cr, uid, [('name', '=', self.rec_mr_create.phone),
+                      ('type', '=', 'fix')])
+        # test address and a phone
+        self.assertEqual(len(address_ids), 1, "Should have one and only one \
+            address id")
+        self.assertEqual(len(phone_ids), 1, "Should have one and only one \
+            phone id")
 
-        phone_coordinate_ids = self.registry['phone.coordinate'].search(cr, uid, [('partner_id', '=', created_partner_id),
-                                                                                  ('phone_id', '=', phone_ids[0])])
-        #test that we have as well a phone.coordinate
-        self.assertEqual(len(phone_coordinate_ids), 1, "Should have one and only one phone_coordinate_id id")
+        phone_coordinate_ids = self.registry['phone.coordinate'].search(
+            cr, uid, [('partner_id', '=', created_partner_id),
+                      ('phone_id', '=', phone_ids[0])])
+        # test that we have as well a phone.coordinate
+        self.assertEqual(len(phone_coordinate_ids), 1,
+                         "Should have one and only one phone_coordinate_id id")
 
     def test_state_default_get(self):
         """
@@ -172,31 +201,35 @@ class test_membership(SharedSetupTransactionCase):
         """
         mrs, cr, uid, context = self.mrs, self.cr, self.uid, {}
 
-        without_membership_id = mrs._state_default_get(cr, uid, context=context)
-        uniq_code_membership = mrs.browse(cr, uid, without_membership_id, context=context)
-        self.assertEqual('without_membership', uniq_code_membership.code, "Code should be without_membership")
+        without_membership_id = mrs._state_default_get(
+            cr, uid, context=context)
+        uniq_code_membership = mrs.browse(
+            cr, uid, without_membership_id, context=context)
+        self.assertEqual('without_membership', uniq_code_membership.code,
+                         "Code should be without_membership")
 
         code = '%s' % uuid4()
-        mrs.create(cr, uid, {'name': 'test_state',
-                                  'code': code}, context=context)
-        uniq_code_membership_id = mrs._state_default_get(cr, uid, default_state=code, context=context)
-        uniq_code_membership = mrs.browse(cr, uid, uniq_code_membership_id, context=context)
-        self.assertEqual(code, uniq_code_membership.code, "Code should be %s" % code)
+        mrs.create(
+            cr, uid, {'name': 'test_state', 'code': code}, context=context)
+        uniq_code_membership_id = mrs._state_default_get(
+            cr, uid, default_state=code, context=context)
+        uniq_code_membership = mrs.browse(cr, uid, uniq_code_membership_id,
+                                          context=context)
+        self.assertEqual(code, uniq_code_membership.code,
+                         "Code should be %s" % code)
 
     def test_generate_membership_reference(self):
         """
-        ==================================
-        test_generate_membership_reference
-        ==================================
         check the membership reference is correct.
         Comm. Struct. = '9' + year without century +
-            id. ecolo of member on 7 positions + % 97
+            member identifier on 7 positions + % 97
         """
         cr, uid, context = self.cr, self.uid, {}
         membership_line_obj = self.registry['membership.membership_line']
         # create first membership_line
         today = date.today().strftime('%Y-%m-%d')
-        partner_id = self.partner_obj.create(cr, uid, {'lastname': '%s' % uuid4()}, context)
+        partner_id = self.partner_obj.create(
+            cr, uid, {'lastname': '%s' % uuid4()}, context)
         partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
         vals = {
             'partner': partner.id,
@@ -206,27 +239,35 @@ class test_membership(SharedSetupTransactionCase):
             'member_price': 0,
         }
 
-        new_membership_line_id = membership_line_obj.create(cr, uid, vals, context=context)
-        ref = membership_line_obj._generate_membership_reference(cr, uid, new_membership_line_id, context=context)
+        new_membership_line_id = membership_line_obj.create(
+            cr, uid, vals, context=context)
+        ref = membership_line_obj._generate_membership_reference(
+            cr, uid, new_membership_line_id, context=context)
         s = ref.split('/')
-        self.assertTrue(len(s) == 3, 'Should be separated into 3 parts with a "/"')
+        self.assertTrue(len(s) == 3, 'Should be separated into 3 \
+            parts with a "/"')
 
         s_left = s[0].split('+')
         s_center = s[1].split('+')
         s_right = s[2].split('+')
 
         self.assertTrue(len(s_left) == 4, 'Should have 4 parts')
-        self.assertTrue(s_left[3].isdigit(), 'Should have +++NUMBER for left part')
+        self.assertTrue(s_left[3].isdigit(), 'Should have +++NUMBER for left \
+            part')
 
         self.assertTrue(len(s_right) == 4, 'Should have 4 parts')
-        self.assertTrue(s_right[0].isdigit(), 'Should have NUMBER+++ for right part')
+        self.assertTrue(s_right[0].isdigit(), 'Should have NUMBER+++ for \
+            right part')
 
-        self.assertTrue(len(s_center) == 1, 'Should not have + into the center part of ref')
+        self.assertTrue(len(s_center) == 1, 'Should not have + into the \
+            center part of ref')
 
         full_number = '%s%s%s' % (s_left[3], s_center[0], s_right[0])
         self.assertTrue(int(full_number[:1]) == 9, 'First number should be 9')
-        self.assertEquals(full_number[1:3], today[2:4], '+ year without century: Should have the save value')
-        self.assertEquals(partner.identifier, int(full_number[3:-2]), 'Identifier should be the same')
-        self.assertEquals(int(full_number[:-2]) % 97 or 97, int(full_number[-2:]), 'Identifier should be the same')
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        self.assertEquals(full_number[1:3], today[2:4], '+ year without \
+            century: Should have the save value')
+        self.assertEquals(partner.identifier, int(full_number[3:-2]),
+                          'Identifier should be the same')
+        self.assertEquals(
+            int(full_number[:-2]) % 97 or 97,
+            int(full_number[-2:]), 'Identifier should be the same')

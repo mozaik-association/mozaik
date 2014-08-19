@@ -46,8 +46,9 @@ Add models
 * Membership History
 * Membership Request
 It defines a required m2o to Internal Instance on local zip.
-It replicates this instance on partner which main address is related to this local zip,
-default instance otherwise. This field is added to all views (search, tree and form) of a partner.
+It replicates this instance on partner which main address is related to this \
+local zip, default instance otherwise. This field is added to all views \
+(search, tree and form) of a partner.
 
     """,
     'images': [
@@ -58,6 +59,7 @@ default instance otherwise. This field is added to all views (search, tree and f
         'membership_workflow.xml',
         'membership_view.xml',
         'membership_request_view.xml',
+        'product_view.xml',
         'address_local_zip_view.xml',
         'res_partner_view.xml',
         'wizard/change_main_address.xml',
@@ -71,5 +73,3 @@ default instance otherwise. This field is added to all views (search, tree and f
     'auto_install': False,
     'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

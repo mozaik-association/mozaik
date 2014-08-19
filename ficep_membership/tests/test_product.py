@@ -39,18 +39,15 @@ class test_product(SharedSetupTransactionCase):
     def setUp(self):
         super(test_product, self).setUp()
 
-        self.model_product = self.registry('product.product')
+        self.model_product = self.registry('product.template')
 
     def test_get_default_subscription(self):
         """
-        =============================
-        test_get_default_subscription
-        =============================
         Test that there is a default subscription.
         Required for right behavior of the request membership management
         """
         cr, uid, context = self.cr, self.uid, {}
-        default_id = self.model_product._get_default_subscription(cr, uid, context=context)
-        self.assertTrue(default_id, "Seems like 'default subscription' product has been deleting")
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        default_id = self.model_product._get_default_subscription(
+            cr, uid, context=context)
+        self.assertTrue(default_id, "Seems like 'default subscription' product\
+            has been deleting")

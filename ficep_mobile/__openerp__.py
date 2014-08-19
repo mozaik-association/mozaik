@@ -41,6 +41,7 @@ FICEP Mobile
 * Provide mobile render to access partners
     """,
     'data': [
+        'ficep_mobile_view.xml',
         'static/src/xml/mobile_view.xml',
     ],
     'sequence': 150,
