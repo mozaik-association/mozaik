@@ -666,18 +666,18 @@ class retrocession(orm.Model):
 
         return True
 
-    def _check_reconcilied(self, cr, uid, ids, for_unlink=False, context=None):
+    def _check_paid(self, cr, uid, ids, for_unlink=False, context=None):
         """
         =================
-        _check_reconcilied
+        _check_paid
         =================
-        A retrocession done should have a non-zero reconcilied amount
+        A retrocession done should have a non-zero paid amount
         :rparam: True if it is the case
                  False otherwise
         :rtype: boolean
         """
         for retro in self.browse(cr, uid, ids):
-            if retro.state == 'done' and retro.amount_reconcilied == 0:
+            if retro.state == 'done' and retro.amount_paid == 0:
                 return False
 
         return True
@@ -686,7 +686,7 @@ class retrocession(orm.Model):
         (_check_unicity, _("A retrocession already exists for this mandate at this period"), ['sta_mandate_id', 'ext_mandate_id']),
         (_check_value, _("You can not validate a negative retrocession"), ['amount_total']),
         (_check_regulation, _("A regulation retrocession should only occur on December"), ['is_regulation']),
-        (_check_reconcilied, _("No amount reconcilied specified."), ['state'])
+        (_check_paid, _("No amount paid specified."), ['state'])
     ]
 
     _unicity_keys = 'N/A'

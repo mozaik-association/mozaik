@@ -685,10 +685,10 @@
                             <page string="Accounting" name="accounting">  
                                     <separator string="Amounts"/>
                                     <group>
-	                                    <field name="provision" attrs="{'readonly': [('need_account_management', '=', True)],
-	                                                                    'invisible': [('retrocession_mode','=', 'month')]}"/>
+	                                    <field name="provision" attrs="{'invisible': ['|', ('retrocession_mode','=', 'month'),
+	                                                                                  ('need_account_management', '=', False)]}"/>
 	                                    <field name="amount_topay"/>
-	                                    <field name="amount_reconcilied"  attrs="{'readonly': [('need_account_management', '=', True)]}"/>
+	                                    <field name="amount_reconcilied"  attrs="{'invisible': [('need_account_management', '=', False)]}"/>
 	                                    <field name="amount_paid" attrs="{'readonly': [('need_account_management', '=', True)]}"/>
 	                                </group>
                                     <separator string="Journal Entry" attrs="{'invisible': [('move_id', '=', False)]}"/>
