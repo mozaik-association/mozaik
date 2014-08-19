@@ -110,6 +110,17 @@
             <field name="unauthorized" eval="True" />
         </record>
 
+        <record id="fix_fgtb" model="phone.phone">
+            <field name="name">025520330</field>
+            <field name="type">fix</field>
+            <field name="also_for_fax" eval="1"/>
+        </record>
+
+        <record id="main_fix_coordinate_for_fgtb" model="phone.coordinate">
+            <field name="phone_id" ref="fix_fgtb" />
+            <field name="partner_id" ref="res_partner_fgtb" />
+        </record>
+
         <!-- Addresses -->
 
         <record id="local_zip_wemmel" model="address.local.zip">
@@ -140,17 +151,28 @@
             <field name="box">4b</field>
         </record>
 
-        <!-- Additional Coordinates -->
-
-        <record id="fix_fgtb" model="phone.phone">
-            <field name="name">025520330</field>
-            <field name="type">fix</field>
-            <field name="also_for_fax" eval="1"/>
+        <record id="local_zip_bxl_1030" model="address.local.zip">
+            <field name="local_zip">1030</field>
+            <field name="town">Bruxelles</field>
         </record>
 
-        <record id="main_fix_coordinate_for_fgtb" model="phone.coordinate">
-            <field name="phone_id" ref="fix_fgtb" />
-            <field name="partner_id" ref="res_partner_fgtb" />
+        <record id="local_street_br" model="address.local.street">
+            <field name="identifier">local_street_br</field>
+            <field name="local_street">Boulevard Auguste Reyers</field>
+            <field name="local_street_alternative">Auguste Reyerslaan</field>
+            <field name="local_zip">1030</field>
+        </record>
+
+        <record id="address_br52" model="address.address">
+            <field name="country_id" ref="base.be"/>
+            <field name="address_local_zip_id" ref="local_zip_bxl_1030"/>
+            <field name="address_local_street_id" ref="local_street_br"/>
+            <field name="number">52</field>
+        </record>
+
+        <record id="postal_coordinate_for_rtbf" model="postal.coordinate">
+            <field name="address_id" ref="address_br52"/>
+            <field name="partner_id" ref="res_partner_rtbf"/>
         </record>
 
         <record id="postal_coordinate_for_dries" model="postal.coordinate">
