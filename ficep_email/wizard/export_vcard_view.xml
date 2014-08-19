@@ -5,10 +5,10 @@
         <!-- Export active email coordinates to VCF -->
 
         <record id="export_vcard_wizard" model="ir.ui.view">
-            <field name="name">export .vcard.wizard</field>
+            <field name="name">export.vcard.wizard</field>
             <field name="model">export.vcard</field>
             <field name="arch" type="xml">
-                <form string="Mass Mailing" version="7.0">
+                <form string="Export vCard" version="7.0">
                     <sheet>
                         <group>
                             <label string="This will export the selected coordinates to a vCard file"/>
@@ -34,7 +34,6 @@
             <field name="target">new</field>
             <field name="view_id" ref="export_vcard_wizard"/>
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]"/>
-            <field name="context">{'target_model': 'email.coordinate'}</field>
         </record>
 
         <record id="export_vcard_values" model="ir.values">

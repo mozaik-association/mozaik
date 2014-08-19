@@ -55,6 +55,7 @@ This module manages postal addresses and postal coordinates.
         'wizard/change_main_address.xml',
         'wizard/allow_duplicate_view.xml',
         'wizard/bounce_editor_view.xml',
+        'wizard/export_csv_view.xml',
         'reports/report_postal_coordinate_label_view.xml',
     ],
     'js': [

@@ -25,54 +25,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import csv
-import tempfile
-from collections import OrderedDict
+
 from datetime import datetime
 
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
-
-from openerp.addons.ficep_person.res_partner import available_genders, available_tongues
-
-HEADER_ROW = [
-    'Lastname',
-    'Usual Lastname',
-    'Firstname',
-    'Usual Firstname',
-    'Internal Identifier',
-    'Co-Residency Line 1',
-    'Co-Residency Line 2',
-    'Main Address',
-    'Unauthorized Address',
-    'Vip Address',
-    'Country Code',
-    'Country Name',
-    'Zip',
-    'Street',
-    'Street2',
-    'City',
-    'Internal Instance',
-    'Birthdate',
-    'Gender',
-    'Tongue',
-    'Main Phone',
-    'Unauthorized Phone',
-    'Vip Phone',
-    'Phone',
-    'Main Mobile',
-    'Unauthorized Mobile',
-    'Vip Mobile',
-    'Mobile',
-    'Main Fax',
-    'Unauthorized Fax',
-    'Vip Fax',
-    'Fax',
-    'Main Email',
-    'Unauthorized Email',
-    'Vip Email',
-    'Email'
-]
 
 # Constants
 SORT_BY = [
@@ -182,7 +139,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     context['field_main_object'] = 'email_coordinate_id'
                     context['target_model'] = wizard.trg_model
                     active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [context.get('active_id', False)], context=context)
-                    self.render_csv(cr, uid, wizard.trg_model, active_ids, context=context)
+                    self.export_csv(cr, uid, wizard.trg_model, active_ids, wizard.groupby_coresidency, context=context)
 
                 elif wizard.e_mass_function == 'email_coordinate_id':
                     #
@@ -213,7 +170,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     context['active_ids'] = active_ids
                     context['email_coordinate_path'] = 'email'
                     if alternative_ids and wizard.extract_csv:
-                        self.render_csv(cr, uid, 'postal.coordinate', alternative_ids, wizard.groupby_coresidency, context=context)
+                        self.export_csv(cr, uid, 'postal.coordinate', alternative_ids, wizard.groupby_coresidency, context=context)
 
                     self.pool['mail.compose.message'].send_mail(cr, uid, [mail_composer_id], context=context)
 
@@ -247,7 +204,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     context['field_main_object'] = 'postal_coordinate_id'
                     context['target_model'] = wizard.trg_model
                     active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [context.get('active_id', False)], context=context)
-                    self.render_csv(cr, uid, wizard.trg_model, active_ids, context=context)
+                    self.export_csv(cr, uid, wizard.trg_model, active_ids, wizard.groupby_coresidency, context=context)
 
                     if wizard.postal_mail_id:
                         self._generate_postal_log(cr, uid, wizard.postal_mail_id.id, active_ids, context=context)
@@ -300,116 +257,21 @@ class distribution_list_mass_function(orm.TransientModel):
 
         return True
 
-    def _get_csv_values(self, cr, uid, model, obj, context=None):
-        """
-        ===============
-        _get_csv_values
-        ===============
-        Get the values of the specified obj, which should be an instance of the specified model.
-        The model should be either an email or postal coordinate.
-        """
-        def safe_get(o, attr, default=None):
-            try:
-                return getattr(o, attr)
-            except orm.except_orm:
-                return default
-
-        def _get_utf8(data):
-            return data.encode('utf-8')
-
-        # Test access coordinate (VIP READER)
-        partner = safe_get(obj, 'partner_id')
-
-        if not partner:
-            return False
-
-        # If we have a postal coordinate, we get the mail coordinates from the partner, and vice versa.
-        if model == 'postal.coordinate':
-            pc = obj
-            ec = partner.email_coordinate_id
-        elif model == 'email.coordinate':
-            ec = obj
-            pc = partner.postal_coordinate_id
-
-        export_values = OrderedDict([('name', _get_utf8(partner.lastname)),
-                                     ('lastname', None if not partner.usual_lastname else _get_utf8(partner.usual_lastname)),
-                                     ('firstname', None if not partner.firstname else _get_utf8(partner.firstname)),
-                                     ('usual_firstname', None if not partner.usual_firstname else _get_utf8(partner.usual_firstname)),
-                                     ('identifier', partner.identifier or None),
-                                     ('printable_name', _get_utf8(pc.co_residency_id.line) if (pc and pc.co_residency_id.line) \
-                                         else _get_utf8(partner.printable_name)),
-                                     ('co_residency', _get_utf8(pc.co_residency_id.line2) if (pc and pc.co_residency_id.line2) \
-                                         else None),
-                                     ('adr_main', pc and pc.is_main),
-                                     ('adr_unauthorized', pc and pc.unauthorized),
-                                     ('adr_vip', pc and pc.vip),
-                                     ('country_code', pc and pc.address_id.country_code or None),
-                                     ('country_name', _get_utf8(pc.address_id.country_id.name) if pc else None),
-                                     ('zip', pc and pc.address_id.zip or None),
-                                     ('street', None if not pc or not pc.address_id.street else _get_utf8(pc.address_id.street)),
-                                     ('street2', None if not pc or not pc.address_id.street2 else _get_utf8(pc.address_id.street2)),
-                                     ('city', None if not pc or pc.address_id.city else _get_utf8(pc.address_id.city)),
-                                     ('instance', partner.int_instance_id and _get_utf8(partner.int_instance_id.name) or None),
-                                     ('birth_date', partner.birth_date or None),
-                                     ('gender', available_genders.get(partner.gender, None)),
-                                     ('tongue', available_tongues.get(partner.tongue, None)),
-                                     ('fix_main', partner.fix_coordinate_id and partner.fix_coordinate_id.is_main or False),
-                                     ('fix_unauthorized', partner.fix_coordinate_id and partner.fix_coordinate_id.unauthorized or False),
-                                     ('fix_vip', partner.fix_coordinate_id and partner.fix_coordinate_id.vip or False),
-                                     ('fix', None if not partner.fix_coordinate_id else _get_utf8(partner.fix_coordinate_id.phone_id.name)),
-                                     ('mobile_main', partner.mobile_coordinate_id and partner.mobile_coordinate_id.is_main or False),
-                                     ('mobile_unauthorized', partner.mobile_coordinate_id and partner.mobile_coordinate_id.unauthorized or False),
-                                     ('mobile_vip', partner.mobile_coordinate_id and partner.mobile_coordinate_id.vip or False),
-                                     ('mobile', None if not partner.mobile_coordinate_id else _get_utf8(partner.mobile_coordinate_id.phone_id.name)),
-                                     ('fax_main', partner.fax_coordinate_id and partner.fax_coordinate_id.is_main or False),
-                                     ('fax_unauthorized', partner.fax_coordinate_id and partner.fax_coordinate_id.unauthorized or False),
-                                     ('fax_vip', partner.fax_coordinate_id and partner.fax_coordinate_id.vip or False),
-                                     ('fax', None if not partner.fax_coordinate_id else _get_utf8(partner.fax_coordinate_id.phone_id.name)),
-                                     ('email_main', ec and ec.is_main or False),
-                                     ('email_unauthorized', ec and ec.unauthorized or False),
-                                     ('email_vip', ec and ec.vip or False),
-                                     ('email', None if not partner.email_coordinate_id \
-                                         else _get_utf8(partner.email_coordinate_id.email)),
-                                     ])
-        return export_values
-
-    def render_csv(self, cr, uid, model, model_ids, group_by=False, context=None):
+    def export_csv(self, cr, uid, model, model_ids, group_by=False, context=None):
         """
         ==========
-        render_csv
+        export_csv
         ==========
-        Get a CSV file with data of postal_ids depending of ``HEADER_ROW``
-        Send  the CSV as message into the inbox of the user
-        :type model_ids: []
+        Export the specified coordinates to a CSV file.
         """
-
-        if model not in ['postal.coordinate', 'email.coordinate']:
-            return
-
-        objects = self.pool[model].browse(cr, uid, model_ids, context=context)
-        tmp = tempfile.NamedTemporaryFile(prefix='Extract', suffix=".csv", delete=False)
-        f = open(tmp.name, "r+")
-        writer = csv.writer(f)
-        writer.writerow(HEADER_ROW)
-        co_residencies = []
-        for obj in objects:
-            if model == 'postal.coordinate':
-                #case group by is ask and where a co_residency is present and already write then don't write a new row
-                if group_by and obj.co_residency_id and obj.co_residency_id.id in co_residencies:
-                    continue
-                co_residencies.append(obj.co_residency_id.id)
-
-            export_values = self._get_csv_values(cr, uid, model, obj)
-            if not export_values:
-                continue
-
-            writer.writerow(export_values.values())
-        f.close()
-        f = open(tmp.name, "r")
-        attachment = [(_('Extract.csv'), '%s' % f.read())]
+        csv_content = self.pool.get('export.csv').get_csv(cr, uid, model, model_ids, group_by=group_by, context=context)
+        attachment = [(_('Extract.csv'), '%s' % csv_content)]
         partner_ids = self.pool['res.partner'].search(cr, uid, [('user_ids', '=', uid)], context=context)
         if partner_ids:
-            self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context, partner_ids=partner_ids, subject=_('Export CSV'))
+            self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context,
+                                                  partner_ids=partner_ids, subject=_('Export CSV'))
+
+        return True
 
     def export_vcard(self, cr, uid, email_coordinate_ids, context=None):
         """

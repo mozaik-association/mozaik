@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Export active coordinates to CSV -->
+
+        <record id="export_csv_wizard" model="ir.ui.view">
+            <field name="name">export.csv.wizard</field>
+            <field name="model">export.csv</field>
+            <field name="arch" type="xml">
+                <form string="Export CSV" version="7.0">
+                    <sheet>
+                        <group>
+                            <label string="This will export the selected coordinates to a CSV file"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <span name="go-wizard">
+                            <button name="export" string="Launch" type="object" class="oe_highlight"/>
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>
