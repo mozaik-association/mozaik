@@ -31,7 +31,8 @@ import base64
 
 from anybox.testing.openerp import SharedSetupTransactionCase
 from openerp.osv import orm
-from openerp.addons.ficep_mandate.wizard import import_candidatures_wizard as wizard
+from openerp.addons.ficep_mandate.wizard\
+     import import_candidatures_wizard as wizard
 
 _logger = logging.getLogger(__name__)
 
@@ -48,12 +49,27 @@ class test_import_sta_candidature_wizard(SharedSetupTransactionCase):
     def setUp(self):
         super(test_import_sta_candidature_wizard, self).setUp()
         partner_paul_id = self.ref('%s.res_partner_paul' % self._module_ns)
-        self.pauline_identifier = self.ref('%s.res_partner_pauline' % self._module_ns)
-        self.marc_identifier = self.ref('%s.res_partner_marc' % self._module_ns)
-        self.paul_identifier = self.registry('res.partner').read(self.cr, self.uid, partner_paul_id, ['identifier'])['identifier']
-        self.pauline_identifier = self.registry('res.partner').read(self.cr, self.uid, self.pauline_identifier, ['identifier'])['identifier']
-        self.marc_identifier = self.registry('res.partner').read(self.cr, self.uid, self.marc_identifier, ['identifier'])['identifier']
-        self.sc_conseiller_provincial_id = self.ref('%s.sc_conseiller_provincial' % self._module_ns)
+        self.pauline_identifier = self.ref('%s.res_partner_pauline' %
+                                           self._module_ns)
+        self.marc_identifier = self.ref('%s.res_partner_marc' %
+                                        self._module_ns)
+        self.paul_identifier = \
+              self.registry('res.partner').read(self.cr,
+                                                self.uid,
+                                                partner_paul_id,
+                                                ['identifier'])['identifier']
+        self.pauline_identifier =\
+              self.registry('res.partner').read(self.cr,
+                                                self.uid,
+                                                self.pauline_identifier,
+                                                ['identifier'])['identifier']
+        self.marc_identifier =\
+              self.registry('res.partner').read(self.cr,
+                                                self.uid,
+                                                self.marc_identifier,
+                                                ['identifier'])['identifier']
+        self.sc_conseiller_provincial_id =\
+              self.ref('%s.sc_conseiller_provincial' % self._module_ns)
         self.sc_gouverneur = self.ref('%s.sc_gouverneur' % self._module_ns)
 
     def test_import_legislative_state_candidatures(self):
@@ -77,11 +93,23 @@ class test_import_sta_candidature_wizard(SharedSetupTransactionCase):
             'active_model': 'sta.selection.committee',
         }
         wizard_pool = self.registry('import.sta.candidatures.wizard')
-        wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
+        wiz_id = wizard_pool.create(
+                            self.cr,
+                            self.uid,
+                            {'source_file': base64.encodestring(data_file)},
+                            context=context)
         wizard_pool.validate_file(self.cr, self.uid, [wiz_id])
         wizard_pool.import_candidatures(self.cr, self.uid, [wiz_id])
 
-        self.assertTrue(len(self.registry('sta.candidature').search(self.cr, self.uid, [('selection_committee_id', '=', self.sc_conseiller_provincial_id)])), 3)
+        self.assertTrue(len(
+            self.registry('sta.candidature').search(
+                                            self.cr,
+                                            self.uid,
+                                            [('selection_committee_id',
+                                              '=',
+                                              self.sc_conseiller_provincial_id)
+                                            ])
+                            ), 3)
 
     def test_import_legislative_state_candidatures_wrong_files(self):
         '''
@@ -101,9 +129,17 @@ class test_import_sta_candidature_wizard(SharedSetupTransactionCase):
             'active_model': 'sta.selection.committee',
         }
         wizard_pool = self.registry('import.sta.candidatures.wizard')
-        wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
+        wiz_id = wizard_pool.create(
+                            self.cr,
+                            self.uid,
+                            {'source_file': base64.encodestring(data_file)},
+                            context=context)
 
-        self.assertRaises(orm.except_orm, wizard_pool.validate_file, self.cr, self.uid, [wiz_id])
+        self.assertRaises(orm.except_orm,
+                          wizard_pool.validate_file,
+                          self.cr,
+                          self.uid,
+                          [wiz_id])
 
         '''
             File with bad column in header
@@ -122,9 +158,17 @@ class test_import_sta_candidature_wizard(SharedSetupTransactionCase):
             'active_model': 'sta.selection.committee',
         }
         wizard_pool = self.registry('import.sta.candidatures.wizard')
-        wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
+        wiz_id = wizard_pool.create(
+                            self.cr,
+                            self.uid,
+                            {'source_file': base64.encodestring(data_file)},
+                            context=context)
 
-        self.assertRaises(orm.except_orm, wizard_pool.validate_file, self.cr, self.uid, [wiz_id])
+        self.assertRaises(orm.except_orm,
+                          wizard_pool.validate_file,
+                          self.cr,
+                          self.uid,
+                          [wiz_id])
 
         '''
             File with unknown partner
@@ -142,8 +186,16 @@ class test_import_sta_candidature_wizard(SharedSetupTransactionCase):
             'active_model': 'sta.selection.committee',
         }
         wizard_pool = self.registry('import.sta.candidatures.wizard')
-        wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
-        self.assertRaises(orm.except_orm, wizard_pool.validate_file, self.cr, self.uid, [wiz_id])
+        wiz_id = wizard_pool.create(
+                            self.cr,
+                            self.uid,
+                            {'source_file': base64.encodestring(data_file)},
+                            context=context)
+        self.assertRaises(orm.except_orm,
+                          wizard_pool.validate_file,
+                          self.cr,
+                          self.uid,
+                          [wiz_id])
 
     def test_import_non_legislative_state_candidatures(self):
         '''
@@ -162,11 +214,21 @@ class test_import_sta_candidature_wizard(SharedSetupTransactionCase):
             'active_model': 'sta.selection.committee',
         }
         wizard_pool = self.registry('import.sta.candidatures.wizard')
-        wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
+        wiz_id = wizard_pool.create(
+                            self.cr,
+                            self.uid,
+                            {'source_file': base64.encodestring(data_file)},
+                            context=context)
         wizard_pool.validate_file(self.cr, self.uid, [wiz_id])
         wizard_pool.import_candidatures(self.cr, self.uid, [wiz_id])
 
-        self.assertTrue(len(self.registry('sta.candidature').search(self.cr, self.uid, [('selection_committee_id', '=', self.sc_gouverneur)])), 1)
+        self.assertTrue(len(
+            self.registry('sta.candidature').search(self.cr,
+                                                    self.uid,
+                                                    [('selection_committee_id',
+                                                      '=', self.sc_gouverneur)
+                                                    ])
+                            ), 1)
 
     def test_import_non_legislative_state_candidatures_wrong_file(self):
         '''
@@ -185,9 +247,17 @@ class test_import_sta_candidature_wizard(SharedSetupTransactionCase):
             'active_model': 'sta.selection.committee',
         }
         wizard_pool = self.registry('import.sta.candidatures.wizard')
-        wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
+        wiz_id = wizard_pool.create(
+                            self.cr,
+                            self.uid,
+                            {'source_file': base64.encodestring(data_file)},
+                            context=context)
 
-        self.assertRaises(orm.except_orm, wizard_pool.validate_file, self.cr, self.uid, [wiz_id])
+        self.assertRaises(orm.except_orm,
+                          wizard_pool.validate_file,
+                          self.cr,
+                          self.uid,
+                          [wiz_id])
 
         temp_file = tempfile.SpooledTemporaryFile(mode='w+r')
         temp_file.write(','.join(wizard.file_import_structure) + '\n')
@@ -202,6 +272,14 @@ class test_import_sta_candidature_wizard(SharedSetupTransactionCase):
             'active_model': 'sta.selection.committee',
         }
         wizard_pool = self.registry('import.sta.candidatures.wizard')
-        wiz_id = wizard_pool.create(self.cr, self.uid, {'source_file': base64.encodestring(data_file)}, context=context)
+        wiz_id = wizard_pool.create(
+                            self.cr,
+                            self.uid,
+                            {'source_file': base64.encodestring(data_file)},
+                            context=context)
 
-        self.assertRaises(orm.except_orm, wizard_pool.validate_file, self.cr, self.uid, [wiz_id])
+        self.assertRaises(orm.except_orm,
+                          wizard_pool.validate_file,
+                          self.cr,
+                          self.uid,
+                          [wiz_id])
