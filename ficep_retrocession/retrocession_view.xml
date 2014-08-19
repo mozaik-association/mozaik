@@ -689,6 +689,7 @@
 	                                                                    'invisible': [('retrocession_mode','=', 'month')]}"/>
 	                                    <field name="amount_topay"/>
 	                                    <field name="amount_reconcilied"  attrs="{'readonly': [('need_account_management', '=', True)]}"/>
+	                                    <field name="amount_paid" attrs="{'readonly': [('need_account_management', '=', True)]}"/>
 	                                </group>
                                     <separator string="Journal Entry" attrs="{'invisible': [('move_id', '=', False)]}"/>
                                     <group>

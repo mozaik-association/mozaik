@@ -377,7 +377,8 @@ class retrocession(orm.Model):
         retrocession_ids = []
         retro_pool = self.pool.get('retrocession')
         for line in self.browse(cr, uid, ids, context=context):
-            retro_ids = retro_pool.search(cr, uid, [('move_id', '=', line.move_id.id)], context=context)
+            retro_ids = retro_pool.search(cr, uid, [('move_id', '=', line.move_id.id),
+                                                    ('active', '<=', True)], context=context)
             domain = []
             if not retro_ids and line.reconcile_id:
                 domain = [('reconcile_id', '=', line.reconcile_id.id)]
@@ -387,7 +388,10 @@ class retrocession(orm.Model):
             if domain:
                 line_ids = self.search(cr, uid, domain, context=context)
                 for move_line in self.browse(cr, uid, line_ids, context=context):
-                    retro_ids += retro_pool.search(cr, uid, [('move_id', '=', move_line.move_id.id)], context=context)
+                    retro_ids += retro_pool.search(cr, uid,
+                                      [('move_id', '=', move_line.move_id.id),
+                                       ('active', '<=', True)
+                                      ], context=context)
 
             retrocession_ids += retro_ids
 
@@ -496,18 +500,19 @@ class retrocession(orm.Model):
         cr.execute('update %s set %s = %%s where id = %s' % (self._table, name, ids), (value or None,))
         return True
 
-    def _compute_amount_reconcilied(self, cr, uid, ids, name, value, args, context=None):
+    def _compute_account_move_amount(self, cr, uid, ids, name, value, args,
+                                     context=None):
         """
         ======================
-        _compute_amount_reconcilied
+        _compute_account_move_amount
         ======================
-        Compute amount reconcilied for retrocession
-        :rparam: Amount reconcilied
+        Compute amount from account moves
+        :rparam: Amount reconcilied and amount paid
         :rtype: float
         """
         res = {}
         for retro in self.browse(cr, uid, ids, context=context):
-            query = """ SELECT aml.reconcile_id, aml.reconcile_partial_id, aml.account_id
+            query = """ SELECT distinct aml.reconcile_id, aml.reconcile_partial_id
                           FROM account_move_line aml
                           LEFT JOIN account_move am    on am.id         = aml.move_id
                           LEFT JOIN retrocession r     on aml.move_id   = r.move_id
@@ -516,18 +521,33 @@ class retrocession(orm.Model):
                          AND aml.account_id = aj.default_debit_account_id
                     """
             cr.execute(query, (retro.id,))
-            credit = 0.0
-            for row in cr.fetchall():
-                reconcile_id = row[0]
-                reconcile_partial_id = row[1]
-                account_id = row[2]
-                domain = [('reconcile_id', '=', reconcile_id)] if reconcile_id \
-                                                               else [('reconcile_partial_id', '=', reconcile_partial_id)]
-
-                domain.extend([('account_id', '=', account_id)])
-                credit += sum([line['credit'] for line in
-                               self.pool.get('account.move.line').search_read(cr, uid, domain, fields=['credit'], context=context)])
-            res[retro.id] = credit
+            data = cr.fetchone()
+            reconcile_id = data[0]
+            reconcile_partial_id = data[1]
+            if reconcile_id:
+                where_clause = 'aml.reconcile_id = %s'
+                values = (reconcile_id,)
+            elif reconcile_partial_id:
+                where_clause = 'aml.reconcile_partial_id = %s'
+                values = (reconcile_partial_id,)
+            else:
+                continue
+            query = """
+                SELECT line.debit,
+                       line.account_id,
+                       aj.default_debit_account_id
+                  FROM account_move_line aml
+                  JOIN account_move_line line ON line.move_id = aml.move_id
+                  JOIN account_journal aj     ON line.journal_id = aj.id
+                 WHERE %s
+                   AND aj.type= 'bank'
+                """ % where_clause
+            cr.execute(query, values)
+            data = [line for line in cr.fetchall()]
+            amount_paid = sum([line[0] for line in data if line[1] == line[2]])
+            amount_reconcilied = sum([line[0] for line in data])
+            res[retro.id] = dict(amount_paid=amount_paid,
+                                 amount_reconcilied=amount_reconcilied)
         return res
 
     def _get_document_types(self, cr, uid, context=None):
@@ -560,7 +580,9 @@ class retrocession(orm.Model):
                                         type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
         'provision': fields.function(_get_provision_amount, string='Provision', type="float",
                                      digits_compute=dp.get_precision('Account'), store=_provision_store_trigger, fnct_inv=_accept_anyway),
-        'amount_reconcilied': fields.function(_compute_amount_reconcilied, string='Amount Reconcilied', type="float",
+        'amount_reconcilied': fields.function(_compute_account_move_amount, string='Amount Reconcilied', type="float", multi="AccountAmounts",
+                                     digits_compute=dp.get_precision('Account'), store=_amount_reconcilied_store_trigger, fnct_inv=_accept_anyway),
+        'amount_paid': fields.function(_compute_account_move_amount, string='Amount Paid', type="float", multi="AccountAmounts",
                                      digits_compute=dp.get_precision('Account'), store=_amount_reconcilied_store_trigger, fnct_inv=_accept_anyway),
         'move_id': fields.many2one('account.move', 'Journal Entry', select=True),
         'need_account_management': fields.function(_need_account_management, string='Need accounting management', type='boolean', store=False),
@@ -672,7 +694,7 @@ class retrocession(orm.Model):
 # orm methods
 
     def create(self, cr, uid, vals, context=None):
-        if 'sta_mandate_id' in vals:
+        if vals.get('sta_mandate_id', False):
             vals['mandate_ref'] = "sta.mandate, %s" % vals.get('sta_mandate_id')
         else:
             vals['mandate_ref'] = "ext.mandate, %s" % vals.get('ext_mandate_id')
