@@ -27,5 +27,6 @@
 ##############################################################################
 
 from . import change_main_email
+from . import export_vcard
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

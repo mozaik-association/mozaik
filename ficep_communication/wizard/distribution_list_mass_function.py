@@ -28,8 +28,6 @@
 import csv
 import tempfile
 from collections import OrderedDict
-import vobject
-import codecs
 from datetime import datetime
 
 from openerp.tools.translate import _
@@ -421,54 +419,13 @@ class distribution_list_mass_function(orm.TransientModel):
         Export the specified coordinates to a VCF file.
         :type email_coordinate_ids: []
         """
-        tmp = tempfile.NamedTemporaryFile(prefix='vCard', suffix=".vcf", delete=False)
-        f = codecs.open(tmp.name, "r+", "utf-8")
-
-        def safe_get(o, attr, default=None):
-            try:
-                return getattr(o, attr)
-            except orm.except_orm:
-                return default
-
-        def _get_unicode(data):
-            return data and unicode(data) or False
-
-        for ec in self.pool['email.coordinate'].browse(cr, uid, email_coordinate_ids):
-            partner = safe_get(ec, 'partner_id')
-            if not partner:
-                continue
-
-            card = vobject.vCard()
-            card.add('fn').value = _get_unicode(partner.printable_name)
-            if not partner.usual_lastname and not partner.firstname:
-                card.add('n').value = vobject.vcard.Name(_get_unicode(partner.printable_name))
-            else:
-                card.add('n').value = vobject.vcard.Name(_get_unicode(partner.usual_lastname) or _get_unicode(partner.lastname) or '', _get_unicode(partner.firstname))
-
-            emailpart = card.add('email')
-            emailpart.value = _get_unicode(ec.email)
-            emailpart.type_param = 'INTERNET'
-
-            if partner.fix_coordinate_id and partner.fix_coordinate_id.phone_id:
-                fix_part = card.add('tel')
-                fix_part.type_param = 'WORK'
-                fix_part.value = partner.fix_coordinate_id.phone_id.name
-
-            if partner.mobile_coordinate_id and partner.mobile_coordinate_id.phone_id:
-                fix_part = card.add('tel')
-                fix_part.type_param = 'CELL'
-                fix_part.value = partner.mobile_coordinate_id.phone_id.name
-
-            # CHEKME: add more informations? http://www.evenx.com/vcard-3-0-format-specification
-            # TODO: verify and fix utf-8 encoding
-
-            f.write(card.serialize().decode('utf-8'))
-
-        f.close()
-        f = open(tmp.name, "r")
-        attachment = [(_('Extract.vcf'), '%s' % f.read())]
+        vcard_content = self.pool.get('export.vcard').get_vcard(cr, uid, email_coordinate_ids, context=context)
+        attachment = [(_('Extract.vcf'), '%s' % vcard_content)]
         partner_ids = self.pool['res.partner'].search(cr, uid, [('user_ids', '=', uid)], context=context)
         if partner_ids:
-            self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context, partner_ids=partner_ids, subject=_('Export VCF'))
+            self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context,
+                                                  partner_ids=partner_ids, subject=_('Export VCF'))
+
+        return True
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
