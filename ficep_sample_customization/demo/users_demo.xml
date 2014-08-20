@@ -101,7 +101,9 @@
             <field name="password">aa</field>
             <field name="signature">isabelle</field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_manager')),]"/>
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_manager')),
+                                           (4, ref('ficep_account.res_groups_financial_manager')),
+                                          ]"/>
         </record>
 
         <record id="user_6" model="res.users">

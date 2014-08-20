@@ -45,6 +45,7 @@ Manage accounting functionalities.
     'images': [
     ],
     'data': [
+        'security/ficep_account_security.xml',
     ],
     'js': [
     ],
