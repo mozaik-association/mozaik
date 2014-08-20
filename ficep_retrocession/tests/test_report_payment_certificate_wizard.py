@@ -72,7 +72,7 @@ class test_report_payment_certificate_wizard(SharedSetupTransactionCase):
 
         rule_pool.write(self.cr, self.uid, fixed_rule_ids, {'amount': 100})
         retro_pool.write(self.cr, self.uid, retro_id,
-                                            {'amount_reconcilied': 3.4})
+                                            {'amount_paid': 3.4})
         retro_pool.action_done(self.cr, self.uid, [retro_id])
 
         res = wizard_pool.mandate_selection_analysis(self.cr,
@@ -120,7 +120,7 @@ class test_report_payment_certificate_wizard(SharedSetupTransactionCase):
 
         rule_pool.write(self.cr, self.uid, fixed_rule_ids, {'amount': 100})
         retro_pool.write(self.cr, self.uid, retro_id,
-                                            {'amount_reconcilied': 3.4})
+                                            {'amount_paid': 3.4})
         retro_pool.action_done(self.cr, self.uid, [retro_id])
 
         res = wizard_pool.mandate_selection_analysis(self.cr,

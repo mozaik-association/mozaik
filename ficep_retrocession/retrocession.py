@@ -512,6 +512,9 @@ class retrocession(orm.Model):
         """
         res = {}
         for retro in self.browse(cr, uid, ids, context=context):
+            if not retro.need_account_management:
+                continue
+
             query = """ SELECT distinct aml.reconcile_id, aml.reconcile_partial_id
                           FROM account_move_line aml
                           LEFT JOIN account_move am    on am.id         = aml.move_id
@@ -522,6 +525,8 @@ class retrocession(orm.Model):
                     """
             cr.execute(query, (retro.id,))
             data = cr.fetchone()
+            if not data:
+                continue
             reconcile_id = data[0]
             reconcile_partial_id = data[1]
             if reconcile_id:
