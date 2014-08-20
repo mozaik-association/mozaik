@@ -29,7 +29,7 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 import base64
 
-file_import_structure = ['id_ecolo',
+file_import_structure = ['identifier',
                          'partner_name',
                          'is_effective',
                          'list_effective_position',
