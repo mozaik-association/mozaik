@@ -93,7 +93,8 @@ class report_payment_certificate_wizard(orm.TransientModel):
                                              ('year', '=', year),
                                              (foreign_key, 'in', monthly_ids),
                                              ('state', '=', 'done'),
-                                             ('active', '=', False)],
+                                             ('active', '=', False),
+                                             ('amount_paid', '>', 0)],
                                              fields=[foreign_key],
                                              context=context)]
 
@@ -102,7 +103,8 @@ class report_payment_certificate_wizard(orm.TransientModel):
                                              ('year', '=', year),
                                              (foreign_key, 'in', yearly_ids),
                                              ('state', '=', 'done'),
-                                             ('active', '=', False)],
+                                             ('active', '=', False),
+                                             ('amount_paid', '>', 0)],
                                              fields=[foreign_key],
                                              context=context)]
 
@@ -147,6 +149,7 @@ class report_payment_certificate_wizard(orm.TransientModel):
         context['active_ids'] = mandate_ids
         secretariat_dict = {}
         need_signature = {}
+        retro_amounts = {}
         for mandate in self.pool[wizard.model].read(
                                                cr,
                                                uid,
@@ -175,13 +178,30 @@ class report_payment_certificate_wizard(orm.TransientModel):
 
             secretariat_dict[mandate['id']] = secretariat_name
 
+            retro_pool = self.pool.get('retrocession')
+            foreign_key = retro_pool.get_relation_column_name(cr,
+                                                              uid,
+                                                              wizard.model,
+                                                              context=context)
+            data = retro_pool.search_read(
+                                         cr,
+                                         uid,
+                                         [(foreign_key, '=', mandate['id']),
+                                          ('state', '=', 'done'),
+                                          ('active', '=', False),
+                                          ('amount_paid', '>', 0)],
+                                         ['amount_paid'],
+                                         context=context)
+            amount_paid = sum([record['amount_paid'] for record in data])
+            retro_amounts[mandate['id']] = amount_paid
+
         data = {'model': wizard.model,
                 'year': wizard.year,
                 'secretariat': secretariat_dict,
                 'signature': need_signature,
+                'amounts': retro_amounts,
                 }
-        ret = self.pool['report'].get_action(cr, uid, [],
+        return self.pool['report'].get_action(cr, uid, [],
                         'ficep_retrocession.report_payment_certificate',
                          data=data,
                          context=context)
-        return ret
