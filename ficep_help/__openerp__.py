@@ -47,6 +47,7 @@ FICEP Documentation
         'help_view.xml',
         'data/help_data.xml',
         'wizard/export_help_wizard_view.xml',
+        'ir_ui_view_view.xml',
     ],
     'js': [
     ],
