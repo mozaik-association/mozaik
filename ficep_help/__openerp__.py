@@ -26,32 +26,25 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP',
+    'name': 'FICEP: Help',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
-    'depends': [
-        'ficep_account',
-        'ficep_membership',
-        'ficep_person_coordinate',
-        'ficep_mass_editing',
-        'ficep_communication',
-        'ficep_webservice',
-        'ficep_mandate',
-        'ficep_retrocession',
-        'ficep_help',
-    ],
+    'depends': [],
     'description': """
-FICEP
-=====
-Loads all ficep modules
-    """,
+FICEP Documentation
+===================
+* Provide a full help online for Ficep application
+""",
     'images': [
     ],
     'data': [
-        'data/res_users_data.xml',
+        'data/help_auto_backup.xml',  # must always be the first
+        'help_view.xml',
+        'data/help_data.xml',
+        'wizard/export_help_wizard_view.xml',
     ],
     'js': [
     ],
@@ -64,8 +57,6 @@ Loads all ficep modules
     'test': [
     ],
     'sequence': 150,
-    'auto_install': False,
     'installable': True,
+    'auto_install': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -25,47 +25,4 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_account',
-        'ficep_membership',
-        'ficep_person_coordinate',
-        'ficep_mass_editing',
-        'ficep_communication',
-        'ficep_webservice',
-        'ficep_mandate',
-        'ficep_retrocession',
-        'ficep_help',
-    ],
-    'description': """
-FICEP
-=====
-Loads all ficep modules
-    """,
-    'images': [
-    ],
-    'data': [
-        'data/res_users_data.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'auto_install': False,
-    'installable': True,
-}
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+from . import export_help_wizard

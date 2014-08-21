@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <template id="website.ficep-help-first-test-page">
+      <t t-call="website.layout">
+        <div class="" id="wrap">
+          <section>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 class="text-center">Sample test page</h1>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="mt16 mb16">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 text-center mt16 mb32">
+                  <h2>Sample title</h2>
+                  <h3 class="text-muted">Sample subtitle</h3>
+                </div>
+                <div class="col-md-12 mb16 mt16">
+                  <p><b>A great page for test purpose</b>
+                  <p>
+                    Trying to set a great test sample
+                  </p>
+                  <p>
+                    Good test make good application
+                  </p>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </t>
+    </template>
+    <template id="website.ficep-help-second-test-page">
+      <t t-call="website.layout">
+        <div class="" id="wrap">
+          <section>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 class="text-center">Second Sample test page</h1>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="mt16 mb16">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 text-center mt16 mb32">
+                  <h2>Second Sample title</h2>
+                  <h3 class="text-muted">Second Sample subtitle</h3>
+                </div>
+                <div class="col-md-12 mb16 mt16">
+                  <p><b>A great page for test purpose</b>
+                  <p>
+                    Trying to set a great test sample
+                  </p>
+                  <p>
+                    Good test make good application
+                  </p>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </t>
+    </template>
+  </data>
+</openerp>
