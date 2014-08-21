@@ -32,7 +32,9 @@
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
-    'depends': [],
+    'depends': [
+        'ficep_base',
+    ],
     'description': """
 FICEP Documentation
 ===================
