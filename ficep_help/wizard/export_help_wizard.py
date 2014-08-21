@@ -48,6 +48,7 @@ class export_help_wizard(orm.TransientModel):
                                               'like',
                                               'ficep-help-%')],
                                             ['arch', 'name'],
+                                            order='name',
                                             context=context)
         xml_to_export = ET.Element('openerp')
         data_node = ET.SubElement(xml_to_export, 'data')
