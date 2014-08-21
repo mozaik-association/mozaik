@@ -43,10 +43,11 @@ class export_help_wizard(orm.TransientModel):
                                             cr,
                                             uid,
                                             [('type', '=', 'qweb'),
+                                             ('page', '=', True),
                                              ('name',
                                               'like',
-                                              'website.ficep-help-%')],
-                                            ['arch'],
+                                              'ficep-help-%')],
+                                            ['arch', 'name'],
                                             context=context)
         xml_to_export = ET.Element('openerp')
         data_node = ET.SubElement(xml_to_export, 'data')
@@ -55,9 +56,10 @@ class export_help_wizard(orm.TransientModel):
             parser = ET.XMLParser(remove_blank_text=True)
             root = ET.XML(view_data['arch'], parser=parser)
             root.tag = 'template'
-            template_id = root.attrib['t-name']
-            root.attrib.pop('t-name')
+            template_id = root.attrib.pop('t-name')
+            root.attrib['name'] = view_data['name']
             root.attrib['id'] = template_id
+            root.attrib['page'] = 'True'
             data_node.append(root)
 
         rough_string = ET.tostring(xml_to_export, encoding='utf-8',

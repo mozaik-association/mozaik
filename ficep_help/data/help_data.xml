@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
   <data>
-    <template id="website.ficep-help-first-test-page">
+    <template id="website.ficep-help-first-test-page" name="ficep-help-first-test-page" page="True">
       <t t-call="website.layout">
         <div class="" id="wrap">
           <section>
@@ -36,7 +36,7 @@
         </div>
       </t>
     </template>
-    <template id="website.ficep-help-second-test-page">
+    <template id="website.ficep-help-second-test-page" name="ficep-help-second-test-page" page="True">
       <t t-call="website.layout">
         <div class="" id="wrap">
           <section>
