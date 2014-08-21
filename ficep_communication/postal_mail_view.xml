@@ -8,16 +8,27 @@
             <field name="name">postal.mail.log.search</field>
             <field name="model">postal.mail.log</field>
             <field name="arch" type="xml">
-                <search string="Postal Mail Log">
+                <search string="Postal Mail Log" version="7.0">
                     <field name="name"/>
                     <field name="postal_mail_id"/>
                     <field name="postal_coordinate_id"/>
                     <field name="partner_id"/>
                     <field name="sent_date"/>
+                    <separator/>
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Expired Postal Mailing Logs"/>
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Postal Mailing Logs, expired or not"/>
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="postal_mail_id_group" string="Postal Mail"
-                                context="{'group_by': 'postal_mail_id'}"/>
-                        <filter name="sent_date_group" string="Sent date" context="{'group_by': 'sent_date'}"/>
+                                domain="[]" context="{'group_by': 'postal_mail_id'}"/>
+                        <filter name="partner_id_group" string="Partner"
+                                domain="[]" context="{'group_by': 'partner_id'}"/>
+                        <filter name="postal_coordinate_id" string="Postal coordinate"
+                                domain="[]" context="{'group_by': 'postal_coordinate_id'}"/>
+                        <filter name="sent_date_group" string="Sent date" domain="[]" context="{'group_by': 'sent_date'}"/>
                     </group>
                 </search>
             </field>
@@ -27,12 +38,15 @@
             <field name="name">postal.mail.history.tree (postal_mail_log)</field>
             <field name="model">postal.mail.log</field>
             <field name="arch" type="xml">
-                <tree string="Postal Mail History">
+                <tree string="Postal Mail History" version="7.0">
                     <field name="name"/>
                     <field name="sent_date"/>
                     <field name="postal_mail_id"/>
                     <field name="postal_coordinate_id"/>
                     <field name="partner_id"/>
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)"/>
+                    <field name="active" groups="ficep_base.res_groups_developper"/>
                 </tree>
             </field>
         </record>
@@ -43,12 +57,37 @@
             <field name="arch" type="xml">
                 <form string="Postal Mail Log" version="7.0">
                     <sheet>
+                        <div class="oe_title" name="title">
+                            <label for="postal_mail_id" class="oe_edit_only" attrs="{'invisible':[('name','!=',False)]}"/>
+                            <h1>
+                                <field name="postal_mail_id" attrs="{'readonly': [('id','!=',False)], 'invisible':[('name','!=',False)]}"/>
+                            </h1>
+                            <label for="name" class="oe_edit_only" attrs="{'invisible':[('postal_mail_id','!=',False)]}"/>
+                            <h1>
+                                <field name="name"
+                                       attrs="{'readonly': [('id','!=',False)], 'invisible':[('postal_mail_id','!=',False)], 'required':[('postal_mail_id','=',False)]}"/>
+                            </h1>
+                            <label for="postal_coordinate_id" class="oe_edit_only"/>
+                            <h1>
+                                <field name="postal_coordinate_id" attrs="{'readonly': [('id','!=',False)]}"
+                                       context="{'default_partner_id':partner_id}"
+                                       on_change="onchange_postal_coordinate_id(postal_coordinate_id)"/>
+                            </h1>
+                        </div>
                         <group>
-                            <field name="name"/>
-                            <field name="sent_date"/>
-                            <field name="postal_mail_id"/>
-                            <field name="postal_coordinate_id"/>
-                            <field name="partner_id"/>
+                            <group>
+                                <field name="partner_id" on_change="onchange_partner_id(partner_id)"
+                                       attrs="{'readonly':[('postal_coordinate_id','!=',False)]}"/>
+                                <field name="sent_date"/>
+                            </group>
+                        </group>
+                        <group name="status" attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date"/>
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}"/>
+                            </group>
+                            <group name="other">
+                            </group>
                         </group>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
@@ -56,6 +95,7 @@
                             <h3>More Info</h3>
                             <group name="moreinfo">
                                 <field name="id"/>
+                                <field name="active"/>
                             </group>
                         </div>
                     </div>
@@ -124,9 +164,18 @@
             <field name="name">postal.mail.search</field>
             <field name="model">postal.mail</field>
             <field name="arch" type="xml">
-                <search string="Postal Mail">
+                <search string="Postal Mail" version="7.0">
                     <field name="name"/>
                     <field name="sent_date"/>
+
+                    <separator/>
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Expired Postal Mailings"/>
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Postal Mailings, expired or not"/>
+
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="sent_date" string="Sent date" context="{'group_by': 'sent_date'}"/>
                     </group>
@@ -138,9 +187,12 @@
             <field name="name">postal.mail.tree (postal_mail)</field>
             <field name="model">postal.mail</field>
             <field name="arch" type="xml">
-                <tree string="Postal Mail">
+                <tree string="Postal Mail" version="7.0">
                     <field name="name"/>
                     <field name="sent_date"/>
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)"/>
+                    <field name="active" groups="ficep_base.res_groups_developper"/>
                 </tree>
             </field>
         </record>
@@ -151,6 +203,16 @@
             <field name="arch" type="xml">
                 <form string="Postal Mail" version="7.0">
                     <sheet>
+                        <div class="oe_title" name="title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" attrs="{'readonly': [('active','=',False)]}" placeholder="Name"/>
+                            </h1>
+                            <label for="sent_date" class="oe_edit_only"/>
+                            <h1>
+                                <field name="sent_date" attrs="{'readonly': [('active','=',False)]}" placeholder="Sent date"/>
+                            </h1>
+                        </div>
                         <div class="oe_right oe_button_box" name="buttons">
                             <button name="%(postal_mail_log_action)d"
                                     type="action"
@@ -160,18 +222,13 @@
                                 <field string="History" name="postal_mail_log_count" widget="statinfo"/>
                             </button>
                         </div>
-                        <group>
-                            <group>
-                                <field name="name"/>
-                                <field name="sent_date"/>
-                            </group>
-                        </group>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
                                 <field name="id"/>
+                                <field name="active"/>
                             </group>
                         </div>
                     </div>
