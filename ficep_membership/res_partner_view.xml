@@ -1,9 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
-
     <data noupdate="0">
-        <delete model="ir.ui.view"
-            search="[('name','=','res.partner.tree.form.inherit'),('model','=','res.partner'),('type','=','tree')]" />
 
         <record id="res_partner_search_view" model="ir.ui.view">
             <field name="name">res.partner.search (ficep_membership)
@@ -37,9 +34,9 @@
             <field name="inherit_id" ref="ficep_person.view_partner_tree" />
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='identifier']"
-                    position="before">
-                    <field name="membership_state_id" />
+                <xpath expr="//field[@name='identifier']" position="before">
+                    <field name="membership_state_id"
+                           invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field name="int_instance_id" />
                 </xpath>
 
@@ -99,7 +96,7 @@
                     <separator string="Internal Instances" />
                     <field name="int_instance_m2m_ids" widget="many2many_tags"
                         placeholder="Instances..." />
-                    <!-- Some blank lines to see the entire elapsed many2many_tags 
+                    <!-- Some blank lines to see the entire elapsed many2many_tags
                         widget -->
                     <br />
                     <br />
@@ -165,7 +162,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='member_lines']" position="replace">
-                    <field name="member_lines" 
+                    <field name="member_lines"
                         nolabel="1" readonly="1">
                         <tree colors="green:is_current==True" string="Memberships Lines">
                             <field name="partner"/>
