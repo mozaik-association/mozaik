@@ -139,6 +139,34 @@ class res_partner(orm.Model):
             self.pool.get('int.instance').get_default(cr, uid),
     }
 
+# orm methods
+
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        Do not copy m2m fields.
+        """
+        default = default or {}
+        default.update({
+            'int_instance_m2m_ids': [],
+        })
+        res = super(res_partner, self).copy_data(cr, uid, ids, default=default,
+                                                 context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        """
+        Invalidate rules cache when changing set of instances related to \
+        the user
+        """
+        res = super(res_partner, self).write(cr, uid, ids, vals,
+                                             context=context)
+        if 'int_instance_m2m_ids' in vals:
+            rule_obj = self.pool['ir.rule']
+            for partner in self.browse(cr, uid, ids, context=context):
+                for u in partner.user_ids:
+                    rule_obj.clear_cache(cr, u.id)
+        return res
+
 # view methods: onchange, button
 
     def decline_payment(self, cr, uid, ids, context=None):
@@ -249,21 +277,7 @@ class res_partner(orm.Model):
         return membership_request_obj.display_object_in_form_view(
             cr, uid, membership_request_id, context=context)
 
-# orm methods
-
-    def copy_data(self, cr, uid, ids, default=None, context=None):
-        """
-        Do not copy m2m fields.
-        """
-        default = default or {}
-        default.update({
-            'int_instance_m2m_ids': [],
-        })
-        res = super(res_partner, self).copy_data(cr, uid, ids, default=default,
-                                                 context=context)
-        return res
-
-# public methods
+# workflow
 
     def update_state(self, cr, uid, ids, membership_state_code, context=None):
         """
@@ -345,17 +359,3 @@ class res_partner(orm.Model):
                 new_membership_line_id = membership_line_obj.create(
                     cr, uid, vals, context=context)
             partner.write({'member_lines': [[4, new_membership_line_id]]})
-
-    def write(self, cr, uid, ids, vals, context=None):
-        """
-        Invalidate rules cache when changing set of instances related to \
-        the user
-        """
-        res = super(res_partner, self).write(cr, uid, ids, vals,
-                                             context=context)
-        if 'int_instance_m2m_ids' in vals:
-            rule_obj = self.pool['ir.rule']
-            for partner in self.browse(cr, uid, ids, context=context):
-                for u in partner.user_ids:
-                    rule_obj.clear_cache(cr, u.id)
-        return res
