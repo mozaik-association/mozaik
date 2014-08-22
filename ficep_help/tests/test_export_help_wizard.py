@@ -70,7 +70,9 @@ class test_export_help_wizard(SharedSetupTransactionCase):
         exported_xml = ET.XML(exported_data, parser=parser)
         reference_xml = ET.XML(reference_data, parser=parser)
 
-        exported_string = ET.tostring(exported_xml).replace('\n', ' ')
-        reference_string = ET.tostring(reference_xml).replace('\n', ' ')
+        exported_string = ET.tostring(exported_xml).replace('\n', '')
+        reference_string = ET.tostring(reference_xml).replace('\n', '')
 
+        exported_string = exported_string.replace(' ', '')
+        reference_string = reference_string.replace(' ', '')
         self.assertEqual(exported_string, reference_string)

@@ -31,6 +31,7 @@ from lxml import etree as ET
 import xml.dom.minidom as minidom
 import base64
 import time
+import copy
 from os.path import expanduser
 
 
@@ -62,6 +63,37 @@ class export_help_wizard(orm.TransientModel):
             root.attrib['id'] = template_id
             root.attrib['page'] = 'True'
             data_node.append(root)
+
+            if view_data['name'].startswith('ficep-help-template'):
+                page = copy.deepcopy(root)
+                snippet = ET.Element('template')
+                snippet.attrib['id'] = template_id + '_snippet'
+                snippet.attrib['inherit_id'] = 'website.snippets'
+                snippet.attrib['name'] = view_data['name']
+                xpath = ET.SubElement(snippet, 'xpath')
+                xpath.attrib['expr'] = "//div[@id='snippet_structure']"
+                xpath.attrib['position'] = 'inside'
+                main_div = ET.SubElement(xpath, 'div')
+
+                thumbnail = ET.SubElement(main_div, 'div')
+                thumbnail.attrib['class'] = 'oe_snippet_thumbnail'
+                img = ET.SubElement(thumbnail, 'img')
+                img.attrib['class'] = 'oe_snippet_thumbnail_img'
+                src = '/ficep_help/static/src/img/snippet/snippet_thumbs.png'
+                img.attrib['src'] = src
+                span = ET.SubElement(thumbnail, 'span')
+                span.attrib['class'] = 'oe_snippet_thumbnail_title'
+                span.text = view_data['name'].replace('ficep-help-', '')
+
+                body = ET.SubElement(main_div, 'section')
+                body.attrib['class'] = 'oe_snippet_body mt_simple_snippet'
+
+                template = page.find(".//div[@id='wrap']")
+
+                for node in template.getchildren():
+                    body.append(node)
+
+                data_node.append(snippet)
 
         rough_string = ET.tostring(xml_to_export, encoding='utf-8',
                                    xml_declaration=True)
