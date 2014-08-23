@@ -34,6 +34,7 @@
     'category': 'Political Association',
     'depends': [
         'ficep_membership',
+        'ficep_retrocession',
     ],
     'description': """
 FICEP Communication

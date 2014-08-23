@@ -33,7 +33,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Localization/Account Charts',
     'depends': [
-        'ficep_retrocession',
+        'ficep_account',
     ],
     'description': """
 l10n FICEP
