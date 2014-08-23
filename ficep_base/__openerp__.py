@@ -34,15 +34,12 @@
     'category': 'Political Association',
     'depends': [
         'base',
-        'website',
-        'portal',
+        'document',
         'mass_mailing',
-        'mail',
-        'report',
         'product',
+        'analytic',
         'board',
         'edi',
-        'document',
         #'event',
         'partner_firstname',     # from https://github.com/OCA/partner-contact
         'mass_editing',          # from https://github.com/OCA/server-tools/7.0

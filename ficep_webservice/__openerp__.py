@@ -47,8 +47,7 @@ Allow specific calls from outside with XML-RPC
         'security/ir.model.access.csv',
     ],
     'sequence': 150,
-    'auto_install': False,
+    'auto_install': True,
     'installable': True,
 }
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
