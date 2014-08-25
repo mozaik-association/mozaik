@@ -10,7 +10,7 @@
         -->
 
         <menuitem id="persons_menu" name="Persons"
-                  sequence="8" parent="ficep_base.communication_root_menu" />
+                  sequence="10" parent="ficep_base.communication_root_menu" />
         <menuitem id="natural_persons_menu" action="ficep_person.natural_res_partner_action"
                   sequence="10" parent="persons_menu" />
         <menuitem id="legal_persons_menu" action="ficep_person.legal_res_partner_action"
@@ -28,7 +28,7 @@
         -->
 
         <menuitem id="mailing_submenu" name="Mailing"
-                  sequence="10" parent="ficep_base.communication_root_menu" />
+                  sequence="20" parent="ficep_base.communication_root_menu" />
 
         <record id="distribution_list.distribution_list_submenu" model="ir.ui.menu">
             <field name="parent_id" ref="mailing_submenu" />
@@ -60,13 +60,13 @@
         -->
 
         <menuitem id="postal_mailing_submenu" name="Postal Mailing"
-                  sequence="12" parent="ficep_base.communication_root_menu" />
+                  sequence="30" parent="ficep_base.communication_root_menu" />
 
-        <menuitem id="postal_mailing_postal_mail_submenu" name="Postal Mail"
-                  sequence="15" parent="postal_mailing_submenu" action="postal_mail_action"/>
+        <menuitem id="postal_mailing_postal_mail_submenu" action="postal_mail_action"
+                  sequence="15" parent="postal_mailing_submenu"/>
 
-        <menuitem id="postal_mailing_postal_mail_history_submenu" name="History"
-                  sequence="20" parent="postal_mailing_submenu" action="postal_mail_log_action"/>
+        <menuitem id="postal_mailing_postal_mail_history_submenu" action="postal_mail_log_action"
+                  sequence="20" parent="postal_mailing_submenu"/>
 
         <!-- Configurations -->
 
