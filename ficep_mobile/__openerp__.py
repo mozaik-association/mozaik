@@ -33,8 +33,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_person_coordinate',
-        'ficep_mandate',
+        'ficep_communication',
     ],
     'description': """
 FICEP Mobile

@@ -40,10 +40,10 @@
 FICEP Communication
 ===================
 * New Menus:
-** Communication/Natural Persons
-** Communication/Templates
-** Communication/Campaigns
-** Communication/Statistics
+** Communication/Persons
+** Communication/Mailing
+** Communication/Postal Mailing
+** Communication/Configuration
 * Customization of the Distribution List Module
 """,
     'images': [
