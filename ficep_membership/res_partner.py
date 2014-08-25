@@ -153,13 +153,57 @@ class res_partner(orm.Model):
                                                  context=context)
         return res
 
+    def create_workflow(self, cr, uid, ids, context=None):
+        '''
+        Create workflow only for natural persons
+        '''
+        dom = [('id', 'in', ids), ('is_company', '=', False)]
+        pids = self.search(cr, uid, dom, context=context)
+        res = super(res_partner, self).create_workflow(
+            cr, uid, pids, context=context)
+        return res
+
     def write(self, cr, uid, ids, vals, context=None):
         """
-        Invalidate rules cache when changing set of instances related to \
+        Invalidate rules cache when changing set of instances related to
         the user
+        Create or Delete workflow if necessary (according to the new
+        is_company value)
         """
-        res = super(res_partner, self).write(cr, uid, ids, vals,
-                                             context=context)
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+        if 'is_company' in vals:
+            is_company = vals['is_company']
+            data = self.read(cr, uid, ids, ['is_company'], context=context)
+            p2d_ids = [
+                # wkfs to delete
+                d['id'] for d in data if not d['is_company'] and is_company
+            ]
+            if p2d_ids:
+                ml_obj = self.pool['membership.membership_line']
+                ml_ids = ml_obj.search(
+                    cr, uid, [('partner', 'in', p2d_ids)],
+                    context=context)
+                if ml_ids:
+                    raise orm.except_orm(
+                        _('Error'),
+                        _('A natural person with membership history '
+                          'cannot be transformed to a legal person')
+                    )
+            p2c_ids = [
+                # wkfs to create
+                d['id'] for d in data if d['is_company'] and not is_company
+            ]
+            super(res_partner, self).create_workflow(
+                cr, uid, p2c_ids, context=context)
+            self.delete_workflow(
+                cr, uid, p2d_ids, context=context)
+
+            if is_company:
+                vals['membership_state_id'] = None
+
+        res = super(res_partner, self).write(
+            cr, uid, ids, vals, context=context)
+
         if 'int_instance_m2m_ids' in vals:
             rule_obj = self.pool['ir.rule']
             for partner in self.browse(cr, uid, ids, context=context):

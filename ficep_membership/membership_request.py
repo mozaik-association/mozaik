@@ -166,12 +166,12 @@ class membership_request(orm.Model):
         'note': fields.text('Note'),
     }
 
-# constraints
-
     _defaults = {
         'is_update': False,
         'state': 'draft'
     }
+
+# constraints
 
     _unicity_keys = 'N/A'
 
