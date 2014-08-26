@@ -44,6 +44,7 @@ FICEP Sample Accounting
     ],
     'data': [
          '../ficep_account/tests/data/account_installer.xml',
+         'data/retrocession_validation.xml'
     ],
     'js': [
     ],

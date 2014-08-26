@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+    <function model='retrocession.helper' name="validate_retrocession_with_accounting"
+                  eval="([ref('ficep_sample_customization.retro_paul_ag_january_2014'),
+                          ref('ficep_sample_customization.retro_marc_ag_january_2014'),
+                          ref('ficep_sample_customization.retro_jacques_ag_january_2014')], None)"/>
+    </data>
+</openerp>
