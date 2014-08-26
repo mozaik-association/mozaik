@@ -55,7 +55,7 @@ class test_retrocession(SharedSetupTransactionCase):
             Test automatic invalidation of lines of a given fractionation
         '''
         fractionation_pool = self.registry('fractionation')
-        fractionation_01 = self.browse_ref('%s.f_sample_01' % self._module_ns)
+        fractionation_01 = self.browse_ref('%s.f_sample_02' % self._module_ns)
 
         fractionation_pool.action_invalidate(self.cr, self.uid, [fractionation_01.id])
 

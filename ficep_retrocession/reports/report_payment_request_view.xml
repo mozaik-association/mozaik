@@ -119,7 +119,7 @@
                             <tr class="border-black">
                                 <td><strong>Total To Pay</strong></td>
                                 <td class="text-right">
-                                    <strong><span t-field="o.amount_topay"                                          
+                                    <strong><span t-field="o.amount_due"                                          
                                                    t-field-options='{"widget": "monetary", "display_currency": "o.partner_id.company_id.currency_id"}'/></strong>
                                 </td>
                             </tr>
