@@ -295,6 +295,13 @@ class xxxx(orm.Model):
             cr, uid, old_new_ids, context=context)
         return res
 
+    def _register_hook(self, cr):
+        super(xxxx, self)._register_hook(cr)
+
+    def _where_calc(self, cr, user, domain, active_test=True, context=None):
+        res = super(xxxx, self)._where_calc(cr, user, domain, active_test=active_test, context=context)
+        return res
+
 # view methods: onchange, button
 
     def button_zzz(self, cr, uid, ids, context=None):
