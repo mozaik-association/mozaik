@@ -96,14 +96,6 @@
             <field name="search_view_id" ref="membership_state_search_view" />
         </record>
 
-        <record id="membership_product_action" model="ir.actions.act_window">
-            <field name="name">Subscriptions</field>
-            <field name="res_model">product.template</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[('membership', '=', 1)]</field>
-        </record>
-
         <!-- Membership Lines -->
 
         <!-- Search View -->
@@ -112,21 +104,22 @@
             <field name="model">membership.membership_line</field>
             <field name="arch" type="xml">
                 <search string="">
-                    <field name="membership_state_id"/>
                     <field name="partner"/>
                     <field name="int_instance_id"/>
+                    <field name="membership_state_id"/>
+                    <field name="membership_id"/>
                     <separator/>
+                    <filter name="active" string="Active"
+                        domain="[('active','=',True)]" help="Active Memberships" />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expired Relations" />
-                    <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Relations, expired or not" />
+                        domain="[('active','=',False)]" help="Expired Memberships" />
 
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter string="State" context="{'group_by': 'membership_state_id'}"/>
-                        <filter string="Partner" context="{'group_by': 'partner'}"/>
+                        <filter string="Member" context="{'group_by': 'partner'}"/>
                         <filter string="Instance" context="{'group_by': 'int_instance_id'}"/>
+                        <filter string="State" context="{'group_by': 'membership_state_id'}"/>
+                        <filter string="Membership Type" context="{'group_by': 'membership_id'}"/>
                     </group>
                </search>
             </field>
@@ -140,9 +133,9 @@
                 <tree colors="green:is_current==True" string="Membership Lines"
                       create="0" delete="0" version="7.0">
                     <field name="partner"/>
-                    <field name="membership_id"/>
-                    <field name="membership_state_id"/>
                     <field name="int_instance_id"/>
+                    <field name="membership_state_id"/>
+                    <field name="membership_id" attrs="{'invisible': [('membership_state_id','!=',%(ficep_membership.member)d)]}"/>
                     <field name="date_from"/>
                     <field name="date_to"/>
                     <field name="is_current" invisible="1"/>
@@ -151,37 +144,115 @@
             </field>
         </record>
 
+        <record id="membership_line_form_view" model="ir.ui.view">
+            <field name="name">membership.membership_line.form</field>
+            <field name="model">membership.membership_line</field>
+            <field name="arch" type="xml">
+                <form string="Membership Line" version="7.0">
+                    <header>
+                        <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="ficep_base.ficep_res_groups_configurator">
+                        </span>
+                    </header>
+                    <sheet>
+                        <div class="oe_title" name="title">
+                            <label for="partner"/>
+                            <h1><field name="partner" /></h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                        </div>
+
+                        <group name="data">
+                            <group name="main">
+                                <field name="int_instance_id" />
+                                <field name="membership_state_id" />
+                                <field name="membership_id" attrs="{'invisible': [('membership_state_id','!=',%(ficep_membership.member)d)]}" />
+                                <field name="member_price" attrs="{'invisible': [('membership_state_id','!=',%(ficep_membership.member)d)]}"/>
+                            </group>
+                            <group name="other">
+                                <field name="is_current" />
+                                <field name="account_invoice_id" attrs="{'invisible': [('account_invoice_id','=',False)]}"
+                                       groups="ficep_account.res_groups_financial_manager"/>
+                                <field name="account_invoice_line" attrs="{'invisible': [('account_invoice_line','=',False)]}"
+                                       groups="ficep_account.res_groups_financial_manager"/>
+                            </group>
+                        </group>
+
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="dates">
+                                <field name="date"/>
+                                <field name="date_from" />
+                                <field name="date_to" attrs="{'invisible': [('date_to','=',False)]}" />
+                            </group>
+                        </group>
+
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_revalidate" string="Reactivate" type="object"
+                                        confirm="Reactivate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                                <field name="date_cancel"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
         <!-- Action -->
         <record id="membership_line_action" model="ir.actions.act_window">
             <field name="name">Membership Lines</field>
             <field name="res_model">membership.membership_line</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree</field>
+            <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="membership_line_search_view" />
             <field name="view_id" eval="membership_line_tree_view"/>
+            <field name="context">{'search_default_active': 1}</field>
         </record>
 
-        <!-- Membership Menu -->
-
-        <!-- hide native menu -->
-        <record id="base.menu_association" model="ir.ui.menu">
-            <field name="groups_id"
-                eval="[(6, 0, [ref('settings_improvement.unused_features')])]" />
-        </record>
+        <!-- Membership Menus -->
 
         <menuitem id="membership_menu" name="Membership"
             sequence="15" parent="ficep_base.persons_root_menu" />
 
-        <menuitem id="membership_line_submenu" sequence="15"
-            parent="membership_menu" action="membership_line_action"/>
+        <menuitem id="membership_request_menu" action="membership_request_action"
+                  sequence="10" parent="membership_menu" />
 
-        <!-- Menu -->
+        <menuitem id="membership_line_submenu" action="membership_line_action"
+                  sequence="15" parent="membership_menu"/>
+
+        <!-- Configuration Menu -->
 
         <menuitem id="membership_submenu" name="Membership"
             sequence="30" parent="ficep_base.persons_configuration_submenu" />
 
         <menuitem id="membership_state_menu" action="membership_state_action"
             sequence="10" parent="membership_submenu" />
+
+        <menuitem id="membership_product_menu" action="membership_product_action"
+            sequence="15" parent="membership_submenu" />
+
+        <!-- Hide native menu -->
+
+        <record id="base.menu_association" model="ir.ui.menu">
+            <field name="groups_id"
+                eval="[(6, 0, [ref('settings_improvement.unused_features')])]" />
+        </record>
 
     </data>
 </openerp>

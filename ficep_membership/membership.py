@@ -36,6 +36,8 @@ class membership_membership_line(orm.Model):
     _name = 'membership.membership_line'
     _inherit = ['membership.membership_line', 'abstract.ficep.model']
 
+    _inactive_cascade = True
+
     def _generate_membership_reference(self, cr, uid, membership_line_id,
                                        context=None):
         """
@@ -52,20 +54,19 @@ class membership_membership_line(orm.Model):
                                    comm_struct[7:])
 
     _columns = {
-        'partner': fields.many2one('res.partner', 'Partner',
-                                   ondelete='cascade', select=1,
-                                   required=True),
-        'membership_id': fields.many2one('product.product',
-                                         string="Membership"),
-        'membership_state_id': fields.many2one('membership.state',
-                                               type='many2one',
-                                               string='State'),
+        'partner': fields.many2one(
+            'res.partner', string='Member',
+            ondelete='cascade', select=True, required=True),
+        'membership_id': fields.many2one(
+            'product.product', string='Membership Type', select=True),
+        'membership_state_id': fields.many2one(
+            'membership.state', string='State', select=True),
         'is_current': fields.boolean('Is Current'),
-        'int_instance_id': fields.many2one('int.instance', 'Internal Instance',
-                                           select=True),
+        'int_instance_id': fields.many2one(
+            'int.instance', string='Internal Instance', select=True),
     }
 
-    _order = 'date_from desc, date_to desc'
+    _order = 'date_from desc, date_to desc, partner'
 
     _defaults = {
         'is_current': True,
@@ -74,6 +75,16 @@ class membership_membership_line(orm.Model):
 # constraints
 
     _unicity_keys = 'N/A'
+
+# orm methods
+
+    def _where_calc(self, cr, user, domain, active_test=True, context=None):
+        '''
+        View all membership lines
+        '''
+        res = super(membership_membership_line, self)._where_calc(
+            cr, user, domain, active_test=False, context=context)
+        return res
 
 
 class membership_state(orm.Model):

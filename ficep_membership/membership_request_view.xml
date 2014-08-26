@@ -297,10 +297,5 @@
             <field name="context">{'search_default_state': 'draft'}</field>
         </record>
 
-        <!-- Menu Membership: - Membership Request -->
-
-        <menuitem id="membership_request_menu" action="membership_request_action"
-            sequence="10" parent="membership_menu" />
-
     </data>
 </openerp>

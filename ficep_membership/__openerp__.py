@@ -46,27 +46,26 @@ Add models
 * Membership History
 * Membership Request
 It defines a required m2o to Internal Instance on local zip.
-It replicates this instance on partner which main address is related to this \
-local zip, default instance otherwise. This field is added to all views \
+It replicates this instance on partner which main address is related to this 
+local zip, default instance otherwise. This field is added to all views 
 (search, tree and form) of a partner.
-
-    """,
+""",
     'images': [
     ],
     'data': [
-        'security/ir.model.access.csv',
         'security/ficep_membership_security.xml',
-        'membership_workflow.xml',
-        'membership_view.xml',
-        'membership_request_view.xml',
-        'product_view.xml',
-        'address_local_zip_view.xml',
-        'res_partner_view.xml',
-        'wizard/change_main_address.xml',
+        'security/ir.model.access.csv',
         'data/ficep_membership_state_data.xml',
         'data/ir_config_parameter_data.xml',
         'data/product_data.xml',
         'data/ir_cron_membership.xml',
+        'membership_workflow.xml',
+        'product_view.xml',
+        'membership_request_view.xml',
+        'membership_view.xml',
+        'address_local_zip_view.xml',
+        'res_partner_view.xml',
+        'wizard/change_main_address.xml',
         'report/waiting_member_report_view.xml',
     ],
     'sequence': 150,

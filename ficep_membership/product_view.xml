@@ -71,8 +71,13 @@
             </field>
         </record>
 
-        <menuitem id="membership_product_menu" action="membership_product_action"
-            sequence="15" parent="membership_submenu" />
+        <record id="membership_product_action" model="ir.actions.act_window">
+            <field name="name">Subscriptions</field>
+            <field name="res_model">product.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('membership', '=', 1)]</field>
+        </record>
 
     </data>
 </openerp>

@@ -335,30 +335,39 @@ class res_partner(orm.Model):
         """
 
         membership_state_obj = self.pool['membership.state']
-        membership_state_ids = membership_state_obj.\
-            search(cr, uid, [('code', '=', membership_state_code)], context)
+        membership_state_ids = membership_state_obj.search(
+            cr, uid, [('code', '=', membership_state_code)], context=context)
 
         if not membership_state_ids:
-            raise orm.except_orm(_('Error'), _('Try to set an undefined \
-                "Membership State" on partner'))
-
-        membership_state_id = membership_state_ids[0]
+            raise orm.except_orm(
+                _('Error'),
+                _('Try to set an undefined "Membership State" on partner'))
 
         vals = {
-            'membership_state_id': membership_state_id,
+            'membership_state_id': membership_state_ids[0],
             'accepted_date': False,
             'decline_payment_date': False,
             'rejected_date': False,
             'resignation_date': False,
             'exclusion_date': False,
+            'customer': membership_state_code in [
+                'member_candidate',
+                'member_committee',
+                'member',
+                'former_member',
+                'former_member_committee',
+            ],
         }
+
         res = self.write(cr, uid, ids, vals, context=context)
-        state_id = membership_state_obj._state_default_get(cr, uid,
-                                                           context=context)
-        default_code = membership_state_obj.read(cr, uid, state_id, ['code'],
-                                                 context=context)['code']
+        state_id = membership_state_obj._state_default_get(
+            cr, uid, context=context)
+        default_code = membership_state_obj.read(
+            cr, uid, state_id, ['code'], context=context)['code']
+
         if membership_state_code != default_code:
             self.update_membership_line(cr, uid, ids, context=context)
+
         return res
 
     def update_membership_line(self, cr, uid, ids, context=None):
@@ -384,22 +393,24 @@ class res_partner(orm.Model):
                 new_membership_line_id = membership_line_obj.copy(
                     cr, uid, current_membership_line_id, default=values,
                     context=context)
-                membership_line_obj.write(
+                vals = {
+                    'is_current': False,
+                    'date_to': today,
+                }
+                membership_line_obj.action_invalidate(
                     cr, uid, [current_membership_line_id],
-                    {'is_current': False, 'date_to': today}, context=context)
+                    context=context, vals=vals)
             else:
                 # create first membership_line
-                vals = values.copy()
-                vals['partner'] = partner.id
-                vals['int_instance_id'] = partner.int_instance_id and \
-                    partner.int_instance_id.id or False
-                vals['date'] = today
-                vals['date_from'] = today
-                vals['membership_state_id'] = partner.membership_state_id.id
-                vals['membership_id'] = partner.subscription_product_id and \
-                    partner.subscription_product_id.id or False
-                vals['member_price'] = partner.subscription_product_id and \
-                    partner.subscription_product_id.lst_price or False
+                values.update({
+                    'partner': partner.id,
+                    'int_instance_id': partner.int_instance_id and
+                    partner.int_instance_id.id or False,
+                    'date': today,
+                    'membership_id': partner.subscription_product_id and
+                    partner.subscription_product_id.id or False,
+                    'member_price': partner.subscription_product_id and
+                    partner.subscription_product_id.list_price or False,
+                })
                 new_membership_line_id = membership_line_obj.create(
-                    cr, uid, vals, context=context)
-            partner.write({'member_lines': [[4, new_membership_line_id]]})
+                    cr, uid, values, context=context)
