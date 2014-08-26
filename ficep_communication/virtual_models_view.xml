@@ -907,10 +907,6 @@
 
         <!-- Virtual Model Menus -->
 
-        <!-- Sub-root menu -->
-        <menuitem id="virtual_models_submenu" name="Searching Models"
-            sequence="20" parent="ficep_base.communication_root_menu" />
-
         <!-- Virtual Partner Instance -->
         <menuitem id="virtual_partner_instance_menu" sequence="10"
             parent="virtual_models_submenu" action="virtual_partner_instance_action" />
