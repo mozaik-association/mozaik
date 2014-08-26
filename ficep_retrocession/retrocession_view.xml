@@ -687,7 +687,7 @@
                                     <group>
 	                                    <field name="provision" attrs="{'invisible': ['|', ('retrocession_mode','=', 'month'),
 	                                                                                  ('need_account_management', '=', False)]}"/>
-	                                    <field name="amount_topay"/>
+	                                    <field name="amount_due"/>
 	                                    <field name="amount_reconcilied"  attrs="{'invisible': [('need_account_management', '=', False)]}"/>
 	                                    <field name="amount_paid" attrs="{'readonly': [('need_account_management', '=', True)]}"/>
 	                                </group>

@@ -317,7 +317,7 @@ class retrocession(orm.Model):
             res[retro.id] = dict(amount_retrocession=amount_retrocession,
                                  amount_deduction=amount_deduction,
                                  amount_total=amount_total,
-                                 amount_topay=amount_total - retro.provision)
+                                 amount_due=amount_total - retro.provision)
         return res
 
     def _need_account_management(self, cr, uid, ids, fname, arg, context=None):
@@ -581,7 +581,7 @@ class retrocession(orm.Model):
                                  type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
         'amount_total': fields.function(_compute_all_amounts, string='Total', multi="Allamounts",
                                         type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
-        'amount_topay': fields.function(_compute_all_amounts, string='To Pay', multi="Allamounts",
+        'amount_due': fields.function(_compute_all_amounts, string='Amount Due', multi="Allamounts",
                                         type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
         'provision': fields.function(_get_provision_amount, string='Provision', type="float",
                                      digits_compute=dp.get_precision('Account'), store=_provision_store_trigger, fnct_inv=_accept_anyway),
