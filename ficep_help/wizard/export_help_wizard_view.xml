@@ -9,32 +9,33 @@
             <field name="arch" type="xml">
                 <form string="Export Ficep Help Data" version="7.0">
                     <group colspan="2">
-                        <field name="export_filename" 
+                        <field name="export_filename"
                                invisible="1"/>
                     </group>
                     <group>
                         <p>
-	                    This wizard allow you to export all QWeb views 
-	                    related to help online (which name starts with 
-	                    'website.ficep-help-'). The result will be an Odoo
-	                    data xml file.
-	                    </p>
+                        This wizard allow you to export all QWeb views
+                        related to help online (which name starts with
+                        'website.ficep-help-'). The result will be an Odoo
+                        data xml file.
+                        </p>
                     </group>
                     <group>
-                        <field name="data" 
+                        <field name="data"
                                nolabel="1"
                                readonly="1"
                                filename="export_filename" />
                     </group>
                     <footer>
-                        <button special="cancel"
-                                icon="gtk-cancel"
-                                string="Close" />
-                        <button name="export_help"
+                        <span name="go-wizard" attrs="{'invisible': [('export_filename', '!=', False)]}">
+                            <button name="export_help"
                                 string="Export"
                                 type="object"
                                 icon="gtk-execute"
                                 class="oe_highlight" />
+                            or
+                        </span>
+                        <button string="Close" class="oe_link" special="cancel" />
                     </footer>
                 </form>
             </field>
