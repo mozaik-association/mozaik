@@ -46,11 +46,7 @@ Defines specific implementations of "Mass Editing" concept for:
     'data': [
         'data/mass_editing_data.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -58,7 +54,5 @@ Defines specific implementations of "Mass Editing" concept for:
     ],
     'sequence': 150,
     'auto_install': False,
-    'installable': True,
+    'installable': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
