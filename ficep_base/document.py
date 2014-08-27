@@ -26,17 +26,25 @@
 #
 ##############################################################################
 
-import testtool
-import url
-import ir_model
-import ir_import
-import res_lang
-import res_users
-import res_partner
-import mail_message
-import selections_translator
-import document
-import more_index
-import abstract_ficep
+import sys
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+WIN = sys.platform.startswith('win')
+
+from openerp.osv import orm
+
+
+class document_file(orm.Model):
+
+    _inherit = 'ir.attachment'
+
+    def _index(self, cr, uid, data, datas_fname, file_type):
+        '''
+        Under Windows try to avoid the doIndex crash when executing
+        the `file´ Unix command
+        '''
+        if not WIN or datas_fname or file_type:
+            res = super(document_file, self)._index(
+                cr, uid, data, datas_fname, file_type)
+            return res
+
+        return None, None
