@@ -48,6 +48,19 @@ class res_users(orm.Model):
 
 # orm methods
 
+    def name_get(self, cr, uid, ids, context=None):
+        '''
+        Add the users's login in the record name
+        '''
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+
+        res = []
+        records = self.read(cr, uid, ids, ['name', 'login'], context=context)
+        for record in records:
+            name = '%s (%s)' % (record['name'], record['login'])
+            res.append((record['id'], name))
+        return res
+
     def write(self, cr, uid, ids, vals, context=None):
         '''
         Invalidate cache when updating user
