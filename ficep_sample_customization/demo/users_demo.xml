@@ -53,6 +53,10 @@
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
             <field name="employee" eval="1"/>
+            <field name="int_instance_m2m_ids" eval="[
+                (4, ref('int_instance_04')),
+                (4, ref('int_instance_local_bxl')),
+            ]"/>
         </record>
 
         <!--

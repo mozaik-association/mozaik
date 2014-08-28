@@ -154,6 +154,7 @@
         <record id="local_zip_bxl_1030" model="address.local.zip">
             <field name="local_zip">1030</field>
             <field name="town">Bruxelles</field>
+            <field name="int_instance_id" ref="int_instance_local_bxl"/>
         </record>
 
         <record id="local_street_br" model="address.local.street">
