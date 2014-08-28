@@ -30,10 +30,7 @@ from datetime import date
 from anybox.testing.openerp import SharedSetupTransactionCase
 import uuid
 
-from openerp import netsvc
 from openerp.osv import orm
-
-wf_service = netsvc.LocalService("workflow")
 
 
 class test_partner(SharedSetupTransactionCase):
@@ -98,6 +95,7 @@ class test_partner(SharedSetupTransactionCase):
         * member -> resignation_former_member
         """
         cr, uid = self.cr, self.uid
+        partner_obj = self.partner_obj
 
         # create = without_membership
         partner = self.get_partner()
@@ -128,8 +126,7 @@ class test_partner(SharedSetupTransactionCase):
                           'member_candidate', 'Should be "member_candidate"')
 
         # member_candidate -> member_committee
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'member_committee',
                           'Should be "member_committee"')
@@ -165,9 +162,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'member',
                           'Should be "member"')
@@ -180,8 +176,7 @@ class test_partner(SharedSetupTransactionCase):
                           'Should be "former_member"')
 
         # former_member -> former_member_committee
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code,
                           'former_member_committee',
@@ -198,9 +193,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
 
         # member -> resignation_former_member
@@ -214,9 +208,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
 
         # member -> expulsion_former_member
@@ -230,9 +223,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
 
         # member -> former_member
@@ -243,8 +235,7 @@ class test_partner(SharedSetupTransactionCase):
                           'former_member', 'Should be "former member"')
 
         # former_member -> former_member_committee
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code,
                           'former_member_committee',
@@ -258,9 +249,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
 
         # member -> resignation_former_member
