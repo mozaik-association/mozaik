@@ -45,13 +45,10 @@ Loads all ficep modules
     'images': [
     ],
     'data': [
+        'security/ficep_security.xml',
         'data/res_users_data.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -61,5 +58,3 @@ Loads all ficep modules
     'auto_install': False,
     'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
