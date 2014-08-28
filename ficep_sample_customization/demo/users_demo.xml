@@ -44,6 +44,9 @@
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
             <field name="employee" eval="1"/>
+            <field name="int_instance_m2m_ids" eval="[
+                (4, ref('ficep_structure.int_instance_01')),
+            ]"/>
         </record>
 
         <record id="partner_of_user_6" model="res.partner">
