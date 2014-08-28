@@ -73,20 +73,19 @@ class test_membership(SharedSetupTransactionCase):
             * Validate this membership
             * Check that `ir.config_parameter` key `nb_days` exists
             * `date_from` (membership line of Pauline)
-                = today - (parameter value - 5)
+              = today - (parameter value - 5)
             * launch `process_accept_members` and check that Pauline is not
-                a `member`
+              a `member`
             * Update parameter value with string value 'blabla'
             * Import DEFAULT_NB_DAYS
             * `date_from` (membership line of Pauline)
-                = today - (DEFAULT_NB_DAYS + 5)
-            * launch `process_accept_members` and check that Pauline now \
-                `member`
+              = today - (DEFAULT_NB_DAYS + 5)
+            * launch `process_accept_members` and check that Pauline now
+              `member`
         """
         def update_memberlines_date_from(member_lines, new_date_from):
             for member_line in member_lines:
-                if member_line.is_current:
-                    member_line.write({'date_from': new_date_from})
+                member_line.write({'date_from': new_date_from})
 
         cr, uid, context = self.cr, self.uid, {'hide_nb_days_warning': True}
         msr_ids = [self.member_request.id]
@@ -94,7 +93,7 @@ class test_membership(SharedSetupTransactionCase):
         self.pauline.signal_workflow('paid_simulated')
         icp_ids = self.icp.search(
             cr, uid, [('key', '=', 'nb_days')], context=context)
-        self.assertTrue(icp_ids, 'Should Have a parameter number of days.')
+        self.assertTrue(icp_ids, 'Should have a parameter nb_days.')
 
         icp_rec = self.icp.browse(cr, uid, icp_ids, context=context)[0]
         to_substract = int(icp_rec.value) - 5
@@ -104,10 +103,9 @@ class test_membership(SharedSetupTransactionCase):
         self.wmr.process_accept_members(cr, uid)
         self.pauline = self.partner_obj.browse(cr, uid, self.pauline.id,
                                                context=context)
-        self.assertTrue(self.pauline.membership_state_id.
-                        code != 'member',
-                        'Should not be a member: nb_days is not\
-                        greater than value of parameter')
+        self.assertTrue(self.pauline.membership_state_id.code != 'member',
+                        'Should not be a member: nb_days is not '
+                        'greater than value of parameter')
 
         icp_rec.write({'value': 'blabla'})
         to_substract = DEFAULT_NB_DAYS + 5
@@ -117,6 +115,6 @@ class test_membership(SharedSetupTransactionCase):
         self.wmr.process_accept_members(cr, uid, context=context)
         self.pauline = self.partner_obj.browse(cr, uid, self.pauline.id,
                                                context=context)
-        self.assertTrue(self.pauline.membership_state_id.
-                        code == 'member', 'Should not be a member:\
-                        nb_days is greater than value of DEFAULT_NB_DAYS')
+        self.assertTrue(self.pauline.membership_state_id.code == 'member',
+                        'Should not be a member: '
+                        'nb_days is greater than DEFAULT_NB_DAYS')

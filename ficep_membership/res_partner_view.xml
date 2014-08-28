@@ -161,13 +161,13 @@
 
                 <xpath expr="//field[@name='member_lines']" position="replace">
                     <field name="member_lines" readonly="1">
-                        <tree colors="green:is_current==True" string="Memberships Lines">
+                        <tree colors="gray:active==False;green:membership_state_id[0]==%(ficep_membership.member)d">
                             <field name="int_instance_id"/>
                             <field name="membership_state_id"/>
                             <field name="membership_id" attrs="{'invisible': [('membership_state_id','!=',%(ficep_membership.member)d)]}"/>
                             <field name="date_from"/>
                             <field name="date_to"/>
-                            <field name="is_current" invisible="1"/>
+                            <field name="active" invisible="1"/>
                         </tree>
                     </field>
                 </xpath>

@@ -410,22 +410,22 @@ class test_partner(SharedSetupTransactionCase):
             * date from = today
             * membership_state = partner status
             * date_to = False
-            * is_current = True
+            * active = True
         Process two:
             * update first:
                  * date_to = today
-                 * is_current = False
+                 * active = False
             * new_one:
                  * date from = today
                  * membership_state = partner status
                  * date_to = False
-                 * is_current = True
+                 * active = True
         change status of the partner: this action will automatically launch
         `update_membership_line`
         and then the second process will be executed
         """
-        partner, partner_obj, cr, uid, context = self.partner1,\
-            self.partner_obj, self.cr, self.uid, {}
+        partner, partner_obj = self.partner1, self.partner_obj
+        cr, uid, context = self.cr, self.uid, {'active_test': True}
         partner_obj.update_membership_line(cr, uid, [partner.id],
                                            context=context)
         partner = partner_obj.browse(cr, uid, partner.id, context=context)
@@ -439,7 +439,7 @@ class test_partner(SharedSetupTransactionCase):
             self.assertEqual(membership_line.membership_state_id.id,
                              membership_state_id, 'State of membership must \
                              be the same that state of partner')
-            self.assertTrue(membership_line.is_current, 'First membership \
+            self.assertTrue(membership_line.active, 'First membership \
             should be the current one')
             self.assertFalse(membership_line.date_to, 'Should not have a \
             date_to because this is the current membership')
@@ -451,7 +451,7 @@ class test_partner(SharedSetupTransactionCase):
         current update of status")
         one_current = False
         for membership_line in partner.member_lines:
-            if membership_line.is_current:
+            if membership_line.active:
                 one_current = True
                 self.assertTrue(membership_line.membership_state_id ==
                                 partner.membership_state_id,

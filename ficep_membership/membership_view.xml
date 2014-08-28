@@ -130,7 +130,7 @@
             <field name="name">membership.membership_line.tree</field>
             <field name="model">membership.membership_line</field>
             <field name="arch" type="xml">
-                <tree colors="green:is_current==True" string="Membership Lines"
+                <tree colors="gray:active==False;green:membership_state_id[0]==%(ficep_membership.member)d" string="Membership Lines"
                       create="0" delete="0" version="7.0">
                     <field name="partner"/>
                     <field name="int_instance_id"/>
@@ -138,7 +138,7 @@
                     <field name="membership_id" attrs="{'invisible': [('membership_state_id','!=',%(ficep_membership.member)d)]}"/>
                     <field name="date_from"/>
                     <field name="date_to"/>
-                    <field name="is_current" invisible="1"/>
+                    <field name="active" invisible="1"/>
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
@@ -171,7 +171,6 @@
                                 <field name="member_price" attrs="{'invisible': [('membership_state_id','!=',%(ficep_membership.member)d)]}"/>
                             </group>
                             <group name="other">
-                                <field name="is_current" />
                                 <field name="account_invoice_id" attrs="{'invisible': [('account_invoice_id','=',False)]}"
                                        groups="ficep_account.res_groups_financial_manager"/>
                                 <field name="account_invoice_line" attrs="{'invisible': [('account_invoice_line','=',False)]}"

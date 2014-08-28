@@ -372,10 +372,11 @@ class res_partner(orm.Model):
 
     def update_membership_line(self, cr, uid, ids, context=None):
         """
-        Search a current `membership.membership_line` for each partner
-        If no membership_line found then create one
-        If a membership_line is found then set `is_current` to False
-        and `date_from` to today
+        Search for a `membership.membership_line` for each partner
+        If no membership_line exist:
+        * then create one
+        * else invalidate it updating its `date_to` and duplicate it
+          with the right state
         """
         values = {}
         membership_line_obj = self.pool['membership.membership_line']
@@ -384,22 +385,22 @@ class res_partner(orm.Model):
         for partner in self.browse(cr, uid, ids, context=context):
             values['membership_state_id'] = partner.membership_state_id.id
             current_membership_line_ids = membership_line_obj.search(
-                cr, uid, [('partner', '=', partner.id),
-                          ('is_current', '=', True)], context=context)
+                cr, uid,
+                [('partner', '=', partner.id), ('active', '=', True)],
+                context=context)
             current_membership_line_id = current_membership_line_ids and \
                 current_membership_line_ids[0] or False
             if current_membership_line_id:
-                # copy and update it
-                new_membership_line_id = membership_line_obj.copy(
-                    cr, uid, current_membership_line_id, default=values,
-                    context=context)
+                # update and copy it
                 vals = {
-                    'is_current': False,
                     'date_to': today,
                 }
                 membership_line_obj.action_invalidate(
                     cr, uid, [current_membership_line_id],
                     context=context, vals=vals)
+                membership_line_obj.copy(
+                    cr, uid, current_membership_line_id, default=values,
+                    context=context)
             else:
                 # create first membership_line
                 values.update({
@@ -412,5 +413,5 @@ class res_partner(orm.Model):
                     'member_price': partner.subscription_product_id and
                     partner.subscription_product_id.list_price or False,
                 })
-                new_membership_line_id = membership_line_obj.create(
+                membership_line_obj.create(
                     cr, uid, values, context=context)
