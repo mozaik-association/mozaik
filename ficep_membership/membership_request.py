@@ -25,7 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from uuid import uuid4
+from uuid import uuid4, uuid1
 from datetime import date
 from collections import OrderedDict
 
@@ -46,14 +46,31 @@ MEMBERSHIP_AVAILABLE_STATES = [
     ('validate', 'Done'),
     ('cancel', 'Cancelled'),
 ]
-membership_available_states = dict(MEMBERSHIP_AVAILABLE_STATES)
 
 EMPTY_ADDRESS = '0#0#0#0#0#0#0#0'
 MEMBERSHIP_REQUEST_TYPE = [
     ('m', 'Member'),
     ('s', 'Supporter'),
 ]
-membership_request_type = dict(MEMBERSHIP_REQUEST_TYPE)
+
+
+def get_status_values(request_type):
+    """
+    :type request_type: char
+    :param request_type: m or s for member or supporter.
+        `False` if not defined
+    :rtype: dict
+    :rparam: affected date resulting of the `request_type`
+        and the `status`
+    """
+    vals = {}
+    if request_type:
+        vals['accepted_date'] = date.today().strftime('%Y-%m-%d')
+        if request_type == 'm':
+            vals['free_member'] = False
+        elif request_type == 's':
+            vals['free_member'] = True
+    return vals
 
 
 class membership_request(orm.Model):
@@ -365,45 +382,30 @@ class membership_request(orm.Model):
         """
         context = context or {}
 
-        cr.execute('SAVEPOINT preview')
-
         partner_obj = self.pool['res.partner']
-        if not partner_id:
-            partner_id = partner_obj.create(cr, uid, partner_datas,
-                                            context=None)
-        status_id = partner_obj.read(cr, uid, partner_id,
-                                     ['membership_state_id'],
-                                     context=context)['membership_state_id'][0]
-        vals = self.get_status_values(cr, uid, request_type, context=context)
-        if vals:
-            partner_obj.write(cr, uid, partner_id, vals, context=context)
+
+        name = 'preview-%s' % uuid1().hex
+        cr.execute('SAVEPOINT "%s"' % name)
+        try:
+            if not partner_id:
+                partner_id = partner_obj.create(
+                    cr, uid, partner_datas, context=context)
             status_id = partner_obj.read(
                 cr, uid, partner_id, ['membership_state_id'],
                 context=context)['membership_state_id'][0]
-
-        cr.execute('ROLLBACK TO SAVEPOINT preview')
+            vals = get_status_values(request_type)
+            if vals:
+                partner_obj.write(
+                    cr, uid, partner_id, vals, context=context)
+                status_id = partner_obj.read(
+                    cr, uid, partner_id, ['membership_state_id'],
+                    context=context)['membership_state_id'][0]
+        except:
+            pass
+        finally:
+            cr.execute('ROLLBACK TO SAVEPOINT "%s"' % name)
 
         return status_id
-
-    def get_status_values(self, cr, uid, request_type, context=None):
-        """
-        :type request_type: char
-        :param request_type: m or s for member or supporter.
-            `False` if not defined
-        :rtype: dict
-        :rparam: affected date resulting of the `request_type`
-            and the `status`
-        """
-        if request_type:
-            vals = {
-                'accepted_date': date.today().strftime('%Y-%m-%d')
-            }
-            if request_type == 'm':
-                vals['free_member'] = False
-            elif request_type == 's':
-                vals['free_member'] = True
-            return vals
-        return {}
 
     def get_birth_date(self, cr, uid, day, month, year, context=None):
         """
@@ -716,14 +718,12 @@ class membership_request(orm.Model):
                 ([competence.id for competence in mr.competencies_m2m_ids]) \
                 or []
 
-            partner_values.update(self.get_status_values(cr, uid,
-                                                         mr.request_type,
-                                                         context=context))
+            partner_values.update(get_status_values(mr.request_type))
             partner_values.update({
                 'subscription_product_id': mr.product_id and mr.product_id.id
                 or False,
                 'competencies_m2m_ids': [[6, False, new_interests_ids]],
-                'interests_m2m_ids': [[6, False, new_competencies_ids]]
+                'interests_m2m_ids': [[6, False, new_competencies_ids]],
             })
 
             # update_partner values
