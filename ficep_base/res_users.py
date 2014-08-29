@@ -46,6 +46,8 @@ class res_users(orm.Model):
         'display_groups_suggestions': False,
     }
 
+    _order = 'partner_id'
+
 # orm methods
 
     def name_get(self, cr, uid, ids, context=None):

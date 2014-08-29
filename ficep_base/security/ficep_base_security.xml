@@ -89,6 +89,12 @@
             <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_reader')),]"/>
         </record>
 
+        <!-- Inactivate Sharing Group -->
+
+        <record model="res.groups" id="share.group_share_user">
+            <field name="users" eval="[(5, 0, 0)]" />
+        </record>
+
     </data>
 
     <data noupdate="1">

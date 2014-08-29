@@ -31,7 +31,7 @@
         <record id="res_partner_base_rule" model="ir.rule">
             <field name="name">Partner for Ficep Base</field>
             <field name="model_id" ref="base.model_res_partner"/>
-            <field name="domain_force">[('int_instance_id','child_of',[i.id for i in user.partner_id.int_instance_m2m_ids])]</field>
+            <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(4,ref('ficep_base.res_groups_base'))]"/>
         </record>
 
