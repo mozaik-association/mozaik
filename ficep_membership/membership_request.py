@@ -28,15 +28,16 @@
 from uuid import uuid4, uuid1
 from datetime import date
 from collections import OrderedDict
+from contextlib import contextmanager
 
 from openerp.tools import logging
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp.tools import SUPERUSER_ID
 
 from openerp.addons.ficep_base.abstract_ficep import format_email
 from openerp.addons.ficep_address.address_address import COUNTRY_CODE
 from openerp.addons.ficep_person.res_partner import AVAILABLE_GENDERS
-from openerp.tools import SUPERUSER_ID
 
 _logger = logging.getLogger(__name__)
 
@@ -364,6 +365,21 @@ class membership_request(orm.Model):
 
 # public method
 
+    @contextmanager
+    def protect_v8_cache(self, safe_pure_fct_fields):
+        '''
+        Hackish: prevent to alter the _cache of onchange record
+        when simulating a workflow progression on an onchange callback
+        '''
+        orig_pure_fct_fields = self.pool.pure_function_fields
+        self.pool.pure_function_fields = safe_pure_fct_fields
+        try:
+            yield
+        except:
+            raise
+        finally:
+            self.pool.pure_function_fields = orig_pure_fct_fields
+
     def get_partner_preview(self, cr, uid, request_type, partner_id=False,
                             partner_datas={'lastname': '%s' % uuid4()},
                             context=None):
@@ -384,19 +400,30 @@ class membership_request(orm.Model):
 
         partner_obj = self.pool['res.partner']
 
+        # Build a new pure_function_fields list
+        # without fields of membership.request
+        pffs = [
+            f for f in self.pool.pure_function_fields
+            if f.model_name != self._name
+        ]
+
         name = 'preview-%s' % uuid1().hex
         cr.execute('SAVEPOINT "%s"' % name)
         try:
             if not partner_id:
-                partner_id = partner_obj.create(
-                    cr, uid, partner_datas, context=context)
+                with self.protect_v8_cache(pffs):
+                    # safe mode is here mandatory
+                    partner_id = partner_obj.create(
+                        cr, uid, partner_datas, context=context)
             status_id = partner_obj.read(
                 cr, uid, partner_id, ['membership_state_id'],
                 context=context)['membership_state_id'][0]
             vals = get_status_values(request_type)
             if vals:
-                partner_obj.write(
-                    cr, uid, partner_id, vals, context=context)
+                with self.protect_v8_cache(pffs):
+                    # safe mode is here mandatory
+                    partner_obj.write(
+                        cr, uid, partner_id, vals, context=context)
                 status_id = partner_obj.read(
                     cr, uid, partner_id, ['membership_state_id'],
                     context=context)['membership_state_id'][0]

@@ -11,21 +11,20 @@
             <field name="arch" type="xml">
                 <search string="Membership Requests" version="7.0">
                     <filter name="state_draft" string="Draft"
-                        domain="[('state','=', 'draft')]" />
+                        domain="[('state', '=', 'draft')]" />
                     <filter name="state_confirmed" string="Confirmed"
-                        domain="[('state','=', 'confirm')]" />
+                        domain="[('state', '=', 'confirm')]" />
                     <filter name="state_validated" string="Done"
-                        domain="[('state','=', 'validate')]" />
+                        domain="[('state', '=', 'validate')]" context="{'active_test': False}" />
                     <filter name="state_cancelled" string="Cancelled"
-                        domain="[('state','=', 'cancel')]" />
+                        domain="[('state', '=', 'cancel')]" context="{'active_test': False}" />
                     <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Exprired Requests" />
+                        domain="[('active', '=' ,False)]" help="Exprired Requests" />
                     <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]"
-                        help="All Requests, expired or not" />
+                        context="{'invisible_expire_date': False, 'active_test': False}"
+                        domain="[]" help="All Requests, expired or not" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="ste" string="State" domain="[]"

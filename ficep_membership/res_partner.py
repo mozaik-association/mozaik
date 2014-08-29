@@ -378,10 +378,12 @@ class res_partner(orm.Model):
         * else invalidate it updating its `date_to` and duplicate it
           with the right state
         """
-        values = {}
-        membership_line_obj = self.pool['membership.membership_line']
         today = date.today().strftime('%Y-%m-%d')
-        values['date_from'] = today
+        values = {
+            'date_from': today,
+            'date_to': False,
+        }
+        membership_line_obj = self.pool['membership.membership_line']
         for partner in self.browse(cr, uid, ids, context=context):
             values['membership_state_id'] = partner.membership_state_id.id
             current_membership_line_ids = membership_line_obj.search(
