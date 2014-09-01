@@ -9,11 +9,9 @@
             <field name="model">export.vcard</field>
             <field name="arch" type="xml">
                 <form string="Export vCard" version="7.0">
-                    <sheet>
-                        <group>
-                            <label string="This will export the selected coordinates to a vCard file"/>
-                        </group>
-                    </sheet>
+                    <div>
+                        <label string="This will export the selected coordinates to a vCard file"/>
+                    </div>
                     <footer>
                         <span name="go-wizard">
                             <button name="export" string="Launch" type="object" class="oe_highlight"/>
