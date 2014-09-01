@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
+#    Authors: Laurent Mignon
 #    Copyright (c) 2014 Acsone SA/NV (http://www.acsone.eu)
 #    All Rights Reserved
 #
@@ -25,42 +26,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Help',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_base',
-        'help_online',
-    ],
-    'description': """
-FICEP Documentation
-===================
-* Provide a full help online for Ficep application
-""",
-    'images': [
-    ],
-    'data': [
-        'data/help_auto_backup.xml',  # must always be the first
-        'help_view.xml',
-        'data/help_data.xml',
-        'wizard/export_help_wizard_view.xml',
-        'ir_ui_view_view.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'installable': True,
-    'auto_install': False,
-}
+from openerp.osv import orm
+
+
+class HelpOnline(orm.TransientModel):
+    _inherit = 'help.online'
+
+    def _get_view_name(self, model, view_type, domain=None, context=None):
+        name = 'ficep-help-%s' % model.replace('.', '-')
+        return name
