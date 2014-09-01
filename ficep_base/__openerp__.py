@@ -54,6 +54,7 @@
         # load manually in this database ficep_base and the following modules:
         #'membership',        # close manually wizard without loading any charts templates
         #'account_accountant',
+        #'account_cancel',
     ],
     'description': """
 FICEP Base
