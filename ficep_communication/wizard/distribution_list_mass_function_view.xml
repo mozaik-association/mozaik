@@ -50,7 +50,7 @@
                                   attrs="{'invisible':[('trg_model','!=','postal.coordinate'), ('extract_csv','=',False)]}">
                                 <group>
                                     <group>
-                                        <field name="postal_mail_id"/>
+                                        <field name="postal_mail_name"/>
                                         <field name="sort_by" />
                                         <field name="groupby_coresidency" />
                                     </group>

@@ -37,6 +37,8 @@ class postal_mail(orm.Model):
     _inherit = ['abstract.ficep.model']
     _description = 'Postal Mail'
 
+    _inactive_cascade = True
+
     def _postal_mail_log_count(self, cr, uid, ids, field_name, arg, context=None):
         PostalMailLog = self.pool('postal.mail.log')
         return {
@@ -77,6 +79,38 @@ class postal_mail(orm.Model):
             'name': _('%s (copy)') % res.get('name'),
         })
         return res
+
+    def name_get(self, cr, uid, ids, context=None):
+        """
+        ========
+        name_get
+        ========
+        :rparam: list of (id, name)
+                 where id is the id of each object
+                 and name, the name to display.
+        :rtype: [(id, name)] list of tuple
+        """
+        if not ids:
+            return []
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+
+        res = []
+        for record in self.browse(cr, uid, ids, context=context):
+            res.append((record['id'], '%s (%s)' %
+                        (record.name, record.sent_date,)))
+        return res
+
+    def name_search(self, cr, uid, name, args=None, operator='ilike',
+                    context=None, limit=100):
+        if not args:
+            args = []
+        if name:
+            ids = self.search(cr, uid, ['|', ('name', operator, name),
+                                        ('sent_date', operator, name)] + args,
+                              limit=limit, context=context)
+        else:
+            ids = self.search(cr, uid, args, limit=limit, context=context)
+        return self.name_get(cr, uid, ids, context)
 
 
 class postal_mail_log(orm.Model):
