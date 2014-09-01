@@ -79,7 +79,8 @@
                                           'default_subject_partner_id': active_id,
                                           'search_default_all': True}" />
                         <field name="partner_is_subject_relation_ids"
-                               context="{'default_subject_partner_id': active_id, 'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}"
+                               context="{'default_subject_partner_id': active_id,
+                                         'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}"
                                attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                             <tree>
                                 <field name="partner_relation_category_id"/>
@@ -88,7 +89,7 @@
                         </field>
                         <!-- Inactive -->
                         <field name="partner_is_subject_relation_inactive_ids"
-                                context="{'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}"
+                               context="{'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}"
                                readonly="1" attrs="{'invisible': [('active','=',True)], 'readonly': [('id','=',False)]}">
                             <tree>
                                 <field name="partner_relation_category_id"/>
@@ -102,19 +103,21 @@
                                 context="{'search_default_object_partner_id': active_id,
                                           'default_object_partner_id': active_id,
                                           'search_default_all': True}" />
-                        <field name="partner_is_object_relation_ids" context="{'default_object_partner_id': active_id,
-                                                                               'object': True, 'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}"
+                        <field name="partner_is_object_relation_ids"
+                               context="{'default_object_partner_id': active_id, 'object': True,
+                                         'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}"
                                attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                             <tree>
-                                <field name="partner_relation_category_id"/>
+                                <field name="partner_relation_category_id" />
                                 <field name="subject_partner_id" />
                             </tree>
                         </field>
                         <!-- Inactive -->
-                        <field name="partner_is_object_relation_inactive_ids" context="{'object': True, 'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}"
+                        <field name="partner_is_object_relation_inactive_ids"
+                               context="{'object': True, 'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}"
                                readonly="1" attrs="{'invisible': [('active','=',True)], 'readonly': [('id','=',False)]}">
                             <tree>
-                                <field name="partner_relation_category_id"/>
+                                <field name="partner_relation_category_id" />
                                 <field name="subject_partner_id" />
                             </tree>
                         </field>

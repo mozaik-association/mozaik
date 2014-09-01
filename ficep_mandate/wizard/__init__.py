@@ -28,5 +28,3 @@
 from . import copy_mandate_wizard
 from . import import_candidatures_wizard
 from . import allow_incompatible_mandate_wizard
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

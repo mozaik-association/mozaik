@@ -42,8 +42,7 @@ FICEP Sample Customization
     'images': [
     ],
     'data': [
-         'demo/company_demo.xml',
-         'demo/users_demo.xml',
+         # first other data ...
          '../ficep_base/tests/data/res_partner_data.xml',
          '../ficep_base/tests/data/res_users_data.xml',
          '../ficep_structure/tests/data/structure_data.xml',
@@ -62,13 +61,12 @@ FICEP Sample Customization
          '../ficep_membership/tests/data/membership_request_data.xml',
          '../ficep_communication/tests/data/communication_data.xml',
          '../ficep_communication/tests/data/postal_mail_data.xml',
-         'demo/sample_customization_demo.xml',  # must be the last
-    ],
-    'js': [
+         # ... and finally ...
+         'demo/company_demo.xml',
+         'demo/users_demo.xml',
+         'demo/sample_customization_demo.xml',
     ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -78,5 +76,3 @@ FICEP Sample Customization
     'auto_install': False,
     'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

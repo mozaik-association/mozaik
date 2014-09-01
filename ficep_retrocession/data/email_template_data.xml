@@ -23,7 +23,7 @@
        &nbsp;&nbsp;<strong>REFERENCES</strong><br />
        &nbsp;&nbsp;Retrocession: <strong>${object.unique_id}</strong><br />
        &nbsp;&nbsp;Period: <strong>${object.month or ''} ${object.year}</strong><br/>
-       &nbsp;&nbsp;Amount: <strong>${object.amount_topay} ${object.partner_id.company_id.currency_id.name}</strong><br/>
+       &nbsp;&nbsp;Amount: <strong>${object.amount_due} ${object.partner_id.company_id.currency_id.name}</strong><br/>
     </p>  
     <br/>
     <p>If you have any question, do not hesitate to contact us.</p>

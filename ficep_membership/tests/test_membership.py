@@ -38,10 +38,9 @@ class test_membership(SharedSetupTransactionCase):
     _data_files = (
         # load the partner
         '../../ficep_base/tests/data/res_partner_data.xml',
-        # load the birth_date of this partner
-        '../../ficep_person/tests/data/res_partner_data.xml',
-        # load address of this partner
+        # load structures
         '../../ficep_structure/tests/data/structure_data.xml',
+        # load address of this partner
         '../../ficep_address/tests/data/reference_data.xml',
         # load postal_coordinate of this partner
         '../../ficep_address/tests/data/address_data.xml',

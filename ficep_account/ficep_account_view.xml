@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Only for accountants -->
+
+        <record id="account.partner_view_buttons" model="ir.ui.view">
+            <field name="groups_id" eval="[(4, ref('res_groups_financial_manager')),
+                                          ]"/>
+        </record>
+
+        <record id="partner_view_buttons" model="ir.ui.view">
+            <field name="name">partner.view.buttons (ficep_account)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.partner_view_buttons"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[field[@name='contracts_count']]" position="replace"/>
+            </field>
+        </record>
+
+        <!-- Re-assign standard menus -->
+
+        <record id="account.menu_finance_payables" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
+                                          ]"/>
+        </record>
+
+        <record id="account.menu_account_customer" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
+                                          ]"/>
+        </record>
+
+    </data>
+</openerp>

@@ -51,6 +51,8 @@ This module manages email coordinates.
         'wizard/change_main_email.xml',
         'wizard/allow_duplicate_view.xml',
         'wizard/bounce_editor_view.xml',
+        'wizard/export_vcard_view.xml',
+        'wizard/export_csv_view.xml',
     ],
     'js': [
     ],

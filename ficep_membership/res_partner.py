@@ -139,6 +139,78 @@ class res_partner(orm.Model):
             self.pool.get('int.instance').get_default(cr, uid),
     }
 
+# orm methods
+
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        Do not copy m2m fields.
+        """
+        default = default or {}
+        default.update({
+            'int_instance_m2m_ids': [],
+        })
+        res = super(res_partner, self).copy_data(cr, uid, ids, default=default,
+                                                 context=context)
+        return res
+
+    def create_workflow(self, cr, uid, ids, context=None):
+        '''
+        Create workflow only for natural persons
+        '''
+        dom = [('id', 'in', ids), ('is_company', '=', False)]
+        pids = self.search(cr, uid, dom, context=context)
+        res = super(res_partner, self).create_workflow(
+            cr, uid, pids, context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        """
+        Invalidate rules cache when changing set of instances related to
+        the user
+        Create or Delete workflow if necessary (according to the new
+        is_company value)
+        """
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+        if 'is_company' in vals:
+            is_company = vals['is_company']
+            data = self.read(cr, uid, ids, ['is_company'], context=context)
+            p2d_ids = [
+                # wkfs to delete
+                d['id'] for d in data if not d['is_company'] and is_company
+            ]
+            if p2d_ids:
+                ml_obj = self.pool['membership.membership_line']
+                ml_ids = ml_obj.search(
+                    cr, uid, [('partner', 'in', p2d_ids)],
+                    context=context)
+                if ml_ids:
+                    raise orm.except_orm(
+                        _('Error'),
+                        _('A natural person with membership history '
+                          'cannot be transformed to a legal person')
+                    )
+            p2c_ids = [
+                # wkfs to create
+                d['id'] for d in data if d['is_company'] and not is_company
+            ]
+            super(res_partner, self).create_workflow(
+                cr, uid, p2c_ids, context=context)
+            self.delete_workflow(
+                cr, uid, p2d_ids, context=context)
+
+            if is_company:
+                vals['membership_state_id'] = None
+
+        res = super(res_partner, self).write(
+            cr, uid, ids, vals, context=context)
+
+        if 'int_instance_m2m_ids' in vals:
+            rule_obj = self.pool['ir.rule']
+            for partner in self.browse(cr, uid, ids, context=context):
+                for u in partner.user_ids:
+                    rule_obj.clear_cache(cr, u.id)
+        return res
+
 # view methods: onchange, button
 
     def decline_payment(self, cr, uid, ids, context=None):
@@ -249,21 +321,7 @@ class res_partner(orm.Model):
         return membership_request_obj.display_object_in_form_view(
             cr, uid, membership_request_id, context=context)
 
-# orm methods
-
-    def copy_data(self, cr, uid, ids, default=None, context=None):
-        """
-        Do not copy m2m fields.
-        """
-        default = default or {}
-        default.update({
-            'int_instance_m2m_ids': [],
-        })
-        res = super(res_partner, self).copy_data(cr, uid, ids, default=default,
-                                                 context=context)
-        return res
-
-# public methods
+# workflow
 
     def update_state(self, cr, uid, ids, membership_state_code, context=None):
         """
@@ -277,85 +335,85 @@ class res_partner(orm.Model):
         """
 
         membership_state_obj = self.pool['membership.state']
-        membership_state_ids = membership_state_obj.\
-            search(cr, uid, [('code', '=', membership_state_code)], context)
+        membership_state_ids = membership_state_obj.search(
+            cr, uid, [('code', '=', membership_state_code)], context=context)
 
         if not membership_state_ids:
-            raise orm.except_orm(_('Error'), _('Try to set an undefined \
-                "Membership State" on partner'))
-
-        membership_state_id = membership_state_ids[0]
+            raise orm.except_orm(
+                _('Error'),
+                _('Try to set an undefined "Membership State" on partner'))
 
         vals = {
-            'membership_state_id': membership_state_id,
+            'membership_state_id': membership_state_ids[0],
             'accepted_date': False,
             'decline_payment_date': False,
             'rejected_date': False,
             'resignation_date': False,
             'exclusion_date': False,
+            'customer': membership_state_code in [
+                'member_candidate',
+                'member_committee',
+                'member',
+                'former_member',
+                'former_member_committee',
+            ],
         }
+
         res = self.write(cr, uid, ids, vals, context=context)
-        state_id = membership_state_obj._state_default_get(cr, uid,
-                                                           context=context)
-        default_code = membership_state_obj.read(cr, uid, state_id, ['code'],
-                                                 context=context)['code']
+        state_id = membership_state_obj._state_default_get(
+            cr, uid, context=context)
+        default_code = membership_state_obj.read(
+            cr, uid, state_id, ['code'], context=context)['code']
+
         if membership_state_code != default_code:
             self.update_membership_line(cr, uid, ids, context=context)
+
         return res
 
     def update_membership_line(self, cr, uid, ids, context=None):
         """
-        Search a current `membership.membership_line` for each partner
-        If no membership_line found then create one
-        If a membership_line is found then set `is_current` to False
-        and `date_from` to today
+        Search for a `membership.membership_line` for each partner
+        If no membership_line exist:
+        * then create one
+        * else invalidate it updating its `date_to` and duplicate it
+          with the right state
         """
-        values = {}
-        membership_line_obj = self.pool['membership.membership_line']
         today = date.today().strftime('%Y-%m-%d')
-        values['date_from'] = today
+        values = {
+            'date_from': today,
+            'date_to': False,
+        }
+        membership_line_obj = self.pool['membership.membership_line']
         for partner in self.browse(cr, uid, ids, context=context):
             values['membership_state_id'] = partner.membership_state_id.id
             current_membership_line_ids = membership_line_obj.search(
-                cr, uid, [('partner', '=', partner.id),
-                          ('is_current', '=', True)], context=context)
+                cr, uid,
+                [('partner', '=', partner.id), ('active', '=', True)],
+                context=context)
             current_membership_line_id = current_membership_line_ids and \
                 current_membership_line_ids[0] or False
             if current_membership_line_id:
-                # copy and update it
-                new_membership_line_id = membership_line_obj.copy(
+                # update and copy it
+                vals = {
+                    'date_to': today,
+                }
+                membership_line_obj.action_invalidate(
+                    cr, uid, [current_membership_line_id],
+                    context=context, vals=vals)
+                membership_line_obj.copy(
                     cr, uid, current_membership_line_id, default=values,
                     context=context)
-                membership_line_obj.write(
-                    cr, uid, [current_membership_line_id],
-                    {'is_current': False, 'date_to': today}, context=context)
             else:
                 # create first membership_line
-                vals = values.copy()
-                vals['partner'] = partner.id
-                vals['int_instance_id'] = partner.int_instance_id and \
-                    partner.int_instance_id.id or False
-                vals['date'] = today
-                vals['date_from'] = today
-                vals['membership_state_id'] = partner.membership_state_id.id
-                vals['membership_id'] = partner.subscription_product_id and \
-                    partner.subscription_product_id.id or False
-                vals['member_price'] = partner.subscription_product_id and \
-                    partner.subscription_product_id.lst_price or False
-                new_membership_line_id = membership_line_obj.create(
-                    cr, uid, vals, context=context)
-            partner.write({'member_lines': [[4, new_membership_line_id]]})
-
-    def write(self, cr, uid, ids, vals, context=None):
-        """
-        Invalidate rules cache when changing set of instances related to \
-        the user
-        """
-        res = super(res_partner, self).write(cr, uid, ids, vals,
-                                             context=context)
-        if 'int_instance_m2m_ids' in vals:
-            rule_obj = self.pool['ir.rule']
-            for partner in self.browse(cr, uid, ids, context=context):
-                for u in partner.user_ids:
-                    rule_obj.clear_cache(cr, u.id)
-        return res
+                values.update({
+                    'partner': partner.id,
+                    'int_instance_id': partner.int_instance_id and
+                    partner.int_instance_id.id or False,
+                    'date': today,
+                    'membership_id': partner.subscription_product_id and
+                    partner.subscription_product_id.id or False,
+                    'member_price': partner.subscription_product_id and
+                    partner.subscription_product_id.list_price or False,
+                })
+                membership_line_obj.create(
+                    cr, uid, values, context=context)

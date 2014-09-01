@@ -2,6 +2,8 @@
 <openerp>
     <data noupdate="0">
 
+        <!-- Rules -->
+
         <record id="draft_membership_request_user_rule" model="ir.rule">
             <field name="name">Membership Request Draft for Ficep User</field>
             <field name="model_id" ref="model_membership_request"/>
@@ -29,8 +31,15 @@
         <record id="res_partner_base_rule" model="ir.rule">
             <field name="name">Partner for Ficep Base</field>
             <field name="model_id" ref="base.model_res_partner"/>
-            <field name="domain_force">[('int_instance_id','child_of',[i.id for i in user.partner_id.int_instance_m2m_ids])]</field>
+            <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(4,ref('ficep_base.res_groups_base'))]"/>
+        </record>
+
+        <!-- Groups -->
+
+        <record model="res.groups" id="settings_improvement.unused_features">
+            <field name="view_access" eval="[(4, ref('membership.view_partner_tree')),
+                                            ]"/>
         </record>
 
     </data>

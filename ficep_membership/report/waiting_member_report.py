@@ -79,7 +79,7 @@ class waiting_member_report(orm.Model):
                         ON ml.partner = p.id
                     WHERE
                         p.is_company = false AND
-                        ml.is_current = true AND
+                        ml.active = true AND
                         ms.code = 'member_committee' OR
                         ms.code = 'former_member_committee'
                     ) as partner
@@ -90,30 +90,30 @@ class waiting_member_report(orm.Model):
 
     def process_accept_members(self, cr, uid, ids=None, context=None):
         """
-        push the workflow for all
-        found partner with the signal `accept`
+        Advance the workflow with the signal `accept`
+        for all partners found
         """
-        nb_days = ''
-        param_obj = self.pool['ir.config_parameter']
-        param_ids = param_obj.\
-            search(cr, uid, [('key', '=', 'nb_days')], context=context)
-        if param_ids:
-            nb_days = param_obj.read(
-                cr, uid, param_ids, ['value'], context=context)[0]['value']
-
-        try:
-            nb_days = int(nb_days)
-        except:
-            nb_days = DEFAULT_NB_DAYS
-            _logger.info("It seems that number of days is now a \
-                string.DEFAULT_NB_DAYS(%s) is now used" % DEFAULT_NB_DAYS)
-            pass
-
         if ids is None:
+            nb_days = self.pool['ir.config_parameter'].get_param(
+                cr, uid, 'nb_days', default=DEFAULT_NB_DAYS, context=context)
+
+            try:
+                nb_days = int(nb_days)
+            except:
+                nb_days = DEFAULT_NB_DAYS
+                _logger.info('It seems the ir.config_parameter(nb_days) '
+                             'is not a valid number. DEFAULT_NB_DAYS=%s days '
+                             'is used instead.' % DEFAULT_NB_DAYS)
+
             ids = self.search(
                 cr, uid, [('nb_days', '>', nb_days)], context=context)
 
-        for waiting_member in self.browse(cr, uid, ids, context=context):
-            waiting_member.partner_id.signal_workflow('accept')
+        pids = [
+            pid['id']
+            for pid in self.read(cr, uid, ids, ['partner_id'], context=context)
+        ]
+
+        self.pool['res.partner'].signal_workflow(
+            cr, uid, set(pids), 'accept', context=context)
 
         return True

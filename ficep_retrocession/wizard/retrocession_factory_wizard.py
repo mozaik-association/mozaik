@@ -25,11 +25,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+import datetime
+
 from openerp.osv import orm, fields
 from openerp.addons.connector.queue.job import job
 from openerp.addons.connector.session import ConnectorSession
 
-import datetime
 
 MANDATE_M2O = {
         'sta.mandate': 'sta_mandate_id',

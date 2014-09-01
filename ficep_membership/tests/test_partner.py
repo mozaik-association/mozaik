@@ -30,9 +30,7 @@ from datetime import date
 from anybox.testing.openerp import SharedSetupTransactionCase
 import uuid
 
-from openerp import netsvc
-
-wf_service = netsvc.LocalService("workflow")
+from openerp.osv import orm
 
 
 class test_partner(SharedSetupTransactionCase):
@@ -40,17 +38,8 @@ class test_partner(SharedSetupTransactionCase):
     _data_files = (
         # load the partner
         '../../ficep_base/tests/data/res_partner_data.xml',
-        # load the birth_date of this partner
-        '../../ficep_person/tests/data/res_partner_data.xml',
-        # load address of this partner
+        # load structures
         '../../ficep_structure/tests/data/structure_data.xml',
-        '../../ficep_address/tests/data/reference_data.xml',
-        # load postal_coordinate of this partner
-        '../../ficep_address/tests/data/address_data.xml',
-        # load phone_coordinate of this partner
-        '../../ficep_phone/tests/data/phone_data.xml',
-        # load terms
-        '../../ficep_thesaurus/tests/data/thesaurus_data.xml',
     )
 
     _module_ns = 'ficep_membership'
@@ -63,8 +52,11 @@ class test_partner(SharedSetupTransactionCase):
         self.ms_obj = self.registry('membership.state')
         self.ml_obj = self.registry('membership.membership_line')
 
-        self.rec_partner = self.browse_ref('%s.res_partner_thierry' %
-                                           self._module_ns)
+        self.partner1 = self.browse_ref(
+            '%s.res_partner_thierry' % self._module_ns)
+
+        self.partner2 = self.browse_ref(
+            '%s.res_partner_fgtb' % self._module_ns)
 
     def get_partner(self, partner_id=False):
         """
@@ -80,7 +72,7 @@ class test_partner(SharedSetupTransactionCase):
             }
             partner_id = self.partner_obj.create(self.cr, self.uid,
                                                  partner_values)
-        # check each time the current state cs
+        # check each time the current state change
         return self.partner_obj.browse(self.cr, self.uid, partner_id)
 
     def test_workflow(self):
@@ -103,6 +95,7 @@ class test_partner(SharedSetupTransactionCase):
         * member -> resignation_former_member
         """
         cr, uid = self.cr, self.uid
+        partner_obj = self.partner_obj
 
         # create = without_membership
         partner = self.get_partner()
@@ -133,8 +126,7 @@ class test_partner(SharedSetupTransactionCase):
                           'member_candidate', 'Should be "member_candidate"')
 
         # member_candidate -> member_committee
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'member_committee',
                           'Should be "member_committee"')
@@ -170,9 +162,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'member',
                           'Should be "member"')
@@ -185,8 +176,7 @@ class test_partner(SharedSetupTransactionCase):
                           'Should be "former_member"')
 
         # former_member -> former_member_committee
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code,
                           'former_member_committee',
@@ -203,9 +193,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
 
         # member -> resignation_former_member
@@ -219,9 +208,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
 
         # member -> expulsion_former_member
@@ -235,9 +223,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
 
         # member -> former_member
@@ -248,8 +235,7 @@ class test_partner(SharedSetupTransactionCase):
                           'former_member', 'Should be "former member"')
 
         # former_member -> former_member_committee
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code,
                           'former_member_committee',
@@ -263,9 +249,8 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        wf_service.trg_validate(uid, 'res.partner', partner.id,
-                                'paid_simulated', cr)
-        wf_service.trg_validate(uid, 'res.partner', partner.id, 'accept', cr)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
 
         # member -> resignation_former_member
@@ -282,7 +267,7 @@ class test_partner(SharedSetupTransactionCase):
         test raise if partner does not exist
         """
         mr_obj, partner, cr, uid, context = self.mr_obj,\
-            self.rec_partner, self.cr, self.uid, {}
+            self.partner1, self.cr, self.uid, {}
         res = self.partner_obj.button_modification_request(cr, uid,
                                                            [partner.id],
                                                            context=context)
@@ -415,22 +400,22 @@ class test_partner(SharedSetupTransactionCase):
             * date from = today
             * membership_state = partner status
             * date_to = False
-            * is_current = True
+            * active = True
         Process two:
             * update first:
                  * date_to = today
-                 * is_current = False
+                 * active = False
             * new_one:
                  * date from = today
                  * membership_state = partner status
                  * date_to = False
-                 * is_current = True
+                 * active = True
         change status of the partner: this action will automatically launch
         `update_membership_line`
         and then the second process will be executed
         """
-        partner, partner_obj, cr, uid, context = self.rec_partner,\
-            self.partner_obj, self.cr, self.uid, {}
+        partner, partner_obj = self.partner1, self.partner_obj
+        cr, uid, context = self.cr, self.uid, {'active_test': True}
         partner_obj.update_membership_line(cr, uid, [partner.id],
                                            context=context)
         partner = partner_obj.browse(cr, uid, partner.id, context=context)
@@ -444,7 +429,7 @@ class test_partner(SharedSetupTransactionCase):
             self.assertEqual(membership_line.membership_state_id.id,
                              membership_state_id, 'State of membership must \
                              be the same that state of partner')
-            self.assertTrue(membership_line.is_current, 'First membership \
+            self.assertTrue(membership_line.active, 'First membership \
             should be the current one')
             self.assertFalse(membership_line.date_to, 'Should not have a \
             date_to because this is the current membership')
@@ -456,7 +441,7 @@ class test_partner(SharedSetupTransactionCase):
         current update of status")
         one_current = False
         for membership_line in partner.member_lines:
-            if membership_line.is_current:
+            if membership_line.active:
                 one_current = True
                 self.assertTrue(membership_line.membership_state_id ==
                                 partner.membership_state_id,
@@ -468,3 +453,82 @@ class test_partner(SharedSetupTransactionCase):
                 self.assertTrue(membership_line.date_to,
                                 '`date_to` should has been set')
         self.assertTrue(one_current, 'Should at least have one current')
+
+    def test_update_is_company(self):
+        """
+        Check that the existence of a workflow attached to a partner is
+        correctly handled regarding the flag is_company:
+        1- True: no workflow, state=None
+        2- False: with workflow, state!=None
+        3- is_company: True=>False: always possible
+        4- is_company: False=>True: only possible without membership history
+        5- otherwise exception
+        """
+        cr, uid, context = self.cr, self.uid, {}
+        partner, partner_obj = self.partner2, self.partner_obj
+
+        pid = partner.id
+
+        def wkf_exist():
+            cr.execute("SELECT 1 "
+                       "FROM wkf w, wkf_instance i "
+                       "WHERE i.wkf_id = w.id "
+                       "AND w.osv = 'res.partner' "
+                       "AND i.res_id = %s",
+                       (pid,))
+            one = cr.fetchone()
+            return one
+
+        # 1- True: no workflow, state=None
+        self.assertFalse(
+            wkf_exist(),
+            'No workflow should be existed for a legal person')
+        self.assertFalse(
+            partner.membership_state_id,
+            'Field membership_state_id should be None '
+            'because the partner is a company')
+
+        # 2- False: with workflow, state!=None
+        # 3- is_company: True => False: always possible
+        partner_obj.write(cr, uid, pid, {'is_company': False})
+        self.assertTrue(
+            wkf_exist(),
+            'A workflow should be existed for a natural person')
+        self.assertTrue(
+            partner.membership_state_id,
+            'Field membership_state_id should be initialised '
+            'because the partner is not a company')
+
+        # 4- is_company: False=>True: only possible without membership history
+        partner_obj.write(cr, uid, pid, {'is_company': True})
+        self.assertFalse(
+            wkf_exist(),
+            'No workflow should be existed for a legal person')
+        self.assertFalse(
+            partner.membership_state_id,
+            'Field membership_state_id should be None '
+            'because the partner is a company')
+
+        # 5- otherwise exception
+        partner_obj.write(cr, uid, pid, {'is_company': False})
+        res = partner_obj.button_modification_request(
+            cr, uid, [pid], context=context)
+        mr_id = res['res_id']
+        imd_obj = self.registry['ir.model.data']
+        vals = {
+            'country_id': imd_obj.get_object_reference(
+                cr, uid, 'base', 'ad')[1],
+            'request_type': 'm',
+            'product_id': imd_obj.get_object_reference(
+                cr, uid,
+                'ficep_membership', 'membership_product_isolated')[1],
+        }
+        self.mr_obj.write(cr, uid, [mr_id], vals)
+        # validate the request => a first history line is created
+        self.mr_obj.validate_request(cr, uid, [mr_id])
+        # a return to a company must failed
+        self.assertRaises(
+            orm.except_orm,
+            partner_obj.write,
+            cr, uid, pid, {'is_company': True})
+        pass

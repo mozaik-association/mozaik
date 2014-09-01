@@ -52,7 +52,9 @@
 		                      <span t-field="o.partner_id.title"/>
 		                      <span t-field="o.partner_id.name"/>
 		                      paid 
-		                      <strong>#TODO# EUR</strong>
+		                      <strong><span t-esc="data['amounts']['%s' % o.id]"
+		                                    t-esc-options='{"widget": "monetary", "display_currency": "o.partner_id.company_id.currency_id"}'/>
+		                      </strong>
 		                      as retrocession for the year <span t-esc="data['year']"/>.
 		                   </p>
 		                   <p>This amount concerns following mandate:</p>

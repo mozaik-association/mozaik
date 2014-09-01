@@ -32,12 +32,6 @@ class product_template(orm.Model):
 
     _inherit = ['product.template']
 
-    def __init__(self, pool, cr):
-        super(product_template, self).__init__(pool, cr)
-        self._columns['name'].track_visibility = True
-        self._columns['list_price'].track_visibility = True
-        return
-
     def _get_default_subscription(self, cr, uid, context=None):
         """
         =========================
@@ -48,3 +42,11 @@ class product_template(orm.Model):
         return self.pool['ir.model.data'].\
             get_object_reference(cr, uid, 'ficep_membership',
                                  'membership_product_isolated')[1]
+
+# orm methods
+
+    def _register_hook(self, cr):
+        super(product_template, self)._register_hook(cr)
+        self._columns['name'].track_visibility = 'onchange'
+        self._columns['list_price'].track_visibility = 'onchange'
+        pass

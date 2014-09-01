@@ -273,6 +273,35 @@ class xxxx(orm.Model):
             pass
         return arch
 
+    def create_workflow(self, cr, uid, ids, context=None):
+        res = super(xxxx, self).create_workflow(cr, uid, ids, context=context)
+        return res
+
+    def delete_workflow(self, cr, uid, ids, context=None):
+        res = super(xxxx, self).delete_workflow(cr, uid, ids, context=context)
+        return res
+
+    def step_workflow(self, cr, uid, ids, context=None):
+        res = super(xxxx, self).step_workflow(cr, uid, ids, context=context)
+        return res
+
+    def signal_workflow(self, cr, uid, ids, signal, context=None):
+        res = super(xxxx, self).signal_workflow(
+            cr, uid, ids, signal, context=context)
+        return res
+
+    def redirect_workflow(self, cr, uid, old_new_ids, context=None):
+        res = super(xxxx, self).redirect_workflow(
+            cr, uid, old_new_ids, context=context)
+        return res
+
+    def _register_hook(self, cr):
+        super(xxxx, self)._register_hook(cr)
+
+    def _where_calc(self, cr, user, domain, active_test=True, context=None):
+        res = super(xxxx, self)._where_calc(cr, user, domain, active_test=active_test, context=context)
+        return res
+
 # view methods: onchange, button
 
     def button_zzz(self, cr, uid, ids, context=None):

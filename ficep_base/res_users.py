@@ -46,24 +46,22 @@ class res_users(orm.Model):
         'display_groups_suggestions': False,
     }
 
-# overriden model methods
+    _order = 'partner_id'
 
-    @tools.ormcache(skiparg=2)
-    def context_get(self, cr, uid, context=None):
+# orm methods
+
+    def name_get(self, cr, uid, ids, context=None):
         '''
-        Add a flag in the users's context related to each ficep group
+        Add the users's login in the record name
         '''
-        result = super(res_users, self).context_get(cr, uid)
-        user = self.browse(cr, SUPERUSER_ID, uid, context)
-        _, appl_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'base', 'module_category_political_association')
-        _, dev_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'ficep_base', 'res_groups_developper')
-        for g in user.groups_id:
-            if g.category_id.id == appl_id:
-                result.update({'in_%s' % g.name.lower().replace(' ', '_'): 1})
-            elif g.id == dev_id:
-                result.update({'is_developper': 1})
-        result.update({'date_format': self.pool.get('res.lang')._get_date_format(cr, uid, result)})
-        return result
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+
+        res = []
+        records = self.read(cr, uid, ids, ['name', 'login'], context=context)
+        for record in records:
+            name = '%s (%s)' % (record['name'], record['login'])
+            res.append((record['id'], name))
+        return res
 
     def write(self, cr, uid, ids, vals, context=None):
         '''
@@ -73,4 +71,29 @@ class res_users(orm.Model):
         super(res_users, self).context_get.clear_cache(self)
         return res
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+# override public methods
+
+    @tools.ormcache(skiparg=2)
+    def context_get(self, cr, uid, context=None):
+        '''
+        Add in the users's context:
+        - a flag related to each ficep group
+        - the date format associated to the user's lang
+        '''
+        result = super(res_users, self).context_get(cr, uid)
+        user = self.browse(cr, SUPERUSER_ID, uid, context)
+        imd_obj = self.pool['ir.model.data']
+        _, appl_id = imd_obj.get_object_reference(
+            cr, uid, 'base', 'module_category_political_association')
+        _, dev_id = imd_obj.get_object_reference(
+            cr, uid, 'ficep_base', 'res_groups_developper')
+        for g in user.groups_id:
+            if g.category_id.id == appl_id:
+                result.update({'in_%s' % g.name.lower().replace(' ', '_'): 1})
+            elif g.id == dev_id:
+                result.update({'is_developper': 1})
+        result.update({
+            'date_format': self.pool['res.lang']._get_date_format(
+                cr, uid, result)
+        })
+        return result

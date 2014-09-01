@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="menu_helponline" 
+                  parent="base.menu_reporting"
+                  name="Help Online" 
+                  sequence="1"/>
+    </data>
+</openerp>

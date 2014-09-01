@@ -31,7 +31,8 @@ from openerp     import tools
 
 
 def _get_document_types(s, cr, uid, context=None):
-    cr.execute("SELECT model, name from ir_model WHERE model IN ('sta.mandate', 'int.mandate', 'ext.mandate') ORDER BY name")
+    cr.execute("SELECT model, name from ir_model WHERE model IN \
+                ('sta.mandate', 'int.mandate', 'ext.mandate') ORDER BY name")
     return cr.fetchall()
 
 
@@ -43,14 +44,17 @@ class generic_mandate(orm.Model):
     _discriminant_field = 'partner_id'
 
     def _is_discriminant_m2o(self):
-        return isinstance(self._columns[self._discriminant_field], fields.many2one)
+        return isinstance(self._columns[self._discriminant_field],
+                          fields.many2one)
 
     _columns = {
         'id': fields.integer('ID'),
         'model': fields.char('Models'),
         'mandate_id': fields.integer('Mandate ID'),
-        'mandate_ref': fields.reference('Mandate Reference', selection=_get_document_types),
-        'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
+        'mandate_ref': fields.reference('Mandate Reference',
+                                        selection=_get_document_types),
+        'mandate_category_id': fields.many2one('mandate.category',
+                                               'Mandate Category'),
         'assembly_name': fields.char("Assembly"),
         'partner_id': fields.many2one('res.partner', 'Representative'),
         'start_date': fields.date('Start date'),
@@ -80,8 +84,10 @@ class generic_mandate(orm.Model):
                            mandate.is_duplicate_allowed,
                            partner.name as assembly_name
                         FROM int_mandate  AS mandate
-                        JOIN int_assembly AS assembly ON assembly.id = mandate.int_assembly_id
-                        JOIN res_partner  AS partner  ON partner.id = assembly.partner_id
+                        JOIN int_assembly AS assembly
+                          ON assembly.id = mandate.int_assembly_id
+                        JOIN res_partner  AS partner
+                          ON partner.id = assembly.partner_id
                         WHERE mandate.active = True
                         AND mandate.end_date is NULL
 
@@ -99,8 +105,10 @@ class generic_mandate(orm.Model):
                            mandate.is_duplicate_allowed,
                            partner.name as assembly_name
                         FROM sta_mandate  AS mandate
-                        JOIN sta_assembly AS assembly ON assembly.id = mandate.sta_assembly_id
-                        JOIN res_partner  AS partner  ON partner.id = assembly.partner_id
+                        JOIN sta_assembly AS assembly
+                          ON assembly.id = mandate.sta_assembly_id
+                        JOIN res_partner  AS partner
+                          ON partner.id = assembly.partner_id
                         WHERE mandate.active = True
                         AND mandate.end_date is NULL
 
@@ -118,8 +126,10 @@ class generic_mandate(orm.Model):
                            mandate.is_duplicate_allowed,
                            partner.name as assembly_name
                         FROM ext_mandate  AS mandate
-                        JOIN ext_assembly AS assembly ON assembly.id = mandate.ext_assembly_id
-                        JOIN res_partner  AS partner  ON partner.id = assembly.partner_id
+                        JOIN ext_assembly AS assembly
+                          ON assembly.id = mandate.ext_assembly_id
+                        JOIN res_partner  AS partner
+                          ON partner.id = assembly.partner_id
                         WHERE mandate.active = True
                         AND mandate.end_date is NULL
             )
@@ -134,7 +144,7 @@ class generic_mandate(orm.Model):
         ======
         View mandates in its form view depending on model
         """
-        (model, m_id) = self.read(cr, uid, ids[0], ['mandate_ref'], context=context)['mandate_ref'].split(',')
-        return self.pool[model].display_object_in_form_view(cr, uid, int(m_id), context=context)
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        (model, m_id) = self.read(cr, uid, ids[0], ['mandate_ref'],
+                                   context=context)['mandate_ref'].split(',')
+        return self.pool[model].display_object_in_form_view(cr, uid, int(m_id),
+                                                             context=context)

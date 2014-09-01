@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
     <data>
 
@@ -7,7 +8,6 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <div class="container">
                     <div id="header_content">
-    
                         <div class="row-fluid">
                             <div class="span12">
                                 <div style="display:inline-block;">
@@ -19,8 +19,7 @@
                                     class="pull-right">
                                     <a href="/partner_search_form/">
                                         <button class="btn-large btn-primary"
-                                            type="button">Advanced Search
-                                        </button>
+                                            type="button">Advanced Search</button>
                                     </a>
                                 </div>
                             </div>
@@ -45,16 +44,14 @@
                     class="pull-right">
                     <a href="/partner_search_form/">
                         <button class="btn-large btn-primary"
-                            type="button">Advanced Search
-                        </button>
+                            type="button">Advanced Search</button>
                     </a>
                 </div>
                 <div class="container">
                     <h1 t-esc="partner.display_name" />
-
                     <t t-if="partner.is_company is False and partner.membership_state_id">
                         <h3>#<t t-esc="partner.identifier"/> (<t t-esc="partner.membership_state_id.name"/>)</h3>
-                    </t> 
+                    </t>
                     <t t-if="partner.is_company and not partner.is_assembly">
                         <h3>#<t t-esc="partner.identifier"/></h3>
                     </t>
@@ -136,9 +133,7 @@
                         </t>
                     </fieldset>
 
-
                     <div t-if="partner.is_company != 1" id="info_natural_person">
-
                         <fieldset t-if="len(sta_mandate_records) != 0">
                             <legend>State Mandates</legend>
                             <t t-foreach='sta_mandate_records' t-as="sta_mandate_record">
@@ -223,7 +218,7 @@
             </t>
         </template>
 
-        <!-- Search Form on 
+        <!-- Search Form on
             * name
             * phone
             * email -->
@@ -251,12 +246,9 @@
                                     id="search_value" class="form-control"
                                     required="required" autofocus="autofocus" />
                             </div>
-                            <button type="submit" class="btn-large btn-primary">Launch
-                            </button>
+                            <button type="submit" class="btn-large btn-primary">Search</button>
                             <a href="/partner_mobile">
-                                <button class="btn-large btn-primary"
-                                    type="button">Cancel
-                                </button>
+                                <button class="btn-large btn-primary" type="button">Cancel</button>
                             </a>
                         </fieldset>
                     </form>

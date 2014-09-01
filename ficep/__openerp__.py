@@ -33,14 +33,9 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_account',
-        'ficep_membership',
-        'ficep_person_coordinate',
-        'ficep_mass_editing',
         'ficep_communication',
-        'ficep_webservice',
-        'ficep_mandate',
-        'ficep_retrocession',
+        'ficep_help',
+        #'ficep_mass_editing',
     ],
     'description': """
 FICEP
@@ -50,13 +45,10 @@ Loads all ficep modules
     'images': [
     ],
     'data': [
+        'security/ficep_security.xml',
         'data/res_users_data.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -66,5 +58,3 @@ Loads all ficep modules
     'auto_install': False,
     'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

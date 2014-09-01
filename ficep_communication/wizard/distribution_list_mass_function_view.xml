@@ -47,7 +47,7 @@
                                 </group>
                             </page>
                             <page name="postal_mailing" string="Postal Mailing" autofocus="autofocus"
-                                  attrs="{'invisible':[('trg_model','!=','postal.coordinate')]}">
+                                  attrs="{'invisible':[('trg_model','!=','postal.coordinate'), ('extract_csv','=',False)]}">
                                 <group>
                                     <group>
                                         <field name="postal_mail_id"/>

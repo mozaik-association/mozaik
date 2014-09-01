@@ -25,5 +25,5 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import retrocession_factory_wizard
-import report_payment_certificate_wizard
+from . import retrocession_factory_wizard
+from . import report_retrocession_wizard

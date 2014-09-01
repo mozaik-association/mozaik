@@ -45,12 +45,10 @@ Manage accounting functionalities.
     'images': [
     ],
     'data': [
-    ],
-    'js': [
+        'security/ficep_account_security.xml',
+        'ficep_account_view.xml',
     ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -62,5 +60,3 @@ Manage accounting functionalities.
     'auto_install': False,
     'application': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

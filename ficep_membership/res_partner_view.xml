@@ -1,9 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
-
     <data noupdate="0">
-        <delete model="ir.ui.view"
-            search="[('name','=','res.partner.tree.form.inherit'),('model','=','res.partner'),('type','=','tree')]" />
 
         <record id="res_partner_search_view" model="ir.ui.view">
             <field name="name">res.partner.search (ficep_membership)
@@ -37,9 +34,9 @@
             <field name="inherit_id" ref="ficep_person.view_partner_tree" />
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='identifier']"
-                    position="before">
-                    <field name="membership_state_id" />
+                <xpath expr="//field[@name='identifier']" position="before">
+                    <field name="membership_state_id"
+                           invisible="context.get('default_is_company')" />
                     <field name="int_instance_id" />
                 </xpath>
 
@@ -47,8 +44,7 @@
         </record>
 
         <record id="view_partner_form_address" model="ir.ui.view">
-            <field name="name">res.partner.form (ficep_membership)
-            </field>
+            <field name="name">res.partner.form (ficep_membership)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="ficep_address.view_partner_form" />
             <field name="arch" type="xml">
@@ -63,8 +59,7 @@
         </record>
 
         <record id="view_partner_2_form" model="ir.ui.view">
-            <field name="name">res.partner.form (ficep_membership)
-            </field>
+            <field name="name">res.partner.form (ficep_membership)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="ficep_person.view_partner_form" />
             <field name="arch" type="xml">
@@ -99,7 +94,7 @@
                     <separator string="Internal Instances" />
                     <field name="int_instance_m2m_ids" widget="many2many_tags"
                         placeholder="Instances..." />
-                    <!-- Some blank lines to see the entire elapsed many2many_tags 
+                    <!-- Some blank lines to see the entire elapsed many2many_tags
                         widget -->
                     <br />
                     <br />
@@ -165,16 +160,14 @@
                 </xpath>
 
                 <xpath expr="//field[@name='member_lines']" position="replace">
-                    <field name="member_lines" 
-                        nolabel="1" readonly="1">
-                        <tree colors="green:is_current==True" string="Memberships Lines">
-                            <field name="partner"/>
-                            <field name="membership_id"/>
-                            <field name="membership_state_id"/>
+                    <field name="member_lines" readonly="1">
+                        <tree colors="gray:active==False;green:membership_state_id[0]==%(ficep_membership.member)d">
                             <field name="int_instance_id"/>
+                            <field name="membership_state_id"/>
+                            <field name="membership_id" attrs="{'invisible': [('membership_state_id','!=',%(ficep_membership.member)d)]}"/>
                             <field name="date_from"/>
                             <field name="date_to"/>
-                            <field name="is_current" invisible="1"/>
+                            <field name="active" invisible="1"/>
                         </tree>
                     </field>
                 </xpath>

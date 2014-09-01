@@ -299,7 +299,7 @@
                             </tree>
                         </field>
                     </page>
-                    <page name="user" string="User" attrs="{'invisible': [('user_ids','=',[])]}" groups="ficep_base.ficep_res_groups_configurator">
+                    <page name="user" string="User" attrs="{'invisible': [('user_ids','=',False)]}" groups="ficep_base.ficep_res_groups_configurator">
                         <group name="ldap">
                             <group>
                                 <field name="ldap_name" />
@@ -335,7 +335,8 @@
                                 <field name="is_assembly" />
                                 <field name="tz" />
                                 <field name="parent_id" />
-                                <field name="user_ids" attrs="{'invisible': [('user_ids','=',[])]}" />
+                                <field name="user_ids" attrs="{'invisible': [('user_ids','=',False)]}" widget="many2one"
+                                       context="{'form_view_ref': 'base.view_users_form'}"/>
                             </group>
                         </div>
                     </div>

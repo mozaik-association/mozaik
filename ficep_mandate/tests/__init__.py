@@ -43,5 +43,3 @@ checks = [
     test_copy_mandate_wizard,
     test_import_candidatures_wizard,
 ]
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -44,6 +44,9 @@
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
             <field name="employee" eval="1"/>
+            <field name="int_instance_m2m_ids" eval="[
+                (4, ref('ficep_structure.int_instance_01')),
+            ]"/>
         </record>
 
         <record id="partner_of_user_6" model="res.partner">
@@ -53,6 +56,10 @@
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
             <field name="employee" eval="1"/>
+            <field name="int_instance_m2m_ids" eval="[
+                (4, ref('int_instance_04')),
+                (4, ref('int_instance_local_bxl')),
+            ]"/>
         </record>
 
         <!--
@@ -101,7 +108,9 @@
             <field name="password">aa</field>
             <field name="signature">isabelle</field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_manager')),]"/>
+            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_manager')),
+                                           (4, ref('ficep_account.res_groups_financial_manager')),
+                                          ]"/>
         </record>
 
         <record id="user_6" model="res.users">

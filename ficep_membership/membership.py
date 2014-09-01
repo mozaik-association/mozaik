@@ -25,8 +25,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from datetime import date
+
 from openerp.osv import orm, fields
+import openerp.tools as tools
 
 DEFAULT_STATE = 'without_membership'
 
@@ -35,6 +38,8 @@ class membership_membership_line(orm.Model):
 
     _name = 'membership.membership_line'
     _inherit = ['membership.membership_line', 'abstract.ficep.model']
+
+    _inactive_cascade = True
 
     def _generate_membership_reference(self, cr, uid, membership_line_id,
                                        context=None):
@@ -52,28 +57,45 @@ class membership_membership_line(orm.Model):
                                    comm_struct[7:])
 
     _columns = {
-        'partner': fields.many2one('res.partner', 'Partner',
-                                   ondelete='cascade', select=1,
-                                   required=True),
-        'membership_id': fields.many2one('product.product',
-                                         string="Membership"),
-        'membership_state_id': fields.many2one('membership.state',
-                                               type='many2one',
-                                               string='State'),
-        'is_current': fields.boolean('Is Current'),
-        'int_instance_id': fields.many2one('int.instance', 'Internal Instance',
-                                           select=True),
+        'partner': fields.many2one(
+            'res.partner', string='Member',
+            ondelete='cascade', select=True, required=True),
+        'membership_id': fields.many2one(
+            'product.product', string='Membership Type', select=True),
+        'membership_state_id': fields.many2one(
+            'membership.state', string='State', select=True),
+        'int_instance_id': fields.many2one(
+            'int.instance', string='Internal Instance', select=True),
     }
 
-    _order = 'date_from desc, date_to desc'
-
-    _defaults = {
-        'is_current': True,
-    }
+    _order = 'date_from desc, date_to desc, partner'
 
 # constraints
 
-    _unicity_keys = 'N/A'
+    _unicity_keys = 'partner'
+
+    def init(self, cr):
+        '''
+        Inactivate odoo demo data incompatible
+        with abstract ficep indexes mechanism
+        '''
+        if tools.config.options['test_enable']:
+            cr.execute("UPDATE membership_membership_line "
+                       "SET active = FALSE "
+                       "WHERE membership_state_id IS NULL")
+
+        # create expected index
+        super(membership_membership_line, self).init(cr)
+
+# orm methods
+
+    def _where_calc(self, cr, user, domain, active_test=True, context=None):
+        '''
+        Read always inactive membership lines
+        '''
+        res = super(membership_membership_line, self)._where_calc(
+            cr, user, domain, active_test=False, context=context)
+        return res
 
 
 class membership_state(orm.Model):
@@ -96,16 +118,14 @@ class membership_state(orm.Model):
         """
 
         if not default_state:
-            parameter_obj = self.pool['ir.config_parameter']
-            parameter_ids = parameter_obj.search(
-                cr, uid, [('key', '=', 'default_membership_state')],
+            default_state = self.pool['ir.config_parameter'].get_param(
+                cr, uid,
+                'default_membership_state', default='without_membership',
                 context=context)
-            if parameter_ids:
-                default_state = parameter_obj.read(
-                    cr, uid, parameter_ids[0], context=context)['value']
 
         state_ids = self.search(
             cr, uid, [('code', '=', default_state)], context=context)
+
         return state_ids and state_ids[0] or False
 
     _columns = {

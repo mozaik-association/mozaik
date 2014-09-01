@@ -28,9 +28,9 @@
 {
     'name': 'FICEP: XXX',
     'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
+    'author': 'ACSONE SA/NV',
+    'maintainer': 'ACSONE SA/NV',
+    'website': 'http://www.acsone.eu',
     'category': 'Political Association',
     'depends': [
         'ficep_base',
@@ -42,19 +42,14 @@ FICEP
     'images': [
     ],
     'data': [
-        #'security/ficep_XXX.xml',
-        #'XXX.xml,',
+        #'security/ir.model.access.csv',
+        #'security/ficep_XXX_security.xml',
+        #'XXX_view.xml,',
         #'wizard/XXX.xml',
         #'data/XXX.xml'
     ],
-    'js': [
-        #'static/src/js/XXX.js',
-    ],
     'qweb': [
-        #'static/src/xml/XXX.css',
-    ],
-    'css': [
-        #'static/src/css/XXX.css',
+        #'static/src/xml/XXX.xml',
     ],
     'demo': [
     ],
@@ -65,4 +60,3 @@ FICEP
     'installable': False,
 }
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

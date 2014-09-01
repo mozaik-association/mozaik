@@ -35,6 +35,7 @@ import res_users
 import res_partner
 import mail_message
 import selections_translator
+import document
 import more_index
 import abstract_ficep
 

@@ -25,9 +25,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from anybox.testing.openerp import SharedSetupTransactionCase
 import logging
+from anybox.testing.openerp import SharedSetupTransactionCase
 
+from openerp.osv import orm
 
 _logger = logging.getLogger(__name__)
 
@@ -66,9 +67,13 @@ class test_NAME(SharedSetupTransactionCase):
         partner_model = self.partner_model
 
         # Check for reference data
-        vals = partner_model.read(cr, uid, [xxx_id], ['fld1', 'fld2'], context=context)[0]
-        self.assertTrue(vals['fld1'], 'Wrong expected reference data for this test')
-        self.assertEqual(vals['fld2'], 'hello', 'Wrong expected reference data for this test')
+        vals = partner_model.read(
+            cr, uid, [xxx_id], ['fld1', 'fld2'], context=context)[0]
+        self.assertTrue(
+            vals['fld1'], 'Wrong expected reference data for this test')
+        self.assertEqual(
+            vals['fld2'], 'hello',
+            'Wrong expected reference data for this test')
 
         # ...
 
@@ -76,4 +81,9 @@ class test_NAME(SharedSetupTransactionCase):
         self.assertFalse(True, 'Update... fails with wrong...')
         self.assertEqual(vals['a'], '?!?', 'Update... fails with wrong...')
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        # ...
+
+        self.assertRaises(
+            orm.except_orm,
+            partner_model.write,
+            cr, uid, xxx_id, {'is_company': True})

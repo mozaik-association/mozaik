@@ -33,7 +33,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep',  # TO DETERMINATE!!!
+        'ficep_communication',
     ],
     'description': """
 FICEP Mobile
@@ -45,8 +45,7 @@ FICEP Mobile
         'static/src/xml/mobile_view.xml',
     ],
     'sequence': 150,
-    'auto_install': False,
+    'auto_install': True,
     'installable': True,
 }
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

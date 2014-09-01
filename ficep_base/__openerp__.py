@@ -34,27 +34,26 @@
     'category': 'Political Association',
     'depends': [
         'base',
-        'website',
-        'portal',
-        'mass_mailing',
-        'mail',
-        'report',
-        'product',
-        'board',
-        'edi',
         'document',
+        'mass_mailing',
+        'product',
         #'event',
         'partner_firstname',     # from https://github.com/OCA/partner-contact
-                                 # need to merge https://github.com/eLBati/partner-contact/8.0
-        'mass_editing',          # from https://github.com/OCA/server-tools/7.0
+        #'mass_editing',          # from https://github.com/OCA/server-tools/7.0
         'cron_run_manually',     # from https://github.com/OCA/server-tools/7.0
         'auth_admin_passkey',    # from https://github.com/OCA/server-tools/7.0
         'settings_improvement',  # from https://github.com/acsone/acsone-addons
         'distribution_list',     # from https://github.com/acsone/acsone-addons
-                                 # need to merge with https://github.com/acsone/acsone-addons/acsone-addons-distribution-list-improvements
         'readonly_bypass',       # from https://github.com/acsone/acsone-addons
-        'connector',             # from git https://github.com/OCA/connector.git connector-addons master
-                                 # need to merge https://github.com/acsone/connector/compatibility_odoo_master
+        'connector',             # from https://github.com/OCA/connector
+
+        # to speed test without testing standard addons from a pre-loaded squeleton database:
+        'analytic',
+        'board',
+        'edi',
+        # load manually in this database ficep_base and the following modules:
+        #'membership',        # close manually wizard without loading any charts templates
+        #'account_accountant',
     ],
     'description': """
 FICEP Base
@@ -75,11 +74,7 @@ FICEP Base
         'ficep_view.xml',
         'res_partner_view.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -92,4 +87,3 @@ FICEP Base
     'application': False,
 }
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
