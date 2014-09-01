@@ -335,7 +335,7 @@
                                 <field name="is_assembly" />
                                 <field name="tz" />
                                 <field name="parent_id" />
-                                <field name="user_ids" attrs="{'invisible': [('user_ids','=',False)]}" widget="many2one"
+                                <field name="user_ids" attrs="{'invisible': [('user_ids','=',False)]}"
                                        context="{'form_view_ref': 'base.view_users_form'}"/>
                             </group>
                         </div>
