@@ -29,7 +29,6 @@ from . import test_retrocession
 from . import test_retrocession_factory_wizard
 from . import test_retrocession_process
 from . import test_report_retrocession_wizard
-from . import retrocession_helper
 
 fast_suite = [
 ]

@@ -29,8 +29,9 @@ from openerp import pooler
 from openerp.osv import orm
 
 
-class RetrocessionHelper(orm.TransientModel):
+class RetrocessionHelper(orm.Model):
     _name = 'retrocession.helper'
+    _auto = False
 
     def validate_retrocession_with_accounting(self, cr, uid, retro_ids,
                                               context=None):
