@@ -26,6 +26,7 @@
 #
 ##############################################################################
 from openerp.osv import orm, fields
+from openerp import tools
 
 
 class virtual_master_partner(orm.Model):
@@ -63,6 +64,7 @@ class virtual_master_partner(orm.Model):
         'postal_bounce_counter': fields.integer('Postal Bounce Counter'),
 
         'zip': fields.char("Zip Code"),
+        'country_id': fields.integer('Country ID'),
 
         'int_instance_id': fields.many2one('int.instance',
                                            'Internal Instance'),
@@ -71,6 +73,7 @@ class virtual_master_partner(orm.Model):
 # orm methods
 
     def init(self, cr):
+        tools.drop_view_if_exists(cr, 'virtual_master_partner')
         cr.execute("""
         create or replace view virtual_master_partner as (
         SELECT
@@ -93,6 +96,7 @@ class virtual_master_partner(orm.Model):
             pc.is_main as postal_is_main,
 
             adr.zip as zip,
+            rc.id as country_id,
 
             e.unauthorized as email_unauthorized,
             pc.unauthorized as postal_unauthorized,
@@ -125,6 +129,10 @@ class virtual_master_partner(orm.Model):
         LEFT OUTER JOIN
             address_address adr
         ON (adr.id = pc.address_id)
+
+        LEFT OUTER JOIN
+            res_country rc
+        ON (rc.id = adr.country_id)
 
         LEFT OUTER JOIN
             int_instance i

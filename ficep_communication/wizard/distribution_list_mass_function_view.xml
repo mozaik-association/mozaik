@@ -39,7 +39,7 @@
                                                domain ="[('model_id.model','=','email.coordinate')]"
                                                attrs="{'required':[('e_mass_function','=','email_coordinate_id'),
                                                                    ('trg_model','=','email.coordinate')]}"/>
-                                        <field name="campaign_id"/>
+                                        <field name="mass_mailing_name"/>
                                     </group>
                                     <group>
                                         <field name="extract_csv"/>

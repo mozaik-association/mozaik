@@ -9,11 +9,9 @@
             <field name="model">export.csv</field>
             <field name="arch" type="xml">
                 <form string="Export CSV" version="7.0">
-                    <sheet>
-                        <group>
-                            <label string="This will export the selected coordinates to a CSV file"/>
-                        </group>
-                    </sheet>
+                    <div>
+                        <label string="This will export the selected coordinates to a CSV file"/>
+                    </div>
                     <footer>
                         <span name="go-wizard">
                             <button name="export" string="Launch" type="object" class="oe_highlight"/>

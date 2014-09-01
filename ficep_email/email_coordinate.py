@@ -42,6 +42,7 @@ class email_coordinate(orm.Model):
     _name = 'email.coordinate'
     _inherit = ['abstract.coordinate']
     _description = "Email Coordinate"
+    _mail_mass_mailing = _('Email Coordinate')
 
     _discriminant_field = 'email'
     _undo_redirect_action = 'ficep_email.email_coordinate_action'

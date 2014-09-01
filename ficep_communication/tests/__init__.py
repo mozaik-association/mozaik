@@ -25,7 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.addons.ficep_communication.tests import test_postal_mail
+from . import test_postal_mail
 
 fast_suite = [
 ]

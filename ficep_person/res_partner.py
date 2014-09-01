@@ -69,6 +69,7 @@ class res_partner(orm.Model):
     _discriminant_field = 'name'
     _trigger_fields = ['name', 'lastname', 'firstname', 'birth_date']
     _undo_redirect_action = 'ficep_person.all_res_partner_action'
+    _mail_mass_mailing = False
 
 # private methods
 
