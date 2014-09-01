@@ -108,7 +108,7 @@ class distribution_list_mass_function(orm.TransientModel):
         'p_mass_function': fields.selection(P_MASS_FUNCTION, 'Mass Function'),
 
         'email_template_id': fields.many2one('email.template', 'Email Template'),
-        'campaign_id': fields.many2one('mail.mass_mailing.campaign', 'Mail Campaign'),
+        'mass_mailing_name': fields.char('Mass Mailing'),
         'extract_csv': fields.boolean('Complementary Postal CSV',
                                       help="Get a CSV file with all partners who have no email coordinate"),
 
@@ -205,7 +205,7 @@ class distribution_list_mass_function(orm.TransientModel):
                                           'notify': False,
                                           'template_id': template_id,
                                           'subject': "",
-                                          'mass_mailing_campaign_id': wizard.campaign_id.id,
+                                          'mass_mailing_name': wizard.mass_mailing_name,
                                           'model': wizard.trg_model}
                     value = composer.onchange_template_id(cr, uid, ids, template_id, 'mass_mail', '', 0, context=context)['value']
                     mail_composer_vals.update(value)
