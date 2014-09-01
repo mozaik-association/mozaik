@@ -32,5 +32,4 @@ from . import retrocession
 from . import account
 from . import wizard_multi_charts_accounts
 from . import wizard
-from . import tests
 from . import reports
