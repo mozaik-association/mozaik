@@ -1,6 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
   <data>
+    <template id="website.ficep-help-all-details" name="ficep-help-all-details" page="True">
+      <t t-call="website.layout">
+        <div class="oe_structure oe_empty" id="wrap">
+          <section class="mt16 mb16">
+            <div class="container">
+              <div class="row">
+                <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">
+                  <span style="color: rgb(0, 128, 0);">Détails d'un objet</span>
+                  <span style="color: rgb(255, 255, 255);"/>
+                </h2>
+                <div style="text-align: center;">
+                  <p style="text-align: left;">
+                    <span style="line-height: 1.42857143;">
+                      <span class="fa fa-flag fa-2x"/>
+                          
+                      <strong> Accès fonctionnalité et localisation</strong>
+                    </span>
+                    : o
+                    <span style="line-height: 1.42857143;">ption disponible sous forme de bouton dès qu'il y a liste d'éléments (exemple: dans le formulaire d'une personne, onglet &quot;Coordonnées&quot;, parties &quot;Email&quot;, &quot;Coordonnées postales&quot;, &quot;Coordonnées téléphoniques&quot;. Il s'agit ici d'une navigation. </span>
+                  </p>
+                  <div/>
+                  <div style="text-align: left;">
+                    <span class="fa fa-exchange fa-2x"/>
+                        
+                    <strong> Pré-requis</strong>
+                    : sélection d'un objet existant et affichage en vue &quot;formulaire&quot; (voir
+                    <a href="http://10.7.20.237:8069/page/ficep-help-views" style="background-color: rgb(255, 255, 255);"> Vues</a>
+                    ).
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="mt16 mb16">
+            <div class="container">
+              <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
+                <tbody>
+                  <tr>
+                    <td>
+                      <strong>#</strong>
+                    </td>
+                    <td>
+                      <strong>Etapes​</strong>
+                    </td>
+                    <td>
+                      <strong>​Résultat</strong>
+                    </td>
+                    <td>
+                      <strong>​Profils non autorisés</strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>​1</td>
+                    <td>​Cliquez sur le bouton &quot;Tous les détails&quot;</td>
+                    <td>​Redirection vers une liste de tous les détails de l'objet, affichant les élements actifs ET non-actifs de l'objet.</td>
+                    <td>​</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style="text-align: left;"/>
+              <div style="text-align: left;">
+                <em style="line-height: 1.42857143; background-color: transparent;">
+                  <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                     Le retour à votre formulaire s'opère par un clic sur le fil d'Ariane (voir 
+                  <a href="/page/ficep-help-navigation">Navigation).  </a>
+                </em>
+              </div>
+              <div style="text-align: left;"/>
+              <p style="text-align: left;">
+                <br/>
+                
+ 
+              </p>
+              <div style="text-align: left;">
+                <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
+                  <span class="fa fa-reply fa-2x"/>
+                    
+                </span>
+                <a href="/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour </a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </t>
+    </template>
     <template id="website.ficep-help-attachment" name="ficep-help-attachment" page="True">
       <t t-call="website.layout">
         <div class="oe_structure oe_empty" id="wrap">
@@ -16,37 +101,61 @@
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-flag fa-2x"/>
+                        
                          
+                      
                       </span>
+                      
                        
+                      
                       <strong style="line-height: 1.42857143;">
                         <span style="line-height: 1.42857143;">
                           <strong>Accès fonctionnalité et localisation</strong>
                         </span>
                       </strong>
+                      
+                      
                       <span style="line-height: 1.42857143;">:</span>
+                      
                        menu &quot;Pièce(s) jointe(s)&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.
+                      
                       <span style="line-height: 1.42857143;"/>
+                      
+                    
                     </p>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-user fa-2x"/>
+                        
                           
+                      
                       </span>
+                      
                        
+                      
                       <span style="line-height: 1.42857143;">
                         <strong>Audience</strong>
+                        
                         : tous les groupes d'utilisateurs sauf les &quot;Readers&quot;.
+                      
                       </span>
+                      
+                    
                     </p>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-exchange fa-2x"/>
+                        
                          
+                        
                         <strong>Pré-requis</strong>
+                        
                         : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                        
                         <a href="http://10.7.20.236:8069/page/ficep-help-views">Vues</a>
+                        
                         ).
+                      
                       </span>
                     </p>
                   </div>
@@ -107,9 +216,15 @@
                       <tr>
                         <td style="text-align: left;">​2</td>
                         <td style="text-align: left;">
+                          
                           Cliquez sur la petite croix à droite de la pièce à supprimer
+                          
                           <br/>
+                          
+                          
                           <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=31" style=""/>
+                          
+                        
                         </td>
                         <td style="text-align: left;">​La pièce jointe concernée est supprimée. Il n'y a pas de possibilité de la récupérer sinon de l'ajouter à nouveau.</td>
                       </tr>
@@ -119,18 +234,26 @@
                 <div>
                   <em style="line-height: 1.42857143; background-color: transparent;">
                     <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                    
                       Il n'existe pas de fonctionnalité de visualisation de pièce jointe; il faut cliquer dessus et elle sera téléchargée sur votre station de travail. On peut ajouter des fichiers de tout type (image, texte, vidéo, ...) 
+                  
                   </em>
                 </div>
                 <div/>
                 <div>
                   <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
                     <span class="fa fa-reply fa-2x"/>
+                    
                         
+                  
                   </span>
                   <span style="color: rgb(119, 119, 119);"> </span>
+                  
                    
+                  
                   <a href="http://10.7.20.236:8069/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour</a>
+                  
+                
                 </div>
               </div>
             </div>
@@ -147,8 +270,9 @@
                 <div class="col-md-12 text-center mt16 mb32">
                   <h2 style="text-align: left;">
                     <span style="color:#FFFFFF;">
-                      <span style="background-color:#008000;">Créer un objet</span>
+                      <span style="background-color:#008000;"/>
                     </span>
+                    <span style="color:#008000;">Créer un objet</span>
                   </h2>
                   <div>
                     <p style="text-align: left;">
@@ -158,24 +282,19 @@
                       <strong style="font-size: 14px; line-height: 1.42857143;">Localisation</strong>
                       <span style="font-size: 14px; line-height: 1.42857143;">: En dessous du file d'Ariane, partie partie supérieure de l'écran.</span>
                     </p>
-                    <p style="text-align: left;">
-                      <span style="font-size: 14px; line-height: 1.42857143;">
-                        <span class="fa fa-user fa-2x"/>
-                        
-                          
-                      
-                      </span>
-                      <span style="font-size: 14px; line-height: 1.42857143;">
-                        <strong>Audience</strong>
-                        
-                        : tous les groupes d'utilisateurs sauf les &quot;Readers&quot;
-                      
-                      </span>
-                    </p>
+                    <div/>
+                    <div style="text-align: left;">
+                      <span class="fa fa-exchange fa-2x"/>
+                          
+                      <strong>Pré-requis</strong>
+                      : Activer un point de menu pour afficher les objets existants en mode liste (voir
+                      <a href="http://10.7.20.237:8069/page/ficep-help-views" style="background-color: rgb(255, 255, 255);"> Vues</a>
+                      ).
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-12 mb16 mt16">
-                  <table class="table table-bordered table-responsive">
+                <div class="col-md-12 mt16 mb48">
+                  <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
                     <tbody>
                       <tr>
                         <td>
@@ -187,41 +306,41 @@
                         <td>
                           <strong>Résultat</strong>
                         </td>
+                        <td>
+                          <strong>Profils non autorisés</strong>
+                        </td>
                       </tr>
                       <tr>
                         <td>​1</td>
                         <td>​Cliquez sur « Créer » </td>
                         <td>Le formulaire s’ouvre</td>
+                        <td/>
                       </tr>
                       <tr>
                         <td>​2</td>
                         <td>
-                          
-                          ​
-                          
+                          ​ 
                           <span style="line-height: 1.42857143; font-size: 14px; background-color: transparent;">Remplissez les champs (au moins les champs obligatoires - en bleu) </span>
-                          
-                          
+                           
                           <span style="line-height: 1.42857143; font-size: 14px; background-color: transparent;">en sélectionnant une valeur dans la liste</span>
-                          
-                        
                         </td>
                         <td>​</td>
+                        <td/>
                       </tr>
                       <tr>
                         <td>​3</td>
                         <td>​Cliquez sur « Sauver » - « Annuler » annule l’opération</td>
                         <td>​L'objet est créé - il apparaît dans la liste</td>
+                        <td/>
                       </tr>
                     </tbody>
                   </table>
                   <div/>
+                  <div/>
                   <div>
                     <em style="line-height: 1.42857143; background-color: transparent;">
                       <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                      
-                       Dans les listes déroulantes, l'option « Recherchez Plus » permet d’accéder à plus de valeurs – l'option « Créer et Modifier » permet de créer une valeur directement. 
-                    
+                        Dans les listes déroulantes, l'option « Recherchez Plus » permet d’accéder à plus de valeurs – l'option « Créer et Modifier » permet de créer une valeur directement.  
                     </em>
                     <br style="background-color: rgba(200, 200, 200, 0.137255);"/>
                     <em style="line-height: 1.42857143; background-color: transparent;">La bonne pratique étant de créer la nouvelle valeur par le menu « Configuration » mais ceci n'est permis qu'à des utilisateurs ayant des privilèges avancés.</em>
@@ -233,9 +352,7 @@
                     <strong>
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-exclamation-triangle fa-2x"/>
-                        
-                          
-                      
+                           
                       </em>
                     </strong>
                     <strong>Exceptions</strong>
@@ -246,36 +363,16 @@
                   </div>
                   <p>Champ obligatoire non rempli: Si l'un des champs obligatoire n'est pas rempli, voici le message affiché: </p>
                   <p>
-                    <img src="/website/image?field=datas&amp;model=ir.attachment&amp;id=72" style="font-size: 14px; line-height: 1.42857143;"/>
+                    <img src="/website/image?field=datas&amp;model=ir.attachment&amp;id=26"/>
+                    <br/>
+                    
+Les champs listés sont des variables et s'adaptent en fonction.
                   </p>
-                  <p/>
                   <div>
-                    <strong/>
-                  </div>
-                  <div>
-                    <strong/>
-                  </div>
-                  <div>
-                    <strong/>
-                  </div>
-                  <div>
-                    <strong/>
-                  </div>
-                  <div>
-                    <strong/>
-                  </div>
-                  <div>
-                    <em style="line-height: 1.42857143; background-color: transparent;"/>
-                  </div>
-                  <div>
-                    <em style="line-height: 1.42857143; background-color: transparent;"/>
-                    <div/>
                     <div>
                       <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
                         <span class="fa fa-reply fa-2x"/>
-                        
-                          
-                      
+                            
                       </span>
                       <span style="color: rgb(119, 119, 119);"> </span>
                       <a href="/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour</a>
@@ -302,14 +399,20 @@
                     <p>
                       <strong>Localisation: </strong>
                       
+                      
                       Option 
+                      
                       
                       <em>Créer et Modifier </em>
                       
+                      
                       dans n'importe quelle liste déroulante
+                      
                       
                       <strong/>
                       
+                      
+                    
                     
                     </p>
                     <p>A partir de n'importe quelle liste déroulante, vous pouvez créer une nouvelle valeur qui ne vous serait pas proposée. </p>
@@ -329,7 +432,9 @@
                       <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
                         <span class="fa fa-reply fa-2x"/>
                         
+                        
                           
+                      
                       
                       </span>
                       <span style="color: rgb(119, 119, 119);"> </span>
@@ -361,29 +466,43 @@
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-flag fa-2x"/>
+                        
                          
+                        
                         <strong>Accès fonctionnalité et localisation</strong>
+                        
+                      
                       </span>
                       <span style="line-height: 1.42857143;">: option disponible dans le menu &quot;Autres options&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
                     </p>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-user fa-2x"/>
+                        
                            
+                      
                       </span>
                       <span style="line-height: 1.42857143;">
                         <strong>Audience</strong>
+                        
                         : tous les groupes d'utilisateurs sauf les &quot;Readers&quot;.
+                      
                       </span>
                     </p>
                     <div/>
                     <div style="text-align: left;">
                       <span class="fa fa-exchange fa-2x"/>
+                      
                        
+                      
                       <strong>Pré-requis</strong>
+                      
                       : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                      
                       <a href="/page/ficep-help-views" style="background-color: rgb(255, 255, 255);">Vues</a>
+                      
                       ).
+                    
                     </div>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;"/>
@@ -426,23 +545,33 @@
                   <div style="text-align: left;">
                     <em style="line-height: 1.42857143; background-color: transparent;">
                       <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px"/>
+                      
                         Le menu &quot;Autres options&quot; ne s'affiche en mode &quot;Liste&quot; qu'après sélection d'un ou de plusieurs objets. 
+                    
                     </em>
                   </div>
                   <div style="text-align: left;"/>
                   <p style="text-align: left;">
                     <br/>
                     
+                    
  
+                  
                   </p>
                   <div style="text-align: left;">
                     <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
                       <span class="fa fa-reply fa-2x"/>
+                      
                           
+                    
                     </span>
                     <span style="color: rgb(119, 119, 119);"> </span>
+                    
                      
+                    
                     <a href="/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour</a>
+                    
+                  
                   </div>
                 </div>
               </div>
@@ -466,30 +595,48 @@
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-flag fa-2x"/>
+                        
                          
+                        
                         <strong>Accès fonctionalité et localisation</strong>
+                        
+                      
                       </span>
+                      
                        
+                      
                       <span style="line-height: 1.42857143;">: option disponible dans le menu &quot;Autres options&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
+                      
+                    
                     </p>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-user fa-2x"/>
+                        
                            
+                      
                       </span>
                       <span style="line-height: 1.42857143;">
                         <strong>Audience</strong>
+                        
                         : tous les groupes d'utilisateurs sauf les &quot;Readers&quot;.
+                      
                       </span>
                     </p>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-exchange fa-2x"/>
+                        
                          
+                        
                         <strong>Pré-requis</strong>
+                        
                         : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                        
                         <a href="http://10.7.20.236:8069/page/ficep-help-views" style="background-color: rgb(255, 255, 255);">Vues</a>
+                        
                         ).
+                      
                       </span>
                     </p>
                   </div>
@@ -530,11 +677,15 @@
                   <div style="text-align: left;">
                     <em style="line-height: 1.42857143; background-color: transparent;">
                       <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                      
                         Le menu &quot;Autres options&quot; ne s'affiche en mode &quot;Liste&quot; qu'après sélection d'un ou de plusieurs objets. 
+                    
                     </em>
                     <br/>
                     
+                    
  
+                  
                   </div>
                   <div style="text-align: left;">
                     <em style="line-height: 1.42857143; background-color: transparent;"/>
@@ -547,7 +698,9 @@
                         <strong>
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             <span class="fa fa-exclamation-triangle fa-2x"/>
+                            
                                
+                          
                           </em>
                         </strong>
                         <strong>Exceptions</strong>
@@ -563,7 +716,9 @@
                       <p>
                         <span style="line-height: 1.42857143;">
                           <span style="background-color:#FFFF00;">?Explications à ajouter?</span>
+                          
                           .
+                        
                         </span>
                       </p>
                     </div>
@@ -573,16 +728,24 @@
                   <p style="text-align: left;">
                     <br/>
                     
+                    
  
+                  
                   </p>
                   <div style="text-align: left;">
                     <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
                       <span class="fa fa-reply fa-2x"/>
+                      
                           
+                    
                     </span>
                     <span style="color: rgb(119, 119, 119);"> </span>
+                    
                      
+                    
                     <a href="http://10.7.20.236:8069/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour</a>
+                    
+                  
                   </div>
                 </div>
               </div>
@@ -606,36 +769,60 @@
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-flag fa-2x"/>
+                        
                          
+                      
                       </span>
+                      
                        
+                      
                       <strong style="line-height: 1.42857143;">
                         <span style="line-height: 1.42857143;">
                           <strong>Accès fonctionnalité et localisation</strong>
+                          
                            
+                        
                         </span>
                       </strong>
+                      
+                      
                       <span style="line-height: 1.42857143;">: option lien en dessous du fil d'Ariane, partie partie supérieure de l'écran (à côté du bouton &quot;Créer&quot;)</span>
+                      
+                    
                     </p>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-user fa-2x"/>
+                        
                           
+                      
                       </span>
+                      
                        
+                      
                       <span style="line-height: 1.42857143;">
                         <strong>Audience</strong>
+                        
                         : tous les groupes d'utilisateurs sauf les &quot;Readers&quot;.
+                      
                       </span>
+                      
+                    
                     </p>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-exchange fa-2x"/>
+                        
                          
+                        
                         <strong>Pré-requis</strong>
+                        
                         : disposer d'un fichier en format CSV (Comma Separated Value (format généré d'Excel) avec les données à importer. Afficher le mode &quot;Liste&quot; pour les données concernées (voir 
+                        
                         <a href="/page/ficep-help-views">Vues</a>
+                        
                         ).
+                      
                       </span>
                     </p>
                   </div>
@@ -686,8 +873,12 @@
                     </em>
                     <em style="line-height: 1.42857143; background-color: transparent;">  </em>
                     <em>
+                      
                       L’import peut servir pour créer de nouvelles données ou mettre à jour des données existantes. 
+                      
                       <em style="line-height: 1.42857143; background-color: transparent;">L'import inclut toujours l'étape de validation cependant cette étape peut prendre du temps (autant de temps que nécessaire à l'import) en fonction de la taille du fichier (nombres de données à importer). </em>
+                      
+                    
                     </em>
                   </div>
                 </div>
@@ -698,9 +889,13 @@
                   <strong>
                     <em style="line-height: 1.42857143; background-color: transparent;">
                       <span class="fa fa-exclamation-triangle fa-2x"/>
+                      
                        
+                    
                     </em>
+                    
                      
+                  
                   </strong>
                   <strong>Exceptions</strong>
                   <strong/>
@@ -720,13 +915,156 @@
                 <div>
                   <span style="line-height: 1.42857143; color: rgb(119, 119, 119);">
                     <span class="fa fa-reply fa-2x"/>
+                    
                         
+                  
                   </span>
                   <span style="color: rgb(119, 119, 119);"> </span>
+                  
                    
+                  
                   <a href="/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour</a>
+                  
+                
                 </div>
               </div>
+            </div>
+          </section>
+        </div>
+      </t>
+    </template>
+    <template id="website.ficep-help-invalidate" name="ficep-help-invalidate" page="True">
+      <t t-call="website.layout">
+        <div class="oe_structure oe_empty" id="wrap">
+          <section class="mt16 mb16">
+            <div class="container">
+              <div class="row">
+                <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">
+                  <span style="color: rgb(0, 128, 0);">Invalider un objet</span>
+                  <span style="color: rgb(255, 255, 255);"/>
+                </h2>
+                <div style="text-align: center;">
+                  <p style="text-align: left;">
+                    <span style="line-height: 1.42857143;">
+                      <span style="background-color: rgb(255, 255, 0);">
+                        <span class="fa fa-flag fa-2x"/>
+                           
+                      </span>
+                       
+                      <strong>
+                        <span style="background-color: rgb(255, 255, 0);">Accès fonctionnalité et localisation</span>
+                         
+                      </strong>
+                    </span>
+                    <span style="line-height: 1.42857143;">
+                      <span style="background-color: rgb(255, 255, 0);">: option disponible dans le menu &quot;Autres options&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
+                    </span>
+                  </p>
+                  <div/>
+                  <div style="text-align: left;">
+                    <span style="background-color: rgb(255, 255, 0);">
+                      <span class="fa fa-exchange fa-2x"/>
+                         
+                    </span>
+                     
+                    <strong>
+                      <span style="background-color: rgb(255, 255, 0);">Pré-requis</span>
+                       
+                    </strong>
+                    <span style="background-color: rgb(255, 255, 0);"> : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir  </span>
+                     
+                    <a href="http://10.7.20.237:8069/page/ficep-help-views" style="background-color: rgb(255, 255, 255);">
+                      <span style="background-color: rgb(255, 255, 0);">Vues</span>
+                       
+                    </a>
+                    <span style="background-color: rgb(255, 255, 0);"> ).</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="mt16 mb16">
+            <div class="container">
+              <div class="row">
+                <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong>#</strong>
+                      </td>
+                      <td>
+                        <strong>Etapes​</strong>
+                      </td>
+                      <td>
+                        <strong>​Résultat</strong>
+                      </td>
+                      <td>
+                        <strong>​Profils non autorisés</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>​1</td>
+                      <td>​Cliquez sur le bouton &quot;Tous les détails&quot;</td>
+                      <td>​Redirection vers une liste de tous les détails de l'objet, affichant les élements actifs ET non-actifs de l'objet.</td>
+                      <td>
+                        ​
+                        <br/>
+                        
+			 
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+ 
+
+
+                <div/>
+                
+
+
+                <div>
+                  <em style="line-height: 1.42857143; background-color: transparent;">
+                    <span style="background-color: rgb(255, 255, 0);">
+                      <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                         Le menu &quot;Autres options&quot; ne s'affiche en mode &quot;Liste&quot; qu'après sélection d'un ou de plusieurs objets. 
+                    </span>
+                  </em>
+                </div>
+                
+
+
+                <div/>
+                
+
+
+                <p>
+                  <br/>
+                  
+ 
+                </p>
+                
+
+
+                <div>
+                  <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
+                    <span style="background-color: rgb(255, 255, 0);">
+                      <span class="fa fa-reply fa-2x"/>
+                          
+                    </span>
+                  </span>
+                  <a href="http://10.7.20.237:8069/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">
+                    <span style="background-color: rgb(255, 255, 0);">Retour</span>
+                  </a>
+                </div>
+                
+
+              </div>
+            </div>
+          </section>
+          <section class="mt16 mb16">
+            <div class="container">
+              <div class="row"/>
             </div>
           </section>
         </div>
@@ -747,13 +1085,17 @@
                   <p>
                     <b>Great stories have personality.</b>
                     
+                    
                      Consider telling a great story that provides personality. Writing a story with personality for potential clients will asist with making a relationship connection. This shows up in small quirks like word choices or phrases. Write from your point of view, not from someone else's experience.
+                  
                   
                   </p>
                   <p>
                     <b>Great stories are for everyone even when only written for just one person.</b>
                     
+                    
                      If you try to write with a wide general audience in mind, your story will ring false and be bland. No one will be interested. Write for one person. If it’s genuine for the one, it’s genuine for the rest.
+                  
                   
                   </p>
                 </div>
@@ -829,11 +1171,15 @@
                   <div style="text-align: left;">
                     <span style="line-height: 1.42857143;">
                       
+                      
                       Cette zone vous permet aussi d'ajouter toute note qui pourrait compléter un objet. Cette note ne sera pas envoyée aux suiveurs de l'objet mais sera visible. A cette fin, utilisez l'option &quot;
+                      
                       
                       <strong>Enregistrer une note interne</strong>
                       
+                      
                       &quot;. L'insertion de la note ainsi que le texte sera enregistré (auteur, date et heure) et sera visible lorsque l'on consultera l'objet. 
+                    
                     
                     </span>
                   </div>
@@ -856,7 +1202,9 @@
                       <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
                         <span class="fa fa-reply fa-2x"/>
                         
+                        
                           
+                      
                       
                       </span>
                       <span style="color: rgb(119, 119, 119);"> </span>
@@ -899,7 +1247,9 @@
                           <p>
                             <strong>Localisation: </strong>
                             
+                            
                             Partie supérieure gauche de l'écran
+                          
                           
                           </p>
                         </div>
@@ -916,10 +1266,14 @@
                   </div>
                   <p class="text-muted" style="text-align: left;">
                     
+                    
                      
+                    
                     
                     <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=46" style="line-height: 20px;"/>
                     
+                    
+                  
                   
                   </p>
                   <p style="text-align: left;">
@@ -934,14 +1288,20 @@
                     <span style="line-height: 1.42857143;">
                       <span class="fa fa-reply fa-2x"/>
                       
+                      
                         
+                    
                     
                     </span>
                     
+                    
                      
+                    
                     
                     <a href="/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour</a>
                     
+                    
+                  
                   
                   </p>
                 </div>
@@ -961,8 +1321,9 @@
                   <div class="col-md-12 text-center mt16 mb4">
                     <h2>Personnes</h2>
                     <h3 class="text-muted">
-                      Personnes Physiques - 
+                      Personnes Physiques -  
                       <span style="font-family: inherit; line-height: 1.1;">Personnes Morales - </span>
+                       
                       <span style="font-family: inherit; line-height: 1.1;">Toutes personnes</span>
                     </h3>
                     <div/>
@@ -1123,56 +1484,87 @@ Personnes\Toutes personnes
             <section class="jumbotron mt0">
               <div class="container">
                 <div class="row">
-                  <div class="text-muted col-md-12 mb16">
-                    <h3 class="mb0">
-                      <span style="line-height: 1.42857143;">
-                        <span style="color: rgb(128, 128, 128);">
-                          <span style="line-height: 1.42857143;">Fonctionnalités générales</span>
+                  <div class="text-muted col-md-12 mb0 mt0">
+                    <div class="text-muted col-md-12 mb16" style="width: 1170px; background-color: rgb(238, 238, 238);">
+                      <h3 class="mb0">
+                        <span style="line-height: 1.42857143;">
+                          <span style="color: rgb(128, 128, 128);">
+                            <span style="line-height: 1.42857143;">Fonctionnalités générales</span>
+                          </span>
                         </span>
-                      </span>
-                    </h3>
-                    <div>
+                      </h3>
+                      <div>
+                        <span style="line-height: 1.42857143;">
+                          <span style="color: rgb(128, 128, 128);">
+                            <span style="line-height: 1.42857143;"/>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-1" style="width: 97.5px; background-color: rgb(238, 238, 238);">
+                      <a class="btn btn-success btn-sm" href="/page/ficep-help-create" style="-webkit-user-select: auto; cursor: text !important;">Créer</a>
+                          
+                      <br/>
+                      
+ 
+                    </div>
+                    <div class="col-md-1" style="width: 97.5px; background-color: rgb(238, 238, 238);">
+                      <a class="btn btn-success btn-sm" href="/page/ficep-help-update" style="-webkit-user-select: auto; cursor: text !important;">Editer</a>
+                          
+                      <br/>
+                      
+ 
+                    </div>
+                    <div class="col-md-1" style="width: 97.5px; background-color: rgb(238, 238, 238);">
+                      <a class="btn btn-success btn-sm" href="/page/ficep-help-delete" style="-webkit-user-select: auto; cursor: text !important;">Supprimer</a>
+                         
+                      <br/>
+                      
+ 
+                    </div>
+                    <div class="col-md-1" style="width: 97.5px; background-color: rgb(238, 238, 238);">
+                      <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate" style="-webkit-user-select: auto; cursor: text !important;">Dupliquer</a>
+                         
+                      <br/>
+                      
+ 
+                    </div>
+                    <div class="col-md-1" style="width: 97.5px; background-color: rgb(238, 238, 238);">
+                      <a class="btn btn-success btn-sm" href="/page/ficep-help-all-details" style="-webkit-user-select: auto; cursor: text !important;">Détails</a>
+                          
+                      <br/>
+                      
+ 
+                    </div>
+                    <div class="col-md-1" style="width: 97.5px; background-color: rgb(238, 238, 238);">
+                      <a class="btn btn-success btn-sm" href="/page/ficep-help-invalidate" style="-webkit-user-select: auto; cursor: text !important;">Invalider</a>
+                        
+                    </div>
+                    <div class="col-md-2" style="width: 195px; background-color: rgb(238, 238, 238);">
+                      <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment" style="-webkit-user-select: auto; cursor: text !important;">Gérer des pièces jointes</a>
+                          
+                    </div>
+                    <h3 class="mb0">
                       <span style="line-height: 1.42857143;">
                         <span style="color: rgb(128, 128, 128);">
                           <span style="line-height: 1.42857143;"/>
                         </span>
                       </span>
-                    </div>
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-create">Créer</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-update">Editer</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-delete">Supprimer</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate">Dupliquer</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment">Gestion des pièces jointes</a>
-                        
-                    <br/>
-                    
- 
+                    </h3>
+                    <h3 class="mb0">
+                      <span style="line-height: 1.42857143;">
+                        <span style="color: rgb(128, 128, 128);">
+                          <span style="line-height: 1.42857143;"/>
+                        </span>
+                      </span>
+                    </h3>
+                    <h3 class="mb0">
+                      <span style="line-height: 1.42857143;">
+                        <span style="color: rgb(128, 128, 128);">
+                          <span style="line-height: 1.42857143;"/>
+                        </span>
+                      </span>
+                    </h3>
                   </div>
                 </div>
               </div>
@@ -1196,26 +1588,38 @@ Personnes\Toutes personnes
                     <p style="text-align: left;">
                       <strong>Localisation: </strong>
                       
+                      
                       Option 
+                      
                       
                       <em>Chercher </em>
                       
                       
+                      
+                      
                       <em>Plus</em>
+                      
                       
                        dans n'importe quelle liste déroulante
                       
+                      
                       <strong/>
                       
+                      
+                    
                     
                     </p>
                     <p style="text-align: left;">
                       
+                      
                       Toute liste déroulante vous propose des valeurs; il ne s'agit en général que des premières de la liste. Choisissez l'option &quot;
+                      
                       
                       <em>Chercher Plus</em>
                       
+                      
                       &quot; pour accéder à la liste complète des valeurs.  
+                    
                     
                     </p>
                     <p style="text-align: left;">
@@ -1230,14 +1634,20 @@ Personnes\Toutes personnes
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-reply fa-2x"/>
                           
+                          
                             
+                        
                         
                         </span>
                         
+                        
                          
+                        
                         
                         <a href="/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour</a>
                         
+                        
+                      
                       
                       </p>
                     </div>
@@ -1399,332 +1809,100 @@ Fonctionnalité 1
                 </div>
               </div>
             </section>
-            <section class="mt16 mb16 oe_dark" style="">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-12 mb16 mt16">
-                    <h3>
-                      <font color="#777777" size="5">
-                        <span style="line-height: 26.399999618530273px;">Caractéristiques générales de l'écran</span>
-                      </font>
-                    </h3>
-                    <p>
-                      <span style="line-height: 1.42857143;">
-                        <a href="/page/ficep-help-filters">Recherche et Filtres </a>
-                         - 
-                        <a href="/page/ficep-help-navigation">Navigation </a>
-                         - 
-                        <a href="/page/ficep-help-views">Vues </a>
-                         - 
-                        <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
-                          - 
-                        <a href="/page/ficep-help-createandedit">Créer et Editer</a>
-                         - 
-                        <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
-                         
-                      </span>
-                    </p>
-                    <p>
-                      <span style="line-height: 1.42857143;"/>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <section class="jumbotron mt0">
-              <div class="container">
-                <div class="row">
-                  <div class="text-muted col-md-12 mb16">
-                    <h3 class="mb0">
-                      <span style="line-height: 1.42857143;">
-                        <span style="color: rgb(128, 128, 128);">
-                          <span style="line-height: 1.42857143;">Fonctionnalités générales</span>
-                        </span>
-                      </span>
-                    </h3>
-                    <div>
-                      <span style="line-height: 1.42857143;">
-                        <span style="color: rgb(128, 128, 128);">
-                          <span style="line-height: 1.42857143;"/>
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-create">Créer</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-update">Editer</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-delete">Supprimer</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate">Dupliquer</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment">Gestion des pièces jointes</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                </div>
-              </div>
-            </section>
           </section>
-          <section class="mt_simple_snippet">
-            <section class="mt16 mb0 oe_green">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-12 text-center mt16 mb4">
-                    <h2>
-                      Nom du Modèle:  
-                      <span style="color:#D3D3D3;">
-                        <em>ex: Structures</em>
-                      </span>
-                    </h2>
-                    <h3 class="text-muted">
-                      Entrée menu:  
-                      <span style="color:#D3D3D3;">ex: Instance de l'Etat</span>
-                    </h3>
-                  </div>
+          <section class="mt16 mb16">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 text-center mt16 mb32">
+                  <h3 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left; background-color: rgba(200, 200, 200, 0.137255);">
+                    <font color="#777777" size="5">Caractéristiques générales de l'écran</font>
+                  </h3>
+                  <p style="text-align: left; background-color: rgba(200, 200, 200, 0.137255);">
+                    <span style="line-height: 1.42857143;">
+                      <a href="/page/ficep-help-filters">Recherche et Filtres </a>
+                      - 
+                      <a href="/page/ficep-help-navigation">Navigation </a>
+                      - 
+                      <a href="/page/ficep-help-views">Vues </a>
+                      - 
+                      <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
+                        - 
+                      <a href="/page/ficep-help-createandedit">Créer et Editer</a>
+                       - 
+                      <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
+                    </span>
+                  </p>
                 </div>
               </div>
-            </section>
-            <section class="mb16">
-              <div class="container">
-                <div class="row mt16 mb16">
-                  <div class="text-center col-md-2">
-                    <span class="fa fa-calendar-o fa-3x" style=""/>
-                    <h3 class="mt8 mb0">But</h3>
-                    <div class="text-muted">Accès et gestion des instances d'état</div>
-                  </div>
-                  <div class="text-center col-md-7">
-                    <span class="fa fa-book fa-3x" style=""/>
-                    <h3 class="mt8 mb0">Context</h3>
-                    <div>
-                      <span style="color:#808080;">Le modèle « Instance de l’État » inclut un raccourci vers les Instances de l’État enfants, une navigation vers les Assemblées de l’État et les Circonscriptions (normalement unique). Il inclut également le principe d’activation/désactivation.</span>
-                    </div>
-                    <div class="text-muted">
-                      <span style="background-color: rgba(200, 200, 200, 0.0980392);"/>
-                    </div>
-                  </div>
-                  <div class="text-center col-md-2">
-                    <span class="fa fa-flag fa-3x" style=""/>
-                    <h3 class="mt8 mb0">Localisation</h3>
-                    <div class="text-muted">Structures\Etat\Instances d'Etat</div>
+            </div>
+          </section>
+          <section class="jumbotron mt0">
+            <div class="container">
+              <div class="row">
+                <div class="text-muted col-md-12 mb16">
+                  <h3 class="mb0">
+                    <span style="line-height: 1.42857143;">
+                      <span style="color: rgb(128, 128, 128);">
+                        <span style="line-height: 1.42857143;">Fonctionnalités générales</span>
+                      </span>
+                    </span>
+                  </h3>
+                  <div>
+                    <span style="line-height: 1.42857143;">
+                      <span style="color: rgb(128, 128, 128);">
+                        <span style="line-height: 1.42857143;"/>
+                      </span>
+                    </span>
                   </div>
                 </div>
-              </div>
-            </section>
-            <hr/>
-            <section class="oe_dark">
-              <div class="container">
-                <h3 class="page-header">
-                  <span style="color:#808080;">Module concerné: particularités </span>
-                </h3>
-                <h4 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">Qu'est-ce qu'une instance de l'Etat?</h4>
-                <p>Définition, structure, contraintes...</p>
-                <h4>Quels avantages me donne l'application sur ce modèle?</h4>
-                <div>blabla</div>
-                <p>
-                  <span style="line-height: 1.42857143;">.</span>
-                </p>
-              </div>
-            </section>
-            <hr/>
-            <section class="mt16 mb16 oe_dark">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-12 mb16 mt16">
-                    <h3>
-                      <a id="form" name="form"/>
-                      Fonctionnalités particulières sur l'instance
-                    </h3>
-                    <h4>
-                      <span style="line-height: 1.42857143;">
-                        <br/>
-                        
-Fonctionnalité 1
-                      </span>
-                    </h4>
-                    <div>
-                      <div>
-                        <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
-                          <tbody>
-                            <tr>
-                              <td>Etapes​</td>
-                              <td>​Résultat</td>
-                              <td>​Profils non autorisés</td>
-                            </tr>
-                            <tr>
-                              <td>​</td>
-                              <td>​</td>
-                              <td>
-                                ​
-                                <br/>
-                                
-			 
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <h4>Fonctionnalité 2</h4>
-                    <div>
-                      <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
-                        <tbody>
-                          <tr>
-                            <td>Etapes​</td>
-                            <td>​Résultat</td>
-                            <td>​Profils non autorisés</td>
-                          </tr>
-                          <tr>
-                            <td>​</td>
-                            <td>​</td>
-                            <td>
-                              ​
-                              <br/>
-                              
-			 
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <h4>Fonctionnalité 3</h4>
-                      <div>
-                        <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
-                          <tbody>
-                            <tr>
-                              <td>Etapes​</td>
-                              <td>​Résultat</td>
-                              <td>​Profils non autorisés</td>
-                            </tr>
-                            <tr>
-                              <td>​</td>
-                              <td>​</td>
-                              <td>
-                                ​
-                                <br/>
-                                
-			 
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
+                <div class="col-md-1">
+                  <a class="btn btn-success btn-sm" href="/page/ficep-help-create">Créer</a>
+                      
+                  <br/>
+                  
+ 
+                </div>
+                <div class="col-md-1">
+                  <a class="btn btn-success btn-sm" href="/page/ficep-help-update">Editer</a>
+                      
+                  <br/>
+                  
+ 
+                </div>
+                <div class="col-md-1">
+                  <a class="btn btn-success btn-sm" href="/page/ficep-help-delete">Supprimer</a>
+                      
+                  <br/>
+                  
+ 
+                </div>
+                <div class="col-md-1">
+                  <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate">Dupliquer</a>
+                      
+                  <br/>
+                  
+ 
+                </div>
+                <div class="col-md-1">
+                  <a class="btn btn-success btn-sm" href="/page/ficep-help-all-details">Détails</a>
+                      
+                  <br/>
+                  
+ 
+                </div>
+                <div class="col-md-1">
+                  <a class="btn btn-success btn-sm" href="/page/ficep-help-invalidate">Invalider</a>
+                    
+                </div>
+                <div class="col-md-2">
+                  <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment">Gérer des pièces jointes</a>
+                      
+                  <br/>
+                  
+ 
                 </div>
               </div>
-            </section>
-            <section class="mt16 mb16 oe_dark" style="">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-12 mb16 mt16">
-                    <h3>
-                      <font color="#777777" size="5">
-                        <span style="line-height: 26.399999618530273px;">Caractéristiques générales de l'écran</span>
-                      </font>
-                    </h3>
-                    <p>
-                      <span style="line-height: 1.42857143;">
-                        <a href="/page/ficep-help-filters">Recherche et Filtres </a>
-                         - 
-                        <a href="/page/ficep-help-navigation">Navigation </a>
-                         - 
-                        <a href="/page/ficep-help-views">Vues </a>
-                         - 
-                        <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
-                          - 
-                        <a href="/page/ficep-help-createandedit">Créer et Editer</a>
-                         - 
-                        <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
-                         
-                      </span>
-                    </p>
-                    <p>
-                      <span style="line-height: 1.42857143;"/>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <section class="jumbotron mt0">
-              <div class="container">
-                <div class="row">
-                  <div class="text-muted col-md-12 mb16">
-                    <h3 class="mb0">
-                      <span style="line-height: 1.42857143;">
-                        <span style="color: rgb(128, 128, 128);">
-                          <span style="line-height: 1.42857143;">Fonctionnalités générales</span>
-                        </span>
-                      </span>
-                    </h3>
-                    <div>
-                      <span style="line-height: 1.42857143;">
-                        <span style="color: rgb(128, 128, 128);">
-                          <span style="line-height: 1.42857143;"/>
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-create">Créer</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-update">Editer</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-delete">Supprimer</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate">Dupliquer</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                  <div class="col-md-1">
-                    <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment">Gestion des pièces jointes</a>
-                        
-                    <br/>
-                    
- 
-                  </div>
-                </div>
-              </div>
-            </section>
+            </div>
           </section>
         </div>
       </t>
@@ -1884,332 +2062,100 @@ Fonctionnalité 1
                   </div>
                 </div>
               </section>
-              <section class="mt16 mb16 oe_dark" style="">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-12 mb16 mt16">
-                      <h3>
-                        <font color="#777777" size="5">
-                          <span style="line-height: 26.399999618530273px;">Caractéristiques générales de l'écran</span>
-                        </font>
-                      </h3>
-                      <p>
-                        <span style="line-height: 1.42857143;">
-                          <a href="/page/ficep-help-filters">Recherche et Filtres </a>
-                           - 
-                          <a href="/page/ficep-help-navigation">Navigation </a>
-                           - 
-                          <a href="/page/ficep-help-views">Vues </a>
-                           - 
-                          <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
-                            - 
-                          <a href="/page/ficep-help-createandedit">Créer et Editer</a>
-                           - 
-                          <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
-                           
-                        </span>
-                      </p>
-                      <p>
-                        <span style="line-height: 1.42857143;"/>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              <section class="jumbotron mt0">
-                <div class="container">
-                  <div class="row">
-                    <div class="text-muted col-md-12 mb16">
-                      <h3 class="mb0">
-                        <span style="line-height: 1.42857143;">
-                          <span style="color: rgb(128, 128, 128);">
-                            <span style="line-height: 1.42857143;">Fonctionnalités générales</span>
-                          </span>
-                        </span>
-                      </h3>
-                      <div>
-                        <span style="line-height: 1.42857143;">
-                          <span style="color: rgb(128, 128, 128);">
-                            <span style="line-height: 1.42857143;"/>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-md-1">
-                      <a class="btn btn-success btn-sm" href="/page/ficep-help-create">Créer</a>
-                          
-                      <br/>
-                      
- 
-                    </div>
-                    <div class="col-md-1">
-                      <a class="btn btn-success btn-sm" href="/page/ficep-help-update">Editer</a>
-                          
-                      <br/>
-                      
- 
-                    </div>
-                    <div class="col-md-1">
-                      <a class="btn btn-success btn-sm" href="/page/ficep-help-delete">Supprimer</a>
-                          
-                      <br/>
-                      
- 
-                    </div>
-                    <div class="col-md-1">
-                      <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate">Dupliquer</a>
-                          
-                      <br/>
-                      
- 
-                    </div>
-                    <div class="col-md-1">
-                      <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment">Gestion des pièces jointes</a>
-                          
-                      <br/>
-                      
- 
-                    </div>
-                  </div>
-                </div>
-              </section>
             </section>
-            <section class="mt_simple_snippet">
-              <section class="mt16 mb0 oe_green">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-12 text-center mt16 mb4">
-                      <h2>
-                        Nom du Modèle:  
-                        <span style="color:#D3D3D3;">
-                          <em>ex: Structures</em>
-                        </span>
-                      </h2>
-                      <h3 class="text-muted">
-                        Entrée menu:  
-                        <span style="color:#D3D3D3;">ex: Instance de l'Etat</span>
-                      </h3>
-                    </div>
+            <section class="mt16 mb16">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <h3 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left; background-color: rgba(200, 200, 200, 0.137255);">
+                      <font color="#777777" size="5">Caractéristiques générales de l'écran</font>
+                    </h3>
+                    <p style="text-align: left; background-color: rgba(200, 200, 200, 0.137255);">
+                      <span style="line-height: 1.42857143;">
+                        <a href="/page/ficep-help-filters">Recherche et Filtres </a>
+                        - 
+                        <a href="/page/ficep-help-navigation">Navigation </a>
+                        - 
+                        <a href="/page/ficep-help-views">Vues </a>
+                        - 
+                        <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
+                          - 
+                        <a href="/page/ficep-help-createandedit">Créer et Editer</a>
+                         - 
+                        <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
+                      </span>
+                    </p>
                   </div>
                 </div>
-              </section>
-              <section class="mb16">
-                <div class="container">
-                  <div class="row mt16 mb16">
-                    <div class="text-center col-md-2">
-                      <span class="fa fa-calendar-o fa-3x" style=""/>
-                      <h3 class="mt8 mb0">But</h3>
-                      <div class="text-muted">Accès et gestion des instances d'état</div>
-                    </div>
-                    <div class="text-center col-md-7">
-                      <span class="fa fa-book fa-3x" style=""/>
-                      <h3 class="mt8 mb0">Context</h3>
-                      <div>
-                        <span style="color:#808080;">Le modèle « Instance de l’État » inclut un raccourci vers les Instances de l’État enfants, une navigation vers les Assemblées de l’État et les Circonscriptions (normalement unique). Il inclut également le principe d’activation/désactivation.</span>
-                      </div>
-                      <div class="text-muted">
-                        <span style="background-color: rgba(200, 200, 200, 0.0980392);"/>
-                      </div>
-                    </div>
-                    <div class="text-center col-md-2">
-                      <span class="fa fa-flag fa-3x" style=""/>
-                      <h3 class="mt8 mb0">Localisation</h3>
-                      <div class="text-muted">Structures\Etat\Instances d'Etat</div>
+              </div>
+            </section>
+            <section class="jumbotron mt0">
+              <div class="container">
+                <div class="row">
+                  <div class="text-muted col-md-12 mb16">
+                    <h3 class="mb0">
+                      <span style="line-height: 1.42857143;">
+                        <span style="color: rgb(128, 128, 128);">
+                          <span style="line-height: 1.42857143;">Fonctionnalités générales</span>
+                        </span>
+                      </span>
+                    </h3>
+                    <div>
+                      <span style="line-height: 1.42857143;">
+                        <span style="color: rgb(128, 128, 128);">
+                          <span style="line-height: 1.42857143;"/>
+                        </span>
+                      </span>
                     </div>
                   </div>
-                </div>
-              </section>
-              <hr/>
-              <section class="oe_dark">
-                <div class="container">
-                  <h3 class="page-header">
-                    <span style="color:#808080;">Module concerné: particularités </span>
-                  </h3>
-                  <h4 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">Qu'est-ce qu'une instance de l'Etat?</h4>
-                  <p>Définition, structure, contraintes...</p>
-                  <h4>Quels avantages me donne l'application sur ce modèle?</h4>
-                  <div>blabla</div>
-                  <p>
-                    <span style="line-height: 1.42857143;">.</span>
-                  </p>
-                </div>
-              </section>
-              <hr/>
-              <section class="mt16 mb16 oe_dark">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-12 mb16 mt16">
-                      <h3>
-                        <a id="form" name="form"/>
-                        Fonctionnalités particulières sur l'instance
-                      </h3>
-                      <h4>
-                        <span style="line-height: 1.42857143;">
-                          <br/>
-                          
-Fonctionnalité 1
-                        </span>
-                      </h4>
-                      <div>
-                        <div>
-                          <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
-                            <tbody>
-                              <tr>
-                                <td>Etapes​</td>
-                                <td>​Résultat</td>
-                                <td>​Profils non autorisés</td>
-                              </tr>
-                              <tr>
-                                <td>​</td>
-                                <td>​</td>
-                                <td>
-                                  ​
-                                  <br/>
-                                  
-			 
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                      <h4>Fonctionnalité 2</h4>
-                      <div>
-                        <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
-                          <tbody>
-                            <tr>
-                              <td>Etapes​</td>
-                              <td>​Résultat</td>
-                              <td>​Profils non autorisés</td>
-                            </tr>
-                            <tr>
-                              <td>​</td>
-                              <td>​</td>
-                              <td>
-                                ​
-                                <br/>
-                                
-			 
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <h4>Fonctionnalité 3</h4>
-                        <div>
-                          <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
-                            <tbody>
-                              <tr>
-                                <td>Etapes​</td>
-                                <td>​Résultat</td>
-                                <td>​Profils non autorisés</td>
-                              </tr>
-                              <tr>
-                                <td>​</td>
-                                <td>​</td>
-                                <td>
-                                  ​
-                                  <br/>
-                                  
-			 
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
+                  <div class="col-md-1">
+                    <a class="btn btn-success btn-sm" href="/page/ficep-help-create">Créer</a>
+                        
+                    <br/>
+                    
+ 
+                  </div>
+                  <div class="col-md-1">
+                    <a class="btn btn-success btn-sm" href="/page/ficep-help-update">Editer</a>
+                        
+                    <br/>
+                    
+ 
+                  </div>
+                  <div class="col-md-1">
+                    <a class="btn btn-success btn-sm" href="/page/ficep-help-delete">Supprimer</a>
+                        
+                    <br/>
+                    
+ 
+                  </div>
+                  <div class="col-md-1">
+                    <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate">Dupliquer</a>
+                        
+                    <br/>
+                    
+ 
+                  </div>
+                  <div class="col-md-1">
+                    <a class="btn btn-success btn-sm" href="/page/ficep-help-all-details">Détails</a>
+                        
+                    <br/>
+                    
+ 
+                  </div>
+                  <div class="col-md-1">
+                    <a class="btn btn-success btn-sm" href="/page/ficep-help-invalidate">Invalider</a>
+                      
+                  </div>
+                  <div class="col-md-2">
+                    <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment">Gérer des pièces jointes</a>
+                        
+                    <br/>
+                    
+ 
                   </div>
                 </div>
-              </section>
-              <section class="mt16 mb16 oe_dark" style="">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-12 mb16 mt16">
-                      <h3>
-                        <font color="#777777" size="5">
-                          <span style="line-height: 26.399999618530273px;">Caractéristiques générales de l'écran</span>
-                        </font>
-                      </h3>
-                      <p>
-                        <span style="line-height: 1.42857143;">
-                          <a href="/page/ficep-help-filters">Recherche et Filtres </a>
-                           - 
-                          <a href="/page/ficep-help-navigation">Navigation </a>
-                           - 
-                          <a href="/page/ficep-help-views">Vues </a>
-                           - 
-                          <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
-                            - 
-                          <a href="/page/ficep-help-createandedit">Créer et Editer</a>
-                           - 
-                          <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
-                           
-                        </span>
-                      </p>
-                      <p>
-                        <span style="line-height: 1.42857143;"/>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              <section class="jumbotron mt0">
-                <div class="container">
-                  <div class="row">
-                    <div class="text-muted col-md-12 mb16">
-                      <h3 class="mb0">
-                        <span style="line-height: 1.42857143;">
-                          <span style="color: rgb(128, 128, 128);">
-                            <span style="line-height: 1.42857143;">Fonctionnalités générales</span>
-                          </span>
-                        </span>
-                      </h3>
-                      <div>
-                        <span style="line-height: 1.42857143;">
-                          <span style="color: rgb(128, 128, 128);">
-                            <span style="line-height: 1.42857143;"/>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-md-1">
-                      <a class="btn btn-success btn-sm" href="/page/ficep-help-create">Créer</a>
-                          
-                      <br/>
-                      
- 
-                    </div>
-                    <div class="col-md-1">
-                      <a class="btn btn-success btn-sm" href="/page/ficep-help-update">Editer</a>
-                          
-                      <br/>
-                      
- 
-                    </div>
-                    <div class="col-md-1">
-                      <a class="btn btn-success btn-sm" href="/page/ficep-help-delete">Supprimer</a>
-                          
-                      <br/>
-                      
- 
-                    </div>
-                    <div class="col-md-1">
-                      <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate">Dupliquer</a>
-                          
-                      <br/>
-                      
- 
-                    </div>
-                    <div class="col-md-1">
-                      <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment">Gestion des pièces jointes</a>
-                          
-                      <br/>
-                      
- 
-                    </div>
-                  </div>
-                </div>
-              </section>
+              </div>
             </section>
           </section>
         </div>
@@ -2230,7 +2176,9 @@ Fonctionnalité 1
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-flag fa-2x"/>
+                        
                          
+                      
                       </span>
                       <strong style="line-height: 1.42857143;">
                         <span style="line-height: 1.42857143;">
@@ -2242,22 +2190,36 @@ Fonctionnalité 1
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-user fa-2x"/>
+                        
                           
+                      
                       </span>
+                      
                        
+                      
                       <span style="line-height: 1.42857143;">
                         <strong>Audience</strong>
+                        
                         : tous les groupes d'utilisateurs sauf les &quot;Readers&quot;.
+                      
                       </span>
+                      
+                    
                     </p>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-exchange fa-2x"/>
+                        
                          
+                        
                         <strong>Pré-requis</strong>
+                        
                         : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                        
                         <a href="/page/ficep-help-views">Vues</a>
+                        
                         ).
+                      
                       </span>
                     </p>
                   </div>
@@ -2290,9 +2252,15 @@ Fonctionnalité 1
                       <tr>
                         <td style="text-align: left;">​2</td>
                         <td style="text-align: left;">
+                          
                           Modifiez les champs éditables selon votre souhait
+                          
                           <span style="line-height: 1.42857143; background-color: transparent;"> en modifiant le texte ou en </span>
+                          
+                          
                           <span style="line-height: 1.42857143; background-color: transparent;">sélectionnant une valeur dans la liste proposée. </span>
+                          
+                        
                         </td>
                         <td style="text-align: left;">​</td>
                       </tr>
@@ -2312,9 +2280,15 @@ Fonctionnalité 1
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
                       </em>
                       <em style="line-height: 1.42857143; background-color: transparent;"> Dans les listes déroulantes, l'option « Créer et Modifier » permet de créer une valeur directement.</em>
+                      
                        
+                      
                       <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      
+                      
                       <em style="line-height: 1.42857143; background-color: transparent;">La bonne pratique étant de créer la nouvelle valeur par le menu « Configuration » mais ceci n'est permis qu'à des utilisateurs ayant des privilèges avancés.</em>
+                      
+                    
                     </div>
                   </div>
                   <div style="text-align: left;">
@@ -2324,7 +2298,9 @@ Fonctionnalité 1
                     <strong>
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-exclamation-triangle fa-2x"/>
+                        
                          
+                      
                       </em>
                     </strong>
                     <strong>Exceptions</strong>
@@ -2338,19 +2314,29 @@ Fonctionnalité 1
                     <img src="/website/image?field=datas&amp;model=ir.attachment&amp;id=26"/>
                   </p>
                   <p style="text-align: left;">
+                    
                     Le message précise le ou les champs manquants ou non-valides. Ces mentions sont variables selon l'objet en modification.
+                    
                     <br/>
                     
+                    
  
+                  
                   </p>
                   <div style="text-align: left;">
                     <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
                       <span class="fa fa-reply fa-2x"/>
+                      
                           
+                    
                     </span>
                     <span style="color: rgb(119, 119, 119);"> </span>
+                    
                      
+                    
                     <a href="/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour</a>
+                    
+                  
                   </div>
                 </div>
               </div>
@@ -2378,7 +2364,9 @@ Fonctionnalité 1
                           <div style="text-align: left;">
                             <br/>
                             
+                            
 Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voire d’un seul), il faut d’abord créer un Groupe, lui associer les privilèges souhaités ainsi que les Utilisateurs en question. 
+                          
                           </div>
                           <div style="text-align: left;"/>
                           <div style="text-align: left;">Une notion d’héritage au niveau des Groupes est prévue, empruntée au principe des poupées russes. Il consiste à définir un Groupe plus privilégié au départ d’un ou de plusieurs Groupes moins privilégiés en lui ajoutant uniquement les privilèges manquants. Un Utilisateur d’un tel Groupe hérite donc des privilèges cumulés du Groupe en question (privilèges haut niveau) et de chaque Groupe hérité (privilèges bas niveau). </div>
@@ -2388,33 +2376,47 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                             <ul>
                               <li style="text-align: left;">
                                 <strong>Ficep Configurator</strong>
+                                
                                 : les plus privilégiés, accès en lecture/écriture à tous les modèles et notamment les modèles dits &quot;de configuration&quot;: Niveaux de Pouvoir, Circonscriptions, Catégories de Mandats... (pour les autres, ces modèles ne seront accessibles qu'en lecture) et Utilisateurs;
+                              
                               </li>
                               <li style="text-align: left;">
                                 <strong>Ficep Manager</strong>
+                                
                                 : permanents (cercle 1), accès en lecture/écriture à tous les modèles sauf aux modèles &quot;de configuration&quot; (lecture seule), accès en lecture/écriture aux Coordonnées VIP
+                              
                               </li>
                               <li style="text-align: left;">
                                 <strong>Ficep VIP Reader</strong>
+                                
                                 : idem que Ficep Manager mais en lecture seule et sans les actions Ficep (boutons et menus) destinées à modifier les données
+                              
                               </li>
                               <li style="text-align: left;">
                                 <strong>Ficep Officer</strong>
+                                
                                 : permanents (cercle 2), idem que Ficep Manager mais sans aucune visibilité sur les Coordonnées VIP
+                              
                               </li>
                               <li style="text-align: left;">
                                 <strong>Ficep Reader</strong>
+                                
                                 : idem que Ficep VIP Reader mais sans visibilité sur les Coordonnées VIP
+                              
                               </li>
                               <li style="text-align: left;">
                                 <strong>Ficep User</strong>
+                                
                                 : mandataires internes non permanents ayant en charge une partie de la gestion du parti (ex: secrétaires locaux, responsables de commission, ...). Ils peuvent:
 	
+                                
                                 <ul>
                                   <li style="text-align: left;">modifier directement un Partenaire (i.e. sans devoir passer par une Demande d'Adhésion) qui n'a pas d'historique d'Adhésions (par ex. simple contact ou personne morale)</li>
                                   <li style="text-align: left;">accéder aux mandataires des Assemblées liées à leurs Instances</li>
                                   <li style="text-align: left;">créer et modifier des Assemblées Externes liées à leurs Instances</li>
                                 </ul>
+                                
+                              
                               </li>
                             </ul>
                             <p style="text-align: left;">Le principe d'héritage des Groupes s'illustre dans Ficep de la façon suivante:</p>
@@ -2422,14 +2424,22 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                               <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=35" style="line-height: 1.42857143"/>
                             </p>
                             <p style="text-align: left;">
+                              
                               Un Groupe Ficep supplémentaire sans héritage particulier par rapport aux autres Groupes sera le Groupe 
+                              
                               <em>Ficep Finances</em>
+                              
                               .
+                            
                             </p>
                             <p style="text-align: left;">
+                              
                               Les autres mandataires, membres, sympathisants et simples contacts feront partie du Groupe 
+                              
                               <em>Portail</em>
+                              
                                (natif d’OpenERP) uniquement. Ce groupe doit leur être réservé. Si on souhaite que ces contacts aient accès au Portail, l'administrateur devra veiller à ne pas les mettre dans d'autres Groupes.
+                            
                             </p>
                             <p style="text-align: left;">Les privilèges attribués aux Groupes sont de 3 ordres: l'accès aux modèles, l'accès aux éléments et l'accès aux fonctionnalités.</p>
                             <p style="text-align: left;">Des règles de confidentialité sont attachées aux différents Groupes qui ont pour conséquence une visibilité/accès à plusieurs niveaux:</p>
@@ -2454,11 +2464,17 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                           <div style="text-align: left;">
                             <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
                               <span class="fa fa-reply fa-2x"/>
+                              
                                   
+                            
                             </span>
                             <span style="color: rgb(119, 119, 119);"> </span>
+                            
                              
+                            
                             <a href="http://10.7.20.237:8069/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour</a>
+                            
+                          
                           </div>
                         </div>
                       </div>
@@ -2485,11 +2501,15 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                     <ul>
                       <li style="text-align: left;">
                         
+                        
                         Vue liste: 
+                        
                         
                         <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=50" style=""/>
                         
+                        
                          tous les objets sont affichés sous forme de liste
+                      
                       
                       </li>
                     </ul>
@@ -2500,11 +2520,15 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                       <li style="text-align: left;">
                         <img src="file:///C:/Users/smx/AppData/Local/Temp/msohtmlclip1/01/clip_image004.jpg"/>
                         
+                        
                         Vue formulaire: 
+                        
                         
                         <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=51" style=""/>
                         
+                        
                          donnant tous les détails d'un objet
+                      
                       
                       </li>
                     </ul>
@@ -2514,11 +2538,15 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                     <ul>
                       <li style="text-align: left;">
                         
+                        
                         Vue dite &quot;KanBan&quot;: 
+                        
                         
                         <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=52" style=""/>
                         
+                        
                          montrant tous les objets sous forme de gros boutons qui peuvent être déplacés aisément.  
+                      
                       
                       </li>
                     </ul>
@@ -2529,14 +2557,20 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                       <li style="text-align: left;">
                         <img src="file:///C:/Users/smx/AppData/Local/Temp/msohtmlclip1/01/clip_image012.jpg"/>
                         
+                        
                         Vue Calendrier: 
+                        
                         
                         <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=55" style=""/>
                         
+                        
                          permettant de visualiser certains événements associés à des dates sous forme d'un calendrier. 
+                        
                         
                         <img src="file:///C:/Users/smx/AppData/Local/Temp/msohtmlclip1/01/clip_image016.jpg"/>
                         
+                        
+                      
                       
                       </li>
                     </ul>
@@ -2545,7 +2579,9 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                       <br/>
                       
                       
+                      
  
+                    
                     
                     </p>
                   </div>
@@ -2553,14 +2589,20 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                     <span style="line-height: 1.42857143;">
                       <span class="fa fa-reply fa-2x"/>
                       
+                      
                         
+                    
                     
                     </span>
                     
+                    
                      
+                    
                     
                     <a href="/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour</a>
                     
+                    
+                  
                   
                   </p>
                 </div>
@@ -2590,7 +2632,9 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                         <p style="text-align: left;">
                           <strong>Localisation: </strong>
                           
+                          
                           Partie partie supérieure droite de l'écran ou en utilisant la fonctionnalité &quot;Search More&quot; dans n'importe quel liste déroulante.
+                        
                         
                         </p>
                       </div>
@@ -2599,7 +2643,9 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                   <div style="text-align: left;">
                     <span class="cke_widget_wrapper cke_widget_inline" data-cke-display-name="span" data-cke-filter="off" data-cke-widget-id="8" data-cke-widget-wrapper="1" tabindex="-1"/>
                     
+                    
                      
+                  
                   
                   </div>
                   <div style="text-align: left;"/>
@@ -2607,27 +2653,39 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                     <img class="img-thumbnail" data-cke-saved-src="/website/image?field=datas&amp;model=ir.attachment&amp;id=35" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=35" style=""/>
                     <br/>
                     
+                    
                      
+                    
                     
                     <br/>
                     
+                    
                     Il s'agit d'un champ identifié avec une loupe, dans lequel vous pouvez encoder tout type de critère afin de faire une recherche dans l'écran courant. La recherche est &quot;accompagnée&quot; et l'application proposera tous les résultats possibles par champs, au fur et à mesure de l'encodage.  Dans l'example ci-dessous, &quot;baus” peut exister dans les champs &quot;Nom&quot; ou &quot;Notes&quot; ou encore dans &quot;Email&quot;; sélectionnez le champ approprié pour votre recherche. Dans le cas contraire, l'application appliquera votre recherche dans les champs &quot;Nom&quot;, &quot;Prénom et &quot;adresse email&quot;. 
+                  
                   
                   </div>
                   <div style="text-align: left;"/>
                   <div style="text-align: left;">
                     
+                    
                      
+                    
                     
                     <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=70" style=""/>
                     
                     
-                    <br/>
                     
                     
                     <br/>
+                    
+                    
+                    
+                    
+                    <br/>
+                    
                     
                     La recherche insensible à la casse et l'utilisation de jokers est permise et plus particulièrement:
+                  
                   
                   </div>
                   <ul>
@@ -2640,13 +2698,19 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                   </p>
                   <div style="text-align: left;">
                     
+                    
                     L'usage de caractères accentués n'est pas restrictif, en d'autres termes la recherche sera élargie comme par exemple, la recherche sur &quot;René&quot; donnera &quot;René&quot; et &quot;Rene&quot;.
                     
-                    <br/>
-                    
                     
                     <br/>
                     
+                    
+                    
+                    
+                    <br/>
+                    
+                    
+                  
                   
                   </div>
                   <div style="text-align: left;">L'application propose des filtres déjà définis mais il vous est possible de sauver tout filtre que vous auriez défini et que vous jugerez utile de garder pour de futures utilisations. Utilisez à cette fin l'option &quot;Sauver le filtre courant&quot;. Le filtre sauvé appaîtra dans la zone &quot;Filtres&quot;.</div>
@@ -2656,7 +2720,9 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                   <div style="text-align: left;">
                     <br/>
                     
+                    
                     L'accès au fonctionnalités avancées vous permet de combiner divers critères de recherches afin de raffiner votre recherche. Vous pouvez créer deux types de combinaisons: 
+                  
                   
                   </div>
                   <ul>
@@ -2664,10 +2730,14 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                   </ul>
                   <p style="text-align: left;">
                     
+                    
                      
+                    
                     
                     <img class="img-thumbnail" data-cke-saved-src="/website/image?field=datas&amp;model=ir.attachment&amp;id=43" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=43" style=""/>
                     
+                    
+                  
                   
                   </p>
                   <ul>
@@ -2675,32 +2745,48 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                   </ul>
                   <p style="text-align: left;">
                     
+                    
                      
+                    
                     
                     <img class="img-thumbnail" data-cke-saved-src="/website/image?field=datas&amp;model=ir.attachment&amp;id=44" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=44" style=""/>
                     
+                    
+                  
                   
                   </p>
                   <div style="text-align: left;">
                     
+                    
                     Pour enlever l'un ou l'autre critère, cliquez sur la petite croix sur le côté droit du bloc. 
                     
+                    
                     <br/>
+                    
                     
                      
                     
+                    
                     <br/>
+                    
                     
                     Tous les résultats s'afficheront dans la page courante mais peuvent se répartir sur plusieurs pages. Utilisez les options de navigation pour les parcourir.
                     
-                    <br/>
-                    
                     
                     <br/>
                     
                     
+                    
+                    
                     <br/>
                     
+                    
+                    
+                    
+                    <br/>
+                    
+                    
+                  
                   
                   </div>
                   <p class="text-muted" style="text-align: left;">
@@ -2709,14 +2795,20 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                         <span class="fa fa-reply fa-2x cke_widget_element" data-cke-widget-data="{}" data-cke-widget-keep-attr="0" data-widget="icons"/>
                       </span>
                       
+                      
                         
+                    
                     
                     </span>
                     
+                    
                      
+                    
                     
                     <a data-cke-saved-href="/page/ficep-help-template" href="/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour</a>
                     
+                    
+                  
                   
                   </p>
                 </div>
