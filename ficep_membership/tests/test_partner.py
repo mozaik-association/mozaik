@@ -40,6 +40,8 @@ class test_partner(SharedSetupTransactionCase):
         '../../ficep_base/tests/data/res_partner_data.xml',
         # load structures
         '../../ficep_structure/tests/data/structure_data.xml',
+        '../../ficep_address/tests/data/reference_data.xml',
+        '../../ficep_address/tests/data/address_data.xml',
     )
 
     _module_ns = 'ficep_membership'
@@ -532,3 +534,40 @@ class test_partner(SharedSetupTransactionCase):
             partner_obj.write,
             cr, uid, pid, {'is_company': True})
         pass
+
+    def test_change_instance(self):
+        '''
+        Check that instance well updated into the partner when its main postal
+        coo is changed
+        '''
+        cr, uid, context = self.cr, self.uid, {}
+        postal_obj = self.registry['postal.coordinate']
+        address_obj = self.registry['address.address']
+        zip_obj = self.registry['address.local.zip']
+
+        int_instance_id = self.ref('%s.int_instance_06' % self._module_ns)
+
+        postal_ids = postal_obj.search(cr, uid, [], limit=1, context=context)
+        postal_rec = postal_obj.browse(cr, uid, postal_ids, context=context)[0]
+        partner_id = postal_rec.partner_id.id
+        vals = {
+            'local_zip': '123456789',
+            'town': 'numbers',
+            'int_instance_id': int_instance_id,
+        }
+        zip_id = zip_obj.create(cr, uid, vals, context=context)
+        vals = {
+            'country_id': self.ref("base.be"),
+            'address_local_zip_id': zip_id,
+        }
+        address_id = address_obj.create(cr, uid, vals, context=context)
+        vals = {
+            'address_id': address_id,
+            'partner_id': partner_id,
+            'is_main': True,
+        }
+        postal_id = postal_obj.create(cr, uid, vals, context=context)
+        postal_rec = postal_obj.browse(cr, uid, postal_id, context=context)
+        self.assertEquals(int_instance_id,
+                          postal_rec.partner_id.int_instance_id.id,
+                          'Instance should be the same')

@@ -358,6 +358,33 @@ class postal_coordinate(orm.Model):
             res.update({'co_residency_id': False})
         return res
 
+    def create(self, cr, uid, vals, context=None):
+        '''
+        If vals contains `is_main` as `True` value then launch workflow for
+        the partner of the created coordinate
+        '''
+        res = super(postal_coordinate, self).create(cr, uid, vals,
+                                                    context=context)
+        if vals.get('is_main', False):
+            self.pool['res.partner'].step_workflow(
+                cr, uid, [vals['partner_id']], context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        '''
+        If vals contains `is_main` as `True` value then launch workflow for
+        all the partner of `coordinate_ids`
+        '''
+        res = super(postal_coordinate, self).write(cr, uid, ids, vals,
+                                                   context=context)
+        if vals.get('is_main', False):
+            partner_ids = []
+            for coordinate in self.browse(cr, uid, ids, context=context):
+                partner_ids.append(coordinate.partner_id.id)
+            self.pool['res.partner'].step_workflow(
+                cr, uid, partner_ids, context=context)
+        return res
+
 
 class co_residency(orm.Model):
 
