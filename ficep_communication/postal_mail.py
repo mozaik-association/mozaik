@@ -49,7 +49,7 @@ class postal_mail(orm.Model):
 
     _columns = {
         'name': fields.char('Name', size=256, required=True, track_visibility='onchange'),
-        'sent_date': fields.date('Sent date', required=True, track_visibility='onchange'),
+        'sent_date': fields.date('Sent Date', required=True, track_visibility='onchange'),
         'postal_mail_log_ids': fields.one2many('postal.mail.log', 'postal_mail_id', 'Postal Mail Logs'),
         'postal_mail_log_count': fields.function(_postal_mail_log_count, string="Log Count", type="integer"),
     }
@@ -120,7 +120,7 @@ class postal_mail_log(orm.Model):
 
     _columns = {
         'name': fields.char('Name', size=256, track_visibility='onchange'),
-        'sent_date': fields.date('Sent date', required=True, track_visibility='onchange'),
+        'sent_date': fields.date('Sent Date', required=True, track_visibility='onchange'),
         'postal_mail_id': fields.many2one('postal.mail', 'Postal Mail', readonly=True, track_visibility='onchange'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', required=True,
                                                 track_visibility='onchange'),

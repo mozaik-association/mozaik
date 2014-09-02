@@ -67,7 +67,7 @@ class distribution_list_mass_function(orm.TransientModel):
         'extract_csv': fields.boolean('Complementary Postal CSV',
                                       help="Get a CSV file with all partners who have no email coordinate"),
 
-        'postal_mail_name': fields.char('Postal mail'),
+        'postal_mail_name': fields.char('Postal Mail'),
 
         'sort_by': fields.selection(SORT_BY, 'Sort by'),
 
@@ -94,6 +94,7 @@ class distribution_list_mass_function(orm.TransientModel):
             'value': {
                 'p_mass_function': False,
                 'e_mass_function': False,
+                'extract_csv': False,
              }
         }
 

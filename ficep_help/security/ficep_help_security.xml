@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Admin is a Help Writer -->
+
+        <record model="res.users" id="base.user_root">
+            <field name="groups_id" eval="[(4, ref('help_online.help_online_group_writer'))
+                                          ]"/>
+        </record>
+
+    </data>
+</openerp>

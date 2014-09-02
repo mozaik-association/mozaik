@@ -82,14 +82,24 @@
             <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
                                           ]"/>
         </record>
+        <record id="base.menu_association" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
+                                          ]" />
+        </record>
 
-        <!-- Temmporary -->
-        <record id="website.menu_website" model="ir.ui.menu">
+        <!-- Re-assign standard actions -->
+
+        <record id="distribution_list.action_view_distribution_list_add_filter" model="ir.actions.act_window">
             <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
                                           ]"/>
         </record>
 
-         <!-- Update user form !-->
+        <record id="document.act_res_partner_document" model="ir.actions.act_window">
+            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
+                                          ]"/>
+        </record>
+
+         <!-- Update user form -->
         <record model="ir.ui.view" id="res_user_form">
             <field name="name">Users Preferences (ficep_base)</field>
             <field name="model">res.users</field>
@@ -101,7 +111,7 @@
             </field>
         </record>
 
-        <!-- Update Preferences form !-->
+        <!-- Update Preferences form -->
         <record id="view_users_form_preferences" model="ir.ui.view">
             <field name="name">res.users.preferences.form (ficep_base)</field>
             <field name="model">res.users</field>

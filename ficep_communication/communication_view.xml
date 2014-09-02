@@ -3,38 +3,22 @@
     <data noupdate="0">
 
         <!--
-            Persons:
-            Natural Persons
-            Legal Persons
-            All Contacts
-        -->
-
-        <menuitem id="persons_menu" name="Persons"
-                  sequence="10" parent="ficep_base.communication_root_menu" />
-        <menuitem id="natural_persons_menu" action="ficep_person.natural_res_partner_action"
-                  sequence="10" parent="persons_menu" />
-        <menuitem id="legal_persons_menu" action="ficep_person.legal_res_partner_action"
-                  sequence="20" parent="persons_menu" />
-        <menuitem id="all_persons_menu" action="ficep_person.all_res_partner_action"
-                  sequence="30" parent="persons_menu" />
-
-        <!--
             Distribution Lists:
             - Distribution Lists
             - Filters
         -->
 
-        <menuitem id="distribution_list_submenu" name="Distribution Lists"
+        <menuitem id="distribution_lists_submenu" name="Distribution Lists"
                   sequence="20" parent="ficep_base.communication_root_menu" />
 
         <record id="distribution_list.distribution_list_submenu" model="ir.ui.menu">
             <field name="sequence">10</field>
-            <field name="parent_id" ref="distribution_list_submenu" />
+            <field name="parent_id" ref="distribution_lists_submenu" />
         </record>
 
         <record id="distribution_list.distribution_list_line" model="ir.ui.menu">
             <field name="sequence">20</field>
-            <field name="parent_id" ref="distribution_list_submenu" />
+            <field name="parent_id" ref="distribution_lists_submenu" />
         </record>
 
         <!--
@@ -43,15 +27,19 @@
             - Mass Mailing
         -->
 
-        <menuitem id="mailing_submenu" name="Mailing"
+        <menuitem id="mailings_submenu" name="Mailings"
                   sequence="30" parent="ficep_base.communication_root_menu" />
 
-        <menuitem id="templates_submenu" action="email_template.action_email_template_tree_all"
-                  sequence="10" parent="mailing_submenu"/>
+        <menuitem id="templates_menu" action="email_template.action_email_template_tree_all"
+                  sequence="10" parent="mailings_submenu"/>
 
         <record id="mass_mailing.menu_email_mass_mailings" model="ir.ui.menu">
             <field name="sequence">20</field>
-            <field name="parent_id" ref="mailing_submenu" />
+            <field name="parent_id" ref="mailings_submenu" />
+        </record>
+
+        <record id="mass_mailing.action_view_mass_mailings" model="ir.actions.act_window">
+            <field name="view_mode">tree,form</field><!-- hide kanban -->
         </record>
 
         <!--
@@ -60,24 +48,61 @@
             - History
         -->
 
-        <menuitem id="postal_mailing_submenu" name="Postal Mailing"
+        <menuitem id="postal_mailings_submenu" name="Postal Mailings"
                   sequence="40" parent="ficep_base.communication_root_menu" />
 
-        <menuitem id="postal_mailing_postal_mail_submenu" action="postal_mail_action"
-                  sequence="15" parent="postal_mailing_submenu"/>
+        <menuitem id="postal_mailing_postal_mail_menu" action="postal_mail_action"
+                  sequence="15" parent="postal_mailings_submenu"/>
 
-        <menuitem id="postal_mailing_postal_mail_history_submenu" action="postal_mail_log_action"
-                  sequence="20" parent="postal_mailing_submenu"/>
+        <menuitem id="postal_mailing_postal_mail_history_menu" action="postal_mail_log_action"
+                  sequence="20" parent="postal_mailings_submenu"/>
+
+        <!-- Newsletter: mailing list -->
+
+        <menuitem id="newsletters_submenu" name="Newsletters"
+                  sequence="50" parent="ficep_base.communication_root_menu" />
+
+        <record id="mass_mailing.menu_email_mass_mailing_lists" model="ir.ui.menu">
+            <field name="sequence">10</field>
+            <field name="name">Newsletters</field>
+            <field name="parent_id" ref="newsletters_submenu" />
+        </record>
+
+        <record id="mass_mailing.action_view_mass_mailing_lists" model="ir.actions.act_window">
+            <field name="name">Newletters</field>
+        </record>
+
+        <record id="mass_mailing.menu_email_mass_mailing_contacts" model="ir.ui.menu">
+            <field name="sequence">20</field>
+            <field name="name">Recipients</field>
+            <field name="parent_id" ref="newsletters_submenu" />
+        </record>
+
+        <record id="mass_mailing.action_view_mass_mailing_contacts" model="ir.actions.act_window">
+            <field name="name">Recipients</field>
+        </record>
 
         <!-- Virtual Models -->
 
         <menuitem id="virtual_models_submenu" name="Searching Models"
-                  sequence="50" parent="ficep_base.communication_root_menu" />
+                  sequence="60" parent="ficep_base.communication_root_menu" />
 
-        <!-- Configurations -->
+        <!-- Configuration -->
 
         <menuitem id="configuration_submenu" name="Configuration"
-                  sequence="90" parent="ficep_base.communication_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
+                  sequence="90" parent="ficep_base.communication_root_menu"
+                  groups="ficep_base.ficep_res_groups_configurator" />
+
+        <!-- Websites -->
+
+        <menuitem id="websites_submenu" name="Websites"
+                  sequence="99" parent="ficep_base.communication_root_menu"
+                  groups="ficep_base.ficep_res_groups_configurator" />
+
+        <record id="website.menu_website" model="ir.ui.menu">
+            <field name="sequence">50</field>
+            <field name="parent_id" ref="websites_submenu" />
+        </record>
 
     </data>
 </openerp>

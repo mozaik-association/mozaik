@@ -5,13 +5,13 @@
         <!-- Action partner_mobile -->
 
         <record id="partner_mobile_action" model="ir.actions.act_url">
-            <field name="name">Partner Mobile</field>
+            <field name="name">Ficep Mobile</field>
             <field name="url">/partner_mobile</field>
             <field name="target">self</field>
         </record>
 
-        <menuitem id="partner_mobile_menu" action="partner_mobile_action" name="Partner Mobile"
-                  sequence="40" parent="ficep_communication.persons_menu" />
+        <menuitem id="partner_mobile_menu" name="Ficep Mobile" action="partner_mobile_action"
+                  sequence="10" parent="ficep_communication.websites_submenu" />
 
     </data>
 </openerp>
