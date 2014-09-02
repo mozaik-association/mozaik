@@ -173,9 +173,7 @@
                 </xpath>
 
                 <xpath expr="//notebook/page[descendant::field[@name='free_member']]" position="attributes">
-                    <attribute name="attrs">{'invisible':['|', '|',
-                                            ('membership_state_code', '=', 'without_membership'),
-                                            ('is_company', '=', True), ('membership_state_id', '=', False)]}</attribute>
+                    <attribute name="attrs">{'invisible':[('membership_state_id', '=', False)]}</attribute>
                 </xpath>
             </field>
         </record>
