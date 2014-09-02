@@ -77,6 +77,8 @@ class res_partner(orm.Model):
                     if coord.address_id.address_local_zip_id:
                         result[coord.partner_id.id] = coord.address_id.\
                             address_local_zip_id.int_instance_id.id
+                    else:
+                        result[coord.partner_id.id] = def_int_instance_id
         return result
 
     def _accept_anyway(self, cr, uid, ids, name, value, args, context=None):
@@ -161,6 +163,25 @@ class res_partner(orm.Model):
         pids = self.search(cr, uid, dom, context=context)
         res = super(res_partner, self).create_workflow(
             cr, uid, pids, context=context)
+        return res
+
+    def step_workflow(self, cr, uid, ids, context=None):
+        '''
+        If partner instance is different than its active membership line
+        then call `update_membership_line` to keep consistency between both
+        '''
+        res = super(res_partner, self).step_workflow(cr, uid, ids,
+                                                     context=context)
+        partner_ids = []
+        for partner in self.browse(cr, uid, ids, context=context):
+            if partner.membership_state_id:
+                if partner.member_lines and \
+                    partner.member_lines[0].int_instance_id != \
+                        partner.int_instance_id:
+                    partner_ids.append(partner.id)
+        if partner_ids:
+            self.update_membership_line(cr, uid, partner_ids, context=context)
+
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
