@@ -134,6 +134,7 @@ class res_partner(orm.Model):
         'exclusion_date': fields.date('Exclusion Date'),
 
         'del_doc_date': fields.date('Delivery Document Date'),
+        'del_mem_card_date': fields.date('Delivery Member Card Date'),
     }
 
     _defaults = {
@@ -170,17 +171,23 @@ class res_partner(orm.Model):
         If partner instance is different than its active membership line
         then call `update_membership_line` to keep consistency between both
         '''
-        res = super(res_partner, self).step_workflow(cr, uid, ids,
-                                                     context=context)
+        res = super(res_partner, self).step_workflow(
+            cr, uid, ids, context=context)
         partner_ids = []
         for partner in self.browse(cr, uid, ids, context=context):
-            if partner.membership_state_id:
-                if partner.member_lines and \
-                    partner.member_lines[0].int_instance_id != \
-                        partner.int_instance_id:
+            if partner.membership_state_id and partner.member_lines:
+                member_line = False
+                for ml in partner.member_lines:
+                    if ml.active:
+                        member_line = ml
+                        break
+                current_instance = member_line and \
+                    member_line.int_instance_id.id or False
+                if current_instance != partner.int_instance_id.id:
                     partner_ids.append(partner.id)
         if partner_ids:
-            self.update_membership_line(cr, uid, partner_ids, context=context)
+            self.update_membership_line(
+                cr, uid, partner_ids, context=context)
 
         return res
 
@@ -256,15 +263,15 @@ class res_partner(orm.Model):
 
     def button_modification_request(self, cr, uid, ids, context=None):
         """
-        Create a `membership.request` object with the datas of the current \
+        Create a `membership.request` object with the datas of the current
         partner. Launch it into the another form view
         """
         partners = self.browse(cr, uid, ids, context=context)
         partner = partners and partners[0]
         if not partner:
             raise orm.except_orm(_('Error'),
-                                 _('Modification request must be launch with \
-                                     a valid partner id'))
+                                 _('Modification request must be ' +
+                                   'launch with a valid partner id'))
         postal_coordinate_id = partner.postal_coordinate_id or False
         mobile_coordinate_id = partner.mobile_coordinate_id or False
         fix_coordinate_id = partner.fix_coordinate_id or False
@@ -407,6 +414,8 @@ class res_partner(orm.Model):
         membership_line_obj = self.pool['membership.membership_line']
         for partner in self.browse(cr, uid, ids, context=context):
             values['membership_state_id'] = partner.membership_state_id.id
+            values['int_instance_id'] = partner.int_instance_id and \
+                partner.int_instance_id.id or False,
             current_membership_line_ids = membership_line_obj.search(
                 cr, uid,
                 [('partner', '=', partner.id), ('active', '=', True)],
@@ -428,8 +437,6 @@ class res_partner(orm.Model):
                 # create first membership_line
                 values.update({
                     'partner': partner.id,
-                    'int_instance_id': partner.int_instance_id and
-                    partner.int_instance_id.id or False,
                     'date': today,
                     'membership_id': partner.subscription_product_id and
                     partner.subscription_product_id.id or False,

@@ -25,7 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
+from uuid import uuid4
 import psycopg2
 import logging
 from anybox.testing.openerp import SharedSetupTransactionCase
@@ -71,13 +71,11 @@ class test_postal_mail(SharedSetupTransactionCase):
         wiz_id = mass_function_obj.create(self.cr, self.uid, {
             'trg_model': 'postal.coordinate',
             'p_mass_function': 'csv',
-            'postal_mail_id': self.test_postal_mail,
+            'postal_mail_name': '%s' % uuid4(),
+            'distribution_list_id': self.test_distribution_list,
         })
-        mcontext = {
-            'active_id': self.test_distribution_list
-        }
         postal_mail_logs_before = self._postal_mail_log_pool.search_count(self.cr, self.uid, [])
-        mass_function_obj.mass_function(self.cr, self.uid, [wiz_id], context=mcontext)
+        mass_function_obj.mass_function(self.cr, self.uid, [wiz_id], context={})
         postal_mail_logs_after = self._postal_mail_log_pool.search_count(self.cr, self.uid, [])
         self.assertTrue(postal_mail_logs_after - postal_mail_logs_before > 0)
 

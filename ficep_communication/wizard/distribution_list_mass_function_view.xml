@@ -4,69 +4,93 @@
 
         <!-- Distribution List Mailing View -->
 
-        <record id="distribution_list_mass_function_wizard" model="ir.ui.view">
+        <record id="distribution_list_mass_function_wizard"
+            model="ir.ui.view">
             <field name="name">distribution.list.mailing.form</field>
             <field name="model">distribution.list.mass.function</field>
             <field name="arch" type="xml">
                 <form string="Mass Mailing" version="7.0">
                     <sheet>
-                       <group>
-                          <field name="trg_model"
-                                 on_change="onchange_trg_model()"
-                                 widget="radio"/>
-                          <field name="e_mass_function"
-                                 attrs="{'invisible':[('trg_model','!=','email.coordinate')],
-                                         'required':[('trg_model','=','email.coordinate')]}"
-                                 widget="radio"/>
-                          <field name="p_mass_function"
-                                 attrs="{'invisible':[('trg_model','!=','postal.coordinate')],
-                                         'required':[('trg_model','=','postal.coordinate')]}"
-                                 widget="radio"/>
+                        <div class="oe_title" name="title">
+                            <label for="distribution_list_id" string="Execute Distribution List"
+                                class="oe_edit_only" />
+                            <h1>
+                                <field name="distribution_list_id"
+                                    readonly="1" />
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="trg_model" on_change="onchange_trg_model()"
+                                widget="radio" />
+                            <field name="e_mass_function"
+                                attrs="{'invisible':[('trg_model','!=','email.coordinate')],
+                                        'required':[('trg_model','=','email.coordinate')]}"
+                                widget="radio" />
+                            <field name="p_mass_function"
+                                attrs="{'invisible':[('trg_model','!=','postal.coordinate')],
+                                        'required':[('trg_model','=','postal.coordinate')]}"
+                                widget="radio" />
                         </group>
                         <group>
                             <group>
                                 <field name="include_unauthorized" />
                                 <field name="bounce_counter" />
-                                <field name="internal_instance_id"/>
+                                <field name="internal_instance_id" />
                             </group>
                         </group>
 
                         <notebook>
-                            <page name="mass_mailing" string="Mass Mailing" autofocus="autofocus"
-                                  attrs="{'invisible':['|',('trg_model','!=','email.coordinate'),
+                            <page name="mass_mailing" string="Mass Mailing"
+                                autofocus="autofocus"
+                                attrs="{'invisible':['|',('trg_model','!=','email.coordinate'),
                                                            ('e_mass_function','!=','email_coordinate_id')]}">
                                 <group>
                                     <group>
-                                        <field name="mass_mailing_name"/>
+                                        <field name="mass_mailing_name" />
                                         <field name="email_template_id"
-                                               domain ="[('model_id.model','=','email.coordinate')]"
-                                               attrs="{'required':[('e_mass_function','=','email_coordinate_id'),
-                                                                   ('trg_model','=','email.coordinate')]}"/>
+                                            domain="[('model_id.model','=','email.coordinate')]"
+                                            attrs="{'required':[('e_mass_function','=','email_coordinate_id'),
+                                                                   ('trg_model','=','email.coordinate')]}" />
                                     </group>
                                     <group>
-                                        <field name="extract_csv"/>
+                                        <field name="extract_csv" />
                                     </group>
                                 </group>
                             </page>
                             <page name="postal_mailing" string="Postal Mailing"
-                                  attrs="{'invisible':[('trg_model','!=','postal.coordinate'),
+                                attrs="{'invisible':[('trg_model','!=','postal.coordinate'),
                                         '|', ('extract_csv','=',False), ('e_mass_function','!=','email_coordinate_id')]}">
                                 <group>
                                     <group>
-                                        <field name="postal_mail_name"/>
+                                        <field name="postal_mail_name" />
                                         <field name="sort_by" />
                                         <field name="groupby_coresidency" />
+                                        <field name="impact_memcard_date"
+                                            attrs="{'invisible': ['|', '|',
+                                               ('trg_model', '!=', 'postal.coordinate'),
+                                               ('postal_mail_name', '=', False),
+                                               ('distribution_list_id', '!=', %(ficep_communication.dl_del_mem_card)d)]}" />
                                     </group>
                                 </group>
                             </page>
                         </notebook>
                     </sheet>
+                    <div name="dev" class="oe_form_sheetbg"
+                        groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                            </group>
+                        </div>
+                    </div>
                     <footer>
                         <span name="go-wizard">
-                            <button name="mass_function" string="Launch" type="object" class="oe_highlight"/>
+                            <button name="mass_function" string="Launch"
+                                type="object" class="oe_highlight" />
                             or
                         </span>
-                        <button string="Cancel" class="oe_link" special="cancel" />
+                        <button string="Cancel" class="oe_link"
+                            special="cancel" />
                     </footer>
 
                 </form>
@@ -75,16 +99,18 @@
 
         <!-- Distribution List Mass Function Action -->
 
-        <record id="distribution_list_mass_function_action" model="ir.actions.act_window">
+        <record id="distribution_list_mass_function_action"
+            model="ir.actions.act_window">
             <field name="name">Mass Function</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model">distribution.list</field>
             <field name="res_model">distribution.list.mass.function</field>
-            <field name="multi" eval="0"/>
+            <field name="multi" eval="0" />
             <field name="target">new</field>
             <field name="view_id" ref="distribution_list_mass_function_wizard" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="groups_id"
+                eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_involvement_value" model="ir.values">
@@ -92,7 +118,8 @@
             <field name="model">distribution.list</field>
             <field name="key">action</field>
             <field name="key2">client_action_relate</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('distribution_list_mass_function_action')" />
+            <field name="value"
+                eval="'ir.actions.act_window,%s' % ref('distribution_list_mass_function_action')" />
         </record>
 
     </data>

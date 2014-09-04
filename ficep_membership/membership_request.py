@@ -207,7 +207,9 @@ class membership_request(orm.Model):
                 'technical_name': self.get_technical_name(
                     cr, uid, address_local_street_id, address_local_zip_id,
                     number, box, town_man, street_man, zip_man, country_id,
-                    context=context)
+                    context=context),
+                'int_instance_id': self.get_int_instance_id(
+                    cr, uid, address_local_zip_id, context=context)
             }
         }
 
@@ -230,6 +232,8 @@ class membership_request(orm.Model):
                     number, box, town_man, street_man, zip_man,
                     country_id=country_id, context=context),
                 'local_zip': local_zip,
+                'int_instance_id': self.get_int_instance_id(
+                    cr, uid, address_local_zip_id, context=context)
             }
         }
 
@@ -289,7 +293,6 @@ class membership_request(orm.Model):
         """
         Take current
             * membership_state_id
-            * int_instance_id
             * interests_m2m_ids
             * competencies_m2m_ids
         of ``partner_id``
@@ -301,7 +304,6 @@ class membership_request(orm.Model):
         res_value = {'value': {}}
         interests_ids = []
         competencies_ids = []
-        int_instance_id = False
         identifier = False
         if partner_id:
             res_partner_obj = self.pool['res.partner']
@@ -317,8 +319,6 @@ class membership_request(orm.Model):
             competencies_ids = partner.competencies_m2m_ids and \
                 ([competence.id for competence in partner.
                   competencies_m2m_ids]) or False
-            int_instance_id = partner.int_instance_id and \
-                partner.int_instance_id.id or False
         else:
             partner_status_id = self.pool['membership.state'].\
                 _state_default_get(cr, uid, context=context)
@@ -331,8 +331,7 @@ class membership_request(orm.Model):
         res_value['value'] = {
             'identifier': identifier,
             'membership_state_id': partner_status_id,
-            'result_type_id': result_type_id,
-            'int_instance_id': int_instance_id,
+            'result_type_id': False,
             'interests_m2m_ids': interests_ids and
             [[6, False, interests_ids]] or interests_ids,
             'competencies_m2m_ids': competencies_ids and
@@ -503,9 +502,9 @@ class membership_request(orm.Model):
                                                   [address_local_zip_id],
                                                   context=context)[0].local_zip
 
-        if not country_id:
-            country_id = self.pool.get('res.country')._country_default_get(
-                cr, uid, COUNTRY_CODE, context=context)
+#         if not country_id:
+#             country_id = self.pool.get('res.country')._country_default_get(
+#                 cr, uid, COUNTRY_CODE, context=context)
         values = OrderedDict([
             ('country_id', country_id),
             ('address_local_zip', address_local_zip),
@@ -633,7 +632,8 @@ class membership_request(orm.Model):
 
         technical_name = self.get_technical_name(
             cr, uid, address_local_street_id, address_local_zip_id, number,
-            box, town_man, street_man, zip_man, country_id, context=context)
+            box, town_man, street_man, zip_man, country_id=country_id,
+            context=context)
 
         if partner_id:
             partner = self.pool['res.partner'].browse(cr, uid, partner_id,
@@ -728,6 +728,11 @@ class membership_request(orm.Model):
                 'gender': mr.gender,
                 'birth_date': mr.birth_date,
             }
+            result_id = mr.result_type_id and mr.result_type_id.id or False
+
+            if mr.membership_state_id.id != result_id:
+                partner_values['int_instance_id'] = mr.int_instance_id.id
+
             partner_id = False
             if mr.partner_id:
                 partner_id = mr.partner_id.id
@@ -814,6 +819,22 @@ class membership_request(orm.Model):
         if phone_id:
             self.pool['phone.coordinate'].change_main_coordinate(
                 cr, uid, [partner_id], phone_id, context=context)
+
+    def get_int_instance_id(
+            self, cr, uid, address_local_zip_id, context=None):
+        '''
+        :rtype: integer
+        :rparam: instance id of address local zip or default instance id if
+            `address_local_zip_id` is False
+        '''
+        if address_local_zip_id:
+            zip_obj = self.pool['address.local.zip']
+            zip_rec = zip_obj.browse(
+                cr, uid, address_local_zip_id, context=context)
+            return zip_rec.int_instance_id.id
+        else:
+            instance_obj = self.pool['int.instance']
+            return instance_obj.get_default(cr, uid)
 
 # orm methods
 

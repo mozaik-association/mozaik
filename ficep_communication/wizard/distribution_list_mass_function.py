@@ -26,7 +26,7 @@
 #
 ##############################################################################
 
-from datetime import datetime
+from datetime import datetime, date
 
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
@@ -62,6 +62,10 @@ class distribution_list_mass_function(orm.TransientModel):
         'e_mass_function': fields.selection(E_MASS_FUNCTION, 'Mass Function'),
         'p_mass_function': fields.selection(P_MASS_FUNCTION, 'Mass Function'),
 
+        'distribution_list_id': fields.many2one('distribution.list',
+                                                'Distribution List',
+                                                required=True),
+
         'email_template_id': fields.many2one('email.template', 'Email Template'),
         'mass_mailing_name': fields.char('Mass Mailing'),
         'extract_csv': fields.boolean('Complementary Postal CSV',
@@ -71,6 +75,8 @@ class distribution_list_mass_function(orm.TransientModel):
 
         'sort_by': fields.selection(SORT_BY, 'Sort by'),
 
+        'impact_memcard_date': fields.boolean('Impact Member Card'),
+
         'bounce_counter': fields.integer('Maximum of Fails'),
         'include_unauthorized': fields.boolean('Include Unauthorized'),
         'internal_instance_id': fields.many2one('int.instance', 'Internal Instance'),
@@ -79,8 +85,10 @@ class distribution_list_mass_function(orm.TransientModel):
     }
 
     _defaults = {
-         'trg_model': 'email.coordinate',
-     }
+        'trg_model': 'email.coordinate',
+        'distribution_list_id': lambda self, cr, uid, context:
+            wizard.distribution_list_id.id
+    }
 
     def onchange_trg_model(self, cr, uid, ids, context=None):
         """
@@ -95,7 +103,8 @@ class distribution_list_mass_function(orm.TransientModel):
                 'p_mass_function': False,
                 'e_mass_function': False,
                 'extract_csv': False,
-             }
+                'impact_memcard_date': False,
+            }
         }
 
 # public methods
@@ -139,7 +148,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     #
 
                     context['field_main_object'] = 'email_coordinate_id'
-                    active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [context.get('active_id', False)], context=context)
+                    active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [wizard.distribution_list_id.id], context=context)
                     self.export_csv(cr, uid, wizard.trg_model, active_ids, wizard.groupby_coresidency, context=context)
 
                 elif wizard.e_mass_function == 'email_coordinate_id':
@@ -166,7 +175,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     mail_composer_vals.update(value)
                     mail_composer_id = composer.create(cr, uid, mail_composer_vals, context=context)
 
-                    active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [context.get('active_id', False)], context=context)
+                    active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [wizard.distribution_list_id.id], context=context)
                     context['active_ids'] = active_ids
                     context['email_coordinate_path'] = 'email'
                     if alternative_ids and wizard.extract_csv:
@@ -177,7 +186,7 @@ class distribution_list_mass_function(orm.TransientModel):
                 elif wizard.e_mass_function == 'vcard':
                     context['field_main_object'] = 'email_coordinate_id'
                     context['target_model'] = wizard.trg_model
-                    active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [context.get('active_id', False)], context=context)
+                    active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [wizard.distribution_list_id.id], context=context)
                     self.export_vcard(cr, uid, active_ids, context)
 
             elif wizard.trg_model == 'postal.coordinate':
@@ -203,7 +212,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     #
                     context['field_main_object'] = 'postal_coordinate_id'
                     context['target_model'] = wizard.trg_model
-                    active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [context.get('active_id', False)], context=context)
+                    active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [wizard.distribution_list_id.id], context=context)
                     self.export_csv(cr, uid, wizard.trg_model, active_ids, wizard.groupby_coresidency, context=context)
 
                     if wizard.postal_mail_name:
@@ -216,7 +225,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     context['more_filter'] = domains
                     context['field_main_object'] = 'postal_coordinate_id'
                     context['target_model'] = wizard.trg_model
-                    active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [context.get('active_id', False)], context=context)
+                    active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [wizard.distribution_list_id.id], context=context)
 
                     ctx = context.copy()
                     ctx.update({
@@ -232,6 +241,10 @@ class distribution_list_mass_function(orm.TransientModel):
                     partner_ids = self.pool['res.partner'].search(cr, uid, [('user_ids', '=', uid)], context=context)
                     if partner_ids:
                         self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context, partner_ids=partner_ids, subject=_('Export PDF'))
+                # impact delivery member card date of associated partner
+                if wizard.impact_memcard_date and active_ids:
+                    self.impact_membercard_date(cr, uid, active_ids,
+                                                context=context)
 
     def _generate_postal_log(self, cr, uid, postal_mail_name, postal_coordinate_ids, context=None):
         """
@@ -291,5 +304,23 @@ class distribution_list_mass_function(orm.TransientModel):
                                                   partner_ids=partner_ids, subject=_('Export VCF'))
 
         return True
+
+    def impact_membercard_date(self, cr, uid, postal_coordinate_ids,
+                               context=None):
+        '''
+        This method will set the `del_mem_card_date` for each partner of
+        `postal.coordinate` concerned by `postal_coordinate_ids`
+        :type postal_coordinate_ids: [integer]
+        :param postal_coordinate_ids: ids of `postal.coordinate`
+        '''
+        postal_coordinate_obj = self.pool['postal.coordinate']
+        partner_obj = self.pool['res.partner']
+        partner_ids = []
+        for postal_coordinate in postal_coordinate_obj.browse(
+                cr, uid, postal_coordinate_ids, context=context):
+            partner_ids.append(postal_coordinate.partner_id.id)
+        partner_obj.write(
+            cr, uid, partner_ids,
+            {'del_mem_card_date': '%s' % (date.today().strftime('%Y-%m-%d'))})
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

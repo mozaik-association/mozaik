@@ -426,21 +426,19 @@ class test_partner(SharedSetupTransactionCase):
             partner.membership_state_id.id or False
 
         for membership_line in partner.member_lines:
+            if membership_line.active:
+                self.assertFalse(membership_line.date_to, 'Should not have a \
+                    date_to because this is the current membership')
+                self.assertEqual(membership_line.membership_state_id.id,
+                                 membership_state_id, 'State of membership \
+                                 must be the same that state of partner')
             self.assertEqual(membership_line.date_from, today,
                              'Date From should be: today')
-            self.assertEqual(membership_line.membership_state_id.id,
-                             membership_state_id, 'State of membership must \
-                             be the same that state of partner')
-            self.assertTrue(membership_line.active, 'First membership \
-            should be the current one')
-            self.assertFalse(membership_line.date_to, 'Should not have a \
-            date_to because this is the current membership')
-
         partner.write({'accepted_date': today})
         partner = partner_obj.browse(cr, uid, partner.id, context=context)
-        self.assertTrue(len(partner.member_lines) == 2, "Sould have two \
-        member lines: one for the previous first call and another for the \
-        current update of status")
+        self.assertTrue(len(partner.member_lines) >= 2, "Sould have two \
+            member lines: one for the previous first call and another for the \
+            current update of status")
         one_current = False
         for membership_line in partner.member_lines:
             if membership_line.active:

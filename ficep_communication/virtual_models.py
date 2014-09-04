@@ -1175,4 +1175,125 @@ class virtual_partner_retrocession(orm.Model):
                 or m.email_coordinate_id is not null
         )""")
 
+
+class virtual_partner_membership(orm.Model):
+
+    _name = "virtual.partner.membership"
+    _description = "Partner/Membership"
+    _auto = False
+
+    _columns = {
+        'common_id': fields.char(string='Common ID'),
+        'partner_id': fields.many2one('res.partner', 'Partner'),
+        'membership_state_id': fields.many2one('membership.state', 'Sate'),
+        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'email_coordinate_id': fields.many2one('email.coordinate',
+                                               'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate',
+                                                'Postal Coordinate'),
+
+        'del_doc_date': fields.date('Delivery Welcome Document Date'),
+        'del_mem_card_date': fields.date('Delivery Member Card Date'),
+
+        'identifier': fields.integer('Number'),
+        'birth_date': fields.date('Birth Date'),
+        'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
+        'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
+        'employee': fields.boolean('Employee'),
+
+        'postal_vip': fields.boolean('VIP Address'),
+        'main_postal': fields.boolean('Main Postal'),
+        'postal_unauthorized': fields.boolean('Unauthorized Address'),
+        'postal_category_id': fields.many2one('coordinate.category',
+                                              'Postal Coordinate Category'),
+
+        'email_vip': fields.boolean('VIP Email'),
+        'email_category_id': fields.many2one('coordinate.category',
+                                             'Email Coordinate Category'),
+        'main_email': fields.boolean('Main Email'),
+        'email_unauthorized': fields.boolean('Unauthorized Email'),
+
+        # others
+        'category_id': fields.related('partner_id', 'category_id',
+                                      type='many2many',
+                                      obj='res.partner.category',
+                                      rel='res_partner_res_partner_\
+                                          category_rel',
+                                      id1='partner_id',
+                                      id2='category_id',
+                                      string='Tags'),
+        'competencies_m2m_ids': fields.related('partner_id',
+                                               'competencies_m2m_ids',
+                                               type='many2many',
+                                               obj='thesaurus.term',
+                                               rel='res_partner_term_\
+                                                   competencies_rel',
+                                               id1='partner_id',
+                                               id2='thesaurus_term_id',
+                                               string='Competencies'),
+        'interests_m2m_ids': fields.related('partner_id',
+                                            'competencies_m2m_ids',
+                                            type='many2many',
+                                            obj='thesaurus.term',
+                                            rel='res_partner_term_\
+                                                interests_rel',
+                                            id1='partner_id',
+                                            id2='thesaurus_term_id',
+                                            string='Competencies'),
+    }
+
+# orm methods
+
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, 'virtual_partner_membership')
+        cr.execute("""
+        create or replace view virtual_partner_membership as (
+        SELECT
+            concat(pc.id, '/', e.id) as id,
+            concat(pc.id, '/', e.id) as common_id,
+            p.id as partner_id,
+            p.int_instance_id as int_instance_id,
+            p.del_doc_date as del_doc_date,
+            p.del_mem_card_date as del_mem_card_date,
+            e.id as email_coordinate_id,
+            pc.id as postal_coordinate_id,
+            pc.coordinate_category_id as postal_category_id,
+            p.is_company as is_company,
+            p.identifier as identifier,
+            p.birth_date as birth_date,
+            p.gender as gender,
+            p.tongue as tongue,
+            p.employee as employee,
+            pc.unauthorized as postal_unauthorized,
+            pc.vip as postal_vip,
+            pc.is_main as main_postal,
+            e.vip as email_vip,
+            e.coordinate_category_id as email_category_id,
+            e.is_main as main_email,
+            e.unauthorized as email_unauthorized,
+            ms.id as membership_state_id
+        FROM
+            res_partner p
+        JOIN
+            membership_state ms
+        ON ms.id = p.membership_state_id
+
+        LEFT OUTER JOIN
+            postal_coordinate pc
+        ON (pc.partner_id = p.id
+        AND pc.active = TRUE
+        AND pc.is_main = TRUE)
+
+        LEFT OUTER JOIN
+            email_coordinate e
+        ON (e.partner_id = p.id
+        AND e.active = TRUE
+        AND e.is_main = TRUE)
+
+        WHERE p.active = TRUE
+        AND p.is_assembly = FALSE
+        AND (e.id IS NOT NULL
+        OR pc.id IS NOT NULL)
+        )""")
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
