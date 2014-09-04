@@ -241,7 +241,9 @@ class abstract_ficep_model(orm.AbstractModel):
         if mode == 'deactivate' and self._inactive_cascade:
             mail_follower_object = self.pool['mail.followers']
             follower_ids = mail_follower_object.search(cr, uid, [('res_model', '=', self._name), ('res_id', 'in', ids)], context=context)
-            mail_follower_object.unlink(cr, uid, follower_ids, context=context)
+            if follower_ids:
+                mail_follower_object.unlink(
+                    cr, uid, follower_ids, context=context)
             self._invalidate_active_relations(cr, uid, ids, context=ctx)
         res = super(abstract_ficep_model, self).write(cr, uid, ids, vals, context=ctx)
         return res
