@@ -331,7 +331,7 @@ class membership_request(orm.Model):
         res_value['value'] = {
             'identifier': identifier,
             'membership_state_id': partner_status_id,
-            'result_type_id': False,
+            'result_type_id': result_type_id,
             'interests_m2m_ids': interests_ids and
             [[6, False, interests_ids]] or interests_ids,
             'competencies_m2m_ids': competencies_ids and
