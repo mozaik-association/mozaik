@@ -85,9 +85,6 @@
                             statusbar_visible="draft,confirm,validate" />
                     </header>
                     <sheet>
-                        <div class="oe_right oe_button_box" name="buttons"
-                            invisible="context.get('popup')">
-                        </div>
                         <h3 attrs="{'invisible': [('id', '=', False)]}">
                             <label string="#" />
                             <field name="identifier" readonly="1"
@@ -109,6 +106,10 @@
                                 )
                             </span>
                         </h3>
+                        <div class="oe_right oe_button_box" name="buttons"
+                             invisible="context.get('popup')">
+                        </div>
+
                         <group name="partner">
                             <group name="partner_info1">
                                 <field name="lastname"
@@ -127,29 +128,23 @@
 
                         <group name="partner_more_info">
                             <group name="gender_bdate">
-                                <group name="split_birth_date"
-                                    col="6" colspan="2">
-                                    <label for="day" string="Birth Date" />
-                                    <field name="day" nolabel="1"
-                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
-                                    <label string="/" />
-                                    <field name="month" nolabel="1"
-                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
-                                    <label string="/" />
-                                    <field name="year" nolabel="1"
-                                        on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
-                                </group>
-                                <group name="gender">
-                                    <field name="gender" />
-                                </group>
+                                <label for="day" string="Birth Date"/>
+                                <div>
+                                    <field name="day" widget="char" style="width: 25%" placeholder="DD"
+                                           on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)"/>
+                                    <label string=" / "/>
+                                    <field name="month" widget="char" style="width: 25%" placeholder="MM"
+                                           on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)"/>
+                                    <label string=" / "/>
+                                    <field name="year" widget="char" style="width: 40%" placeholder="YYYY"
+                                           on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)"/>
+                                </div>
+                                <field name="gender"/>
                             </group>
                             <group name="coordinates">
-                                <field name="phone"
-                                    on_change="onchange_phone(phone)" />
-                                <field name="mobile"
-                                    on_change="onchange_mobile(mobile)" />
-                                <field name="email"
-                                    on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
+                                <field name="phone" on_change="onchange_phone(phone)"/>
+                                <field name="mobile" on_change="onchange_mobile(mobile)"/>
+                                <field name="email" on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)"/>
                             </group>
                         </group>
 
@@ -246,8 +241,7 @@
                             </page>
                         </notebook>
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg"
-                        groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div
