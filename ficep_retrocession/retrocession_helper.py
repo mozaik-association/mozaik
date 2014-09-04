@@ -39,7 +39,7 @@ class RetrocessionHelper(orm.Model):
         retro_ids = isinstance(retro_ids, (long, int))\
                     and [retro_ids] or retro_ids
 
-        registry = pooler.get_pool(cr.dbname)
+        registry = self.pool
         rule_pool = registry['calculation.rule']
         retro_pool = registry['retrocession']
         abs_pool = registry['account.bank.statement']
