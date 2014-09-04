@@ -38,6 +38,15 @@
             <!--field name="groups" eval="[(4,ref('ficep_base.res_groups_base'))]"/-->
         </record>
 
+        <record id="res_partner_user_rule" model="ir.rule">
+            <field name="name">Partner for Ficep User</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force"
+                   eval="['|',('is_company','=',True),('membership_state_id','=',ref('ficep_membership.without_membership'))]"/>
+            <field name="perm_read" eval="0"/><field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+            <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_user'))]"/>
+        </record>
+
         <record id="postal_coordinate_base_rule" model="ir.rule">
             <field name="name">Postal Coordinate for Ficep</field>
             <field name="model_id" ref="ficep_address.model_postal_coordinate"/>
