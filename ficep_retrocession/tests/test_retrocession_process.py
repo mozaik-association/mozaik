@@ -201,12 +201,13 @@ class test_retrocession_with_accounting(object):
         '''
         b_statement_id = self.registry('account.bank.statement').create(self.cr, self.uid, {'name': ('/%s' % self.retro.unique_id)}, context={'journal_type': 'bank'})
         statement_line_vals = {'statement_id': b_statement_id,
-                               'name': self.retro.unique_id,
+                               'name': self.retro.sta_mandate_id.reference if self.retro.sta_mandate_id else self.retro.ext_mandate_id.reference,
                                'amount': 1.20,
                                'partner_id': self.retro.partner_id.id,
-                               'ref': self.retro.sta_mandate_id.reference if self.retro.sta_mandate_id else self.retro.ext_mandate_id.reference
+                               'ref': self.retro.unique_id,
                                }
         line_id = self.registry('account.bank.statement.line').create(self.cr, self.uid, statement_line_vals)
+        line = self.registry('account.bank.statement.line').browse(self.cr, self.uid, line_id)
 
         '''
             Check provision computation
@@ -218,10 +219,10 @@ class test_retrocession_with_accounting(object):
         '''
             Reconcile statement
         '''
-        ret = self.registry('account.bank.statement.line').get_move_lines_counterparts_id(self.cr, self.uid, [line_id])
+        ret = self.registry('account.bank.statement.line').get_reconciliation_proposition(self.cr, self.uid, line)
         vals = {'counterpart_move_line_id': ret[0]['id'],
-                'debit': ret[0]['debit'],
-                'credit': ret[0]['credit'],
+                'debit': ret[0]['credit'],
+                'credit': ret[0]['debit'],
                 }
         self.registry('account.bank.statement.line').process_reconciliation(self.cr, self.uid, line_id, [vals])
 
