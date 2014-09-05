@@ -10,6 +10,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//filter[1]" position="before">
                     <field name="int_instance_id" />
+                    <field name="reference" />
                     <field name="membership_state_id" />
                     <field string="Delivery Welcome Document Date &lt; ..." name="del_doc_date"
                         filter_domain="[('del_doc_date','&lt;', self)]"
@@ -155,6 +156,7 @@
                                 ('membership_state_code', '!=', 'supporter')]}" />
                     </div>
                     <group name="membership_datas">
+                        <field name="reference" attrs="{'invisible': [('reference', '=', False)]}" />
                         <field name="del_doc_date" attrs="{'invisible': [('del_doc_date', '=', False)]}" />
                         <field name="del_mem_card_date" attrs="{'invisible': [('del_mem_card_date', '=', False)]}" />
                     </group>

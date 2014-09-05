@@ -90,6 +90,23 @@ class res_partner(orm.Model):
                    % (self._table, name, ids), (value or None,))
         return True
 
+    def _generate_membership_reference(self, cr, uid, partner_id,
+                                       context=None):
+        """
+        This method will generate a membership reference for payment.
+        Comm. Struct. = '9' + year without century +
+            member identifier on 7 positions + % 97
+        """
+        partner = self.browse(cr, uid, partner_id, context=context)
+        base_identifier = '0000000'
+        identifier = '%s' % partner.identifier
+        base = '9%s%s' % (('%s' % date.today().year)[2:],
+                          ''.join((base_identifier[:-len(identifier)],
+                                   identifier)))
+        comm_struct = '%s%s' % (base, int(base) % 97 or 97)
+        return '+++%s/%s/%s+++' % (comm_struct[:3], comm_struct[3:7],
+                                   comm_struct[7:])
+
     _instance_store_triggers = {
         'postal.coordinate': (lambda self, cr, uid, ids, context=None:
                               self.pool['postal.coordinate'].
@@ -135,6 +152,7 @@ class res_partner(orm.Model):
 
         'del_doc_date': fields.date('Delivery Document Date'),
         'del_mem_card_date': fields.date('Delivery Member Card Date'),
+        'reference': fields.char('Reference'),
     }
 
     _defaults = {
@@ -385,6 +403,11 @@ class res_partner(orm.Model):
                 'former_member',
                 'former_member_committee',
             ],
+            'reference': membership_state_code in [
+                'member_candidate',
+                'member',
+            ] and self._generate_membership_reference(
+                cr, uid, ids, context=context) or False
         }
 
         res = self.write(cr, uid, ids, vals, context=context)
@@ -416,6 +439,7 @@ class res_partner(orm.Model):
             values['membership_state_id'] = partner.membership_state_id.id
             values['int_instance_id'] = partner.int_instance_id and \
                 partner.int_instance_id.id or False,
+            values['reference'] = partner.reference
             current_membership_line_ids = membership_line_obj.search(
                 cr, uid,
                 [('partner', '=', partner.id), ('active', '=', True)],

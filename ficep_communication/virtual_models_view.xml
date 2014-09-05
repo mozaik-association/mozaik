@@ -10,6 +10,7 @@
             <field name="arch" type="xml">
                 <tree string="Virtual Target" create="0" delete="0">
                     <field name="partner_id" />
+                    <field name="membership_state_id" />
                     <field name="email" />
                     <field name="email_unauthorized" />
                     <field name="postal" />
@@ -278,10 +279,6 @@
                         filter_domain="[('birth_date','>',self)]" />
                     <field string="Birth Date &lt; ..." name="birth_date"
                         filter_domain="[('birth_date','&lt;',self)]" />
-
-                    <field string="Delivery Welcome Document Date &lt; ..."
-                        name="del_doc_date" filter_domain="[('del_doc_date','&lt;',self)]" />
-
                     <field name="partner_id" domain="[('is_assembly','=',False)]" />
                     <field name="int_instance_id" />
                     <separator />

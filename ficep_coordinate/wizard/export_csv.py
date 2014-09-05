@@ -54,6 +54,7 @@ HEADER_ROW = [
     'Street2',
     'City',
     'Internal Instance',
+    'Reference',
     'Birthdate',
     'Gender',
     'Tongue',
@@ -72,7 +73,7 @@ HEADER_ROW = [
     'Main Email',
     'Unauthorized Email',
     'Vip Email',
-    'Email'
+    'Email',
 ]
 
 
@@ -154,6 +155,7 @@ class export_csv(orm.TransientModel):
              ('street2', pc and _get_utf8(pc.address_id.street2)),
              ('city', pc and _get_utf8(pc.address_id.city)),
              ('instance', ic and _get_utf8(ic.name)),
+             ('reference', _get_utf8(partner.reference)),
              ('birth_date', partner.birth_date or None),
              ('gender', available_genders.get(partner.gender, None)),
              ('tongue', available_tongues.get(partner.tongue, None)),

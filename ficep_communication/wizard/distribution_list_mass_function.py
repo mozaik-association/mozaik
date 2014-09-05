@@ -75,7 +75,8 @@ class distribution_list_mass_function(orm.TransientModel):
 
         'sort_by': fields.selection(SORT_BY, 'Sort by'),
 
-        'impact_memcard_date': fields.boolean('Impact Member Card'),
+        'set_memcard_date': fields.boolean('Set Member Card Sent Date'),
+        'set_del_doc_date': fields.boolean('Set Welcome Document Sent Date'),
 
         'bounce_counter': fields.integer('Maximum of Fails'),
         'include_unauthorized': fields.boolean('Include Unauthorized'),
@@ -103,7 +104,7 @@ class distribution_list_mass_function(orm.TransientModel):
                 'p_mass_function': False,
                 'e_mass_function': False,
                 'extract_csv': False,
-                'impact_memcard_date': False,
+                'set_memcard_date': False,
             }
         }
 
@@ -242,9 +243,14 @@ class distribution_list_mass_function(orm.TransientModel):
                     if partner_ids:
                         self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context, partner_ids=partner_ids, subject=_('Export PDF'))
                 # impact delivery member card date of associated partner
-                if wizard.impact_memcard_date and active_ids:
-                    self.impact_membercard_date(cr, uid, active_ids,
-                                                context=context)
+                dates_to_update = []
+                if wizard.set_memcard_date and active_ids:
+                    dates_to_update.append('del_mem_card_date')
+                if wizard.set_del_doc_date and active_ids:
+                    dates_to_update.append('del_doc_date')
+                if dates_to_update:
+                    self.set_date(
+                        cr, uid, active_ids, dates_to_update, context=context)
 
     def _generate_postal_log(self, cr, uid, postal_mail_name, postal_coordinate_ids, context=None):
         """
@@ -305,13 +311,15 @@ class distribution_list_mass_function(orm.TransientModel):
 
         return True
 
-    def impact_membercard_date(self, cr, uid, postal_coordinate_ids,
-                               context=None):
+    def set_date(self, cr, uid, postal_coordinate_ids,
+                 dates_to_update, context=None):
         '''
-        This method will set the `del_mem_card_date` for each partner of
+        This method will set the date `dates_to_update` for each partner of
         `postal.coordinate` concerned by `postal_coordinate_ids`
         :type postal_coordinate_ids: [integer]
         :param postal_coordinate_ids: ids of `postal.coordinate`
+        :type date_to_update: [char]
+        :param date_to_update: name of the field to update
         '''
         postal_coordinate_obj = self.pool['postal.coordinate']
         partner_obj = self.pool['res.partner']
@@ -319,8 +327,10 @@ class distribution_list_mass_function(orm.TransientModel):
         for postal_coordinate in postal_coordinate_obj.browse(
                 cr, uid, postal_coordinate_ids, context=context):
             partner_ids.append(postal_coordinate.partner_id.id)
-        partner_obj.write(
-            cr, uid, partner_ids,
-            {'del_mem_card_date': '%s' % (date.today().strftime('%Y-%m-%d'))})
+        date_today = date.today().strftime('%Y-%m-%d')
+        vals = {}
+        for date_to_update in dates_to_update:
+            vals[date_to_update] = '%s' % date_today
+        partner_obj.write(cr, uid, partner_ids, vals, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
