@@ -87,7 +87,7 @@ class distribution_list_mass_function(orm.TransientModel):
     _defaults = {
         'trg_model': 'email.coordinate',
         'distribution_list_id': lambda self, cr, uid, context:
-            wizard.distribution_list_id.id
+            context.get('active_id', False),
     }
 
     def onchange_trg_model(self, cr, uid, ids, context=None):

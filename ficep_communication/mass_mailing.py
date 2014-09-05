@@ -60,4 +60,18 @@ class MailMailStats(orm.Model):
                 self.pool['bounce.editor'].update_bounce_datas(cr, uid, [wiz_id], context=ctx)
         return res_ids
 
+
+class MassMailingList(orm.Model):
+
+    _name = "mail.mass_mailing.list"
+    _inherit = ['mail.mass_mailing.list', 'abstract.ficep.model']
+
+    _columns = {
+        'int_instance_id': fields.many2one(
+            'int.instance', 'Internal Instance',
+            select=True, track_visibility='onchange'),
+    }
+
+    _unicity_keys = 'name, int_instance_id'
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

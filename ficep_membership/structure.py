@@ -80,7 +80,7 @@ class int_assembly(orm.Model):
 
     def create(self, cr, uid, vals, context=None):
         '''
-        Responsible Internal Instance linked to the result Partner is the \
+        Responsible Internal Instance linked to the result Partner is the
         Instance of the Assembly
         '''
         if 'instance_id' in vals:
@@ -107,7 +107,7 @@ class ext_assembly(orm.Model):
 
     def create(self, cr, uid, vals, context=None):
         '''
-        Responsible Internal Instance linked to the result Partner is \
+        Responsible Internal Instance linked to the result Partner is
         the Instance of the Assembly
         '''
         if 'instance_id' in vals:
