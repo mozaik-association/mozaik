@@ -357,7 +357,7 @@ class retrocession(orm.Model):
             mandate_ids = []
             mandate = False
             if line.ref:
-                domain = [('reference', '=', line.ref)]
+                domain = [('reference', '=', line.name)]
                 mandate = 'sta.mandate'
                 mandate_ids = self.pool.get(mandate).search(cr, uid, domain, context=context)
                 if not mandate_ids:
@@ -404,7 +404,7 @@ class retrocession(orm.Model):
     }
 
     _provision_store_trigger = {
-        'account.bank.statement.line': (_get_bank_statement_line, ['amount', 'ref'], 20)
+        'account.bank.statement.line': (_get_bank_statement_line, ['amount', 'name'], 20)
     }
 
     _amount_reconcilied_store_trigger = {
@@ -485,7 +485,7 @@ class retrocession(orm.Model):
         for retro in self.browse(cr, uid, ids, context=context):
             res[retro.id] = sum([provision['amount'] \
                             for provision in self.pool.get('account.bank.statement.line').search_read(cr, uid,
-                                                                                                 [('ref', '=', retro.mandate_ref.reference),
+                                                                                                 [('name', '=', retro.mandate_ref.reference),
                                                                                                  ('partner_id', '=', retro.partner_id.id),
                                                                                                  ('journal_entry_id', '=', False)],
                                                                                                  fields=['amount'], context=context)]) \

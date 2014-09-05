@@ -43,7 +43,7 @@ class RetrocessionHelper(orm.Model):
         rule_pool = registry['calculation.rule']
         retro_pool = registry['retrocession']
         abs_pool = registry['account.bank.statement']
-        abs_line_pool = registry['account.bank.statement.line']
+        absl_pool = registry['account.bank.statement.line']
 
         for retro_id in retro_ids:
 
@@ -77,30 +77,31 @@ class RetrocessionHelper(orm.Model):
                                              context={'journal_type': 'bank'})
 
             statement_line_vals = {'statement_id': b_statement_id,
-                                   'name': retro.unique_id,
+                                   'name': retro.sta_mandate_id.reference\
+                                          if retro.sta_mandate_id else\
+                                             retro.ext_mandate_id.reference,
                                    'amount': retro.amount_due,
                                    'partner_id': retro.partner_id.id,
-                                   'ref': retro.sta_mandate_id.reference\
-                                          if retro.sta_mandate_id else\
-                                             retro.ext_mandate_id.reference
+                                   'ref': retro.unique_id
                                    }
-            line_id = abs_line_pool.create(cr,
+            line_id = absl_pool.create(cr,
                                            uid,
                                            statement_line_vals,
                                            context=context)
+            line = absl_pool.browse(cr, uid, line_id, context=context)
 
-            ret = abs_line_pool.get_move_lines_counterparts_id(cr,
-                                                               uid,
-                                                               [line_id],
-                                                               context=context)
+            ret = absl_pool.get_reconciliation_proposition(cr,
+                                                           uid,
+                                                           line,
+                                                           context=context)
             vals = {'counterpart_move_line_id': ret[0]['id'],
-                    'debit': ret[0]['debit'],
-                    'credit': ret[0]['credit'],
-                    }
+                    'debit': ret[0]['credit'],
+                    'credit': ret[0]['debit'],
+                }
 
-            abs_line_pool.process_reconciliation(cr,
-                                                 uid,
-                                                 line_id,
-                                                 [vals],
-                                                 context=context)
+            absl_pool.process_reconciliation(cr,
+                                             uid,
+                                             line_id,
+                                             [vals],
+                                             context=context)
         return True
