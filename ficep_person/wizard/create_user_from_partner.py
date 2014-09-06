@@ -41,9 +41,11 @@ class create_user_from_partner(orm.TransientModel):
         'portal_only': fields.boolean('Portal only'),
         'nok': fields.char('reason'),
         'login': fields.char('Login', size=64),
-        'group_id': fields.many2one('res.groups', string="User's group",
-                                    domain="[('category_id','=',appl_id)]"),
-        'appl_id': fields.many2one('ir.module.category', string="Application"),
+        'group_id': fields.many2one(
+            'res.groups', string="User's group",
+            domain="[('category_id','=',appl_id)]", ondelete='cascade'),
+        'appl_id': fields.many2one(
+            'ir.module.category', string="Application", ondelete='cascade'),
     }
 
     _defaults = {

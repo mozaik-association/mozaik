@@ -27,6 +27,13 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
-from openerp.tools.translate import _
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class YyyWizard(orm.TransientModel):
+
+    _name = 'yyy.wizard'
+
+    _columns = {
+        'xxx_id': fields.many2one(
+            'xxx.xxx', string='XXX', ondelete='cascade'),
+    }

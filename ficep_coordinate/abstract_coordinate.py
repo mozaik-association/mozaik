@@ -55,7 +55,9 @@ class abstract_coordinate(orm.AbstractModel):
 
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True, select=True),
-        'coordinate_category_id': fields.many2one('coordinate.category', 'Coordinate Category', select=True, ondelete='restrict', track_visibility='onchange'),
+        'coordinate_category_id': fields.many2one(
+            'coordinate.category', string='Coordinate Category',
+            select=True, track_visibility='onchange'),
         'coordinate_type': fields.selection(COORDINATE_AVAILABLE_TYPES, 'Coordinate Type'),
 
         'is_main': fields.boolean('Is Main', readonly=True, select=True),

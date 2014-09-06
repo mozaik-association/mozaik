@@ -41,9 +41,9 @@ class import_sta_candidatures_wizard(orm.TransientModel):
     _name = "import.sta.candidatures.wizard"
 
     _columns = {
-        'selection_committee_id': fields.many2one('sta.selection.committee',
-                                                  string='Selection committee',
-                                                  readonly=True),
+        'selection_committee_id': fields.many2one(
+            'sta.selection.committee', string='Selection committee',
+            readonly=True, ondelete='cascade'),
         'source_file': fields.binary('Source File'),
         'import_lines': fields.one2many('import.sta.candidatures.file.lines',
                                         'wizard_id',
@@ -220,14 +220,16 @@ class import_sta_candidature_file_lines (orm.TransientModel):
     _name = "import.sta.candidatures.file.lines"
 
     _columns = {
-        'wizard_id': fields.many2one('import.sta.candidatures.wizard',
-                                     "Wizard"),
-        'partner_id': fields.many2one('res.partner', 'Partner'),
+        'wizard_id': fields.many2one(
+            'import.sta.candidatures.wizard', string='Wizard',
+            ondelete='cascade'),
+        'partner_id': fields.many2one(
+            'res.partner', string='Partner', ondelete='cascade'),
         'partner_name': fields.char('Partner Name', size=128),
         'is_effective': fields.boolean('Effective'),
         'is_substitute': fields.boolean('Substitute'),
         'list_effective_position': fields.integer(
-                                            'Position on effectives list'),
+            'Position on effectives list'),
         'list_substitute_position': fields.integer(
-                                            'Position on substitutes list'),
+            'Position on substitutes list'),
         }

@@ -40,10 +40,12 @@ class change_main_address(orm.TransientModel):
         # 3: forbiden
         'keep_instance': fields.boolean(
             string='Keep Current Internal Instance?'),
-        'old_int_instance_id': fields.many2one('int.instance',
-                                               'Current Internal Instance'),
-        'new_int_instance_id': fields.many2one('int.instance',
-                                               'New Internal Instance'),
+        'old_int_instance_id': fields.many2one(
+            'int.instance', string='Current Internal Instance',
+            ondelete='cascade'),
+        'new_int_instance_id': fields.many2one(
+            'int.instance', string='New Internal Instance',
+            ondelete='cascade'),
     }
 
     def default_get(self, cr, uid, fields, context):

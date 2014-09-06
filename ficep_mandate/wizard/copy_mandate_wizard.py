@@ -43,24 +43,24 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
     _mandate_assembly_foreign_key = False
 
     _columns = {
-        'mandate_category_id': fields.many2one('mandate.category',
-                                               string='Mandate Category'),
-        'new_mandate_category_id': fields.many2one('mandate.category',
-                                                   string='Mandate Category'),
-        'mandate_id': fields.many2one('abstract.mandate',
-                                      string='Abstract mandate',
-                                       readonly=True),
-        'assembly_id': fields.many2one('abstract.assembly',
-                                       string='Abstract Assembly',
-                                       readonly=True),
-        'new_assembly_id': fields.many2one('abstract.assembly',
-                                           string='Abstract Assembly'),
-        'instance_id': fields.many2one('abstract.instance',
-                                       'Abstract Instance'),
+        'mandate_category_id': fields.many2one(
+            'mandate.category', string='Mandate Category', ondelete='cascade'),
+        'new_mandate_category_id': fields.many2one(
+            'mandate.category', string='Mandate Category', ondelete='cascade'),
+        'mandate_id': fields.many2one(
+            'abstract.mandate', string='Abstract mandate',
+            readonly=True, ondelete='cascade'),
+        'assembly_id': fields.many2one(
+            'abstract.assembly', string='Abstract Assembly',
+            readonly=True, ondelete='cascade'),
+        'new_assembly_id': fields.many2one(
+            'abstract.assembly', string='Abstract Assembly', ondelete='cascade'),
+        'instance_id': fields.many2one(
+            'abstract.instance', string='Abstract Instance', ondelete='cascade'),
         'action': fields.selection(WIZARD_AVAILABLE_ACTIONS, 'Action'),
-        'partner_id': fields.many2one('res.partner',
-                                      'Partner',
-                                      readonly=True),
+        'partner_id': fields.many2one(
+            'res.partner', string='Partner',
+            readonly=True, ondelete='cascade'),
         'start_date': fields.date('Start Date'),
         'deadline_date': fields.date('Deadline Date'),
         'message': fields.char('Message', size=250),
@@ -195,19 +195,19 @@ class copy_sta_mandate_wizard(orm.TransientModel):
     _mandate_assembly_foreign_key = 'sta_assembly_id'
 
     _columns = {
-        'mandate_id': fields.many2one('sta.mandate',
-                                      string='State mandate',
-                                      readonly=True),
-        'assembly_id': fields.many2one('sta.assembly',
-                                       string='State Assembly',
-                                       readonly=True),
-        'new_assembly_id': fields.many2one('sta.assembly',
-                                           string='State Assembly'),
-        'instance_id': fields.many2one('sta.instance',
-                                       'State Instance'),
+        'mandate_id': fields.many2one(
+            'sta.mandate', string='State mandate',
+            readonly=True, ondelete='cascade'),
+        'assembly_id': fields.many2one(
+            'sta.assembly', string='State Assembly',
+            readonly=True, ondelete='cascade'),
+        'new_assembly_id': fields.many2one(
+            'sta.assembly', string='State Assembly', ondelete='cascade'),
+        'instance_id': fields.many2one(
+            'sta.instance', string='State Instance', ondelete='cascade'),
         'is_legislative': fields.boolean('Is legislative'),
-        'legislature_id': fields.many2one('legislature',
-                                          string='Legislature'),
+        'legislature_id': fields.many2one(
+            'legislature', string='Legislature', ondelete='cascade'),
     }
 
     _defaults = {
@@ -307,16 +307,16 @@ class copy_int_mandate_wizard(orm.TransientModel):
     _mandate_assembly_foreign_key = 'int_assembly_id'
 
     _columns = {
-        'mandate_id': fields.many2one('int.mandate',
-                                      string='Internal mandate',
-                                      readonly=True),
-        'assembly_id': fields.many2one('int.assembly',
-                                       string='Internal Assembly',
-                                       readonly=True),
-        'new_assembly_id': fields.many2one('int.assembly',
-                                           string='Internal Assembly'),
-        'instance_id': fields.many2one('int.instance',
-                                       'Internal Instance'),
+        'mandate_id': fields.many2one(
+            'int.mandate', string='Internal mandate',
+            readonly=True, ondelete='cascade'),
+        'assembly_id': fields.many2one(
+            'int.assembly', string='Internal Assembly',
+            readonly=True, ondelete='cascade'),
+        'new_assembly_id': fields.many2one(
+            'int.assembly', string='Internal Assembly', ondelete='cascade'),
+        'instance_id': fields.many2one(
+            'int.instance', string='Internal Instance', ondelete='cascade'),
     }
 
     def default_get(self, cr, uid, flds, context):
@@ -365,16 +365,16 @@ class copy_ext_mandate_wizard(orm.TransientModel):
     _mandate_assembly_foreign_key = 'ext_assembly_id'
 
     _columns = {
-        'mandate_id': fields.many2one('ext.mandate',
-                                      string='External mandate',
-                                      readonly=True),
-        'assembly_id': fields.many2one('ext.assembly',
-                                       string='External Assembly',
-                                       readonly=True),
-        'new_assembly_id': fields.many2one('ext.assembly',
-                                           string='External Assembly'),
-        'instance_id': fields.many2one('int.instance',
-                                       'Internal Instance'),
+        'mandate_id': fields.many2one(
+            'ext.mandate', string='External mandate',
+            readonly=True, ondelete='cascade'),
+        'assembly_id': fields.many2one(
+            'ext.assembly', string='External Assembly',
+            readonly=True, ondelete='cascade'),
+        'new_assembly_id': fields.many2one(
+            'ext.assembly', string='External Assembly', ondelete='cascade'),
+        'instance_id': fields.many2one(
+            'int.instance', string='Internal Instance', ondelete='cascade'),
     }
 
     def default_get(self, cr, uid, flds, context):

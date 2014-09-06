@@ -332,7 +332,7 @@ class postal_coordinate(orm.Model):
 
     _columns = {
         'address_id': fields.many2one('address.address', string='Address', required=True, readonly=True, select=True),
-        'co_residency_id': fields.many2one('co.residency', string='Co-Residency', ondelete='restrict', select=True),
+        'co_residency_id': fields.many2one('co.residency', string='Co-Residency', select=True),
     }
 
     _rec_name = _discriminant_field

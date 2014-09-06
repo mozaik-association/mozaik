@@ -36,7 +36,7 @@ class change_main_address(orm.TransientModel):
     _description = 'Change Main Address Wizard'
 
     _columns = {
-        'address_id': fields.many2one('address.address', 'New Main Address', required=True),
+        'address_id': fields.many2one(
+            'address.address', 'New Main Address',
+            required=True, ondelete='cascade'),
     }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

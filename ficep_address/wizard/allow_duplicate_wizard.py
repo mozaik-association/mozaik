@@ -34,8 +34,12 @@ class allow_duplicate_wizard(orm.TransientModel):
     _name = "allow.duplicate.address.wizard"
 
     _columns = {
-        'address_id': fields.many2one('address.address', string='Co-Residency', readonly=True),
-        'co_residency_id': fields.many2one('co.residency', string='Co-Residency', readonly=True),
+        'address_id': fields.many2one(
+            'address.address', string='Co-Residency',
+            readonly=True, ondelete='cascade'),
+        'co_residency_id': fields.many2one(
+            'co.residency', string='Co-Residency',
+            readonly=True, ondelete='cascade'),
     }
 
     def default_get(self, cr, uid, fields, context):
@@ -82,5 +86,3 @@ class allow_duplicate_wizard(orm.TransientModel):
         if new_co:
             # go directly to the newly created co-residency
             return self.pool['co.residency'].display_object_in_form_view(cr, uid, cor_id, context=context)
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

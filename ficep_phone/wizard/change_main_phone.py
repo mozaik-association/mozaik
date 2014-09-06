@@ -36,7 +36,7 @@ class change_main_phone(orm.TransientModel):
     _description = 'Change Main Phone Wizard'
 
     _columns = {
-        'phone_id': fields.many2one('phone.phone', 'New Main Phone', required=True),
+        'phone_id': fields.many2one(
+            'phone.phone', 'New Main Phone',
+            required=True, ondelete='cascade'),
     }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -100,7 +100,6 @@ class sta_instance(orm.Model):
     _columns = {
         'parent_id': fields.many2one('sta.instance',
                                      'Parent State Instance',
-                                     ondelete='restrict',
                                      select=True,
                                      track_visibility='onchange'),
         'secondary_parent_id': fields.many2one(
