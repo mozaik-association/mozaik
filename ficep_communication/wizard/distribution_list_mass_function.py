@@ -62,11 +62,12 @@ class distribution_list_mass_function(orm.TransientModel):
         'e_mass_function': fields.selection(E_MASS_FUNCTION, 'Mass Function'),
         'p_mass_function': fields.selection(P_MASS_FUNCTION, 'Mass Function'),
 
-        'distribution_list_id': fields.many2one('distribution.list',
-                                                'Distribution List',
-                                                required=True),
+        'distribution_list_id': fields.many2one(
+            'distribution.list', string='Distribution List',
+            required=True, ondelete='cascade'),
 
-        'email_template_id': fields.many2one('email.template', 'Email Template'),
+        'email_template_id': fields.many2one(
+            'email.template', string='Email Template', ondelete='cascade'),
         'mass_mailing_name': fields.char('Mass Mailing'),
         'extract_csv': fields.boolean('Complementary Postal CSV',
                                       help="Get a CSV file with all partners who have no email coordinate"),
@@ -79,7 +80,8 @@ class distribution_list_mass_function(orm.TransientModel):
 
         'bounce_counter': fields.integer('Maximum of Fails'),
         'include_unauthorized': fields.boolean('Include Unauthorized'),
-        'internal_instance_id': fields.many2one('int.instance', 'Internal Instance'),
+        'internal_instance_id': fields.many2one(
+            'int.instance', string='Internal Instance', ondelete='cascade'),
 
         'groupby_coresidency': fields.boolean('Group by Co-Residency'),
     }

@@ -27,6 +27,7 @@
             <field name="model_id" ref="model_email_coordinate"/>
             <field name="domain_force">[('vip','=',False)]</field>
             <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_user'))]"/>
+            <field name="perm_read" eval="0"/>
         </record>
 
         <record id="email_coordinate_manager_rule" model="ir.rule">
@@ -34,6 +35,7 @@
             <field name="model_id" ref="model_email_coordinate"/>
             <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_manager'))]"/>
+            <field name="perm_read" eval="0"/>
         </record>
 
     </data>

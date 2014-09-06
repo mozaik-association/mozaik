@@ -11,9 +11,12 @@
             <field name="inherit_id" ref="distribution_list.distribution_list_search" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='dst_model_id']" position="replace"/>
-                <xpath expr="//filter[@name='dst_model']" position="replace"/>
+                <xpath expr="//filter[@name='dst_model']" position="replace">
+                    <filter name="instance" string="Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
+                </xpath>
 
                 <xpath expr="//field[@name='name']" position="after">
+                    <field name="int_instance_id"/>
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expired Coordinates" />
@@ -30,13 +33,9 @@
             <field name="model">distribution.list</field>
             <field name="inherit_id" ref="distribution_list.distribution_list_tree" />
             <field name="arch" type="xml">
-
-                <xpath expr="//field[@name='name']" position="after">
+                <xpath expr="//field[@name='dst_model_id']" position="replace">
+                    <field name="int_instance_id"/>
                     <field name="active" invisible="1"/>
-                </xpath>
-
-                <xpath expr="//field[@name='dst_model_id']" position="attributes">
-                    <attribute name="invisible">1</attribute>
                 </xpath>
 
                 <!-- No more mass mailing but mass function in our case -->
@@ -76,18 +75,6 @@
                     </header>
                 </xpath>
 
-                <!-- Add a domain and a on_change to destination models list -->
-                <xpath expr="//field[@name='dst_model_id']" position="attributes">
-                    <attribute name="domain">[('model','in',['virtual.target',
-                                                             'res.partner'])]</attribute>
-                    <attribute name="on_change">onchange_dst_model(dst_model_id)</attribute>
-                </xpath>
-
-                <!-- Show bridge field only for developpers -->
-                <xpath expr="//field[@name='bridge_field']" position="attributes">
-                    <attribute name="groups">ficep_base.res_groups_developper</attribute>
-                </xpath>
-
                 <!-- Add dates -->
                 <xpath expr="//div[@name='to_include']" position="before">
                     <group name="state" attrs="{'invisible': [('id','=',False)]}">
@@ -104,10 +91,16 @@
                 <xpath expr="//div[@name='to_exclude']" position="after">
                     <notebook>
                         <page name="owners" string="Owners" autofocus="autofocus">
+                            <group name="validity">
+                                <field name="int_instance_id" />
+                            </group>
                             <field name="res_users_ids" widget="many2many_tags" create="0"/>
                         </page>
                     </notebook>
                 </xpath>
+
+                <!-- Hide fields -->
+                <xpath expr="//group[@name='info']" position="replace"/>
 
                 <!-- Add developper tools and chatter -->
                 <xpath expr="//form" postition="inside">
@@ -121,8 +114,11 @@
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
+                                <field name="company_id"/>
+                                <field name="dst_model_id"
+                                       on_change="onchange_dst_model(dst_model_id)"
+                                       domain="[('model', 'in', ['virtual.target', 'res.partner'])]"/>
                                 <field name="bridge_field"/>
-                                <field name="dst_model_id"/>
                             </group>
                         </div>
                     </div>
@@ -131,17 +127,6 @@
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </xpath>
-
-                <!-- bridge field invisible -->
-                <xpath expr="//field[@name='bridge_field']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-
-                <!-- dst_model_id field invisible -->
-                <xpath expr="//field[@name='dst_model_id']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </xpath>
-
             </field>
         </record>
 

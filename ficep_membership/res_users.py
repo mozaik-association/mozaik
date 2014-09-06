@@ -25,42 +25,20 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Help',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_base',
-        'help_online',
-    ],
-    'description': """
-FICEP Documentation
-===================
-* Provide a full help online for Ficep application
-""",
-    'images': [
-    ],
-    'data': [
-        'data/help_data.xml',
-        'data/help_auto_backup.xml',  # must always be the first
-        'help_view.xml',
-        'wizard/export_help_wizard_view.xml',
-        'ir_ui_view_view.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'installable': True,
-    'auto_install': False,
-}
+
+from openerp.osv import orm
+
+
+class res_users(orm.Model):
+
+    _inherit = 'res.users'
+
+    def _register_hook(self, cr):
+        """
+        Add read access rights on int_instance_m2m_ids
+        """
+        init_res = super(res_users, self)._register_hook(cr)
+        # duplicate list to avoid modifying the original reference
+        self.SELF_READABLE_FIELDS = list(self.SELF_READABLE_FIELDS)
+        self.SELF_READABLE_FIELDS.append('int_instance_m2m_ids')
+        return init_res

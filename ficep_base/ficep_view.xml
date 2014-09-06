@@ -72,34 +72,36 @@
             <field name="sequence">450</field>
         </record>
 
-        <!-- Re-assign standard menus -->
+        <!-- Hide standard menus -->
 
         <record id="mail.mail_feeds_main" model="ir.ui.menu">
-            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
-                                          ]"/>
-        </record>
-        <record id="base.marketing_menu" model="ir.ui.menu">
-            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
-                                          ]"/>
-        </record>
-        <record id="base.menu_association" model="ir.ui.menu">
-            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
-                                          ]" />
+            <field name="groups_id" eval="[(6, 0, [
+                ref('settings_improvement.unused_features'),
+            ])]" />
         </record>
 
-        <!-- Re-assign standard actions -->
+        <record id="base.marketing_menu" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('settings_improvement.unused_features'),
+            ])]" />
+        </record>
+
+        <!-- Hide standard actions -->
 
         <record id="distribution_list.action_view_distribution_list_add_filter" model="ir.actions.act_window">
-            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
-                                          ]"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('settings_improvement.unused_features'),
+            ])]" />
         </record>
 
         <record id="document.act_res_partner_document" model="ir.actions.act_window">
-            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
-                                          ]"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('settings_improvement.unused_features'),
+            ])]" />
         </record>
 
-         <!-- Update user form -->
+        <!-- Update user form -->
+
         <record model="ir.ui.view" id="res_user_form">
             <field name="name">Users Preferences (ficep_base)</field>
             <field name="model">res.users</field>
@@ -112,6 +114,7 @@
         </record>
 
         <!-- Update Preferences form -->
+
         <record id="view_users_form_preferences" model="ir.ui.view">
             <field name="name">res.users.preferences.form (ficep_base)</field>
             <field name="model">res.users</field>

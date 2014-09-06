@@ -46,13 +46,16 @@ class distribution_list(orm.Model):
         'name': fields.char(string='Name', required=True, track_visibility='onchange'),
         'res_users_ids': fields.many2many('res.users', 'dist_list_res_users_rel', id1='dist_list_id', id2='res_users_id', string='Users',
                                           required=True, select=True),
-        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', select=True, track_visibility='onchange'),
+        'int_instance_id': fields.many2one('int.instance', 'Internal Instance', required=True, select=True, track_visibility='onchange'),
     }
 
     _defaults = {
+        'int_instance_id': lambda self, cr, uid, ids, context = None:
+            self.pool.get('int.instance').get_default(cr, uid),
         'res_users_ids': _get_user_id,
-        'dst_model_id': lambda self, cr, uid, c:
-        self.pool.get('ir.model').search(cr, uid, [('model', '=', 'virtual.target')], context=c)[0],
+        'dst_model_id': lambda self, cr, uid, ids, context = None:
+            self.pool.get('ir.model').search(
+                cr, uid, [('model', '=', 'virtual.target')], context=context)[0],
         'bridge_field': 'common_id',
     }
 
@@ -61,7 +64,7 @@ class distribution_list(orm.Model):
     #No More Unique Name For distribution list
     _sql_constraints = [('unique_name_by_company', 'check(1=1)', '')]
 
-    _unicity_keys = 'name, company_id'
+    _unicity_keys = 'name, int_instance_id'
 
 # view methods: onchange, button
 
