@@ -45,10 +45,13 @@ class account_move_line(orm.Model):
         Change state of retrocession during reconciliation process
         """
         res = super(account_move_line, self).write(cr, uid, ids, vals, context=context, check=check, update_check=check)
-        if vals.get('reconcile_id', False):
+        reconcile_id = vals.get('reconcile_id', False)
+        if reconcile_id:
             retro_obj = self.pool['retrocession']
-            move_ids = [line.move_id.id for line in self.browse(cr, uid, ids, context=context) if line.reconcile_id]
-            if move_ids:
+            move_lines = self.search_read(cr, uid, [('reconcile_id', '=', reconcile_id)],
+                                                   ['move_id'], context=context)
+            move_ids = [line['move_id'][0] for line in move_lines]
+            if len(move_ids) > 1:
                 retro_ids = retro_obj.search(cr, uid, [('move_id', 'in', move_ids)], context=context)
                 if retro_ids:
                     retro_obj.action_done(cr, uid, retro_ids, context=context)

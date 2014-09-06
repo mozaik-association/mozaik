@@ -65,11 +65,16 @@
                                         <field name="postal_mail_name" />
                                         <field name="sort_by" />
                                         <field name="groupby_coresidency" />
-                                        <field name="impact_memcard_date"
+                                        <field name="set_memcard_date"
                                             attrs="{'invisible': ['|', '|',
                                                ('trg_model', '!=', 'postal.coordinate'),
                                                ('postal_mail_name', '=', False),
                                                ('distribution_list_id', '!=', %(ficep_communication.dl_del_mem_card)d)]}" />
+                                        <field name="set_del_doc_date"
+                                            attrs="{'invisible': ['|', '|',
+                                               ('trg_model', '!=', 'postal.coordinate'),
+                                               ('postal_mail_name', '=', False),
+                                               ('distribution_list_id', '!=', %(ficep_communication.dl_del_doc)d)]}" />
                                     </group>
                                 </group>
                             </page>

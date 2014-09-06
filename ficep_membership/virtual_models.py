@@ -40,6 +40,7 @@ class virtual_master_partner(orm.Model):
 
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Partner'),
+        'membership_state_id':  fields.many2one('membership.state', 'State'),
         'display_name': fields.char('Display Name'),
         'identification_number': fields.integer('Identification Number'),
 
@@ -79,6 +80,7 @@ class virtual_master_partner(orm.Model):
         SELECT
             concat(pc.id, '/' , e.id) as id,
             p.id as partner_id,
+            p.membership_state_id as membership_state_id,
             p.display_name as display_name,
             p.identifier as identification_number,
             p.lastname as lastname,

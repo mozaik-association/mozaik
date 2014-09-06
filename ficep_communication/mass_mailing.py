@@ -60,4 +60,71 @@ class MailMailStats(orm.Model):
                 self.pool['bounce.editor'].update_bounce_datas(cr, uid, [wiz_id], context=ctx)
         return res_ids
 
+
+class MassMailingList(orm.Model):
+
+    _name = "mail.mass_mailing.list"
+    _inherit = ['mail.mass_mailing.list', 'abstract.ficep.model']
+
+    _columns = {
+        'int_instance_id': fields.many2one(
+            'int.instance', 'Internal Instance',
+            select=True, track_visibility='onchange'),
+        'automatic': fields.boolean('Automatic'),
+        # visible from portal
+        'public': fields.boolean('Public'),
+    }
+
+    _unicity_keys = 'name, int_instance_id'
+
+
+class MassMailingContact(orm.Model):
+
+    _name = "mail.mass_mailing.contact"
+    _inherit = ['mail.mass_mailing.contact', 'abstract.ficep.model']
+    _rec_name = "partner_id"
+
+    def _get_email(self, cr, uid, ids, name, args, context=None):
+        """
+        :param ids: `mail.mass_mailing.contact` ids for which `email` has to
+            be recomputed
+        :rparam: dictionary for all mailing contact id with email
+        :rtype: dict {integer: char, ...}
+        :exception: `partner_id` of the `mail.mass_mailing.contact` has no
+            email coordinate
+        :Note:
+        Calling and result convention: Single mode
+        """
+        context = context or {}
+        result = {i: False for i in ids}
+
+        for mailing in self.browse(cr, uid, ids, context=context):
+            partner = mailing.partner_id
+            email = partner.email_coordinate_id and \
+                partner.email_coordinate_id.email or False
+            if not email:
+                raise orm.except_orm(_('Error'), _('Partner must have an email ' +
+                                             'coordinate'))
+            result[mailing.id] = email
+        return result
+
+    _email_store_triggers = {
+        'mail.mass_mailing.contact': (lambda s, cr, uid, ids, c: ids,
+                                      ['partner_id'], 10),
+        'email.coordinate': (lambda self, cr, uid, ids, context=None:
+                             self.pool['email.coordinate']._get_linked_mailing(
+                                 cr, uid, ids, context=context),
+                             ['active', 'is_main'], 10),
+    }
+
+    _columns = {
+        'partner_id': fields.many2one(
+            'res.partner', 'Partner', required=True, select=True),
+        'email': fields.function(
+            _get_email, type='char', string='email',
+            track_visibility='onchange', store=_email_store_triggers),
+    }
+
+    _unicity_keys = 'list_id, partner_id'
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

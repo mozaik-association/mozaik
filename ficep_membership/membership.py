@@ -70,6 +70,7 @@ class membership_membership_line(orm.Model):
         'int_instance_id': fields.many2one(
             'int.instance', string='Internal Instance',
             required=True, select=True),
+        'reference': fields.char('Reference'),
     }
 
     _defaults = {

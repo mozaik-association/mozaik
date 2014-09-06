@@ -58,6 +58,7 @@ FICEP Communication
         'postal_mail_view.xml',
         'communication_view.xml',
         'virtual_models_view.xml',
+        'mass_mailing_view.xml',
     ],
     'qweb': [
     ],

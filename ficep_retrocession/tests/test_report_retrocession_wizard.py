@@ -345,4 +345,4 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
                                              self.uid,
                                              mand_data,
                                              {})
-        self.assertListEqual(pl_ids, expected_result)
+        self.assertListEqual(sorted(pl_ids), sorted(expected_result))

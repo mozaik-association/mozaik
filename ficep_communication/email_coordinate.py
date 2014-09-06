@@ -25,13 +25,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm
 
-from . import distribution_list
-from . import virtual_models
-from . import wizard
-from . import email_template
-from . import mass_mailing
-from . import postal_mail
-from . import email_coordinate
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+class email_coordinate(orm.Model):
+
+    def _get_linked_mailing(self, cr, uid, ids, context=None):
+        '''
+        :rtype: [integer]
+        :rparam: list of `mail.mass_mailing.contact` associated with a partner
+            id into `ids`
+        '''
+        mailing_ids = []
+        partner_ids = self.get_linked_partners(cr, uid, ids, context=context)
+        if partner_ids:
+            mailing_ids = self.pool['mail.mass_mailing.contact'].search(
+                cr, uid, [('partner_id', 'in', partner_ids)], context=context)
+        return mailing_ids
+
+    _inherit = 'email.coordinate'
