@@ -1202,16 +1202,14 @@ class virtual_partner_membership(orm.Model):
         'employee': fields.boolean('Employee'),
 
         'postal_vip': fields.boolean('VIP Address'),
-        'main_postal': fields.boolean('Main Postal'),
         'postal_unauthorized': fields.boolean('Unauthorized Address'),
         'postal_category_id': fields.many2one('coordinate.category',
                                               'Postal Coordinate Category'),
 
         'email_vip': fields.boolean('VIP Email'),
+        'email_unauthorized': fields.boolean('Unauthorized Email'),
         'email_category_id': fields.many2one('coordinate.category',
                                              'Email Coordinate Category'),
-        'main_email': fields.boolean('Main Email'),
-        'email_unauthorized': fields.boolean('Unauthorized Email'),
 
         # others
         'category_id': fields.related('partner_id', 'category_id',
@@ -1258,7 +1256,6 @@ class virtual_partner_membership(orm.Model):
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
             pc.coordinate_category_id as postal_category_id,
-            p.is_company as is_company,
             p.identifier as identifier,
             p.birth_date as birth_date,
             p.gender as gender,
@@ -1266,10 +1263,8 @@ class virtual_partner_membership(orm.Model):
             p.employee as employee,
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
-            pc.is_main as main_postal,
             e.vip as email_vip,
             e.coordinate_category_id as email_category_id,
-            e.is_main as main_email,
             e.unauthorized as email_unauthorized,
             ms.id as membership_state_id
         FROM
@@ -1291,9 +1286,8 @@ class virtual_partner_membership(orm.Model):
         AND e.is_main = TRUE)
 
         WHERE p.active = TRUE
-        AND p.is_assembly = FALSE
-        AND (e.id IS NOT NULL
-        OR pc.id IS NOT NULL)
+        AND p.is_company = FALSE
+        AND (e.id IS NOT NULL OR pc.id IS NOT NULL)
         )""")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

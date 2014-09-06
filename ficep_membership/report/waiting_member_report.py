@@ -45,7 +45,7 @@ class waiting_member_report(orm.Model):
         'identifier': fields.integer('Identifier'),
         'membership_state_id': fields.many2one('membership.state',
                                                'Membership State'),
-        'nb_days': fields.integer('Age')
+        'nb_days': fields.integer('#Days')
     }
 
 # orm methods

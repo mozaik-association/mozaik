@@ -914,51 +914,49 @@
             <field name="arch" type="xml">
                 <search string="Virtual Partner Membership">
                     <field name="identifier" />
+                    <field name="partner_id" />
+                    <field name="int_instance_id" />
+                    <field name="membership_state_id" />
+
                     <field string="Birth Date > ..." name="birth_date"
                         filter_domain="[('birth_date','>',self)]" />
                     <field string="Birth Date &lt; ..." name="birth_date"
                         filter_domain="[('birth_date','&lt;',self)]" />
-                    <separator/>
+
                     <field string="Delivery Document Date > ..." name="del_doc_date"
                         filter_domain="[('del_doc_date','>',self)]" />
                     <field string="Delivery Document Date &lt; ..." name="del_doc_date"
                         filter_domain="[('del_doc_date','&lt;',self)]" />
-                    <separator/>
+
                     <field string="Delivery Member Card Date > ..." name="del_mem_card_date"
                         filter_domain="[('del_mem_card_date','>',self)]" />
                     <field string="Delivery Member Card Date &lt; ..." name="del_mem_card_date"
                         filter_domain="[('del_mem_card_date','&lt;',self)]" />
-                    <separator/>
 
-                    <field name="partner_id" domain="[('is_assembly','=',False)]" />
-                    <field name="int_instance_id" />
-                    <separator />
-                    <field name="membership_state_id" />
-                    <separator />
-                    <filter string="Waiting Delivery Welcome Document"
+                    <field name="interests_m2m_ids" string="Interests"
+                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
+                        widget="many2one" />
+                    <field name="category_id" string="Tag" widget="many2one" />
+
+                    <field name="email_category_id" string="Email Category"
+                        widget="many2one" />
+                    <field name="postal_category_id" string="Postal Category"
+                        widget="many2one" />
+
+                    <filter string="Undeliverd Welcome Documents"
                         name="del_doc_date"
                         domain="[('del_doc_date','=', False),
-                                     ('membership_state_id.code','!=', 'without_membership')]" />
+                                     ('membership_state_id.code','=', 'member_candidate')]" />
                     <separator/>
-                    <filter string="Waiting Delivery Member Card"
+                    <filter string="Undeliverd Member Cards"
                         name="del_mem_card_date"
                         domain="['&amp;',('del_mem_card_date','=', False),
                                      ('membership_state_id.code','=', 'member')]" />
                     <separator/>
                     <filter string="Members"
                         name="member"
-                        domain="[('membership_state_code','=', 'member')]" />
-                    <separator />
-                    <field name="interests_m2m_ids" string="Interests"
-                        widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
-                        widget="many2one" />
-                    <field name="category_id" string="Tag" widget="many2one" />
-                    <separator />
-                    <field name="email_category_id" string="Email Category"
-                        widget="many2one" />
-                    <field name="postal_category_id" string="Postal Category"
-                        widget="many2one" />
+                        domain="[('membership_state_id.code','=', 'member')]" />
                     <separator />
                     <filter string="Male" name="male"
                         domain="[('gender','=','m')]" />
@@ -990,10 +988,10 @@
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner"
                             context="{'group_by':'partner_id'}" />
-                        <filter name="ste" string="State"
-                            context="{'group_by':'membership_state_id'}" />
                         <filter name="int_instance" string="Internal Instance"
                             context="{'group_by':'int_instance_id'}" />
+                        <filter name="ste" string="State"
+                            context="{'group_by':'membership_state_id'}" />
                     </group>
                 </search>
             </field>
@@ -1007,8 +1005,8 @@
                     delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
-
                     <field name="membership_state_id" />
+
                     <field name="del_mem_card_date" />
 
                     <field name="birth_date" />
