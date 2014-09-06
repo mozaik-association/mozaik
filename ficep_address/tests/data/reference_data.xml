@@ -16,17 +16,7 @@
 
         <record id="local_zip_3" model="address.local.zip">
             <field name="local_zip">1020</field>
-            <field name="town">Bruxelles</field>
-        </record>
-
-        <record id="local_zip_3_bis" model="address.local.zip">
-            <field name="local_zip">1020</field>
             <field name="town">Brussels</field>
-        </record>
-
-        <record id="local_zip_3_ter" model="address.local.zip">
-            <field name="local_zip">1020</field>
-            <field name="town">Laken</field>
         </record>
 
         <!-- Local Streets -->
@@ -76,7 +66,7 @@
 
         <record id="address_4" model="address.address">
             <field name="country_id" ref="base.be"/>
-            <field name="address_local_zip_id" ref="local_zip_3_bis"/>
+            <field name="address_local_zip_id" ref="local_zip_3"/>
             <field name="address_local_street_id" ref="local_street_3"/>
             <field name="select_alternative_address_local_street" eval="1"/>
             <field name="number">6</field>

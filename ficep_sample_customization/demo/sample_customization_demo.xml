@@ -64,6 +64,14 @@
             <field name="notify_email">none</field>
         </record>
 
+        <record id="res_partner_sb" model="res.partner">
+            <field name="lastname">BUBKA</field>
+            <field name="firstname">Sergueï</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="gender">m</field>
+            <field name="notify_email">none</field>
+        </record>
+
         <!-- Emails -->
 
         <record id="email_coordinate_thierry_two" model="email.coordinate">
@@ -121,18 +129,54 @@
             <field name="partner_id" ref="res_partner_fgtb" />
         </record>
 
-        <!-- Addresses -->
+        <!-- Local Zip -->
+
+        <record id="local_zip_3_bis" model="address.local.zip">
+            <field name="local_zip">1020</field>
+            <field name="town">Bruxelles</field>
+            <field name="int_instance_id" ref="int_instance_local_bxl"/>
+        </record>
+
+        <record id="local_zip_3_ter" model="address.local.zip">
+            <field name="local_zip">1020</field>
+            <field name="town">Laken</field>
+            <field name="int_instance_id" ref="int_instance_local_bxl"/>
+        </record>
+
+        <record id="local_zip_bxl_1030" model="address.local.zip">
+            <field name="local_zip">1030</field>
+            <field name="town">Bruxelles</field>
+            <field name="int_instance_id" ref="int_instance_local_bxl"/>
+        </record>
 
         <record id="local_zip_wemmel" model="address.local.zip">
             <field name="local_zip">1780</field>
             <field name="town">Wemmel</field>
         </record>
 
+        <!-- Local Streets -->
+
         <record id="local_street_rsw" model="address.local.street">
             <field name="identifier">local_street_rsw</field>
             <field name="local_street">Romeinsesteenweg</field>
             <field name="local_zip">1780</field>
         </record>
+
+        <record id="local_street_br" model="address.local.street">
+            <field name="identifier">local_street_br</field>
+            <field name="local_street">Boulevard Auguste Reyers</field>
+            <field name="local_street_alternative">Auguste Reyerslaan</field>
+            <field name="local_zip">1030</field>
+        </record>
+
+        <record id="local_street_versailles" model="address.local.street">
+            <field name="identifier">local_street_versailles</field>
+            <field name="local_street">Avenue de Versailles</field>
+            <field name="local_street_alternative">Versailleslaan</field>
+            <field name="local_zip">1020</field>
+        </record>
+
+        <!-- Addresses -->
 
         <record id="address_wemmel_rsw" model="address.address">
             <field name="country_id" ref="base.be"/>
@@ -151,25 +195,22 @@
             <field name="box">4b</field>
         </record>
 
-        <record id="local_zip_bxl_1030" model="address.local.zip">
-            <field name="local_zip">1030</field>
-            <field name="town">Bruxelles</field>
-            <field name="int_instance_id" ref="int_instance_local_bxl"/>
-        </record>
-
-        <record id="local_street_br" model="address.local.street">
-            <field name="identifier">local_street_br</field>
-            <field name="local_street">Boulevard Auguste Reyers</field>
-            <field name="local_street_alternative">Auguste Reyerslaan</field>
-            <field name="local_zip">1030</field>
-        </record>
-
         <record id="address_br52" model="address.address">
             <field name="country_id" ref="base.be"/>
             <field name="address_local_zip_id" ref="local_zip_bxl_1030"/>
             <field name="address_local_street_id" ref="local_street_br"/>
             <field name="number">52</field>
         </record>
+
+        <record id="address_ver36" model="address.address">
+            <field name="country_id" ref="base.be"/>
+            <field name="address_local_zip_id" ref="local_zip_3_ter"/>
+            <field name="address_local_street_id" ref="local_street_versailles"/>
+            <field name="number">36</field>
+            <field name="box">2</field>
+        </record>
+
+        <!-- Postal Coordinates -->
 
         <record id="postal_coordinate_for_rtbf" model="postal.coordinate">
             <field name="address_id" ref="address_br52"/>
@@ -185,6 +226,12 @@
         <record id="postal_coordinate_for_dries_bg" model="postal.coordinate">
             <field name="address_id" ref="address_wemmel_bulg"/>
             <field name="partner_id" ref="res_partner_dries"/>
+            <field name="unauthorized" eval="True" />
+        </record>
+
+        <record id="postal_coordinate_for_sb_ver36" model="postal.coordinate">
+            <field name="address_id" ref="address_ver36"/>
+            <field name="partner_id" ref="res_partner_sb"/>
             <field name="unauthorized" eval="True" />
         </record>
 
