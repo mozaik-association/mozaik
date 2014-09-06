@@ -27,7 +27,9 @@
                         domain="[]" help="All Requests, expired or not" />
 
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="ste" string="State" domain="[]"
+                        <filter name="instance" string="Instance" domain="[]"
+                            context="{'group_by':'int_instance_id'}" />
+                        <filter name="state" string="State" domain="[]"
                             context="{'group_by':'state'}" />
                     </group>
                 </search>
@@ -42,8 +44,10 @@
                 <tree string="Membership Requests" version="7.0">
                     <field name="lastname" />
                     <field name="firstname" />
-                    <field name="state" />
                     <field name="request_type" />
+                    <field name="partner_id" />
+                    <field name="int_instance_id" />
+                    <field name="state" />
 
                     <field name="expire_date"
                         invisible="context.get('invisible_expire_date', True)" />
@@ -120,9 +124,9 @@
                             <group name="request_info">
                                 <field name="request_type"
                                     on_change="onchange_partner_id(request_type, partner_id)" />
-                                <field name="product_id"
-                                    attrs="{'invisible':[('request_type','!=','m')],
-                                                         'required':[('request_type','=','m')]}" />
+                                <field name="product_id" widget="selection"
+                                       attrs="{'invisible':[('request_type','!=','m')],
+                                               'required':[('request_type','=','m')]}" />
                             </group>
                         </group>
 
@@ -287,7 +291,6 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="membership_request_tree_view" />
             <field name="search_view_id" ref="membership_request_search_view" />
-            <field name="context">{'search_default_state': 'draft'}</field>
         </record>
 
     </data>

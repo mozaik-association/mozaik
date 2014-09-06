@@ -59,13 +59,23 @@ class membership_membership_line(orm.Model):
     _columns = {
         'partner': fields.many2one(
             'res.partner', string='Member',
-            ondelete='cascade', select=True, required=True),
+            ondelete='cascade', required=True, select=True),
         'membership_id': fields.many2one(
-            'product.product', string='Membership Type', select=True),
+            'product.product', string='Membership Type',
+            domain="[('membership', '!=', False), ('list_price', '>', 0.0)]",
+            required=True, select=True),
         'membership_state_id': fields.many2one(
-            'membership.state', string='State', select=True),
+            'membership.state', string='State',
+            required=True, select=True),
         'int_instance_id': fields.many2one(
-            'int.instance', string='Internal Instance', select=True),
+            'int.instance', string='Internal Instance',
+            required=True, select=True),
+    }
+
+    _defaults = {
+        'membership_id': lambda self, cr, uid, ids, context = None:
+            self.pool['ir.model.data'].get_object_reference(
+                cr, uid, 'ficep_membership', 'membership_product_free')[1],
     }
 
     _order = 'date_from desc, date_to desc, partner'
@@ -80,9 +90,9 @@ class membership_membership_line(orm.Model):
         with abstract ficep indexes mechanism
         '''
         if tools.config.options['test_enable']:
-            cr.execute("UPDATE membership_membership_line "
-                       "SET active = FALSE "
-                       "WHERE membership_state_id IS NULL")
+            cr.execute("DELETE membership_membership_line "
+                       "WHERE membership_state_id IS NULL "
+                       "OR int_instance_id IS NULL")
 
         # create expected index
         super(membership_membership_line, self).init(cr)

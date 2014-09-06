@@ -89,8 +89,6 @@ class membership_request(orm.Model):
         'lastname': fields.char('Lastname', required=True,
                                 track_visibility='onchange'),
         'firstname': fields.char('Firstname', track_visibility='onchange'),
-        'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES,
-                                  'Status', track_visibility='onchange'),
 
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender',
                                    select=True, track_visibility='onchange'),
@@ -101,22 +99,22 @@ class membership_request(orm.Model):
         'month': fields.integer('Month'),
         'year': fields.integer('Year'),
         'birth_date': fields.date('Birthdate', track_visibility='onchange'),
+
+        # request and states
         'request_type': fields.selection(MEMBERSHIP_REQUEST_TYPE,
                                          'Request Type',
                                          track_visibility='onchange'),
-        # current status related to the associated partner
         'membership_state_id': fields.many2one('membership.state',
-                                               'Current Status',
-                                               track_visibility='onchange'),
+                                               'Current Status'),
         'result_type_id': fields.many2one('membership.state',
-                                          'Result Type',
-                                          track_visibility='onchange'),
-        'product_id': fields.many2one('product.product',
-                                      string="Subscription", select=True,
-                                      track_visibility='onchange',
-                                      domain=[('membership', '=', True)]),
-
+                                          'Result Type'),
+        'product_id': fields.many2one(
+            'product.product', string="Subscription", select=True,
+            track_visibility='onchange',
+            domain="[('membership', '!=', False), ('list_price', '>', 0.0)]"),
         'is_update': fields.boolean('Is Update'),
+        'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES,
+                                  'State', track_visibility='onchange'),
 
         # address
         'country_id': fields.many2one('res.country', 'Country', select=True,
@@ -127,6 +125,8 @@ class membership_request(orm.Model):
         'address_local_zip_id': fields.many2one('address.local.zip',
                                                 string='City',
                                                 track_visibility='onchange'),
+        'local_zip': fields.related('address_local_zip_id', 'local_zip',
+                                    string='Local Zip', type='char'),
         'zip_man': fields.char(string='Zip', track_visibility='onchange'),
 
         'town_man': fields.char(string='Town', track_visibility='onchange'),
@@ -136,23 +136,20 @@ class membership_request(orm.Model):
             track_visibility='onchange'),
         'street_man': fields.char(string='Street',
                                   track_visibility='onchange'),
-
         'street2': fields.char(string='Street2',
                                track_visibility='onchange'),
-        'sequence': fields.integer('Sequence'),
 
         'number': fields.char(string='Number', track_visibility='onchange'),
         'box': fields.char(string='Box', track_visibility='onchange'),
+        'sequence': fields.integer('Sequence',
+                                   track_visibility='onchange'),
 
         'technical_name': fields.char(string='Technical Name'),
 
+        # indexes
         'interests': fields.text(string='Interests'),
         'competencies': fields.text(string='Competencies'),
 
-        'partner_id': fields.many2one(
-            'res.partner', 'Partner', ondelete='restrict',
-
-            domain="[('membership_state_id', '!=', False)]"),
         'interests_m2m_ids': fields.many2many(
             'thesaurus.term', 'membership_request_interests_rel',
             id1='membership_id', id2='thesaurus_term_id', string='Interests'),
@@ -160,28 +157,27 @@ class membership_request(orm.Model):
             'thesaurus.term', 'membership_request_competence_rel',
             id1='membership_id', id2='thesaurus_term_id',
             string='Competencies'),
+
+        'note': fields.text('Note'),
+
+        # references
+        'partner_id': fields.many2one(
+            'res.partner', string='Partner', ondelete='cascade',
+            domain="[('membership_state_id', '!=', False)]"),
+
         'int_instance_id': fields.many2one('int.instance',
-                                           'Internal Instance',
-                                           ondelete='restrict'),
-        'address_local_zip_id': fields.many2one('address.local.zip',
-                                                string='City',
-                                                track_visibility='onchange'),
-        # used for the domain on street
-        'local_zip': fields.related('address_local_zip_id', 'local_zip',
-                                    string='Local Zip', type='char'),
-        'address_local_street_id': fields.many2one(
-            'address.local.street', string='Referenced Street',
-            track_visibility='onchange'),
+                                           string='Internal Instance',
+                                           ondelete='cascade'),
+
         'address_id': fields.many2one('address.address',
                                       string='Address',
                                       track_visibility='onchange'),
-
         'mobile_id': fields.many2one('phone.phone',
-                                     'Mobile', ondelete='restrict'),
+                                     string='Mobile',
+                                     track_visibility='onchange'),
         'phone_id': fields.many2one('phone.phone',
-                                    'Phone', ondelete='restrict'),
-
-        'note': fields.text('Note'),
+                                    string='Phone',
+                                    track_visibility='onchange'),
     }
 
     _defaults = {
@@ -418,6 +414,9 @@ class membership_request(orm.Model):
                 cr, uid, partner_id, ['membership_state_id'],
                 context=context)['membership_state_id'][0]
             vals = get_status_values(request_type)
+            imd_obj = self.pool['ir.model.data']
+            vals['subscription_product_id'] = imd_obj.get_object_reference(
+                    cr, uid, 'ficep_membership', 'membership_product_free')[1]
             if vals:
                 with self.protect_v8_cache(pffs):
                     # safe mode is here mandatory
