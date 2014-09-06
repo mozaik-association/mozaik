@@ -93,9 +93,10 @@
                 <xpath expr="//page[@name='user']" position="inside">
                     <separator string="Internal Instances" />
                     <field name="int_instance_m2m_ids" widget="many2many_tags"
-                        placeholder="Instances..." />
-                    <!-- Some blank lines to see the entire elapsed many2many_tags
-                        widget -->
+                           placeholder="Instances..."
+                           attrs="{'required': [('user_ids','!=',[]),
+                                                ('membership_state_id','!=',False)]}" />
+                    <!-- Some blank lines to see the entire elapsed many2many_tags widget -->
                     <br />
                     <br />
                     <br />
@@ -155,6 +156,8 @@
                                 ('membership_state_code', '!=', 'supporter')]}" />
                     </div>
                     <group name="membership_datas">
+                        <field name="subscription_product_id" widget="selection"
+                               attrs="{'invisible': [('membership_state_code','!=','member')]}"/>
                         <field name="del_doc_date" attrs="{'invisible': [('del_doc_date', '=', False)]}" />
                         <field name="del_mem_card_date" attrs="{'invisible': [('del_mem_card_date', '=', False)]}" />
                     </group>
@@ -165,16 +168,17 @@
                         <tree colors="gray:active==False;green:membership_state_id[0]==%(ficep_membership.member)d">
                             <field name="int_instance_id"/>
                             <field name="membership_state_id"/>
-                            <field name="membership_id" attrs="{'invisible': [('membership_state_id','!=',%(ficep_membership.member)d)]}"/>
+                            <field name="membership_id" attrs="{'invisible': [('member_price','&lt;=',0.0)]}"/>
                             <field name="date_from"/>
                             <field name="date_to"/>
                             <field name="active" invisible="1"/>
+                            <field name="member_price" invisible="1"/>
                         </tree>
                     </field>
                 </xpath>
 
                 <xpath expr="//notebook/page[descendant::field[@name='free_member']]" position="attributes">
-                    <attribute name="attrs">{'invisible':[('membership_state_id', '=', False)]}</attribute>
+                    <attribute name="attrs">{'invisible':[('membership_state_id', 'in', [False, %(ficep_membership.without_membership)d])]}</attribute>
                 </xpath>
             </field>
         </record>

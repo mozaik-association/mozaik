@@ -316,7 +316,7 @@ class abstract_ficep_model(orm.AbstractModel):
         return res
 
     def get_formview_id(self, cr, uid, id, context=None):
-        """ Return an view id to open the document with.
+        """ Return a view id to open the document with.
 
             :param int id: id of the document to open
         """
@@ -338,11 +338,14 @@ class abstract_ficep_model(orm.AbstractModel):
 # Replace the orm.transfer_node_to_modifiers functions.
 
 original_transfer_node_to_modifiers = orm.transfer_node_to_modifiers
+XP = "//field[not(ancestor::div[(@name='dev') or (@name='chat')])]" \
+     "[not(ancestor::field)]"
 
 
 def transfer_node_to_modifiers(node, modifiers, context=None, in_tree_view=False):
     '''
-    Add conditions on usefull fields (but chatting fields) to make readonly the form if the document is inactive
+    Add conditions on usefull fields (but chatting fields) to make
+    the form readonly if the document is inactive
     '''
     fct_src = original_transfer_node_to_modifiers
     trace = False
@@ -354,22 +357,36 @@ def transfer_node_to_modifiers(node, modifiers, context=None, in_tree_view=False
             # etree.tostring(node)
             pass
         if node.xpath("//field[@name='active'][not(ancestor::field)]"):
-            for nd in node.xpath("//field[not(ancestor::div[(@name='dev') or (@name='chat')])][not(ancestor::field)]"):
+            for nd in node.xpath(XP):
+                if nd.get('readonly', '') == '1':
+                    continue
                 attrs_str = nd.get('attrs') or '{}'
-                after = eval(attrs_str)
-                if after.get('readonly'):
-                    dom = str(after.get('readonly'))[1:-1]
+                attrs = eval(attrs_str)
+                if attrs.get('readonly'):
+                    dom = str(attrs.get('readonly'))
                     if len(dom.split("'active'")) > 1:
                         continue
-                    else:
-                        dom = "['|', ('active', '=', False), %s]" % dom
-                        after['readonly'] = eval(dom)
-                else:
-                    after['readonly'] = [('active', '=', False)]
-                after = str(after)
-                nd.set('attrs', after)
-                if trace:
-                    _logger.info('Field %s - attrs before: %s - after: %s', nd.get('name'), attrs_str, after)
+                nd.set('aroc', '1')
+
+    aroc = node.get('aroc')
+    if aroc:
+        node.attrib.pop('aroc')
+        aroc = not modifiers.get('readonly', False)
+    if aroc:
+        attrs_str = node.get('attrs') or '{}'
+        attrs = eval(attrs_str)
+        if attrs.get('readonly'):
+            dom = str(attrs.get('readonly'))[1:-1]
+            dom = "['|', ('active', '=', False), %s]" % dom
+            attrs['readonly'] = eval(dom)
+        else:
+            attrs['readonly'] = [('active', '=', False)]
+        attrs = str(attrs)
+        node.set('attrs', attrs)
+        if trace:
+            _logger.warning(
+                'Field %s - attrs before: %s - after: %s',
+                node.get('name'), attrs_str, attrs)
 
     return fct_src(node, modifiers, context=context, in_tree_view=in_tree_view)
 

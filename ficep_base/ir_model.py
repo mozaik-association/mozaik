@@ -87,19 +87,16 @@ class ir_model_data(orm.Model):
 
     def get_object_alternative(self, cr, uid, alts):
         """
-        Returns (model, res_id) corresponding to the given (module, xml_id) couple or, if not found,
-        to the alternative given couple
+        Returns first res_id matching a list of xml_id
         """
         alts = alts or ()
 
         for alt in alts:
-            try:
-                return self.get_object_reference(cr, SUPERUSER_ID, alt[0], alt[1])
-            except ValueError:
-                pass
-            except:
-                raise
+            res_id = self.xmlid_to_res_id(cr, SUPERUSER_ID, alt)
+            if res_id:
+                return res_id
 
-        return False, False
+        raise ValueError('External ID not found in the system: %s' % alts)
+        return False
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

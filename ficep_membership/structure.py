@@ -25,6 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+from openerp import tools
 from openerp.osv import orm
 
 
@@ -67,6 +69,28 @@ class sta_assembly(orm.Model):
         res = super(sta_assembly, self).write(
             cr, uid, ids, vals, context=context)
         return res
+
+
+class int_instance(orm.Model):
+
+    _inherit = 'int.instance'
+
+# public methods
+
+    @tools.ormcache(skiparg=2)
+    def get_default(self, cr, uid, context=None):
+        """
+        Returns the default Internal Instance
+        """
+        res = [super(int_instance, self).get_default(cr, uid, context=context)]
+        if res:
+            res = self.search(cr, uid, [('id', 'in', res)], context=context)
+        if not res:
+            res = self.pool['res.users'].read(
+                cr, uid, uid,
+                ['int_instance_m2m_ids'],
+                context=context)['int_instance_m2m_ids']
+        return res and res[0] or False
 
 
 # these 2 classes should be merged into one inherited abstract class of

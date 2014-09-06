@@ -118,7 +118,8 @@ class res_partner(orm.Model):
             id2='int_instance_id', string='Internal Instances'),
 
         'subscription_product_id': fields.many2one(
-            'product.product', string="Subscription", select=True,
+            'product.product', string="Membership Type", select=True,
+            domain="[('membership', '!=', False), ('list_price', '>', 0.0)]",
             track_visibility='onchange'),
         # membership fields: track visibility is done into membership history
         # management
@@ -140,6 +141,9 @@ class res_partner(orm.Model):
     _defaults = {
         'int_instance_id': lambda self, cr, uid, ids, context = None:
             self.pool.get('int.instance').get_default(cr, uid),
+        'subscription_product_id': lambda self, cr, uid, ids, context = None:
+            self.pool['ir.model.data'].get_object_reference(
+                cr, uid, 'ficep_membership', 'membership_product_free')[1],
     }
 
 # orm methods
@@ -193,10 +197,10 @@ class res_partner(orm.Model):
 
     def write(self, cr, uid, ids, vals, context=None):
         """
-        Invalidate rules cache when changing set of instances related to
-        the user
         Create or Delete workflow if necessary (according to the new
         is_company value)
+        Invalidate some caches when changing set of instances related to
+        the user
         """
         ids = isinstance(ids, (long, int)) and [ids] or ids
         if 'is_company' in vals:
@@ -237,6 +241,8 @@ class res_partner(orm.Model):
             for partner in self.browse(cr, uid, ids, context=context):
                 for u in partner.user_ids:
                     rule_obj.clear_cache(cr, u.id)
+            int_obj = self.pool['int.instance']
+            int_obj.get_default.clear_cache(self)
         return res
 
 # view methods: onchange, button
@@ -441,7 +447,7 @@ class res_partner(orm.Model):
                     'membership_id': partner.subscription_product_id and
                     partner.subscription_product_id.id or False,
                     'member_price': partner.subscription_product_id and
-                    partner.subscription_product_id.list_price or False,
+                    partner.subscription_product_id.list_price or 0.0,
                 })
                 membership_line_obj.create(
                     cr, uid, values, context=context)

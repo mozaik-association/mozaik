@@ -28,6 +28,7 @@
 from . import product
 from . import membership_request
 from . import membership
+from . import res_users
 from . import res_partner
 from . import structure
 from . import address_local_zip
