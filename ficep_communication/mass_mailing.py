@@ -25,8 +25,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+import openerp.tools as tools
+from openerp.tools import SUPERUSER_ID
 
 
 class MailMailStats(orm.Model):
@@ -68,12 +71,21 @@ class MassMailingList(orm.Model):
 
     _columns = {
         'int_instance_id': fields.many2one(
-            'int.instance', 'Internal Instance',
+            'int.instance', string='Internal Instance',
             select=True, track_visibility='onchange'),
         'automatic': fields.boolean('Automatic'),
         # visible from portal
         'public': fields.boolean('Public'),
     }
+
+    _defaults = {
+        'int_instance_id': lambda self, cr, uid, ids, context = None:
+            self.pool.get('int.instance').get_default(cr, uid),
+        'automatic': False,
+        'public': False,
+    }
+
+# constraints
 
     _unicity_keys = 'name, int_instance_id'
 
@@ -103,8 +115,9 @@ class MassMailingContact(orm.Model):
             email = partner.email_coordinate_id and \
                 partner.email_coordinate_id.email or False
             if not email:
-                raise orm.except_orm(_('Error'), _('Partner must have an email ' +
-                                             'coordinate'))
+                raise orm.except_orm(
+                    _('Error'),
+                    _('Partner must have an email coordinate'))
             result[mailing.id] = email
         return result
 
@@ -119,12 +132,27 @@ class MassMailingContact(orm.Model):
 
     _columns = {
         'partner_id': fields.many2one(
-            'res.partner', 'Partner', required=True, select=True),
+            'res.partner', string='Partner', required=True, select=True,
+            track_visibility='onchange'),
         'email': fields.function(
             _get_email, type='char', string='email',
-            track_visibility='onchange', store=_email_store_triggers),
+            store=_email_store_triggers),
     }
+
+# constraints
 
     _unicity_keys = 'list_id, partner_id'
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    def _set_default_value_on_column(self, cr, column_name, context=None):
+        '''
+        Force odoo demo data to have a valid partner_id during test
+        '''
+        if tools.config.options['test_enable'] and column_name == 'partner_id':
+            pid = self.pool['res.users'].read(
+                cr, SUPERUSER_ID, SUPERUSER_ID, ['partner_id'])['partner_id']
+            self._defaults['partner_id'] = pid[0]
+        res = super(MassMailingContact, self)._set_default_value_on_column(
+            cr, column_name, context=context)
+        if tools.config.options['test_enable'] and column_name == 'partner_id':
+            self._defaults.pop('partner_id')
+        return res

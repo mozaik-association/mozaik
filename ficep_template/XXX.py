@@ -194,6 +194,11 @@ class xxxx(orm.Model):
         WHERE ...
             )""")
 
+    def _set_default_value_on_column(self, cr, column_name, context=None):
+        res = super(xxxx, self)._set_default_value_on_column(
+            cr, column_name, context=context)
+        return res
+
     def _auto_init(self, cr, context=None):
         res = super(xxxx, self)._auto_init(cr, context=context)
         return res
