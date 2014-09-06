@@ -66,7 +66,7 @@ class membership_membership_line(orm.Model):
             required=True, select=True),
         'membership_state_id': fields.many2one(
             'membership.state', string='State',
-            required=True, select=True),
+            select=True),
         'int_instance_id': fields.many2one(
             'int.instance', string='Internal Instance',
             required=True, select=True),
@@ -75,7 +75,9 @@ class membership_membership_line(orm.Model):
     _defaults = {
         'membership_id': lambda self, cr, uid, ids, context = None:
             self.pool['ir.model.data'].get_object_reference(
-                cr, uid, 'ficep_membership', 'membership_product_free')[1],
+                cr, uid, 'ficep_base', 'membership_product_free')[1],
+        'int_instance_id': lambda self, cr, uid, ids, context = None:
+            self.pool.get('int.instance').get_default(cr, uid),
     }
 
     _order = 'date_from desc, date_to desc, partner'
@@ -90,9 +92,9 @@ class membership_membership_line(orm.Model):
         with abstract ficep indexes mechanism
         '''
         if tools.config.options['test_enable']:
-            cr.execute("DELETE membership_membership_line "
-                       "WHERE membership_state_id IS NULL "
-                       "OR int_instance_id IS NULL")
+            cr.execute("UPDATE membership_membership_line "
+                       "SET active = FALSE "
+                       "WHERE membership_state_id IS NULL")
 
         # create expected index
         super(membership_membership_line, self).init(cr)

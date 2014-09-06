@@ -53,9 +53,9 @@ local zip, default instance otherwise. This field is added to all views
     'images': [
     ],
     'data': [
+        'data/ficep_membership_state_data.xml',
         'security/ficep_membership_security.xml',
         'security/ir.model.access.csv',
-        'data/ficep_membership_state_data.xml',
         'data/ir_config_parameter_data.xml',
         'data/product_data.xml',
         'data/ir_cron_membership.xml',

@@ -416,7 +416,7 @@ class membership_request(orm.Model):
             vals = get_status_values(request_type)
             imd_obj = self.pool['ir.model.data']
             vals['subscription_product_id'] = imd_obj.get_object_reference(
-                    cr, uid, 'ficep_membership', 'membership_product_free')[1]
+                cr, uid, 'ficep_base', 'membership_product_free')[1]
             if vals:
                 with self.protect_v8_cache(pffs):
                     # safe mode is here mandatory
@@ -750,9 +750,9 @@ class membership_request(orm.Model):
                 or []
 
             partner_values.update(get_status_values(mr.request_type))
+            if mr.product_id:
+                partner_values['subscription_product_id'] = mr.product_id.id
             partner_values.update({
-                'subscription_product_id': mr.product_id and mr.product_id.id
-                or False,
                 'competencies_m2m_ids': [[6, False, new_interests_ids]],
                 'interests_m2m_ids': [[6, False, new_competencies_ids]],
             })
