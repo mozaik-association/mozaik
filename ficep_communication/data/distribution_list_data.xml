@@ -19,7 +19,7 @@
         </record>
 
         <record id="dll_del_doc" model="distribution.list.line">
-            <field name="name">Delivery Welcome Document</field>
+            <field name="name">Undelivered First Membership Documents</field>
             <field name="src_model_id" ref='ficep_communication.model_virtual_partner_membership'/>
             <field name="company_id" ref='base.main_company'/>
             <field name="domain" eval="[('del_doc_date','=', False),
@@ -27,7 +27,7 @@
         </record>
 
         <record id="dl_del_doc" model="distribution.list">
-            <field name="name">WELCOMEDOC</field>
+            <field name="name">First Membership Documents to Send</field>
             <field name="company_id" ref='base.main_company'/>
             <field name="to_include_distribution_list_line_ids" eval="[[4,ref('dll_del_doc')]]"/>
         </record>

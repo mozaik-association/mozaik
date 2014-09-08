@@ -157,7 +157,7 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         'retro_instance_id': fields.many2one('int.instance', 'Retrocession Management Instance',
                                        select=True, track_visibility='onchange'),
         'reference': fields.char('Communication', size=64, help="The mandate reference for payments."),
-        'email_date': fields.date('Last email sent')
+        'email_date': fields.date('Last email Sent')
     }
 
     #orm methods

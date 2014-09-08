@@ -70,7 +70,6 @@
                              groups="ficep_base.ficep_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate Distribution List: proceed anyway?" />
-                            <button name="mass_mailing" type="object" string="Mass Mailing" groups="ficep_base.res_groups_developper"/>
                         </div>
                     </header>
                 </xpath>
@@ -111,6 +110,7 @@
                                 <button name="action_revalidate" string="Validate" type="object"
                                         confirm="Revalidate document: proceed anyway?" />
                             </div>
+                            <button name="mass_mailing" type="object" string="Direct Mass Mailing"/>
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>

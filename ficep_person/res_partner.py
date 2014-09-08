@@ -251,7 +251,7 @@ class res_partner(orm.Model):
                 name = "%s (%s)" % (name, partner.acronym)
         else:
             names = [
-                partner.usual_lastname or partner.lastname,
+                partner.usual_lastname or partner.lastname or '',
                 partner.usual_firstname or partner.firstname or False
             ]
             if capitalize_mode:

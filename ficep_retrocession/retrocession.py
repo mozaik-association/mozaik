@@ -560,7 +560,7 @@ class retrocession(orm.Model):
         return cr.fetchall()
 
     _columns = {
-        'unique_id': fields.char('Number of retrocession'),
+        'unique_id': fields.char('Retrocession Number'),
         'state': fields.selection(RETROCESSION_AVAILABLE_STATES, 'State', size=128, required=True, select=True, track_visibility='onchange'),
         'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate', select=True),
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate', select=True),
@@ -594,7 +594,7 @@ class retrocession(orm.Model):
         'default_debit_account': fields.function(_get_defaults_account, string="Default debit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
         'default_credit_account': fields.function(_get_defaults_account, string="Default credit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
         'is_regulation': fields.boolean('Regulation Retrocession ?'),
-        'email_date': fields.date('Last email sent'),
+        'email_date': fields.date('Last email Sent'),
         'email_coordinate_id': fields.function(_get_email_coordinate, string='Email Coordinate',
                                  type='many2one', relation='email.coordinate', store=False),
         'postal_coordinate_id': fields.function(_get_postal_coordinate, string='Postal Coordinate',

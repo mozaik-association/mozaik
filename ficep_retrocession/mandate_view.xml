@@ -39,17 +39,17 @@
                     <page string="Retrocessions" name="retrocession" autofocus="autofocus"
                           attrs="{'invisible': [('type', '=', 'int')]}">
                         <group>
-	                        <field name="retrocession_mode" attrs="{'invisible' : [('type', '=', 'int')]}"/>
-	                        <field name="calculation_method_id" attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
-	                        <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"
-	                               attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
-	                    </group>
-	                    <separator string="Accounting"/>
-	                    <group>
-	                        <field name ="property_retrocession_account"
-	                               attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
-	                        <field name ="property_retrocession_cost_account"
-	                               attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
+                            <field name="retrocession_mode" attrs="{'invisible' : [('type', '=', 'int')]}"/>
+                            <field name="calculation_method_id" attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
+                            <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"
+                                   attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
+                        </group>
+                        <separator string="Accounting"/>
+                        <group>
+                            <field name ="property_retrocession_account"
+                                   attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
+                            <field name ="property_retrocession_cost_account"
+                                   attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
                         </group>
                     </page>
                  </xpath>
@@ -93,7 +93,7 @@
                             <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
                             <field name="retro_instance_id" attrs="{'invisible': [('retrocession_mode', '=', 'none')],
                                                                    'required': [('retrocession_mode', '!=', 'none')]}"/>
-                            <field name="reference" readonly="1" 
+                            <field name="reference" readonly="1"
                                    attrs="{'invisible': ['|', ('reference', '=', False), ('retrocession_mode', '=', 'none')]}"/>
                         </group>
                         <separator string="Imputable Fixed Rules"/>
@@ -105,7 +105,7 @@
                                            'search_default_is_not_deductible': True,
                                            'default_is_deductible': False,
                                            'default_type': 'fixed'}" />
-                        <field name="rule_ids" attrs="{'invisible': [('active', '=', False)]}" 
+                        <field name="rule_ids" attrs="{'invisible': [('active', '=', False)]}"
                                context="{'default_type': 'fixed',
                                          'default_is_deductible': False,
                                          'default_sta_mandate_id': active_id}">
@@ -114,6 +114,7 @@
                                 <field name="type" invisible="1"/>
                                 <field name="percentage"/>
                                 <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
                                 <field name="is_deductible" invisible="1"/>
                             </tree>
                         </field>
@@ -122,6 +123,7 @@
                                 <field name="name"/>
                                 <field name="percentage"/>
                                 <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
                             </tree>
                         </field>
                         <separator string="Deductible Fixed Rules"/>
@@ -133,7 +135,7 @@
                                            'search_default_is_deductible': True,
                                            'default_is_deductible': True,
                                            'default_type': 'fixed'}" />
-                        <field name="deductible_rule_ids" attrs="{'invisible': [('active', '=', False)]}" 
+                        <field name="deductible_rule_ids" attrs="{'invisible': [('active', '=', False)]}"
                                context="{'default_type': 'fixed',
                                          'default_is_deductible': True,
                                          'default_sta_mandate_id': active_id}">
@@ -142,6 +144,7 @@
                                 <field name="type" invisible="1"/>
                                 <field name="percentage"/>
                                 <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
                                 <field name="is_deductible" invisible="1"/>
                             </tree>
                         </field>
@@ -150,6 +153,7 @@
                                 <field name="name"/>
                                 <field name="percentage"/>
                                 <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
                             </tree>
                         </field>
                     </page>
@@ -195,7 +199,7 @@
                            <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
                            <field name="retro_instance_id" attrs="{'invisible': [('retrocession_mode', '=', 'none')],
                                                                   'required': [('retrocession_mode', '!=', 'none')]}"/>
-                           <field name="reference" readonly="1" 
+                           <field name="reference" readonly="1"
                                    attrs="{'invisible': ['|', ('reference', '=', False), ('retrocession_mode', '=', 'none')]}"/>
                         </group>
                         <separator string="Imputable Fixed Rules"/>
@@ -216,6 +220,7 @@
                                 <field name="type" invisible="1"/>
                                 <field name="percentage"/>
                                 <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
                                 <field name="is_deductible" invisible="1"/>
                             </tree>
                         </field>
@@ -224,6 +229,7 @@
                                 <field name="name"/>
                                 <field name="percentage"/>
                                 <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
                             </tree>
                         </field>
                         <separator string="Deductible Fixed Rules"/>
@@ -244,6 +250,7 @@
                                 <field name="type" invisible="1"/>
                                 <field name="percentage"/>
                                 <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
                                 <field name="is_deductible" invisible="1"/>
                             </tree>
                         </field>
@@ -252,6 +259,7 @@
                                 <field name="name"/>
                                 <field name="percentage"/>
                                 <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
                             </tree>
                         </field>
                     </page>

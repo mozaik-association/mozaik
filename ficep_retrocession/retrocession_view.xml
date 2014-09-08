@@ -153,6 +153,7 @@
                            invisible="not context.get('show_calculation_method_id')"/>
                     <field name="name"/>
                     <field name="type"/>
+                    <field name="is_deductible"/>
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
                 </tree>
@@ -521,16 +522,20 @@
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
                         <group name="data">
-                            <field name="sequence"/>
-                            <field name="type"/>
-                            <field name="percentage"/>
-                            <field name="is_deductible"/>
-                            <field name="calculation_method_id" attrs="{'invisible': [('calculation_method_id','=',False), ('id', '!=', False)],
-                                                                        'readonly': [('id', '!=', False)],
-                                                                        'required': [('id', '=', False)]}"/>
-                            <field name="sta_mandate_id" attrs="{'invisible': [('sta_mandate_id','=',False)]}" readonly="1"/>
-                            <field name="ext_mandate_id" attrs="{'invisible': [('ext_mandate_id','=',False)]}" readonly="1"/>
-                            <field name="retrocession_id" attrs="{'invisible': [('retrocession_id','=',False)]}" readonly="1"/>
+                            <group name="data1">
+                                <field name="calculation_method_id" attrs="{'invisible': [('calculation_method_id','=',False), ('id', '!=', False)],
+                                                                            'readonly': [('id', '!=', False)],
+                                                                            'required': [('id', '=', False)]}"/>
+                                <field name="sta_mandate_id" attrs="{'invisible': [('sta_mandate_id','=',False)]}" readonly="1"/>
+                                <field name="ext_mandate_id" attrs="{'invisible': [('ext_mandate_id','=',False)]}" readonly="1"/>
+                                <field name="retrocession_id" attrs="{'invisible': [('retrocession_id','=',False)]}" readonly="1"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group name="data2">
+                                <field name="type"/>
+                                <field name="percentage"/>
+                                <field name="is_deductible"/>
+                            </group>
                         </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <field name="create_date" />
@@ -586,7 +591,7 @@
                     <sheet>
                         <div class="oe_title" name="title1" attrs="{'invisible': ['|', '&amp;', ('id','!=', False),('sta_mandate_id','=', False),
                                                                                   '&amp;', ('id','=', False), ('ext_mandate_id','!=', False)]}">
-                            
+
                             <label for="sta_mandate_id" class="oe_edit_only"/>
                             <h1><field name="sta_mandate_id" on_change="onchange_sta_mandate_id(sta_mandate_id)"
                                    domain="[('retrocession_mode', '!=', 'none')]"
@@ -609,7 +614,7 @@
                                                           'required': [('retrocession_mode','=', 'month')],
                                                           'readonly': [('state','not in', ['draft'])]}"/>
                             <field name="year" required="1" attrs="{'readonly': [('state','not in', ['draft'])]}"/>
-                            <field name="is_regulation" attrs="{'invisible': [('retrocession_mode','!=', 'month')]}"/>                            
+                            <field name="is_regulation" attrs="{'invisible': [('retrocession_mode','!=', 'month')]}"/>
                         </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <field name="create_date" />
@@ -633,7 +638,7 @@
                                         <field name="name"/>
                                         <field name="percentage"/>
                                         <field name="amount"/>
-                                        <field name="amount_subtotal" sum="1"/>                                     
+                                        <field name="amount_subtotal" sum="1"/>
                                         <field name="is_deductible" invisible="1"/>
                                     </tree>
                                 </field>
@@ -643,9 +648,9 @@
                                         <field name="name"/>
                                         <field name="percentage"/>
                                         <field name="amount"/>
-                                        <field name="amount_subtotal" sum="1"/>  
+                                        <field name="amount_subtotal" sum="1"/>
                                     </tree>
-                                </field>                                
+                                </field>
                                 <separator string="Deductible Rules"/>
                                 <button string="All Details" name="%(calculation_rule_detail_action)d"
                                          type="action" attrs="{'invisible': [('id','=',False)]}"
@@ -660,7 +665,7 @@
                                         <field name="name"/>
                                         <field name="percentage"/>
                                         <field name="amount"/>
-                                        <field name="amount_subtotal" sum="1"/>  
+                                        <field name="amount_subtotal" sum="1"/>
                                         <field name="is_deductible" invisible="1"/>
                                     </tree>
                                 </field>
@@ -669,9 +674,9 @@
                                         <field name="name"/>
                                         <field name="percentage"/>
                                         <field name="amount"/>
-                                        <field name="amount_subtotal" sum="1"/>  
+                                        <field name="amount_subtotal" sum="1"/>
                                     </tree>
-                                </field>                                
+                                </field>
                                 <group name="amounts" class="oe_subtotal_footer oe_right">
                                     <div class="oe_subtotal_footer_separator">
                                         <span class="oe_inline">Total:</span>
@@ -682,18 +687,18 @@
                                 </group>
                                 <div class="oe_clear"/>
                             </page>
-                            <page string="Accounting" name="accounting">  
+                            <page string="Accounting" name="accounting">
                                     <separator string="Amounts"/>
                                     <group>
-	                                    <field name="provision" attrs="{'invisible': ['|', ('retrocession_mode','=', 'month'),
-	                                                                                  ('need_account_management', '=', False)]}"/>
-	                                    <field name="amount_due"/>
-	                                    <field name="amount_reconcilied"  attrs="{'invisible': [('need_account_management', '=', False)]}"/>
-	                                    <field name="amount_paid" attrs="{'readonly': [('need_account_management', '=', True)]}"/>
-	                                </group>
+                                        <field name="provision" attrs="{'invisible': ['|', ('retrocession_mode','=', 'month'),
+                                                                                      ('need_account_management', '=', False)]}"/>
+                                        <field name="amount_due"/>
+                                        <field name="amount_reconcilied"  attrs="{'invisible': [('need_account_management', '=', False)]}"/>
+                                        <field name="amount_paid" attrs="{'readonly': [('need_account_management', '=', True)]}"/>
+                                    </group>
                                     <separator string="Journal Entry" attrs="{'invisible': [('move_id', '=', False)]}"/>
                                     <group>
-                                        <field name="move_id" attrs="{'invisible': [('move_id', '=', False)]}"/>
+                                        <field name="move_id" readonly="1"/>
                                     </group>
                             </page>
                         </notebook>

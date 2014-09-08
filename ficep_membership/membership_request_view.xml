@@ -10,6 +10,12 @@
             <field name="model">membership.request</field>
             <field name="arch" type="xml">
                 <search string="Membership Requests" version="7.0">
+                    <field name="partner_id" />
+                    <field name="int_instance_id" />
+                    <field name="address_id" />
+                    <field name="mobile_id" domain="[('type','=','mobile')]"/>
+                    <field name="phone_id" domain="[('type','=','fix')]"/>
+
                     <filter name="state_draft" string="Draft"
                         domain="[('state', '=', 'draft')]" />
                     <filter name="state_confirmed" string="Confirmed"

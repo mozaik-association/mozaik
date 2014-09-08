@@ -131,7 +131,7 @@ class sta_selection_committee(orm.Model):
                                 start=self.pool.get('res.lang').format_date(
                                         cr,
                                         uid,
-                                        committee.legislature_id.start_date,
+                                        committee.mandate_start_date,
                                         context) or False,
                                 name=committee.name,)
             res.append((committee['id'], display_name))
