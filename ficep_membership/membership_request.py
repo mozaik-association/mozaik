@@ -80,6 +80,14 @@ class membership_request(orm.Model):
     _inherit = ['abstract.ficep.model']
     _description = 'Membership Request'
 
+    def _act_membership_state(
+            self, cr, uid, membership_code, partner_id, context=None):
+        '''
+        Method to be overriding case of special behavior during a specific
+        membership status
+        '''
+        return
+
     def _pop_related(self, cr, uid, vals, context=None):
         vals.pop('local_zip', None)
         vals.pop('country_code', None)
@@ -716,6 +724,7 @@ class membership_request(orm.Model):
         content
         In Other cases then create missing required data
         """
+        mr_vals = {}
         partner_obj = self.pool['res.partner']
         for mr in self.browse(cr, uid, ids, context=context):
             self._check_product_consistency(cr, uid, mr.request_type,
@@ -729,7 +738,9 @@ class membership_request(orm.Model):
             }
             result_id = mr.result_type_id and mr.result_type_id.id or False
 
+            is_act = False
             if mr.membership_state_id.id != result_id:
+                is_act = True
                 partner_values['int_instance_id'] = mr.int_instance_id.id
 
             partner_id = False
@@ -738,7 +749,13 @@ class membership_request(orm.Model):
             else:
                 partner_id = partner_obj.create(cr, uid, partner_values,
                                                 context=context)
+                mr_vals['partner_id'] = partner_id
                 partner_values = {}
+
+            if is_act:
+                self._act_membership_state(
+                    cr, uid, mr.membership_state_id.code, partner_id,
+                    context=context)
 
             partner = partner_obj.browse(
                 cr, uid, [partner_id], context=context)[0]
@@ -782,25 +799,28 @@ class membership_request(orm.Model):
                 }
                 address_id = self.pool['address.address'].create(
                     cr, uid, address_values, context=context)
+                mr_vals['address_id'] = address_id
             if address_id:
                 self.pool['postal.coordinate'].change_main_coordinate(
                     cr, uid, [partner_id], address_id, context=context)
 
             # case of phone number
-            self.change_main_phone(cr, uid, partner_id, mr.phone_id and
-                                   mr.phone_id.id or False, mr.phone, 'fix',
-                                   context=context)
-            self.change_main_phone(cr, uid, partner_id, mr.mobile_id and
-                                   mr.mobile_id.id or False, mr.mobile,
-                                   'mobile', context=context)
+            mr_vals['phone_id'] = self.change_main_phone(
+                cr, uid, partner_id, mr.phone_id and mr.phone_id.id or False,
+                mr.phone, 'fix', context=context)
+            mr_vals['mobile_id'] = self.change_main_phone(
+                cr, uid, partner_id, mr.mobile_id and mr.mobile_id.id or False,
+                mr.mobile, 'mobile', context=context)
 
             # case of email
             if mr.email:
                 self.pool['email.coordinate'].change_main_coordinate(
                     cr, uid, [partner_id], mr.email, context=context)
+        # if request `validate` then object should be invalidate
+        mr_vals.update({'state': 'validate'})
         # superuser_id because of record rules
         self.action_invalidate(cr, SUPERUSER_ID, ids, context=context,
-                               vals={'state': 'validate'})
+                               vals=mr_vals)
         return True
 
     def cancel_request(self, cr, uid, ids, context=None):
@@ -818,6 +838,8 @@ class membership_request(orm.Model):
         if phone_id:
             self.pool['phone.coordinate'].change_main_coordinate(
                 cr, uid, [partner_id], phone_id, context=context)
+
+        return phone_id
 
     def get_int_instance_id(
             self, cr, uid, address_local_zip_id, context=None):
