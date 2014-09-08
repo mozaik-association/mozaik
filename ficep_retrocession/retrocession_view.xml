@@ -688,18 +688,18 @@
                                 <div class="oe_clear"/>
                             </page>
                             <page string="Accounting" name="accounting">
-                                    <separator string="Amounts"/>
-                                    <group>
-                                        <field name="provision" attrs="{'invisible': ['|', ('retrocession_mode','=', 'month'),
-                                                                                      ('need_account_management', '=', False)]}"/>
-                                        <field name="amount_due"/>
-                                        <field name="amount_reconcilied"  attrs="{'invisible': [('need_account_management', '=', False)]}"/>
-                                        <field name="amount_paid" attrs="{'readonly': [('need_account_management', '=', True)]}"/>
-                                    </group>
-                                    <separator string="Journal Entry" attrs="{'invisible': [('move_id', '=', False)]}"/>
-                                    <group>
-                                        <field name="move_id" readonly="1"/>
-                                    </group>
+                                <separator string="Amounts"/>
+                                <group>
+                                    <field name="provision" attrs="{'invisible': ['|', ('retrocession_mode','=', 'month'),
+                                                                                  ('need_account_management', '=', False)]}"/>
+                                    <field name="amount_due"/>
+                                    <field name="amount_reconcilied"  attrs="{'invisible': [('need_account_management', '=', False)]}"/>
+                                    <field name="amount_paid" attrs="{'readonly': [('need_account_management', '=', True)]}"/>
+                                </group>
+                                <separator string="Journal Entry" attrs="{'invisible': [('move_id', '=', False)]}"/>
+                                <group>
+                                    <field name="move_id" readonly="1" attrs="{'invisible': [('move_id', '=', False)]}"/>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>

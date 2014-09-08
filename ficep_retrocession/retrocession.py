@@ -601,6 +601,8 @@ class retrocession(orm.Model):
                                  type='many2one', relation='postal.coordinate', store=False),
     }
 
+    _rec_name = 'mandate_ref'
+
     _order = 'year desc, month desc, sta_mandate_id, ext_mandate_id'
 
     _defaults = {
