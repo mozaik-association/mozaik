@@ -42,53 +42,37 @@ class res_partner(orm.Model):
     # ready for workflow !
     _enable_wkf = True
 
-    def _get_instance_id(self, cr, uid, ids, name, args, context=None):
-        """
-        ================
-        _get_instance_id
-        ================
-        Replicate reference int_instance_id on partner
-        :param ids: partner ids for which int_instance_id have to be recomputed
-        :type name: char
-        :rparam: dictionary for all partner id with int_instance_id
-        :rtype: dict {partner_id: int_instance_id, ...}
-        Note:
-        Calling and result convention: Single mode
-        """
-        context = context or {}
-        result = {i: False for i in ids}
-
-        def_int_instance_id = self.pool.get('int.instance').get_default(
-            cr, uid)
-        for partner in self.browse(cr, uid, ids, context=context):
-            result[partner.id] = partner.int_instance_id.id or \
-                def_int_instance_id
-
-        if not context.get('keep_current_instance'):
-            coord_obj = self.pool['postal.coordinate']
-            coordinate_ids = coord_obj.search(cr, SUPERUSER_ID,
-                                              [('partner_id', 'in', ids),
-                                               ('is_main', '=', True),
-                                               ('active', '<=', True)],
-                                              context=context)
-            for coord in coord_obj.browse(cr, uid, coordinate_ids,
-                                          context=context):
-                if coord.active == coord.partner_id.active:
-                    if coord.address_id.address_local_zip_id:
-                        result[coord.partner_id.id] = coord.address_id.\
-                            address_local_zip_id.int_instance_id.id
-                    else:
-                        result[coord.partner_id.id] = def_int_instance_id
-        return result
-
-    def _accept_anyway(self, cr, uid, ids, name, value, args, context=None):
+    def _update_follower(self, cr, uid, partner_ids, context=None):
         '''
-        Accept the modification of the internal instance
-        Do not make a self.write here, it will indefinitely loop on itself...
+        Update follower for each partner_ids
         '''
-        cr.execute('update %s set %s = %%s where id = %s'
-                   % (self._table, name, ids), (value or None,))
-        return True
+        e_obj = self.pool['email.coordinate']
+        pc_obj = self.pool['postal.coordinate']
+        p_obj = self.pool['res.partner']
+        ia_obj = self.pool['int.assembly']
+        for partner_id in partner_ids:
+            int_instance_id = self.read(
+                cr, uid, partner_id, ['int_instance_id'],
+                context=context)['int_instance_id'][0]
+            f_partner_ids = ia_obj.get_followers_assemblies(
+                cr, uid, int_instance_id, context=context)
+            # update even if f_partner_ids is void case to reset
+            write_vals = {
+                'message_follower_ids': [(6, 0, f_partner_ids)],
+            }
+            p_obj.write(
+                cr, uid, partner_id, write_vals, context=context)
+
+            e_ids = e_obj.search(
+                cr, uid, [('partner_id', '=', partner_id),
+                          ('is_main', '=', True)], context=context)
+            if e_ids:
+                e_obj.write(cr, uid, e_ids, write_vals, context=context)
+            pc_ids = pc_obj.search(
+                cr, uid, [('partner_id', '=', partner_id),
+                          ('is_main', '=', True)], context=context)
+            if pc_ids:
+                pc_obj.write(cr, uid, pc_ids, write_vals, context=context)
 
     def _generate_membership_reference(self, cr, uid, partner_id,
                                        context=None):
@@ -107,29 +91,10 @@ class res_partner(orm.Model):
         return '+++%s/%s/%s+++' % (comm_struct[:3], comm_struct[3:7],
                                    comm_struct[7:])
 
-    _instance_store_triggers = {
-        'postal.coordinate': (lambda self, cr, uid, ids, context=None:
-                              self.pool['postal.coordinate'].
-                              get_linked_partners(cr, uid, ids,
-                                                  context=context),
-                              ['partner_id', 'address_id', 'is_main',
-                                  'active'], 10),
-        'address.address': (lambda self, cr, uid, ids, context=None:
-                            self.pool['address.address'].
-                            get_linked_partners(cr, uid, ids, context=context),
-                            ['address_local_zip_id'], 10),
-        'address.local.zip': (lambda self, cr, uid, ids, context=None:
-                              self.pool['address.local.zip'].
-                              get_linked_partners(cr, uid, ids,
-                                                  context=context),
-                              ['int_instance_id'], 10),
-    }
-
     _columns = {
-        'int_instance_id': fields.function(
-            _get_instance_id, string='Internal Instance', type='many2one',
-            relation='int.instance', select=True,
-            store=_instance_store_triggers, fnct_inv=_accept_anyway),
+        'int_instance_id': fields.many2one(
+            'int.instance', 'Internal Instance', select=True,
+            track_visibility='onchange'),
         'int_instance_m2m_ids': fields.many2many(
             'int.instance', 'res_partner_int_instance_rel', id1='partner_id',
             id2='int_instance_id', string='Internal Instances'),
@@ -188,29 +153,13 @@ class res_partner(orm.Model):
             cr, uid, pids, context=context)
         return res
 
-    def step_workflow(self, cr, uid, ids, context=None):
+    def create(self, cr, uid, vals, context=None):
         '''
-        If partner instance is different than its active membership line
-        then call `update_membership_line` to keep consistency between both
+        If partner has an identifier then update its followers
         '''
-        res = super(res_partner, self).step_workflow(
-            cr, uid, ids, context=context)
-        partner_ids = []
-        for partner in self.browse(cr, uid, ids, context=context):
-            if partner.membership_state_id and partner.member_lines:
-                member_line = False
-                for ml in partner.member_lines:
-                    if ml.active:
-                        member_line = ml
-                        break
-                current_instance = member_line and \
-                    member_line.int_instance_id.id or False
-                if current_instance != partner.int_instance_id.id:
-                    partner_ids.append(partner.id)
-        if partner_ids:
-            self.update_membership_line(
-                cr, uid, partner_ids, context=context)
-
+        res = super(res_partner, self).create(cr, uid, vals, context=context)
+        if vals.get('identifier', False):
+            self._update_follower(cr, uid, [res], context=context)
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -250,7 +199,6 @@ class res_partner(orm.Model):
 
             if is_company:
                 vals['membership_state_id'] = None
-
         res = super(res_partner, self).write(
             cr, uid, ids, vals, context=context)
 
@@ -447,11 +395,12 @@ class res_partner(orm.Model):
                 partner.int_instance_id.id or False,
             values['reference'] = partner.reference
             current_membership_line_ids = membership_line_obj.search(
-                cr, uid,
-                [('partner', '=', partner.id), ('active', '=', True)],
+                cr, uid, [('partner', '=', partner.id),
+                          ('active', '=', True)],
                 context=context)
             current_membership_line_id = current_membership_line_ids and \
                 current_membership_line_ids[0] or False
+
             if current_membership_line_id:
                 # update and copy it
                 vals = {

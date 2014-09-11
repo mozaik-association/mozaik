@@ -74,6 +74,7 @@
         <record id="int_power_level_04" model="int.power.level">
             <field name="name">Régional</field>
             <field name="sequence">2</field>
+            <field name="level_for_followers">1</field>
         </record>
 
         <record id="int_power_level_05" model="int.power.level">

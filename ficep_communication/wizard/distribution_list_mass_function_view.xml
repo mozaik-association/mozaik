@@ -74,7 +74,7 @@
                                             attrs="{'invisible': ['|', '|',
                                                ('trg_model', '!=', 'postal.coordinate'),
                                                ('postal_mail_name', '=', False),
-                                               ('distribution_list_id', '!=', %(ficep_communication.dl_del_doc)d)]}" />
+                                               ('distribution_list_id', '!=', %(ficep_communication.dl_del_doc_member)d)]}" />
                                     </group>
                                 </group>
                             </page>

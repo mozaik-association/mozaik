@@ -18,18 +18,32 @@
             <field name="to_include_distribution_list_line_ids" eval="[[4,ref('dll_del_mem_card')]]"/>
         </record>
 
-        <record id="dll_del_doc" model="distribution.list.line">
-            <field name="name">Undelivered First Membership Documents</field>
+        <record id="dll_del_doc_member" model="distribution.list.line">
+            <field name="name">Undelivered First Membership Documents (Members)</field>
             <field name="src_model_id" ref='ficep_communication.model_virtual_partner_membership'/>
             <field name="company_id" ref='base.main_company'/>
             <field name="domain" eval="[('del_doc_date','=', False),
-                                        ('membership_state_id.code','!=', 'member_candidate')]"/>
+                                        ('membership_state_id.code','=', 'member_candidate')]"/>
         </record>
 
-        <record id="dl_del_doc" model="distribution.list">
-            <field name="name">First Membership Documents to Send</field>
+        <record id="dl_del_doc_member" model="distribution.list">
+            <field name="name">First Membership Documents to Send (Members)</field>
             <field name="company_id" ref='base.main_company'/>
-            <field name="to_include_distribution_list_line_ids" eval="[[4,ref('dll_del_doc')]]"/>
+            <field name="to_include_distribution_list_line_ids" eval="[[4,ref('dll_del_doc_member')]]"/>
+        </record>
+
+        <record id="dll_del_doc_supporter" model="distribution.list.line">
+            <field name="name">Undelivered First Membership Documents (Supporters)</field>
+            <field name="src_model_id" ref='ficep_communication.model_virtual_partner_membership'/>
+            <field name="company_id" ref='base.main_company'/>
+            <field name="domain" eval="[('del_doc_date','=', False),
+                                        ('membership_state_id.code','=', 'supporter')]"/>
+        </record>
+
+        <record id="dl_del_doc_supporter" model="distribution.list">
+            <field name="name">First Membership Documents to Send (Supporters)</field>
+            <field name="company_id" ref='base.main_company'/>
+            <field name="to_include_distribution_list_line_ids" eval="[[4,ref('dll_del_doc_supporter')]]"/>
         </record>
 
     </data>

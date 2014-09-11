@@ -85,6 +85,28 @@ class MassMailingList(orm.Model):
         'public': False,
     }
 
+    def generate_recipents(self, cr, uid, partner_id, context=None):
+        '''
+        generate a recipient for partner `partner_id` case where
+        its `int_instance_id` is child of an `auto` newsletter
+        '''
+        partner_value = self.pool['res.partner'].read(
+            cr, uid, partner_id, ['int_instance_id'], context=context)
+        partner_instance_id = partner_value['int_instance_id']
+        news_ids = self.search(cr, uid, [('auto', '=', True)], context=context)
+        for newsletter in self.browse(cr, uid, news_ids, context=context):
+            available_instance_ids = self.pool['int.instance'].search(
+                cr, uid, [('id', 'child_of', newsletter.int_instance_id.id)],
+                context=context)
+            if partner_instance_id in available_instance_ids:
+                vals = {
+                    'partner_id': partner_id,
+                    'list_id': newsletter.id,
+                }
+                self.pool['mail.mass_mailing.contact'].create(
+                    cr, uid, vals, context=context)
+        return
+
 # constraints
 
     _unicity_keys = 'name, int_instance_id'
@@ -102,8 +124,6 @@ class MassMailingContact(orm.Model):
             be recomputed
         :rparam: dictionary for all mailing contact id with email
         :rtype: dict {integer: char, ...}
-        :exception: `partner_id` of the `mail.mass_mailing.contact` has no
-            email coordinate
         :Note:
         Calling and result convention: Single mode
         """
@@ -114,10 +134,6 @@ class MassMailingContact(orm.Model):
             partner = mailing.partner_id
             email = partner.email_coordinate_id and \
                 partner.email_coordinate_id.email or False
-            if not email:
-                raise orm.except_orm(
-                    _('Error'),
-                    _('Partner must have an email coordinate'))
             result[mailing.id] = email
         return result
 
@@ -141,7 +157,7 @@ class MassMailingContact(orm.Model):
 
 # constraints
 
-    _unicity_keys = 'list_id, partner_id'
+#    _unicity_keys = 'list_id, partner_id'
 
     def _set_default_value_on_column(self, cr, column_name, context=None):
         '''

@@ -616,6 +616,9 @@
                                 context="{'search_default_power_level_id': active_id,
                                           'default_power_level_id': active_id}" />
                 </xpath>
+                <xpath expr="//group[@name='Data']" postion="after">
+                    <field name="level_for_followers"/>
+                </xpath>
                 <xpath expr="//field[@name='assembly_category_ids']" position="attributes">
                     <attribute name="context">{'default_power_level_id': active_id}</attribute>
                 </xpath>

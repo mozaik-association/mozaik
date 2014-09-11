@@ -63,6 +63,11 @@ class int_power_level(orm.Model):
                                                 'Internal Assembly Categories',
                                                 domain=[('active', '=', False)]
                                                 ),
+        'level_for_followers': fields.boolean('Level For Followers'),
+    }
+
+    _defaults = {
+        'level_for_followers': False,
     }
 
 # public methods
@@ -291,3 +296,31 @@ class int_assembly(orm.Model):
             _logger.warning('No secretariat found for internal assembly %s',
                             assembly_id)
             return False
+
+    def get_followers_assemblies(self, cr, uid, int_instance_id, context=None):
+        '''
+        Return followers (partner) for all secretariat assemblies
+        '''
+        int_instance_rec = self.pool['int.instance'].browse(
+            cr, uid, int_instance_id, context=context)
+        int_instance_ids = []
+
+        while int_instance_rec:
+            int_instance_ids.append(int_instance_rec.id)
+            int_instance_rec = int_instance_rec.parent_id
+
+        level_for_followers_ids = self.pool['int.power.level'].search(
+            cr, uid, [('level_for_followers', '=', True)], context=None)
+        secretariat_categ_ids = self.pool['int.assembly.category'].search(
+            cr, uid, [('is_secretariat', '=', True),
+                      ('power_level_id', 'in', level_for_followers_ids)],
+            context=context)
+        followers_assemblies_values = self.search_read(
+            cr, uid, [('int_instance_id', 'in', int_instance_ids),
+                      ('assembly_category_id', 'in', secretariat_categ_ids)],
+            ['partner_id'], context=context)
+        partner_ids = []
+        for followers_assemblies in followers_assemblies_values:
+            partner_ids.append(followers_assemblies['partner_id'][0])
+
+        return partner_ids

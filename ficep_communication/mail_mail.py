@@ -25,6 +25,20 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm
 
-from . import change_main_address
-from . import force_int_instance
+
+class MailMail(orm.Model):
+
+    _inherit = 'mail.mail'
+
+    def _get_unsubscribe_url(self, cr, uid, mail, email_to, msg=None,
+                             context=None):
+        '''
+        `unsubscribe` link for `email.coordinate` is useless
+        '''
+        if mail.model == 'email.coordinate':
+            return False
+        else:
+            return super(MailMail, self)._get_unsubscribe_url(
+                cr, uid, mail, email_to, msg=None, context=None)

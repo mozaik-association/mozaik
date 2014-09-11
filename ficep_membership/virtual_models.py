@@ -78,7 +78,6 @@ class virtual_master_partner(orm.Model):
         cr.execute("""
         create or replace view virtual_master_partner as (
         SELECT
-            concat(pc.id, '/' , e.id) as id,
             p.id as partner_id,
             p.membership_state_id as membership_state_id,
             p.display_name as display_name,
@@ -161,7 +160,9 @@ class virtual_custom_partner(orm.Model):
         super(virtual_custom_partner, self).init(cr)
         cr.execute("""
         create or replace view virtual_custom_partner as (
-        SELECT *
+        SELECT
+            partner_id as id,
+            *
         FROM
             virtual_master_partner
 

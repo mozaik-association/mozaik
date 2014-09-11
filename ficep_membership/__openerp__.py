@@ -66,6 +66,7 @@ local zip, default instance otherwise. This field is added to all views
         'address_local_zip_view.xml',
         'res_partner_view.xml',
         'wizard/change_main_address.xml',
+        'wizard/force_int_instance.xml',
         'report/waiting_member_report_view.xml',
     ],
     'sequence': 150,

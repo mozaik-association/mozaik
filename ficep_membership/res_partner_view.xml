@@ -53,7 +53,8 @@
                 <xpath expr="//field[@name='postal_coordinate_id']"
                     position="after">
                     <field name="int_instance_id"
-                        attrs="{'readonly': [('is_assembly','=',True)]}" />
+                        attrs="{'readonly': ['|', ('is_assembly','=',True),
+                                            ('id','!=', False)]}" />
                 </xpath>
 
             </field>

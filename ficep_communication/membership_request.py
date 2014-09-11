@@ -25,6 +25,20 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm
 
-from . import change_main_address
-from . import force_int_instance
+
+class membership_request(orm.Model):
+
+    _inherit = 'membership.request'
+
+    def _act_membership_state(
+            self, cr, uid, membership_code, partner_id, context=None):
+        '''
+        If without membership
+        :type membership_code: char
+        :param membership_code: status code of a `membership.state`
+        '''
+        if membership_code == 'without_membership':
+            self.pool['mail.mass_mailing.list'].generate_recipents(
+                cr, uid, partner_id, context=context)

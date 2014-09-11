@@ -25,9 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from datetime import date
-
+from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 import openerp.tools as tools
 

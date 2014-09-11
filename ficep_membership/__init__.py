@@ -35,3 +35,4 @@ from . import address_local_zip
 from . import wizard
 from . import virtual_models
 from . import report
+from . import address_address

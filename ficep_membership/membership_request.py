@@ -409,7 +409,7 @@ class membership_request(orm.Model):
             f for f in self.pool.pure_function_fields
             if f.model_name != self._name
         ]
-
+        status_id = False
         name = 'preview-%s' % uuid1().hex
         cr.execute('SAVEPOINT "%s"' % name)
         try:
@@ -466,24 +466,36 @@ class membership_request(orm.Model):
         partner_domains = []
 
         if birth_date and email:
-            partner_domains.append("[('is_company', '=', False),('birth_date',\
-            '=', '%s'),('email', '=', '%s')]" % (birth_date, email))
+            partner_domains.append(
+                "[('membership_state_id', '!=', False),"
+                "('is_company', '=', False),('birth_date'"
+                ",'=', '%s'),('email', '=', '%s')]" % (birth_date, email))
         if birth_date and email and firstname and lastname:
-            partner_domains.append("[('is_company', '=', False),('birth_date',\
-            '=', '%s'),('email', '=', '%s'),('firstname', 'ilike', '%s'),\
-            ('lastname', 'ilike', '%s')]" % (birth_date, email, firstname,
-                                             lastname))
+            partner_domains.append(
+                "[('membership_state_id', '!=', False),"
+                "('is_company', '=', False),"
+                "('birth_date','=', '%s'),"
+                "('email', '=', '%s'),"
+                "('firstname', 'ilike', '%s'),"
+                "('lastname', 'ilike', '%s')]"
+                % (birth_date, email, firstname, lastname))
         if email:
-            partner_domains.append("[('is_company', '=', False),('email', '=',\
-                '%s')]" % (email))
+            partner_domains.append(
+                "[('membership_state_id', '!=', False),"
+                "('is_company', '=', False),"
+                "('email', '=','%s')]" % (email))
         if lastname:
             if firstname:
-                partner_domains.append("[('is_company', '=', False),\
-                ('firstname', 'ilike', '%s'),('lastname', 'ilike',\
-                '%s')]" % (firstname, lastname))
+                partner_domains.append(
+                    "[('membership_state_id','!=',False),"
+                    "('is_company', '=', False),"
+                    "('firstname', 'ilike', '%s'),"
+                    "('lastname', 'ilike', '%s')]" % (firstname, lastname))
             else:
-                partner_domains.append("[('is_company', '=', False),\
-                ('lastname', 'ilike', '%s')]" % (lastname))
+                partner_domains.append(
+                    "[('membership_state_id', '!=', False),"
+                    "('is_company', '=', False),"
+                    "('lastname', 'ilike', '%s')]" % (lastname))
 
         partner_id = False
         virtual_partner_id = self.persist_search(cr, uid, partner_obj,
@@ -508,10 +520,6 @@ class membership_request(orm.Model):
             self.pool['address.local.zip'].browse(cr, uid,
                                                   [address_local_zip_id],
                                                   context=context)[0].local_zip
-
-#         if not country_id:
-#             country_id = self.pool.get('res.country')._country_default_get(
-#                 cr, uid, COUNTRY_CODE, context=context)
         values = OrderedDict([
             ('country_id', country_id),
             ('address_local_zip', address_local_zip),

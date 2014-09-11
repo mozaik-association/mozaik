@@ -135,6 +135,10 @@
                     <filter name="all" string="All"
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All newsletters, expired or not" />
+                    <filter name="auto" string="Automatic"
+                            domain="[('automatic', '=', True)]"/>
+                    <filter name="public" string="Public"
+                            domain="[('public', '=', True)]"/>
                     <group expand="0" string="Group By">
                         <filter string="Instance" name="group_int_instance" context="{'group_by': 'int_instance_id'}"/>
                     </group>
@@ -180,6 +184,8 @@
                 <xpath expr="//div[@class='oe_title']" position="after">
                     <group name="int_instance">
                         <field name="int_instance_id" />
+                        <field name="automatic"/>
+                        <field name="public"/>
                     </group>
                     <group name="state" attrs="{'invisible': [('id','=',False)]}">
                         <group name="validity">

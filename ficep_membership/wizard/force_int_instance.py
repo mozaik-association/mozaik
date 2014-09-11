@@ -26,5 +26,40 @@
 #
 ##############################################################################
 
-from . import change_main_address
-from . import force_int_instance
+from openerp.osv import orm, fields
+
+
+class force_int_instance(orm.TransientModel):
+
+    _name = 'force.int.instance'
+    _description = 'Force Internal Instance'
+
+    _columns = {
+        'int_instance_id': fields.many2one('int.instance',
+                                           'Internal Instance', select=True),
+        'partner_id': fields.many2one('res.partner',
+                                      'Partner', select=True),
+    }
+    _defaults = {
+        'partner_id': lambda self, cr, uid, context:
+            context.get('active_id', False)
+    }
+
+    def force_int_instance_action(self, cr, uid, ids, context=None):
+        '''
+        update partner internal instance
+        '''
+        for wiz in self.browse(cr, uid, ids, context=context):
+            if wiz.int_instance_id.id != wiz.partner_id.int_instance_id.id:
+                vals = {
+                    'int_instance_id': wiz.int_instance_id.id
+                }
+                wiz.partner_id.write(vals)
+                partner_id = wiz.partner_id.id
+                partner_obj = self.pool['res.partner']
+                partner_obj._update_follower(
+                    cr, uid, [partner_id], context=context)
+                partner_obj.update_membership_line(
+                    cr, uid, [partner_id], context=context)
+
+        return True
