@@ -70,9 +70,9 @@ class distribution_list_mass_function(orm.TransientModel):
             'email.template', string='Email Template', ondelete='cascade'),
         'mass_mailing_name': fields.char('Mass Mailing'),
         'extract_csv': fields.boolean('Complementary Postal CSV',
-                                      help="Get a CSV file with all partners who have no email coordinate"),
+                                      help="Get a CSV file for partners without email"),
 
-        'postal_mail_name': fields.char('Postal Mail'),
+        'postal_mail_name': fields.char('Postal Mailing Name'),
 
         'sort_by': fields.selection(SORT_BY, 'Sort by'),
 
