@@ -56,17 +56,19 @@ class change_main_address(orm.TransientModel):
                                                            context=context)
         context = context or {}
 
-        ids = context.get('active_id') and [context.get('active_id')] or \
-            context.get('active_ids') or []
-        if ids:
+        ids = context.get('active_ids') or context.get('active_id') and \
+            [context.get('active_id')] or []
+
+        res['keeping_mode'] = 1
+        res['keep_instance'] = False
+
+        if len(ids) == 1:
+            res['keeping_mode'] = 1
             for partner in self.pool['res.partner'].browse(cr, uid, ids,
                                                            context=context):
                 if partner.int_instance_id:
                     res['keep_instance'] = partner.is_company
                     res['old_int_instance_id'] = partner.int_instance_id.id
-                else:
-                    res['keep_instance'] = False
-                break
             res['keeping_mode'] = 3
 
         return res
@@ -78,7 +80,9 @@ class change_main_address(orm.TransientModel):
         res = {}
         new_int_instance_id = False
         keeping_mode = 3
-        if address_id:
+        if not old_int_instance_id:
+            keeping_mode = 1
+        elif address_id:
             adr = self.pool['address.address'].browse(cr, uid, address_id,
                                                       context=context)
             if adr.address_local_zip_id:
@@ -87,8 +91,8 @@ class change_main_address(orm.TransientModel):
             else:
                 new_int_instance_id = self.pool['int.instance'].\
                     get_default(cr, uid, context=None)
-            keeping_mode = not old_int_instance_id and 1 or \
-                old_int_instance_id != new_int_instance_id and 2 or 3
+            if old_int_instance_id != new_int_instance_id:
+                keeping_mode = 2
         res.update({'new_int_instance_id': new_int_instance_id,
                     'keeping_mode': keeping_mode})
         return {'value': res}
