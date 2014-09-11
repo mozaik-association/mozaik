@@ -36,8 +36,8 @@ fast_suite = [
 
 checks = [
     test_partner,
-#     test_product,
-#     test_structure,
-#     test_membership,
-#     test_waiting_member_report
+    test_product,
+    test_structure,
+    test_membership,
+    test_waiting_member_report
 ]
