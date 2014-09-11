@@ -44,7 +44,7 @@ class distribution_list(orm.Model):
 
     _columns = {
         'name': fields.char(string='Name', required=True, track_visibility='onchange'),
-        'res_users_ids': fields.many2many('res.users', 'dist_list_res_users_rel', id1='dist_list_id', id2='res_users_id', string='Users',
+        'res_users_ids': fields.many2many('res.users', 'dist_list_res_users_rel', id1='dist_list_id', id2='res_users_id', string='Owners',
                                           required=True, select=True),
         'int_instance_id': fields.many2one('int.instance', 'Internal Instance', required=True, select=True, track_visibility='onchange'),
     }

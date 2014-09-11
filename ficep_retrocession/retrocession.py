@@ -705,6 +705,8 @@ class retrocession(orm.Model):
             vals['mandate_ref'] = "sta.mandate, %s" % vals.get('sta_mandate_id')
         else:
             vals['mandate_ref'] = "ext.mandate, %s" % vals.get('ext_mandate_id')
+        if vals.get('month', '') != '12':
+            vals['is_regulation'] = False
         res = super(retrocession, self).create(cr, uid, vals, context=context)
         if res:
             retro = self.browse(cr, uid, res, context=context)

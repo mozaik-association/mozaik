@@ -206,7 +206,7 @@
             <field name="model">sta.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_tree_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='partner_id']" position="after">
+                <xpath expr="//field[@name='mandate_category_id']" position="after">
                     <field name="sta_assembly_id"/>
                     <field name="legislature_id"/>
                 </xpath>
@@ -223,7 +223,7 @@
             <field name="model">int.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_tree_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='partner_id']" position="after">
+                <xpath expr="//field[@name='mandate_category_id']" position="after">
                     <field name="int_assembly_id"/>
                 </xpath>
                 <xpath expr="//field[@name='expire_date']" position="before">
@@ -237,7 +237,7 @@
             <field name="model">ext.mandate</field>
             <field name="inherit_id" ref="abstract_mandate_tree_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='partner_id']" position="after">
+                <xpath expr="//field[@name='mandate_category_id']" position="after">
                     <field name="ext_assembly_id"/>
                 </xpath>
                 <xpath expr="//field[@name='expire_date']" position="before">

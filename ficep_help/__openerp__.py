@@ -44,8 +44,8 @@ FICEP Documentation
     'images': [
     ],
     'data': [
-        'data/help_data.xml',
         'data/help_auto_backup.xml',  # must always be the first
+        'data/help_data.xml',
         'help_view.xml',
         'wizard/export_help_wizard_view.xml',
         'ir_ui_view_view.xml',

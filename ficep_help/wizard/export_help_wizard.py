@@ -57,6 +57,54 @@ class export_help_wizard(orm.TransientModel):
         for view_data in view_data_list:
             parser = ET.XMLParser(remove_blank_text=True)
             root = ET.XML(view_data['arch'], parser=parser)
+            i_img = 0
+            img_model = 'ir.attachment'
+            for img_elem in root.iter('img'):
+                if img_model in img_elem.get('src'):
+                    i_img += 1
+                    img_src = img_elem.get('src')
+                    id_pos = img_src.index('id=') + 3
+                    attach_id = img_elem.get('src')[id_pos:]
+                    img_ids = self.pool.get(img_model).search(cr,
+                                                              uid,
+                                                              [('id', '=',
+                                                                attach_id)],
+                                                              context=context)
+                    if len(img_ids) == 0:
+                        continue
+                    image = self.pool.get(img_model).browse(cr,
+                                                            uid,
+                                                            int(attach_id),
+                                                            context=context)
+                    img_node = ET.SubElement(data_node, 'record')
+                    xml_id = view_data['name'] \
+                             + "_img_" + str(i_img).rjust(2, '0')
+                    id_pos = img_src.index('id=')
+                    attach_id = img_elem.get('src')[id_pos:]
+                    img_elem.attrib['src'] = img_src.replace(attach_id,
+                                                             "id=" + xml_id)
+                    img_node.attrib['id'] = xml_id
+                    img_node.attrib['model'] = img_model
+                    field_node = ET.SubElement(img_node, 'field')
+                    field_node.attrib['name'] = "datas"
+                    field_node.text = str(image.datas)
+                    field_node = ET.SubElement(img_node, 'field')
+                    field_node.attrib['name'] = "index_content"
+                    field_node.text = image.index_content
+                    field_node = ET.SubElement(img_node, 'field')
+                    field_node.attrib['name'] = "datas_fname"
+                    field_node.text = image.datas_fname
+                    field_node = ET.SubElement(img_node, 'field')
+                    field_node.attrib['name'] = "name"
+                    field_node.text = image.name
+                    field_node = ET.SubElement(img_node, 'field')
+                    field_node.attrib['name'] = "res_model"
+                    field_node.text = image.res_model
+                    field_node = ET.SubElement(img_node, 'field')
+                    field_node.attrib['name'] = "mimetype"
+                    field_node.text = image.mimetype
+                    data_node.append(img_node)
+
             root.tag = 'template'
             template_id = root.attrib.pop('t-name')
             root.attrib['name'] = view_data['name']

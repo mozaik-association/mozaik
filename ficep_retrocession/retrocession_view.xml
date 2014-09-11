@@ -611,10 +611,10 @@
                         <group name="data">
                             <field name="unique_id" readonly="1" attrs="{'invisible': [('unique_id', '=', False)]}"/>
                             <field name="month" attrs="{'invisible': [('retrocession_mode','!=', 'month')],
-                                                          'required': [('retrocession_mode','=', 'month')],
-                                                          'readonly': [('state','not in', ['draft'])]}"/>
+                                                        'required': [('retrocession_mode','=', 'month')],
+                                                        'readonly': [('state','not in', ['draft'])]}"/>
                             <field name="year" required="1" attrs="{'readonly': [('state','not in', ['draft'])]}"/>
-                            <field name="is_regulation" attrs="{'invisible': [('retrocession_mode','!=', 'month')]}"/>
+                            <field name="is_regulation" attrs="{'invisible': ['|',('retrocession_mode','!=', 'month'),('month','!=', '12')]}"/>
                         </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <field name="create_date" />

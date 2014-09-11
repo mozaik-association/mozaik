@@ -236,6 +236,7 @@
                                         widget="many2many_tags" />
                                 </group>
                                 <div class="oe_clear">
+                                    <!-- Some blank lines to see the entire elapsed many2many_tags widget -->
                                     <br />
                                     <br />
                                 </div>

@@ -46,9 +46,9 @@
             <field name="arch" type="xml">
                 <tree string="Mandates" version="7.0" colors="red:is_duplicate_detected==True">
                     <field name="partner_id"/>
+                    <field name="mandate_category_id"/>
                     <field name="start_date"/>
                     <field name="deadline_date"/>
-                    <field name="mandate_category_id"/>
                     <field name="is_duplicate_detected" invisible ="1"/>
                     <field name="is_duplicate_allowed" invisible ="1"/>
                     <button name="button_undo_allow_duplicate" string="Undo Allow Incompatible Mandate" type="object"
@@ -79,17 +79,17 @@
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Candidatures, expired or not" />
                     <separator/>
-                    <filter name="declared" string="Declared"                            
+                    <filter name="declared" string="Declared"
                             domain="[('state','=', 'declared')]" help="Declared Candidatures" />
-                    <filter name="rejected" string="Rejected"                            
+                    <filter name="rejected" string="Rejected"
                             domain="[('state','=', 'rejected')]" help="Reclared Candidatures" />
-                    <filter name="suggested" string="Suggested"                            
+                    <filter name="suggested" string="Suggested"
                             domain="[('state','=', 'suggested')]" help="Suggested Candidatures" />
-                    <filter name="designated" string="Designated"                            
+                    <filter name="designated" string="Designated"
                             domain="[('state','=', 'designated')]" help="Designated Candidatures"/>
-                    <filter name="elected" string="Elected"                            
+                    <filter name="elected" string="Elected"
                             domain="[('state','=', 'elected')]" help="Elected Candidatures"/>
-                    <filter name="non-elected" string="Non-elected"                            
+                    <filter name="non-elected" string="Non-elected"
                             domain="[('state','=', 'non-elected')]" help="Non-elected Candidatures"/>
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="committee" string="Selection Committee" domain="[]" context="{'group_by':'selection_committee_id'}" />
@@ -188,10 +188,10 @@
             <field name="arch" type="xml">
                 <tree create="0" delete="0" string="Incompatible Mandates" version="7.0" colors="red:is_duplicate_detected==True">
                     <field name="partner_id"/>
+                    <field name="mandate_category_id"/>
                     <field name="assembly_name"/>
                     <field name="start_date"/>
                     <field name="deadline_date"/>
-                    <field name="mandate_category_id"/>
                     <field name="is_duplicate_detected" invisible="1"/>
                     <button name="button_view_mandate" type="object" string="View" icon="gtk-file"/>
                 </tree>

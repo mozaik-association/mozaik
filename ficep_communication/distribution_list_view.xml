@@ -89,11 +89,15 @@
                 <!-- Add user tree into distribution list form -->
                 <xpath expr="//div[@name='to_exclude']" position="after">
                     <notebook>
-                        <page name="owners" string="Owners" autofocus="autofocus">
+                        <page name="security" string="Security" autofocus="autofocus">
                             <group name="validity">
                                 <field name="int_instance_id" />
+                                <field name="res_users_ids" widget="many2many_tags" create="0"/>
                             </group>
-                            <field name="res_users_ids" widget="many2many_tags" create="0"/>
+                            <div class="oe_clear">
+                                <br />
+                                <br />
+                            </div>
                         </page>
                     </notebook>
                 </xpath>

@@ -74,6 +74,13 @@
             ]"/>
         </record>
 
+        <record id="res_partner_paul" model="res.partner">
+            <field name="employee" eval="1"/>
+            <field name="int_instance_m2m_ids" eval="[
+                (4, ref('ficep_structure.int_instance_01')),
+            ]"/>
+        </record>
+
         <!--
             Create user: one for each partner
         -->
