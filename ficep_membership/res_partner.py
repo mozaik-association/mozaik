@@ -42,10 +42,12 @@ class res_partner(orm.Model):
     # ready for workflow !
     _enable_wkf = True
 
-    def _update_follower(self, cr, uid, partner_ids, context=None):
+    def _update_follower(
+            self, cr, uid, partner_ids, context=None):
         '''
         Update follower for each partner_ids
         '''
+        res_vals = {}
         e_obj = self.pool['email.coordinate']
         pc_obj = self.pool['postal.coordinate']
         p_obj = self.pool['res.partner']
@@ -60,19 +62,25 @@ class res_partner(orm.Model):
             write_vals = {
                 'message_follower_ids': [(6, 0, f_partner_ids)],
             }
+            res_vals[partner_id] = write_vals
             p_obj.write(
                 cr, uid, partner_id, write_vals, context=context)
 
+            # partner are at least follower of their own coordinate
+            f_partner_ids.append(partner_id)
             e_ids = e_obj.search(
                 cr, uid, [('partner_id', '=', partner_id),
                           ('is_main', '=', True)], context=context)
             if e_ids:
                 e_obj.write(cr, uid, e_ids, write_vals, context=context)
+
             pc_ids = pc_obj.search(
                 cr, uid, [('partner_id', '=', partner_id),
                           ('is_main', '=', True)], context=context)
             if pc_ids:
                 pc_obj.write(cr, uid, pc_ids, write_vals, context=context)
+
+        return res_vals
 
     def _generate_membership_reference(self, cr, uid, partner_id,
                                        context=None):
@@ -159,7 +167,7 @@ class res_partner(orm.Model):
         '''
         res = super(res_partner, self).create(cr, uid, vals, context=context)
         if vals.get('identifier', False):
-            self._update_follower(cr, uid, [res], context=context)
+            self._update_follower(cr, SUPERUSER_ID, [res], context=context)
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -389,38 +397,41 @@ class res_partner(orm.Model):
             'date_to': False,
         }
         membership_line_obj = self.pool['membership.membership_line']
+        membership_state_obj = self.pool['membership.state']
         for partner in self.browse(cr, uid, ids, context=context):
             values['membership_state_id'] = partner.membership_state_id.id
-            values['int_instance_id'] = partner.int_instance_id and \
-                partner.int_instance_id.id or False,
-            values['reference'] = partner.reference
-            current_membership_line_ids = membership_line_obj.search(
-                cr, uid, [('partner', '=', partner.id),
-                          ('active', '=', True)],
-                context=context)
-            current_membership_line_id = current_membership_line_ids and \
-                current_membership_line_ids[0] or False
-
-            if current_membership_line_id:
-                # update and copy it
-                vals = {
-                    'date_to': today,
-                }
-                membership_line_obj.action_invalidate(
-                    cr, uid, [current_membership_line_id],
-                    context=context, vals=vals)
-                membership_line_obj.copy(
-                    cr, uid, current_membership_line_id, default=values,
+            if values['membership_state_id'] != \
+                    membership_state_obj._state_default_get(cr, uid):
+                values['int_instance_id'] = partner.int_instance_id and \
+                    partner.int_instance_id.id or False,
+                values['reference'] = partner.reference
+                current_membership_line_ids = membership_line_obj.search(
+                    cr, uid, [('partner', '=', partner.id),
+                              ('active', '=', True)],
                     context=context)
-            else:
-                # create first membership_line
-                values.update({
-                    'partner': partner.id,
-                    'date': today,
-                    'membership_id': partner.subscription_product_id and
-                    partner.subscription_product_id.id or False,
-                    'member_price': partner.subscription_product_id and
-                    partner.subscription_product_id.list_price or 0.0,
-                })
-                membership_line_obj.create(
-                    cr, uid, values, context=context)
+                current_membership_line_id = current_membership_line_ids and \
+                    current_membership_line_ids[0] or False
+
+                if current_membership_line_id:
+                    # update and copy it
+                    vals = {
+                        'date_to': today,
+                    }
+                    membership_line_obj.action_invalidate(
+                        cr, uid, [current_membership_line_id],
+                        context=context, vals=vals)
+                    membership_line_obj.copy(
+                        cr, uid, current_membership_line_id, default=values,
+                        context=context)
+                else:
+                    # create first membership_line
+                    values.update({
+                        'partner': partner.id,
+                        'date': today,
+                        'membership_id': partner.subscription_product_id and
+                        partner.subscription_product_id.id or False,
+                        'member_price': partner.subscription_product_id and
+                        partner.subscription_product_id.list_price or 0.0,
+                    })
+                    membership_line_obj.create(
+                        cr, uid, values, context=context)

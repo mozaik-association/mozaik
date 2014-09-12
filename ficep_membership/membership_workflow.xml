@@ -259,7 +259,7 @@
         <record id="membership_trans_member_member_button" model="workflow.transition">
             <field name="act_from" ref="partner_act_member" />
             <field name="act_to" ref="partner_act_member" />
-            <field name="signal">paid_simulated</field>
+            <field name="signal">paid</field>
             <field name="condition">True</field>
         </record>
 
@@ -267,7 +267,7 @@
         <record id="membership_trans_supp_osupp_button" model="workflow.transition">
             <field name="act_from" ref="partner_act_supporter" />
             <field name="act_to" ref="partner_act_member_committee" />
-            <field name="signal">paid_simulated</field>
+            <field name="signal">paid</field>
             <field name="condition">True</field>
         </record>
 
@@ -275,7 +275,7 @@
         <record id="membership_trans_cm_fcm_button" model="workflow.transition">
             <field name="act_from" ref="partner_act_member_candidate" />
             <field name="act_to" ref="partner_act_member_committee" />
-            <field name="signal">paid_simulated</field>
+            <field name="signal">paid</field>
             <field name="condition">True</field>
         </record>
 
@@ -283,7 +283,7 @@
         <record id="membership_trans_om_m_button" model="workflow.transition">
             <field name="act_from" ref="partner_act_former_member" />
             <field name="act_to" ref="partner_act_former_member_committee" />
-            <field name="signal">paid_simulated</field>
+            <field name="signal">paid</field>
             <field name="condition">True</field>
         </record>
 

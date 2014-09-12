@@ -25,8 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from openerp.osv import orm, fields
+from openerp.tools import SUPERUSER_ID
 
 
 class force_int_instance(orm.TransientModel):
@@ -58,7 +58,7 @@ class force_int_instance(orm.TransientModel):
                 partner_id = wiz.partner_id.id
                 partner_obj = self.pool['res.partner']
                 partner_obj._update_follower(
-                    cr, uid, [partner_id], context=context)
+                    cr, SUPERUSER_ID, [partner_id], context=context)
                 partner_obj.update_membership_line(
                     cr, uid, [partner_id], context=context)
 

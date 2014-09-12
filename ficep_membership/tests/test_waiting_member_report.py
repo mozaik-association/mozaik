@@ -90,7 +90,7 @@ class test_membership(SharedSetupTransactionCase):
         cr, uid, context = self.cr, self.uid, {'hide_nb_days_warning': True}
         msr_ids = [self.member_request.id]
         self.msr.validate_request(cr, uid, msr_ids, context=context)
-        self.pauline.signal_workflow('paid_simulated')
+        self.pauline.signal_workflow('paid')
         icp_ids = self.icp.search(
             cr, uid, [('key', '=', 'nb_days')], context=context)
         self.assertTrue(icp_ids, 'Should have a parameter nb_days.')

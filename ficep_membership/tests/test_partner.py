@@ -128,7 +128,7 @@ class test_partner(SharedSetupTransactionCase):
                           'member_candidate', 'Should be "member_candidate"')
 
         # member_candidate -> member_committee
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'member_committee',
                           'Should be "member_committee"')
@@ -164,7 +164,7 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
         partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code, 'member',
@@ -178,7 +178,7 @@ class test_partner(SharedSetupTransactionCase):
                           'Should be "former_member"')
 
         # former_member -> former_member_committee
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code,
                           'former_member_committee',
@@ -195,7 +195,7 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
         partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
 
@@ -210,7 +210,7 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
         partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
 
@@ -225,7 +225,7 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
         partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
 
@@ -237,7 +237,7 @@ class test_partner(SharedSetupTransactionCase):
                           'former_member', 'Should be "former member"')
 
         # former_member -> former_member_committee
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code,
                           'former_member_committee',
@@ -251,7 +251,7 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner()
         partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
                        'free_member': False})
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid_simulated')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
         partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
         partner = self.get_partner(partner.id)
 
@@ -436,9 +436,10 @@ class test_partner(SharedSetupTransactionCase):
                              'Date From should be: today')
         partner.write({'accepted_date': today})
         partner = partner_obj.browse(cr, uid, partner.id, context=context)
-        self.assertTrue(len(partner.member_lines) >= 2, "Sould have two \
-            member lines: one for the previous first call and another for the \
-            current update of status")
+        self.assertTrue(len(partner.member_lines) >= 1, "Sould have one "
+                        "member lines: previous first call "
+                        "(without_membership) should not create lines "
+                        "and another for the current update of status")
         one_current = False
         for membership_line in partner.member_lines:
             if membership_line.active:

@@ -322,7 +322,14 @@ class postal_coordinate(orm.Model):
 
     _track = {
         'bounce_counter': {
-            'ficep_address.address_failure_notification': lambda self, cr, uid, obj, ctx=None: obj.bounce_counter,
+            'ficep_address.address_failure_notification':
+                lambda self, cr, uid, obj, ctx=None: obj.bounce_counter,
+        },
+        'is_main': {
+            'ficep_address.main_address_move_notification':
+                lambda self, cr, uid, obj, ctx=None: obj.is_main,
+            'ficep_address.old_address_move_notification':
+                lambda self, cr, uid, obj, ctx=None: not obj.is_main,
         },
     }
 
@@ -356,33 +363,6 @@ class postal_coordinate(orm.Model):
         res = super(postal_coordinate, self).get_fields_to_update(cr, uid, mode, context=context)
         if mode in ['duplicate', 'reset']:
             res.update({'co_residency_id': False})
-        return res
-
-    def create(self, cr, uid, vals, context=None):
-        '''
-        If vals contains `is_main` as `True` value then launch workflow for
-        the partner of the created coordinate
-        '''
-        res = super(postal_coordinate, self).create(cr, uid, vals,
-                                                    context=context)
-        if vals.get('is_main', False):
-            self.pool['res.partner'].step_workflow(
-                cr, uid, [vals['partner_id']], context=context)
-        return res
-
-    def write(self, cr, uid, ids, vals, context=None):
-        '''
-        If vals contains `is_main` as `True` value then launch workflow for
-        all the partner of `coordinate_ids`
-        '''
-        res = super(postal_coordinate, self).write(cr, uid, ids, vals,
-                                                   context=context)
-        if vals.get('is_main', False):
-            partner_ids = []
-            for coordinate in self.browse(cr, uid, ids, context=context):
-                partner_ids.append(coordinate.partner_id.id)
-            self.pool['res.partner'].step_workflow(
-                cr, uid, partner_ids, context=context)
         return res
 
 
