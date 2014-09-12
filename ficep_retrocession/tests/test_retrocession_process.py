@@ -219,13 +219,7 @@ class test_retrocession_with_accounting(object):
         '''
             Reconcile statement
         '''
-        ret = self.registry('account.bank.statement.line').get_reconciliation_proposition(self.cr, self.uid, line)
-        vals = {'counterpart_move_line_id': ret[0]['id'],
-                'debit': ret[0]['credit'],
-                'credit': ret[0]['debit'],
-                }
-        self.registry('account.bank.statement.line').process_reconciliation(self.cr, self.uid, line_id, [vals])
-
+        self.registry('account.bank.statement').auto_reconcile(self.cr, self.uid, b_statement_id)
         data = retro_pool.read(self.cr, self.uid, self.retro.id, ['amount_reconcilied', 'state'])
         self.assertEqual(data['amount_reconcilied'], 1.20)
         self.assertEqual(data['state'], 'done')

@@ -23,6 +23,10 @@
             <field name="name">Student or Pensioner</field>
             <field name="list_price" eval="20.0" />
         </record>
+        <record id="membership_product_first" model="product.product">
+            <field name="name">First Membership</field>
+            <field name="list_price" eval="25.0" />
+        </record>
 
     </data>
 
@@ -48,6 +52,10 @@
             <field name="membership" eval="1" />
             <field name="type">service</field>
         </record>
-
+        <record id="membership_product_first" model="product.product">
+            <field name="categ_id" ref="membership_product_category" />
+            <field name="membership" eval="1" />
+            <field name="type">service</field>
+        </record>
     </data>
 </openerp>

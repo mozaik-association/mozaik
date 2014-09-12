@@ -36,3 +36,4 @@ from . import wizard
 from . import virtual_models
 from . import report
 from . import address_address
+from . import account

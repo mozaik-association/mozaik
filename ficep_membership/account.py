@@ -25,44 +25,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Chart of account',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Localization/Account Charts',
-    'depends': [
-        'ficep_retrocession',
-        'ficep_membership',
-    ],
-    'description': """
-l10n FICEP
-==========
-This is the base module to manage the generic accounting chart for Ficep
-    """,
-    'images': [
-    ],
-    'data': [
-        'data/account_ficep.xml',
-        'data/account_chart_template.xml',
-        'data/account_installer.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'license': 'AGPL-3',
-    'installable': True,
-    'auto_install': False,
-    'application': False,
-}
+from openerp.osv import orm, fields
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class account_chart_template(orm.Model):
+    _inherit = "account.chart.template"
+
+    _columns = {
+        'property_subscription_account':
+                                fields.many2one('account.account.template',
+                                                'Subscription Account'),
+    }

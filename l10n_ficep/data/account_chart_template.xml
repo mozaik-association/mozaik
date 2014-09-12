@@ -13,7 +13,7 @@
             <field name="property_account_payable" ref="a440"/>
             <field name="property_retrocession_account" ref="a7492"/>
             <field name="property_retrocession_cost_account" ref="a6504"/>
-        </record>
-
+            <field name="property_subscription_account" ref="a7493"/>
+        </record>     
   </data>
 </openerp>

@@ -25,4 +25,5 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from . import account_bank_statement
 from . import wizard_multi_charts_accounts

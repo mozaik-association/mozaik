@@ -25,7 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
+from openerp.osv import orm, fields
 
 
 class product_template(orm.Model):
@@ -42,6 +42,13 @@ class product_template(orm.Model):
         return self.pool['ir.model.data'].\
             get_object_reference(cr, uid, 'ficep_membership',
                                  'membership_product_isolated')[1]
+
+    _columns = {
+        'property_subscription_account': fields.property(
+                                                type='many2one',
+                                                relation='account.account',
+                                                string='Subscription Account',)
+    }
 
 # orm methods
 

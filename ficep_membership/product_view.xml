@@ -44,6 +44,12 @@
                 <xpath expr="//field[@name='default_code']" position="attributes">
                     <attribute name="attrs">{'invisible': [('membership', '=', True)]}</attribute>
                 </xpath>
+                
+                <xpath expr="//group[@name='properties']" position="inside">
+                    <group>
+                        <field name="property_subscription_account" domain="[('type','=','other')]" groups="account.group_account_user"/>
+                    </group>
+                </xpath>
 
                 <!-- Procurement -->
                 <xpath expr="//page[descendant::field[@name='standard_price']]" position="attributes">

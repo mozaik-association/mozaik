@@ -90,7 +90,7 @@ class export_help_wizard(orm.TransientModel):
                     field_node.text = str(image.datas)
                     field_node = ET.SubElement(img_node, 'field')
                     field_node.attrib['name'] = "index_content"
-                    field_node.text = image.index_content
+                    field_node.text = str(image.index_content)
                     field_node = ET.SubElement(img_node, 'field')
                     field_node.attrib['name'] = "datas_fname"
                     field_node.text = image.datas_fname
