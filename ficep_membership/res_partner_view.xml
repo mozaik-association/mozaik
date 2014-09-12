@@ -132,7 +132,7 @@
                             attrs="{'invisible': [('membership_state_code', '!=', 'member_committee'),
                                 ('membership_state_code', '!=', 'former_member_committee')]}" />
 
-                        <button name="paid_simulated" string="Paid Simulate"
+                        <button name="paid" string="Paid"
                             groups="ficep_base.res_groups_developper"
                             attrs="{'invisible': [('membership_state_code', '!=', 'member_candidate'),
                                 ('membership_state_code', '!=', 'member'),

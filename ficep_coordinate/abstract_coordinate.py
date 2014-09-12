@@ -49,6 +49,28 @@ class abstract_coordinate(orm.AbstractModel):
     _inherit = ['abstract.duplicate']
     _description = 'Abstract Coordinate'
 
+    def _validate_vals(self, cr, uid, vals, context=None):
+        """
+        if no coordinate for this partner then force is_main to true
+        """
+        domain_other_active_main = self.get_target_domain(
+            vals['partner_id'], vals['coordinate_type'])
+        coordinate_ids = self.search(
+            cr, uid, domain_other_active_main, context=context)
+        if not coordinate_ids:
+            vals['is_main'] = True
+        return
+
+    def _update_magic_numbers(self, cr, uid, magic, new_ids, context=None):
+        ids = []
+        if magic:
+            if magic[0][0] == 4:
+                ids = [magic[0][1]]
+            elif magic[0][0] == 6:
+                ids = magic[0][2]
+        ids += new_ids
+        return [(6, 0, ids)]
+
     _discriminant_field = None
 
 # fields
@@ -173,9 +195,7 @@ class abstract_coordinate(orm.AbstractModel):
         context = context or {}
         vals['coordinate_type'] = vals.get('coordinate_type') or COORDINATE_AVAILABLE_TYPES[0][0]
         domain_other_active_main = self.get_target_domain(vals['partner_id'], vals['coordinate_type'])
-        coordinate_ids = self.search(cr, uid, domain_other_active_main, context=context)
-        if not coordinate_ids:
-            vals['is_main'] = True
+        self._validate_vals(cr, uid, vals, context=context)
         if vals.get('is_main'):
             mode = context.get('invalidate') and 'deactivate' or 'secondary'
             validate_fields = self.get_fields_to_update(cr, uid, mode, context)
@@ -183,11 +203,15 @@ class abstract_coordinate(orm.AbstractModel):
             self.search_and_update(cr, uid, domain_other_active_main, validate_fields, context=context)
         if self._track.get('bounce_counter'):
             # automatically add the partner as follower of its coordinate
+            partner_id = vals['partner_id']
+            message_follower_ids = self._update_magic_numbers(
+                cr, uid, vals.get('message_follower_ids'), [partner_id],
+                context=context)
             vals.update({
-                'message_follower_ids': [(6, 0, [vals['partner_id']])],
+                'message_follower_ids': message_follower_ids,
             })
         new_id = super(abstract_coordinate, self).create(cr, uid, vals, context=context)
-        if vals.get('message_follower_ids'):
+        if self._track.get('bounce_counter'):
             # do not chat with the coordinate owner
             fol_obj = self.pool['mail.followers']
             fol_ids = fol_obj.search(cr, SUPERUSER_ID, [

@@ -52,7 +52,7 @@ class virtual_target(orm.Model):
         cr.execute("""
         create or replace view virtual_target as (
         SELECT *,
-            concat(postal_coordinate_id ,'/', email_coordinate_id,'/') as id
+            concat(postal_coordinate_id ,'/', email_coordinate_id) as id
         FROM
             virtual_master_partner
 
