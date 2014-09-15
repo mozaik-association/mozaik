@@ -241,7 +241,6 @@
                         <td style="text-align: left;">
                           Cliquez sur la petite croix à droite de la pièce à supprimer
                           <br/>
-                          <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=31" style=""/>
                         </td>
                         <td style="text-align: left;">​La pièce jointe concernée est supprimée. Il n'y a pas de possibilité de la récupérer sinon de l'ajouter à nouveau.</td>
                       </tr>
@@ -385,7 +384,6 @@
                           <td style="text-align: left;">
                             L'écran suivant est proposé:
                             <br/>
-                            <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=59" style=""/>
                           </td>
                         </tr>
                         <tr>
@@ -585,7 +583,6 @@
                         <td style="text-align: left;">
                           L'écran suivant est proposé:
                           <br/>
-                          <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=40" style=""/>
                         </td>
                       </tr>
                       <tr>
@@ -640,7 +637,6 @@
                     </div>
                     <div>
                       <em style="line-height: 1.42857143; background-color: transparent;">
-                        <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=48" style=""/>
                       </em>
                     </div>
                     <div>
@@ -673,22 +669,6 @@
                       </em>
                     </div>
                   </div>
-                  
-
-
-                  <div style="text-align: left;">
-                    <em style="line-height: 1.42857143; background-color: transparent;">
-                      <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=38"/>
-                    </em>
-                  </div>
-                  
-
-
-                  <div style="text-align: left;">
-                    <em style="line-height: 1.42857143; background-color: transparent;"/>
-                  </div>
-                  
-
 
                   <div>
                     <p style="text-align: left;">
@@ -835,7 +815,6 @@
                           <td style="text-align: left;">
                             L'écran suivant est proposé:
                             <br/>
-                            <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=45" style=""/>
                           </td>
                         </tr>
                         <tr>
@@ -884,11 +863,6 @@
                              . Une date d'expiration sera rajoutée aux détails de l'objet: 
                           </em>
                         </div>
-                      </div>
-                      <div>
-                        <em style="line-height: 1.42857143; background-color: transparent;">
-                          <img class="img-thumbnail" src="http://10.7.20.237:8069/website/image?field=datas&amp;model=ir.attachment&amp;id=38"/>
-                        </em>
                       </div>
                     </div>
                     <div>
@@ -1027,7 +1001,6 @@
                           <td style="text-align: left;">
                             L'écran suivant est proposé:
                             <br/>
-                            <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=46" style=""/>
                           </td>
                         </tr>
                         <tr>
@@ -1093,11 +1066,6 @@
                                   ). Une date d'expiration sera rajoutée aux détails de l'objet: 
                               </em>
                             </div>
-                          </div>
-                          <div>
-                            <em style="line-height: 1.42857143; background-color: transparent;">
-                              <img class="img-thumbnail" src="http://10.7.20.237:8069/website/image?field=datas&amp;model=ir.attachment&amp;id=38"/>
-                            </em>
                           </div>
                         </div>
                         <div style="text-align: center;">
@@ -1432,7 +1400,6 @@
                   </div>
                   <p>Champ obligatoire non rempli: Si l'un des champs obligatoire n'est pas rempli, voici le message affiché: </p>
                   <p>
-                    <img src="/website/image?field=datas&amp;model=ir.attachment&amp;id=26"/>
                     <br/>
                     
 Les champs listés sont des variables et s'adaptent en fonction.
@@ -1476,11 +1443,6 @@ Les champs listés sont des variables et s'adaptent en fonction.
                       <strong/>
                     </p>
                     <p>A partir de n'importe quelle liste déroulante, vous pouvez créer une nouvelle valeur qui ne vous serait pas proposée. </p>
-                    <p>
-                      <span style="font-size: 14px; line-height: 1.42857143;">
-                        <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=68" style=""/>
-                      </span>
-                    </p>
                     <p>
                       <span style="font-size: 14px; line-height: 1.42857143;">Soyez vigilants lors de cette création. La gestion complète de ces valeurs (création, mise à jour, suppression) est octroyée à des ayant des privilèges avancés, ce qui ne serait pas forcément votre cas.</span>
                     </p>
@@ -1751,9 +1713,6 @@ Les champs listés sont des variables et s'adaptent en fonction.
                         <strong/>
                       </div>
                       <p>Si une valeur ne peut être dupliquée, voici le message affiché: </p>
-                      <p>
-                        <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=27" style=""/>
-                      </p>
                       <p>
                         <span style="line-height: 1.42857143;">
                           <span style="background-color:#FFFF00;">?Explications à ajouter?</span>
@@ -2117,7 +2076,6 @@ Les champs listés sont des variables et s'adaptent en fonction.
                                   <td style="text-align: left;">
                                     L'écran suivant est proposé:
                                     <br/>
-                                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=52"/>
                                   </td>
                                 </tr>
                                 <tr>
@@ -2153,32 +2111,10 @@ Les champs listés sont des variables et s'adaptent en fonction.
                                 <strong>Exceptions</strong>
                                 <strong/>
                               </div>
-                              <div style="text-align: left;">
-                                <strong/>
-                              </div>
                               <p style="text-align: left;">L'exécution de cette opération requiert une sélection d'objet à exporter. Le message suivant sera affiché si une sélection manque:</p>
-                              <p style="text-align: left;">
-                                <span style="background-color: rgb(255, 255, 0);">
-                                  <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=56" style=""/>
-                                </span>
-                              </p>
-                              <p style="text-align: left;">
-                                <em style="line-height: 1.42857143; background-color: transparent;"/>
-                              </p>
                             </div>
-                            <div>
-                              <em style="line-height: 1.42857143; background-color: transparent;"/>
-                            </div>
-                            <div>
-                              <em style="line-height: 1.42857143; background-color: transparent;"/>
-                            </div>
-                            <div/>
                             <div style="text-align: left;">
-                              <span style="color: rgb(119, 119, 119); line-height: 1.42857143;"/>
-                              <div/>
                               <div>
-                                <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                                 
                                 <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span>
                               </div>
                             </div>
@@ -2290,7 +2226,6 @@ Les champs listés sont des variables et s'adaptent en fonction.
                                 <td style="text-align: left;">
                                   L'écran suivant est proposé:
                                   <br/>
-                                  <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=50"/>
                                 </td>
                               </tr>
                               <tr>
@@ -2337,25 +2272,7 @@ Les champs listés sont des variables et s'adaptent en fonction.
                               <span style="background-color: rgb(255, 255, 0);"/>
                             </p>
                             <p style="text-align: left;">L'exécution de cette opération requiert une sélection d'objet à exporter. Le message suivant sera affiché si une sélection manque:</p>
-                            <p style="text-align: left;">
-                              <span style="background-color: rgb(255, 255, 0);">
-                                <img class="img-thumbnail" src="http://10.7.20.237:8069/website/image?field=datas&amp;model=ir.attachment&amp;id=56"/>
-                              </span>
-                            </p>
-                            <p style="text-align: left;">
-                              <span style="background-color: rgb(255, 255, 0);"/>
-                            </p>
-                            <p style="text-align: left;">
-                              <em style="line-height: 1.42857143; background-color: transparent;"/>
-                            </p>
                           </div>
-                          <div>
-                            <em style="line-height: 1.42857143; background-color: transparent;"/>
-                          </div>
-                          <div>
-                            <em style="line-height: 1.42857143; background-color: transparent;"/>
-                          </div>
-                          <div/>
                           <div style="text-align: left;">
                             <span style="color: rgb(119, 119, 119); line-height: 1.42857143;"/>
                             <div/>
@@ -2610,14 +2527,6 @@ Les champs listés sont des variables et s'adaptent en fonction.
                   </em>
                 </div>
                 <div>
-                  <em style="line-height: 1.42857143; background-color: transparent;">
-                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=38" style=""/>
-                  </em>
-                </div>
-                <div>
-                  <em style="line-height: 1.42857143; background-color: transparent;"/>
-                </div>
-                <div>
                   <em style="line-height: 1.42857143; background-color: transparent;"/>
                   <div>
                     <strong>
@@ -2798,10 +2707,7 @@ Les champs listés sont des variables et s'adaptent en fonction.
                           <td style="text-align: left;">
                             Un message de confirmation s'ouvre:
                             <br/>
-                            <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=54" style=""/>
                             <br/>
-                            
-			 
                           </td>
                         </tr>
                         <tr>
@@ -2948,9 +2854,6 @@ Les champs listés sont des variables et s'adaptent en fonction.
                       <li style="text-align: left;">En vue liste, les doublons apparaissent en rouge;</li>
                       <li style="text-align: left;">En vue formulaire, un objet détecté doublon est complété par un champ intitulé &quot;Doublon détecté&quot; (case à cocher) dont la case est activée et suivie d'un lien présenté en rouge qui vous permet d'ouvrir tous les doublons détectés. </li>
                     </ul>
-                    <p style="text-align: left;">
-                      <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=55" style=""/>
-                    </p>
                     <h4 style="text-align: left;">Permettre les doublons</h4>
                     <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
                       <tbody>
@@ -3020,8 +2923,7 @@ Les champs listés sont des variables et s'adaptent en fonction.
                           <tr>
                             <td style="text-align: left;">​2</td>
                             <td style="text-align: left;">
-                              Cliquez sur l'icône 
-                              <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=49" style=""/>
+                              Cliquez sur l'icône <br/>
                                affiché en regard de l'élément concerné
                             </td>
                             <td style="text-align: left;">Un message de confirmation s'ouvre</td>
@@ -3071,9 +2973,6 @@ Les champs listés sont des variables et s'adaptent en fonction.
                       </div>
                       <p style="text-align: left;">Il faut faut d'abord sélectionner les doublons concernés avant d'exécuter l'opération. Le message suivant sera affiché si la sélection a été oublié ou mal faite:</p>
                       <p style="text-align: left;">
-                        <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=53" style=""/>
-                      </p>
-                      <p style="text-align: left;">
                         <em style="line-height: 1.42857143; background-color: transparent;"/>
                       </p>
                     </div>
@@ -3117,9 +3016,6 @@ Les champs listés sont des variables et s'adaptent en fonction.
                   <div style="text-align: left;">
                     <span style="line-height: 1.42857143;"/>
                   </div>
-                  <div style="text-align: left;">
-                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=64" style=""/>
-                  </div>
                   <div style="text-align: left;"/>
                   <div style="text-align: left;">
                     <span style="line-height: 1.42857143;"/>
@@ -3141,9 +3037,6 @@ Les champs listés sont des variables et s'adaptent en fonction.
                   </div>
                   <div style="text-align: left;">
                     <span style="line-height: 1.42857143;"/>
-                  </div>
-                  <div style="text-align: left;">
-                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=63" style=""/>
                   </div>
                   <div style="text-align: left;">
                     <span style="line-height: 1.42857143;"/>
@@ -3168,11 +3061,6 @@ Les champs listés sont des variables et s'adaptent en fonction.
                        Cette zone vous permet aussi d'ajouter toute note qui pourrait compléter un objet. Cette note ne sera pas envoyée aux suiveurs de l'objet mais sera visible. A cette fin, utilisez l'option &quot; 
                       <strong>Enregistrer une note interne</strong>
                        &quot;. L'insertion de la note ainsi que le texte sera enregistré (auteur, date et heure) et sera visible lorsque l'on consultera l'objet.  
-                    </span>
-                  </div>
-                  <div style="text-align: left;">
-                    <span style="line-height: 1.42857143;">
-                      <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=65" style=""/>
                     </span>
                   </div>
                   <div style="text-align: left;">
@@ -3248,9 +3136,6 @@ Les champs listés sont des variables et s'adaptent en fonction.
                     <span style="color: rgb(119, 119, 119);">Les mentions en </span>
                     <span style="color: rgb(0, 102, 204);">bleu</span>
                     <span style="color: rgb(119, 119, 119);"> sont des liens. Cliquez dessus vous fait naviguer sur cet objet. Un fil d'Ariane vous enregistre votre navigation, un click sur l'un des éléments vous fait revenir à cet élément, peu importe son niveau. Ce fil d'Ariane est présent sur le haut de chaque écran.  </span>
-                  </p>
-                  <p style="text-align: left;">
-                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=60" style=""/>
                   </p>
                   <p class="text-muted" style="text-align: left;">
                     <span style="line-height: 1.42857143;"/>
@@ -4229,9 +4114,6 @@ Ficep propose une gestion de ces doublons (voir
                        &quot; pour accéder à la liste complète des valeurs.  
                     </p>
                     <p style="text-align: left;">
-                      <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=69" style=""/>
-                    </p>
-                    <p style="text-align: left;">
                       <span style="font-size: 14px; line-height: 1.42857143;"/>
                     </p>
                     <div/>
@@ -4843,11 +4725,6 @@ Ficep propose une gestion de ces doublons (voir
                           L'écran suivant est proposé:
                           
                           <br/>
-                          
-                          
-                          <img class="img-thumbnail" src="http://10.7.20.237:8069/website/image?field=datas&amp;model=ir.attachment&amp;id=40"/>
-                          
-                        
                         </td>
                       </tr>
                       <tr>
@@ -5075,11 +4952,6 @@ Ficep propose une gestion de ces doublons (voir
                           L'écran suivant est proposé:
                           
                             <br/>
-                            
-                          
-                            <img class="img-thumbnail" src="http://10.7.20.237:8069/website/image?field=datas&amp;model=ir.attachment&amp;id=40"/>
-                            
-                        
                           </td>
                         </tr>
                         <tr>
@@ -5616,9 +5488,6 @@ Ficep propose une gestion de ces doublons (voir
                   </div>
                   <p style="text-align: left;">Champ obligatoire non rempli: Si l'un des champs obligatoire n'est pas rempli, voici le message affiché: </p>
                   <p style="text-align: left;">
-                    <img src="/website/image?field=datas&amp;model=ir.attachment&amp;id=26"/>
-                  </p>
-                  <p style="text-align: left;">
                     Le message précise le ou les champs manquants ou non-valides. Ces mentions sont variables selon l'objet en modification.
                     <br/>
                     
@@ -5702,9 +5571,6 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                             </ul>
                             <p style="text-align: left;">Le principe d'héritage des Groupes s'illustre dans Ficep de la façon suivante:</p>
                             <p style="text-align: left;">
-                              <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=35" style="line-height: 1.42857143"/>
-                            </p>
-                            <p style="text-align: left;">
                               Un Groupe Ficep supplémentaire sans héritage particulier par rapport aux autres Groupes sera le Groupe 
                               <em>Ficep Finances</em>
                                .
@@ -5769,17 +5635,12 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                       Localisation: Partie partie supérieure droite de l'écran
                   </div>
                   <div style="text-align: left;"/>
-                  
- 
-
-
                   <div>
                     <p style="text-align: left;">L'application permet de visualiser tout objet sous différentes vues. toutes ne sont cependant pas toujours disponibles (tout dépend du menu d'entrée). Pour accèder à l'une de vues, il suffit de cliquer sur l'icône correspondante. </p>
                     <p style="text-align: left;">Les vues disponibles sont:</p>
                     <ul>
                       <li style="text-align: left;">
-                        Vue liste: 
-                        <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=50" style=""/>
+                        Vue liste: <br/>
                           tous les objets sont affichés sous forme de liste
                       </li>
                     </ul>
@@ -5788,40 +5649,25 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                     </p>
                     <ul>
                       <li style="text-align: left;">
-                        <img src="file:///C:/Users/smx/AppData/Local/Temp/msohtmlclip1/01/clip_image004.jpg"/>
                          Vue formulaire: 
-                        <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=51" style=""/>
+                        <br/>
                           donnant tous les détails d'un objet
                       </li>
                     </ul>
-                    <p style="text-align: left;">
-                      <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=49" style=""/>
-                    </p>
                     <ul>
                       <li style="text-align: left;">
                         Vue dite &quot;KanBan&quot;: 
-                        <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=52" style=""/>
+                        <br />
                           montrant tous les objets sous forme de gros boutons qui peuvent être déplacés aisément.  
                       </li>
                     </ul>
-                    <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
-                      <img class="img-thumbnail" src="http://10.7.20.231:8069/website/image?field=datas&amp;model=ir.attachment&amp;id=54" style=""/>
-                    </h2>
                     <ul>
                       <li style="text-align: left;">
-                        <img src="file:///C:/Users/smx/AppData/Local/Temp/msohtmlclip1/01/clip_image012.jpg"/>
                          Vue Calendrier: 
-                        <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=55" style=""/>
+                        <br/>
                           permettant de visualiser certains événements associés à des dates sous forme d'un calendrier.  
-                        <img src="file:///C:/Users/smx/AppData/Local/Temp/msohtmlclip1/01/clip_image016.jpg"/>
                       </li>
                     </ul>
-                    <p style="text-align: left;">
-                      <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=58" style=""/>
-                      <br/>
-                      
- 
-                    </p>
                   </div>
                   
 
@@ -6040,7 +5886,6 @@ Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voir
                   <div style="text-align: left;"/>
                   <div style="text-align: left;">
                       
-                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=70" style=""/>
                     <br/>
                     <br/>
                     
@@ -6051,9 +5896,6 @@ La recherche insensible à la casse et l'utilisation de jokers est permise et pl
                     <li style="text-align: left;">un pourcent (%) permettra toutes les séquences pour zéro et multiples caractères (exemple: jul% retournera Julia, Juliette, Julien, …).</li>
                   </ul>
                   <p style="text-align: left;">Le caractère de non-sensibilité à la casse et l'usage de jokers ne s'opère par contre que dans le cas de l'utilisation de l'opérateur &quot;contains&quot; (contient), celui activé par défaut. Ceci ne sera donc plus vrai lors de l'utilisation d'autres opérateurs.  L'opérateur ne se voit que dans la recherche avancée.</p>
-                  <p style="text-align: left;">
-                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=71" style=""/>
-                  </p>
                   <div style="text-align: left;">
                     L'usage de caractères accentués n'est pas restrictif, en d'autres termes la recherche sera élargie comme par exemple, la recherche sur &quot;René&quot; donnera &quot;René&quot; et &quot;Rene&quot;.
                     <br/>
@@ -6061,25 +5903,14 @@ La recherche insensible à la casse et l'utilisation de jokers est permise et pl
  
                   </div>
                   <div style="text-align: left;">L'application propose des filtres déjà définis (voir ci-dessous) mais il vous est possible de sauver tout filtre que vous auriez défini et que vous jugerez utile de garder pour de futures utilisations. Utilisez à cette fin l'option &quot;Enregistrer le filtre actuel&quot;. Le filtre sauvé appaîtra dans la zone &quot;Filtres&quot;.</div>
-                  <div style="text-align: left;">
-                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=42" style=""/>
-                  </div>
                   <br/>
                   <div style="text-align: left;">L'accès aux fonctionnalités avancées vous permet de combiner divers critères de recherches afin de raffiner votre recherche. Vous pouvez créer deux types de combinaisons: </div>
                   <ul>
                     <li style="text-align: left;">la combinaison &quot;OU&quot;: signifiant que la recherche doit s'appliquer sur un élément OU l'autre, mais pas les deux. A cette fin, utilisez l'option &quot;Ajout d'une condition&quot;. Les divers critères ajoutés s'afficheront dans un seul bloc dans la zone de recherche</li>
                   </ul>
-                  <p style="text-align: left;">
-                      
-                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=43" style=""/>
-                  </p>
                   <ul>
                     <li style="text-align: left;">la combinaison &quot;ET&quot;: pour combiner plusieurs critères en les additionnant. A cette fin, vous devez encoder vos critères un par un (cliquez à chaque fois sur &quot;Appliquer&quot;. Dans ce cas, les divers critères encodés apparaissent séparément dans la zone de recherche</li>
                   </ul>
-                  <p style="text-align: left;">
-                      
-                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=44" style=""/>
-                  </p>
                   <div style="text-align: left;">
                     Pour enlever l'un ou l'autre critère, cliquez sur la petite croix sur le côté droit du bloc. 
                     <br/>
