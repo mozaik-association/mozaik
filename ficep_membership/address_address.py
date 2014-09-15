@@ -88,7 +88,7 @@ class postal_coordinate(orm.Model):
                 for pc in self.browse(cr, uid, ids, context=context):
                     partner_ids.append(pc.partner_id.id)
             else:
-                partner_ids = vals['partner_id']
+                partner_ids = [vals['partner_id']]
             self._update_notify_followers(
                 cr, SUPERUSER_ID, ids, partner_ids, context=context)
         return res
