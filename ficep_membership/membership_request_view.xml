@@ -130,9 +130,6 @@
                             <group name="request_info">
                                 <field name="request_type"
                                     on_change="onchange_partner_id(request_type, partner_id)" />
-                                <field name="product_id" widget="selection"
-                                       attrs="{'invisible':[('request_type','!=','m')],
-                                               'required':[('request_type','=','m')]}" />
                             </group>
                         </group>
 

@@ -520,9 +520,6 @@ class test_partner(SharedSetupTransactionCase):
             'country_id': imd_obj.get_object_reference(
                 cr, uid, 'base', 'ad')[1],
             'request_type': 'm',
-            'product_id': imd_obj.get_object_reference(
-                cr, uid,
-                'ficep_membership', 'membership_product_isolated')[1],
         }
         self.mr_obj.write(cr, uid, [mr_id], vals)
         # validate the request => a first history line is created
