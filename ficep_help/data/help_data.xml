@@ -7292,7 +7292,7 @@ Ficep propose une gestion de ces doublons (voir
         </div>
       </t>
     </template>
-    <record id="website.ficep-help-filters_img_01" model="ir.attachment">
+    <record id="ficep-help-filters_img_01" model="ir.attachment">
       <field name="datas">iVBORw0KGgoAAAANSUhEUgAAATEAAADKCAIAAABCJeBRAAC7l0lEQVR42uydB1gUyfa3e3IAhpxz
 kpyzEQMYwICKYkRBBAUFVEDEnImKoiJKEBRUFFQwkkFBJIMgOeccJ8/01wMY9t7/Ku7de93db97H
 x2emp6q6uqlfn1NVp6phixYtAtiwYfOXAUaj0ZBI5K+uBhs2bFjQ6XSWJn91NdiwYfMVGJVKBUHw
@@ -8144,7 +8144,7 @@ sM7aw+RGdPx/epbIW8+IIiAAAAAASUVORK5CYII=
       <field name="res_model">ir.ui.view</field>
       <field name="mimetype">image/png</field>
     </record>
-    <record id="website.ficep-help-filters_img_02" model="ir.attachment">
+    <record id="ficep-help-filters_img_02" model="ir.attachment">
       <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAUQAAAAqCAIAAABEAbUPAAAQUklEQVR42u1deVxTV/Z/SxJAxR0I
 i1JHXCigTq1WpmqrVYJ+OgoUq3Wc6biCIsuoRUXABaTihsAo4II/+0MtDlVa20pQ4deCy1RbV7Qo
 P8EN2REIJCQkmfPeg/hIHkEmEVzu94/7edx37j3n3He/95x78xLwpqYmtVqN4zgqUYnKV7tUKBQv
@@ -8227,7 +8227,7 @@ OL4g814AAAAASUVORK5CYII=
       <field name="res_model">ir.ui.view</field>
       <field name="mimetype">image/png</field>
     </record>
-    <record id="website.ficep-help-filters_img_03" model="ir.attachment">
+    <record id="ficep-help-filters_img_03" model="ir.attachment">
       <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAY4AAAAsCAIAAAD9xch6AAAReUlEQVR42u1deVwT19qeJQmg4o6E
 RamKC3W9tVq5VVqtEPTXq0C1Wq/39rqCIuBV64KoKErFDYGrggt+9kMtXqu0tpUgwteCy622rmBB
 KoiK7GsgMSHJ984MxCGZBJDwQT7P88f7G868Z5l5nzznPWcmAVcoFDiOq9VqZJFFFtlOa/H6+vrO
@@ -8341,7 +8341,7 @@ WWSRNWD/F+9csDv4KKwIAAAAAElFTkSuQmCC
                   </p>
                   <p style="text-align: left;">
                     <span style="line-height: 1.42857143;">
-                      <img class="img-thumbnail" src="http://10.7.20.237:8069/website/image?field=datas&amp;model=ir.attachment&amp;id=website.ficep-help-filters_img_01" style="line-height: 20px;"/>
+                      <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-filters_img_01" style="line-height: 20px;"/>
                     </span>
                   </p>
                   <div style="text-align: left;">La recherche insensible à la casse et l'utilisation de jokers est permise et plus particulièrement:</div>
@@ -8364,7 +8364,7 @@ WWSRNWD/F+9csDv4KKwIAAAAAElFTkSuQmCC
                     <li style="text-align: left;">la combinaison &quot;OU&quot;: signifiant que la recherche doit s'appliquer sur un élément OU l'autre, mais pas les deux. A cette fin, utilisez l'option &quot;Ajout d'une condition&quot;. Les divers critères ajoutés s'afficheront dans un seul bloc dans la zone de recherche</li>
                   </ul>
                   <p style="text-align: left;">
-                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=website.ficep-help-filters_img_02" style=""/>
+                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-filters_img_02" style=""/>
                   </p>
                   
 
@@ -8373,7 +8373,7 @@ WWSRNWD/F+9csDv4KKwIAAAAAElFTkSuQmCC
                     <li style="text-align: left;">la combinaison &quot;ET&quot;: pour combiner plusieurs critères en les additionnant. A cette fin, vous devez encoder vos critères un par un (cliquez à chaque fois sur &quot;Appliquer&quot;. Dans ce cas, les divers critères encodés apparaissent séparément dans la zone de recherche</li>
                   </ul>
                   <p style="text-align: left;">
-                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=website.ficep-help-filters_img_03" style=""/>
+                    <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-filters_img_03" style=""/>
                   </p>
                   
 
