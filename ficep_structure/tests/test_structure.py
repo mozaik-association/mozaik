@@ -103,3 +103,53 @@ class test_sta_structure(abstract_ficep, SharedSetupTransactionCase):
         assembly = ext_assembly_model.browse(cr, uid, ext_id, context=context)
         self.assertTrue(assembly.partner_id.is_assembly,
                        'Create external assembly fails with wrong is_assembly')
+
+    def test_get_followers_assemblies(self):
+        cr, uid, context = self.cr, self.uid, {}
+        instance_obj = self.registry['int.instance']
+        power_level_obj = self.registry['int.power.level']
+        assembly_obj = self.registry['int.assembly']
+        categ_obj = self.registry['int.assembly.category']
+
+        vals = {
+            'name': 'Mega Power',
+            'sequence': 1,
+        }
+        power_level_id = power_level_obj.create(
+            cr, uid, vals, context=context)
+        vals = {
+            'name': 'Mega Instance',
+            'power_level_id': power_level_id,
+        }
+        int_instance_id = instance_obj.create(
+            cr, uid, vals, context=context)
+        vals = {
+            'name': 'Mega Assembly',
+            'power_level_id': power_level_id,
+            'is_secretariat': True,
+        }
+        categ_id = categ_obj.create(
+            cr, uid, vals, context=context)
+        vals = {
+            'instance_id': int_instance_id,
+            'assembly_category_id': categ_id,
+            'is_designation_assembly': True,
+        }
+        assembly_id = assembly_obj.create(
+            cr, uid, vals, context=context)
+        res_ids = assembly_obj.get_followers_assemblies(
+            cr, uid, int_instance_id, context=context)
+        self.assertFalse(res_ids, 'Should not have followers result')
+        vals = {
+            'level_for_followers': True,
+        }
+        power_level_obj.write(
+            cr, uid, power_level_id, vals, context=context)
+        res_ids = assembly_obj.get_followers_assemblies(
+            cr, uid, int_instance_id, context=context)
+        self.assertTrue(len(res_ids) > 0, 'Should have followers result')
+        partner_id = assembly_obj.read(
+            cr, uid, assembly_id, ['partner_id'],
+            context=context)['partner_id'][0]
+        self.assertTrue(partner_id in res_ids, 'Should contains this partner '
+                        'into the follower result')

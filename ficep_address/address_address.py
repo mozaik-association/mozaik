@@ -325,12 +325,6 @@ class postal_coordinate(orm.Model):
             'ficep_address.address_failure_notification':
                 lambda self, cr, uid, obj, ctx=None: obj.bounce_counter,
         },
-        'is_main': {
-            'ficep_address.main_address_move_notification':
-                lambda self, cr, uid, obj, ctx=None: obj.is_main,
-            'ficep_address.old_address_move_notification':
-                lambda self, cr, uid, obj, ctx=None: not obj.is_main,
-        },
     }
 
     _discriminant_field = 'address_id'

@@ -57,8 +57,16 @@ class export_help_wizard(orm.TransientModel):
         for view_data in view_data_list:
             parser = ET.XMLParser(remove_blank_text=True)
             root = ET.XML(view_data['arch'], parser=parser)
+
+            root.tag = 'template'
+            template_id = root.attrib.pop('t-name')
+            root.attrib['name'] = view_data['name'].replace('website.', '')
+            root.attrib['id'] = template_id
+            root.attrib['page'] = 'True'
+
             i_img = 0
             img_model = 'ir.attachment'
+
             for img_elem in root.iter('img'):
                 if img_model in img_elem.get('src'):
                     i_img += 1
@@ -77,7 +85,7 @@ class export_help_wizard(orm.TransientModel):
                                                             int(attach_id),
                                                             context=context)
                     img_node = ET.SubElement(data_node, 'record')
-                    xml_id = view_data['name'] \
+                    xml_id = root.attrib['name'] \
                              + "_img_" + str(i_img).rjust(2, '0')
                     id_pos = img_src.index('id=')
                     attach_id = img_elem.get('src')[id_pos:]
@@ -105,19 +113,14 @@ class export_help_wizard(orm.TransientModel):
                     field_node.text = image.mimetype
                     data_node.append(img_node)
 
-            root.tag = 'template'
-            template_id = root.attrib.pop('t-name')
-            root.attrib['name'] = view_data['name']
-            root.attrib['id'] = template_id
-            root.attrib['page'] = 'True'
             data_node.append(root)
 
-            if view_data['name'].startswith('ficep-help-template'):
+            if root.attrib['name'].startswith('ficep-help-template'):
                 page = copy.deepcopy(root)
                 snippet = ET.Element('template')
                 snippet.attrib['id'] = template_id + '_snippet'
                 snippet.attrib['inherit_id'] = 'website.snippets'
-                snippet.attrib['name'] = view_data['name']
+                snippet.attrib['name'] = root.attrib['name']
                 xpath = ET.SubElement(snippet, 'xpath')
                 xpath.attrib['expr'] = "//div[@id='snippet_structure']"
                 xpath.attrib['position'] = 'inside'
@@ -131,7 +134,7 @@ class export_help_wizard(orm.TransientModel):
                 img.attrib['src'] = src
                 span = ET.SubElement(thumbnail, 'span')
                 span.attrib['class'] = 'oe_snippet_thumbnail_title'
-                span.text = view_data['name'].replace('ficep-help-', '')
+                span.text = root.attrib['name'].replace('ficep-help-', '')
 
                 body = ET.SubElement(main_div, 'section')
                 body.attrib['class'] = 'oe_snippet_body mt_simple_snippet'

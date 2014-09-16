@@ -11,21 +11,5 @@
             <field name="description">This Postal Coordinate seems to be down</field>
         </record>
 
-        <!-- Move Notification -->
-
-        <record id="old_address_move_notification" model="mail.message.subtype">
-            <field name="name">Old Postal Coordinate Notification</field>
-            <field name="res_model">postal.coordinate</field>
-            <field name="default" eval="True"/>
-            <field name="description">This Postal Coordinate is no More Main</field>
-        </record>
-
-        <record id="main_address_move_notification" model="mail.message.subtype">
-            <field name="name">Main Postal Coordinate Notification</field>
-            <field name="res_model">postal.coordinate</field>
-            <field name="default" eval="True"/>
-            <field name="description">This Postal Coordinate is now Main</field>
-        </record>
-
     </data>
 </openerp>

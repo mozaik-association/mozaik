@@ -25,18 +25,23 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import product
-from . import membership_request
-from . import membership
-from . import res_users
-from . import res_partner
-from . import structure
-from . import address_local_zip
-from . import wizard
-from . import virtual_models
-from . import report
-from . import sub_abstract_coordinate
-from . import email_coordinate
-from . import address_address
-from . import phone_phone
-from . import account
+from openerp.osv import orm
+
+
+class email_coordinate(orm.Model):
+
+    _name = 'email.coordinate'
+    _inherit = ['sub.abstract.coordinate', 'email.coordinate']
+
+    _update_track = {
+        'is_main': {
+            'ficep_membership.main_email_notification':
+                lambda self, cr, uid, obj, ctx=None: obj.is_main,
+            'ficep_membership.old_email_notification':
+                lambda self, cr, uid, obj, ctx=None: not obj.is_main,
+        },
+        'expire_date': {
+            'ficep_membership.old_email_notification':
+                lambda self, cr, uid, obj, ctx=None: obj.expire_date,
+        },
+    }

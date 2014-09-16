@@ -50,6 +50,7 @@ class res_partner(orm.Model):
         res_vals = {}
         e_obj = self.pool['email.coordinate']
         pc_obj = self.pool['postal.coordinate']
+        phc_obj = self.pool['phone.coordinate']
         p_obj = self.pool['res.partner']
         ia_obj = self.pool['int.assembly']
         for partner_id in partner_ids:
@@ -79,6 +80,12 @@ class res_partner(orm.Model):
                           ('is_main', '=', True)], context=context)
             if pc_ids:
                 pc_obj.write(cr, uid, pc_ids, write_vals, context=context)
+
+            phone_ids = phc_obj.search(
+                cr, uid, [('partner_id', '=', partner_id),
+                          ('is_main', '=', True)], context=context)
+            if phone_ids:
+                phc_obj.write(cr, uid, phone_ids, write_vals, context=context)
 
         return res_vals
 
