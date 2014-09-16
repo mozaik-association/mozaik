@@ -116,10 +116,6 @@ class membership_request(orm.Model):
                                                'Current Status'),
         'result_type_id': fields.many2one('membership.state',
                                           'Result Type'),
-        'product_id': fields.many2one(
-            'product.product', string="Subscription", select=True,
-            track_visibility='onchange',
-            domain="[('membership', '!=', False), ('list_price', '>', 0.0)]"),
         'is_update': fields.boolean('Is Update'),
         'state': fields.selection(MEMBERSHIP_AVAILABLE_STATES,
                                   'State', track_visibility='onchange'),
@@ -341,8 +337,6 @@ class membership_request(orm.Model):
             'competencies_m2m_ids': competencies_ids and
             [[6, False, competencies_ids]] or competencies_ids,
         }
-        if request_type == 'm':
-            res_value['value']['product_id'] = False
         return res_value
 
     def onchange_mobile(self, cr, uid, ids, mobile, context=None):
@@ -422,9 +416,6 @@ class membership_request(orm.Model):
                 cr, uid, partner_id, ['membership_state_id'],
                 context=context)['membership_state_id'][0]
             vals = get_status_values(request_type)
-            imd_obj = self.pool['ir.model.data']
-            vals['subscription_product_id'] = imd_obj.get_object_reference(
-                cr, uid, 'ficep_base', 'membership_product_free')[1]
             if vals:
                 with self.protect_v8_cache(pffs):
                     # safe mode is here mandatory
@@ -775,8 +766,6 @@ class membership_request(orm.Model):
                 or []
 
             partner_values.update(get_status_values(mr.request_type))
-            if mr.product_id:
-                partner_values['subscription_product_id'] = mr.product_id.id
             partner_values.update({
                 'competencies_m2m_ids': [[6, False, new_interests_ids]],
                 'interests_m2m_ids': [[6, False, new_competencies_ids]],

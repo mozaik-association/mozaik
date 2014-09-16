@@ -111,8 +111,6 @@ class custom_webservice(orm.Model):
 
             'interests': interest,
         }
-        if vals['request_type'] == 'm':
-            vals['product_id'] = self.pool['product.product']._get_default_subscription(self, cr, uid, context=context)
         context['mode'] = 'ws'
         try:
             res = membership_request.create(cr, SUPERUSER_ID, vals, context=context)
