@@ -106,7 +106,7 @@ class waiting_member_report(orm.Model):
                              'is used instead.' % DEFAULT_NB_DAYS)
 
             ids = self.search(
-                cr, uid, [('nb_days', '>', nb_days)], context=context)
+                cr, uid, [('nb_days', '>=', nb_days)], context=context)
 
         pids = [
             pid['id']

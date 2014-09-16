@@ -316,7 +316,7 @@ class int_assembly(orm.Model):
                       ('power_level_id', 'in', level_for_followers_ids)],
             context=context)
         followers_assemblies_values = self.search_read(
-            cr, uid, [('int_instance_id', 'in', int_instance_ids),
+            cr, uid, [('instance_id', 'in', int_instance_ids),
                       ('assembly_category_id', 'in', secretariat_categ_ids)],
             ['partner_id'], context=context)
         partner_ids = []

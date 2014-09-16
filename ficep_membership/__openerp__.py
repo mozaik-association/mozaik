@@ -54,6 +54,7 @@ local zip, default instance otherwise. This field is added to all views
     ],
     'data': [
         'data/ficep_membership_state_data.xml',
+        'data/abstract_coordinate_data.xml',
         'security/ficep_membership_security.xml',
         'security/ir.model.access.csv',
         'data/ir_config_parameter_data.xml',

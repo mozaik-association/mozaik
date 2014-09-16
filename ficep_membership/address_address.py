@@ -26,19 +26,9 @@
 #
 ##############################################################################
 from openerp.osv import orm
-from openerp.tools import SUPERUSER_ID
 
 
 class postal_coordinate(orm.Model):
-
-    def _update_notify_followers(
-            self, cr, uid, ids, partner_ids, context=None):
-        self.pool['res.partner']._update_follower(
-            cr, uid, partner_ids, context=context)
-        subtype = 'ficep_address.main_address_move_notification'
-        for i in ids:
-            self._message_post(
-                cr, uid, i, subtype=subtype, context=context)
 
     def _update_partner_int_instance(self, cr, uid, ids, context=None):
         """
@@ -72,7 +62,21 @@ class postal_coordinate(orm.Model):
                     partner_obj.update_membership_line(
                         cr, uid, [partner.id], context=context)
 
-    _inherit = 'postal.coordinate'
+    _name = 'postal.coordinate'
+    _inherit = ['sub.abstract.coordinate', 'postal.coordinate']
+
+    _update_track = {
+        'is_main': {
+            'ficep_membership.main_address_id_notification':
+                lambda self, cr, uid, obj, ctx=None: obj.is_main,
+            'ficep_membership.old_address_id_notification':
+                lambda self, cr, uid, obj, ctx=None: not obj.is_main,
+        },
+        'expire_date': {
+            'ficep_membership.old_address_id_notification':
+                lambda self, cr, uid, obj, ctx=None: obj.expire_date,
+        },
+    }
 
     def write(self, cr, uid, ids, vals, context=None):
         '''
@@ -82,15 +86,6 @@ class postal_coordinate(orm.Model):
             cr, uid, ids, vals, context=context)
         if vals.get('is_main', False):
             self._update_partner_int_instance(cr, uid, ids, context=context)
-            partner_ids = []
-
-            if not vals.get('partner_id', False):
-                for pc in self.browse(cr, uid, ids, context=context):
-                    partner_ids.append(pc.partner_id.id)
-            else:
-                partner_ids = vals['partner_id']
-            self._update_notify_followers(
-                cr, SUPERUSER_ID, ids, partner_ids, context=context)
         return res
 
     def create(self, cr, uid, vals, context=None):
@@ -104,7 +99,4 @@ class postal_coordinate(orm.Model):
             if not context.get('keep_current_instance'):
                 self._update_partner_int_instance(
                     cr, uid, [res], context=context)
-            partner_id = vals['partner_id']
-            self._update_notify_followers(
-                cr, SUPERUSER_ID, [res], [partner_id], context=context)
         return res
