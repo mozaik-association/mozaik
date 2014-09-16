@@ -27,6 +27,8 @@
 ##############################################################################
 
 from openerp.addons.document.content_index import indexer, cntIndex
+from openerp.addons.document.std_index import ImageNoIndex
+from .document import WIN
 
 
 class CsvNoIndex(indexer):
@@ -43,7 +45,7 @@ class CsvNoIndex(indexer):
 cntIndex.register(CsvNoIndex())
 
 
-class vCardNoIndex(indexer):
+class VcardNoIndex(indexer):
     def _getMimeTypes(self):
         return ['text/vcard']
 
@@ -54,6 +56,19 @@ class vCardNoIndex(indexer):
         return 'vcard'
 
 
-cntIndex.register(vCardNoIndex())
+cntIndex.register(VcardNoIndex())
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class ImgNoIndex(ImageNoIndex):
+
+    def _getExtensions(self):
+        '''
+        Under windows avoid to execute the Linux command 'file -b --mime'
+        to determine the mimetype when trying to index ... an image
+        '''
+        if WIN:
+            return ['.png', '.jpg', '.gif', '.jpeg', '.bmp', '.tiff', ]
+        return super(ImgNoIndex, self)._getExtensions()
+
+
+cntIndex.register(ImgNoIndex())
