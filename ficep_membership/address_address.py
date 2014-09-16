@@ -86,6 +86,13 @@ class postal_coordinate(orm.Model):
             cr, uid, ids, vals, context=context)
         if vals.get('is_main', False):
             self._update_partner_int_instance(cr, uid, ids, context=context)
+            partner_ids = []
+
+            if not vals.get('partner_id', False):
+                for pc in self.browse(cr, uid, ids, context=context):
+                    partner_ids.append(pc.partner_id.id)
+            else:
+                partner_ids = [vals['partner_id']]
         return res
 
     def create(self, cr, uid, vals, context=None):
