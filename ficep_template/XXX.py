@@ -109,18 +109,18 @@ class xxxx(orm.Model):
         'image': fields.binary('Files', help='test'),
 
         'type': fields.selection(XXX_AVAILABLE_TYPES, 'Type', required=True, track_visibility='onchange'),
-        'name': fields.selection(_your_selection_function, 'Choice',
+        'fld': fields.selection(_your_selection_function, 'Choice',
                                  help="text"),
 
-        'name': fields.function(_your_field_function, type='char', string='Function'),
-        'name': fields.related('relation_field', 'field_name', string='name', type='type', relation='model'),
+        'fld': fields.function(_your_field_function, type='char', string='Function'),
+        'fld': fields.related('relation_field', 'field_name', string='Field Name', type='type', relation='model'),
 
-        'name_id': fields.many2one('other.model', 'field_name', required=True, select=True),
+        'name_id': fields.many2one('other.model', string='Field Name', required=True, select=True),
         'name_ids': fields.one2many('other.model', 'field_relation_id', string='Field Name', domain=[]),
         'name_m2m_ids': fields.many2many('other.model', 'cur_model_other_model_rel', id1='cur_model_relation_id', id2='other_model_relation_id', string='Tags'),
 
         # Standard fields redefinition
-        'partner_id': fields.many2one('res.partner', 'Contact', required=True, select=True),
+        'partner_id': fields.many2one('res.partner', string='Contact', required=True, select=True),
         'hhh': fields.char('HHH', readonly=True, required=True, select=True, track_visibility='onchange',
                            states={'draft': [('readonly', False), ('required', False)]}),
 
