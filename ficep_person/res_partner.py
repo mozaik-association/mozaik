@@ -273,11 +273,15 @@ class res_partner(orm.Model):
                 name = "%s (%s)" % (name, partner.name)
         return name
 
+    def _update_user_partner(self, cr, uid, partner, vals, context=None):
+        """
+        After having create a user from a partner,
+        update some fields of the partner
+        """
+        self.write(cr, uid, partner.id, vals, context=context)
+
     def create_user(self, cr, uid, login, partner_id, group_ids, context=None):
         """
-        ===========
-        create_user
-        ===========
         Create a User related to an existing partner
         :param login: login of the new user
         :type login: char
@@ -314,9 +318,12 @@ class res_partner(orm.Model):
             'no_reset_password': True,
         })
 
-        user_id = self.pool.get('res.users').create(cr, uid, vals, context=context)
+        user_id = self.pool['res.users'].create(cr, uid, vals, context=context)
 
-        partner.with_context(context).write({'ldap_name': login})
+        # update partner
+        vals = {'ldap_name': login}
+        self._update_user_partner(
+            cr, uid, partner, vals, context=context)
 
         return user_id
 
