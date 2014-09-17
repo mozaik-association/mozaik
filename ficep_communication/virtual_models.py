@@ -1201,6 +1201,7 @@ class virtual_partner_membership(orm.Model):
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
         'employee': fields.boolean('Employee'),
+        'reference': fields.char('Reference'),
 
         'postal_vip': fields.boolean('VIP Address'),
         'postal_unauthorized': fields.boolean('Unauthorized Address'),
@@ -1254,6 +1255,7 @@ class virtual_partner_membership(orm.Model):
             p.int_instance_id as int_instance_id,
             p.del_doc_date as del_doc_date,
             p.del_mem_card_date as del_mem_card_date,
+            p.reference as reference,
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
             pc.coordinate_category_id as postal_category_id,

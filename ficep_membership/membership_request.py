@@ -702,18 +702,10 @@ class membership_request(orm.Model):
 
         return rec_search(0)
 
-    def _check_product_consistency(self, cr, uid, request_type, product_id,
-                                   context=None):
-        if request_type == 'm':
-            if not product_id:
-                raise orm.except_orm(_('Error'), _('Member Must Have a Product\
-                Subscription'))
-
     def confirm_request(self, cr, uid, ids, context=None):
-        for mr in self.browse(cr, uid, ids, context=context):
-            self._check_product_consistency(cr, uid, mr.request_type,
-                                            mr.product_id, context=context)
-        vals = {'state': 'confirm'}
+        vals = {
+            'state': 'confirm'
+        }
         # superuser_id because of record rules
         return self.write(cr, SUPERUSER_ID, ids, vals, context=context)
 
@@ -726,8 +718,6 @@ class membership_request(orm.Model):
         mr_vals = {}
         partner_obj = self.pool['res.partner']
         for mr in self.browse(cr, uid, ids, context=context):
-            self._check_product_consistency(cr, uid, mr.request_type,
-                                            mr.product_id, context=context)
             # partner
             partner_values = {
                 'lastname': mr.lastname,

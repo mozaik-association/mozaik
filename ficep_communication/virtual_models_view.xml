@@ -951,6 +951,10 @@
                         domain="['&amp;',('del_mem_card_date','=', False),
                                      ('membership_state_id.code','=', 'member')]" />
                     <separator/>
+                    <filter string="Awaiting payment" name="awating_payment"
+                        domain="[('reference','!=', False),
+                                 ('membership_state_id.code','=', 'member')]"/>
+                    <separator />
                     <filter string="Members"
                         name="member"
                         domain="[('membership_state_id.code','=', 'member')]" />

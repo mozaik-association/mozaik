@@ -50,18 +50,26 @@ class sub_abstract_coordinate(orm.AbstractModel):
         '''
         update and notify follower if is_main is True
         '''
+        not_main_ids = self.search(
+            cr, uid, [('is_main', '=', False),
+                      ('id', 'in', ids)],
+            context=context)
         res = super(sub_abstract_coordinate, self).write(
             cr, uid, ids, vals, context=context)
         if vals.get('is_main', False):
             partner_ids = []
-
+            # assure change is well made after write
+            new_main_ids = self.search(
+                cr, uid, [('is_main', '=', True), ('id', 'in', not_main_ids)],
+                context=context)
             if not vals.get('partner_id', False):
-                for pc in self.browse(cr, uid, ids, context=context):
+                for pc in self.browse(cr, uid, new_main_ids, context=context):
                     partner_ids.append(pc.partner_id.id)
             else:
                 partner_ids.append(vals['partner_id'])
+
             self._update_notify_followers(
-                cr, SUPERUSER_ID, ids, partner_ids, context=context)
+                cr, SUPERUSER_ID, new_main_ids, partner_ids, context=context)
         return res
 
     def create(self, cr, uid, vals, context=None):
