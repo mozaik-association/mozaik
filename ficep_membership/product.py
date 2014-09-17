@@ -44,10 +44,12 @@ class product_template(orm.Model):
                                  'membership_product_isolated')[1]
 
     _columns = {
+        'membership': fields.boolean(
+            'Membership', help='Check if the product is '
+            'eligible for membership.'),
         'property_subscription_account': fields.property(
-                                                type='many2one',
-                                                relation='account.account',
-                                                string='Subscription Account',)
+            type='many2one', relation='account.account',
+            string='Subscription Account',)
     }
 
 # orm methods

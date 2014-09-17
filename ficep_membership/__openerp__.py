@@ -36,7 +36,6 @@
         'ficep_account',
         'ficep_person_coordinate',
         'ficep_structure',
-        'membership',
     ],
     'description': """
 FICEP Membership
@@ -46,8 +45,8 @@ Add models
 * Membership History
 * Membership Request
 It defines a required m2o to Internal Instance on local zip.
-It replicates this instance on partner which main address is related to this 
-local zip, default instance otherwise. This field is added to all views 
+It replicates this instance on partner which main address is related to this
+local zip, default instance otherwise. This field is added to all views
 (search, tree and form) of a partner.
 """,
     'images': [
@@ -69,7 +68,7 @@ local zip, default instance otherwise. This field is added to all views
         'wizard/change_main_address.xml',
         'wizard/force_int_instance.xml',
         'wizard/generate_reference.xml',
-        'wizard/pass_old_member.xml',
+        'wizard/pass_former_member.xml',
         'report/waiting_member_report_view.xml',
     ],
     'sequence': 150,

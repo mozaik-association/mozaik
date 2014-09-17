@@ -98,7 +98,7 @@ class test_membership(SharedSetupTransactionCase):
         icp_rec = self.icp.browse(cr, uid, icp_ids, context=context)[0]
         to_substract = int(icp_rec.value) - 5
         new_date_from = date.today() - timedelta(days=to_substract)
-        update_memberlines_date_from(self.pauline.member_lines,
+        update_memberlines_date_from(self.pauline.membership_line_ids,
                                      new_date_from)
         self.wmr.process_accept_members(cr, uid)
         self.pauline = self.partner_obj.browse(cr, uid, self.pauline.id,
@@ -110,7 +110,7 @@ class test_membership(SharedSetupTransactionCase):
         icp_rec.write({'value': 'blabla'})
         to_substract = DEFAULT_NB_DAYS + 5
         new_date_from = date.today() - timedelta(days=to_substract)
-        update_memberlines_date_from(self.pauline.member_lines,
+        update_memberlines_date_from(self.pauline.membership_line_ids,
                                      new_date_from)
         self.wmr.process_accept_members(cr, uid, context=context)
         self.pauline = self.partner_obj.browse(cr, uid, self.pauline.id,

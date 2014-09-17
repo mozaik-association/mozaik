@@ -140,9 +140,9 @@
             <field name="groups" eval="[(5,0,0)]"/>
         </record>
 
-        <record id="membership_membership_line_base_rule" model="ir.rule">
+        <record id="membership_line_base_rule" model="ir.rule">
             <field name="name">Membership Line for Ficep</field>
-            <field name="model_id" ref="membership.model_membership_membership_line"/>
+            <field name="model_id" ref="ficep_membership.model_membership_line"/>
             <field name="domain_force">[
                 ('partner.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
                 ('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
@@ -178,12 +178,6 @@
             <field name="groups" eval="[(5,0,0)]"/>
         </record>
 
-        <!-- Groups -->
-
-        <record model="res.groups" id="settings_improvement.unused_features">
-            <field name="view_access" eval="[(4, ref('membership.view_partner_tree')),
-                                            ]"/>
-        </record>
 
     </data>
 </openerp>

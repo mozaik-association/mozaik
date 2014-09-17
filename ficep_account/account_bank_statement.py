@@ -34,17 +34,15 @@ class account_bank_statement(orm.Model):
     def _check_first_membership(self, cr, uid, partner_id, reference,
                                 context=None):
         modeldata_obj = self.pool.get('ir.model.data')
-        ml_obj = self.pool.get('membership.membership_line')
-        first_id = modeldata_obj.get_object_reference(cr,
-                                                    uid,
-                                                    'ficep_membership',
-                                                    'member_candidate')
+        ml_obj = self.pool.get('membership.line')
+        first_id = modeldata_obj.get_object_reference(
+            cr, uid, 'ficep_membership', 'member_candidate')
 
-        domain = [('partner', '=', partner_id),
+        domain = [('partner_id', '=', partner_id),
                   ('date_to', '=', False),
                   ('reference', '=', reference)
                   ('active', '=', True),
-                  ('membership_state_id', '=', first_id)]
+                  ('state_id', '=', first_id)]
 
         ml_ids = ml_obj.search(cr, uid, domain, context=context)
 
@@ -56,10 +54,8 @@ class account_bank_statement(orm.Model):
         retrocession
         """
         bsl_obj = self.pool.get('account.bank.statement.line')
-        ret = bsl_obj.get_reconciliation_proposition(cr,
-                                                     uid,
-                                                     bank_line,
-                                                     context=context)
+        ret = bsl_obj.get_reconciliation_proposition(
+            cr, uid, bank_line, context=context)
         if ret:
             move_line = ret[0]
         else:
@@ -69,15 +65,13 @@ class account_bank_statement(orm.Model):
             return
 
         if move_line['debit'] == bank_line.amount:
-            move_dicts = [{'counterpart_move_line_id': move_line['id'],
-                           'debit': move_line['credit'],
-                           'credit': move_line['debit'],
-                          }]
-            bsl_obj.process_reconciliation(cr,
-                                           uid,
-                                           bank_line.id,
-                                           move_dicts,
-                                           context=context)
+            move_dicts = [{
+                'counterpart_move_line_id': move_line['id'],
+                'debit': move_line['credit'],
+                'credit': move_line['debit'],
+            }]
+            bsl_obj.process_reconciliation(
+                cr, uid, bank_line.id, move_dicts, context=context)
 
     def _create_membership_move(self, cr, uid, bank_line, context=None):
         """
@@ -87,10 +81,8 @@ class account_bank_statement(orm.Model):
         prod_obj = self.pool.get('product.product')
         modeldata_obj = self.pool.get('ir.model.data')
         partner_obj = self.pool.get('res.partner')
-        first_id = modeldata_obj.get_object_reference(cr,
-                                                    uid,
-                                                    'ficep_membership',
-                                                    'membership_product_first')
+        first_id = modeldata_obj.get_object_reference(
+            cr, uid, 'ficep_membership', 'membership_product_first')
 
         domain = [('membership', '=', True),
                   ('list_price', '>', 0)]

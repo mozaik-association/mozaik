@@ -75,8 +75,8 @@ class waiting_member_report(orm.Model):
                     JOIN membership_state ms
                         ON ms.id = p.membership_state_id
                     JOIN
-                        membership_membership_line ml
-                        ON ml.partner = p.id
+                        membership_line ml
+                        ON ml.partner_id = p.id
                     WHERE
                         p.is_company = false AND
                         ml.active = true AND
