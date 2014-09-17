@@ -98,7 +98,7 @@
 
         <!-- Membership Lines -->
 
-        <!-- Search View -->
+       <!-- Search View -->
        <record id="membership_line_search_view" model="ir.ui.view">
             <field name="name">membership.membership_line.search (ficep_membership)</field>
             <field name="model">membership.membership_line</field>
@@ -130,12 +130,12 @@
             <field name="name">membership.membership_line.tree</field>
             <field name="model">membership.membership_line</field>
             <field name="arch" type="xml">
-                <tree colors="gray:active==False;green:membership_state_id[0]==%(ficep_membership.member)d" string="Membership Lines"
-                      create="0" delete="0" version="7.0">
+                <tree colors="gray:active==False;green:membership_state_id[0]==%(ficep_membership.member)d;red:membership_state_id[0] in [%(ficep_membership.former_supporter)d, %(ficep_membership.refused_member_candidate)d, %(ficep_membership.expulsion_former_member)d, %(ficep_membership.resignation_former_member)d, %(ficep_membership.inappropriate_former_member)d, %(ficep_membership.break_former_member)d]"
+                      string="Membership Lines" create="0" delete="0" version="7.0">
                     <field name="partner"/>
                     <field name="int_instance_id"/>
                     <field name="membership_state_id"/>
-                    <field name="membership_id" attrs="{'invisible': [('member_price','&lt;=',0.0)]}"/>
+                    <field name="membership_id" attrs="{'invisible': [('membership_id','=',False)]}"/>
                     <field name="reference" />
                     <field name="date_from"/>
                     <field name="date_to"/>
@@ -150,7 +150,7 @@
             <field name="name">membership.membership_line.form</field>
             <field name="model">membership.membership_line</field>
             <field name="arch" type="xml">
-                <form string="Membership Line" version="7.0">
+                <form string="Membership Line" create="0" delete="0" version="7.0">
                     <header>
                         <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
@@ -160,21 +160,23 @@
                     <sheet>
                         <div class="oe_title" name="title">
                             <label for="partner"/>
-                            <h1><field name="partner" /></h1>
+                            <h1><field name="partner" readonly="not context.get('is_developper')" /></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
 
                         <group name="data">
                             <group name="main">
-                                <field name="int_instance_id" />
-                                <field name="membership_state_id" />
-                                <field name="membership_id" widget="selection"
-                                       attrs="{'invisible': [('membership_state_id','!=',%(ficep_membership.member)d)]}" />
-                                <field name="member_price" attrs="{'invisible': [('membership_state_id','!=',%(ficep_membership.member)d)]}"/>
-                                <field name="reference" />
+                                <field name="membership_state_id" readonly="not context.get('is_developper')" />
+                                <field name="membership_id" readonly="not context.get('is_developper')"
+                                       attrs="{'invisible': [('membership_id','=',False)]}" />
+                                <field name="member_price" readonly="not context.get('in_ficep_configurator')"
+                                       attrs="{'invisible': [('membership_id','=',False)]}" />
+                                <field name="reference" readonly="not context.get('is_developper')"
+                                       attrs="{'invisible': [('reference','=',False)]}" />
                             </group>
                             <group name="other">
+                                <field name="int_instance_id" readonly="not context.get('is_developper')" />
                                 <field name="account_invoice_id" attrs="{'invisible': [('account_invoice_id','=',False)]}"
                                        groups="ficep_account.res_groups_financial_manager"/>
                                 <field name="account_invoice_line" attrs="{'invisible': [('account_invoice_line','=',False)]}"
@@ -188,7 +190,7 @@
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                             </group>
                             <group name="dates">
-                                <field name="date"/>
+                                <field name="date" readonly="not context.get('is_developper')"/>
                                 <field name="date_from" />
                                 <field name="date_to" attrs="{'invisible': [('date_to','=',False)]}" />
                             </group>
