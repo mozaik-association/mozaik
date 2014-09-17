@@ -2,11 +2,11 @@
 <openerp>
     <data noupdate="0">
 
-        <record id="pass_old_member_view" model="ir.ui.view">
-            <field name="name">pass.old.member.view</field>
-            <field name="model">pass.old.member</field>
+        <record id="pass_former_member_view" model="ir.ui.view">
+            <field name="name">pass.former.member.view</field>
+            <field name="model">pass.former.member</field>
             <field name="arch" type="xml">
-                <form string="Pass to Old Member" version="7.0">
+                <form string="Pass to Former Member" version="7.0">
                     <sheet>
 
                         <separator string="Overview"/>
@@ -27,7 +27,7 @@
 
                         <footer>
                             <span name="go-wizard" attrs="{'invisible': [('go', '=', False)]}">
-                                <button string="Generate" name="pass_old_member"
+                                <button string="Generate" name="pass_former_member"
                                         type="object" class="oe_highlight"/>
                                 or
                             </span>
@@ -38,23 +38,23 @@
             </field>
         </record>
 
-        <record id="pass_old_member_action" model="ir.actions.act_window">
-            <field name="name">Pass to Old Member</field>
+        <record id="pass_former_member_action" model="ir.actions.act_window">
+            <field name="name">Pass to Former Member</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model">res.partner</field>
-            <field name="res_model">pass.old.member</field>
+            <field name="res_model">pass.former.member</field>
             <field name="target">new</field>
-            <field name="view_id" ref="pass_old_member_view" />
+            <field name="view_id" ref="pass_former_member_view" />
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_officer')])]" />
         </record>
 
-        <record id="pass_old_member_values" model="ir.values">
-            <field name="name">Pass to Old Member</field>
+        <record id="pass_former_member_values" model="ir.values">
+            <field name="name">Pass to Former Member</field>
             <field name="model">res.partner</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('pass_old_member_action')" />
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('pass_former_member_action')" />
         </record>
 
     </data>

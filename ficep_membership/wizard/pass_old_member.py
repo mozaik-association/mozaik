@@ -35,10 +35,10 @@ WORKER_PIVOT = 10
 AVAILABLE_MONTHS = [7, 8, 9]
 
 
-class pass_old_member(orm.TransientModel):
+class pass_former_member(orm.TransientModel):
 
-    _name = "pass.old.member"
-    _description = 'Pass to Old Member'
+    _name = "pass.former.member"
+    _description = 'Pass to former Member'
 
     def _get_selected_values(self, cr, uid, context=None):
         partner_obj = self.pool['res.partner']
@@ -71,7 +71,7 @@ class pass_old_member(orm.TransientModel):
         """
         To get default values for the object.
         """
-        res = super(pass_old_member, self).default_get(
+        res = super(pass_former_member, self).default_get(
             cr, uid, fields, context=context)
         if context is None:
             context = {}
@@ -86,9 +86,9 @@ class pass_old_member(orm.TransientModel):
 
         return res
 
-    def pass_old_member(self, cr, uid, ids, context=None):
+    def pass_former_member(self, cr, uid, ids, context=None):
         """
-        Pass to Old Member for all partner
+        Pass to former Member for all partner
         If concerned partner number is > to the ir.parameter value then
         call connector to delay this work
         **Note**
@@ -105,17 +105,17 @@ class pass_old_member(orm.TransientModel):
             partner_ids = eval(wiz.concerned_partner_ids)
             session = ConnectorSession(cr, uid, context=context)
             if len(partner_ids) > worker_pivot:
-                pass_old_member_action.delay(
+                pass_former_member_action.delay(
                     session, self._name, partner_ids, context=context)
             else:
-                pass_old_member_action(
+                pass_former_member_action(
                     session, self._name, partner_ids, context=context)
 
 
 @job
-def pass_old_member_action(session, model_name, partner_ids, context=None):
+def pass_former_member_action(session, model_name, partner_ids, context=None):
     """
-    Pass to Old Member for each partner
+    Pass to former Member for each partner
     """
     cr, uid, = session.cr, session.uid
     partner_obj = session.pool['res.partner']

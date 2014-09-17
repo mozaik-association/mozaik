@@ -124,9 +124,7 @@
             <field name="inherit_id" ref="membership.view_partner_form" />
             <field name="arch" type="xml">
 
-                <xpath expr="//group[descendant::field[@name='free_member']]" position="attributes">
-                    <attribute name="groups">settings_improvement.unused_features</attribute>
-                </xpath>
+                <xpath expr="//group[descendant::field[@name='free_member']]" position="replace"/>
 
                 <xpath expr="//field[@name='member_lines']"
                     position="before">
