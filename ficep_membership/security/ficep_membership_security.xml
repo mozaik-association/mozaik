@@ -100,6 +100,17 @@
             <field name="model_id" ref="base.model_res_partner"/>
             <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
                                         '|',('is_assembly','=',True),('identifier','!=',0)]</field>
+            <field name="perm_read" eval="0"/>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <!--field name="groups" eval="[(6,0,[ref('ficep_base.res_groups_base')])]"/-->
+        </record>
+
+        <record id="res_partner_base_for_read_rule" model="ir.rule">
+            <field name="name">Partner (read) for Ficep Base</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">['|',('id','=',user.partner_id.id),('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                                        '|',('is_assembly','=',True),('identifier','!=',0)]</field>
+            <field name="perm_write" eval="0"/><field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
             <field name="groups" eval="[(5,0,0)]"/>
             <!--field name="groups" eval="[(6,0,[ref('ficep_base.res_groups_base')])]"/-->
         </record>
