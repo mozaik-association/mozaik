@@ -374,7 +374,6 @@ class res_partner(orm.Model):
             ],
             'reference': membership_state_code in [
                 'member_candidate',
-                'member',
             ] and self._generate_membership_reference(
                 cr, uid, ids, context=context) or False
         }

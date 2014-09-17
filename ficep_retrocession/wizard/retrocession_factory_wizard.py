@@ -148,7 +148,7 @@ class retrocession_factory_wizard(orm.TransientModel):
                                              if mandate['retrocession_mode']=='month']
         yearly_mandate_ids = list(set(mandate_ids) - set(monthly_mandate_ids))
 
-        worker_pivot = int(self.pool.get('ir.config_parameter').get_param(cr, uid, 'retrocession_by_workers_pivot', 10))
+        worker_pivot = int(self.pool.get('ir.config_parameter').get_param(cr, uid, 'worker_pivot', 10))
 
         vals = dict(month=wizard.month,
                     year=wizard.year)

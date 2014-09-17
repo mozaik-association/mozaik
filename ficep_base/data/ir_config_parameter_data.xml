@@ -16,6 +16,11 @@
             <field name="key">ir_attachment.location</field>
             <field name="value">file:filestore</field>
         </record>
+        <record id="workers_pivot" model="ir.config_parameter">
+            <field name="key">worker_pivot</field>
+            <field name="value">10</field>
+        </record>
     </data>
+
 
 </openerp>

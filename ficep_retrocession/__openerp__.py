@@ -53,7 +53,6 @@ FICEP Retrocession
              'wizard/retrocession_factory_wizard.xml',
              'wizard/report_retrocession_wizard.xml',
              'security/ir.model.access.csv',
-             'data/ir_config_parameter_data.xml',
              'reports/report_payment_request_view.xml',
              'reports/report_payment_certificate_view.xml',
              'data/email_template_data.xml',

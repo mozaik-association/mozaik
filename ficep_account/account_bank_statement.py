@@ -97,29 +97,33 @@ class account_bank_statement(orm.Model):
         prod_ids = prod_obj.search(cr, uid, domain, context=context)
 
         credit_account = False
+        product_id = False
         for prod in prod_obj.browse(cr, uid, prod_ids, context=context):
             if prod.list_price == bank_line.amount:
                 if prod.id == first_id:
-                    if not self._check_first_membership(cr, uid,
-                                                  bank_line.partner_id.id,
-                                                  bank_line.name,
-                                                  context=context):
+                    if not self._check_first_membership(
+                            cr, uid, bank_line.partner_id.id, bank_line.name,
+                            context=context):
                         continue
                 credit_account = prod.property_subscription_account
+                product_id = prod.id
                 break
 
         if credit_account:
-            move_dicts = [{'account_id': credit_account.id,
-                           'debit': 0,
-                           'credit': bank_line.amount,
-                          }]
-            bsl_obj.process_reconciliation(cr,
-                                           uid,
-                                           bank_line.id,
-                                           move_dicts,
-                                           context=context)
-            partner_obj.signal_workflow(cr, uid, [bank_line.partner_id.id],
-                                        'paid')
+            move_dicts = [{
+                'account_id': credit_account.id,
+                'debit': 0,
+                'credit': bank_line.amount,
+            }]
+            bsl_obj.process_reconciliation(
+                cr, uid, bank_line.id, move_dicts, context=context)
+            partner_obj.signal_workflow(
+                cr, uid, [bank_line.partner_id.id], 'paid')
+            vals = {
+                'subscription_product_id': product_id,
+            }
+            partner_obj.write(
+                cr, uid, vals, context=context)
 
     def auto_reconcile(self, cr, uid, ids, context=None):
         for bank_s in self.browse(cr, uid, ids, context=context):

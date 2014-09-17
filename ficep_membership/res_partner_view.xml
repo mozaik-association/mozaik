@@ -19,6 +19,10 @@
                         domain="[('del_doc_date','=', False),
                                  ('membership_state_id.code','!=', 'without_membership')]"
                         invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <filter string="Awaiting payment" name="awating_payment"
+                        domain="[('reference','!=', False),
+                                 ('membership_state_id.code','=', 'member')]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
                 </xpath>
                 <xpath expr="//filter[@name='country']" position="after">
                     <filter name="instance" string="Internal Instance"
@@ -160,9 +164,12 @@
                     <group name="membership_datas">
                         <field name="subscription_product_id" widget="selection"
                                attrs="{'invisible': [('membership_state_code','!=','member')]}"/>
-                        <field name="reference" attrs="{'invisible': [('reference', '=', False)]}" />
-                        <field name="del_doc_date" attrs="{'invisible': [('del_doc_date', '=', False)]}" />
-                        <field name="del_mem_card_date" attrs="{'invisible': [('del_mem_card_date', '=', False)]}" />
+                        <field name="reference" attrs="{'invisible': [('reference', '=', False)]}"
+                               readonly="1"/>
+                        <field name="del_doc_date" attrs="{'invisible': [('del_doc_date', '=', False)]}"
+                               readonly="1"/>
+                        <field name="del_mem_card_date" attrs="{'invisible': [('del_mem_card_date', '=', False)]}"
+                               readonly="1"/>
                     </group>
                 </xpath>
 
