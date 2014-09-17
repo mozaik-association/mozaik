@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ficep_res_users_res_group_configurator,ficep.res.users.res.group.configurator,model_res_users,ficep_base.ficep_res_groups_configurator,1,1,1,0
