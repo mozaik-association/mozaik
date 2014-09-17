@@ -82,7 +82,7 @@ class test_create_user_from_partner(SharedSetupTransactionCase):
         self.assertTrue(len(vals), 'Wrong expected reference data for this test')
 
         # Create a user from a partner
-        user_id = self.partner_model.create_user(cr, uid, 'jack', jacques_id, [fr_id], context=context)
+        user_id = partner_model.create_user(cr, uid, 'jack', jacques_id, [fr_id], context=context)
         user = user_model.browse(cr, uid, user_id, context=context)
         self.assertEqual(user.partner_id.id, jacques_id, 'Create user fails with wrong partner_id')
         self.assertEqual(user.login, 'jack', 'Create user fails with wrong login')

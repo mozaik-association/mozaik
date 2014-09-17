@@ -60,6 +60,11 @@ class test_partner(SharedSetupTransactionCase):
         self.partner2 = self.browse_ref(
             '%s.res_partner_fgtb' % self._module_ns)
 
+        self.user_model = self.registry('res.users')
+        self.partner_jacques_id = self.ref(
+            '%s.res_partner_jacques' % self._module_ns)
+        self.group_fr_id = self.ref('ficep_base.ficep_res_groups_reader')
+
     def get_partner(self, partner_id=False):
         """
         ==========
@@ -610,3 +615,31 @@ class test_partner(SharedSetupTransactionCase):
         self.assertEquals(
             int(full_number[:-2]) % 97 or 97,
             int(full_number[-2:]), 'Identifier should be the same')
+
+    def test_create_user_from_partner(self):
+        """
+        Test the propagation of int_instance into the int_instance_m2m_ids
+        when creating a user from a partner
+        """
+        cr, uid, context = self.cr, self.uid, {}
+        jacques_id = self.partner_jacques_id
+        fr_id = self.group_fr_id
+        partner_model, user_model = self.partner_obj, self.user_model
+
+        # Check for reference data
+        dom = [('partner_id', '=', jacques_id)]
+        vals = user_model.search(cr, uid, dom, context=context)
+        self.assertFalse(
+            len(vals), 'Wrong expected reference data for this test')
+        dom = [('id', '=', jacques_id), ('ldap_name', '>', '')]
+        vals = partner_model.search(cr, uid, dom, context=context)
+        self.assertFalse(
+            len(vals), 'Wrong expected reference data for this test')
+
+        # Create a user from a partner
+        partner_model.create_user(
+            cr, uid, 'jack', jacques_id, [fr_id], context=context)
+        jack = partner_model.browse(cr, uid, jacques_id, context=context)
+        self.assertEqual(
+            [jack.int_instance_id.id], jack.int_instance_m2m_ids.ids,
+            'Update partner fails with wrong int_instance_m2m_ids')

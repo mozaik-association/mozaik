@@ -106,6 +106,16 @@ class res_partner(orm.Model):
         return '+++%s/%s/%s+++' % (comm_struct[:3], comm_struct[3:7],
                                    comm_struct[7:])
 
+    def _update_user_partner(self, cr, uid, partner, vals, context=None):
+        """
+        When creating a user from a partner,
+        give a first value to its int_instance_m2m_ids collection
+        """
+        vals = vals or {}
+        vals['int_instance_m2m_ids'] = [(6, 0, [partner.int_instance_id.id])]
+        super(res_partner, self)._update_user_partner(
+            cr, uid, partner, vals, context=context)
+
     _columns = {
         'int_instance_id': fields.many2one(
             'int.instance', 'Internal Instance', select=True,
