@@ -111,6 +111,13 @@
             <field name="groups" eval="[(5,0,0)]"/>
         </record>
 
+        <record id="co_residency_base_rule" model="ir.rule">
+            <field name="name">Co-Residency for Ficep</field>
+            <field name="model_id" ref="ficep_address.model_co_residency"/>
+            <field name="domain_force">['|',('postal_coordinate_ids','=',False),('postal_coordinate_ids.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
         <record id="email_coordinate_base_rule" model="ir.rule">
             <field name="name">Email Coordinate for Ficep</field>
             <field name="model_id" ref="ficep_email.model_email_coordinate"/>
