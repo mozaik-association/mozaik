@@ -50,7 +50,6 @@ class postal_mail(orm.Model):
     _columns = {
         'name': fields.char('Name', size=256, required=True, track_visibility='onchange'),
         'sent_date': fields.date('Sent Date', required=True, track_visibility='onchange'),
-        'postal_mail_log_ids': fields.one2many('postal.mail.log', 'postal_mail_id', 'Postal Mail Logs'),
         'postal_mail_log_count': fields.function(_postal_mail_log_count, string="Log Count", type="integer"),
     }
 
@@ -71,7 +70,6 @@ class postal_mail(orm.Model):
         """
         default = default or {}
         default.update({
-            'postal_mail_log_ids': [],
             'sent_date': datetime.date.today(),
         })
         res = super(postal_mail, self).copy_data(cr, uid, ids, default=default, context=context)
@@ -173,16 +171,14 @@ class postal_mail_log(orm.Model):
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
         """
-        =========
-        copy_data
-        =========
         Set date to today and append (copy) to the name.
         """
         default = default or {}
         default.update({
             'sent_date': datetime.date.today(),
         })
-        res = super(postal_mail_log, self).copy_data(cr, uid, ids, default=default, context=context)
+        res = super(postal_mail_log, self).copy_data(
+            cr, uid, ids, default=default, context=context)
         res.update({
             'name': _('%s (copy)') % res.get('name'),
         })
@@ -190,50 +186,33 @@ class postal_mail_log(orm.Model):
 
 # view methods: onchange, button
 
-    def onchange_postal_coordinate_id(self, cr, uid, ids, postal_coordinate_id, context=None):
+    def onchange_postal_coordinate_id(
+            self, cr, uid, ids, postal_coordinate_id, context=None):
         """
-        =============================
-        onchange_postal_coordinate_id
-        =============================
-        Set the partner_id to the id of the partner of the selected postal coordinate.
+        Set the partner_id to the id of the partner
+        of the selected postal coordinate.
         """
         partner_id = False
-        try:
-            partner_id = self.pool.get('postal.coordinate').read(cr, uid, [postal_coordinate_id], ['partner_id'], context=context)[0]['partner_id'][0] if postal_coordinate_id else False,
-        except Exception:
-            pass
+        if postal_coordinate_id:
+            partner_id = self.pool['postal.coordinate'].read(
+                cr, uid, [postal_coordinate_id], ['partner_id'],
+                context=context)[0]['partner_id'][0]
 
         return {
             'value': {
-                'partner_id': partner_id
+                'partner_id': partner_id,
             }
         }
 
     def onchange_partner_id(self, cr, uid, ids, partner_id, context=None):
         """
-        ====================
-        onchange_partner_id
-        ====================
-        Set the domain of the postal coordinate to restrict the selection to coordinates having the specified partner_id.
+        Set the domain of the postal coordinate to restrict the selection
+        to coordinates having the specified partner_id.
         """
-        if not partner_id:
-            # Show all coordinates
-            return {
-                'domain': {
-                    'postal_coordinate_id': []
-                }
-            }
-
-        postal_coordinate_ids = False
-        try:
-            postal_coordinate_ids = self.pool.get('postal.coordinate').search(cr, uid, [('partner_id','=',partner_id)]) if partner_id else False
-        except Exception:
-            pass
+        domain = partner_id and [('partner_id', '=', partner_id)] or []
 
         return {
             'domain': {
-                'postal_coordinate_id': [('id','in',postal_coordinate_ids or [])]
+                'postal_coordinate_id': domain,
             }
         }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

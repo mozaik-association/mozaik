@@ -31,5 +31,12 @@
             <field name="groups" eval="[(5,0,0)]"/>
         </record>
 
+        <record id="postal_mail_log_base_rule" model="ir.rule">
+            <field name="name">Postal Mail Log for Ficep Base</field>
+            <field name="model_id" ref="ficep_communication.model_postal_mail_log"/>
+            <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
     </data>
 </openerp>

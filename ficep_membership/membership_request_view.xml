@@ -75,8 +75,7 @@
                             <button name="confirm_request"
                                 attrs="{'invisible': [('state', '!=', 'draft')]}"
                                 string="Confirm" type="object"
-                                confirm="Confirm Membership Request: proceed anyway?"
-                                groups="ficep_base.ficep_res_groups_user" />
+                                confirm="Confirm Membership Request: proceed anyway?" />
 
                             <!-- Validate or Cancel State -->
                             <button name="validate_request"

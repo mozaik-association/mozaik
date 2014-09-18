@@ -757,8 +757,8 @@ class membership_request(orm.Model):
 
             partner_values.update(get_status_values(mr.request_type))
             partner_values.update({
-                'competencies_m2m_ids': [[6, False, new_interests_ids]],
-                'interests_m2m_ids': [[6, False, new_competencies_ids]],
+                'competencies_m2m_ids': [[6, False, new_competencies_ids]],
+                'interests_m2m_ids': [[6, False, new_interests_ids]],
             })
 
             # update_partner values

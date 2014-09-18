@@ -194,21 +194,13 @@
                     </header>
                 </xpath>
 
-                <!-- Restrict domain with a ficep useablility scope -->
-                <xpath expr="//field[@name='src_model_id']" position="attributes">
-                    <attribute name="domain">[('model','in',['res.partner',
-                                                             'virtual.partner.involvement',
-                                                             'virtual.partner.relation',
-                                                             'virtual.partner.instance',
-                                                             'virtual.partner.mandate',
-                                                             'virtual.partner.candidature',
-                                                             'virtual.assembly.instance',
-                                                             'virtual.partner.retrocession'])]</attribute>
-                </xpath>
-
                 <xpath expr="//button[@name='action_partner_selection']" position="attributes">
                     <attribute name="attrs">{'invisible':[('active', '=', False)]}</attribute>
                     <attribute name="groups">ficep_base.ficep_res_groups_user</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='domain']" position="attributes">
+                    <attribute name="readonly">not context.get('is_developper')</attribute>
                 </xpath>
 
                 <!-- Add user tree into distribution list form -->

@@ -162,7 +162,7 @@
             <field name="name">Membership Line for Ficep</field>
             <field name="model_id" ref="ficep_membership.model_membership_line"/>
             <field name="domain_force">[
-                ('partner.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
                 ('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
