@@ -27,8 +27,6 @@
 ##############################################################################
 import logging
 import base64
-import os
-import sys
 from lxml import etree as ET
 
 from anybox.testing.openerp import SharedSetupTransactionCase
@@ -36,43 +34,111 @@ from anybox.testing.openerp import SharedSetupTransactionCase
 _logger = logging.getLogger(__name__)
 
 
-class test_export_help_wizard(SharedSetupTransactionCase):
-    _data_files = ()
+class test_export_help_wizard(object):
+    _data_files = ('data/help_test_data.xml',)
 
     _module_ns = 'ficep_help'
 
+    def createPage(self, pageName, imgXmlId=False):
+        imgId = False
+        if imgXmlId:
+            imgId = self.ref('%s.%s' % (self._module_ns, imgXmlId))
+
+        rootNode = ET.Element('t')
+        rootNode.attrib['name'] = pageName
+        rootNode.attrib['t-name'] = "website.%s" % pageName
+        tNode = ET.SubElement(rootNode, 't')
+        tNode.attrib['t-call'] = "website.layout"
+        structDivNode = ET.SubElement(tNode, 'div')
+        structDivNode.attrib['class'] = "oe_structure oe_empty"
+        structDivNode.attrib['id'] = "wrap"
+        sectionNode = ET.SubElement(structDivNode, 'section')
+        sectionNode.attrib['class'] = "mt16 mb16"
+        containerNode = ET.SubElement(sectionNode, 'div')
+        containerNode.attrib['class'] = "container"
+        rowNode = ET.SubElement(containerNode, 'div')
+        rowNode.attrib['class']= "row"
+        bodyDivNode = ET.SubElement(rowNode, 'div')
+        bodyDivNode.attrib['class'] = "col-md-12 text-center mt16 mb32"
+        h2Node = ET.SubElement(bodyDivNode, 'h2')
+        h2Node.attrib['style'] = "font-family: 'Helvetica Neue', Helvetica,"\
+                                 " Arial, sans-serif; color: rgb(51, 51, 51);"\
+                                 " text-align: left;"
+        h2Node.text = "Test Sample Title"
+        if imgId:
+            imgDivNode = ET.SubElement(bodyDivNode, 'div')
+            imgDivNode.attrib['style'] = "text-align: left;"
+            imgNode = ET.SubElement(imgDivNode, 'img')
+            imgNode.attrib['class'] = "img-thumbnail"
+            imgNode.attrib['src'] = "/website/image?field=datas&"\
+                                    "model=ir.attachment&id=" + str(imgId)
+        arch = ET.tostring(rootNode, encoding='utf-8', xml_declaration=False)
+        view_id = self.registry('ir.ui.view').create(self.cr, self.uid, {
+            'name': pageName,
+            'type': 'qweb',
+            'arch': arch,
+            'page': True,
+        })
+        return view_id
+
     def setUp(self):
         super(test_export_help_wizard, self).setUp()
+        self.pageName = False
+        self.imgXmlId = False
+        self.pageTemplate = False
 
-    def test_export_help_wizard(self):
+    def test_export_help(self):
         '''
             Export help data
         '''
-        module = sys.modules[self.__module__]
-        base_path = os.path.dirname(module.__file__)
-        path = '../data/help_data.xml'
-        path = path.split('/')
-        path.insert(0, base_path)
-        path = os.path.join(*path)
-        reference_file = open(path, 'r')
-        reference_data = reference_file.read()
-        wizard_pool = self.registry('export.help.wizard')
-        wiz_id = wizard_pool.create(
+        self.createPage(pageName=self.pageName, imgXmlId=self.imgXmlId)
+
+        wizardPool = self.registry('export.help.wizard')
+        wizId = wizardPool.create(
                             self.cr,
                             self.uid,
                             {},
                             context={})
-        wizard_pool.export_help(self.cr, self.uid, [wiz_id], context={})
-        wizard = wizard_pool.browse(self.cr, self.uid, [wiz_id], context={})
-        exported_data = base64.decodestring(wizard.data)
+        wizardPool.export_help(self.cr, self.uid, [wizId], context={})
+        wizard = wizardPool.browse(self.cr, self.uid, [wizId], context={})
+        xmlData = base64.decodestring(wizard.data)
 
         parser = ET.XMLParser(remove_blank_text=True)
-        exported_xml = ET.XML(exported_data, parser=parser)
-        reference_xml = ET.XML(reference_data, parser=parser)
+        rootXml = ET.XML(xmlData, parser=parser)
 
-        exported_string = ET.tostring(exported_xml).replace('\n', '')
-        reference_string = ET.tostring(reference_xml).replace('\n', '')
+        xPath = ".//template[@id='website.%s']" % self.pageName
+        templateNodeList = rootXml.findall(xPath)
+        self.assertEqual(len(templateNodeList), 1)
+        self.assertNotIn("website.", templateNodeList[0].attrib['name'])
 
-        exported_string = exported_string.replace(' ', '')
-        reference_string = reference_string.replace(' ', '')
-        self.assertEqual(exported_string, reference_string)
+        if self.imgXmlId:
+            xPath = ".//record[@id='%s_img_01']" % self.pageName
+            imgNodeList = rootXml.findall(xPath)
+            self.assertEqual(len(imgNodeList), 1)
+
+            for imgElem in templateNodeList[0].iter('img'):
+                imgSrc = imgElem.get('src')
+                self.assertIn("id=%s_img_01" % self.pageName, imgSrc)
+                break
+
+        if self.pageTemplate:
+            xPath = ".//template[@id='website.%s_snippet']" % self.pageName
+            templateNodeList = rootXml.findall(xPath)
+            self.assertEqual(len(templateNodeList), 1)
+            self.assertNotIn("website.", templateNodeList[0].attrib['name'])
+
+
+class test_export_help_with_image(test_export_help_wizard,
+                                  SharedSetupTransactionCase):
+    def setUp(self):
+        super(test_export_help_with_image, self).setUp()
+        self.pageName = 'ficep-help-test-page'
+        self.imgXmlId = 'test_img_1'
+
+
+class test_export_help_template(test_export_help_wizard,
+                                  SharedSetupTransactionCase):
+    def setUp(self):
+        super(test_export_help_template, self).setUp()
+        self.pageName = 'ficep-help-template-test'
+        self.pageTemplate = True
