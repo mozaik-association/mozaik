@@ -87,6 +87,21 @@ class membership_line(orm.Model):
             cr, user, domain, active_test=False, context=context)
         return res
 
+# public methods
+
+    def get_linked_partners(self, cr, uid, ids, context=None):
+        """
+        Returns partner ids linked to membership ids
+        Path to partner must be object.partner_id
+        :rparam: partner_ids
+        :rtype: list of ids
+        """
+        model_rds = self.browse(cr, uid, ids, context=context)
+        partner_ids = []
+        for record in model_rds:
+            partner_ids.append(record.partner_id.id)
+        return partner_ids
+
 
 class membership_state(orm.Model):
 

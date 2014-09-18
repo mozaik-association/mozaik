@@ -116,6 +116,22 @@ class res_partner(orm.Model):
         super(res_partner, self)._update_user_partner(
             cr, uid, partner, vals, context=context)
 
+    def _get_product_id(self, cr, uid, ids, name, arg, context=None):
+        res = {}
+        ml_values = self.pool['membership.line'].search_read(
+            cr, uid, [('partner_id', 'in', ids), ('active', '=', True)],
+            ['partner_id', 'product_id'], context=context)
+        for val in ml_values:
+            res[val['partner_id'][0]] = val.get('product_id') and\
+                val['product_id'][0] or False,
+        return res
+
+    _subscription_store_trigger = {
+        'membership.line': (lambda self, cr, uid, ids, context=None:
+                            self.pool['membership.line'].get_linked_partners(
+                                cr, uid, ids, context=context),
+                            ['product_id'], 10),
+    }
     _columns = {
         'int_instance_id': fields.many2one(
             'int.instance', 'Internal Instance', select=True,
@@ -123,11 +139,6 @@ class res_partner(orm.Model):
         'int_instance_m2m_ids': fields.many2many(
             'int.instance', 'res_partner_int_instance_rel', id1='partner_id',
             id2='int_instance_id', string='Internal Instances'),
-
-        'subscription_product_id': fields.many2one(
-            'product.product', string="Membership Type", select=True,
-            domain="[('membership', '!=', False), ('list_price', '>', 0.0)]",
-            track_visibility='onchange'),
         # membership fields: track visibility is done into membership history
         # management
         'membership_line_ids': fields.one2many(
@@ -140,6 +151,9 @@ class res_partner(orm.Model):
         'membership_state_code': fields.related('membership_state_id', 'code',
                                                 string='Membership State Code',
                                                 type="char", readonly=True),
+        'subscription_product_id': fields.function(
+            _get_product_id, type='many2one', relation="product.template",
+            string='Subscription', store=_subscription_store_trigger),
         'accepted_date': fields.date('Accepted Date'),
         'decline_payment_date': fields.date('Decline Payment Date'),
         'rejected_date': fields.date('Rejected Date'),
@@ -154,9 +168,6 @@ class res_partner(orm.Model):
     _defaults = {
         'int_instance_id': lambda self, cr, uid, ids, context = None:
             self.pool.get('int.instance').get_default(cr, uid),
-        'subscription_product_id': lambda self, cr, uid, ids, context = None:
-            self.pool['ir.model.data'].get_object_reference(
-                cr, uid, 'ficep_base', 'membership_product_free')[1],
     }
 
 # orm methods
@@ -387,12 +398,11 @@ class res_partner(orm.Model):
                 'former_member',
                 'former_member_committee',
             ],
-            'reference': membership_state_code in [
-                'member_candidate',
-            ] and self._generate_membership_reference(
-                cr, uid, ids, context=context) or False
+            'reference': False,
         }
 
+        current_reference = self.read(
+            cr, uid, ids, ['reference'], context=context)[0]['reference']
         res = self.write(cr, uid, ids, vals, context=context)
         state_id = membership_state_obj._state_default_get(
             cr, uid, context=context)
@@ -400,11 +410,12 @@ class res_partner(orm.Model):
             cr, uid, state_id, ['code'], context=context)['code']
 
         if membership_state_code != default_code:
-            self.update_membership_line(cr, uid, ids, context=context)
+            self.update_membership_line(
+                cr, uid, ids, ref=current_reference, context=context)
 
         return res
 
-    def update_membership_line(self, cr, uid, ids, context=None):
+    def update_membership_line(self, cr, uid, ids, ref=False, context=None):
         """
         Search for a `membership.membership_line` for each partner
         If no membership_line exist:
@@ -425,7 +436,7 @@ class res_partner(orm.Model):
                     membership_state_obj._state_default_get(cr, uid):
                 values['int_instance_id'] = partner.int_instance_id and \
                     partner.int_instance_id.id or False,
-                values['reference'] = partner.reference
+                values['reference'] = ref
                 current_membership_line_ids = membership_line_obj.search(
                     cr, uid, [('partner_id', '=', partner.id),
                               ('active', '=', True)],
@@ -449,10 +460,6 @@ class res_partner(orm.Model):
                     values.update({
                         'partner_id': partner.id,
                         'date_from': today,
-                        'product_id': partner.subscription_product_id and
-                        partner.subscription_product_id.id or False,
-                        'price': partner.subscription_product_id and
-                        partner.subscription_product_id.list_price or 0.0,
                     })
                     membership_line_obj.create(
                         cr, uid, values, context=context)

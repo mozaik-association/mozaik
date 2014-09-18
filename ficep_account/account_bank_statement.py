@@ -34,19 +34,17 @@ class account_bank_statement(orm.Model):
     def _check_first_membership(self, cr, uid, partner_id, reference,
                                 context=None):
         modeldata_obj = self.pool.get('ir.model.data')
-        ml_obj = self.pool.get('membership.line')
+        partner_obj = self.pool.get('res.partner')
         first_id = modeldata_obj.get_object_reference(
             cr, uid, 'ficep_membership', 'member_candidate')
 
-        domain = [('partner_id', '=', partner_id),
-                  ('date_to', '=', False),
-                  ('reference', '=', reference)
-                  ('active', '=', True),
-                  ('state_id', '=', first_id)]
+        domain = [('id', '=', partner_id),
+                  ('reference', '=', reference),
+                  ('membership_state_id', '=', first_id)]
 
-        ml_ids = ml_obj.search(cr, uid, domain, context=context)
+        p_ids = partner_obj.search(cr, uid, domain, context=context)
 
-        return len(ml_ids) == 1
+        return len(p_ids) == 1
 
     def _reconcile_statement_line(self, cr, uid, bank_line, context=None):
         """
@@ -78,6 +76,7 @@ class account_bank_statement(orm.Model):
         Method to create account move linked to membership payment
         """
         bsl_obj = self.pool.get('account.bank.statement.line')
+        ml_obj = self.pool.get('membership.line')
         prod_obj = self.pool.get('product.product')
         modeldata_obj = self.pool.get('ir.model.data')
         partner_obj = self.pool.get('res.partner')
@@ -90,6 +89,7 @@ class account_bank_statement(orm.Model):
 
         credit_account = False
         product_id = False
+        price = False
         for prod in prod_obj.browse(cr, uid, prod_ids, context=context):
             if prod.list_price == bank_line.amount:
                 if prod.id == first_id:
@@ -99,9 +99,11 @@ class account_bank_statement(orm.Model):
                         continue
                 credit_account = prod.property_subscription_account
                 product_id = prod.id
+                price = prod.list_price
                 break
 
         if credit_account:
+            partner_id = bank_line.partner_id.id
             move_dicts = [{
                 'account_id': credit_account.id,
                 'debit': 0,
@@ -110,12 +112,17 @@ class account_bank_statement(orm.Model):
             bsl_obj.process_reconciliation(
                 cr, uid, bank_line.id, move_dicts, context=context)
             partner_obj.signal_workflow(
-                cr, uid, [bank_line.partner_id.id], 'paid')
+                cr, uid, [partner_id], 'paid')
             vals = {
-                'subscription_product_id': product_id,
+                'product_id': product_id,
+                'price': price,
             }
-            partner_obj.write(
-                cr, uid, vals, context=context)
+            ml_ids = ml_obj.search(
+                cr, uid, [('partner_id', '=', partner_id),
+                          ('active', '=', True)])
+            if ml_ids:
+                self.pool['membership.line'].write(
+                    cr, uid, ml_ids, vals, context=context)
 
     def auto_reconcile(self, cr, uid, ids, context=None):
         for bank_s in self.browse(cr, uid, ids, context=context):
