@@ -173,7 +173,7 @@
                         <group name="membership_datas">
                             <field name="subscription_product_id"
                                 widget="selection"
-                                attrs="{'invisible': [('membership_state_code','!=','member')]}" />
+                                attrs="{'invisible': [('membership_state_code','=', False)]}" />
                             <field name="reference"
                                 attrs="{'invisible': [('reference', '=', False)]}"
                                 readonly="1" />
