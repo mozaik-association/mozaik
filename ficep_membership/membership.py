@@ -25,64 +25,57 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from datetime import date
-from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
-import openerp.tools as tools
+import openerp.addons.decimal_precision as dp
 
 DEFAULT_STATE = 'without_membership'
 
 
-class membership_membership_line(orm.Model):
+class membership_line(orm.Model):
 
-    _name = 'membership.membership_line'
-    _inherit = ['membership.membership_line', 'abstract.ficep.model']
+    _name = 'membership.line'
+    _inherit = ['abstract.ficep.model']
+
+    _rec_name = 'partner_id'
 
     _inactive_cascade = True
 
     _columns = {
-        'partner': fields.many2one(
+        'partner_id': fields.many2one(
             'res.partner', string='Member',
             ondelete='cascade', required=True, select=True),
-        'membership_id': fields.many2one(
-            'product.product', string='Membership Type',
+        'product_id': fields.many2one(
+            'product.product', string='Membership Product',
             domain="[('membership', '!=', False), ('list_price', '>', 0.0)]",
-            required=True, select=True),
-        'membership_state_id': fields.many2one(
+            select=True),
+        'state_id': fields.many2one(
             'membership.state', string='State',
             select=True),
         'int_instance_id': fields.many2one(
             'int.instance', string='Internal Instance',
             required=True, select=True),
         'reference': fields.char('Reference'),
+
+        'date_from': fields.date('From', readonly=True),
+        'date_to': fields.date('To', readonly=True),
+        'price': fields.float(
+            'Price', digits_compute=dp.get_precision('Product Price'),
+            help='Amount for the membership'),
     }
 
     _defaults = {
-        'membership_id': lambda self, cr, uid, ids, context = None:
+        'product_id': lambda self, cr, uid, ids, context = None:
             self.pool['ir.model.data'].get_object_reference(
                 cr, uid, 'ficep_base', 'membership_product_free')[1],
         'int_instance_id': lambda self, cr, uid, ids, context = None:
             self.pool.get('int.instance').get_default(cr, uid),
     }
 
-    _order = 'date_from desc, date_to desc, partner'
+    _order = 'date_from desc, date_to desc, partner_id'
 
 # constraints
 
-    _unicity_keys = 'partner'
-
-    def init(self, cr):
-        '''
-        Inactivate odoo demo data incompatible
-        with abstract ficep indexes mechanism
-        '''
-        if tools.config.options['test_enable']:
-            cr.execute("UPDATE membership_membership_line "
-                       "SET active = FALSE "
-                       "WHERE membership_state_id IS NULL")
-
-        # create expected index
-        super(membership_membership_line, self).init(cr)
+    _unicity_keys = 'partner_id'
 
 # orm methods
 
@@ -90,7 +83,7 @@ class membership_membership_line(orm.Model):
         '''
         Read always inactive membership lines
         '''
-        res = super(membership_membership_line, self)._where_calc(
+        res = super(membership_line, self)._where_calc(
             cr, user, domain, active_test=False, context=context)
         return res
 

@@ -52,7 +52,7 @@ class test_partner(SharedSetupTransactionCase):
         self.mr_obj = self.registry('membership.request')
         self.partner_obj = self.registry('res.partner')
         self.ms_obj = self.registry('membership.state')
-        self.ml_obj = self.registry('membership.membership_line')
+        self.ml_obj = self.registry('membership.line')
 
         self.partner1 = self.browse_ref(
             '%s.res_partner_thierry' % self._module_ns)
@@ -430,7 +430,7 @@ class test_partner(SharedSetupTransactionCase):
         membership_state_id = partner.membership_state_id and \
             partner.membership_state_id.id or False
 
-        for membership_line in partner.member_lines:
+        for membership_line in partner.membership_line_ids:
             if membership_line.active:
                 self.assertFalse(membership_line.date_to, 'Should not have a \
                     date_to because this is the current membership')
@@ -441,19 +441,19 @@ class test_partner(SharedSetupTransactionCase):
                              'Date From should be: today')
         partner.write({'accepted_date': today})
         partner = partner_obj.browse(cr, uid, partner.id, context=context)
-        self.assertTrue(len(partner.member_lines) >= 1, "Sould have one "
-                        "member lines: previous first call "
+        self.assertTrue(len(partner.membership_line_ids) >= 1, "Sould have "
+                        "one member lines: previous first call "
                         "(without_membership) should not create lines "
                         "and another for the current update of status")
         one_current = False
-        for membership_line in partner.member_lines:
+        for membership_line in partner.membership_line_ids:
             if membership_line.active:
                 one_current = True
-                self.assertTrue(membership_line.membership_state_id ==
+                self.assertTrue(membership_line.state_id ==
                                 partner.membership_state_id,
                                 'State Should be the same than partner')
             else:
-                self.assertTrue(membership_line.membership_state_id.id ==
+                self.assertTrue(membership_line.state_id.id ==
                                 membership_state_id,
                                 'State Should be the same than before')
                 self.assertTrue(membership_line.date_to,

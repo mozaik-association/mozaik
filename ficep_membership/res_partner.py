@@ -130,6 +130,11 @@ class res_partner(orm.Model):
             track_visibility='onchange'),
         # membership fields: track visibility is done into membership history
         # management
+        'membership_line_ids': fields.one2many(
+            'membership.line', 'partner_id', 'Membership'),
+        'free_member': fields.boolean(
+            'Free Member',
+            help="Select if you want to give free membership."),
         'membership_state_id': fields.many2one('membership.state',
                                                string='State'),
         'membership_state_code': fields.related('membership_state_id', 'code',
@@ -203,9 +208,9 @@ class res_partner(orm.Model):
                 d['id'] for d in data if not d['is_company'] and is_company
             ]
             if p2d_ids:
-                ml_obj = self.pool['membership.membership_line']
+                ml_obj = self.pool['membership.line']
                 ml_ids = ml_obj.search(
-                    cr, uid, [('partner', 'in', p2d_ids)],
+                    cr, uid, [('partner_id', 'in', p2d_ids)],
                     context=context)
                 if ml_ids:
                     raise orm.except_orm(
@@ -412,17 +417,17 @@ class res_partner(orm.Model):
             'date_from': today,
             'date_to': False,
         }
-        membership_line_obj = self.pool['membership.membership_line']
+        membership_line_obj = self.pool['membership.line']
         membership_state_obj = self.pool['membership.state']
         for partner in self.browse(cr, uid, ids, context=context):
-            values['membership_state_id'] = partner.membership_state_id.id
-            if values['membership_state_id'] != \
+            values['state_id'] = partner.membership_state_id.id
+            if values['state_id'] != \
                     membership_state_obj._state_default_get(cr, uid):
                 values['int_instance_id'] = partner.int_instance_id and \
                     partner.int_instance_id.id or False,
                 values['reference'] = partner.reference
                 current_membership_line_ids = membership_line_obj.search(
-                    cr, uid, [('partner', '=', partner.id),
+                    cr, uid, [('partner_id', '=', partner.id),
                               ('active', '=', True)],
                     context=context)
                 current_membership_line_id = current_membership_line_ids and \
@@ -442,11 +447,11 @@ class res_partner(orm.Model):
                 else:
                     # create first membership_line
                     values.update({
-                        'partner': partner.id,
-                        'date': today,
-                        'membership_id': partner.subscription_product_id and
+                        'partner_id': partner.id,
+                        'date_from': today,
+                        'product_id': partner.subscription_product_id and
                         partner.subscription_product_id.id or False,
-                        'member_price': partner.subscription_product_id and
+                        'price': partner.subscription_product_id and
                         partner.subscription_product_id.list_price or 0.0,
                     })
                     membership_line_obj.create(
