@@ -840,7 +840,7 @@ class retrocession(orm.Model):
         ================================
         Send an email with request for payment attached
         """
-        ir__data = self.pool.get('ir..data')
+        ir__data = self.pool.get('ir.model.data')
         retro = self.browse(cr, uid, ids[0], context=context)
         if not retro.email_coordinate_id:
             raise orm.except_orm(_('Error!'), _('Representative has no email template specified'))
@@ -860,7 +860,7 @@ class retrocession(orm.Model):
                                   'notify': False,
                                   'template_id': template_id,
                                   'subject': "",
-                                  '': 'retrocession',
+                                  'model': 'retrocession',
                                   }
             context['email_coordinate_path'] = 'email_coordinate_id.email'
             context['active_ids'] = [retro.id]
