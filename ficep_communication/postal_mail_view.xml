@@ -8,7 +8,7 @@
             <field name="name">postal.mail.log.search</field>
             <field name="model">postal.mail.log</field>
             <field name="arch" type="xml">
-                <search string="Postal Mail Log" version="7.0">
+                <search string="Postal Mail Logs" version="7.0">
                     <field name="name"/>
                     <field name="postal_mail_id"/>
                     <field name="postal_coordinate_id"/>
@@ -35,10 +35,10 @@
         </record>
 
         <record id="postal_mail_log_tree_view" model="ir.ui.view">
-            <field name="name">postal.mail.history.tree (postal_mail_log)</field>
+            <field name="name">postal.mail.history.tree</field>
             <field name="model">postal.mail.log</field>
             <field name="arch" type="xml">
-                <tree string="Postal Mail History" version="7.0">
+                <tree string="Postal Mail Logs" version="7.0">
                     <field name="name"/>
                     <field name="sent_date"/>
                     <field name="postal_mail_id"/>
@@ -52,21 +52,21 @@
         </record>
 
         <record id="postal_mail_log_form_view" model="ir.ui.view">
-            <field name="name">postal.mail.log.form (postal_mail_log)</field>
+            <field name="name">postal.mail.log.form</field>
             <field name="model">postal.mail.log</field>
             <field name="arch" type="xml">
                 <form string="Postal Mail Log" version="7.0">
                     <header>
                         <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_user"><!-- or configurator -->
+                             groups="ficep_base.ficep_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate Postal Mail Log: proceed anyway?" />
                         </span>
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">
-                            <label for="postal_mail_id" class="oe_edit_only" attrs="{'invisible':[('postal_mail_id','!=',False)]}"/>
+                            <label for="postal_mail_id" class="oe_edit_only" attrs="{'invisible':[('postal_mail_id','=',False)]}"/>
                             <h1>
                                 <field name="postal_mail_id" attrs="{'readonly': [('id','!=',False)],'invisible':[('postal_mail_id','=',False)]}"/>
                             </h1>
@@ -75,17 +75,17 @@
                                 <field name="name"
                                        attrs="{'readonly': [('id','!=',False)], 'invisible':[('postal_mail_id','!=',False)], 'required':[('postal_mail_id','=',False)]}"/>
                             </h1>
-                            <label for="postal_coordinate_id" class="oe_edit_only"/>
-                            <h1>
+                        </div>
+                        <group name="data">
+                            <group name="data1">
+                                <field name="partner_id" on_change="onchange_partner_id(partner_id)"
+                                       domain="[('is_assembly','=',False)]"
+                                       attrs="{'readonly':[('postal_coordinate_id','!=',False)]}"/>
                                 <field name="postal_coordinate_id" attrs="{'readonly': [('id','!=',False)]}"
                                        context="{'default_partner_id':partner_id }"
                                        on_change="onchange_postal_coordinate_id(postal_coordinate_id)"/>
-                            </h1>
-                        </div>
-                        <group>
-                            <group>
-                                <field name="partner_id" on_change="onchange_partner_id(partner_id)"
-                                       attrs="{'readonly':[('postal_coordinate_id','!=',False)]}"/>
+                            </group>
+                            <group name="data2">
                                 <field name="sent_date"/>
                             </group>
                         </group>
