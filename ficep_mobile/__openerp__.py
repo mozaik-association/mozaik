@@ -49,4 +49,3 @@ FICEP Mobile
     'auto_install': True,
     'installable': True,
 }
-
