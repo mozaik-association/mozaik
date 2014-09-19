@@ -47,9 +47,6 @@ class product_template(orm.Model):
         'membership': fields.boolean(
             'Membership', help='Check if the product is '
             'eligible for membership.'),
-        'property_subscription_account': fields.property(
-            type='many2one', relation='account.account',
-            string='Subscription Account',)
     }
 
 # orm methods

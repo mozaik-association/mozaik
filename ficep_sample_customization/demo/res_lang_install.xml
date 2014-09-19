@@ -8,6 +8,9 @@
             <field name="lang">fr_FR</field>
             <field name="state">done</field>
             <field name="overwrite" eval="1"/>
+            <field name="website_ids" eval="[
+                (4, ref('website.default_website')),
+            ]"/>
         </record>
 
         <function

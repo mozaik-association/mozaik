@@ -152,7 +152,7 @@ class res_partner(orm.Model):
                                                 string='Membership State Code',
                                                 type="char", readonly=True),
         'subscription_product_id': fields.function(
-            _get_product_id, type='many2one', relation="product.template",
+            _get_product_id, type='many2one', relation="product.product",
             string='Subscription', store=_subscription_store_trigger),
         'accepted_date': fields.date('Accepted Date'),
         'decline_payment_date': fields.date('Decline Payment Date'),

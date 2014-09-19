@@ -31,6 +31,7 @@ from . import test_partner
 from . import test_product
 from . import test_waiting_member_report
 from . import test_force_int_instance
+from . import test_accounting
 
 fast_suite = [
 ]
@@ -42,4 +43,5 @@ checks = [
     test_membership,
     test_waiting_member_report,
     test_force_int_instance,
+    test_accounting,
 ]

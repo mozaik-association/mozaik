@@ -77,12 +77,6 @@ class mandate_category(orm.Model):
         'calculation_method_id': fields.many2one('calculation.method', string='Calculation Method',
                                             select=True, track_visibility='onchange'),
         'retrocession_mode': fields.selection(RETROCESSION_MODES_AVAILABLE, 'Retrocession Mode', required=True, track_visibility='onchange'),
-        'property_retrocession_account': fields.property(type='many2one',
-                                                              relation='account.account',
-                                                              string='Retrocession Account',),
-        'property_retrocession_cost_account': fields.property(type='many2one',
-                                                 relation='account.account',
-                                                 string='Cost Account',),
     }
 
     _defaults = {
