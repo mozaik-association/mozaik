@@ -4,7 +4,8 @@
 
         <!-- INDEX: List of Partners -->
         <template id="mobile_index" name="Mobile Index">
-            <t t-call="website.layout">
+            <!-- <t t-call="website.layout"> -->
+            <t t-call="ficep_mobile.layout">
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <div class="container">
                     <div id="header_content">
@@ -19,7 +20,8 @@
                                     class="pull-right">
                                     <a href="/partner_search_form/">
                                         <button class="btn-large btn-primary"
-                                            type="button">Advanced Search</button>
+                                            type="button">Advanced Search
+                                        </button>
                                     </a>
                                 </div>
                             </div>
@@ -28,20 +30,23 @@
                     <br />
                     <div id="partners_list">
                         <t t-foreach='partners' t-as="partner">
-                            <a class="list-group-item" t-attf-href="/partner_view/{{partner['id']}}/">
+                            <a class="list-group-item"
+                                t-attf-href="/partner_view/{{partner['id']}}/">
                                 <t t-esc="partner['display_name']" />
                             </a>
                         </t>
                     </div>
+                    <t t-call="website.pager">
+                        <t t-set="classname">pull-right</t>
+                    </t>
                 </div>
             </t>
         </template>
 
         <!-- Partner View -->
         <template id="show_partner" name="Show Partner">
-            <t t-call="website.layout">
-                <div style="display:inline-block;"
-                    class="pull-right">
+            <t t-call="ficep_mobile.layout">
+                <div style="display:inline-block;" class="pull-right">
                     <a href="/partner_search_form/">
                         <button class="btn-large btn-primary"
                             type="button">Advanced Search</button>
@@ -49,11 +54,21 @@
                 </div>
                 <div class="container">
                     <h1 t-esc="partner.display_name" />
-                    <t t-if="partner.is_company is False and partner.membership_state_id">
-                        <h3>#<t t-esc="partner.identifier"/> (<t t-esc="partner.membership_state_id.name"/>)</h3>
+                    <t
+                        t-if="partner.is_company is False and partner.membership_state_id">
+                        <h3>
+                            #
+                            <t t-esc="partner.identifier" />
+                            (
+                            <t t-esc="partner.membership_state_id.name" />
+                            )
+                        </h3>
                     </t>
                     <t t-if="partner.is_company and not partner.is_assembly">
-                        <h3>#<t t-esc="partner.identifier"/></h3>
+                        <h3>
+                            #
+                            <t t-esc="partner.identifier" />
+                        </h3>
                     </t>
                     <div id="all_contact_info">
                         <div t-if="partner.fix_coordinate_id" id="fix_coordinate_container">
@@ -86,11 +101,13 @@
                         <div id="legal_partner_info">
                             <div t-if="partner.tongue" id="tongue_container">
                                 <label for="tongue">Tongue:</label>
-                                <span id="tongue" t-esc="available_tongues[partner.tongue]" />
+                                <span id="tongue"
+                                    t-esc="available_tongues[partner.tongue]" />
                             </div>
                             <div t-if="partner.gender" id="gender_container">
                                 <label for="gender">Gender:</label>
-                                <span id="gender" t-esc="available_genders[partner.gender]" />
+                                <span id="gender"
+                                    t-esc="available_genders[partner.gender]" />
                             </div>
                             <div t-if="partner.civil_status" id="civil_status_container">
                                 <label for="civil_status">Civil Status:</label>
@@ -106,7 +123,8 @@
                             <t t-foreach='phone_coordinates' t-as="phone_coordinate">
                                 <t t-if="not phone_coordinate.is_main">
                                     <p class="list-group-item">
-                                        <t t-esc="phone_coordinate['phone_id']['name']" />
+                                        <t
+                                            t-esc="phone_coordinate['phone_id']['name']" />
                                     </p>
                                 </t>
                             </t>
@@ -127,7 +145,8 @@
                         <t t-foreach='postal_coordinates' t-as="postal_coordinate">
                             <t t-if="not postal_coordinate.is_main">
                                 <p class="list-group-item">
-                                    <t t-esc="postal_coordinate['address_id']['name']" />
+                                    <t
+                                        t-esc="postal_coordinate['address_id']['name']" />
                                 </p>
                             </t>
                         </t>
@@ -141,7 +160,7 @@
                                     <p class="list-group-item">
                                         <span
                                             t-esc="sta_mandate_record['mandate_category_id']['name']" />
-                                        <br/>
+                                        <br />
                                         <span
                                             t-esc="sta_mandate_record['start_date']" />
                                         To
@@ -158,7 +177,7 @@
                                     <p class="list-group-item">
                                         <span
                                             t-esc="int_mandate_record['mandate_category_id']['name']" />
-                                        <br/>
+                                        <br />
                                         <span
                                             t-esc="int_mandate_record['start_date']" />
                                         To
@@ -175,7 +194,7 @@
                                     <p class="list-group-item">
                                         <span
                                             t-esc="ext_mandate_record['mandate_category_id']['name']" />
-                                        <br/>
+                                        <br />
                                         <span
                                             t-esc="ext_mandate_record['start_date']" />
                                         To
@@ -187,7 +206,8 @@
                         </fieldset>
                         <fieldset t-if="len(subject_relation_records) != 0">
                             <legend>Relation (Subject)</legend>
-                            <t t-foreach='subject_relation_records' t-as="subject_relation_record">
+                            <t t-foreach='subject_relation_records'
+                                t-as="subject_relation_record">
                                 <div class="form-group">
                                     <p class="list-group-item">
                                         <t
@@ -201,7 +221,8 @@
                         </fieldset>
                         <fieldset t-if="len(object_relation_records) != 0">
                             <legend>Relation (Object)</legend>
-                            <t t-foreach='object_relation_records' t-as="object_relation_record">
+                            <t t-foreach='object_relation_records'
+                                t-as="object_relation_record">
                                 <div class="form-group">
                                     <p class="list-group-item">
                                         <t
@@ -218,12 +239,9 @@
             </t>
         </template>
 
-        <!-- Search Form on
-            * name
-            * phone
-            * email -->
+        <!-- Search Form on * name * phone * email -->
         <template id="partner_search_form" name="Partner Advanced Search">
-            <t t-call="website.layout">
+            <t t-call="ficep_mobile.layout">
                 <div class="container">
                     <form role="form" t-attf-action="/partner_search_action"
                         method="post">
@@ -246,9 +264,11 @@
                                     id="search_value" class="form-control"
                                     required="required" autofocus="autofocus" />
                             </div>
-                            <button type="submit" class="btn-large btn-primary">Search</button>
+                            <button type="submit" class="btn-large btn-primary">Search
+                            </button>
                             <a href="/partner_mobile">
-                                <button class="btn-large btn-primary" type="button">Cancel</button>
+                                <button class="btn-large btn-primary"
+                                    type="button">Cancel</button>
                             </a>
                         </fieldset>
                     </form>

@@ -34,18 +34,35 @@ from openerp.addons.ficep_person.res_partner import available_genders, available
 
 class Mobile(main.Home):
 
-    @http.route('/partner_mobile', auth='public', website=True)
-    def index_ficep_mobile(self, **kw):
+    # partner per page
+    _PPG = 10
+
+    @http.route(['/partner_mobile',
+                '/partner_mobile/page/<int:page>'],
+                auth='public', website=True)
+    def index_ficep_mobile(self, page=1, **kw):
         """
-        =====
-        index
-        =====
         Index provides the list of partner
+        Manage a pager too
         """
-        cr, uid, context = http.request.cr, http.request.uid, http.request.context
+        cr, uid = http.request.cr, http.request.uid,
+        context = http.request.context
         partner_obj = http.request.registry['res.partner']
-        partners = partner_obj.browse(cr, uid, partner_obj.search(cr, uid, [], context=context))
-        return http.request.render('ficep_mobile.mobile_index', {"partners": partners})
+
+        partner_count = partner_obj.search_count(cr, uid, [], context=context)
+        url = "/partner_mobile"
+        pager = http.request.website.pager(
+            url=url, total=partner_count, page=page, step=self._PPG, scope=4,
+            url_args=kw)
+        partner_ids = partner_obj.search(
+            cr, uid, [], offset=pager['offset'], limit=self._PPG,
+            context=context)
+        partners = partner_obj.browse(cr, uid, partner_ids, context=context)
+        return http.request.render(
+            'ficep_mobile.mobile_index', {
+                "pager": pager,
+                "partners": partners,
+            })
 
     @http.route('/partner_view/<model("res.partner"):partner>/', auth='public', website=True)
     def show_partner(self, partner, **kw):
