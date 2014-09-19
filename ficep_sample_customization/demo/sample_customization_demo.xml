@@ -91,6 +91,11 @@
             <field name="unauthorized" eval="False" />
         </record>
 
+        <record id="email_coordinate_nouvelobs" model="email.coordinate">
+            <field name="partner_id" ref="res_partner_nouvelobs" />
+            <field name="email">info@n-obs.be</field>
+        </record>
+
         <!-- Phones -->
 
         <record id="main_fix_coordinate_one" model="phone.coordinate">
@@ -233,6 +238,23 @@
             <field name="address_id" ref="address_ver36"/>
             <field name="partner_id" ref="res_partner_sb"/>
             <field name="unauthorized" eval="True" />
+        </record>
+
+        <!-- Involvements -->
+
+        <record id="involvement_category" model="partner.involvement.category">
+            <field name="name">Assemblée Générale 2013</field>
+        </record>
+
+        <record id="involvement_jacques" model="partner.involvement">
+            <field name="partner_id" ref="res_partner_jacques"/>
+            <field name="partner_involvement_category_id" ref="involvement_category"/>
+            <field name="note">Orateur - Présentation: L'écologie de demain</field>
+        </record>
+
+        <record id="involvement_nouvelobs" model="partner.involvement">
+            <field name="partner_id" ref="res_partner_nouvelobs"/>
+            <field name="partner_involvement_category_id" ref="involvement_category"/>
         </record>
 
     </data>
