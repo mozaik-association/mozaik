@@ -28,11 +28,17 @@
 from openerp.osv import orm, fields
 
 
-class account_chart_template(orm.Model):
-    _inherit = "account.chart.template"
+class mandate_category(orm.Model):
+
+    _inherit = ['mandate.category']
 
     _columns = {
-        'property_subscription_account':
-                                fields.many2one('account.account.template',
-                                                'Subscription Account'),
+        'property_retrocession_account': fields.property(
+                                            type='many2one',
+                                            relation='account.account',
+                                            string='Retrocession Account',),
+        'property_retrocession_cost_account': fields.property(
+                                            type='many2one',
+                                             relation='account.account',
+                                             string='Cost Account',),
     }

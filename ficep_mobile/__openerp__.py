@@ -43,9 +43,9 @@ FICEP Mobile
     'data': [
         'ficep_mobile_view.xml',
         'static/src/xml/mobile_view.xml',
+        'views/mobile_templates.xml',
     ],
     'sequence': 150,
     'auto_install': True,
     'installable': True,
 }
-
