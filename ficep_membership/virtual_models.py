@@ -65,10 +65,10 @@ class virtual_master_partner(orm.Model):
         'postal_bounce_counter': fields.integer('Postal Bounce Counter'),
 
         'zip': fields.char("Zip Code"),
-        'country_id': fields.integer('Country ID'),
+        'country_id': fields.many2one('res.country', string='Country'),
 
         'int_instance_id': fields.many2one('int.instance',
-                                           'Internal Instance'),
+                                           string='Internal Instance'),
     }
 
 # orm methods
@@ -97,12 +97,12 @@ class virtual_master_partner(orm.Model):
             pc.is_main as postal_is_main,
 
             adr.zip as zip,
-            rc.id as country_id,
+            adr.country_id as country_id,
 
             e.unauthorized as email_unauthorized,
             pc.unauthorized as postal_unauthorized,
 
-            i.id as int_instance_id,
+            p.int_instance_id as int_instance_id,
 
             CASE
                 WHEN pc.vip is TRUE
@@ -130,14 +130,6 @@ class virtual_master_partner(orm.Model):
         LEFT OUTER JOIN
             address_address adr
         ON (adr.id = pc.address_id)
-
-        LEFT OUTER JOIN
-            res_country rc
-        ON (rc.id = adr.country_id)
-
-        LEFT OUTER JOIN
-            int_instance i
-        ON (i.id = p.int_instance_id)
             )""")
 
 
