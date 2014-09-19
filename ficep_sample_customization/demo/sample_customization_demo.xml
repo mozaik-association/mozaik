@@ -96,6 +96,16 @@
             <field name="email">info@n-obs.be</field>
         </record>
 
+        <record id="email_coordinate_sec_huy" model="email.coordinate">
+            <field name="partner_id" ref="int_assembly_02_res_partner" />
+            <field name="email">secretariat@ficep-huy.be</field>
+        </record>
+
+        <record id="email_coordinate_sec_hw" model="email.coordinate">
+            <field name="partner_id" ref="int_assembly_03_res_partner" />
+            <field name="email">secretariat@ficep-hw.be</field>
+        </record>
+
         <!-- Phones -->
 
         <record id="main_fix_coordinate_one" model="phone.coordinate">
@@ -167,6 +177,12 @@
             <field name="local_zip">1780</field>
         </record>
 
+        <record id="local_street_slc" model="address.local.street">
+            <field name="identifier">local_street_slc</field>
+            <field name="local_street">Rue Sous-le-Chateau</field>
+            <field name="local_zip">4500</field>
+        </record>
+
         <record id="local_street_br" model="address.local.street">
             <field name="identifier">local_street_br</field>
             <field name="local_street">Boulevard Auguste Reyers</field>
@@ -182,6 +198,13 @@
         </record>
 
         <!-- Addresses -->
+
+        <record id="address_huy_slc32" model="address.address">
+            <field name="country_id" ref="base.be"/>
+            <field name="address_local_zip_id" ref="local_zip_1"/>
+            <field name="address_local_street_id" ref="local_street_slc"/>
+            <field name="number">32</field>
+        </record>
 
         <record id="address_wemmel_rsw" model="address.address">
             <field name="country_id" ref="base.be"/>
@@ -216,6 +239,11 @@
         </record>
 
         <!-- Postal Coordinates -->
+
+        <record id="postal_coordinate_sec_huy" model="postal.coordinate">
+            <field name="partner_id" ref="int_assembly_02_res_partner" />
+            <field name="address_id" ref="address_huy_slc32"/>
+        </record>
 
         <record id="postal_coordinate_for_rtbf" model="postal.coordinate">
             <field name="address_id" ref="address_br52"/>
