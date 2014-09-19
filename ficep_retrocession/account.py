@@ -25,16 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm, fields
-
-
-class account_chart_template(orm.Model):
-    _inherit = "account.chart.template"
-
-    _columns = {
-        'property_retrocession_account': fields.many2one('account.account.template', 'Retrocessions Account'),
-        'property_retrocession_cost_account': fields.many2one('account.account.template', 'Retrocessions Cost Account'),
-    }
+from openerp.osv import orm
 
 
 class account_move_line(orm.Model):

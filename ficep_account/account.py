@@ -25,50 +25,20 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Retrocession',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_structure',
-        'ficep_mandate',
-        'ficep_membership',
-        'ficep_account',
-    ],
-    'description': """
-FICEP Retrocession
-=============
-""",
-    'images': [
-    ],
-    'data': [
-             'mandate_actions.xml',
-             'structure_view.xml',
-             'retrocession_view.xml',
-             'mandate_view.xml',
-             'wizard/retrocession_factory_wizard.xml',
-             'wizard/report_retrocession_wizard.xml',
-             'security/ir.model.access.csv',
-             'reports/report_payment_request_view.xml',
-             'reports/report_payment_certificate_view.xml',
-             'data/email_template_data.xml',
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'sequence': 150,
-    'auto_install': False,
-    'installable': True,
-}
+from openerp.osv import orm, fields
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class account_chart_template(orm.Model):
+    _inherit = "account.chart.template"
+
+    _columns = {
+        'property_retrocession_account': fields.many2one(
+                                            'account.account.template',
+                                            'Retrocessions Account'),
+        'property_retrocession_cost_account': fields.many2one(
+                                            'account.account.template',
+                                            'Retrocessions Cost Account'),
+        'property_subscription_account': fields.many2one(
+                                            'account.account.template',
+                                            'Subscription Account'),
+    }
