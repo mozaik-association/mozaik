@@ -196,6 +196,5 @@
             <field name="groups" eval="[(5,0,0)]"/>
         </record>
 
-
     </data>
 </openerp>

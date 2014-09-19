@@ -38,5 +38,78 @@
             <field name="groups" eval="[(5,0,0)]"/>
         </record>
 
+        <record id="postal_mail_log_base_rule" model="ir.rule">
+            <field name="name">Postal Mail Log for Ficep Base</field>
+            <field name="model_id" ref="ficep_communication.model_postal_mail_log"/>
+            <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="virtual_partner_involvement_base_rule" model="ir.rule">
+            <field name="name">Partner/Involvement for Ficep Base</field>
+            <field name="model_id" ref="ficep_communication.model_virtual_partner_involvement"/>
+            <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="virtual_partner_relation_base_rule" model="ir.rule">
+            <field name="name">Partner/Relation for Ficep Base</field>
+            <field name="model_id" ref="ficep_communication.model_virtual_partner_relation"/>
+            <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="virtual_partner_instance_base_rule" model="ir.rule">
+            <field name="name">Partner/Instance for Ficep Base</field>
+            <field name="model_id" ref="ficep_communication.model_virtual_partner_instance"/>
+            <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="virtual_partner_mandate_base_rule" model="ir.rule">
+            <field name="name">Partner/Mandate for Ficep Base</field>
+            <field name="model_id" ref="ficep_communication.model_virtual_partner_mandate"/>
+            <field name="domain_force">[
+                ('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="virtual_partner_candidature_base_rule" model="ir.rule">
+            <field name="name">Partner/Candidature for Ficep Base</field>
+            <field name="model_id" ref="ficep_communication.model_virtual_partner_candidature"/>
+            <field name="domain_force">[
+                ('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('mng_int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="virtual_assembly_instance_base_rule" model="ir.rule">
+            <field name="name">Assembly/Instance for Ficep Base</field>
+            <field name="model_id" ref="ficep_communication.model_virtual_assembly_instance"/>
+            <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="virtual_partner_retrocession_base_rule" model="ir.rule">
+            <field name="name">Partner/Retrocession for Ficep Base</field>
+            <field name="model_id" ref="ficep_communication.model_virtual_partner_retrocession"/>
+            <field name="domain_force">[
+                ('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                '|',
+                ('sta_mandate_id.retro_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('ext_mandate_id.retro_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="virtual_partner_membership_base_rule" model="ir.rule">
+            <field name="name">Partner/Membership for Ficep Base</field>
+            <field name="model_id" ref="ficep_communication.model_virtual_partner_membership"/>
+            <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
     </data>
 </openerp>

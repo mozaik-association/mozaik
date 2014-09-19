@@ -426,10 +426,10 @@
                     <field string="Mandate End Date &lt; ..."
                         name="deadline_date" filter_domain="[('deadline_date','&lt;',self)]" />
 
-                    <field name="partner_id" domain="[('is_company','=',False)]" />
+                    <field name="partner_id" domain="[('is_company','=',False),('identifier','&gt;',0)]" />
                     <field name="int_instance_id" />
 
-                    <field name="assembly_id" />
+                    <field name="assembly_id" domain="[('is_assembly','=',True)]" />
                     <field name="mandate_category_id" />
 
                     <field name="ext_competencies_m2m_ids" string="State Competencies &amp; Topics"
@@ -562,10 +562,10 @@
                     <field string="Mandate Start Date &lt; ..."
                         name="start_date" filter_domain="[('start_date','&lt;',self)]" />
 
-                    <field name="partner_id" domain="[('is_company','=',False)]" />
+                    <field name="partner_id" domain="[('is_company','=',False),('identifier','&gt;',0)]" />
                     <field name="int_instance_id" />
 
-                    <field name="assembly_id" />
+                    <field name="assembly_id" domain="[('is_assembly','=',True)]" />
                     <field name="mandate_category_id" />
 
                     <field name="interests_m2m_ids" string="Interests"
@@ -797,18 +797,20 @@
                         filter_domain="[('birth_date','>',self)]" />
                     <field string="Birth Date &lt; ..." name="birth_date"
                         filter_domain="[('birth_date','&lt;',self)]" />
-                    <separator />
                     <field name="state" />
-                    <separator />
-                    <field name="partner_id" domain="[('is_company','=',False)]" />
+                    <field name="partner_id" domain="[('is_company','=',False),('identifier','&gt;',0)]" />
                     <field name="int_instance_id" />
                     <field name="mandate_category_id" />
-                    <separator />
                     <field name="interests_m2m_ids" string="Interests"
                         widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
                         widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
+
+                    <filter name="sta_mod" string="State Mandate"
+                        domain="[('sta_mandate_id','!=',False)]" />
+                    <filter name="ext_mod" string="External Mandate"
+                        domain="[('ext_mandate_id','!=',False)]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="ficep_base.ficep_res_groups_vip_reader" />
@@ -857,8 +859,7 @@
                     <field name="month" />
                     <field name="year" />
 
-                    <field name="sta_mandate_id" />
-                    <field name="ext_mandate_id" />
+                    <field name="mandate_category_id" />
 
                     <field name="birth_date" />
                     <field name="gender" />
@@ -911,7 +912,7 @@
             <field name="arch" type="xml">
                 <search string="Virtual Partner Membership">
                     <field name="identifier" />
-                    <field name="partner_id" />
+                    <field name="partner_id" domain="[('is_company','=',False),('identifier','&gt;',0)]" />
                     <field name="int_instance_id" />
                     <field name="membership_state_id" />
 

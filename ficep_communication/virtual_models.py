@@ -128,13 +128,15 @@ class virtual_partner_involvement(orm.Model):
             pc.vip as postal_vip,
             e.vip as email_vip,
             e.unauthorized as email_unauthorized
+
         FROM
             partner_involvement pi
 
-        JOIN res_partner p
-            ON (p.id = pi.partner_id
-            AND p.active = TRUE
-            AND p.is_assembly = FALSE)
+        JOIN
+            res_partner p
+        ON (p.id = pi.partner_id
+        AND p.active = TRUE
+        AND p.identifier > 0)
 
         JOIN
             partner_involvement_category pic
@@ -251,13 +253,15 @@ class virtual_partner_relation(orm.Model):
                 ELSE r.postal_coordinate_id
             END
             AS postal_coordinate_id
+
         FROM
             partner_relation r
 
         JOIN
             res_partner p
         ON (p.id = r.subject_partner_id
-        AND p.active = TRUE)
+        AND p.active = TRUE
+        AND p.identifier > 0)
 
         JOIN
             partner_relation_category rc
@@ -361,11 +365,13 @@ class virtual_partner_instance(orm.Model):
             e.is_main as main_email,
             e.unauthorized as email_unauthorized,
             ms.id as membership_state_id
+
         FROM
             res_partner p
-        JOIN
+
+        LEFT OUTER JOIN
             membership_state ms
-        ON ms.id = p.membership_state_id
+        ON (ms.id = p.membership_state_id)
 
         LEFT OUTER JOIN
             postal_coordinate pc
@@ -378,7 +384,7 @@ class virtual_partner_instance(orm.Model):
         AND e.active = TRUE)
 
         WHERE p.active = TRUE
-        AND p.is_assembly = FALSE
+        AND p.identifier > 0
         AND (e.id IS NOT NULL
         OR pc.id IS NOT NULL)
         )""")
@@ -482,7 +488,7 @@ class virtual_partner_mandate(orm.Model):
                 ELSE mandate.postal_coordinate_id
             END
             AS postal_coordinate_id
-        FROM int_mandate  AS mandate
+        FROM int_mandate AS mandate
         JOIN int_assembly AS assembly
             ON assembly.id = mandate.int_assembly_id
         JOIN res_partner AS partner_assembly
@@ -540,7 +546,7 @@ class virtual_partner_mandate(orm.Model):
                 ELSE mandate.postal_coordinate_id
             END
             AS postal_coordinate_id
-        FROM sta_mandate  AS mandate
+        FROM sta_mandate AS mandate
         JOIN sta_assembly AS assembly
             ON assembly.id = mandate.sta_assembly_id
         JOIN res_partner AS partner_assembly
@@ -598,7 +604,7 @@ class virtual_partner_mandate(orm.Model):
                 ELSE mandate.postal_coordinate_id
             END
             AS postal_coordinate_id
-        FROM ext_mandate  AS mandate
+        FROM ext_mandate AS mandate
         JOIN ext_assembly AS assembly
             ON assembly.id = mandate.ext_assembly_id
         JOIN res_partner AS partner_assembly
@@ -614,7 +620,7 @@ class virtual_partner_mandate(orm.Model):
         WHERE mandate.active = True
         AND (e.id IS NOT NULL
         OR pc.id IS NOT NULL)
-                )""")
+        )""")
 
 
 class virtual_partner_candidature(orm.Model):
@@ -633,6 +639,7 @@ class virtual_partner_candidature(orm.Model):
         'model': fields.char('Model'),
         'assembly_id': fields.many2one('res.partner', 'Assembly'),
         'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
+        'mng_int_instance_id': fields.many2one('int.instance', 'Candidature Management Instance'),
 
         'start_date': fields.date('Mandate Start Date'),
 
@@ -677,6 +684,7 @@ class virtual_partner_candidature(orm.Model):
             candidature.mandate_category_id,
             candidature.partner_id,
             candidature.mandate_start_date as start_date,
+            assembly.instance_id as mng_int_instance_id,
             partner_assembly.id as assembly_id,
             partner.identifier as identifier,
             partner.birth_date as birth_date,
@@ -690,7 +698,7 @@ class virtual_partner_candidature(orm.Model):
             pc.vip as postal_vip,
             e.vip as email_vip,
             e.unauthorized as email_unauthorized
-        FROM int_candidature  AS candidature
+        FROM int_candidature AS candidature
         JOIN int_assembly AS assembly
             ON assembly.id = candidature.int_assembly_id
         JOIN res_partner  AS partner_assembly
@@ -717,6 +725,12 @@ class virtual_partner_candidature(orm.Model):
             candidature.mandate_category_id,
             candidature.partner_id,
             candidature.mandate_start_date as start_date,
+            CASE
+                WHEN candidature.electoral_district_id IS NULL
+                THEN assembly.instance_id
+                ELSE ed.int_instance_id
+            END
+            AS mng_int_instance_id,
             partner_assembly.id as assembly_id,
             partner.identifier as identifier,
             partner.birth_date as birth_date,
@@ -730,13 +744,15 @@ class virtual_partner_candidature(orm.Model):
             pc.vip as postal_vip,
             e.vip as email_vip,
             e.unauthorized as email_unauthorized
-        FROM sta_candidature  AS candidature
+        FROM sta_candidature AS candidature
         JOIN sta_assembly AS assembly
             ON assembly.id = candidature.sta_assembly_id
         JOIN res_partner  AS partner_assembly
             ON partner_assembly.id = assembly.partner_id
         JOIN res_partner  AS partner
             ON partner.id = candidature.partner_id
+        LEFT OUTER JOIN electoral_district ed
+            ON ed.id = candidature.electoral_district_id
         LEFT OUTER JOIN postal_coordinate pc
             ON pc.partner_id = candidature.partner_id
             and pc.is_main = TRUE
@@ -757,6 +773,7 @@ class virtual_partner_candidature(orm.Model):
             candidature.mandate_category_id,
             candidature.partner_id,
             candidature.mandate_start_date as start_date,
+            assembly.instance_id as mng_int_instance_id,
             partner_assembly.id as assembly_id,
             partner.identifier as identifier,
             partner.birth_date as birth_date,
@@ -770,7 +787,7 @@ class virtual_partner_candidature(orm.Model):
             pc.vip as postal_vip,
             e.vip as email_vip,
             e.unauthorized as email_unauthorized
-        FROM ext_candidature  AS candidature
+        FROM ext_candidature AS candidature
         JOIN ext_assembly AS assembly
             ON assembly.id = candidature.ext_assembly_id
         JOIN res_partner  AS partner_assembly
@@ -786,7 +803,7 @@ class virtual_partner_candidature(orm.Model):
         WHERE candidature.active = True
         AND (e.id IS NOT NULL
         OR pc.id IS NOT NULL)
-                )""")
+        )""")
 
 
 class virtual_assembly_instance(orm.Model):
@@ -971,7 +988,7 @@ class virtual_partner_retrocession(orm.Model):
 
     _columns = {
         'common_id': fields.char(string='Common ID'),
-        'partner_id': fields.many2one('res.partner', 'Assembly'),
+        'partner_id': fields.many2one('res.partner', 'Partner'),
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
@@ -1025,155 +1042,157 @@ class virtual_partner_retrocession(orm.Model):
         tools.drop_view_if_exists(cr, 'virtual_partner_retrocession')
         cr.execute("""
         create or replace view virtual_partner_retrocession as (
-            SELECT
-                concat(
-                    r.id,
-                    '/',
-                    CASE
-                        WHEN m.postal_coordinate_id IS NULL
-                        THEN pc.id
-                        ELSE m.postal_coordinate_id
-                    END,
-                    '/',
-                    CASE
-                        WHEN m.email_coordinate_id IS NULL
-                        THEN e.id
-                        ELSE m.email_coordinate_id
-                    END) as id,
-                concat(
-                    CASE
-                        WHEN m.postal_coordinate_id IS NULL
-                        THEN pc.id
-                        ELSE m.postal_coordinate_id
-                    END,
-                    '/',
-                    CASE
-                        WHEN m.email_coordinate_id IS NULL
-                        THEN e.id
-                        ELSE m.email_coordinate_id
+        SELECT
+            concat(
+                r.id,
+                '/',
+                CASE
+                    WHEN m.postal_coordinate_id IS NULL
+                    THEN pc.id
+                    ELSE m.postal_coordinate_id
+                END,
+                '/',
+                CASE
+                    WHEN m.email_coordinate_id IS NULL
+                    THEN e.id
+                    ELSE m.email_coordinate_id
+                END) as id,
+            concat(
+                CASE
+                    WHEN m.postal_coordinate_id IS NULL
+                    THEN pc.id
+                    ELSE m.postal_coordinate_id
+                END,
+                '/',
+                CASE
+                    WHEN m.email_coordinate_id IS NULL
+                    THEN e.id
+                    ELSE m.email_coordinate_id
+                END) as common_id,
+            r.year as year,
+            r.month as month,
+            p.id as partner_id,
+            p.int_instance_id as int_instance_id,
+            p.identifier as identifier,
+            p.birth_date as birth_date,
+            p.gender as gender,
+            p.tongue as tongue,
+            p.employee as employee,
+            m.id as sta_mandate_id,
+            NULL::int as ext_mandate_id,
+            m.mandate_category_id,
+            r.state as state,
+            CASE
+                WHEN m.email_coordinate_id IS NULL
+                THEN e.id
+                ELSE m.email_coordinate_id
+            END
+            AS email_coordinate_id,
+            CASE
+                WHEN m.postal_coordinate_id IS NULL
+                THEN pc.id
+                ELSE m.postal_coordinate_id
+            END
+            AS postal_coordinate_id
+        FROM
+            retrocession r
+        JOIN sta_mandate m
+            ON (m.id = r.sta_mandate_id
+            AND m.active = True)
+        JOIN res_partner p
+            ON (p.id = m.partner_id
+            AND p.active = TRUE)
+        LEFT OUTER JOIN
+            postal_coordinate pc
+            ON (pc.partner_id = p.id
+            AND pc.is_main = True
+            AND pc.active = True)
+        LEFT OUTER JOIN
+            email_coordinate e
+            ON (e.partner_id = p.id
+            AND e.is_main = True
+            AND e.active = True)
+        WHERE
+            e.id is not null or pc.id is not null
+            or m.postal_coordinate_id is not null
+            or m.email_coordinate_id is not null
+
+        UNION
+
+        SELECT
+            concat(
+                r.id,
+                '/',
+                CASE
+                    WHEN m.postal_coordinate_id IS NULL
+                    THEN pc.id
+                    ELSE m.postal_coordinate_id
+                END,
+                '/',
+                CASE
+                    WHEN m.email_coordinate_id IS NULL
+                    THEN e.id
+                    ELSE m.email_coordinate_id
+                END) as id,
+            concat(
+                CASE
+                    WHEN m.postal_coordinate_id IS NULL
+                    THEN pc.id
+                    ELSE m.postal_coordinate_id
+                END,
+                '/',
+                CASE
+                    WHEN m.email_coordinate_id IS NULL
+                    THEN e.id
+                    ELSE m.email_coordinate_id
                     END) as common_id,
-                r.year as year,
-                r.month as month,
-                p.id as partner_id,
-                p.int_instance_id as int_instance_id,
-                p.identifier as identifier,
-                p.birth_date as birth_date,
-                p.gender as gender,
-                p.tongue as tongue,
-                p.employee as employee,
-                m.id as sta_mandate_id,
-                NULL::int as ext_mandate_id,
-                m.mandate_category_id,
-                r.state as state,
+            r.year as year,
+            r.month as month,
+            p.id as partner_id,
+            p.int_instance_id as int_instance_id,
+            p.identifier as identifier,
+            p.birth_date as birth_date,
+            p.gender as gender,
+            p.tongue as tongue,
+            p.employee as employee,
+            NULL::int as sta_mandate_id,
+            m.id as ext_mandate_id,
+            m.mandate_category_id,
+            r.state as state,
+            CASE
+                WHEN m.email_coordinate_id IS NULL
+                THEN e.id
+                ELSE m.email_coordinate_id
+            END
+            AS email_coordinate_id,
                 CASE
-                    WHEN m.email_coordinate_id IS NULL
-                    THEN e.id
-                    ELSE m.email_coordinate_id
-                END
-                AS email_coordinate_id,
-                CASE
-                    WHEN m.postal_coordinate_id IS NULL
-                    THEN pc.id
-                    ELSE m.postal_coordinate_id
-                END
-                AS postal_coordinate_id
-            FROM
-                retrocession r
-            JOIN sta_mandate m
-                ON (m.id = r.sta_mandate_id
-                AND m.active = True)
-            JOIN res_partner p
-                ON (p.id = m.partner_id
-                AND p.active = TRUE)
-            LEFT OUTER JOIN
-                postal_coordinate pc
-                ON (pc.partner_id = p.id
-                AND pc.is_main = True
-                AND pc.active = True)
-            LEFT OUTER JOIN
-                email_coordinate e
-                ON (e.partner_id = p.id
-                AND e.is_main = True
-                AND e.active = True)
-            WHERE
-                e.id is not null or pc.id is not null
-                or m.postal_coordinate_id is not null
-                or m.email_coordinate_id is not null
-            UNION
-            SELECT
-                concat(
-                    r.id,
-                    '/',
-                    CASE
-                        WHEN m.postal_coordinate_id IS NULL
-                        THEN pc.id
-                        ELSE m.postal_coordinate_id
-                    END,
-                    '/',
-                    CASE
-                        WHEN m.email_coordinate_id IS NULL
-                        THEN e.id
-                        ELSE m.email_coordinate_id
-                    END) as id,
-                concat(
-                    CASE
-                        WHEN m.postal_coordinate_id IS NULL
-                        THEN pc.id
-                        ELSE m.postal_coordinate_id
-                    END,
-                    '/',
-                    CASE
-                        WHEN m.email_coordinate_id IS NULL
-                        THEN e.id
-                        ELSE m.email_coordinate_id
-                        END) as common_id,
-                r.year as year,
-                r.month as month,
-                p.id as partner_id,
-                p.int_instance_id as int_instance_id,
-                p.identifier as identifier,
-                p.birth_date as birth_date,
-                p.gender as gender,
-                p.tongue as tongue,
-                p.employee as employee,
-                NULL::int as sta_mandate_id,
-                m.id as ext_mandate_id,
-                m.mandate_category_id,
-                r.state as state,
-                CASE
-                    WHEN m.email_coordinate_id IS NULL
-                    THEN e.id
-                    ELSE m.email_coordinate_id
-                END
-                AS email_coordinate_id,
-                    CASE
-                    WHEN m.postal_coordinate_id IS NULL
-                    THEN pc.id
-                    ELSE m.postal_coordinate_id
-                END
-                AS postal_coordinate_id
-            FROM
-                retrocession r
-            JOIN ext_mandate m
-                ON (m.id = r.ext_mandate_id
-                AND m.active = True)
-            JOIN res_partner p
-                ON (p.id = m.partner_id
-                AND p.active = TRUE)
-            LEFT OUTER JOIN
-                postal_coordinate pc
-                ON (pc.partner_id = p.id
-                AND pc.is_main = True
-                AND pc.active = True)
-            LEFT OUTER JOIN
-                email_coordinate e
-                ON (e.partner_id = p.id
-                AND e.is_main = True
-                AND e.active = True)
-            WHERE
-                e.id is not null or pc.id is not null
-                or m.postal_coordinate_id is not null
-                or m.email_coordinate_id is not null
+                WHEN m.postal_coordinate_id IS NULL
+                THEN pc.id
+                ELSE m.postal_coordinate_id
+            END
+            AS postal_coordinate_id
+        FROM
+            retrocession r
+        JOIN ext_mandate m
+            ON (m.id = r.ext_mandate_id
+            AND m.active = True)
+        JOIN res_partner p
+            ON (p.id = m.partner_id
+            AND p.active = TRUE)
+        LEFT OUTER JOIN
+            postal_coordinate pc
+            ON (pc.partner_id = p.id
+            AND pc.is_main = True
+            AND pc.active = True)
+        LEFT OUTER JOIN
+            email_coordinate e
+            ON (e.partner_id = p.id
+            AND e.is_main = True
+            AND e.active = True)
+        WHERE
+            e.id is not null or pc.id is not null
+            or m.postal_coordinate_id is not null
+            or m.email_coordinate_id is not null
         )""")
 
 
@@ -1272,6 +1291,7 @@ class virtual_partner_membership(orm.Model):
             ms.id as membership_state_id
         FROM
             res_partner p
+
         JOIN
             membership_state ms
         ON ms.id = p.membership_state_id
