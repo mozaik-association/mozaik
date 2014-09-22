@@ -58,9 +58,9 @@ class ir_model_data(orm.Model):
         for img_elem in root.iter('img'):
             if img_model in img_elem.get('src'):
                 img_src = img_elem.get('src')
-                id_pos = img_src.index('id=') + 3
-                xml_id = img_elem.get('src')[id_pos:]
                 try:
+                    id_pos = img_src.index('id=') + 3
+                    xml_id = img_elem.get('src')[id_pos:]
                     img_id = self.get_object_reference(cr,
                                                        uid,
                                                        'ficep_help',
