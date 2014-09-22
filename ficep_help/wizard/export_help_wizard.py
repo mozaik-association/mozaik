@@ -25,14 +25,17 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm, fields
-
+import logging
 from lxml import etree as ET
 import xml.dom.minidom as minidom
 import base64
 import time
 import copy
 from os.path import expanduser
+
+from openerp.osv import orm, fields
+
+_logger = logging.getLogger(__name__)
 
 
 class export_help_wizard(orm.TransientModel):
@@ -71,7 +74,13 @@ class export_help_wizard(orm.TransientModel):
                 if img_model in img_elem.get('src'):
                     i_img += 1
                     img_src = img_elem.get('src')
-                    id_pos = img_src.index('id=') + 3
+                    try:
+                        id_pos = img_src.index('id=') + 3
+                    except:
+                        _logger.info('Missing id in src attribute '
+                                     'of an image in template %s: %s',
+                                     template_id, img_src)
+                        continue
                     attach_id = img_elem.get('src')[id_pos:]
                     img_ids = self.pool.get(img_model).search(cr,
                                                               uid,
