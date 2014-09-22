@@ -865,7 +865,7 @@ class abstract_candidature(orm.AbstractModel):
         res = []
 
         for candidature in self.browse(cr, uid, ids, context=context):
-            display_name = u'{name} {mandate_category}'.format(
+            display_name = u'{name} ({mandate_category})'.format(
                        name=candidature.partner_name\
                             or candidature.partner_id.name,
                        mandate_category=candidature.mandate_category_id.name)

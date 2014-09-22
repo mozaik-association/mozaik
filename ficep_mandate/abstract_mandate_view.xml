@@ -364,7 +364,7 @@
                                         attrs="{'readonly': [('id','!=',False)]}"
                                         readonly="context.get('default_selection_committee_id')"
                                         domain="[('decision_date', '=', False)]"
-                                        on_change="onchange_selection_committee_id(selection_committee_id)"/>
+                                        on_change="onchange_selection_committee_id(selection_committee_id or context.get('default_selection_committee_id'))"/><!-- tmp work around I hope: existing commitee id is not given to the onchange method when adding  new cand. from the o2m in the commitee form -->
                             </group>
                             <group name="data_2">
                                 <field name="designation_int_assembly_id" readonly="1"/>
@@ -451,11 +451,11 @@
                             </group>
                         </group>
 
-                        <notebook invisible="context.get('popup')">
+                        <notebook>
                             <page string="Candidatures" name="candidatures" invisible="context.get('popup')"
                                   attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                             </page>
-                            <page string="Members" name="members">
+                            <page string="Members" name="members" invisible="context.get('popup')">
                                 <field name="partner_ids" context="{'default_is_company': False}">
                                     <tree>
                                         <field name="display_name"/>

@@ -512,7 +512,8 @@
                                                            , ('mandate_ids', '!=', [])]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='selection_committee_id']" position="after">
-                     <field name="electoral_district_id" readonly="1"/>
+                     <field name="electoral_district_id" readonly="1"
+                            attrs="{'invisible': [('electoral_district_id','=', False)]}"/>
                      <field name="sta_assembly_id" readonly="1"/>
                      <field name="legislature_id" readonly="1"/>
                 </xpath>
@@ -691,7 +692,7 @@
                 <xpath expr="//field[@name='assembly_id']" position="before">
                        <field name="electoral_district_id"
                              attrs="{'required': [('assembly_id','=', False),],
-                                     'readonly': [('assembly_id','!=', False),('electoral_district_id','=', False)]}"
+                                     'invisible': [('assembly_id','!=', False),('electoral_district_id','=', False)]}"
                              on_change="onchange_electoral_district_id(electoral_district_id)"/>
                 </xpath>
 

@@ -47,5 +47,104 @@ analytic.analytic_comp_rule
 account.account_comp_rule
 -->
 
+        <!-- Pyramidal Confidentiality -->
+
+        <record id="sta_selection_committee_base_rule" model="ir.rule">
+            <field name="name">State Selection Committee for Ficep Base</field>
+            <field name="model_id" ref="ficep_mandate.model_sta_selection_committee"/>
+            <field name="domain_force">[
+                '|',
+                ('electoral_district_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('assembly_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="int_selection_committee_base_rule" model="ir.rule">
+            <field name="name">Internal Selection Committee for Ficep Base</field>
+            <field name="model_id" ref="ficep_mandate.model_int_selection_committee"/>
+            <field name="domain_force">[
+                ('assembly_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="ext_selection_committee_base_rule" model="ir.rule">
+            <field name="name">External Selection Committee for Ficep Base</field>
+            <field name="model_id" ref="ficep_mandate.model_ext_selection_committee"/>
+            <field name="domain_force">[
+                ('assembly_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="sta_candidature_base_rule" model="ir.rule">
+            <field name="name">State Candidature for Ficep Base</field>
+            <field name="model_id" ref="ficep_mandate.model_sta_candidature"/>
+            <field name="domain_force">[
+                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                '|',
+                ('electoral_district_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('sta_assembly_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="int_candidature_base_rule" model="ir.rule">
+            <field name="name">Internal Candidature for Ficep Base</field>
+            <field name="model_id" ref="ficep_mandate.model_int_candidature"/>
+            <field name="domain_force">[
+                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('int_assembly_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="ext_candidature_base_rule" model="ir.rule">
+            <field name="name">External Candidature for Ficep Base</field>
+            <field name="model_id" ref="ficep_mandate.model_ext_candidature"/>
+            <field name="domain_force">[
+                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('ext_assembly_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="sta_mandate_base_rule" model="ir.rule">
+            <field name="name">State Mandate for Ficep Base</field>
+            <field name="model_id" ref="ficep_mandate.model_sta_mandate"/>
+            <field name="domain_force">[
+                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="int_mandate_base_rule" model="ir.rule">
+            <field name="name">Internal Mandate for Ficep Base</field>
+            <field name="model_id" ref="ficep_mandate.model_int_mandate"/>
+            <field name="domain_force">[
+                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="ext_mandate_base_rule" model="ir.rule">
+            <field name="name">External Mandate for Ficep Base</field>
+            <field name="model_id" ref="ficep_mandate.model_ext_mandate"/>
+            <field name="domain_force">[
+                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
+        <record id="generic_mandate_base_rule" model="ir.rule">
+            <field name="name">Generic Mandate for Ficep Base</field>
+            <field name="model_id" ref="ficep_mandate.model_generic_mandate"/>
+            <field name="domain_force">[
+                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+        </record>
+
     </data>
 </openerp>
