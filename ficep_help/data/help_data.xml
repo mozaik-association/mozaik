@@ -17,8 +17,12 @@
                       <span class="fa fa-flag fa-2x"/>
                       <strong>Accès fonctionnalité et localisation</strong>
                     </span>
+                    
                      : opt
+                    
                     <span style="line-height: 1.42857143;">ion disponible sous forme de bouton dès qu'il y a liste d'éléments (exemple: dans le formulaire d'une personne, onglet &quot;Coordonnées&quot;, parties &quot;Email&quot;, &quot;Coordonnées postales&quot;, &quot;Coordonnées téléphoniques&quot;. Il s'agit ici d'une navigation. </span>
+                    
+                  
                   </p>
                   <p style="text-align: left;">
                     <span style="line-height: 1.42857143;">
@@ -27,9 +31,13 @@
                       </span>
                       <span style="line-height: 1.42857143;">
                         <strong>Audience</strong>
+                        
                           : profils non autorisés: xxxxxxx  (voir
+                        
                         <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                        
                          ).
+                      
                       </span>
                     </span>
                   </p>
@@ -37,9 +45,13 @@
                   <div style="text-align: left;">
                     <span class="fa fa-exchange fa-2x"/>
                     <strong> Pré-requis</strong>
+                    
                      : sélection d'un objet existant et affichage en vue &quot;formulaire&quot; (voir
+                    
                     <a href="/page/ficep-help-views" style="background-color: rgb(255, 255, 255);"> Vues</a>
+                    
                      ).
+                  
                   </div>
                 </div>
               </div>
@@ -71,15 +83,23 @@
               <div style="text-align: left;">
                 <em style="line-height: 1.42857143; background-color: transparent;">
                   <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                  
                     Un élément non-actif est un élement qui a été invalidé (voir
+                  
                   <a href="/page/ficep-help-invalidate">Invalider</a>
+                  
                    ) et qui peut être retrouvé en utilisant le filtre prévu &quot;Expired&quot;.
+                
                 </em>
               </div>
               <div style="text-align: left;">
                 <em style="line-height: 1.42857143; background-color: transparent;">
+                  
                    Le retour à votre formulaire s'opère par un clic sur le fil d'Ariane (voir
+                  
                   <a href="/page/ficep-help-navigation">Navigation).  </a>
+                  
+                
                 </em>
               </div>
               <div style="text-align: left;"/>
@@ -125,7 +145,7 @@
           <section class="mt16 mb0">
             <div class="container">
               <div class="row">
-                <div class="col-md-12 text-center mt16 mb32">
+                <div class="col-md-12 text-center mt16 mb0">
                   <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
                     <span style="color: rgb(0, 128, 0);">Pièces jointes</span>
                     <span style="color: rgb(255, 255, 255);"/>
@@ -137,11 +157,11 @@
                       </span>
                       <strong style="line-height: 1.42857143;">
                         <span style="line-height: 1.42857143;">
-                          <strong>Accès fonctionnalité et localisation</strong>
+                          <strong> Accès fonctionnalité et localisation</strong>
                         </span>
                       </strong>
                       <span style="line-height: 1.42857143;">:</span>
-                       menu &quot;Pièce(s) jointe(s)&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.
+                       menu &quot;Pièce(s) jointe(s)&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet. 
                       <span style="line-height: 1.42857143;"/>
                     </p>
                     <p style="text-align: left;">
@@ -149,17 +169,17 @@
                         <span class="fa fa-user fa-2x"/>
                       </span>
                       <span style="line-height: 1.42857143;">
-                        <strong>Audience</strong>
-                         : tous les groupes d'utilisateurs sauf les &quot;Readers&quot;.
+                        <strong>  Audience</strong>
+                         : tous les groupes d'utilisateurs sauf les &quot;Readers&quot;. 
                       </span>
                     </p>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-exchange fa-2x"/>
-                        <strong>Pré-requis</strong>
-                         : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                        <strong> Pré-requis</strong>
+                         : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir 
                         <a href="/page/ficep-help-views">Vues</a>
-                         ).
+                         ). 
                       </span>
                     </p>
                   </div>
@@ -219,10 +239,7 @@
                       </tr>
                       <tr>
                         <td style="text-align: left;">​2</td>
-                        <td style="text-align: left;">
-                          Cliquez sur la petite croix à droite de la pièce à supprimer
-                          <br/>
-                        </td>
+                        <td style="text-align: left;">Cliquez sur la petite croix à droite de la pièce à supprimer</td>
                         <td style="text-align: left;">​La pièce jointe concernée est supprimée. Il n'y a pas de possibilité de la récupérer sinon de l'ajouter à nouveau.</td>
                       </tr>
                     </tbody>
@@ -231,7 +248,7 @@
                 <div>
                   <em style="line-height: 1.42857143; background-color: transparent;">
                     <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                       Il n'existe pas de fonctionnalité de visualisation de pièce jointe; il faut cliquer dessus et elle sera téléchargée sur votre station de travail. On peut ajouter des fichiers de tout type (image, texte, vidéo, ...)
+                     Il n'existe pas de fonctionnalité de visualisation de pièce jointe; il faut cliquer dessus et elle sera téléchargée sur votre station de travail. On peut ajouter des fichiers de tout type (image, texte, vidéo, ...) 
                   </em>
                 </div>
                 <div>
@@ -314,9 +331,13 @@
                         </span>
                         <span style="line-height: 1.42857143;">
                           <strong>Audience</strong>
+                          
                           : profils non autorisés: xxxxxxx  (voir
+                          
                           <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                          
                            ).
+                        
                         </span>
                         <span style="line-height: 1.42857143;">
                           <span style="background-color: rgb(255, 255, 0);"/>
@@ -326,9 +347,13 @@
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-exchange fa-2x"/>
                           <strong>Pré-requis</strong>
+                          
                           : affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           <a href="/page/ficep-help-views">Vues</a>
+                          
                            ).
+                        
                         </span>
                       </p>
                     </div>
@@ -357,8 +382,12 @@
                           <td style="text-align: left;">​1</td>
                           <td style="text-align: left;">Sélectionnez l'option &quot;Editeur d'échec&quot; dans le menu &quot;Autres options&quot;</td>
                           <td style="text-align: left;">
+                            
                             L'écran suivant est proposé:
+                            
                             <br/>
+                            
+                          
                           </td>
                         </tr>
                         <tr>
@@ -387,7 +416,9 @@
                     <div style="text-align: left;">
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                        
                            Le champ &quot;Raison&quot; n'apparaît que pour les échecs d'envoi postaux. La liste des raisons est préparée par un utilisateur membre du groupe &quot;Configurator&quot;.
+                      
                       </em>
                     </div>
                     <div style="text-align: left;">
@@ -396,7 +427,9 @@
                       <div>
                         <em style="line-height: 1.42857143; background-color: transparent;">
                           <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                          
                              Le champ &quot;Nombre d'occurence d'échec&quot; est le nombre d'échec survenus (exemple: 4 envois, 4 retours). Le champ &quot;Description&quot; est un champ qui accueille du texte libre. Toutes les informations encodées ici seront visibles dans la fiche de la coordonnée concernée. La date et heure de l'encodage est également enregistré. A partir de la fiche également, il y aura possibilité de remettre à zéro le compteur.
+                        
                         </em>
                       </div>
                       <div>
@@ -404,9 +437,13 @@
                         <div>
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                            
                                Toutes les coordonnées ayant fait l'objet d'échec d'envoi peuvent être facilement retrouvées par l'utilisation des filtres préparés et en l'occurence le filtre &quot;Avec échec&quot; (voir
+                            
                             <a href="/page/ficep-help-filters">Recherches et Filtres</a>
+                            
                             ).
+                          
                           </em>
                         </div>
                       </div>
@@ -419,7 +456,9 @@
                       <div style="text-align: left;">
                         <em style="line-height: 1.42857143; background-color: transparent;">
                           <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                          
                              L'envoi postal de masse inclut un système d'alertes déclenchant l'envoi d'une notification aux suiveurs du contact concerné. Dès lors, dès l'encodage d'un échec d'envoi pour une coordonnée postale d'un contact, tous les suiveurs seront alertés.
+                        
                         </em>
                       </div>
                     </div>
@@ -434,7 +473,6 @@
                         <strong>
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             <span class="fa fa-exclamation-triangle fa-2x"/>
-
                           </em>
                         </strong>
                         <strong>Exceptions</strong>
@@ -503,11 +541,17 @@
                     </span>
                     <span style="line-height: 1.42857143;">
                       <strong>Audience</strong>
+                      
                        : profils non autorisés:
+                      
                       <span style="background-color:#FFFF00;">xxxxxxx</span>
+                      
                         (voir
+                      
                       <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                      
                        ).
+                    
                     </span>
                     <span style="line-height: 1.42857143;">
                       <span style="background-color:#FFFF00;"/>
@@ -517,9 +561,13 @@
                     <span style="line-height: 1.42857143;">
                       <span class="fa fa-exchange fa-2x"/>
                       <strong>Pré-requis</strong>
+                      
                        : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                      
                       <a href="/page/ficep-help-views"> Vues </a>
+                      
                         ).
+                    
                     </span>
                   </p>
                 </div>
@@ -530,7 +578,6 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-12 text-center mt16 mb32">
-
                   <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
                     <tbody>
                       <tr>
@@ -553,8 +600,12 @@
                         <td style="text-align: left;">​2</td>
                         <td style="text-align: left;">Choisissez dans la liste la nouvelle adresse qui va devenir la principale</td>
                         <td style="text-align: left;">
+                          
                           Le champ est rempli avec votre sélection - ce champ est obligatoire: il doit contenir une valeur.
+                          
                           <br/>
+                          
+                        
                         </td>
                       </tr>
                       <tr>
@@ -573,9 +624,13 @@
                   <div style="text-align: left;">
                     <em style="line-height: 1.42857143; background-color: transparent;">
                       <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px"/>
+                      
                          Les adresses affichées dans la liste sont les adresses préalablement créées dans l'application. Vous avez la possibilité d'en créer une par cette liste en sélectionnant l'option &quot;Créer et Modifier&quot; (voir
+                      
                       <a href="/page/ficep-help-createandedit">Créer et Modifier </a>
+                      
                        ).
+                    
                     </em>
                   </div>
                   <div style="text-align: left;">
@@ -584,7 +639,9 @@
                     <div>
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                        
                            Dans le cas où le contact n'a pas encore d'adresse encodée, celle sélectionnée dans cet écran lui sera automatiquement attribuée. Notez que si l'adresse réfère à une autre instance Ecolo, trois points de menus complémentaires seront proposés:
+                      
                       </em>
                     </div>
                     <div>
@@ -603,14 +660,19 @@
                     <div>
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-
                       </em>
                       <em style="line-height: 1.42857143; background-color: transparent;">
+                        
                          Par &quot;invalidation&quot; on entend le fait que l'objet est rendu inactif. Il ne s'affiche plus dans la liste et ne sera plus inclu dans aucune opération. Les objets inactifs peuvent être retrouvés par l'activation du filtre &quot;Expiré&quot; (voir
+                        
                         <a href="/page/ficep-help-filters">Recherche et Filtres</a>
+                        
                           )
+                        
                         <a href="/page/ficep-help-filters"> </a>
+                        
                          . Une date d'expiration sera rajoutée aux détails de l'objet:
+                      
                       </em>
                     </div>
                   </div>
@@ -622,7 +684,6 @@
                       <strong>
                         <em style="line-height: 1.42857143; background-color: transparent;">
                           <span class="fa fa-exclamation-triangle fa-2x"/>
-
                         </em>
                       </strong>
                       <strong>Exceptions</strong>
@@ -679,7 +740,6 @@
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-flag fa-2x"/>
-
                         </span>
                         <strong style="line-height: 1.42857143;">
                           <span style="line-height: 1.42857143;">
@@ -694,15 +754,20 @@
                         </span>
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-user fa-2x"/>
-
                         </span>
                         <span style="line-height: 1.42857143;">
                           <strong>Audience</strong>
+                          
                            : profils non autorisés:
+                          
                           <span style="background-color:#FFFF00;">xxxxxxx</span>
+                          
                             (voir
+                          
                           <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                          
                            ).
+                        
                         </span>
                         <span style="line-height: 1.42857143;">
                           <span style="background-color: rgb(255, 255, 0);"/>
@@ -711,11 +776,14 @@
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-exchange fa-2x"/>
-
                           <strong>Pré-requis</strong>
+                          
                            : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           <a href="/page/ficep-help-views">Vues</a>
+                          
                            ).
+                        
                         </span>
                       </p>
                     </div>
@@ -744,8 +812,12 @@
                           <td style="text-align: left;">​1</td>
                           <td style="text-align: left;">Sélectionnez l'option &quot;Changer email principal&quot; dans le menu &quot;Autres Options&quot;.</td>
                           <td style="text-align: left;">
+                            
                             L'écran suivant est proposé:
+                            
                             <br/>
+                            
+                          
                           </td>
                         </tr>
                         <tr>
@@ -772,7 +844,6 @@
                     <div style="text-align: left;">
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-
                       </em>
                       <em style="line-height: 1.42857143; background-color: transparent;">Dans le cas où le contact n'a pas encore d'adresse email encodée, celle nouvellement encodée lui sera automatiquement attribuée.</em>
                       <div>
@@ -784,14 +855,19 @@
                         <div>
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-
                           </em>
                           <em style="line-height: 1.42857143; background-color: transparent;">
+                            
                             Par &quot;invalidation&quot; on entend le fait que l'objet est rendu inactif. Il ne s'affiche plus dans la liste et ne sera plus inclu dans aucune opération. Les objets inactifs peuvent être retrouvés par l'activation du filtre &quot;Expiré&quot; (voir
+                            
                             <a href="/page/ficep-help-filters">Recherche et Filtres</a>
+                            
                               )
+                            
                             <a href="/page/ficep-help-filters"> </a>
+                            
                              . Une date d'expiration sera rajoutée aux détails de l'objet:
+                          
                           </em>
                         </div>
                       </div>
@@ -807,7 +883,6 @@
                         <strong>
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             <span class="fa fa-exclamation-triangle fa-2x"/>
-
                           </em>
                         </strong>
                         <strong>Exceptions</strong>
@@ -862,7 +937,6 @@
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-flag fa-2x"/>
-
                         </span>
                         <strong style="line-height: 1.42857143;">
                           <span style="line-height: 1.42857143;">
@@ -878,15 +952,20 @@
                         </span>
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-user fa-2x"/>
-
                         </span>
                         <span style="line-height: 1.42857143;">
                           <strong>Audience</strong>
+                          
                            : profils non autorisés:
+                          
                           <span style="background-color:#FFFF00;">xxxxxxx  </span>
+                          
                           (voir
+                          
                           <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                          
                            ).
+                        
                         </span>
                         <span style="line-height: 1.42857143;">
                           <span style="background-color: rgb(255, 255, 0);"/>
@@ -895,11 +974,14 @@
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-exchange fa-2x"/>
-
                           <strong>Pré-requis</strong>
+                          
                            : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           <a href="/page/ficep-help-views">Vues</a>
+                          
                            ).
+                        
                         </span>
                       </p>
                     </div>
@@ -928,16 +1010,24 @@
                           <td style="text-align: left;">​1</td>
                           <td style="text-align: left;">Sélectionnez l'option &quot;Changer téléphone principal&quot; dans le menu &quot;Autres Options&quot;.</td>
                           <td style="text-align: left;">
+                            
                             L'écran suivant est proposé:
+                            
                             <br/>
+                            
+                          
                           </td>
                         </tr>
                         <tr>
                           <td style="text-align: left;">​2</td>
                           <td style="text-align: left;">Choisissez dans la liste ou encodez le nouveau numéro de téléphone, qui deviendra donc le numéro de téléphone principal</td>
                           <td style="text-align: left;">
+                            
                             Le champ est rempli avec votre encodage - ce champ est obligatoire: il doit contenir une valeur.
+                            
                             <span style="background-color: rgba(200, 200, 200, 0.137255);"> </span>
+                            
+                          
                           </td>
                         </tr>
                         <tr>
@@ -958,12 +1048,15 @@
                         <div>
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-
                           </em>
                           <em style="line-height: 1.42857143; background-color: transparent;">
+                            
                             Les numéros de téléphone affichés dans la liste sont les numéros préalablement créés dans l'application. Vous avez la possibilité d'en créer un par cette liste en sélectionnant l'option &quot;Créer et Modifier&quot; (voir
+                            
                             <a href="/page/ficep-help-createandedit">Créer et Modifier </a>
+                            
                              ). Les numéros de téléphones sont de trois types: Fixe, Mobile et Fax. Le type est noté entre parenthèses.
+                          
                           </em>
                         </div>
                         <div>
@@ -972,7 +1065,6 @@
                           <div>
                             <em style="line-height: 1.42857143; background-color: transparent;">
                               <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-
                             </em>
                             <em style="line-height: 1.42857143; background-color: transparent;">Dans le cas où le contact n'a pas encore de coordonnée téléphonique d'encodée, celle nouvellement encodée lui sera automatiquement attribuée.</em>
                           </div>
@@ -987,9 +1079,13 @@
                                 <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
                               </em>
                               <em style="line-height: 1.42857143; background-color: transparent;">
+                                
                                 Par &quot;invalidation&quot; on entend le fait que l'objet est rendu inactif. Il ne s'affiche plus dans la liste et ne sera plus inclu dans aucune opération. Les objets inactifs peuvent être retrouvés par l'activation du filtre &quot;Expiré&quot; (voir
+                                
                                 <a href="/page/ficep-help-filters">Recherche et Filtres</a>
+                                
                                   ). Une date d'expiration sera rajoutée aux détails de l'objet:
+                              
                               </em>
                             </div>
                           </div>
@@ -1005,9 +1101,7 @@
                             <strong>
                               <em style="line-height: 1.42857143; background-color: transparent;">
                                 <span class="fa fa-exclamation-triangle fa-2x"/>
-
                               </em>
-
                             </strong>
                             <strong>Exceptions</strong>
                             <strong/>
@@ -1063,7 +1157,6 @@
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-flag fa-2x"/>
-
                         </span>
                         <strong style="line-height: 1.42857143;">
                           <span style="line-height: 1.42857143;">
@@ -1078,15 +1171,20 @@
                         </span>
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-user fa-2x"/>
-
                         </span>
                         <span style="line-height: 1.42857143;">
                           <strong>Audience</strong>
+                          
                            : profils non autorisés:
+                          
                           <span style="background-color:#FFFF00;">xxxxxxx  </span>
+                          
                           (voir
+                          
                           <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                          
                            ).
+                        
                         </span>
                         <span style="line-height: 1.42857143;">
                           <span style="background-color: rgb(255, 255, 0);"/>
@@ -1095,11 +1193,14 @@
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-exchange fa-2x"/>
-
                           <strong>Pré-requis</strong>
+                          
                            : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           <a href="/page/ficep-help-views">Vues</a>
+                          
                            ).
+                        
                         </span>
                       </p>
                     </div>
@@ -1150,11 +1251,14 @@
                     <div style="text-align: left;">
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-
                         <em style="line-height: 1.42857143; background-color: transparent;">
+                          
                           Les valeurs affichées dans la liste sont des valeurs préalablement créées dans l'application. Vous avez la possibilité d'en créer une nouvelle par cette liste en sélectionnant l'option &quot;Créer et Modifier&quot; (voir
+                          
                           <a href="/page/ficep-help-createandedit">Créer et Modifier </a>
+                          
                            ).
+                        
                         </em>
                       </em>
                     </div>
@@ -1172,7 +1276,6 @@
                         <strong>
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             <span class="fa fa-exclamation-triangle fa-2x"/>
-
                           </em>
                         </strong>
                         <strong>Exceptions</strong>
@@ -1236,13 +1339,16 @@
                     <div style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-user fa-2x"/>
-
                       </span>
                       <span style="line-height: 1.42857143;">
                         <strong>Audience</strong>
+                        
                           : profils non autorisés: xxxxxxx  (voir
+                        
                         <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                        
                          ).
+                      
                       </span>
                     </div>
                     <p style="text-align: left;">
@@ -1252,9 +1358,13 @@
                     <div style="text-align: left;">
                       <span class="fa fa-exchange fa-2x"/>
                       <strong>Pré-requis</strong>
+                      
                        : Activer un point de menu pour afficher les objets existants en mode liste (voir
+                      
                       <a href="/page/ficep-help-views" style="background-color: rgb(255, 255, 255);"> Vues</a>
+                      
                        ).
+                    
                     </div>
                   </div>
                 </div>
@@ -1297,7 +1407,9 @@
                   <div>
                     <em style="line-height: 1.42857143; background-color: transparent;">
                       <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                      
                         Dans les listes déroulantes, l'option « Recherchez Plus » permet d’accéder à plus de valeurs – l'option « Créer et Modifier » permet de créer une valeur directement.
+                    
                     </em>
                     <br style="background-color: rgba(200, 200, 200, 0.137255);"/>
                     <em style="line-height: 1.42857143; background-color: transparent;">La bonne pratique étant de créer la nouvelle valeur par le menu « Configuration » mais ceci n'est permis qu'à des utilisateurs ayant des privilèges avancés.</em>
@@ -1320,7 +1432,9 @@
                   <p>Champ obligatoire non rempli: Si l'un des champs obligatoire n'est pas rempli, voici le message affiché: </p>
                   <p>
                     <br/>
+                    
 Les champs listés sont des variables et s'adaptent en fonction.
+                  
                   </p>
                   <div>
                     <div>
@@ -1352,13 +1466,12 @@ Les champs listés sont des variables et s'adaptent en fonction.
                   <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">Créer et modifier</h2>
                   <p style="text-align: left;">
                     <span class="fa fa-flag fa-2x"/>
-
-                    <strong>Localisation</strong>
-                    : Option
+                    <strong> Localisation</strong>
+                     : Option 
                     <em>Créer et Modifier</em>
                      dans une liste déroulante
                   </p>
-                  <p style="text-align: left;">Certaines listes déroulantes vous permette de rajouter (créer) une nouvelle valeur qui ne vous serait pas proposée. </p>
+                  <p style="text-align: left;">Certaines listes déroulantes vous permette de rajouter (créer) une nouvelle valeur qui ne vous serait pas proposée.</p>
                   <p style="text-align: left;">
                     <img class="img-thumbnail" src="/website/image/ir.attachment/80_5b47072/datas" style=""/>
                   </p>
@@ -1372,12 +1485,9 @@ Les champs listés sont des variables et s'adaptent en fonction.
                   <div style="text-align: left;">
                     <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
                     <a href="/page/ficep-help-toc">
-
                       <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span>
                     </a>
                   </div>
-                  <p style="text-align: left;"/>
-                  <div/>
                 </div>
               </div>
             </div>
@@ -1492,13 +1602,16 @@ SUVORK5CYII=
                       <span style="line-height: 1.42857143;"> </span>
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-user fa-2x"/>
-
                       </span>
                       <span style="line-height: 1.42857143;">
                         <strong>Audience</strong>
+                        
                           : profils non autorisés: xxxxxxx  (voir
+                        
                         <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                        
                          ).
+                      
                       </span>
                       <span style="line-height: 1.42857143;"> </span>
                     </p>
@@ -1506,9 +1619,13 @@ SUVORK5CYII=
                     <div style="text-align: left;">
                       <span class="fa fa-exchange fa-2x"/>
                       <strong>Pré-requis</strong>
+                      
                        : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                      
                       <a href="/page/ficep-help-views" style="background-color: rgb(255, 255, 255);">Vues</a>
+                      
                        ).
+                    
                     </div>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;"/>
@@ -1539,9 +1656,15 @@ SUVORK5CYII=
                         <td style="text-align: left;">​1</td>
                         <td style="text-align: left;">Sélectionnez l'option &quot;Supprimer&quot; dans le menu &quot;Autres Options&quot;</td>
                         <td style="text-align: left;">
+                          
                           Un message de confirmation s'ouvre
+                          
                           <br/>
+                          
+                          
                           <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-delete_img_01" style=""/>
+                          
+                        
                         </td>
                       </tr>
                       <tr>
@@ -1555,7 +1678,9 @@ SUVORK5CYII=
                   <div style="text-align: left;">
                     <em style="line-height: 1.42857143; background-color: transparent;">
                       <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px"/>
+                      
                          Le menu &quot;Autres options&quot; ne s'affiche en mode &quot;Liste&quot; qu'après sélection d'un ou de plusieurs objets.
+                    
                     </em>
                   </div>
                   <div style="text-align: left;">
@@ -1567,7 +1692,6 @@ SUVORK5CYII=
                       <strong>
                         <em style="line-height: 1.42857143; background-color: transparent;">
                           <span class="fa fa-exclamation-triangle fa-2x"/>
-
                         </em>
                       </strong>
                       <strong>Exceptions</strong>
@@ -1615,7 +1739,9 @@ SUVORK5CYII=
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-flag fa-2x"/>
                         <strong>Accès fonctionalité et localisation: </strong>
+                        
                         opt
+                      
                       </span>
                       <span style="line-height: 1.42857143;">ion disponible dans le menu &quot;Autres options&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
                     </p>
@@ -1623,13 +1749,16 @@ SUVORK5CYII=
                       <span style="line-height: 1.42857143;"> </span>
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-user fa-2x"/>
-
                       </span>
                       <span style="line-height: 1.42857143;">
                         <strong>Audience</strong>
+                        
                           : profils non autorisés: xxxxxxx  (voir
+                        
                         <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                        
                          ).
+                      
                       </span>
                       <span style="line-height: 1.42857143;"> </span>
                     </p>
@@ -1637,9 +1766,13 @@ SUVORK5CYII=
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-exchange fa-2x"/>
                         <strong>Pré-requis</strong>
+                        
                          : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                        
                         <a href="/page/ficep-help-views" style="background-color: rgb(255, 255, 255);">Vues</a>
+                        
                          ).
+                      
                       </span>
                     </p>
                   </div>
@@ -1680,7 +1813,9 @@ SUVORK5CYII=
                   <div style="text-align: left;">
                     <em style="line-height: 1.42857143; background-color: transparent;">
                       <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                      
                          Le menu &quot;Autres options&quot; ne s'affiche en mode &quot;Liste&quot; qu'après sélection d'un ou de plusieurs objets.
+                    
                     </em>
                     <br/>
                   </div>
@@ -1695,7 +1830,6 @@ SUVORK5CYII=
                         <strong>
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             <span class="fa fa-exclamation-triangle fa-2x"/>
-
                           </em>
                         </strong>
                         <strong>Exceptions</strong>
@@ -1783,21 +1917,37 @@ SUVORK5CYII=
                   </h3>
                   <h4 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">Combien d'adresses email puis-je assigner à un contact?</h4>
                   <p>
+                    
                     Une et une seule coordonnée email peut être assignée à un contact à la fois mais il n'y a pas de limitation. Dans la liste, toutes les adresses email connues pour un contact seront affichées tant que ces coordonnées restent &quot;actives&quot; (voir
+                    
                     <a href="/page/ficep-help-invalidate">Invalider un objet</a>
+                    
                     ). Plusieurs contacts peuvent partager la même adresse email. Une détection des doublons a été mise en place. Le doublon va apparaître en rouge, à vous de confirmer ou de corriger.
+                  
                   </p>
                   <h4>Quelles informations sont affichées dans la liste?</h4>
                   <div>
+                    
                     Hormis les informations claires telles que le nom du contact et son email associé, sont affichées les caractéristiques de la coordonnée email mais aussi si celle-ci est l'adresse considérée comme principale, si elle est considérée comme VIP,  ou encore si elle peut être utilisée ou non (non-autorisée). La dernière colonne présente l'information du nombre d'échec d'envoi sur cette coordonnée email. L'information complète sur ce compteur d'échec se trouve dans la fiche de la coordonnée. Ce compteur s'incrémente automatiquement via les statistiques mais peut également être géré manuellement (voir
+                    
                     <a href="/page/ficep-help-bounce-editor" style="background-color: rgba(200, 200, 200, 0.137255);">Editer le compteur d'échec</a>
+                    
+                    
                     <span style="background-color: rgba(200, 200, 200, 0.137255);">). </span>
+                    
+                  
                   </div>
                   <h4>Pourquoi une coordonnée apparait-elle en rouge dans la liste?</h4>
                   <div>
+                    
                     Si la coordonnée (postale, téléphonique ou email) apparaît en rouge dans la liste cela signifie que c'est un doublon. Puisque les doublons sont interdits au niveau des Téléphones et Adresses, la détection s'organise au niveau des modèles suivants: Partenaires, Coordonnée Téléphonique, Coordonnée Email et Coordonnée Postale. Cette détection ne s'opère que sur les élements actifs.
+                    
                     <div/>
+                    
+                    
                     <div>Si les doublons sont licites (ex. membres de la même famille vivant à la même adresse ou partageant le même numéro de téléphone fixe, collègues partageant le même email professionnel, ...), une action permettra de les marquer comme &quot;justifiés&quot; afin qu'ils ne soient plus identifiés comme suspects lors de la prochaine exécution de la détection.</div>
+                    
+                    
                     <div>
                       <p>
                         <span style="line-height: 1.42857143;">Ficep propose une gestion de ces doublons (voir </span>
@@ -1805,6 +1955,8 @@ SUVORK5CYII=
                         <span style="line-height: 1.42857143;"> ).</span>
                       </p>
                     </div>
+                    
+                  
                   </div>
                   <h4>Quels types d'adresses email existe-il?</h4>
                   <div>Les adresses email sont de deux catégories: Privée ou Professionnelle. La gestion de ces catégories est réservée aux utilisateurs membre du groupe &quot;Configurator&quot;. Une coche indiquera l'adresse email considérée comme principale (celle à utiliser si aucun contexte n'est précisé).</div>
@@ -1818,11 +1970,15 @@ SUVORK5CYII=
                   <div>L'application Ficep propose une méthode de normalisation et de validation de format sur les coordonnées email: </div>
                   <div>
                     <strong>Normalisation</strong>
+                    
                     : transformation des majuscules en minuscules, suppression des espaces;
+                  
                   </div>
                   <div>
                     <strong>Validation</strong>
+                    
                     : refus des caractères accentués, présence d'une seule @ et du &quot;.&quot; qui séparera le nom du domaine. Tout autre encodage sera refusé.
+                  
                   </div>
                 </div>
               </section>
@@ -1878,32 +2034,26 @@ SUVORK5CYII=
                       </font>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-create" style="-webkit-user-select: auto; cursor: text !important;">Créer</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-update" style="-webkit-user-select: auto; cursor: text !important;">Editer</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-delete" style="-webkit-user-select: auto; cursor: text !important;">Supprimer</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate" style="-webkit-user-select: auto; cursor: text !important;">Dupliquer</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-all-details" style="-webkit-user-select: auto; cursor: text !important;">Détails</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-invalidate" style="-webkit-user-select: auto; cursor: text !important;">Invalider</a>
-
                       </div>
                       <div class="col-md-2" style="width: 195px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment" style="-webkit-user-select: auto; cursor: text !important;">Gérer des pièces jointes</a>
@@ -1922,18 +2072,29 @@ SUVORK5CYII=
                     </h3>
                     <p>
                       <span style="line-height: 1.42857143;">
-
                         <a href="/page/ficep-help-filters">Recherche et Filtres </a>
+                        
                          -
+                        
                         <a href="/page/ficep-help-navigation">Navigation </a>
+                        
                          -
+                        
                         <a href="/page/ficep-help-views">Vues </a>
+                        
                          -
+                        
                         <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
+                        
                            -
+                        
                         <a href="/page/ficep-help-createandedit">Créer et Editer</a>
+                        
                           -
+                        
                         <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
+                        
+                      
                       </span>
                     </p>
                     <div/>
@@ -2247,15 +2408,20 @@ RK5CYII=
                                 </span>
                                 <span style="line-height: 1.42857143;">
                                   <span class="fa fa-user fa-2x"/>
-
                                 </span>
                                 <span style="line-height: 1.42857143;">
                                   <strong>Audience</strong>
+                                  
                                    : profils non autorisés:
+                                  
                                   <span style="background-color: rgb(255, 255, 0);">xxxxxxx  </span>
+                                  
                                    (voir
+                                  
                                   <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                                  
                                     ).
+                                
                                 </span>
                                 <span style="line-height: 1.42857143;">
                                   <span style="background-color: rgb(255, 255, 0);"/>
@@ -2264,11 +2430,14 @@ RK5CYII=
                               <p style="text-align: left;">
                                 <span style="line-height: 1.42857143;">
                                   <span class="fa fa-exchange fa-2x"/>
-
                                   <strong>Pré-requis</strong>
+                                  
                                    : sélection d'un ou de plusieurs objet(s) existant(s) dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                                  
                                   <a href="/page/ficep-help-views">Vues</a>
+                                  
                                     ).
+                                
                                 </span>
                               </p>
                             </div>
@@ -2297,9 +2466,15 @@ RK5CYII=
                                   <td style="text-align: left;">​1</td>
                                   <td style="text-align: left;">Sélectionnez l'option &quot;Export CSV&quot; dans le menu &quot;Autres Options&quot;</td>
                                   <td style="text-align: left;">
+                                    
                                     L'écran suivant est proposé:
+                                    
                                     <br/>
+                                    
+                                    
                                     <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-export-csv_img_01" style=""/>
+                                    
+                                  
                                   </td>
                                 </tr>
                                 <tr>
@@ -2312,7 +2487,6 @@ RK5CYII=
                             <div style="text-align: left;">
                               <em style="line-height: 1.42857143; background-color: transparent;">
                                 <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-
                                 <em style="line-height: 1.42857143; background-color: transparent;">L'export ne concernera que l'objet ouvert en mode &quot;formulaire&quot; ou les objets sélectionnés dans la liste. L'activation de la coche sur l'entête de la colonne sélectionne tous les objets de la liste (même si l'affichage est limité).</em>
                               </em>
                             </div>
@@ -2328,9 +2502,7 @@ RK5CYII=
                                 <strong>
                                   <em style="line-height: 1.42857143; background-color: transparent;">
                                     <span class="fa fa-exclamation-triangle fa-2x"/>
-
                                   </em>
-
                                 </strong>
                                 <strong>Exceptions</strong>
                                 <strong/>
@@ -2407,15 +2579,20 @@ RK5CYII=
                               </span>
                               <span style="line-height: 1.42857143;">
                                 <span class="fa fa-user fa-2x"/>
-
                               </span>
                               <span style="line-height: 1.42857143;">
                                 <strong>Audience</strong>
+                                
                                  : profils non autorisés:
+                                
                                 <span style="background-color: rgb(255, 255, 0);">xxxxxxx  </span>
+                                
                                 (voir
+                                
                                 <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                                
                                  ).
+                              
                               </span>
                               <span style="line-height: 1.42857143;">
                                 <span style="background-color: rgb(255, 255, 0);"/>
@@ -2425,9 +2602,13 @@ RK5CYII=
                               <span style="line-height: 1.42857143;">
                                 <span class="fa fa-exchange fa-2x"/>
                                 <strong> Pré-requis</strong>
+                                
                                  : sélection d'un ou plusieurs objet(s) existant(s) dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                                
                                 <a href="/page/ficep-help-views">Vues</a>
+                                
                                  ).
+                              
                               </span>
                             </p>
                           </div>
@@ -2456,8 +2637,12 @@ RK5CYII=
                                 <td style="text-align: left;">​1</td>
                                 <td style="text-align: left;">Sélectionnez l'option &quot;Export vCard&quot; dans le menu &quot;Autres Options&quot;</td>
                                 <td style="text-align: left;">
+                                  
                                   L'écran suivant est proposé:
+                                  
                                   <br/>
+                                  
+                                
                                 </td>
                               </tr>
                               <tr>
@@ -2470,7 +2655,9 @@ RK5CYII=
                           <div style="text-align: left;">
                             <em style="line-height: 1.42857143; background-color: transparent;">
                               <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                              
                                  L'export ne concernera que l'élément ouvert en mode &quot;formulaire&quot; ou les élements sélectionnés dans la liste. L'activiation de la coche sur l'entête de la colonne sélectionne tous les éléments de la liste (même si l'affichage est limité).
+                            
                             </em>
                           </div>
                           <div>
@@ -3569,7 +3756,9 @@ WWSRNWD/F+9csDv4KKwIAAAAAElFTkSuQmCC
                         <p style="text-align: left;">
                           <strong style="line-height: 1.42857143;">
                             <span class="fa fa-flag fa-2x"/>
+                            
                                Localisation:
+                          
                           </strong>
                           <span style="line-height: 1.42857143;">Partie supérieure droite de l'écran ou en utilisant la fonctionnalité &quot;Search More&quot; dans n'importe quel liste déroulante.</span>
                         </p>
@@ -3592,7 +3781,6 @@ WWSRNWD/F+9csDv4KKwIAAAAAElFTkSuQmCC
                   <p style="text-align: left;">Le caractère de non-sensibilité à la casse et l'usage de jokers ne s'opère par contre que dans le cas de l'utilisation de l'opérateur &quot;contains&quot; (contient), celui activé par défaut. Ceci ne sera donc plus vrai lors de l'utilisation d'autres opérateurs.  L'opérateur ne se voit que dans la recherche avancée.</p>
                   <div style="text-align: left;">L'usage de caractères accentués n'est pas restrictif, en d'autres termes la recherche sera élargie comme par exemple, la recherche sur &quot;René&quot; donnera &quot;René&quot; et &quot;Rene&quot;.</div>
                   <div style="text-align: left;">L'application propose des filtres déjà définis (voir ci-dessous) mais il vous est possible de sauver tout filtre que vous auriez défini et que vous jugerez utile de garder pour de futures utilisations. Utilisez à cette fin l'option &quot;Enregistrer le filtre actuel&quot;. Le filtre sauvé appaîtra dans la zone &quot;Filtres&quot;.</div>
-
                   <div style="text-align: left;">L'accès aux fonctionnalités avancées vous permet de combiner divers critères de recherches afin de raffiner votre recherche. Vous pouvez créer deux types de combinaisons: </div>
                   <ul>
                     <li style="text-align: left;">la combinaison &quot;OU&quot;: signifiant que la recherche doit s'appliquer sur un élément OU l'autre, mais pas les deux. A cette fin, utilisez l'option &quot;Ajout d'une condition&quot;. Les divers critères ajoutés s'afficheront dans un seul bloc dans la zone de recherche</li>
@@ -3607,12 +3795,20 @@ WWSRNWD/F+9csDv4KKwIAAAAAElFTkSuQmCC
                     <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-filters_img_03" style=""/>
                   </p>
                   <div style="text-align: left;">
+                    
                     Pour enlever l'un ou l'autre critère, cliquez sur la petite croix sur le côté droit du bloc.
+                    
                     <br/>
+                    
+                    
                     <br/>
+                    
 Tous les résultats s'afficheront dans la page courante mais peuvent se répartir sur plusieurs pages. Utilisez les options de navigation pour les parcourir (voir
+                    
                     <a href="/page/ficep-help-navigation">Navigation</a>
+                    
                      ).
+                  
                   </div>
                   <div style="text-align: left;"/>
                   <h4 style="text-align: left;">Filtres existants</h4>
@@ -3620,7 +3816,6 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                   <p style="text-align: left;">
                     <img class="img-thumbnail" src="/website/image/ir.attachment/77_d4fd6f6/datas" style=""/>
                     <br/>
-
                   </p>
                   <p class="text-muted" style="text-align: left;">
                     <span style="line-height: 1.42857143;"/>
@@ -3665,20 +3860,25 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-user fa-2x"/>
-
                       </span>
                       <span style="line-height: 1.42857143;">
                         <strong>Audience</strong>
+                        
                          : tous les groupes d'utilisateurs sauf les &quot;Readers&quot;.
+                      
                       </span>
                     </p>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-exchange fa-2x"/>
                         <strong>Pré-requis</strong>
+                        
                          : disposer d'un fichier en format CSV (Comma Separated Value (format généré d'Excel) avec les données à importer. Afficher le mode &quot;Liste&quot; pour les données concernées (voir
+                        
                         <a href="/page/ficep-help-views">Vues</a>
+                        
                          ).
+                      
                       </span>
                     </p>
                   </div>
@@ -3729,8 +3929,12 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                     </em>
                     <em style="line-height: 1.42857143; background-color: transparent;">  </em>
                     <em>
+                      
                        L’import peut servir pour créer de nouvelles données ou mettre à jour des données existantes.
+                      
                       <em style="line-height: 1.42857143; background-color: transparent;">L'import inclut toujours l'étape de validation cependant cette étape peut prendre du temps (autant de temps que nécessaire à l'import) en fonction de la taille du fichier (nombres de données à importer). </em>
+                      
+                    
                     </em>
                   </div>
                 </div>
@@ -3777,45 +3981,47 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
     <template id="website.ficep-help-invalidate" name="ficep-help-invalidate" page="True">
       <t t-call="website.layout">
         <div class="oe_structure oe_empty" id="wrap">
-          <section class="mt16 mb16">
+          <section class="mt16 mb0">
             <div class="container">
               <div class="row">
-                <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">
-                  <span style="color: rgb(0, 128, 0);">Invalider un objet</span>
-                  <span style="color: rgb(255, 255, 255);"/>
-                </h2>
-                <div style="text-align: center;">
-                  <p style="text-align: left;">
-                    <strong>
-                      <span class="fa fa-flag fa-2x"/>
-                        Accès fonctionnalité et localisation:
-                    </strong>
-                     option disponible sous forme de bouton sur la partie supérieure gauche d'un objet.
-                  </p>
-                  <p style="text-align: left;">
-                    <span style="line-height: 1.42857143;">
+                <div class="col-md-12 text-center mt16 mb0">
+                  <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
+                    <span style="color: rgb(0, 128, 0);">Invalider un objet</span>
+                  </h2>
+                  <div style="text-align: center;">
+                    <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
-                        <span class="fa fa-user fa-2x"/>
-
+                        <span class="fa fa-flag fa-2x"/>
+                      </span>
+                      <strong style="line-height: 1.42857143;">
+                        <span style="line-height: 1.42857143;">
+                          <strong> Accès fonctionnalité et localisation: </strong>
+                        </span>
+                      </strong>
+                      <span style="line-height: 1.42857143;">option disponible sous forme de bouton sur la partie supérieure gauche d'un objet.</span>
+                    </p>
+                    <p style="text-align: left;">
+                      <span style="line-height: 1.42857143;">
+                        <span class="fa fa-user fa-2x" style=""/>
                       </span>
                       <span style="line-height: 1.42857143;">
-                        <strong>Audience</strong>
-                          : profils non autorisés:
-                        <span style="background-color:#FFFF00;">xxxxxxx  </span>
-                        (voir
+                        <strong>  Audience: </strong>
+                         profils non autorisés: 
+                        <span style="background-color:#FFFF00;">xxxxxxx </span>
+                        (voir 
                         <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
-                         ).
+                         ). 
                       </span>
-                    </span>
-                  </p>
-                  <div/>
-                  <div style="text-align: left;">
-                    <span class="fa fa-exchange fa-2x"/>
-
-                    <strong>Pré-requis: </strong>
-                     affichage de l'objet en vue &quot;formulaire&quot; (voir
-                    <a href="/page/ficep-help-views" style="background-color: rgb(255, 255, 255);">Vues</a>
-                     ).
+                    </p>
+                    <p style="text-align: left;">
+                      <span style="line-height: 1.42857143;">
+                        <span class="fa fa-exchange fa-2x"/>
+                        <strong> Pré-requis: </strong>
+                        affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                        <a href="/page/ficep-help-views">Vues</a>
+                         ). 
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -3824,53 +4030,63 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
           <section class="mt16 mb16">
             <div class="container">
               <div class="row">
-                <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
-                  <tbody>
-                    <tr>
-                      <td>
-                        <strong>#</strong>
-                      </td>
-                      <td>
-                        <strong>Etapes​</strong>
-                      </td>
-                      <td>
-                        <strong>​Résultat</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>​1</td>
-                      <td>​Cliquez sur le bouton &quot;Invalider&quot;</td>
-                      <td>​L'objet est invalidé</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div/>
-                <div>
-                  <em style="line-height: 1.42857143; background-color: transparent;">
-                    <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                       Par principe, on ne supprime que très peu d'objets. Par contre, on va rendre tel ou tel objet inactif par l'action d'invalidation. Il ne s'affiche plus dans la liste et ne sera plus inclu dans aucune opération. Les objets inactifs peuvent être retrouvés par l'activation du filtre &quot;Expiré&quot; (voir
-                    <a href="/page/ficep-help-filters">Recherche et Filtres</a>
-                      ). Une date d'expiration sera rajoutée aux détails de l'objet:
-                  </em>
-                </div>
-                <div>
-                  <em style="line-height: 1.42857143; background-color: transparent;"/>
-                  <div>
-                    <strong>
-                      <em style="line-height: 1.42857143; background-color: transparent;">
-                        <span class="fa fa-exclamation-triangle fa-2x"/>
+                <div class="col-md-12 text-center mt16 mb32">
+                  <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
+                    <tbody>
+                      <tr>
+                        <td style="text-align: left;">
+                          <strong>#</strong>
+                        </td>
+                        <td style="text-align: left;">
+                          <strong>Etapes​</strong>
+                        </td>
+                        <td style="text-align: left;">
+                          <strong>​Résultat</strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: left;">​1</td>
+                        <td style="text-align: left;">​Cliquez sur le bouton &quot;Invalider&quot;</td>
+                        <td style="text-align: left;">​L'objet est invalidé</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div style="text-align: left;"/>
+                  <div style="text-align: left;">
+                    <em style="line-height: 1.42857143; background-color: transparent;">
+                      <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                       Par principe, on ne supprime que très peu d'objets. Par contre, on va rendre tel ou tel objet inactif par l'action d'invalidation. Un objet inactif n'est pas détruit mais tout se passe comme si c'était le cas (exemple: il n'apparaît plus dans les écrans). Les objets inactifs peuvent être retrouvés par l'activation du filtre &quot;Expiré&quot; (voir 
+                      <a href="/page/ficep-help-filters">Recherche et Filtres</a>
+                       ). Une date d'expiration sera rajoutée aux détails de l'objet.
+                    </em>
+                  </div>
+                  
+ 
 
-                      </em>
-                    </strong>
-                    <strong>Exceptions</strong>
-                    <strong/>
+
+                  <div style="text-align: center;">
+                    <div style="text-align: left;">
+                      <strong>
+                        <em style="line-height: 1.42857143; background-color: transparent;">
+                          <span class="fa fa-exclamation-triangle fa-2x"/>
+                        </em>
+                      </strong>
+                      <strong>Exceptions</strong>
+                    </div>
+                    <p style="text-align: left;">
+                      <span style="background-color: rgb(255, 255, 0);">To be completed</span>
+                    </p>
                   </div>
-                  <div>
-                    <strong/>
-                  </div>
-                  <p>
-                    <span style="background-color:#FFFF00;">To be completed</span>
-                  </p>
+                  
+
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="mt16 mb16">
+            <div class="container">
+              <div class="row">
+                <div>
                   <em style="line-height: 1.42857143; background-color: transparent;"/>
                 </div>
                 <div>
@@ -3915,11 +4131,15 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                   <p>A great way to catch your reader's attention is to tell a story. Everything you consider writing can be told as a story.</p>
                   <p>
                     <b>Great stories have personality.</b>
+                    
                      Consider telling a great story that provides personality. Writing a story with personality for potential clients will asist with making a relationship connection. This shows up in small quirks like word choices or phrases. Write from your point of view, not from someone else's experience.
+                  
                   </p>
                   <p>
                     <b>Great stories are for everyone even when only written for just one person.</b>
+                    
                      If you try to write with a wide general audience in mind, your story will ring false and be bland. No one will be interested. Write for one person. If it’s genuine for the one, it’s genuine for the rest.
+                  
                   </p>
                 </div>
               </div>
@@ -3944,7 +4164,6 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-flag fa-2x"/>
-
                         </span>
                         <strong style="line-height: 1.42857143;">
                           <span style="line-height: 1.42857143;">
@@ -3959,15 +4178,20 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                         </span>
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-user fa-2x"/>
-
                         </span>
                         <span style="line-height: 1.42857143;">
                           <strong>Audience</strong>
+                          
                            : profils non autorisés:
+                          
                           <span style="background-color:#FFFF00;">xxxxxxx  </span>
+                          
                           (voir
+                          
                           <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                          
                            ).
+                        
                         </span>
                         <span style="line-height: 1.42857143;">
                           <span style="background-color: rgb(255, 255, 0);"/>
@@ -3976,11 +4200,14 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-exchange fa-2x"/>
-
                           <strong>Pré-requis</strong>
+                          
                            : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           <a href="/page/ficep-help-views">Vues</a>
+                          
                            ).
+                        
                         </span>
                       </p>
                     </div>
@@ -4014,9 +4241,15 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                           <td style="text-align: left;">​2</td>
                           <td style="text-align: left;">Cliquez sur le bouton &quot;Mettre comme Principale&quot;</td>
                           <td style="text-align: left;">
+                            
                             Un message de confirmation s'ouvre:
+                            
                             <br/>
+                            
+                            
                             <br/>
+                            
+                          
                           </td>
                         </tr>
                         <tr>
@@ -4033,9 +4266,13 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                     <div style="text-align: left;">
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                        
                            Le bouton &quot;Mettre comme principale&quot; n'apparaît que pour une sélection de coordonnées postales qui ne sont pas marquées comme &quot;principales&quot;. La précédente adresse est rendue inactive (mais pas supprimée) (voir
+                        
                         <a href="/page/ficep-help-invalidate">Invalider un objet</a>
+                        
                         ).
+                      
                       </em>
                     </div>
                     <div>
@@ -4050,7 +4287,6 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                         <strong>
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             <span class="fa fa-exclamation-triangle fa-2x"/>
-
                           </em>
                         </strong>
                         <strong>Exceptions</strong>
@@ -4115,20 +4351,27 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                           <span style="line-height: 1.42857143;"> </span>
                         </strong>
                         <span style="line-height: 1.42857143;">
+                          
                           Les doublons détectés dans l'application apparaissent d'une manière générale en rouge dans la vue liste. Leur gestion consiste à les permettre ou les corriger. L'option &quot;Permettre les doublons&quot; est disponible d
+                          
                           <span style="line-height: 1.42857143;">ans le menu &quot;Autres options&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet. </span>
+                          
+                        
                         </span>
                       </p>
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-user fa-2x"/>
                         </span>
-
                         <span style="line-height: 1.42857143;">
                           <strong>Audience</strong>
+                          
                            : profils non autorisés: xxxxxxx  (voir
+                          
                           <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                          
                            ).
+                        
                         </span>
                         <span style="line-height: 1.42857143;">
                           <span style="background-color: rgb(255, 255, 0);"/>
@@ -4137,11 +4380,14 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-exchange fa-2x"/>
-
                           <strong>Pré-requis</strong>
+                          
                            : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           <a href="/page/ficep-help-views">Vues</a>
+                          
                            ).
+                        
                         </span>
                       </p>
                     </div>
@@ -4193,7 +4439,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                     <div style="text-align: left;">
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                        
                            Les doublons autorisés apparaissent en noir dans les listes. Une icône représentant une flèche jaune apparait pour l'élément concerné dans la vue liste. Cette icône donne accès à l'annulation de la permission.
+                      
                       </em>
                     </div>
                     <div style="text-align: left;">
@@ -4218,18 +4466,26 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                           <tr>
                             <td style="text-align: left;">​1</td>
                             <td style="text-align: left;">
+                              
                               Affichez les élements en mode liste (voir
+                              
                               <a href="/page/ficep-help-views">Vues</a>
+                              
                               )
+                            
                             </td>
                             <td style="text-align: left;"/>
                           </tr>
                           <tr>
                             <td style="text-align: left;">​2</td>
                             <td style="text-align: left;">
+                              
                               Cliquez sur l'icône
+                              
                               <br/>
+                              
                                affiché en regard de l'élément concerné
+                            
                             </td>
                             <td style="text-align: left;">Un message de confirmation s'ouvre</td>
                           </tr>
@@ -4250,7 +4506,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                       <div style="text-align: left;">
                         <em style="line-height: 1.42857143; background-color: transparent;">
                           <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                          
                              Si des doublons ont été autorisés et qu'entretemps un nouvel élement semblable est créé, tous les élements doublons autorisés se retrouvent comme doublons avec le nouvel élement.
+                        
                         </em>
                       </div>
                     </div>
@@ -4314,7 +4572,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-flag fa-2x"/>
                         <strong>Localisation</strong>
+                        
                         : Partie
+                      
                       </span>
                       <span style="line-height: 1.42857143;"> inférieure de chaque objet affiché en mode &quot;formulaire&quot;.</span>
                     </div>
@@ -4372,9 +4632,13 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                     </h3>
                     <div>
                       <span style="line-height: 1.42857143;">
+                        
                         Cette zone vous permet aussi d'ajouter toute note qui pourrait compléter un objet. Cette note ne sera pas envoyée aux abonnés de l'objet mais sera visible. A cette fin, utilisez l'option &quot;
+                        
                         <strong>Enregistrer une note interne</strong>
+                        
                          &quot;. L'insertion de la note ainsi que le texte sera enregistré (auteur, date et heure) et sera visible lorsque l'on consultera l'objet.
+                      
                       </span>
                     </div>
                     <br/>
@@ -4390,9 +4654,13 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                       <span style="line-height: 1.42857143;">Suivi</span>
                     </h3>
                     <div>
+                      
                       Vous pouvez en tant qu'utilisateur décider de suivre un objet particulier. Vous devenez un dès lors un &quot;abonné&quot;. A cette fin, cliquez sur le bouton &quot;
+                      
                       <strong>Suivre</strong>
+                      
                       &quot;, votre nom apparaîtra dans la liste des abonnés, visible par tous et vous serez alors notifié dans votre boite à message à chaque évolution de l'objet suivi. Notez que vous ne recevez jamais de notification liée à une de vos propres actions.
+                    
                     </div>
                     <div>A tout moment, vous pouvez arrêter ce processus en vous retirant de la liste des abonnés. Il vous suffit de cliquer sur le bouton &quot;Abonné&quot; (anciennement &quot;Suivre&quot;) pour confirmer que vous ne souhaitez plus suivre l'objet concerné. Vous pouvez également cliquer sur la petite croix à la droite de votre nom.</div>
                     <div>
@@ -4401,7 +4669,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                       <div>
                         <a href="/page/ficep-help-toc" style="background-color: rgba(200, 200, 200, 0.137255);">
                           <span class="fa fa-reply fa-2x"/>
+                          
                             Retour au sommaire
+                        
                         </a>
                       </div>
                     </div>
@@ -6249,7 +6519,9 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                   <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
                     <strong style="font-size: 14px; line-height: 1.42857143;">
                       <span class="fa fa-flag fa-2x"/>
+                      
                          Localisation:
+                    
                     </strong>
                     <span style="font-size: 14px; line-height: 1.42857143;"> Partie supérieure gauche de l'écran</span>
                   </h2>
@@ -6259,17 +6531,19 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                   </div>
                   <div style="text-align: left;"/>
                   <div style="text-align: left;"/>
-
                   <div style="text-align: left;">Selon la recherche, les données peuvent être réparties sur plusieurs pages (par défaut, l'application affiche 80 objets par page). Le nombre de pages est affiché. Si vous souhaitez afficher plus de 80 objets par pages, double-cliquez sur le nombre de pages.</div>
                   <div style="text-align: left;">
                     <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-navigation_img_02" style=""/>
                   </div>
                   <div style="text-align: left;"/>
-
                   <p style="text-align: left;">
+                    
                     Les mentions en
+                    
                     <span style="color:#3399ff;">bleu </span>
+                    
                      sont des liens. Cliquez dessus vous fait naviguer sur cet objet.
+                  
                   </p>
                   <p style="text-align: left;">
                     <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-navigation_img_03" style=""/>
@@ -6281,7 +6555,6 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                   <p style="text-align: left;">
                     <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-navigation_img_04" style=""/>
                   </p>
-
                   <div style="text-align: left;">
                     <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
                     <a href="/page/ficep-help-toc">
@@ -6367,16 +6640,26 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                             </tr>
                             <tr>
                               <td>
+                                
                                 ​1. Editez la participation
+                                
                                 <br/>
+                                
             2. Complétez la zone &quot;Notes&quot;  (texte libre)
+                                
                                 <br/>
+                                
             3. Cliquez sur &quot;Enregistrer&quot; pour sauver vos modifications - &quot;Annuler&quot; annule l'opération
+                              
                               </td>
                               <td>​Une note est ajoutée à la participation</td>
                               <td>
+                                
 ​
+                                
                                 <br/>
+                                
+                              
                               </td>
                             </tr>
                           </tbody>
@@ -6393,16 +6676,26 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                             </tr>
                             <tr>
                               <td>
+                                
                                 ​1. Editez la participation
+                                
                                 <br/>
+                                
             2. Encodez une nouvelle date dans la zone &quot;Date de création&quot; utilisant le calendrier ou non
+                                
                                 <br/>
+                                
             3. Cliquez sur &quot;Enregistrer&quot; pour sauver vos modifications - &quot;Annuler&quot; annule l'opération
+                              
                               </td>
                               <td>​Une nouvelle date de création est enregistrée</td>
                               <td>
+                                
 ​
+                                
                                 <br/>
+                                
+                              
                               </td>
                             </tr>
                           </tbody>
@@ -6426,32 +6719,26 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                       </font>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-create" style="-webkit-user-select: auto; cursor: text !important;">Créer</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-update" style="-webkit-user-select: auto; cursor: text !important;">Editer</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-delete" style="-webkit-user-select: auto; cursor: text !important;">Supprimer</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate" style="-webkit-user-select: auto; cursor: text !important;">Dupliquer</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-all-details" style="-webkit-user-select: auto; cursor: text !important;">Détails</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-invalidate" style="-webkit-user-select: auto; cursor: text !important;">Invalider</a>
-
                       </div>
                       <div class="col-md-2" style="width: 195px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment" style="-webkit-user-select: auto; cursor: text !important;">Gérer des pièces jointes</a>
@@ -6471,16 +6758,28 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                     <p>
                       <span style="line-height: 1.42857143;">
                         <a href="/page/ficep-help-filters">Recherche et Filtres </a>
+                        
                          -
+                        
                         <a href="/page/ficep-help-navigation">Navigation </a>
+                        
                          -
+                        
                         <a href="/page/ficep-help-views">Vues </a>
+                        
                          -
+                        
                         <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
+                        
                            -
+                        
                         <a href="/page/ficep-help-createandedit">Créer et Editer</a>
+                        
                           -
+                        
                         <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
+                        
+                      
                       </span>
                     </p>
                     <div/>
@@ -6545,29 +6844,49 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                   </h3>
                   <h4>Combien d'adresses postales puis-je assigner à un contact?</h4>
                   <p>
+                    
                     Une et une seule coordonnée postale peut être assignée à un contact à la fois mais il n'y a pas de limitation. Dans la liste, toutes les adresses postales connues pour un contact seront affichées tant que ces coordonnées restent &quot;actives&quot; (voir
+                    
                     <a href="/page/ficep-help-invalidate">Invalider un objet</a>
+                    
                     ). Une détection des doublons a été mise en place. Le doublon va apparaître en rouge, à vous de confirmer ou de corriger. Cependant, le cas particulier des Coordonnées Postales introduit le concept de Co-résidence. &quot;Justifier&quot; des doublons consiste à associer plusieurs Coordonnées Postales d'une même Adresse (i.e. des doublons) à une même Co-résidence.
+                  
                   </p>
                   <p>A noter cepedant aussi que certaines Adresses sont pourtant identiques: c'est le cas des petits immeubles dont les appartements partagent la même boîte aux lettres. Dans ce cas, un numéro d'identification (1, 2, 3, ...) sera attribué à l'Adresse pour la différencier de l'autre, ainsi la rendre unique et l'associer à des Coordonnées Postales sans déclencher la détection de doublons avec la première.</p>
                   <h4>Quelles informations sont affichées dans la liste?</h4>
                   <div>
+                    
                     Hormis les informations claires telles que le nom du contact et son adresse associée, sont affichées les caractéristiques de la coordonnée postale mais aussi si celle-ci est l'adresse considérée comme principale, si elle est considérée comme VIP, ou encore si elle peut être utilisée ou non (non-autorisée). La dernière colonne présente l'information du nombre d'échec d'envoi sur cette coordonnée. L'information complète sur ce compteur d'échec se trouve dans la fiche de la coordonnée. Ce compteur s'incrémente manuellement, au nombre de retours postaux enregistrés (voir
+                    
                     <a href="/page/ficep-help-bounce-editor">Editer le compteur d'échec</a>
+                    
                     ).
+                  
                   </div>
                   <h4>Pourquoi une coordonnée apparait-elle en rouge dans la liste?</h4>
                   <div>
+                    
                     Si la coordonnée (postale, téléphonique ou email) apparaît en rouge dans la liste cela signifie que c'est un doublon. Puisque les doublons sont interdits au niveau des Téléphones et Adresses, la détection s'organise au niveau des modèles suivants: Partenaires, Coordonnée Téléphonique, Coordonnée Email et Coordonnée Postale. Cette détection ne s'opère que sur les élements actifs.
+                    
                     <div/>
+                    
+                    
                     <div>Si les doublons sont licites (ex. membres de la même famille vivant à la même adresse ou partageant le même numéro de téléphone fixe, collègues partageant le même email professionnel, ...), une action permettra de les marquer comme &quot;justifiés&quot; afin qu'ils ne soient plus identifiés comme suspects lors de la prochaine exécution de la détection.</div>
+                    
+                    
                     <div>
                       <p>Le cas particulier des Coordonnées Postales introduit le concept de Co-résidence. &quot;Justifier&quot; des doublons consiste à associer plusieurs Coordonnées Postales d'une même Adresse (i.e. des doublons) à une même Co-résidence.</p>
                       <p>Dans le cas particulier des adresses identiques mais de domiciles différents (petits immeubles à plusieurs appartements sans distinction postale officielle), il sera possible de dupliquer une adresse où tous les champs seront identiques. La nouvelle adresse aura un numéro d'identification la différenciant de la source permettant de contourner le contrôle d'unicité contraignant.</p>
+                      
 Ficep propose une gestion de ces doublons (voir
+                      
                       <a href="/page/ficep-help-manage-duplicates">Gérer les doublons</a>
+                      
                        ).
+                    
                     </div>
+                    
+                  
                   </div>
                   <h4>Quels types d'adresses postales existe-il?</h4>
                   <div>Les adresses postales sont de deux catégories: Privée ou Professionnelle. La gestion de ces catégories est réservée aux utilisateurs membre du groupe &quot;Configurator&quot;. Une coche indiquera l'adresse email considérée comme principale (celle à utiliser si aucun contexte n'est précisé).</div>
@@ -6581,11 +6900,15 @@ Ficep propose une gestion de ces doublons (voir
                   <div>L'application Ficep propose une méthode de normalisation et de validation de format sur les coordonnées postales: </div>
                   <div>
                     <strong>Normalisation</strong>
+                    
                     : au niveau du pays et du code postal. Ceux-ci ne sont pas quelconques: il sont à choisir parmi les propositions; les majuscules seront remplacées par des minuscules
+                  
                   </div>
                   <div>
                     <strong>Validation</strong>
+                    
                     : les caractères spéciaux sont remplacés par un seul espace: espaces, point, virgule, trait d'union; refus et remplacement des caractères accentués: à--&gt;a, é--&gt;e, ç--&gt;c, ...
+                  
                   </div>
                   <div>
                     <span style="line-height: 1.42857143;">Une aide à la saisie des adresses est également proposée: Ficep offre une méthode d'auto-complétion (i.e. quelques lettres adjacentes suffisent au système pour proposer des premiers résultats) permettant de saisir la voie publique le plus simplement et le plus justement possible. Le Code Postal sera renseigné en premier pour limiter au mieux les résultats sur les Rues. </span>
@@ -6647,32 +6970,26 @@ Ficep propose une gestion de ces doublons (voir
                       </font>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-create" style="-webkit-user-select: auto; cursor: text !important;">Créer</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-update" style="-webkit-user-select: auto; cursor: text !important;">Editer</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-delete" style="-webkit-user-select: auto; cursor: text !important;">Supprimer</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate" style="-webkit-user-select: auto; cursor: text !important;">Dupliquer</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-all-details" style="-webkit-user-select: auto; cursor: text !important;">Détails</a>
-
                         <br/>
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-invalidate" style="-webkit-user-select: auto; cursor: text !important;">Invalider</a>
-
                       </div>
                       <div class="col-md-2" style="width: 195px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment" style="-webkit-user-select: auto; cursor: text !important;">Gérer des pièces jointes</a>
@@ -6692,16 +7009,28 @@ Ficep propose une gestion de ces doublons (voir
                     <p>
                       <span style="line-height: 1.42857143;">
                         <a href="/page/ficep-help-filters">Recherche et Filtres </a>
+                        
                          -
+                        
                         <a href="/page/ficep-help-navigation">Navigation </a>
+                        
                          -
+                        
                         <a href="/page/ficep-help-views">Vues </a>
+                        
                          -
+                        
                         <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
+                        
                            -
+                        
                         <a href="/page/ficep-help-createandedit">Créer et Editer</a>
+                        
                           -
+                        
                         <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
+                        
+                      
                       </span>
                     </p>
                     <div>
@@ -6749,15 +7078,20 @@ Ficep propose une gestion de ces doublons (voir
                         </span>
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-user fa-2x"/>
-
                         </span>
                         <span style="line-height: 1.42857143;">
                           <strong>Audience</strong>
+                          
                           : profils non autorisés:
+                          
                           <span style="background-color:#FFFF00;">xxxxxxx  </span>
+                          
                           (voir
+                          
                           <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                          
                            ).
+                        
                         </span>
                         <span style="line-height: 1.42857143;">
                           <span style="background-color: rgb(255, 255, 0);"/>
@@ -6767,9 +7101,13 @@ Ficep propose une gestion de ces doublons (voir
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-exchange fa-2x"/>
                           <strong>Pré-requis</strong>
+                          
                           : sélection d'un ou de plusieurs objet(s) existant(s) dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           <a href="/page/ficep-help-views">Vues</a>
+                          
                            ).
+                        
                         </span>
                       </p>
                     </div>
@@ -6814,7 +7152,9 @@ Ficep propose une gestion de ces doublons (voir
                     <div style="text-align: left;">
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                        
                           Le fichier préparé est transformé en format PDF. Vous devez avoir un lecteur de ce format sur votre station de travail afin de pouvoir l'ouvrir et l'imprimer (exemple: Acrobat Reader).
+                      
                       </em>
                     </div>
                     <div>
@@ -6840,7 +7180,6 @@ Ficep propose une gestion de ces doublons (voir
                         <strong>
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             <span class="fa fa-exclamation-triangle fa-2x"/>
-
                           </em>
                         </strong>
                         <strong>Exceptions</strong>
@@ -6866,7 +7205,6 @@ Ficep propose une gestion de ces doublons (voir
                     <div style="text-align: left;">
                       <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
                         <span class="fa fa-reply fa-2x"/>
-
                       </span>
                       <a href="/page/ficep-help-template" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour</a>
                     </div>
@@ -6888,8 +7226,9 @@ Ficep propose une gestion de ces doublons (voir
                   <div class="col-md-12 text-center mt16 mb4">
                     <h2>Personnes</h2>
                     <h3 class="text-muted">
-                      Personnes Physiques -
+                      Personnes Physiques - 
                       <span style="font-family: inherit; line-height: 1.1;">Personnes Morales - </span>
+                       
                       <span style="font-family: inherit; line-height: 1.1;">Toutes personnes</span>
                     </h3>
                     <div/>
@@ -6921,8 +7260,10 @@ Ficep propose une gestion de ces doublons (voir
                     <div class="text-muted">
                       Personnes\Personnes Physiques
                       <br/>
+                      
 Personnes\Personnes Morales
                       <br/>
+                      
 Personnes\Toutes personnes
                     </div>
                   </div>
@@ -6948,15 +7289,15 @@ Personnes\Toutes personnes
                 </p>
                 <p>
                   <strong>Travail collaboratif:</strong>
-                   à chaque objet du modèle (chaque personne identifiée) est automatiquement associée une liste d'abonnés &quot;suiveurs&quot;, c'est à dire des utilisateurs qui participent (ou qui collaborent ou encore, qui sont concernés) à la vie de l'objet en question; ces abonnés sont avertis par un système de notifications des événements sur l'objet. Toutes ces notifications arrivent dans la messagerie interne de l'application (Inbox) (voir
+                   à chaque objet du modèle (chaque personne identifiée) est automatiquement associée une liste d'abonnés &quot;suiveurs&quot;, c'est à dire des utilisateurs qui participent (ou qui collaborent ou encore, qui sont concernés) à la vie de l'objet en question; ces abonnés sont avertis par un système de notifications des événements sur l'objet. Toutes ces notifications arrivent dans la messagerie interne de l'application (Inbox) (voir 
                   <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
                    ).
                 </p>
                 <h4/>
                 <h4>Quelles informations sont affichées dans la liste?</h4>
-                <div>Selon l'objet choisi (personnes physiques, personnes morales ou tous les contacts), diverses informations sont affichées. Hormis les informations claires comme le nom du contact, date de naissance ou encore téléphone, le status représente le statut d'adhésion du contact au parti. Cette information n'est pertinente (et affichée) que pour les personnes physiques et morales. Le numéro représente le numéro de membre (numéro d'identification au sein du parti, numéro présenté sur la carte de membre). Il ne sera affiché que pour les personnes physiques et morales.  Les Assemblées n'ont ni statut, ni numéro de membre (pas de valeur affichée). </div>
+                <div>Selon l'objet choisi (personnes physiques, personnes morales ou tous les contacts), diverses informations sont affichées. Hormis les informations claires comme le nom du contact, date de naissance ou encore téléphone, le status représente le statut d'adhésion du contact au parti. Cette information n'est pertinente (et affichée) que pour les personnes physiques et morales. Le numéro représente le numéro de membre (numéro d'identification au sein du parti, numéro présenté sur la carte de membre). Il ne sera affiché que pour les personnes physiques et morales. Les Assemblées n'ont ni statut, ni numéro de membre (pas de valeur affichée).</div>
                 <h4>Pourquoi mon contact apparait-il en rouge dans la liste?</h4>
-                <div>Si le contact ou toute donnée listée (adresse, email, ...) apparaît en rouge dans la liste cela signifie que c'est un doublon. Puisque les doublons sont interdits au niveau des Téléphones et Adresses, la détection s'organise au niveau des modèles suivants: Partenaires, Coordonnée Téléphonique, Coordonnée Email et Coordonnée Postale. Cette détection ne s'opère que sur les élements actifs. </div>
+                <div>Si le contact ou toute donnée listée (adresse, email, ...) apparaît en rouge dans la liste cela signifie que c'est un doublon. Puisque les doublons sont interdits au niveau des Téléphones et Adresses, la détection s'organise au niveau des modèles suivants: Partenaires, Coordonnée Téléphonique, Coordonnée Email et Coordonnée Postale. Cette détection ne s'opère que sur les élements actifs.</div>
                 <div/>
                 <div>
                   <span style="line-height: 1.42857143;">Si les doublons sont licites (ex. membres de la même famille vivant à la même adresse ou partageant le même numéro de téléphone fixe, collègues partageant le même email professionnel, ...), une action permettra de les marquer comme &quot;justifiés&quot; afin qu'ils ne soient plus identifiés comme suspects lors de la prochaine exécution de la détection.</span>
@@ -6966,16 +7307,17 @@ Personnes\Toutes personnes
                   <p>
                     <span style="line-height: 1.42857143;">Dans le cas particulier des adresses identiques mais de domiciles différents (petits immeubles à plusieurs appartements sans distinction postale officielle), il sera possible de dupliquer une adresse où tous les champs seront identiques. La nouvelle adresse aura un numéro d'identification la différenciant de la source permettant de contourner le contrôle d'unicité contraignant.</span>
                   </p>
-Ficep propose une gestion de ces doublons (voir
+                  
+Ficep propose une gestion de ces doublons (voir 
                   <a href="/page/ficep-help-manage-duplicates">Gérer les doublons</a>
-                    ).
+                   ).
                 </div>
                 <div/>
                 <h4>Pourquoi mon contact apparait-il en orange?</h4>
                 <div>Si le contact ou n'importe quelle donnée listée (adress, email, ...) apparaît en orange dans la liste cela signifie qu'il ne vous est pas permis de voir le détail de cette donnée (donnée non autorisée). Il s'agit ici de la mise en place de la confidentialité de certaines coordonnées et notamment ici, le fait que le propriétaire de la donnée a coché l'option &quot;Interdit&quot;.</div>
                 <div/>
                 <h4>Pourquoi, dans les coordonnées postales de mon contact, une adresse postale apparait-elle en vert?</h4>
-                <div>Une coordonnée postale affichée en vert signifie que c'est une adresse attachée à plusieurs contacts, dans le cadre d'une co-résidence par exemple. Cet affichage vert ne concerne que les coordonnées postales. </div>
+                <div>Une coordonnée postale affichée en vert signifie que c'est une adresse attachée à plusieurs contacts, dans le cadre d'une co-résidence par exemple. Cet affichage vert ne concerne que les coordonnées postales.</div>
                 <div/>
                 <div/>
                 <div/>
@@ -6987,7 +7329,7 @@ Ficep propose une gestion de ces doublons (voir
               <div class="container">
                 <div class="row">
                   <div class="col-md-12 mb16 mt16">
-                    <h3>Fonctionnalités particulières </h3>
+                    <h3>Fonctionnalités particulières</h3>
                     <h4>
                       <a href="/page/ficep-help-change-main-address">Changer la coordonnée postale principale</a>
                     </h4>
@@ -6998,6 +7340,42 @@ Ficep propose une gestion de ces doublons (voir
                       <a href="/page/ficep-help-change-main-phone">Changer la coordonnée téléphonique principale</a>
                     </h4>
                     <div>
+                      <h4>Ajouter des coordonnées à une personne</h4>
+                      <div style="background-color: rgba(200, 200, 200, 0.137255);">
+                        <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <strong>Etapes</strong>
+                                <strong>​</strong>
+                              </td>
+                              <td>
+                                <strong>​Résultat</strong>
+                              </td>
+                              <td>
+                                <strong>Profil non autorisé</strong>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                ​1. Editer la fiche de la personne
+                                <br/>
+                                
+			2. Dans l'onglet &quot;Coordonnées&quot;, dans les zones dédiées (Email, Coordonnées postales et coordonnées téléphoniques), cliquez sur &quot;Ajouter un élement&quot;
+                                <br/>
+                                <span style="background-color: rgba(200, 200, 200, 0.137255);">3. Sélectionner la coordonnée</span>
+                                 à ajouter ainsi que ses caractéristiques (choisir dans la liste ou créer une nouvelle - voir 
+                                <a href="/page/ficep-help-createandedit">Créer et modifier</a>
+                                 ) - dans le cas de l'Email, encodez l'adresse
+                                <br style="background-color: rgba(200, 200, 200, 0.137255);"/>
+                                <span style="background-color: rgba(200, 200, 200, 0.137255);">4. Cliquez sur &quot;Enregistrer &amp; fermer&quot; pour n'ajouter que cette coordonnée, sur &quot;Enregistrer &amp; créer&quot; pour continuer l'ajout - &quot;Annuler&quot; stoppe le processus. </span>
+                              </td>
+                              <td>L'onglet &quot;Coordonnées&quot; est modifié.</td>
+                              <td>​</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <h4>Ajouter des informations complémentaires à une personne</h4>
                       <div>
                         <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
@@ -7018,6 +7396,7 @@ Ficep propose une gestion de ces doublons (voir
                               <td>
                                 ​1. Editer la fiche de la personne
                                 <br/>
+                                
 			2. Ajouter dans l'onglet &quot;Notes Internes&quot;, les informations complémentaires:
 			
                                 <ul>
@@ -7025,13 +7404,16 @@ Ficep propose une gestion de ces doublons (voir
                                   <li>Site web (+ deuxième site web)</li>
                                   <li>Adresses Facebook ou Twitter</li>
                                   <li>
-                                    Civilité (choisir dans la liste ou créer une nouvelle - voir
+                                    Civilité (choisir dans la liste ou créer une nouvelle - voir 
                                     <a href="/page/ficep-help-createandedit">Créer et modifier</a>
                                      )
                                   </li>
                                   <li>Fonction occupée</li>
                                   <li>Statut marital - choix dans une liste fixe de trois statuts</li>
                                 </ul>
+                                <p>3. Cliquez sur &quot;Enregistrer&quot; pour sauver vos modifications - &quot;Annuler&quot; stoppe le processus</p>
+                                
+			
                               </td>
                               <td>L'onglet &quot;Notes Internes&quot; est modifié.</td>
                               <td>​</td>
@@ -7058,13 +7440,17 @@ Ficep propose une gestion de ces doublons (voir
                                 <td>
                                   ​1. Editer la fiche de la personne
                                   <br/>
+                                  
 			2. Ajouter dans l'onglet &quot;Indexation&quot;, les informations complémentaires:
 			
                                   <ul>
                                     <li>Compétences</li>
                                     <li>Intérêts</li>
-                                    <li>Etiquett</li>
+                                    <li>Etiquette</li>
                                   </ul>
+                                  <p>3. Cliquez sur &quot;Enregistrer&quot; pour sauver vos modifications - &quot;Annuler&quot; stoppe le processus</p>
+                                  
+			
                                 </td>
                                 <td>L'onglet &quot;Indexation&quot; est modifié.</td>
                                 <td>​</td>
@@ -7091,27 +7477,21 @@ Ficep propose une gestion de ces doublons (voir
                       </font>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-create" style="-webkit-user-select: auto; cursor: text !important;">Créer</a>
-
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-update" style="-webkit-user-select: auto; cursor: text !important;">Editer</a>
-
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-delete" style="-webkit-user-select: auto; cursor: text !important;">Supprimer</a>
-
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate" style="-webkit-user-select: auto; cursor: text !important;">Dupliquer</a>
-
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-all-details" style="-webkit-user-select: auto; cursor: text !important;">Détails</a>
-
                       </div>
                       <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-invalidate" style="-webkit-user-select: auto; cursor: text !important;">Invalider</a>
-
                       </div>
                       <div class="col-md-2" style="width: 195px; color: rgb(119, 119, 119);">
                         <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment" style="-webkit-user-select: auto; cursor: text !important;">Gérer des pièces jointes</a>
@@ -7131,23 +7511,23 @@ Ficep propose une gestion de ces doublons (voir
                     <p>
                       <span style="line-height: 1.42857143;">
                         <a href="/page/ficep-help-filters">Recherche et Filtres </a>
-                          -
+                         - 
                         <a href="/page/ficep-help-navigation">Navigation </a>
-                          -
+                         - 
                         <a href="/page/ficep-help-views">Vues et Affichage</a>
-                          -
+                         - 
                         <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
-                            -
+                         - 
                         <a href="/page/ficep-help-createandedit">Créer et Editer</a>
-                           -
+                         - 
                         <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
+                         
                       </span>
                     </p>
-
                     <p>
                       <a href="/page/ficep-help-toc">
                         <span class="fa fa-reply fa-2x" style=""/>
-                          Retour au sommaire
+                         Retour au sommaire 
                       </a>
                     </p>
                   </div>
@@ -7171,14 +7551,22 @@ Ficep propose une gestion de ces doublons (voir
                     <p style="text-align: left;">
                       <span class="fa fa-flag fa-2x"/>
                       <strong> Localisation: </strong>
+                      
                       Option
+                      
                       <em>Chercher plus</em>
+                      
                        dans certaines listes déroulantes
+                    
                     </p>
                     <p style="text-align: left;">
+                      
                       Toute liste déroulante vous propose des valeurs; il ne s'agit en général que des premières de la liste. Choisissez l'option
+                      
                       <em>Chercher Plus</em>
+                      
                        pour accéder à la liste complète des valeurs.
+                    
                     </p>
                     <p style="text-align: left;">
                       <img class="img-thumbnail" src="/website/image/ir.attachment/81_4cb778e/datas"/>
@@ -7193,7 +7581,6 @@ Ficep propose une gestion de ces doublons (voir
                       </p>
                       <div style="text-align: left;">
                         <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-
                         <a href="/page/ficep-help-toc">
                           <span style="background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span>
                         </a>
@@ -7219,6 +7606,244 @@ Ficep propose une gestion de ces doublons (voir
         </div>
       </t>
     </template>
+    <template id="website.ficep-help-sta-instance" name="ficep-help-sta-instance" page="True">
+      <t t-call="website.layout">
+        <div class="oe_structure oe_empty" id="wrap">
+          <section class="mt_simple_snippet">
+            <section class="mt_simple_snippet">
+              <section class="mt16 mb0 oe_green">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12 text-center mt16 mb4">
+                      <h2>Structures</h2>
+                      <h3 class="text-muted">
+                        <span style="color:#D3D3D3;">Instances de l'Etat</span>
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="mb16">
+                <div class="container">
+                  <div class="row mt16 mb16">
+                    <div class="text-center col-md-2">
+                      <span class="fa fa-calendar-o fa-3x" style=""/>
+                      <h3 class="mt8 mb0">But</h3>
+                      <div class="text-muted">Accès et gestion des instances de l'Etat</div>
+                    </div>
+                    <div class="text-center col-md-7">
+                      <span class="fa fa-book fa-3x" style=""/>
+                      <h3 class="mt8 mb0">Contexte</h3>
+                      <div>
+                        <span style="color:#808080;">Le modèle «Instances de l'Etat » inclut un raccourci vers les instances de l'Etat enfants, vers les assemblées de l'Etat et les circonscriptions. Il inclut la gestion d'une période de validation (activation/désactivation). </span>
+                      </div>
+                      <div class="text-muted">
+                        <span style="background-color: rgba(200, 200, 200, 0.0980392);"/>
+                      </div>
+                    </div>
+                    <div class="text-center col-md-2">
+                      <span class="fa fa-flag fa-3x" style=""/>
+                      <h3 class="mt8 mb0">Localisation</h3>
+                      <div class="text-muted">Structures\Etat\Instance d'Etat</div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <hr/>
+              <section class="oe_dark">
+                <div class="container">
+                  <h3 class="page-header">
+                    <span style="color:#808080;">Instances de l'Etat: particularités </span>
+                  </h3>
+                  <h4 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">Qu'entend-on par Instance de l'Etat ?</h4>
+                  <p>L'instance de l'Etat est l'un des différents niveaux de pouvoir caractérisant la structure d'Ecolo. Les différents niveaux de pouvoir sont: Local, Régional, Provincial, Groupe parlementaire, Fédéral. </p>
+                  <p>A chacun de ces niveaux, on retrouve un certain nombre d'assemblées théoriques qui se matérialisent par des instances (par exemple: la commission Agriculture au niveau Fédéral, le secrétariat local de la locale d'Andenne etc...)</p>
+                  <h4>Quels avantages me donne l'application sur les instances de l'Etat?</h4>
+                  <div>Des fonctionnalités générales sont offertes sur ce modèle telles que création (association), suppression, recherche, export, .....On va gérer facilement les liens entre les instances et accéder à toutes les informations y afférentes. </div>
+                  <h4>Quelles informations sont affichées dans la liste?</h4>
+                  <div>
+                    En mode liste, les informations suivantes sont affichées: le nom de l'instance, le niveau de pouvoir associé et l'instance interne liée. Un numéro d'identification externe est également affiché e
+                    <span style="background-color:#FFD700;">t qui sert à quoi??</span>
+                  </div>
+                  <h4>
+                    <span style="background-color:#FFD700;"/>
+                    En quoi consiste la création d'une instance de l'Etat?
+                    <span style="background-color:#FFD700;"/>
+                  </h4>
+                  <p>
+                    A part lui donner un nom, la création d'une instance de l'Etat consiste à lui associer toute une série de données, créées préalablement et disponibles sous forme de liste. Les valeurs dans les listes ont été créées par un utilisateurs ayant des privilèges avancés. Il vous est toutefois possible de créer une nouvelle valeur à ces listes (voir 
+                    <a href="/page/ficep-help-createandedit">Créer et modifier</a>
+                    ).
+                  </p>
+                </div>
+              </section>
+              <hr/>
+              <section class="mt16 mb16 oe_dark">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12 mb16 mt16">
+                      <h3>Fonctionnalités particulières sur les instances de l'Etat</h3>
+                      <div/>
+                      <h4>
+                        <span style="line-height: 1.42857143;">Accéder aux instances enfants</span>
+                      </h4>
+                      <div>
+                        <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
+                          <tbody>
+                            <tr>
+                              <td>Etapes​</td>
+                              <td>​Résultat</td>
+                              <td>​Profils non autorisés</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                ​1. Editez l'instance
+                                <br/>
+                                
+			2. Cliquez sur le bouton &quot;Enfants&quot;
+                              </td>
+                              <td>​La liste des enfants connus de l'instance concernée s'affiche - le fil dAriane a évolué</td>
+                              <td/>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <h4>Associer une (ou plusieurs) Assemblées</h4>
+                      <div>
+                        <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
+                          <tbody>
+                            <tr>
+                              <td>Etapes​</td>
+                              <td>​Résultat</td>
+                              <td>​Profils non autorisés</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                ​1. Editez l'instance
+                                <br/>
+                                
+			2. Dans l'onglet &quot;Assemblée&quot; (le premier), cliquez sur &quot;Ajouter un élement&quot;
+                                <br/>
+                                
+			3. Sélectionner l'instance à ajouter 
+                                <span style="background-color: rgba(200, 200, 200, 0.137255);">ainsi que ses caractéristiques</span>
+                                 (choisir dans la liste ou créer une nouvelle - voir 
+                                <a href="/page/ficep-help-createandedit">Créer et modifier</a>
+                                 ) 
+                                <span style="background-color: rgba(200, 200, 200, 0.137255);"/>
+                                <br/>
+                                
+			4. Cliquez sur &quot;Enregistrer &amp; fermer&quot; pour n'ajouter que cette instance, sur &quot;Enregistrer &amp; créer&quot; pour continuer l'ajout - &quot;Annuler&quot; stoppe le processus. 
+                              </td>
+                              <td>Une ou plusieurs assemblées sont ajoutées à l'instance</td>
+                              <td/>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <h4>Associer un (ou plusieurs) District Electoral</h4>
+                        <div>
+                          <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
+                            <tbody>
+                              <tr>
+                                <td>Etapes​</td>
+                                <td>​Résultat</td>
+                                <td>​Profils non autorisés</td>
+                              </tr>
+                              <tr>
+                                <td style="line-height: 20px;">
+                                  ​1. Editez l'instance
+                                  <br/>
+                                  
+			2. Dans l'onglet &quot;District Electoral&quot; , cliquez sur &quot;Ajouter un élement&quot;
+                                  <br/>
+                                  
+			3. Insérer le nom du district électoral ainsi que ses caractéristiques 
+                                  <span style="background-color: rgba(200, 200, 200, 0.137255);">(choisir dans la liste ou créer une nouvelle - voir </span>
+                                  <a href="/page/ficep-help-createandedit" style="background-color: rgba(200, 200, 200, 0.137255);">Créer et modifier</a>
+                                  <span style="background-color: rgba(200, 200, 200, 0.137255);"> )</span>
+                                  <br/>
+                                  
+			4. Cliquez sur &quot;Enregistrer &amp; fermer&quot; pour n'ajouter que ce district électoral, sur &quot;Enregistrer &amp; créer&quot; pour continuer l'ajout - &quot;Annuler&quot; stoppe le processus. 
+                                </td>
+                                <td style="line-height: 20px;">Un ou plusieurs district(s) sont ajoutés à l'instance</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </section>
+            <section class="mt16 mb16 oe_dark" style="">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 mb16 mt16">
+                    <h3 class="page-header">
+                      <span style="color:#808080;">Fonctionnalités générales </span>
+                    </h3>
+                    <div>
+                      <font color="#777777" size="5">
+                        <span style="line-height: 26.399999618530273px;"/>
+                      </font>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-create" style="-webkit-user-select: auto; cursor: text !important;">Créer</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-update" style="-webkit-user-select: auto; cursor: text !important;">Editer</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-delete" style="-webkit-user-select: auto; cursor: text !important;">Supprimer</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate" style="-webkit-user-select: auto; cursor: text !important;">Dupliquer</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-all-details" style="-webkit-user-select: auto; cursor: text !important;">Détails</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-invalidate" style="-webkit-user-select: auto; cursor: text !important;">Invalider</a>
+                      </div>
+                      <div class="col-md-2" style="width: 195px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment" style="-webkit-user-select: auto; cursor: text !important;">Gérer des pièces jointes</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="mt16 mb16 oe_dark" style="">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 mb16 mt16">
+                    <h3 class="page-header">
+                      <span style="color:#808080;">Caractéristiques générales de l'écran</span>
+                    </h3>
+                    <p>
+                      <span style="line-height: 1.42857143;">
+                        <a href="/page/ficep-help-filters">Recherche et Filtres</a>
+                         - 
+                        <a href="/page/ficep-help-navigation">Navigation</a>
+                         - 
+                        <a href="/page/ficep-help-views">Vues et Affichage</a>
+                         - 
+                        <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
+                         - 
+                        <a href="/page/ficep-help-createandedit">Créer et Editer</a>
+                         - 
+                        <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
+                         
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </section>
+        </div>
+      </t>
+    </template>
     <template id="website.ficep-help-template" name="ficep-help-template" page="True">
       <t t-call="website.layout">
         <div class="oe_structure oe_empty" id="wrap">
@@ -7228,14 +7853,22 @@ Ficep propose une gestion de ces doublons (voir
                 <div class="row">
                   <div class="col-md-12 text-center mt16 mb4">
                     <h2>
+                      
                       Nom du Modèle:
+                      
                       <span style="color:#D3D3D3;">
                         <em>ex: Structures</em>
                       </span>
+                      
+                    
                     </h2>
                     <h3 class="text-muted">
+                      
                       Entrée menu:
+                      
                       <span style="color:#D3D3D3;">ex: Instance de l'Etat</span>
+                      
+                    
                     </h3>
                   </div>
                 </div>
@@ -7274,15 +7907,23 @@ Ficep propose une gestion de ces doublons (voir
                   <span style="color:#808080;">Modèleconcerné: particularités </span>
                 </h3>
                 <h4 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">
+                  
                   Qu'entend-on par
+                  
                   <span style="background-color:#FFFF00;">modèleconcerné</span>
+                  
                    ?
+                
                 </h4>
                 <p>Il s'agit ici de l'association d'un contact à un événement pré-défini. Ce modèle est plutôt informatif.</p>
                 <h4>
+                  
                   Quels avantages me donne l'application sur ce
+                  
                   <span style="background-color:#FFFF00;">modèleconcerné</span>
+                  
                    ?
+                
                 </h4>
                 <div>L'application me permet d'associer un contact à un événement que seul un utilisateur membre du groupe &quot;Configurator&quot; pourra créer. Des fonctionnalités générales sont offertes sur ce modèle telles que création (association), suppression, recherche, export, .....</div>
               </div>
@@ -7293,8 +7934,12 @@ Ficep propose une gestion de ces doublons (voir
                 <div class="row">
                   <div class="col-md-12 mb16 mt16">
                     <h3>
+                      
                       Fonctionnalités particulières sur le
+                      
                       <span style="background-color:#FFFF00;">modèleconcerné</span>
+                      
+                    
                     </h3>
                     <h4>
                       <span style="line-height: 1.42857143;">Ajout de notes</span>
@@ -7309,11 +7954,17 @@ Ficep propose une gestion de ces doublons (voir
                           </tr>
                           <tr>
                             <td>
+                              
                               ​1. Editez la participation
+                              
                               <br/>
+                              
                               2. Complétez la zone &quot;Notes&quot;  (texte libre)
+                              
                               <br/>
+                              
                               3. Cliquez sur &quot;Enregistrer&quot; pour sauver vos modifications - &quot;Annuler&quot; annule l'opération
+                            
                             </td>
                             <td>​Une note est ajoutée à la participation</td>
                             <td>
@@ -7334,11 +7985,17 @@ Ficep propose une gestion de ces doublons (voir
                           </tr>
                           <tr>
                             <td>
+                              
                               ​1. Editez la participation
+                              
                               <br/>
+                              
                               2. Encodez une nouvelle date dans la zone &quot;Date de création&quot; utilisant le calendrier ou non
+                              
                               <br/>
+                              
                               3. Cliquez sur &quot;Enregistrer&quot; pour sauver vos modifications - &quot;Annuler&quot; annule l'opération
+                            
                             </td>
                             <td>​Une nouvelle date de création est enregistrée</td>
                             <td>
@@ -7405,16 +8062,28 @@ Ficep propose une gestion de ces doublons (voir
                   <p>
                     <span style="line-height: 1.42857143;">
                       <a href="/page/ficep-help-filters">Recherche et Filtres</a>
+                      
                        -
+                      
                       <a href="/page/ficep-help-navigation">Navigation</a>
+                      
                        -
+                      
                       <a href="/page/ficep-help-views">Vues et Affichage</a>
+                      
                        -
+                      
                       <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
+                      
                        -
+                      
                       <a href="/page/ficep-help-createandedit">Créer et Editer</a>
+                      
                        -
+                      
                       <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
+                      
+                    
                     </span>
                   </p>
                 </div>
@@ -7438,14 +8107,22 @@ Ficep propose une gestion de ces doublons (voir
                   <div class="row">
                     <div class="col-md-12 text-center mt16 mb4">
                       <h2>
+                        
                       Nom du Modèle:
+                      
                         <span style="color:#D3D3D3;">
                           <em>ex: Structures</em>
                         </span>
+                        
+                    
                       </h2>
                       <h3 class="text-muted">
+                        
                       Entrée menu:
+                      
                         <span style="color:#D3D3D3;">ex: Instance de l'Etat</span>
+                        
+                    
                       </h3>
                     </div>
                   </div>
@@ -7484,15 +8161,23 @@ Ficep propose une gestion de ces doublons (voir
                     <span style="color:#808080;">Modèleconcerné: particularités </span>
                   </h3>
                   <h4 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">
+                    
                   Qu'entend-on par
+                  
                     <span style="background-color:#FFFF00;">modèleconcerné</span>
+                    
                    ?
+                
                   </h4>
                   <p>Il s'agit ici de l'association d'un contact à un événement pré-défini. Ce modèle est plutôt informatif.</p>
                   <h4>
+                    
                   Quels avantages me donne l'application sur ce
+                  
                     <span style="background-color:#FFFF00;">modèleconcerné</span>
+                    
                    ?
+                
                   </h4>
                   <div>L'application me permet d'associer un contact à un événement que seul un utilisateur membre du groupe &quot;Configurator&quot; pourra créer. Des fonctionnalités générales sont offertes sur ce modèle telles que création (association), suppression, recherche, export, .....</div>
                 </div>
@@ -7503,8 +8188,12 @@ Ficep propose une gestion de ces doublons (voir
                   <div class="row">
                     <div class="col-md-12 mb16 mt16">
                       <h3>
+                        
                       Fonctionnalités particulières sur le
+                      
                         <span style="background-color:#FFFF00;">modèleconcerné</span>
+                        
+                    
                       </h3>
                       <h4>
                         <span style="line-height: 1.42857143;">Ajout de notes</span>
@@ -7519,11 +8208,17 @@ Ficep propose une gestion de ces doublons (voir
                             </tr>
                             <tr>
                               <td>
+                                
                               ​1. Editez la participation
+                              
                                 <br/>
+                                
                               2. Complétez la zone &quot;Notes&quot;  (texte libre)
+                              
                                 <br/>
+                                
                               3. Cliquez sur &quot;Enregistrer&quot; pour sauver vos modifications - &quot;Annuler&quot; annule l'opération
+                            
                               </td>
                               <td>​Une note est ajoutée à la participation</td>
                               <td>
@@ -7544,11 +8239,17 @@ Ficep propose une gestion de ces doublons (voir
                             </tr>
                             <tr>
                               <td>
+                                
                               ​1. Editez la participation
+                              
                                 <br/>
+                                
                               2. Encodez une nouvelle date dans la zone &quot;Date de création&quot; utilisant le calendrier ou non
+                              
                                 <br/>
+                                
                               3. Cliquez sur &quot;Enregistrer&quot; pour sauver vos modifications - &quot;Annuler&quot; annule l'opération
+                            
                               </td>
                               <td>​Une nouvelle date de création est enregistrée</td>
                               <td>
@@ -7615,16 +8316,28 @@ Ficep propose une gestion de ces doublons (voir
                     <p>
                       <span style="line-height: 1.42857143;">
                         <a href="/page/ficep-help-filters">Recherche et Filtres</a>
+                        
                        -
+                      
                         <a href="/page/ficep-help-navigation">Navigation</a>
+                        
                        -
+                      
                         <a href="/page/ficep-help-views">Vues et Affichage</a>
+                        
                        -
+                      
                         <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
+                        
                        -
+                      
                         <a href="/page/ficep-help-createandedit">Créer et Editer</a>
+                        
                        -
+                      
                         <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
+                        
+                    
                       </span>
                     </p>
                   </div>
@@ -7638,48 +8351,43 @@ Ficep propose une gestion de ces doublons (voir
     <template id="website.ficep-help-template-feature" name="ficep-help-template-feature" page="True">
       <t t-call="website.layout">
         <div class="oe_structure oe_empty" id="wrap">
-          <section class="mt16 mb16">
+          <section class="mt16 mb0">
             <div class="container">
               <div class="row">
-                <div class="col-md-12 text-center mt16 mb0">
-                  <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
-                    <span style="color: rgb(0, 128, 0);">Feature</span>
-                  </h2>
-                  <div style="text-align: center;">
-                    <p style="text-align: left;">
-                      <span style="line-height: 1.42857143;">
-                        <span class="fa fa-flag fa-2x"/>
-
-                      </span>
-                      <strong style="line-height: 1.42857143;">
-                        <span style="line-height: 1.42857143;">
-                          <strong>Accès fonctionnalité et localisation: </strong>
-                        </span>
-                      </strong>
-                      <span style="line-height: 1.42857143;">option disponible dans le menu &quot;Autres options&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
-                    </p>
-                    <p style="text-align: left;">
-                      <span style="line-height: 1.42857143;">
-                        <span class="fa fa-user fa-2x" style=""/>
-                      </span>
-                      <span style="line-height: 1.42857143;">
-                        <strong>   Audience: </strong>
-                        profils non autorisés: xxxxxxx (voir
-                        <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
-                        ).
-                      </span>
-                    </p>
-                    <p style="text-align: left;">
-                      <span style="line-height: 1.42857143;">
-                        <span class="fa fa-exchange fa-2x"/>
-                        <strong>  Pré-requis: </strong>
-                        sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
-                        <a href="/page/ficep-help-views">Vues</a>
-                        ).
-                      </span>
-                    </p>
-                  </div>
-                </div>
+                <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
+                  <span style="color: rgb(0, 128, 0);">Feature</span>
+                </h2>
+                <p style="text-align: left;">
+                  <span class="fa fa-flag fa-2x"/>
+                  <strong style="line-height: 1.42857143;">
+                    <span style="line-height: 1.42857143;">
+                      <strong> Accès fonctionnalité et localisation: </strong>
+                    </span>
+                  </strong>
+                  <span style="line-height: 1.42857143;">option disponible dans le menu &quot;Autres options&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
+                </p>
+                <p style="text-align: left;">
+                  <span style="line-height: 1.42857143;">
+                    <span class="fa fa-user fa-2x" style=""/>
+                  </span>
+                  <span style="line-height: 1.42857143;">
+                    <strong>   Audience: </strong>
+                     profils non autorisés: 
+                    <span style="background-color:#FFFF00;">xxxxxxx </span>
+                    (voir 
+                    <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                     ). 
+                  </span>
+                </p>
+                <p style="text-align: left;">
+                  <span style="line-height: 1.42857143;">
+                    <span class="fa fa-exchange fa-2x"/>
+                    <strong> Pré-requis: </strong>
+                     sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                    <a href="/page/ficep-help-views">Vues</a>
+                     ). 
+                  </span>
+                </p>
               </div>
             </div>
           </section>
@@ -7722,44 +8430,54 @@ Ficep propose une gestion de ces doublons (voir
                       </tr>
                     </tbody>
                   </table>
-
                   <div style="text-align: left;">
                     <em style="line-height: 1.42857143; background-color: transparent;">
                       <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                         truc et astuce1
+                       truc et astuce1 
                     </em>
                   </div>
+                  
+ 
+
 
                   <div>
                     <div style="text-align: left;">
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                           truc et astuce2
+                         truc et astuce2 
                       </em>
                     </div>
                   </div>
+                  
+ 
 
-                  <div style="text-align: center;">
-                    <div style="text-align: left;">
-                      <strong>
-                        <em style="line-height: 1.42857143; background-color: transparent;">
-                          <span class="fa fa-exclamation-triangle fa-2x"/>
-                        </em>
-                      </strong>
-                      <strong>Exceptions</strong>
-                    </div>
-                    <p style="text-align: left;">
-                      <span style="background-color: rgb(255, 255, 0);">To be completed</span>
-                    </p>
+
+                  <div style="text-align: left;">
+                    <strong>
+                      <em style="line-height: 1.42857143; background-color: transparent;">
+                        <span class="fa fa-exclamation-triangle fa-2x"/>
+                      </em>
+                    </strong>
+                    <strong>Exceptions</strong>
                   </div>
+                  
+
+
+                  <p style="text-align: left;">
+                    <span style="background-color: rgb(255, 255, 0);">To be completed</span>
+                  </p>
+                  
+
 
                   <div style="text-align: left;">
                     <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
                       <span class="fa fa-reply fa-2x"/>
                     </span>
-
+                    <a href="/page/ficep-help-toc"> </a>
                     <a href="/page/ficep-help-toc" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour au sommaire</a>
                   </div>
+                  
+
                 </div>
               </div>
             </div>
@@ -7775,48 +8493,43 @@ Ficep propose une gestion de ces doublons (voir
             <span class="oe_snippet_thumbnail_title">template-feature</span>
           </div>
           <section class="oe_snippet_body mt_simple_snippet">
-            <section class="mt16 mb16">
+            <section class="mt16 mb0">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb0">
-                    <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
-                      <span style="color: rgb(0, 128, 0);">Feature</span>
-                    </h2>
-                    <div style="text-align: center;">
-                      <p style="text-align: left;">
-                        <span style="line-height: 1.42857143;">
-                          <span class="fa fa-flag fa-2x"/>
-
-                        </span>
-                        <strong style="line-height: 1.42857143;">
-                          <span style="line-height: 1.42857143;">
-                            <strong>Accès fonctionnalité et localisation: </strong>
-                          </span>
-                        </strong>
-                        <span style="line-height: 1.42857143;">option disponible dans le menu &quot;Autres options&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
-                      </p>
-                      <p style="text-align: left;">
-                        <span style="line-height: 1.42857143;">
-                          <span class="fa fa-user fa-2x" style=""/>
-                        </span>
-                        <span style="line-height: 1.42857143;">
-                          <strong>   Audience: </strong>
-                        profils non autorisés: xxxxxxx (voir
-                          <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
-                        ).
-                        </span>
-                      </p>
-                      <p style="text-align: left;">
-                        <span style="line-height: 1.42857143;">
-                          <span class="fa fa-exchange fa-2x"/>
-                          <strong>  Pré-requis: </strong>
-                        sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
-                          <a href="/page/ficep-help-views">Vues</a>
-                        ).
-                        </span>
-                      </p>
-                    </div>
-                  </div>
+                  <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
+                    <span style="color: rgb(0, 128, 0);">Feature</span>
+                  </h2>
+                  <p style="text-align: left;">
+                    <span class="fa fa-flag fa-2x"/>
+                    <strong style="line-height: 1.42857143;">
+                      <span style="line-height: 1.42857143;">
+                        <strong> Accès fonctionnalité et localisation: </strong>
+                      </span>
+                    </strong>
+                    <span style="line-height: 1.42857143;">option disponible dans le menu &quot;Autres options&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
+                  </p>
+                  <p style="text-align: left;">
+                    <span style="line-height: 1.42857143;">
+                      <span class="fa fa-user fa-2x" style=""/>
+                    </span>
+                    <span style="line-height: 1.42857143;">
+                      <strong>   Audience: </strong>
+                       profils non autorisés: 
+                      <span style="background-color:#FFFF00;">xxxxxxx </span>
+                      (voir 
+                      <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                       ). 
+                    </span>
+                  </p>
+                  <p style="text-align: left;">
+                    <span style="line-height: 1.42857143;">
+                      <span class="fa fa-exchange fa-2x"/>
+                      <strong> Pré-requis: </strong>
+                       sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                      <a href="/page/ficep-help-views">Vues</a>
+                       ). 
+                    </span>
+                  </p>
                 </div>
               </div>
             </section>
@@ -7859,44 +8572,54 @@ Ficep propose une gestion de ces doublons (voir
                         </tr>
                       </tbody>
                     </table>
-
                     <div style="text-align: left;">
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                         truc et astuce1
+                         truc et astuce1 
                       </em>
                     </div>
+                    
+ 
+
 
                     <div>
                       <div style="text-align: left;">
                         <em style="line-height: 1.42857143; background-color: transparent;">
                           <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                           truc et astuce2
+                           truc et astuce2 
                         </em>
                       </div>
                     </div>
+                    
+ 
 
-                    <div style="text-align: center;">
-                      <div style="text-align: left;">
-                        <strong>
-                          <em style="line-height: 1.42857143; background-color: transparent;">
-                            <span class="fa fa-exclamation-triangle fa-2x"/>
-                          </em>
-                        </strong>
-                        <strong>Exceptions</strong>
-                      </div>
-                      <p style="text-align: left;">
-                        <span style="background-color: rgb(255, 255, 0);">To be completed</span>
-                      </p>
+
+                    <div style="text-align: left;">
+                      <strong>
+                        <em style="line-height: 1.42857143; background-color: transparent;">
+                          <span class="fa fa-exclamation-triangle fa-2x"/>
+                        </em>
+                      </strong>
+                      <strong>Exceptions</strong>
                     </div>
+                    
+
+
+                    <p style="text-align: left;">
+                      <span style="background-color: rgb(255, 255, 0);">To be completed</span>
+                    </p>
+                    
+
 
                     <div style="text-align: left;">
                       <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
                         <span class="fa fa-reply fa-2x"/>
                       </span>
-
+                      <a href="/page/ficep-help-toc"> </a>
                       <a href="/page/ficep-help-toc" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour au sommaire</a>
                     </div>
+                    
+
                   </div>
                 </div>
               </div>
@@ -7986,11 +8709,15 @@ Ficep propose une gestion de ces doublons (voir
               </div>
               <div>
                 <a href="/page/ficep-help-createandedit">Créer et modifier</a>
+                
                   (dans listes)
+              
               </div>
               <div>
                 <a href="/page/ficep-help-search">Recherche complémentaire</a>
+                
                   (dans listes)
+              
               </div>
               <div>
                 <h3>Fonctionnalités générales</h3>
@@ -8055,20 +8782,30 @@ Ficep propose une gestion de ces doublons (voir
                         </span>
                         <span style="line-height: 1.42857143;">
                           <strong>Audience</strong>
+                          
                            : profils non autorisés:
+                          
                           <span style="background-color:#FFFF00;">xxxxxxx  </span>
+                          
                           (voir
+                          
                           <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                          
                           ).
+                        
                         </span>
                       </p>
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-exchange fa-2x"/>
                           <strong>Pré-requis</strong>
+                          
                            : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           <a href="/page/ficep-help-views">Vues</a>
+                          
                           ).
+                        
                         </span>
                       </p>
                     </div>
@@ -8114,7 +8851,9 @@ Ficep propose une gestion de ces doublons (voir
                     <div style="text-align: left;">
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                        
                         La coordonnée sera &quot;privée&quot; à son propriétaire et ne sera en aucun cas utilisée par l'application - affichage de l'information dans la liste.
+                      
                       </em>
                     </div>
                     <br/>
@@ -8175,18 +8914,26 @@ Ficep propose une gestion de ces doublons (voir
                       </span>
                       <span style="line-height: 1.42857143;">
                         <strong>Audience</strong>
+                        
                           : profils non autorisés: xxxxxxx  (voir
+                        
                         <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                        
                         ).
+                      
                       </span>
                     </p>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-exchange fa-2x"/>
                         <strong>Pré-requis</strong>
+                        
                          : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                        
                         <a href="/page/ficep-help-views">Vues</a>
+                        
                         ).
+                      
                       </span>
                     </p>
                   </div>
@@ -8221,10 +8968,18 @@ Ficep propose une gestion de ces doublons (voir
                         <tr>
                           <td style="text-align: left;">​2</td>
                           <td style="text-align: left;">
+                            
                             Modifiez les champs éditables selon votre souhait
+                            
                             <span style="line-height: 1.42857143; background-color: transparent;"> en modifiant le texte ou en </span>
+                            
+                            
                             <span style="line-height: 1.42857143; background-color: transparent;">sélectionnant une valeur dans la liste proposée.</span>
+                            
+                            
                             <span style="line-height: 1.42857143; background-color: transparent;"/>
+                            
+                          
                           </td>
                           <td style="text-align: left;">​</td>
                         </tr>
@@ -8259,8 +9014,12 @@ Ficep propose une gestion de ces doublons (voir
                   <br/>
                   <p style="text-align: left;">Champ obligatoire non rempli: Si l'un des champs obligatoire n'est pas rempli, voici le message affiché: </p>
                   <p style="text-align: left;">
+                    
                     Le message précise le ou les champs manquants ou non-valides. Ces mentions sont variables selon l'objet en modification.
+                    
                     <br/>
+                    
+                  
                   </p>
                   <div style="text-align: left;">
                     <div>
@@ -8302,44 +9061,66 @@ Ficep propose une gestion de ces doublons (voir
                             <ul>
                               <li style="text-align: left;">
                                 <strong>Ficep Configurator</strong>
+                                
                                  : les plus privilégiés, accès en lecture/écriture à tous les modèles et notamment les modèles dits &quot;de configuration&quot;: Niveaux de Pouvoir, Circonscriptions, Catégories de Mandats... (pour les autres, ces modèles ne seront accessibles qu'en lecture) et Utilisateurs;
+                              
                               </li>
                               <li style="text-align: left;">
                                 <strong>Ficep Manager</strong>
+                                
                                  : permanents (cercle 1), accès en lecture/écriture à tous les modèles sauf aux modèles &quot;de configuration&quot; (lecture seule), accès en lecture/écriture aux Coordonnées VIP
+                              
                               </li>
                               <li style="text-align: left;">
                                 <strong>Ficep VIP Reader</strong>
+                                
                                  : idem que Ficep Manager mais en lecture seule et sans les actions Ficep (boutons et menus) destinées à modifier les données
+                              
                               </li>
                               <li style="text-align: left;">
                                 <strong>Ficep Officer</strong>
+                                
                                  : permanents (cercle 2), idem que Ficep Manager mais sans aucune visibilité sur les Coordonnées VIP
+                              
                               </li>
                               <li style="text-align: left;">
                                 <strong>Ficep Reader</strong>
+                                
                                  : idem que Ficep VIP Reader mais sans visibilité sur les Coordonnées VIP
+                              
                               </li>
                               <li style="text-align: left;">
                                 <strong>Ficep User</strong>
+                                
                                  : mandataires internes non permanents ayant en charge une partie de la gestion du parti (ex: secrétaires locaux, responsables de commission, ...). Ils peuvent:
+                                
                                 <ul>
                                   <li style="text-align: left;">modifier directement un Partenaire (i.e. sans devoir passer par une Demande d'Adhésion) qui n'a pas d'historique d'Adhésions (par ex. simple contact ou personne morale)</li>
                                   <li style="text-align: left;">accéder aux mandataires des Assemblées liées à leurs Instances</li>
                                   <li style="text-align: left;">créer et modifier des Assemblées Externes liées à leurs Instances</li>
                                 </ul>
+                                
+                              
                               </li>
                             </ul>
                             <p style="text-align: left;">Le principe d'héritage des Groupes s'illustre dans Ficep de la façon suivante:</p>
                             <p style="text-align: left;">
+                              
                               Un Groupe Ficep supplémentaire sans héritage particulier par rapport aux autres Groupes sera le Groupe
+                              
                               <em>Ficep Finances</em>
+                              
                               .
+                            
                             </p>
                             <p style="text-align: left;">
+                              
                               Les autres mandataires, membres, sympathisants et simples contacts feront partie du Groupe
+                              
                               <em>Portail</em>
+                              
                                (natif d’OpenERP) uniquement. Ce groupe doit leur être réservé. Si on souhaite que ces contacts aient accès au Portail, l'administrateur devra veiller à ne pas les mettre dans d'autres Groupes.
+                            
                             </p>
                             <p style="text-align: left;">Les privilèges attribués aux Groupes sont de 3 ordres: l'accès aux modèles, l'accès aux éléments et l'accès aux fonctionnalités.</p>
                             <p style="text-align: left;">Des règles de confidentialité sont attachées aux différents Groupes qui ont pour conséquence une visibilité/accès à plusieurs niveaux:</p>
@@ -10286,9 +11067,13 @@ TkSuQmCC
                   <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">Vues et Affichage</h2>
                   <div style="text-align: left;">
                     <span class="fa fa-flag fa-2x"/>
+                    
                        Localisation: Partie partie supérieure droite de l'écran
+                    
                     <br/>
+                    
 
+                  
                   </div>
                   <div style="text-align: left;"/>
                   <div>
@@ -10296,30 +11081,46 @@ TkSuQmCC
                     <p style="text-align: left;">Les vues disponibles sont:</p>
                     <ul>
                       <li style="text-align: left;">
+                        
                         Vue liste:
+                        
                         <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-views_img_01" style=""/>
+                        
                          :  tous les objets sont affichés sous forme de liste
+                      
                       </li>
                     </ul>
                     <ul>
                       <li style="text-align: left;">
+                        
                         Vue formulaire:
+                        
                         <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-views_img_02" style=""/>
+                        
                          :  donnant tous les détails d'un objet
+                      
                       </li>
                     </ul>
                     <ul>
                       <li style="text-align: left;">
+                        
                         Vue dite &quot;KanBan&quot;:
+                        
                         <img src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-views_img_03" style=""/>
+                        
                          :  montrant tous les objets sous forme de gros boutons qui peuvent être déplacés aisément.
+                      
                       </li>
                     </ul>
                     <ul>
                       <li style="text-align: left;">
+                        
                         Vue Calendrier:
+                        
                         <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-views_img_04" style=""/>
+                        
                          :  permettant de visualiser certains événements associés à des dates sous forme d'un calendrier.
+                      
                       </li>
                     </ul>
                     <div style="text-align: left;">Les données peuvent également être présentées groupées selon un ou plusieurs critères (ex: champs du modèle). Le regroupement ne réduit pas le résultat de la recherche, il l'organise autrement dans la liste. </div>
@@ -10380,20 +11181,30 @@ TkSuQmCC
                         </span>
                         <span style="line-height: 1.42857143;">
                           <strong>Audience</strong>
+                          
                            : profils non autorisés:
+                          
                           <span style="background-color:#FFFF00;"> xxxxxxx</span>
+                          
                             (voir
+                          
                           <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                          
                           ).
+                        
                         </span>
                       </p>
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
                           <span class="fa fa-exchange fa-2x"/>
                           <strong>Pré-requis</strong>
+                          
                            : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           <a href="/page/ficep-help-views">Vues</a>
+                          
                           ).
+                        
                         </span>
                       </p>
                     </div>
@@ -10442,7 +11253,9 @@ TkSuQmCC
                     <div style="text-align: left;">
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                        
                            La coordonnée marquée comme VIP ne pourra être vue que par les utilisateurs membre du groupe VIP.
+                      
                       </em>
                       <em>Affichage de l'information dans la vue liste.</em>
                       <em style="line-height: 1.42857143; background-color: transparent;"/>
