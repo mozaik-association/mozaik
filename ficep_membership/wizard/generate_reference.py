@@ -77,9 +77,9 @@ class generate_reference(orm.TransientModel):
 
     _columns = {
         'nb_selected': fields.integer('Selected Partners'),
-        'nb_member_concerned': fields.integer('Concerned Member'),
-        'nb_candidate_concerned': fields.integer('Concerned Candidate Member'),
-        'nb_former_concerned': fields.integer('Concerned Former Member'),
+        'nb_member_concerned': fields.integer('Members'),
+        'nb_candidate_concerned': fields.integer('Candidate Members'),
+        'nb_former_concerned': fields.integer('Former Members'),
         'partner_ids': fields.text('IDS', required=True),
         'go': fields.boolean('Go')
     }
