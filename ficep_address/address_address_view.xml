@@ -265,12 +265,6 @@
                     <filter name="empty" string="Empty Co-Residencies"
                             domain="[('postal_coordinate_ids', '=', False),('postal_coordinate_inactive_ids', '=', False)]" />
                     <separator />
-                    <filter name="expired" string="Expired"
-                        context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expire Coordinate" />
-                    <filter name="all" string="All"
-                        context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
                 </search>
             </field>
         </record>
@@ -283,7 +277,6 @@
                     <field name="address_id" />
                     <field name="line" />
                     <field name="line2" />
-                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
         </record>
@@ -335,16 +328,6 @@
                                         <field name="unauthorized" />
                                         <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
                                         <field name="is_duplicate_detected" invisible="1"/>
-                                    </tree>
-                                </field>
-                                <field name="postal_coordinate_inactive_ids"
-                                       readonly="1" attrs="{'invisible': [('active','=',True)]}">
-                                    <tree colors="darkorange:unauthorized==True">
-                                        <field name="partner_id"/>
-                                        <field name="coordinate_category_id" />
-                                        <field name="is_main" />
-                                        <field name="unauthorized" />
-                                        <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
                                     </tree>
                                 </field>
                             </page>
