@@ -134,8 +134,11 @@ class abstract_duplicate(orm.AbstractModel):
         All allowed duplicates will be reset
         (see detect_and_repair_duplicate)
         """
+        ids = isinstance(ids, (long, int)) and [ids] or ids
         self.write(cr, uid, ids,
                    {'is_duplicate_allowed': False}, context=context)
+        if len(ids) != 1:
+            return True
 
         # reload the tree with all duplicates
         duplicate = self.browse(cr, uid, ids, context=context)[0]

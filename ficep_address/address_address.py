@@ -367,14 +367,15 @@ class co_residency(orm.Model):
     _description = 'Co-Residency'
 
     _columns = {
-        'address_id': fields.many2one('address.address', string='Address', required=True, readonly=True, select=True),
+        'address_id': fields.many2one(
+            'address.address', string='Address',
+            required=True, readonly=True, select=True),
         'line': fields.char('Line 1', track_visibility='onchange'),
         'line2': fields.char('Line 2', track_visibility='onchange'),
 
-        'postal_coordinate_ids': fields.one2many('postal.coordinate', 'co_residency_id', string='Postal Coordinates',
-                                                 domain=[('active', '=', True)]),
-        'postal_coordinate_inactive_ids': fields.one2many('postal.coordinate', 'co_residency_id', string='Postal Coordinates',
-                                                 domain=[('active', '=', False)]),
+        'postal_coordinate_ids': fields.one2many(
+            'postal.coordinate', 'co_residency_id',
+            string='Postal Coordinates'),
     }
 
     _rec_name = 'address_id'
@@ -387,9 +388,6 @@ class co_residency(orm.Model):
 
     def name_get(self, cr, uid, ids, context=None):
         """
-        ========
-        name_get
-        ========
         :rparam: list of (id, name)
                  where id is the id of each object
                  and name, the name to display.
@@ -407,16 +405,17 @@ class co_residency(orm.Model):
             res.append((record['id'], record['address_id'][1]))
         return res
 
-    def copy_data(self, cr, uid, ids, default=None, context=None):
-        """
-        Do not copy o2m fields.
-        """
-        default = default or {}
-        default.update({
-            'postal_coordinate_ids': [],
-            'postal_coordinate_inactive_ids': [],
-        })
-        res = super(co_residency, self).copy_data(cr, uid, ids, default=default, context=context)
+    def unlink(self, cr, uid, ids, context=None):
+        '''
+        Force "undo allow duplicate" when deleting a co-residency
+        '''
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+        coords = self.read(
+            cr, uid, ids, ['postal_coordinate_ids'], context=context)
+        cids = []
+        for c in coords:
+            cids += c['postal_coordinate_ids']
+        self.pool['postal.coordinate'].button_undo_allow_duplicate(
+            cr, uid, cids, context=None)
+        res = super(co_residency, self).unlink(cr, uid, ids, context=context)
         return res
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

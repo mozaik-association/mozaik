@@ -45,6 +45,7 @@ class generate_reference(orm.TransientModel):
         partner_ids = []
         member_ids = []
         candidate_ids = []
+        former_ids = []
 
         if context.get('active_domain'):
             active_domain = context.get('active_domain')
@@ -57,19 +58,28 @@ class generate_reference(orm.TransientModel):
             # search member with reference
             member_ids = partner_obj.search(
                 cr, uid, [('membership_state_id.code', '=', 'member'),
-                          ('reference', '=', False)],
+                          ('id', 'in', partner_ids),
+                          ],
                 context=context)
             candidate_ids = partner_obj.search(
                 cr, uid, [('membership_state_id.code', '=',
                            'member_candidate'),
-                          ('reference', '=', False)],
+                          ('id', 'in', partner_ids),
+                          ],
                 context=context)
-        return partner_ids, member_ids, candidate_ids
+            former_ids = partner_obj.search(
+                cr, uid, [('membership_state_id.code', '=',
+                           'member_candidate'),
+                          ('id', 'in', partner_ids),
+                          ],
+                context=context)
+        return partner_ids, member_ids, candidate_ids, former_ids
 
     _columns = {
         'nb_selected': fields.integer('Selected Partners'),
-        'nb_member_concerned': fields.integer('Concerned Member'),
-        'nb_candidate_concerned': fields.integer('Concerned Candidate Member'),
+        'nb_member_concerned': fields.integer('Members'),
+        'nb_candidate_concerned': fields.integer('Candidate Members'),
+        'nb_former_concerned': fields.integer('Former Members'),
         'partner_ids': fields.text('IDS', required=True),
         'go': fields.boolean('Go')
     }
@@ -82,12 +92,13 @@ class generate_reference(orm.TransientModel):
             cr, uid, fields, context=context)
         if context is None:
             context = {}
-        partner_ids, member_ids, candidate_ids = self._get_selected_values(
-            cr, uid, context=context)
+        partner_ids, member_ids, candidate_ids, former_ids = \
+            self._get_selected_values(cr, uid, context=context)
 
         res['nb_selected'] = len(partner_ids)
         res['nb_member_concerned'] = len(member_ids)
         res['nb_candidate_concerned'] = len(candidate_ids)
+        res['nb_former_concerned'] = len(former_ids)
         concerned_ids = member_ids+candidate_ids
         res['partner_ids'] = str(concerned_ids)
         curr_month = date.today().month

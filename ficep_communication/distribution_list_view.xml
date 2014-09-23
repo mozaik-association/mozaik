@@ -34,6 +34,7 @@
             <field name="inherit_id" ref="distribution_list.distribution_list_tree" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='dst_model_id']" position="replace">
+                    <field name="dst_model_id" invisible="1"/>
                     <field name="int_instance_id"/>
                     <field name="active" invisible="1"/>
                 </xpath>
@@ -75,7 +76,7 @@
                 </xpath>
 
                 <!-- Add dates -->
-                <xpath expr="//div[@name='to_include']" position="before">
+                <xpath expr="//group[@name='info']" position="after">
                     <group name="state" attrs="{'invisible': [('id','=',False)]}">
                         <group name="validity">
                             <field name="create_date" />
@@ -87,7 +88,7 @@
                 </xpath>
 
                 <!-- Add user tree into distribution list form -->
-                <xpath expr="//div[@name='to_exclude']" position="after">
+                <xpath expr="//sheet" position="inside">
                     <notebook>
                         <page name="security" string="Security" autofocus="autofocus">
                             <group name="validity">
