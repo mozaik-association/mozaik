@@ -59,17 +59,21 @@ class ir_model_data(orm.Model):
             if img_model in img_elem.get('src'):
                 img_src = img_elem.get('src')
                 try:
-                    id_pos = img_src.index('id=') + 3
-                    xml_id = img_elem.get('src')[id_pos:]
+                    if '/ir.attachment/' in img_src:
+                        fragments = img_src.split('/')
+                        xml_id = fragments[4].split('|')[0]
+                        img_src = img_src.replace("|", "_")
+                    else:
+                        id_pos = img_src.index('id=') + 3
+                        xml_id = img_elem.get('src')[id_pos:]
+
                     img_id = self.get_object_reference(cr,
                                                        uid,
                                                        'ficep_help',
                                                        xml_id)
-                    id_pos = img_src.index('id=')
-                    attach_id = img_elem.get('src')[id_pos:]
-                    img_elem.attrib['src'] = img_src.replace(attach_id,
-                                                             "id=" \
-                                                             + str(img_id[1]))
+
+                    img_elem.attrib['src'] = img_src.replace(xml_id,
+                                                             str(img_id[1]))
                 except:
                     continue
         return ET.tostring(root, encoding='utf-8', xml_declaration=False)

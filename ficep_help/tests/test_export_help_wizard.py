@@ -72,6 +72,12 @@ class test_export_help_wizard(object):
             imgNode.attrib['class'] = "img-thumbnail"
             imgNode.attrib['src'] = "/website/image?field=datas&"\
                                     "model=ir.attachment&id=" + str(imgId)
+            imgDivNode = ET.SubElement(bodyDivNode, 'div')
+            imgDivNode.attrib['style'] = "text-align: left;"
+            imgNode = ET.SubElement(imgDivNode, 'img')
+            imgNode.attrib['class'] = "img-thumbnail"
+            imgNode.attrib['src'] = "/website/image/ir.attachment/" \
+                                    "%s_ccc838d/datas" % str(imgId)
         arch = ET.tostring(rootNode, encoding='utf-8', xml_declaration=False)
         view_id = self.registry('ir.ui.view').create(self.cr, self.uid, {
             'name': pageName,
@@ -118,8 +124,11 @@ class test_export_help_wizard(object):
 
             for imgElem in templateNodeList[0].iter('img'):
                 imgSrc = imgElem.get('src')
-                self.assertIn("id=%s_img_01" % self.pageName, imgSrc)
-                break
+                if '/ir.attachment/' in imgSrc:
+                    self.assertIn("/ir.attachment/%s_img_02|" \
+                                  % self.pageName, imgSrc)
+                else:
+                    self.assertIn("id=%s_img_01" % self.pageName, imgSrc)
 
         if self.pageTemplate:
             xPath = ".//template[@id='website.%s_snippet']" % self.pageName
