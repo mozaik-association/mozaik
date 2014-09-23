@@ -63,6 +63,9 @@ class test_postal_coordinate(SharedSetupTransactionCase):
         3) Undo Allow Duplicates
             * All Coordinates must become detected duplicates
               without co-residency id
+        4) redo 1)
+        5) Delete co-residency
+            * idem 3)
         """
         cr, uid = self.cr, self.uid
         pc_mod, wz_mod = self.postal_model, self.allow_duplicate_wizard_model
@@ -151,5 +154,33 @@ class test_postal_coordinate(SharedSetupTransactionCase):
                 'Postal Coordinate %s Must Be Detected Duplicate' % i)
             self.assertFalse(
                 postal_coordinates[i].co_residency_id.id,
+                'No co-residency Must Be associated '
+                'to Postal Coordinate %s' % i)
+
+        # Step Four
+        ctx = {
+            'active_model': pc_mod._name,
+            'active_ids': [
+                postal_coordinates_ids[0],
+                postal_coordinates_ids[1]
+            ],
+            'get_co_residency': True,
+        }
+        vals = wz_mod.default_get(cr, uid, [], context=ctx)
+        wz_id = wz_mod.create(cr, uid, vals, context=ctx)
+        cor_id = wz_mod.button_allow_duplicate(cr, uid, [wz_id], context=ctx)
+
+        # Step Five
+        cr_mod.unlink(cr, uid, cor_id)
+        coords = pc_mod.browse(cr, uid, ctx['active_ids'])
+        for i in range(2):
+            self.assertFalse(
+                coords[i].is_duplicate_allowed,
+                'Postal Coordinate %s Must Be Not Allowed Duplicate' % i)
+            self.assertTrue(
+                coords[i].is_duplicate_detected,
+                'Postal Coordinate %s Must Be Detected Duplicate' % i)
+            self.assertFalse(
+                coords[i].co_residency_id.id,
                 'No co-residency Must Be associated '
                 'to Postal Coordinate %s' % i)
