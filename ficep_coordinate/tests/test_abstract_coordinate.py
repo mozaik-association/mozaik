@@ -270,4 +270,26 @@ class abstract_coordinate(object):
         is_duplicate_values = self.get_value_detected([coordinate_id_1])
         self.check_state_of_duplicate(is_duplicate_values)
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    def test_bad_invalidate(self):
+        """
+        :test_case: * create two model coordinate with same model_id for the
+                        same partner
+                    * invalidate main coordinate
+                    * check that it fails
+        """
+        cr, uid, context = self.cr, self.uid, {}
+        vals = {
+            'partner_id': self.partner_id_1,
+            self.model_coordinate._discriminant_field: self.field_id_1,
+        }
+        coordinate_id_1 = self.model_coordinate.create(
+            cr, uid, vals, context=context)
+        vals = {
+            'partner_id': self.partner_id_1,
+            self.model_coordinate._discriminant_field: self.field_id_2,
+        }
+        self.model_coordinate.create(
+            cr, uid, vals, context=context)
+        self.assertRaises(orm.except_orm,
+                          self.model_coordinate.action_invalidate, cr, uid,
+                          [coordinate_id_1], context=context)

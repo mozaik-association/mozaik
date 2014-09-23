@@ -25,11 +25,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
-
 """
 Available Coordinate Types:
 N/A
@@ -137,7 +135,8 @@ class abstract_coordinate(orm.AbstractModel):
         return True
 
     _constraints = [
-        (_check_one_main_coordinate, MAIN_COORDINATE_ERROR, ['partner_id'])
+        (_check_one_main_coordinate,
+         MAIN_COORDINATE_ERROR, ['partner_id', 'is_main', 'active'])
     ]
 
 # orm methods
@@ -331,6 +330,12 @@ class abstract_coordinate(orm.AbstractModel):
                     self.set_as_main(cr, uid, res_ids, context=context)
         return return_ids
 
+    def _validate_fields(self, cr, uid, ids, field_names, context=None):
+        if context.get('no_check', False):
+            return
+        super(abstract_coordinate, self)._validate_fields(
+            cr, uid, ids, field_names, context=context)
+
     def search_and_update(self, cr, uid, target_domain, fields_to_update, context=None):
         """
         ==================
@@ -348,9 +353,9 @@ class abstract_coordinate(orm.AbstractModel):
         """
         res_ids = self.search(cr, uid, target_domain, context=context)
         if res_ids:
-            save_constraints, self._constraints = self._constraints, []
-            self.write(cr, uid, res_ids, fields_to_update, context=context)
-            self._constraints = save_constraints
+            ctx = context.copy()
+            ctx.update({'no_check': True})
+            self.write(cr, uid, res_ids, fields_to_update, context=ctx)
         return len(res_ids) != 0
 
     def get_target_domain(self, partner_id, coordinate_type):
