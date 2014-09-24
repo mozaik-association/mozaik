@@ -104,6 +104,21 @@ class wizard_multi_charts_accounts(orm.TransientModel):
                 'update_posted': True,
                 }
 
+        seq = {
+            'name': vals['name'],
+            'implementation': 'no_gap',
+            'prefix': vals['code'].upper() + "/%(year)s/",
+            'padding': 6,
+            'number_increment': 1
+        }
+
+        if 'company_id' in vals:
+            seq['company_id'] = vals['company_id']
+
+        sequence_id = self.pool.get('ir.sequence').create(cr, uid, seq)
+
+        vals.update({'sequence_id': sequence_id})
+
         journal_data.append(vals)
 
         return journal_data
