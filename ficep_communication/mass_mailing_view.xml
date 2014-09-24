@@ -1,225 +1,30 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <openerp>
-    <data noupdate="0">
-
-        <!-- RECIPIENT (mail.mass_mailling.contact) -->
-
-        <!-- SEARCH -->
-        <record model="ir.ui.view" id="view_mail_mass_mailing_contact_search">
-            <field name="name">mail.mass_mailing.contact.search</field>
-            <field name="model">mail.mass_mailing.contact</field>
-            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_contact_search" />
+    <data>
+        <!-- MASS MAILING FORM from mass_mailing-->
+        <record id="view_mail_mass_mailing_form" model="ir.ui.view">
+            <field name="name">mail.mass_mailing.form (ficep_communication mass_mailing)</field>
+            <field name="model">mail.mass_mailing</field>
+            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='name']" position="after">
-                    <filter name="expired" string="Expired"
-                            context="{'invisible_expire_date': False}"
-                            domain="[('active','=',False)]" help="Expired newsletters" />
-                    <filter name="all" string="All"
-                            context="{'invisible_expire_date': False}"
-                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All newsletters, expired or not" />
-                </xpath>
-                <xpath expr="//field[@name='name']" position="replace">
-                    <field name="partner_id"/>
-                </xpath>
-                <xpath expr="//group" position="inside">
-                    <filter string="Partners" name="group_by_partner"
-                            context="{'group_by': 'partner_id'}"/>
+                <xpath expr="//field[@name='mailing_domain']" position="attributes">
+                    <attribute name="invisible">1</attribute>
                 </xpath>
             </field>
         </record>
-
-        <!-- TREE -->
-        <record id="view_mail_mass_mailing_contact_tree" model="ir.ui.view">
-            <field name="name">mail.mass_mailing.contact.tree</field>
-            <field name="model">mail.mass_mailing.contact</field>
-            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_contact_tree" />
+        <!-- MASS MAILING FORM (from mass_mailing_distribution_list) -->
+        <record id="view_mail_mass_mailing_distribution_list_form" model="ir.ui.view">
+            <field name="name">mail.mass_mailing.form (ficep_communication mass_mailing_distribution_list)</field>
+            <field name="model">mail.mass_mailing</field>
+            <field name="inherit_id" ref="mass_mailing_distribution_list.view_mail_mass_mailing_form" />
             <field name="arch" type="xml">
-                <xpath expr="//tree" position="attributes">
-                    <attribute name="editable"/>
+                <xpath expr="//field[@name='distribution_list_id']" position="attributes">
+                    <attribute name="required">1</attribute>
                 </xpath>
-                <xpath expr="//field[@name='email']" position="after">
-                    <field name="partner_id" />
-                </xpath>
-                <xpath expr="//field[@name='name']" position="attributes">
-                    <attribute name="groups">settings_improvement.unused_features</attribute>
-                </xpath>
-                <xpath expr="//field[@name='opt_out']" position="after">
-                    <field name="expire_date"
-                           invisible="context.get('invisible_expire_date', True)" />
-                    <field name="active" groups="ficep_base.res_groups_developper" />
+                <xpath expr="//field[@name='mailing_domain']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('distribution_list_id', '!=', False)]}</attribute>
                 </xpath>
             </field>
         </record>
-
-        <!--  FORM -->
-      <record id="view_mail_mass_mailing_contact_form" model="ir.ui.view">
-            <field name="name">mail.mass_mailing.contact.form</field>
-            <field name="model">mail.mass_mailing.contact</field>
-            <field name="arch" type="xml">
-                <form string="Newsletter" version="7.0">
-                    <header>
-                        <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_user"><!-- or configurator -->
-                            <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate xxx: proceed anyway?" />
-                        </span>
-                    </header>
-                    <sheet>
-                        <div class="oe_title" name="title">
-                            <label for="partner_id" class="oe_edit_only"/>
-                            <h1><field name="partner_id" attrs="{'readonly': ['|',
-                                                                              ('id','!=',False),
-                                                                              ('active','=',False)]}"/></h1>
-                        </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
-                        </div>
-
-                        <group name="data">
-                            <group name="main">
-                                <field name="list_id" attrs="{'readonly': [('active','=',False)]}" />
-                                <field name="opt_out" readonly="1" />
-                            </group>
-                        </group>
-
-                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
-                            <group name="validity">
-                                <field name="create_date" />
-                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
-                            </group>
-                        </group>
-                    </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
-                        <div class="oe_formview oe_form_sheet_width">
-                            <h3>More Info</h3>
-                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_revalidate" string="Reactivate" type="object"
-                                        confirm="Reactivate document: proceed anyway?" />
-                            </div>
-                            <group name="moreinfo">
-                                <field name="id"/>
-                                <field name="active"/>
-                                <field name="email"/>
-                                <field name="name"/>
-                            </group>
-                        </div>
-                    </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
-                        <field name="message_ids" widget="mail_thread" />
-                    </div>
-                </form>
-            </field>
-        </record>
-
-        <!-- ACTION -->
-        <record model="ir.actions.act_window" id="mass_mailing.action_view_mass_mailing_contacts">
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_mail_mass_mailing_contact_tree" />
-            <field name="search_view_id" ref="view_mail_mass_mailing_contact_search" />
-        </record>
-
-        <!-- NEWSLETTER (mail.mass_mailling.list) -->
-
-        <!-- SEARCH -->
-        <record id="view_mail_mass_mailing_list_search" model="ir.ui.view">
-            <field name="name">mail.mass_mailing.list.search (ficep_communication)</field>
-            <field name="model">mail.mass_mailing.list</field>
-            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_list_search" />
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='name']" position="after">
-                    <field name="int_instance_id" />
-                    <filter name="expired" string="Expired"
-                            context="{'invisible_expire_date': False}"
-                            domain="[('active','=',False)]" help="Expired newsletters" />
-                    <filter name="all" string="All"
-                            context="{'invisible_expire_date': False}"
-                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All newsletters, expired or not" />
-                    <filter name="auto" string="Automatic"
-                            domain="[('automatic', '=', True)]"/>
-                    <filter name="public" string="Public"
-                            domain="[('public', '=', True)]"/>
-                    <group expand="0" string="Group By">
-                        <filter string="Instance" name="group_int_instance" context="{'group_by': 'int_instance_id'}"/>
-                    </group>
-                </xpath>
-            </field>
-        </record>
-
-        <!-- TREE -->
-        <record id="view_mail_mass_mailing_list_tree" model="ir.ui.view">
-            <field name="name">mail.mass_mailing.list.tree</field>
-            <field name="model">mail.mass_mailing.list</field>
-            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_list_tree" />
-            <field name="priority">10</field>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='contact_nbr']" position="after">
-                    <field name="int_instance_id" />
-                    <field name="expire_date"
-                           invisible="context.get('invisible_expire_date', True)" />
-                    <field name="active" groups="ficep_base.res_groups_developper" />
-                </xpath>
-            </field>
-        </record>
-
-        <!-- FORM -->
-         <record model="ir.ui.view" id="view_mail_mass_mailing_list_form">
-            <field name="name">mail.mass_mailing.list.form</field>
-            <field name="model">mail.mass_mailing.list</field>
-            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_list_form" />
-            <field name="arch" type="xml">
-
-                <!-- Rebuild header -->
-                <xpath expr="//sheet" position="before">
-                    <header>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_user">
-                            <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate Distribution List: proceed anyway?" />
-                        </div>
-                    </header>
-                </xpath>
-
-                <xpath expr="//div[@class='oe_title']" position="after">
-                    <group name="int_instance">
-                        <field name="int_instance_id" />
-                        <field name="automatic"/>
-                        <field name="public"/>
-                    </group>
-                    <group name="state" attrs="{'invisible': [('id','=',False)]}">
-                        <group name="validity">
-                            <field name="create_date" />
-                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
-                        </group>
-                        <group name="other">
-                        </group>
-                    </group>
-                </xpath>
-
-                <!-- Add developper tools and chatter -->
-                <xpath expr="//form" postition="inside">
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
-                        <div class="oe_formview oe_form_sheet_width">
-                            <h3>More Info</h3>
-                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
-                                <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway?" />
-                            </div>
-                            <group name="moreinfo">
-                                <field name="id"/>
-                                <field name="active"/>
-                            </group>
-                        </div>
-                    </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
-                        <field name="message_ids" widget="mail_thread" />
-                    </div>
-                </xpath>
-
-            </field>
-        </record>
-
     </data>
 </openerp>

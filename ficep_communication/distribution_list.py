@@ -66,6 +66,7 @@ class distribution_list(orm.Model):
                 cr, uid, [('model', '=', 'virtual.target')],
                 context=context)[0],
         'bridge_field': 'common_id',
+        'partner_path': 'partner_id',
     }
 
 # constraints

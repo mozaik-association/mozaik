@@ -25,7 +25,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import mail_mail
 from . import distribution_list
 from . import virtual_models
 from . import wizard
