@@ -300,24 +300,105 @@ class retrocession(orm.Model):
 
     _inactive_cascade = True
 
+    def _get_account_amount(self, cr, uid, retro, context=None):
+        provision = 0.0
+        amount_paid = 0.0
+        amount_reconcilied = 0.0
+        bsl_obj = self.pool.get('account.bank.statement.line')
+        domain = [('name', '=', retro.mandate_ref.reference),
+                  ('partner_id', '=', retro.partner_id.id),
+                  ('journal_entry_id', '=', False)]
+        bsl_data = bsl_obj.search_read(cr,
+                                       uid,
+                                       domain,
+                                       fields=['amount'],
+                                       context=context)
+        provision = sum([float(provision['amount']) \
+                            for provision in bsl_data])\
+                            if not retro.month else 0.0
+
+        query = """ SELECT distinct aml.reconcile_id, aml.reconcile_partial_id
+                      FROM account_move_line aml
+                      LEFT JOIN account_move am    on am.id       = aml.move_id
+                      LEFT JOIN retrocession r     on aml.move_id = r.move_id
+                      LEFT JOIN account_journal aj on am.journal_id = aj.id
+                    WHERE r.id = %s
+                     AND aml.account_id = aj.default_debit_account_id
+                """
+        cr.execute(query, (retro.id,))
+        data = cr.fetchone()
+        if data:
+            reconcile_id = data[0]
+            reconcile_partial_id = data[1]
+            where_clause, values = False, False
+            if reconcile_id:
+                where_clause = 'aml.reconcile_id = %s'
+                values = (reconcile_id,)
+            elif reconcile_partial_id:
+                where_clause = 'aml.reconcile_partial_id = %s'
+                values = (reconcile_partial_id,)
+
+            if where_clause:
+                query = """
+                    SELECT line.debit,
+                           line.account_id,
+                           aj.default_debit_account_id
+                      FROM account_move_line aml
+                      JOIN account_move_line line ON line.move_id = aml.move_id
+                      JOIN account_journal aj     ON line.journal_id = aj.id
+                     WHERE %s
+                       AND aj.type= 'bank'
+                    """ % where_clause
+                cr.execute(query, values)
+                data = [line for line in cr.fetchall()]
+                amount_paid = sum([float(line[0]) for line \
+                                   in data if line[1] == line[2]])
+                amount_reconcilied = sum([float(line[0]) for line in data])
+
+        return provision, amount_reconcilied, amount_paid
+
     def _compute_all_amounts(self, cr, uid, ids, fname, arg, context=None):
         """
         =====================
         _compute_all_amounts
         =====================
-        Get total amounts of retrocession coming from fixed rules linked to mandate and variable rules
+        Get total amounts of retrocession coming from fixed rules linked to
+        mandate and variable rules
         :rparam: Retrocession amounts
         :rtype: float
         """
         res = {}
         for retro in self.browse(cr, uid, ids, context=context):
-            amount_retrocession = sum([rule.amount_subtotal for rule in retro.rule_ids])
-            amount_deduction = sum([rule.amount_subtotal for rule in retro.deductible_rule_ids])
+            rule_ids = []
+            deductible_rule_ids = []
+            if retro.active:
+                rule_ids = retro.rule_ids
+                deductible_rule_ids = retro.deductible_rule_ids
+            else:
+                rule_ids = retro.rule_inactive_ids
+                deductible_rule_ids = retro.deductible_rule_inactive_ids
+
+            amount_retrocession = sum([rule.amount_subtotal
+                                       for rule in rule_ids])
+            amount_deduction = sum([rule.amount_subtotal
+                                    for rule in deductible_rule_ids])
             amount_total = (amount_retrocession + amount_deduction)
-            res[retro.id] = dict(amount_retrocession=amount_retrocession,
+            provision = retro.provision
+            amount_reconcilied = 0.0
+            amount_paid = retro.amount_paid
+            if retro.need_account_management:
+                amounts = self._get_account_amount(cr, uid, retro, context)
+                provision = amounts[0]
+                amount_reconcilied = amounts[1]
+                amount_paid = amounts[2]
+            amount_due = amount_total - provision - amount_reconcilied
+            res[retro.id] = dict(provision=provision,
+                                 amount_retrocession=amount_retrocession,
                                  amount_deduction=amount_deduction,
                                  amount_total=amount_total,
-                                 amount_due=amount_total - retro.provision)
+                                 amount_due=amount_due,
+                                 amount_reconcilied=amount_reconcilied,
+                                 amount_paid=amount_paid)
         return res
 
     def _get_calculation_rule(self, cr, uid, ids, context=None):
@@ -340,7 +421,7 @@ class retrocession(orm.Model):
         for line in self.browse(cr, uid, ids, context=context):
             mandate_ids = []
             mandate = False
-            if line.ref:
+            if line.name:
                 domain = [('reference', '=', line.name)]
                 mandate = 'sta.mandate'
                 mandate_ids = self.pool.get(mandate).search(cr, uid, domain, context=context)
@@ -351,7 +432,8 @@ class retrocession(orm.Model):
             if mandate_ids:
                 domain = [(retro_pool.get_relation_column_name(cr, uid, mandate, context=context),
                            'in',
-                           mandate_ids)]
+                           mandate_ids),
+                          ('active', '<=', True)]
                 retrocession_ids += retro_pool.search(cr, uid, domain, context=context)
 
         res = list(set(retrocession_ids))
@@ -383,19 +465,16 @@ class retrocession(orm.Model):
         return res
 
     _amount_store_trigger = {
-        'retrocession': (lambda self, cr, uid, ids, context=None: ids, ['rule_ids', 'deductible_rule_ids', 'provision'], 20),
-        'calculation.rule': (_get_calculation_rule, ['amount', 'percentage'], 20),
+        'retrocession': (lambda self, cr, uid, ids, context=None:
+                         ids, ['rule_ids', 'deductible_rule_ids'], 20),
+        'calculation.rule': (_get_calculation_rule, ['amount', 'percentage'],
+                              20),
+        'account.bank.statement.line': (_get_bank_statement_line,
+                                        ['amount', 'name', 'journal_entry_id']
+                                        , 20),
+        'account.move.line': (_get_account_move_line,
+                              ['reconcile_id', 'reconcile_partial_id'], 20)
     }
-
-    _provision_store_trigger = {
-        'account.bank.statement.line': (_get_bank_statement_line, ['amount', 'name'], 20)
-    }
-
-    _amount_reconcilied_store_trigger = {
-        'account.move.line': (_get_account_move_line, ['reconcile_id', 'reconcile_partial_id'], 20)
-    }
-
-    _amount_store_trigger.update(_provision_store_trigger)
 
     def _get_defaults_account(self, cr, uid, ids, fname, arg, context=None):
         """
@@ -456,26 +535,6 @@ class retrocession(orm.Model):
         """
         return self._get_coordinate(cr, uid, ids, 'email.coordinate', 'email_coordinate_id', context=context)
 
-    def _get_provision_amount(self, cr, uid, ids, fname, arg, context=None):
-        """
-        ========================
-        _get_provision_amount
-        ========================
-        Compute provision paid on account
-        :rparam: Amount of provision paid
-        :rtype: float
-        """
-        res = {}
-        for retro in self.browse(cr, uid, ids, context=context):
-            res[retro.id] = sum([provision['amount'] \
-                            for provision in self.pool.get('account.bank.statement.line').search_read(cr, uid,
-                                                                                                 [('name', '=', retro.mandate_ref.reference),
-                                                                                                 ('partner_id', '=', retro.partner_id.id),
-                                                                                                 ('journal_entry_id', '=', False)],
-                                                                                                 fields=['amount'], context=context)]) \
-                            if not retro.month else 0.0
-        return res
-
     def _accept_anyway(self, cr, uid, ids, name, value, args, context=None):
         '''
         Accept the modification of the provision
@@ -483,61 +542,6 @@ class retrocession(orm.Model):
         '''
         cr.execute('update %s set %s = %%s where id = %s' % (self._table, name, ids), (value or None,))
         return True
-
-    def _compute_account_move_amount(self, cr, uid, ids, name, value, args,
-                                     context=None):
-        """
-        ======================
-        _compute_account_move_amount
-        ======================
-        Compute amount from account moves
-        :rparam: Amount reconcilied and amount paid
-        :rtype: float
-        """
-        res = {}
-        for retro in self.browse(cr, uid, ids, context=context):
-            if not retro.need_account_management:
-                continue
-
-            query = """ SELECT distinct aml.reconcile_id, aml.reconcile_partial_id
-                          FROM account_move_line aml
-                          LEFT JOIN account_move am    on am.id         = aml.move_id
-                          LEFT JOIN retrocession r     on aml.move_id   = r.move_id
-                          LEFT JOIN account_journal aj on am.journal_id = aj.id
-                        WHERE r.id = %s
-                         AND aml.account_id = aj.default_debit_account_id
-                    """
-            cr.execute(query, (retro.id,))
-            data = cr.fetchone()
-            if not data:
-                continue
-            reconcile_id = data[0]
-            reconcile_partial_id = data[1]
-            if reconcile_id:
-                where_clause = 'aml.reconcile_id = %s'
-                values = (reconcile_id,)
-            elif reconcile_partial_id:
-                where_clause = 'aml.reconcile_partial_id = %s'
-                values = (reconcile_partial_id,)
-            else:
-                continue
-            query = """
-                SELECT line.debit,
-                       line.account_id,
-                       aj.default_debit_account_id
-                  FROM account_move_line aml
-                  JOIN account_move_line line ON line.move_id = aml.move_id
-                  JOIN account_journal aj     ON line.journal_id = aj.id
-                 WHERE %s
-                   AND aj.type= 'bank'
-                """ % where_clause
-            cr.execute(query, values)
-            data = [line for line in cr.fetchall()]
-            amount_paid = sum([line[0] for line in data if line[1] == line[2]])
-            amount_reconcilied = sum([line[0] for line in data])
-            res[retro.id] = dict(amount_paid=amount_paid,
-                                 amount_reconcilied=amount_reconcilied)
-        return res
 
     def _get_document_types(self, cr, uid, context=None):
         cr.execute("SELECT model, name from ir_model WHERE model IN ('sta.mandate', 'ext.mandate') ORDER BY name")
@@ -567,12 +571,12 @@ class retrocession(orm.Model):
                                         type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
         'amount_due': fields.function(_compute_all_amounts, string='Amount Due', multi="Allamounts",
                                         type='float', store=_amount_store_trigger, digits_compute=dp.get_precision('Account')),
-        'provision': fields.function(_get_provision_amount, string='Provision', type="float",
-                                     digits_compute=dp.get_precision('Account'), store=_provision_store_trigger, fnct_inv=_accept_anyway),
-        'amount_reconcilied': fields.function(_compute_account_move_amount, string='Amount Reconcilied', type="float", multi="AccountAmounts",
-                                     digits_compute=dp.get_precision('Account'), store=_amount_reconcilied_store_trigger, fnct_inv=_accept_anyway),
-        'amount_paid': fields.function(_compute_account_move_amount, string='Amount Paid', type="float", multi="AccountAmounts",
-                                     digits_compute=dp.get_precision('Account'), store=_amount_reconcilied_store_trigger, fnct_inv=_accept_anyway),
+        'provision': fields.function(_compute_all_amounts, string='Provision', type="float", multi="Allamounts",
+                                     digits_compute=dp.get_precision('Account'), store=_amount_store_trigger, fnct_inv=_accept_anyway),
+        'amount_reconcilied': fields.function(_compute_all_amounts, string='Amount Reconcilied', type="float", multi="Allamounts",
+                                     digits_compute=dp.get_precision('Account'), store=_amount_store_trigger, fnct_inv=_accept_anyway),
+        'amount_paid': fields.function(_compute_all_amounts, string='Amount Paid', type="float", multi="Allamounts",
+                                     digits_compute=dp.get_precision('Account'), store=_amount_store_trigger, fnct_inv=_accept_anyway),
         'move_id': fields.many2one('account.move', 'Journal Entry', select=True),
         'need_account_management': fields.related('mandate_ref', 'need_account_management', string='Need accounting management', type='boolean', store=False),
         'default_debit_account': fields.function(_get_defaults_account, string="Default debit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
@@ -815,7 +819,7 @@ class retrocession(orm.Model):
         =================
         Mark a retrocession as done
         """
-        return super(retrocession, self).action_invalidate(cr, uid, ids, context=context, vals={'state': 'done'})
+        return super(retrocession, self).action_invalidate(cr, uid, ids, context=context, vals={'provision':0.0, 'state': 'done'})
 
     def action_request_for_payment_send(self, cr, uid, ids, context=None):
         """
@@ -824,12 +828,12 @@ class retrocession(orm.Model):
         ================================
         Send an email with request for payment attached
         """
-        ir__data = self.pool.get('ir.model.data')
+        ir_model_data = self.pool.get('ir.model.data')
         retro = self.browse(cr, uid, ids[0], context=context)
         if not retro.email_coordinate_id:
             raise orm.except_orm(_('Error!'), _('Representative has no email template specified'))
         try:
-            template_id = ir__data.get_object_reference(cr, uid, 'ficep_retrocession', 'email_template_request_payment_retrocession')[1]
+            template_id = ir_model_data.get_object_reference(cr, uid, 'ficep_retrocession', 'email_template_request_payment_retrocession')[1]
         except ValueError:
             raise orm.except_orm(_('Error!'), _('Email template %s not found !' % 'email_template_request_payment_retrocession'))
 
@@ -838,8 +842,6 @@ class retrocession(orm.Model):
             mail_composer_vals = {'parent_id': False,
                                   'use_active_domain': False,
                                   'composition_mode': 'mass_mail',
-                                  'same_thread': True,
-                                  'post': False,
                                   'partner_ids': [[6, False, []]],
                                   'notify': False,
                                   'template_id': template_id,

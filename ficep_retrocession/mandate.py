@@ -267,8 +267,6 @@ class abstract_mandate_retrocession(orm.AbstractModel):
             mail_composer_vals = {'parent_id': False,
                                   'use_active_domain': False,
                                   'composition_mode': 'mass_mail',
-                                  'same_thread': True,
-                                  'post': False,
                                   'partner_ids': [[6, False,
                                                    [mandate.partner_id.id]]],
                                   'notify': False,
