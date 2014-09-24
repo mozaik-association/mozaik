@@ -691,10 +691,12 @@
                                 <separator string="Amounts"/>
                                 <group>
                                     <field name="provision" attrs="{'invisible': ['|', ('retrocession_mode','=', 'month'),
-                                                                                  ('need_account_management', '=', False)]}"/>
-                                    <field name="amount_due"/>
-                                    <field name="amount_reconcilied"  attrs="{'invisible': [('need_account_management', '=', False)]}"/>
-                                    <field name="amount_paid" attrs="{'readonly': [('need_account_management', '=', True)]}"/>
+                                                                                  ('state', '=', 'done')],
+                                                                    'readonly': [('need_account_management', '=', True)]}"/>
+                                    <field name="amount_reconcilied" readonly="1" attrs="{'invisible': ['|', ('need_account_management', '=', False), ('state', '=', 'draft')]}"/>
+                                    <field name="amount_due" readonly="1"/>
+                                    <field name="amount_paid" attrs="{'invisible':[('need_account_management', '=', True), ('state', 'not in', ['done'])],
+                                                                      'readonly': [('need_account_management', '=', True)]}"/>
                                 </group>
                                 <separator string="Journal Entry" attrs="{'invisible': [('move_id', '=', False)]}"/>
                                 <group>

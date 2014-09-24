@@ -92,7 +92,7 @@ class report_retrocession_wizard(orm.TransientModel):
             'mandate_ids': str(ids),
             'year': datetime.date.today().strftime("%Y"),
             'mandate_selected': len(ids),
-            'report': 'certificates',
+            'report': context.get('document', 'certificates'),
         }
 
         return res

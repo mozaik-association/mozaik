@@ -162,6 +162,8 @@ class distribution_list_mass_function(orm.TransientModel):
                     context['field_main_object'] = wizard.e_mass_function
                     template_id = wizard.email_template_id.id
                     email_from = composer._get_default_from(cr, uid, context=context)
+                    dl_id = wizard.distribution_list_id and \
+                        wizard.distribution_list_id.id or False
                     mail_composer_vals = {'email_from': email_from,
                                           'parent_id': False,
                                           'use_active_domain': False,
@@ -172,6 +174,7 @@ class distribution_list_mass_function(orm.TransientModel):
                                           'notify': False,
                                           'template_id': template_id,
                                           'subject': "",
+                                          'distribution_list_id': dl_id,
                                           'mass_mailing_name': wizard.mass_mailing_name,
                                           'model': wizard.trg_model}
                     value = composer.onchange_template_id(cr, uid, ids, template_id, 'mass_mail', '', 0, context=context)['value']

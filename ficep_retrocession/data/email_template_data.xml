@@ -32,5 +32,83 @@
 </div>
             ]]></field>
         </record>
+        
+        <record id="email_template_sta_mandate_reference" model="email.template">
+            <field name="name">State Mandates: reference for payments</field>            
+            <field name="auto_delete" eval="0"/>
+            <field name="email_from"></field>
+            <field name="partner_to"></field>
+            <field name="subject">'Reference for payments'</field>
+            <field name="model_id" ref="ficep_retrocession.model_sta_mandate"/>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<div style="font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+    <p>Hello ${object.partner_id.name},</p>
+
+    <p>Please use <b>${object.reference}</b> as structured reference for all payments concerning following mandate:</p>
+    <p>
+    <table>
+        <tr>
+            <td><u>Representative: </u></td>
+            <td><b>${object.partner_id.name}</b></td>
+        </tr>
+        <tr>
+            <td><u>Type: </u></td>
+            <td><b>${object.mandate_category_id.name}</b></td>
+        </tr>
+        <tr>
+            <td><u>Assembly: </u></td>
+            <td><b>${object.sta_assembly_id.name}</b></td>
+        </tr>
+    </table>
+    </p>
+    <p>Regards,</p>
+    <br>
+    <p style="font-size:12px;color:grey">
+    This message is automatically generated, please do not reply directly.
+    </p>
+</div>
+            ]]></field>
+        </record>
+        
+        <record id="email_template_ext_mandate_reference" model="email.template">
+            <field name="name">External Mandates: reference for payments</field>            
+            <field name="auto_delete" eval="0"/>
+            <field name="email_from"></field>
+            <field name="partner_to"></field>
+            <field name="subject">'Reference for payments'</field>
+            <field name="model_id" ref="ficep_retrocession.model_ext_mandate"/>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<div style="font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+    <p>Hello ${object.partner_id.name},</p>
+
+    <p>Please use <b>${object.reference}</b> as structured reference for all payments concerning following mandate:</p>
+    <p>
+    <table>
+        <tr>
+            <td><u>Representative: </u></td>
+            <td><b>${object.partner_id.name}</b></td>
+        </tr>
+        <tr>
+            <td><u>Type: </u></td>
+            <td><b>${object.mandate_category_id.name}</b></td>
+        </tr>
+        <tr>
+            <td><u>Assembly: </u></td>
+            <td><b>${object.ext_assembly_id.name}</b></td>
+        </tr>
+    </table>
+    </p>
+    <p>Regards,</p>
+    <br>
+    <p style="font-size:12px;color:grey">
+    This message is automatically generated, please do not reply directly.
+    </p>
+</div>
+            ]]></field>
+        </record>
     </data>
 </openerp>
