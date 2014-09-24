@@ -48,6 +48,7 @@ class distribution_list(orm.Model):
     _columns = {
         'name': fields.char(
             string='Name', required=True, track_visibility='onchange'),
+        'public': fields.boolean('Public'),
         'res_users_ids': fields.many2many(
             'res.users', 'dist_list_res_users_rel',
             id1='dist_list_id', id2='res_users_id',
