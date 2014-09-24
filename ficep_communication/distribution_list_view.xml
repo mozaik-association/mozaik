@@ -95,7 +95,7 @@
                         <page name="security" string="Security" autofocus="autofocus">
                             <group name="validity">
                                 <field name="int_instance_id" />
-                                <field name="res_users_ids" widget="many2many_tags" create="0"/>
+                                <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
                             </group>
                             <div class="oe_clear">
                                 <br />
