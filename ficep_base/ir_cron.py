@@ -26,18 +26,29 @@
 #
 ##############################################################################
 
-import testtool
-import url
-import ir_model
-import ir_import
-import res_lang
-import res_users
-import res_partner
-import mail_message
-import selections_translator
-import document
-import more_index
-import ir_cron
-import abstract_ficep
+import openerp
+import openerp.tools as tools
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+original_acquire_job = openerp.addons.base.ir.ir_cron.ir_cron._acquire_job
+
+
+class ir_cron(openerp.addons.base.ir.ir_cron.ir_cron):
+
+    @classmethod
+    def _acquire_job(cls, db_name):
+        '''
+        Avoid annoying traces in console when debugging server
+        at a low applicative level
+        '''
+        res = False
+        go = True
+        # go = False
+        if tools.config.options.get('log_level', '') in ['debug_sql']:
+            go = False
+        elif tools.config.options.get('deactivate_cron', '0') == '1':
+            go = False
+        if go:
+            res = original_acquire_job(db_name)
+        return res
+
+openerp.addons.base.ir.ir_cron.ir_cron._acquire_job = ir_cron._acquire_job
