@@ -97,6 +97,10 @@
                             type="action" attrs="{'invisible': ['|',('id','=',False)]}"
                             context="{'search_default_sta_mandate_id': active_id,
                                       'default_sta_mandate_id': active_id}" />
+                    <button string="Journal Entries" name="%(account.action_move_journal_line)d"
+                            type="action" attrs="{'invisible': ['|',('id','=',False), ('need_account_management', '=', False)]}"
+                            context="{'search_default_name': reference,
+                                      'default_name': reference}" />
                 </xpath>
                 <xpath expr="//page[@name='index']" position="before">
                     <page name="rules" string="Retrocessions">
@@ -172,6 +176,7 @@
                 </xpath>
                 <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="has_retrocessions_linked"/>
+                    <field name="need_account_management"/>
                 </xpath>
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
@@ -206,6 +211,10 @@
                              type="action" attrs="{'invisible': ['|',('id','=',False)]}"
                              context="{'search_default_ext_mandate_id': active_id,
                                        'default_ext_mandate_id': active_id}" />
+                    <button string="Journal Entries" name="%(account.action_move_journal_line)d"
+                            type="action" attrs="{'invisible': ['|',('id','=',False), ('need_account_management', '=', False)]}"
+                            context="{'search_default_name': reference,
+                                      'default_name': reference}" />
                 </xpath>
                 <xpath expr="//page[@name='index']" position="before">
                     <page name="rules" string="Retrocessions">
@@ -281,6 +290,7 @@
                 </xpath>
                 <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="has_retrocessions_linked"/>
+                    <field name="need_account_management"/>
                 </xpath>
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>

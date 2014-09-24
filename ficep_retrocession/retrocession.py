@@ -320,22 +320,6 @@ class retrocession(orm.Model):
                                  amount_due=amount_total - retro.provision)
         return res
 
-    def _need_account_management(self, cr, uid, ids, fname, arg, context=None):
-        """
-        ========================
-        _need_account_management
-        ========================
-        Determine whether retrocession need account management or not
-        :rparam: True if accounting management needed otherwise False
-        :rtype: Boolean
-        """
-        res = {}
-        for retro in self.browse(cr, uid, ids, context=context):
-            res[retro.id] = retro.mandate_ref.retro_instance_id.id == self.pool.get('int.instance').get_default(cr, uid, context=context) \
-                            if retro.retrocession_mode != 'none' else False
-
-        return res
-
     def _get_calculation_rule(self, cr, uid, ids, context=None):
         retrocession_ids = []
         retro_pool = self.pool.get('retrocession')
@@ -590,7 +574,7 @@ class retrocession(orm.Model):
         'amount_paid': fields.function(_compute_account_move_amount, string='Amount Paid', type="float", multi="AccountAmounts",
                                      digits_compute=dp.get_precision('Account'), store=_amount_reconcilied_store_trigger, fnct_inv=_accept_anyway),
         'move_id': fields.many2one('account.move', 'Journal Entry', select=True),
-        'need_account_management': fields.function(_need_account_management, string='Need accounting management', type='boolean', store=False),
+        'need_account_management': fields.related('mandate_ref', 'need_account_management', string='Need accounting management', type='boolean', store=False),
         'default_debit_account': fields.function(_get_defaults_account, string="Default debit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
         'default_credit_account': fields.function(_get_defaults_account, string="Default credit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
         'is_regulation': fields.boolean('Regulation Retrocession ?'),

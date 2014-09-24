@@ -139,6 +139,22 @@ class abstract_mandate_retrocession(orm.AbstractModel):
             res[mandate_id] = True if nb_retro > 0 else False
         return res
 
+    def _need_account_management(self, cr, uid, ids, fname, arg, context=None):
+        """
+        ========================
+        _need_account_management
+        ========================
+        Determine whether retrocession of mandate need account management or not
+        :rparam: True if accounting management needed otherwise False
+        :rtype: Boolean
+        """
+        res = {}
+        for mandate in self.browse(cr, uid, ids, context=context):
+            res[mandate.id] = mandate.retro_instance_id.id == self.pool.get('int.instance').get_default(cr, uid, context=context) \
+                            if mandate.retrocession_mode != 'none' else False
+
+        return res
+
     _columns = {
         'retrocession_mode': fields.related('mandate_category_id', 'retrocession_mode', string='Retrocession Mode', type='selection',
                                selection=RETROCESSION_MODES_AVAILABLE, store=_retrocession_mode_store_trigger),
@@ -151,7 +167,8 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         'retro_instance_id': fields.many2one('int.instance', 'Retrocession Management Instance',
                                        select=True, track_visibility='onchange'),
         'reference': fields.char('Communication', size=64, help="The mandate reference for payments."),
-        'email_date': fields.date('Last email Sent')
+        'email_date': fields.date('Last email Sent'),
+        'need_account_management': fields.function(_need_account_management, string='Need accounting management', type='boolean', store=False),
     }
 
     #orm methods
