@@ -40,8 +40,8 @@ class MailMailStats(orm.Model):
         """
         ===========
         set_bounced
-        ===========
         This overload is made to spread the bounce counter to the email_coordinate.
+        ===========
         Only work for message that have `email.coordinate` as model
         """
         res_ids = super(MailMailStats, self).set_bounced(cr, uid, ids=ids, mail_mail_ids=mail_mail_ids, mail_message_ids=mail_message_ids, context=context)
@@ -64,111 +64,21 @@ class MailMailStats(orm.Model):
         return res_ids
 
 
-class MassMailingList(orm.Model):
+class MassMailing(orm.Model):
 
-    _name = "mail.mass_mailing.list"
-    _inherit = ['mail.mass_mailing.list', 'abstract.ficep.model']
-
-    _columns = {
-        'int_instance_id': fields.many2one(
-            'int.instance', string='Internal Instance',
-            select=True, track_visibility='onchange'),
-        'automatic': fields.boolean('Automatic'),
-        # visible from portal
-        'public': fields.boolean('Public'),
-    }
+    _inherit = 'mail.mass_mailing'
 
     _defaults = {
-        'int_instance_id': lambda self, cr, uid, ids, context = None:
-            self.pool.get('int.instance').get_default(cr, uid),
-        'automatic': False,
-        'public': False,
+        'mailing_model': 'email.coordinate',
     }
 
-    def generate_recipents(self, cr, uid, partner_id, context=None):
+    def _get_mailing_model(self, cr, uid, context=None):
         '''
-        generate a recipient for partner `partner_id` case where
-        its `int_instance_id` is child of an `auto` newsletter
+        Remove last insert: `mail.mass_mailing.contact`
         '''
-        partner_value = self.pool['res.partner'].read(
-            cr, uid, partner_id, ['int_instance_id'], context=context)
-        partner_instance_id = partner_value['int_instance_id']
-        news_ids = self.search(cr, uid, [('auto', '=', True)], context=context)
-        for newsletter in self.browse(cr, uid, news_ids, context=context):
-            available_instance_ids = self.pool['int.instance'].search(
-                cr, uid, [('id', 'child_of', newsletter.int_instance_id.id)],
-                context=context)
-            if partner_instance_id in available_instance_ids:
-                vals = {
-                    'partner_id': partner_id,
-                    'list_id': newsletter.id,
-                }
-                self.pool['mail.mass_mailing.contact'].create(
-                    cr, uid, vals, context=context)
-        return
-
-# constraints
-
-    _unicity_keys = 'name, int_instance_id'
-
-
-class MassMailingContact(orm.Model):
-
-    _name = "mail.mass_mailing.contact"
-    _inherit = ['mail.mass_mailing.contact', 'abstract.ficep.model']
-    _rec_name = "partner_id"
-
-    def _get_email(self, cr, uid, ids, name, args, context=None):
-        """
-        :param ids: `mail.mass_mailing.contact` ids for which `email` has to
-            be recomputed
-        :rparam: dictionary for all mailing contact id with email
-        :rtype: dict {integer: char, ...}
-        :Note:
-        Calling and result convention: Single mode
-        """
-        context = context or {}
-        result = {i: False for i in ids}
-
-        for mailing in self.browse(cr, uid, ids, context=context):
-            partner = mailing.partner_id
-            email = partner.email_coordinate_id and \
-                partner.email_coordinate_id.email or False
-            result[mailing.id] = email
-        return result
-
-    _email_store_triggers = {
-        'mail.mass_mailing.contact': (lambda s, cr, uid, ids, c: ids,
-                                      ['partner_id'], 10),
-        'email.coordinate': (lambda self, cr, uid, ids, context=None:
-                             self.pool['email.coordinate']._get_linked_mailing(
-                                 cr, uid, ids, context=context),
-                             ['active', 'is_main'], 10),
-    }
-
-    _columns = {
-        'partner_id': fields.many2one(
-            'res.partner', string='Partner', required=True, select=True,
-            track_visibility='onchange'),
-        'email': fields.function(
-            _get_email, type='char', string='email',
-            store=_email_store_triggers),
-    }
-
-# constraints
-
-#    _unicity_keys = 'list_id, partner_id'
-
-    def _set_default_value_on_column(self, cr, column_name, context=None):
-        '''
-        Force odoo demo data to have a valid partner_id during test
-        '''
-        if tools.config.options['test_enable'] and column_name == 'partner_id':
-            pid = self.pool['res.users'].read(
-                cr, SUPERUSER_ID, SUPERUSER_ID, ['partner_id'])['partner_id']
-            self._defaults['partner_id'] = pid[0]
-        res = super(MassMailingContact, self)._set_default_value_on_column(
-            cr, column_name, context=context)
-        if tools.config.options['test_enable'] and column_name == 'partner_id':
-            self._defaults.pop('partner_id')
+        res = super(MassMailing, self)._get_mailing_model(
+            cr, uid, context=context)
+        if res:
+            # remove last insert: mailing list
+            res.pop(len(res)-1)
         return res

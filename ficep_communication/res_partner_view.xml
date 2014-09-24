@@ -17,13 +17,6 @@
                             icon="fa-list"
                             context="{'search_default_partner_id': active_id}">
                     </button>
-                    <button string="Recipients"
-                            name="%(mass_mailing.action_view_mass_mailing_contacts)d"
-                            type="action"
-                            class="oe_stat_button"
-                            icon="fa-list"
-                            context="{'search_default_partner_id': active_id}">
-                    </button>
                 </xpath>
             </field>
         </record>
