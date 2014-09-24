@@ -17,8 +17,7 @@
                 <form string="Payments certificates" version="7.0">
                     <sheet>
                         <group name="data">
-                            <group name="data_1">
-                                <field name="report"/>                            
+                            <group name="data_1">                                                         
                                 <field name="year" on_change="onchange_year(year, model, mandate_ids)"/>
                             </group>
                         </group>
@@ -74,6 +73,7 @@
                                 <group name="moreinfo">
                                     <field name="model"/>
                                     <field name="mandate_ids"/>
+                                    <field name="report"/>   
                                 </group>
                             </div>
                         </div>
@@ -91,8 +91,8 @@
             </field>
         </record>
 
-        <record id="report_retrocession_wizard_action" model="ir.actions.act_window">
-            <field name="name">Print Retrocession Reports</field>
+        <record id="report_fractionations_wizard_action" model="ir.actions.act_window">
+            <field name="name">Print Fractionations</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model"></field>
@@ -100,22 +100,51 @@
             <field name="target">new</field>
             <field name="view_id" ref="retrocession_retrocession_wizard_view" />
             <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="context">{'document': 'fractionations'}</field>
+        </record>
+        
+        <record id="report_certificates_wizard_action" model="ir.actions.act_window">
+            <field name="name">Print Payment certificates</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model"></field>
+            <field name="res_model">report.retrocession.wizard</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="retrocession_retrocession_wizard_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="context">{'document': 'certificates'}</field>
         </record>
 
-        <record id="sta_mandate_retrocession_report" model="ir.values">
-            <field name="name">Retrocessions Reports</field>
+        <record id="sta_mandate_fractionations_report" model="ir.values">
+            <field name="name">Fractionations</field>
             <field name="model">sta.mandate</field>
             <field name="key">action</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('report_retrocession_wizard_action')" />
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('report_fractionations_wizard_action')" />
+        </record>
+        
+        <record id="sta_mandate_certificates_report" model="ir.values">
+            <field name="name">Payment certificates</field>
+            <field name="model">sta.mandate</field>
+            <field name="key">action</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('report_certificates_wizard_action')" />
         </record>
 
-        <record id="ext_mandate_retrocession_report" model="ir.values">
-            <field name="name">Retrocessions Reports</field>
+        <record id="ext_mandate_fractionations_report" model="ir.values">
+            <field name="name">Fractionations</field>
             <field name="model">ext.mandate</field>
             <field name="key">action</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,%s' % ref('report_retrocession_wizard_action')" />
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('report_fractionations_wizard_action')" />
+        </record>
+        
+        <record id="ext_mandate_certificates_report" model="ir.values">
+            <field name="name">Payment certificates</field>
+            <field name="model">ext.mandate</field>
+            <field name="key">action</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('report_certificates_wizard_action')" />
         </record>
 
     </data>
