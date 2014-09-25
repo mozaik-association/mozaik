@@ -273,6 +273,8 @@
                             <!-- Some blank lines to see the entire elapsed many2many_tags widget -->
                             <br />
                             <br />
+                            <br />
+                            <br />
                         </div>
                     </page>
                     <page name="involvement" string="Involvements" invisible="context.get('popup')" attrs="{'invisible': [('is_assembly','=',True)]}">

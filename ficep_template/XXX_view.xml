@@ -4,18 +4,19 @@
 
     <!--
       "options" attribute value for:
-      * m2o:                   options='{"always_reload": True}'
-                               options='{"no_open":True}'
-                               options="{'label':{'create':'xxx','edit':'Edit yyy'}}" widget="many2onebutton"
-                               options='{"highlight_first_line": True}'
-                               options='{"create_name_field": "name"}'
-      * o2m (avec boutons):    options='{"reload_on_button": true}'
-      * widget='image':        options='{"preview_image": "image_small"}' or image_medium
-      * widget="mail_thread"   options='{"thread_level": 1}'
-      * widget="monetary"      options='{"currency_field" : "xxx"}'
-      * widget="sparkline_bar" options="{'height': '20px', 'barWidth': 4, 'barSpacing': 1}"
-      * widget="html"          options='{"safe": True}'
-      * widget="gauge"         options="{'max_field': 'invoiced_target'}"
+      * m2o:                     options='{"always_reload": True}'
+                                 options='{"no_open":True}'
+                                 options="{'label':{'create':'xxx','edit':'Edit yyy'}}" widget="many2onebutton"
+                                 options='{"highlight_first_line": True}'
+                                 options='{"create_name_field": "name"}'
+      * o2m (avec boutons):      options='{"reload_on_button": true}'
+      * widget='image':          options='{"preview_image": "image_small"}' or image_medium
+      * widget="mail_thread"     options='{"thread_level": 1}'
+      * widget="monetary"        options='{"currency_field" : "xxx"}'
+      * widget="sparkline_bar"   options="{'height': '20px', 'barWidth': 4, 'barSpacing': 1}"
+      * widget="html"            options='{"safe": True}'
+      * widget="gauge"           options="{'max_field': 'invoiced_target'}"
+      * widget="many2many_tags"  options="{'no_create_edit': True}"
 
       "style" attribute value for:
       * widget="gauge"         style="width:160px; height: 120px;"

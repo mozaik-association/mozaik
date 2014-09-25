@@ -71,6 +71,15 @@ class res_users(orm.Model):
         super(res_users, self).context_get.clear_cache(self)
         return res
 
+    def _apply_ir_rules(self, cr, uid, query, mode='read', context=None):
+        '''
+        Grant a 100% visibility on users to everybody
+        '''
+        if mode != 'read':
+            super(res_users, self)._apply_ir_rules(
+                cr, uid, query, mode=mode, context=context)
+        pass
+
 # override public methods
 
     @tools.ormcache(skiparg=2)

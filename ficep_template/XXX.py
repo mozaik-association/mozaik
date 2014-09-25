@@ -171,13 +171,17 @@ class xxxx(orm.Model):
 
     _constraints = [
         (_check_xxx, _('Error! XYZ...'), ['zzz_id']),
-        (orm.Model._check_recursion, _('Error! You can not create recursive xxx'), ['parent_id']),
+        (orm.Model._check_recursion,
+            _('Error! You can not create recursive xxx'), ['parent_id']),
     ]
 
     _sql_constraints = [
         # only if all columns are not null
-        ('check_unicity_xxx', 'unique(col1,col2, ...)', _('This XXX already exists!')),
-        ('col1_col2_..._unique', 'unique (col1,col2, ...)', _('The couple (column desc 2, ...) must be unique for a given column desc 1!')),
+        ('check_unicity_xxx', 'unique(col1,col2, ...)',
+            _('This XXX already exists!')),
+        ('col1_col2_..._unique', 'unique (col1,col2, ...)',
+            _('The couple (column desc 2, ...) must be unique '
+              'for a given column desc 1!')),
     ]
 
     _unicity_keys = 'partner_id, type'
@@ -224,10 +228,13 @@ class xxxx(orm.Model):
     def write(self, cr, uid, ids, vals, context=None):
         if 'active' in vals and not vals['active']:
             PPP_obj = self.pool['zzz']
-            PPP_ids = PPP_obj.search(cr, SUPERUSER_ID, [('xxxx_id', 'in', ids)], context=context)
+            PPP_ids = PPP_obj.search(
+                cr, SUPERUSER_ID, [('xxxx_id', 'in', ids)], context=context)
             if PPP_ids:
-                PPP_obj.action_invalidate(cr, SUPERUSER_ID, PPP_ids, context=context)
-        res = super(xxxx, self).write(cr, uid, ids, vals, context=context)
+                PPP_obj.action_invalidate(
+                    cr, SUPERUSER_ID, PPP_ids, context=context)
+        res = super(xxxx, self).write(
+            cr, uid, ids, vals, context=context)
         return res
 
     def unlink(self, cr, uid, ids, context=None):
@@ -239,7 +246,8 @@ class xxxx(orm.Model):
         default.update({
             'zzz_ids': [],
         })
-        res = super(xxxx, self).copy_data(cr, uid, copy_id, default=default, context=context)
+        res = super(xxxx, self).copy_data(
+            cr, uid, copy_id, default=default, context=context)
         res.update({
             'name': _('%s (copy)') % res.get('name'),
         })
@@ -248,28 +256,61 @@ class xxxx(orm.Model):
     def copy(self, cr, uid, ids, default=None, context=None):
         flds = self.read(cr, uid, ids, ['active'], context=context)
         if flds.get('active', True):
-            raise orm.except_orm(_('Error'), _('An active XXX cannot be duplicated!'))
-        res = super(xxxx, self).copy(cr, uid, ids, default=default, context=context)
+            raise orm.except_orm(_('Error'),
+                                 _('An active XXX cannot be duplicated!'))
+        res = super(xxxx, self).copy(
+            cr, uid, ids, default=default, context=context)
         return res
 
-    def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
-        res = super(xxxx, self).search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)
+    def search(self, cr, user, args,
+               offset=0, limit=None, order=None, context=None, count=False):
+        res = super(xxxx, self).search(
+            cr, user, args, offset=offset, limit=limit, order=order,
+            context=context, count=count)
         return res
 
-    def _read_flat(self, cr, user, ids, fields_to_read, context=None, load='_classic_read'):
-        res = super(xxxx, self)._read_flat(cr, user, ids, fields_to_read, context=context, load=load)
+    def read(self, cr, user, ids,
+             fields=None, context=None, load='_classic_read'):
+        res = super(xxxx, self).read(
+            cr, user, ids, fields=fields, context=context, load=load)
         return res
 
-    def browse(self, cr, uid, select, context=None, list_class=None, fields_process=None):
-        res = super(xxxx, self).browse(cr, uid, select, context=context, list_class=list_class, fields_process=fields_process)
+    def _read_from_database(self, cr, uid, ids, field_names, context=None):
+        if 'fld_yyy' in field_names:
+            pass
+        res = super(xxxx, self)._read_from_database(
+            cr, uid, ids, field_names, context=context)
         return res
 
-    def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
-        res = super(xxxx, self).fields_view_get(cr, user, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
+    def _apply_ir_rules(self, cr, uid, query, mode='read', context=None):
+        res = super(xxxx, self)._apply_ir_rules(
+            cr, uid, query, mode=mode, context=context)
         return res
 
-    def fields_get(self, cr, user, allfields=None, context=None, write_access=True):
-        res = super(xxxx, self).fields_get(cr, user, allfields=allfields, context=context, write_access=write_access)
+    def _convert_to_cache(self, values, update=False, validate=True):
+        res = super(xxxx, self)._convert_to_cache(
+            values, update=update, validate=validate)
+        return res
+
+    def browse(self, cr, uid, select,
+               context=None, list_class=None, fields_process=None):
+        res = super(xxxx, self).browse(
+            cr, uid, select, context=context,
+            list_class=list_class, fields_process=fields_process)
+        return res
+
+    def fields_view_get(self, cr, user, view_id=None, view_type='form',
+                        context=None, toolbar=False, submenu=False):
+        res = super(xxxx, self).fields_view_get(
+            cr, user, view_id=view_id, view_type=view_type,
+            context=context, toolbar=toolbar, submenu=submenu)
+        return res
+
+    def fields_get(self, cr, user,
+                   allfields=None, context=None, write_access=True):
+        res = super(xxxx, self).fields_get(
+            cr, user, allfields=allfields,
+            context=context, write_access=write_access)
         return res
 
     def _disable_workflow_buttons(self, cr, uid, node):
@@ -304,16 +345,14 @@ class xxxx(orm.Model):
         super(xxxx, self)._register_hook(cr)
 
     def _where_calc(self, cr, user, domain, active_test=True, context=None):
-        res = super(xxxx, self)._where_calc(cr, user, domain, active_test=active_test, context=context)
+        res = super(xxxx, self)._where_calc(
+            cr, user, domain, active_test=active_test, context=context)
         return res
 
 # view methods: onchange, button
 
     def button_zzz(self, cr, uid, ids, context=None):
         """
-        ==========
-        button_zzz
-        ==========
         This method ...
         :rparam: True
         :rtype: boolean
@@ -324,18 +363,14 @@ class xxxx(orm.Model):
 
     def button_reset(self, cr, uid, ids, context=None):
         """
-        ============
-        button_reset
-        ============
         Resurrect the ...
         :rparam: True
         :rtype: boolean
         """
-        self.write(cr, uid, ids, {'state': 'draft', 'active': True, 'expire_date': False}, context=context)
+        vals = {'state': 'draft', 'active': True, 'expire_date': False}
+        self.write(cr, uid, ids, vals, context=context)
         return True
 
 # workflow
 
 # public methods
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
