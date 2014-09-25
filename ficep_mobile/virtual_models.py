@@ -37,7 +37,7 @@ class virtual_mobile_partner(orm.Model):
     _columns = {
         'name': fields.char('Name'),
         'int_instance_id': fields.many2one(
-            'int.instance', 'Internal Instance'),
+            'int.instance', string='Internal Instance'),
         'phone': fields.char('Phone'),
         'email': fields.char('Email'),
     }
@@ -63,11 +63,15 @@ class virtual_mobile_partner(orm.Model):
             res_partner p
         LEFT OUTER JOIN
             email_coordinate e
-        ON (e.partner_id = p.id)
+        ON (e.partner_id = p.id
+        AND e.active IS TRUE)
         LEFT OUTER JOIN
             phone_coordinate phc
-        ON (phc.partner_id = p.id)
+        ON (phc.partner_id = p.id
+        AND phc.active IS TRUE)
         LEFT OUTER JOIN
             phone_phone ph
-        ON (ph.id = phc.phone_id)
+        ON (ph.id = phc.phone_id
+        AND ph.active IS TRUE)
+        WHERE p.active IS TRUE
             )""")

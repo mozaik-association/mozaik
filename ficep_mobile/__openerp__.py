@@ -45,6 +45,7 @@ FICEP Mobile
         'security/ficep_mobile_security.xml',
         'static/src/xml/mobile_view.xml',
         'views/mobile_templates.xml',
+        'ficep_mobile_view.xml',
     ],
     'sequence': 150,
     'auto_install': True,

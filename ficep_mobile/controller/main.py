@@ -65,13 +65,14 @@ class Mobile(main.Home):
             kw['search'] = search
             kw['value'] = value
 
-        partner_count = len(list(set(mobile_obj.search(
-            cr, uid, domain, context=context))))
-        pager = create_pager(url, partner_count)
+        mobile_ids = list(set(mobile_obj.search(
+            cr, uid, domain, context=context)))
+        pager = create_pager(url, len(mobile_ids))
 
-        partner_ids = list(set(mobile_obj.search(
+        domain = [('id', 'in', mobile_ids)]
+        partner_ids = partner_obj.search(
             cr, uid, domain, offset=pager['offset'], limit=self._PPG,
-            context=context)))
+            order='display_name', context=context)
         partners = partner_obj.browse(cr, uid, partner_ids, context=context)
 
         return http.request.render(

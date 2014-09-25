@@ -130,6 +130,8 @@ class virtual_master_partner(orm.Model):
         LEFT OUTER JOIN
             address_address adr
         ON (adr.id = pc.address_id)
+
+        WHERE p.active IS TRUE
             )""")
 
 
