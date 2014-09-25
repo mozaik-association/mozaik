@@ -25,28 +25,49 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'FICEP: Mobile',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
-    'category': 'Political Association',
-    'depends': [
-        'ficep_communication',
-    ],
-    'description': """
-FICEP Mobile
-============
-* Provide mobile render to access partners
-    """,
-    'data': [
-        'security/ir.model.access.csv',
-        'security/ficep_mobile_security.xml',
-        'static/src/xml/mobile_view.xml',
-        'views/mobile_templates.xml',
-    ],
-    'sequence': 150,
-    'auto_install': True,
-    'installable': True,
-}
+from openerp.osv import orm, fields
+from openerp import tools
+
+
+class virtual_mobile_partner(orm.Model):
+    _name = "virtual.mobile.partner"
+    _description = "Virtual Mobile Partner"
+    _auto = False
+
+    _columns = {
+        'name': fields.char('Name'),
+        'int_instance_id': fields.many2one(
+            'int.instance', 'Internal Instance'),
+        'phone': fields.char('Phone'),
+        'email': fields.char('Email'),
+    }
+
+# orm methods
+
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, 'virtual_mobile_partner')
+        """
+        Select partner_id and email from master partner
+        and get phones of partners too
+        Get Only row with at least a phone or an email
+        """
+        cr.execute("""
+        create or replace view virtual_mobile_partner as (
+        SELECT
+            p.id as id,
+            p.int_instance_id as int_instance_id,
+            p.display_name as name,
+            ph.name as phone,
+            e.email as email
+        FROM
+            res_partner p
+        LEFT OUTER JOIN
+            email_coordinate e
+        ON (e.partner_id = p.id)
+        LEFT OUTER JOIN
+            phone_coordinate phc
+        ON (phc.partner_id = p.id)
+        LEFT OUTER JOIN
+            phone_phone ph
+        ON (ph.id = phc.phone_id)
+            )""")

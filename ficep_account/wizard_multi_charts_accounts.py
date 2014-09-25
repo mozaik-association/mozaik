@@ -75,8 +75,10 @@ class wizard_multi_charts_accounts(orm.TransientModel):
     def _prepare_operation_templates(self, cr, uid, template, acc_template_ref,
                                      context=None):
         account = getattr(template, 'property_subscription_account')
+        account_id = account and account.id or False
         vals = {'name': _('Subscriptions'),
-                'account_id': acc_template_ref[account.id],
+                'account_id': account_id and acc_template_ref[account_id]
+                or False,
                 'label':  _('Subscriptions'),
                 'amount_type': 'percentage_of_total',
                 'amount': 100.0
@@ -92,17 +94,21 @@ class wizard_multi_charts_accounts(orm.TransientModel):
 
         template = self.pool.get('account.chart.template').browse(cr, uid, chart_template_id, context=context)
         default_debit_account = acc_template_ref.get(template.property_account_receivable.id)
-        default_credit_account = self.pool.get('account.account').search(cr, uid, [('code', '=', '749200'), ('company_id', '=', company_id)], context=context, limit=1)[0]
-
+        default_credit_account_ids = self.pool.get('account.account').search(
+            cr, uid, [('code', '=', '749200'),
+                      ('company_id', '=', company_id)],
+            context=context, limit=1)
+        default_credit_account_id = default_credit_account_ids and \
+            default_credit_account_ids[0] or False
         vals = {
-                'type': 'sale',
-                'name': 'RETROCESSIONS',
-                'code': 'RETRO',
-                'company_id': company_id,
-                'default_credit_account_id': default_credit_account,
-                'default_debit_account_id': default_debit_account,
-                'update_posted': True,
-                }
+            'type': 'sale',
+            'name': 'RETROCESSIONS',
+            'code': 'RETRO',
+            'company_id': company_id,
+            'default_credit_account_id': default_credit_account_id,
+            'default_debit_account_id': default_debit_account,
+            'update_posted': True,
+        }
 
         journal_data.append(vals)
 

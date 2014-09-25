@@ -29,7 +29,7 @@ from openerp import http
 from openerp.addons.web.controllers import main
 
 from openerp.addons.ficep_base.abstract_ficep import format_email
-from openerp.addons.ficep_person.res_partner import available_genders,\
+from openerp.addons.ficep_person.res_partner import available_genders, \
     available_civil_status, available_tongues
 
 
@@ -41,24 +41,39 @@ class Mobile(main.Home):
     @http.route(['/partner_mobile',
                 '/partner_mobile/page/<int:page>'],
                 auth='public', website=True)
-    def index_ficep_mobile(self, page=1, **kw):
+    def index_ficep_mobile(self, page=1, search=False, value=False, **kw):
         """
         Index provides the list of partner
         Manage a pager too
         """
-        cr, uid = http.request.cr, http.request.uid,
+        def create_pager(url, partner_count):
+            pager = http.request.website.pager(
+                url=url, total=partner_count, page=page,
+                step=self._PPG, scope=4, url_args=kw)
+            return pager
+
+        cr, uid, domain = http.request.cr, http.request.uid, []
         context = http.request.context
+        url = "/partner_mobile"
+        mobile_obj = http.request.registry['virtual.mobile.partner']
         partner_obj = http.request.registry['res.partner']
 
-        partner_count = partner_obj.search_count(cr, uid, [], context=context)
-        url = "/partner_mobile"
-        pager = http.request.website.pager(
-            url=url, total=partner_count, page=page, step=self._PPG, scope=4,
-            url_args=kw)
-        partner_ids = partner_obj.search(
-            cr, uid, [], offset=pager['offset'], limit=self._PPG,
-            context=context)
+        if search and value:
+            if search == 'email':
+                value = format_email(value)
+            domain = [(search, 'ilike', value)]
+            kw['search'] = search
+            kw['value'] = value
+
+        partner_count = len(list(set(mobile_obj.search(
+            cr, uid, domain, context=context))))
+        pager = create_pager(url, partner_count)
+
+        partner_ids = list(set(mobile_obj.search(
+            cr, uid, domain, offset=pager['offset'], limit=self._PPG,
+            context=context)))
         partners = partner_obj.browse(cr, uid, partner_ids, context=context)
+
         return http.request.render(
             'ficep_mobile.mobile_index', {
                 "pager": pager,
@@ -152,45 +167,3 @@ class Mobile(main.Home):
         Get qweb form to make a search
         """
         return http.request.render('ficep_mobile.partner_search_form')
-
-    @http.route('/partner_search_action/', type='http', auth='public',
-                website=True)
-    def partner_search_action(self, **kw):
-        """
-        Make a specific search with the passing value into the form
-        :param http.request.params: contain search criteria and the value to
-        search on
-        Call the qweb index with the resulting list of partner records
-        """
-        cr, uid = http.request.cr, http.request.uid
-        context = http.request.context
-        partner_ids = []
-        form = http.request.params
-        if form:
-            domain = "[('%s', 'ilike', '%s')]" % (form['search_on'],
-                                                  form['search_value'])
-            partner_obj = http.request.registry['res.partner']
-            if form['search_on'] == 'name':
-                # search on partner
-                partner_ids = partner_obj.search(
-                    cr, uid, eval(domain), context=context)
-            else:
-                model = '%s.coordinate' % form['search_on']
-                coordinate_obj = http.request.registry[model]
-                if form['search_on'] == 'email':
-                    form['search_value'] = format_email(form['search_value'])
-                if form['search_on'] == 'phone':
-                    s_val = form['search_value']
-                    domain = "[('phone_id.name', 'ilike', '%s')]" % (s_val)
-
-                coordinate_ids = coordinate_obj.search(
-                    cr, uid, eval(domain), context=context)
-                for coordinate in coordinate_obj.browse(
-                        cr, uid, coordinate_ids, context=context):
-                    partner_ids.append(coordinate.partner_id.id)
-
-            partners = partner_obj.browse(
-                cr, uid, partner_ids, context=context)
-
-        return http.request.render('ficep_mobile.mobile_index',
-                                   {"partners": partners})

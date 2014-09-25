@@ -127,4 +127,13 @@ class custom_webservice(orm.Model):
             raise WebServiceException(uid, "User's logname", 'SEARCH ERROR', e.message)
         return res
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    @web_service
+    def get_partner_coordinate(self, cr, uid, grh_identifier, context=None):
+        partner_obj = self.pool['res.partner']
+        try:
+            res = partner_obj.get_coordinate(
+                cr, SUPERUSER_ID, grh_identifier, context=context)
+        except Exception as e:
+            raise WebServiceException(
+                uid, "Partner Coordinate", 'SEARCH ERROR', e.message)
+        return res

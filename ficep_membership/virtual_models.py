@@ -42,7 +42,7 @@ class virtual_master_partner(orm.Model):
         'partner_id': fields.many2one('res.partner', 'Partner'),
         'membership_state_id':  fields.many2one('membership.state', 'State'),
         'display_name': fields.char('Display Name'),
-        'identification_number': fields.integer('Identification Number'),
+        'identifier': fields.integer('Identifier'),
 
         'lastname': fields.char('Lastname'),
         'firstname': fields.char('Firstname'),
@@ -81,7 +81,7 @@ class virtual_master_partner(orm.Model):
             p.id as partner_id,
             p.membership_state_id as membership_state_id,
             p.display_name as display_name,
-            p.identifier as identification_number,
+            p.identifier as identifier,
             p.lastname as lastname,
             p.firstname as firstname,
             p.birth_date as birth_date,

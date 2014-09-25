@@ -10,11 +10,11 @@
             <field name="arch" type="xml">
                 <tree string="Virtual Target" create="0" delete="0">
                     <field name="partner_id" />
-                    <field name="membership_state_id" />
                     <field name="email" />
-                    <field name="email_unauthorized" />
                     <field name="postal" />
-                    <field name="postal_unauthorized" />
+                    <field name="membership_state_id" />
+                    <field name="int_instance_id" />
+                    <field name="identifier" />
                 </tree>
             </field>
         </record>
