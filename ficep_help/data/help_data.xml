@@ -11,7 +11,6 @@
                   <div class="row">
                     <div class="col-md-12 text-center mt16 mb4">
                       <h2>Adresses</h2>
-                      <h3 class="text-muted">Menu Personnes\Coordonnées Postales\Adresses</h3>
                     </div>
                   </div>
                 </div>
@@ -54,27 +53,15 @@
                   <div>Ces Adresses servent à définir la Coordonnée postale d'une personne. Des fonctionnalités générales sont offertes sur ce modèle telles que création (association), suppression, recherche, export, .....La gestion des rues, codes postaux et pays est réservée à un utilisateur membre du groupe &quot;Configurator&quot;.</div>
                   <h4>Quelles informations sont affichées dans la liste?</h4>
                   <div>
-                    
-                    
-                    En mode liste sont affichées les adresses résultat de la concaténation de la rue et de la commune (elle-eme composée du code postal et de la commune) ainsi que le pays. Des fonctionnalités de recherches et de groupage pour l'affichage sont disponibles et un filtre pré-défini sur les adresses non-standard est disponible. Ceci sera utile notamment 
-                    
-                    
-                                
+                    En mode liste sont affichées les adresses résultat de la concaténation de la rue et de la commune (elle-eme composée du code postal et de la commune) ainsi que le pays. Des fonctionnalités de recherches et de groupage pour l'affichage sont disponibles et un filtre pré-défini sur les adresses non-standard est disponible. Ceci sera utile notamment  
                     <span style="line-height: 1.42857143;">afin de pouvoir essayer de retenter un appariement avec une Rue existante après une mise à jour du référentiel.</span>
-                    
-                            
                   </div>
                   <div>
                     <h4>Y a-t-il un format particulier d'encodage?</h4>
                     <div>L'application Ficep propose une méthode de normalisation de format sur les Adresses:</div>
                     <div>
                       <strong>Normalisation </strong>
-                      
-                      
-                      : au niveau du pays et du code postal. Ceux-ci ne sont pas quelconques: il sont à choisir parmi les propositions et sont obligatoires. Les autres champs sont du texte libre.
-                    
-                    
-                                
+                       : au niveau du pays et du code postal. Ceux-ci ne sont pas quelconques: il sont à choisir parmi les propositions et sont obligatoires. Les autres champs sont du texte libre.
                     </div>
                     <div>
                       <span style="line-height: 1.42857143;">Une aide à la saisie des adresses est également proposée: Ficep offre une méthode d'auto-complétion (i.e. quelques lettres adjacentes suffisent au système pour proposer des premiers résultats) permettant de saisir la voie publique le plus simplement et le plus justement possible. Le Code Postal sera renseigné en premier pour limiter au mieux les résultats sur les Rues. </span>
@@ -110,43 +97,18 @@
                             </tr>
                             <tr>
                               <td>
-                                
-                                
                                 ​1. Editez l'adresse
-                                
-                                
-                                                        
                                 <br/>
-                                
-                                
                                 
 			2. Dans l'onglet &quot;Coordonnées&quot; (le seul), cliquez sur &quot;Ajouter un élément&quot;
-                                
-                                
-                                                        
                                 <br/>
                                 
-                                
-                                
-			3. Sélectionner la personne à laquelle associer l'adresse (choisir dans la liste ou créer une nouvelle - voir  
-                                
-                                
-                                                        
+			3. Sélectionner la personne à laquelle associer l'adresse (choisir dans la liste ou créer une nouvelle - voir   
                                 <a href="http://10.7.20.237:8069/page/ficep-help-createandedit">Créer et modifier</a>
-                                
-                                
-                                  ) - et ajouter les caractéristiques (catégorie et si l'adresse est à considérer comme principale ou encore les caractéristique de confidentialité (VIP ou non-autorisée))
-                                
-                                
-                                                        
+                                   ) - et ajouter les caractéristiques (catégorie et si l'adresse est à considérer comme principale ou encore les caractéristique de confidentialité (VIP ou non-autorisée))
                                 <br/>
-                                
-                                
                                 
 			4. Cliquez sur &quot;Enregistrer &amp; fermer&quot; pour n'ajouter que cette personne, sur &quot;Enregistrer &amp; créer&quot; pour continuer l'ajout - &quot;Annuler&quot; stoppe le processus. 
-                              
-                              
-                                                    
                               </td>
                               <td>​L'adresse est associée à une ou plusieurs personne(s)</td>
                               <td/>
@@ -206,43 +168,17 @@
                     <p>
                       <span style="line-height: 1.42857143;">
                         <a href="/page/ficep-help-filters">Recherche et Filtres</a>
-                        
-                        
                          - 
-                        
-                        
-                                        
                         <a href="/page/ficep-help-navigation">Navigation</a>
-                        
-                        
                          - 
-                        
-                        
-                                        
                         <a href="/page/ficep-help-views">Vues et Affichage</a>
-                        
-                        
                          - 
-                        
-                        
-                                        
                         <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
-                        
-                        
                          - 
-                        
-                        
-                                        
                         <a href="/page/ficep-help-createandedit">Créer et Editer</a>
-                        
-                        
                          - 
-                        
-                        
-                                        
                         <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
-                        
-                                    
+                         
                       </span>
                     </p>
                   </div>
@@ -273,7 +209,9 @@
                     
                     
                     
+                    
                      : opt
+                    
                     
                     
                     
@@ -283,6 +221,8 @@
                     
                     
                     
+                    
+                  
                   
                   
                   
@@ -299,7 +239,9 @@
                         
                         
                         
+                        
                           : profils non autorisés: xxxxxxx  (voir
+                        
                         
                         
                         
@@ -309,7 +251,9 @@
                         
                         
                         
+                        
                          ).
+                      
                       
                       
                       
@@ -325,7 +269,9 @@
                     
                     
                     
+                    
                      : sélection d'un objet existant et affichage en vue &quot;formulaire&quot; (voir
+                    
                     
                     
                     
@@ -335,7 +281,9 @@
                     
                     
                     
+                    
                      ).
+                  
                   
                   
                   
@@ -375,7 +323,9 @@
                   
                   
                   
+                  
                     Un élément non-actif est un élement qui a été invalidé (voir
+                  
                   
                   
                   
@@ -385,7 +335,9 @@
                   
                   
                   
+                  
                    ) et qui peut être retrouvé en utilisant le filtre prévu &quot;Expired&quot;.
+                
                 
                 
                 
@@ -398,7 +350,9 @@
                   
                   
                   
+                  
                    Le retour à votre formulaire s'opère par un clic sur le fil d'Ariane (voir
+                  
                   
                   
                   
@@ -408,6 +362,8 @@
                   
                   
                   
+                  
+                
                 
                 
                 
@@ -470,7 +426,9 @@
                             <p style="text-align: left;">
                               <span style="line-height: 1.42857143;">
                                 <span class="fa fa-flag fa-2x"/>
+                                
                                  
+                              
                               </span>
                               <strong style="line-height: 1.42857143;">
                                 <span style="line-height: 1.42857143;">
@@ -481,22 +439,34 @@
                                 <span style="line-height: 1.42857143;"/>
                               </strong>
                               <span style="line-height: 1.42857143;">
+                                
                                 Les doublons détectés dans l'application apparaissent d'une manière générale en rouge dans la vue liste. Leur gestion consiste à les permettre ou les corriger. L'option &quot;Permettre les doublons&quot; est disponible d 
+                                
                                 <span style="line-height: 1.42857143;">ans le menu &quot;Autres options&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
+                                
+                              
                               </span>
                             </p>
                             <p style="text-align: left;">
                               <span style="line-height: 1.42857143;">
                                 <span class="fa fa-user fa-2x"/>
+                                
                                  
+                              
                               </span>
                               <span style="line-height: 1.42857143;">
                                 <strong>  Audience</strong>
+                                
                                  : profils non autorisés: 
+                                
                                 <span style="background-color:#FFFF00;">xxxxxxx </span>
+                                
                                 (voir 
+                                
                                 <a href="http://10.7.20.237:8069/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                                
                                  ).
+                              
                               </span>
                               <span style="line-height: 1.42857143;">
                                 <span style="background-color: rgb(255, 255, 0);"/>
@@ -506,9 +476,13 @@
                               <span style="line-height: 1.42857143;">
                                 <span class="fa fa-exchange fa-2x"/>
                                 <strong>  Pré-requis</strong>
+                                
                                  : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                                
                                 <a href="http://10.7.20.237:8069/page/ficep-help-views">Vues</a>
+                                
                                  ).
+                              
                               </span>
                             </p>
                           </div>
@@ -548,9 +522,15 @@
                                 <td style="text-align: left;">​2</td>
                                 <td style="text-align: left;">Sélectionnez l'option &quot;Permettre les doublons&quot;</td>
                                 <td style="text-align: left;">
+                                  
                                   Un message de confirmation s'ouvre
+                                  
                                   <br/>
+                                  
+                                  
                                   <span style="background-color: rgb(255, 255, 0);">Insérer screenshot</span>
+                                  
+                                
                                 </td>
                               </tr>
                               <tr>
@@ -564,7 +544,9 @@
                           <div style="text-align: left;">
                             <em style="line-height: 1.42857143; background-color: transparent;">
                               <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                              
                                  Les doublons autorisés apparaissent en noir dans les listes. Une icône représentant une flèche jaune apparait pour l'élément concerné dans la vue liste. Cette icône donne accès à l'annulation de la permission.
+                            
                             </em>
                           </div>
                           <div style="text-align: left;">
@@ -573,12 +555,18 @@
                             <div>
                               <em style="line-height: 1.42857143; background-color: transparent;">
                                 <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                                
                                  
+                              
                               </em>
                               <em>
+                                
                                  Dans le cadre de doublons pour une coordonnée postale, l'on parle de Co-Résidence. L'on retrouvera les coordonnées postales listées dans le menu &quot;Co-Résidences&quot; (voir 
+                                
                                 <a href="http://10.7.20.237:8069/page/ficep-help-co-residency">Co-Résidences</a>
+                                
                                 ). 
+                              
                               </em>
                               <em style="line-height: 1.42857143; background-color: transparent;"/>
                             </div>
@@ -606,24 +594,38 @@
                                 <tr>
                                   <td style="text-align: left;">​1</td>
                                   <td style="text-align: left;">
+                                    
                                     Affichez les élements en mode liste (voir 
+                                    
                                     <a href="http://10.7.20.237:8069/page/ficep-help-views">Vues</a>
+                                    
                                      )
+                                  
                                   </td>
                                   <td style="text-align: left;"/>
                                 </tr>
                                 <tr>
                                   <td style="text-align: left;">​2</td>
                                   <td style="text-align: left;">
+                                    
                                     Cliquez sur l'icône
+                                    
                                     <br/>
                                     
+                                    
 			affiché en regard de l'élément concerné
+                                  
                                   </td>
                                   <td style="text-align: left;">
+                                    
                                     Un message de confirmation s'ouvre
+                                    
                                     <br/>
+                                    
+                                    
                                     <span style="background-color:#FFFF00;">Insérer screenshot</span>
+                                    
+                                  
                                   </td>
                                 </tr>
                                 <tr>
@@ -642,7 +644,9 @@
                             <div style="text-align: left;">
                               <em style="line-height: 1.42857143; background-color: transparent;">
                                 <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                                
                                    Si des doublons ont été autorisés et qu'entretemps un nouvel élement semblable est créé, tous les élements doublons autorisés se retrouvent comme doublons avec le nouvel élement.
+                              
                               </em>
                             </div>
                           </div>
@@ -657,7 +661,9 @@
                               <strong>
                                 <em style="line-height: 1.42857143; background-color: transparent;">
                                   <span class="fa fa-exclamation-triangle fa-2x"/>
+                                  
                                    
+                                
                                 </em>
                               </strong>
                               <strong>Exceptions</strong>
@@ -668,7 +674,9 @@
                             </div>
                             <p style="text-align: left;">
                               <strong>Sélection</strong>
+                              
                                : Il faut d'abord sélectionner les doublons concernés avant d'exécuter l'opération. Le message suivant sera affiché si la sélection a été oubliée ou mal faite:
+                            
                             </p>
                             <p style="text-align: left;">
                               <span style="background-color: rgb(255, 255, 0);">screenshot: séleciotn oubliée</span>
@@ -679,10 +687,14 @@
                           </div>
                           <div style="text-align: left;">
                             <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
+                            
                              
+                            
                             <a href="http://10.7.20.237:8069/page/ficep-help-toc">
                               <span style="background-color: rgba(200, 200, 200, 0.137255);">Retour au sommaire</span>
                             </a>
+                            
+                          
                           </div>
                         </div>
                       </div>
@@ -720,7 +732,9 @@
                       
                       
                       
+                      
                        menu &quot;Pièce(s) jointe(s)&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet. 
+                      
                       
                       
                       
@@ -728,6 +742,8 @@
                       
                       
                       
+                      
+                    
                     
                     
                     
@@ -741,7 +757,9 @@
                         
                         
                         
+                        
                          : tous les groupes d'utilisateurs sauf les &quot;Readers&quot;. 
+                      
                       
                       
                       
@@ -754,7 +772,9 @@
                         
                         
                         
+                        
                          : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                        
                         
                         
                         
@@ -762,7 +782,9 @@
                         
                         
                         
+                        
                          ). 
+                      
                       
                       
                       
@@ -837,7 +859,9 @@
                     
                     
                     
+                    
                      Il n'existe pas de fonctionnalité de visualisation de pièce jointe; il faut cliquer dessus et elle sera téléchargée sur votre station de travail. On peut ajouter des fichiers de tout type (image, texte, vidéo, ...) 
+                  
                   
                   
                   
@@ -925,13 +949,17 @@
                           <strong>  Audience</strong>
                           
                           
+                          
                            : profils non autorisés: xxxxxxx (voir 
+                          
                           
                           
                           <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
                           
                           
+                          
                            ). 
+                        
                         
                         
                         </span>
@@ -945,13 +973,17 @@
                           <strong> Pré-requis</strong>
                           
                           
+                          
                            : affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                          
                           
                           
                           <a href="/page/ficep-help-views">Vues</a>
                           
                           
+                          
                            ). 
+                        
                         
                         
                         </span>
@@ -984,7 +1016,9 @@
                           <td style="text-align: left;">
                             
                             
+                            
                             L'écran suivant est proposé:
+                            
                             
                             
                             <br/>
@@ -992,9 +1026,13 @@
                             
                             
                             
+                            
+                            
                             <span style="background-color:#FFFF00;">Inséerer screenshot</span>
                             
                             
+                            
+                          
                           
                           
                           </td>
@@ -1025,7 +1063,9 @@
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
                         
                         
+                        
                          Le champ &quot;Raison&quot; n'apparaît que pour les échecs d'envoi postaux. La liste des raisons est préparée par un utilisateur membre du groupe &quot;Configurator&quot;. 
+                      
                       
                       
                       </em>
@@ -1038,7 +1078,9 @@
                           <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
                           
                           
+                          
                            Le champ &quot;Nombre d'occurence d'échec&quot; est le nombre d'échec survenus (exemple: 4 envois, 4 retours). Le champ &quot;Description&quot; est un champ qui accueille du texte libre. Toutes les informations encodées ici seront visibles dans la fiche de la coordonnée concernée. La date et heure de l'encodage est également enregistré. A partir de la fiche également, il y aura possibilité de remettre à zéro le compteur. 
+                        
                         
                         
                         </em>
@@ -1050,13 +1092,17 @@
                             <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
                             
                             
+                            
                              Toutes les coordonnées ayant fait l'objet d'échec d'envoi peuvent être facilement retrouvées par l'utilisation des filtres préparés et en l'occurence le filtre &quot;Avec échec&quot; (voir 
+                            
                             
                             
                             <a href="/page/ficep-help-filters">Recherches et Filtres</a>
                             
                             
+                            
                              ). 
+                          
                           
                           
                           </em>
@@ -1073,7 +1119,9 @@
                           <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
                           
                           
+                          
                            Un système d'alerte déclenchant l'envoi d'une notification aux abonnées de la personne concerné est d'application dès l'encodage d'un échec. Tous les abonnés de la personne concernée seront avertis.
+                        
                         
                         
                         </em>
@@ -1163,7 +1211,9 @@
                       
                       
                       
+                      
                        : profils non autorisés:
+                      
                       
                       
                       
@@ -1173,7 +1223,9 @@
                       
                       
                       
+                      
                         (voir
+                      
                       
                       
                       
@@ -1183,7 +1235,9 @@
                       
                       
                       
+                      
                        ).
+                    
                     
                     
                     
@@ -1201,7 +1255,9 @@
                       
                       
                       
+                      
                        : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                      
                       
                       
                       
@@ -1211,7 +1267,9 @@
                       
                       
                       
+                      
                         ).
+                    
                     
                     
                     
@@ -1252,7 +1310,9 @@
                           
                           
                           
+                          
                           Le champ est rempli avec votre sélection - ce champ est obligatoire: il doit contenir une valeur.
+                          
                           
                           
                           
@@ -1262,6 +1322,8 @@
                           
                           
                           
+                          
+                        
                         
                         
                         
@@ -1288,7 +1350,9 @@
                       
                       
                       
+                      
                          Les adresses affichées dans la liste sont les adresses préalablement créées dans l'application. Vous avez la possibilité d'en créer une par cette liste en sélectionnant l'option &quot;Créer et Modifier&quot; (voir
+                      
                       
                       
                       
@@ -1298,7 +1362,9 @@
                       
                       
                       
+                      
                        ).
+                    
                     
                     
                     
@@ -1315,7 +1381,9 @@
                         
                         
                         
+                        
                            Dans le cas où le contact n'a pas encore d'adresse encodée, celle sélectionnée dans cet écran lui sera automatiquement attribuée. Notez que si l'adresse réfère à une autre instance Ecolo, trois points de menus complémentaires seront proposés:
+                      
                       
                       
                       
@@ -1344,7 +1412,9 @@
                         
                         
                         
+                        
                          Par &quot;invalidation&quot; on entend le fait que l'objet est rendu inactif. Il ne s'affiche plus dans la liste et ne sera plus inclu dans aucune opération. Les objets inactifs peuvent être retrouvés par l'activation du filtre &quot;Expiré&quot; (voir
+                        
                         
                         
                         
@@ -1354,7 +1424,9 @@
                         
                         
                         
+                        
                           )
+                        
                         
                         
                         
@@ -1364,7 +1436,9 @@
                         
                         
                         
+                        
                          . Une date d'expiration sera rajoutée aux détails de l'objet:
+                      
                       
                       
                       
@@ -1457,7 +1531,9 @@
                           
                           
                           
+                          
                            : profils non autorisés:
+                          
                           
                           
                           
@@ -1467,7 +1543,9 @@
                           
                           
                           
+                          
                             (voir
+                          
                           
                           
                           
@@ -1477,7 +1555,9 @@
                           
                           
                           
+                          
                            ).
+                        
                         
                         
                         
@@ -1495,7 +1575,9 @@
                           
                           
                           
+                          
                            : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           
                           
                           
@@ -1505,7 +1587,9 @@
                           
                           
                           
+                          
                            ).
+                        
                         
                         
                         
@@ -1542,7 +1626,9 @@
                             
                             
                             
+                            
                             L'écran suivant est proposé:
+                            
                             
                             
                             
@@ -1552,6 +1638,8 @@
                             
                             
                             
+                            
+                          
                           
                           
                           
@@ -1599,7 +1687,9 @@
                             
                             
                             
+                            
                             Par &quot;invalidation&quot; on entend le fait que l'objet est rendu inactif. Il ne s'affiche plus dans la liste et ne sera plus inclu dans aucune opération. Les objets inactifs peuvent être retrouvés par l'activation du filtre &quot;Expiré&quot; (voir
+                            
                             
                             
                             
@@ -1609,7 +1699,9 @@
                             
                             
                             
+                            
                               )
+                            
                             
                             
                             
@@ -1619,7 +1711,9 @@
                             
                             
                             
+                            
                              . Une date d'expiration sera rajoutée aux détails de l'objet:
+                          
                           
                           
                           
@@ -1715,7 +1809,9 @@
                           
                           
                           
+                          
                            : profils non autorisés:
+                          
                           
                           
                           
@@ -1725,7 +1821,9 @@
                           
                           
                           
+                          
                           (voir
+                          
                           
                           
                           
@@ -1735,7 +1833,9 @@
                           
                           
                           
+                          
                            ).
+                        
                         
                         
                         
@@ -1753,7 +1853,9 @@
                           
                           
                           
+                          
                            : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           
                           
                           
@@ -1763,7 +1865,9 @@
                           
                           
                           
+                          
                            ).
+                        
                         
                         
                         
@@ -1800,7 +1904,9 @@
                             
                             
                             
+                            
                             L'écran suivant est proposé:
+                            
                             
                             
                             
@@ -1810,6 +1916,8 @@
                             
                             
                             
+                            
+                          
                           
                           
                           
@@ -1824,7 +1932,9 @@
                             
                             
                             
+                            
                             Le champ est rempli avec votre encodage - ce champ est obligatoire: il doit contenir une valeur.
+                            
                             
                             
                             
@@ -1834,6 +1944,8 @@
                             
                             
                             
+                            
+                          
                           
                           
                           
@@ -1864,7 +1976,9 @@
                             
                             
                             
+                            
                             Les numéros de téléphone affichés dans la liste sont les numéros préalablement créés dans l'application. Vous avez la possibilité d'en créer un par cette liste en sélectionnant l'option &quot;Créer et Modifier&quot; (voir
+                            
                             
                             
                             
@@ -1874,7 +1988,9 @@
                             
                             
                             
+                            
                              ). Les numéros de téléphones sont de trois types: Fixe, Mobile et Fax. Le type est noté entre parenthèses.
+                          
                           
                           
                           
@@ -1905,7 +2021,9 @@
                                 
                                 
                                 
+                                
                                 Par &quot;invalidation&quot; on entend le fait que l'objet est rendu inactif. Il ne s'affiche plus dans la liste et ne sera plus inclu dans aucune opération. Les objets inactifs peuvent être retrouvés par l'activation du filtre &quot;Expiré&quot; (voir
+                                
                                 
                                 
                                 
@@ -1915,7 +2033,9 @@
                                 
                                 
                                 
+                                
                                   ). Une date d'expiration sera rajoutée aux détails de l'objet:
+                              
                               
                               
                               
@@ -2012,7 +2132,9 @@
                           
                           
                           
+                          
                            : profils non autorisés:
+                          
                           
                           
                           
@@ -2022,7 +2144,9 @@
                           
                           
                           
+                          
                           (voir
+                          
                           
                           
                           
@@ -2032,7 +2156,9 @@
                           
                           
                           
+                          
                            ).
+                        
                         
                         
                         
@@ -2050,7 +2176,9 @@
                           
                           
                           
+                          
                            : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           
                           
                           
@@ -2060,7 +2188,9 @@
                           
                           
                           
+                          
                            ).
+                        
                         
                         
                         
@@ -2120,7 +2250,9 @@
                           
                           
                           
+                          
                           Les valeurs affichées dans la liste sont des valeurs préalablement créées dans l'application. Vous avez la possibilité d'en créer une nouvelle par cette liste en sélectionnant l'option &quot;Créer et Modifier&quot; (voir
+                          
                           
                           
                           
@@ -2130,7 +2262,9 @@
                           
                           
                           
+                          
                            ).
+                        
                         
                         
                         
@@ -2200,7 +2334,6 @@
                   <div class="row">
                     <div class="col-md-12 text-center mt16 mb4">
                       <h2>Co-Résidences</h2>
-                      <h3 class="text-muted">Menu Personnes\Coordonnées Postales\Co-Résidence</h3>
                     </div>
                   </div>
                 </div>
@@ -2445,17 +2578,23 @@ QP0P4U5g99SRogIAAAAASUVORK5CYII=
                       <span style="line-height: 1.42857143;">
                         <strong>  Audience</strong>
                         
+                        
                          : profils non autorisés: 
+                      
                       
                       </span>
                       <span style="background-color:#FFFF00;">xxxxxxx </span>
                       <span style="line-height: 1.42857143;">
                         
+                        
                         (voir 
+                        
                         
                         <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
                         
+                        
                          ). 
+                      
                       
                       </span>
                     </div>
@@ -2467,11 +2606,15 @@ QP0P4U5g99SRogIAAAAASUVORK5CYII=
                       <span class="fa fa-exchange fa-2x"/>
                       <strong> Pré-requis</strong>
                       
+                      
                        : Activer un point de menu pour afficher les objets existants en mode liste (voir 
+                      
                       
                       <a href="/page/ficep-help-views" style="background-color: rgb(255, 255, 255);"> Vues</a>
                       
+                      
                        ).
+                    
                     
                     </div>
                   </div>
@@ -2516,7 +2659,9 @@ QP0P4U5g99SRogIAAAAASUVORK5CYII=
                     <em style="line-height: 1.42857143; background-color: transparent;">
                       <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
                       
+                      
                         Dans les listes déroulantes, l'option « Recherchez Plus » permet d’accéder à plus de valeurs – l'option « Créer et Modifier » permet de créer une valeur directement. 
+                    
                     
                     </em>
                     <br style="background-color: rgba(200, 200, 200, 0.137255);"/>
@@ -2545,7 +2690,9 @@ QP0P4U5g99SRogIAAAAASUVORK5CYII=
                     <br/>
                     
                     
+                    
 Les champs listés sont des variables et s'adaptent en fonction.
+                  
                   
                   </p>
                   <div>
@@ -2660,7 +2807,9 @@ bO3CNNL3Dx061FprocLOHetTbHEpaOjQoTfqemCTQopP38Ybh7KQAlKsO1TsJUgBKda9DxFSQIov
                     
                     
                     
+                    
                      : Option 
+                    
                     
                     
                     
@@ -2668,7 +2817,9 @@ bO3CNNL3Dx061FprocLOHetTbHEpaOjQoTfqemCTQopP38Ybh7KQAlKsO1TsJUgBKda9DxFSQIov
                     
                     
                     
+                    
                      dans une liste déroulante
+                  
                   
                   
                   
@@ -2811,7 +2962,9 @@ SUVORK5CYII=
                         
                         
                         
+                        
                           : profils non autorisés: xxxxxxx  (voir
+                        
                         
                         
                         
@@ -2821,7 +2974,9 @@ SUVORK5CYII=
                         
                         
                         
+                        
                          ).
+                      
                       
                       
                       
@@ -2837,7 +2992,9 @@ SUVORK5CYII=
                       
                       
                       
+                      
                        : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                      
                       
                       
                       
@@ -2847,7 +3004,9 @@ SUVORK5CYII=
                       
                       
                       
+                      
                        ).
+                    
                     
                     
                     
@@ -2886,7 +3045,9 @@ SUVORK5CYII=
                           
                           
                           
+                          
                           Un message de confirmation s'ouvre
+                          
                           
                           
                           
@@ -2900,11 +3061,15 @@ SUVORK5CYII=
                           
                           
                           
+                          
+                          
                           <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-delete_img_01" style=""/>
                           
                           
                           
                           
+                          
+                        
                         
                         
                         
@@ -2926,7 +3091,9 @@ SUVORK5CYII=
                       
                       
                       
+                      
                          Le menu &quot;Autres options&quot; ne s'affiche en mode &quot;Liste&quot; qu'après sélection d'un ou de plusieurs objets.
+                    
                     
                     
                     
@@ -2993,7 +3160,9 @@ SUVORK5CYII=
                         
                         
                         
+                        
                         opt
+                      
                       
                       
                       
@@ -3012,7 +3181,9 @@ SUVORK5CYII=
                         
                         
                         
+                        
                           : profils non autorisés: xxxxxxx  (voir
+                        
                         
                         
                         
@@ -3022,7 +3193,9 @@ SUVORK5CYII=
                         
                         
                         
+                        
                          ).
+                      
                       
                       
                       
@@ -3038,7 +3211,9 @@ SUVORK5CYII=
                         
                         
                         
+                        
                          : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                        
                         
                         
                         
@@ -3048,7 +3223,9 @@ SUVORK5CYII=
                         
                         
                         
+                        
                          ).
+                      
                       
                       
                       
@@ -3097,7 +3274,9 @@ SUVORK5CYII=
                       
                       
                       
+                      
                          Le menu &quot;Autres options&quot; ne s'affiche en mode &quot;Liste&quot; qu'après sélection d'un ou de plusieurs objets.
+                    
                     
                     
                     
@@ -3164,7 +3343,6 @@ SUVORK5CYII=
                   <div class="row">
                     <div class="col-md-12 text-center mt16 mb4">
                       <h2>Coordonnées Email</h2>
-                      <h3 class="text-muted">Menu Personnes\Coordonnées Email</h3>
                     </div>
                   </div>
                 </div>
@@ -3202,14 +3380,12 @@ SUVORK5CYII=
                     <span style="color:#808080;">Coordonnées Email: particularités </span>
                   </h3>
                   <h4 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">Combien d'adresses email puis-je assigner à un contact?</h4>
-                  <p>
-                    Une et une seule coordonnée email peut être assignée à un contact à la fois mais il n'y a pas de limitation. Dans la liste, toutes les adresses email connues pour un contact seront affichées tant que ces coordonnées restent &quot;actives&quot; (voir 
-                    <a href="/page/ficep-help-invalidate">Invalider un objet</a>
-                     ). Plusieurs contacts peuvent partager la même adresse email. Une détection des doublons a été mise en place. Le doublon va apparaître en rouge, à vous de confirmer ou de corriger.
-                  </p>
+                  <p>Une et une seule coordonnée email peut être assignée à un contact à la fois mais il n'y a pas de limitation. Plusieurs contacts peuvent partager la même adresse email. Une détection des doublons a été mise en place. Le doublon va apparaître en rouge, à vous de confirmer ou de corriger.</p>
                   <h4>Quelles informations sont affichées dans la liste?</h4>
                   <div>
-                    Hormis les informations claires telles que le nom du contact et son email associé, sont affichées les caractéristiques de la coordonnée email mais aussi si celle-ci est l'adresse considérée comme principale, si elle est considérée comme VIP, ou encore si elle peut être utilisée ou non (non-autorisée). La dernière colonne présente l'information du nombre d'échec d'envoi sur cette coordonnée email. L'information complète sur ce compteur d'échec se trouve dans la fiche de la coordonnée. Ce compteur s'incrémente automatiquement via les statistiques mais peut également être géré manuellement (voir 
+                    Dans la liste, toutes les adresses email connues pour un contact seront affichées tant que ces coordonnées restent &quot;actives&quot; (voir 
+                    <a href="/page/ficep-help-invalidate">Invalider un objet</a>
+                     ). Hormis les informations claires telles que le nom du contact et son email associé, sont affichées les caractéristiques de la coordonnée email mais aussi si celle-ci est l'adresse considérée comme principale, si elle est considérée comme VIP, ou encore si elle peut être utilisée ou non (non-autorisée). La dernière colonne présente l'information du nombre d'échec d'envoi sur cette coordonnée email. L'information complète sur ce compteur d'échec se trouve dans la fiche de la coordonnée. Ce compteur s'incrémente automatiquement via les statistiques mais peut également être géré manuellement (voir 
                     <a href="/page/ficep-help-bounce-editor" style="background-color: rgba(200, 200, 200, 0.137255);">Editer le compteur d'échec</a>
                      
                     <span style="background-color: rgba(200, 200, 200, 0.137255);">). </span>
@@ -3673,7 +3849,9 @@ RK5CYII=
                                   
                                   
                                   
+                                  
                                    : profils non autorisés:
+                                  
                                   
                                   
                                   
@@ -3683,7 +3861,9 @@ RK5CYII=
                                   
                                   
                                   
+                                  
                                    (voir
+                                  
                                   
                                   
                                   
@@ -3693,7 +3873,9 @@ RK5CYII=
                                   
                                   
                                   
+                                  
                                     ).
+                                
                                 
                                 
                                 
@@ -3711,7 +3893,9 @@ RK5CYII=
                                   
                                   
                                   
+                                  
                                    : sélection d'un ou de plusieurs objet(s) existant(s) dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                                  
                                   
                                   
                                   
@@ -3721,7 +3905,9 @@ RK5CYII=
                                   
                                   
                                   
+                                  
                                     ).
+                                
                                 
                                 
                                 
@@ -3758,7 +3944,9 @@ RK5CYII=
                                     
                                     
                                     
+                                    
                                     L'écran suivant est proposé:
+                                    
                                     
                                     
                                     
@@ -3772,11 +3960,15 @@ RK5CYII=
                                     
                                     
                                     
+                                    
+                                    
                                     <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-export-csv_img_01" style=""/>
                                     
                                     
                                     
                                     
+                                    
+                                  
                                   
                                   
                                   
@@ -3892,7 +4084,9 @@ RK5CYII=
                                 
                                 
                                 
+                                
                                  : profils non autorisés:
+                                
                                 
                                 
                                 
@@ -3902,7 +4096,9 @@ RK5CYII=
                                 
                                 
                                 
+                                
                                 (voir
+                                
                                 
                                 
                                 
@@ -3912,7 +4108,9 @@ RK5CYII=
                                 
                                 
                                 
+                                
                                  ).
+                              
                               
                               
                               
@@ -3930,7 +4128,9 @@ RK5CYII=
                                 
                                 
                                 
+                                
                                  : sélection d'un ou plusieurs objet(s) existant(s) dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                                
                                 
                                 
                                 
@@ -3940,7 +4140,9 @@ RK5CYII=
                                 
                                 
                                 
+                                
                                  ).
+                              
                               
                               
                               
@@ -3977,7 +4179,9 @@ RK5CYII=
                                   
                                   
                                   
+                                  
                                   L'écran suivant est proposé:
+                                  
                                   
                                   
                                   
@@ -3987,6 +4191,8 @@ RK5CYII=
                                   
                                   
                                   
+                                  
+                                
                                 
                                 
                                 
@@ -4007,7 +4213,9 @@ RK5CYII=
                               
                               
                               
+                              
                                  L'export ne concernera que l'élément ouvert en mode &quot;formulaire&quot; ou les élements sélectionnés dans la liste. L'activiation de la coche sur l'entête de la colonne sélectionne tous les éléments de la liste (même si l'affichage est limité).
+                            
                             
                             
                             
@@ -5266,7 +5474,9 @@ JBKJRCKRSCSSpgCJtGfEfFtowEfqkwb2ZFVdb+L/A8SqLFzcZUkmAAAAAElFTkSuQmCC
                             
                             
                             
+                            
                                Localisation:
+                          
                           
                           
                           
@@ -5311,21 +5521,26 @@ JBKJRCKRSCSSpgCJtGfEfFtowEfqkwb2ZFVdb+L/A8SqLFzcZUkmAAAAAElFTkSuQmCC
                     
                     
                     
+                    
                     Pour enlever l'un ou l'autre critère, cliquez sur la petite croix sur le côté droit du bloc.
                     
                     
                     
                     
-                    <br/>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     
                     <br/>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <br/>
+                    
                     
                     
                     
@@ -5335,12 +5550,15 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                     
                     
                     
+                    
                     <a href="/page/ficep-help-navigation">Navigation</a>
                     
                     
                     
                     
+                    
                      ).
+                  
                   
                   
                   
@@ -5403,7 +5621,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                         
                         
                         
+                        
                          : tous les groupes d'utilisateurs sauf les &quot;Readers&quot;.
+                      
                       
                       
                       
@@ -5418,7 +5638,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                         
                         
                         
+                        
                          : disposer d'un fichier en format CSV (Comma Separated Value (format généré d'Excel) avec les données à importer. Afficher le mode &quot;Liste&quot; pour les données concernées (voir
+                        
                         
                         
                         
@@ -5428,7 +5650,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                         
                         
                         
+                        
                          ).
+                      
                       
                       
                       
@@ -5487,7 +5711,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                       
                       
                       
+                      
                        L’import peut servir pour créer de nouvelles données ou mettre à jour des données existantes.
+                      
                       
                       
                       
@@ -5497,6 +5723,8 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                       
                       
                       
+                      
+                    
                     
                     
                     
@@ -5573,15 +5801,21 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                       <span style="line-height: 1.42857143;">
                         <strong>  Audience: </strong>
                         
+                        
                          profils non autorisés: 
+                        
                         
                         <span style="background-color:#FFFF00;">xxxxxxx </span>
                         
+                        
                          (voir 
+                        
                         
                         <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
                         
+                        
                          ). 
+                      
                       
                       </span>
                     </p>
@@ -5590,11 +5824,15 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                         <span class="fa fa-exchange fa-2x"/>
                         <strong> Pré-requis: </strong>
                         
+                        
                          affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                        
                         
                         <a href="/page/ficep-help-views">Vues</a>
                         
+                        
                          ). 
+                      
                       
                       </span>
                     </p>
@@ -5632,19 +5870,25 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                     <em style="line-height: 1.42857143; background-color: transparent;">
                       <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
                       
+                      
                         Par principe, on ne supprime que très peu d'objets. Par contre, on va rendre tel ou tel objet inactif par l'action d'invalidation. Un objet inactif n'est pas détruit mais tout se passe comme si c'était le cas (exemple: il n'apparaît plus dans les écrans). Les objets inactifs peuvent être retrouvés par l'activation du filtre &quot;Expiré&quot; (voir  
+                      
                       
                       <a href="/page/ficep-help-filters">Recherche et Filtres</a>
                       
+                      
                         ). Une date d'expiration sera rajoutée aux détails de l'objet. 
+                    
                     
                     </em>
                   </div>
                   
                   
+                  
  
 
 
+                  
                   
                   <div style="text-align: center;">
                     <div style="text-align: left;">
@@ -5662,7 +5906,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                   </div>
                   
                   
+                  
 
+                
                 
                 </div>
               </div>
@@ -5722,7 +5968,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                     
                     
                     
+                    
                      Consider telling a great story that provides personality. Writing a story with personality for potential clients will asist with making a relationship connection. This shows up in small quirks like word choices or phrases. Write from your point of view, not from someone else's experience.
+                  
                   
                   
                   
@@ -5734,7 +5982,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                     
                     
                     
+                    
                      If you try to write with a wide general audience in mind, your story will ring false and be bland. No one will be interested. Write for one person. If it’s genuine for the one, it’s genuine for the rest.
+                  
                   
                   
                   
@@ -5784,7 +6034,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                           
                           
                           
+                          
                            : profils non autorisés:
+                          
                           
                           
                           
@@ -5794,7 +6046,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                           
                           
                           
+                          
                           (voir
+                          
                           
                           
                           
@@ -5804,7 +6058,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                           
                           
                           
+                          
                            ).
+                        
                         
                         
                         
@@ -5822,7 +6078,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                           
                           
                           
+                          
                            : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           
                           
                           
@@ -5832,7 +6090,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                           
                           
                           
+                          
                            ).
+                        
                         
                         
                         
@@ -5874,25 +6134,31 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                             
                             
                             
+                            
                             Un message de confirmation s'ouvre:
                             
                             
                             
                             
-                            <br/>
-                            
-                            
-                            
-                            
-                            
-                            
-                            
                             
                             <br/>
                             
                             
                             
                             
+                            
+                            
+                            
+                            
+                            
+                            
+                            <br/>
+                            
+                            
+                            
+                            
+                            
+                          
                           
                           
                           
@@ -5917,7 +6183,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                         
                         
                         
+                        
                            Le bouton &quot;Mettre comme principale&quot; n'apparaît que pour une sélection de coordonnées postales qui ne sont pas marquées comme &quot;principales&quot;. La précédente adresse est rendue inactive (mais pas supprimée) (voir
+                        
                         
                         
                         
@@ -5927,7 +6195,9 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
                         
                         
                         
+                        
                         ).
+                      
                       
                       
                       
@@ -6108,7 +6378,9 @@ sVisy+j/ART81wJhPxoBAAAAAElFTkSuQmCC
                         
                         
                         
+                        
                         : Partie
+                      
                       
                       
                       
@@ -6174,7 +6446,9 @@ sVisy+j/ART81wJhPxoBAAAAAElFTkSuQmCC
                         
                         
                         
+                        
                         Cette zone vous permet aussi d'ajouter toute note qui pourrait compléter un objet. Cette note ne sera pas envoyée aux abonnés de l'objet mais sera visible. A cette fin, utilisez l'option &quot;
+                        
                         
                         
                         
@@ -6184,7 +6458,9 @@ sVisy+j/ART81wJhPxoBAAAAAElFTkSuQmCC
                         
                         
                         
+                        
                          &quot;. L'insertion de la note ainsi que le texte sera enregistré (auteur, date et heure) et sera visible lorsque l'on consultera l'objet.
+                      
                       
                       
                       
@@ -6208,7 +6484,9 @@ sVisy+j/ART81wJhPxoBAAAAAElFTkSuQmCC
                       
                       
                       
+                      
                       Vous pouvez en tant qu'utilisateur décider de suivre un objet particulier. Vous devenez un dès lors un &quot;abonné&quot;. A cette fin, cliquez sur le bouton &quot;
+                      
                       
                       
                       
@@ -6218,7 +6496,9 @@ sVisy+j/ART81wJhPxoBAAAAAElFTkSuQmCC
                       
                       
                       
+                      
                       &quot;, votre nom apparaîtra dans la liste des abonnés, visible par tous et vous serez alors notifié dans votre boite à message à chaque évolution de l'objet suivi. Notez que vous ne recevez jamais de notification liée à une de vos propres actions.
+                    
                     
                     
                     
@@ -6235,7 +6515,9 @@ sVisy+j/ART81wJhPxoBAAAAAElFTkSuQmCC
                           
                           
                           
+                          
                             Retour au sommaire
+                        
                         
                         
                         
@@ -8091,7 +8373,9 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                       
                       
                       
+                      
                          Localisation:
+                    
                     
                     
                     
@@ -8115,7 +8399,9 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                     
                     
                     
+                    
                     Les mentions en
+                    
                     
                     
                     
@@ -8125,7 +8411,9 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                     
                     
                     
+                    
                      sont des liens. Cliquez dessus vous fait naviguer sur cet objet.
+                  
                   
                   
                   
@@ -8164,7 +8452,6 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                   <div class="row">
                     <div class="col-md-12 text-center mt16 mb4">
                       <h2>Participations</h2>
-                      <h3 class="text-muted">Menu Personnes\Participations</h3>
                     </div>
                   </div>
                 </div>
@@ -8218,7 +8505,7 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                 <div class="container">
                   <div class="row">
                     <div class="col-md-12 mb16 mt16">
-                      <h3>Fonctionnalités particulières sur les participations</h3>
+                      <h3 style="color:#808080;">Fonctionnalités particulières sur les participations</h3>
                       <p>
                         <span style="line-height: 25.7142868041992px;">Pas de fonctionnalités particulières.</span>
                       </p>
@@ -8274,41 +8561,23 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                     <p>
                       <span style="line-height: 1.42857143;">
                         <a href="/page/ficep-help-filters">Recherche et Filtres </a>
-                        
-                        
                          - 
-                        
-                        
+                                        
                         <a href="/page/ficep-help-navigation">Navigation </a>
-                        
-                        
                          - 
-                        
-                        
+                                        
                         <a href="/page/ficep-help-views">Vues </a>
-                        
-                        
                          - 
-                        
-                        
+                                        
                         <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
-                        
-                        
                          - 
-                        
-                        
+                                        
                         <a href="/page/ficep-help-createandedit">Créer et Editer</a>
-                        
-                        
                          - 
-                        
-                        
+                                        
                         <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
                         
-                        
-                         
-                      
-                      
+                                    
                       </span>
                     </p>
                     <div/>
@@ -8316,6 +8585,231 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                       <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
                       <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </section>
+        </div>
+      </t>
+    </template>
+    <template id="website.ficep-help-partner-relation" name="ficep-help-partner-relation" page="True">
+      <t t-call="website.layout">
+        <div class="oe_structure oe_empty" id="wrap">
+          <section class="mt_simple_snippet">
+            <section class="mt_simple_snippet">
+              <section class="mt16 mb0 oe_green">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12 text-center mt16 mb4">
+                      <h2>Relations</h2>
+                      <h3 class="text-muted">Relations Sujet - Relations Objet</h3>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="mb16">
+                <div class="container">
+                  <div class="row mt16 mb16">
+                    <div class="text-center col-md-2">
+                      <span class="fa fa-calendar-o fa-3x" style=""/>
+                      <h3 class="mt8 mb0">But</h3>
+                      <div class="text-muted">Accès et gestion des Relations</div>
+                    </div>
+                    <div class="text-center col-md-7">
+                      <span class="fa fa-book fa-3x" style=""/>
+                      <h3 class="mt8 mb0">Contexte</h3>
+                      <div>
+                        <span style="color:#808080;">Le modèle «Relation» inclut un raccourci vers les catégories de relations et inclut une gestion d'une période de validité (activation/désactivation). Ce modèle permet de définir toutes formes de relations qui unissent deux personnes. </span>
+                      </div>
+                      <div class="text-muted">
+                        <span style="background-color: rgba(200, 200, 200, 0.0980392);"/>
+                      </div>
+                    </div>
+                    <div class="text-center col-md-3">
+                      <span class="fa fa-flag fa-3x" style=""/>
+                      <h3 class="mt8 mb0">Localisation</h3>
+                      <div class="text-muted">Personnes\Relations\Relations Sujet</div>
+                      <div class="text-muted">Personnes\Relations\Relations Objet</div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <hr/>
+              <section class="oe_dark mb48">
+                <div class="container">
+                  <h3 class="page-header">
+                    <span style="color:#808080;">Modèleconcerné: particularités </span>
+                  </h3>
+                  <h4 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">Qu'entend-on par Relations?</h4>
+                  <p>Il s'agit ici de définir toutes formes de relations qui unissent deux personnes comme par exemple: l'appartenance à un parti, une société remplacée par une autre, une société filiale d'un autre, la qualification de l'emploi liant un employé à son employeur, etc...</p>
+                  <h4>Quels avantages me donne l'application sur ce modèle ?</h4>
+                  <div>L'application permet d'établir et de déclarer une relation entre une personne et une autre: on notera donc le &quot;sujet&quot; de la relation et son &quot;objet&quot;. Les relations sont créées en associant &quot;sujet&quot; et &quot;objet&quot; parmi une liste de valeurs que seul un utilisateur membre du groupe &quot;Configurator&quot; pourra créer. Des fonctionnalités générales sont offertes sur ce modèle telles que création (association), suppression, recherche, export, .....</div>
+                  <div>
+                    <h4>Quelles informations sont affichées dans la liste? </h4>
+                  </div>
+                  <div>
+                    <span style="color: inherit; font-family: inherit; font-size: 18px; line-height: 1.1;"/>
+                  </div>
+                  <div>
+                    <span style="line-height: 1.42857143;">Toutes les relations existantes sont présentées dans la liste, tant que ces relations sont &quot;actives&quot; (voir </span>
+                    <span style="line-height: 1.42857143;"> </span>
+                    <a href="/page/ficep-help-invalidate" style="line-height: 1.42857143; background-color: rgba(200, 200, 200, 0.137255);">Invalider un objet</a>
+                    <span style="line-height: 1.42857143;"> </span>
+                    <span style="line-height: 1.42857143;"> ). La liste présente les trois éléments de base de la relation: l le sujet, l'objet et la catégorie de relation. </span>
+                    Des fonctionnalités de recherche et de groupage d'affichage sont disponibles. Deux filtres pré-définis sont disponibles (les relations non-actives (expirées) et toutes les relations. 
+                  </div>
+                  <h4>Pourquoi une entrée &quot;Sujet&quot; et une entrée &quot;Objet&quot; dans les menus?</h4>
+                  <div>Les relations se gèrent selon le point de vue d'où l'on souhaite envisager la relation. Créer une relation crée automatiquement l'entrée dans l'autre point de vue. </div>
+                </div>
+              </section>
+              <hr/>
+              <section class="mt16 mb16 oe_dark">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12 mb16 mt16">
+                      <h3 style="color:#808080;">Fonctionnalités particulières sur les Relations</h3>
+                      <h4>
+                        <span style="line-height: 1.42857143;">Créer une relation à partir de Sujet</span>
+                      </h4>
+                      <div>
+                        <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
+                          <tbody>
+                            <tr>
+                              <td>Etapes​</td>
+                              <td>​Résultat</td>
+                              <td>​Profils non autorisés</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                A partir de l'entrée &quot;Sujet&quot;:
+                                <br/>
+                                
+			​1. Cliquez sur &quot;Créer&quot;
+                                <br/>
+                                
+			2. Dans le dialogue qui s'ouvre, sélectionnez le sujet, la catégorie de relation et l'objet
+                                <br/>
+                                
+			3. Remplissez les diverses caractéristiques du sujet (l'application vous propose les données connues du sujet - si vous en créez une nouvelle, celle-ci sera enregistrée pour le sujet - voir 
+                                <a href="/page/ficep-help-createandedit">Créer et Modifier</a>
+                                )
+                                <br/>
+                                
+			4. Cliquez sur &quot;Enregistrer&quot; pour sauver vos modifications - &quot;Annuler&quot; annule l'opération
+			
+                                <div/>
+                                
+
+			
+                                <div>
+                                  <em style="line-height: 1.42857143; background-color: transparent;">
+                                    <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                                      Si vous créez une nouvelle coordonnée, celle-ci sera attachée au sujet et considérée comme principale. Toute autre coordonnée que vous ajouterez au sujet sera enregistrée comme secondaire.
+                                  </em>
+                                </div>
+                                
+			
+                              </td>
+                              <td>​Une relation Sujet-Objet est créée</td>
+                              <td/>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <h4>Créer une relation à partir d'Objet</h4>
+                      <div>
+                        <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
+                          <tbody>
+                            <tr>
+                              <td>Etapes​</td>
+                              <td>​Résultat</td>
+                              <td>​Profils non autorisés</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                ​A partir de l'entrée &quot;Objet&quot;:
+                                <br/>
+                                
+			​1. Cliquez sur &quot;Créer&quot;
+                                <br/>
+                                
+			2. Dans le dialogue qui s'ouvre, sélectionnez l'objet, la catégorie de relation et le sujet (ici, aucune coordonnées à définir)
+                                <br/>
+                                
+			4. Cliquez sur &quot;Enregistrer&quot; pour sauver vos modifications - &quot;Annuler&quot; annule l'opération
+                              </td>
+                              <td>Une relation Objet-Sujet est créée</td>
+                              <td/>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </section>
+            <section class="mt16 mb16 oe_dark" style="">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 mb16 mt16">
+                    <h3 class="page-header">
+                      <span style="color:#808080;">Fonctionnalités générales </span>
+                    </h3>
+                    <div>
+                      <font color="#777777" size="5">
+                        <span style="line-height: 26.399999618530273px;"/>
+                      </font>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-create" style="-webkit-user-select: auto; cursor: text !important;">Créer</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-update" style="-webkit-user-select: auto; cursor: text !important;">Editer</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-delete" style="-webkit-user-select: auto; cursor: text !important;">Supprimer</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-duplicate" style="-webkit-user-select: auto; cursor: text !important;">Dupliquer</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-all-details" style="-webkit-user-select: auto; cursor: text !important;">Détails</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-invalidate" style="-webkit-user-select: auto; cursor: text !important;">Invalider</a>
+                      </div>
+                      <div class="col-md-2" style="width: 195px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/ficep-help-attachment" style="-webkit-user-select: auto; cursor: text !important;">Gérer des pièces jointes</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="mt16 mb16 oe_dark" style="">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 mb16 mt16">
+                    <h3 class="page-header">
+                      <span style="color:#808080;">Caractéristiques générales de l'écran</span>
+                    </h3>
+                    <p>
+                      <span style="line-height: 1.42857143;">
+                        <a href="/page/ficep-help-filters">Recherche et Filtres</a>
+                         - 
+                        <a href="/page/ficep-help-navigation">Navigation</a>
+                         - 
+                        <a href="/page/ficep-help-views">Vues et Affichage</a>
+                         - 
+                        <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
+                         - 
+                        <a href="/page/ficep-help-createandedit">Créer et Editer</a>
+                         - 
+                        <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
+                         
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -8334,10 +8828,6 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                   <div class="row">
                     <div class="col-md-12 text-center mt16 mb4">
                       <h2>Coordonnées Téléphoniques</h2>
-                      <h3 class="text-muted">
-                        Menu Personnes\Coordonnées Téléphoniques\C 
-                        <font color="#d3d3d3">oordonnées Téléphoniques</font>
-                      </h3>
                     </div>
                   </div>
                 </div>
@@ -8543,18 +9033,6 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                   <div class="row">
                     <div class="col-md-12 text-center mt16 mb4">
                       <h2>Numéro de Téléphone</h2>
-                      <h3 class="text-muted">
-                        
-                        
-                        Menu Personnes\Coordonnées Téléphoniques\
-                        
-                        
-                        <font color="#d3d3d3">Télephones</font>
-                        
-                        
-                      
-                      
-                      </h3>
                     </div>
                   </div>
                 </div>
@@ -8602,41 +9080,17 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                     <div>L'application Ficep propose une méthode de normalisation de format sur les numéros de téléphone:</div>
                     <div>
                       <strong>Normalisation</strong>
-                      
-                      
-                      : transformation des caractères spéciaux '/', '.', '-' en espace; suppression des espaces de fin et de début; réduction des multi-espaces en mono-espace, transformation de '00' en tête de numéro en '+' et de '0' en tête de numéro en '+32', ...
-                    
-                    
+                       : transformation des caractères spéciaux '/', '.', '-' en espace; suppression des espaces de fin et de début; réduction des multi-espaces en mono-espace, transformation de '00' en tête de numéro en '+' et de '0' en tête de numéro en '+32', ...
                     </div>
                     <div>
                       <strong>Validation</strong>
-                      
-                      
-                      : 
-                      
-                      
+                       :  
                       <span style="line-height: 1.42857143;">un seul '+' en tête de numéro, refus des lettres, ...</span>
-                      
-                      
-                    
-                    
                     </div>
                     <div>
-                      
-                      
                       Toute autre forme d'encodage sera accepté mais considéré comme &quot;mal-formatté&quot;. Ces numéros se retrouvent facilement par l'utilisation des filtres d'affichage. 
-                      
-                      
                       <br/>
-                      
-                      
-                      
-                      
                       <span style="line-height: 1.42857143;">.</span>
-                      
-                      
-                    
-                    
                     </div>
                   </div>
                 </div>
@@ -8660,51 +9114,17 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                             </tr>
                             <tr>
                               <td>
-                                
-                                
                                 ​1. Editez le numéro de téléphone
-                                
-                                
                                 <br/>
-                                
-                                
-                                
-                                
                                 <span style="background-color: rgba(200, 200, 200, 0.137255);">2. Dans l'onglet &quot;Coordonnées&quot; (le seul), cliquez sur &quot;Ajouter un élément&quot;</span>
-                                
-                                
-                                
-                                
                                 <br style="background-color: rgba(200, 200, 200, 0.137255);"/>
-                                
-                                
-                                
-                                
                                 <span style="background-color: rgba(200, 200, 200, 0.137255);">3. Sélectionner la personne à laquelle associer le numéro de téléphone (choisir dans la liste ou créer une nouvelle - voir  </span>
-                                
-                                
-                                
-                                
+                                 
                                 <a href="http://10.7.20.237:8069/page/ficep-help-createandedit" style="background-color: rgba(200, 200, 200, 0.137255);">Créer et modifier</a>
-                                
-                                
-                                
-                                
+                                 
                                 <span style="background-color: rgba(200, 200, 200, 0.137255);">  ) - et ajouter les caractéristiques (catégorie et si l'adresse est à considérer comme principale ou encore les caractéristique de confidentialité (VIP ou non-autorisée))</span>
-                                
-                                
-                                
-                                
                                 <br style="background-color: rgba(200, 200, 200, 0.137255);"/>
-                                
-                                
-                                
-                                
                                 <span style="background-color: rgba(200, 200, 200, 0.137255);">4. Cliquez sur &quot;Enregistrer &amp; fermer&quot; pour n'ajouter que cette personne, sur &quot;Enregistrer &amp; créer&quot; pour continuer l'ajout - &quot;Annuler&quot; stoppe le processus. </span>
-                                
-                                
-                              
-                              
                               </td>
                               <td>Le numéro de téléphone est associé à une ou plusieurs personne(s).</td>
                               <td/>
@@ -8723,25 +9143,13 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                             </tr>
                             <tr>
                               <td>
-                                
-                                
                                 ​1. Editez la participation
-                                
-                                
                                 <br/>
-                                
-                                
                                 
 			2. Encodez une nouvelle date dans la zone &quot;Date de création&quot; utilisant le calendrier ou non
-                                
-                                
                                 <br/>
                                 
-                                
-                                
 			3. Cliquez sur &quot;Enregistrer&quot; pour sauver vos modifications - &quot;Annuler&quot; annule l'opération
-                              
-                              
                               </td>
                               <td>​Une nouvelle date de création est enregistrée</td>
                               <td/>
@@ -8801,41 +9209,17 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                     <p>
                       <span style="line-height: 1.42857143;">
                         <a href="/page/ficep-help-filters">Recherche et Filtres</a>
-                        
-                        
                          - 
-                        
-                        
                         <a href="/page/ficep-help-navigation">Navigation</a>
-                        
-                        
                          - 
-                        
-                        
                         <a href="/page/ficep-help-views">Vues et Affichage</a>
-                        
-                        
                          - 
-                        
-                        
                         <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
-                        
-                        
                          - 
-                        
-                        
                         <a href="/page/ficep-help-createandedit">Créer et Editer</a>
-                        
-                        
                          - 
-                        
-                        
                         <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
-                        
-                        
                          
-                      
-                      
                       </span>
                     </p>
                   </div>
@@ -8856,7 +9240,6 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                   <div class="row">
                     <div class="col-md-12 text-center mt16 mb4">
                       <h2>Coordonnées Postales</h2>
-                      <h3 class="text-muted">Menu Personnes\Coordonnées Postales\Coordonnées Postales</h3>
                     </div>
                   </div>
                 </div>
@@ -9099,19 +9482,25 @@ Ficep propose une gestion de ces doublons (voir
                           <strong>  Audience</strong>
                           
                           
+                          
                            : profils non autorisés: 
+                          
                           
                           
                           <span style="background-color:#FFFF00;">xxxxxxx </span>
                           
                           
+                          
                            (voir 
+                          
                           
                           
                           <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
                           
                           
+                          
                            ). 
+                        
                         
                         
                         </span>
@@ -9125,13 +9514,17 @@ Ficep propose une gestion de ces doublons (voir
                           <strong> Pré-requis</strong>
                           
                           
+                          
                            : sélection d'un ou de plusieurs objet(s) existant(s) dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                          
                           
                           
                           <a href="/page/ficep-help-views">Vues</a>
                           
                           
+                          
                            ). 
+                        
                         
                         
                         </span>
@@ -9180,7 +9573,9 @@ Ficep propose une gestion de ces doublons (voir
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
                         
                         
+                        
                           Le fichier préparé est transformé en format PDF. Vous devez avoir un lecteur de ce format sur votre station de travail afin de pouvoir l'ouvrir et l'imprimer (exemple: Acrobat Reader). 
+                      
                       
                       
                       </em>
@@ -9236,12 +9631,16 @@ Ficep propose une gestion de ces doublons (voir
                       </span>
                       
                       
+                      
                        
+                      
                       
                       
                       <a href="/page/ficep-help-toc" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour au sommaire</a>
                       
                       
+                      
+                    
                     
                     
                     </div>
@@ -9263,10 +9662,16 @@ Ficep propose une gestion de ces doublons (voir
                   <div class="col-md-12 text-center mt16 mb4">
                     <h2>Personnes</h2>
                     <h3 class="text-muted">
+                      
                       Personnes Physiques - 
+                      
                       <span style="font-family: inherit; line-height: 1.1;">Personnes Morales - </span>
+                      
                        
+                      
                       <span style="font-family: inherit; line-height: 1.1;">Toutes personnes</span>
+                      
+                    
                     </h3>
                     <div/>
                   </div>
@@ -9295,13 +9700,19 @@ Ficep propose une gestion de ces doublons (voir
                     <span class="fa fa-flag fa-3x" style=""/>
                     <h3 class="mt8 mb0">Localisation</h3>
                     <div class="text-muted">
+                      
                       Personnes\Personnes Physiques
+                      
                       <br/>
+                      
                       
 Personnes\Personnes Morales
+                      
                       <br/>
                       
+                      
 Personnes\Toutes personnes
+                    
                     </div>
                   </div>
                 </div>
@@ -9322,13 +9733,19 @@ Personnes\Toutes personnes
                 <p>Ficep propose, pour chacune de ces personnes, une vue globale rapide de qui ils sont et de leur parcours avec Ecolo. Toutes les informations détaillées des personnes peuvent être modifiées, elles peuvent être liées vers diverses entités et contactées notamment par mailing.</p>
                 <p>
                   <strong>Surveillance de données:</strong>
+                  
                    Tous les changements opérés sur une personne sont enregistrés et historisés (ses mandats, ses statuts, etc.). Cet historique concerne tout changement sur un champ accessible en écriture. Chaque trace mentionnera la donnée avant et après modification ainsi que le responsable et la date.
+                
                 </p>
                 <p>
                   <strong>Travail collaboratif:</strong>
+                  
                    à chaque objet du modèle (chaque personne identifiée) est automatiquement associée une liste d'abonnés &quot;suiveurs&quot;, c'est à dire des utilisateurs qui participent (ou qui collaborent ou encore, qui sont concernés) à la vie de l'objet en question; ces abonnés sont avertis par un système de notifications des événements sur l'objet. Toutes ces notifications arrivent dans la messagerie interne de l'application (Inbox) (voir 
+                  
                   <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
+                  
                    ).
+                
                 </p>
                 <h4/>
                 <h4>Quelles informations sont affichées dans la liste?</h4>
@@ -9345,9 +9762,13 @@ Personnes\Toutes personnes
                     <span style="line-height: 1.42857143;">Dans le cas particulier des adresses identiques mais de domiciles différents (petits immeubles à plusieurs appartements sans distinction postale officielle), il sera possible de dupliquer une adresse où tous les champs seront identiques. La nouvelle adresse aura un numéro d'identification la différenciant de la source permettant de contourner le contrôle d'unicité contraignant.</span>
                   </p>
                   
+                  
 Ficep propose une gestion de ces doublons (voir 
+                  
                   <a href="/page/ficep-help-allow-duplicate-wizard">Gérer les doublons</a>
+                  
                    ).
+                
                 </div>
                 <div/>
                 <h4>Pourquoi la personne apparait-elle en orange?</h4>
@@ -9395,17 +9816,31 @@ Ficep propose une gestion de ces doublons (voir
                             </tr>
                             <tr>
                               <td>
+                                
                                 ​1. Editer la fiche de la personne
+                                
                                 <br/>
                                 
+                                
 			2. Dans l'onglet &quot;Coordonnées&quot;, dans les zones dédiées (Email, Coordonnées postales et coordonnées téléphoniques), cliquez sur &quot;Ajouter un élement&quot;
+                                
                                 <br/>
+                                
+                                
                                 <span style="background-color: rgba(200, 200, 200, 0.137255);">3. Sélectionner la coordonnée</span>
+                                
                                  à ajouter ainsi que ses caractéristiques (choisir dans la liste ou créer une nouvelle - voir  
+                                
                                 <a href="/page/ficep-help-createandedit">Créer et modifier</a>
+                                
                                   ) - dans le cas de l'Email, encodez l'adresse
+                                
                                 <br style="background-color: rgba(200, 200, 200, 0.137255);"/>
+                                
+                                
                                 <span style="background-color: rgba(200, 200, 200, 0.137255);">4. Cliquez sur &quot;Enregistrer &amp; fermer&quot; pour n'ajouter que cette coordonnée, sur &quot;Enregistrer &amp; créer&quot; pour continuer l'ajout - &quot;Annuler&quot; stoppe le processus. </span>
+                                
+                              
                               </td>
                               <td>L'onglet &quot;Coordonnées&quot; est modifié.</td>
                               <td>​</td>
@@ -9431,26 +9866,38 @@ Ficep propose une gestion de ces doublons (voir
                             </tr>
                             <tr>
                               <td>
+                                
                                 ​1. Editer la fiche de la personne
+                                
                                 <br/>
+                                
                                 
 			2. Ajouter dans l'onglet &quot;Notes Internes&quot;, les informations complémentaires:
 			
+                                
                                 <ul>
                                   <li>note interne: texte libre</li>
                                   <li>Site web (+ deuxième site web)</li>
                                   <li>Adresses Facebook ou Twitter</li>
                                   <li>
+                                    
                                     Civilité (choisir dans la liste ou créer une nouvelle - voir 
+                                    
                                     <a href="/page/ficep-help-createandedit">Créer et modifier</a>
+                                    
                                      )
+                                  
                                   </li>
                                   <li>Fonction occupée</li>
                                   <li>Statut marital - choix dans une liste fixe de trois statuts</li>
                                 </ul>
+                                
+                                
                                 <p>3. Cliquez sur &quot;Enregistrer&quot; pour sauver vos modifications - &quot;Annuler&quot; stoppe le processus</p>
                                 
+                                
 			
+                              
                               </td>
                               <td>L'onglet &quot;Notes Internes&quot; est modifié.</td>
                               <td>​</td>
@@ -9475,21 +9922,33 @@ Ficep propose une gestion de ces doublons (voir
                               </tr>
                               <tr>
                                 <td>
+                                  
                                   ​1. Editer la fiche de la personne
+                                  
                                   <br/>
+                                  
                                   
 			2. Dans l'onglet &quot;Participations&quot;, cliquez sur &quot;Ajouter un élément&quot;
 			
+                                  
                                   <p>
+                                    
                                     3. Sélectionner l'événement à ajouter (choisir dans la liste ou créer une nouvelle - voir   
+                                    
                                     <a href="/page/ficep-help-createandedit">Créer et modifier</a>
+                                    
                                        ) - et ajouter une note si nécessaire (texte libre)
+                                    
                                     <br/>
                                     
+                                    
 			4. Cliquez sur &quot;Enregistrer &amp; fermer&quot; pour n'ajouter que cette coordonnée, sur &quot;Enregistrer &amp; créer&quot; pour continuer l'ajout - &quot;Annuler&quot; stoppe le processus. 
+                                  
                                   </p>
                                   
+                                  
 			
+                                
                                 </td>
                                 <td>L'onglet &quot;Participations&quot; est modifié.</td>
                                 <td>​</td>
@@ -9515,19 +9974,27 @@ Ficep propose une gestion de ces doublons (voir
                               </tr>
                               <tr>
                                 <td>
+                                  
                                   ​1. Editer la fiche de la personne
+                                  
                                   <br/>
+                                  
                                   
 			2. Ajouter dans l'onglet &quot;Indexation&quot;, les informations complémentaires:
 			
+                                  
                                   <ul>
                                     <li>Compétences</li>
                                     <li>Intérêts</li>
                                     <li>Etiquette</li>
                                   </ul>
+                                  
+                                  
                                   <p>3. Cliquez sur &quot;Enregistrer&quot; pour sauver vos modifications - &quot;Annuler&quot; stoppe le processus</p>
                                   
+                                  
 			
+                                
                                 </td>
                                 <td>L'onglet &quot;Indexation&quot; est modifié.</td>
                                 <td>​</td>
@@ -9588,23 +10055,37 @@ Ficep propose une gestion de ces doublons (voir
                     <p>
                       <span style="line-height: 1.42857143;">
                         <a href="/page/ficep-help-filters">Recherche et Filtres </a>
+                        
                          - 
+                        
                         <a href="/page/ficep-help-navigation">Navigation </a>
+                        
                          - 
+                        
                         <a href="/page/ficep-help-views">Vues et Affichage</a>
+                        
                          - 
+                        
                         <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
+                        
                          - 
+                        
                         <a href="/page/ficep-help-createandedit">Créer et Editer</a>
+                        
                          - 
+                        
                         <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
+                        
                          
+                      
                       </span>
                     </p>
                     <p>
                       <a href="/page/ficep-help-toc">
                         <span class="fa fa-reply fa-2x" style=""/>
+                        
                          Retour au sommaire 
+                      
                       </a>
                     </p>
                   </div>
@@ -9736,7 +10217,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                       
                       
+                      
                       Option
+                      
                       
                       
                       
@@ -9746,7 +10229,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                       
                       
+                      
                        dans certaines listes déroulantes
+                    
                     
                     
                     
@@ -9757,7 +10242,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                       
                       
+                      
                       Toute liste déroulante vous propose des valeurs; il ne s'agit en général que des premières de la liste. Choisissez l'option
+                      
                       
                       
                       
@@ -9767,7 +10254,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                       
                       
+                      
                        pour accéder à la liste complète des valeurs.
+                    
                     
                     
                     
@@ -9870,7 +10359,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     
                     
                     
+                    
                     En mode liste, les informations suivantes sont affichées: le nom de l'instance, le niveau de pouvoir associé et l'instance interne liée. Un numéro d'identification externe est également affiché e
+                    
                     
                     
                     
@@ -9878,6 +10369,8 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     
                     
                     
+                    
+                  
                   
                   
                   
@@ -9887,7 +10380,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     
                     
                     
+                    
                     En quoi consiste la création d'une instance de l'Etat?
+                    
                     
                     
                     
@@ -9895,6 +10390,8 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     
                     
                     
+                    
+                  
                   
                   
                   
@@ -9903,7 +10400,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     
                     
                     
+                    
                     A part lui donner un nom, la création d'une instance de l'Etat consiste à lui associer toute une série de données, créées préalablement et disponibles sous forme de liste. Les valeurs dans les listes ont été créées par un utilisateurs ayant des privilèges avancés. Il vous est toutefois possible de créer une nouvelle valeur à ces listes (voir 
+                    
                     
                     
                     
@@ -9911,7 +10410,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     
                     
                     
+                    
                     ).
+                  
                   
                   
                   
@@ -9941,7 +10442,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
                                 ​1. Editez l'instance
+                                
                                 
                                 
                                 
@@ -9950,7 +10453,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
 			2. Cliquez sur le bouton &quot;Enfants&quot;
+                              
                               
                               
                               
@@ -9975,11 +10480,14 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
                                 ​1. Editez l'instance
                                 
                                 
                                 
+                                
                                 <br/>
+                                
                                 
                                 
                                 
@@ -9988,7 +10496,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
                                 <br/>
+                                
                                 
                                 
                                 
@@ -9997,7 +10507,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
                                 <span style="background-color: rgba(200, 200, 200, 0.137255);">ainsi que ses caractéristiques</span>
+                                
                                 
                                 
                                 
@@ -10005,11 +10517,14 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
                                 <a href="/page/ficep-help-createandedit">Créer et modifier</a>
                                 
                                 
                                 
+                                
                                  ) 
+                                
                                 
                                 
                                 
@@ -10020,12 +10535,16 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
+                                
                                 <br/>
                                 
                                 
                                 
                                 
+                                
 			4. Cliquez sur &quot;Enregistrer &amp; fermer&quot; pour n'ajouter que cette instance, sur &quot;Enregistrer &amp; créer&quot; pour continuer l'ajout - &quot;Annuler&quot; stoppe le processus. 
+                              
                               
                               
                               
@@ -10049,11 +10568,14 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                   
                                   
                                   
+                                  
                                   ​1. Editez l'instance
                                   
                                   
                                   
+                                  
                                   <br/>
+                                  
                                   
                                   
                                   
@@ -10062,7 +10584,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                   
                                   
                                   
+                                  
                                   <br/>
+                                  
                                   
                                   
                                   
@@ -10071,7 +10595,10 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                   
                                   
                                   
+                                  
                                   <span style="background-color: rgba(200, 200, 200, 0.137255);">(choisir dans la liste ou créer une nouvelle - voir </span>
+                                  
+                                  
                                   
                                   
                                   
@@ -10085,7 +10612,11 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                   
                                   
                                   
+                                  
+                                  
                                   <span style="background-color: rgba(200, 200, 200, 0.137255);"> )</span>
+                                  
+                                  
                                   
                                   
                                   
@@ -10097,7 +10628,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                   
                                   
                                   
+                                  
 			4. Cliquez sur &quot;Enregistrer &amp; fermer&quot; pour n'ajouter que ce district électoral, sur &quot;Enregistrer &amp; créer&quot; pour continuer l'ajout - &quot;Annuler&quot; stoppe le processus. 
+                                
                                 
                                 
                                 
@@ -10163,7 +10696,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                         
                         
                         
+                        
                          - 
+                        
                         
                         
                         
@@ -10171,7 +10706,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                         
                         
                         
+                        
                          - 
+                        
                         
                         
                         
@@ -10179,7 +10716,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                         
                         
                         
+                        
                          - 
+                        
                         
                         
                         
@@ -10187,7 +10726,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                         
                         
                         
+                        
                          - 
+                        
                         
                         
                         
@@ -10195,7 +10736,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                         
                         
                         
+                        
                          - 
+                        
                         
                         
                         
@@ -10203,7 +10746,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                         
                         
                         
+                        
                          
+                      
                       
                       
                       
@@ -10230,19 +10775,24 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                       
                       
+                      
                       Nom du Modèle:
                       
                       
                       
                       
                                     
+                      
                       <span style="color:#D3D3D3;">
                         <em>ex: Structures</em>
                       </span>
                       
+                      
                                 
+                    
                     </h2>
                     <h3 class="text-muted">
+                      
                       
                       
                       
@@ -10253,9 +10803,12 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                       
                                     
+                      
                       <span style="color:#D3D3D3;">ex: Instance de l'Etat</span>
                       
+                      
                                 
+                    
                     </h3>
                   </div>
                 </div>
@@ -10298,13 +10851,16 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                   
+                  
                   Qu'entend-on par
                   
                   
                   
                   
                             
+                  
                   <span style="background-color:#FFFF00;">modèleconcerné</span>
+                  
                   
                   
                   
@@ -10315,9 +10871,11 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                 
                 
                         
+                
                 </h4>
                 <p>Il s'agit ici de l'association d'un contact à un événement pré-défini. Ce modèle est plutôt informatif.</p>
                 <h4>
+                  
                   
                   
                   
@@ -10328,7 +10886,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                             
+                  
                   <span style="background-color:#FFFF00;">modèleconcerné</span>
+                  
                   
                   
                   
@@ -10339,6 +10899,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                 
                 
                         
+                
                 </h4>
                 <div>L'application me permet d'associer un contact à un événement que seul un utilisateur membre du groupe &quot;Configurator&quot; pourra créer. Des fonctionnalités générales sont offertes sur ce modèle telles que création (association), suppression, recherche, export, .....</div>
               </div>
@@ -10349,10 +10910,14 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                 <div class="row">
                   <div class="col-md-12 mb16 mt16">
                     <h3 style="color:#808080;">
+                      
                       Fonctionnalités particulières sur le
+                      
                       <span style="background-color:#FFFF00;">modèleconcerné</span>
                       
+                      
                                 
+                    
                     </h3>
                     <h4>
                       <span style="line-height: 1.42857143;">Ajout de notes</span>
@@ -10371,13 +10936,16 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               
                               
                               
+                              
                               ​1. Editez la participation
                               
                               
                               
                               
                                                     
+                              
                               <br/>
+                              
                               
                               
                               
@@ -10388,7 +10956,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               
                               
                                                     
+                              
                               <br/>
+                              
                               
                               
                               
@@ -10399,6 +10969,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                             
                             
                                                 
+                            
                             </td>
                             <td>​Une note est ajoutée à la participation</td>
                             <td>
@@ -10423,13 +10994,16 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               
                               
                               
+                              
                               ​1. Editez la participation
                               
                               
                               
                               
                                                     
+                              
                               <br/>
+                              
                               
                               
                               
@@ -10440,7 +11014,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               
                               
                                                     
+                              
                               <br/>
+                              
                               
                               
                               
@@ -10451,6 +11027,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                             
                             
                                                 
+                            
                             </td>
                             <td>​Une nouvelle date de création est enregistrée</td>
                             <td>
@@ -10521,59 +11098,71 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                       
                       
+                      
                        -
                       
                       
                       
                       
                                     
+                      
                       <a href="/page/ficep-help-navigation">Navigation</a>
                       
                       
                       
                       
+                      
                        -
                       
                       
                       
                       
                                     
+                      
                       <a href="/page/ficep-help-views">Vues et Affichage</a>
                       
                       
                       
                       
+                      
                        -
                       
                       
                       
                       
                                     
+                      
                       <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
                       
                       
                       
                       
+                      
                        -
                       
                       
                       
                       
                                     
+                      
                       <a href="/page/ficep-help-createandedit">Créer et Editer</a>
                       
                       
                       
                       
+                      
                        -
                       
                       
                       
                       
                                     
+                      
                       <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
                       
+                      
                                 
+                    
                     </span>
                   </p>
                 </div>
@@ -10601,20 +11190,25 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                       
                       
+                      
                       Nom du Modèle:
                       
                       
                       
                       
                                     
+                      
                         <span style="color:#D3D3D3;">
                           <em>ex: Structures</em>
                         </span>
                         
+                      
                                 
+                    
                       </h2>
                       <h3 class="text-muted">
                         
+                      
                       
                       
                       
@@ -10624,9 +11218,12 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                       
                                     
+                      
                         <span style="color:#D3D3D3;">ex: Instance de l'Etat</span>
                         
+                      
                                 
+                    
                       </h3>
                     </div>
                   </div>
@@ -10669,14 +11266,17 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                   
+                  
                   Qu'entend-on par
                   
                   
                   
                   
                             
+                  
                     <span style="background-color:#FFFF00;">modèleconcerné</span>
                     
+                  
                   
                   
                   
@@ -10686,10 +11286,12 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                 
                 
                         
+                
                   </h4>
                   <p>Il s'agit ici de l'association d'un contact à un événement pré-défini. Ce modèle est plutôt informatif.</p>
                   <h4>
                     
+                  
                   
                   
                   
@@ -10699,8 +11301,10 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                             
+                  
                     <span style="background-color:#FFFF00;">modèleconcerné</span>
                     
+                  
                   
                   
                   
@@ -10710,6 +11314,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                 
                 
                         
+                
                   </h4>
                   <div>L'application me permet d'associer un contact à un événement que seul un utilisateur membre du groupe &quot;Configurator&quot; pourra créer. Des fonctionnalités générales sont offertes sur ce modèle telles que création (association), suppression, recherche, export, .....</div>
                 </div>
@@ -10720,10 +11325,14 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   <div class="row">
                     <div class="col-md-12 mb16 mt16">
                       <h3 style="color:#808080;">
-                        Fonctionnalités particulières sur le
+                        
+                      Fonctionnalités particulières sur le
+                      
                         <span style="background-color:#FFFF00;">modèleconcerné</span>
                         
+                      
                                 
+                    
                       </h3>
                       <h4>
                         <span style="line-height: 1.42857143;">Ajout de notes</span>
@@ -10742,14 +11351,17 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               
                               
                               
+                              
                               ​1. Editez la participation
                               
                               
                               
                               
                                                     
+                              
                                 <br/>
                                 
+                              
                               
                               
                               
@@ -10759,8 +11371,10 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               
                               
                                                     
+                              
                                 <br/>
                                 
+                              
                               
                               
                               
@@ -10770,6 +11384,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                             
                             
                                                 
+                            
                               </td>
                               <td>​Une note est ajoutée à la participation</td>
                               <td>
@@ -10794,14 +11409,17 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               
                               
                               
+                              
                               ​1. Editez la participation
                               
                               
                               
                               
                                                     
+                              
                                 <br/>
                                 
+                              
                               
                               
                               
@@ -10811,8 +11429,10 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               
                               
                                                     
+                              
                                 <br/>
                                 
+                              
                               
                               
                               
@@ -10822,6 +11442,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                             
                             
                                                 
+                            
                               </td>
                               <td>​Une nouvelle date de création est enregistrée</td>
                               <td>
@@ -10892,59 +11513,71 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                       
                       
+                      
                        -
                       
                       
                       
                       
                                     
+                      
                         <a href="/page/ficep-help-navigation">Navigation</a>
                         
                       
                       
                       
+                      
                        -
                       
                       
                       
                       
                                     
+                      
                         <a href="/page/ficep-help-views">Vues et Affichage</a>
                         
                       
                       
                       
+                      
                        -
                       
                       
                       
                       
                                     
+                      
                         <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
                         
                       
                       
                       
+                      
                        -
                       
                       
                       
                       
                                     
+                      
                         <a href="/page/ficep-help-createandedit">Créer et Editer</a>
                         
                       
                       
                       
+                      
                        -
                       
                       
                       
                       
                                     
+                      
                         <a href="/page/ficep-help-search">Recherche complémentaire sur les listes</a>
                         
+                      
                                 
+                    
                       </span>
                     </p>
                   </div>
@@ -10982,7 +11615,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     
                     
                     
+                    
                      profils non autorisés: 
+                    
                     
                     
                     
@@ -10990,7 +11625,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     
                     
                     
+                    
                     (voir 
+                    
                     
                     
                     
@@ -10998,7 +11635,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     
                     
                     
+                    
                      ). 
+                  
                   
                   
                   
@@ -11011,7 +11650,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     
                     
                     
+                    
                      sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                    
                     
                     
                     
@@ -11019,7 +11660,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     
                     
                     
+                    
                      ). 
+                  
                   
                   
                   
@@ -11073,7 +11716,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                       
                       
+                      
                        truc et astuce1 
+                    
                     
                     
                     
@@ -11083,9 +11728,11 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                   
+                  
  
 
 
+                  
                   
                   
                   
@@ -11096,7 +11743,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                         
                         
                         
+                        
                          truc et astuce2 
+                      
                       
                       
                       
@@ -11107,9 +11756,11 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                   
+                  
  
 
 
+                  
                   
                   
                   
@@ -11125,8 +11776,10 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                   
+                  
 
 
+                  
                   
                   
                   
@@ -11137,8 +11790,10 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                   
+                  
 
 
+                  
                   
                   
                   
@@ -11153,7 +11808,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                   
+                  
 
+                
                 
                 
                 
@@ -11196,7 +11853,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                     
                     
+                    
                      profils non autorisés: 
+                    
                     
                     
                     
@@ -11204,7 +11863,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                     
                     
+                    
                     (voir 
+                    
                     
                     
                     
@@ -11212,7 +11873,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                     
                     
+                    
                      ). 
+                  
                   
                   
                   
@@ -11225,7 +11888,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                     
                     
+                    
                      sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir 
+                    
                     
                     
                     
@@ -11233,7 +11898,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       
                     
                     
+                    
                      ). 
+                  
                   
                   
                   
@@ -11287,7 +11954,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                         
                       
                       
+                      
                        truc et astuce1 
+                    
                     
                     
                     
@@ -11297,9 +11966,11 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                   
+                  
  
 
 
+                  
                   
                   
                   
@@ -11310,7 +11981,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                           
                         
                         
+                        
                          truc et astuce2 
+                      
                       
                       
                       
@@ -11321,9 +11994,11 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                   
+                  
  
 
 
+                  
                   
                   
                   
@@ -11339,8 +12014,10 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                   
+                  
 
 
+                  
                   
                   
                   
@@ -11351,8 +12028,10 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                   
+                  
 
 
+                  
                   
                   
                   
@@ -11367,7 +12046,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   
                   
                   
+                  
 
+                
                 
                 
                 
@@ -11386,129 +12067,220 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
             <div class="container">
               <h1 class="row">Ficep documentation</h1>
               <h2 class="row">Sommaire</h2>
-              <h3>
-                <a href="/page/ficep-help-res-partner">Modèle Personnes:</a>
-              </h3>
               <div>
-                <a href="/page/ficep-help-address-address">Adresses</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-coordinate-associate-category" style="background-color: rgb(255, 255, 255);">Associer une catégorie à une coordonnée</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-change-main-address">Changer la coordonnée postale principale</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-change-main-email">Changer la coordonnée email principale</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-change-main-phone">Changer la coordonnée téléphonique principale</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-email-coordinate" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">
-                  <span style="line-height: 1.42857143;">Coordonnées Email</span>
-                </a>
-              </div>
-              <div>
-                <span style="line-height: 1.42857143;">
-                  <a href="/page/ficep-help-postal-coordinate">Coordonnées Postales</a>
-                </span>
-              </div>
-              <div>
-                <span style="line-height: 1.42857143;"/>
-                <div>
-                  <a href="/page/ficep-help-main" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Déclarer la coordonnée comme &quot;Principale&quot;</a>
-                </div>
-                <div>
-                  <a href="/page/ficep-help-unauthorised">Déclarer la coordonnée comme &quot;Privée&quot;</a>
-                </div>
-                <div>
-                  <a href="/page/ficep-help-vip">Déclarer la coordonnée comme &quot;VIP&quot;</a>
-                </div>
-              </div>
-              <div>
-                <a href="/page/ficep-help-bounce-editor" style="background-color: rgb(255, 255, 255);">Editer le compteur d'échec</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-export-vcard">Exporter les coordonnées en vCard</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-export-csv">Exporter les coordonnées en CSV</a>
-              </div>
-              <div>
-                <span style="line-height: 1.42857143;">
-                  <a href="/page/ficep-help-manage-duplicates">Gérer les doublons</a>
-                </span>
-                <a href="/page/ficep-help-manage-duplicates"> </a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-print-labels">Imprimer des étiquettes</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-partner-involvement" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Participations</a>
-              </div>
-              <div/>
-              <h3>Structures</h3>
-              <div>
-                <a href="/page/ficep-help-sta-instance">Instances de l'Etat</a>
-              </div>
-              <h3>Caractéristiques générales des écrans</h3>
-              <div>
-                <a href="/page/ficep-help-filters">Recherches et Filtres</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-navigation" style="background-color: rgb(255, 255, 255);">Navigation</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-views" style="background-color: rgb(255, 255, 255);">Vues et Affichage</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-createandedit">Créer et modifier</a>
-                
-                
-                 (dans listes)
-              
-              
-              </div>
-              <div>
-                <a href="/page/ficep-help-search">Recherche complémentaire</a>
-                
-                
-                 (dans listes)
-              
-              
-              </div>
-              <div>
-                <h3>Fonctionnalités générales</h3>
-              </div>
-              <div>
-                <a href="/page/ficep-help-create">Créer un objet</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-update">Editer un objet</a>
-                <br/>
-                <a href="/page/ficep-help-delete">Supprimer un objet</a>
-                <br/>
-                <a href="/page/ficep-help-duplicate">Dupliquer un objet</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-all-details">Détails d'un objet</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-invalidate">Invalider un objet</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-import">Importer des objets</a>
-              </div>
-              <div>
-                <a href="/page/ficep-help-attachment">Gérer des pièces jointes</a>
-              </div>
-              <h3>Concepts généraux</h3>
-              <div>
-                <a href="/page/ficep-help-usergoups">Profils utilisateurs</a>
+                <table class="table table-bordered table-responsive">
+                  <tbody>
+                    <tr>
+                      <td>
+                        ​ 
+                        <span style="color: inherit; font-family: inherit; font-size: 24px; line-height: 1.1; background-color: transparent;">Caractéristiques générales des écrans</span>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-filters">Recherches et Filtres</a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-navigation" style="background-color: rgb(255, 255, 255);">Navigation</a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-views" style="background-color: rgb(255, 255, 255);">Vues et Affichage</a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-createandedit">Créer et modifier</a>
+                           (dans listes)
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-search">Recherche complémentaire</a>
+                           (dans listes)
+                        </div>
+                        
+			
+                      </td>
+                      <td>
+                        <span style="color: inherit; font-family: inherit; font-size: 24px; line-height: 1.1; background-color: transparent;">Fonctionnalités générales</span>
+                        <div>
+                          <a href="/page/ficep-help-create">Créer un objet</a>
+                        </div>
+                        <div>
+                          <a href="/page/ficep-help-update">Editer un objet</a>
+                          <br/>
+                          <a href="/page/ficep-help-delete">Supprimer un objet</a>
+                          <br/>
+                          <a href="/page/ficep-help-duplicate">Dupliquer un objet</a>
+                        </div>
+                        <div>
+                          <a href="/page/ficep-help-all-details">Détails d'un objet</a>
+                        </div>
+                        <div>
+                          <a href="/page/ficep-help-invalidate">Invalider un objet</a>
+                        </div>
+                        <div>
+                          <a href="/page/ficep-help-import">Importer des objets</a>
+                        </div>
+                        <div>
+                          <a href="/page/ficep-help-attachment">Gérer des pièces jointes</a>
+                        </div>
+                      </td>
+                      <td>
+                        <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">
+                          <font size="5">
+                            <span style="line-height: 26.3999996185303px;">Concepts généraux</span>
+                          </font>
+                        </span>
+                        <div>
+                          <a href="/page/ficep-help-usergoups">Profils utilisateurs</a>
+                        </div>
+                        
+			​
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table class="table table-bordered table-responsive">
+                  <tbody>
+                    <tr>
+                      <td>
+                        ​ 
+                        <a href="/page/ficep-help-res-partner" style="font-family: inherit; font-size: 24px; line-height: 1.1; background-color: rgb(255, 255, 255);">Modèle Personnes:</a>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-address-address">Adresses</a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-coordinate-associate-category" style="background-color: rgb(255, 255, 255);">Associer une catégorie à une coordonnée</a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-change-main-address">Changer la coordonnée postale principale</a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-change-main-email">Changer la coordonnée email principale</a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-change-main-phone">Changer la coordonnée téléphonique principale</a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-email-coordinate" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">
+                            <span style="line-height: 1.42857143;">Coordonnées Email</span>
+                          </a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <span style="line-height: 1.42857143;">
+                            <a href="/page/ficep-help-postal-coordinate">Coordonnées Postales</a>
+                          </span>
+                        </div>
+                        
+
+			
+                        <div>
+                          <span style="line-height: 1.42857143;"/>
+                          <div>
+                            <a href="/page/ficep-help-main" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Déclarer la coordonnée comme &quot;Principale&quot;</a>
+                          </div>
+                          <div>
+                            <a href="/page/ficep-help-unauthorised">Déclarer la coordonnée comme &quot;Privée&quot;</a>
+                          </div>
+                          <div>
+                            <a href="/page/ficep-help-vip">Déclarer la coordonnée comme &quot;VIP&quot;</a>
+                          </div>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-bounce-editor" style="background-color: rgb(255, 255, 255);">Editer le compteur d'échec</a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-export-vcard">Exporter les coordonnées en vCard</a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-export-csv">Exporter les coordonnées en CSV</a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <span style="line-height: 1.42857143;">
+                            <a href="/page/ficep-help-allow-duplicate-wizard">Gérer les doublons</a>
+                          </span>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-print-labels">Imprimer des étiquettes</a>
+                        </div>
+                        
+
+			
+                        <div>
+                          <a href="/page/ficep-help-partner-involvement" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Participations</a>
+                        </div>
+                        
+			
+                      </td>
+                      <td>
+                        <font size="5">
+                          <span style="line-height: 26.3999996185303px;">Structures</span>
+                        </font>
+                        <div>
+                          <a href="/page/ficep-help-sta-instance">Instances de l'Etat</a>
+                        </div>
+                        
+			​
+                      </td>
+                      <td>
+                        <font size="5">
+                          <span style="line-height: 26.3999996185303px;">Mandats</span>
+                        </font>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </section>
@@ -11548,7 +12320,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                           
                           
                           
+                          
                            : profils non autorisés:
+                          
                           
                           
                           
@@ -11558,7 +12332,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                           
                           
                           
+                          
                           (voir
+                          
                           
                           
                           
@@ -11568,7 +12344,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                           
                           
                           
+                          
                           ).
+                        
                         
                         
                         
@@ -11583,7 +12361,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                           
                           
                           
+                          
                            : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           
                           
                           
@@ -11593,7 +12373,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                           
                           
                           
+                          
                           ).
+                        
                         
                         
                         
@@ -11647,7 +12429,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                         
                         
                         
+                        
                         La coordonnée sera &quot;privée&quot; à son propriétaire et ne sera en aucun cas utilisée par l'application - affichage de l'information dans la liste.
+                      
                       
                       
                       
@@ -11716,7 +12500,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                         
                         
                         
+                        
                           : profils non autorisés: xxxxxxx  (voir
+                        
                         
                         
                         
@@ -11726,7 +12512,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                         
                         
                         
+                        
                         ).
+                      
                       
                       
                       
@@ -11741,7 +12529,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                         
                         
                         
+                        
                          : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                        
                         
                         
                         
@@ -11751,7 +12541,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                         
                         
                         
+                        
                         ).
+                      
                       
                       
                       
@@ -11794,12 +12586,16 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                             
                             
                             
+                            
                             Modifiez les champs éditables selon votre souhait
                             
                             
                             
                             
+                            
                             <span style="line-height: 1.42857143; background-color: transparent;"> en modifiant le texte ou en </span>
+                            
+                            
                             
                             
                             
@@ -11817,11 +12613,15 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                             
                             
                             
+                            
+                            
                             <span style="line-height: 1.42857143; background-color: transparent;"/>
                             
                             
                             
                             
+                            
+                          
                           
                           
                           
@@ -11864,7 +12664,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     
                     
                     
+                    
                     Le message précise le ou les champs manquants ou non-valides. Ces mentions sont variables selon l'objet en modification.
+                    
                     
                     
                     
@@ -11874,6 +12676,8 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     
                     
                     
+                    
+                  
                   
                   
                   
@@ -11923,7 +12727,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
                                  : les plus privilégiés, accès en lecture/écriture à tous les modèles et notamment les modèles dits &quot;de configuration&quot;: Niveaux de Pouvoir, Circonscriptions, Catégories de Mandats... (pour les autres, ces modèles ne seront accessibles qu'en lecture) et Utilisateurs;
+                              
                               
                               
                               
@@ -11935,7 +12741,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
                                  : permanents (cercle 1), accès en lecture/écriture à tous les modèles sauf aux modèles &quot;de configuration&quot; (lecture seule), accès en lecture/écriture aux Coordonnées VIP
+                              
                               
                               
                               
@@ -11947,7 +12755,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
                                  : idem que Ficep Manager mais en lecture seule et sans les actions Ficep (boutons et menus) destinées à modifier les données
+                              
                               
                               
                               
@@ -11959,7 +12769,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
                                  : permanents (cercle 2), idem que Ficep Manager mais sans aucune visibilité sur les Coordonnées VIP
+                              
                               
                               
                               
@@ -11971,7 +12783,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
                                  : idem que Ficep VIP Reader mais sans visibilité sur les Coordonnées VIP
+                              
                               
                               
                               
@@ -11983,7 +12797,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
                                  : mandataires internes non permanents ayant en charge une partie de la gestion du parti (ex: secrétaires locaux, responsables de commission, ...). Ils peuvent:
+                                
                                 
                                 
                                 
@@ -11997,6 +12813,8 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                                 
                                 
                                 
+                                
+                              
                               
                               
                               
@@ -12009,7 +12827,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               
                               
                               
+                              
                               Un Groupe Ficep supplémentaire sans héritage particulier par rapport aux autres Groupes sera le Groupe
+                              
                               
                               
                               
@@ -12019,7 +12839,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               
                               
                               
+                              
                               .
+                            
                             
                             
                             
@@ -12030,7 +12852,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               
                               
                               
+                              
                               Les autres mandataires, membres, sympathisants et simples contacts feront partie du Groupe
+                              
                               
                               
                               
@@ -12040,7 +12864,9 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               
                               
                               
+                              
                                (natif d’OpenERP) uniquement. Ce groupe doit leur être réservé. Si on souhaite que ces contacts aient accès au Portail, l'administrateur devra veiller à ne pas les mettre dans d'autres Groupes.
+                            
                             
                             
                             
@@ -13995,7 +14821,9 @@ TkSuQmCC
                     
                     
                     
+                    
                        Localisation: Partie partie supérieure droite de l'écran
+                    
                     
                     
                     
@@ -14005,7 +14833,9 @@ TkSuQmCC
                     
                     
                     
+                    
 
+                  
                   
                   
                   
@@ -14021,7 +14851,9 @@ TkSuQmCC
                         
                         
                         
+                        
                         Vue liste:
+                        
                         
                         
                         
@@ -14031,7 +14863,9 @@ TkSuQmCC
                         
                         
                         
+                        
                          :  tous les objets sont affichés sous forme de liste
+                      
                       
                       
                       
@@ -14040,6 +14874,7 @@ TkSuQmCC
                     </ul>
                     <ul>
                       <li style="text-align: left;">
+                        
                         
                         
                         
@@ -14049,7 +14884,9 @@ TkSuQmCC
                         
                         
                         
+                        
                         <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-views_img_02" style=""/>
+                        
                         
                         
                         
@@ -14059,10 +14896,12 @@ TkSuQmCC
                       
                       
                       
+                      
                       </li>
                     </ul>
                     <ul>
                       <li style="text-align: left;">
+                        
                         
                         
                         
@@ -14072,12 +14911,15 @@ TkSuQmCC
                         
                         
                         
+                        
                         <img src="/website/image?field=datas&amp;model=ir.attachment&amp;id=ficep-help-views_img_03" style=""/>
                         
                         
                         
                         
+                        
                          :  montrant tous les objets sous forme de gros boutons qui peuvent être déplacés aisément.
+                      
                       
                       
                       
@@ -14090,7 +14932,9 @@ TkSuQmCC
                         
                         
                         
+                        
                         Vue Calendrier:
+                        
                         
                         
                         
@@ -14100,7 +14944,9 @@ TkSuQmCC
                         
                         
                         
+                        
                          :  permettant de visualiser certains événements associés à des dates sous forme d'un calendrier.
+                      
                       
                       
                       
@@ -14169,7 +15015,9 @@ TkSuQmCC
                           
                           
                           
+                          
                            : profils non autorisés:
+                          
                           
                           
                           
@@ -14179,7 +15027,9 @@ TkSuQmCC
                           
                           
                           
+                          
                             (voir
+                          
                           
                           
                           
@@ -14189,7 +15039,9 @@ TkSuQmCC
                           
                           
                           
+                          
                           ).
+                        
                         
                         
                         
@@ -14204,7 +15056,9 @@ TkSuQmCC
                           
                           
                           
+                          
                            : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
+                          
                           
                           
                           
@@ -14214,7 +15068,9 @@ TkSuQmCC
                           
                           
                           
+                          
                           ).
+                        
                         
                         
                         
@@ -14271,7 +15127,9 @@ TkSuQmCC
                         
                         
                         
+                        
                            La coordonnée marquée comme VIP ne pourra être vue que par les utilisateurs membre du groupe VIP.
+                      
                       
                       
                       
