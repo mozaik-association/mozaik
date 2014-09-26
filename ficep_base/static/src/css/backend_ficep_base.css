@@ -15,3 +15,12 @@
 .openerp .oe_button.oe_red_link span:hover {
   text-decoration: underline;
 }
+.navbar-inverse .navbar-nav > li > a {
+  color: #dddddd;
+}
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #FFFFF;
+  font-weight: bold !important;
+}
