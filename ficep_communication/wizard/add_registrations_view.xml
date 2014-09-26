@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Distribution List Mailing View -->
+
+        <record id="add_registration_wizard"
+            model="ir.ui.view">
+            <field name="name">add.registration.form</field>
+            <field name="model">add.registration</field>
+            <field name="arch" type="xml">
+                <form string="Add Registrations" version="7.0">
+                    <sheet>
+                        <div class="oe_title" name="title">
+                            <h1>
+                                <field name="event_id" required ="1" readonly="1" />
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="distribution_list_id" required="1" />
+                        </group>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg"
+                        groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                            </group>
+                        </div>
+                    </div>
+                    <footer>
+                        <span name="go-wizard">
+                            <button name="add_registration" string="Add"
+                                type="object" class="oe_highlight" />
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link"
+                            special="cancel" />
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- Distribution List Add Registrations Action -->
+
+        <record id="add_registration_action"
+            model="ir.actions.act_window">
+            <field name="name">Add Registrations</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">event.event</field>
+            <field name="res_model">add.registration</field>
+            <field name="multi" eval="0" />
+            <field name="target">new</field>
+            <field name="view_id" ref="add_registration_wizard" />
+            <field name="groups_id"
+                eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+        </record>
+
+        <record id="add_filter_from_involvement_value" model="ir.values">
+            <field name="name">Add Registrations</field>
+            <field name="model">event.event</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_relate</field>
+            <field name="value"
+                eval="'ir.actions.act_window,%s' % ref('add_registration_action')" />
+        </record>
+
+    </data>
+</openerp>

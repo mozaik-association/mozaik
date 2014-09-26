@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Event -->
+
+        <record id="view_event_form" model="ir.ui.view">
+            <field name="name">event.event.form (ficep_communication)</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='name']" position="replace">
+                    <field name="partner_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Registration -->
+
+        <record id="view_event_registration_form" model="ir.ui.view">
+            <field name="name">event.registration.form (ficep_communication)</field>
+            <field name="model">event.registration</field>
+            <field name="inherit_id" ref="event.view_event_registration_form"/>
+            <field name="arch" type="xml">
+                <!-- Rebuild header 
+                    * Add action_invalidate
+                    * remove do_draft button
+                -->
+                <xpath expr="//header" position="replace">
+                    <header>
+                        <button name="registration_open" string="Confirm" states="draft" type="object" class="oe_highlight"/>
+                        <button name="button_reg_close" string="Attended" states="open" type="object" class="oe_highlight"/>
+                        <button name="button_reg_cancel" string="Cancel Registration" states="draft,open" type="object"/>
+                        <field name="state" nolabel="1" colspan="2" widget="statusbar" statusbar_visible="draft,open,done"/>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="ficep_base.ficep_res_groups_user">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate Distribution List: proceed anyway?" />
+                        </div>
+                    </header>
+                </xpath>
+                <!-- partner_id is required -->
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <!-- Add int_instance_id -->
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="int_instance_id"/>
+                </xpath>
+                <!-- Add date -->
+                <xpath expr="//field[@name='create_date']" position="replace">
+                    <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                        <group name="validity">
+                            <field name="create_date" />
+                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                        </group>
+                        <group name="other">
+                        </group>
+                    </group>
+                </xpath>
+                
+                <!-- email is readonly related to partner_id -->
+                <xpath expr="//field[@name='email']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <!-- phone is readonly related to partner_id -->
+                <xpath expr="//field[@name='phone']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <!-- name is not used because of partner_id -->
+                <xpath expr="//field[@name='name']" position="replace" />
+                <!-- not show user_id -->
+                <xpath expr="//field[@name='user_id']" position="replace" />
+                <!-- not show user_id -->
+                <xpath expr="//field[@name='date_closed']" position="replace" />
+                <!-- add a more info with
+                    * name
+                 -->
+                <xpath expr="//sheet" position="after" >
+                    <div name="dev" class="oe_form_sheetbg"
+                        groups="ficep_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_revalidate" string="Validate" type="object"
+                                        confirm="Revalidate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id" />
+                                <field name="active" />
+                                <field name="name" />
+                                <field name="user_id" />
+                                <field name="date_closed" />
+                            </group>
+                        </div>
+                    </div>
+                 </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

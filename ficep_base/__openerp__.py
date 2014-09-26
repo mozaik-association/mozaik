@@ -37,7 +37,7 @@
         'document',
         'mass_mailing',
         'product',
-        #'event',
+        'event',
         'partner_firstname',     # from https://github.com/OCA/partner-contact
         #'mass_editing',          # from https://github.com/OCA/server-tools/7.0
         'cron_run_manually',     # from https://github.com/OCA/server-tools/7.0

@@ -96,5 +96,17 @@
             <field name="parent_id" ref="websites_submenu" />
         </record>
 
+        <!-- Events -->
+
+        <record id="event.event_main_menu" model="ir.ui.menu">
+            <field name="sequence">35</field>
+            <field name="parent_id" ref="ficep_base.communication_root_menu" />
+        </record>
+        <record id="event.menu_reporting_events" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('settings_improvement.unused_features'),
+            ])]" />
+        </record>
+
     </data>
 </openerp>
