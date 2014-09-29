@@ -39,6 +39,8 @@ class test_accounting_with_product(object):
     )
 
     _module_ns = 'ficep_membership'
+    _account_wizard = 'pcmn_ficep'
+    _with_coda = False
 
     product = None
     bs_obj = None
@@ -49,7 +51,7 @@ class test_accounting_with_product(object):
 
     def setUp(self):
         super(test_accounting_with_product, self).setUp()
-        wiz_id = self.ref('%s.pcmn_ficep' % self._module_ns)
+        wiz_id = self.ref('%s.%s' % (self._module_ns, self._account_wizard))
         self.registry('wizard.multi.charts.accounts').execute(self.cr,
                                                               self.uid,
                                                               [wiz_id])
@@ -146,7 +148,8 @@ class test_accounting_with_product(object):
 
     def test_accounting_auto_reconcile(self):
         b_statement_id = self._generate_payment()
-        self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id)
+        if not self._with_coda:
+            self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id)
 
         for bank_s in self.bs_obj.browse(self.cr, self.uid, b_statement_id):
             for line in bank_s.line_ids:
