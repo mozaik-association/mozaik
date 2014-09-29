@@ -84,11 +84,18 @@ class report_retrocession_wizard(orm.TransientModel):
         To get default values for the object.
         """
         context = context or {}
-        ids = context.get('active_ids') or (context.get('active_id')\
+        ids = []
+        model = context.get('active_model', False)
+        if context.get('active_domain'):
+            active_domain = context.get('active_domain')
+            ids = self.pool.get(model).search(
+                cr, uid, active_domain, context=context)
+        elif context.get('active_ids'):
+            ids = context.get('active_ids') or (context.get('active_id')\
                                         and [context.get('active_id')]) or []
 
         res = {
-            'model': context.get('active_model', False),
+            'model': model,
             'mandate_ids': str(ids),
             'year': datetime.date.today().strftime("%Y"),
             'mandate_selected': len(ids),

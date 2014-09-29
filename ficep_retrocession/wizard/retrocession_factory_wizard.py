@@ -65,10 +65,17 @@ class retrocession_factory_wizard(orm.TransientModel):
         today = datetime.date.today()
         first = datetime.date(day=1, month=today.month, year=today.year)
         lastMonth = first - datetime.timedelta(days=1)
-        ids = context.get('active_ids') or (context.get('active_id') and [context.get('active_id')]) or []
+        model = context.get('active_model', False)
+        if context.get('active_domain'):
+            active_domain = context.get('active_domain')
+            ids = self.pool.get(model).search(
+                cr, uid, active_domain, context=context)
+        elif context.get('active_ids'):
+            ids = context.get('active_ids') or (context.get('active_id')\
+                                        and [context.get('active_id')]) or []
 
         res = {
-            'model': context.get('active_model', False),
+            'model': model,
             'mandate_ids': str(ids),
             'month': lastMonth.strftime("%m"),
             'year': lastMonth.strftime("%Y"),

@@ -57,11 +57,17 @@ class import_sta_candidatures_wizard(orm.TransientModel):
         res = {}
         context = context or {}
 
-        ids = context.get('active_id')\
-              and [context.get('active_id')] or context.get('active_ids') or []
         model = context.get('active_model', False)
         if not model:
             return res
+
+        if context.get('active_domain'):
+            active_domain = context.get('active_domain')
+            ids = self.pool.get(model).search(
+                cr, uid, active_domain, context=context)
+        elif context.get('active_ids'):
+            ids = context.get('active_ids') or (context.get('active_id')\
+                                        and [context.get('active_id')]) or []
 
         committee = self.pool[model].browse(cr, uid, ids[0], context=context)
 
