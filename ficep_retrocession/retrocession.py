@@ -903,13 +903,25 @@ class retrocession(orm.Model):
 
             move_line_obj.create(cr, uid, line_vals)
 
-        line_vals['credit'] = retro.amount_retrocession
+        deduc_rules_amount = sum(rule['amount_subtotal'] * -1
+                                 for rule in retro.deductible_rule_ids)
+
+        line_vals['credit'] = (retro.amount_total + deduc_rules_amount)
         line_vals['debit'] = 0
         if retro.default_credit_account:
             line_vals['account_id'] = retro.default_credit_account.id
         else:
             raise orm.except_orm(_('Error!'), _('Please set a retrocession account on mandate category.'))
         move_line_obj.create(cr, uid, line_vals)
+
+        if deduc_rules_amount > 0:
+            line_vals['credit'] = 0
+            line_vals['debit'] = deduc_rules_amount
+            if retro.default_debit_account:
+                line_vals['account_id'] = retro.default_debit_account.id
+            else:
+                raise orm.except_orm(_('Error!'),
+                        _('Please set a cost account on mandate category.'))
 
         line_vals['credit'] = 0
         line_vals['debit'] = retro.amount_total
