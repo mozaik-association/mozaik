@@ -50,7 +50,6 @@
 
         # to speed test without testing standard addons from a pre-loaded squeleton database:
         'analytic',
-        'board',
         'edi',
         # load manually in this database ficep_base and the following modules:
         #'account_accountant',
@@ -87,4 +86,3 @@ FICEP Base
     'auto_install': False,
     'application': False,
 }
-

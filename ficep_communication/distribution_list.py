@@ -36,36 +36,24 @@ class distribution_list(orm.Model):
     _inherit = ['distribution.list', 'abstract.ficep.model']
     _description = "Distribution List"
 
-    def _get_user_id(self, cr, uid, ids=None, context=None):
-        """
-        ============
-        _get_user_id
-        ============
-        Return user id value for many2many field
-        """
-        return [uid]
-
     _columns = {
         'name': fields.char(
             string='Name', required=True, track_visibility='onchange'),
-        'public': fields.boolean('Public'),
+        'public': fields.boolean('Public', track_visibility='onchange'),
         'res_users_ids': fields.many2many(
             'res.users', 'dist_list_res_users_rel',
             id1='dist_list_id', id2='res_users_id',
-            string='Owners', required=True, select=True),
+            string='Owners', required=True),
         'int_instance_id': fields.many2one(
             'int.instance', string='Internal Instance',
-            required=True, select=True, track_visibility='onchange'),
+            select=True, track_visibility='onchange'),
     }
 
     _defaults = {
-        'int_instance_id': lambda self, cr, uid, ids, context = None:
-            self.pool.get('int.instance').get_default(cr, uid),
-        'res_users_ids': _get_user_id,
-        'dst_model_id': lambda self, cr, uid, ids, context = None:
-            self.pool.get('ir.model').search(
-                cr, uid, [('model', '=', 'virtual.target')],
-                context=context)[0],
+        'res_users_ids': lambda self, cr, uid, c: [uid],
+        'dst_model_id': lambda self, cr, uid, c:
+            self.pool['ir.model'].search(
+                cr, uid, [('model', '=', 'virtual.target')])[0],
         'bridge_field': 'common_id',
         'partner_path': 'partner_id',
     }

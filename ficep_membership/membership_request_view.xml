@@ -215,7 +215,7 @@
                             <page string="Partner" name="partner">
                                 <group>
                                     <field name="partner_id"
-                                        domain="[('is_company','=', False)]"
+                                        domain="[('is_company','=', False),('identifier','!=',0)]"
                                         attrs="{'readonly':[('is_update', '=', True)],
                                                    'required':[('is_update', '=', True)]}"
                                         on_change="onchange_partner_id(request_type, partner_id)" />

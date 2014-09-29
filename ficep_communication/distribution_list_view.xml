@@ -26,6 +26,10 @@
                 </xpath>
             </field>
         </record>
+        <record id="mass_mailing_distribution_list.distribution_list_search" model="ir.ui.view">
+            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
+                                          ]"/>
+        </record>
 
         <!-- TREE -->
         <record id="distribution_list_tree" model="ir.ui.view">
@@ -55,6 +59,11 @@
 
             </field>
         </record>
+        <record id="mass_mailing_distribution_list.distribution_list_tree" model="ir.ui.view">
+            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
+                                          ]"/>
+        </record>
+
         <!-- FORM -->
         <record id="distribution_list_form" model="ir.ui.view">
             <field name="name">distribution.list.form (ficep_communication)</field>
@@ -74,8 +83,7 @@
                     </header>
                 </xpath>
 
-                <!-- Add dates -->
-                <xpath expr="//group[@name='info']" position="after">
+                <xpath expr="//group[@name='info']" position="replace">
                     <group attrs="{'invisible': [('newsletter', '=', False)]}">
                         <field name="public" />
                     </group>
@@ -106,9 +114,6 @@
                         </page>
                     </notebook>
                 </xpath>
-
-                <!-- Hide fields -->
-                <xpath expr="//group[@name='info']" position="replace"/>
 
                 <!-- Add developper tools and chatter -->
                 <xpath expr="//form" postition="inside">

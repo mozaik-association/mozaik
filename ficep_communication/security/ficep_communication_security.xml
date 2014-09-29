@@ -2,33 +2,40 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Distribution Lists Owners can modify/unlink them ... -->
-        <record id="distribution_list_user_rule" model="ir.rule">
-            <field name="name">Distribution List for Ficep User</field>
-            <field name="model_id" ref="distribution_list.model_distribution_list" />
-            <field name="domain_force">[('res_users_ids','in', [user.id])]</field>
-            <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_user'))]"/>
-            <field name="perm_create" eval="False" />
-            <field name="perm_read" eval="False" />
-        </record>
-
-        <!-- ... and Configurator too -->
-        <record id="distribution_list_configurator_rule" model="ir.rule">
-            <field name="name">Distribution List for Ficep Configurator</field>
-            <field name="model_id" ref="distribution_list.model_distribution_list" />
-            <field name="domain_force">[(1,'=',1)]</field>
-            <field name="groups" eval="[(4,ref('ficep_base.ficep_res_groups_configurator'))]"/>
-            <field name="perm_create" eval="False" />
-            <field name="perm_read" eval="False" />
-        </record>
-
         <!-- Pyramidal Confidentiality -->
 
-        <record id="distribution_list_base_rule" model="ir.rule">
-            <field name="name">Distribution List for Ficep Base</field>
-            <field name="model_id" ref="distribution_list.model_distribution_list"/>
-            <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+        <record id="distribution_list_base_cud_rule" model="ir.rule">
+            <field name="name">Distribution List (CUD) for Ficep Configurator</field>
+            <field name="model_id" ref="distribution_list.model_distribution_list" />
+            <field name="domain_force">[('res_users_ids','in', [user.id])]</field>
             <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="False" />
+        </record>
+
+        <record id="distribution_list_base_r_rule" model="ir.rule">
+            <field name="name">Distribution List (R) for Ficep Base</field>
+            <field name="model_id" ref="distribution_list.model_distribution_list"/>
+            <field name="domain_force">['|',('int_instance_id','=',False),
+                                            ('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_create" eval="False" /><field name="perm_write" eval="False" /><field name="perm_unlink" eval="False" />
+        </record>
+
+        <record id="email_template_base_cud_rule" model="ir.rule">
+            <field name="name">Email Template (CUD) for Ficep Configurator</field>
+            <field name="model_id" ref="email_template.model_email_template" />
+            <field name="domain_force">[('res_users_ids','in', [user.id])]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="False" />
+        </record>
+
+        <record id="email_template_base_r_rule" model="ir.rule">
+            <field name="name">Email Template (R) for Ficep Base</field>
+            <field name="model_id" ref="email_template.model_email_template"/>
+            <field name="domain_force">['|',('int_instance_id','=',False),
+                                            ('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_create" eval="False" /><field name="perm_write" eval="False" /><field name="perm_unlink" eval="False" />
         </record>
 
         <record id="postal_mail_log_base_rule" model="ir.rule">

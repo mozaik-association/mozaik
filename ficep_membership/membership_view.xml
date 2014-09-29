@@ -4,12 +4,11 @@
 
         <!-- Membership State -->
 
-        <!-- SEARCH -->
         <record id="membership_state_search_view" model="ir.ui.view">
             <field name="name">membership.state.search</field>
             <field name="model">membership.state</field>
             <field name="arch" type="xml">
-                <search string="Membership State" version="7.0">
+                <search string="Membership States" version="7.0">
                     <field name="code" />
                     <field name="name" />
                 </search>
@@ -20,7 +19,7 @@
             <field name="name">membership.state.tree</field>
             <field name="model">membership.state</field>
             <field name="arch" type="xml">
-                <tree string="Membership State" version="7.0">
+                <tree string="Membership States" version="7.0">
                     <field name="name" />
                     <field name="code" />
                 </tree>
@@ -104,12 +103,12 @@
             <field name="name">membership.line.search (ficep_membership)</field>
             <field name="model">membership.line</field>
             <field name="arch" type="xml">
-                <search string="">
-                    <field name="partner_id"/>
+                <search string="Membership Lines">
+                    <field name="partner_id" domain="[('is_company','=',False),('identifier','!=',0)]"/>
                     <field name="int_instance_id"/>
                     <field name="state_id"/>
                     <field name="product_id"/>
-                    <separator/>
+
                     <filter name="active" string="Active"
                         domain="[('active','=',True)]" help="Active Memberships" />
                     <filter name="expired" string="Expired"
@@ -150,7 +149,7 @@
             <field name="name">membership.line.form</field>
             <field name="model">membership.line</field>
             <field name="arch" type="xml">
-                <form string="Membership Line" create="0" delete="0" version="7.0">
+                <form string="Membership Line" edit="0" create="0" delete="0" version="7.0">
                     <header>
                         <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"

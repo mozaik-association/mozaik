@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="view_email_template_search" model="ir.ui.view">
+            <field name="name">email.template.search (ficep_communication)</field>
+            <field name="model">email.template</field>
+            <field name="inherit_id" ref="email_template.view_email_template_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='model_id']" position="after">
+                    <field name="int_instance_id"/>
+                </xpath>
+
+                <xpath expr="//group[1]" position="inside">
+                    <filter name="instance" string="Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="email_template_tree" model="ir.ui.view">
+            <field name="name">email.template.tree (ficep_communication)</field>
+            <field name="model">email.template</field>
+            <field name="inherit_id" ref="email_template.email_template_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mail_server_id']" position="replace">
+                    <field name="int_instance_id"/>
+                </xpath>
+                <xpath expr="//field[@name='email_from']" position="replace"/>
+                <xpath expr="//field[@name='email_to']" position="replace"/>
+                <xpath expr="//field[@name='partner_to']" position="replace"/>
+                <xpath expr="//field[@name='report_name']" position="replace"/>
+            </field>
+        </record>
+
+        <record id="email_template_form" model="ir.ui.view">
+            <field name="name">email.template.form (ficep_communication)</field>
+            <field name="model">email.template</field>
+            <field name="inherit_id" ref="email_template.email_template_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="security" string="Security">
+                        <group name="validity">
+                            <field name="int_instance_id" />
+                            <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                        </group>
+                        <div class="oe_clear">
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
