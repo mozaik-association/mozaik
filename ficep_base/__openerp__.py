@@ -72,7 +72,6 @@ FICEP Base
         'data/ir_filters_data.xml',
         'data/res_lang_data.xml',
         'data/ir_config_parameter_data.xml',
-        'data/product_data.xml',
         'ficep_view.xml',
         'res_partner_view.xml',
     ],

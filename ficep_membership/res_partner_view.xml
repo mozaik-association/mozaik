@@ -81,13 +81,14 @@
                         <field name="membership_state_id"
                             readonly="1" class="oe_inline" />
                         )
-                        <span attrs="{'invisible': [('membership_state_code', 'not in', ['refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member'])]}">
+                        <span attrs="{'invisible': [('membership_state_code', 'not in', ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member'])]}">
                             <br/>
                             <label class="oe_attention" string="⇒ Pay Attention"/>
                         </span>
                     </span>
                 </xpath>
                 <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="free_member" />
                     <field name="membership_state_code" />
                     <field name="accepted_date" />
                     <field name="decline_payment_date" />
@@ -181,23 +182,19 @@
                             <field name="del_doc_date"
                                 attrs="{'invisible': [('del_doc_date', '=', False)]}"
                                 readonly="1" />
-                            <field name="free_member" readonly="1" />
                             <field name="del_mem_card_date"
                                 attrs="{'invisible': [('del_mem_card_date', '=', False)]}"
                                 readonly="1" />
                         </group>
                         <field name="membership_line_ids" readonly="1">
-                            <tree
-                                colors="gray:active==False;green:state_id[0]==%(ficep_membership.member)d">
+                            <tree colors="gray:active==False;green:state_id[0]==%(ficep_membership.member)d;red:state_id[0] in [%(ficep_membership.former_supporter)d, %(ficep_membership.refused_member_candidate)d, %(ficep_membership.expulsion_former_member)d, %(ficep_membership.resignation_former_member)d, %(ficep_membership.inappropriate_former_member)d, %(ficep_membership.break_former_member)d]">
                                 <field name="int_instance_id" />
                                 <field name="state_id" />
-                                <field name="product_id"
-                                    attrs="{'invisible': [('price','&lt;=',0.0)]}" />
+                                <field name="product_id" />
+                                <field name="reference" />
                                 <field name="date_from" />
                                 <field name="date_to" />
                                 <field name="active" invisible="1" />
-                                <field name="price"
-                                    invisible="1" />
                             </tree>
                         </field>
                     </page>

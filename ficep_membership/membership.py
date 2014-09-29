@@ -66,7 +66,7 @@ class membership_line(orm.Model):
     _defaults = {
         'product_id': lambda self, cr, uid, ids, context = None:
             self.pool['ir.model.data'].get_object_reference(
-                cr, uid, 'ficep_base', 'membership_product_free')[1],
+                cr, uid, 'ficep_membership', 'membership_product_free')[1],
         'int_instance_id': lambda self, cr, uid, ids, context = None:
             self.pool.get('int.instance').get_default(cr, uid),
     }

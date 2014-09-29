@@ -11,6 +11,13 @@
 
     <data noupdate="1">
 
+        <record id="membership_product_free" model="product.product">
+            <field name="name">Free Membership</field>
+        </record>
+        <record id="membership_product_first" model="product.product">
+            <field name="name">First Membership</field>
+            <field name="list_price" eval="25.0" />
+        </record>
         <record id="membership_product_isolated" model="product.product">
             <field name="name">Isolated</field>
             <field name="list_price" eval="50.0" />
@@ -23,20 +30,21 @@
             <field name="name">Student or Pensioner</field>
             <field name="list_price" eval="20.0" />
         </record>
-        <record id="membership_product_first" model="product.product">
-            <field name="name">First Membership</field>
-            <field name="list_price" eval="25.0" />
-        </record>
         <record id="membership_product_undefined" model="product.product">
             <field name="name">Undefined Membership</field>
-            <field name="list_price" eval="0.0" />
         </record>
 
     </data>
 
     <data noupdate="0">
 
-        <record id="ficep_base.membership_product_free" model="product.product">
+        <record id="membership_product_free" model="product.product">
+            <field name="categ_id" ref="membership_product_category" />
+            <field name="membership" eval="1" />
+            <field name="type">service</field>
+            <field name="list_price" eval="0.0" />
+        </record>
+        <record id="membership_product_first" model="product.product">
             <field name="categ_id" ref="membership_product_category" />
             <field name="membership" eval="1" />
             <field name="type">service</field>
@@ -56,15 +64,12 @@
             <field name="membership" eval="1" />
             <field name="type">service</field>
         </record>
-        <record id="membership_product_first" model="product.product">
-            <field name="categ_id" ref="membership_product_category" />
-            <field name="membership" eval="1" />
-            <field name="type">service</field>
-        </record>
         <record id="membership_product_undefined" model="product.product">
             <field name="categ_id" ref="membership_product_category" />
             <field name="membership" eval="1" />
             <field name="type">service</field>
+            <field name="list_price" eval="0.0" />
         </record>
+
     </data>
 </openerp>

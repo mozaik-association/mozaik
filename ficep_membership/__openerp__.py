@@ -52,7 +52,7 @@ local zip, default instance otherwise. This field is added to all views
     'images': [
     ],
     'data': [
-        'data/ficep_membership_state_data.xml',
+        'data/membership_state_data.xml',
         'data/abstract_coordinate_data.xml',
         'security/ficep_membership_security.xml',
         'security/ir.model.access.csv',

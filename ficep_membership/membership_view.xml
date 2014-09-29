@@ -136,12 +136,11 @@
                     <field name="partner_id"/>
                     <field name="int_instance_id"/>
                     <field name="state_id"/>
-                    <field name="product_id" attrs="{'invisible': [('product_id','=',False)]}"/>
+                    <field name="product_id"/>
                     <field name="reference" />
                     <field name="date_from"/>
                     <field name="date_to"/>
                     <field name="active" invisible="1"/>
-                    <field name="price" invisible="1"/>
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
