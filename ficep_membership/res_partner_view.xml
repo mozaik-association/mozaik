@@ -69,8 +69,7 @@
         </record>
 
         <record id="view_partner_2_form" model="ir.ui.view">
-            <field name="name">res.partner.form (ficep_membership)
-            </field>
+            <field name="name">res.partner.form (ficep_membership)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="ficep_person.view_partner_form" />
             <field name="arch" type="xml">
@@ -82,6 +81,10 @@
                         <field name="membership_state_id"
                             readonly="1" class="oe_inline" />
                         )
+                        <span attrs="{'invisible': [('membership_state_code', 'not in', ['refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member'])]}">
+                            <br/>
+                            <label class="oe_attention" string="⇒ Pay Attention"/>
+                        </span>
                     </span>
                 </xpath>
                 <xpath expr="//group[@name='moreinfo']" position="inside">
@@ -106,7 +109,7 @@
                         placeholder="Instances..."
                         attrs="{'required': [('user_ids','!=',[]),
                                                 ('membership_state_id','!=',False)]}" />
-                    <!-- Some blank lines to see the entire elapsed many2many_tags 
+                    <!-- Some blank lines to see the entire elapsed many2many_tags
                         widget -->
                     <br />
                     <br />
@@ -124,9 +127,7 @@
 
         <!-- Membership -->
         <record id="view_partner_form_membership" model="ir.ui.view">
-            <field name="name">res.partner.form.inherit
-                (ficep_membership)
-            </field>
+            <field name="name">res.partner.form.inherit (ficep_membership)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
