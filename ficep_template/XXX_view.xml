@@ -17,6 +17,7 @@
       * widget="html"            options='{"safe": True}'
       * widget="gauge"           options="{'max_field': 'invoiced_target'}"
       * widget="many2many_tags"  options="{'no_create_edit': True}"
+      * widget="statusbar"       clickable="True" options="{'fold_field': 'fold'}"
 
       "style" attribute value for:
       * widget="gauge"         style="width:160px; height: 120px;"

@@ -42,20 +42,21 @@
             ])]"/>
             <field name="arch" type="xml">
                  <xpath expr="//page[@name='exclusive_categories']" position="after">
-                    <page string="Retrocessions" name="retrocession" autofocus="autofocus"
+                    <page string="Retrocessions" name="retrocession"
                           attrs="{'invisible': [('type', '=', 'int')]}">
                         <group>
-                            <field name="retrocession_mode" attrs="{'invisible' : [('type', '=', 'int')]}"/>
-                            <field name="calculation_method_id" attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
+                            <field name="retrocession_mode"/>
+                            <field name="calculation_method_id" attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : [('retrocession_mode', '=', 'none')]}"/>
                             <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"
-                                   attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
+                                   attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : [('retrocession_mode', '=', 'none')]}"/>
                         </group>
-                        <separator string="Accounting"/>
-                        <group>
+                        <separator string="Accounting"
+                                   attrs="{'invisible' : [('retrocession_mode', '=', 'none')]}"/>
+                        <group attrs="{'invisible' : [('retrocession_mode', '=', 'none')]}">
                             <field name ="property_retrocession_account"
-                                   attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
+                                   attrs="{'required' : [('retrocession_mode', '!=', 'none')]}"/>
                             <field name ="property_retrocession_cost_account"
-                                   attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : ['|',('type', '=', 'int'),('retrocession_mode', '=', 'none')]}"/>
+                                   attrs="{'required' : [('retrocession_mode', '!=', 'none')]}"/>
                         </group>
                     </page>
                  </xpath>
