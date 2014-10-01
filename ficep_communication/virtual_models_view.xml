@@ -1068,20 +1068,20 @@
             parent="virtual_models_submenu" action="virtual_partner_relation_action" />
 
         <!-- Virtual Partner Involvement -->
-        <menuitem id="virtual_partner_involvement_menu"
-            sequence="16" parent="virtual_models_submenu" action="virtual_partner_involvement_action" />
-
-        <!-- Virtual Partner Mandate -->
-        <menuitem id="virtual_partner_mandate_menu" sequence="30"
-            parent="virtual_models_submenu" action="virtual_partner_mandate_action" />
+        <menuitem id="virtual_partner_involvement_menu" sequence="16"
+            parent="virtual_models_submenu" action="virtual_partner_involvement_action" />
 
         <!-- Virtual Partner Candidature -->
-        <menuitem id="virtual_partner_candidature_menu"
-            sequence="32" parent="virtual_models_submenu" action="virtual_partner_candidature_action" />
+        <menuitem id="virtual_partner_candidature_menu" sequence="30"
+            parent="virtual_models_submenu" action="virtual_partner_candidature_action" />
+
+        <!-- Virtual Partner Mandate -->
+        <menuitem id="virtual_partner_mandate_menu" sequence="32"
+            parent="virtual_models_submenu" action="virtual_partner_mandate_action" />
 
         <!-- Virtual Partner Retrocession -->
-        <menuitem id="virtual_partner_retrocession_menu"
-            sequence="34" parent="virtual_models_submenu" action="virtual_partner_retrocession_action" />
+        <menuitem id="virtual_partner_retrocession_menu" sequence="34"
+            parent="virtual_models_submenu" action="virtual_partner_retrocession_action" />
 
         <!-- Virtual Assembly Instance -->
         <menuitem id="virtual_assembly_instance_menu" sequence="40"
