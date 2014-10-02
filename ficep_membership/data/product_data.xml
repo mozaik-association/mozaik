@@ -16,19 +16,19 @@
         </record>
         <record id="membership_product_first" model="product.product">
             <field name="name">First Membership</field>
-            <field name="list_price" eval="25.0" />
+            <field name="list_price" eval="10.0" />
         </record>
         <record id="membership_product_isolated" model="product.product">
             <field name="name">Isolated</field>
-            <field name="list_price" eval="50.0" />
+            <field name="list_price" eval="25.0" />
         </record>
         <record id="membership_product_live_together" model="product.product">
             <field name="name">Live Together</field>
-            <field name="list_price" eval="30.0" />
+            <field name="list_price" eval="18.0" />
         </record>
         <record id="membership_product_other" model="product.product">
             <field name="name">Student or Pensioner</field>
-            <field name="list_price" eval="20.0" />
+            <field name="list_price" eval="12.0" />
         </record>
         <record id="membership_product_undefined" model="product.product">
             <field name="name">Undefined Membership</field>
