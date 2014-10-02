@@ -7,7 +7,7 @@
             <field name="model">mandate.category</field>
             <field name="inherit_id" ref="ficep_mandate.mandate_category_search_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_account.res_groups_financial_manager'),
+                ref('ficep_base.ficep_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//filter[@name='is_submission_mandate']" position="before">
@@ -38,7 +38,7 @@
             <field name="model">mandate.category</field>
             <field name="inherit_id" ref="ficep_mandate.mandate_category_form_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_account.res_groups_financial_manager'),
+                ref('ficep_base.ficep_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                  <xpath expr="//page[@name='exclusive_categories']" position="after">
@@ -51,8 +51,10 @@
                                    attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : [('retrocession_mode', '=', 'none')]}"/>
                         </group>
                         <separator string="Accounting"
-                                   attrs="{'invisible' : [('retrocession_mode', '=', 'none')]}"/>
-                        <group attrs="{'invisible' : [('retrocession_mode', '=', 'none')]}">
+                                   attrs="{'invisible' : [('retrocession_mode', '=', 'none')]}"
+                                   groups="ficep_base.ficep_res_groups_financial_manager"/>
+                        <group attrs="{'invisible' : [('retrocession_mode', '=', 'none')]}"
+                               groups="ficep_base.ficep_res_groups_financial_manager">
                             <field name ="property_retrocession_account"
                                    attrs="{'required' : [('retrocession_mode', '!=', 'none')]}"/>
                             <field name ="property_retrocession_cost_account"
@@ -68,7 +70,7 @@
             <field name="model">mandate.category</field>
             <field name="inherit_id" ref="ficep_mandate.mandate_category_tree_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_account.res_groups_financial_manager'),
+                ref('ficep_base.ficep_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                  <xpath expr="//tree" position="inside">
@@ -82,7 +84,7 @@
             <field name="model">sta.mandate</field>
             <field name="inherit_id" ref="ficep_mandate.sta_mandate_form_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_account.res_groups_financial_manager'),
+                ref('ficep_base.ficep_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_finish']" position="after">
@@ -196,7 +198,7 @@
             <field name="model">ext.mandate</field>
             <field name="inherit_id" ref="ficep_mandate.ext_mandate_form_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_account.res_groups_financial_manager'),
+                ref('ficep_base.ficep_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_finish']" position="after">
@@ -310,7 +312,7 @@
             <field name="model">sta.mandate</field>
             <field name="inherit_id" ref="ficep_mandate.sta_mandate_search_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_account.res_groups_financial_manager'),
+                ref('ficep_base.ficep_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='legislature_id']" position="after">
@@ -344,7 +346,7 @@
             <field name="model">ext.mandate</field>
             <field name="inherit_id" ref="ficep_mandate.ext_mandate_search_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_account.res_groups_financial_manager'),
+                ref('ficep_base.ficep_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='ext_assembly_id']" position="after">

@@ -9,7 +9,8 @@
             <field name="model_id" ref="distribution_list.model_distribution_list" />
             <field name="domain_force">[('res_users_ids','in', [user.id])]</field>
             <field name="groups" eval="[(5,0,0)]"/>
-            <field name="perm_read" eval="False" />
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
         <record id="distribution_list_base_r_rule" model="ir.rule">
@@ -18,7 +19,8 @@
             <field name="domain_force">['|',('int_instance_id','=',False),
                                             ('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
-            <field name="perm_create" eval="False" /><field name="perm_write" eval="False" /><field name="perm_unlink" eval="False" />
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
         </record>
 
         <record id="email_template_base_cud_rule" model="ir.rule">
@@ -26,7 +28,8 @@
             <field name="model_id" ref="email_template.model_email_template" />
             <field name="domain_force">[('res_users_ids','in', [user.id])]</field>
             <field name="groups" eval="[(5,0,0)]"/>
-            <field name="perm_read" eval="False" />
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
         <record id="email_template_base_r_rule" model="ir.rule">
@@ -35,7 +38,8 @@
             <field name="domain_force">['|',('int_instance_id','=',False),
                                             ('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
-            <field name="perm_create" eval="False" /><field name="perm_write" eval="False" /><field name="perm_unlink" eval="False" />
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
         </record>
 
         <record id="postal_mail_log_base_rule" model="ir.rule">
@@ -43,6 +47,8 @@
             <field name="model_id" ref="ficep_communication.model_postal_mail_log"/>
             <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
         <record id="postal_mail_log_base_rule" model="ir.rule">
@@ -50,6 +56,8 @@
             <field name="model_id" ref="ficep_communication.model_postal_mail_log"/>
             <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
         <record id="virtual_partner_involvement_base_rule" model="ir.rule">
@@ -57,6 +65,8 @@
             <field name="model_id" ref="ficep_communication.model_virtual_partner_involvement"/>
             <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
         </record>
 
         <record id="virtual_partner_relation_base_rule" model="ir.rule">
@@ -64,6 +74,8 @@
             <field name="model_id" ref="ficep_communication.model_virtual_partner_relation"/>
             <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
         </record>
 
         <record id="virtual_partner_instance_base_rule" model="ir.rule">
@@ -71,6 +83,8 @@
             <field name="model_id" ref="ficep_communication.model_virtual_partner_instance"/>
             <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
         </record>
 
         <record id="virtual_partner_mandate_base_rule" model="ir.rule">
@@ -80,6 +94,8 @@
                 ('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
         </record>
 
         <record id="virtual_partner_candidature_base_rule" model="ir.rule">
@@ -90,6 +106,8 @@
                 ('mng_int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
         </record>
 
         <record id="virtual_assembly_instance_base_rule" model="ir.rule">
@@ -97,6 +115,8 @@
             <field name="model_id" ref="ficep_communication.model_virtual_assembly_instance"/>
             <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
         </record>
 
         <record id="virtual_partner_retrocession_base_rule" model="ir.rule">
@@ -109,6 +129,8 @@
                 ('ext_mandate_id.retro_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
         </record>
 
         <record id="virtual_partner_membership_base_rule" model="ir.rule">
@@ -116,6 +138,8 @@
             <field name="model_id" ref="ficep_communication.model_virtual_partner_membership"/>
             <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
         </record>
 
     </data>
