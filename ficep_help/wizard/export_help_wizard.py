@@ -73,14 +73,19 @@ class export_help_wizard(orm.TransientModel):
             for img_elem in root.iter('img'):
                 if img_model in img_elem.get('src'):
                     i_img += 1
+                    xml_id = "%s_img_%s" % \
+                        (root.attrib['name'], str(i_img).rjust(2, '0'))
                     img_src = img_elem.get('src')
                     attach_id = False
                     if 'id=' in img_src:
                         id_pos = img_src.index('id=') + 3
                         attach_id = img_elem.get('src')[id_pos:]
+                        new_src = img_src.replace(attach_id, xml_id)
                     else:
                         fragments = img_src.split('ir.attachment/')
                         attach_id = fragments[1].split('_')[0]
+                        new_src = img_src.replace(
+                            "%s_" % attach_id, "%s|" % xml_id)
 
                     if not attach_id:
                         continue
@@ -96,20 +101,7 @@ class export_help_wizard(orm.TransientModel):
                                                             int(attach_id),
                                                             context=context)
                     img_node = ET.SubElement(data_node, 'record')
-                    xml_id = root.attrib['name'] \
-                             + "_img_" + str(i_img).rjust(2, '0')
-                    if 'id=' in img_src:
-                        id_pos = img_src.index('id=')
-                        attach_id = img_elem.get('src')[id_pos:]
-                        img_elem.attrib['src'] = img_src.replace(attach_id,
-                                                             "id=" + xml_id)
-                    else:
-                        fragments = img_src.split('/')
-                        attach_id = fragments[4].split('_')[0]
-                        img_elem.attrib['src'] = img_src.replace(
-                                                                "%s_" %
-                                                                attach_id,
-                                                                "%s|" % xml_id)
+                    img_elem.attrib['src'] = new_src
                     img_node.attrib['id'] = xml_id
                     img_node.attrib['model'] = img_model
                     field_node = ET.SubElement(img_node, 'field')
@@ -148,7 +140,7 @@ class export_help_wizard(orm.TransientModel):
                 thumbnail = ET.SubElement(main_div, 'div')
                 thumbnail.attrib['class'] = 'oe_snippet_thumbnail'
                 img = ET.SubElement(thumbnail, 'img')
-                img.attrib['class'] = 'oe_snippet_thumbnail_img' 
+                img.attrib['class'] = 'oe_snippet_thumbnail_img'
                 src = '/ficep_help/static/src/img/snippet/snippet_thumbs.png'
                 img.attrib['src'] = src
                 span = ET.SubElement(thumbnail, 'span')
