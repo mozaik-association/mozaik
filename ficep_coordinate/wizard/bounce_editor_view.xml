@@ -9,18 +9,15 @@
             <field name="model">bounce.editor</field>
             <field name="arch" type="xml">
                 <form string="Bounce Editor" version="7.0">
-                    <sheet>
-                        <group>
-                            <field name="increase" />
-                            <field name="description" />
-                        </group>
-                    </sheet>
+                    <group>
+                        <field name="increase" />
+                        <field name="description" />
+                    </group>
                     <footer>
                         <button name="update_bounce_datas" string="Apply" type="object"/>
                         or
                         <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>
-
                 </form>
             </field>
         </record>
