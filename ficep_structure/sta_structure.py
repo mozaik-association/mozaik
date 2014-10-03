@@ -227,7 +227,10 @@ class electoral_district(orm.Model):
     }
 
 # constraints
-
+    _sql_constraints = [
+        ('unique_name', 'UNIQUE ( name )',
+         'The name must be unique.'),
+    ]
     _unicity_keys = 'sta_instance_id, assembly_id'
 
 # view methods: onchange, button
