@@ -40,27 +40,24 @@
     ],
     'description': """
 FICEP Retrocession
-=============
+==================
 """,
     'images': [
     ],
     'data': [
-             'mandate_actions.xml',
-             'structure_view.xml',
-             'retrocession_view.xml',
-             'mandate_view.xml',
-             'wizard/retrocession_factory_wizard.xml',
-             'wizard/report_retrocession_wizard.xml',
-             'security/ir.model.access.csv',
-             'reports/report_payment_request_view.xml',
-             'reports/report_payment_certificate_view.xml',
-             'data/email_template_data.xml',
-    ],
-    'js': [
+        'security/ir.model.access.csv',
+        'security/ficep_retrocession_security.xml',
+        'mandate_actions.xml',
+        'structure_view.xml',
+        'retrocession_view.xml',
+        'mandate_view.xml',
+        'wizard/retrocession_factory_wizard.xml',
+        'wizard/report_retrocession_wizard.xml',
+        'reports/report_payment_request_view.xml',
+        'reports/report_payment_certificate_view.xml',
+        'data/email_template_data.xml',
     ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -70,5 +67,3 @@ FICEP Retrocession
     'auto_install': False,
     'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -162,5 +162,18 @@ account.account_comp_rule
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
+        <record id="retrocession_base_rule" model="ir.rule">
+            <field name="name">Retrocession for Ficep Base</field>
+            <field name="model_id" ref="ficep_mandate.model_generic_mandate"/>
+            <field name="domain_force">[
+                '|',
+                ('sta_mandate_id.retro_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('ext_mandate_id.retro_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
     </data>
 </openerp>

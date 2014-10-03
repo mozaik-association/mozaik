@@ -1081,7 +1081,8 @@
 
         <!-- Virtual Partner Retrocession -->
         <menuitem id="virtual_partner_retrocession_menu" sequence="34"
-            parent="virtual_models_submenu" action="virtual_partner_retrocession_action" />
+            parent="virtual_models_submenu" action="virtual_partner_retrocession_action"
+            groups="ficep_base.ficep_res_groups_configurator,ficep_base.ficep_res_groups_financial_user"/>
 
         <!-- Virtual Assembly Instance -->
         <menuitem id="virtual_assembly_instance_menu" sequence="40"

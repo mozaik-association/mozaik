@@ -8,9 +8,9 @@
             <field name="usual_lastname">KIROUL</field>
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="int_instance_m2m_ids" eval="[
-                (4, ref('int_instance_03')),
-            ]"/>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('int_instance_03'),
+            ])]"/>
         </record>
 
         <record id="partner_of_user_2" model="res.partner">
@@ -19,9 +19,9 @@
             <field name="usual_lastname"></field>
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="int_instance_m2m_ids" eval="[
-                (4, ref('int_instance_local_bxl')),
-            ]"/>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('int_instance_local_bxl'),
+            ])]"/>
         </record>
 
         <record id="partner_of_user_3" model="res.partner">
@@ -33,9 +33,9 @@
             <field name="employee" eval="1"/>
             <field name="website">http://www.aftnet.be/portail-aft/Joueurs/Fiche-signaletique-membre.aspx?numfed=4021764</field>
             <field name="secondary_website">http://www.itftennis.com/procircuit/players/player/profile.aspx?playerid=30020306</field>
-            <field name="int_instance_m2m_ids" eval="[
-                (4, ref('ficep_structure.int_instance_01')),
-            ]"/>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('ficep_structure.int_instance_01'),
+            ])]"/>
         </record>
 
         <record id="partner_of_user_4" model="res.partner">
@@ -44,9 +44,9 @@
             <field name="usual_lastname"></field>
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="int_instance_m2m_ids" eval="[
-                (4, ref('int_instance_06')),
-            ]"/>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('int_instance_06'),
+            ])]"/>
         </record>
 
         <record id="partner_of_user_5" model="res.partner">
@@ -56,9 +56,9 @@
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
             <field name="employee" eval="1"/>
-            <field name="int_instance_m2m_ids" eval="[
-                (4, ref('ficep_structure.int_instance_01')),
-            ]"/>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('ficep_structure.int_instance_01'),
+            ])]"/>
         </record>
 
         <record id="partner_of_user_6" model="res.partner">
@@ -68,17 +68,17 @@
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
             <field name="employee" eval="1"/>
-            <field name="int_instance_m2m_ids" eval="[
-                (4, ref('int_instance_04')),
-                (4, ref('int_instance_local_bxl')),
-            ]"/>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('int_instance_04'),
+                ref('int_instance_local_bxl'),
+            ])]"/>
         </record>
 
         <record id="res_partner_paul" model="res.partner">
             <field name="employee" eval="1"/>
-            <field name="int_instance_m2m_ids" eval="[
-                (4, ref('ficep_structure.int_instance_01')),
-            ]"/>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('ficep_structure.int_instance_01'),
+            ])]"/>
         </record>
 
         <!--
@@ -91,9 +91,9 @@
             <field name="password">aa</field>
             <field name="signature">pierre</field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="groups_id" eval="[
-                (4, ref('ficep_base.ficep_res_groups_reader')),
-            ]"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('ficep_base.ficep_res_groups_reader'),
+            ])]"/>
         </record>
 
         <record id="user_2" model="res.users">
@@ -102,9 +102,9 @@
             <field name="password">aa</field>
             <field name="signature">claude</field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="groups_id" eval="[
-                (4, ref('ficep_base.ficep_res_groups_user')),
-            ]"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('ficep_base.ficep_res_groups_user'),
+            ])]"/>
         </record>
 
         <record id="user_3" model="res.users">
@@ -113,9 +113,9 @@
             <field name="password">aa</field>
             <field name="signature">steve</field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="groups_id" eval="[
-                (4, ref('ficep_base.ficep_res_groups_officer')),
-            ]"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('ficep_base.ficep_res_groups_officer'),
+            ])]"/>
         </record>
 
         <record id="user_4" model="res.users">
@@ -124,9 +124,9 @@
             <field name="password">aa</field>
             <field name="signature">leon</field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="groups_id" eval="[
-                (4, ref('ficep_base.ficep_res_groups_vip_reader')),
-            ]"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('ficep_base.ficep_res_groups_vip_reader'),
+            ])]"/>
         </record>
 
         <record id="user_5" model="res.users">
@@ -135,11 +135,11 @@
             <field name="password">aa</field>
             <field name="signature">isabelle</field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="groups_id" eval="[
-                (4, ref('ficep_base.ficep_res_groups_manager')),
-                (4, ref('ficep_base.ficep_res_groups_financial_manager')),
-                (4, ref('help_online.help_online_group_writer')),
-            ]"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('ficep_base.ficep_res_groups_manager'),
+                ref('ficep_base.ficep_res_groups_financial_user'),
+                ref('help_online.help_online_group_writer'),
+            ])]"/>
         </record>
 
         <record id="user_6" model="res.users">
@@ -148,9 +148,10 @@
             <field name="password">aa</field>
             <field name="signature">sylvie</field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="groups_id" eval="[
-                (4, ref('ficep_base.ficep_res_groups_configurator')),
-            ]"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('ficep_base.ficep_res_groups_configurator'),
+                ref('ficep_base.ficep_res_groups_financial_manager'),
+            ])]"/>
         </record>
 
         <!--

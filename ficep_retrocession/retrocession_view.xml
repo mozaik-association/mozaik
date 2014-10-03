@@ -729,16 +729,13 @@
         <!-- Menus -->
 
         <menuitem id="retrocession_submenu" name="Retrocessions"
-                  sequence="10" parent="ficep_base.retrocessions_root_menu" />
+                  sequence="70" parent="ficep_base.mandates_root_menu" />
 
         <menuitem id="retrocession_action_submenu" action="retrocession_action"
                   sequence="10" parent="retrocession_submenu" />
 
-        <menuitem id="configuration_submenu" name="Configuration"
-                  sequence="20" parent="ficep_base.retrocessions_root_menu" />
-
         <menuitem id="calculation_submenu" name="Calculation"
-                  sequence="10" parent="configuration_submenu" />
+                  sequence="20" parent="ficep_mandate.configuration_submenu" />
 
         <menuitem id="calculation_method_submenu" action="calculation_method_action"
                   sequence="10" parent="calculation_submenu" />
@@ -747,7 +744,7 @@
                   sequence="20" parent="calculation_submenu" />
 
         <menuitem id="fractionation_submenu" name="Fractionations"
-                  sequence="50" parent="configuration_submenu" />
+                  sequence="30" parent="ficep_mandate.configuration_submenu" />
 
         <menuitem id="fractionation_action_submenu" action="fractionation_action"
                   sequence="10" parent="fractionation_submenu" />
