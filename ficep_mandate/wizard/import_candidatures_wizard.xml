@@ -9,7 +9,7 @@
                 <form string="Import Candidatures" version="7.0">
                     <sheet>
                         <group name="data_1">
-                            <field name="selection_committee_id"/>
+                            <field name="selection_committee_id" widget="selection"/>
                             <field name="source_file"/>
                         </group>
                         <div name="dev" groups="ficep_base.res_groups_developper">
@@ -38,7 +38,7 @@
                 <form string="Import Candidatures" version="7.0">
                     <sheet>
                         <group name="data_1">
-                            <field name="selection_committee_id"/>
+                            <field name="selection_committee_id" widget="selection"/>
                             <field name="source_file" invisible="1"/>
                         </group>
                         <div>
