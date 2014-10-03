@@ -33,5 +33,3 @@ from . import mass_mailing
 from . import postal_mail
 from . import email_coordinate
 from . import event
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

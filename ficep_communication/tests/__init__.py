@@ -26,12 +26,12 @@
 #
 ##############################################################################
 from . import test_postal_mail
+from . import test_event
 
 fast_suite = [
 ]
 
 checks = [
     test_postal_mail,
+    test_event,
 ]
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

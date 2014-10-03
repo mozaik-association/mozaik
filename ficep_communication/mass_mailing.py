@@ -51,11 +51,11 @@ class MailMailStats(orm.Model):
             else:
                 email_key = self.pool.get(stat.model).get_relation_column_name(cr, uid, 'email.coordinate', context=context)
                 if email_key:
-                    active_ids = [self.pool.get(stat.model).read(cr, uid, stat.res_id, [email_key], context=context)[email_key]]
+                    active_ids = [self.pool.get(stat.model).read(cr, uid, stat.res_id, [email_key], context=context)[email_key][0]]
 
             if active_ids:
                 ctx = context.copy()
-                ctx['active_ids'] = [stat.res_id]
+                ctx['active_ids'] = active_ids
                 wiz_id = self.pool['bounce.editor'].create(cr, uid, {'increase': 1,
                                                                      'model': 'email.coordinate',
                                                                      'description': _('Invalid Email Address'),

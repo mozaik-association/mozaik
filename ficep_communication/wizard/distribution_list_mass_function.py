@@ -127,16 +127,22 @@ class distribution_list_mass_function(orm.TransientModel):
                 domains = []
 
                 if wizard.include_unauthorized:
-                    domains.append("'|',('email_unauthorized','=', True),('email_unauthorized','=', False)")
+                    domains.append('|',
+                                   ('email_unauthorized', '=', True),
+                                   ('email_unauthorized', '=', False))
                 else:
-                    domains.append("('email_unauthorized','=', False)")
+                    domains.append(('email_unauthorized', '=', False))
 
                 if wizard.internal_instance_id:
-                    domains.append("('int_instance_id','child_of', [%s])" % wizard.internal_instance_id.id)
+                    domains.append(
+                        ('int_instance_id', 'child_of',
+                         ['%s' % wizard.internal_instance_id.id]))
 
                 if wizard.bounce_counter != 0:
                     wizard.bounce_counter = wizard.bounce_counter if wizard.bounce_counter >= 0 else 0
-                    domains.append("('email_bounce_counter','<=', %s)" % wizard.bounce_counter)
+                    domains.append(
+                        ('email_bounce_counter', '<=',
+                         '%s' % wizard.bounce_counter))
 
                 context['more_filter'] = domains
                 context['target_model'] = wizard.trg_model
@@ -199,12 +205,14 @@ class distribution_list_mass_function(orm.TransientModel):
                 domains = []
 
                 if wizard.include_unauthorized:
-                    domains.append("'|',('postal_unauthorized','=', True),('postal_unauthorized','=', False)")
+                    domains.append('|', ('postal_unauthorized', '=', True),
+                                   ('postal_unauthorized', '=', False))
                 else:
-                    domains.append("('postal_unauthorized','=', False)")
+                    domains.append(('postal_unauthorized', '=', False))
 
                 if wizard.internal_instance_id:
-                    domains.append("('int_instance_id','child_of', [%s])" % wizard.internal_instance_id.id)
+                    domains.append(('int_instance_id', 'child_of',
+                                    ['%s' % wizard.internal_instance_id.id]))
                 if wizard.sort_by:
                     context['sort_by'] = wizard.sort_by
                 if wizard.groupby_coresidency:
