@@ -102,8 +102,6 @@ class test_sta_mandate(SharedSetupTransactionCase):
          sta_assembly_id=committee.assembly_id.id,
          partner_id=jacques_partner_id)
 
-        self.registry('sta.candidature').create(self.cr, self.uid, data)
-
         with testtool.disable_log_error(self.cr):
             self.assertRaises(psycopg2.IntegrityError,
                               self.registry('sta.candidature').create,
@@ -128,11 +126,13 @@ class test_sta_mandate(SharedSetupTransactionCase):
                                         self._module_ns)
         sta_thierry_communal_id = self.ref('%s.sta_thierry_communal' %
                                            self._module_ns)
-
+        sta_jacques_communal_id = self.ref('%s.sta_jacques_communal' %
+                                           self._module_ns)
         candidature_ids = [sta_paul_communal_id,
                            sta_pauline_communal_id,
                            sta_marc_communal_id,
-                           sta_thierry_communal_id]
+                           sta_thierry_communal_id,
+                           sta_jacques_communal_id]
         '''
            Attempt to accept candidatures before suggesting them
         '''
@@ -187,7 +187,8 @@ class test_sta_mandate(SharedSetupTransactionCase):
         '''
         candidature_ids = [sta_pauline_communal_id,
                            sta_marc_communal_id,
-                           sta_thierry_communal_id]
+                           sta_thierry_communal_id,
+                           sta_jacques_communal_id]
         candidature_pool.signal_workflow(cr,
                                          uid,
                                          candidature_ids,
