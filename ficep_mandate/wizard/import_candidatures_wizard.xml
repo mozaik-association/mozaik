@@ -7,26 +7,24 @@
             <field name="model">import.sta.candidatures.wizard</field>
             <field name="arch" type="xml">
                 <form string="Import Candidatures" version="7.0">
-                    <sheet>
-                        <group name="data_1">
-                            <field name="selection_committee_id" widget="selection"/>
-                            <field name="source_file"/>
+                    <group name="data_1">
+                        <field name="selection_committee_id" options='{"no_open":True}'/>
+                        <field name="source_file"/>
+                    </group>
+                    <div name="dev" groups="ficep_base.res_groups_developper">
+                        <h3>More Info</h3>
+                        <group name="moreinfo">
+                            <field name="id"/>
                         </group>
-                        <div name="dev" groups="ficep_base.res_groups_developper">
-                            <h3>More Info</h3>
-                            <group name="moreinfo">
-                                <field name="id"/>
-                            </group>
-                        </div>
-                        <footer>
-                            <span name="go-wizard">
-                                <button string="Validate" name="validate_file"
-                                        type="object" class="oe_highlight"/>
-                                or
-                            </span>
-                            <button string="Cancel" class="oe_link" special="cancel" />
-                       </footer>
-                   </sheet>
+                    </div>
+                    <footer>
+                        <span name="go-wizard">
+                            <button string="Validate" name="validate_file"
+                                    type="object" class="oe_highlight"/>
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                   </footer>
                 </form>
             </field>
         </record>
@@ -36,40 +34,38 @@
             <field name="model">import.sta.candidatures.wizard</field>
             <field name="arch" type="xml">
                 <form string="Import Candidatures" version="7.0">
-                    <sheet>
-                        <group name="data_1">
-                            <field name="selection_committee_id" widget="selection"/>
-                            <field name="source_file" invisible="1"/>
+                    <group name="data_1">
+                        <field name="selection_committee_id" options='{"no_open":True}'/>
+                    </group>
+                    <div>
+                        <field name="import_lines" readonly="1">
+                            <tree>
+                                <field name="partner_id"/>
+                                <field name="partner_name"/>
+                                <field name="is_effective"/>
+                                <field name="list_effective_position"
+                                       attrs="{'invisible':[('list_effective_position', '=', 0)]}"/>
+                                <field name="is_substitute"/>
+                                <field name="list_substitute_position"
+                                       attrs="{'invisible':[('list_substitute_position', '=', 0)]}"/>
+                            </tree>
+                        </field>
+                    </div>
+                    <div name="dev" groups="ficep_base.res_groups_developper">
+                        <h3>More Info</h3>
+                        <group name="moreinfo">
+                            <field name="id"/>
+                            <field name="source_file"/>
                         </group>
-                        <div>
-                            <field name="import_lines" readonly="1">
-                                <tree>
-                                    <field name="partner_id"/>
-                                    <field name="partner_name"/>
-                                    <field name="is_effective"/>
-                                    <field name="list_effective_position"
-                                           attrs="{'invisible':[('list_effective_position', '=', 0)]}"/>
-                                    <field name="is_substitute"/>
-                                    <field name="list_substitute_position"
-                                           attrs="{'invisible':[('list_substitute_position', '=', 0)]}"/>
-                                </tree>
-                            </field>
-                        </div>
-                        <div name="dev" groups="ficep_base.res_groups_developper">
-                            <h3>More Info</h3>
-                            <group name="moreinfo">
-                                <field name="id"/>
-                            </group>
-                        </div>
-                        <footer>
-                            <span name="go-wizard">
-                                <button string="Import" name="import_candidatures"
-                                        type="object" class="oe_highlight"/>
-                                or
-                            </span>
-                            <button string="Cancel" class="oe_link" special="cancel" />
-                       </footer>
-                   </sheet>
+                    </div>
+                    <footer>
+                        <span name="go-wizard">
+                            <button string="Import" name="import_candidatures"
+                                    type="object" class="oe_highlight"/>
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                   </footer>
                 </form>
             </field>
         </record>
