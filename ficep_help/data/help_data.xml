@@ -315,7 +315,7 @@ AElFTkSuQmCC
                     </div>
                     <p style="text-align: left;">1/ Il n'est pas possible d'accepter des Candidatures qui n'ont pas été préalablement proposées, donc en l'état &quot;Proposé&quot;. Le message suivant sera affiché:</p>
                     <p style="text-align: left;">
-                      <img class="img-thumbnail" src="http://10.7.20.221:8069/website/image/ir.attachment/ficep-help-accept-candidature_img_02|30b22ca/datas"/>
+                      <img class="img-thumbnail" src="/website/image/ir.attachment/ficep-help-accept-candidature_img_02|30b22ca/datas"/>
                     </p>
                     <p style="text-align: left;">2/ La date de décision est obligatoire. Il ne sera pas possible d'accepter tant que celle-ci manque. Le message suivant sera affiché:</p>
                     <p style="text-align: left;">
@@ -437,7 +437,7 @@ AElFTkSuQmCC
             2. Dans l'onglet &quot;Coordonnées&quot; (le seul), cliquez sur &quot;Ajouter un élément&quot;
                                 <br/>
             3. Sélectionner la personne à laquelle associer l'adresse (choisir dans la liste ou créer une nouvelle - voir
-                                <a href="http://10.7.20.237:8069/page/ficep-help-createandedit">Créer et modifier</a>
+                                <a href="/page/ficep-help-createandedit">Créer et modifier</a>
                                    ) - et ajouter les caractéristiques (catégorie et si l'adresse est à considérer comme principale ou encore les caractéristique de confidentialité (VIP ou non-autorisée))
                                 <br/>
             4. Cliquez sur &quot;Enregistrer &amp; fermer&quot; pour n'ajouter que cette personne, sur &quot;Enregistrer &amp; créer&quot; pour continuer l'ajout - &quot;Annuler&quot; stoppe le processus.
@@ -684,7 +684,7 @@ AElFTkSuQmCC
                                  : profils non autorisés:
                                 <span style="background-color:#FFFF00;">xxxxxxx </span>
                                 (voir
-                                <a href="http://10.7.20.237:8069/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                                <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
                                  ).
                               </span>
                               <span style="line-height: 1.42857143;">
@@ -696,7 +696,7 @@ AElFTkSuQmCC
                                 <span class="fa fa-exchange fa-2x"/>
                                 <strong>  Pré-requis</strong>
                                  : sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
-                                <a href="http://10.7.20.237:8069/page/ficep-help-views">Vues</a>
+                                <a href="/page/ficep-help-views">Vues</a>
                                  ).
                               </span>
                             </p>
@@ -765,7 +765,7 @@ AElFTkSuQmCC
                               </em>
                               <em>
                                  Dans le cadre de doublons pour une coordonnée postale, l'on parle de Co-Résidence. L'on retrouvera les coordonnées postales listées dans le menu &quot;Co-Résidences&quot; (voir
-                                <a href="http://10.7.20.237:8069/page/ficep-help-co-residency">Co-Résidences</a>
+                                <a href="/page/ficep-help-co-residency">Co-Résidences</a>
                                 ).
                               </em>
                               <em style="line-height: 1.42857143; background-color: transparent;"/>
@@ -795,7 +795,7 @@ AElFTkSuQmCC
                                   <td style="text-align: left;">​1</td>
                                   <td style="text-align: left;">
                                     Affichez les élements en mode liste (voir
-                                    <a href="http://10.7.20.237:8069/page/ficep-help-views">Vues</a>
+                                    <a href="/page/ficep-help-views">Vues</a>
                                      )
                                   </td>
                                   <td style="text-align: left;"/>
@@ -865,7 +865,7 @@ AElFTkSuQmCC
                           </div>
                           <div style="text-align: left;">
                             <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                            <a href="http://10.7.20.237:8069/page/ficep-help-toc">
+                            <a href="/page/ficep-help-toc">
                               <span style="background-color: rgba(200, 200, 200, 0.137255);">Retour au sommaire</span>
                             </a>
                           </div>
@@ -3040,7 +3040,7 @@ RCKRSCQSiUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUi9ov8HYT9hCqAFd9MAAAAASUVORK5CYII=
                       </div>
                       <div style="text-align: left;">
                         Ces abonnés sont avertis de toute modification apportée à l'objet par un système de notification. Toutes ces notifications arrivent dans la messagerie interne de l'application (Inbox) (voir
-                        <a href="http://10.7.20.221:8069/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
+                        <a href="/page/ficep-help-messaging">Messagerie, Notes et Suivi</a>
                          ).
                         <span style="line-height: 1.42857143;"/>
                       </div>
@@ -3069,7 +3069,7 @@ RCKRSCQSiUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUi9ov8HYT9hCqAFd9MAAAAASUVORK5CYII=
                     <div>
                       <div style="text-align: left;"/>
                       <div style="text-align: left;">
-                        <a href="http://10.7.20.221:8069/page/ficep-help-toc" style="background-color: rgba(200, 200, 200, 0.137255);">
+                        <a href="/page/ficep-help-toc" style="background-color: rgba(200, 200, 200, 0.137255);">
                           <span class="fa fa-reply fa-2x"/>
                            Retour au sommaire
                         </a>
@@ -3570,7 +3570,7 @@ kSMSxaryfwc4hYwMoDAfAAAAAElFTkSuQmCC
                     <div>Des fonctionnalités générales mais toutefois limitées sont offertes sur ce modèle: il s'agit des fonctionnalités de recherche, export, d'association de pièce jointe. Ce modèle est hautement consultatif et permet essentiellement une navigation vers les objets liés à la circonscription. De plus, la consultation ne pourra se faire que parmi les objets attachés à l'instance à la personne. </div>
                     <div>
                       Toute l'historique de votre navigation est stockée dans le fil d'Ariane qui évolue à chaque navigation (voir
-                      <a href="http://10.7.20.221:8069/page/ficep-help-navigation">Navigation</a>
+                      <a href="/page/ficep-help-navigation">Navigation</a>
                        ).
                     </div>
                   </div>
@@ -4517,7 +4517,7 @@ RK5CYII=
                       <div>Des fonctionnalités générales mais toutefois limitées sont offertes sur ce modèle: il s'agit des fonctionnalités de recherche, export, d'association de pièce jointe. Ce modèle est hautement consultatif et permet essentiellement une navigation vers les objets liés à l'Assemblée Externe. </div>
                       <div>
                         Toute l'historique de votre navigation est stockée dans le fil d'Ariane qui évolue à chaque navigation (voir
-                        <a href="http://10.7.20.221:8069/page/ficep-help-navigation">Navigation</a>
+                        <a href="/page/ficep-help-navigation">Navigation</a>
                           ).
                       </div>
                     </div>
@@ -4529,7 +4529,7 @@ RK5CYII=
                     En mode liste, les informations suivantes sont affichées: la catégorie d'Assemblée Externe ainsi que l'Instance Interne et la Personne morale liée. Les fonctionnalités d'affichage (groupage par Catégorie, par Personne, etc...) et de recherches par filtres pré-définis sont disponibles (actives, non-actives).
                     <span style="background-color: rgba(200, 200, 200, 0.137255);"> </span>
                      Toutes les Assemblées Externes sont présentées dans la liste, tant que ces Assemblées Externes  sont &quot;actives&quot; (voir
-                    <a href="http://10.7.20.221:8069/page/ficep-help-invalidate">Invalider un objet</a>
+                    <a href="/page/ficep-help-invalidate">Invalider un objet</a>
                        ).
                   </div>
                   <h4>Qui a accès à la gestion de ce modèle?</h4>
@@ -4719,7 +4719,7 @@ RK5CYII=
                       <h4>Quels sont les particularités d'une Candidature en général?</h4>
                       <div>
                         Référez-vous à la page
-                        <a href="http://10.7.20.221:8069/page/ficep-help-candidature">Candidatures</a>
+                        <a href="/page/ficep-help-candidature">Candidatures</a>
                         .
                       </div>
                     </div>
@@ -4875,7 +4875,7 @@ RK5CYII=
                   <h4>Quels sont les particularités d'un Comité de Sélection en général?</h4>
                   <div>
                     Référez-vous à la page
-                    <a href="http://10.7.20.221:8069/page/ficep-help-selection-committee"> Comités de Sélection</a>
+                    <a href="/page/ficep-help-selection-committee"> Comités de Sélection</a>
                   </div>
                 </div>
               </section>
@@ -4887,7 +4887,7 @@ RK5CYII=
                       <h3 style="color:#808080;">Fonctionnalités particulières sur les Comités de Sélection Externes</h3>
                       <p>
                         <span style="line-height: 25.7142868041992px;">Pas de fonctionnalités particulières. Voir</span>
-                        <a href="http://10.7.20.221:8069/page/ficep-help-selection-committee"> Comités de Sélection</a>
+                        <a href="/page/ficep-help-selection-committee"> Comités de Sélection</a>
                         <span style="line-height: 25.7142868041992px;"/>
                       </p>
                     </div>
@@ -7628,7 +7628,7 @@ vBTxEi9FvNTLwcsPogaWMnwH1v8ASENJvukQXNgAAAAASUVORK5CYII=
                     <div>Des fonctionnalités générales mais toutefois limitées sont offertes sur ce modèle: il s'agit des fonctionnalités de recherche, export, d'association de pièce jointe. Ce modèle est hautement consultatif et permet essentiellement une navigation vers les objets liés à l'Assemblée Interne. </div>
                     <div>
                       Toute l'historique de votre navigation est stockée dans le fil d'Ariane qui évolue à chaque navigation (voir
-                      <a href="http://10.7.20.221:8069/page/ficep-help-navigation">Navigation</a>
+                      <a href="/page/ficep-help-navigation">Navigation</a>
                         ).
                     </div>
                   </div>
@@ -7637,7 +7637,7 @@ vBTxEi9FvNTLwcsPogaWMnwH1v8ASENJvukQXNgAAAAASUVORK5CYII=
                   <div>Les fonctionnalités d'affichage (groupage par Catégorie et/ou par Instance) et de recherches par filtres pré-définis sont disponibles (actives, non-actives). </div>
                   <div>
                     <span style="line-height: 1.42857143;">Toutes les Assemblées Internes sont présentées dans la liste, tant que ces Assemblées Internes sont &quot;actives&quot; (voir   </span>
-                    <a href="http://10.7.20.221:8069/page/ficep-help-invalidate" style="line-height: 1.42857143; background-color: rgba(200, 200, 200, 0.137255);">Invalider un objet</a>
+                    <a href="/page/ficep-help-invalidate" style="line-height: 1.42857143; background-color: rgba(200, 200, 200, 0.137255);">Invalider un objet</a>
                     <span style="line-height: 1.42857143;">   ). </span>
                   </div>
                   <h4>Qui a accès à la gestion de ce modèle?</h4>
@@ -7825,7 +7825,7 @@ vBTxEi9FvNTLwcsPogaWMnwH1v8ASENJvukQXNgAAAAASUVORK5CYII=
                     <h4>Quels sont les particularités d'une Candidature en général?</h4>
                     <div>
                       Référez-vous à la page
-                      <a href="http://10.7.20.221:8069/page/ficep-help-candidature">Candidatures</a>
+                      <a href="/page/ficep-help-candidature">Candidatures</a>
                       .
                     </div>
                   </div>
@@ -7977,7 +7977,7 @@ vBTxEi9FvNTLwcsPogaWMnwH1v8ASENJvukQXNgAAAAASUVORK5CYII=
                     <div>Des fonctionnalités générales mais toutefois limitées sont offertes sur ce modèle: il s'agit des fonctionnalités de recherche, export, d'association de pièce jointe. Ce modèle est hautement consultatif et permet essentiellement une navigation vers les objets liés à l'Instance. </div>
                     <div>
                       Toute l'historique de votre navigation est stockée dans le fil d'Ariane qui évolue à chaque navigation (voir
-                      <a href="http://10.7.20.221:8069/page/ficep-help-navigation">Navigation</a>
+                      <a href="/page/ficep-help-navigation">Navigation</a>
                         ).
                     </div>
                     <h4>Quelles informations sont affichées dans la liste? </h4>
@@ -8219,7 +8219,7 @@ vBTxEi9FvNTLwcsPogaWMnwH1v8ASENJvukQXNgAAAAASUVORK5CYII=
                       <h3 style="color:#808080;">Fonctionnalités particulières sur les Comités Internes</h3>
                       <p>
                         <span style="line-height: 25.7142868041992px;">Pas de fonctionnalités particulières. Voir</span>
-                        <a href="http://10.7.20.221:8069/page/ficep-help-selection-committee"> Comités de Sélection</a>
+                        <a href="/page/ficep-help-selection-committee"> Comités de Sélection</a>
                         .
                         <span style="line-height: 25.7142868041992px;"/>
                       </p>
@@ -8612,7 +8612,7 @@ tV1t7b9bXGTWSBAbDgAAAABJRU5ErkJggg==
                     <div>Des fonctionnalités générales mais toutefois limitées sont offertes sur ce modèle: il s'agit des fonctionnalités de recherche, export, d'association de pièce jointe. Ce modèle est hautement consultatif et permet essentiellement une navigation vers les objets liés à la Législature. </div>
                     <div>
                       Toute l'historique de votre navigation est stockée dans le fil d'Ariane qui évolue à chaque navigation (voir
-                      <a href="http://10.7.20.221:8069/page/ficep-help-navigation">Navigation</a>
+                      <a href="/page/ficep-help-navigation">Navigation</a>
                         ).
                     </div>
                   </div>
@@ -11377,7 +11377,7 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                   <h4>Combien de Coordonnées Téléphoniques puis-je assigner à une personne?</h4>
                   <div>
                     Une et une seule coordonnée téléphonique peut être assignée à une personne à la fois mais il n'y a pas de limitation. Dans la liste, toutes les coordonnées téléphoniques connues pour une personne seront affichées tant que ces coordonnées restent &quot;actives&quot; (voir
-                    <a href="http://10.7.20.237:8069/page/ficep-help-invalidate">Invalider un objet</a>
+                    <a href="/page/ficep-help-invalidate">Invalider un objet</a>
                       ). Une détection des doublons a été mise en place. Le doublon va apparaître en rouge, à vous de confirmer ou de corriger.
                   </div>
                   <h4>Quelles informations sont affichées dans la liste?</h4>
@@ -11385,7 +11385,7 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                     Hormis les informations claires telles que le nom du contact et son numéro de téléphone associé (numéro + type), sont affichées les caractéristiques de la coordonnée téléphonique (catégorie), mais aussi si celle-ci est la coordonnée considérée comme principale, si elle est considérée comme VIP, ou encore si elle peut être utilisée ou non (non-autorisée).
                     <span style="background-color: rgba(200, 200, 200, 0.137255);"> </span>
                      La dernière colonne présente l'information du nombre d'échec d'envoi sur cette coordonnée. L'information complète sur ce compteur d'échec se trouve dans la fiche de la coordonnée. Ce compteur s'incrémente manuellement, au nombre d'appels téléphoniques non-aboutis (voir
-                    <a href="http://10.7.20.237:8069/page/ficep-help-bounce-editor">Editer le compteur d'échec</a>
+                    <a href="/page/ficep-help-bounce-editor">Editer le compteur d'échec</a>
                       ).
                   </div>
                   <div>Des fonctionnalités de recherche et de groupage d'affichage sont disponibles. Nombreux filtres pré-définis sont à disposition et notamment, des recherches rapides sur des coordonnées mal-formattées, les non-actives, les VIP, etc...</div>
@@ -11430,13 +11430,13 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                         <span style="line-height: 1.42857143;"/>
                       </h4>
                       <h4>
-                        <a href="http://10.7.20.237:8069/page/ficep-help-main">Déclarer la coordonnée téléphonique comme &quot;Principale&quot;</a>
+                        <a href="/page/ficep-help-main">Déclarer la coordonnée téléphonique comme &quot;Principale&quot;</a>
                       </h4>
                       <h4>
-                        <a href="http://10.7.20.237:8069/page/ficep-help-unauthorised">Déclarer la coordonnée téléphonique comme &quot;Privée&quot;</a>
+                        <a href="/page/ficep-help-unauthorised">Déclarer la coordonnée téléphonique comme &quot;Privée&quot;</a>
                       </h4>
                       <h4>
-                        <a href="http://10.7.20.237:8069/page/ficep-help-vip">Déclarer la coordonnée téléphonique comme &quot;VIP&quot;</a>
+                        <a href="/page/ficep-help-vip">Déclarer la coordonnée téléphonique comme &quot;VIP&quot;</a>
                       </h4>
                       <div>
                         <h4>
@@ -11621,7 +11621,7 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                                 <span style="background-color: rgba(200, 200, 200, 0.137255);">2. Dans l'onglet &quot;Coordonnées&quot; (le seul), cliquez sur &quot;Ajouter un élément&quot;</span>
                                 <br style="background-color: rgba(200, 200, 200, 0.137255);"/>
                                 <span style="background-color: rgba(200, 200, 200, 0.137255);">3. Sélectionner la personne à laquelle associer le numéro de téléphone (choisir dans la liste ou créer une nouvelle - voir  </span>
-                                <a href="http://10.7.20.237:8069/page/ficep-help-createandedit" style="background-color: rgba(200, 200, 200, 0.137255);">Créer et modifier</a>
+                                <a href="/page/ficep-help-createandedit" style="background-color: rgba(200, 200, 200, 0.137255);">Créer et modifier</a>
                                 <span style="background-color: rgba(200, 200, 200, 0.137255);">  ) - et ajouter les caractéristiques (catégorie et si l'adresse est à considérer comme principale ou encore les caractéristique de confidentialité (VIP ou non-autorisée))</span>
                                 <br style="background-color: rgba(200, 200, 200, 0.137255);"/>
                                 <span style="background-color: rgba(200, 200, 200, 0.137255);">4. Cliquez sur &quot;Enregistrer &amp; fermer&quot; pour n'ajouter que cette personne, sur &quot;Enregistrer &amp; créer&quot; pour continuer l'ajout - &quot;Annuler&quot; stoppe le processus. </span>
@@ -12458,7 +12458,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                              profils non autorisés:
                             <span style="background-color: rgb(255, 255, 0);">xxxxxxx </span>
                              (voir
-                            <a href="http://10.7.20.221:8069/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
+                            <a href="/page/ficep-help-usergoups">Groupes d'utilisateurs</a>
                               ).
                           </span>
                         </p>
@@ -12467,7 +12467,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                             <span class="fa fa-exchange fa-2x"/>
                             <strong>  Pré-requis: </strong>
                              sélection d'un objet existant dans la liste ou affichage de l'objet en vue &quot;formulaire&quot; (voir
-                            <a href="http://10.7.20.221:8069/page/ficep-help-views">Vues</a>
+                            <a href="/page/ficep-help-views">Vues</a>
                               ).
                           </span>
                         </p>
@@ -12542,7 +12542,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                             <span style="background-color: rgb(255, 255, 0);">To be completed</span>
                           </p>
                           <p style="text-align: left;">
-                            <a href="http://10.7.20.221:8069/page/ficep-help-toc">
+                            <a href="/page/ficep-help-toc">
                               <span class="fa fa-reply fa-2x"/>
                                 Retour au sommaire
                             </a>
@@ -12636,7 +12636,7 @@ Personnes\Toutes personnes
                 <div>Selon l'objet choisi (personnes physiques, personnes morales ou tous les contacts), diverses informations sont affichées. Hormis les informations claires comme le nom du contact, date de naissance ou encore téléphone, le status représente le statut d'adhésion du contact au parti. Cette information n'est pertinente (et affichée) que pour les personnes physiques et morales. Le numéro représente le numéro de membre (numéro d'identification au sein du parti, numéro présenté sur la carte de membre). Il ne sera affiché que pour les personnes physiques et morales. Les Assemblées n'ont ni statut, ni numéro de membre (pas de valeur affichée).</div>
                 <div>
                   Toutes les personnes existantes sont présentées dans la liste, tant que ces personnes sont &quot;actives&quot; (voir
-                  <a href="http://10.7.20.221:8069/page/ficep-help-invalidate">Invalider un objet</a>
+                  <a href="/page/ficep-help-invalidate">Invalider un objet</a>
                      )
                 </div>
                 <h4>Pourquoi la personne apparait-elle en rouge dans la liste?</h4>
@@ -13142,7 +13142,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     <div>
                       Notez qu'une clôture peut être faite manuellement en utilisant la fonction &quot;invalider&quot; (voir
                       <span style="background-color: rgba(200, 200, 200, 0.137255);"> </span>
-                      <a href="http://10.7.20.221:8069/page/ficep-help-invalidate">Invalider un objet</a>
+                      <a href="/page/ficep-help-invalidate">Invalider un objet</a>
                        ).
                     </div>
                     <h4>Quelles informations sont affichées dans la liste des Candidatures?</h4>
@@ -13167,10 +13167,10 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                     <div class="col-md-12 mb16 mt16">
                       <h3 style="color:#808080;">Fonctionnalités particulières sur les Comités de Sélection</h3>
                       <h4>
-                        <a href="http://10.7.20.221:8069/page/ficep-help-suggest-candidature">Proposer une candidature</a>
+                        <a href="/page/ficep-help-suggest-candidature">Proposer une candidature</a>
                       </h4>
                       <h4>
-                        <a href="http://10.7.20.221:8069/page/ficep-help-reject-candidature">Rejeter une candidature</a>
+                        <a href="/page/ficep-help-reject-candidature">Rejeter une candidature</a>
                       </h4>
                       <h4>
                         <a href="/page/ficep-help-accept-candidature">Accepter toutes les candidatures</a>
@@ -13180,7 +13180,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                       </h4>
                       <div>
                         <h4>
-                          <a href="http://10.7.20.221:8069/page/ficep-help-candi2mandate">Transformer une candidature en Mandat</a>
+                          <a href="/page/ficep-help-candi2mandate">Transformer une candidature en Mandat</a>
                         </h4>
                       </div>
                       <h4>
@@ -14535,7 +14535,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                              Un retour en arrière est possible en affichant la Candidature en mode formulaire et
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             en cliquant sur le bouton &quot;Declare&quot; (+ confirmation) ou sur
-                            <img class="img-thumbnail" src="http://10.7.20.221:8069/website/image/ir.attachment/ficep-help-suggest-candidature_img_03|5f3c8aa/datas"/>
+                            <img class="img-thumbnail" src="/website/image/ir.attachment/ficep-help-suggest-candidature_img_03|5f3c8aa/datas"/>
                              à partir de la fiche du Comité de Sélection
                           </em>
                           . La Candidature sera remise en l'état &quot;Déclaré&quot;.
