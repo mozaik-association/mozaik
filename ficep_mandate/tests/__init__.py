@@ -30,6 +30,7 @@ from openerp.addons.ficep_mandate.tests import test_sta_mandate, \
                                                test_ext_mandate, \
                                                test_mandate, \
                                                test_copy_mandate_wizard, \
+                                               test_electoral_results_wizard,\
                                                test_import_candidatures_wizard
 
 fast_suite = [
@@ -41,5 +42,6 @@ checks = [
     test_int_mandate,
     test_ext_mandate,
     test_copy_mandate_wizard,
+    test_electoral_results_wizard,
     test_import_candidatures_wizard,
 ]
