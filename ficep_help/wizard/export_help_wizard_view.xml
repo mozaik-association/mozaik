@@ -7,7 +7,7 @@
             <field name="type">form</field>
             <field name="priority">16</field>
             <field name="arch" type="xml">
-                <form string="Export Ficep Help Data" version="7.0">
+                <form string="Export Help Data" version="7.0">
                     <group colspan="2">
                         <field name="export_filename"
                                invisible="1"/>

@@ -83,9 +83,9 @@ class export_help_wizard(orm.TransientModel):
                         new_src = img_src.replace(attach_id, xml_id)
                     else:
                         fragments = img_src.split('ir.attachment/')
-                        attach_id = fragments[1].split('_')[0]
-                        new_src = img_src.replace(
-                            "%s_" % attach_id, "%s|" % xml_id)
+                        attach_id, trail = fragments[1].split('_', 1)
+                        new_src = "/website/image/ir.attachment/%s|%s" % \
+                            (xml_id, trail)
 
                     if not attach_id:
                         continue
@@ -123,6 +123,18 @@ class export_help_wizard(orm.TransientModel):
                     field_node.attrib['name'] = "mimetype"
                     field_node.text = image.mimetype
                     data_node.append(img_node)
+
+            # Remove http:// site prefix from href url
+            for a_elem in root.iter('a'):
+                if not a_elem.get('href'):
+                    continue
+                href = a_elem.get('href')
+                if not href.startswith('http:'):
+                    continue
+                if '/page/ficep-help-' not in href:
+                    continue
+                trail = href.split('/page/ficep-help-', 1)[1]
+                a_elem.attrib['href'] = '/page/ficep-help-%s' % trail
 
             data_node.append(root)
 
