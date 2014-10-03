@@ -54,13 +54,16 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
                                         self._module_ns)
         sta_thierry_communal_id = self.ref('%s.sta_thierry_communal' %
                                            self._module_ns)
+        sta_jacques_communal_id = self.ref('%s.sta_jacques_communal' %
+                                           self._module_ns)
         selection_committee_id = self.ref('%s.sc_tete_huy_communale' %
                                           self._module_ns)
 
         accepted_ids = [sta_thierry_communal_id]
         rejected_ids = [sta_pauline_communal_id,
                         sta_marc_communal_id,
-                        sta_paul_communal_id]
+                        sta_paul_communal_id,
+                        sta_jacques_communal_id]
 
         sta_candidature_pool.signal_workflow(cr,
                                              uid,

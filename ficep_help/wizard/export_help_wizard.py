@@ -79,8 +79,8 @@ class export_help_wizard(orm.TransientModel):
                         id_pos = img_src.index('id=') + 3
                         attach_id = img_elem.get('src')[id_pos:]
                     else:
-                        fragments = img_src.split('/')
-                        attach_id = fragments[4].split('_')[0]
+                        fragments = img_src.split('ir.attachment/')
+                        attach_id = fragments[1].split('_')[0]
 
                     if not attach_id:
                         continue
