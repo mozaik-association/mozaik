@@ -68,13 +68,13 @@ class add_registration(orm.TransientModel):
             partner_ids = dl_obj.get_complex_distribution_list_ids(
                 cr, uid, [wiz.distribution_list_id.id], context=context)[0]
             session = ConnectorSession(cr, uid, context=context)
-            if partner_ids > worker_pivot:
+            if len(partner_ids) > worker_pivot:
                 add_registration_action.delay(
                     session, self._name, wiz.event_id.id, partner_ids,
                     context=context)
             else:
                 add_registration_action(
-                    session, wiz.event_id.id, partner_ids,
+                    session, self._name, wiz.event_id.id, partner_ids,
                     context=context)
 
 
@@ -88,29 +88,23 @@ def add_registration_action(
     vals = {
         'event_id': event_id,
     }
-    p_obj = self.pool['res.partner']
-    r_fields = ['email_coordinate_id', 'mobile_coordinate_id',
-                'fix_coordinate_id']
-    for p_value in p_obj.read(
-            cr, uid, partner_ids, r_fields, context=context):
-        vals['partner_id'] = p_value['id']
-        # select mobile id or fix id of no phone
-        phone_id = p_value['mobile_coordinate_id'] and \
-            p_value['mobile_coordinate_id'][0] or \
-            p_value['fix_coordinate_id'] and \
-            p_value['fix_coordinate_id'][0] or False
-        if phone_id:
-            ph_obj = self.pool['phone.coordinate']
-            vals['phone'] = ph_obj.browse(
-                cr, uid, phone_id, context=context).phone_id.name
-        email_id = p_value['email_coordinate_id'] and \
-            p_value['email_coordinate_id'][0] or False
-        if email_id:
-            e_obj = self.pool['email.coordinate']
-            vals['email'] = e_obj.read(
-                cr, uid, email_id, ['email'],
-                context=context)['email']
-        reg_obj = self.pool['event.registration']
-        reg_obj.create(cr, uid, vals, context=context)
+    reg_obj = self.pool['event.registration']
+    ev_obj = self.pool['event.event']
+    reg_ids = ev_obj.read(
+        cr, uid, event_id, ['registration_ids'],
+        context=context)['registration_ids']
+    if reg_ids:
+        reg_vals = reg_obj.read(
+            cr, uid, reg_ids, ['partner_id'], context=context)
+        # do not try to create registration two registration for the same
+        # partner (partner_id, event_id)
+        found_p_ids = []
+        for reg_val in reg_vals:
+            if reg_val.get('partner_id', False):
+                found_p_ids.append(reg_val['partner_id'][0])
 
+        partner_ids = list(set(partner_ids) - set(found_p_ids))
+    for p_id in partner_ids:
+        vals['partner_id'] = p_id
+        reg_obj.create(cr, uid, vals, context=context)
     return

@@ -38,6 +38,9 @@ class event_event(orm.Model):
         'int_instance_id': fields.many2one(
             'int.instance', string='Internal Instance',
             required=True, select=True, track_visibility='onchange'),
+        'postal_coordinate_id': fields.many2one(
+            'postal.coordinate', string='Location',
+            track_visibility='onchange'),
     }
 
     _defaults = {
@@ -49,6 +52,25 @@ class event_event(orm.Model):
 
     _unicity_keys = 'name, int_instance_id'
 
+    # orm methods
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if vals.get('int_instance_id', False):
+            er_ids = []
+            for event in self.browse(cr, uid, ids, context=context):
+                er_ids += [reg.id for reg in event.registration_ids]
+            ia_obj = self.pool['int.assembly']
+            follower_ids = ia_obj.get_followers_assemblies(
+                cr, uid, event.int_instance_id.id, context=context)
+            f_vals = [(6, 0, follower_ids)]
+            reg_vals = {
+                'message_follower_ids': f_vals,
+            }
+            er_obj = self.pool['event.registration']
+            er_obj.write(cr, uid, er_ids, reg_vals, context=context)
+        return super(event_event, self).write(
+            cr, uid, ids, vals, context=context)
+
 
 class event_registration(orm.Model):
 
@@ -56,23 +78,83 @@ class event_registration(orm.Model):
     _inherit = ['event.registration', 'abstract.ficep.model']
     _description = "Event Registration"
 
-    _columns = {
-        'int_instance_id': fields.many2one(
-            'int.instance', string='Internal Instance',
-            required=True, select=True, track_visibility='onchange'),
-    }
+    # private methods
 
-    _defaults = {
-        'int_instance_id': lambda self, cr, uid, ids, context = None:
-            self.pool.get('int.instance').get_default(cr, uid),
-    }
+    def _get_coordinates(self, cr, uid, vals, context=None):
+        '''
+        if `partner_id`` in vals then set `email' and `phone` with
+        email coordinate and phone.coordinate of the partner
+        '''
+        r_fields = ['email_coordinate_id', 'mobile_coordinate_id',
+                    'fix_coordinate_id', 'display_name']
+        p_obj = self.pool['res.partner']
+        p_id = vals['partner_id']
+
+        p_value = p_obj.read(cr, uid, p_id, r_fields, context=context)
+        vals['name'] = p_value['display_name']
+        # select mobile id or fix id of no phone
+        phone_id = p_value['mobile_coordinate_id'] and \
+            p_value['mobile_coordinate_id'][0] or \
+            p_value['fix_coordinate_id'] and \
+            p_value['fix_coordinate_id'][0] or False
+        if phone_id:
+            ph_obj = self.pool['phone.coordinate']
+            vals['phone'] = ph_obj.browse(
+                cr, uid, phone_id, context=context).phone_id.name
+        email_id = p_value['email_coordinate_id'] and \
+            p_value['email_coordinate_id'][0] or False
+        if email_id:
+            e_obj = self.pool['email.coordinate']
+            vals['email'] = e_obj.read(
+                cr, uid, email_id, ['email'],
+                context=context)['email']
+            vals['email_coordinate_id'] = email_id
 
 # constraints
 
-    _unicity_keys = 'partner_id, int_instance_id'
+    _columns = {
+        'email_coordinate_id': fields.many2one(
+            'email.coordinate', string='Email Coordinate')
+    }
+
+    _unicity_keys = 'partner_id, event_id'
+
+    # orm methods
+
+    def create(self, cr, uid, vals, context=None):
+        '''
+        recompute email and phone field
+        '''
+        if vals.get('event_id', False):
+            event = self.pool['event.event'].browse(
+                cr, uid, vals['event_id'], context=context)
+            if event.int_instance_id:
+                ia_obj = self.pool['int.assembly']
+                followers_ids = ia_obj.get_followers_assemblies(
+                    cr, uid, event.int_instance_id.id, context=context)
+                vals['message_follower_ids'] = [(6, 0, followers_ids)]
+        if vals.get('partner_id', False):
+            self._get_coordinates(cr, uid, vals, context=context)
+        return super(event_registration, self).create(
+            cr, uid, vals, context=context)
+
+    # public methods
+
+    def update_coordinates(self, cr, uid, reg_id, context=None):
+        reg_vals = self.read(cr, uid, reg_id, ['partner_id'])
+        partner_id = reg_vals['partner_id'][0]
+        vals = {
+            'partner_id': partner_id,
+        }
+        self._get_coordinates(cr, uid, vals, context=context)
+        return self.write(cr, uid, reg_id, vals, context=context)
 
     def button_reg_cancel(self, cr, uid, ids, context=None):
-        res = super(event_registration).button_reg_cancel(
+        '''
+        deactivate registration if canceled
+        '''
+        res = super(event_registration, self).button_reg_cancel(
             cr, uid, ids, context=context)
         self.action_invalidate(cr, uid, ids, context=context)
 
+        return res

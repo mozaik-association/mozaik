@@ -28,6 +28,8 @@
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 import base64
+import csv
+from StringIO import StringIO
 
 file_import_structure = ['identifier',
                          'partner_name',
@@ -79,15 +81,14 @@ class import_sta_candidatures_wizard(orm.TransientModel):
 
         wizard = self.browse(cr, uid, ids, context=context)[0]
         source_file = base64.decodestring(wizard.source_file)
-        file_lines = source_file.split('\n')
+        csv_reader = csv.reader(StringIO(source_file))
 
-        for line in file_lines:
-            line_number = file_lines.index(line) + 1
+        line_number = 0
+        for data in csv_reader:
+            line_number += 1
 
-            if line == '':
+            if len(data) == 0:
                 continue
-
-            data = line.split(',')
 
             if len(data) != len(file_import_structure):
                 raise orm.except_orm(_('Error'),

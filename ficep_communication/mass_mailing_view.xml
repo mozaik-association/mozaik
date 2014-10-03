@@ -19,7 +19,7 @@
             <field name="inherit_id" ref="mass_mailing_distribution_list.view_mail_mass_mailing_form" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='distribution_list_id']" position="attributes">
-                    <attribute name="required">1</attribute>
+                    <attribute name="attrs">{'required': [('mailing_domain', '=','email.coordinate')]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='mailing_domain']" position="attributes">
                     <attribute name="attrs">{'invisible': [('distribution_list_id', '!=', False)]}</attribute>

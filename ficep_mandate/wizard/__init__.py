@@ -28,3 +28,4 @@
 from . import copy_mandate_wizard
 from . import import_candidatures_wizard
 from . import allow_incompatible_mandate_wizard
+from . import electoral_results_wizard
