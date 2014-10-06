@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="job_mail_chunck_size" model="ir.config_parameter">
+            <field name="key">job_mail_chunck_size</field>
+            <field name="value">100</field>
+        </record>
+
+        <record id="mail_worker_pivot" model="ir.config_parameter">
+            <field name="key">mail_worker_pivot</field>
+            <field name="value">80</field>
+        </record>
+
+    </data>
+</openerp>
