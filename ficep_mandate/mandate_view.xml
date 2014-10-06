@@ -921,7 +921,8 @@
                   sequence="10" parent="all_mandates_submenu"/>
 
         <menuitem id="configuration_submenu" name="Configuration"
-                  sequence="90" parent="ficep_base.mandates_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
+                  sequence="90" parent="ficep_base.mandates_root_menu"
+                  groups="ficep_base.ficep_res_groups_configurator,ficep_base.ficep_res_groups_financial_manager" />
 
         <menuitem id="mandate_category_configuration_submenu" name="Mandate Categories"
                   sequence="10" parent="configuration_submenu" />

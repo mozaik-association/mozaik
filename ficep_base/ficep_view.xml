@@ -45,15 +45,10 @@
         <menuitem id="mandates_root_menu" name="Mandates"
                   sequence="30" groups="res_groups_base" />
 
-        <!-- Retrocessions -->
-
-        <menuitem id="retrocessions_root_menu" name="Retrocessions"
-                  sequence="32" groups="res_groups_base" />
-
         <!-- Structures -->
 
         <menuitem id="structures_root_menu" name="Structures"
-                  sequence="34" groups="res_groups_base" />
+                  sequence="32" groups="res_groups_base" />
 
         <!-- Re-base standard menus -->
 

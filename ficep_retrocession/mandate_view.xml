@@ -47,20 +47,33 @@
                         <group>
                             <field name="retrocession_mode"/>
                             <field name="calculation_method_id" attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : [('retrocession_mode', '=', 'none')]}"/>
-                            <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"
-                                   attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : [('retrocession_mode', '=', 'none')]}"/>
-                        </group>
-                        <separator string="Accounting"
-                                   attrs="{'invisible' : [('retrocession_mode', '=', 'none')]}"
-                                   groups="ficep_base.ficep_res_groups_financial_manager"/>
-                        <group attrs="{'invisible' : [('retrocession_mode', '=', 'none')]}"
-                               groups="ficep_base.ficep_res_groups_financial_manager">
-                            <field name ="property_retrocession_account"
-                                   attrs="{'required' : [('retrocession_mode', '!=', 'none')]}"/>
-                            <field name ="property_retrocession_cost_account"
-                                   attrs="{'required' : [('retrocession_mode', '!=', 'none')]}"/>
                         </group>
                     </page>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="mandate_category_fin_form_view" model="ir.ui.view">
+            <field name="name">mandate.category.fin.form.view (ficep_retrocession)</field>
+            <field name="model">mandate.category</field>
+            <field name="inherit_id" ref="mandate_category_form_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('ficep_base.ficep_res_groups_financial_manager'),
+            ])]"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//page[@name='retrocession']/group" position="inside">
+                      <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"
+                             attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : [('retrocession_mode', '=', 'none')]}"/>
+                 </xpath>
+                 <xpath expr="//page[@name='retrocession']/group" position="after">
+                    <separator string="Accounting"
+                               attrs="{'invisible' : [('retrocession_mode', '=', 'none')]}"/>
+                    <group attrs="{'invisible' : [('retrocession_mode', '=', 'none')]}">
+                        <field name ="property_retrocession_account"
+                               attrs="{'required' : [('retrocession_mode', '!=', 'none')]}"/>
+                        <field name ="property_retrocession_cost_account"
+                               attrs="{'required' : [('retrocession_mode', '!=', 'none')]}"/>
+                    </group>
                  </xpath>
             </field>
         </record>

@@ -8,8 +8,8 @@
             <field name="arch" type="xml">
                 <form string="Force Internal Instance" version="7.0">
                     <group name="data">
-                        <field name="int_instance_id" />
-                        <field name="partner_id" readonly="1" />
+                        <field name="partner_id" readonly="1" options='{"no_open":True}' />
+                        <field name="int_instance_id" options='{"no_open":True}' />
                     </group>
                     <footer>
                         <span name="go-wizard">
@@ -17,8 +17,7 @@
                                 type="object" class="oe_highlight" />
                             or
                         </span>
-                        <button string="Cancel" class="oe_link"
-                            special="cancel" />
+                        <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>
                 </form>
             </field>

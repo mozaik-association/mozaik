@@ -60,8 +60,8 @@ class ir_model_data(orm.Model):
                 img_src = img_elem.get('src')
                 try:
                     if '/ir.attachment/' in img_src:
-                        fragments = img_src.split('/')
-                        xml_id = fragments[4].split('|')[0]
+                        fragments = img_src.split('/ir.attachment/')
+                        xml_id = fragments[1].split('|')[0]
                         img_src = img_src.replace("|", "_")
                     else:
                         id_pos = img_src.index('id=') + 3
