@@ -99,17 +99,21 @@ class mandate_category(orm.Model):
         return list(set(res_ids))
 
     def _check_exclusive_consistency(self, cr, uid, category_id,
-                                     initial_exclu_ids, new_exclu_ids,
+                                     initial_exclu_ids, magic_categories,
                                      context=None):
         """
-        ==============================
-        _check_exclusive_consistency
-        ==============================
         Check balance between exclusive categories
         :rparam: mandate_category ids, list of initial exclusive ids,
                  list of new exclusive ids
         :rtype: Boolean
         """
+        new_exclu_ids = []
+        if magic_categories[0][0] == 6:
+            new_exclu_ids = magic_categories[0][2]
+        if magic_categories[0][0] == 4:
+            new_exclu_ids = [c[1] for c in magic_categories]
+            new_exclu_ids += initial_exclu_ids
+
         removed_ids = list(set(initial_exclu_ids) - set(new_exclu_ids))
         added_ids = list(set(new_exclu_ids) - set(initial_exclu_ids))
 
@@ -218,27 +222,28 @@ class mandate_category(orm.Model):
         return res
 
     def create(self, cr, uid, vals, context=None):
-        res = super(mandate_category, self).create(cr, uid, vals,
-                                                   context=context)
+        res_id = super(mandate_category, self).create(
+            cr, uid, vals, context=context)
         if 'exclusive_category_m2m_ids' in vals:
-            new_exclu_ids = vals.get('exclusive_category_m2m_ids')[0][2]
-            self._check_exclusive_consistency(cr, uid, res, [], new_exclu_ids,
-                                              context)
-        return res
+            self._check_exclusive_consistency(
+                cr, uid, res_id, [], vals['exclusive_category_m2m_ids'],
+                context=context)
+        return res_id
 
     def write(self, cr, uid, ids, vals, context=None):
         if isinstance(ids, (int, long)):
             ids = [ids]
         if 'exclusive_category_m2m_ids' in vals:
-            new_exclu_ids = vals.get('exclusive_category_m2m_ids')[0][2]
             for category in self.browse(cr, uid, ids, context=context):
-                cat_ids = [record.id for record in\
-                           category.exclusive_category_m2m_ids]
-                self._check_exclusive_consistency(cr, uid, category.id,
-                                                  cat_ids, new_exclu_ids,
-                                                  context)
-        res = super(mandate_category, self).write(cr, uid, ids, vals,
-                                                  context=context)
+                cat_ids = [record.id
+                           for record in category.exclusive_category_m2m_ids]
+                self._check_exclusive_consistency(
+                    cr, uid, category.id,
+                    cat_ids, vals['exclusive_category_m2m_ids'],
+                    context=context)
+
+        res = super(mandate_category, self).write(
+            cr, uid, ids, vals, context=context)
         return res
 
     def unlink(self, cr, uid, ids, context=None):
