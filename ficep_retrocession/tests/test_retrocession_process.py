@@ -224,6 +224,81 @@ class test_retrocession_with_accounting(object):
         self.assertEqual(data['amount_reconcilied'], 1.20)
         self.assertEqual(data['state'], 'done')
 
+    def test_negative_retrocession(self):
+        rule_pool = self.registry('calculation.rule')
+        retro_pool = self.registry('retrocession')
+
+        vals = {'retrocession_id': self.retro.id,
+                'type': 'fixed',
+                'is_deductible': False,
+                'name': 'Test',
+                'percentage': -100,
+                'amount': 45,
+                }
+        rule_pool.create(self.cr, self.uid, vals)
+
+        '''
+            Validating retrocession 
+        '''
+        retro_pool.action_validate(self.cr, self.uid, [self.retro.id])
+        retro_state = retro_pool.read(self.cr, self.uid, self.retro.id, ['state'])['state']
+        self.assertEqual(retro_state, 'validated')
+
+        '''
+            Account move should exist
+        '''
+        move_id = retro_pool.read(self.cr, self.uid, self.retro.id, ['move_id'])['move_id']
+        self.assertNotEqual(move_id, False)
+
+        '''
+            Account move should have 2 lines
+        '''
+        line_ids = self.registry('account.move.line').search(self.cr, self.uid, [('move_id', '=', move_id[0])])
+        self.assertEqual(len(line_ids), 2)
+
+        '''
+            Analyse lines generated
+        '''
+        lines = self.registry('account.move.line').search_read(self.cr, self.uid,
+                                                             [('move_id', '=', move_id[0]),
+                                                              ('account_id', '=', self.retro.default_credit_account.id)],
+                                                              fields=['debit', 'credit', 'name'])
+        self.assertEqual(len(lines), 1)
+        self.assertEqual(lines[0]['credit'], 0)
+        self.assertEqual(lines[0]['debit'], 45)
+        self.assertEqual(lines[0]['name'], self.retro.unique_id)
+
+        default_debit_account_id = self.registry('account.journal').search_read(self.cr, self.uid, [('code', '=', 'RETRO')],
+                                                                                        fields=['default_debit_account_id'])[0]['default_debit_account_id']
+        lines = self.registry('account.move.line').search_read(self.cr, self.uid,
+                                                             [('move_id', '=', move_id[0]),
+                                                              ('account_id', '=', default_debit_account_id[0])],
+                                                              fields=['debit', 'credit', 'name'])
+        self.assertEqual(len(lines), 1)
+        self.assertEqual(lines[0]['credit'], 45)
+        self.assertEqual(lines[0]['debit'], 0)
+        self.assertEqual(lines[0]['name'], self.retro.unique_id)
+
+        '''
+            Creating bank statement for retrocession
+        '''
+        b_statement_id = self.registry('account.bank.statement').create(self.cr, self.uid, {'name': ('/%s' % self.retro.unique_id)}, context={'journal_type': 'bank'})
+        statement_line_vals = {'statement_id': b_statement_id,
+                               'name': self.retro.sta_mandate_id.reference if self.retro.sta_mandate_id else self.retro.ext_mandate_id.reference,
+                               'amount': -45,
+                               'partner_id': self.retro.partner_id.id,
+                               'ref': self.retro.unique_id,
+                               }
+        self.registry('account.bank.statement.line').create(self.cr, self.uid, statement_line_vals)
+
+        '''
+            Reconcile statement
+        '''
+        self.registry('account.bank.statement').auto_reconcile(self.cr, self.uid, b_statement_id)
+        data = retro_pool.read(self.cr, self.uid, self.retro.id, ['amount_reconcilied', 'state'])
+        self.assertEqual(data['amount_reconcilied'], -45)
+        self.assertEqual(data['state'], 'done')
+
 
 class test_retrocession_ext_mandate_process(test_retrocession_with_accounting, SharedSetupTransactionCase):
 
@@ -232,6 +307,9 @@ class test_retrocession_ext_mandate_process(test_retrocession_with_accounting, S
 
         self.retro = self.browse_ref('%s.retro_jacques_ag_mai_2014' % self._module_ns)
 
+    def test_negative_retrocession(self):
+        return
+
 
 class test_retrocession_sta_mandate_process(test_retrocession_with_accounting, SharedSetupTransactionCase):
 
@@ -239,3 +317,17 @@ class test_retrocession_sta_mandate_process(test_retrocession_with_accounting, S
         super(test_retrocession_sta_mandate_process, self).setUp()
 
         self.retro = self.browse_ref('%s.retro_jacques_bourg_2014' % self._module_ns)
+
+    def test_negative_retrocession(self):
+        return
+
+
+class test_retrocession_ext_mandate_negative_process(test_retrocession_with_accounting, SharedSetupTransactionCase):
+
+    def setUp(self):
+        super(test_retrocession_ext_mandate_negative_process, self).setUp()
+
+        self.retro = self.browse_ref('%s.retro_paul_december_2014' % self._module_ns)
+
+    def test_retrocession_process(self):
+        return
