@@ -26,7 +26,7 @@
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Categories, expired or not" />
 
-                    <group expand="0" string="Group By..." name="group_by">                        
+                    <group expand="0" string="Group By..." name="group_by">
                         <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" invisible="context.get('default_type', False)"/>
                         <filter name="sta_assembly_category_id" string="Assembly Category" domain="[]" context="{'group_by':'sta_assembly_category_id'}" invisible="context.get('default_type', False)!='sta'"/>
                         <filter name="int_assembly_category_id" string="Assembly Category" domain="[]" context="{'group_by':'int_assembly_category_id'}" invisible="context.get('default_type', False)!='int'"/>
@@ -656,7 +656,7 @@
                             domain="[('assembly_category_id', '=', ext_assembly_category_id)]"
                             on_change="onchange_ext_assembly_id(ext_assembly_id)"/>
                 </xpath>
-                
+
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
                 </xpath>
@@ -728,9 +728,9 @@
                             confirm="Refuse all candidatures: proceed anyway ?"/>
                     <field name="candidature_ids" context="{'default_selection_committee_id': active_id}">
                         <tree colors="red:state=='declared';grey:active==False">
-                            <field name="list_effective_position" string="#E"
+                            <field name="list_effective_position" string="#EP"
                                    attrs="{'invisible': [('is_effective', '=', False),('is_substitute', '!=', False)]}"/>
-                            <field name="list_substitute_position" string="#S"
+                            <field name="list_substitute_position" string="#SP"
                                    attrs="{'invisible': [('is_substitute', '=', False)]}"/>
                             <field name="partner_name"/>
                             <field name="state"/>
@@ -758,6 +758,7 @@
                                    attrs="{'invisible': [('is_cartel', '=', False)]}"/>
                         </group>
                     </page>
+
                 </xpath>
             </field>
         </record>

@@ -88,7 +88,7 @@
         </record>
 
         <record id="report_fractionations_wizard_action" model="ir.actions.act_window">
-            <field name="name">Print Fractionations</field>
+            <field name="name">Retrocessions Fractionation</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model"></field>
@@ -100,7 +100,7 @@
         </record>
 
         <record id="report_certificates_wizard_action" model="ir.actions.act_window">
-            <field name="name">Print Payment Certificates</field>
+            <field name="name">Payment Certificates</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model"></field>
@@ -112,7 +112,7 @@
         </record>
 
         <record id="sta_mandate_fractionations_report" model="ir.values">
-            <field name="name">Fractionations</field>
+            <field name="name">Retrocessions Fractionation</field>
             <field name="model">sta.mandate</field>
             <field name="key">action</field>
             <field name="key2">client_print_multi</field>
@@ -128,7 +128,7 @@
         </record>
 
         <record id="ext_mandate_fractionations_report" model="ir.values">
-            <field name="name">Fractionations</field>
+            <field name="name">Retrocessions Fractionation</field>
             <field name="model">ext.mandate</field>
             <field name="key">action</field>
             <field name="key2">client_print_multi</field>

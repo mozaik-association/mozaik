@@ -74,10 +74,13 @@ class import_sta_candidatures_wizard(orm.TransientModel):
         return res
 
     def validate_file(self, cr, uid, ids, context=None):
+        context = context or {}
 
         wizard = self.browse(cr, uid, ids, context=context)[0]
         source_file = base64.decodestring(wizard.source_file)
         csv_reader = csv.reader(StringIO(source_file))
+
+        legislative = wizard.selection_committee_id.assembly_id.is_legislative
 
         line_number = 0
         for data in csv_reader:
@@ -87,90 +90,70 @@ class import_sta_candidatures_wizard(orm.TransientModel):
                 continue
 
             if len(data) != len(file_import_structure):
-                raise orm.except_orm(_('Error'),
-                _('Line %s: a wrong number of columns(%s), %s expected !' %
-                  (line_number, len(data), len(file_import_structure))))
+                raise orm.except_orm(
+                    _('Error'),
+                    _('Line %s: wrong number of columns(%s), %s expected !') %
+                    (line_number, len(data), len(file_import_structure)))
 
             if line_number == 1:
                 if data != file_import_structure:
-                    raise orm.except_orm(_('Error'),
-                    _('Wrong file structure, it should be: %s !' %
-                      ','.join(file_import_structure)))
+                    raise orm.except_orm(
+                        _('Error'),
+                        _('Wrong file structure, it should be: %s !') %
+                        ','.join(file_import_structure))
                 continue
 
             identifier = data[file_import_structure.index('identifier')]
 
-            partner_ids = self.pool.get('res.partner').search(cr,
-                                                              uid,
-                                                              [('identifier',
-                                                                '=',
-                                                                identifier)])
+            partner_ids = self.pool['res.partner'].search(
+                cr, uid, [('identifier', '=', identifier)])
             if not partner_ids:
-                raise orm.except_orm(_('Error'),
-                _('Line %s: Partner %s not found in database, \
-                   please check source file !' % (line_number, identifier)))
+                raise orm.except_orm(
+                    _('Error'),
+                    _('Line %s: Partner %s not found in database, '
+                      'please check source file !') %
+                    (line_number, identifier))
+
             partner_id = partner_ids[0]
+            partner_name = data[file_import_structure.index('partner_name')]
+            is_effective = data[file_import_structure.index('is_effective')] \
+                in ['True', '1']
+            list_effective_position = is_effective and \
+                data[file_import_structure.index('list_effective_position')] \
+                or 0
+            is_substitute = data[file_import_structure.index('is_substitute')] \
+                in ['True', '1']
+            list_substitute_position = is_substitute and \
+                data[file_import_structure.index('list_substitute_position')] \
+                or 0
 
-            if not wizard.selection_committee_id.assembly_id.is_legislative:
-                if data[file_import_structure.index('is_effective')] == 'True':
-                    raise orm.except_orm(_('Error'),
-                    _('Line %s: Effective feature is not managed for a \
-                      non-legislative assembly !' % line_number))
-                if data[
-                    file_import_structure.index('is_substitute')
-                       ] == 'True':
-                    raise orm.except_orm(_('Error'),
-                    _('Line %s: Substitute feature is not managed for a \
-                      non-legislative assembly !' % line_number))
+            values = dict(
+                wizard_id=wizard.id,
+                partner_id=partner_id,
+                partner_name=partner_name,
+                is_effective=False,
+                list_effective_position=0,
+                is_substitute=False,
+                list_substitute_position=0,
+            )
 
-            values = dict(wizard_id=wizard.id,
-                        partner_id=partner_id,
-                        partner_name=data[
-                                    file_import_structure.index('partner_name')
-                                    ] if data[
-                                          file_import_structure.index(
-                                                            'partner_name')
-                                             ] != '' else False,
-                        is_effective=data[
-                                    file_import_structure.index('is_effective')
-                                    ] if data[
-                                          file_import_structure.index(
-                                                            'is_effective')
-                                              ] != '' else False,
-                        is_substitute=data[
-                                file_import_structure.index('is_substitute')
-                                ] if data[file_import_structure.index(
-                                                            'is_substitute')
-                                          ] != '' else False,
-                        list_effective_position=data[
-                                file_import_structure.index(
-                                                    'list_effective_position')
-                                                     ]
-                                if data[file_import_structure.index(
-                                                    'list_effective_position'
-                                                    )] != '' else False,
-                        list_substitute_position=data[
-                                file_import_structure.index(
-                                                    'list_substitute_position')
-                                                      ]
-                                if data[file_import_structure.index(
-                                                    'list_substitute_position')
-                                        ] != '' else False,)
-            self.pool.get('import.sta.candidatures.file.lines').create(
-                                                               cr,
-                                                               uid,
-                                                               values,
-                                                               context=context)
+            if legislative:
+                values.update(
+                    is_effective=is_effective,
+                    list_effective_position=list_effective_position,
+                    is_substitute=is_substitute,
+                    list_substitute_position=list_substitute_position,
+                )
 
-        model, res_id =\
-        self.pool.get('ir.model.data').get_object_reference(
-                                        cr,
-                                        uid,
-                                        'ficep_mandate',
-                                        'import_sta_candidatures_step2_action')
+            self.pool['import.sta.candidatures.file.lines'].create(
+                cr, uid, values, context=context)
+
+        model, res_id = self.pool['ir.model.data'].get_object_reference(
+            cr, uid, 'ficep_mandate', 'import_sta_candidatures_step2_action')
         action = self.pool[model].read(cr, uid, res_id, context=context)
         action['res_id'] = ids[0]
-        action.pop('context', '')
+        ctx = dict(context, is_legislative=legislative)
+        action['context'] = str(ctx)
         return action
 
     def import_candidatures(self, cr, uid, ids, context=None):
@@ -228,11 +211,11 @@ class import_sta_candidature_file_lines (orm.TransientModel):
             ondelete='cascade'),
         'partner_id': fields.many2one(
             'res.partner', string='Partner', ondelete='cascade'),
-        'partner_name': fields.char('Partner Name', size=128),
+        'partner_name': fields.char('Candidate Name', size=128),
         'is_effective': fields.boolean('Effective'),
         'is_substitute': fields.boolean('Substitute'),
         'list_effective_position': fields.integer(
-            'Position on effectives list'),
+            'Position on Effectives List'),
         'list_substitute_position': fields.integer(
-            'Position on substitutes list'),
+            'Position on Substitutes List'),
         }
