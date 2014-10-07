@@ -198,6 +198,15 @@ class res_partner(orm.Model):
         '''
         If partner has an identifier then update its followers
         '''
+        if not vals.get('is_company', False):
+            '''
+            Force the state here to avoid a security alert
+            '''
+            state_obj = self.pool['membership.state']
+            vals.update({
+                'membership_state_id': state_obj._state_default_get(
+                    cr, uid, context=context),
+            })
         res = super(res_partner, self).create(cr, uid, vals, context=context)
         if vals.get('identifier', False):
             self._update_follower(cr, SUPERUSER_ID, [res], context=context)

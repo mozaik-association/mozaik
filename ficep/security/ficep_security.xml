@@ -167,6 +167,9 @@ account.account_comp_rule
             <field name="model_id" ref="ficep_retrocession.model_retrocession"/>
             <field name="domain_force">[
                 '|',
+                ('sta_mandate_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('ext_mandate_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                '|',
                 ('sta_mandate_id.retro_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
                 ('ext_mandate_id.retro_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
