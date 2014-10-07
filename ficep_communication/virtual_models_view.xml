@@ -906,7 +906,7 @@
 
         <!-- Virtual Partner Membership -->
 
-        <record id="virtual_partner_event_search_view" model="ir.ui.view">
+        <record id="virtual_partner_membership_search_view" model="ir.ui.view">
             <field name="name">virtual.partner.membership.search</field>
             <field name="model">virtual.partner.membership</field>
             <field name="arch" type="xml">
