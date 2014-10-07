@@ -34,6 +34,9 @@
     'category': 'Political Association',
     'depends': [
         'base',
+        'asynchronous_batch_mailings',
+        # from https://github.com/acsone/acsone-addons/tree/
+        # acsone-addons-asynchronous_batch_mailings
         'document',
         'mass_mailing',
         'product',
@@ -46,7 +49,6 @@
         'distribution_list',     # from https://github.com/acsone/acsone-addons
         'readonly_bypass',       # from https://github.com/acsone/acsone-addons
         'help_online',           # from https://github.com/acsone/acsone-addons
-        'connector',             # from https://github.com/OCA/connector
 
         # to speed test without testing standard addons from a pre-loaded squeleton database:
         'analytic',
