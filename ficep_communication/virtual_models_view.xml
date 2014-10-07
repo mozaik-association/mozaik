@@ -1116,8 +1116,6 @@
                             context="{'group_by':'partner_id'}" />
                         <filter name="int_instance" string="Internal Instance"
                             context="{'group_by':'int_instance_id'}" />
-                        <filter name="rgsts" string="Registrations"
-                            context="{'group_by':'event_registration_id'}" />
                         <filter name="event" string="Events"
                             context="{'group_by':'event_id'}" />
                     </group>

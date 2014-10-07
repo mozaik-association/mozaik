@@ -1385,7 +1385,7 @@ class virtual_partner_event(orm.Model):
         cr.execute("""
         create or replace view virtual_partner_event as (
         SELECT
-            concat(pc.id, '/', e.id) as id,
+            er.id as id,
             concat(pc.id, '/', e.id) as common_id,
             p.id as partner_id,
             p.int_instance_id as int_instance_id,
