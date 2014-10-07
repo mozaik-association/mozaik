@@ -164,7 +164,7 @@ account.account_comp_rule
 
         <record id="retrocession_base_rule" model="ir.rule">
             <field name="name">Retrocession for Ficep Base</field>
-            <field name="model_id" ref="ficep_mandate.model_generic_mandate"/>
+            <field name="model_id" ref="ficep_retrocession.model_retrocession"/>
             <field name="domain_force">[
                 '|',
                 ('sta_mandate_id.retro_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
