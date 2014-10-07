@@ -51,5 +51,5 @@ That includes two parameters:
         'data/ir_config_parameter_data.xml',
     ],
     'installable': True,
-    'auto_install': True,
+    'auto_install': False,
 }

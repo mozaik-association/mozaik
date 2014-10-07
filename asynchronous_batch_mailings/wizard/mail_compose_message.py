@@ -56,25 +56,26 @@ class mail_compose_message(orm.TransientModel):
         """
         if context is None:
             context = {}
-        if not context.get('not_async', False):
-            try:
-                parameter_obj = self.pool['ir.config_parameter']
-                worker_pivot = int(parameter_obj.get_param(
-                    cr, uid, 'mail_worker_pivot', WORKER_PIVOT))
-            except:
-                worker_pivot = WORKER_PIVOT
-            if context.get('active_ids') > worker_pivot:
-                res_ids = context.get('active_ids')
-                vals = self.read(cr, uid, ids, [], context=context)[0]
-                self._prepare_vals(vals)
+        if context.get('active_ids', False):
+            if not context.get('not_async', False):
+                try:
+                    parameter_obj = self.pool['ir.config_parameter']
+                    worker_pivot = int(parameter_obj.get_param(
+                        cr, uid, 'mail_worker_pivot', WORKER_PIVOT))
+                except:
+                    worker_pivot = WORKER_PIVOT
+                if len(context.get('active_ids')) > worker_pivot:
+                    res_ids = context.get('active_ids')
+                    vals = self.read(cr, uid, ids, [], context=context)[0]
+                    self._prepare_vals(vals)
 
-                session = ConnectorSession(cr, uid, context=context)
-                description = _('Send Mail "%s (Chunk Process)') %\
-                    (vals['subject'])
-                prepare_mailings.delay(
-                    session, self._name, vals, res_ids,
-                    description=description, context=context)
-                return
+                    session = ConnectorSession(cr, uid, context=context)
+                    description = _('Send Mail "%s (Chunk Process)') %\
+                        (vals['subject'])
+                    prepare_mailings.delay(
+                        session, self._name, vals, res_ids,
+                        description=description, context=context)
+                    return
 
         super(mail_compose_message, self).send_mail(
             cr, uid, ids, context=context)
