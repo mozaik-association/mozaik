@@ -123,8 +123,13 @@
                                                    t-field-options='{"widget": "monetary", "display_currency": "o.partner_id.company_id.currency_id"}'/></strong>
                                 </td>
                             </tr>
-                        </table>
+                        </table>                        
                        </div>
+                       <span>
+                            <p>
+                                Please use <span t-field="mandate.reference"/> as reference for payment.
+                            </p>
+                        </span>
                     </div>
                </div>
             </t>
