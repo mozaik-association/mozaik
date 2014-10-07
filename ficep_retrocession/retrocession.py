@@ -33,6 +33,7 @@ from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 
 from .common import RETROCESSION_MODES_AVAILABLE, CALCULATION_METHOD_AVAILABLE_TYPES, CALCULATION_RULE_AVAILABLE_TYPES
+from openerp.exceptions import except_orm
 
 RETROCESSION_AVAILABLE_STATES = [
     ('draft', 'Open'),
@@ -341,19 +342,27 @@ class retrocession(orm.Model):
             if where_clause:
                 query = """
                     SELECT line.debit,
+                           line.credit,
                            line.account_id,
-                           aj.default_debit_account_id
+                           aa.type
                       FROM account_move_line aml
                       JOIN account_move_line line ON line.move_id = aml.move_id
                       JOIN account_journal aj     ON line.journal_id = aj.id
+                      JOIN account_account aa     ON aa.id = line.account_id
                      WHERE %s
                        AND aj.type= 'bank'
                     """ % where_clause
                 cr.execute(query, values)
                 data = [line for line in cr.fetchall()]
-                amount_paid = sum([float(line[0]) for line \
-                                   in data if line[1] == line[2]])
-                amount_reconcilied = sum([float(line[0]) for line in data])
+                amount_paid = 0
+                amount_reconcilied = 0
+                for line in data:
+                    if line[3] == 'liquidity':
+                        amount_paid = amount_paid + line[0] - line[1]
+
+                    if line[3] == 'receivable':
+                        amount_reconcilied = amount_reconcilied - line[0]\
+                                            + line[1]
 
         return provision, amount_reconcilied, amount_paid
 
@@ -614,7 +623,8 @@ class retrocession(orm.Model):
                       ('id', '!=', retro.id),
                       ('month', '=', retro.month),
                       ('year', '=', retro.year),
-                      ('is_regulation', '=', False)]
+                      ('is_regulation', '=', False),
+                      ('active', '<=', True)]
 
             if len(self.search(cr, uid, domain, context=context)) > 0:
                 if int(retro.month) != 12:
@@ -672,7 +682,9 @@ class retrocession(orm.Model):
         :rtype: boolean
         """
         for retro in self.browse(cr, uid, ids):
-            if retro.state == 'done' and retro.amount_paid == 0:
+            if retro.state == 'done'\
+                and retro.amount_paid == 0\
+                and not retro.is_regulation:
                 return False
 
         return True
@@ -698,18 +710,19 @@ class retrocession(orm.Model):
         res = super(retrocession, self).create(cr, uid, vals, context=context)
         if res:
             retro = self.browse(cr, uid, res, context=context)
-            if retro.mandate_ref.calculation_method_id:
-                self.pool.get('calculation.method').copy_variable_rules_on_retrocession(cr, uid, retro.mandate_ref.calculation_method_id.id, retro.id, context=context)
+            if not retro.is_regulation:
+                if retro.mandate_ref.calculation_method_id:
+                    self.pool.get('calculation.method').copy_variable_rules_on_retrocession(cr, uid, retro.mandate_ref.calculation_method_id.id, retro.id, context=context)
 
-            for rule in retro.mandate_ref.rule_ids:
-                data = self.pool['calculation.rule'].get_copy_fields_value(cr, uid, rule)
-                data['retrocession_id'] = retro.id
-                self.pool['calculation.rule'].create(cr, uid, data, context=context)
+                for rule in retro.mandate_ref.rule_ids:
+                    data = self.pool['calculation.rule'].get_copy_fields_value(cr, uid, rule)
+                    data['retrocession_id'] = retro.id
+                    self.pool['calculation.rule'].create(cr, uid, data, context=context)
 
-            for rule in retro.mandate_ref.deductible_rule_ids:
-                data = self.pool['calculation.rule'].get_copy_fields_value(cr, uid, rule)
-                data['retrocession_id'] = retro.id
-                self.pool['calculation.rule'].create(cr, uid, data, context=context)
+                for rule in retro.mandate_ref.deductible_rule_ids:
+                    data = self.pool['calculation.rule'].get_copy_fields_value(cr, uid, rule)
+                    data['retrocession_id'] = retro.id
+                    self.pool['calculation.rule'].create(cr, uid, data, context=context)
 
         return res
 
@@ -768,9 +781,12 @@ class retrocession(orm.Model):
         :rparam: False
         :rtype: Boolean
         """
-        self.write(cr, uid, ids, {'state': 'validated'}, context=context)
         # copy fixed rules on retrocession to keep history of calculation basis
         for retrocession in self.browse(cr, uid, ids, context=context):
+            if retrocession.amount_total < 0 and not retrocession.is_regulation:
+                raise except_orm(_('Error!'),
+                    _('Amount due for retrocession should positive'))
+            self.write(cr, uid, retrocession.id, {'state': 'validated'}, context=context)
             if not retrocession.unique_id:
                 retro_number = '{mandate}/{year}{month}{regulation}'.format(mandate=retrocession.mandate_ref.unique_id,
                                                                             year=retrocession.year,
@@ -779,8 +795,11 @@ class retrocession(orm.Model):
                 self.write(cr, uid, retrocession.id, {'unique_id': retro_number}, context=context)
                 retrocession = self.browse(cr, uid, retrocession.id, context=context)
 
-            if retrocession.need_account_management and retrocession.amount_total > 0:
+            if retrocession.need_account_management:
                 self.generate_account_move(cr, uid, retrocession, context)
+
+            if retrocession.amount_total == 0:
+                self.action_done(cr, uid, [retrocession.id], context=context)
         return False
 
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
@@ -893,21 +912,19 @@ class retrocession(orm.Model):
                          credit=0,
                          move_id=move_id)
 
-        if retro.amount_deduction < 0:
-            line_vals['credit'] = 0
-            line_vals['debit'] = -retro.amount_deduction
-            if retro.default_debit_account:
-                line_vals['account_id'] = retro.default_debit_account.id
-            else:
-                raise orm.except_orm(_('Error!'), _('Please set a retrocession costs account on mandate category.'))
-
-            move_line_obj.create(cr, uid, line_vals)
-
         deduc_rules_amount = sum(rule['amount_subtotal'] * -1
                                  for rule in retro.deductible_rule_ids)
 
-        line_vals['credit'] = (retro.amount_total + deduc_rules_amount)
-        line_vals['debit'] = 0
+        column1 = 'credit'
+        column2 = 'debit'
+        amount_total = retro.amount_total
+        if retro.amount_total < 0:
+            column1 = 'debit'
+            column2 = 'credit'
+            amount_total *= -1
+
+        line_vals[column1] = (amount_total + deduc_rules_amount)
+        line_vals[column2] = 0
         if retro.default_credit_account:
             line_vals['account_id'] = retro.default_credit_account.id
         else:
@@ -915,18 +932,20 @@ class retrocession(orm.Model):
         move_line_obj.create(cr, uid, line_vals)
 
         if deduc_rules_amount > 0:
-            line_vals['credit'] = 0
-            line_vals['debit'] = deduc_rules_amount
+            line_vals[column1] = 0
+            line_vals[column2] = deduc_rules_amount
             if retro.default_debit_account:
                 line_vals['account_id'] = retro.default_debit_account.id
             else:
                 raise orm.except_orm(_('Error!'),
                         _('Please set a cost account on mandate category.'))
+            move_line_obj.create(cr, uid, line_vals)
 
-        line_vals['credit'] = 0
-        line_vals['debit'] = retro.amount_total
-        line_vals['account_id'] = retro_journal.default_debit_account_id.id
-        move_line_obj.create(cr, uid, line_vals)
+        if amount_total != 0:
+            line_vals[column1] = 0
+            line_vals[column2] = amount_total
+            line_vals['account_id'] = retro_journal.default_debit_account_id.id
+            move_line_obj.create(cr, uid, line_vals)
 
         self.write(cr, uid, retro.id, {'move_id': move_id}, context=context)
         move_obj.post(cr, uid, [move_id], context=context)

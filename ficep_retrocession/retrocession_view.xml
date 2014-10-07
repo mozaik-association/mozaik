@@ -651,16 +651,16 @@
                                         <field name="amount_subtotal" sum="1"/>
                                     </tree>
                                 </field>
-                                <separator string="Deductible Rules"/>
+                                <separator string="Deductible Rules" attrs="{'invisible': [('is_regulation', '=', True)]}"/>
                                 <button string="All Details" name="%(calculation_rule_detail_action)d"
-                                         type="action" attrs="{'invisible': [('id','=',False)]}"
+                                         type="action" attrs="{'invisible': ['|', ('id','=',False), ('is_regulation', '=', True)]}"
                                          context="{'search_default_retrocession_id': active_id,
                                                    'default_retrocession_id': active_id,
                                                    'search_default_all': True,
                                                    'search_default_is_deductible': True}" />
-                                <field name="deductible_rule_ids" attrs="{'invisible': [('active', '=', False)],
+                                <field name="deductible_rule_ids" attrs="{'invisible': ['|', ('active', '=', False), ('is_regulation', '=', True)],
                                                                         'readonly': [('state','not in', ['draft'])]}"
-                                                                context="{'default_is_deductible': 'True'}">
+                                                                context="{'default_is_deductible': True}">
                                     <tree version="7.0" editable="bottom">
                                         <field name="name"/>
                                         <field name="percentage"/>
@@ -669,7 +669,7 @@
                                         <field name="is_deductible" invisible="1"/>
                                     </tree>
                                 </field>
-                                <field name="deductible_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                                <field name="deductible_rule_inactive_ids" attrs="{'invisible': ['|', ('active', '=', True), ('is_regulation', '=', True)]}" readonly="1">
                                     <tree version="7.0" editable="bottom">
                                         <field name="name"/>
                                         <field name="percentage"/>

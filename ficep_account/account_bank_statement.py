@@ -48,7 +48,8 @@ class account_bank_statement(orm.Model):
         if bank_line.name != move_line['ref']:
             return
 
-        if move_line['debit'] == bank_line.amount:
+        if move_line['debit'] == bank_line.amount \
+           or move_line['credit'] == -bank_line.amount:
             move_dicts = [{
                 'counterpart_move_line_id': move_line['id'],
                 'debit': move_line['credit'],
