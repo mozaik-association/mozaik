@@ -479,7 +479,8 @@ class retrocession(orm.Model):
         'calculation.rule': (_get_calculation_rule, ['amount', 'percentage'],
                               20),
         'account.bank.statement.line': (_get_bank_statement_line,
-                                        ['amount', 'name', 'journal_entry_id']
+                                        ['amount', 'name', 'journal_entry_id',
+                                         'partner_id']
                                         , 20),
         'account.move.line': (_get_account_move_line,
                               ['reconcile_id', 'reconcile_partial_id'], 20)
