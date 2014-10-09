@@ -35,8 +35,9 @@ class force_int_instance(orm.TransientModel):
     _description = 'Force Internal Instance'
 
     _columns = {
-        'int_instance_id': fields.many2one('int.instance',
-                                           'Internal Instance', select=True),
+        'int_instance_id': fields.many2one(
+            'int.instance', string='Internal Instance',
+            required=True, select=True),
         'partner_id': fields.many2one('res.partner',
                                       'Partner', select=True),
     }

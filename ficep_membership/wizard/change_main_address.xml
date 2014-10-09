@@ -16,9 +16,9 @@
 
                 <xpath expr="//group[@name='data']" position="inside">
                     <field name="keeping_mode" groups="ficep_base.res_groups_developper"/>
-                    <field name="old_int_instance_id" attrs="{'invisible': [('keeping_mode','!=',2)]}" readonly="not context.get('is_developper')" widget="selection" />
+                    <field name="old_int_instance_id" attrs="{'invisible': [('keeping_mode','!=',2)]}" readonly="not context.get('is_developper')" options='{"no_open":True}' />
                     <field name="keep_instance" attrs="{'invisible': [('keeping_mode','!=',2)]}" />
-                    <field name="new_int_instance_id" attrs="{'invisible': [('keeping_mode','!=',2)]}" readonly="not context.get('is_developper')" widget="selection" />
+                    <field name="new_int_instance_id" attrs="{'invisible': [('keeping_mode','!=',2)]}" readonly="not context.get('is_developper')" options='{"no_open":True}' />
                 </xpath>
 
             </field>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data noupdate="0">
+    <data noupdate="1">
 
         <record id="email_template_request_payment_retrocession" model="email.template">
-            <field name="name">Retrocession: Request for Payment</field>            
+            <field name="name">Retrocession: Request for Payment</field>
             <field name="auto_delete" eval="0"/>
             <field name="email_from"></field>
             <field name="partner_to"></field>
@@ -18,13 +18,13 @@
     <p>Hello ${object.partner_id.name},</p>
 
     <p>A new request for payment is available for you: </p>
-    
+
     <p style="border-left: 1px solid #8e0000; margin-left: 30px;">
        &nbsp;&nbsp;<strong>REFERENCES</strong><br />
        &nbsp;&nbsp;Retrocession: <strong>${object.unique_id}</strong><br />
        &nbsp;&nbsp;Period: <strong>${object.month or ''} ${object.year}</strong><br/>
        &nbsp;&nbsp;Amount: <strong>${object.amount_due} ${object.partner_id.company_id.currency_id.name}</strong><br/>
-    </p>  
+    </p>
     <br/>
     <p>If you have any question, do not hesitate to contact us.</p>
     <br/>
@@ -32,13 +32,13 @@
 </div>
             ]]></field>
         </record>
-        
+
         <record id="email_template_sta_mandate_reference" model="email.template">
-            <field name="name">State Mandates: reference for payments</field>            
+            <field name="name">State Mandates: Reference for Payments</field>
             <field name="auto_delete" eval="0"/>
             <field name="email_from"></field>
             <field name="partner_to"></field>
-            <field name="subject">'Reference for payments'</field>
+            <field name="subject">Reference for payments</field>
             <field name="model_id" ref="ficep_retrocession.model_sta_mandate"/>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="body_html"><![CDATA[
@@ -71,13 +71,13 @@
 </div>
             ]]></field>
         </record>
-        
+
         <record id="email_template_ext_mandate_reference" model="email.template">
-            <field name="name">External Mandates: reference for payments</field>            
+            <field name="name">External Mandates: Reference for Payments</field>
             <field name="auto_delete" eval="0"/>
             <field name="email_from"></field>
             <field name="partner_to"></field>
-            <field name="subject">'Reference for payments'</field>
+            <field name="subject">Reference for payments</field>
             <field name="model_id" ref="ficep_retrocession.model_ext_mandate"/>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="body_html"><![CDATA[
@@ -110,5 +110,6 @@
 </div>
             ]]></field>
         </record>
+
     </data>
 </openerp>
