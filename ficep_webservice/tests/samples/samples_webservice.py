@@ -28,22 +28,26 @@
 ##############################################################################
 import sys
 import xmlrpclib
+
+URL = 'http://localhost:8069/'
+
 """
-Can test membership web-service by running this script
+To test membership web-service by running this script
 options
 * `1` test membership request
 * `2` test get uid
 """
 if len(sys.argv) != 5:
-    raise Exception('Four arguments are required to launch this sample: "user password db {1 | 2}"')
+    raise Exception('Four arguments are required to launch this sample: "db user password {1 | 2}"')
 
-USERNAME = sys.argv[1]
-PWD = sys.argv[2]
-DBNAME = sys.argv[3]
-sock_common = xmlrpclib.ServerProxy('http://localhost:8069/xmlrpc/common')
+DBNAME = sys.argv[1]
+USERNAME = sys.argv[2]
+PWD = sys.argv[3]
 
+sock_common = xmlrpclib.ServerProxy(URL + 'xmlrpc/common')
 UID = sock_common.login(DBNAME, USERNAME, PWD)
-sock = xmlrpclib.ServerProxy('http://localhost:8069/xmlrpc/object')
+
+sock = xmlrpclib.ServerProxy(URL + 'xmlrpc/object')
 
 OBJECT = 'custom.webservice'
 if sys.argv[4] == '1':
@@ -59,5 +63,3 @@ else:
     raise Exception('1 or 2 for available options')
 
 print res
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
