@@ -77,7 +77,7 @@ class event_event(orm.Model):
             if event.seats_min > event.seats_used:
                 raise orm.except_orm(_('Error'), _('Number of seats is not'
                                                    ' reached'))
-        return super(event_registration, self).button_confirm(
+        return super(event_event, self).button_confirm(
             cr, uid, ids, context=context)
 
 
