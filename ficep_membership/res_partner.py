@@ -201,6 +201,8 @@ class res_partner(orm.Model):
         if not vals.get('is_company', False):
             '''
             Force the state here to avoid a security alert
+            when creating the workflow and updating the first time
+            the state of the new partner
             '''
             state_obj = self.pool['membership.state']
             vals.update({
