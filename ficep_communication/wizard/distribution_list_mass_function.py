@@ -337,13 +337,21 @@ class distribution_list_mass_function(orm.TransientModel):
         postal_coordinate_obj = self.pool['postal.coordinate']
         partner_obj = self.pool['res.partner']
         partner_ids = []
+        candidate_ids = []
         for postal_coordinate in postal_coordinate_obj.browse(
                 cr, uid, postal_coordinate_ids, context=context):
-            partner_ids.append(postal_coordinate.partner_id.id)
-        date_today = date.today().strftime('%Y-%m-%d')
+            partner = postal_coordinate.partner_id
+            partner_ids.append(partner.id)
+            if partner.membership_state_id.code == 'member_candidate':
+                candidate_ids.append(partner.id)
+        date_today = fields.date.today()
         vals = {}
         for date_to_update in dates_to_update:
             vals[date_to_update] = '%s' % date_today
-        partner_obj.write(cr, uid, partner_ids, vals, context=context)
+        if partner_ids:
+            partner_obj.write(cr, uid, partner_ids, vals, context=context)
+        if candidate_ids:
+            partner_obj.update_membership_reference(
+                cr, uid, candidate_ids, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

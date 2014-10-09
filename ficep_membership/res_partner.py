@@ -290,88 +290,91 @@ class res_partner(orm.Model):
         Create a `membership.request` object with the datas of the current
         partner. Launch it into the another form view
         """
-        partners = self.browse(cr, uid, ids, context=context)
-        partner = partners and partners[0]
-        if not partner:
-            raise orm.except_orm(_('Error'),
-                                 _('Modification request must be ' +
-                                   'launch with a valid partner id'))
-        postal_coordinate_id = partner.postal_coordinate_id or False
-        mobile_coordinate_id = partner.mobile_coordinate_id or False
-        fix_coordinate_id = partner.fix_coordinate_id or False
-        email_coordinate_id = partner.email_coordinate_id or False
-        int_instance_id = partner.int_instance_id or False
-        birth_date = partner.birth_date
-        day = False
-        month = False
-        year = False
-        if partner.birth_date:
-            datas = partner.birth_date.split('-')
-            day = datas[2]
-            month = datas[1]
-            year = datas[0]
+        if context is None:
+            context = {}
+        mr_obj = self.pool['membership.request']
+        mr_ids = mr_obj.search(
+            cr, uid, [('partner_id', 'in', ids),
+                      ('state', '=', 'draft')], context=context)
+        mr_id = mr_ids and mr_ids[0] or False
+        if not mr_id:
+            partners = self.browse(cr, uid, ids, context=context)
+            partner = partners and partners[0]
+            if not partner:
+                raise orm.except_orm(_('Error'),
+                                     _('Modification request must be ' +
+                                       'launch with a valid partner id'))
+            postal_coordinate_id = partner.postal_coordinate_id or False
+            mobile_coordinate_id = partner.mobile_coordinate_id or False
+            fix_coordinate_id = partner.fix_coordinate_id or False
+            email_coordinate_id = partner.email_coordinate_id or False
+            int_instance_id = partner.int_instance_id or False
+            birth_date = partner.birth_date
+            day = False
+            month = False
+            year = False
+            if partner.birth_date:
+                datas = partner.birth_date.split('-')
+                day = datas[2]
+                month = datas[1]
+                year = datas[0]
 
-        values = {
-            'membership_state_id': partner.membership_state_id and
-            partner.membership_state_id.id or False,
-            'identifier': partner.identifier,
-            'lastname': partner.lastname,
-            'firstname': partner.firstname,
-            'gender': partner.gender,
-            'birth_date': birth_date,
-            'day': day,
-            'month': month,
-            'year': year,
-            'is_update': True,
-
-            # country_id is mandatory
-            'country_id': postal_coordinate_id and postal_coordinate_id.
-            address_id.country_id.id,
-            'address_local_street_id': postal_coordinate_id and
-            postal_coordinate_id.address_id.address_local_street_id.id,
-            'street_man': postal_coordinate_id and postal_coordinate_id.
-            address_id.street_man,
-            'street2': postal_coordinate_id and postal_coordinate_id.
-            address_id.street2,
-            'address_local_zip_id': postal_coordinate_id and
-            postal_coordinate_id.address_id.address_local_zip_id.id,
-            'zip_man': postal_coordinate_id and
-            postal_coordinate_id.address_id.zip_man,
-            'town_man': postal_coordinate_id and
-            postal_coordinate_id.address_id.town_man,
-            'box': postal_coordinate_id and
-            postal_coordinate_id.address_id.box,
-            'number': postal_coordinate_id and
-            postal_coordinate_id.address_id.number,
-
-            'mobile': mobile_coordinate_id and
-            mobile_coordinate_id.phone_id.name,
-            'phone': fix_coordinate_id and fix_coordinate_id.phone_id.name,
-            'mobile_id': mobile_coordinate_id and
-            mobile_coordinate_id.phone_id.id,
-            'phone_id': fix_coordinate_id and fix_coordinate_id.phone_id.id,
-
-            'email': email_coordinate_id and email_coordinate_id.email,
-
-            'partner_id': partner.id,
-            'address_id': postal_coordinate_id and postal_coordinate_id.
-            address_id.id,
-            'int_instance_id': int_instance_id and int_instance_id.id,
-
-            'interests_m2m_ids': [[6, False, partner.interests_m2m_ids and
-                                   [interest.id for interest in partner.
-                                    interests_m2m_ids] or []]],
-            'competencies_m2m_ids': [[6, False, partner.competencies_m2m_ids
-                                      and [competence.id for competence in
+            values = {
+                'membership_state_id': partner.membership_state_id and
+                partner.membership_state_id.id or False,
+                'identifier': partner.identifier,
+                'lastname': partner.lastname,
+                'firstname': partner.firstname,
+                'gender': partner.gender,
+                'birth_date': birth_date,
+                'day': day,
+                'month': month,
+                'year': year,
+                'is_update': True,
+                # country_id is mandatory
+                'country_id': postal_coordinate_id and postal_coordinate_id.
+                address_id.country_id.id,
+                'address_local_street_id': postal_coordinate_id and
+                postal_coordinate_id.address_id.address_local_street_id.id,
+                'street_man': postal_coordinate_id and postal_coordinate_id.
+                address_id.street_man,
+                'street2': postal_coordinate_id and postal_coordinate_id.
+                address_id.street2,
+                'address_local_zip_id': postal_coordinate_id and
+                postal_coordinate_id.address_id.address_local_zip_id.id,
+                'zip_man': postal_coordinate_id and
+                postal_coordinate_id.address_id.zip_man,
+                'town_man': postal_coordinate_id and
+                postal_coordinate_id.address_id.town_man,
+                'box': postal_coordinate_id and
+                postal_coordinate_id.address_id.box,
+                'number': postal_coordinate_id and
+                postal_coordinate_id.address_id.number,
+                'mobile': mobile_coordinate_id and
+                mobile_coordinate_id.phone_id.name,
+                'phone': fix_coordinate_id and fix_coordinate_id.phone_id.name,
+                'mobile_id': mobile_coordinate_id and
+                mobile_coordinate_id.phone_id.id,
+                'phone_id': fix_coordinate_id and
+                fix_coordinate_id.phone_id.id,
+                'email': email_coordinate_id and email_coordinate_id.email,
+                'partner_id': partner.id,
+                'address_id': postal_coordinate_id and postal_coordinate_id.
+                address_id.id,
+                'int_instance_id': int_instance_id and int_instance_id.id,
+                'interests_m2m_ids': [[6, False, partner.interests_m2m_ids and
+                                       [interest.id for interest in partner.
+                                        interests_m2m_ids] or []]],
+                'competencies_m2m_ids': [[6, False,
+                                          partner.competencies_m2m_ids and
+                                          [competence.id for competence in
                                            partner.competencies_m2m_ids] or
-                                      []]],
-        }
-        membership_request_obj = self.pool['membership.request']
-        context['mode'] = 'ws'
-        membership_request_id = membership_request_obj.create(cr, uid, values,
-                                                              context=context)
-        return membership_request_obj.display_object_in_form_view(
-            cr, uid, membership_request_id, context=context)
+                                          []]],
+            }
+            context['mode'] = 'ws'
+            mr_id = mr_obj.create(cr, uid, values, context=context)
+        return mr_obj.display_object_in_form_view(
+            cr, uid, mr_id, context=context)
 
 # workflow
 
@@ -474,3 +477,13 @@ class res_partner(orm.Model):
                     })
                     membership_line_obj.create(
                         cr, uid, values, context=context)
+
+    def update_membership_reference(self, cr, uid, ids, context=None):
+        '''
+        Update reference for each partner ids
+        '''
+        vals = {}
+        for partner_id in ids:
+            vals['reference'] = self._generate_membership_reference(
+                cr, uid, partner_id, context=context)
+            self.write(cr, uid, partner_id, vals, context=context)

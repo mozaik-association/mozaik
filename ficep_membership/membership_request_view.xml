@@ -70,7 +70,7 @@
                     <header>
                         <span
                             attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                            invisible="context.get('popup')" groups="ficep_base.ficep_res_groups_user">
+                            invisible="context.get('popup')">
 
                             <button name="confirm_request"
                                 attrs="{'invisible': [('state', '!=', 'draft')]}"
@@ -91,10 +91,11 @@
 
                         </span>
                         <field name="state" widget="statusbar"
-                            statusbar_visible="draft,confirm,validate" />
+                            statusbar_visible="draft,confirm,validate" groups="ficep_base.res_groups_base"/>
                     </header>
                     <sheet>
-                        <h3 attrs="{'invisible': [('id', '=', False)]}">
+                        <h3 attrs="{'invisible': [('id', '=', False)]}"
+                            groups="ficep_base.res_groups_base">
                             <label string="#" />
                             <field name="identifier" readonly="1"
                                 attrs="{'invisible': [('identifier', '=', 0)]}"
