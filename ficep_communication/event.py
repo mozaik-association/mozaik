@@ -26,6 +26,7 @@
 #
 ##############################################################################
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
 
 
 class event_event(orm.Model):
@@ -70,6 +71,14 @@ class event_event(orm.Model):
             er_obj.write(cr, uid, er_ids, reg_vals, context=context)
         return super(event_event, self).write(
             cr, uid, ids, vals, context=context)
+
+    def button_confirm(self, cr, uid, ids, context=None):
+        for event in self.browse(cr, uid, ids, context=context):
+            if event.seats_min > event.seats_used:
+                raise orm.except_orm(_('Error'), _('Number of seats is not'
+                                                   ' reached'))
+        return super(event_registration, self).button_confirm(
+            cr, uid, ids, context=context)
 
 
 class event_registration(orm.Model):
