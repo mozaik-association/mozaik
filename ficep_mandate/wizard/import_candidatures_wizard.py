@@ -47,9 +47,9 @@ class import_sta_candidatures_wizard(orm.TransientModel):
             'sta.selection.committee', string='Selection committee',
             readonly=True, ondelete='cascade'),
         'source_file': fields.binary('Source File'),
-        'import_lines': fields.one2many('import.sta.candidatures.file.lines',
-                                        'wizard_id',
-                                        'File lines'),
+        'import_lines': fields.one2many(
+            'import.sta.candidatures.file.lines', 'wizard_id',
+            string='Candidatures'),
         }
 
     def default_get(self, cr, uid, flds, context):

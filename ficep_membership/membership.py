@@ -71,7 +71,7 @@ class membership_line(orm.Model):
             self.pool.get('int.instance').get_default(cr, uid),
     }
 
-    _order = 'date_from desc, date_to desc, partner_id'
+    _order = 'date_from desc, date_to desc, create_date desc, partner_id'
 
 # constraints
 

@@ -18,7 +18,7 @@
                         </group>
                     </div>
                     <footer>
-                        <span name="go-wizard">
+                        <span name="go-wizard" attrs="{'invisible': [('source_file', '=', False)]}">
                             <button string="Validate" name="validate_file"
                                     type="object" class="oe_highlight"/>
                             or
@@ -34,12 +34,10 @@
             <field name="model">import.sta.candidatures.wizard</field>
             <field name="arch" type="xml">
                 <form string="Import Candidatures" version="7.0">
-                    <group name="data_1">
+                    <group name="data_1" attrs="{'invisible': [('import_lines', '=', [])]}">
                         <field name="selection_committee_id" options='{"no_open":True}'/>
-                    </group>
-                    <div>
                         <field name="import_lines" readonly="1">
-                            <tree>
+                            <tree editable="top">
                                 <field name="partner_id"/>
                                 <field name="partner_name"/>
                                 <field name="list_effective_position" string="#EP"
@@ -50,6 +48,9 @@
                                        attrs="{'invisible':[('list_substitute_position', '=', 0)]}"/>
                             </tree>
                         </field>
+                    </group>
+                    <div name="nok" attrs="{'invisible': [('import_lines', '!=', [])]}">
+                        <p><strong>No candidature found in input file !</strong></p>
                     </div>
                     <div name="dev" groups="ficep_base.res_groups_developper">
                         <h3>More Info</h3>
@@ -59,7 +60,7 @@
                         </group>
                     </div>
                     <footer>
-                        <span name="go-wizard">
+                        <span name="go-wizard" attrs="{'invisible': [('import_lines', '=', [])]}">
                             <button string="Import" name="import_candidatures"
                                     type="object" class="oe_highlight"/>
                             or

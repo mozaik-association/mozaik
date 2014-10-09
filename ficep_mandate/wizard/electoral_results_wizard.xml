@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <form string="Import Electoral Results" version="7.0">
                     <group name="data_1">
-                        <field name="legislature_id" options='{"no_open":True}'/>
+                        <field name="legislature_id" readonly="1" options='{"no_open":True}'/>
                         <field name="source_file"/>
                     </group>
 
@@ -18,7 +18,7 @@
                         </group>
                     </div>
                     <footer>
-                        <span name="go-wizard">
+                        <span name="go-wizard" attrs="{'invisible': [('source_file', '=', False)]}">
                             <button string="Validate" name="validate_file"
                                     type="object" class="oe_highlight"/>
                             or
@@ -34,15 +34,19 @@
             <field name="model">electoral.results.wizard</field>
             <field name="arch" type="xml">
                 <form string="Import Electoral Results" version="7.0">
-                    <group name="data_1">
-                        <field name="legislature_id" options='{"no_open":True}'/>
+                    <group name="data_1" attrs="{'invisible': [('error_lines', '=', [])]}">
+                        <field name="legislature_id" readonly="1" options='{"no_open":True}'/>
                         <field name="error_lines" readonly="1">
-                            <tree>
+                            <tree editable="top">
                                 <field name="line_number"/>
                                 <field name="error_msg"/>
                             </tree>
                         </field>
                     </group>
+
+                    <div name="ok" attrs="{'invisible': [('error_lines', '!=', [])]}">
+                        <p><strong>No error detected !</strong></p>
+                    </div>
 
                     <div name="dev" groups="ficep_base.res_groups_developper">
                         <h3>More Info</h3>
@@ -52,7 +56,7 @@
                         </group>
                     </div>
                     <footer>
-                        <span name="go-wizard" attrs="{'invisible': [('error_lines', '!=', False)]}">
+                        <span name="go-wizard" attrs="{'invisible': [('error_lines', '!=', [])]}">
                             <button string="Import" name="import_file"
                                     type="object" class="oe_highlight" />
                             or

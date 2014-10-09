@@ -8,10 +8,14 @@
             <field name="arch" type="xml">
                 <form string="Pass to Former Member" version="7.0">
                     <separator string="Overview"/>
-                    <group name="counter">
+                    <group name="counter" attrs="{'invisible': [('go', '=', False)]}">
                         <field name="nb_selected" readonly="1"/>
                         <field name="nb_concerned" readonly="1" />
                     </group>
+
+                    <div name="noway" attrs="{'invisible': [('go', '!=', False)]}">
+                        <p>This wizard is only intended in Jully, August or September to cancel memberships for failure to pay.</p>
+                    </div>
 
                     <div name="dev" groups="ficep_base.res_groups_developper">
                         <h3>More Info</h3>
