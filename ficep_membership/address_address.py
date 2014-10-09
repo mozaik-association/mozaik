@@ -82,21 +82,28 @@ class postal_coordinate(orm.Model):
         '''
         call `_update_partner_int_instance` if `is_main` is True
         '''
+        not_main_ids = self.search(
+            cr, uid, [('is_main', '=', False),
+                      ('id', 'in', ids)],
+            context=context)
         res = super(postal_coordinate, self).write(
-            cr, uid, ids, vals, context=context)
+            cr, uid, ids, vals, not_main_ids=not_main_ids, context=context)
         if vals.get('is_main', False):
             self._update_partner_int_instance(cr, uid, ids, context=context)
+            self.update_notify_followers(
+                cr, uid, vals, not_main_ids, ids=ids, context=context)
         return res
 
     def create(self, cr, uid, vals, context=None):
         '''
         call `_update_partner_int_instance` if `is_main` is True
         '''
-        context = context or {}
         res = super(postal_coordinate, self).create(
             cr, uid, vals, context=context)
         if vals.get('is_main', False):
             if not context.get('keep_current_instance'):
                 self._update_partner_int_instance(
                     cr, uid, [res], context=context)
+                self.update_notify_followers(
+                    cr, uid, vals, [res], context=context)
         return res

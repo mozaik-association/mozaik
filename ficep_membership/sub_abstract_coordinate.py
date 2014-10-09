@@ -33,8 +33,11 @@ class sub_abstract_coordinate(orm.AbstractModel):
 
     def _update_notify_followers(
             self, cr, uid, ids, partner_ids, context=None):
-        self.pool['res.partner']._update_follower(
-            cr, uid, partner_ids, context=context)
+        if context is None:
+            context = {}
+        if not context.get('no_update', False):
+            self.pool['res.partner']._update_follower(
+                cr, uid, partner_ids, context=context)
         subtype = 'ficep_membership.main_%s_notification' %\
             self._discriminant_field
         for i in ids:
@@ -46,44 +49,58 @@ class sub_abstract_coordinate(orm.AbstractModel):
 
     _name = 'sub.abstract.coordinate'
 
-    def write(self, cr, uid, ids, vals, context=None):
+    def write(self, cr, uid, ids, vals, not_main_ids=False, context=None):
         '''
-        update and notify follower if is_main is True
+        no update and notify follower if is_main is True
         '''
-        not_main_ids = self.search(
-            cr, uid, [('is_main', '=', False),
-                      ('id', 'in', ids)],
-            context=context)
+        if context is None:
+            context = {}
+        ctx = context.copy()
+        ctx['no_update'] = True
         res = super(sub_abstract_coordinate, self).write(
             cr, uid, ids, vals, context=context)
-        if vals.get('is_main', False):
-            partner_ids = []
-            # assure change is well made after write
-            new_main_ids = self.search(
-                cr, uid, [('is_main', '=', True), ('id', 'in', not_main_ids)],
-                context=context)
-            if not vals.get('partner_id', False):
-                for pc in self.browse(cr, uid, new_main_ids, context=context):
-                    partner_ids.append(pc.partner_id.id)
-            else:
-                partner_ids.append(vals['partner_id'])
-
-            self._update_notify_followers(
-                cr, SUPERUSER_ID, new_main_ids, partner_ids, context=context)
+        self.update_notify_followers(
+            cr, SUPERUSER_ID, vals, not_main_ids, ids, context=ctx)
         return res
 
     def create(self, cr, uid, vals, context=None):
         '''
         update and notify follower if is_main is True
         '''
-        context = context or {}
+        if context is None:
+            context = {}
+        ctx = context.copy()
+        ctx['no_update'] = True
         res = super(sub_abstract_coordinate, self).create(
             cr, uid, vals, context=context)
         if vals.get('is_main', False) and not context.get('no_notify', False):
-            partner_id = vals['partner_id']
-            self._update_notify_followers(
-                cr, SUPERUSER_ID, [res], [partner_id], context=context)
+            self.update_notify_followers(
+                cr, SUPERUSER_ID, vals, [res], context=ctx)
         return res
+
+    def update_notify_followers(
+            self, cr, uid, vals, not_main_ids, ids=False, context=None):
+        new_main_ids = []
+        if ids:
+            if vals.get('is_main', False):
+                partner_ids = []
+                # assure change is well made after write
+                new_main_ids = self.search(
+                    cr, uid, [('is_main', '=', True),
+                              ('id', 'in', not_main_ids)],
+                    context=context)
+                if not vals.get('partner_id', False):
+                    for pc in self.browse(
+                            cr, uid, new_main_ids, context=context):
+                        partner_ids.append(pc.partner_id.id)
+                else:
+                    partner_ids.append(vals['partner_id'])
+        else:
+            partner_ids = [vals['partner_id']]
+            new_main_ids = not_main_ids
+        if new_main_ids:
+            self._update_notify_followers(
+                cr, SUPERUSER_ID, new_main_ids, partner_ids, context=context)
 
     def _register_hook(self, cr):
         '''
