@@ -570,8 +570,7 @@
                 <form string="Retrocession" version="7.0">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_user" name="invalidate">
+                             invisible="context.get('popup')" name="invalidate">
                             <button name="action_validate" string="Validate" type="object"
                                     confirm="Validate Retrocession now: proceed anyway ?"
                                     states="draft" class="oe_highlight"/>
@@ -581,8 +580,7 @@
                             <button name="action_revalidate" string="Reset" type="object"
                                     states="validated" confirm="Reset Retrocession: proceed anyway ?" />
                             <button name="action_invalidate" string="Cancel" type="object"
-                                    states="validated" confirm="Invalidate Retrocession, proceed anyway ?"
-                                    groups="ficep_base.ficep_res_groups_configurator" />
+                                    states="validated" confirm="Invalidate Retrocession, proceed anyway ?" />
                             <button name="action_request_for_payment_send" string="Send By Email" type="object"
                                     states="validated" confirm="Send request for payment by email, proceed anyway ?"/>
                             <field name="state" widget="statusbar" statusbar_visible="draft,validated,done"/>
