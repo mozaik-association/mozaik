@@ -6,7 +6,7 @@
 
         <record id="partner_mobile_action" model="ir.actions.act_url">
             <field name="name">Ficep Mobile</field>
-            <field name="url">/partner_mobile</field>
+            <field name="url">/partner_search_form</field>
             <field name="target">self</field>
         </record>
 
