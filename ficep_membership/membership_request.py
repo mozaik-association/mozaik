@@ -198,6 +198,7 @@ class membership_request(orm.Model):
     def onchange_country_id(self, cr, uid, ids, address_local_street_id,
                             address_local_zip_id, number, box, town_man,
                             street_man, zip_man, country_id, context=None):
+        uid = SUPERUSER_ID
         return {
             'value': {
                 'country_code': self.pool.get('res.country').read(
@@ -216,6 +217,7 @@ class membership_request(orm.Model):
     def onchange_local_zip_id(self, cr, uid, ids, address_local_street_id,
                               address_local_zip_id, number, box, town_man,
                               street_man, zip_man, country_id, context=None):
+        uid = SUPERUSER_ID
         # local_zip used for domain
         local_zip = False
         if address_local_zip_id:
@@ -242,6 +244,7 @@ class membership_request(orm.Model):
                                           address_local_zip_id,
                                           number, box, town_man, street_man,
                                           zip_man, country_id, context=None):
+        uid = SUPERUSER_ID
         return {
             'value': {
                 'technical_name': self.get_technical_name(
@@ -253,6 +256,7 @@ class membership_request(orm.Model):
 
     def onchange_technical_name(self, cr, uid, ids, technical_name,
                                 context=None):
+        uid = SUPERUSER_ID
         address_ids = self.pool['address.address'].search(
             cr, uid, [('technical_name', '=', technical_name)],
             context=context)
@@ -269,6 +273,7 @@ class membership_request(orm.Model):
         try to find a new partner_id depending of the
         birth_date, lastname, firstname, email
         """
+        uid = SUPERUSER_ID
         birth_date = self.get_birth_date(cr, uid, day, month, year,
                                          context=context)
         email = self.get_format_email(cr, uid, email, context=context)
@@ -301,6 +306,7 @@ class membership_request(orm.Model):
         **Note**
         fields are similarly named
         """
+        uid = SUPERUSER_ID
         res_value = {'value': {}}
         interests_ids = []
         competencies_ids = []
@@ -324,9 +330,9 @@ class membership_request(orm.Model):
                 _state_default_get(cr, uid, context=context)
         partner_data = partner_id and {} or {'lastname': '%s' % uuid4()}
         # (status,partner_id)
-        result_type_id = self.get_partner_preview(cr, uid, request_type,
-                                                  partner_id, partner_data,
-                                                  context=context)
+        result_type_id = self.get_partner_preview(
+            cr, uid, request_type, partner_id, partner_data,
+            context=context)
 
         res_value['value'] = {
             'identifier': identifier,
@@ -343,6 +349,7 @@ class membership_request(orm.Model):
         mobile = self.get_format_phone_number(cr, uid, mobile, context=context)
         mobile_id = self.get_phone_id(cr, uid, mobile, 'mobile',
                                       context=context)
+        uid = SUPERUSER_ID
         return {
             'value': {
                 'mobile_id': mobile_id,
@@ -353,6 +360,7 @@ class membership_request(orm.Model):
     def onchange_phone(self, cr, uid, ids, phone, context=None):
         phone = self.get_format_phone_number(cr, uid, phone, context=context)
         phone_id = self.get_phone_id(cr, uid, phone, 'fix', context=context)
+        uid = SUPERUSER_ID
         return {
             'value': {
                 'phone_id': phone_id,
@@ -647,9 +655,8 @@ class membership_request(orm.Model):
             identifier = partner.identifier
             membership_state_id = partner.membership_state_id and \
                 partner.membership_state_id.id or False
-            result_type_id = self.get_partner_preview(cr, uid, request_type,
-                                                      partner.id,
-                                                      context=context)
+            result_type_id = self.get_partner_preview(
+                cr, SUPERUSER_ID, request_type, partner.id, context=context)
 
         # update vals dictionary because some inputs may have changed
         # (and new values too)
@@ -861,7 +868,6 @@ class membership_request(orm.Model):
     def write(self, cr, uid, ids, vals, context=None):
         # do not pass related fields to the orm
         self._pop_related(cr, uid, vals, context=context)
-
         return super(membership_request, self).write(cr, uid, ids, vals,
                                                      context=context)
 

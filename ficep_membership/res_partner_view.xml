@@ -20,9 +20,8 @@
                         domain="[('del_doc_date','=', False),
                                  ('membership_state_id.code','!=', 'without_membership')]"
                         invisible="'default_is_company' not in context or context.get('default_is_company')" />
-                    <filter string="Awaiting payment" name="awating_payment"
-                        domain="[('reference','!=', False),
-                                 ('membership_state_id.code','=', 'member')]"
+                    <filter string="Awaiting payment" name="awaiting_payment"
+                        domain="[('reference','!=', False)]"
                         invisible="'default_is_company' not in context or context.get('default_is_company')" />
                 </xpath>
                 <xpath expr="//filter[@name='country']" position="after">

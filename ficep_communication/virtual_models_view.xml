@@ -942,19 +942,18 @@
                     <field name="postal_category_id" string="Postal Category"
                         widget="many2one" />
 
-                    <filter string="Undeliverd Welcome Documents"
+                    <filter string="Undelivered Welcome Documents"
                         name="del_doc_date"
                         domain="[('del_doc_date','=', False),
                                      ('membership_state_id.code','=', 'member_candidate')]" />
                     <separator/>
-                    <filter string="Undeliverd Member Cards"
+                    <filter string="Undelivered Member Cards"
                         name="del_mem_card_date"
                         domain="['&amp;',('del_mem_card_date','=', False),
                                      ('membership_state_id.code','=', 'member')]" />
                     <separator/>
-                    <filter string="Awaiting payment" name="awating_payment"
-                        domain="[('reference','!=', False),
-                                 ('membership_state_id.code','=', 'member')]"/>
+                    <filter string="Awaiting payment" name="awaiting_payment"
+                        domain="[('reference','!=', False)]"/>
                     <separator />
                     <filter string="Members"
                         name="member"

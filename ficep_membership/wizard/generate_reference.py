@@ -69,7 +69,7 @@ class generate_reference(orm.TransientModel):
                 context=context)
             former_ids = partner_obj.search(
                 cr, uid, [('membership_state_id.code', '=',
-                           'member_candidate'),
+                           'former_member'),
                           ('id', 'in', partner_ids),
                           ],
                 context=context)
