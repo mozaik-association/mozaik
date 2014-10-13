@@ -26,19 +26,28 @@
 #
 ##############################################################################
 
-import testtool
-import url
-import ir_model
-import ir_import
-import res_lang
-import res_users
-import res_partner
-import mail_message
-import selections_translator
-import document
-import more_index
-import ir_cron
-import ir_rule
-import abstract_ficep
+import openerp.tools as tools
+from openerp.osv import orm
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class ir_rule(orm.Model):
+
+    _inherit = 'ir.rule'
+
+    @tools.ormcache()
+    def _compute_domain(self, cr, uid, model_name, mode="read"):
+        '''
+        Transform domain ('x', 'child_of', []) always evaluated to True (!)
+        to the False domain
+        '''
+        dom = super(ir_rule, self)._compute_domain(
+            cr, uid, model_name, mode=mode)
+        if dom:
+            dom = isinstance(dom, list) and dom or list(dom)
+            ind = 0
+            for d in dom:
+                if not isinstance(d, str) and len(d) == 3:
+                    if d[1] == 'child_of' and not d[2]:
+                        dom[ind] = (0, '=', 1)
+                ind += 1
+        return dom
