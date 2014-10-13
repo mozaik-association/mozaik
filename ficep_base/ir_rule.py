@@ -51,3 +51,7 @@ class ir_rule(orm.Model):
                         dom[ind] = (0, '=', 1)
                 ind += 1
         return dom
+
+    def clear_cache(self, cr, uid):
+        super(ir_rule, self)._compute_domain.clear_cache(self)
+        self._compute_domain.clear_cache(self)
