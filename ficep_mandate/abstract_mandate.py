@@ -134,13 +134,6 @@ class abstract_selection_committee(orm.AbstractModel):
                             select=True,
                             required=True,
                             track_visibility='onchange'),
-        'partner_ids': fields.many2many('res.partner',
-                                        'selection_committee_res_partner_rel',
-                                        'id',
-                                        'member_id',
-                                        'Members', domain=[
-                                                    ('is_company', '=', False)]
-                                        ),
         'note': fields.text('Notes',
                             track_visibility='onchange'),
         'auto_mandate': fields.boolean("Create Mandates after Election"),

@@ -455,13 +455,6 @@
                             <page string="Candidatures" name="candidatures" invisible="context.get('popup')"
                                   attrs="{'invisible': [('id','=',False)]}" autofocus="autofocus">
                             </page>
-                            <page string="Members" name="members" invisible="context.get('popup')">
-                                <field name="partner_ids" context="{'default_is_company': False}">
-                                    <tree>
-                                        <field name="display_name"/>
-                                    </tree>
-                                </field>
-                            </page>
                             <page string="Note" name="note">
                                 <field name="note"/>
                             </page>
@@ -489,5 +482,6 @@
                 </form>
             </field>
         </record>
+
    </data>
 </openerp>

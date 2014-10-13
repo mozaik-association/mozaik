@@ -90,6 +90,10 @@ class ext_selection_committee(orm.Model):
                                           type='many2one',
                                           relation=_assembly_category_model,
                                           store=False),
+        'partner_ids': fields.many2many(
+            'res.partner', 'ext_selection_committee_res_partner_rel',
+            'committee_id', 'partner_id',
+            string='Members', domain=[('is_company', '=', False)]),
     }
 
     _defaults = {

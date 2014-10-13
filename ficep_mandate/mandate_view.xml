@@ -763,6 +763,26 @@
             </field>
         </record>
 
+        <record id="sta_selection_committee_officer_form_view" model="ir.ui.view">
+            <field name="name">sta.selection.committee.officer.form</field>
+            <field name="model">sta.selection.committee</field>
+            <field name="inherit_id" ref="abstract_selection_committee_form_view"/>
+            <field name="groups_id" eval="[(6,0,[
+                ref('ficep_base.ficep_res_groups_officer'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='candidatures']" position="after">
+                    <page string="Members" name="members" invisible="context.get('popup')">
+                        <field name="partner_ids" context="{'default_is_company': False}">
+                            <tree>
+                                <field name="display_name"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
         <record id="int_selection_committee_form_view" model="ir.ui.view">
             <field name="name">int.selection.committee.form</field>
             <field name="model">int.selection.committee</field>
@@ -807,8 +827,26 @@
                         </tree>
                     </field>
                 </xpath>
-                <xpath expr="//page[@name='members']" position="attributes">
-                    <attribute name="attrs">{'invisible': [('is_virtual','=',True)]}</attribute>
+            </field>
+        </record>
+
+        <record id="int_selection_committee_officer_form_view" model="ir.ui.view">
+            <field name="name">int.selection.committee.officer.form</field>
+            <field name="model">int.selection.committee</field>
+            <field name="inherit_id" ref="abstract_selection_committee_form_view"/>
+            <field name="groups_id" eval="[(6,0,[
+                ref('ficep_base.ficep_res_groups_officer'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='candidatures']" position="after">
+                    <page string="Members" name="members" invisible="context.get('popup')"
+                          attrs="{'invisible': [('is_virtual','=',True)]}" >
+                        <field name="partner_ids" context="{'default_is_company': False}">
+                            <tree>
+                                <field name="display_name"/>
+                            </tree>
+                        </field>
+                    </page>
                 </xpath>
             </field>
         </record>
@@ -857,8 +895,26 @@
                         </tree>
                     </field>
                 </xpath>
-                <xpath expr="//page[@name='members']" position="attributes">
-                    <attribute name="attrs">{'invisible': [('is_virtual','=',True)]}</attribute>
+            </field>
+        </record>
+
+        <record id="ext_selection_committee_officer_form_view" model="ir.ui.view">
+            <field name="name">ext.selection.committee.officer.form</field>
+            <field name="model">ext.selection.committee</field>
+            <field name="inherit_id" ref="abstract_selection_committee_form_view"/>
+            <field name="groups_id" eval="[(6,0,[
+                ref('ficep_base.ficep_res_groups_officer'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='candidatures']" position="after">
+                    <page string="Members" name="members" invisible="context.get('popup')"
+                          attrs="{'invisible': [('is_virtual','=',True)]}" >
+                        <field name="partner_ids" context="{'default_is_company': False}">
+                            <tree>
+                                <field name="display_name"/>
+                            </tree>
+                        </field>
+                    </page>
                 </xpath>
             </field>
         </record>

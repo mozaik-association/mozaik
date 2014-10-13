@@ -101,6 +101,10 @@ class sta_selection_committee(orm.Model):
         'is_cartel': fields.boolean('Is Cartel'),
         'cartel_composition': fields.text('Cartel composition',
                                           track_visibility='onchange'),
+        'partner_ids': fields.many2many(
+            'res.partner', 'sta_selection_committee_res_partner_rel',
+            'committee_id', 'partner_id',
+            string='Members', domain=[('is_company', '=', False)]),
     }
 
     _order = 'assembly_id, electoral_district_id, legislature_id,\
