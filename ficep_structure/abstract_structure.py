@@ -33,7 +33,7 @@ from openerp.tools.translate import _
 class abstract_power_level(orm.AbstractModel):
 
     _name = 'abstract.power.level'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Abstract Power Level'
 
     _columns = {
@@ -71,7 +71,7 @@ class abstract_power_level(orm.AbstractModel):
 class abstract_assembly_category(orm.AbstractModel):
 
     _name = 'abstract.assembly.category'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Abstract Assembly Category'
 
     _columns = {
@@ -102,7 +102,7 @@ class abstract_assembly_category(orm.AbstractModel):
 class abstract_instance(orm.AbstractModel):
 
     _name = 'abstract.instance'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Abstract Instance'
 
     _columns = {
@@ -178,7 +178,7 @@ class abstract_instance(orm.AbstractModel):
 class abstract_assembly(orm.AbstractModel):
 
     _name = 'abstract.assembly'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _inherits = {
         'res.partner': 'partner_id',
     }

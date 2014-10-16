@@ -34,7 +34,7 @@ DEFAULT_STATE = 'without_membership'
 class membership_line(orm.Model):
 
     _name = 'membership.line'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
 
     _rec_name = 'partner_id'
 
@@ -106,7 +106,7 @@ class membership_line(orm.Model):
 class membership_state(orm.Model):
 
     _name = 'membership.state'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Membership State'
 
     def _state_default_get(self, cr, uid, default_state=False, context=None):

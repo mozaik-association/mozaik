@@ -44,7 +44,7 @@ term_available_states = dict(TERM_AVAILABLE_STATES)
 class thesaurus(orm.Model):
 
     _name = 'thesaurus'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Thesaurus'
 
     _track = {
@@ -95,7 +95,7 @@ class thesaurus(orm.Model):
 class thesaurus_term(orm.Model):
 
     _name = 'thesaurus.term'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Thesaurus Term'
 
     def _get_technical_name(self, cr, uid, ids, name, args, context=None):

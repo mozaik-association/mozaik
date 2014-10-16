@@ -32,7 +32,7 @@ from openerp.osv import orm, fields
 class coordinate_category(orm.Model):
 
     _name = 'coordinate.category'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Coordinate Category'
 
     _columns = {

@@ -34,7 +34,7 @@ from openerp.tools.translate import _
 
 class postal_mail(orm.Model):
     _name = "postal.mail"
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Postal Mail'
 
     _inactive_cascade = True
@@ -113,7 +113,7 @@ class postal_mail(orm.Model):
 
 class postal_mail_log(orm.Model):
     _name = "postal.mail.log"
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Postal Mail Log'
 
     _columns = {

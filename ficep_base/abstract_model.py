@@ -40,11 +40,11 @@ _logger = logging.getLogger(__name__)
 INVALIDATE_ERROR = _('Invalidation impossible, at least one dependency is still active')
 
 
-class abstract_ficep_model(orm.AbstractModel):
+class mozaik_abstract_model(orm.AbstractModel):
 
-    _name = 'abstract.ficep.model'
+    _name = 'mozaik.abstract.model'
     _inherit = ['mail.thread', 'ir.needaction_mixin']
-    _description = 'Abstract Ficep Model'
+    _description = 'mozaik.abstract.model'
 
     _allowed_inactive_link_models = []
     _inactive_cascade = False
@@ -226,7 +226,7 @@ class abstract_ficep_model(orm.AbstractModel):
                 'mail_create_nosubscribe': True,
                 'mail_notrack': True,
             })
-        new_id = super(abstract_ficep_model, self).create(cr, uid, vals, context=ctx)
+        new_id = super(mozaik_abstract_model, self).create(cr, uid, vals, context=ctx)
         return new_id
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -247,14 +247,14 @@ class abstract_ficep_model(orm.AbstractModel):
                 mail_follower_object.unlink(
                     cr, uid, follower_ids, context=context)
             self._invalidate_active_relations(cr, uid, ids, context=ctx)
-        res = super(abstract_ficep_model, self).write(cr, uid, ids, vals, context=ctx)
+        res = super(mozaik_abstract_model, self).write(cr, uid, ids, vals, context=ctx)
         return res
 
     def message_auto_subscribe(self, cr, uid, ids, updated_fields, context=None, values=None):
         ctx = context or {}
         if ctx.get('mail_no_autosubscribe'):
             return True
-        res = super(abstract_ficep_model, self).message_auto_subscribe(cr, uid, ids, updated_fields, context=ctx, values=values)
+        res = super(mozaik_abstract_model, self).message_auto_subscribe(cr, uid, ids, updated_fields, context=ctx, values=values)
         return res
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
@@ -263,7 +263,7 @@ class abstract_ficep_model(orm.AbstractModel):
         """
         default = default or {}
         default.update(self.get_fields_to_update(cr, uid, 'activate', context=context))
-        res = super(abstract_ficep_model, self).copy_data(cr, uid, ids, default=default, context=context)
+        res = super(mozaik_abstract_model, self).copy_data(cr, uid, ids, default=default, context=context)
         return res
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
@@ -308,7 +308,7 @@ class abstract_ficep_model(orm.AbstractModel):
                         # force this existing view
                         view_id = sql_res['v']
 
-        res = super(abstract_ficep_model, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
+        res = super(mozaik_abstract_model, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
 
         if view_type == 'form' and not context.get('in_ficep_user'):
             doc = etree.XML(res['arch'])
@@ -326,7 +326,7 @@ class abstract_ficep_model(orm.AbstractModel):
         """
         ctx = dict(context or {}, mail_create_nosubscribe=True)
         ctx.pop('mail_post_autofollow', None)
-        return super(abstract_ficep_model, self).message_post(cr, uid, thread_id, context=ctx, **kwargs)
+        return super(mozaik_abstract_model, self).message_post(cr, uid, thread_id, context=ctx, **kwargs)
 
     def get_formview_id(self, cr, uid, id, context=None):
         """ Return a view id to open the document with.

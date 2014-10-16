@@ -32,7 +32,7 @@ from openerp.osv import orm, fields
 class address_local_zip(orm.Model):
 
     _name = 'address.local.zip'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Local Zip Code'
 
     def _get_linked_addresses(self, cr, uid, ids, context=None):

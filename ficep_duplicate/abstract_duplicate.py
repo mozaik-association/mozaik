@@ -33,7 +33,7 @@ from openerp.tools import SUPERUSER_ID
 class abstract_duplicate(orm.AbstractModel):
 
     _name = 'abstract.duplicate'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = "Abstract Duplicate"
 
     _discriminant_field = None

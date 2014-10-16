@@ -43,7 +43,7 @@ class mandate_category(orm.Model):
 
     _name = 'mandate.category'
     _description = 'Mandate Category'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
 
     def get_linked_sta_mandate_ids(self, cr, uid, ids, context=None):
         """

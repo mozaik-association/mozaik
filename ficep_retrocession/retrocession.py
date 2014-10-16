@@ -46,7 +46,7 @@ RETROCESSION_AVAILABLE_STATES = [
 class fractionation(orm.Model):
     _name = 'fractionation'
     _description = 'Fractionation'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
 
     _inactive_cascade = True
 
@@ -101,7 +101,7 @@ class fractionation(orm.Model):
 class fractionation_line(orm.Model):
     _name = 'fractionation.line'
     _description = 'Fractionation Line'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
 
     _columns = {
         'fractionation_id': fields.many2one('fractionation', 'Fractionation', required=True, select=True, track_visibility='onchange'),
@@ -125,7 +125,7 @@ class fractionation_line(orm.Model):
 class calculation_method(orm.Model):
     _name = 'calculation.method'
     _description = 'Calculation Method'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
 
     _inactive_cascade = True
 
@@ -216,7 +216,7 @@ class calculation_method(orm.Model):
 class calculation_rule(orm.Model):
     _name = 'calculation.rule'
     _description = 'Calculation Rule'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
 
     def _compute_subtotal(self, cr, uid, ids, fname, arg, context=None):
         """
@@ -297,7 +297,7 @@ class calculation_rule(orm.Model):
 class retrocession(orm.Model):
     _name = 'retrocession'
     _description = 'Retrocession'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
 
     _inactive_cascade = True
 

@@ -58,7 +58,7 @@ candidature_available_states = dict(CANDIDATURE_AVAILABLE_STATES)
 class abstract_selection_committee(orm.AbstractModel):
     _name = 'abstract.selection.committee'
     _description = 'Abstract Selection Committee'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
 
     _candidature_model = 'abstract.candidature'
     _assembly_model = 'abstract.assembly'
@@ -725,7 +725,7 @@ class abstract_candidature(orm.AbstractModel):
 
     _name = 'abstract.candidature'
     _description = 'Abstract Candidature'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
 
     _init_mandate_columns = ['mandate_category_id',
                              'partner_id',

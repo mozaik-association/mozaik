@@ -77,7 +77,7 @@ def get_status_values(request_type):
 class membership_request(orm.Model):
 
     _name = 'membership.request'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Membership Request'
 
     def _act_membership_state(

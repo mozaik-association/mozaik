@@ -32,7 +32,7 @@ from openerp.tools.translate import _
 class event_event(orm.Model):
 
     _name = "event.event"
-    _inherit = ['event.event', 'abstract.ficep.model']
+    _inherit = ['event.event', 'mozaik.abstract.model']
     _description = "Event"
 
     _columns = {
@@ -84,7 +84,7 @@ class event_event(orm.Model):
 class event_registration(orm.Model):
 
     _name = "event.registration"
-    _inherit = ['event.registration', 'abstract.ficep.model']
+    _inherit = ['event.registration', 'mozaik.abstract.model']
     _description = "Event Registration"
 
     # private methods

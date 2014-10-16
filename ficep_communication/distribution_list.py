@@ -33,7 +33,7 @@ from openerp.osv import orm, fields
 class distribution_list(orm.Model):
 
     _name = "distribution.list"
-    _inherit = ['distribution.list', 'abstract.ficep.model']
+    _inherit = ['distribution.list', 'mozaik.abstract.model']
     _description = "Distribution List"
 
     _columns = {
@@ -95,7 +95,7 @@ class distribution_list(orm.Model):
 class distribution_list_line(orm.Model):
 
     _name = "distribution.list.line"
-    _inherit = ['distribution.list.line', 'abstract.ficep.model']
+    _inherit = ['distribution.list.line', 'mozaik.abstract.model']
     _description = "Distribution List Line"
 
     _columns = {

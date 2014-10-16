@@ -55,7 +55,7 @@ PREFIX_CODE = 'BE'
 class phone_phone(orm.Model):
 
     _name = 'phone.phone'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Phone Number'
 
     def _get_linked_coordinates(self, cr, uid, ids, context=None):

@@ -169,7 +169,7 @@ class sta_instance(orm.Model):
 class electoral_district(orm.Model):
 
     _name = 'electoral.district'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Electoral District'
 
     _instance_store_dict = {
@@ -255,7 +255,7 @@ class electoral_district(orm.Model):
 class legislature(orm.Model):
 
     _name = 'legislature'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Legislature'
 
     _columns = {

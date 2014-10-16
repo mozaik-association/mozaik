@@ -32,7 +32,7 @@ from openerp.tools.translate import _
 class partner_relation_category(orm.Model):
 
     _name = 'partner.relation.category'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Partner Relation Category'
 
     _columns = {
@@ -90,7 +90,7 @@ class partner_relation_category(orm.Model):
 class partner_relation(orm.Model):
 
     _name = 'partner.relation'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Partner Relation'
 
     _columns = {

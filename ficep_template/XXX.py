@@ -69,7 +69,7 @@ class res_partner_title(orm.Model):
 class xxxx(orm.Model):
 
     _name = 'xxx'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'XXX'
 
 # constructor

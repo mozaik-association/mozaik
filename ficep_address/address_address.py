@@ -71,7 +71,7 @@ def format_value(value):
 class address_address(orm.Model):
 
     _name = 'address.address'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Address'
 
 # private methods
@@ -363,7 +363,7 @@ class postal_coordinate(orm.Model):
 class co_residency(orm.Model):
 
     _name = 'co.residency'
-    _inherit = ['abstract.ficep.model']
+    _inherit = ['mozaik.abstract.model']
     _description = 'Co-Residency'
 
     _columns = {
