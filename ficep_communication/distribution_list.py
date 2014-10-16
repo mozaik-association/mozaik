@@ -34,7 +34,6 @@ class distribution_list(orm.Model):
 
     _name = "distribution.list"
     _inherit = ['distribution.list', 'mozaik.abstract.model']
-    _description = "Distribution List"
 
     _columns = {
         'name': fields.char(
@@ -96,7 +95,6 @@ class distribution_list_line(orm.Model):
 
     _name = "distribution.list.line"
     _inherit = ['distribution.list.line', 'mozaik.abstract.model']
-    _description = "Distribution List Line"
 
     _columns = {
         'name': fields.char(

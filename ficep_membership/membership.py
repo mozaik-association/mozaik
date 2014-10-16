@@ -35,6 +35,7 @@ class membership_line(orm.Model):
 
     _name = 'membership.line'
     _inherit = ['mozaik.abstract.model']
+    _description = 'Membership Line'
 
     _rec_name = 'partner_id'
 

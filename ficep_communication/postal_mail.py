@@ -57,6 +57,8 @@ class postal_mail(orm.Model):
         'sent_date': fields.date.today,
     }
 
+    _order = 'sent_date desc, name'
+
 # constraints
 
     _unicity_keys = 'name'
@@ -128,6 +130,8 @@ class postal_mail_log(orm.Model):
     _defaults = {
         'sent_date': fields.date.today,
     }
+
+    _order = 'sent_date desc, partner_id'
 
 # constraints
 
