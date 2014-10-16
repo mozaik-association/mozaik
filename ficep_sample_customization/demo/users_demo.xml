@@ -160,33 +160,33 @@
 
         <record id="email_coordinate_demo_1" model="email.coordinate">
             <field name="partner_id" ref="partner_of_user_1" />
-            <field name="email">pierre@ficep-ec.be</field>
+            <field name="email">pierre@mozaik-ec.be</field>
         </record>
 
         <record id="email_coordinate_demo_2" model="email.coordinate">
             <field name="partner_id" ref="partner_of_user_2" />
-            <field name="email">claude@ficep-ec.be</field>
+            <field name="email">claude@mozaik-ec.be</field>
         </record>
 
         <record id="email_coordinate_demo_3" model="email.coordinate">
             <field name="partner_id" ref="partner_of_user_3" />
-            <field name="email">steve@ficep-ec.be</field>
+            <field name="email">steve@mozaik-ec.be</field>
         </record>
 
         <record id="email_coordinate_demo_4" model="email.coordinate">
             <field name="partner_id" ref="partner_of_user_4" />
-            <field name="email">leon@ficep-ec.be</field>
+            <field name="email">leon@mozaik-ec.be</field>
             <field name="unauthorized" eval="0"/>
         </record>
 
         <record id="email_coordinate_demo_5" model="email.coordinate">
             <field name="partner_id" ref="partner_of_user_5" />
-            <field name="email">isabelle@ficep-ec.be</field>
+            <field name="email">isabelle@mozaik-ec.be</field>
         </record>
 
         <record id="email_coordinate_demo_6" model="email.coordinate">
             <field name="partner_id" ref="partner_of_user_6" />
-            <field name="email">sylvie@ficep-ec.be</field>
+            <field name="email">sylvie@mozaik-ec.be</field>
         </record>
 
     </data>

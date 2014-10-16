@@ -87,7 +87,7 @@
 
         <record id="email_coordinate_jacques" model="email.coordinate">
             <field name="partner_id" ref="res_partner_jacques" />
-            <field name="email">jacques@ficep-ec.be</field>
+            <field name="email">jacques@mozaik-ec.be</field>
             <field name="unauthorized" eval="False" />
         </record>
 
@@ -98,12 +98,12 @@
 
         <record id="email_coordinate_sec_huy" model="email.coordinate">
             <field name="partner_id" ref="int_assembly_02_res_partner" />
-            <field name="email">secretariat@ficep-huy.be</field>
+            <field name="email">secretariat@mozaik-huy.be</field>
         </record>
 
         <record id="email_coordinate_sec_hw" model="email.coordinate">
             <field name="partner_id" ref="int_assembly_03_res_partner" />
-            <field name="email">secretariat@ficep-hw.be</field>
+            <field name="email">secretariat@mozaik-hw.be</field>
         </record>
 
         <!-- Phones -->

@@ -4,7 +4,7 @@
 
         <record id="res_partner_jacques" model="res.partner">
             <field name="birth_date">1985-03-12</field>
-            <field name="email">jacques@ficep-ec.be</field>
+            <field name="email">jacques@mozaik-ec.be</field>
         </record>
 
         <record id="res_partner_thierry" model="res.partner">
