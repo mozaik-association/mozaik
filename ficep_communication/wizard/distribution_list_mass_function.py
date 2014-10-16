@@ -265,16 +265,14 @@ class distribution_list_mass_function(orm.TransientModel):
                     self.set_date(
                         cr, uid, active_ids, dates_to_update, context=context)
 
-    def _generate_postal_log(self, cr, uid, postal_mail_name, postal_coordinate_ids, context=None):
+    def _generate_postal_log(self, cr, uid,
+                             postal_mail_name, postal_coordinate_ids,
+                             context=None):
         """
-        ====================
-        _generate_postal_log
-        ====================
-        Generate a postal mail log for each coordinate for the specified postal mail.
+        Generate a postal mailing for the specified parameters:
+        * postal mailing name
+        * postal coordinate ids
         """
-        if not context:
-            context = {}
-
         now = datetime.now()
         postal_mail_log_obj = self.pool['postal.mail.log']
         postal_mail_id = self.pool['postal.mail'].create(cr, uid, {
@@ -282,10 +280,13 @@ class distribution_list_mass_function(orm.TransientModel):
             'sent_date': now,
         }, context=context)
 
-        for postal_coordinate_id in postal_coordinate_ids:
+        coords = self.pool['postal.coordinate'].browse(
+            cr, uid, postal_coordinate_ids, context=context)
+        for coord in coords:
             postal_mail_log_obj.create(cr, uid, {
                 'postal_mail_id': postal_mail_id,
-                'postal_coordinate_id': postal_coordinate_id,
+                'postal_coordinate_id': coord.id,
+                'partner_id': coord.partner_id.id,
                 'sent_date': now,
             }, context=context)
 

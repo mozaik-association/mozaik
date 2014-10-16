@@ -45,16 +45,7 @@
         <record id="postal_mail_log_base_rule" model="ir.rule">
             <field name="name">Postal Mail Log for Mozaik Base</field>
             <field name="model_id" ref="ficep_communication.model_postal_mail_log"/>
-            <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
-            <field name="groups" eval="[(5,0,0)]"/>
-            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
-            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
-        </record>
-
-        <record id="postal_mail_log_base_rule" model="ir.rule">
-            <field name="name">Postal Mail Log for Mozaik Base</field>
-            <field name="model_id" ref="ficep_communication.model_postal_mail_log"/>
-            <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="domain_force">[('postal_coordinate_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
