@@ -31,7 +31,7 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools.mail import single_email_re
 
-from openerp.addons.ficep_base.abstract_ficep import format_email
+from openerp.addons.ficep_base.base_tools import format_email
 
 
 class email_coordinate(orm.Model):

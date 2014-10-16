@@ -33,7 +33,7 @@ from openerp.osv import orm
 
 class test_accounting_with_product(object):
     _data_files = (
-        '../../l10n_ficep/data/account_ficep.xml',
+        '../../l10n_ficep/data/account_template.xml',
         '../../l10n_ficep/data/account_chart_template.xml',
         '../../l10n_ficep/data/account_installer.xml',
     )

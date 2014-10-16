@@ -34,7 +34,7 @@ _logger = logging.getLogger(__name__)
 class test_retrocession_with_accounting(object):
 
     _data_files = (
-        '../../l10n_ficep/data/account_ficep.xml',
+        '../../l10n_ficep/data/account_template.xml',
         '../../l10n_ficep/data/account_chart_template.xml',
         '../../l10n_ficep/data/account_installer.xml',
         '../../ficep_base/tests/data/res_partner_data.xml',

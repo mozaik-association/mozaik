@@ -28,7 +28,7 @@
 from openerp import http
 from openerp.addons.web.controllers import main
 
-from openerp.addons.ficep_base.abstract_ficep import format_email
+from openerp.addons.ficep_base.base_tools import format_email
 from openerp.addons.ficep_person.res_partner import available_genders, \
     available_civil_status, available_tongues
 

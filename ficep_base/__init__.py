@@ -40,6 +40,7 @@ import more_index
 import ir_cron
 import ir_rule
 import mail_mail
-import abstract_ficep
+import abstract_model
+import base_tools
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

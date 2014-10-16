@@ -26,37 +26,16 @@
 #
 ##############################################################################
 
-from openerp.osv import orm
 
-
-class test_abstract_model(object):
-
-    def setUp(self):
-        super(test_abstract_model, self).setUp()
-
-        self.registry('ir.model').clear_caches()
-        self.registry('ir.model.data').clear_caches()
-
-        self.model_abstract = None
-        self.invalidate_success_ids = None
-        self.invalidate_fail_ids = None
-        self.validate_ids = None
-
-    def test_action_invalidate_success(self):
-        res = self.model_abstract.action_invalidate(self.cr, self.uid, self.invalidate_success_ids, context=None)
-        self.assertEqual(res, True)
-
-        for obj in self.model_abstract.browse(self.cr, self.uid, self.invalidate_success_ids):
-            self.assertEqual(obj.active, False)
-            self.assertNotEqual(obj.expire_date, False)
-
-    def test_action_invalidate_fail(self):
-        self.assertRaises(orm.except_orm, self.model_abstract.action_invalidate, self.cr, self.uid, self.invalidate_fail_ids)
-
-    def test_action_revalidate_success(self):
-        res = self.model_abstract.action_revalidate(self.cr, self.uid, self.validate_ids, context=None)
-        self.assertEqual(res, True)
-
-        for obj in self.model_abstract.browse(self.cr, self.uid, self.validate_ids):
-            self.assertEqual(obj.active, True)
-            self.assertEqual(obj.expire_date, False)
+def format_email(value):
+    """
+    ============
+    format_email
+    ============
+    :type value: char
+    :rtype: char
+    :rparam value: value without space and in lower case
+    """
+    value = value.lower().strip()
+    value = value.replace(' ', '')
+    return value

@@ -40,20 +40,6 @@ _logger = logging.getLogger(__name__)
 INVALIDATE_ERROR = _('Invalidation impossible, at least one dependency is still active')
 
 
-def format_email(value):
-    """
-    ============
-    format_email
-    ============
-    :type value: char
-    :rtype: char
-    :rparam value: value without space and in lower case
-    """
-    value = value.lower().strip()
-    value = value.replace(' ', '')
-    return value
-
-
 class abstract_ficep_model(orm.AbstractModel):
 
     _name = 'abstract.ficep.model'
