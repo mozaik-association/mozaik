@@ -63,7 +63,7 @@ class test_partner(SharedSetupTransactionCase):
         self.user_model = self.registry('res.users')
         self.partner_jacques_id = self.ref(
             '%s.res_partner_jacques' % self._module_ns)
-        self.group_fr_id = self.ref('ficep_base.ficep_res_groups_reader')
+        self.group_fr_id = self.ref('ficep_base.mozaik_res_groups_reader')
 
     def get_partner(self, partner_id=False):
         """

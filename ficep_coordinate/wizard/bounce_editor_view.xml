@@ -32,7 +32,7 @@
             <field name="target">new</field>
             <field name="view_id" ref="bounce_editor_wizard" />
             <field name="context">{'default_model': context.get('active_model', False)}</field>
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
         </record>
 
     </data>

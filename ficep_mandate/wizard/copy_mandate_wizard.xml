@@ -130,7 +130,7 @@
             <field name="res_model">copy.sta.mandate.wizard</field>
             <field name="target">new</field>
             <field name="view_id" ref="copy_sta_mandate_wizard" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="copy_int_mandate_action" model="ir.actions.act_window">
@@ -141,7 +141,7 @@
             <field name="res_model">copy.int.mandate.wizard</field>
             <field name="target">new</field>
             <field name="view_id" ref="copy_int_mandate_wizard" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="copy_ext_mandate_action" model="ir.actions.act_window">
@@ -152,7 +152,7 @@
             <field name="res_model">copy.ext.mandate.wizard</field>
             <field name="target">new</field>
             <field name="view_id" ref="copy_ext_mandate_wizard" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
         </record>
     </data>
 </openerp>

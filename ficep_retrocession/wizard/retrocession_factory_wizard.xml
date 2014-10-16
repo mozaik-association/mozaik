@@ -80,7 +80,7 @@
             <field name="res_model">retrocession.factory.wizard</field>
             <field name="target">new</field>
             <field name="view_id" ref="retrocession_factory_wizard_view" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_financial_user')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_financial_user')])]" />
         </record>
 
         <record id="sta_mandate_retrocession_factory" model="ir.values">

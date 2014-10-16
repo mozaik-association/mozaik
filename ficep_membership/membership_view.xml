@@ -34,7 +34,7 @@
                     <header>
                         <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_configurator">
+                             groups="ficep_base.mozaik_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate Membership State: proceed anyway?" />
                         </span>
@@ -78,7 +78,7 @@
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers"
-                            groups="ficep_base.ficep_res_groups_configurator" />
+                            groups="ficep_base.mozaik_res_groups_configurator" />
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -153,7 +153,7 @@
                     <header>
                         <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_configurator">
+                             groups="ficep_base.mozaik_res_groups_configurator">
                         </span>
                     </header>
                     <sheet>
@@ -205,7 +205,7 @@
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>

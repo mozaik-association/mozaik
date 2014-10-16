@@ -82,12 +82,12 @@
                                 attrs="{'invisible': [('state', '!=', 'confirm')]}"
                                 string="Validate" type="object"
                                 confirm="Validate Membership Request: proceed anyway?"
-                                groups="ficep_base.ficep_res_groups_officer" />
+                                groups="ficep_base.mozaik_res_groups_officer" />
                             <button name="cancel_request" string="Cancel"
                                 attrs="{'invisible': [('state', '!=', 'confirm')]}"
                                 type="object"
                                 confirm="Cancel Membership Request: proceed anyway?"
-                                groups="ficep_base.ficep_res_groups_officer" />
+                                groups="ficep_base.mozaik_res_groups_officer" />
 
                         </span>
                         <field name="state" widget="statusbar"
@@ -212,7 +212,7 @@
                             <field name="note" />
                         </group>
 
-                        <notebook groups="ficep_base.ficep_res_groups_officer">
+                        <notebook groups="ficep_base.mozaik_res_groups_officer">
                             <page string="Partner" name="partner">
                                 <group>
                                     <field name="partner_id"
@@ -279,7 +279,7 @@
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers"
-                            groups="ficep_base.ficep_res_groups_configurator" />
+                            groups="ficep_base.mozaik_res_groups_configurator" />
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>

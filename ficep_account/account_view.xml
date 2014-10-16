@@ -5,7 +5,7 @@
         <!-- Only for accountants -->
 
         <record id="account.partner_view_buttons" model="ir.ui.view">
-            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_financial_manager')),
+            <field name="groups_id" eval="[(4, ref('ficep_base.mozaik_res_groups_financial_manager')),
                                           ]"/>
         </record>
 
@@ -19,12 +19,12 @@
         </record>
 
         <record id="account.action_report_print_overdue" model="ir.actions.report.xml">
-            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_financial_manager')),
+            <field name="groups_id" eval="[(4, ref('ficep_base.mozaik_res_groups_financial_manager')),
                                           ]"/>
         </record>
 
         <record id="account.action_account_partner_ledger" model="ir.actions.act_window">
-            <field name="groups_id" eval="[(4, ref('ficep_base.ficep_res_groups_financial_manager')),
+            <field name="groups_id" eval="[(4, ref('ficep_base.mozaik_res_groups_financial_manager')),
                                           ]"/>
         </record>
 

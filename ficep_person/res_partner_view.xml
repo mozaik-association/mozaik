@@ -80,7 +80,7 @@
                     <field name="is_duplicate_detected" invisible="1"/>
                     <field name="is_duplicate_allowed" invisible="1"/>
                     <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
-                            groups="ficep_base.ficep_res_groups_user"
+                            groups="ficep_base.mozaik_res_groups_user"
                             attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
                             icon="gtk-undo"
                             confirm="Undo allow duplicate: proceed anyway?" />
@@ -149,7 +149,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_user">
+                             groups="ficep_base.mozaik_res_groups_user">
                             <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
                                     attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
                                     confirm="Undo allow duplicate: proceed anyway?" />
@@ -296,7 +296,7 @@
                             </tree>
                         </field>
                     </page>
-                    <page name="user" string="User" attrs="{'invisible': [('user_ids','=',[])]}" groups="ficep_base.ficep_res_groups_configurator">
+                    <page name="user" string="User" attrs="{'invisible': [('user_ids','=',[])]}" groups="ficep_base.mozaik_res_groups_configurator">
                         <group name="ldap">
                             <group>
                                 <field name="ldap_name" />
@@ -339,7 +339,7 @@
                     </div>
 
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </xpath>

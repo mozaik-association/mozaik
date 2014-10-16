@@ -454,7 +454,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_configurator">
+                             groups="ficep_base.mozaik_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate legislature: proceed anyway?" />
                         </div>
@@ -505,7 +505,7 @@
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -520,7 +520,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.ficep_res_groups_configurator">
+                             groups="ficep_base.mozaik_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate electoral district: proceed anyway?" />
                         </div>
@@ -570,7 +570,7 @@
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.ficep_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -774,7 +774,7 @@
                   sequence="20" parent="external_submenu" />
 
         <menuitem id="configuration_submenu" name="Configuration"
-                  sequence="90" parent="ficep_base.structures_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
+                  sequence="90" parent="ficep_base.structures_root_menu" groups="ficep_base.mozaik_res_groups_configurator" />
 
         <menuitem id="state_configuration_submenu" name="State"
                   sequence="10" parent="configuration_submenu"/>

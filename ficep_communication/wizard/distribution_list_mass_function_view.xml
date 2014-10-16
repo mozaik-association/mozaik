@@ -107,7 +107,7 @@
             <field name="target">new</field>
             <field name="view_id" ref="distribution_list_mass_function_wizard" />
             <field name="groups_id"
-                eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+                eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_involvement_value" model="ir.values">

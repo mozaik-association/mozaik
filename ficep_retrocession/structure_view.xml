@@ -7,7 +7,7 @@
             <field name="model">sta.assembly</field>
             <field name="inherit_id" ref="ficep_structure.abstract_assembly_search_view"/>
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.ficep_res_groups_financial_user'),
+                ref('ficep_base.mozaik_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='instance_id']" position="after">
@@ -24,7 +24,7 @@
             <field name="model">sta.assembly</field>
             <field name="inherit_id" ref="sta_assembly_search_view"/>
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.ficep_res_groups_financial_manager'),
+                ref('ficep_base.mozaik_res_groups_financial_manager'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='calculation_method_id']" position="after">
@@ -41,7 +41,7 @@
             <field name="model">sta.assembly</field>
             <field name="inherit_id" ref="ficep_structure.sta_assembly_form_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.ficep_res_groups_financial_user'),
+                ref('ficep_base.mozaik_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
@@ -56,7 +56,7 @@
             <field name="model">sta.assembly</field>
             <field name="inherit_id" ref="sta_assembly_form_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.ficep_res_groups_financial_manager'),
+                ref('ficep_base.mozaik_res_groups_financial_manager'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='calculation_method_id']" position="after">
@@ -70,7 +70,7 @@
             <field name="model">ext.assembly</field>
             <field name="inherit_id" ref="ficep_structure.ext_assembly_search_view"/>
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.ficep_res_groups_financial_user'),
+                ref('ficep_base.mozaik_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='instance_id']" position="after">
@@ -87,7 +87,7 @@
             <field name="model">ext.assembly</field>
             <field name="inherit_id" ref="ext_assembly_search_view"/>
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.ficep_res_groups_financial_manager'),
+                ref('ficep_base.mozaik_res_groups_financial_manager'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='calculation_method_id']" position="after">
@@ -104,7 +104,7 @@
             <field name="model">ext.assembly</field>
             <field name="inherit_id" ref="ficep_structure.ext_assembly_form_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.ficep_res_groups_financial_user'),
+                ref('ficep_base.mozaik_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
@@ -119,7 +119,7 @@
             <field name="model">ext.assembly</field>
             <field name="inherit_id" ref="ext_assembly_form_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.ficep_res_groups_financial_manager'),
+                ref('ficep_base.mozaik_res_groups_financial_manager'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='calculation_method_id']" position="after">

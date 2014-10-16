@@ -25,7 +25,7 @@
             <field name="res_model">change.main.phone</field>
             <field name="target">new</field>
             <field name="view_id" ref="change_main_phone_wizard"/>
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_user')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
             <field name="context">{'target_model': 'phone.coordinate'}</field>
         </record>
 

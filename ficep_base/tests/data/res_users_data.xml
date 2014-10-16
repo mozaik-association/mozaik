@@ -8,7 +8,7 @@
             <field name="password">aa</field>
             <field name="signature">Stromae</field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.ficep_res_groups_vip_reader')])]"/>
+            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_vip_reader')])]"/>
         </record>
 
     </data>

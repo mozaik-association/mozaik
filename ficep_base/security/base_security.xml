@@ -13,7 +13,7 @@
         <!-- Extra groups not belonging to Political Association application -->
 
         <record model="res.groups" id="res_groups_base">
-            <field name="name">Base (ficep)</field>
+            <field name="name">Base (Mozaik)</field>
             <field name="category_id" ref="base.module_category_usability"/>
             <field name="implied_ids" eval="[(6, 0, [
                 ref('base.group_user'),
@@ -22,7 +22,7 @@
         </record>
 
         <record model="res.groups" id="res_groups_developper">
-            <field name="name">Developper (ficep)</field>
+            <field name="name">Developper (Mozaik)</field>
             <field name="category_id" ref="base.module_category_usability"/>
             <field name="implied_ids" eval="[(6, 0, [
                 ref('base.group_no_one'),
@@ -31,16 +31,16 @@
 
         <!-- Groups belonging to Political Association application -->
 
-        <record model="res.groups" id="ficep_res_groups_reader">
-            <field name="name">Ficep Reader</field>
+        <record model="res.groups" id="mozaik_res_groups_reader">
+            <field name="name">Mozaik Reader</field>
             <field name="category_id" ref="base.module_category_political_association"/>
             <field name="implied_ids" eval="[(6, 0, [
                 ref('res_groups_base'),
             ])]" />
         </record>
 
-        <record model="res.groups" id="ficep_res_groups_user">
-            <field name="name">Ficep User</field>
+        <record model="res.groups" id="mozaik_res_groups_user">
+            <field name="name">Mozaik User</field>
             <field name="category_id" ref="base.module_category_political_association"/>
             <field name="implied_ids" eval="[(6, 0, [
                 ref('res_groups_base'),
@@ -51,65 +51,65 @@
             ])]" />
         </record>
 
-        <record model="res.groups" id="ficep_res_groups_financial_user">
-            <field name="name">Ficep Financial User</field>
+        <record model="res.groups" id="mozaik_res_groups_financial_user">
+            <field name="name">Mozaik Financial User</field>
             <field name="category_id" ref="base.module_category_political_association"/>
             <field name="implied_ids" eval="[(6, 0, [
-                ref('ficep_res_groups_reader'),
-                ref('ficep_res_groups_user'),
+                ref('mozaik_res_groups_reader'),
+                ref('mozaik_res_groups_user'),
             ])]" />
         </record>
 
-        <record model="res.groups" id="ficep_res_groups_officer">
-            <field name="name">Ficep Officer</field>
+        <record model="res.groups" id="mozaik_res_groups_officer">
+            <field name="name">Mozaik Officer</field>
             <field name="category_id" ref="base.module_category_political_association"/>
             <field name="implied_ids" eval="[(6, 0, [
-                ref('ficep_res_groups_reader'),
-                ref('ficep_res_groups_user'),
+                ref('mozaik_res_groups_reader'),
+                ref('mozaik_res_groups_user'),
             ])]" />
         </record>
 
-        <record model="res.groups" id="ficep_res_groups_financial_manager">
-            <field name="name">Ficep Financial Manager</field>
+        <record model="res.groups" id="mozaik_res_groups_financial_manager">
+            <field name="name">Mozaik Financial Manager</field>
             <field name="category_id" ref="base.module_category_political_association"/>
             <field name="implied_ids" eval="[(6, 0, [
-                ref('ficep_res_groups_financial_user'),
-                ref('ficep_res_groups_officer'),
+                ref('mozaik_res_groups_financial_user'),
+                ref('mozaik_res_groups_officer'),
                 ref('event.group_event_manager'),
             ])]" />
         </record>
 
-        <record model="res.groups" id="ficep_res_groups_vip_reader">
-            <field name="name">Ficep Vip Reader</field>
+        <record model="res.groups" id="mozaik_res_groups_vip_reader">
+            <field name="name">Mozaik Vip Reader</field>
             <field name="category_id" ref="base.module_category_political_association"/>
             <field name="implied_ids" eval="[(6, 0, [
-                ref('ficep_res_groups_reader'),
+                ref('mozaik_res_groups_reader'),
             ])]" />
         </record>
 
-        <record model="res.groups" id="ficep_res_groups_manager">
-            <field name="name">Ficep Manager</field>
+        <record model="res.groups" id="mozaik_res_groups_manager">
+            <field name="name">Mozaik Manager</field>
             <field name="category_id" ref="base.module_category_political_association"/>
             <field name="implied_ids" eval="[(6, 0, [
-                ref('ficep_res_groups_vip_reader'),
-                ref('ficep_res_groups_officer'),
+                ref('mozaik_res_groups_vip_reader'),
+                ref('mozaik_res_groups_officer'),
             ])]" />
         </record>
 
-        <record model="res.groups" id="ficep_res_groups_configurator">
-            <field name="name">Ficep Configurator</field>
+        <record model="res.groups" id="mozaik_res_groups_configurator">
+            <field name="name">Mozaik Configurator</field>
             <field name="category_id" ref="base.module_category_political_association"/>
             <field name="implied_ids" eval="[(6, 0, [
-                ref('ficep_res_groups_manager'),
+                ref('mozaik_res_groups_manager'),
                 ref('help_online.help_online_group_writer'),
             ])]" />
         </record>
 
-        <!-- Admin is a Ficep Configurator -->
+        <!-- Admin is a Configurator -->
 
         <record model="res.users" id="base.user_root">
             <field name="groups_id" eval="[
-                (4, ref('ficep_res_groups_configurator')),
+                (4, ref('mozaik_res_groups_configurator')),
             ]" />
         </record>
 
@@ -126,7 +126,7 @@
             <field name="login">ws</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[
-                (4, ref('ficep_base.ficep_res_groups_reader')),
+                (4, ref('ficep_base.mozaik_res_groups_reader')),
             ]"/>
         </record>
 

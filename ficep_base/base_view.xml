@@ -22,7 +22,7 @@
                   sequence="10" groups="res_groups_base" />
 
         <menuitem id="persons_configuration_submenu" name="Configuration"
-                  sequence="99" parent="persons_root_menu" groups="ficep_base.ficep_res_groups_configurator" />
+                  sequence="99" parent="persons_root_menu" groups="ficep_base.mozaik_res_groups_configurator" />
 
         <menuitem id="localization_submenu" name="Localization"
                   sequence="40" parent="persons_configuration_submenu" />

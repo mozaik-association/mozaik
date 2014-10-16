@@ -45,7 +45,7 @@
                             <field name="coordinate_category_id" />
                             <field name="is_main" />
                             <field name="unauthorized" />
-                            <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                            <field name="vip" groups="ficep_base.mozaik_res_groups_vip_reader" />
                             <field name="is_duplicate_detected" invisible="1"/>
                         </tree>
                     </field>
@@ -56,7 +56,7 @@
                             <field name="coordinate_category_id" />
                             <field name="is_main" />
                             <field name="unauthorized" />
-                            <field name="vip" groups="ficep_base.ficep_res_groups_vip_reader" />
+                            <field name="vip" groups="ficep_base.mozaik_res_groups_vip_reader" />
                         </tree>
                     </field>
                 </xpath>

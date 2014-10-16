@@ -8,7 +8,7 @@
             <field name="name">Calculation Rule for Ficep User</field>
             <field name="model_id" ref="model_calculation_rule"/>
             <field name="domain_force">[('calculation_method_id','=',False), ('retrocession_id','=',False)]</field>
-            <field name="groups" eval="[(6,0,[ref('ficep_base.ficep_res_groups_user')])]"/>
+            <field name="groups" eval="[(6,0,[ref('ficep_base.mozaik_res_groups_user')])]"/>
             <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
@@ -17,7 +17,7 @@
             <field name="name">Calculation Rule for Ficep Financial User</field>
             <field name="model_id" ref="model_calculation_rule"/>
             <field name="domain_force">[('retrocession_id','!=',False)]</field>
-            <field name="groups" eval="[(6,0,[ref('ficep_base.ficep_res_groups_financial_user')])]"/>
+            <field name="groups" eval="[(6,0,[ref('ficep_base.mozaik_res_groups_financial_user')])]"/>
             <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
@@ -27,8 +27,8 @@
             <field name="model_id" ref="model_calculation_rule"/>
             <field name="domain_force">[('calculation_method_id','!=',False)]</field>
             <field name="groups" eval="[(6,0,[
-                ref('ficep_base.ficep_res_groups_financial_user'),
-                ref('ficep_base.ficep_res_groups_configurator'),
+                ref('ficep_base.mozaik_res_groups_financial_user'),
+                ref('ficep_base.mozaik_res_groups_configurator'),
             ])]"/>
             <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>

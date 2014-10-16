@@ -125,7 +125,7 @@ class duplicate_analysis_report(orm.Model):
                            no duplicates
         """
         uid = SUPERUSER_ID
-        model, group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'ficep_base', 'ficep_res_groups_configurator')
+        model, group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'ficep_base', 'mozaik_res_groups_configurator')
         configurator_group = self.pool[model].browse(cr, uid, [group_id], context=context)[0]
         mail_id = False
         if configurator_group.users:
