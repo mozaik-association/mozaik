@@ -1,3 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_ficep_email_coordinate_res_group_base,ficep.email.coordinate.res.group.base,model_email_coordinate,ficep_base.res_groups_base,1,0,0,0
-access_ficep_email_coordinate_res_group_user,ficep.email.coordinate.res.group.user,model_email_coordinate,ficep_base.ficep_res_groups_user,1,1,1,1
+access_ficep_email_coordinate_res_group_user,ficep.email.coordinate.res.group.user,model_email_coordinate,ficep_base.mozaik_res_groups_user,1,1,1,1

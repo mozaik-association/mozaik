@@ -10,8 +10,8 @@ access_ficep_virtual_assembly_instance_res_group_base,ficep.virtual.assembly.ins
 access_ficep_virtual_partner_retrocession_res_group_base,ficep.virtual.partner.retrocession.res.group.base,model_virtual_partner_retrocession,ficep_base.res_groups_base,1,0,0,0
 access_ficep_virtual_partner_membership_res_group_base,ficep.virtual.partner.membership.res.group.base,model_virtual_partner_membership,ficep_base.res_groups_base,1,0,0,0
 access_ficep_postal_mail_res_groups_base,ficep.postal.mail.res.groups.base,model_postal_mail,ficep_base.res_groups_base,1,0,0,0
-access_ficep_postal_mail_res_groups_officer,ficep.postal.mail.res.groups.officer,model_postal_mail,ficep_base.ficep_res_groups_officer,1,1,1,0
-access_ficep_postal_mail_res_groups_configurator,ficep.postal.mail.res.groups.configurator,model_postal_mail,ficep_base.ficep_res_groups_configurator,1,1,1,1
+access_ficep_postal_mail_res_groups_officer,ficep.postal.mail.res.groups.officer,model_postal_mail,ficep_base.mozaik_res_groups_officer,1,1,1,0
+access_ficep_postal_mail_res_groups_configurator,ficep.postal.mail.res.groups.configurator,model_postal_mail,ficep_base.mozaik_res_groups_configurator,1,1,1,1
 access_ficep_postal_mail_log_res_groups_base,ficep.postal.mail.log.res.groups.base,model_postal_mail_log,ficep_base.res_groups_base,1,0,0,0
-access_ficep_postal_mail_log_res_groups_officer,ficep.postal.mail.log.res.groups.officer,model_postal_mail_log,ficep_base.ficep_res_groups_officer,1,1,1,0
-access_ficep_postal_mail_log_res_groups_configurator,ficep.postal.mail.log.res.groups.configurator,model_postal_mail_log,ficep_base.ficep_res_groups_configurator,1,1,1,1
+access_ficep_postal_mail_log_res_groups_officer,ficep.postal.mail.log.res.groups.officer,model_postal_mail_log,ficep_base.mozaik_res_groups_officer,1,1,1,0
+access_ficep_postal_mail_log_res_groups_configurator,ficep.postal.mail.log.res.groups.configurator,model_postal_mail_log,ficep_base.mozaik_res_groups_configurator,1,1,1,1
