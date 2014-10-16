@@ -2,14 +2,6 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Add web resources -->
-
-        <template id="assets_backend" name="ficep_retrocession_css" inherit_id="web.assets_backend">
-            <xpath expr="." position="inside">
-                <link rel="stylesheet" href="/ficep_retrocession/static/src/css/ficep_retrocession.css"/>
-            </xpath>
-        </template>
-
         <record id="retrocession_factory_wizard_view" model="ir.ui.view">
             <field name="name">retrocession.factory.wizard.view</field>
             <field name="model">retrocession.factory.wizard</field>

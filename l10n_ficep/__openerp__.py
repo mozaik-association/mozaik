@@ -39,20 +39,16 @@
     'description': """
 l10n FICEP
 ==========
-This is the base module to manage the generic accounting chart for Ficep
+This is the base module to manage the generic accounting chart for the application
     """,
     'images': [
     ],
     'data': [
-        'data/account_ficep.xml',
+        'data/account_template.xml',
         'data/account_chart_template.xml',
         'data/account_installer.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -64,5 +60,3 @@ This is the base module to manage the generic accounting chart for Ficep
     'auto_install': False,
     'application': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

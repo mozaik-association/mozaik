@@ -35,17 +35,16 @@
     'depends': [
         'ficep_communication',
         'ficep_help',
-        #'ficep_mass_editing',
     ],
     'description': """
 FICEP
 =====
-Loads all ficep modules
-    """,
+Loads all applicative modules
+""",
     'images': [
     ],
     'data': [
-        'security/ficep_security.xml',
+        'security/security.xml',
         'data/res_users_data.xml',
     ],
     'qweb': [

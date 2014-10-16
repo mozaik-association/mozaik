@@ -51,7 +51,7 @@ FICEP Communication
     ],
     'data': [
         'security/ir.model.access.csv',
-        'security/ficep_communication_security.xml',
+        'security/communication_security.xml',
         'data/distribution_list_data.xml',
         'wizard/distribution_list_mass_function_view.xml',
         'wizard/add_registrations_view.xml',
@@ -66,8 +66,6 @@ FICEP Communication
     ],
     'qweb': [
     ],
-    'css': [
-    ],
     'demo': [
     ],
     'test': [
@@ -76,5 +74,3 @@ FICEP Communication
     'installable': True,
     'auto_install': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

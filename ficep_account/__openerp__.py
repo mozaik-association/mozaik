@@ -41,13 +41,13 @@
     'description': """
 FICEP Account
 =============
-Manage accounting functionalities.
+Manage accounting features
     """,
     'images': [
     ],
     'data': [
-        'security/ficep_account_security.xml',
-        'ficep_account_view.xml',
+        'security/account_security.xml',
+        'account_view.xml',
     ],
     'qweb': [
     ],

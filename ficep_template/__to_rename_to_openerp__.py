@@ -42,14 +42,14 @@ FICEP
     'images': [
     ],
     'data': [
-        #'security/ir.model.access.csv',
-        #'security/ficep_XXX_security.xml',
-        #'XXX_view.xml,',
-        #'wizard/XXX.xml',
-        #'data/XXX.xml'
+        'security/ir.model.access.csv',
+        'security/XXX_security.xml',
+        'XXX_view.xml,',
+        'wizard/XXX.xml',
+        'data/XXX.xml'
     ],
     'qweb': [
-        #'static/src/xml/XXX.xml',
+        'static/src/xml/XXX.xml',
     ],
     'demo': [
     ],

@@ -54,7 +54,7 @@ local zip, default instance otherwise. This field is added to all views
     'data': [
         'data/membership_state_data.xml',
         'data/abstract_coordinate_data.xml',
-        'security/ficep_membership_security.xml',
+        'security/membership_security.xml',
         'security/ir.model.access.csv',
         'data/ir_config_parameter_data.xml',
         'data/product_data.xml',
@@ -70,6 +70,12 @@ local zip, default instance otherwise. This field is added to all views
         'wizard/generate_reference.xml',
         'wizard/pass_former_member.xml',
         'report/waiting_member_report_view.xml',
+    ],
+    'qweb': [
+    ],
+    'demo': [
+    ],
+    'test': [
     ],
     'sequence': 150,
     'auto_install': False,

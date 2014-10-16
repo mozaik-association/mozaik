@@ -4,15 +4,15 @@
 
         <!-- Add web resources -->
 
-        <template id="assets_backend" name="ficep_base_css" inherit_id="web.assets_backend">
+        <template id="assets_backend" name="backend_base_css" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
-                <link rel="stylesheet" href="/ficep_base/static/src/css/backend_ficep_base.css"/>
+                <link rel="stylesheet" href="/ficep_base/static/src/css/backend_base.css"/>
             </xpath>
         </template>
 
-        <template id="theme" name="no_frontend_footer" inherit_id="website.theme">
+        <template id="theme" name="frontend_base_css" inherit_id="website.theme">
             <xpath expr="." position="inside">
-                <link rel="stylesheet" href="/ficep_base/static/src/css/frontend_ficep_base.css"/>
+                <link rel="stylesheet" href="/ficep_base/static/src/css/frontend_base.css"/>
             </xpath>
         </template>
 

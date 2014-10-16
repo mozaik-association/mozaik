@@ -46,7 +46,7 @@ Numbers are normalized regarding the external python library: phonenumbers
     ],
     'data': [
         'security/ir.model.access.csv',
-        'security/ficep_phone_security.xml',
+        'security/phone_security.xml',
         'data/ir_config_parameter_data.xml',
         'data/phone_phone_data.xml',
         'phone_phone_view.xml',
@@ -56,11 +56,7 @@ Numbers are normalized regarding the external python library: phonenumbers
         'wizard/allow_duplicate_view.xml',
         'wizard/bounce_editor_view.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -70,5 +66,3 @@ Numbers are normalized regarding the external python library: phonenumbers
     'installable': True,
     'auto_install': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

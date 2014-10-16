@@ -42,10 +42,10 @@ FICEP Mobile
     """,
     'data': [
         'security/ir.model.access.csv',
-        'security/ficep_mobile_security.xml',
+        'security/mobile_security.xml',
         'static/src/xml/mobile_view.xml',
         'views/mobile_templates.xml',
-        'ficep_mobile_view.xml',
+        'mobile_view.xml',
     ],
     'sequence': 150,
     'auto_install': True,

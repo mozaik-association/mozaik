@@ -44,7 +44,7 @@ This module manages postal addresses and postal coordinates.
     ],
     'data': [
         'security/ir.model.access.csv',
-        'security/ficep_address_security.xml',
+        'security/address_security.xml',
         'data/address_address_data.xml',
         'address_address_view.xml',
         'address_local_zip_view.xml',
@@ -58,11 +58,7 @@ This module manages postal addresses and postal coordinates.
         'wizard/export_csv_view.xml',
         'reports/report_postal_coordinate_label_view.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -72,5 +68,3 @@ This module manages postal addresses and postal coordinates.
     'installable': True,
     'auto_install': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

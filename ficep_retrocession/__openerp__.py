@@ -46,7 +46,7 @@ FICEP Retrocession
     ],
     'data': [
         'security/ir.model.access.csv',
-        'security/ficep_retrocession_security.xml',
+        'security/retrocession_security.xml',
         'mandate_actions.xml',
         'structure_view.xml',
         'retrocession_view.xml',
