@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- BACKEND -->
+        <template id="assets_backend" name="partner_user" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/ficep_portal/static/src/js/portal.js"></script>
+            </xpath>
+        </template>
+
+        <!-- Persons -->
+        <menuitem id="partner_submenu" name="Persons"
+            sequence="20" parent="portal.portal_menu" />
+        <menuitem id="natural_partner_submenu" sequence="20"
+            parent="partner_submenu" action="natural_res_partner_action"/>
+
+    </data>
+</openerp>
