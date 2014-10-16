@@ -26,20 +26,15 @@
 #
 ##############################################################################
 
-import testtool
-import url
-import ir_model
-import ir_import
-import res_lang
-import res_users
-import res_partner
-import mail_message
-import selections_translator
-import document
-import more_index
-import ir_cron
-import ir_rule
-import mail_mail
-import abstract_ficep
+from openerp.osv import osv
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class mail_mail(osv.Model):
+
+    _inherit = 'mail.mail'
+
+    def _get_partner_access_link(self, cr, uid, mail, partner=None, context=None):
+        """
+        Do not generate trailing shortcut in mails
+        """
+        return None

@@ -29,6 +29,7 @@
 from lxml import etree
 import logging
 
+from openerp import api
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
@@ -329,6 +330,17 @@ class abstract_ficep_model(orm.AbstractModel):
                 node.set('readonly', '1')
             res['arch'] = etree.tostring(doc)
         return res
+
+# public methods
+
+    @api.cr_uid_ids_context
+    def message_post(self, cr, uid, thread_id, context=None, **kwargs):
+        """
+        Do not auto-subscribe
+        """
+        ctx = dict(context or {}, mail_create_nosubscribe=True)
+        ctx.pop('mail_post_autofollow', None)
+        return super(abstract_ficep_model, self).message_post(cr, uid, thread_id, context=ctx, **kwargs)
 
     def get_formview_id(self, cr, uid, id, context=None):
         """ Return a view id to open the document with.

@@ -127,5 +127,22 @@
             </field>
         </record>
 
+        <!-- Messages form -->
+
+        <record id="view_message_form" model="ir.ui.view">
+            <field name="name">mail.message.form (ficep_base)</field>
+            <field name="model">mail.message</field>
+            <field name="inherit_id" ref="mail.view_message_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='res_id']" position="after">
+                    <field name="record_name" readonly="1"
+                           attrs="{'invisible': ['|',('record_name', '=', False),('parent_id', '!=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='subtype_id']" position="after">
+                    <field name="message_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>
