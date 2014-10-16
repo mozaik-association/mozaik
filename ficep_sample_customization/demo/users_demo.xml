@@ -34,7 +34,8 @@
             <field name="website">http://www.aftnet.be/portail-aft/Joueurs/Fiche-signaletique-membre.aspx?numfed=4021764</field>
             <field name="secondary_website">http://www.itftennis.com/procircuit/players/player/profile.aspx?playerid=30020306</field>
             <field name="int_instance_m2m_ids" eval="[(6, 0, [
-                ref('ficep_structure.int_instance_01'),
+                ref('int_instance_04'),
+                ref('int_instance_local_bxl'),
             ])]"/>
         </record>
 
@@ -69,8 +70,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="employee" eval="1"/>
             <field name="int_instance_m2m_ids" eval="[(6, 0, [
-                ref('int_instance_04'),
-                ref('int_instance_local_bxl'),
+                ref('ficep_structure.int_instance_01'),
             ])]"/>
         </record>
 
@@ -137,7 +137,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(6, 0, [
                 ref('ficep_base.ficep_res_groups_manager'),
-                ref('ficep_base.ficep_res_groups_financial_manager'),
+                ref('ficep_base.ficep_res_groups_financial_user'),
                 ref('help_online.help_online_group_writer'),
             ])]"/>
         </record>
