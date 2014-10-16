@@ -39,7 +39,7 @@ class test_accounting_with_product(object):
     )
 
     _module_ns = 'ficep_membership'
-    _account_wizard = 'pcmn_ficep'
+    _account_wizard = 'pcmn_mozaik'
     _with_coda = False
 
     product = None

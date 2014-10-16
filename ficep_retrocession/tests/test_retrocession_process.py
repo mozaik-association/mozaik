@@ -47,7 +47,7 @@ class test_retrocession_with_accounting(object):
 
     def setUp(self):
         super(test_retrocession_with_accounting, self).setUp()
-        wiz_id = self.ref('%s.pcmn_ficep' % self._module_ns)
+        wiz_id = self.ref('%s.pcmn_mozaik' % self._module_ns)
         self.registry('wizard.multi.charts.accounts').execute(self.cr, self.uid, [wiz_id])
 
         # members to instanciate by real test

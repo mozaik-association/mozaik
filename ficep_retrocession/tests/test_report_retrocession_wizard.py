@@ -169,7 +169,7 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
         mandate_id3 = self.ref('%s.extm_marc_membre_ag' % self._module_ns)
         mandate_ids = [mandate_id1, mandate_id2, mandate_id3]
 
-        wiz_id = self.ref('%s.pcmn_ficep' % self._module_ns)
+        wiz_id = self.ref('%s.pcmn_mozaik' % self._module_ns)
         self.registry('wizard.multi.charts.accounts').execute(self.cr,
                                                               self.uid,
                                                               [wiz_id])

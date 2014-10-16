@@ -9,7 +9,7 @@
         </record>
 
         <!-- Add wizard data for main company -->
-        <record id="pcmn_ficep" model="wizard.multi.charts.accounts">
+        <record id="pcmn_mozaik" model="wizard.multi.charts.accounts">
             <field name="chart_template_id" ref="ficep_chart_template"/>
             <field name="company_id" ref="base.main_company"/>
             <field name="currency_id" ref="base.EUR"/>
