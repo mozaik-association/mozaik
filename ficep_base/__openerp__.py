@@ -35,12 +35,11 @@
     'depends': [
         'base',
         'asynchronous_batch_mailings',
-        # from https://github.com/acsone/acsone-addons/tree/
-        # acsone-addons-asynchronous_batch_mailings
+                                 # from https://github.com/acsone/acsone-addons
         'document',
         'mass_mailing',
         'product',
-        'event_mass_mailing',
+        'event_mass_mailing',    # from https://github.com/acsone/acsone-addons
         'partner_firstname',     # from https://github.com/OCA/partner-contact
         #'mass_editing',          # from https://github.com/OCA/server-tools/7.0
         'cron_run_manually',     # from https://github.com/OCA/server-tools/7.0
@@ -48,7 +47,7 @@
         'settings_improvement',  # from https://github.com/acsone/acsone-addons
         'distribution_list',     # from https://github.com/acsone/acsone-addons
         'readonly_bypass',       # from https://github.com/acsone/acsone-addons
-        'help_online',           # from https://github.com/acsone/acsone-addons
+        'help_online',           # from https://github.com/OCA/web
 
         # to speed test without testing standard addons from a pre-loaded squeleton database:
         'analytic',
