@@ -86,7 +86,7 @@ class res_users(orm.Model):
     def context_get(self, cr, uid, context=None):
         '''
         Add in the users's context:
-        - a flag related to each ficep group
+        - a flag related to each Mozaik group
         - the date format associated to the user's lang
         '''
         result = super(res_users, self).context_get(cr, uid)

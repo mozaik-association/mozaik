@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Sample Accounting',
+    'name': 'MOZAIK: Sample Accounting Localization',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -37,8 +37,8 @@
         'l10n_ficep',
     ],
     'description': """
-FICEP Sample Accounting
-==========================
+MOZAIK Sample Accounting Localization
+=====================================
     """,
     'images': [
     ],

@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Base',
+    'name': 'MOZAIK: Base',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -57,11 +57,11 @@
         #'account_cancel',
     ],
     'description': """
-FICEP Base
-==========
-* improve user context adding a flag by ficep group
+MOZAIK Base
+===========
+* improve user context adding a flag by Mozaik group
 * provide a work-around to handle correctly the readonly attribute of the widget mail_thread
-* define ficep menus skeleton
+* define Mozaik menus skeleton
     """,
     'images': [
     ],

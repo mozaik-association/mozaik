@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Person',
+    'name': 'MOZAIK: Person',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -38,8 +38,8 @@
         'ficep_partner_assembly',
     ],
     'description': """
-FICEP Person
-============
+MOZAIK Person
+=============
     """,
     'images': [
     ],
@@ -52,11 +52,7 @@ FICEP Person
         'res_partner_view.xml',
         'person_view.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -66,5 +62,3 @@ FICEP Person
     'auto_install': False,
     'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

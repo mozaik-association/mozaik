@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Help',
+    'name': 'MOZAIK: Online Help',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -37,9 +37,9 @@
         'help_online',
     ],
     'description': """
-FICEP Documentation
-===================
-* Provide a full help online for Ficep application
+MOZAIK Online Help
+==================
+* Provide a full online help feature for the application
 """,
     'images': [
     ],
@@ -50,11 +50,7 @@ FICEP Documentation
         'wizard/export_help_wizard_view.xml',
         'ir_ui_view_view.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],

@@ -5,7 +5,7 @@
         <!-- Rules -->
 
         <record id="draft_membership_request_user_rule" model="ir.rule">
-            <field name="name">Membership Request Draft for Ficep User</field>
+            <field name="name">Membership Request Draft for Mozaik User</field>
             <field name="model_id" ref="model_membership_request"/>
             <field name="domain_force">[('state','=','draft')]</field>
             <field name="groups" eval="[(6,0,[ref('ficep_base.mozaik_res_groups_user')])]"/>
@@ -14,7 +14,7 @@
         </record>
 
         <record id="confirmed_membership_request_user_rule" model="ir.rule">
-            <field name="name">Membership Request Confirmed for Ficep User</field>
+            <field name="name">Membership Request Confirmed for Mozaik User</field>
             <field name="model_id" ref="model_membership_request"/>
             <field name="domain_force">[('state','=','confirm')]</field>
             <field name="groups" eval="[(6,0,[ref('ficep_base.mozaik_res_groups_user')])]"/>
@@ -23,7 +23,7 @@
         </record>
 
         <record id="membership_request_officier_rule" model="ir.rule">
-            <field name="name">Membership Request for Ficep Officer</field>
+            <field name="name">Membership Request for Mozaik Officer</field>
             <field name="model_id" ref="model_membership_request"/>
             <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(6,0,[ref('ficep_base.mozaik_res_groups_officer')])]"/>
@@ -32,7 +32,7 @@
         </record>
 
         <record id="res_partner_user_rule" model="ir.rule">
-            <field name="name">Partner for Ficep User</field>
+            <field name="name">Partner for Mozaik User</field>
             <field name="model_id" ref="base.model_res_partner"/>
             <field name="domain_force" eval="[
                 '|',
@@ -45,7 +45,7 @@
         </record>
 
         <record id="res_partner_officier_rule" model="ir.rule">
-            <field name="name">Partner for Ficep Officer</field>
+            <field name="name">Partner for Mozaik Officer</field>
             <field name="model_id" ref="base.model_res_partner"/>
             <field name="domain_force">[
                 '|',
@@ -58,7 +58,7 @@
         </record>
 
         <record id="postal_coordinate_user_rule" model="ir.rule">
-            <field name="name">Postal Coordinate for Ficep User</field>
+            <field name="name">Postal Coordinate for Mozaik User</field>
             <field name="model_id" ref="ficep_address.model_postal_coordinate"/>
             <field name="domain_force"
                    eval="['|',('partner_id.is_company','=',True),('partner_id.membership_state_id','=',ref('ficep_membership.without_membership'))]"/>
@@ -68,7 +68,7 @@
         </record>
 
         <record id="postal_coordinate_officier_rule" model="ir.rule">
-            <field name="name">Postal Coordinate for Ficep Officer</field>
+            <field name="name">Postal Coordinate for Mozaik Officer</field>
             <field name="model_id" ref="ficep_address.model_postal_coordinate"/>
             <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(6,0,[ref('ficep_base.mozaik_res_groups_officer')])]"/>
@@ -77,7 +77,7 @@
         </record>
 
         <record id="email_coordinate_user_rule" model="ir.rule">
-            <field name="name">Email Coordinate for Ficep User</field>
+            <field name="name">Email Coordinate for Mozaik User</field>
             <field name="model_id" ref="ficep_email.model_email_coordinate"/>
             <field name="domain_force"
                    eval="['|',('partner_id.is_company','=',True),('partner_id.membership_state_id','=',ref('ficep_membership.without_membership'))]"/>
@@ -87,7 +87,7 @@
         </record>
 
         <record id="email_coordinate_officier_rule" model="ir.rule">
-            <field name="name">Email Coordinate for Ficep Officer</field>
+            <field name="name">Email Coordinate for Mozaik Officer</field>
             <field name="model_id" ref="ficep_email.model_email_coordinate"/>
             <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(6,0,[ref('ficep_base.mozaik_res_groups_officer')])]"/>
@@ -96,7 +96,7 @@
         </record>
 
         <record id="phone_coordinate_user_rule" model="ir.rule">
-            <field name="name">Phone Coordinate for Ficep User</field>
+            <field name="name">Phone Coordinate for Mozaik User</field>
             <field name="model_id" ref="ficep_phone.model_phone_coordinate"/>
             <field name="domain_force"
                    eval="['|',('partner_id.is_company','=',True),('partner_id.membership_state_id','=',ref('ficep_membership.without_membership'))]"/>
@@ -106,7 +106,7 @@
         </record>
 
         <record id="phone_coordinate_officier_rule" model="ir.rule">
-            <field name="name">Phone Coordinate for Ficep Officer</field>
+            <field name="name">Phone Coordinate for Mozaik Officer</field>
             <field name="model_id" ref="ficep_phone.model_phone_coordinate"/>
             <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(6,0,[ref('ficep_base.mozaik_res_groups_officer')])]"/>
@@ -117,7 +117,7 @@
         <!-- Pyramidal Confidentiality -->
 
         <record id="res_partner_base_r_rule" model="ir.rule">
-            <field name="name">Partner (R) for Ficep Base</field>
+            <field name="name">Partner (R) for Mozaik Base</field>
             <field name="model_id" ref="base.model_res_partner"/>
             <field name="domain_force">[
                 '|',
@@ -132,7 +132,7 @@
         </record>
 
         <record id="res_partner_base_cud_rule" model="ir.rule">
-            <field name="name">Partner (CUD) for Ficep Base</field>
+            <field name="name">Partner (CUD) for Mozaik Base</field>
             <field name="model_id" ref="base.model_res_partner"/>
             <field name="domain_force">[
                 ('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
@@ -144,7 +144,7 @@
         </record>
 
         <record id="postal_coordinate_base_rule" model="ir.rule">
-            <field name="name">Postal Coordinate for Ficep</field>
+            <field name="name">Postal Coordinate for Mozaik</field>
             <field name="model_id" ref="ficep_address.model_postal_coordinate"/>
             <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
@@ -153,7 +153,7 @@
         </record>
 
         <record id="co_residency_base_rule" model="ir.rule">
-            <field name="name">Co-Residency for Ficep</field>
+            <field name="name">Co-Residency for Mozaik</field>
             <field name="model_id" ref="ficep_address.model_co_residency"/>
             <field name="domain_force">[
                '|',
@@ -166,7 +166,7 @@
         </record>
 
         <record id="email_coordinate_base_rule" model="ir.rule">
-            <field name="name">Email Coordinate for Ficep</field>
+            <field name="name">Email Coordinate for Mozaik</field>
             <field name="model_id" ref="ficep_email.model_email_coordinate"/>
             <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
@@ -175,7 +175,7 @@
         </record>
 
         <record id="phone_coordinate_base_rule" model="ir.rule">
-            <field name="name">Phone Coordinate for Ficep</field>
+            <field name="name">Phone Coordinate for Mozaik</field>
             <field name="model_id" ref="ficep_phone.model_phone_coordinate"/>
             <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
@@ -184,7 +184,7 @@
         </record>
 
         <record id="partner_relation_base_rule" model="ir.rule">
-            <field name="name">Partner Relation for Ficep</field>
+            <field name="name">Partner Relation for Mozaik</field>
             <field name="model_id" ref="ficep_person_coordinate.model_partner_relation"/>
             <field name="domain_force">[
                 ('subject_partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
@@ -196,7 +196,7 @@
         </record>
 
         <record id="partner_involvement_base_rule" model="ir.rule">
-            <field name="name">Partner Involvement for Ficep</field>
+            <field name="name">Partner Involvement for Mozaik</field>
             <field name="model_id" ref="ficep_person.model_partner_involvement"/>
             <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
@@ -205,7 +205,7 @@
         </record>
 
         <record id="membership_line_base_rule" model="ir.rule">
-            <field name="name">Membership Line for Ficep</field>
+            <field name="name">Membership Line for Mozaik</field>
             <field name="model_id" ref="ficep_membership.model_membership_line"/>
             <field name="domain_force">[
                 ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
@@ -217,7 +217,7 @@
         </record>
 
         <record id="membership_request_base_rule" model="ir.rule">
-            <field name="name">Membership Request for Ficep</field>
+            <field name="name">Membership Request for Mozaik</field>
             <field name="model_id" ref="model_membership_request"/>
             <field name="domain_force">[
                 '|',
@@ -230,7 +230,7 @@
         </record>
 
         <record id="electoral_district_base_rule" model="ir.rule">
-            <field name="name">Electoral District for Ficep</field>
+            <field name="name">Electoral District for Mozaik</field>
             <field name="model_id" ref="ficep_structure.model_electoral_district"/>
             <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
@@ -239,7 +239,7 @@
         </record>
 
         <record id="int_instance_base_rule" model="ir.rule">
-            <field name="name">Internal Instance for Ficep</field>
+            <field name="name">Internal Instance for Mozaik</field>
             <field name="model_id" ref="ficep_structure.model_int_instance"/>
             <field name="domain_force">[('id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>

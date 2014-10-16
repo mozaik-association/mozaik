@@ -176,7 +176,7 @@ class mandates_analysis_report(orm.Model):
             content_text.append('</table></p>')
 
             mail_vals = {
-                'subject': _('Ficep: Ending Mandates Summary - %s') %
+                'subject': _('Mozaik: Ending Mandates Summary - %s') %
                 self.pool.get('res.lang').format_date(cr,
                                                     uid,
                                                     fields.date.today(cr, uid),

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
   <data>
+
     <record id="ficep-help-accept-candidature_img_01" model="ir.attachment">
       <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAEgAAAAbCAMAAADoKTksAAADAFBMVEX8/PvPNjayJSWlHBxmEhLQ
 RUXHWVnu7PCEJSXBLS24NTXLvOO+RUX82qt7IiL+6MrNZWXMqdiYNTXGOpLKS7PUxej3xXjly+n+
@@ -513,13 +514,13 @@ AElFTkSuQmCC
                   </div>
                   <div>
                     <h4>Y a-t-il un format particulier d'encodage?</h4>
-                    <div>L'application Ficep propose une méthode de normalisation de format sur les Adresses:</div>
+                    <div>L'application Mozaik propose une méthode de normalisation de format sur les Adresses:</div>
                     <div>
                       <strong>Normalisation </strong>
                        : au niveau du pays et du code postal. Ceux-ci ne sont pas quelconques: il sont à choisir parmi les propositions et sont obligatoires. Les autres champs sont du texte libre.
                     </div>
                     <div>
-                      <span style="line-height: 1.42857143;">Une aide à la saisie des adresses est également proposée: Ficep offre une méthode d'auto-complétion (i.e. quelques lettres adjacentes suffisent au système pour proposer des premiers résultats) permettant de saisir la voie publique le plus simplement et le plus justement possible. Le Code Postal sera renseigné en premier pour limiter au mieux les résultats sur les Rues. </span>
+                      <span style="line-height: 1.42857143;">Une aide à la saisie des adresses est également proposée: Mozaik offre une méthode d'auto-complétion (i.e. quelques lettres adjacentes suffisent au système pour proposer des premiers résultats) permettant de saisir la voie publique le plus simplement et le plus justement possible. Le Code Postal sera renseigné en premier pour limiter au mieux les résultats sur les Rues. </span>
                     </div>
                     <div>
                       <p>
@@ -528,7 +529,7 @@ AElFTkSuQmCC
                     </div>
                     <h4>Qu'en est-il des versions linguistiques?</h4>
                     <div>
-                      <p>Les voies publiques chargées dans Ficep sont potentiellement disponibles en 2 versions linguistiques selon la localisation géographique (zone germanophone, Bruxelles, Mouscron, ...). Lorsque 2 versions sont disponibles, la francophone est toujours la première. Il n'existe aucune zone bilingue Allemand/Néerlandais.</p>
+                      <p>Les voies publiques chargées dans Mozaik sont potentiellement disponibles en 2 versions linguistiques selon la localisation géographique (zone germanophone, Bruxelles, Mouscron, ...). Lorsque 2 versions sont disponibles, la francophone est toujours la première. Il n'existe aucune zone bilingue Allemand/Néerlandais.</p>
                     </div>
                   </div>
                 </div>
@@ -7787,7 +7788,7 @@ kSMSxaryfwc4hYwMoDAfAAAAAElFTkSuQmCC
                     
                     <div>
                       <p>
-                        <span style="line-height: 1.42857143;">Ficep propose une gestion de ces doublons (voir </span>
+                        <span style="line-height: 1.42857143;">Mozaik propose une gestion de ces doublons (voir </span>
                         <a href="/page/ficep-help-allow-duplicate-wizard" style="line-height: 1.42857143; background-color: rgba(200, 200, 200, 0.137255);">Gérer les doublons</a>
                         <span style="line-height: 1.42857143;"> ).</span>
                       </p>
@@ -7814,7 +7815,7 @@ kSMSxaryfwc4hYwMoDAfAAAAAElFTkSuQmCC
                     <li>Pas autorisée: volonté du propriétaire de l'utilisation ou non de la coordonnée (s'applique également aux coordonnées postales et téléphoniques).</li>
                   </ul>
                   <h4>Y a-t-il un format particulier d'encodage?</h4>
-                  <div>L'application Ficep propose une méthode de normalisation et de validation de format sur les coordonnées email:</div>
+                  <div>L'application Mozaik propose une méthode de normalisation et de validation de format sur les coordonnées email:</div>
                   <div>
                     <strong>Normalisation</strong>
                     
@@ -13257,9 +13258,9 @@ S1Bcikt+Q+x1k29ryxdunLK66S2oLSGEEEIIIYQQQgghhBDjP9ttQpI1xfWNAAAAAElFTkSuQmCC
                 <p>Voici la liste des majeures raisons d'échec d'un import:</p>
                 <ul>
                   <li>Valeur obligatoire manquante;</li>
-                  <li>nouvelle valeur pour une liste: Ficep vous propose un tas de valeurs dans les listes pour chaque objet. Si vous tentez d'importer une valeur qui n'existe pas au préalable dans Ficep, l'import va échouer;</li>
+                  <li>nouvelle valeur pour une liste: Mozaik vous propose un tas de valeurs dans les listes pour chaque objet. Si vous tentez d'importer une valeur qui n'existe pas au préalable dans Mozaik, l'import va échouer;</li>
                   <li>Fichier au mauvais format: l'import échouera si vous tentez d'importer un fichier d'un autre format que le CSV;</li>
-                  <li>Fichier corrompu: fichier qui comportera une colonne avec des valeurs non connues de Ficep;</li>
+                  <li>Fichier corrompu: fichier qui comportera une colonne avec des valeurs non connues de Mozaik;</li>
                   <li>doublons.</li>
                 </ul>
                 <div/>
@@ -21535,7 +21536,7 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                       
                       
                       <div>
-                        <span style="line-height: 1.42857143;">Ficep propose une gestion de ces doublons (voi</span>
+                        <span style="line-height: 1.42857143;">Mozaik propose une gestion de ces doublons (voi</span>
                         
                         
                         
@@ -21589,7 +21590,7 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                       <li>Pas autorisée: volonté du propriétaire de l'utilisation ou non de la coordonnée (s'applique également aux coordonnées postales et téléphoniques).</li>
                     </ul>
                     <h4>Y a-t-il un format particulier d'encodage?</h4>
-                    <div>L'application Ficep propose une méthode de normalisation et de validation de format sur notamment les numéros de téléphone qui servent à définir la coordonnée téléphonique. L'encodage d'une coordonnée téléphonique consiste à sélectionner dans des listes les valeurs à appliquer (Personne, numéro de téléphone). Les méthodes de validation sont appliquées donc en amont (adresses, email, téléphone).</div>
+                    <div>L'application Mozaik propose une méthode de normalisation et de validation de format sur notamment les numéros de téléphone qui servent à définir la coordonnée téléphonique. L'encodage d'une coordonnée téléphonique consiste à sélectionner dans des listes les valeurs à appliquer (Personne, numéro de téléphone). Les méthodes de validation sont appliquées donc en amont (adresses, email, téléphone).</div>
                   </div>
                   <h4>Quels avantages me donne l'application sur ce modèle ?</h4>
                   <div>Des fonctionnalités générales sont offertes sur ce modèle telles que création (association), suppression, recherche, export, .....</div>
@@ -21838,7 +21839,7 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                   <div>Des fonctionnalités de recherches et de groupage pour l'affichage sont disponibles et des filtres pré-définis également (numéros mal formattés, tri sur type, etc). </div>
                   <div>
                     <h4>Y a-t-il un format particulier d'encodage?</h4>
-                    <div>L'application Ficep propose une méthode de normalisation de format sur les numéros de téléphone:</div>
+                    <div>L'application Mozaik propose une méthode de normalisation de format sur les numéros de téléphone:</div>
                     <div>
                       <strong>Normalisation</strong>
                       
@@ -22452,7 +22453,7 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                       
                       
                       
-Ficep propose une gestion de ces doublons (voir
+Mozaik propose une gestion de ces doublons (voir
                       
                       
                       
@@ -22500,9 +22501,9 @@ Ficep propose une gestion de ces doublons (voir
                     <li>Pas autorisée: volonté du propriétaire de l'utilisation ou non de la coordonnée (s'applique également aux coordonnées postales et téléphoniques).</li>
                   </ul>
                   <h4>Y a-t-il un format particulier d'encodage?</h4>
-                  <div>L'application Ficep propose une méthode de normalisation et de validation de format sur notamment les Adresses qui servent à définir la coordonnée postale. L'encodage d'une coordonnées postale consiste à sélectionner dans des listes les valeurs à appliquer. Les méthodes de validation sont appliquées donc en amont (adresses, email, téléphone).</div>
+                  <div>L'application Mozaik propose une méthode de normalisation et de validation de format sur notamment les Adresses qui servent à définir la coordonnée postale. L'encodage d'une coordonnées postale consiste à sélectionner dans des listes les valeurs à appliquer. Les méthodes de validation sont appliquées donc en amont (adresses, email, téléphone).</div>
                   <h4>Qu'en est-il des versions linguistiques?</h4>
-                  <div>Les voies publiques chargées dans Ficep sont potentiellement disponibles en 2 versions linguistiques selon la localisation géographique (zone germanophone, Bruxelles, Mouscron, ...). Lorsque 2 versions sont disponibles, la francophone est toujours la première. Il n'existe aucune zone bilingue Allemand/Néerlandais.</div>
+                  <div>Les voies publiques chargées dans Mozaik sont potentiellement disponibles en 2 versions linguistiques selon la localisation géographique (zone germanophone, Bruxelles, Mouscron, ...). Lorsque 2 versions sont disponibles, la francophone est toujours la première. Il n'existe aucune zone bilingue Allemand/Néerlandais.</div>
                 </div>
               </section>
               <hr/>
@@ -24061,7 +24062,7 @@ A1wDqqqS8v8AIIcXqcpNzi0AAAAASUVORK5CYII=
                     <span class="fa fa-book fa-3x" style=""/>
                     <h3 class="mt8 mb0">Contexte</h3>
                     <div>
-                      <span style="color:#808080;">Le module « Personnes » de l'application Ficep inclut les menus &quot;Personnes Physiques&quot;, &quot;Personnes Morales&quot; (sans les Assemblées) et tous les contacts. On va y gérer les cotisations, les types de coordonnées (adresses, téléphones, emails), les relations entre ces personnes. Les utilisateurs de profils avancés y trouveront les entrées de menus de configuration. </span>
+                      <span style="color:#808080;">Le module « Personnes » de l'application Mozaik inclut les menus &quot;Personnes Physiques&quot;, &quot;Personnes Morales&quot; (sans les Assemblées) et tous les contacts. On va y gérer les cotisations, les types de coordonnées (adresses, téléphones, emails), les relations entre ces personnes. Les utilisateurs de profils avancés y trouveront les entrées de menus de configuration. </span>
                     </div>
                     <div class="text-muted">
                       <span style="background-color: rgba(200, 200, 200, 0.0980392);"/>
@@ -24095,7 +24096,7 @@ Personnes\Toutes personnes
                 <h4>
                   <span style="color: inherit; font-family: inherit; line-height: 1.1;">Quels avantages me donne l'application sur ce modèle?</span>
                 </h4>
-                <p>Ficep propose, pour chacune de ces personnes, une vue globale rapide de qui ils sont et de leur parcours avec Ecolo. Toutes les informations détaillées des personnes peuvent être modifiées, elles peuvent être liées vers diverses entités et contactées notamment par mailing.</p>
+                <p>Mozaik propose, pour chacune de ces personnes, une vue globale rapide de qui ils sont et de leur parcours avec Ecolo. Toutes les informations détaillées des personnes peuvent être modifiées, elles peuvent être liées vers diverses entités et contactées notamment par mailing.</p>
                 <h4/>
                 <h4>Quelles informations sont affichées dans la liste?</h4>
                 <div>Selon l'objet choisi (personnes physiques, personnes morales ou tous les contacts), diverses informations sont affichées. Hormis les informations claires comme le nom du contact, date de naissance ou encore téléphone, le status représente le statut d'adhésion du contact au parti. Cette information n'est pertinente (et affichée) que pour les personnes physiques et morales. Le numéro représente le numéro de membre (numéro d'identification au sein du parti, numéro présenté sur la carte de membre). Il ne sera affiché que pour les personnes physiques et morales. Les Assemblées n'ont ni statut, ni numéro de membre (pas de valeur affichée).</div>
@@ -24116,7 +24117,7 @@ Personnes\Toutes personnes
                     <span style="line-height: 1.42857143;">Dans le cas particulier des adresses identiques mais de domiciles différents (petits immeubles à plusieurs appartements sans distinction postale officielle), il sera possible de dupliquer une adresse où tous les champs seront identiques. La nouvelle adresse aura un numéro d'identification la différenciant de la source permettant de contourner le contrôle d'unicité contraignant.</span>
                   </p>
                   
-Ficep propose une gestion de ces doublons (voir 
+Mozaik propose une gestion de ces doublons (voir 
                   <a href="/page/ficep-help-allow-duplicate-wizard">Gérer les doublons</a>
                    ).
                 </div>
@@ -30244,7 +30245,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
         <div class="oe_structure oe_empty" id="wrap">
           <section class="mt16 mb16">
             <div class="container">
-              <h1 class="row">Ficep documentation</h1>
+              <h1 class="row">Mozaik documentation</h1>
               <h2 class="row">Sommaire</h2>
               <div>
                 <table class="table table-bordered table-responsive">
@@ -31190,46 +31191,46 @@ CunBI6l9Mx1SQgghhBBCCCGEEEIIIYQQQgghhBDyIn8DZc9rnBtjy88AAAAASUVORK5CYII=
                       <div class="row">
                         <div class="col-md-12 text-center mt16 mb4" style="width: 1170px;">
                           <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
-                            <span style="color: rgb(0, 128, 0);">Groupes d'utilisateurs Ficep</span>
+                            <span style="color: rgb(0, 128, 0);">Groupes d'utilisateurs Mozaik</span>
                           </h2>
-                          <div style="text-align: left;">La sécurité de Ficep s’organise au niveau des Groupes (d’Utilisateurs), pas au niveau des Utilisateurs eux-mêmes. L’étendue des privilèges d’un Utilisateur se mesure à l’union des privilèges associés aux Groupes auxquels il appartient.</div>
+                          <div style="text-align: left;">La sécurité de Mozaik s’organise au niveau des Groupes (d’Utilisateurs), pas au niveau des Utilisateurs eux-mêmes. L’étendue des privilèges d’un Utilisateur se mesure à l’union des privilèges associés aux Groupes auxquels il appartient.</div>
                           <div style="text-align: left;">Pour accroître les privilèges d’un très petit nombre d’Utilisateurs (voire d’un seul), il faut d’abord créer un Groupe, lui associer les privilèges souhaités ainsi que les Utilisateurs en question.</div>
                           <div style="text-align: left;">Une notion d’héritage au niveau des Groupes est prévue, empruntée au principe des poupées russes. Il consiste à définir un Groupe plus privilégié au départ d’un ou de plusieurs Groupes moins privilégiés en lui ajoutant uniquement les privilèges manquants. Un Utilisateur d’un tel Groupe hérite donc des privilèges cumulés du Groupe en question (privilèges haut niveau) et de chaque Groupe hérité (privilèges bas niveau).</div>
                           <div>
-                            <p style="text-align: left;">Les Groupes Ficep seront:</p>
+                            <p style="text-align: left;">Les Groupes Mozaik seront:</p>
                             <ul>
                               <li style="text-align: left;">
-                                <strong>Ficep Configurator</strong>
+                                <strong>Mozaik Configurator</strong>
                                 
                                  : les plus privilégiés, accès en lecture/écriture à tous les modèles et notamment les modèles dits &quot;de configuration&quot;: Niveaux de Pouvoir, Circonscriptions, Catégories de Mandats... (pour les autres, ces modèles ne seront accessibles qu'en lecture) et Utilisateurs;
                               
                               </li>
                               <li style="text-align: left;">
-                                <strong>Ficep Manager</strong>
+                                <strong>Mozaik Manager</strong>
                                 
                                  : permanents (cercle 1), accès en lecture/écriture à tous les modèles sauf aux modèles &quot;de configuration&quot; (lecture seule), accès en lecture/écriture aux Coordonnées VIP
                               
                               </li>
                               <li style="text-align: left;">
-                                <strong>Ficep VIP Reader</strong>
+                                <strong>Mozaik VIP Reader</strong>
                                 
-                                 : idem que Ficep Manager mais en lecture seule et sans les actions Ficep (boutons et menus) destinées à modifier les données
+                                 : idem que Mozaik Manager mais en lecture seule et sans les actions Mozaik (boutons et menus) destinées à modifier les données
                               
                               </li>
                               <li style="text-align: left;">
-                                <strong>Ficep Officer</strong>
+                                <strong>Mozaik Officer</strong>
                                 
-                                 : permanents (cercle 2), idem que Ficep Manager mais sans aucune visibilité sur les Coordonnées VIP
+                                 : permanents (cercle 2), idem que Mozaik Manager mais sans aucune visibilité sur les Coordonnées VIP
                               
                               </li>
                               <li style="text-align: left;">
-                                <strong>Ficep Reader</strong>
+                                <strong>Mozaik Reader</strong>
                                 
-                                 : idem que Ficep VIP Reader mais sans visibilité sur les Coordonnées VIP
+                                 : idem que Mozaik VIP Reader mais sans visibilité sur les Coordonnées VIP
                               
                               </li>
                               <li style="text-align: left;">
-                                <strong>Ficep User</strong>
+                                <strong>Mozaik User</strong>
                                 
                                  : mandataires internes non permanents ayant en charge une partie de la gestion du parti (ex: secrétaires locaux, responsables de commission, ...). Ils peuvent:
 	
@@ -31243,15 +31244,15 @@ CunBI6l9Mx1SQgghhBBCCCGEEEIIIYQQQgghhBDyIn8DZc9rnBtjy88AAAAASUVORK5CYII=
                               
                               </li>
                             </ul>
-                            <p style="text-align: left;">Le principe d'héritage des Groupes s'illustre dans Ficep de la façon suivante:</p>
+                            <p style="text-align: left;">Le principe d'héritage des Groupes s'illustre dans Mozaik de la façon suivante:</p>
                             <p style="text-align: left;">
                               <img class="img-thumbnail" src="/website/image/ir.attachment/ficep-help-usergoups_img_01|f35f2a5/datas" style=""/>
                             </p>
                             <p style="text-align: left;">
                               
-                              Un Groupe Ficep supplémentaire sans héritage particulier par rapport aux autres Groupes sera le Groupe 
+                              Un Groupe Mozaik supplémentaire sans héritage particulier par rapport aux autres Groupes sera le Groupe 
                               
-                              <em>Ficep Finances</em>
+                              <em>Mozaik Finances</em>
                               
                                composé d'un User et d'un Manager.
                             
@@ -31276,7 +31277,7 @@ CunBI6l9Mx1SQgghhBBCCCGEEEIIIYQQQgghhBDyIn8DZc9rnBtjy88AAAAASUVORK5CYII=
                             <div style="text-align: left;">Dès lors, si l'un ou l'autre ne vous est pas montré, c'est tout simplement parce que vous n'y avez pas accès.</div>
                           </div>
                           <div style="text-align: left;"/>
-                          <div style="text-align: left;">Toute cette gestion de droits d'accès est allouée aux personnes appartenant au Groupe Ficep-Configurator.</div>
+                          <div style="text-align: left;">Toute cette gestion de droits d'accès est allouée aux personnes appartenant au Groupe Mozaik Configurator.</div>
                         </div>
                       </div>
                     </div>

@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Web Service',
+    'name': 'MOZAIK: Web Service',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -36,10 +36,9 @@
         'ficep_membership',
     ],
     'description': """
-FICEP Web Service
-=================
-Allow specific calls from outside with XML-RPC
-
+MOZAIK Web Service
+==================
+Allow specific calls from outside using XML-RPC
     """,
     'images': [
     ],

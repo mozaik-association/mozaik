@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="1">
 
-        <!-- Load Automatically Ficep Language -->
+        <!-- Automatically Load French -->
 
         <record model="base.language.install" id="install_fr_fr">
             <field name="lang">fr_FR</field>

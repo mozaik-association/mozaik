@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Phone',
+    'name': 'MOZAIK: Phone',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -36,8 +36,8 @@
         'ficep_coordinate',
     ],
     'description': """
-FICEP Phone
-===========
+MOZAIK Phone
+============
 This module manages phone numbers and phone coordinates.
 It covers three types of phone: fix, mobile and fax.
 Numbers are normalized regarding the external python library: phonenumbers

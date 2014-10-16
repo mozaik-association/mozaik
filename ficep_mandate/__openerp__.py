@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Mandate',
+    'name': 'MOZAIK: Mandate',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -40,8 +40,8 @@
         'ficep_person',
     ],
     'description': """
-FICEP Mandate
-=============
+MOZAIK Mandate
+==============
 """,
     'images': [
     ],
@@ -61,11 +61,7 @@ FICEP Mandate
         'data/ir_cron_mandate.xml',
         'data/ir_config_parameter_data.xml'
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],

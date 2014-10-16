@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Email',
+    'name': 'MOZAIK: Email',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -36,8 +36,8 @@
         'ficep_coordinate',
     ],
     'description': """
-FICEP Email
-===========
+MOZAIK Email
+============
 This module manages email coordinates.
 """,
     'images': [

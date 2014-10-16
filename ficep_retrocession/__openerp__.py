@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Retrocession',
+    'name': 'MOZAIK: Retrocession',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -39,8 +39,8 @@
         'ficep_account',
     ],
     'description': """
-FICEP Retrocession
-==================
+MOZAIK Retrocession
+===================
 """,
     'images': [
     ],

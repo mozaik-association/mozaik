@@ -40,7 +40,7 @@ _logger = logging.getLogger(__name__)
 
 class export_help_wizard(orm.TransientModel):
     _name = "export.help.wizard"
-    _description = 'Export Ficep Help'
+    _description = 'Export Help Online'
 
     def _get_qweb_views_data(self, cr, uid, context=None):
         view_data_list = self.pool.get('ir.ui.view').search_read(

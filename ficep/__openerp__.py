@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP',
+    'name': 'MOZAIK',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -37,8 +37,8 @@
         'ficep_help',
     ],
     'description': """
-FICEP
-=====
+MOZAIK
+======
 Loads all applicative modules
 """,
     'images': [

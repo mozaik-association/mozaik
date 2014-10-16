@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Chart of account',
+    'name': 'MOZAIK: Chart of account',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -37,8 +37,8 @@
         'ficep_membership',
     ],
     'description': """
-l10n FICEP
-==========
+l10n MOZAIK
+===========
 This is the base module to manage the generic accounting chart for the application
     """,
     'images': [

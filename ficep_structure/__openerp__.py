@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Structure',
+    'name': 'MOZAIK: Structure',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -36,8 +36,8 @@
         'ficep_partner_assembly',
     ],
     'description': """
-FICEP Structure
-============
+MOZAIK Structure
+================
     """,
     'images': [
     ],

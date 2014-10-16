@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: XXX',
+    'name': 'MOZAIK: XXX',
     'version': '1.0',
     'author': 'ACSONE SA/NV',
     'maintainer': 'ACSONE SA/NV',
@@ -36,8 +36,8 @@
         'ficep_base',
     ],
     'description': """
-FICEP
-=====
+MOZAIK Template
+===============
     """,
     'images': [
     ],

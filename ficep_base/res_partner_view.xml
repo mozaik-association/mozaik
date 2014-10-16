@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Force this view to be evaluated first before all other ficep views -->
+        <!-- Force this view to be evaluated first before all other views -->
         <record id="partner_firstname.view_partner_form_firstname" model="ir.ui.view">
             <field name="priority" eval="5"/>
         </record>

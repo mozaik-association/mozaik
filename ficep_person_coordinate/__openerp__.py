@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Person - Coordinate',
+    'name': 'MOZAIK: Person - Coordinate',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -39,8 +39,8 @@
         'ficep_phone',
     ],
     'description': """
-FICEP Person - Coordinate
-=========================
+MOZAIK Person - Coordinate
+==========================
 * Colors tree view.
 * Add Relation Model For Partner
 ** Persons/Relations/Subject Relations
@@ -56,11 +56,7 @@ FICEP Person - Coordinate
         'partner_relation_view.xml',
         'res_partner_view.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -70,5 +66,3 @@ FICEP Person - Coordinate
     'auto_install': True,  # automatically install if all depends loaded
     'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

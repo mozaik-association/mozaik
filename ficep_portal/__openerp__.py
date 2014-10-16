@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Portal',
+    'name': 'MOZAIK: Portal',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -37,8 +37,8 @@
         'ficep_help',
     ],
     'description': """
-FICEP Portal
-============
+MOZAIK Portal
+=============
 This module manage portal user features
     """,
     'images': [

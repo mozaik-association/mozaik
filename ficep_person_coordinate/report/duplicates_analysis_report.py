@@ -150,7 +150,7 @@ class duplicate_analysis_report(orm.Model):
 
                 if content_text:
                     mail_vals = {
-                        'subject': _('Ficep: Duplicates Summary - %s') % fields.date.today(cr, uid),
+                        'subject': _('Mozaik: Duplicates Summary - %s') % fields.date.today(cr, uid),
                         'body_html': '\n'.join(content_text),
                         'recipient_ids': [[6, False, partner_ids]],
                     }

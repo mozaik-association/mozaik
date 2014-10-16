@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Address',
+    'name': 'MOZAIK: Address',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -36,8 +36,8 @@
         'ficep_coordinate',
     ],
     'description': """
-FICEP Address
-=============
+MOZAIK Address
+==============
 This module manages postal addresses and postal coordinates.
 """,
     'images': [

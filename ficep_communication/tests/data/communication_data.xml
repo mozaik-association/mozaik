@@ -15,15 +15,5 @@
             <field name="to_include_distribution_list_line_ids" eval="[[4,ref('filter_all_prts_int')]]"/>
         </record>
 
-        <record id="campaign" model="mail.mass_mailing.campaign">
-            <field name="name">Mass Mailing Campaign</field>
-            <field name="user_id" ref='base.partner_root'/>
-        </record>
-
-        <record id="ficep_email_template" model="email.template">
-            <field name="name">Ficep Mass Mailing</field>
-            <field name="auto_delete" eval="0"/>
-        </record>
-
     </data>
 </openerp>

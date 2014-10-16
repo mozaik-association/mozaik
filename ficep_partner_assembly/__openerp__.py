@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Partner - Assembly',
+    'name': 'MOZAIK: Partner - Assembly',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -36,8 +36,8 @@
         'ficep_base',
     ],
     'description': """
-FICEP Partner - Assembly
-========================
+MOZAIK Partner - Assembly
+=========================
 Add a readonly field 'is_assembly' to a partner.
 This module is a dependency of both persons and structures modules.
     """,
@@ -45,11 +45,7 @@ This module is a dependency of both persons and structures modules.
     ],
     'data': [
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -59,5 +55,3 @@ This module is a dependency of both persons and structures modules.
     'auto_install': False,
     'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

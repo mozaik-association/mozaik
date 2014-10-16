@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Membership',
+    'name': 'MOZAIK: Membership',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -38,8 +38,8 @@
         'ficep_structure',
     ],
     'description': """
-FICEP Membership
-================
+MOZAIK Membership
+=================
 Add models
 * Membership
 * Membership History

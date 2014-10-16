@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Communication',
+    'name': 'MOZAIK: Communication',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -37,8 +37,8 @@
         'ficep_retrocession',
     ],
     'description': """
-FICEP Communication
-===================
+MOZAIK Communication
+====================
 * New Menus:
 ** Communication/Persons
 ** Communication/Mailing

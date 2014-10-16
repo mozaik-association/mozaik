@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Mobile',
+    'name': 'MOZAIK: Mobile',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -36,10 +36,12 @@
         'ficep_communication',
     ],
     'description': """
-FICEP Mobile
-============
+MOZAIK Mobile
+=============
 * Provide mobile render to access partners
     """,
+    'images': [
+    ],
     'data': [
         'security/ir.model.access.csv',
         'security/mobile_security.xml',
@@ -47,7 +49,13 @@ FICEP Mobile
         'views/mobile_templates.xml',
         'mobile_view.xml',
     ],
+    'qweb': [
+    ],
+    'demo': [
+    ],
+    'test': [
+    ],
     'sequence': 150,
-    'auto_install': True,
+    'auto_install': False,
     'installable': True,
 }

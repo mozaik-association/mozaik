@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Account',
+    'name': 'MOZAIK: Account',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -39,8 +39,8 @@
         'ficep_mandate',
     ],
     'description': """
-FICEP Account
-=============
+MOZAIK Account
+==============
 Manage accounting features
     """,
     'images': [

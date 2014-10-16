@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Duplicate',
+    'name': 'MOZAIK: Duplicate',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -36,8 +36,8 @@
         'ficep_base',
     ],
     'description': """
-FICEP Duplicate
-===============
+MOZAIK Duplicate
+================
 * Provide an abstract model (and related wizard) to detect, repair and allow duplicates
 """,
     'images': [
@@ -45,11 +45,7 @@ FICEP Duplicate
     'data': [
         'wizard/allow_duplicate_view.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -59,5 +55,3 @@ FICEP Duplicate
     'installable': True,
     'auto_install': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

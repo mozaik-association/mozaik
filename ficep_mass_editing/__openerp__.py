@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Mass Editing',
+    'name': 'MOZAIK: Mass Editing',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -36,8 +36,8 @@
         'ficep_address',
     ],
     'description': """
-FICEP Mass Editing
-==================
+MOZAIK Mass Editing
+===================
 Defines specific implementations of "Mass Editing" concept for:
 * Postal Coordinate model adding an action to set/reset co-residency
     """,

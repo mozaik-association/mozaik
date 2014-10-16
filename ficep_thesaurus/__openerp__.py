@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Thesaurus',
+    'name': 'MOZAIK: Thesaurus',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -36,8 +36,8 @@
         'ficep_base',
     ],
     'description': """
-FICEP Thesaurus
-===============
+MOZAIK Thesaurus
+================
 Implements a light thesaurus for indexation purpose.
 Model is read-only for all users except thesaurus managers that are followers of all terms.
 Creating a new term will send a message to all this followers requesting their validation.

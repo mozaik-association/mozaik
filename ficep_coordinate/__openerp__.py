@@ -26,7 +26,7 @@
 #
 ##############################################################################
 {
-    'name': 'FICEP: Coordinate',
+    'name': 'MOZAIK: Coordinate',
     'version': '1.0',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
@@ -36,8 +36,8 @@
         'ficep_duplicate',
     ],
     'description': """
-FICEP Coordinate
-================
+MOZAIK Coordinate
+=================
 * Manage categories of email, phone and postal coordinates: private, professional, ...
 * provide an abstract model (and related wizard) for all kinds of coordinates
 """,
@@ -52,11 +52,7 @@ FICEP Coordinate
         'wizard/bounce_editor_view.xml',
         'wizard/export_csv_view.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
@@ -66,5 +62,3 @@ FICEP Coordinate
     'installable': True,
     'auto_install': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

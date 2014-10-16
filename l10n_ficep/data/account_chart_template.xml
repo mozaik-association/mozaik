@@ -4,7 +4,7 @@
 
         <!-- Chart template -->
         <record id="ficep_chart_template" model="account.chart.template">
-            <field name="name">FICEP Chart of Account</field>
+            <field name="name">Mozaik Chart of Account</field>
             <field name="account_root_id" ref="a_root"/>
             <field name="bank_account_view_id" ref="a55"/>
             <field name="currency_id" ref="base.EUR"/>
@@ -14,6 +14,7 @@
             <field name="property_retrocession_account" ref="a7492"/>
             <field name="property_retrocession_cost_account" ref="a6504"/>
             <field name="property_subscription_account" ref="a7493"/>
-        </record>     
+        </record>
+
   </data>
 </openerp>

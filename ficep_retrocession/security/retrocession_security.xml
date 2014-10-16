@@ -5,7 +5,7 @@
         <!-- Rules -->
 
         <record id="calculation_rule_user_rule" model="ir.rule">
-            <field name="name">Calculation Rule for Ficep User</field>
+            <field name="name">Calculation Rule for Mozaik User</field>
             <field name="model_id" ref="model_calculation_rule"/>
             <field name="domain_force">[('calculation_method_id','=',False), ('retrocession_id','=',False)]</field>
             <field name="groups" eval="[(6,0,[ref('ficep_base.mozaik_res_groups_user')])]"/>
@@ -14,7 +14,7 @@
         </record>
 
         <record id="calculation_rule_financial_user_rule" model="ir.rule">
-            <field name="name">Calculation Rule for Ficep Financial User</field>
+            <field name="name">Calculation Rule for Mozaik Financial User</field>
             <field name="model_id" ref="model_calculation_rule"/>
             <field name="domain_force">[('retrocession_id','!=',False)]</field>
             <field name="groups" eval="[(6,0,[ref('ficep_base.mozaik_res_groups_financial_user')])]"/>
@@ -23,7 +23,7 @@
         </record>
 
         <record id="calculation_rule_configurator_rule" model="ir.rule">
-            <field name="name">Calculation Rule for Ficep Configurator</field>
+            <field name="name">Calculation Rule for Mozaik Configurator</field>
             <field name="model_id" ref="model_calculation_rule"/>
             <field name="domain_force">[('calculation_method_id','!=',False)]</field>
             <field name="groups" eval="[(6,0,[
