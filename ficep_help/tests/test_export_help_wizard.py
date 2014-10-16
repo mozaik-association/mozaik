@@ -141,7 +141,7 @@ class test_export_help_with_image(test_export_help_wizard,
                                   SharedSetupTransactionCase):
     def setUp(self):
         super(test_export_help_with_image, self).setUp()
-        self.pageName = 'ficep-help-test-page'
+        self.pageName = 'mozaik-help-test-page'
         self.imgXmlId = 'test_img_1'
 
 
@@ -149,5 +149,5 @@ class test_export_help_template(test_export_help_wizard,
                                   SharedSetupTransactionCase):
     def setUp(self):
         super(test_export_help_template, self).setUp()
-        self.pageName = 'ficep-help-template-test'
+        self.pageName = 'mozaik-help-template-test'
         self.pageTemplate = True

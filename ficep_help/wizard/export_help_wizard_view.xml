@@ -14,10 +14,8 @@
                     </group>
                     <group>
                         <p>
-                        This wizard allow you to export all QWeb views
-                        related to help online (which name starts with
-                        'website.ficep-help-'). The result will be an Odoo
-                        data xml file.
+                        This wizard allow you to export all pages and pictures related to online help.
+                        Result file will be an Odoo data xml file.
                         </p>
                     </group>
                     <group>

@@ -33,5 +33,5 @@ class HelpOnline(orm.TransientModel):
     _inherit = 'help.online'
 
     def _get_view_name(self, model, view_type, domain=None, context=None):
-        name = 'ficep-help-%s' % model.replace('.', '-')
+        name = 'mozaik-help-%s' % model.replace('.', '-')
         return name

@@ -50,7 +50,7 @@ class export_help_wizard(orm.TransientModel):
                                              ('page', '=', True),
                                              ('name',
                                               'like',
-                                              'ficep-help-%')],
+                                              'mozaik-help-%')],
                                             ['arch', 'name'],
                                             order='name',
                                             context=context)
@@ -131,14 +131,14 @@ class export_help_wizard(orm.TransientModel):
                 href = a_elem.get('href')
                 if not href.startswith('http:'):
                     continue
-                if '/page/ficep-help-' not in href:
+                if '/page/mozaik-help-' not in href:
                     continue
-                trail = href.split('/page/ficep-help-', 1)[1]
-                a_elem.attrib['href'] = '/page/ficep-help-%s' % trail
+                trail = href.split('/page/mozaik-help-', 1)[1]
+                a_elem.attrib['href'] = '/page/mozaik-help-%s' % trail
 
             data_node.append(root)
 
-            if root.attrib['name'].startswith('ficep-help-template'):
+            if root.attrib['name'].startswith('mozaik-help-template'):
                 page = copy.deepcopy(root)
                 snippet = ET.Element('template')
                 snippet.attrib['id'] = template_id + '_snippet'
@@ -157,7 +157,7 @@ class export_help_wizard(orm.TransientModel):
                 img.attrib['src'] = src
                 span = ET.SubElement(thumbnail, 'span')
                 span.attrib['class'] = 'oe_snippet_thumbnail_title'
-                span.text = root.attrib['name'].replace('ficep-help-', '')
+                span.text = root.attrib['name'].replace('mozaik-help-', '')
 
                 body = ET.SubElement(main_div, 'section')
                 body.attrib['class'] = 'oe_snippet_body mt_simple_snippet'
@@ -219,7 +219,7 @@ class export_help_wizard(orm.TransientModel):
 
         timestr = time.strftime("%Y%m%d-%H%M%S")
         home = expanduser("~")
-        filename = '%s/ficep_help_online_backup-%s.xml' % (home, timestr)
+        filename = '%s/mozaik_help_online_backup-%s.xml' % (home, timestr)
         backup_file = open(filename,
                            'w')
         backup_file.write(xml_data)
