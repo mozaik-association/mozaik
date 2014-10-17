@@ -1241,7 +1241,7 @@ qWpm/TUNf/eAt2BWYwAAAAAAAAAAAOBXxBvDWJzlvWEs7F+V/FgvLkbAHAAAAABJRU5ErkJggg==
                             <strong>  Accès fonctionnalité et localisation: </strong>
                           </span>
                         </strong>
-                        <span style="line-height: 1.42857143;">option disponible dans le menu &quot;Autres options&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
+                        <span style="line-height: 1.42857143;">option disponible dans le menu &quot;Autres options&quot; en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet. Le compteur d'échec est disponible pour les coordonnées (Email, Postale, téléphonique)</span>
                       </p>
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
@@ -4171,7 +4171,7 @@ bO3CNNL3Dx061FprocLOHetTbHEpaOjQoTfqemCTQopP38Ybh7KQAlKsO1TsJUgBKda9DxFSQIov
     <template id="website.mozaik-help-createandedit" name="mozaik-help-createandedit" page="True">
       <t t-call="website.layout">
         <div class="oe_structure oe_empty" id="wrap">
-          <section class="mt16 mb16">
+          <section class="mb16 mt0">
             <div class="container">
               <div class="row">
                 <div class="col-md-12 text-center mt16 mb32">
@@ -4183,7 +4183,8 @@ bO3CNNL3Dx061FprocLOHetTbHEpaOjQoTfqemCTQopP38Ybh7KQAlKsO1TsJUgBKda9DxFSQIov
                     <em>Créer et Modifier</em>
                     dans une liste déroulante
                   </p>
-                  <br/>
+ 
+
                   <p style="text-align: left;">Certaines listes déroulantes vous permette de rajouter (créer) une nouvelle valeur qui ne vous serait pas proposée.</p>
                   <p style="text-align: left;">
                     <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-createandedit_img_01|5b47072/datas" style=""/>
@@ -11736,7 +11737,7 @@ Demandes d'adhésion
                     <span style="color:#808080;">Demandes d'adhésion: particularités </span>
                   </h3>
                   <h4 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">Qu'entend-on par Demande d'adhésion?</h4>
-                  <p>Une demande d'adhésion, est une demande exécutée par une Personne, dans deux buts précis:  </p>
+                  <p>Une demande d'adhésion, premier acte posé en vue d'une adhésion au Parti, est une demande exécutée par une Personne, dans deux buts précis:</p>
                   <ul>
                     <li>demander pour devenir &quot;Membre&quot; ou &quot;Sympathisant&quot; au Parti;</li>
                     <li>signaler la modification de certaines de ses caractéristiques, typiquement son adresse suite à un déménagement.</li>
@@ -11750,6 +11751,13 @@ Demandes d'adhésion
                       <em>Portail.</em>
                     </li>
                   </ul>
+                  <div>
+                    <i>
+                      Plus d'information concernant les adhésions voir &quot;
+                      <a href="/page/mozaik-help-membership">Adhésions</a>
+                      &quot;
+                    </i>
+                  </div>
                   <h4>Quels avantages me donne l'application sur ce modèle?</h4>
                   <div>
                     <div>A ce niveau, l'application me permet de gérer les données d'une Demande d'adhésion, de les accepter, les rejeter, mais aussi de lier la Demande à une Personne qui existe déjà dans la base de données, ou de créer la Personne si elle est nouvelle. </div>
@@ -21153,8 +21161,8 @@ Les champs listés sont des variables et s'adaptent en fonction.
       </t>
     </template>
     <record id="mozaik-help-usergoups_img_01" model="ir.attachment">
-      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAdIAAAGLCAMAAABEP+M7AAADAFBMVEX+/v7p6elZWVllZWWkpKSE
-hITJycnY2Nh6enqXl5dKSkq3t7c3NzcqKioHBwcZGRkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAqcAAAH+CAMAAACWUleUAAADAFBMVEX+/v4nJyfk5ORKSkqXl5em
+pqa6urqGhoZ1dXXHx8dZWVllZWXZ2dk3NzcZGRkEBAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -21167,65 +21175,101 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAC3HtYeAAABAHRSTlP+////////////////////AAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAADKeVXUAAABAHRSTlP/////////////////////AAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsOvJZwAA
-CwhJREFUeNrt3YtC4zYQRmGNRpeR5dD3f9uOZLZbroUQdx3n/NsNIVbAqy8jS3YDIRBCCCGEEPKQ
-iTeN0aF/PLLc8qvVRejSP1+lt32BQHoM0pJSCeWdjam/+LSkd8QqpAckXSynkN5uy9n+/WjXXN/5
-AhXS45Hq9As1tiAau1PGUbPDM3fJ/nAyTXLR7tvUSk8h16SpaizlkudzzDqkh6rScSdKCg7jd3ST
-nmNxy8FKW4PW3FvrWdaesm9rS+gyn+Xton8NqvRApLGljdQrc4lLUNkenkNqmqRpkqbUc2g9te2h
-YOrUG6kKpEci3e5EnyJpCl6neT7UmqOVQerluVXpIF2Kky7VD79aupP6lkFaIT3SsVTmHZ/+hKLq
-eqpzWtTUC7CamjipjSptkvPSq9lSvUqL2uL+ZTSH9FCk00G29Uj1m1ieZ7F1Om2fbFjSsh9upf5e
-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
+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
+jeh1w8u5fOstKp9V9irKetUGVeSvmZ+NCxmndFunpeZSnbKtWZXbME7YJbWp5JUVaL6seYFZy9PI
+LsqytX4d87MsH0WV0GoO2/oczEiMp3Tj434quUen5Lb8Y2TQbDlWuZ3SOoz7+rKunmOsuJyff/15
+rivz2WaD3KeNqv5y/Mcp3dKp/eW0yeDZaunLqa7zwtIaT3N76/KV07CchlI2nNI3Oq255t3dOtaL
+M6WXRS93qH1uWtpl+cVpneu7MdfdltMh/wTT5yNwSt/i9DJOblvOYxOipcfLfW6d8pdtDqlOlr8a
+T2V9Lw+/rKtML0XmpU71LSmc0s2dfrUQsv3/a+CUHu7UdNsVTuno4+mfwynhlHCKU8IpEU4Jp3+X
+xindxOnQ39kIOKVbOO3f+tdz3Cfmp4RTnBJOiXBKOMUp4ZQIp4RTnBJOCac4JZzilHBKOMUp4ZTo
+m5w2nNKjnA4XP5n7/Kq/HoJTukmpls+Vxhip/GU145TuWnTdJ14GOng191Z5GejYrffmrY4Xgg6d
+zfM9fC0vBB25bvb3RO+8FHTc5nv2r/fgt40Xgw6bNhenZuPFoMOeRK0T/fWtq8SpFB32sK9enCou
+3NPBD/68BIRTIpwSTolwSoRTwikRTolwSjglwinhlAinRDglnBLhlAinhFMinBLhlHBKhFPCKRFO
+iXBKOCXCKRFOCadEOCXCKeGUCKeEUyKcEuGUcEqEUyKcEk6JcEqEU8IpEU4Jp0Q4JcIp4ZQIp0Q4
+JZwS4ZQIp4RTIpwSTolwSoRTwikRTolwSjglwikRTgmnRDglnNJBMo/qqFurNnXwjTjwfv62p59H
+1w9ppEfsrfGJZ/b5F6SPfBambtxhn/bxbVBzedQLVx8xGN34mN7DaZzeZVjQ3/Z1m+2DXrj4FE69
+wenrlzeYBzg1yrxMbtqvP3xc7dVn8/qegzr9/XM0L/eZ53b6h81/WWxaa9epbTP/tdfv6TTKv8z2
+Ycwuqu/3RZnERvVfM4Tr/duaAMoTTfbQTs18jvXD1lTj9/v+Y/nTOB2iL/YP+6Pl/WAz1r70Vc0z
+l3A9hSnvN9SG+zt18tTnR6tJ5ZqSF0XyNLyyWWW5Ed1c1avcYpx7tMqqIdS5dXHer0J1l7FqyP4d
+9e068+8ypcl6fq7njH+wU3lW8zRuPscqmzu3eW6G7BsV3y1v2c89nPZtMPPp/9qGkzrt+25KNctH
+qrLbZYODaX1tvpub52Sr9WXs2Ymsfarmrl4Egrwg63HexPuNp7JHUm+tBC+jih8mxSBYN2Wbsebq
+dJNx1QnM4kMxeSTZrdHFJPf7GuT+5XSTR8byep3kQgqqhDqUT3O9YdtjnW4xz92znqMPm8tzu5U2
+8lUlX5gvy20IRYURZRdVN/eLDWUoF4O8HPs2nNOpFoRyBK0+VBlJemp2bn4JzcpLstvc5vrvnZb5
+esiulkXVx5HNetnKFu7n1PVQapu35cmZOQtQacIrvl8uapS5SFDKOsaofllX9pZZD1He7k67cz2X
+1+tc/6798XM98+Djfo9+Pke53UWbfCEaI8e8bkKZTC/L69wGsSvbsrahOrO2QUZTV67nY6d02kPs
+ee2uIsRkUJX5p+zq3HrdDxLzH1l/Xsmam9fGfhVx+ZVXIvT5WCvry5f0Tvt+TvOLU/myko++uel0
+K2vsc/s+lsEwWBV0Hy0vuGu/ajkgygTm6tT3OQzNa2n7Oq334S5OZabjLvv4oU7DfI7TqZn7SSWt
++3Q61nWmfXld2zDnAmbfBr87TZvW/txO/SuncthUUffldPS1n8Vrvo6nVyJzeio7TwapetnVda6v
+ZTzNd3QaXQplOd3m+DL3X5+grMn9Mgv95VQm2tvFdG9mrpacKhenuqUoPofM8i6W5Wty4Qxjrqf8
+AZzKcxSn29zOOYOW8TH2/fZ4WV7XNlycyqp6OvWbmhPVcGqn2qQku3WbTo3sXrntl1O7nwrLYvPG
+qazT1teo7Dw5JNa5nhl5EnBrTL6X0zQnmTI2yriSw9h0NN2WKPfJ+f48FqS0z0/l8xpPq25hmW5d
+jvzypEtP+0bKgaC3V+uYtY6Nym1xrqfX+g92usmu8nPM1zJZHjKUpi3q/b55yt+uy7e0zc9tbkOx
+TsYdJ8cO+2sbzul0m3NRrbLWYlGO6SrOfbPft67UzHOmWK/buJzOIcbP10vG09TlsVWHySW8Pe//
+/uun++XR+Q3a9W3a9Z1a8x9XzNqrS26Xy27m/XU58+ua3Pq72vrSfVn/wddP9//rdt1a1V7uM6+X
+v93OyzaYX9tw7uun5s3mv7mC/HZ/v37Am9384fv5j7nOf1MgfTvMdf4vZrb328D3o57O6YGu898w
+nOIUpzjFKU5xilOc4hSnP9JpwSlOT+B06Af9dycPcbrdeCPCWZz6u+znkZ9uPHWMp4ynzE/v7DTi
+FKeHd+o3j1OcHtxpHvH4R3+c/mynqvmiThBOf7bTUk/BFKc/2qnVZ7kw5XH6c526MfqD3vbor69s
+Rpz+4PH0NBdQGU+ZnzI/xenhz/eNtzjF6dGdzv+6aKSGU5we3Snfj8LpOZzy/X2cnsMpx/3DOjXP
+6tTg9IBOt+C/VNDR/0v2MT8n/YkNG59+RcI4j9P+td1U7F/4CNu3OTXFfqmix/jiQy+5R+zi9OcN
+G3+zYaf5PRLtiztrjP43Kr7x9TDtK7+AJZSeyr/8spf2oF/M86etjVHHePCNuN9+LrWUdvid+n/y
+qeSunrAa5nuf0m7b+ljambdgvtf0M0L1ZX8vXtr3sktqO/EGRDffE73mp9szZb63aS4QnYU6nSZ/
+2g2Yb7g7zyHOfUz4HdO2rl01oO5M1/WsdNrDy/wtCtNpDU+2a+ZMRl8+//jm24hPp/6s8/U0v024
+rslsz7Vn1u9NuLzn9I9v/T6p9f2Bcs7hqK3LZMtpjM+0Z9avu9q/Z1X9j3e6XoLlNJxzQDVrVrpf
+436qA/9++U//2safPZ6qq1N15vNlm590/2hFL7l09i3AKU5xilOc4hSnOMUpTnGKU5ziFKc4xSlO
+cYpTnOIUpzjFKU5xilOc4hSnOMUpTnGKU5ziFKc4xSlOcYpTnOIUpzjFKU5xilOc4hSnOMUpTnGK
+U5ziFKc4xSlOcYpTnOIUpzjFKU5xilOc4hSnOMUpTnGKU5ziFKc4xSlOcYpTnOIUpzjFKU5xilOc
+ohOnOMXpnZ02nOL0BE57eYYCTp/baQtPUE4Fp8/t9Dn6za9CxilOD5fHKU5xilPCKU5xSjjFKU4J
+pzjFKU4JpzglnOIUpzglnOIUpzjFKU5xSjjFKU4JpzjFKeEUpzjFKeEUp4RTnOIUp4RTnOIUpzjF
+KU4JpzjFKeEUpzglnOIUpzglnOKUcIpTnOKUcIpTnOIUpzjFKeEUpzjFKU5xilPCKU5xilPCKU4J
+p2d2avU92jxOcfov3WffpGpwitPDO40Fpzg9gVPGU5z+s9P1m+g//Dp655V9mcNuJv/H877en+d+
+d07+VRtOcfoNTje9f+TQVJaUCkEpY+bC/LL/mvwvCDcT8vxDmBrnn9tc3agwUac4Wed9nfX3qSZ/
+zxGdBpyezamuuRWtcrHVVLsNk6yNKiU177vuP3G4JZuUrGFlpK1Whs1o67zfWbk/zDXjctrUWmf+
+fU2NGg7iNMTXFe3i29x4f8/va6c3+ImNdLZ/4tXId3Xacym5T19RvohcVH7eL+a6WYOOtjZMj1p8
+ZiPsNlXqXK5lQJ1Op838yukcW508ev555KMc93uNt0jHszNtI96mXu87noZSg57Ha3E1vbWtj2Vs
+uLVOzuu4rtcx3W9aL9NxPXia1H3sTtNlPI1blxnvpuXx+jDz036b55CSObnTbG81N7jfZZzlNNea
+X9vTymz7bdteHff1Zax8Ma3nPFXmA7LK7nRNasqcye6P3ee4R3HacLo77ed0ukxugizWPCdppro6
+rvet5Zf56RxPZaHVMlWYY2eVJyr3p5jGOtar/e9QrUSZQczbYX/wcZyub4x9+O6YnPBd7zNxnUC4
+0KK7XBl4Sqdtvhr5w6a4dW48l/92Ku4f6VROefJ8Bi4FmZ1G2Q/JvNx3fXIyL/XrBL8luSGf53WB
+1Ob9KsnEYH5W+98hG7kmAOu2P5bTOZOpH07sczPb5aZ8iVW1XobnduqG7MoRPkIslx2pxemHS4zb
+I53e4QTzOE77/tE3OU3UelNh24yMnmZOaubkWp5oKGF0PZrMZKqsKs/drfn2mto8i1MvJ7jzI2x6
+fmxJzifSvIwuTudlcDdHGrntt3WJfS5rw8sj42bngorT73Tac7Kyn+R2kp0hH2W+BsmZvoiu10PM
+duOr3K7OlP32vK8/1Xgae7Apt36d+6U8Z3lavhwvBnNupTW7Xp+2L4tjfpb7tGU8/X6n+upU5tIq
+um3e3rRXv3G6rhME7ZK+vlTP4zSXF6dehksf7bRYyzq4u610GW7b5uK2lq1TbK1cd3KQ0Rz3v9ep
+DsmGq9OS53x0dzpcvU7AZK76wWnMSpvncqrzy3i6mCZX4nK6JubzuJ92p+Fl2XI6L+/j9LudqhTN
+umaW/JyTykca8/iu9+VzDioTAHFa9vnA9bhfns1pkqlOCbtTG+aU04y4jvttXy4fdV1rlTlr3pdd
+jvsVp9/ttMg505yTzvOo+fM1Ko98vW+dJuV5XiXnTiGq9+dRT+XUz6l5ejmP0nIeZcPlPlm2Pq7L
+ZduLLJPzqHI9j8Lp9zr997jO/5DrUvYOlQ2nOP03p/kOtYpTnHLcxylOcYpTnOIUpzh955SfP8Xp
+CZxal8O/l8vpnTZ9ixdCXoqK0+9w2stNrrHF0zsd5TaXG3XF6fGP+6cdV2/23514xtPDn0eFzTE/
+xenBnTZdlcIpTo/sVJlklcIpTg/t1JV67lOphtOf4HS4k78jCuPpD3Cax+hdn7rN4vT5x9Oo7/i2
+St+SYTz9Ccf9GFM/9ZH/hxz3698PJ+m5zvdVsw2nd3Vatr9tjKH/+kHx2a7z9xJwekenyrS/K9fN
+ur99UGtP9/2oZitOy3GvzwVbw3bK3XPrnz/1OD2w0/l+vr7ilPnpoZ2GIk5bwSlOj+x0vV1I3n+5
+yemc/ulF9T/F6Ql/ru8LY5I4VWe8gNj/8HPSddRP/PxwGYmfk77+yPhRna63l55OVT/h7vHu/+X1
+0O4z5bM7VcG72xQO+lJUf3VasnqyUui5KnqC2voR9uVUPduvZzfVdFMbO/lpsvkZt2q9j2R17F6c
+HvpQsd7fe/5OIcLpcZvfYtPq/S/0IJwe6ww4XZwmzw7G6WHTL7/rhAEVp4dt/bKk/WdxXWQP4/TY
+gyr7Fqc4JZzilHBKOMUp4RSnOMUp4RSnhFOc4hSnhFOcEk4JpzglnOKUcEo4xSnhFKc4xSnhFKeE
+U5ziFKeEU5wSTgmnOCWc4pRwSjjFKeEUpzjFKeEUp4RTnOIUp4RTnBJOCac4JZzilHBKOMUp4RSn
+OMUp4RSnhFOc4hSnhFOcEk4JpzglnOKUcEqnctpwSidwWtIzFHD63GX3DJWCUzp+oeKUjp/HKeGU
+CKeEUyKcEuGUcEqEUyKcEk6JcEo4xSnhlAinhFMinBLhlHBKhFMinBJOiXBKOMUp4ZQIp4RTIpwS
+4ZSeKt4HjY48il5Kdkv1bWm8v+d9nheQ7lKP/lrw7/t4z9vcxgtI93Fq/uHBZmu8gnQXpw2ndBKn
+Tl3/9Wbqmq/3zU/G4ZQe63QkpeyHk/tmzGX+OT+1Daf0YKdWLHb5w5ZU19swfhOB0RuxK4vW9al5
+ey5Xa1lyBad0Z6c9V5u10kalqFTyqs4xNDnTF9OrUxlRfZheZdlgPKV7O9UhFXHa5zipTJG7appO
+1dj8K6e+1qzMSII0eZzSA5zaoOc1KrFpjTI2CFu5veViLvPTOVcNoQaz5ZDnMpzSvZ3OY7xWJZjk
+8yYnUH0e2Ou8b/3u1maNkQmAjKbVyzJTZBlO6d5Oq3JhzkmtluG0d5G6tXS5b/2WvqbX2f5cvt92
+Aad0b6dfDaeEUyKcEk6JcEo4xSkd0yk/f0onyEb/9aLGKd3Haalfr+CUTnDcVxz3ifMoIpwSTolw
+SjjFKeGUCKeEU5wSTolwSjjlFSScEuGUcEp0U6f8XB+dILvpfwmndJdMDv9QNryCRERERERERERE
+RERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERE
+RERERERERERERERERERERERERERERERERERERERERET04/ofeg7qZywaqTgAAAAASUVORK5CYII=
 </field>
       <field name="index_content">image</field>
-      <field name="datas_fname">usersgroups.png</field>
-      <field name="name">usersgroups.png</field>
+      <field name="datas_fname">GroupsInheritance.png</field>
+      <field name="name">GroupsInheritance.png</field>
       <field name="res_model">ir.ui.view</field>
       <field name="mimetype">image/png</field>
     </record>
@@ -21255,7 +21299,7 @@ CunBI6l9Mx1SQgghhBBCCCGEEEIIIYQQQgghhBDyIn8DZc9rnBtjy88AAAAASUVORK5CYII=
                               </li>
                               <li style="text-align: left;">
                                 <strong>Mozaik Manager</strong>
-                                 : permanents (cercle 1), accès en lecture/écriture à tous les modèles sauf aux modèles &quot;de configuration&quot; (lecture seule), accès en lecture/écriture aux Coordonnées VIP
+                                 : permanents, accès en lecture/écriture à tous les modèles sauf aux modèles &quot;de configuration&quot; (lecture seule), accès en lecture/écriture aux Coordonnées VIP
                               </li>
                               <li style="text-align: left;">
                                 <strong>Mozaik VIP Reader</strong>
@@ -21263,7 +21307,7 @@ CunBI6l9Mx1SQgghhBBCCCGEEEIIIYQQQgghhBDyIn8DZc9rnBtjy88AAAAASUVORK5CYII=
                               </li>
                               <li style="text-align: left;">
                                 <strong>Mozaik Officer</strong>
-                                 : permanents (cercle 2), idem que Mozaik Manager mais sans aucune visibilité sur les Coordonnées VIP
+                                 : permanents, idem que Mozaik Manager mais sans aucune visibilité sur les Coordonnées VIP
                               </li>
                               <li style="text-align: left;">
                                 <strong>Mozaik Reader</strong>
@@ -21278,19 +21322,24 @@ CunBI6l9Mx1SQgghhBBCCCGEEEIIIYQQQgghhBDyIn8DZc9rnBtjy88AAAAASUVORK5CYII=
                                   <li style="text-align: left;">créer et modifier des Assemblées Externes liées à leurs Instances</li>
                                 </ul>
                               </li>
+                              <li style="text-align: left;">
+                                <strong>Mozaik Financial Manager</strong>
+                                : permanents, accès en lecture/écriture aux fonctionnalités comptables liées aux cotisations et rétrocessions.
+                              </li>
+                              <li style="text-align: left;">
+                                <strong>Mozaik Financial User</strong>
+                                :  trésoriers locaux pouvant gérer les rétrocessions.
+                              </li>
                             </ul>
                             <p style="text-align: left;">Le principe d'héritage des Groupes s'illustre dans Mozaik de la façon suivante:</p>
                             <p style="text-align: left;">
-                              <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-usergoups_img_01|f35f2a5/datas" style=""/>
-                            </p>
-                            <p style="text-align: left;">
-                              Un Groupe Mozaik supplémentaire sans héritage particulier par rapport aux autres Groupes sera le Groupe
-                              <em>Mozaik Finances</em>
-                               composé d'un User et d'un Manager.
+                              <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-usergoups_img_01|f5c3da9/datas" style=""/>
                             </p>
                             <p style="text-align: left;">
                               Les autres mandataires, membres, sympathisants et simples contacts feront partie du Groupe
+                              <strong>
                               <em>Portail</em>
+                              </strong>
                                (natif d’OpenERP) uniquement. Ce groupe doit leur être réservé. Si on souhaite que ces contacts aient accès au Portail, l'administrateur devra veiller à ne pas les mettre dans d'autres Groupes.
                             </p>
                             <p style="text-align: left;">Les privilèges attribués aux Groupes sont de 3 ordres: l'accès aux modèles, l'accès aux éléments et l'accès aux fonctionnalités.</p>
