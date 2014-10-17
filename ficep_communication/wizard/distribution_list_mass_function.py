@@ -249,7 +249,7 @@ class distribution_list_mass_function(orm.TransientModel):
                         'active_model': 'postal.coordinate',
                         'active_ids': active_ids,
                     })
-                    report = self.pool['report'].get_pdf(cr, uid, active_ids, report_name='ficep_address.report_postal_coordinate_label', context=ctx)
+                    report = self.pool['report'].get_pdf(cr, uid, active_ids, report_name='mozaik_address.report_postal_coordinate_label', context=ctx)
 
                     if wizard.postal_mail_name:
                         self._generate_postal_log(cr, uid, wizard.postal_mail_name, active_ids, context=context)

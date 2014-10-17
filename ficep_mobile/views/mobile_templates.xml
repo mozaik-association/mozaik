@@ -3,7 +3,7 @@
 <openerp>
     <data>
 
-        <template id="ficep_mobile.layout" name="Mobile layout">
+        <template id="mozaik_mobile.layout" name="Mobile layout">
             &lt;!DOCTYPE html&gt;
             <html>
                 <head>

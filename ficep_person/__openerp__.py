@@ -33,9 +33,9 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_duplicate',
-        'ficep_thesaurus',
-        'ficep_partner_assembly',
+        'mozaik_duplicate',
+        'mozaik_thesaurus',
+        'mozaik_partner_assembly',
     ],
     'description': """
 MOZAIK Person

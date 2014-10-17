@@ -66,17 +66,17 @@
                                         attrs="{'invisible': ['|', '|',
                                            ('trg_model', '!=', 'postal.coordinate'),
                                            ('postal_mail_name', '=', False),
-                                           ('distribution_list_id', '!=', %(ficep_communication.dl_del_mem_card)d)]}" />
+                                           ('distribution_list_id', '!=', %(mozaik_communication.dl_del_mem_card)d)]}" />
                                     <field name="set_del_doc_date"
                                         attrs="{'invisible': ['|', '|',
                                            ('trg_model', '!=', 'postal.coordinate'),
                                            ('postal_mail_name', '=', False),
-                                           ('distribution_list_id', '!=', %(ficep_communication.dl_del_doc_member)d)]}" />
+                                           ('distribution_list_id', '!=', %(mozaik_communication.dl_del_doc_member)d)]}" />
                                 </group>
                             </group>
                         </page>
                     </notebook>
-                    <div name="dev" groups="ficep_base.res_groups_developper">
+                    <div name="dev" groups="mozaik_base.res_groups_developper">
                         <h3>More Info</h3>
                         <group name="moreinfo">
                         </group>
@@ -107,7 +107,7 @@
             <field name="target">new</field>
             <field name="view_id" ref="distribution_list_mass_function_wizard" />
             <field name="groups_id"
-                eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_involvement_value" model="ir.values">

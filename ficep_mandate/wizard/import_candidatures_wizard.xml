@@ -11,7 +11,7 @@
                         <field name="selection_committee_id" options='{"no_open":True}'/>
                         <field name="source_file"/>
                     </group>
-                    <div name="dev" groups="ficep_base.res_groups_developper">
+                    <div name="dev" groups="mozaik_base.res_groups_developper">
                         <h3>More Info</h3>
                         <group name="moreinfo">
                             <field name="id"/>
@@ -52,7 +52,7 @@
                     <div name="nok" attrs="{'invisible': [('import_lines', '!=', [])]}">
                         <p><strong>No candidature found in input file !</strong></p>
                     </div>
-                    <div name="dev" groups="ficep_base.res_groups_developper">
+                    <div name="dev" groups="mozaik_base.res_groups_developper">
                         <h3>More Info</h3>
                         <group name="moreinfo">
                             <field name="id"/>
@@ -79,7 +79,7 @@
             <field name="res_model">import.sta.candidatures.wizard</field>
             <field name="target">new</field>
             <field name="view_id" ref="import_sta_candidatures_wizard_step1" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="import_sta_candidatures_step2_action" model="ir.actions.act_window">
@@ -90,7 +90,7 @@
             <field name="res_model">import.sta.candidatures.wizard</field>
             <field name="target">new</field>
             <field name="view_id" ref="import_sta_candidatures_wizard_step2" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="import_sta_candidatures" model="ir.values">

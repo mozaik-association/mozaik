@@ -138,10 +138,10 @@ class mozaik_abstract_model(orm.AbstractModel):
         :rtype: boolean
         """
         invalidate_ids = list(ids)
-        ficep_models = self.browse(cr, uid, invalidate_ids, context=context)
-        for ficep_model in ficep_models:
-            if not ficep_model.expire_date:
-                invalidate_ids.remove(ficep_model.id)
+        recs = self.browse(cr, uid, invalidate_ids, context=context)
+        for rec in recs:
+            if not rec.expire_date:
+                invalidate_ids.remove(rec.id)
 
         if invalidate_ids:
             rels_dict = self.pool.get('ir.model')._get_active_relations(cr, uid, invalidate_ids, self._name, context=context)
@@ -310,7 +310,7 @@ class mozaik_abstract_model(orm.AbstractModel):
 
         res = super(mozaik_abstract_model, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
 
-        if view_type == 'form' and not context.get('in_ficep_user'):
+        if view_type == 'form' and not context.get('in_mozaik_user'):
             doc = etree.XML(res['arch'])
             for node in doc.xpath("//field[@name='message_ids']"):
                 node.set('readonly', '1')

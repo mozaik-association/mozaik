@@ -36,7 +36,7 @@
         'account_accountant',
         'account_cancel',
         'account_auto_installer',
-        'ficep_mandate',
+        'mozaik_mandate',
     ],
     'description': """
 MOZAIK Account

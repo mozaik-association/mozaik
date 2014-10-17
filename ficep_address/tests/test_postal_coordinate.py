@@ -32,12 +32,12 @@ from anybox.testing.openerp import SharedSetupTransactionCase
 class test_postal_coordinate(SharedSetupTransactionCase):
 
     _data_files = (
-        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
         'data/reference_data.xml',
         'data/address_data.xml',
     )
 
-    _module_ns = 'ficep_address'
+    _module_ns = 'mozaik_address'
 
     def setUp(self):
         super(test_postal_coordinate, self).setUp()
@@ -71,10 +71,10 @@ class test_postal_coordinate(SharedSetupTransactionCase):
         pc_mod, wz_mod = self.postal_model, self.allow_duplicate_wizard_model
         cr_mod = self.co_residency_model
         postal_XIDS = [
-            'ficep_address.postal_coordinate_2',
-            'ficep_address.postal_coordinate_2_duplicate_1',
-            'ficep_address.postal_coordinate_2_duplicate_2',
-            'ficep_address.postal_coordinate_2_duplicate_3',
+            'mozaik_address.postal_coordinate_2',
+            'mozaik_address.postal_coordinate_2_duplicate_1',
+            'mozaik_address.postal_coordinate_2_duplicate_2',
+            'mozaik_address.postal_coordinate_2_duplicate_3',
         ]
 
         postal_coordinates_ids = []

@@ -40,7 +40,7 @@ class product_template(orm.Model):
         return id of a default membership product
         """
         return self.pool['ir.model.data'].\
-            get_object_reference(cr, uid, 'ficep_membership',
+            get_object_reference(cr, uid, 'mozaik_membership',
                                  'membership_product_isolated')[1]
 
     _columns = {

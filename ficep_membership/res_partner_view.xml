@@ -3,10 +3,10 @@
     <data noupdate="0">
 
         <record id="res_partner_search_view" model="ir.ui.view">
-            <field name="name">res.partner.search (ficep_membership)
+            <field name="name">res.partner.search (mozaik_membership)
             </field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="ficep_person.res_partner_search_view" />
+            <field name="inherit_id" ref="mozaik_person.res_partner_search_view" />
             <field name="arch" type="xml">
                 <xpath expr="//filter[1]" position="before">
                     <field name="int_instance_id" />
@@ -34,10 +34,10 @@
         </record>
 
         <record id="view_partner_tree" model="ir.ui.view">
-            <field name="name">res.partner.tree (ficep_membership)
+            <field name="name">res.partner.tree (mozaik_membership)
             </field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="ficep_person.view_partner_tree" />
+            <field name="inherit_id" ref="mozaik_person.view_partner_tree" />
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='identifier']"
@@ -51,10 +51,10 @@
         </record>
 
         <record id="view_partner_form_address" model="ir.ui.view">
-            <field name="name">res.partner.form (ficep_membership)
+            <field name="name">res.partner.form (mozaik_membership)
             </field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="ficep_address.view_partner_form" />
+            <field name="inherit_id" ref="mozaik_address.view_partner_form" />
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='postal_coordinate_id']"
@@ -68,9 +68,9 @@
         </record>
 
         <record id="view_partner_2_form" model="ir.ui.view">
-            <field name="name">res.partner.form (ficep_membership)</field>
+            <field name="name">res.partner.form (mozaik_membership)</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="ficep_person.view_partner_form" />
+            <field name="inherit_id" ref="mozaik_person.view_partner_form" />
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='identifier']"
@@ -127,23 +127,23 @@
 
         <!-- Membership -->
         <record id="view_partner_form_membership" model="ir.ui.view">
-            <field name="name">res.partner.form.inherit (ficep_membership)</field>
+            <field name="name">res.partner.form.inherit (mozaik_membership)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
                 <notebook position="inside">
                     <page string="Membership"
                         attrs="{'invisible':[('membership_state_id','in',
-                        [False, %(ficep_membership.without_membership)d])]}">
+                        [False, %(mozaik_membership.without_membership)d])]}">
 
                         <div name="state_management">
                             <button name="accept" string="Accept"
-                                groups="ficep_base.res_groups_developper"
+                                groups="mozaik_base.res_groups_developper"
                                 attrs="{'invisible': [('membership_state_code', '!=', 'member_committee'),
                                 ('membership_state_code', '!=', 'former_member_committee')]}" />
 
                             <button name="paid" string="Paid"
-                                groups="ficep_base.res_groups_developper"
+                                groups="mozaik_base.res_groups_developper"
                                 attrs="{'invisible': [('membership_state_code', '!=', 'member_candidate'),
                                 ('membership_state_code', '!=', 'member'),
                                 ('membership_state_code', '!=', 'supporter'),
@@ -186,7 +186,7 @@
                                 readonly="1" />
                         </group>
                         <field name="membership_line_ids" readonly="1">
-                            <tree colors="gray:active==False;green:state_id[0]==%(ficep_membership.member)d;red:state_id[0] in [%(ficep_membership.former_supporter)d, %(ficep_membership.refused_member_candidate)d, %(ficep_membership.expulsion_former_member)d, %(ficep_membership.resignation_former_member)d, %(ficep_membership.inappropriate_former_member)d, %(ficep_membership.break_former_member)d]">
+                            <tree colors="gray:active==False;green:state_id[0]==%(mozaik_membership.member)d;red:state_id[0] in [%(mozaik_membership.former_supporter)d, %(mozaik_membership.refused_member_candidate)d, %(mozaik_membership.expulsion_former_member)d, %(mozaik_membership.resignation_former_member)d, %(mozaik_membership.inappropriate_former_member)d, %(mozaik_membership.break_former_member)d]">
                                 <field name="int_instance_id" />
                                 <field name="state_id" />
                                 <field name="product_id" />

@@ -57,7 +57,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.mozaik_res_groups_user">
+                             groups="mozaik_base.mozaik_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate involvement: proceed anyway?" />
                         </div>
@@ -81,7 +81,7 @@
                             </group>
                         </group>
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -119,7 +119,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.mozaik_res_groups_configurator">
+                             groups="mozaik_base.mozaik_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate category: proceed anyway?" />
                         </div>
@@ -148,7 +148,7 @@
                             </group>
                         </group>
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
@@ -162,7 +162,7 @@
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -171,13 +171,13 @@
 
         <!-- involvements menu are placed after Coordinates -->
         <menuitem id="involvements_submenu" name="Involvements"
-                  sequence="50" parent="ficep_base.persons_root_menu" />
+                  sequence="50" parent="mozaik_base.persons_root_menu" />
         <menuitem id="partner_involvement_menu" action="partner_involvement_action"
                   sequence="10" parent="involvements_submenu" />
 
         <!-- Partner Involvement Category -->
         <menuitem id="partner_involvement_category_menu" action="partner_involvement_category_action"
-                  sequence="20" parent="ficep_base.persons_configuration_submenu" />
+                  sequence="20" parent="mozaik_base.persons_configuration_submenu" />
 
     </data>
 </openerp>

@@ -30,21 +30,21 @@ import psycopg2
 import logging
 from anybox.testing.openerp import SharedSetupTransactionCase
 
-from openerp.addons.ficep_base import testtool
+from openerp.addons.mozaik_base import testtool
 
 _logger = logging.getLogger(__name__)
 
 
 class test_postal_mail(SharedSetupTransactionCase):
     _data_files = (
-        '../../ficep_base/tests/data/res_partner_data.xml',
-        '../../ficep_address/tests/data/reference_data.xml',
-        '../../ficep_address/tests/data/address_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
+        '../../mozaik_address/tests/data/reference_data.xml',
+        '../../mozaik_address/tests/data/address_data.xml',
         'data/communication_data.xml',
         'data/postal_mail_data.xml',
     )
 
-    _module_ns = 'ficep_communication'
+    _module_ns = 'mozaik_communication'
 
     def setUp(self):
         super(test_postal_mail, self).setUp()

@@ -31,7 +31,7 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools.mail import single_email_re
 
-from openerp.addons.ficep_base.base_tools import format_email
+from openerp.addons.mozaik_base.base_tools import format_email
 
 
 class email_coordinate(orm.Model):
@@ -45,7 +45,7 @@ class email_coordinate(orm.Model):
     _mail_mass_mailing = _('Email Coordinate')
 
     _discriminant_field = 'email'
-    _undo_redirect_action = 'ficep_email.email_coordinate_action'
+    _undo_redirect_action = 'mozaik_email.email_coordinate_action'
 
     _columns = {
         'email': fields.char('Email', size=100, required=True, select=True),

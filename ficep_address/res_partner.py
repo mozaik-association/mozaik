@@ -28,7 +28,7 @@
 
 from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
-from openerp.addons.ficep_address.address_address import TRIGGER_FIELDS
+from openerp.addons.mozaik_address.address_address import TRIGGER_FIELDS
 
 
 class res_partner(orm.Model):

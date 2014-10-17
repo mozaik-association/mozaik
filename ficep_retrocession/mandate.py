@@ -28,7 +28,7 @@
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
 from structure import sta_assembly, ext_assembly
-from openerp.addons.ficep_retrocession.common import RETROCESSION_MODES_AVAILABLE, CALCULATION_METHOD_AVAILABLE_TYPES
+from openerp.addons.mozaik_retrocession.common import RETROCESSION_MODES_AVAILABLE, CALCULATION_METHOD_AVAILABLE_TYPES
 
 
 class mandate_category(orm.Model):
@@ -255,7 +255,7 @@ class abstract_mandate_retrocession(orm.AbstractModel):
             template_id = ir_model_data.get_object_reference(
                                          cr,
                                          uid,
-                                         'ficep_retrocession',
+                                         'mozaik_retrocession',
                                          template_ref)[1]
         except ValueError:
             raise orm.except_orm(_('Error!'),

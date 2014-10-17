@@ -34,11 +34,11 @@ _logger = logging.getLogger(__name__)
 class test_phone_coordinate_wizard(SharedSetupTransactionCase):
 
     _data_files = (
-        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
         'data/phone_data.xml',
     )
 
-    _module_ns = 'ficep_phone'
+    _module_ns = 'mozaik_phone'
 
     def setUp(self):
         super(test_phone_coordinate_wizard, self).setUp()

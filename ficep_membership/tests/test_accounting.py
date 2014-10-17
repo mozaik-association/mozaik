@@ -33,12 +33,12 @@ from openerp.osv import orm
 
 class test_accounting_with_product(object):
     _data_files = (
-        '../../l10n_ficep/data/account_template.xml',
-        '../../l10n_ficep/data/account_chart_template.xml',
-        '../../l10n_ficep/data/account_installer.xml',
+        '../../l10n_mozaik/data/account_template.xml',
+        '../../l10n_mozaik/data/account_chart_template.xml',
+        '../../l10n_mozaik/data/account_installer.xml',
     )
 
-    _module_ns = 'ficep_membership'
+    _module_ns = 'mozaik_membership'
     _account_wizard = 'pcmn_mozaik'
     _with_coda = False
 

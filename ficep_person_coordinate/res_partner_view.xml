@@ -5,9 +5,9 @@
         <!-- Improve person search view -->
 
        <record id="res_partner_search_view" model="ir.ui.view">
-            <field name="name">res.partner.search (ficep_person_coordinate)</field>
+            <field name="name">res.partner.search (mozaik_person_coordinate)</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="ficep_person.res_partner_search_view" />
+            <field name="inherit_id" ref="mozaik_person.res_partner_search_view" />
             <field name="arch" type="xml">
                 <xpath expr="//filter[1]" position="before">
                     <field name="partner_is_subject_relation_ids"/>
@@ -22,9 +22,9 @@
         <!-- Add calculated fields to moreinfo zone -->
 
         <record id="view_emails_partner_info_form" model="ir.ui.view">
-            <field name="name">res.partner.emails.info.inherit (ficep_person_coordinate)</field>
+            <field name="name">res.partner.emails.info.inherit (mozaik_person_coordinate)</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="ficep_person.view_emails_partner_info_form" />
+            <field name="inherit_id" ref="mozaik_person.view_emails_partner_info_form" />
             <field name="arch" type="xml">
 
                 <xpath expr="//group[@name='moreinfo']" position="inside">
@@ -50,7 +50,7 @@
         <!-- Final colors expression is only possible when all coordinates modules are loaded -->
 
         <record id="view_partner_tree" model="ir.ui.view">
-            <field name="name">res.partner.tree (ficep_person_coordinate)</field>
+            <field name="name">res.partner.tree (mozaik_person_coordinate)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="priority" eval="20" />
@@ -64,7 +64,7 @@
         </record>
 
         <record id="view_partner_form" model="ir.ui.view">
-            <field name="name">res.partner.form (ficep_person_coordinate)</field>
+            <field name="name">res.partner.form (mozaik_person_coordinate)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
@@ -80,7 +80,7 @@
                                           'search_default_all': True}" />
                         <field name="partner_is_subject_relation_ids"
                                context="{'default_subject_partner_id': active_id,
-                                         'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}"
+                                         'form_view_ref': 'mozaik_person_coordinate.partner_relation_subject_form_view'}"
                                attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                             <tree>
                                 <field name="partner_relation_category_id"/>
@@ -89,7 +89,7 @@
                         </field>
                         <!-- Inactive -->
                         <field name="partner_is_subject_relation_inactive_ids"
-                               context="{'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}"
+                               context="{'form_view_ref': 'mozaik_person_coordinate.partner_relation_subject_form_view'}"
                                readonly="1" attrs="{'invisible': [('active','=',True)], 'readonly': [('id','=',False)]}">
                             <tree>
                                 <field name="partner_relation_category_id"/>
@@ -105,7 +105,7 @@
                                           'search_default_all': True}" />
                         <field name="partner_is_object_relation_ids"
                                context="{'default_object_partner_id': active_id, 'object': True,
-                                         'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}"
+                                         'form_view_ref': 'mozaik_person_coordinate.partner_relation_object_form_view'}"
                                attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
                             <tree>
                                 <field name="partner_relation_category_id" />
@@ -114,7 +114,7 @@
                         </field>
                         <!-- Inactive -->
                         <field name="partner_is_object_relation_inactive_ids"
-                               context="{'object': True, 'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}"
+                               context="{'object': True, 'form_view_ref': 'mozaik_person_coordinate.partner_relation_object_form_view'}"
                                readonly="1" attrs="{'invisible': [('active','=',True)], 'readonly': [('id','=',False)]}">
                             <tree>
                                 <field name="partner_relation_category_id" />

@@ -55,7 +55,7 @@
         </record>
 
         <record id="view_partner_tree" model="ir.ui.view">
-            <field name="name">res.partner.tree (ficep_person)</field>
+            <field name="name">res.partner.tree (mozaik_person)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
@@ -80,7 +80,7 @@
                     <field name="is_duplicate_detected" invisible="1"/>
                     <field name="is_duplicate_allowed" invisible="1"/>
                     <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
-                            groups="ficep_base.mozaik_res_groups_user"
+                            groups="mozaik_base.mozaik_res_groups_user"
                             attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
                             icon="gtk-undo"
                             confirm="Undo allow duplicate: proceed anyway?" />
@@ -125,7 +125,7 @@
         </record>
 
         <record id="view_partner_form_firstname" model="ir.ui.view">
-            <field name="name">res.partner.form.firstname (ficep_person)</field>
+            <field name="name">res.partner.form.firstname (mozaik_person)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="partner_firstname.view_partner_form_firstname" />
             <field name="arch" type="xml">
@@ -140,7 +140,7 @@
         </record>
 
         <record id="view_partner_form" model="ir.ui.view">
-            <field name="name">res.partner.form (ficep_person)</field>
+            <field name="name">res.partner.form (mozaik_person)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
@@ -149,7 +149,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.mozaik_res_groups_user">
+                             groups="mozaik_base.mozaik_res_groups_user">
                             <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
                                     attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
                                     confirm="Undo allow duplicate: proceed anyway?" />
@@ -227,7 +227,7 @@
 
                 <xpath expr="//page[@string='Contacts']" position="replace"/>
                 <xpath expr="//page[@name='sales_purchases']" position="attributes">
-                    <attribute name="groups">ficep_base.res_groups_developper</attribute>
+                    <attribute name="groups">mozaik_base.res_groups_developper</attribute>
                 </xpath>
                 <xpath expr="//page[@name='internal_notes']" position="inside">
                     <group name="all">
@@ -296,7 +296,7 @@
                             </tree>
                         </field>
                     </page>
-                    <page name="user" string="User" attrs="{'invisible': [('user_ids','=',[])]}" groups="ficep_base.mozaik_res_groups_configurator">
+                    <page name="user" string="User" attrs="{'invisible': [('user_ids','=',[])]}" groups="mozaik_base.mozaik_res_groups_configurator">
                         <group name="ldap">
                             <group>
                                 <field name="ldap_name" />
@@ -312,13 +312,13 @@
         </record>
 
         <record id="view_emails_partner_info_form" model="ir.ui.view">
-            <field name="name">res.partner.emails.info.inherit (ficep_person)</field>
+            <field name="name">res.partner.emails.info.inherit (mozaik_person)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="mail.view_emails_partner_info_form" />
             <field name="arch" type="xml">
 
                 <xpath expr="//div[@class='oe_chatter']" position="replace">
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Reactivate" type="object"
@@ -339,7 +339,7 @@
                     </div>
 
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </xpath>

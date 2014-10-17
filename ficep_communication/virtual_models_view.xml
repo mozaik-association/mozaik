@@ -64,10 +64,10 @@
                         domain="[('employee','=',0)]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
-                        domain="[('postal_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="e_vip" string="VIP Email"
-                        domain="[('email_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
@@ -119,7 +119,7 @@
             <field name="view_id"
                 ref="distribution_list.distribution_list_add_filter" />
             <field name="groups_id"
-                eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_involvement_values" model="ir.values">
@@ -189,10 +189,10 @@
                         domain="[('employee','=',0)]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
-                        domain="[('postal_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="e_vip" string="VIP Email"
-                        domain="[('email_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
@@ -244,7 +244,7 @@
             <field name="view_id"
                 ref="distribution_list.distribution_list_add_filter" />
             <field name="groups_id"
-                eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_relation_values" model="ir.values">
@@ -319,10 +319,10 @@
                         domain="[('employee','=',0)]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
-                        domain="[('postal_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="e_vip" string="VIP Email"
-                        domain="[('email_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
@@ -373,7 +373,7 @@
             <field name="view_id"
                 ref="distribution_list.distribution_list_add_filter" />
             <field name="groups_id"
-                eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_instance_values" model="ir.values">
@@ -453,10 +453,10 @@
                         domain="[('employee','=',0)]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
-                        domain="[('postal_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="e_vip" string="VIP Email"
-                        domain="[('email_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
@@ -512,7 +512,7 @@
             <field name="view_id"
                 ref="distribution_list.distribution_list_add_filter" />
             <field name="groups_id"
-                eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_mandate_values" model="ir.values">
@@ -574,10 +574,10 @@
                         domain="[('model','=','ext.candidature')]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
-                        domain="[('postal_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="e_vip" string="VIP Email"
-                        domain="[('email_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
@@ -633,7 +633,7 @@
             <field name="view_id"
                 ref="distribution_list.distribution_list_add_filter" />
             <field name="groups_id"
-                eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_candidature_values" model="ir.values">
@@ -692,10 +692,10 @@
                         domain="[('model','=','ext.assembly')]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
-                        domain="[('postal_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="e_vip" string="VIP Email"
-                        domain="[('email_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
@@ -750,7 +750,7 @@
             <field name="view_id"
                 ref="distribution_list.distribution_list_add_filter" />
             <field name="groups_id"
-                eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_assembly_values" model="ir.values">
@@ -805,10 +805,10 @@
                         domain="[('ext_mandate_id','!=',False)]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
-                        domain="[('postal_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="e_vip" string="VIP Email"
-                        domain="[('email_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
@@ -873,7 +873,7 @@
             <field name="view_id"
                 ref="distribution_list.distribution_list_add_filter" />
             <field name="groups_id"
-                eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_retrocession_values" model="ir.values">
@@ -965,10 +965,10 @@
                         domain="[('employee','=',0)]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
-                        domain="[('postal_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="e_vip" string="VIP Email"
-                        domain="[('email_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
@@ -1020,7 +1020,7 @@
             <field name="view_id"
                 ref="distribution_list.distribution_list_add_filter" />
             <field name="groups_id"
-                eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_membership_values" model="ir.values">
@@ -1088,10 +1088,10 @@
                         domain="[('employee','=',0)]" />
                     <separator />
                     <filter name="p_vip" string="VIP Address"
-                        domain="[('postal_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="e_vip" string="VIP Email"
-                        domain="[('email_vip','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                        domain="[('email_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="p_unauthorized" string="Unauthorized Address"
                         domain="[('postal_unauthorized','=',True)]" />
@@ -1140,7 +1140,7 @@
             <field name="view_id"
                 ref="distribution_list.distribution_list_add_filter" />
             <field name="groups_id"
-                eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+                eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="add_filter_from_event_values" model="ir.values">
@@ -1192,7 +1192,7 @@
         <!-- Virtual Partner Retrocession -->
         <menuitem id="virtual_partner_retrocession_menu" sequence="34"
             parent="virtual_models_submenu" action="virtual_partner_retrocession_action"
-            groups="ficep_base.mozaik_res_groups_configurator,ficep_base.mozaik_res_groups_financial_user"/>
+            groups="mozaik_base.mozaik_res_groups_configurator,mozaik_base.mozaik_res_groups_financial_user"/>
 
         <!-- Virtual Partner Event -->
         <menuitem id="virtual_partner_event_menu" sequence="36"

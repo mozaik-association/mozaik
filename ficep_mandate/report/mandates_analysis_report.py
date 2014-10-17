@@ -29,9 +29,9 @@
 from openerp import tools
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
-from openerp.addons.ficep_mandate.int_mandate import int_mandate
-from openerp.addons.ficep_mandate.ext_mandate import ext_mandate
-from openerp.addons.ficep_base import url
+from openerp.addons.mozaik_mandate.int_mandate import int_mandate
+from openerp.addons.mozaik_mandate.ext_mandate import ext_mandate
+from openerp.addons.mozaik_base import url
 
 
 class mandates_analysis_report(orm.Model):

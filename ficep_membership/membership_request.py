@@ -35,9 +35,9 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
 
-from openerp.addons.ficep_base.base_tools import format_email
-from openerp.addons.ficep_address.address_address import COUNTRY_CODE
-from openerp.addons.ficep_person.res_partner import AVAILABLE_GENDERS
+from openerp.addons.mozaik_base.base_tools import format_email
+from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
+from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
 
 _logger = logging.getLogger(__name__)
 

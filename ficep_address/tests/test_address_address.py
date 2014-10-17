@@ -41,7 +41,7 @@ class test_address_address(SharedSetupTransactionCase):
     _data_files = ('data/reference_data.xml',
                   )
 
-    _module_ns = 'ficep_address'
+    _module_ns = 'mozaik_address'
 
     def setUp(self):
         super(test_address_address, self).setUp()
@@ -68,8 +68,8 @@ class test_address_address(SharedSetupTransactionCase):
 
         dic = {
             'country_id': self.ref("base.be"),
-            'address_local_zip_id': self.ref("ficep_address.local_zip_1"),
-            'address_local_street_id': self.ref("ficep_address.local_street_1"),
+            'address_local_zip_id': self.ref("mozaik_address.local_zip_1"),
+            'address_local_street_id': self.ref("mozaik_address.local_street_1"),
             'box': '4b',
         }
         adr_id = self.model_address.create(cr, uid, dic)

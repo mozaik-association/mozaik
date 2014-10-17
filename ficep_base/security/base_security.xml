@@ -126,7 +126,7 @@
             <field name="login">ws</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[
-                (4, ref('ficep_base.mozaik_res_groups_reader')),
+                (4, ref('mozaik_base.mozaik_res_groups_reader')),
             ]"/>
         </record>
 

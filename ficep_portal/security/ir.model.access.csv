@@ -1,9 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_int_instance_group_portal,mozaik.int.instance.group.portal,ficep_structure.model_int_instance,base.group_portal,1,0,0,0
-access_res_partner_group_portal,mozaik.int.instance.group.portal,ficep_structure.model_int_instance,base.group_portal,1,0,0,0
-access_phone_coordinate_group_portal,mozaik.phone.coordinate.group.portal,ficep_phone.model_phone_coordinate,base.group_portal,1,0,0,0
-access_email_coordinate_group_portal,mozaik.email.coordinate.group.portal,ficep_email.model_email_coordinate,base.group_portal,1,0,0,0
-access_postal_coordinate_group_portal,mozaik.postal.coordinate.group.portal,ficep_address.model_postal_coordinate,base.group_portal,1,0,0,0
-access_membership_request_group_portal,mozaik.membership.request.group.portal,ficep_membership.model_membership_request,base.group_portal,1,1,1,0
-access_address_local_zip_group_portal,mozaik.address.local.zip.group.portal,ficep_address.model_address_local_zip,base.group_portal,1,0,0,0
-access_address_local_street_group_portal,mozaik.address.local.street.group.portal,ficep_address.model_address_local_street,base.group_portal,1,0,0,0
+access_int_instance_group_portal,mozaik.int.instance.group.portal,mozaik_structure.model_int_instance,base.group_portal,1,0,0,0
+access_res_partner_group_portal,mozaik.int.instance.group.portal,mozaik_structure.model_int_instance,base.group_portal,1,0,0,0
+access_phone_coordinate_group_portal,mozaik.phone.coordinate.group.portal,mozaik_phone.model_phone_coordinate,base.group_portal,1,0,0,0
+access_email_coordinate_group_portal,mozaik.email.coordinate.group.portal,mozaik_email.model_email_coordinate,base.group_portal,1,0,0,0
+access_postal_coordinate_group_portal,mozaik.postal.coordinate.group.portal,mozaik_address.model_postal_coordinate,base.group_portal,1,0,0,0
+access_membership_request_group_portal,mozaik.membership.request.group.portal,mozaik_membership.model_membership_request,base.group_portal,1,1,1,0
+access_address_local_zip_group_portal,mozaik.address.local.zip.group.portal,mozaik_address.model_address_local_zip,base.group_portal,1,0,0,0
+access_address_local_street_group_portal,mozaik.address.local.street.group.portal,mozaik_address.model_address_local_street,base.group_portal,1,0,0,0

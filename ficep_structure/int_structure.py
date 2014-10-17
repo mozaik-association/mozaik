@@ -78,7 +78,7 @@ class int_power_level(orm.Model):
         """
         alts = (
             '.__MIG_IPL_1',                        # Production
-            'ficep_structure.int_power_level_01',  # Test
+            'mozaik_structure.int_power_level_01',  # Test
         )
         res = _get_cached_default(self, cr, uid, alts)
         if not res:
@@ -175,7 +175,7 @@ class int_instance(orm.Model):
         """
         alts = (
             '.__MIG_II_286',                   # Production
-            'ficep_structure.int_instance_01'  # Test
+            'mozaik_structure.int_instance_01'  # Test
         )
         res = _get_cached_default(self, cr, uid, alts)
         if not res:

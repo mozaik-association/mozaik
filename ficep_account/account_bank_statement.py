@@ -106,7 +106,7 @@ class account_bank_statement_line(orm.Model):
         modeldata_obj = self.pool.get('ir.model.data')
         partner_obj = self.pool.get('res.partner')
         first_id = modeldata_obj.get_object_reference(
-            cr, uid, 'ficep_membership', 'member_candidate')[1]
+            cr, uid, 'mozaik_membership', 'member_candidate')[1]
 
         domain = [('id', '=', partner_id),
                   ('reference', '=', reference),
@@ -121,7 +121,7 @@ class account_bank_statement_line(orm.Model):
         prod_obj = self.pool.get('product.product')
         modeldata_obj = self.pool.get('ir.model.data')
         first_id = modeldata_obj.get_object_reference(
-            cr, uid, 'ficep_membership', 'membership_product_first')[1]
+            cr, uid, 'mozaik_membership', 'membership_product_first')[1]
 
         domain = [('membership', '=', True),
                   ('list_price', '>', 0)]
@@ -196,7 +196,7 @@ class account_bank_statement_line(orm.Model):
                 prod_id = mdata_obj.get_object_reference(
                                             cr,
                                             uid,
-                                            'ficep_membership',
+                                            'mozaik_membership',
                                             'membership_product_undefined')[1]
                 price = amount_paid
 

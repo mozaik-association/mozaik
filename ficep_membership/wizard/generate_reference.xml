@@ -19,7 +19,7 @@
                         <p>This wizard is only intended to renew subscriptions in January.</p>
                     </div>
 
-                    <div name="dev" groups="ficep_base.res_groups_developper">
+                    <div name="dev" groups="mozaik_base.res_groups_developper">
                         <h3>More Info</h3>
                         <group name="moreinfo">
                             <field name="partner_ids"/>
@@ -47,7 +47,7 @@
             <field name="res_model">generate.reference</field>
             <field name="target">new</field>
             <field name="view_id" ref="generate_reference_view" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_officer')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
         </record>
 
         <record id="generate_reference_values" model="ir.values">

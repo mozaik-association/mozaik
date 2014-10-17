@@ -36,11 +36,11 @@ _logger = logging.getLogger(__name__)
 class test_NAME(SharedSetupTransactionCase):
 
     _data_files = (
-        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
         'data/XXX_data.xml',
     )
 
-    _module_ns = 'ficep_XXX'
+    _module_ns = 'mozaik_XXX'
 
     def setUp(self):
         super(test_NAME, self).setUp()

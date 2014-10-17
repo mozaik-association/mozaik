@@ -33,7 +33,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_address',
+        'mozaik_address',
     ],
     'description': """
 MOZAIK Mass Editing

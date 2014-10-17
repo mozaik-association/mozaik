@@ -4,7 +4,7 @@
 
         <record id="virtual_mobile_partner_rule" model="ir.rule">
             <field name="name">Partner/Mobile for Mozaik Base</field>
-            <field name="model_id" ref="ficep_mobile.model_virtual_mobile_partner"/>
+            <field name="model_id" ref="mozaik_mobile.model_virtual_mobile_partner"/>
             <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>

@@ -44,9 +44,9 @@ class report_payment_certificate(report_sxw.rml_parse):
 
 
 class report_payment_certificate_wrapper(osv.AbstractModel):
-    _name = 'report.ficep_retrocession.report_payment_certificate'
+    _name = 'report.mozaik_retrocession.report_payment_certificate'
     _inherit = 'report.abstract_report'
-    _template = 'ficep_retrocession.report_payment_certificate'
+    _template = 'mozaik_retrocession.report_payment_certificate'
     _wrapped_report_class = report_payment_certificate
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

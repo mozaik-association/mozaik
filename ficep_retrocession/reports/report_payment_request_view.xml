@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>       
-        <template id="ficep_retrocession.retrocession_rule_table_rows">
+        <template id="mozaik_retrocession.retrocession_rule_table_rows">
             <tr><td colspan="4"><strong><u><span t-esc='title'></span></u></strong></td></tr>
             <tr t-foreach="rule_ids" t-as="rule">
                 <td style="{border:none}">
@@ -21,7 +21,7 @@
             </tr>
         </template>
         
-        <template id="ficep_retrocession.retrocession_rules_table">           
+        <template id="mozaik_retrocession.retrocession_rules_table">           
             <table class="table table-condensed">
                 <thead>
                     <tr>
@@ -33,14 +33,14 @@
                </thead>
                <tbody class="rule_tbody">
                     <t t-if="len(o.rule_ids) > 0">
-	                    <t t-call="ficep_retrocession.retrocession_rule_table_rows">
+	                    <t t-call="mozaik_retrocession.retrocession_rule_table_rows">
 	                        <t t-set="rule_ids" t-value="o.rule_ids"/>
 	                        <t t-set="title" t-value="'Imputable Rules'"/>
 	                    </t>
                     </t>
                     <br/>
                     <t t-if="len(o.deductible_rule_ids) > 0">
-	                    <t t-call="ficep_retrocession.retrocession_rule_table_rows">
+	                    <t t-call="mozaik_retrocession.retrocession_rule_table_rows">
 	                        <t t-set="rule_ids" t-value="o.deductible_rule_ids"/>
 	                        <t t-set="title" t-value="'Deductible Rules'"/>
 	                    </t> 
@@ -49,7 +49,7 @@
             </table>       
         </template>
         
-        <template id="ficep_retrocession.report_payment_request_document">
+        <template id="mozaik_retrocession.report_payment_request_document">
             <t t-call="report.external_layout">
                 <div class="page">
                    <t t-if='o.sta_mandate_id'>
@@ -93,7 +93,7 @@
                         </div>
                    </div>
         
-                   <t t-call="ficep_retrocession.retrocession_rules_table">
+                   <t t-call="mozaik_retrocession.retrocession_rules_table">
                        <t t-set="o" t-value="o"/>
                    </t>  
          
@@ -143,7 +143,7 @@
         <template id="report_payment_request">
             <t t-call="report.html_container">
                 <t t-foreach="doc_ids" t-as="doc_id">
-                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'ficep_retrocession.report_payment_request_document')"/>
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'mozaik_retrocession.report_payment_request_document')"/>
                 </t>
             </t>
         </template>
@@ -152,7 +152,7 @@
                 id="action_report_payment_request"
                 model="retrocession"
                 report_type="qweb-pdf"
-                name="ficep_retrocession.report_payment_request"
-                file="ficep_retrocession.report_payment_request"/>
+                name="mozaik_retrocession.report_payment_request"
+                file="mozaik_retrocession.report_payment_request"/>
     </data>
 </openerp>

@@ -28,28 +28,28 @@
 from uuid import uuid4
 from anybox.testing.openerp import SharedSetupTransactionCase
 
-from openerp.addons.ficep_address.address_address import COUNTRY_CODE
+from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
 
 
 class test_membership(SharedSetupTransactionCase):
 
     _data_files = (
         # load the partner
-        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
         # load structures
-        '../../ficep_structure/tests/data/structure_data.xml',
+        '../../mozaik_structure/tests/data/structure_data.xml',
         # load address of this partner
-        '../../ficep_address/tests/data/reference_data.xml',
+        '../../mozaik_address/tests/data/reference_data.xml',
         # load postal_coordinate of this partner
-        '../../ficep_address/tests/data/address_data.xml',
+        '../../mozaik_address/tests/data/address_data.xml',
         # load phone_coordinate of this partner
-        '../../ficep_phone/tests/data/phone_data.xml',
+        '../../mozaik_phone/tests/data/phone_data.xml',
         # load terms and requests
-        '../../ficep_thesaurus/tests/data/thesaurus_data.xml',
+        '../../mozaik_thesaurus/tests/data/thesaurus_data.xml',
         'data/membership_request_data.xml',
     )
 
-    _module_ns = 'ficep_membership'
+    _module_ns = 'mozaik_membership'
 
     def setUp(self):
         super(test_membership, self).setUp()

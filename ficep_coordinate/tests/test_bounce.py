@@ -28,7 +28,7 @@
 
 import psycopg2
 
-from openerp.addons.ficep_base import testtool
+from openerp.addons.mozaik_base import testtool
 
 DESC = 'Bad Coordinate'
 

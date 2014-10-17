@@ -245,7 +245,7 @@ class electoral_results_wizard(orm.TransientModel):
         self.pool.get('ir.model.data').get_object_reference(
                                     cr,
                                     uid,
-                                    'ficep_mandate',
+                                    'mozaik_mandate',
                                     'electoral_results_wizard_step2_action')
         action = self.pool[model].read(cr, uid, res_id, context=context)
         action['res_id'] = ids[0]

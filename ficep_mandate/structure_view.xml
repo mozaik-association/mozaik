@@ -3,9 +3,9 @@
     <data noupdate="0">
 
          <record id="sta_assembly_category_form_view" model="ir.ui.view">
-            <field name="name">sta.assembly.category.form.view (ficep_mandate)</field>
+            <field name="name">sta.assembly.category.form.view (mozaik_mandate)</field>
             <field name="model">sta.assembly.category</field>
-            <field name="inherit_id" ref="ficep_structure.sta_assembly_category_form_view" />
+            <field name="inherit_id" ref="mozaik_structure.sta_assembly_category_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='status']" position="after">
                     <notebook invisible="context.get('popup')">
@@ -29,9 +29,9 @@
          </record>
          
          <record id="int_assembly_category_form_view" model="ir.ui.view">
-            <field name="name">int.assembly.category.form.view (ficep_mandate)</field>
+            <field name="name">int.assembly.category.form.view (mozaik_mandate)</field>
             <field name="model">int.assembly.category</field>
-            <field name="inherit_id" ref="ficep_structure.int_assembly_category_form_view" />
+            <field name="inherit_id" ref="mozaik_structure.int_assembly_category_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='status']" position="after">
                     <notebook invisible="context.get('popup')">
@@ -55,9 +55,9 @@
          </record>
          
          <record id="ext_assembly_category_form_view" model="ir.ui.view">
-            <field name="name">ext.assembly.category.form.view (ficep_mandate)</field>
+            <field name="name">ext.assembly.category.form.view (mozaik_mandate)</field>
             <field name="model">ext.assembly.category</field>
-            <field name="inherit_id" ref="ficep_structure.ext_assembly_category_form_view" />
+            <field name="inherit_id" ref="mozaik_structure.ext_assembly_category_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='status']" position="after">
                     <notebook invisible="context.get('popup')">
@@ -81,9 +81,9 @@
          </record>
 
          <record id="sta_assembly_form_view" model="ir.ui.view">
-            <field name="name">sta.assembly.form.view (ficep_mandate)</field>
+            <field name="name">sta.assembly.form.view (mozaik_mandate)</field>
             <field name="model">sta.assembly</field>
-            <field name="inherit_id" ref="ficep_structure.sta_assembly_form_view" />
+            <field name="inherit_id" ref="mozaik_structure.sta_assembly_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//sheet/div[@name='buttons']" position="inside">
                     <button string="Candidatures" name="%(sta_candidature_action)d"
@@ -121,9 +121,9 @@
          </record>
          
          <record id="int_assembly_form_view" model="ir.ui.view">
-            <field name="name">int.assembly.form.view (ficep_mandate)</field>
+            <field name="name">int.assembly.form.view (mozaik_mandate)</field>
             <field name="model">int.assembly</field>
-            <field name="inherit_id" ref="ficep_structure.int_assembly_form_view" />
+            <field name="inherit_id" ref="mozaik_structure.int_assembly_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//sheet/div[@name='buttons']" position="inside">
                     <button string="Candidatures" name="%(int_candidature_action)d"
@@ -157,9 +157,9 @@
          </record>
          
          <record id="ext_assembly_form_view" model="ir.ui.view">
-            <field name="name">ext.assembly.form.view (ficep_mandate)</field>
+            <field name="name">ext.assembly.form.view (mozaik_mandate)</field>
             <field name="model">ext.assembly</field>
-            <field name="inherit_id" ref="ficep_structure.ext_assembly_form_view" />
+            <field name="inherit_id" ref="mozaik_structure.ext_assembly_form_view" />
             <field name="arch" type="xml">
                 <xpath expr="//sheet/div[@name='buttons']" position="inside">
                     <button string="Candidatures" name="%(ext_candidature_action)d"
@@ -193,9 +193,9 @@
          </record>
          
          <record id="legislature_form_view" model="ir.ui.view">
-            <field name="name">legislature.form (ficep_mandate)</field>
+            <field name="name">legislature.form (mozaik_mandate)</field>
             <field name="model">legislature</field>
-            <field name="inherit_id" ref="ficep_structure.legislature_form_view" />
+            <field name="inherit_id" ref="mozaik_structure.legislature_form_view" />
             <field name="arch" type="xml">
                  <xpath expr="//sheet/div[@name='buttons']" position="inside">
                     <button string="Candidatures" name="%(sta_candidature_action)d"
@@ -211,9 +211,9 @@
          </record>
 
          <record id="electoral_district_form_view" model="ir.ui.view">
-            <field name="name">electoral.district.form (ficep_mandate)</field>
+            <field name="name">electoral.district.form (mozaik_mandate)</field>
             <field name="model">electoral.district</field>
-            <field name="inherit_id" ref="ficep_structure.electoral_district_form_view" />
+            <field name="inherit_id" ref="mozaik_structure.electoral_district_form_view" />
             <field name="arch" type="xml">
                  <xpath expr="//sheet/div[@name='buttons']" position="inside">
                     <button string="Candidatures" name="%(sta_candidature_action)d"

@@ -33,7 +33,7 @@ from collections import OrderedDict
 from openerp.tools.translate import _
 from openerp.osv import orm
 
-from openerp.addons.ficep_person.res_partner import available_genders, available_tongues
+from openerp.addons.mozaik_person.res_partner import available_genders, available_tongues
 
 HEADER_ROW = [
     'Internal Identifier',

@@ -3,11 +3,11 @@
     <data noupdate="0">
 
         <record id="sta_assembly_search_view" model="ir.ui.view">
-            <field name="name">sta.assembly.search (ficep_retrocession)</field>
+            <field name="name">sta.assembly.search (mozaik_retrocession)</field>
             <field name="model">sta.assembly</field>
-            <field name="inherit_id" ref="ficep_structure.abstract_assembly_search_view"/>
+            <field name="inherit_id" ref="mozaik_structure.abstract_assembly_search_view"/>
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.mozaik_res_groups_financial_user'),
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='instance_id']" position="after">
@@ -20,11 +20,11 @@
         </record>
 
         <record id="sta_assembly_fin_search_view" model="ir.ui.view">
-            <field name="name">sta.assembly.fin.search (ficep_retrocession)</field>
+            <field name="name">sta.assembly.fin.search (mozaik_retrocession)</field>
             <field name="model">sta.assembly</field>
             <field name="inherit_id" ref="sta_assembly_search_view"/>
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.mozaik_res_groups_financial_manager'),
+                ref('mozaik_base.mozaik_res_groups_financial_manager'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='calculation_method_id']" position="after">
@@ -37,11 +37,11 @@
         </record>
 
         <record id="sta_assembly_form_view" model="ir.ui.view">
-            <field name="name">sta.assembly.form (ficep_retrocession)</field>
+            <field name="name">sta.assembly.form (mozaik_retrocession)</field>
             <field name="model">sta.assembly</field>
-            <field name="inherit_id" ref="ficep_structure.sta_assembly_form_view" />
+            <field name="inherit_id" ref="mozaik_structure.sta_assembly_form_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.mozaik_res_groups_financial_user'),
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
@@ -52,11 +52,11 @@
         </record>
 
         <record id="sta_assembly_fin_form_view" model="ir.ui.view">
-            <field name="name">sta.assembly.fin.form (ficep_retrocession)</field>
+            <field name="name">sta.assembly.fin.form (mozaik_retrocession)</field>
             <field name="model">sta.assembly</field>
             <field name="inherit_id" ref="sta_assembly_form_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.mozaik_res_groups_financial_manager'),
+                ref('mozaik_base.mozaik_res_groups_financial_manager'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='calculation_method_id']" position="after">
@@ -66,11 +66,11 @@
         </record>
 
         <record id="ext_assembly_search_view" model="ir.ui.view">
-            <field name="name">ext.assembly.search (ficep_retrocession)</field>
+            <field name="name">ext.assembly.search (mozaik_retrocession)</field>
             <field name="model">ext.assembly</field>
-            <field name="inherit_id" ref="ficep_structure.ext_assembly_search_view"/>
+            <field name="inherit_id" ref="mozaik_structure.ext_assembly_search_view"/>
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.mozaik_res_groups_financial_user'),
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='instance_id']" position="after">
@@ -83,11 +83,11 @@
         </record>
 
         <record id="ext_assembly_fin_search_view" model="ir.ui.view">
-            <field name="name">ext.assembly.fin.search (ficep_retrocession)</field>
+            <field name="name">ext.assembly.fin.search (mozaik_retrocession)</field>
             <field name="model">ext.assembly</field>
             <field name="inherit_id" ref="ext_assembly_search_view"/>
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.mozaik_res_groups_financial_manager'),
+                ref('mozaik_base.mozaik_res_groups_financial_manager'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='calculation_method_id']" position="after">
@@ -100,11 +100,11 @@
         </record>
 
         <record id="ext_assembly_form_view" model="ir.ui.view">
-            <field name="name">ext.assembly.form (ficep_retrocession)</field>
+            <field name="name">ext.assembly.form (mozaik_retrocession)</field>
             <field name="model">ext.assembly</field>
-            <field name="inherit_id" ref="ficep_structure.ext_assembly_form_view" />
+            <field name="inherit_id" ref="mozaik_structure.ext_assembly_form_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.mozaik_res_groups_financial_user'),
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
@@ -115,11 +115,11 @@
         </record>
 
         <record id="ext_assembly_fin_form_view" model="ir.ui.view">
-            <field name="name">ext.assembly.fin.form (ficep_retrocession)</field>
+            <field name="name">ext.assembly.fin.form (mozaik_retrocession)</field>
             <field name="model">ext.assembly</field>
             <field name="inherit_id" ref="ext_assembly_form_view" />
             <field name="groups_id" eval="[(6,0,[
-                ref('ficep_base.mozaik_res_groups_financial_manager'),
+                ref('mozaik_base.mozaik_res_groups_financial_manager'),
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='calculation_method_id']" position="after">

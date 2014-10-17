@@ -32,7 +32,7 @@ from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
 
-from openerp.addons.ficep_base import url
+from openerp.addons.mozaik_base import url
 
 _logger = logging.getLogger(__name__)
 
@@ -125,7 +125,7 @@ class duplicate_analysis_report(orm.Model):
                            no duplicates
         """
         uid = SUPERUSER_ID
-        model, group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'ficep_base', 'mozaik_res_groups_configurator')
+        model, group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'mozaik_base', 'mozaik_res_groups_configurator')
         configurator_group = self.pool[model].browse(cr, uid, [group_id], context=context)[0]
         mail_id = False
         if configurator_group.users:

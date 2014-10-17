@@ -28,8 +28,8 @@
 from openerp import http
 from openerp.addons.web.controllers import main
 
-from openerp.addons.ficep_base.base_tools import format_email
-from openerp.addons.ficep_person.res_partner import available_genders, \
+from openerp.addons.mozaik_base.base_tools import format_email
+from openerp.addons.mozaik_person.res_partner import available_genders, \
     available_civil_status, available_tongues
 
 
@@ -41,7 +41,7 @@ class Mobile(main.Home):
     @http.route(['/partner_mobile',
                 '/partner_mobile/page/<int:page>'],
                 auth='public', website=True)
-    def index_ficep_mobile(self, page=1, search=False, value=False, **kw):
+    def index_partner_mobile(self, page=1, search=False, value=False, **kw):
         """
         Index provides the list of partner
         Manage a pager too
@@ -76,7 +76,7 @@ class Mobile(main.Home):
         partners = partner_obj.browse(cr, uid, partner_ids, context=context)
 
         return http.request.render(
-            'ficep_mobile.mobile_index', {
+            'mozaik_mobile.mobile_index', {
                 "pager": pager,
                 "partners": partners,
             })
@@ -160,11 +160,11 @@ class Mobile(main.Home):
             'int_mandate_records': int_mandate_records,
             'ext_mandate_records': ext_mandate_records,
         }
-        return http.request.render('ficep_mobile.show_partner', vals)
+        return http.request.render('mozaik_mobile.show_partner', vals)
 
     @http.route('/partner_search_form/', auth='public', website=True)
     def partner_search_form(self, **kw):
         """
         Get qweb form to make a search
         """
-        return http.request.render('ficep_mobile.partner_search_form')
+        return http.request.render('mozaik_mobile.partner_search_form')

@@ -33,10 +33,10 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_structure',
-        'ficep_mandate',
-        'ficep_membership',
-        'ficep_account',
+        'mozaik_structure',
+        'mozaik_mandate',
+        'mozaik_membership',
+        'mozaik_account',
     ],
     'description': """
 MOZAIK Retrocession

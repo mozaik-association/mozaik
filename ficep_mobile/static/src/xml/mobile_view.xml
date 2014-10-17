@@ -5,7 +5,7 @@
         <!-- INDEX: List of Partners -->
         <template id="mobile_index" name="Mobile Index">
             <!-- <t t-call="website.layout"> -->
-            <t t-call="ficep_mobile.layout">
+            <t t-call="mozaik_mobile.layout">
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <div class="container">
                     <div id="header_content">
@@ -45,7 +45,7 @@
 
         <!-- Partner View -->
         <template id="show_partner" name="Show Partner">
-            <t t-call="ficep_mobile.layout">
+            <t t-call="mozaik_mobile.layout">
                 <div style="display:inline-block;" class="pull-right">
                     <a href="/partner_search_form/">
                         <button class="btn-large btn-primary"
@@ -241,7 +241,7 @@
 
         <!-- Search Form on * name * phone * email -->
         <template id="partner_search_form" name="Partner Advanced Search">
-            <t t-call="ficep_mobile.layout">
+            <t t-call="mozaik_mobile.layout">
                 <div class="container">
                     <form role="form" t-attf-action="/partner_mobile"
                         method="get">

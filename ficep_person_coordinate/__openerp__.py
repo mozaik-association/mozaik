@@ -33,10 +33,10 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_person',
-        'ficep_email',
-        'ficep_address',
-        'ficep_phone',
+        'mozaik_person',
+        'mozaik_email',
+        'mozaik_address',
+        'mozaik_phone',
     ],
     'description': """
 MOZAIK Person - Coordinate

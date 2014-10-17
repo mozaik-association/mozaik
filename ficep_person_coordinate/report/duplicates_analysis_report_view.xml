@@ -53,7 +53,7 @@
         </record>
 
         <menuitem id="duplicate_analysis_menu" name="Duplicate Analysis"
-                  sequence="99" parent="ficep_base.persons_configuration_submenu" groups="ficep_base.res_groups_developper" />
+                  sequence="99" parent="mozaik_base.persons_configuration_submenu" groups="mozaik_base.res_groups_developper" />
 
         <menuitem id="duplicate_analysis_report_menu" action="duplicate_analysis_report_action"
                   sequence="10" parent="duplicate_analysis_menu" />

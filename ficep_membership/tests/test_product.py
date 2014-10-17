@@ -34,7 +34,7 @@ _logger = logging.getLogger(__name__)
 
 class test_product(SharedSetupTransactionCase):
 
-    _module_ns = 'ficep_membership'
+    _module_ns = 'mozaik_membership'
 
     def setUp(self):
         super(test_product, self).setUp()

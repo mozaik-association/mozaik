@@ -3,7 +3,7 @@
     <data noupdate="0">
 
         <record id="view_email_template_search" model="ir.ui.view">
-            <field name="name">email.template.search (ficep_communication)</field>
+            <field name="name">email.template.search (mozaik_communication)</field>
             <field name="model">email.template</field>
             <field name="inherit_id" ref="email_template.view_email_template_search" />
             <field name="arch" type="xml">
@@ -18,7 +18,7 @@
         </record>
 
         <record id="email_template_tree" model="ir.ui.view">
-            <field name="name">email.template.tree (ficep_communication)</field>
+            <field name="name">email.template.tree (mozaik_communication)</field>
             <field name="model">email.template</field>
             <field name="inherit_id" ref="email_template.email_template_tree" />
             <field name="arch" type="xml">
@@ -34,7 +34,7 @@
         </record>
 
         <record id="email_template_form" model="ir.ui.view">
-            <field name="name">email.template.form (ficep_communication)</field>
+            <field name="name">email.template.form (mozaik_communication)</field>
             <field name="model">email.template</field>
             <field name="inherit_id" ref="email_template.email_template_form" />
             <field name="arch" type="xml">

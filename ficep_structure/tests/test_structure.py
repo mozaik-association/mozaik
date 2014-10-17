@@ -30,7 +30,7 @@ from anybox.testing.openerp import SharedSetupTransactionCase
 
 from openerp.osv import orm
 
-from openerp.addons.ficep_base.tests.test_abstract_model import test_abstract_model
+from openerp.addons.mozaik_base.tests.test_abstract_model import test_abstract_model
 
 
 _logger = logging.getLogger(__name__)
@@ -39,11 +39,11 @@ _logger = logging.getLogger(__name__)
 class test_sta_structure(test_abstract_model, SharedSetupTransactionCase):
 
     _data_files = (
-        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
         'data/structure_data.xml',
     )
 
-    _module_ns = 'ficep_structure'
+    _module_ns = 'mozaik_structure'
 
     def setUp(self):
         super(test_sta_structure, self).setUp()

@@ -25,7 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.addons.ficep_mandate.tests import test_sta_mandate, \
+from openerp.addons.mozaik_mandate.tests import test_sta_mandate, \
                                                test_int_mandate, \
                                                test_ext_mandate, \
                                                test_mandate, \

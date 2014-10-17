@@ -322,14 +322,14 @@ class postal_coordinate(orm.Model):
 
     _track = {
         'bounce_counter': {
-            'ficep_address.address_failure_notification':
+            'mozaik_address.address_failure_notification':
                 lambda self, cr, uid, obj, ctx=None: obj.bounce_counter,
         },
     }
 
     _discriminant_field = 'address_id'
     _trigger_fields = []
-    _undo_redirect_action = 'ficep_address.postal_coordinate_action'
+    _undo_redirect_action = 'mozaik_address.postal_coordinate_action'
 
     _columns = {
         'address_id': fields.many2one('address.address', string='Address', required=True, readonly=True, select=True),

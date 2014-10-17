@@ -33,11 +33,11 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_structure',
-        'ficep_duplicate',
-        'ficep_address',
-        'ficep_email',
-        'ficep_person',
+        'mozaik_structure',
+        'mozaik_duplicate',
+        'mozaik_address',
+        'mozaik_email',
+        'mozaik_person',
     ],
     'description': """
 MOZAIK Mandate

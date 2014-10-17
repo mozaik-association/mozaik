@@ -38,7 +38,7 @@ class sub_abstract_coordinate(orm.AbstractModel):
         if not context.get('no_update', False):
             self.pool['res.partner']._update_follower(
                 cr, uid, partner_ids, context=context)
-        subtype = 'ficep_membership.main_%s_notification' %\
+        subtype = 'mozaik_membership.main_%s_notification' %\
             self._discriminant_field
         for i in ids:
             self._message_post(

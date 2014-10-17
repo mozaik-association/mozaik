@@ -43,9 +43,9 @@ class report_payment_request(report_sxw.rml_parse):
 
 
 class report_payment_request_wrapper(osv.AbstractModel):
-    _name = 'report.ficep_retrocession.report_payment_request'
+    _name = 'report.mozaik_retrocession.report_payment_request'
     _inherit = 'report.abstract_report'
-    _template = 'ficep_retrocession.report_payment_request'
+    _template = 'mozaik_retrocession.report_payment_request'
     _wrapped_report_class = report_payment_request
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

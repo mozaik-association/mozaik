@@ -82,20 +82,20 @@
                                 attrs="{'invisible': [('state', '!=', 'confirm')]}"
                                 string="Validate" type="object"
                                 confirm="Validate Membership Request: proceed anyway?"
-                                groups="ficep_base.mozaik_res_groups_officer" />
+                                groups="mozaik_base.mozaik_res_groups_officer" />
                             <button name="cancel_request" string="Cancel"
                                 attrs="{'invisible': [('state', '!=', 'confirm')]}"
                                 type="object"
                                 confirm="Cancel Membership Request: proceed anyway?"
-                                groups="ficep_base.mozaik_res_groups_officer" />
+                                groups="mozaik_base.mozaik_res_groups_officer" />
 
                         </span>
                         <field name="state" widget="statusbar"
-                            statusbar_visible="draft,confirm,validate" groups="ficep_base.res_groups_base"/>
+                            statusbar_visible="draft,confirm,validate" groups="mozaik_base.res_groups_base"/>
                     </header>
                     <sheet>
                         <h3 attrs="{'invisible': [('id', '=', False)]}"
-                            groups="ficep_base.res_groups_base">
+                            groups="mozaik_base.res_groups_base">
                             <label string="#" />
                             <field name="identifier" readonly="1"
                                 attrs="{'invisible': [('identifier', '=', 0)]}"
@@ -212,7 +212,7 @@
                             <field name="note" />
                         </group>
 
-                        <notebook groups="ficep_base.mozaik_res_groups_officer">
+                        <notebook groups="mozaik_base.mozaik_res_groups_officer">
                             <page string="Partner" name="partner">
                                 <group>
                                     <field name="partner_id"
@@ -249,7 +249,7 @@
                             </page>
                         </notebook>
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div
@@ -279,7 +279,7 @@
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers"
-                            groups="ficep_base.mozaik_res_groups_configurator" />
+                            groups="mozaik_base.mozaik_res_groups_configurator" />
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>

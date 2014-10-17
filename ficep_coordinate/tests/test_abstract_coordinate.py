@@ -30,7 +30,7 @@ import psycopg2
 
 from openerp.osv import orm
 
-from openerp.addons.ficep_base import testtool
+from openerp.addons.mozaik_base import testtool
 
 
 class abstract_coordinate(object):

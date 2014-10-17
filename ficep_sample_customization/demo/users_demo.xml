@@ -58,7 +58,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="employee" eval="1"/>
             <field name="int_instance_m2m_ids" eval="[(6, 0, [
-                ref('ficep_structure.int_instance_01'),
+                ref('mozaik_structure.int_instance_01'),
             ])]"/>
         </record>
 
@@ -70,14 +70,14 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="employee" eval="1"/>
             <field name="int_instance_m2m_ids" eval="[(6, 0, [
-                ref('ficep_structure.int_instance_01'),
+                ref('mozaik_structure.int_instance_01'),
             ])]"/>
         </record>
 
         <record id="res_partner_paul" model="res.partner">
             <field name="employee" eval="1"/>
             <field name="int_instance_m2m_ids" eval="[(6, 0, [
-                ref('ficep_structure.int_instance_01'),
+                ref('mozaik_structure.int_instance_01'),
             ])]"/>
         </record>
 
@@ -92,7 +92,7 @@
             <field name="signature">pierre</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(6, 0, [
-                ref('ficep_base.mozaik_res_groups_reader'),
+                ref('mozaik_base.mozaik_res_groups_reader'),
             ])]"/>
         </record>
 
@@ -103,7 +103,7 @@
             <field name="signature">claude</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(6, 0, [
-                ref('ficep_base.mozaik_res_groups_financial_user'),
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
             ])]"/>
         </record>
 
@@ -114,7 +114,7 @@
             <field name="signature">steve</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(6, 0, [
-                ref('ficep_base.mozaik_res_groups_officer'),
+                ref('mozaik_base.mozaik_res_groups_officer'),
             ])]"/>
         </record>
 
@@ -125,7 +125,7 @@
             <field name="signature">leon</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(6, 0, [
-                ref('ficep_base.mozaik_res_groups_vip_reader'),
+                ref('mozaik_base.mozaik_res_groups_vip_reader'),
             ])]"/>
         </record>
 
@@ -136,8 +136,8 @@
             <field name="signature">isabelle</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(6, 0, [
-                ref('ficep_base.mozaik_res_groups_manager'),
-                ref('ficep_base.mozaik_res_groups_financial_user'),
+                ref('mozaik_base.mozaik_res_groups_manager'),
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
                 ref('help_online.help_online_group_writer'),
             ])]"/>
         </record>
@@ -149,8 +149,8 @@
             <field name="signature">sylvie</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(6, 0, [
-                ref('ficep_base.mozaik_res_groups_configurator'),
-                ref('ficep_base.mozaik_res_groups_financial_manager'),
+                ref('mozaik_base.mozaik_res_groups_configurator'),
+                ref('mozaik_base.mozaik_res_groups_financial_manager'),
             ])]"/>
         </record>
 

@@ -5,7 +5,7 @@
         <record id="allow_incompatible_mandate_wizard" model="ir.ui.view">
             <field name="name">allow.incompatible.mandate.wizard</field>
             <field name="model">allow.incompatible.mandate.wizard</field>
-            <field name="inherit_id" ref="ficep_duplicate.allow_duplicate_wizard" />
+            <field name="inherit_id" ref="mozaik_duplicate.allow_duplicate_wizard" />
             <field name="arch" type="xml">
 
                 <xpath expr="//strong" position="replace">
@@ -26,7 +26,7 @@
             <field name="multi" eval="1"/>
             <field name="target">new</field>
             <field name="view_id" ref="allow_incompatible_mandate_wizard" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_configurator')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_configurator')])]" />
             <field name="context">{'multi_model': True, 'model_id_name': 'mandate_id'}</field>
         </record>
 

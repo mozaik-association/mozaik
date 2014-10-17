@@ -26,7 +26,7 @@
                             <field name="group_id" attrs="{'required': [('portal_only','=',False)]}" options='{"no_open":True}' />
                         </group>
                     </group>
-                    <div name="dev" groups="ficep_base.res_groups_developper">
+                    <div name="dev" groups="mozaik_base.res_groups_developper">
                         <h3>More Info</h3>
                         <group name="moreinfo">
                             <field name="appl_id"/>
@@ -60,10 +60,10 @@
             <field name="view_id" ref="create_user_from_partner_wizard"/>
             <field name="groups_id"
                    eval="[(6, 0, [
-                           ref('ficep_base.mozaik_res_groups_configurator'),
+                           ref('mozaik_base.mozaik_res_groups_configurator'),
                          ]),]" />
             <field name="context" eval='"{&apos;default_group_id&apos;: %s, &apos;default_appl_id&apos;: %s}"
-                                          % (ref("ficep_base.mozaik_res_groups_user"), ref("base.module_category_political_association"))' />
+                                          % (ref("mozaik_base.mozaik_res_groups_user"), ref("base.module_category_political_association"))' />
         </record>
 
         <record id="create_user_from_partner_value" model="ir.values">

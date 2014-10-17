@@ -6,13 +6,13 @@
 
         <template id="assets_backend" name="backend_base_css" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
-                <link rel="stylesheet" href="/ficep_base/static/src/css/backend_base.css"/>
+                <link rel="stylesheet" href="/mozaik_base/static/src/css/backend_base.css"/>
             </xpath>
         </template>
 
         <template id="theme" name="frontend_base_css" inherit_id="website.theme">
             <xpath expr="." position="inside">
-                <link rel="stylesheet" href="/ficep_base/static/src/css/frontend_base.css"/>
+                <link rel="stylesheet" href="/mozaik_base/static/src/css/frontend_base.css"/>
             </xpath>
         </template>
 
@@ -22,7 +22,7 @@
                   sequence="10" groups="res_groups_base" />
 
         <menuitem id="persons_configuration_submenu" name="Configuration"
-                  sequence="99" parent="persons_root_menu" groups="ficep_base.mozaik_res_groups_configurator" />
+                  sequence="99" parent="persons_root_menu" groups="mozaik_base.mozaik_res_groups_configurator" />
 
         <menuitem id="localization_submenu" name="Localization"
                   sequence="40" parent="persons_configuration_submenu" />
@@ -125,12 +125,12 @@
         <!-- Update user form -->
 
         <record model="ir.ui.view" id="res_user_form">
-            <field name="name">Users Preferences (ficep_base)</field>
+            <field name="name">Users Preferences (mozaik_base)</field>
             <field name="model">res.users</field>
             <field name="inherit_id" ref="sales_team.res_user_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='default_section_id']" position="attributes">
-                    <attribute name="groups">ficep_base.res_groups_developper</attribute>
+                    <attribute name="groups">mozaik_base.res_groups_developper</attribute>
                 </xpath>
             </field>
         </record>
@@ -138,12 +138,12 @@
         <!-- Update Preferences form -->
 
         <record id="view_users_form_preferences" model="ir.ui.view">
-            <field name="name">res.users.preferences.form (ficep_base)</field>
+            <field name="name">res.users.preferences.form (mozaik_base)</field>
             <field name="model">res.users</field>
             <field name="inherit_id" ref="sales_team.view_users_form_preferences"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='default_section_id']" position="attributes">
-                    <attribute name="groups">ficep_base.res_groups_developper</attribute>
+                    <attribute name="groups">mozaik_base.res_groups_developper</attribute>
                 </xpath>
             </field>
         </record>
@@ -151,7 +151,7 @@
         <!-- Messages form -->
 
         <record id="view_message_form" model="ir.ui.view">
-            <field name="name">mail.message.form (ficep_base)</field>
+            <field name="name">mail.message.form (mozaik_base)</field>
             <field name="model">mail.message</field>
             <field name="inherit_id" ref="mail.view_message_form"/>
             <field name="arch" type="xml">
@@ -168,7 +168,7 @@
         <!-- Export Translations form -->
 
         <record id="wizard_lang_export" model="ir.ui.view">
-            <field name="name">Export Translations (ficep_base)</field>
+            <field name="name">Export Translations (mozaik_base)</field>
             <field name="model">base.language.export</field>
             <field name="inherit_id" ref="base.wizard_lang_export"/>
             <field name="arch" type="xml">

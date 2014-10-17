@@ -7,7 +7,7 @@
         <record id="change_main_phone_wizard" model="ir.ui.view">
             <field name="name">change.main.phone.wizard</field>
             <field name="model">change.main.phone</field>
-            <field name="inherit_id" ref="ficep_coordinate.change_main_coordinate_wizard" />
+            <field name="inherit_id" ref="mozaik_coordinate.change_main_coordinate_wizard" />
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='invalidate_previous_coordinate']" position="before">
@@ -25,7 +25,7 @@
             <field name="res_model">change.main.phone</field>
             <field name="target">new</field>
             <field name="view_id" ref="change_main_phone_wizard"/>
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
             <field name="context">{'target_model': 'phone.coordinate'}</field>
         </record>
 

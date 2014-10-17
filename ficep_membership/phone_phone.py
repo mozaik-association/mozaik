@@ -36,13 +36,13 @@ class phone_coordinate(orm.Model):
 
     _update_track = {
         'is_main': {
-            'ficep_membership.main_phone_id_notification':
+            'mozaik_membership.main_phone_id_notification':
                 lambda self, cr, uid, obj, ctx=None: obj.is_main,
-            'ficep_membership.old_phone_id_notification':
+            'mozaik_membership.old_phone_id_notification':
                 lambda self, cr, uid, obj, ctx=None: not obj.is_main,
         },
         'expire_date': {
-            'ficep_membership.old_phone_id_notification':
+            'mozaik_membership.old_phone_id_notification':
                 lambda self, cr, uid, obj, ctx=None: obj.expire_date,
         },
     }

@@ -31,16 +31,16 @@ from anybox.testing.openerp import SharedSetupTransactionCase
 class test_report_retrocession_wizard(SharedSetupTransactionCase):
 
     _data_files = (
-        '../../l10n_ficep/data/account_template.xml',
-        '../../l10n_ficep/data/account_chart_template.xml',
-        '../../l10n_ficep/data/account_installer.xml',
-        '../../ficep_base/tests/data/res_partner_data.xml',
-        '../../ficep_structure/tests/data/structure_data.xml',
-        '../../ficep_mandate/tests/data/mandate_data.xml',
+        '../../l10n_mozaik/data/account_template.xml',
+        '../../l10n_mozaik/data/account_chart_template.xml',
+        '../../l10n_mozaik/data/account_installer.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
+        '../../mozaik_structure/tests/data/structure_data.xml',
+        '../../mozaik_mandate/tests/data/mandate_data.xml',
         'data/retrocession_data.xml',
     )
 
-    _module_ns = 'ficep_retrocession'
+    _module_ns = 'mozaik_retrocession'
 
     def setUp(self):
         super(test_report_retrocession_wizard, self).setUp()
@@ -144,7 +144,7 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
         self.assertEqual(res['total_mandates'], 1)
 
     def test_report_fractionations_ext_mandate(self):
-        federal_inst = self.browse_ref('ficep_structure.int_instance_01')
+        federal_inst = self.browse_ref('mozaik_structure.int_instance_01')
         liege_inst = self.browse_ref('%s.int_instance_03'
                                       % self._module_ns)
         huy_waremme_inst = self.browse_ref('%s.int_instance_04'
@@ -156,7 +156,7 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
         wanze_inst = self.browse_ref('%s.int_instance_07'
                                       % self._module_ns)
 
-        federal_pl_id = self.ref('ficep_structure.int_power_level_01')
+        federal_pl_id = self.ref('mozaik_structure.int_power_level_01')
         provincial_pl_id = self.ref('%s.int_power_level_03'
                                             % self._module_ns)
         regional_pl_id = self.ref('%s.int_power_level_04'

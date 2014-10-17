@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="1">
 
-        <record id="ficep_email_template" model="email.template">
+        <record id="mozaik_email_template" model="email.template">
             <field name="name">Mozaik Mass Mailing</field>
             <field name="auto_delete" eval="0"/>
         </record>

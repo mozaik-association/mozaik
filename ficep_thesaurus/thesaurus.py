@@ -49,7 +49,7 @@ class thesaurus(orm.Model):
 
     _track = {
         'new_thesaurus_term_id': {
-            'ficep_thesaurus.mt_thesaurus_add_term': lambda self, cr, uid, obj, ctx=None: obj.new_thesaurus_term_id,
+            'mozaik_thesaurus.mt_thesaurus_add_term': lambda self, cr, uid, obj, ctx=None: obj.new_thesaurus_term_id,
         },
     }
 

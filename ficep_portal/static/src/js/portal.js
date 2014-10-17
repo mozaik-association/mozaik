@@ -1,4 +1,4 @@
-openerp.ficep_portal = function(instance, module) {
+openerp.mozaik_portal = function(instance, module) {
 
     var _super_do_action = instance.web.ActionManager.prototype.do_action;
 

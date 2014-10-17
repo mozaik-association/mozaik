@@ -2,7 +2,7 @@
 <openerp>
     <data>       
 
-        <template id="ficep_retrocession.report_payment_certificate_document">
+        <template id="mozaik_retrocession.report_payment_certificate_document">
             <t t-call="report.external_layout">
                 <div class="page">  
                    <div class="row">
@@ -95,7 +95,7 @@
         <template id="report_payment_certificate">
             <t t-call="report.html_container">
                 <t t-foreach="doc_ids" t-as="doc_id">
-                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'ficep_retrocession.report_payment_certificate_document')"/>
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'mozaik_retrocession.report_payment_certificate_document')"/>
                 </t>
             </t>
         </template>
@@ -104,16 +104,16 @@
                 id="action_report_payment_certificate_sta"
                 model="sta.mandate"
                 report_type="qweb-pdf"
-                name="ficep_retrocession.report_payment_certificate"
-                file="ficep_retrocession.report_payment_certificate"
+                name="mozaik_retrocession.report_payment_certificate"
+                file="mozaik_retrocession.report_payment_certificate"
                 menu="False"/>
                 
         <report string="Payment Certificate for External Mandates"
                 id="action_report_payment_certificate_ext"
                 model="ext.mandate"
                 report_type="qweb-pdf"
-                name="ficep_retrocession.report_payment_certificate"
-                file="ficep_retrocession.report_payment_certificate"
+                name="mozaik_retrocession.report_payment_certificate"
+                file="mozaik_retrocession.report_payment_certificate"
                 menu="False"/>
     </data>
 </openerp>

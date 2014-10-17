@@ -28,8 +28,8 @@
 
 from openerp.osv import orm, fields
 
-from openerp.addons.ficep_mandate.abstract_mandate import abstract_candidature
-from openerp.addons.ficep_mandate.mandate import mandate_category
+from openerp.addons.mozaik_mandate.abstract_mandate import abstract_candidature
+from openerp.addons.mozaik_mandate.mandate import mandate_category
 
 CANDIDATURE_AVAILABLE_STATES = [
     ('draft', 'Draft'),
@@ -339,7 +339,7 @@ class int_mandate(orm.Model):
     _inherit = ['abstract.mandate']
 
     _allowed_inactive_link_models = ['int.candidature']
-    _undo_redirect_action = 'ficep_mandate.int_mandate_action'
+    _undo_redirect_action = 'mozaik_mandate.int_mandate_action'
     _unique_id_sequence = 0
 
     _unique_id_store_trigger = {

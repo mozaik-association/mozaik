@@ -67,7 +67,7 @@
                     <field name="yyy_id" />
 
                     <filter name="fff1" string="FFF hhh" domain="[('hhh','=',True)]" />
-                    <filter name="fff2" string="FFF ggg" domain="[('ggg','=',True)]" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                    <filter name="fff2" string="FFF ggg" domain="[('ggg','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
                     <filter name="fff3" string="FFF 3" domain="[('fff','=',True)]" />
 
@@ -98,13 +98,13 @@
                     <field name="coordinate_category_id" />
                     <field name="is_main" />
                     <field name="unauthorized" />
-                    <field name="vip" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                    <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
 
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
 
-                    <field name="coordinate_type" groups="ficep_base.res_groups_developper" />
-                    <field name="active" groups="ficep_base.res_groups_developper" />
+                    <field name="coordinate_type" groups="mozaik_base.res_groups_developper" />
+                    <field name="active" groups="mozaik_base.res_groups_developper" />
                     <field name="is_duplicate_allowed"/>
                 </tree>
             </field>
@@ -134,7 +134,7 @@
                     <header>
                         <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.mozaik_res_groups_user"><!-- or configurator -->
+                             groups="mozaik_base.mozaik_res_groups_user"><!-- or configurator -->
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate xxx: proceed anyway?" />
                             <button name="set_as_main" string="Set As Main" type="object"
@@ -200,7 +200,7 @@
                             </page>
                         </notebook>
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
@@ -214,7 +214,7 @@
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -224,7 +224,7 @@
         <!-- Menu -->
 
         <menuitem id="xxx_submenu" name="XXX"
-                  sequence="40" parent="ficep_mmm.xxx_root_menu" />
+                  sequence="40" parent="mozaik_mmm.xxx_root_menu" />
 
         <menuitem id="yyy_menu" action="yyy_action"
                   sequence="10" parent="xxx_submenu" />

@@ -34,7 +34,7 @@
                     <header>
                         <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.mozaik_res_groups_configurator">
+                             groups="mozaik_base.mozaik_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate Membership State: proceed anyway?" />
                         </span>
@@ -63,7 +63,7 @@
                         </group>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg"
-                        groups="ficep_base.res_groups_developper">
+                        groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
@@ -78,7 +78,7 @@
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
                         <field name="message_follower_ids" widget="mail_followers"
-                            groups="ficep_base.mozaik_res_groups_configurator" />
+                            groups="mozaik_base.mozaik_res_groups_configurator" />
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -100,7 +100,7 @@
 
        <!-- Search View -->
        <record id="membership_line_search_view" model="ir.ui.view">
-            <field name="name">membership.line.search (ficep_membership)</field>
+            <field name="name">membership.line.search (mozaik_membership)</field>
             <field name="model">membership.line</field>
             <field name="arch" type="xml">
                 <search string="Membership Lines">
@@ -130,7 +130,7 @@
             <field name="name">membership.line.tree</field>
             <field name="model">membership.line</field>
             <field name="arch" type="xml">
-                <tree colors="gray:active==False;green:state_id[0]==%(ficep_membership.member)d;red:state_id[0] in [%(ficep_membership.former_supporter)d, %(ficep_membership.refused_member_candidate)d, %(ficep_membership.expulsion_former_member)d, %(ficep_membership.resignation_former_member)d, %(ficep_membership.inappropriate_former_member)d, %(ficep_membership.break_former_member)d]"
+                <tree colors="gray:active==False;green:state_id[0]==%(mozaik_membership.member)d;red:state_id[0] in [%(mozaik_membership.former_supporter)d, %(mozaik_membership.refused_member_candidate)d, %(mozaik_membership.expulsion_former_member)d, %(mozaik_membership.resignation_former_member)d, %(mozaik_membership.inappropriate_former_member)d, %(mozaik_membership.break_former_member)d]"
                       string="Membership Lines" create="0" delete="0" version="7.0">
                     <field name="partner_id"/>
                     <field name="int_instance_id"/>
@@ -153,7 +153,7 @@
                     <header>
                         <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.mozaik_res_groups_configurator">
+                             groups="mozaik_base.mozaik_res_groups_configurator">
                         </span>
                     </header>
                     <sheet>
@@ -169,7 +169,7 @@
                                 <field name="state_id" readonly="not context.get('is_developper')" />
                                 <field name="product_id" readonly="not context.get('is_developper')"
                                        attrs="{'invisible': [('product_id','=',False)]}" />
-                                <field name="price" readonly="not context.get('in_ficep_configurator')"
+                                <field name="price" readonly="not context.get('in_mozaik_configurator')"
                                        attrs="{'invisible': [('product_id','=',False)]}" />
                                 <field name="reference" readonly="not context.get('is_developper')"
                                        attrs="{'invisible': [('reference','=',False)]}" />
@@ -191,7 +191,7 @@
                         </group>
 
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
@@ -205,7 +205,7 @@
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -227,7 +227,7 @@
         <!-- Membership Menus -->
 
         <menuitem id="membership_menu" name="Membership"
-                  sequence="15" parent="ficep_base.persons_root_menu" />
+                  sequence="15" parent="mozaik_base.persons_root_menu" />
 
         <menuitem id="membership_request_menu" action="membership_request_action"
                   sequence="10" parent="membership_menu" />
@@ -238,7 +238,7 @@
         <!-- Configuration Menu -->
 
         <menuitem id="membership_submenu" name="Membership"
-                  sequence="30" parent="ficep_base.persons_configuration_submenu" />
+                  sequence="30" parent="mozaik_base.persons_configuration_submenu" />
 
         <menuitem id="membership_state_menu" action="membership_state_action"
                   sequence="10" parent="membership_submenu" />

@@ -1,3 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_coordinate_category_res_group_base,mozaik.coordinate.category.res.group.base,model_coordinate_category,ficep_base.res_groups_base,1,0,0,0
-access_coordinate_category_res_group_configurator,mozaik.coordinate.category.res.group.configurator,model_coordinate_category,ficep_base.mozaik_res_groups_configurator,1,1,1,1
+access_coordinate_category_res_group_base,mozaik.coordinate.category.res.group.base,model_coordinate_category,mozaik_base.res_groups_base,1,0,0,0
+access_coordinate_category_res_group_configurator,mozaik.coordinate.category.res.group.configurator,model_coordinate_category,mozaik_base.mozaik_res_groups_configurator,1,1,1,1

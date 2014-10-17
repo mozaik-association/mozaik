@@ -3,9 +3,9 @@
     <data noupdate="0">
 
         <record id="allow_duplicate_wizard_inherit" model="ir.ui.view">
-            <field name="name">allow.duplicate.wizard.inherit (ficep_address)</field>
+            <field name="name">allow.duplicate.wizard.inherit (mozaik_address)</field>
             <field name="model">allow.duplicate.address.wizard</field>
-            <field name="inherit_id" ref="ficep_duplicate.allow_duplicate_wizard" />
+            <field name="inherit_id" ref="mozaik_duplicate.allow_duplicate_wizard" />
             <field name="arch" type="xml">
 
                 <xpath expr="//strong" position="attributes">
@@ -32,7 +32,7 @@
             <field name="multi" eval="1"/>
             <field name="target">new</field>
             <field name="view_id" ref="allow_duplicate_wizard_inherit" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
         </record>
 
         <record id="allow_duplicate_value" model="ir.values">

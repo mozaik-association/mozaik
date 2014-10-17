@@ -30,7 +30,7 @@ from openerp.osv import orm
 from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
 
-from openerp.addons.ficep_duplicate.abstract_duplicate import abstract_duplicate
+from openerp.addons.mozaik_duplicate.abstract_duplicate import abstract_duplicate
 
 
 MSG = {'generic.mandate': _('You must only select incompatible mandates!')}

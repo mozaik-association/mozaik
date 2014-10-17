@@ -242,12 +242,12 @@ class phone_coordinate(orm.Model):
 
     _track = {
         'bounce_counter': {
-            'ficep_phone.phone_failure_notification': lambda self, cr, uid, obj, ctx=None: obj.bounce_counter,
+            'mozaik_phone.phone_failure_notification': lambda self, cr, uid, obj, ctx=None: obj.bounce_counter,
         },
     }
 
     _discriminant_field = 'phone_id'
-    _undo_redirect_action = 'ficep_phone.phone_coordinate_action'
+    _undo_redirect_action = 'mozaik_phone.phone_coordinate_action'
 
     _type_store_triggers = {
         'phone.coordinate': (lambda self, cr, uid, ids, context=None: ids, ['phone_id'], 10),

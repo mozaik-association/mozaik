@@ -35,12 +35,12 @@ _logger = logging.getLogger(__name__)
 class test_create_user_from_partner(SharedSetupTransactionCase):
 
     _data_files = (
-        '../../ficep_base/tests/data/res_partner_data.xml',
-        '../../ficep_base/tests/data/res_users_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
+        '../../mozaik_base/tests/data/res_users_data.xml',
         'data/res_partner_data.xml',
     )
 
-    _module_ns = 'ficep_person'
+    _module_ns = 'mozaik_person'
 
     def setUp(self):
         super(test_create_user_from_partner, self).setUp()
@@ -55,7 +55,7 @@ class test_create_user_from_partner(SharedSetupTransactionCase):
         self.partner_jacques_id = self.ref('%s.res_partner_jacques' % self._module_ns)
         self.partner_paul_id = self.ref('%s.res_partner_paul' % self._module_ns)
 
-        self.group_fr_id = self.ref('ficep_base.mozaik_res_groups_reader')
+        self.group_fr_id = self.ref('mozaik_base.mozaik_res_groups_reader')
 
         _, self.portal_id = self.registry('ir.model.data').get_object_reference(self.cr, self.uid, 'base', 'group_portal')
 

@@ -62,7 +62,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="partner_relation_search_view" />
             <field name="view_id" eval="partner_relation_subject_tree_view"/>
-            <field name="context">{'object': False, 'form_view_ref': 'ficep_person_coordinate.partner_relation_subject_form_view'}</field>
+            <field name="context">{'object': False, 'form_view_ref': 'mozaik_person_coordinate.partner_relation_subject_form_view'}</field>
         </record>
 
         <record id="object_relation_action" model="ir.actions.act_window">
@@ -72,7 +72,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="partner_relation_search_view" />
             <field name="view_id" eval="partner_relation_object_tree_view"/>
-            <field name="context">{'object': True, 'form_view_ref': 'ficep_person_coordinate.partner_relation_object_form_view'}</field>
+            <field name="context">{'object': True, 'form_view_ref': 'mozaik_person_coordinate.partner_relation_object_form_view'}</field>
         </record>
 
         <record id="partner_relation_subject_form_view" model="ir.ui.view">
@@ -83,7 +83,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.mozaik_res_groups_user">
+                             groups="mozaik_base.mozaik_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate relation: proceed anyway?" />
                         </div>
@@ -126,7 +126,7 @@
                             </page>
                         </notebook>
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
@@ -140,7 +140,7 @@
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -155,7 +155,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.mozaik_res_groups_user">
+                             groups="mozaik_base.mozaik_res_groups_user">
                              <button name="action_invalidate" string="Invalidate" type="object"
                                  confirm="Invalidate relation: proceed anyway?" />
                          </div>
@@ -178,7 +178,7 @@
                             </group>
                         </group>
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
@@ -192,7 +192,7 @@
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -248,7 +248,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.mozaik_res_groups_configurator">
+                             groups="mozaik_base.mozaik_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate category: proceed anyway?" />
                         </div>
@@ -281,7 +281,7 @@
                             </group>
                         </group>
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
@@ -295,7 +295,7 @@
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -304,14 +304,14 @@
 
         <!-- Relations menu are placed after Coordinates -->
         <menuitem id="relations_submenu" name="Relations"
-                  sequence="50" parent="ficep_base.persons_root_menu" />
+                  sequence="50" parent="mozaik_base.persons_root_menu" />
         <menuitem id="subject_relation_menu" action="subject_relation_action"
                   sequence="10" parent="relations_submenu" />
         <menuitem id="object_relation_menu" action="object_relation_action"
                   sequence="20" parent="relations_submenu" />
         <!-- Partner Relation Category -->
         <menuitem id="relation_category_menu" action="partner_relation_category_action"
-                  sequence="20" parent="ficep_base.persons_configuration_submenu" />
+                  sequence="20" parent="mozaik_base.persons_configuration_submenu" />
 
     </data>
 </openerp>

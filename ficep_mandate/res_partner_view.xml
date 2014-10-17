@@ -3,9 +3,9 @@
     <data noupdate="0">
 
          <record id="view_partner_form" model="ir.ui.view">
-            <field name="name">res.partner.form (ficep_mandate)</field>
+            <field name="name">res.partner.form (mozaik_mandate)</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="ficep_person.view_partner_form" />
+            <field name="inherit_id" ref="mozaik_person.view_partner_form" />
             <field name="arch" type="xml">
                 <xpath expr="//notebook" position="inside">
                     <page name="mandates" string="Mandates" invisible="context.get('popup')" attrs="{'invisible': [('is_company','=',True)]}">

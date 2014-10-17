@@ -31,7 +31,7 @@ import base64
 
 from anybox.testing.openerp import SharedSetupTransactionCase
 from openerp.osv import orm
-from openerp.addons.ficep_mandate.wizard\
+from openerp.addons.mozaik_mandate.wizard\
      import import_candidatures_wizard as wizard
 
 _logger = logging.getLogger(__name__)
@@ -39,12 +39,12 @@ _logger = logging.getLogger(__name__)
 
 class test_import_sta_candidature_wizard(SharedSetupTransactionCase):
     _data_files = (
-        '../../ficep_base/tests/data/res_partner_data.xml',
-        '../../ficep_structure/tests/data/structure_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
+        '../../mozaik_structure/tests/data/structure_data.xml',
         'data/mandate_data.xml',
     )
 
-    _module_ns = 'ficep_mandate'
+    _module_ns = 'mozaik_mandate'
 
     def setUp(self):
         super(test_import_sta_candidature_wizard, self).setUp()

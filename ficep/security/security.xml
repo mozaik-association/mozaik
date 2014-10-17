@@ -51,7 +51,7 @@ account.account_comp_rule
 
         <record id="sta_selection_committee_base_rule" model="ir.rule">
             <field name="name">State Selection Committee for Mozaik Base</field>
-            <field name="model_id" ref="ficep_mandate.model_sta_selection_committee"/>
+            <field name="model_id" ref="mozaik_mandate.model_sta_selection_committee"/>
             <field name="domain_force">[
                 ('designation_int_assembly_id.instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
@@ -62,7 +62,7 @@ account.account_comp_rule
 
         <record id="int_selection_committee_base_rule" model="ir.rule">
             <field name="name">Internal Selection Committee for Mozaik Base</field>
-            <field name="model_id" ref="ficep_mandate.model_int_selection_committee"/>
+            <field name="model_id" ref="mozaik_mandate.model_int_selection_committee"/>
             <field name="domain_force">[
                 ('designation_int_assembly_id.instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
@@ -73,7 +73,7 @@ account.account_comp_rule
 
         <record id="ext_selection_committee_base_rule" model="ir.rule">
             <field name="name">External Selection Committee for Mozaik Base</field>
-            <field name="model_id" ref="ficep_mandate.model_ext_selection_committee"/>
+            <field name="model_id" ref="mozaik_mandate.model_ext_selection_committee"/>
             <field name="domain_force">[
                 ('designation_int_assembly_id.instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
@@ -84,7 +84,7 @@ account.account_comp_rule
 
         <record id="sta_candidature_base_rule" model="ir.rule">
             <field name="name">State Candidature for Mozaik Base</field>
-            <field name="model_id" ref="ficep_mandate.model_sta_candidature"/>
+            <field name="model_id" ref="mozaik_mandate.model_sta_candidature"/>
             <field name="domain_force">[
                 ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
                 ('designation_int_assembly_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
@@ -96,7 +96,7 @@ account.account_comp_rule
 
         <record id="int_candidature_base_rule" model="ir.rule">
             <field name="name">Internal Candidature for Mozaik Base</field>
-            <field name="model_id" ref="ficep_mandate.model_int_candidature"/>
+            <field name="model_id" ref="mozaik_mandate.model_int_candidature"/>
             <field name="domain_force">[
                 ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
                 ('designation_int_assembly_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
@@ -108,7 +108,7 @@ account.account_comp_rule
 
         <record id="ext_candidature_base_rule" model="ir.rule">
             <field name="name">External Candidature for Mozaik Base</field>
-            <field name="model_id" ref="ficep_mandate.model_ext_candidature"/>
+            <field name="model_id" ref="mozaik_mandate.model_ext_candidature"/>
             <field name="domain_force">[
                 ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
                 ('designation_int_assembly_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
@@ -120,7 +120,7 @@ account.account_comp_rule
 
         <record id="sta_mandate_base_rule" model="ir.rule">
             <field name="name">State Mandate for Mozaik Base</field>
-            <field name="model_id" ref="ficep_mandate.model_sta_mandate"/>
+            <field name="model_id" ref="mozaik_mandate.model_sta_mandate"/>
             <field name="domain_force">[
                 ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
@@ -131,7 +131,7 @@ account.account_comp_rule
 
         <record id="int_mandate_base_rule" model="ir.rule">
             <field name="name">Internal Mandate for Mozaik Base</field>
-            <field name="model_id" ref="ficep_mandate.model_int_mandate"/>
+            <field name="model_id" ref="mozaik_mandate.model_int_mandate"/>
             <field name="domain_force">[
                 ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
@@ -142,7 +142,7 @@ account.account_comp_rule
 
         <record id="ext_mandate_base_rule" model="ir.rule">
             <field name="name">External Mandate for Mozaik Base</field>
-            <field name="model_id" ref="ficep_mandate.model_ext_mandate"/>
+            <field name="model_id" ref="mozaik_mandate.model_ext_mandate"/>
             <field name="domain_force">[
                 ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
@@ -153,7 +153,7 @@ account.account_comp_rule
 
         <record id="generic_mandate_base_rule" model="ir.rule">
             <field name="name">Generic Mandate for Mozaik Base</field>
-            <field name="model_id" ref="ficep_mandate.model_generic_mandate"/>
+            <field name="model_id" ref="mozaik_mandate.model_generic_mandate"/>
             <field name="domain_force">[
                 ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
@@ -164,7 +164,7 @@ account.account_comp_rule
 
         <record id="retrocession_base_rule" model="ir.rule">
             <field name="name">Retrocession for Mozaik Base</field>
-            <field name="model_id" ref="ficep_retrocession.model_retrocession"/>
+            <field name="model_id" ref="mozaik_retrocession.model_retrocession"/>
             <field name="domain_force">[
                 '|',
                 ('sta_mandate_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),

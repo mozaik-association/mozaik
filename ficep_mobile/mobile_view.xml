@@ -11,7 +11,7 @@
         </record>
 
         <menuitem id="partner_mobile_menu" name="Mozaik Mobile" action="partner_mobile_action"
-                  sequence="10" parent="ficep_communication.websites_submenu" />
+                  sequence="10" parent="mozaik_communication.websites_submenu" />
 
     </data>
 </openerp>

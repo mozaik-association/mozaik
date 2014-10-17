@@ -865,7 +865,7 @@ class retrocession(orm.Model):
         if not retro.email_coordinate_id:
             raise orm.except_orm(_('Error!'), _('Representative has no email template specified'))
         try:
-            template_id = ir_model_data.get_object_reference(cr, uid, 'ficep_retrocession', 'email_template_request_payment_retrocession')[1]
+            template_id = ir_model_data.get_object_reference(cr, uid, 'mozaik_retrocession', 'email_template_request_payment_retrocession')[1]
         except ValueError:
             raise orm.except_orm(_('Error!'), _('Email template %s not found !' % 'email_template_request_payment_retrocession'))
 

@@ -25,7 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.addons.ficep_coordinate.tests.test_coordinate_wizard import test_coordinate_wizard
+from openerp.addons.mozaik_coordinate.tests.test_coordinate_wizard import test_coordinate_wizard
 from anybox.testing.openerp import SharedSetupTransactionCase
 import logging
 _logger = logging.getLogger(__name__)
@@ -34,11 +34,11 @@ _logger = logging.getLogger(__name__)
 class test_phone_coordinate_wizard(test_coordinate_wizard, SharedSetupTransactionCase):
 
     _data_files = (
-        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
         'data/phone_data.xml',
     )
 
-    _module_ns = 'ficep_phone'
+    _module_ns = 'mozaik_phone'
 
     def setUp(self):
         super(test_phone_coordinate_wizard, self).setUp()

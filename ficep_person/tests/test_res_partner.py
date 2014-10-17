@@ -39,10 +39,10 @@ from openerp.osv import orm
 class test_res_partner(SharedSetupTransactionCase):
 
     _data_files = (
-        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
     )
 
-    _module_ns = 'ficep_person'
+    _module_ns = 'mozaik_person'
 
     def setUp(self):
         super(test_res_partner, self).setUp()
@@ -340,7 +340,7 @@ class test_res_partner(SharedSetupTransactionCase):
                                          {'name': 'Test-identifier',
                                           'identifier': identifier})
         self.assertTrue(self.partner_model.update_identifier_next_number_sequence(self.cr, self.uid))
-        sequence_id = self.registry('ir.model.data').get_object_reference(self.cr, self.uid, 'ficep_person', 'identifier_res_partner_seq')
+        sequence_id = self.registry('ir.model.data').get_object_reference(self.cr, self.uid, 'mozaik_person', 'identifier_res_partner_seq')
         self.assertEqual(self.registry('ir.sequence').next_by_id(self.cr, self.uid, sequence_id[1]), str(identifier + 1))
 
     def test_get_login(self):

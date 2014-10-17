@@ -24,7 +24,7 @@
 
         <record id="f_sample_01_line_01" model="fractionation.line">
             <field name="fractionation_id" ref="f_sample_01"/>
-            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
             <field name="percentage">60.00</field>
         </record>
 
@@ -67,7 +67,7 @@
 
         <record id="f_sample_02_line_01" model="fractionation.line">
             <field name="fractionation_id" ref="f_sample_02"/>
-            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
             <field name="percentage">42</field>
         </record>
 
@@ -162,17 +162,17 @@
 
         <record id="ext_assembly_02" model="ext.assembly">
             <field name="calculation_method_id" ref="cm_sample_01"/>
-            <field name="retro_instance_id" ref="ficep_structure.int_instance_01"/>
+            <field name="retro_instance_id" ref="mozaik_structure.int_instance_01"/>
             <field name="fractionation_id" ref="f_sample_01"/>
         </record>
 
         <record id="sta_assembly_01" model="sta.assembly">
             <field name="calculation_method_id" ref="cm_sample_03"/>
-            <field name="retro_instance_id" ref="ficep_structure.int_instance_01"/>
+            <field name="retro_instance_id" ref="mozaik_structure.int_instance_01"/>
         </record>
 
         <record id="sta_assembly_03" model="sta.assembly">
-            <field name="retro_instance_id" ref="ficep_structure.int_instance_01"/>
+            <field name="retro_instance_id" ref="mozaik_structure.int_instance_01"/>
         </record>
 
         <record id="sta_assembly_04" model="sta.assembly">
@@ -220,7 +220,7 @@
             <field name="start_date">2013-12-01</field>
             <field name="deadline_date">2018-04-15</field>
             <field name="partner_id" ref="res_partner_jacques"/>
-            <field name="retro_instance_id" ref ="ficep_structure.int_instance_01"/>
+            <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
         </record>
 
         <record id="extm_paul_membre_ag" model="ext.mandate">
@@ -230,7 +230,7 @@
             <field name="start_date">2013-12-01</field>
             <field name="deadline_date">2018-04-15</field>
             <field name="partner_id" ref="res_partner_paul"/>
-            <field name="retro_instance_id" ref ="ficep_structure.int_instance_01"/>
+            <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
         </record>
 
         <record id="extm_marc_membre_ag" model="ext.mandate">
@@ -240,7 +240,7 @@
             <field name="start_date">2013-12-01</field>
             <field name="deadline_date">2018-04-15</field>
             <field name="partner_id" ref="res_partner_marc"/>
-            <field name="retro_instance_id" ref ="ficep_structure.int_instance_01"/>
+            <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
         </record>
 
         <record id="extm_paul_adm" model="ext.mandate">
@@ -261,7 +261,7 @@
             <field name="deadline_date">2024-12-02</field>
             <field name="sta_assembly_id" ref="sta_assembly_03"/>
             <field name="partner_id" ref="res_partner_jacques"/>
-            <field name="retro_instance_id" ref ="ficep_structure.int_instance_01"/>
+            <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
         </record>
 
         <record id="stam_paul_gouverneur" model="sta.mandate">

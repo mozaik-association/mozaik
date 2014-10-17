@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="0">
 
-        <record model="ir.filters" id="ficep_filter">
+        <record model="ir.filters" id="mozaik_filter">
             <field name="name">Mozaik</field>
             <field name="model_id">ir.module.module</field>
             <field name="user_id" ref="base.user_root"/>

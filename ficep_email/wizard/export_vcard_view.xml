@@ -31,7 +31,7 @@
             <field name="res_model">export.vcard</field>
             <field name="target">new</field>
             <field name="view_id" ref="export_vcard_wizard"/>
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_user')])]"/>
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]"/>
         </record>
 
         <record id="export_vcard_values" model="ir.values">

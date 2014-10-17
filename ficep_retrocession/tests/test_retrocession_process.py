@@ -34,16 +34,16 @@ _logger = logging.getLogger(__name__)
 class test_retrocession_with_accounting(object):
 
     _data_files = (
-        '../../l10n_ficep/data/account_template.xml',
-        '../../l10n_ficep/data/account_chart_template.xml',
-        '../../l10n_ficep/data/account_installer.xml',
-        '../../ficep_base/tests/data/res_partner_data.xml',
-        '../../ficep_structure/tests/data/structure_data.xml',
-        '../../ficep_mandate/tests/data/mandate_data.xml',
+        '../../l10n_mozaik/data/account_template.xml',
+        '../../l10n_mozaik/data/account_chart_template.xml',
+        '../../l10n_mozaik/data/account_installer.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
+        '../../mozaik_structure/tests/data/structure_data.xml',
+        '../../mozaik_mandate/tests/data/mandate_data.xml',
         'data/retrocession_data.xml',
     )
 
-    _module_ns = 'ficep_retrocession'
+    _module_ns = 'mozaik_retrocession'
 
     def setUp(self):
         super(test_retrocession_with_accounting, self).setUp()

@@ -2,7 +2,7 @@
 <openerp>
     <data>
 
-        <template id="ficep_address.style">
+        <template id="mozaik_address.style">
             html,body {
                 padding: 0;
                 margin: 0;
@@ -44,10 +44,10 @@
             }
         </template>
 
-        <!-- New template based on default report.html_container to add our ficep_address.style.
+        <!-- New template based on default report.html_container to add our mozaik_address.style.
          Copied completely because inheritance/extension was not working.
          See https://www.odoo.com/forum/Help-1/question/Qweb-HTML-report-template-inheritance-56716. -->
-        <template id="ficep_address.html_container">
+        <template id="mozaik_address.html_container">
             &lt;!DOCTYPE html&gt;
             <html t-att-lang="lang and lang.replace('_', '-')"
                   t-att-data-editable="'1' if editable else None"
@@ -75,7 +75,7 @@
                           t-ignore="true"/>
                     <link rel="stylesheet" type="text/css" href='/website/static/src/css/website.css'/>
                     <style type="text/css">
-                        <t t-call="ficep_address.style"/>
+                        <t t-call="mozaik_address.style"/>
                     </style>
 
                     <link rel='stylesheet' href='/web/static/lib/fontawesome/css/font-awesome.css'/>
@@ -101,7 +101,7 @@
             </html>
         </template>
 
-        <template id="ficep_address.postal_coordinate_label_report_card">
+        <template id="mozaik_address.postal_coordinate_label_report_card">
             <!-- Put more margin-left for the second and third sticker so they will be centered -->
             <div class="col-xs-4 card" t-att-style="modulo(o_index, 3) != 0 and 'margin-left: 5mm;' or ''">
                 <span t-esc="'(' + str(o.partner_id.identifier) + ')'" t-if="o.partner_id.identifier"/>
@@ -128,13 +128,13 @@
         </template>
 
         <template id="report_postal_coordinate_label">
-            <t t-call="ficep_address.html_container">
+            <t t-call="mozaik_address.html_container">
                 <div class="page">
                     <t t-foreach="docs" t-as="o">
                         <div style="page-break-after:always;" t-if="not o_first and modulo(o_index, 33) == 0"/>
                         <div class="pageTop" t-if="o_first or modulo(o_index, 33) == 0"/>
 
-                        <t t-call="ficep_address.postal_coordinate_label_report_card">
+                        <t t-call="mozaik_address.postal_coordinate_label_report_card">
                             <t t-set="o" t-value="o"/>
                             <t t-set="o_index" t-value="o_index"/>
                         </t>

@@ -3,7 +3,7 @@
     <data>
         <!-- MASS MAILING FORM from mass_mailing-->
         <record id="view_mail_mass_mailing_form" model="ir.ui.view">
-            <field name="name">mail.mass_mailing.form (ficep_communication mass_mailing)</field>
+            <field name="name">mail.mass_mailing.form (mozaik_communication mass_mailing)</field>
             <field name="model">mail.mass_mailing</field>
             <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
             <field name="arch" type="xml">
@@ -14,7 +14,7 @@
         </record>
         <!-- MASS MAILING FORM (from mass_mailing_distribution_list) -->
         <record id="view_mail_mass_mailing_distribution_list_form" model="ir.ui.view">
-            <field name="name">mail.mass_mailing.form (ficep_communication mass_mailing_distribution_list)</field>
+            <field name="name">mail.mass_mailing.form (mozaik_communication mass_mailing_distribution_list)</field>
             <field name="model">mail.mass_mailing</field>
             <field name="inherit_id" ref="mass_mailing_distribution_list.view_mail_mass_mailing_form" />
             <field name="arch" type="xml">

@@ -42,9 +42,9 @@ class report_postal_coordinate_label(report_sxw.rml_parse):
 
 
 class report_postal_coordinate_label_wrapper(osv.AbstractModel):
-    _name = 'report.ficep_address.report_postal_coordinate_label'
+    _name = 'report.mozaik_address.report_postal_coordinate_label'
     _inherit = 'report.abstract_report'
-    _template = 'ficep_address.report_postal_coordinate_label'
+    _template = 'mozaik_address.report_postal_coordinate_label'
     _wrapped_report_class = report_postal_coordinate_label
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

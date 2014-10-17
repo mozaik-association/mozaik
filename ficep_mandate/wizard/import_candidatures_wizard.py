@@ -149,7 +149,7 @@ class import_sta_candidatures_wizard(orm.TransientModel):
                 cr, uid, values, context=context)
 
         model, res_id = self.pool['ir.model.data'].get_object_reference(
-            cr, uid, 'ficep_mandate', 'import_sta_candidatures_step2_action')
+            cr, uid, 'mozaik_mandate', 'import_sta_candidatures_step2_action')
         action = self.pool[model].read(cr, uid, res_id, context=context)
         action['res_id'] = ids[0]
         ctx = dict(context, is_legislative=legislative)

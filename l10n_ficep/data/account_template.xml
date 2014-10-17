@@ -2,7 +2,7 @@
 <openerp>
     <data>
         <!-- account.account.type -->
-        <record id="ficep_user_type_view" model="account.account.type">
+        <record id="mozaik_user_type_view" model="account.account.type">
             <field name="name">View</field>
             <field name="code">view</field>
             <field name="close_method">none</field>
@@ -14,7 +14,7 @@
             <field name="name">Mozaik Chart of Account</field>
             <field name="code">0</field>
             <field name="type">view</field>
-            <field name="user_type" ref="ficep_user_type_view"/>
+            <field name="user_type" ref="mozaik_user_type_view"/>
         </record>
 
         <record id="a1" model="account.account.template">
@@ -79,7 +79,7 @@
             <field name="name">Bank</field>
             <field name="code">55</field>
             <field name="type">view</field>
-            <field name="user_type" ref="ficep_user_type_view"/>
+            <field name="user_type" ref="mozaik_user_type_view"/>
             <field ref="a5" name="parent_id"/>
         </record>
 

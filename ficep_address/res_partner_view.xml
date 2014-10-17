@@ -3,7 +3,7 @@
     <data noupdate="0">
 
         <record id="view_partner_tree" model="ir.ui.view">
-            <field name="name">res.partner.tree (ficep_address)</field>
+            <field name="name">res.partner.tree (mozaik_address)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
@@ -14,7 +14,7 @@
         </record>
 
         <record id="view_partner_form" model="ir.ui.view">
-            <field name="name">res.partner.form (ficep_address)</field>
+            <field name="name">res.partner.form (mozaik_address)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
@@ -30,9 +30,9 @@
         </record>
 
         <record id="view_partner_2_form" model="ir.ui.view">
-            <field name="name">res.partner.form (ficep_address_2)</field>
+            <field name="name">res.partner.form (mozaik_address_2)</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="ficep_coordinate.view_partner_form" />
+            <field name="inherit_id" ref="mozaik_coordinate.view_partner_form" />
             <field name="arch" type="xml">
 
                 <xpath expr="//separator[@name='address']" position="after">
@@ -48,7 +48,7 @@
                             <field name="coordinate_category_id" />
                             <field name="is_main" />
                             <field name="unauthorized" />
-                            <field name="vip" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                            <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                             <field name="is_duplicate_detected" invisible="1"/>
                             <field name="co_residency_id" invisible="1"/>
                         </tree>
@@ -60,7 +60,7 @@
                             <field name="coordinate_category_id" />
                             <field name="is_main" />
                             <field name="unauthorized" />
-                            <field name="vip" groups="ficep_base.mozaik_res_groups_vip_reader" />
+                            <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                         </tree>
                     </field>
                 </xpath>

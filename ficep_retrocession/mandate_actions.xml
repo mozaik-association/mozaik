@@ -6,8 +6,8 @@
             <field name="res_model">mandate.category</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="ficep_mandate.mandate_category_search_view" />
-            <field name="view_id" ref="ficep_mandate.mandate_category_tree_view" />            
+            <field name="search_view_id" ref="mozaik_mandate.mandate_category_search_view" />
+            <field name="view_id" ref="mozaik_mandate.mandate_category_tree_view" />            
         </record>
     </data>
 </openerp>

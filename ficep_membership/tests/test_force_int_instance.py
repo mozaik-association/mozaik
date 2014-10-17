@@ -33,12 +33,12 @@ class test_force_int_instance(SharedSetupTransactionCase):
 
     _data_files = (
         # load the partner
-        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
         # load structures
-        '../../ficep_structure/tests/data/structure_data.xml',
+        '../../mozaik_structure/tests/data/structure_data.xml',
     )
 
-    _module_ns = 'ficep_membership'
+    _module_ns = 'mozaik_membership'
 
     def setUp(self):
         super(test_force_int_instance, self).setUp()

@@ -8,7 +8,7 @@
             <field name="email_from"></field>
             <field name="partner_to"></field>
             <field name="subject">Retrocession ${object.unique_id}: Request for payment</field>
-            <field name="model_id" ref="ficep_retrocession.model_retrocession"/>
+            <field name="model_id" ref="mozaik_retrocession.model_retrocession"/>
              <field name="report_template" ref="action_report_payment_request"/>
             <field name="report_name">Retrocession_${(object.unique_id or '').replace('/','_')}</field>
             <field name="lang">${object.partner_id.lang}</field>
@@ -39,7 +39,7 @@
             <field name="email_from"></field>
             <field name="partner_to"></field>
             <field name="subject">Reference for payments</field>
-            <field name="model_id" ref="ficep_retrocession.model_sta_mandate"/>
+            <field name="model_id" ref="mozaik_retrocession.model_sta_mandate"/>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="body_html"><![CDATA[
 <div style="font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
@@ -78,7 +78,7 @@
             <field name="email_from"></field>
             <field name="partner_to"></field>
             <field name="subject">Reference for payments</field>
-            <field name="model_id" ref="ficep_retrocession.model_ext_mandate"/>
+            <field name="model_id" ref="mozaik_retrocession.model_ext_mandate"/>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="body_html"><![CDATA[
 <div style="font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">

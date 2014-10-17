@@ -10,7 +10,7 @@
 
         <!-- Add wizard data for main company -->
         <record id="pcmn_mozaik" model="wizard.multi.charts.accounts">
-            <field name="chart_template_id" ref="ficep_chart_template"/>
+            <field name="chart_template_id" ref="mozaik_chart_template"/>
             <field name="company_id" ref="base.main_company"/>
             <field name="currency_id" ref="base.EUR"/>
             <field name="sale_tax_rate" eval="21"/>

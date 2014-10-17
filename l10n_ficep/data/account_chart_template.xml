@@ -3,7 +3,7 @@
   <data noupdate="0">
 
         <!-- Chart template -->
-        <record id="ficep_chart_template" model="account.chart.template">
+        <record id="mozaik_chart_template" model="account.chart.template">
             <field name="name">Mozaik Chart of Account</field>
             <field name="account_root_id" ref="a_root"/>
             <field name="bank_account_view_id" ref="a55"/>

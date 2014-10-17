@@ -8,9 +8,9 @@
         </record>
 
         <!-- Add wizard data for main company -->
-        <record id="ai-ficep_1" model="account.installer">
+        <record id="ai-mozaik_1" model="account.installer">
             <field name="company_id" ref="base.main_company"/>
-            <field name="charts">l10n_ficep</field>
+            <field name="charts">l10n_mozaik</field>
             <field name="period">month</field>
             <field name="has_default_company" eval="1"/>
         </record>

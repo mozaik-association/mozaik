@@ -68,7 +68,7 @@ class res_partner(orm.Model):
 
     _discriminant_field = 'name'
     _trigger_fields = ['name', 'lastname', 'firstname', 'birth_date']
-    _undo_redirect_action = 'ficep_person.all_res_partner_action'
+    _undo_redirect_action = 'mozaik_person.all_res_partner_action'
     _mail_mass_mailing = False
 
 # private methods
@@ -236,7 +236,7 @@ class res_partner(orm.Model):
             need_identifier = False
 
         if need_identifier:
-            sequence_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_person', 'identifier_res_partner_seq')
+            sequence_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'mozaik_person', 'identifier_res_partner_seq')
             vals['identifier'] = self.pool.get('ir.sequence').next_by_id(cr, uid, sequence_id[1], context=context)
 
         res = super(res_partner, self).create(cr, uid, vals, context=context)
@@ -377,7 +377,7 @@ class res_partner(orm.Model):
         result = self.pool.get("res.partner").search_read(cr, uid, [], ['identifier'], limit=1, order='identifier desc')
         if result:
             next_value = result[0]['identifier'] + 1
-            sequence_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'ficep_person', 'identifier_res_partner_seq')
+            sequence_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'mozaik_person', 'identifier_res_partner_seq')
             return self.pool.get('ir.sequence').write(cr, uid, sequence_id[1], {'number_next': next_value}, context=context)
 
         return False

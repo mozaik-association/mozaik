@@ -27,7 +27,7 @@
 ##############################################################################
 
 import openerp.tests.common as common
-from openerp.addons.ficep_coordinate.tests.test_abstract_coordinate import abstract_coordinate
+from openerp.addons.mozaik_coordinate.tests.test_abstract_coordinate import abstract_coordinate
 
 
 class test_phone_coordinate(abstract_coordinate, common.TransactionCase):

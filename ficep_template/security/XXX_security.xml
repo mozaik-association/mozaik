@@ -6,7 +6,7 @@
             <field name="name">XXX for Mozaik YYYs</field>
             <field name="model_id" ref="xxx"/>
             <field name="domain_force">[('hhh','=',False)]</field>
-            <field name="groups" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_yyy')])]"/>
+            <field name="groups" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_yyy')])]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
             <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
         </record>

@@ -37,14 +37,14 @@ class test_partner(SharedSetupTransactionCase):
 
     _data_files = (
         # load the partner
-        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
         # load structures
-        '../../ficep_structure/tests/data/structure_data.xml',
-        '../../ficep_address/tests/data/reference_data.xml',
-        '../../ficep_address/tests/data/address_data.xml',
+        '../../mozaik_structure/tests/data/structure_data.xml',
+        '../../mozaik_address/tests/data/reference_data.xml',
+        '../../mozaik_address/tests/data/address_data.xml',
     )
 
-    _module_ns = 'ficep_membership'
+    _module_ns = 'mozaik_membership'
 
     def setUp(self):
         super(test_partner, self).setUp()
@@ -63,7 +63,7 @@ class test_partner(SharedSetupTransactionCase):
         self.user_model = self.registry('res.users')
         self.partner_jacques_id = self.ref(
             '%s.res_partner_jacques' % self._module_ns)
-        self.group_fr_id = self.ref('ficep_base.mozaik_res_groups_reader')
+        self.group_fr_id = self.ref('mozaik_base.mozaik_res_groups_reader')
 
     def get_partner(self, partner_id=False):
         """

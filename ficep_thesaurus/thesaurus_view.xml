@@ -30,7 +30,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.mozaik_res_groups_configurator">
+                             groups="mozaik_base.mozaik_res_groups_configurator">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate thesaurus: proceed anyway?" />
                         </div>
@@ -53,7 +53,7 @@
                         </group>
 
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -135,7 +135,7 @@
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="ficep_base.mozaik_res_groups_configurator">
+                             groups="mozaik_base.mozaik_res_groups_configurator">
                             <button name="button_confirm" string="Confirm Term" type="object" states="draft" />
                             <button name="button_cancel" string="Cancel Term" type="object" states="confirm" />
                             <button name="button_reset" string="Reset Term" type="object" states="cancel" />
@@ -154,7 +154,7 @@
                                 <field name="ext_identifier" />
                             </group>
                             <group name="other">
-                                <field name="thesaurus_id" groups="ficep_base.mozaik_res_groups_configurator" />
+                                <field name="thesaurus_id" groups="mozaik_base.mozaik_res_groups_configurator" />
                             </group>
                         </group>
 
@@ -168,7 +168,7 @@
                         </group>
 
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="ficep_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
@@ -179,7 +179,7 @@
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="ficep_base.mozaik_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -189,7 +189,7 @@
         <!-- Menu -->
 
         <menuitem id="thesaurus_submenu" name="Thesaurus"
-                  sequence="55" parent="ficep_base.persons_configuration_submenu" />
+                  sequence="55" parent="mozaik_base.persons_configuration_submenu" />
 
         <menuitem id="thesaurus_term_menu" action="thesaurus_term_action"
                   sequence="10" parent="thesaurus_submenu" />

@@ -31,7 +31,7 @@ from openerp.osv import orm
 from anybox.testing.openerp import SharedSetupTransactionCase
 
 from openerp.osv import fields
-from openerp.addons.ficep_base import testtool
+from openerp.addons.mozaik_base import testtool
 
 _logger = logging.getLogger(__name__)
 
@@ -39,13 +39,13 @@ _logger = logging.getLogger(__name__)
 class test_retrocession(SharedSetupTransactionCase):
 
     _data_files = (
-        '../../ficep_base/tests/data/res_partner_data.xml',
-        '../../ficep_structure/tests/data/structure_data.xml',
-        '../../ficep_mandate/tests/data/mandate_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
+        '../../mozaik_structure/tests/data/structure_data.xml',
+        '../../mozaik_mandate/tests/data/mandate_data.xml',
         'data/retrocession_data.xml',
     )
 
-    _module_ns = 'ficep_retrocession'
+    _module_ns = 'mozaik_retrocession'
 
     def setUp(self):
         super(test_retrocession, self).setUp()
@@ -87,7 +87,7 @@ class test_retrocession(SharedSetupTransactionCase):
             Test reference to a power level must unique within a fractionation
         '''
         fractionation_02_id = self.ref('%s.f_sample_02' % self._module_ns)
-        int_power_level_01_id = self.ref('ficep_structure.int_power_level_01')
+        int_power_level_01_id = self.ref('mozaik_structure.int_power_level_01')
         data = dict(fractionation_id=fractionation_02_id,
                     power_level_id=int_power_level_01_id,
                     percentage=20)

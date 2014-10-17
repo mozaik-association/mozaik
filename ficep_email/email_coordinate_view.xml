@@ -7,7 +7,7 @@
         <record id="email_coordinate_search_view" model="ir.ui.view">
             <field name="name">email.coordinate.search</field>
             <field name="model">email.coordinate</field>
-            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_search_view" />
+            <field name="inherit_id" ref="mozaik_coordinate.abstract_coordinate_search_view" />
             <field name="priority" eval="10" />
             <field name="arch" type="xml">
 
@@ -25,7 +25,7 @@
         <record id="email_coordinate_tree_view" model="ir.ui.view">
             <field name="name">email.coordinate.tree</field>
             <field name="model">email.coordinate</field>
-            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_tree_view" />
+            <field name="inherit_id" ref="mozaik_coordinate.abstract_coordinate_tree_view" />
             <field name="priority" eval="10" />
             <field name="arch" type="xml">
 
@@ -48,7 +48,7 @@
         <record id="email_coordinate_form_view" model="ir.ui.view">
             <field name="name">email.coordinate.form</field>
             <field name="model">email.coordinate</field>
-            <field name="inherit_id" ref="ficep_coordinate.abstract_coordinate_form_view" />
+            <field name="inherit_id" ref="mozaik_coordinate.abstract_coordinate_form_view" />
             <field name="priority" eval="10" />
             <field name="arch" type="xml">
 
@@ -70,7 +70,7 @@
         <!-- Menu -->
 
         <menuitem id="email_coordinate_submenu" name="Email Coordinates"
-                  sequence="20" parent="ficep_base.persons_root_menu" />
+                  sequence="20" parent="mozaik_base.persons_root_menu" />
 
         <menuitem id="email_coordinate_menu" action="email_coordinate_action"
                   sequence="10" parent="email_coordinate_submenu" />

@@ -4,7 +4,7 @@
 
         <record id="filter_all_prts_int" model="distribution.list.line">
             <field name="name">All Natural Persons</field>
-            <field name="src_model_id" ref="ficep_communication.model_virtual_partner_instance" />
+            <field name="src_model_id" ref="mozaik_communication.model_virtual_partner_instance" />
             <field name="domain">[]</field>
             <field name="company_id" ref='base.main_company'/>
         </record>

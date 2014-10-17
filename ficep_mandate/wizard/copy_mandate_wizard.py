@@ -179,7 +179,7 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
         view_ref = self.pool.get('ir.model.data').get_object_reference(
                                                                cr,
                                                                uid,
-                                                               'ficep_mandate',
+                                                               'mozaik_mandate',
                                                                self._form_view)
         view_id = view_ref and view_ref[1] or False,
 

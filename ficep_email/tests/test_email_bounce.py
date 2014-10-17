@@ -25,18 +25,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.addons.ficep_coordinate.tests.test_bounce import test_bounce
+from openerp.addons.mozaik_coordinate.tests.test_bounce import test_bounce
 from anybox.testing.openerp import SharedSetupTransactionCase
 
 
 class test_email_bounce(test_bounce, SharedSetupTransactionCase):
 
     _data_files = (
-        '../../ficep_base/tests/data/res_partner_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
         'data/email_data.xml',
     )
 
-    _module_ns = 'ficep_email'
+    _module_ns = 'mozaik_email'
 
     def setUp(self):
         super(test_email_bounce, self).setUp()

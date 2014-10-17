@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_webservice_res_groups_reader,mozaik.custom.webservice.res.groups.reader,model_custom_webservice,ficep_base.mozaik_res_groups_reader,1,1,1,1
+access_webservice_res_groups_reader,mozaik.custom.webservice.res.groups.reader,model_custom_webservice,mozaik_base.mozaik_res_groups_reader,1,1,1,1

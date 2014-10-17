@@ -4,7 +4,7 @@
 
         <record id="dll_del_mem_card" model="distribution.list.line">
             <field name="name">Undelivered Member Card</field>
-            <field name="src_model_id" ref='ficep_communication.model_virtual_partner_membership'/>
+            <field name="src_model_id" ref='mozaik_communication.model_virtual_partner_membership'/>
             <field name="company_id" ref='base.main_company'/>
             <field name="domain" eval="['&amp;',
                                         ('membership_state_id.code', '=', 'member'),
@@ -13,14 +13,14 @@
 
         <record id="dl_del_mem_card" model="distribution.list">
             <field name="name">Member Cards to Send</field>
-            <field name="int_instance_id" ref='ficep_structure.int_instance_01'/>
+            <field name="int_instance_id" ref='mozaik_structure.int_instance_01'/>
             <field name="company_id" ref='base.main_company'/>
             <field name="to_include_distribution_list_line_ids" eval="[[4,ref('dll_del_mem_card')]]"/>
         </record>
 
         <record id="dll_del_doc_member" model="distribution.list.line">
             <field name="name">Undelivered First Membership Documents (Members)</field>
-            <field name="src_model_id" ref='ficep_communication.model_virtual_partner_membership'/>
+            <field name="src_model_id" ref='mozaik_communication.model_virtual_partner_membership'/>
             <field name="company_id" ref='base.main_company'/>
             <field name="domain" eval="[('del_doc_date','=', False),
                                         ('membership_state_id.code','=', 'member_candidate')]"/>
@@ -34,7 +34,7 @@
 
         <record id="dll_del_doc_supporter" model="distribution.list.line">
             <field name="name">Undelivered First Membership Documents (Supporters)</field>
-            <field name="src_model_id" ref='ficep_communication.model_virtual_partner_membership'/>
+            <field name="src_model_id" ref='mozaik_communication.model_virtual_partner_membership'/>
             <field name="company_id" ref='base.main_company'/>
             <field name="domain" eval="[('del_doc_date','=', False),
                                         ('membership_state_id.code','=', 'supporter')]"/>

@@ -30,7 +30,7 @@ import psycopg2
 import logging
 from anybox.testing.openerp import SharedSetupTransactionCase
 
-from openerp.addons.ficep_base import testtool
+from openerp.addons.mozaik_base import testtool
 
 _logger = logging.getLogger(__name__)
 
@@ -38,12 +38,12 @@ _logger = logging.getLogger(__name__)
 class test_mandate(SharedSetupTransactionCase):
 
     _data_files = (
-        '../../ficep_base/tests/data/res_partner_data.xml',
-        '../../ficep_structure/tests/data/structure_data.xml',
+        '../../mozaik_base/tests/data/res_partner_data.xml',
+        '../../mozaik_structure/tests/data/structure_data.xml',
         'data/mandate_data.xml',
     )
 
-    _module_ns = 'ficep_mandate'
+    _module_ns = 'mozaik_mandate'
 
     def setUp(self):
         super(test_mandate, self).setUp()

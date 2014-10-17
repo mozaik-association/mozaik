@@ -5,7 +5,7 @@
         <!-- Delete here all unwanted records as incoherent views that cannot be updated anymore -->
 
         <!--
-        <delete id="ficep_thesaurus.thesaurus_term_tree_view" model="ir.ui.view"/>
+        <delete id="mozaik_thesaurus.thesaurus_term_tree_view" model="ir.ui.view"/>
         -->
 
     </data>

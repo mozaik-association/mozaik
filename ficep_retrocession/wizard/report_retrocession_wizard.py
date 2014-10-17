@@ -404,7 +404,7 @@ class report_retrocession_wizard(orm.TransientModel):
                 'amounts': retro_amounts,
                 }
         return self.pool['report'].get_action(cr, uid, [],
-                        'ficep_retrocession.report_payment_certificate',
+                        'mozaik_retrocession.report_payment_certificate',
                          data=data,
                          context=context)
 

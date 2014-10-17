@@ -33,9 +33,9 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_account',
-        'ficep_person_coordinate',
-        'ficep_structure',
+        'mozaik_account',
+        'mozaik_person_coordinate',
+        'mozaik_structure',
     ],
     'description': """
 MOZAIK Membership

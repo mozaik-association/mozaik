@@ -57,7 +57,7 @@
                            filename="export_filename" />
                     </group>
 
-                    <div name="dev" groups="ficep_base.res_groups_developper">
+                    <div name="dev" groups="mozaik_base.res_groups_developper">
                         <h3>More Info</h3>
                         <group name="moreinfo">
                             <field name="model"/>
@@ -87,7 +87,7 @@
             <field name="res_model">report.retrocession.wizard</field>
             <field name="target">new</field>
             <field name="view_id" ref="retrocession_retrocession_wizard_view" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_financial_manager')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_financial_manager')])]" />
             <field name="context">{'document': 'fractionations'}</field>
         </record>
 
@@ -99,7 +99,7 @@
             <field name="res_model">report.retrocession.wizard</field>
             <field name="target">new</field>
             <field name="view_id" ref="retrocession_retrocession_wizard_view" />
-            <field name="groups_id" eval="[(6, 0, [ref('ficep_base.mozaik_res_groups_financial_user')])]" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_financial_user')])]" />
             <field name="context">{'document': 'certificates'}</field>
         </record>
 

@@ -52,7 +52,7 @@
         # to speed test without testing standard addons from a pre-loaded squeleton database:
         'analytic',
         'edi',
-        # load manually in this database ficep_base and the following modules:
+        # load manually in this database mozaik_base and the following modules:
         #'account_accountant',
         #'account_cancel',
     ],

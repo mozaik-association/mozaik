@@ -33,7 +33,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_base',
+        'mozaik_base',
     ],
     'description': """
 MOZAIK Duplicate

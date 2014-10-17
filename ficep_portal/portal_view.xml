@@ -5,7 +5,7 @@
         <!-- BACKEND -->
         <template id="assets_backend" name="partner_user" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
-                <script type="text/javascript" src="/ficep_portal/static/src/js/portal.js"></script>
+                <script type="text/javascript" src="/mozaik_portal/static/src/js/portal.js"></script>
             </xpath>
         </template>
 

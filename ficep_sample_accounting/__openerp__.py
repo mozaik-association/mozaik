@@ -33,8 +33,8 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'ficep_sample_customization',
-        'l10n_ficep',
+        'mozaik_sample_customization',
+        'l10n_mozaik',
     ],
     'description': """
 MOZAIK Sample Accounting Localization
@@ -43,7 +43,7 @@ MOZAIK Sample Accounting Localization
     'images': [
     ],
     'data': [
-         '../ficep_account/tests/data/account_installer.xml',
+         '../mozaik_account/tests/data/account_installer.xml',
          'data/retrocession_validation.xml'
     ],
     'js': [

@@ -31,7 +31,7 @@
             <field name="res_model">force.int.instance</field>
             <field name="target">new</field>
             <field name="view_id" ref="force_int_instance_form"/>
-            <field name="groups_id" eval="[(4, ref('ficep_base.mozaik_res_groups_officer'))]" />
+            <field name="groups_id" eval="[(4, ref('mozaik_base.mozaik_res_groups_officer'))]" />
         </record>
 
         <record id="create_user_from_partner_value" model="ir.values">

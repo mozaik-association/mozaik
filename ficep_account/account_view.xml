@@ -5,12 +5,12 @@
         <!-- Only for accountants -->
 
         <record id="account.partner_view_buttons" model="ir.ui.view">
-            <field name="groups_id" eval="[(4, ref('ficep_base.mozaik_res_groups_financial_manager')),
+            <field name="groups_id" eval="[(4, ref('mozaik_base.mozaik_res_groups_financial_manager')),
                                           ]"/>
         </record>
 
         <record id="partner_view_buttons" model="ir.ui.view">
-            <field name="name">partner.view.buttons (ficep_account)</field>
+            <field name="name">partner.view.buttons (mozaik_account)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="account.partner_view_buttons"/>
             <field name="arch" type="xml">
@@ -19,12 +19,12 @@
         </record>
 
         <record id="account.action_report_print_overdue" model="ir.actions.report.xml">
-            <field name="groups_id" eval="[(4, ref('ficep_base.mozaik_res_groups_financial_manager')),
+            <field name="groups_id" eval="[(4, ref('mozaik_base.mozaik_res_groups_financial_manager')),
                                           ]"/>
         </record>
 
         <record id="account.action_account_partner_ledger" model="ir.actions.act_window">
-            <field name="groups_id" eval="[(4, ref('ficep_base.mozaik_res_groups_financial_manager')),
+            <field name="groups_id" eval="[(4, ref('mozaik_base.mozaik_res_groups_financial_manager')),
                                           ]"/>
         </record>
 
@@ -41,7 +41,7 @@
         </record>
         
         <record id="view_bank_statement_form" model="ir.ui.view">
-            <field name="name">account.bank.statement.form (ficep_account)</field>
+            <field name="name">account.bank.statement.form (mozaik_account)</field>
             <field name="model">account.bank.statement</field>
             <field name="inherit_id" ref="account.view_bank_statement_form"/>
             <field name="arch" type="xml">
@@ -53,7 +53,7 @@
       
 
         <record id="view_account_chart_template_form" model="ir.ui.view">
-            <field name="name">account.chart.template.form (ficep_retrocession)</field>
+            <field name="name">account.chart.template.form (mozaik_retrocession)</field>
             <field name="model">account.chart.template</field>
             <field name="inherit_id" ref="account.view_account_chart_template_form" />
             <field name="arch" type="xml">

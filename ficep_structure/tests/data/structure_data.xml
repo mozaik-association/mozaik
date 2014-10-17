@@ -221,7 +221,7 @@
 
         <record id="int_assembly_category_06" model="int.assembly.category">
             <field name="name">Secrétariat fédéral</field>
-            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
             <field name="is_secretariat" eval="1"/>
         </record>
 
@@ -242,12 +242,12 @@
 
         <record id="int_assembly_category_10" model="int.assembly.category">
             <field name="name">Assemblée générale</field>
-            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
         </record>
 
         <record id="int_assembly_category_11" model="int.assembly.category">
             <field name="name">Conseil de Fédération</field>
-            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
         </record>
 
         <record id="int_assembly_category_12" model="int.assembly.category">
@@ -257,17 +257,17 @@
 
         <record id="int_assembly_category_13" model="int.assembly.category">
             <field name="name">Comité d'Arbitrage (CA)</field>
-            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
         </record>
 
         <record id="int_assembly_category_15" model="int.assembly.category">
             <field name="name">Conseil de la parité</field>
-            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
         </record>
 
         <record id="int_assembly_category_16" model="int.assembly.category">
             <field name="name">Bureau du Conseil de fédération (BCF)</field>
-            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
         </record>
 
         <record id="int_assembly_category_17" model="int.assembly.category">
@@ -277,17 +277,17 @@
 
         <record id="int_assembly_category_18" model="int.assembly.category">
             <field name="name">Conseil de gestion</field>
-            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
         </record>
 
         <record id="int_assembly_category_19" model="int.assembly.category">
             <field name="name">Assemblée du Personnel</field>
-            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
         </record>
 
         <record id="int_assembly_category_20" model="int.assembly.category">
             <field name="name">Comité de Concertation</field>
-            <field name="power_level_id" ref="ficep_structure.int_power_level_01"/>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
         </record>
 
         <!-- Create external Assembly Category -->
@@ -349,7 +349,7 @@
         <record id="int_instance_02" model="int.instance">
             <field name="name">Parlement wallon (PW)</field>
             <field name="power_level_id" ref="int_power_level_02"/>
-            <field name="parent_id" ref="ficep_structure.int_instance_01"/>
+            <field name="parent_id" ref="mozaik_structure.int_instance_01"/>
         </record>
 
         <record id="int_instance_03" model="int.instance">
@@ -400,7 +400,7 @@
         <record id="int_instance_regional_bxl" model="int.instance">
             <field name="name">Bruxelles</field>
             <field name="power_level_id" ref="int_power_level_04"/>
-            <field name="parent_id" ref="ficep_structure.int_instance_01"/>
+            <field name="parent_id" ref="mozaik_structure.int_instance_01"/>
         </record>
 
         <record id="int_instance_local_bxl" model="int.instance">
@@ -414,21 +414,21 @@
         <record id="sta_instance_01" model="sta.instance">
             <field name="name">Etat féderal</field>
             <field name="power_level_id" ref="sta_power_level_01"/>
-            <field name="int_instance_id" ref="ficep_structure.int_instance_01"/>
+            <field name="int_instance_id" ref="mozaik_structure.int_instance_01"/>
         </record>
 
         <record id="sta_instance_02" model="sta.instance">
             <field name="name">Communauté française</field>
             <field name="power_level_id" ref="sta_power_level_03"/>
             <field name="parent_id" ref="sta_instance_01"/>
-            <field name="int_instance_id" ref="ficep_structure.int_instance_01"/>
+            <field name="int_instance_id" ref="mozaik_structure.int_instance_01"/>
         </record>
 
         <record id="sta_instance_03" model="sta.instance">
             <field name="name">Région wallonne</field>
             <field name="power_level_id" ref="sta_power_level_04"/>
              <field name="parent_id" ref="sta_instance_01"/>
-            <field name="int_instance_id" ref="ficep_structure.int_instance_01"/>
+            <field name="int_instance_id" ref="mozaik_structure.int_instance_01"/>
         </record>
 
         <record id="sta_instance_04" model="sta.instance">
@@ -464,7 +464,7 @@
             <field name="name">Vlaams Brabant</field>
             <field name="power_level_id" ref="sta_power_level_09"/>
             <field name="parent_id" ref="sta_instance_01"/>
-            <field name="int_instance_id" ref="ficep_structure.int_instance_01"/>
+            <field name="int_instance_id" ref="mozaik_structure.int_instance_01"/>
         </record>
 
         <record id="sta_instance_09" model="sta.instance">
@@ -526,7 +526,7 @@
         <!-- Create External Assemblies -->
 
         <record id="ext_assembly_01" model="ext.assembly">
-            <field name="instance_id" ref="ficep_structure.int_instance_01"/>
+            <field name="instance_id" ref="mozaik_structure.int_instance_01"/>
             <field name="ref_partner_id" ref="res_partner_rtbf"/>
             <field name="assembly_category_id" ref="ext_assembly_category_01"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
@@ -534,7 +534,7 @@
         </record>
         
          <record id="ext_assembly_02" model="ext.assembly">
-            <field name="instance_id" ref="ficep_structure.int_instance_01"/>
+            <field name="instance_id" ref="mozaik_structure.int_instance_01"/>
             <field name="ref_partner_id" ref="res_partner_rtbf"/>
             <field name="assembly_category_id" ref="ext_assembly_category_02"/>
             <field name="designation_int_assembly_id" ref="int_assembly_01"/>
