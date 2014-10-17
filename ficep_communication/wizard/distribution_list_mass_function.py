@@ -127,9 +127,9 @@ class distribution_list_mass_function(orm.TransientModel):
                 domains = []
 
                 if wizard.include_unauthorized:
-                    domains.append('|',
-                                   ('email_unauthorized', '=', True),
-                                   ('email_unauthorized', '=', False))
+                    domains.append('|')
+                    domains.append(('email_unauthorized', '=', True))
+                    domains.append(('email_unauthorized', '=', False))
                 else:
                     domains.append(('email_unauthorized', '=', False))
 
@@ -205,8 +205,9 @@ class distribution_list_mass_function(orm.TransientModel):
                 domains = []
 
                 if wizard.include_unauthorized:
-                    domains.append('|', ('postal_unauthorized', '=', True),
-                                   ('postal_unauthorized', '=', False))
+                    domains.append('|')
+                    domains.append(('postal_unauthorized', '=', True))
+                    domains.append(('postal_unauthorized', '=', False))
                 else:
                     domains.append(('postal_unauthorized', '=', False))
 
