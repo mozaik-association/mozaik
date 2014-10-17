@@ -281,25 +281,17 @@
                         filter_domain="[('birth_date','&lt;',self)]" />
                     <field name="partner_id" domain="[('is_assembly','=',False)]" />
                     <field name="int_instance_id" />
-                    <separator />
                     <field name="membership_state_id" />
-                    <separator />
-                    <filter string="Waiting Delivery Welcome Document"
-                        name="del_doc_date"
-                        domain="[('del_doc_date','=', False),
-                                     ('membership_state_id.code','!=', 'without_membership')]" />
-                    <separator />
                     <field name="interests_m2m_ids" string="Interests"
                         widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
                         widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
-                    <separator />
                     <field name="email_category_id" string="Email Category"
                         widget="many2one" />
                     <field name="postal_category_id" string="Postal Category"
                         widget="many2one" />
-                    <separator />
+
                     <filter string="Main Coordinate" name="main_coo"
                         domain="['&amp;', ('main_postal','=',1), ('main_email','=',1)]" />
                     <filter string="Main Postal" name="main_postal"
@@ -937,20 +929,18 @@
                         widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
-                    <field name="email_category_id" string="Email Category"
-                        widget="many2one" />
-                    <field name="postal_category_id" string="Postal Category"
-                        widget="many2one" />
+                    <field name="email_category_id" string="Email Category" />
+                    <field name="postal_category_id" string="Postal Category" />
 
                     <filter string="Undelivered Welcome Documents"
                         name="del_doc_date"
                         domain="[('del_doc_date','=', False),
-                                     ('membership_state_id.code','=', 'member_candidate')]" />
+                                 ('membership_state_id.code','in', ['member_candidate','supporter'])]" />
                     <separator/>
                     <filter string="Undelivered Member Cards"
                         name="del_mem_card_date"
-                        domain="['&amp;',('del_mem_card_date','=', False),
-                                     ('membership_state_id.code','=', 'member')]" />
+                        domain="[('del_mem_card_date','=', False),
+                                 ('membership_state_id.code','=', 'member')]" />
                     <separator/>
                     <filter string="Awaiting payment" name="awaiting_payment"
                         domain="[('reference','!=', False)]"/>
@@ -1052,7 +1042,6 @@
             <field name="search_view_id" ref="virtual_partner_membership_search_view" />
             <field name="view_id" ref="virtual_partner_membership_tree_view" />
         </record>
-        
 
         <!-- Virtual Partner Event -->
 
@@ -1173,6 +1162,7 @@
             <field name="search_view_id" ref="virtual_partner_event_search_view" />
             <field name="view_id" ref="virtual_partner_event_tree_view" />
         </record>
+
         <!-- Virtual Model Menus -->
 
         <!-- Virtual Partner Instance -->
@@ -1182,10 +1172,6 @@
         <!-- Virtual Partner Membership -->
         <menuitem id="virtual_partner_membership_menu" sequence="12"
             parent="virtual_models_submenu" action="virtual_partner_membership_action" />
-
-        <!-- Virtual Partner Event -->
-        <menuitem id="virtual_partner_event_menu" sequence="13"
-            parent="virtual_models_submenu" action="virtual_partner_event_action" />
 
         <!-- Virtual Partner Relation -->
         <menuitem id="virtual_partner_relation_menu" sequence="14"
@@ -1207,6 +1193,10 @@
         <menuitem id="virtual_partner_retrocession_menu" sequence="34"
             parent="virtual_models_submenu" action="virtual_partner_retrocession_action"
             groups="ficep_base.mozaik_res_groups_configurator,ficep_base.mozaik_res_groups_financial_user"/>
+
+        <!-- Virtual Partner Event -->
+        <menuitem id="virtual_partner_event_menu" sequence="36"
+            parent="virtual_models_submenu" action="virtual_partner_event_action" />
 
         <!-- Virtual Assembly Instance -->
         <menuitem id="virtual_assembly_instance_menu" sequence="40"

@@ -1288,13 +1288,9 @@ class virtual_partner_membership(orm.Model):
             e.vip as email_vip,
             e.coordinate_category_id as email_category_id,
             e.unauthorized as email_unauthorized,
-            ms.id as membership_state_id
+            p.membership_state_id as membership_state_id
         FROM
             res_partner p
-
-        JOIN
-            membership_state ms
-        ON ms.id = p.membership_state_id
 
         LEFT OUTER JOIN
             postal_coordinate pc
@@ -1406,10 +1402,6 @@ class virtual_partner_event(orm.Model):
             er.event_id as event_id
         FROM
             res_partner p
-
-        JOIN
-            membership_state ms
-        ON ms.id = p.membership_state_id
 
         JOIN
             event_registration er

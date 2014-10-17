@@ -6,14 +6,12 @@
             <field name="value">/tmp/</field>
         </record>
     </data>
-    
-    <data noupdate="1">
+
+    <data noupdate="0">
         <record id="help_online.help_online_page_prefix" model="ir.config_parameter">
             <field name="value">mozaik-help</field>
         </record>
-    </data>
-    
-    <data noupdate="1">
+
         <record id="help_online.help_online_template_prefix" model="ir.config_parameter">
              <field name="value">mozaik-help-template</field>
         </record>

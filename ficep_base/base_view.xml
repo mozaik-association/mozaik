@@ -69,8 +69,29 @@
             <field name="sequence">5</field>
         </record>
 
+        <record id="help_online.menu_help_main" model="ir.ui.menu">
+            <field name="name">Help</field>
+            <field name="sequence">390</field>
+            <field name="groups_id" eval="[(5, 0, 0)]" />
+        </record>
+
+        <record id="help_online.menu_help" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5, 0, 0)]" />
+        </record>
+
+        <record id="help_toc_action" model="ir.actions.act_url">
+            <field name="name">Table of Contents</field>
+            <field name="url">/page/mozaik-help-toc</field>
+            <field name="target">self</field>
+        </record>
+
+        <menuitem id="help_toc_menu" action="help_toc_action"
+                  name="Table of Contents"
+                  sequence="50" parent="help_online.menu_help"
+                  groups="help_online.help_online_group_reader" />
+
         <record id="connector.menu_connector_root" model="ir.ui.menu">
-            <field name="sequence">450</field>
+            <field name="sequence">350</field>
         </record>
 
         <!-- Hide standard menus -->
