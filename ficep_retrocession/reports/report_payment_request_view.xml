@@ -32,15 +32,19 @@
                     </tr>
                </thead>
                <tbody class="rule_tbody">
-                    <t t-call="ficep_retrocession.retrocession_rule_table_rows">
-                        <t t-set="rule_ids" t-value="o.rule_ids"/>
-                        <t t-set="title" t-value="'Imputable Rules'"/>
+                    <t t-if="len(o.rule_ids) > 0">
+	                    <t t-call="ficep_retrocession.retrocession_rule_table_rows">
+	                        <t t-set="rule_ids" t-value="o.rule_ids"/>
+	                        <t t-set="title" t-value="'Imputable Rules'"/>
+	                    </t>
                     </t>
                     <br/>
-                    <t t-call="ficep_retrocession.retrocession_rule_table_rows">
-                        <t t-set="rule_ids" t-value="o.deductible_rule_ids"/>
-                        <t t-set="title" t-value="'Deductible Rules'"/>
-                    </t> 
+                    <t t-if="len(o.deductible_rule_ids) > 0">
+	                    <t t-call="ficep_retrocession.retrocession_rule_table_rows">
+	                        <t t-set="rule_ids" t-value="o.deductible_rule_ids"/>
+	                        <t t-set="title" t-value="'Deductible Rules'"/>
+	                    </t> 
+                    </t>
                 </tbody>
             </table>       
         </template>
@@ -48,9 +52,19 @@
         <template id="ficep_retrocession.report_payment_request_document">
             <t t-call="report.external_layout">
                 <div class="page">
+                   <t t-if='o.sta_mandate_id'>
+                       <t t-set="mandate" t-value="o.sta_mandate_id"/>
+                       <t t-set="assembly" t-value="o.sta_mandate_id.sta_assembly_id"/>
+                   </t>
+                   <t t-if='o.ext_mandate_id'>
+                       <t t-set="mandate" t-value="o.ext_mandate_id"/>
+                       <t t-set="assembly" t-value="o.ext_mandate_id.ext_assembly_id"/>
+                   </t>
+                   
                    <div class="row">
                         <div class="col-xs-5 col-xs-offset-7">
-                             <span t-field="o.postal_coordinate_id.partner_id.name"/>
+                             <span t-field="mandate.partner_id"
+                                   t-field-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": true}'/>
                         </div>
                    </div>
                    <div class="row">
@@ -61,16 +75,7 @@
 		                   </div>
 		               </h3>
 	               </div>
-	               
-	               <t t-if='o.sta_mandate_id'>
-	                   <t t-set="mandate" t-value="o.sta_mandate_id"/>
-	                   <t t-set="assembly" t-value="o.sta_mandate_id.sta_assembly_id"/>
-	               </t>
-	               <t t-if='o.ext_mandate_id'>
-	                   <t t-set="mandate" t-value="o.ext_mandate_id"/>
-	                   <t t-set="assembly" t-value="o.ext_mandate_id.ext_assembly_id"/>
-	               </t>
-	               
+	               	               
 	               <div class="row mt32 mb32">
 	                    <div class="col-xs-3">
                            <span><strong>Period:</strong></span>
