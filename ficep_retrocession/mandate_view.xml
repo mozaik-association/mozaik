@@ -103,7 +103,8 @@
                 <xpath expr="//button[@name='action_finish']" position="after">
                     <button string="Send mail" name="send_email_for_reference"
                             confirm="Send email with structured reference now: proceed anyway ?"
-                            type="object" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>
+                            type="object" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"
+                            help="Send to the representative the structured reference required for payments"/>
                 </xpath>
                 <xpath expr="//field[@name='alert_date']" position="after">
                     <field name="email_date" readonly="1" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>

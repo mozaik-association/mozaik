@@ -590,7 +590,8 @@
                             <button name="action_invalidate" string="Cancel" type="object"
                                     states="validated" confirm="Invalidate Retrocession, proceed anyway ?" />
                             <button name="action_request_for_payment_send" string="Send By Email" type="object"
-                                    states="validated" confirm="Send request for payment by email, proceed anyway ?"/>
+                                    states="validated" confirm="Send request for payment by email, proceed anyway ?"
+                                    help="Send to the representative the request for payment."/>
                             <field name="state" widget="statusbar" statusbar_visible="draft,validated,done"/>
                         </div>
                     </header>
