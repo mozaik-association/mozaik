@@ -133,8 +133,9 @@ class report_retrocession_wizard(orm.TransientModel):
                                              retro_pool.search_read(cr, uid, [
                                              ('year', '=', year),
                                              (foreign_key, 'in', monthly_ids),
-                                             ('state', '=', 'done'),
-                                             ('active', '=', False),
+                                             ('state', 'in',
+                                              ['validated', 'done']),
+                                             ('active', '<=', True),
                                              ('amount_paid', '>', 0)],
                                              fields=[foreign_key],
                                              context=context)]
@@ -143,8 +144,9 @@ class report_retrocession_wizard(orm.TransientModel):
                                              retro_pool.search_read(cr, uid, [
                                              ('year', '=', year),
                                              (foreign_key, 'in', yearly_ids),
-                                             ('state', '=', 'done'),
-                                             ('active', '=', False),
+                                             ('state', 'in',
+                                              ['validated', 'done']),
+                                             ('active', '<=', True),
                                              ('amount_paid', '>', 0)],
                                              fields=[foreign_key],
                                              context=context)]
@@ -203,8 +205,8 @@ class report_retrocession_wizard(orm.TransientModel):
                                      uid,
                                      [(foreign_key, '=', mandate_id),
                                       ('year', '=', year),
-                                      ('state', '=', 'done'),
-                                      ('active', '=', False)],
+                                      ('state', 'in', ['validated', 'done']),
+                                      ('active', '<=', True)],
                                      ['amount_due', 'amount_paid'],
                                      context=context)
         amount_due = sum([record['amount_due'] for record in data])
