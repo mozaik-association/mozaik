@@ -20064,7 +20064,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
       <xpath expr="//div[@id='snippet_structure']" position="inside">
         <div>
           <div class="oe_snippet_thumbnail">
-            <img class="oe_snippet_thumbnail_img" src="/ficep_help/static/src/img/snippet/snippet_thumbs.png"/>
+            <img class="oe_snippet_thumbnail_img" src="/help_online/static/src/img/snippet/snippet_thumbs.png"/>
             <span class="oe_snippet_thumbnail_title">template</span>
           </div>
           <section class="oe_snippet_body mt_simple_snippet">
@@ -20384,7 +20384,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
       <xpath expr="//div[@id='snippet_structure']" position="inside">
         <div>
           <div class="oe_snippet_thumbnail">
-            <img class="oe_snippet_thumbnail_img" src="/ficep_help/static/src/img/snippet/snippet_thumbs.png"/>
+            <img class="oe_snippet_thumbnail_img" src="/help_online/static/src/img/snippet/snippet_thumbs.png"/>
             <span class="oe_snippet_thumbnail_title">template-feature</span>
           </div>
           <section class="oe_snippet_body mt_simple_snippet">

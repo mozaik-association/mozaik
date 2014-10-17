@@ -44,11 +44,9 @@ MOZAIK Online Help
     'images': [
     ],
     'data': [
-        'data/help_auto_backup.xml',  # must always be the first
+        'data/help_auto_backup.xml',          # must always be the first
+        'data/ir_config_parameter_data.xml',  # must always be before help_data
         'data/help_data.xml',
-        'help_view.xml',
-        'wizard/export_help_wizard_view.xml',
-        'ir_ui_view_view.xml',
     ],
     'qweb': [
     ],
