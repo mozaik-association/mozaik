@@ -127,9 +127,9 @@ class distribution_list_mass_function(orm.TransientModel):
                 domains = []
 
                 if wizard.include_unauthorized:
-                    domains.append('|',
-                                   ('email_unauthorized', '=', True),
-                                   ('email_unauthorized', '=', False))
+                    domains.append('|')
+                    domains.append(('email_unauthorized', '=', True))
+                    domains.append(('email_unauthorized', '=', False))
                 else:
                     domains.append(('email_unauthorized', '=', False))
 
@@ -192,7 +192,9 @@ class distribution_list_mass_function(orm.TransientModel):
                     context['email_coordinate_path'] = 'email'
                     if alternative_ids and wizard.extract_csv:
                         self.export_csv(cr, uid, 'postal.coordinate', alternative_ids, wizard.groupby_coresidency, context=context)
-
+                    if not active_ids:
+                        raise orm.except_orm(
+                            _('Error'), _('There are no recipients'))
                     self.pool['mail.compose.message'].send_mail(cr, uid, [mail_composer_id], context=context)
 
                 elif wizard.e_mass_function == 'vcard':
@@ -205,8 +207,9 @@ class distribution_list_mass_function(orm.TransientModel):
                 domains = []
 
                 if wizard.include_unauthorized:
-                    domains.append('|', ('postal_unauthorized', '=', True),
-                                   ('postal_unauthorized', '=', False))
+                    domains.append('|')
+                    domains.append(('postal_unauthorized', '=', True))
+                    domains.append(('postal_unauthorized', '=', False))
                 else:
                     domains.append(('postal_unauthorized', '=', False))
 
