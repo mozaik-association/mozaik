@@ -305,18 +305,30 @@ class retrocession(orm.Model):
         provision = 0.0
         amount_paid = 0.0
         amount_reconcilied = 0.0
-        bsl_obj = self.pool.get('account.bank.statement.line')
-        domain = [('name', '=', retro.mandate_ref.reference),
-                  ('partner_id', '=', retro.partner_id.id),
-                  ('journal_entry_id', '=', False)]
-        bsl_data = bsl_obj.search_read(cr,
-                                       uid,
-                                       domain,
-                                       fields=['amount'],
-                                       context=context)
-        provision = sum([float(provision['amount']) \
-                            for provision in bsl_data])\
-                            if not retro.month else 0.0
+
+        if not retro.month:
+            bsl_obj = self.pool.get('account.bank.statement.line')
+            aml_obj = self.pool.get('account.move.line')
+            domain = [('name', '=', retro.mandate_ref.reference),
+                      ('partner_id', '=', retro.partner_id.id)]
+            bsl_data = bsl_obj.search_read(cr,
+                                           uid,
+                                           domain,
+                                           fields=['journal_entry_id',
+                                                   'amount'],
+                                           context=context)
+            for provision_data in bsl_data:
+                b_sum = True
+                if provision_data['journal_entry_id']:
+                    domain = [('move_id', '=',
+                               provision_data['journal_entry_id'][0]),
+                              '|', ('reconcile_id', '!=', False),
+                              ('reconcile_partial_id', '!=', False)]
+                    if len(aml_obj.search(cr, uid, domain, context=None)) > 0:
+                        b_sum = False
+
+                if b_sum:
+                    provision += float(provision_data['amount'])
 
         query = """ SELECT distinct aml.reconcile_id, aml.reconcile_partial_id
                       FROM account_move_line aml
