@@ -34,10 +34,10 @@ class account_chart_template(orm.Model):
     _columns = {
         'property_retrocession_account': fields.many2one(
                                             'account.account.template',
-                                            'Retrocessions Account'),
+                                            'Retrocession Account'),
         'property_retrocession_cost_account': fields.many2one(
                                             'account.account.template',
-                                            'Retrocessions Cost Account'),
+                                            'Retrocession Cost Account'),
         'property_subscription_account': fields.many2one(
                                             'account.account.template',
                                             'Subscription Account'),

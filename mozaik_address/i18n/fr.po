@@ -1,0 +1,709 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mozaik_address
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-19 22:09+0000\n"
+"PO-Revision-Date: 2014-10-19 22:09+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_address
+#: view:address.local.street:mozaik_address.address_local_street_form_view
+msgid "1040, 4000,..."
+msgstr "1040, 4000,..."
+
+#. module: mozaik_address
+#: view:address.local.zip:mozaik_address.address_local_zip_form_view
+msgid "1050, 4000..."
+msgstr "1050, 4000..."
+
+#. module: mozaik_address
+#: field:address.address,active:0
+#: field:address.local.zip,active:0
+#: field:co.residency,active:0
+#: field:postal.coordinate,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: mozaik_address
+#: view:address.address:mozaik_address.address_address_search_view
+#: field:address.address,name:0
+#: field:co.residency,address_id:0
+#: model:ir.model,name:mozaik_address.model_address_address
+#: view:postal.coordinate:mozaik_address.postal_coordinate_search_view
+#: field:postal.coordinate,address_id:0
+#: field:res.partner,address:0
+#: field:res.partner,postal_coordinate_id:0
+msgid "Address"
+msgstr "Adresse"
+
+#. module: mozaik_address
+#: view:address.address:mozaik_address.address_address_tree_view
+#: view:address.local.zip:mozaik_address.address_local_zip_form_view
+#: model:ir.actions.act_window,name:mozaik_address.address_address_action
+#: model:ir.ui.menu,name:mozaik_address.address_address_menu
+msgid "Addresses"
+msgstr "Adresses"
+
+#. module: mozaik_address
+#: view:address.address:mozaik_address.address_address_form_view
+#: view:co.residency:mozaik_address.co_residency_form_view
+#: view:res.partner:mozaik_address.view_partner_2_form
+msgid "All Details"
+msgstr "Tous les détails"
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.allow_duplicate_action
+msgid "Allow Duplicates"
+msgstr "Autoiser les doublons"
+
+#. module: mozaik_address
+#: field:address.local.street,local_street_alternative:0
+msgid "Alternative Street"
+msgstr "Rue alternative"
+
+#. module: mozaik_address
+#: code:addons\mozaik_address\address_address.py:249
+#, python-format
+msgid "An Address without sequence number cannot be duplicated!"
+msgstr "Une adresse sans numéro de séquence ne peut être dupliquée !"
+
+#. module: mozaik_address
+#: view:address.address:mozaik_address.address_address_search_view
+msgid "Belgian streets manually entered"
+msgstr "Rues belges saisies manuellement"
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_bounce_editor
+msgid "Bounce Editor"
+msgstr "Editeur d'échec"
+
+#. module: mozaik_address
+#: field:address.address,box:0
+msgid "Box"
+msgstr "Boîte"
+
+#. module: mozaik_address
+#: view:streets.repository.loader:mozaik_address.streets_repository_loader_view
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.change_main_address_action
+msgid "Change Main Address"
+msgstr "Changer l'adresse principale"
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_change_main_address
+msgid "Change Main Address Wizard"
+msgstr "Assistant de changement d'adresse principale"
+
+#. module: mozaik_address
+#: field:address.address,address_local_zip_id:0
+#: field:address.address,city:0
+msgid "City"
+msgstr "Ville"
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.co_residency_action
+#: model:ir.ui.menu,name:mozaik_address.co_residency_menu
+msgid "Co-Residencies"
+msgstr "Co-Résidences"
+
+#. module: mozaik_address
+#: field:allow.duplicate.address.wizard,address_id:0
+#: field:allow.duplicate.address.wizard,co_residency_id:0
+#: view:co.residency:mozaik_address.co_residency_form_view
+#: view:co.residency:mozaik_address.co_residency_search_view
+#: view:co.residency:mozaik_address.co_residency_tree_view
+#: model:ir.model,name:mozaik_address.model_co_residency
+#: view:postal.coordinate:mozaik_address.postal_coordinate_search_view
+#: field:postal.coordinate,co_residency_id:0
+msgid "Co-Residency"
+msgstr "Co-Résidence"
+
+#. module: mozaik_address
+#: field:postal.coordinate,partner_id:0
+msgid "Contact"
+msgstr "Contact"
+
+#. module: mozaik_address
+#: field:postal.coordinate,coordinate_category_id:0
+msgid "Coordinate Category"
+msgstr "Catégorie de coordonnée"
+
+#. module: mozaik_address
+#: field:postal.coordinate,coordinate_type:0
+msgid "Coordinate Type"
+msgstr "Type de coordonnée"
+
+#. module: mozaik_address
+#: view:address.address:mozaik_address.address_address_form_view
+#: view:co.residency:mozaik_address.co_residency_form_view
+msgid "Coordinates"
+msgstr "coordonnées"
+
+#. module: mozaik_address
+#: view:address.address:mozaik_address.address_address_search_view
+#: field:address.address,country_id:0
+#: model:ir.model,name:mozaik_address.model_res_country
+msgid "Country"
+msgstr "Pays"
+
+#. module: mozaik_address
+#: field:address.address,country_code:0
+msgid "Country Code"
+msgstr "Code du pays"
+
+#. module: mozaik_address
+#: field:address.address,create_uid:0
+#: field:address.local.street,create_uid:0
+#: field:address.local.zip,create_uid:0
+#: field:allow.duplicate.address.wizard,create_uid:0
+#: field:change.main.address,create_uid:0
+#: field:co.residency,create_uid:0
+#: field:postal.coordinate,create_uid:0
+#: field:streets.repository.loader,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: mozaik_address
+#: field:address.local.street,create_date:0
+#: field:allow.duplicate.address.wizard,create_date:0
+#: field:change.main.address,create_date:0
+#: field:streets.repository.loader,create_date:0
+msgid "Created on"
+msgstr "Date de création"
+
+#. module: mozaik_address
+#: field:address.address,create_date:0
+#: field:address.local.zip,create_date:0
+#: field:co.residency,create_date:0
+#: field:postal.coordinate,create_date:0
+msgid "Creation Date"
+msgstr "Date de création"
+
+#. module: mozaik_address
+#: help:address.address,message_last_post:0
+#: help:address.local.zip,message_last_post:0
+#: help:co.residency,message_last_post:0
+#: help:postal.coordinate,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur l'enregistrement."
+
+#. module: mozaik_address
+#: selection:bounce.editor,reason:0
+msgid "Deceased"
+msgstr "Décédé"
+
+#. module: mozaik_address
+#: field:address.local.street,disabled:0
+msgid "Disabled"
+msgstr "Obsolète"
+
+#. module: mozaik_address
+#: view:co.residency:mozaik_address.co_residency_search_view
+msgid "Empty Co-Residencies"
+msgstr "Co-Résidences vides"
+
+#. module: mozaik_address
+#: code:addons\mozaik_address\address_address.py:249
+#: code:addons\mozaik_address\wizard\streets_repository_loader.py:65
+#, python-format
+msgid "Error"
+msgstr "Erreur"
+
+#. module: mozaik_address
+#: field:address.address,expire_date:0
+#: field:address.local.zip,expire_date:0
+#: field:co.residency,expire_date:0
+#: field:postal.coordinate,expire_date:0
+msgid "Expiration Date"
+msgstr "Date d'expiration"
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.export_csv_postal_action
+msgid "Export CSV"
+msgstr ""
+
+#. module: mozaik_address
+#: model:mail.message.subtype,name:mozaik_address.address_failure_notification
+msgid "Failure Notification"
+msgstr "Notification d'échec"
+
+#. module: mozaik_address
+#: field:postal.coordinate,bounce_counter:0
+msgid "Failures Counter"
+msgstr "Compteur d'échecs"
+
+#. module: mozaik_address
+#: field:streets.repository.loader,ref_streets:0
+msgid "File to Load"
+msgstr "Fichier à charger"
+
+#. module: mozaik_address
+#: field:address.address,message_follower_ids:0
+#: field:address.local.zip,message_follower_ids:0
+#: field:co.residency,message_follower_ids:0
+#: field:postal.coordinate,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonné(e)"
+
+#. module: mozaik_address
+#: view:address.address:mozaik_address.address_address_search_view
+#: view:address.local.street:mozaik_address.address_local_street_search_view
+#: view:address.local.zip:mozaik_address.address_local_zip_search_view
+msgid "Group By..."
+msgstr "Grouper par..."
+
+#. module: mozaik_address
+#: help:address.address,message_summary:0
+#: help:address.local.zip,message_summary:0
+#: help:co.residency,message_summary:0
+#: help:postal.coordinate,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est au format HTML pour permettre son utilisation dans la vue kanban."
+
+#. module: mozaik_address
+#: field:address.address,id:0
+#: field:address.local.street,id:0
+#: field:address.local.zip,id:0
+#: field:allow.duplicate.address.wizard,id:0
+#: field:change.main.address,id:0
+#: field:co.residency,id:0
+#: field:postal.coordinate,id:0
+#: field:report.mozaik_address.report_postal_coordinate_label,id:0
+#: field:streets.repository.loader,id:0
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_address
+#: field:address.local.street,identifier:0
+msgid "Identifier"
+msgstr "Identifiant"
+
+#. module: mozaik_address
+#: help:address.address,message_unread:0
+#: help:address.local.zip,message_unread:0
+#: help:co.residency,message_unread:0
+#: help:postal.coordinate,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages requièrent votre attention."
+
+#. module: mozaik_address
+#: selection:bounce.editor,reason:0
+msgid "Improper box number"
+msgstr "Numéro de boîte non conforme"
+
+#. module: mozaik_address
+#: selection:bounce.editor,reason:0
+msgid "Incomplete/Invalid address"
+msgstr "Adresse incomplète/invalide"
+
+#. module: mozaik_address
+#: code:addons\mozaik_address\wizard\streets_repository_loader.py:65
+#, python-format
+msgid "Invalid File Format!"
+msgstr "Format de fichier invalide !"
+
+#. module: mozaik_address
+#: field:change.main.address,invalidate_previous_coordinate:0
+msgid "Invalidate Previous Main Coordinate"
+msgstr "Invalider l'adresse principale précédente"
+
+#. module: mozaik_address
+#: field:postal.coordinate,is_duplicate_allowed:0
+msgid "Is Duplicate Allowed"
+msgstr "Doublon autorisé"
+
+#. module: mozaik_address
+#: field:postal.coordinate,is_duplicate_detected:0
+msgid "Is Duplicate Detected"
+msgstr "Doublon détecté"
+
+#. module: mozaik_address
+#: field:postal.coordinate,is_main:0
+msgid "Is Main"
+msgstr "Principale"
+
+#. module: mozaik_address
+#: field:address.address,message_is_follower:0
+#: field:address.local.zip,message_is_follower:0
+#: field:co.residency,message_is_follower:0
+#: field:postal.coordinate,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est abonné"
+
+#. module: mozaik_address
+#: view:address.local.zip:mozaik_address.address_local_zip_form_view
+msgid "Ixelles, Liège..."
+msgstr "Ixelles, Liège..."
+
+#. module: mozaik_address
+#: view:co.residency:mozaik_address.co_residency_search_view
+msgid "Label Lines"
+msgstr "Lignes d'étiquette"
+
+#. module: mozaik_address
+#: field:postal.coordinate,bounce_date:0
+msgid "Last Failure Date"
+msgstr "Date de dernier échec"
+
+#. module: mozaik_address
+#: field:postal.coordinate,bounce_description:0
+msgid "Last Failure Description"
+msgstr "Description du dernier échec"
+
+#. module: mozaik_address
+#: field:address.address,message_last_post:0
+#: field:address.local.zip,message_last_post:0
+#: field:co.residency,message_last_post:0
+#: field:postal.coordinate,message_last_post:0
+msgid "Last Message Date"
+msgstr "Date du dernier message"
+
+#. module: mozaik_address
+#: field:address.local.street,write_date:0
+msgid "Last Update"
+msgstr "Dernière mise à jour"
+
+#. module: mozaik_address
+#: field:address.address,write_uid:0
+#: field:address.local.street,write_uid:0
+#: field:address.local.zip,write_uid:0
+#: field:allow.duplicate.address.wizard,write_uid:0
+#: field:change.main.address,write_uid:0
+#: field:co.residency,write_uid:0
+#: field:postal.coordinate,write_uid:0
+#: field:streets.repository.loader,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: mozaik_address
+#: field:address.address,write_date:0
+#: field:address.local.zip,write_date:0
+#: field:allow.duplicate.address.wizard,write_date:0
+#: field:change.main.address,write_date:0
+#: field:co.residency,write_date:0
+#: field:postal.coordinate,write_date:0
+#: field:streets.repository.loader,write_date:0
+msgid "Last Updated on"
+msgstr "Date de dernière mise à jour"
+
+#. module: mozaik_address
+#: field:co.residency,line:0
+msgid "Line 1"
+msgstr "Ligne 1"
+
+#. module: mozaik_address
+#: field:co.residency,line2:0
+msgid "Line 2"
+msgstr "Ligne 2"
+
+#. module: mozaik_address
+#: view:streets.repository.loader:mozaik_address.streets_repository_loader_view
+msgid "Load"
+msgstr "Charger"
+
+#. module: mozaik_address
+#: view:address.local.street:mozaik_address.address_local_street_form_view
+#: view:address.local.street:mozaik_address.address_local_street_search_view
+#: view:address.local.street:mozaik_address.address_local_street_tree_view
+#: model:ir.model,name:mozaik_address.model_address_local_street
+msgid "Local Street"
+msgstr "Rue locales"
+
+#. module: mozaik_address
+#: view:address.local.street:mozaik_address.address_local_street_form_view
+msgid "Local Street Alternative..."
+msgstr "Rue locale alternative..."
+
+#. module: mozaik_address
+#: view:address.local.street:mozaik_address.address_local_street_form_view
+msgid "Local Street..."
+msgstr "Rue locale..."
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.address_local_street_action
+#: model:ir.ui.menu,name:mozaik_address.address_local_street_menu
+#: model:ir.ui.menu,name:mozaik_address.address_local_street_submenu
+msgid "Local Streets"
+msgstr "Rues locales"
+
+#. module: mozaik_address
+#: view:address.local.zip:mozaik_address.address_local_zip_form_view
+#: view:address.local.zip:mozaik_address.address_local_zip_search_view
+#: view:address.local.zip:mozaik_address.address_local_zip_tree_view
+#: model:ir.model,name:mozaik_address.model_address_local_zip
+msgid "Local Zip Code"
+msgstr "Code postal local"
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.address_local_zip_action
+#: model:ir.ui.menu,name:mozaik_address.address_local_zip_menu
+msgid "Local Zip Codes"
+msgstr "Codes postaux locaux"
+
+#. module: mozaik_address
+#: field:address.address,message_ids:0
+#: field:address.local.zip,message_ids:0
+#: field:co.residency,message_ids:0
+#: field:postal.coordinate,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: mozaik_address
+#: help:address.address,message_ids:0
+#: help:address.local.zip,message_ids:0
+#: help:co.residency,message_ids:0
+#: help:postal.coordinate,message_ids:0
+msgid "Messages and communication history"
+msgstr "Historique des messages et communications"
+
+#. module: mozaik_address
+#: view:address.address:mozaik_address.address_address_form_view
+#: view:address.local.street:mozaik_address.address_local_street_form_view
+#: view:address.local.zip:mozaik_address.address_local_zip_form_view
+#: view:co.residency:mozaik_address.co_residency_form_view
+msgid "More Info"
+msgstr "Plus d'info"
+
+#. module: mozaik_address
+#: selection:bounce.editor,reason:0
+msgid "Moved"
+msgstr "A déménagé"
+
+#. module: mozaik_address
+#: selection:postal.coordinate,coordinate_type:0
+msgid "N/A"
+msgstr "N/D"
+
+#. module: mozaik_address
+#: field:change.main.address,address_id:0
+msgid "New Main Address"
+msgstr "Nouvelle adresse principale"
+
+#. module: mozaik_address
+#: selection:bounce.editor,reason:0
+msgid "No longer receives mail at the mentioned address"
+msgstr "Ne reçoit plus de courrier à l'adresse mentionnée"
+
+#. module: mozaik_address
+#: view:address.address:mozaik_address.address_address_search_view
+msgid "Non-standard Streets"
+msgstr "Rues non-standard"
+
+#. module: mozaik_address
+#: field:address.address,number:0
+msgid "Number"
+msgstr "Numéro"
+
+#. module: mozaik_address
+#: view:address.local.street:mozaik_address.address_local_street_search_view
+msgid "Obsolete Streets"
+msgstr "Rues obsolètes"
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_postal_coordinate
+msgid "Postal Coordinate"
+msgstr "Coordonnée postale"
+
+#. module: mozaik_address
+#: model:ir.actions.report.xml,name:mozaik_address.postal_coordinate_label_report
+msgid "Postal Coordinate Label"
+msgstr "Etiquettes pour coordonnées postales"
+
+#. module: mozaik_address
+#: field:address.address,postal_coordinate_ids:0
+#: field:address.address,postal_coordinate_inactive_ids:0
+#: field:co.residency,postal_coordinate_ids:0
+#: view:coordinate.category:mozaik_address.coordinate_category_form_view
+#: model:ir.actions.act_window,name:mozaik_address.postal_coordinate_action
+#: model:ir.ui.menu,name:mozaik_address.postal_coordinate_menu
+#: model:ir.ui.menu,name:mozaik_address.postal_coordinate_submenu
+#: field:res.partner,postal_coordinate_ids:0
+#: field:res.partner,postal_coordinate_inactive_ids:0
+msgid "Postal Coordinates"
+msgstr "Coordonnées postales"
+
+#. module: mozaik_address
+#: field:bounce.editor,reason:0
+msgid "Reason"
+msgstr "Raison"
+
+#. module: mozaik_address
+#: field:address.address,address_local_street_id:0
+msgid "Reference Street"
+msgstr "Rue de référence"
+
+#. module: mozaik_address
+#: selection:bounce.editor,reason:0
+msgid "Refused"
+msgstr "Refusé"
+
+#. module: mozaik_address
+#: view:allow.duplicate.address.wizard:mozaik_address.allow_duplicate_wizard_inherit
+msgid "Selected duplicates will be associated to the following co-residency:"
+msgstr "Les doublons sélectionnés seront associés à la co-résidence suivante:"
+
+#. module: mozaik_address
+#: field:address.address,sequence:0
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: mozaik_address
+#: field:address.address,street:0
+#: field:address.address,street_man:0
+#: view:address.local.street:mozaik_address.address_local_street_search_view
+#: field:address.local.street,local_street:0
+msgid "Street"
+msgstr "Rue"
+
+#. module: mozaik_address
+#: field:address.address,street2:0
+msgid "Street2"
+msgstr "Rue (suite)"
+
+#. module: mozaik_address
+#: view:streets.repository.loader:mozaik_address.streets_repository_loader_view
+#: model:ir.model,name:mozaik_address.model_streets_repository_loader
+msgid "Streets Repository Loader"
+msgstr "Chargement du référenciel des rues"
+
+#. module: mozaik_address
+#: field:address.address,message_summary:0
+#: field:address.local.zip,message_summary:0
+#: field:co.residency,message_summary:0
+#: field:postal.coordinate,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: mozaik_address
+#: field:address.address,technical_name:0
+msgid "Technical Name"
+msgstr "Nom technique"
+
+#. module: mozaik_address
+#: model:mail.message.subtype,description:mozaik_address.address_failure_notification
+msgid "This Postal Coordinate seems to be down"
+msgstr "Cette coordonnée postal semble obsolète"
+
+#. module: mozaik_address
+#: code:addons\mozaik_address\address_local_street.py:54
+#: sql_constraint:address.local.street:0
+#, python-format
+msgid "This local street identifier already exists for this zip code!"
+msgstr "Cet identifiant de rue locale existe déjà pour ce code postal !"
+
+#. module: mozaik_address
+#: field:address.address,town_man:0
+#: field:address.local.zip,town:0
+msgid "Town"
+msgstr "Ville"
+
+#. module: mozaik_address
+#: field:postal.coordinate,unauthorized:0
+msgid "Unauthorized"
+msgstr "Non autorisée"
+
+#. module: mozaik_address
+#: selection:bounce.editor,reason:0
+msgid "Unclaimed"
+msgstr "Non réclamé"
+
+#. module: mozaik_address
+#: selection:bounce.editor,reason:0
+msgid "Unknown"
+msgstr "Inconnu"
+
+#. module: mozaik_address
+#: field:address.address,message_unread:0
+#: field:address.local.zip,message_unread:0
+#: field:co.residency,message_unread:0
+#: field:postal.coordinate,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.streets_repository_loader_action
+#: model:ir.ui.menu,name:mozaik_address.streets_repository_loader_menu
+msgid "Update Streets Repository"
+msgstr "Mette à jour le référenciel des rues"
+
+#. module: mozaik_address
+#: field:address.address,select_alternative_address_local_street:0
+msgid "Use Alternative Reference Street"
+msgstr "Utiliser la forme alternative"
+
+#. module: mozaik_address
+#: field:postal.coordinate,vip:0
+msgid "VIP"
+msgstr ""
+
+#. module: mozaik_address
+#: field:address.address,website_message_ids:0
+#: field:address.local.zip,website_message_ids:0
+#: field:co.residency,website_message_ids:0
+#: field:postal.coordinate,website_message_ids:0
+msgid "Website Messages"
+msgstr "Messages de site web"
+
+#. module: mozaik_address
+#: help:address.address,website_message_ids:0
+#: help:address.local.zip,website_message_ids:0
+#: help:co.residency,website_message_ids:0
+#: help:postal.coordinate,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historique de communication de site web"
+
+#. module: mozaik_address
+#: view:address.local.street:mozaik_address.address_local_street_search_view
+msgid "With Alternative"
+msgstr "Avec forme alternative"
+
+#. module: mozaik_address
+#: view:address.local.street:mozaik_address.address_local_street_search_view
+msgid "Without Alternative"
+msgstr "Sans forme alternative"
+
+#. module: mozaik_address
+#: view:address.address:mozaik_address.address_address_search_view
+#: field:address.address,zip:0
+#: field:address.address,zip_man:0
+#: view:address.local.street:mozaik_address.address_local_street_search_view
+#: field:address.local.street,local_zip:0
+#: view:address.local.zip:mozaik_address.address_local_zip_search_view
+#: field:res.partner,zip_id:0
+msgid "Zip"
+msgstr "Code postal"
+
+#. module: mozaik_address
+#: field:address.local.zip,local_zip:0
+msgid "Zip Code"
+msgstr "Code postal"
+
+#. module: mozaik_address
+#: view:address.address:mozaik_address.address_address_form_view
+msgid "address"
+msgstr "adresse"
+
+#. module: mozaik_address
+#: view:postal.coordinate:mozaik_address.postal_coordinate_form_view
+msgid "{'search_default_duplicate': True,\n"
+"                                               'search_default_address_id': address_id,\n"
+"                                               'default_address_id': address_id}"
+msgstr ""
+
