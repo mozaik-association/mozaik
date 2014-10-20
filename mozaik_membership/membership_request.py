@@ -700,9 +700,11 @@ class membership_request(orm.Model):
             if loop_counter >= len(domains):
                 return False
             else:
-                model_ids = model_obj.search(cr, uid,
-                                             eval(domains[loop_counter]),
-                                             context=context)
+                try:
+                    domain = eval(domains[loop_counter])
+                except:
+                    raise orm.except_orm(_('Error'), _('Invalid data'))
+                model_ids = model_obj.search(cr, uid, domain, context=context)
                 if len(model_ids) == 1:
                     return model_ids[0]
                 else:
