@@ -597,7 +597,7 @@ msgstr "Prénom"
 #: field:postal.mail,message_follower_ids:0
 #: field:postal.mail.log,message_follower_ids:0
 msgid "Followers"
-msgstr "Abonné(e)s"
+msgstr "Abonnés"
 
 #. module: mozaik_communication
 #: selection:virtual.partner.candidature,tongue:0

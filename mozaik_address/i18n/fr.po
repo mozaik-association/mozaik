@@ -255,7 +255,7 @@ msgstr "Fichier à charger"
 #: field:co.residency,message_follower_ids:0
 #: field:postal.coordinate,message_follower_ids:0
 msgid "Followers"
-msgstr "Abonné(e)"
+msgstr "Abonnés"
 
 #. module: mozaik_address
 #: view:address.address:mozaik_address.address_address_search_view

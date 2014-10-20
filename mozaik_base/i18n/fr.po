@@ -68,7 +68,7 @@ msgstr "Date d'expiration"
 #. module: mozaik_base
 #: field:mozaik.abstract.model,message_follower_ids:0
 msgid "Followers"
-msgstr "Abonné(e)"
+msgstr "Abonnés"
 
 #. module: mozaik_base
 #: help:mozaik.abstract.model,message_summary:0

@@ -239,7 +239,7 @@ msgstr "Compteur d'échecs"
 #: field:abstract.coordinate,message_follower_ids:0
 #: field:coordinate.category,message_follower_ids:0
 msgid "Followers"
-msgstr "Abonné(e)"
+msgstr "Abonnés"
 
 #. module: mozaik_coordinate
 #: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_search_view
@@ -378,7 +378,7 @@ msgstr "\"active_ids\" manquant dans le contexte !"
 #: code:addons\mozaik_coordinate\wizard\bounce_editor.py:62
 #, python-format
 msgid "Missing active_model in context!"
-msgstr "\"active_model\" manquant dans le contexte!"
+msgstr "\"active_model\" manquant dans le contexte !"
 
 #. module: mozaik_coordinate
 #: field:bounce.editor,model:0
