@@ -35,6 +35,8 @@
     'depends': [
         'mozaik_communication',
         'mozaik_help',
+        'mozaik_mobile',
+        'mozaik_portal',
     ],
     'description': """
 MOZAIK

@@ -33,8 +33,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
-        'mozaik_communication',
-        'mozaik_help',
+        'mozaik_membership',
     ],
     'description': """
 MOZAIK Portal
