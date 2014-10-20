@@ -35,7 +35,7 @@ from openerp.tools.translate import _
 class postal_mail(orm.Model):
     _name = "postal.mail"
     _inherit = ['mozaik.abstract.model']
-    _description = 'Postal Mail'
+    _description = 'Postal Mailing'
 
     _inactive_cascade = True
 
@@ -121,7 +121,7 @@ class postal_mail_log(orm.Model):
     _columns = {
         'name': fields.char('Name', size=256, track_visibility='onchange'),
         'sent_date': fields.date('Sent Date', required=True, track_visibility='onchange'),
-        'postal_mail_id': fields.many2one('postal.mail', 'Postal Mail', readonly=True, track_visibility='onchange'),
+        'postal_mail_id': fields.many2one('postal.mail', 'Postal Mailing', readonly=True, track_visibility='onchange'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', required=True,
                                                 track_visibility='onchange'),
         'partner_id': fields.many2one('res.partner', string='Partner', track_visibility='onchange'),
@@ -169,7 +169,7 @@ class postal_mail_log(orm.Model):
         """
         flds = self.read(cr, uid, ids, ['postal_mail_id'], context=context)
         if flds.get('postal_mail_id', False):
-            raise orm.except_orm(_('Error'), _('A postal mail log cannot be copied when linked to a postal mail!'))
+            raise orm.except_orm(_('Error'), _('A postal mail log cannot be copied when linked to a postal mailing!'))
         res = super(postal_mail_log, self).copy(cr, uid, ids, default=default, context=context)
         return res
 
