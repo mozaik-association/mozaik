@@ -476,8 +476,8 @@ class membership_request(orm.Model):
                 "('is_company', '=', False),"
                 "('birth_date','=', '%s'),"
                 "('email', '=', '%s'),"
-                "('firstname', 'ilike', '%s'),"
-                "('lastname', 'ilike', '%s')]"
+                "(\"firstname\", 'ilike', \"%s\"),"
+                "(\"lastname\", 'ilike', \"%s\")]"
                 % (birth_date, email, firstname, lastname))
         if email:
             partner_domains.append(
@@ -489,13 +489,13 @@ class membership_request(orm.Model):
                 partner_domains.append(
                     "[('membership_state_id','!=',False),"
                     "('is_company', '=', False),"
-                    "('firstname', 'ilike', '%s'),"
-                    "('lastname', 'ilike', '%s')]" % (firstname, lastname))
+                    "(\"firstname\", 'ilike', \"%s\"),"
+                    "(\"lastname\", 'ilike', \"%s\")]" % (firstname, lastname))
             else:
                 partner_domains.append(
                     "[('membership_state_id', '!=', False),"
                     "('is_company', '=', False),"
-                    "('lastname', 'ilike', '%s')]" % (lastname))
+                    "(\"lastname\", 'ilike', \"%s\")]" % (lastname))
 
         partner_id = False
         virtual_partner_id = self.persist_search(cr, uid, partner_obj,
