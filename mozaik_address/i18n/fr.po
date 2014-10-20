@@ -63,7 +63,7 @@ msgstr "Tous les détails"
 #. module: mozaik_address
 #: model:ir.actions.act_window,name:mozaik_address.allow_duplicate_action
 msgid "Allow Duplicates"
-msgstr "Autoiser les doublons"
+msgstr "Autoriser les doublons"
 
 #. module: mozaik_address
 #: field:address.local.street,local_street_alternative:0
@@ -84,7 +84,7 @@ msgstr "Rues belges saisies manuellement"
 #. module: mozaik_address
 #: model:ir.model,name:mozaik_address.model_bounce_editor
 msgid "Bounce Editor"
-msgstr "Editeur d'échec"
+msgstr "Editeur d'échecs"
 
 #. module: mozaik_address
 #: field:address.address,box:0
@@ -322,7 +322,7 @@ msgstr "Invalider l'adresse principale précédente"
 #. module: mozaik_address
 #: field:postal.coordinate,is_duplicate_allowed:0
 msgid "Is Duplicate Allowed"
-msgstr "Doublon autorisé"
+msgstr "Doublon autorisés"
 
 #. module: mozaik_address
 #: field:postal.coordinate,is_duplicate_detected:0
@@ -484,7 +484,7 @@ msgstr "A déménagé"
 #. module: mozaik_address
 #: selection:postal.coordinate,coordinate_type:0
 msgid "N/A"
-msgstr "N/D"
+msgstr "N/A"
 
 #. module: mozaik_address
 #: field:change.main.address,address_id:0
@@ -617,7 +617,7 @@ msgstr "Ville"
 #. module: mozaik_address
 #: field:postal.coordinate,unauthorized:0
 msgid "Unauthorized"
-msgstr "Non autorisée"
+msgstr "Interdit"
 
 #. module: mozaik_address
 #: selection:bounce.editor,reason:0

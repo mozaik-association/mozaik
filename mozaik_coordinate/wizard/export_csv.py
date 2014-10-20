@@ -222,7 +222,7 @@ class export_csv(orm.TransientModel):
         csv_content = self.get_csv(cr, uid, model, model_ids, context=context)
 
         # Send to current user
-        attachment = [(_('Extract.csv'), '%s' % csv_content)]
+        attachment = [('extract.csv', csv_content)]
         partner_ids = self.pool['res.partner'].search(
             cr, uid, [('user_ids', '=', uid)], context=context)
         if partner_ids:

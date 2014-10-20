@@ -60,9 +60,7 @@
         </record>
 
         <!--
-            Postal Mailing:
-            - Postal Mail
-            - History
+            Postal Mailing
         -->
 
         <menuitem id="postal_mailings_submenu" name="Postal Mailings"

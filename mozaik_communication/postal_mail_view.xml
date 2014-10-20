@@ -17,18 +17,18 @@
                     <separator/>
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
-                            domain="[('active','=',False)]" help="Expired Postal Mailing Logs"/>
+                            domain="[('active','=',False)]" help="Expired Postal Mail Logs"/>
                     <filter name="all" string="All"
                             context="{'invisible_expire_date': False}"
-                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Postal Mailing Logs, expired or not"/>
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Postal Mail Logs, expired or not"/>
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="postal_mail_id_group" string="Postal Mail"
+                        <filter name="postal_mail_id_group" string="Postal Mailing"
                                 domain="[]" context="{'group_by': 'postal_mail_id'}"/>
                         <filter name="partner_id_group" string="Partner"
                                 domain="[]" context="{'group_by': 'partner_id'}"/>
-                        <filter name="postal_coordinate_id" string="Postal coordinate"
+                        <filter name="postal_coordinate_id" string="Postal Coordinate"
                                 domain="[]" context="{'group_by': 'postal_coordinate_id'}"/>
-                        <filter name="sent_date_group" string="Sent date" domain="[]" context="{'group_by': 'sent_date'}"/>
+                        <filter name="sent_date_group" string="Sent Date" domain="[]" context="{'group_by': 'sent_date'}"/>
                     </group>
                 </search>
             </field>
@@ -119,7 +119,7 @@
         <!-- Action -->
 
         <record id="postal_mail_log_action" model="ir.actions.act_window">
-            <field name="name">Postal Mailing Logs</field>
+            <field name="name">Postal Mail Logs</field>
             <field name="res_model">postal.mail.log</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -147,13 +147,13 @@
             </field>
         </record>
 
-        <!-- Postal Mail -->
+        <!-- Postal Mailing -->
 
         <record id="postal_mail_search_view" model="ir.ui.view">
             <field name="name">postal.mail.search</field>
             <field name="model">postal.mail</field>
             <field name="arch" type="xml">
-                <search string="Postal Mail" version="7.0">
+                <search string="Postal Mailings" version="7.0">
                     <field name="name"/>
                     <field name="sent_date"/>
 
@@ -166,7 +166,7 @@
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Postal Mailings, expired or not"/>
 
                     <group expand="0" string="Group By..." name="group_by">
-                        <filter name="sent_date" string="Sent date" context="{'group_by': 'sent_date'}"/>
+                        <filter name="sent_date" string="Sent Date" context="{'group_by': 'sent_date'}"/>
                     </group>
                 </search>
             </field>
@@ -176,7 +176,7 @@
             <field name="name">postal.mail.tree (postal_mail)</field>
             <field name="model">postal.mail</field>
             <field name="arch" type="xml">
-                <tree string="Postal Mail" version="7.0">
+                <tree string="Postal Mailings" version="7.0">
                     <field name="name"/>
                     <field name="sent_date"/>
                     <field name="expire_date"
@@ -190,24 +190,24 @@
             <field name="name">postal.mail.form (postal_mail)</field>
             <field name="model">postal.mail</field>
             <field name="arch" type="xml">
-                <form string="Postal Mail" version="7.0">
+                <form string="Postal Mailing" version="7.0">
                     <header>
                         <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
                              groups="mozaik_base.mozaik_res_groups_user"><!-- or configurator -->
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate Postal Mail Log: proceed anyway?" />
+                                    confirm="Invalidate Postal Mailing: proceed anyway?" />
                         </span>
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">
                             <label for="name" class="oe_edit_only"/>
                             <h1>
-                                <field name="name" attrs="{'readonly': [('active','=',False)]}" placeholder="Name"/>
+                                <field name="name" attrs="{'readonly': [('active','=',False)]}"/>
                             </h1>
                             <label for="sent_date" class="oe_edit_only"/>
                             <h1>
-                                <field name="sent_date" attrs="{'readonly': [('active','=',False)]}" placeholder="Sent date"/>
+                                <field name="sent_date" attrs="{'readonly': [('active','=',False)]}"/>
                             </h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons">
