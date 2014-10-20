@@ -4,50 +4,50 @@
 
         <!-- Move Notification -->
 
-        <record id="old_address_id_notification" model="mail.message.subtype">
-            <field name="name">Old Postal Coordinate Notification</field>
+        <record id="former_address_id_notification" model="mail.message.subtype">
+            <field name="name">Former Postal Coordinate Notification</field>
             <field name="res_model">postal.coordinate</field>
             <field name="default" eval="True"/>
-            <field name="description">This Postal Coordinate is no More Main</field>
+            <field name="description">This Postal Coordinate is no more Main</field>
         </record>
 
         <record id="main_address_id_notification" model="mail.message.subtype">
             <field name="name">Main Postal Coordinate Notification</field>
             <field name="res_model">postal.coordinate</field>
             <field name="default" eval="True"/>
-            <field name="description">This Postal Coordinate is now Main</field>
+            <field name="description">This Postal Coordinate is Main</field>
         </record>
 
         <!-- Email Notification -->
 
-        <record id="old_email_notification" model="mail.message.subtype">
-            <field name="name">Old Email Coordinate Notification</field>
+        <record id="former_email_notification" model="mail.message.subtype">
+            <field name="name">Former Email Coordinate Notification</field>
             <field name="res_model">email.coordinate</field>
             <field name="default" eval="True"/>
-            <field name="description">This Email Coordinate is no More Main</field>
+            <field name="description">This Email Coordinate is no more Main</field>
         </record>
 
         <record id="main_email_notification" model="mail.message.subtype">
             <field name="name">Main Email Coordinate Notification</field>
             <field name="res_model">email.coordinate</field>
             <field name="default" eval="True"/>
-            <field name="description">This Email Coordinate is now Main</field>
+            <field name="description">This Email Coordinate is Main</field>
         </record>
 
         <!-- Phone Notification -->
 
-        <record id="old_phone_id_notification" model="mail.message.subtype">
-            <field name="name">Old Phone Coordinate Notification</field>
+        <record id="former_phone_id_notification" model="mail.message.subtype">
+            <field name="name">Former Phone Coordinate Notification</field>
             <field name="res_model">phone.coordinate</field>
             <field name="default" eval="True"/>
-            <field name="description">This Phone Coordinate is no More Main</field>
+            <field name="description">This Phone Coordinate is no more Main</field>
         </record>
 
         <record id="main_phone_id_notification" model="mail.message.subtype">
             <field name="name">Main Phone Coordinate Notification</field>
             <field name="res_model">phone.coordinate</field>
             <field name="default" eval="True"/>
-            <field name="description">This Phone Coordinate is now Main</field>
+            <field name="description">This Phone Coordinate is Main</field>
         </record>
 
     </data>

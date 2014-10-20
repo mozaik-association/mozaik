@@ -37,11 +37,11 @@ class email_coordinate(orm.Model):
         'is_main': {
             'mozaik_membership.main_email_notification':
                 lambda self, cr, uid, obj, ctx=None: obj.is_main,
-            'mozaik_membership.old_email_notification':
+            'mozaik_membership.former_email_notification':
                 lambda self, cr, uid, obj, ctx=None: not obj.is_main,
         },
         'expire_date': {
-            'mozaik_membership.old_email_notification':
+            'mozaik_membership.former_email_notification':
                 lambda self, cr, uid, obj, ctx=None: obj.expire_date,
         },
     }

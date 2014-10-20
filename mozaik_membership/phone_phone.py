@@ -30,7 +30,6 @@ from openerp.osv import orm
 
 class phone_coordinate(orm.Model):
 
-    # _inherit = 'phone.coordinate'
     _name = 'phone.coordinate'
     _inherit = ['sub.abstract.coordinate', 'phone.coordinate']
 
@@ -38,11 +37,11 @@ class phone_coordinate(orm.Model):
         'is_main': {
             'mozaik_membership.main_phone_id_notification':
                 lambda self, cr, uid, obj, ctx=None: obj.is_main,
-            'mozaik_membership.old_phone_id_notification':
+            'mozaik_membership.former_phone_id_notification':
                 lambda self, cr, uid, obj, ctx=None: not obj.is_main,
         },
         'expire_date': {
-            'mozaik_membership.old_phone_id_notification':
+            'mozaik_membership.former_phone_id_notification':
                 lambda self, cr, uid, obj, ctx=None: obj.expire_date,
         },
     }

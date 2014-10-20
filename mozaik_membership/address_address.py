@@ -30,6 +30,9 @@ from openerp.osv import orm
 
 class postal_coordinate(orm.Model):
 
+    _name = 'postal.coordinate'
+    _inherit = ['sub.abstract.coordinate', 'postal.coordinate']
+
     def _update_partner_int_instance(self, cr, uid, ids, context=None):
         """
         Update instance of partner linked to the postal coordinate case where
@@ -62,18 +65,15 @@ class postal_coordinate(orm.Model):
                     partner_obj.update_membership_line(
                         cr, uid, [partner.id], context=context)
 
-    _name = 'postal.coordinate'
-    _inherit = ['sub.abstract.coordinate', 'postal.coordinate']
-
     _update_track = {
         'is_main': {
             'mozaik_membership.main_address_id_notification':
                 lambda self, cr, uid, obj, ctx=None: obj.is_main,
-            'mozaik_membership.old_address_id_notification':
+            'mozaik_membership.former_address_id_notification':
                 lambda self, cr, uid, obj, ctx=None: not obj.is_main,
         },
         'expire_date': {
-            'mozaik_membership.old_address_id_notification':
+            'mozaik_membership.former_address_id_notification':
                 lambda self, cr, uid, obj, ctx=None: obj.expire_date,
         },
     }
