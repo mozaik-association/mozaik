@@ -297,12 +297,10 @@ class virtual_partner_instance(orm.Model):
     _columns = {
         'common_id': fields.char(string='Common ID'),
         'partner_id': fields.many2one('res.partner', 'Partner'),
-        'membership_state_id': fields.many2one('membership.state', 'Sate'),
+        'membership_state_id': fields.many2one('membership.state', 'State'),
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
-
-        'del_doc_date': fields.date('Delivery Welcome Document Date'),
 
         'is_company': fields.boolean('Is a Company'),
         'identifier': fields.integer('Number'),
@@ -347,7 +345,6 @@ class virtual_partner_instance(orm.Model):
             concat(pc.id, '/', e.id) as common_id,
             p.id as partner_id,
             p.int_instance_id as int_instance_id,
-            p.del_doc_date as del_doc_date,
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
             pc.coordinate_category_id as postal_category_id,
@@ -408,7 +405,7 @@ class virtual_partner_mandate(orm.Model):
         'assembly_id': fields.many2one('res.partner', 'Assembly'),
         'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
 
-        'sta_mandate_id': fields.many2one('sta.mandate', 'Sate Mandate'),
+        'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate'),
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate'),
 
         'start_date': fields.date('Start Date'),
@@ -420,7 +417,7 @@ class virtual_partner_mandate(orm.Model):
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
         'employee': fields.boolean('Employee'),
 
-        'postal_vip': fields.related('postal_coordinate_id', 'vip', string='VIP Postal',
+        'postal_vip': fields.related('postal_coordinate_id', 'vip', string='VIP Address',
                                      type='boolean', relation='postal.coordinate'),
         'postal_unauthorized': fields.related('postal_coordinate_id', 'unauthorized', string='Unauthorized Address',
                                      type='boolean', relation='postal.coordinate'),
@@ -435,12 +432,12 @@ class virtual_partner_mandate(orm.Model):
                                                type='many2many',
                                                obj='thesaurus.term',
                                                rel='sta_mandate_term_competencies_rel',
-                                               id1='sta_mandate_id', id2='thesaurus_term_id', string='State Competencies'),
+                                               id1='sta_mandate_id', id2='thesaurus_term_id', string='State Mandate Competencies'),
         'ext_competencies_m2m_ids': fields.related('ext_mandate_id', 'competencies_m2m_ids',
                                                type='many2many',
                                                obj='thesaurus.term',
                                                rel='ext_mandate_term_competencies_rel',
-                                               id1='ext_mandate_id', id2='thesaurus_term_id', string='External Competencies'),
+                                               id1='ext_mandate_id', id2='thesaurus_term_id', string='External Mandate Competencies'),
     }
 
 # orm methods
@@ -820,9 +817,9 @@ class virtual_assembly_instance(orm.Model):
         'int_power_level_id': fields.many2one('int.power.level', 'Internal Power Level'),
         'sta_power_level_id': fields.many2one('sta.power.level', 'State Power Level'),
 
-        'int_category_assembly_id': fields.many2one('int.assembly.category', 'Internal Category Assembly'),
-        'ext_category_assembly_id': fields.many2one('ext.assembly.category', 'External Category Assembly'),
-        'sta_category_assembly_id': fields.many2one('sta.assembly.category', 'State Category Assembly'),
+        'int_category_assembly_id': fields.many2one('int.assembly.category', 'Internal Assembly Category'),
+        'ext_category_assembly_id': fields.many2one('ext.assembly.category', 'External Assembly Category'),
+        'sta_category_assembly_id': fields.many2one('sta.assembly.category', 'State Assembly Category'),
 
         'postal_vip': fields.boolean('VIP Address'),
         'postal_unauthorized': fields.boolean('Unauthorized Address'),
@@ -1000,12 +997,12 @@ class virtual_partner_retrocession(orm.Model):
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
         'employee': fields.boolean('Employee'),
 
-        'sta_mandate_id': fields.many2one('sta.mandate', 'Sate Mandate'),
+        'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate'),
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate'),
 
         'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
 
-        'postal_vip': fields.related('postal_coordinate_id', 'vip', string='VIP Postal',
+        'postal_vip': fields.related('postal_coordinate_id', 'vip', string='VIP Address',
                                      type='boolean', relation='postal.coordinate'),
         'postal_unauthorized': fields.related('postal_coordinate_id', 'unauthorized', string='Unauthorized Address',
                                      type='boolean', relation='postal.coordinate'),
@@ -1200,15 +1197,15 @@ class virtual_partner_membership(orm.Model):
     _columns = {
         'common_id': fields.char(string='Common ID'),
         'partner_id': fields.many2one('res.partner', 'Partner'),
-        'membership_state_id': fields.many2one('membership.state', 'Sate'),
+        'membership_state_id': fields.many2one('membership.state', 'State'),
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate',
                                                'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate',
                                                 'Postal Coordinate'),
 
-        'del_doc_date': fields.date('Delivery Welcome Document Date'),
-        'del_mem_card_date': fields.date('Delivery Member Card Date'),
+        'del_doc_date': fields.date('Welcome Documents Sent Date'),
+        'del_mem_card_date': fields.date('Member Card Sent Date'),
 
         'identifier': fields.integer('Number'),
         'birth_date': fields.date('Birth Date'),

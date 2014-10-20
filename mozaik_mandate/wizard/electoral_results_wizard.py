@@ -25,11 +25,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
 import base64
 import csv
 from StringIO import StringIO
+
+from openerp.osv import orm, fields
+from openerp.tools.translate import _
 
 file_import_structure = ['district',
                          'E/S',
@@ -37,10 +38,6 @@ file_import_structure = ['district',
                          'votes',
                          'position',
                          'position_non_elected']
-
-file_errors = {
-    'LINE_SIZE': _('')
-}
 
 
 def is_integer(s):

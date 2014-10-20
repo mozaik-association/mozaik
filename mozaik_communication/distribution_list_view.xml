@@ -39,6 +39,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='dst_model_id']" position="replace">
                     <field name="dst_model_id" invisible="1"/>
+                    <field name="newsletter" invisible="1"/>
                     <field name="int_instance_id"/>
                     <field name="active" invisible="1"/>
                 </xpath>
@@ -122,13 +123,14 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <button name="mass_mailing" type="object" string="Direct Mass Mailing"/>
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
                                 <field name="company_id"/>
+                                <field name="newsletter"/>
                                 <field name="dst_model_id"
                                        on_change="onchange_dst_model(dst_model_id)"
                                        domain="[('model', 'in', ['virtual.target', 'res.partner'])]"/>
@@ -220,7 +222,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>

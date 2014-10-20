@@ -19,14 +19,14 @@
             </field>
         </record>
 
-        <!-- Virtual Partner Involvement -->
+        <!-- Partners/Involvements -->
 
         <record id="virtual_partner_involvement_search_view"
             model="ir.ui.view">
             <field name="name">virtual.partner.involvement.search</field>
             <field name="model">virtual.partner.involvement</field>
             <field name="arch" type="xml">
-                <search string="Virtual Partner Involvement">
+                <search string="Partners/Involvements">
                     <field name="identifier" />
                     <field string="Birth Date > ..." name="birth_date"
                         filter_domain="[('birth_date','>',self)]" />
@@ -92,8 +92,7 @@
             <field name="name">virtual.partner.involvement.tree</field>
             <field name="model">virtual.partner.involvement</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Involvement" create="0"
-                    delete="0">
+                <tree string="Partners/Involvements" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -106,7 +105,7 @@
             </field>
         </record>
 
-        <!-- Add filter virtual partner involvement -->
+        <!-- Add filter for Partners/Involvements -->
 
         <record id="add_filter_from_invovlement_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
@@ -142,13 +141,13 @@
             <field name="view_id" ref="virtual_partner_involvement_tree_view" />
         </record>
 
-        <!-- Virtual Partner Relation -->
+        <!-- Partners/Relations -->
 
         <record id="virtual_partner_relation_search_view" model="ir.ui.view">
             <field name="name">virtual.partner.relation.search</field>
             <field name="model">virtual.partner.relation</field>
             <field name="arch" type="xml">
-                <search string="Virtual Partner Relation">
+                <search string="Partners/Relations">
                     <field name="identifier" />
                     <field string="Birth Date > ..." name="birth_date"
                         filter_domain="[('birth_date','>',self)]" />
@@ -216,8 +215,7 @@
             <field name="name">virtual.partner.relation.tree</field>
             <field name="model">virtual.partner.relation</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Relation" create="0"
-                    delete="0">
+                <tree string="Partners/Relations" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -231,7 +229,7 @@
             </field>
         </record>
 
-        <!-- Add filter virtual partner relation -->
+        <!-- Add filter for Partners/Relations -->
 
         <record id="add_filter_from_relation_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
@@ -267,13 +265,13 @@
             <field name="view_id" ref="virtual_partner_relation_tree_view" />
         </record>
 
-        <!-- Virtual Partner Instance -->
+        <!-- Partners/Instances -->
 
         <record id="virtual_partner_instance_search_view" model="ir.ui.view">
             <field name="name">virtual.partner.instance.search</field>
             <field name="model">virtual.partner.instance</field>
             <field name="arch" type="xml">
-                <search string="Virtual Partner Instance">
+                <search string="Partners/Instances">
                     <field name="identifier" />
                     <field string="Birth Date > ..." name="birth_date"
                         filter_domain="[('birth_date','>',self)]" />
@@ -346,8 +344,7 @@
             <field name="name">virtual.partner.instance.tree</field>
             <field name="model">virtual.partner.instance</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Instance" create="0"
-                    delete="0">
+                <tree string="Partners/Instances" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -360,7 +357,7 @@
             </field>
         </record>
 
-        <!-- Add filter virtual partner instance -->
+        <!-- Add filter for Partners/Instances -->
 
         <record id="add_filter_from_instance_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
@@ -396,13 +393,13 @@
             <field name="view_id" ref="virtual_partner_instance_tree_view" />
         </record>
 
-        <!-- Virtual Partner Mandate -->
+        <!-- Partners/Mandates -->
 
         <record id="virtual_partner_mandate_search_view" model="ir.ui.view">
             <field name="name">virtual.partner.mandate.search</field>
             <field name="model">virtual.partner.mandate</field>
             <field name="arch" type="xml">
-                <search string="Virtual Partner Mandate">
+                <search string="Partners/Mandates">
                     <field name="identifier" />
                     <field string="Birth Date > ..." name="birth_date"
                         filter_domain="[('birth_date','>',self)]" />
@@ -424,10 +421,9 @@
                     <field name="assembly_id" domain="[('is_assembly','=',True)]" />
                     <field name="mandate_category_id" />
 
-                    <field name="ext_competencies_m2m_ids" string="State Competencies &amp; Topics"
+                    <field name="ext_competencies_m2m_ids" string="External Mandate Competencies"
                         widget="many2one" />
-                    <field name="sta_competencies_m2m_ids"
-                        string="External Competencies &amp; Topics"
+                    <field name="sta_competencies_m2m_ids" string="State Mandate Competencies"
                         widget="many2one" />
 
                     <filter name="sta_mod" string="State Mandate"
@@ -482,8 +478,7 @@
             <field name="name">virtual.partner.mandate.tree</field>
             <field name="model">virtual.partner.mandate</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Mandate" create="0"
-                    delete="0">
+                <tree string="Partners/Mandates" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -499,7 +494,7 @@
             </field>
         </record>
 
-        <!-- Add filter virtual partner Mandate -->
+        <!-- Add filter for Partners/Mandates -->
 
         <record id="add_filter_from_mandate_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
@@ -535,14 +530,14 @@
             <field name="view_id" ref="virtual_partner_mandate_tree_view" />
         </record>
 
-        <!-- Virtual Partner Candidature -->
+        <!-- Partners/Candidatures -->
 
         <record id="virtual_partner_candidature_search_view"
             model="ir.ui.view">
             <field name="name">virtual.partner.candidature.search</field>
             <field name="model">virtual.partner.candidature</field>
             <field name="arch" type="xml">
-                <search string="Virtual Partner Candidature">
+                <search string="Partners/Candidatures">
                     <field name="identifier" />
                     <field string="Birth Date > ..." name="birth_date"
                         filter_domain="[('birth_date','>',self)]" />
@@ -606,8 +601,7 @@
             <field name="name">virtual.partner.candidature.tree</field>
             <field name="model">virtual.partner.candidature</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Candidature" create="0"
-                    delete="0">
+                <tree string="Partners/Candidatures" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -623,7 +617,7 @@
             </field>
         </record>
 
-        <!-- Add filter virtual partner candidature -->
+        <!-- Add filter for Partners/Candidatures -->
 
         <record id="add_filter_from_candidature_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
@@ -659,27 +653,22 @@
             <field name="view_id" ref="virtual_partner_candidature_tree_view" />
         </record>
 
-        <!-- Virtual Assembly Instance -->
+        <!-- Assemblies/Instances -->
 
         <record id="virtual_assembly_instance_search_view" model="ir.ui.view">
             <field name="name">virtual.assembly.instance.search</field>
             <field name="model">virtual.assembly.instance</field>
             <field name="arch" type="xml">
-                <search string="Virtual Assembly Instance">
+                <search string="Assemblies/Instances">
                     <field name="partner_id" domain="[('is_assembly','=',True)]" />
                     <field name="int_instance_id" />
 
-                    <field name="int_category_assembly_id" string="Internal Category Assembly"
-                        widget="many2one" />
-                    <field name="sta_category_assembly_id" string="State Category Assembly"
-                        widget="many2one" />
-                    <field name="ext_category_assembly_id" string="External Category Assembly"
-                        widget="many2one" />
+                    <field name="int_category_assembly_id" string="Internal Assembly Category" />
+                    <field name="sta_category_assembly_id" string="State Assembly Category" />
+                    <field name="ext_category_assembly_id" string="External Assembly Category" />
 
-                    <field name="sta_power_level_id" string="State Power Level"
-                        widget="many2one" />
-                    <field name="int_power_level_id" string="Internal Power Level"
-                        widget="many2one" />
+                    <field name="sta_power_level_id" string="State Power Level" />
+                    <field name="int_power_level_id" string="Internal Power Level" />
 
                     <field name="interests_m2m_ids" string="Interests"
                         widget="many2one" />
@@ -730,8 +719,7 @@
             <field name="name">virtual.assembly.instance.tree</field>
             <field name="model">virtual.assembly.instance</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Assembly Instance" create="0"
-                    delete="0">
+                <tree string="Assemblies/Instances" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -740,7 +728,7 @@
             </field>
         </record>
 
-        <!-- Add filter virtual assembly instance -->
+        <!-- Add filter for Assemblies/Instances -->
 
         <record id="add_filter_from_assembly_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
@@ -776,7 +764,7 @@
             <field name="view_id" ref="virtual_assembly_instance_tree_view" />
         </record>
 
-        <!-- Virtual Partner Retrocession -->
+        <!-- Partners/Retrocessions -->
 
         <record id="virtual_partner_retrocession_search_view"
             model="ir.ui.view">
@@ -784,7 +772,7 @@
             </field>
             <field name="model">virtual.partner.retrocession</field>
             <field name="arch" type="xml">
-                <search string="Virtual Partner Retrocession">
+                <search string="Partners/Retrocessions">
                     <field name="identifier" />
                     <field name="month" />
                     <field name="year" />
@@ -844,8 +832,7 @@
             <field name="name">virtual.partner.retrocession.tree</field>
             <field name="model">virtual.partner.retrocession</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Retrocession" create="0"
-                    delete="0">
+                <tree string="Partners/Retrocessions" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -863,7 +850,7 @@
             </field>
         </record>
 
-        <!-- Add filter virtual partner retrocession -->
+        <!-- Add filter for Partners/Retrocessions -->
 
         <record id="add_filter_from_retrocession_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
@@ -899,13 +886,13 @@
             <field name="view_id" ref="virtual_partner_retrocession_tree_view" />
         </record>
 
-        <!-- Virtual Partner Membership -->
+        <!-- Partners/Membership -->
 
         <record id="virtual_partner_membership_search_view" model="ir.ui.view">
             <field name="name">virtual.partner.membership.search</field>
             <field name="model">virtual.partner.membership</field>
             <field name="arch" type="xml">
-                <search string="Virtual Partner Membership">
+                <search string="Partners/Membership">
                     <field name="identifier" />
                     <field name="partner_id" domain="[('is_company','=',False),('identifier','&gt;',0)]" />
                     <field name="int_instance_id" />
@@ -916,14 +903,14 @@
                     <field string="Birth Date &lt; ..." name="birth_date"
                         filter_domain="[('birth_date','&lt;',self)]" />
 
-                    <field string="Delivery Document Date > ..." name="del_doc_date"
+                    <field string="Welcome Documents Sent Date > ..." name="del_doc_date"
                         filter_domain="[('del_doc_date','>',self)]" />
-                    <field string="Delivery Document Date &lt; ..." name="del_doc_date"
+                    <field string="Welcome Documents Sent Date &lt; ..." name="del_doc_date"
                         filter_domain="[('del_doc_date','&lt;',self)]" />
 
-                    <field string="Delivery Member Card Date > ..." name="del_mem_card_date"
+                    <field string="Member Card Sent Date > ..." name="del_mem_card_date"
                         filter_domain="[('del_mem_card_date','>',self)]" />
-                    <field string="Delivery Member Card Date &lt; ..." name="del_mem_card_date"
+                    <field string="Member Card Sent Date &lt; ..." name="del_mem_card_date"
                         filter_domain="[('del_mem_card_date','&lt;',self)]" />
 
                     <field name="interests_m2m_ids" string="Interests"
@@ -995,8 +982,7 @@
             <field name="name">virtual.partner.membership.tree</field>
             <field name="model">virtual.partner.membership</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Membership" create="0"
-                    delete="0">
+                <tree string="Partners/Membership" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
                     <field name="membership_state_id" />
@@ -1010,7 +996,7 @@
             </field>
         </record>
 
-        <!-- Add filter virtual partner membership -->
+        <!-- Add filter for Partners/Membership -->
 
         <record id="add_filter_from_membership_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
@@ -1046,13 +1032,13 @@
             <field name="view_id" ref="virtual_partner_membership_tree_view" />
         </record>
 
-        <!-- Virtual Partner Event -->
+        <!-- Partners/Events -->
 
         <record id="virtual_partner_event_search_view" model="ir.ui.view">
             <field name="name">virtual.partner.event.search</field>
             <field name="model">virtual.partner.event</field>
             <field name="arch" type="xml">
-                <search string="Virtual Partner Event">
+                <search string="Partners/Events">
                     <field name="identifier" />
                     <field name="partner_id" domain="[('identifier','&gt;',0)]" />
                     <field name="int_instance_id" />
@@ -1118,8 +1104,7 @@
             <field name="name">virtual.partner.event.tree</field>
             <field name="model">virtual.partner.event</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Partner Event" create="0"
-                    delete="0">
+                <tree string="Partners/Events" create="0" delete="0">
                     <field name="event_registration_id" />
                     <field name="int_instance_id" />
 
@@ -1130,7 +1115,7 @@
             </field>
         </record>
 
-        <!-- Add filter virtual partner event -->
+        <!-- Add filter for Partners/Events -->
 
         <record id="add_filter_from_event_action" model="ir.actions.act_window">
             <field name="name">Add Filter To Distribution List</field>
@@ -1158,7 +1143,7 @@
         <!-- Action -->
 
         <record id="virtual_partner_event_action" model="ir.actions.act_window">
-            <field name="name">Partners/Event</field>
+            <field name="name">Partners/Events</field>
             <field name="res_model">virtual.partner.event</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
@@ -1168,40 +1153,23 @@
 
         <!-- Virtual Model Menus -->
 
-        <!-- Virtual Partner Instance -->
         <menuitem id="virtual_partner_instance_menu" sequence="10"
             parent="virtual_models_submenu" action="virtual_partner_instance_action" />
-
-        <!-- Virtual Partner Membership -->
         <menuitem id="virtual_partner_membership_menu" sequence="12"
             parent="virtual_models_submenu" action="virtual_partner_membership_action" />
-
-        <!-- Virtual Partner Relation -->
         <menuitem id="virtual_partner_relation_menu" sequence="14"
             parent="virtual_models_submenu" action="virtual_partner_relation_action" />
-
-        <!-- Virtual Partner Involvement -->
         <menuitem id="virtual_partner_involvement_menu" sequence="16"
             parent="virtual_models_submenu" action="virtual_partner_involvement_action" />
-
-        <!-- Virtual Partner Candidature -->
         <menuitem id="virtual_partner_candidature_menu" sequence="30"
             parent="virtual_models_submenu" action="virtual_partner_candidature_action" />
-
-        <!-- Virtual Partner Mandate -->
         <menuitem id="virtual_partner_mandate_menu" sequence="32"
             parent="virtual_models_submenu" action="virtual_partner_mandate_action" />
-
-        <!-- Virtual Partner Retrocession -->
         <menuitem id="virtual_partner_retrocession_menu" sequence="34"
             parent="virtual_models_submenu" action="virtual_partner_retrocession_action"
             groups="mozaik_base.mozaik_res_groups_configurator,mozaik_base.mozaik_res_groups_financial_user"/>
-
-        <!-- Virtual Partner Event -->
         <menuitem id="virtual_partner_event_menu" sequence="36"
             parent="virtual_models_submenu" action="virtual_partner_event_action" />
-
-        <!-- Virtual Assembly Instance -->
         <menuitem id="virtual_assembly_instance_menu" sequence="40"
             parent="virtual_models_submenu" action="virtual_assembly_instance_action" />
 

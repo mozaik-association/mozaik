@@ -103,9 +103,9 @@ class membership_request(orm.Model):
         'email': fields.char('Email', track_visibility='onchange'),
         'phone': fields.char('Phone', track_visibility='onchange'),
         'mobile': fields.char('Mobile', track_visibility='onchange'),
-        'day': fields.integer('Day'),
-        'month': fields.integer('Month'),
-        'year': fields.integer('Year'),
+        'day': fields.char('Day'),
+        'month': fields.char('Month'),
+        'year': fields.char('Year'),
         'birth_date': fields.date('Birthdate', track_visibility='onchange'),
 
         # request and states
@@ -450,7 +450,8 @@ class membership_request(orm.Model):
         birth_date = False
         if day and month and year:
             try:
-                birth_date = date(year, month, day).strftime('%Y-%m-%d')
+                birth_date = date(
+                    int(year), int(month), int(day)).strftime('%Y-%m-%d')
             except:
                 _logger.info('Reset `birth_date`: invalid date')
         return birth_date
@@ -475,8 +476,8 @@ class membership_request(orm.Model):
                 "('is_company', '=', False),"
                 "('birth_date','=', '%s'),"
                 "('email', '=', '%s'),"
-                "('firstname', 'ilike', '%s'),"
-                "('lastname', 'ilike', '%s')]"
+                "(\"firstname\", 'ilike', \"%s\"),"
+                "(\"lastname\", 'ilike', \"%s\")]"
                 % (birth_date, email, firstname, lastname))
         if email:
             partner_domains.append(
@@ -488,13 +489,13 @@ class membership_request(orm.Model):
                 partner_domains.append(
                     "[('membership_state_id','!=',False),"
                     "('is_company', '=', False),"
-                    "('firstname', 'ilike', '%s'),"
-                    "('lastname', 'ilike', '%s')]" % (firstname, lastname))
+                    "(\"firstname\", 'ilike', \"%s\"),"
+                    "(\"lastname\", 'ilike', \"%s\")]" % (firstname, lastname))
             else:
                 partner_domains.append(
                     "[('membership_state_id', '!=', False),"
                     "('is_company', '=', False),"
-                    "('lastname', 'ilike', '%s')]" % (lastname))
+                    "(\"lastname\", 'ilike', \"%s\")]" % (lastname))
 
         partner_id = False
         virtual_partner_id = self.persist_search(cr, uid, partner_obj,
@@ -699,9 +700,11 @@ class membership_request(orm.Model):
             if loop_counter >= len(domains):
                 return False
             else:
-                model_ids = model_obj.search(cr, uid,
-                                             eval(domains[loop_counter]),
-                                             context=context)
+                try:
+                    domain = eval(domains[loop_counter])
+                except:
+                    raise orm.except_orm(_('Error'), _('Invalid data'))
+                model_ids = model_obj.search(cr, uid, domain, context=context)
                 if len(model_ids) == 1:
                     return model_ids[0]
                 else:

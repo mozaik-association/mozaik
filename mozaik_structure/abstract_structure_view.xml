@@ -83,7 +83,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -203,7 +203,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -299,7 +299,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -407,7 +407,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Revalidate document: proceed anyway?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
