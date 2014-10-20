@@ -726,7 +726,7 @@
                     <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
                             attrs="{'invisible': [('state','=','done')]}"
                             confirm="Refuse all candidatures: proceed anyway ?"/>
-                    <field name="candidature_ids" context="{'default_selection_committee_id': active_id}">
+                    <field name="candidature_ids" context="{'default_selection_committee_id': active_id}" attrs="{'readonly': [('decision_date', '!=', False)]}">
                         <tree colors="red:state=='declared';grey:active==False">
                             <field name="list_effective_position" string="#EP"
                                    attrs="{'invisible': [('is_effective', '=', False),('is_substitute', '!=', False)]}"/>
