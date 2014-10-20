@@ -276,6 +276,8 @@ class distribution_list_mass_function(orm.TransientModel):
         * postal mailing name
         * postal coordinate ids
         """
+        if not postal_coordinate_ids:
+            return True
         now = datetime.now()
         postal_mail_log_obj = self.pool['postal.mail.log']
         postal_mail_id = self.pool['postal.mail'].create(cr, uid, {
@@ -357,5 +359,3 @@ class distribution_list_mass_function(orm.TransientModel):
         if candidate_ids:
             partner_obj.update_membership_reference(
                 cr, uid, candidate_ids, context=context)
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

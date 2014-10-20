@@ -14,7 +14,7 @@
                     </group>
 
                     <div name="noway" attrs="{'invisible': [('go', '!=', False)]}">
-                        <p>This wizard is only intended in Jully, August or September to cancel memberships for failure to pay.</p>
+                        <p>This wizard is only intended in July, August or September to cancel memberships due to payement failure.</p>
                     </div>
 
                     <div name="dev" groups="mozaik_base.res_groups_developper">
