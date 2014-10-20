@@ -103,9 +103,9 @@ class membership_request(orm.Model):
         'email': fields.char('Email', track_visibility='onchange'),
         'phone': fields.char('Phone', track_visibility='onchange'),
         'mobile': fields.char('Mobile', track_visibility='onchange'),
-        'day': fields.integer('Day'),
-        'month': fields.integer('Month'),
-        'year': fields.integer('Year'),
+        'day': fields.char('Day'),
+        'month': fields.char('Month'),
+        'year': fields.char('Year'),
         'birth_date': fields.date('Birthdate', track_visibility='onchange'),
 
         # request and states
@@ -450,7 +450,8 @@ class membership_request(orm.Model):
         birth_date = False
         if day and month and year:
             try:
-                birth_date = date(year, month, day).strftime('%Y-%m-%d')
+                birth_date = date(
+                    int(year), int(month), int(day)).strftime('%Y-%m-%d')
             except:
                 _logger.info('Reset `birth_date`: invalid date')
         return birth_date
