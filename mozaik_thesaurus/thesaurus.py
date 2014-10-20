@@ -120,8 +120,7 @@ class thesaurus_term(orm.Model):
                                           store=True),
 
         # State
-        'state': fields.selection(TERM_AVAILABLE_STATES, 'Status', readonly=True, required=True, track_visibility='onchange',
-            help='If term is created, the status is \'Unconfirmed\'.If term is confirmed the status is set to \'Confirmed\'. If event is cancelled the status is set to \'Cancelled\'.'),
+        'state': fields.selection(TERM_AVAILABLE_STATES, 'Status', readonly=True, required=True, track_visibility='onchange'),
     }
 
     _order = 'name'
@@ -252,5 +251,3 @@ class thesaurus_term(orm.Model):
         """
         res = super(thesaurus_term, self).action_revalidate(cr, uid, ids, vals={'state': TERM_AVAILABLE_STATES[0][0]}, context=context)
         return res
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

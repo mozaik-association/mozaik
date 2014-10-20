@@ -1,0 +1,282 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mozaik_thesaurus
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-20 21:01+0000\n"
+"PO-Revision-Date: 2014-10-20 21:01+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_thesaurus
+#: code:addons\mozaik_thesaurus\thesaurus.py:208
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (copie)"
+
+#. module: mozaik_thesaurus
+#: code:addons\mozaik_thesaurus\thesaurus.py:76
+#, python-format
+msgid "A thesaurus cannot be duplicated!"
+msgstr "Un thésaurus ne peut être dupliqué !"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,active:0
+#: field:thesaurus.term,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_view
+msgid "All"
+msgstr "Tous"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_form_view
+msgid "Cancel Term"
+msgstr "Annuler le terme"
+
+#. module: mozaik_thesaurus
+#: selection:thesaurus.term,state:0
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_form_view
+msgid "Confirm Term"
+msgstr "Confirmer le term"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_view
+#: selection:thesaurus.term,state:0
+msgid "Confirmed"
+msgstr "Confirmé"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,create_uid:0
+#: field:thesaurus.term,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,create_date:0
+#: field:thesaurus.term,create_date:0
+msgid "Creation Date"
+msgstr "Date de cration"
+
+#. module: mozaik_thesaurus
+#: help:thesaurus,message_last_post:0
+#: help:thesaurus.term,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur l'enregistrement."
+
+#. module: mozaik_thesaurus
+#: code:addons\mozaik_thesaurus\thesaurus.py:76
+#, python-format
+msgid "Error"
+msgstr "Erreur"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,expire_date:0
+#: field:thesaurus.term,expire_date:0
+msgid "Expiration Date"
+msgstr "Date d'expiration"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_view
+msgid "Expired"
+msgstr "Expiré"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_view
+msgid "Expired Terms"
+msgstr "Termes expirés"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus.term,ext_identifier:0
+msgid "External Identifier"
+msgstr "Identifiant externe"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,message_follower_ids:0
+#: field:thesaurus.term,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_view
+msgid "Group By..."
+msgstr "Grouper par..."
+
+#. module: mozaik_thesaurus
+#: help:thesaurus,message_summary:0
+#: help:thesaurus.term,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est au format HTML pour permettre son utilisation dans la vue kanban."
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,id:0
+#: field:thesaurus.term,id:0
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_thesaurus
+#: help:thesaurus,message_unread:0
+#: help:thesaurus.term,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages requièrent votre attention."
+
+#. module: mozaik_thesaurus
+#: view:thesaurus:mozaik_thesaurus.thesaurus_form_view
+msgid "Invalidate"
+msgstr "Invalider"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus:mozaik_thesaurus.thesaurus_form_view
+msgid "Invalidate thesaurus: proceed anyway?"
+msgstr "Poursuivre l'invalidation du thésaurus ?"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,message_is_follower:0
+#: field:thesaurus.term,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est abonné"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,message_last_post:0
+#: field:thesaurus.term,message_last_post:0
+msgid "Last Message Date"
+msgstr "Date du dernier message"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,write_uid:0
+#: field:thesaurus.term,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,write_date:0
+#: field:thesaurus.term,write_date:0
+msgid "Last Updated on"
+msgstr "Date de dernière mise à jour"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,message_ids:0
+#: field:thesaurus.term,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: mozaik_thesaurus
+#: help:thesaurus,message_ids:0
+#: help:thesaurus.term,message_ids:0
+msgid "Messages and communication history"
+msgstr "Historique des messages et communications"
+
+#. module: mozaik_thesaurus
+#: code:addons\mozaik_thesaurus\thesaurus.py:155
+#: constraint:thesaurus.term:0
+#, python-format
+msgid "Missing External Identifier for a validated term"
+msgstr "Identifiant externe manquant pour un terme validé"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus:mozaik_thesaurus.thesaurus_form_view
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_form_view
+msgid "More Info"
+msgstr "Plus d'info"
+
+#. module: mozaik_thesaurus
+#: model:mail.message.subtype,description:mozaik_thesaurus.mt_thesaurus_add_term
+#: model:mail.message.subtype,name:mozaik_thesaurus.mt_thesaurus_add_term
+#: field:thesaurus,new_thesaurus_term_id:0
+msgid "New Term to Validate"
+msgstr "Nouveau terme à valider"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_form_view
+msgid "Reset Term"
+msgstr "Réinitialiser le terme"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_view
+#: field:thesaurus.term,state:0
+msgid "Status"
+msgstr "Statut"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,message_summary:0
+#: field:thesaurus.term,message_summary:0
+msgid "Summary"
+msgstr "Rsumé"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus.term,technical_name:0
+msgid "Technical Name"
+msgstr "Nom technique"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus.term,name:0
+msgid "Term"
+msgstr "Terme"
+
+#. module: mozaik_thesaurus
+#: model:ir.actions.act_window,name:mozaik_thesaurus.thesaurus_action
+#: model:ir.model,name:mozaik_thesaurus.model_thesaurus
+#: model:ir.ui.menu,name:mozaik_thesaurus.thesaurus_menu
+#: model:ir.ui.menu,name:mozaik_thesaurus.thesaurus_submenu
+#: view:thesaurus:mozaik_thesaurus.thesaurus_form_view
+#: view:thesaurus:mozaik_thesaurus.thesaurus_tree_view
+#: field:thesaurus,name:0
+#: field:thesaurus.term,thesaurus_id:0
+msgid "Thesaurus"
+msgstr "Thésaurus"
+
+#. module: mozaik_thesaurus
+#: model:ir.model,name:mozaik_thesaurus.model_thesaurus_term
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_form_view
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_view
+msgid "Thesaurus Term"
+msgstr "Terme du thésaurus"
+
+#. module: mozaik_thesaurus
+#: model:ir.actions.act_window,name:mozaik_thesaurus.thesaurus_term_action
+#: model:ir.ui.menu,name:mozaik_thesaurus.thesaurus_term_menu
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_tree_view
+msgid "Thesaurus Terms"
+msgstr "Termes du thésaurus"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_view
+msgid "To confirm"
+msgstr "A confirmer"
+
+#. module: mozaik_thesaurus
+#: selection:thesaurus.term,state:0
+msgid "Unconfirmed"
+msgstr "Non confirmé"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,message_unread:0
+#: field:thesaurus.term,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus,website_message_ids:0
+#: field:thesaurus.term,website_message_ids:0
+msgid "Website Messages"
+msgstr "Messages de site web"
+
+#. module: mozaik_thesaurus
+#: help:thesaurus,website_message_ids:0
+#: help:thesaurus.term,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historique de communication de site web"
+

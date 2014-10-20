@@ -26,7 +26,7 @@
             <field name="name">thesaurus.form</field>
             <field name="model">thesaurus</field>
             <field name="arch" type="xml">
-                <form string="thesaurus" version="7.0">
+                <form string="Thesaurus" version="7.0">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
@@ -92,7 +92,7 @@
                         domain="[('active', '&lt;=', True)]" />
 
                     <group expand="1" string="Group By..." name="group_by">
-                        <filter name="status" string="State" domain="[]" context="{'group_by':'state'}" />
+                        <filter name="status" string="Status" domain="[]" context="{'group_by':'state'}" />
                     </group>
                 </search>
             </field>
