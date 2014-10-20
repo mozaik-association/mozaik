@@ -7,6 +7,11 @@
             <field name="model">generate.reference</field>
             <field name="arch" type="xml">
                 <form string="Generate Reference" version="7.0">
+
+                    <group name="ref_date">
+                        <field name="reference_date" string="Concerned Year" required="1"/>
+                    </group>
+
                     <separator string="Overview"/>
                     <group name="counter" attrs="{'invisible': [('go', '=', False)]}">
                         <field name="nb_selected" readonly="1"/>
@@ -16,7 +21,7 @@
                     </group>
 
                     <div name="noway" attrs="{'invisible': [('go', '!=', False)]}">
-                        <p>This wizard is only intended to renew subscriptions in January.</p>
+                        <p>This wizard is only intended to renew subscriptions.</p>
                     </div>
 
                     <div name="dev" groups="mozaik_base.res_groups_developper">

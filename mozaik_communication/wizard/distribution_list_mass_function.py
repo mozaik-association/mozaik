@@ -230,6 +230,9 @@ class distribution_list_mass_function(orm.TransientModel):
                     context['field_main_object'] = 'postal_coordinate_id'
                     context['target_model'] = wizard.trg_model
                     active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [wizard.distribution_list_id.id], context=context)
+                    self.select_date(
+                        cr, uid, wizard.set_memcard_date,
+                        wizard.set_del_doc_date, active_ids, context=context)
                     self.export_csv(cr, uid, wizard.trg_model, active_ids, wizard.groupby_coresidency, context=context)
 
                     if wizard.postal_mail_name:
@@ -243,7 +246,9 @@ class distribution_list_mass_function(orm.TransientModel):
                     context['field_main_object'] = 'postal_coordinate_id'
                     context['target_model'] = wizard.trg_model
                     active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [wizard.distribution_list_id.id], context=context)
-
+                    self.select_date(
+                        cr, uid, wizard.set_memcard_date,
+                        wizard.set_del_doc_date, active_ids, context=context)
                     ctx = context.copy()
                     ctx.update({
                         'active_model': 'postal.coordinate',
@@ -258,15 +263,6 @@ class distribution_list_mass_function(orm.TransientModel):
                     partner_ids = self.pool['res.partner'].search(cr, uid, [('user_ids', '=', uid)], context=context)
                     if partner_ids:
                         self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context, partner_ids=partner_ids, subject=_('Export PDF'))
-                # impact member card sent date of associated partner
-                dates_to_update = []
-                if wizard.set_memcard_date and active_ids:
-                    dates_to_update.append('del_mem_card_date')
-                if wizard.set_del_doc_date and active_ids:
-                    dates_to_update.append('del_doc_date')
-                if dates_to_update:
-                    self.set_date(
-                        cr, uid, active_ids, dates_to_update, context=context)
 
     def _generate_postal_log(self, cr, uid,
                              postal_mail_name, postal_coordinate_ids,
@@ -329,6 +325,19 @@ class distribution_list_mass_function(orm.TransientModel):
                                                   partner_ids=partner_ids, subject=_('Export VCF'))
 
         return True
+
+    def select_date(
+            self, cr, uid, set_memcard_date,
+            set_del_doc_date, active_ids, context=None):
+        # impact delivery member card date of associated partner
+        dates_to_update = []
+        if set_memcard_date and active_ids:
+            dates_to_update.append('del_mem_card_date')
+        if set_del_doc_date and active_ids:
+            dates_to_update.append('del_doc_date')
+        if dates_to_update:
+            self.set_date(
+                cr, uid, active_ids, dates_to_update, context=context)
 
     def set_date(self, cr, uid, postal_coordinate_ids,
                  dates_to_update, context=None):
