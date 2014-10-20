@@ -407,7 +407,7 @@ msgstr "Modèles de courriels"
 #: field:virtual.partner.involvement,email_unauthorized:0
 #: field:virtual.target,email_unauthorized:0
 msgid "Email Unauthorized"
-msgstr "Adresse électronique non autorisée"
+msgstr "Adresse électronique interdite"
 
 #. module: mozaik_communication
 #: field:virtual.partner.involvement,email_vip:0
@@ -724,7 +724,7 @@ msgstr "Si coché, de nouveaux messages requièrent votre attention."
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,include_unauthorized:0
 msgid "Include Unauthorized"
-msgstr "Inclure les non autorisés"
+msgstr "Inclure les interdits"
 
 #. module: mozaik_communication
 #: view:distribution.list:mozaik_communication.distribution_list_search
@@ -1399,7 +1399,7 @@ msgstr "Envois postaux de masse"
 #: field:virtual.partner.involvement,postal_unauthorized:0
 #: field:virtual.target,postal_unauthorized:0
 msgid "Postal Unauthorized"
-msgstr "Adresse non autorisée"
+msgstr "Adresse interdite"
 
 #. module: mozaik_communication
 #: field:virtual.partner.involvement,postal_vip:0
@@ -1432,8 +1432,8 @@ msgstr "Catégorie de relation"
 #: view:distribution.list.line:mozaik_communication.distribution_list_line_form
 #: view:event.event:mozaik_communication.view_event_form
 #: view:event.registration:mozaik_communication.view_event_registration_form
-msgid "Revalidate document: proceed anyway?"
-msgstr "Poursuivre la revalidation du document ?"
+msgid "Reactivate document: proceed anyway?"
+msgstr "Poursuivre la réactivation du document ?"
 
 #. module: mozaik_communication
 #: model:ir.ui.menu,name:mozaik_communication.virtual_models_submenu
@@ -1636,7 +1636,7 @@ msgstr "Langue"
 #: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
 #: field:virtual.partner.retrocession,postal_unauthorized:0
 msgid "Unauthorized Address"
-msgstr "Adresse non autorisée"
+msgstr "Adresse interdite"
 
 #. module: mozaik_communication
 #: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
@@ -1657,7 +1657,7 @@ msgstr "Adresse non autorisée"
 #: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
 #: field:virtual.partner.retrocession,email_unauthorized:0
 msgid "Unauthorized Email"
-msgstr "Adresse électronique non autorisée"
+msgstr "Adresse électronique interdite"
 
 #. module: mozaik_communication
 #: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
