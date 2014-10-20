@@ -93,7 +93,7 @@ class int_assembly_category(orm.Model):
     _description = "Internal Assembly Category"
 
     _columns = {
-        'is_secretariat': fields.boolean("Is Secretariat?",
+        'is_secretariat': fields.boolean("Is Secretariat",
                                          track_visibility='onchange'),
         'power_level_id': fields.many2one('int.power.level',
                                           'Internal Power Level',
@@ -154,7 +154,7 @@ class int_instance(orm.Model):
                                                'int_instance_int_instance_rel',
                                                'id',
                                                'child_id',
-                                               'Multi-Instance',
+                                               'Multi-Instances',
                                                domain=[
                                                     ('active', '<=', True)]),
         'multi_instance_cp_m2m_ids': fields.many2many(
@@ -162,7 +162,7 @@ class int_instance(orm.Model):
                                                'int_instance_int_instance_rel',
                                                'child_id',
                                                'id',
-                                               'Multi-Instance',
+                                               'Multi-Instances',
                                                domain=[
                                                     ('active', '<=', True)]),
     }
@@ -234,7 +234,7 @@ class int_assembly(orm.Model):
                                        select=True,
                                        required=True,
                                        track_visibility='onchange'),
-        'is_designation_assembly': fields.boolean("Is Designation Assembly?",
+        'is_designation_assembly': fields.boolean("Is Designation Assembly",
                                                   track_visibility='onchange'),
         'designation_int_assembly_id': fields.many2one(
                                        'int.assembly',
@@ -246,7 +246,7 @@ class int_assembly(orm.Model):
                                               ]),
         'is_secretariat': fields.related('assembly_category_id',
                                          'is_secretariat',
-                                         string='Is Secretariat?',
+                                         string='Is Secretariat',
                                          type='boolean',
                                          relation=_category_model,
                                          store=False),

@@ -16,6 +16,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_phone
+#: view:phone.phone:mozaik_phone.phone_phone_form_view
+msgid "+32 476 81 37 00"
+msgstr "+32 476 81 37 00"
+
+#. module: mozaik_phone
 #: code:addons\mozaik_phone\phone_phone.py:192
 #, python-format
 msgid "A phone number cannot be duplicated!"
@@ -39,8 +44,8 @@ msgid "Allow Duplicates"
 msgstr "Autoriser les doublons"
 
 #. module: mozaik_phone
-#: field:phone.phone,also_for_fax:0
 #: field:phone.coordinate,also_for_fax:0
+#: field:phone.phone,also_for_fax:0
 msgid "Also for Fax"
 msgstr "Également pour fax"
 
@@ -384,11 +389,6 @@ msgstr "Messages de site web"
 #: help:phone.phone,website_message_ids:0
 msgid "Website communication history"
 msgstr "Historique de communication de site web"
-
-#. module: mozaik_phone
-#: view:phone.phone:mozaik_phone.phone_phone_form_view
-msgid "+32 476 81 37 00"
-msgstr ""
 
 #. module: mozaik_phone
 #: view:phone.coordinate:mozaik_phone.phone_coordinate_form_view

@@ -156,7 +156,7 @@ class sta_instance(orm.Model):
                                           parent='secondary_parent_id')
 
     _constraints = [
-        (_check_recursion, _('Error ! You can not create recursive instances'),
+        (_check_recursion, _('You can not create recursive instances'),
                              ['secondary_parent_id']),
     ]
 

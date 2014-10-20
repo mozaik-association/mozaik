@@ -695,7 +695,7 @@
                 </xpath>
 
                 <xpath expr="//page[@name='assemblies']" position="after">
-                    <page string="Multi Instances" name="multi_instances" attrs="{'invisible': [('id','=',False)]}">
+                    <page string="Multi-Instances" name="multi_instances" attrs="{'invisible': [('id','=',False)]}">
                         <separator string="Composition"/>
                         <field name="multi_instance_pc_m2m_ids"
                                context="{'default_parent_id': parent_id,

@@ -143,7 +143,7 @@ class abstract_instance(orm.AbstractModel):
 
     _constraints = [
         (orm.Model._check_recursion,
-         _('Error ! You can not create recursive instances'), ['parent_id']),
+         _('You can not create recursive instances'), ['parent_id']),
     ]
 
     _unicity_keys = 'power_level_id, name'
@@ -240,8 +240,7 @@ class abstract_assembly(orm.AbstractModel):
 
     _constraints = [
         (_check_consistent_power_level,
-         _('Power level of category and power level of instance are \
-            inconsistent'),
+         _('Power level of category and instance are inconsistent'),
           ['assembly_category_id', 'instance_id'])
     ]
 
