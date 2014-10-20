@@ -32,7 +32,12 @@ from openerp.addons.connector.queue.job import job
 from openerp.addons.connector.session import ConnectorSession
 
 WORKER_PIVOT = 10
-AVAILABLE_MONTHS = [1]
+
+
+def get_year_selection():
+    curr_year = date.today().year
+    return [('%s' % str(curr_year+n), '%s' %
+             str(curr_year+n)) for n in xrange(2)]
 
 
 class generate_reference(orm.TransientModel):
@@ -81,6 +86,8 @@ class generate_reference(orm.TransientModel):
         'nb_candidate_concerned': fields.integer('Candidate Members'),
         'nb_former_concerned': fields.integer('Former Members'),
         'partner_ids': fields.text('IDS', required=True),
+        'reference_date': fields.selection(get_year_selection(),
+                                           string='Date of Reference'),
         'go': fields.boolean('Go')
     }
 
@@ -101,9 +108,10 @@ class generate_reference(orm.TransientModel):
         res['nb_former_concerned'] = len(former_ids)
         concerned_ids = member_ids+candidate_ids
         res['partner_ids'] = str(concerned_ids)
-        curr_month = date.today().month
-        date_ok = curr_month in AVAILABLE_MONTHS
-        res['go'] = date_ok and concerned_ids
+        res['go'] = concerned_ids
+        month = date.today().month
+        year = date.today().year
+        res['reference_date'] = str(month == 1 and year+1 or year)
 
         return res
 
@@ -127,14 +135,17 @@ class generate_reference(orm.TransientModel):
             session = ConnectorSession(cr, uid, context=context)
             if len(partner_ids) > worker_pivot:
                 generate_reference_action.delay(
-                    session, self._name, partner_ids, context=context)
+                    session, self._name, partner_ids, wiz.reference_date,
+                    context=context)
             else:
                 generate_reference_action(
-                    session, self._name, partner_ids, context=context)
+                    session, self._name, partner_ids, wiz.reference_date,
+                    context=context)
 
 
 @job
-def generate_reference_action(session, model_name, partner_ids, context=None):
+def generate_reference_action(
+        session, model_name, partner_ids, ref_date, context=None):
     """
     generate reference for each partner
     """
@@ -142,7 +153,7 @@ def generate_reference_action(session, model_name, partner_ids, context=None):
     partner_obj = session.pool['res.partner']
     for partner_id in partner_ids:
         ref = partner_obj._generate_membership_reference(
-            cr, uid, partner_id, context=context)
+            cr, uid, partner_id, ref_date, context=context)
         vals = {
             'reference': ref,
         }

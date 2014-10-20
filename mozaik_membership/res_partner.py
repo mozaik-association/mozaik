@@ -89,17 +89,17 @@ class res_partner(orm.Model):
 
         return res_vals
 
-    def _generate_membership_reference(self, cr, uid, partner_id,
+    def _generate_membership_reference(self, cr, uid, partner_id, ref_date,
                                        context=None):
         """
         This method will generate a membership reference for payment.
-        Comm. Struct. = '9' + year without century +
+        Comm. Struct. = '9' + ref_date without century +
             member identifier on 7 positions + % 97
         """
         partner = self.browse(cr, uid, partner_id, context=context)
         base_identifier = '0000000'
         identifier = '%s' % partner.identifier
-        base = '9%s%s' % (('%s' % date.today().year)[2:],
+        base = '9%s%s' % (('%s' % ref_date)[2:],
                           ''.join((base_identifier[:-len(identifier)],
                                    identifier)))
         comm_struct = '%s%s' % (base, int(base) % 97 or 97)

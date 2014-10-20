@@ -586,7 +586,7 @@ class test_partner(SharedSetupTransactionCase):
             cr, uid, {'lastname': '%s' % uuid.uuid4()}, context)
         partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
         ref = self.partner_obj._generate_membership_reference(
-            cr, uid, partner_id, context=context)
+            cr, uid, partner_id, str(date.today().year), context=context)
         s = ref.split('/')
         self.assertTrue(len(s) == 3, 'Should be separated into 3 \
             parts with a "/"')
