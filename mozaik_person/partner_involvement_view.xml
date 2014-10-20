@@ -15,7 +15,7 @@
 
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expire Coordinate" />
+                        domain="[('active','=',False)]" help="Expire Involvement" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" />

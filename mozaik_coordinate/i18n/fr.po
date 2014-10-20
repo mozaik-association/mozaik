@@ -296,7 +296,7 @@ msgstr "Poursuivre l'invalidation de la coordonnée ?"
 #. module: mozaik_coordinate
 #: field:abstract.coordinate,is_duplicate_allowed:0
 msgid "Is Duplicate Allowed"
-msgstr "Doublon autorisés"
+msgstr "Doublon autorisé"
 
 #. module: mozaik_coordinate
 #: field:abstract.coordinate,is_duplicate_detected:0
@@ -312,7 +312,7 @@ msgstr "Principale"
 #: field:abstract.coordinate,message_is_follower:0
 #: field:coordinate.category,message_is_follower:0
 msgid "Is a Follower"
-msgstr "Est abonné
+msgstr "Est abonné"
 
 #. module: mozaik_coordinate
 #: field:abstract.coordinate,bounce_date:0

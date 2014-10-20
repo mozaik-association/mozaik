@@ -23,7 +23,7 @@ msgstr "1040, 4000,..."
 #. module: mozaik_address
 #: view:address.local.zip:mozaik_address.address_local_zip_form_view
 msgid "1050, 4000..."
-msgstr "1050, 4000..."
+msgstr ""
 
 #. module: mozaik_address
 #: field:address.address,active:0
@@ -78,8 +78,8 @@ msgstr "Une adresse sans numéro de séquence ne peut être dupliquée !"
 
 #. module: mozaik_address
 #: view:address.address:mozaik_address.address_address_search_view
-msgid "Belgian streets manually entered"
-msgstr "Rues belges saisies manuellement"
+msgid "Not standard streets"
+msgstr "Rues non standards"
 
 #. module: mozaik_address
 #: model:ir.model,name:mozaik_address.model_bounce_editor
@@ -322,7 +322,7 @@ msgstr "Invalider l'adresse principale précédente"
 #. module: mozaik_address
 #: field:postal.coordinate,is_duplicate_allowed:0
 msgid "Is Duplicate Allowed"
-msgstr "Doublon autorisés"
+msgstr "Doublon autorisé"
 
 #. module: mozaik_address
 #: field:postal.coordinate,is_duplicate_detected:0

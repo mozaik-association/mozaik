@@ -45,7 +45,7 @@ class export_vcard(orm.TransientModel):
         vcard_content = self.get_vcard(cr, uid, context and context.get('active_ids', False) or False, context=context)
 
         # Send to current user
-        attachment = [(_('Extract.vcf'), '%s' % vcard_content)]
+        attachment = [('Extract.vcf', vcard_content)]
         partner_ids = self.pool['res.partner'].search(cr, uid, [('user_ids', '=', uid)], context=context)
         if partner_ids:
             self.pool['mail.thread'].message_post(cr, uid, False, attachments=attachment, context=context,

@@ -39,7 +39,7 @@ class create_user_from_partner(orm.TransientModel):
 
     _columns = {
         'portal_only': fields.boolean('Portal only'),
-        'nok': fields.char('reason'),
+        'nok': fields.char('Reason'),
         'login': fields.char('Login', size=64),
         'group_id': fields.many2one(
             'res.groups', string="User's group",

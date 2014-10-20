@@ -249,7 +249,7 @@ msgstr "Compétences"
 #: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
 #: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
 msgid "Competencies & Topics"
-msgstr "Compétences & intérêts"
+msgstr "Compétences & thèmes"
 
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,extract_csv:0

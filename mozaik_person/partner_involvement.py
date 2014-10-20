@@ -62,7 +62,7 @@ class partner_involvement(orm.Model):
     _description = 'Partner Involvement'
 
     _columns = {
-        'partner_id': fields.many2one('res.partner', string='Related Partner', required=True, select=True, track_visibility='onchange'),
+        'partner_id': fields.many2one('res.partner', string='Partner', required=True, select=True, track_visibility='onchange'),
         'partner_involvement_category_id': fields.many2one('partner.involvement.category', string='Involvement Category', required=True, select=True, track_visibility='onchange'),
         'note': fields.text('Notes', track_visibility='onchange'),
     }

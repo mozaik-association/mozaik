@@ -114,7 +114,7 @@
                     <separator />
                     <filter name="non_standard_streets" string="Non-standard Streets"
                             domain="[('address_local_street_id', '=', False),('country_code', '=', 'BE'),('street_man', '!=', False)]"
-                            help="Belgian streets manually entered" />
+                            help="Not standard streets" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter string="Zip" context="{'group_by': 'address_local_zip_id'}"/>
                         <filter string="Country" context="{'group_by': 'country_id'}"/>
