@@ -84,7 +84,7 @@ class res_partner(orm.Model):
         """
         coordinate_type = args.get('type')
         if not coordinate_type or coordinate_type not in phone_available_types:
-            raise orm.except_orm(_('ValidateError'), _('Invalid phone type: "%s"!') % args.get('type', _('Undefined')))
+            raise orm.except_orm(_('Validate Error'), _('Invalid phone type: "%s"!') % args.get('type', _('Undefined')))
         result = {i: False for i in ids}
         coord_obj = self.pool['phone.coordinate']
         if coordinate_type == 'fax':

@@ -101,7 +101,7 @@ class phone_phone(orm.Model):
                 # during data migration exception are not allowed
                 _logger.warning(errmsg)
                 return num
-            raise orm.except_orm(_('Error!'), errmsg)
+            raise orm.except_orm(_('Error'), errmsg)
         return pn.format_number(normalized_number, pn.PhoneNumberFormat.INTERNATIONAL)
 
     _columns = {
@@ -260,7 +260,7 @@ class phone_coordinate(orm.Model):
         'coordinate_type': fields.related('phone_id', 'type', string='Phone Type', readonly=True,
                                           type='selection', selection=PHONE_AVAILABLE_TYPES,
                                           store=_type_store_triggers),
-        'also_for_fax': fields.related('phone_id', 'also_for_fax', string='Also for fax', readonly=True,
+        'also_for_fax': fields.related('phone_id', 'also_for_fax', string='Also for Fax', readonly=True,
                                           type='boolean', store=_type_store_triggers),
     }
 

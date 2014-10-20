@@ -117,7 +117,7 @@
                     <sheet>
                         <div class="oe_title"  name="title">
                             <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name" attrs="{'readonly': [('phone_coordinate_ids','!=',[])]}" placeholder="e.g. +32 476 81 37 00" /></h1>
+                            <h1><field name="name" attrs="{'readonly': [('phone_coordinate_ids','!=',[])]}" placeholder="+32 476 81 37 00" /></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons">
                         </div>
