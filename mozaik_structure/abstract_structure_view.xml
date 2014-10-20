@@ -14,7 +14,7 @@
 
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
-                            domain="[('active','=',False)]" help="Exprired Assemblies" />
+                            domain="[('active','=',False)]" help="Expired Assemblies" />
                     <filter name="all" string="All"
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Assemblies, expired or not" />
@@ -112,7 +112,7 @@
 
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
-                            domain="[('active','=',False)]" help="Exprired Instances" />
+                            domain="[('active','=',False)]" help="Expired Instances" />
                     <filter name="all" string="All"
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Instances, expired or not" />
@@ -230,7 +230,7 @@
 
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
-                            domain="[('active','=',False)]" help="Exprired Categories" />
+                            domain="[('active','=',False)]" help="Expired Categories" />
                     <filter name="all" string="All"
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Categories, expired or not" />
@@ -328,7 +328,7 @@
                             domain="[('level_for_followers','=',True)]"/>
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
-                            domain="[('active','=',False)]" help="Exprired Power Levels" />
+                            domain="[('active','=',False)]" help="Expired Power Levels" />
                     <filter name="all" string="All"
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Power Levels, expired or not" />

@@ -87,7 +87,7 @@ class generate_reference(orm.TransientModel):
         'nb_former_concerned': fields.integer('Former Members'),
         'partner_ids': fields.text('IDS', required=True),
         'reference_date': fields.selection(get_year_selection(),
-                                           string='Date of Reference'),
+                                           string='Year'),
         'go': fields.boolean('Go')
     }
 
@@ -108,10 +108,10 @@ class generate_reference(orm.TransientModel):
         res['nb_former_concerned'] = len(former_ids)
         concerned_ids = member_ids+candidate_ids
         res['partner_ids'] = str(concerned_ids)
-        res['go'] = concerned_ids
+        res['go'] = (len(concerned_ids) > 0)
         month = date.today().month
         year = date.today().year
-        res['reference_date'] = str(month == 1 and year+1 or year)
+        res['reference_date'] = str(month == 12 and year+1 or year)
 
         return res
 

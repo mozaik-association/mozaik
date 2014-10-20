@@ -27,7 +27,7 @@
                     <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
-                        domain="[('active', '=' ,False)]" help="Exprired Requests" />
+                        domain="[('active', '=' ,False)]" help="Expired Requests" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False, 'active_test': False}"
                         domain="[]" help="All Requests, expired or not" />

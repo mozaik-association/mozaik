@@ -6,7 +6,7 @@
             <field name="name">duplicate.analysis.report.search</field>
             <field name="model">duplicate.analysis.report</field>
             <field name="arch" type="xml">
-                <search string="duplicate Analysis">
+                <search string="Duplicates Analysis">
                     <field name="model" />
                     <group expand="1" string="Group By...">
                         <filter string="Model" icon="terp-personal" name="mod" context="{'group_by':'model'}"/>
@@ -20,7 +20,7 @@
             <field name="name">duplicate.analysis.report.tree</field>
             <field name="model">duplicate.analysis.report</field>
             <field name="arch" type="xml">
-                <tree string="duplicate Analysis" create="0" delete="0">
+                <tree string="Duplicates Analysis" create="0" delete="0">
                     <field name="model" />
                     <field name="partner_name" />
                     <field name="name"/>
@@ -38,9 +38,7 @@
             <field name="view_mode">tree</field>
             <field name="search_view_id" ref="duplicate_analysis_report_search_view"/>
             <field name="view_id" ref="duplicate_analysis_report_tree_view"/>
-            <field name="help">
-                This report provides a global duplicates summary
-            </field>
+            <field name="help">This report provides a global duplicates summary</field>
         </record>
 
         <record id="send_duplicates_summary_action" model="ir.actions.server">
@@ -52,7 +50,7 @@
             <field name="code">self.process_notify_duplicates(cr, uid, force_send=True, context=context)</field>
         </record>
 
-        <menuitem id="duplicate_analysis_menu" name="Duplicate Analysis"
+        <menuitem id="duplicate_analysis_menu" name="Duplicates Analysis"
                   sequence="99" parent="mozaik_base.persons_configuration_submenu" groups="mozaik_base.res_groups_developper" />
 
         <menuitem id="duplicate_analysis_report_menu" action="duplicate_analysis_report_action"

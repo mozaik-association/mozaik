@@ -453,7 +453,7 @@ class membership_request(orm.Model):
                 birth_date = date(
                     int(year), int(month), int(day)).strftime('%Y-%m-%d')
             except:
-                _logger.info('Reset `birth_date`: invalid date')
+                _logger.info('Reset `birth_date`: Invalid Date')
         return birth_date
 
     def get_partner_id(self, cr, uid, birth_date, lastname, firstname, email,
@@ -703,7 +703,7 @@ class membership_request(orm.Model):
                 try:
                     domain = eval(domains[loop_counter])
                 except:
-                    raise orm.except_orm(_('Error'), _('Invalid data'))
+                    raise orm.except_orm(_('Error'), _('Invalid Data'))
                 model_ids = model_obj.search(cr, uid, domain, context=context)
                 if len(model_ids) == 1:
                     return model_ids[0]

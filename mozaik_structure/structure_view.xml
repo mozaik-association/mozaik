@@ -149,7 +149,7 @@
 
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Exprired Legislatures" />
+                        domain="[('active','=',False)]" help="Expired Legislatures" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Legislatures, expired or not" />

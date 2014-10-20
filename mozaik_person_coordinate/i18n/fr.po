@@ -1,0 +1,452 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mozaik_person_coordinate
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-20 18:59+0000\n"
+"PO-Revision-Date: 2014-10-20 18:59+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_person_coordinate
+#: code:addons\mozaik_person_coordinate\partner_relation.py:133
+#: constraint:partner.relation:0
+#, python-format
+msgid "A relation must associate two contacts and must exist in only one way!"
+msgstr "Une relation doit associer deux partenaires et exister dans un seul sens !"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,active:0
+#: field:partner.relation.category,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: mozaik_person_coordinate
+#: view:res.partner:mozaik_person_coordinate.res_partner_search_view
+msgid "Address"
+msgstr "Adresse"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_search_view
+msgid "All"
+msgstr "Tous"
+
+#. module: mozaik_person_coordinate
+#: view:res.partner:mozaik_person_coordinate.view_partner_form
+msgid "All Details"
+msgstr "Tous les détails"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_search_view
+msgid "All Relations, expired or not"
+msgstr "Toutes les relations, expirées ou non"
+
+#. module: mozaik_person_coordinate
+#: code:addons\mozaik_person_coordinate\partner_relation.py:156
+#, python-format
+msgid "An active relation cannot be duplicated!"
+msgstr "Une relation active ne peut être dupliquée !"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_form_view
+msgid "Coordinates"
+msgstr "Coordonnées"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,create_uid:0
+#: field:partner.relation.category,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,create_date:0
+#: field:partner.relation.category,create_date:0
+msgid "Creation Date"
+msgstr "Date de création"
+
+#. module: mozaik_person_coordinate
+#: help:partner.relation,message_last_post:0
+#: help:partner.relation.category,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur l'enregistrement."
+
+#. module: mozaik_person_coordinate
+#: view:duplicate.analysis.report:mozaik_person_coordinate.duplicate_analysis_report_search_view
+#: view:duplicate.analysis.report:mozaik_person_coordinate.duplicate_analysis_report_tree_view
+#: model:ir.actions.act_window,name:mozaik_person_coordinate.duplicate_analysis_report_action
+#: model:ir.ui.menu,name:mozaik_person_coordinate.duplicate_analysis_menu
+#: model:ir.ui.menu,name:mozaik_person_coordinate.duplicate_analysis_report_menu
+msgid "Duplicates Analysis"
+msgstr "Analyse des doublons"
+
+#. module: mozaik_person_coordinate
+#: model:ir.model,name:mozaik_person_coordinate.model_duplicate_analysis_report
+msgid "Duplicates Analysis Report"
+msgstr "Rapport d'analyse des doublons"
+
+#. module: mozaik_person_coordinate
+#: view:res.partner:mozaik_person_coordinate.res_partner_search_view
+msgid "Email"
+msgstr "Adresse électronique"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,email_coordinate_id:0
+msgid "Email Coordinate"
+msgstr "Coordonnée électronique"
+
+#. module: mozaik_person_coordinate
+#: code:addons\mozaik_person_coordinate\partner_relation.py:156
+#, python-format
+msgid "Error"
+msgstr "Erreur"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,expire_date:0
+#: field:partner.relation.category,expire_date:0
+msgid "Expiration Date"
+msgstr "Date d'expiration"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_search_view
+msgid "Expired"
+msgstr "Expiré"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_search_view
+msgid "Expired Relations"
+msgstr "Relations expirées"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,fax_coordinate_id:0
+msgid "Fax Coordinate"
+msgstr "Coordonnée fax"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,fix_coordinate_id:0
+msgid "Fix Coordinate"
+msgstr "Coordonnée fixe"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,message_follower_ids:0
+#: field:partner.relation.category,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: mozaik_person_coordinate
+#: view:duplicate.analysis.report:mozaik_person_coordinate.duplicate_analysis_report_search_view
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
+msgid "Group By..."
+msgstr "Grouper par..."
+
+#. module: mozaik_person_coordinate
+#: help:partner.relation,message_summary:0
+#: help:partner.relation.category,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est au format HTML pour permettre son utilisation dans la vue kanban."
+
+#. module: mozaik_person_coordinate
+#: field:duplicate.analysis.report,id:0
+#: field:partner.relation,id:0
+#: field:partner.relation.category,id:0
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_person_coordinate
+#: help:partner.relation,message_unread:0
+#: help:partner.relation.category,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages requièrent votre attention."
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_object_form_view
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_form_view
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_form_view
+msgid "Invalidate"
+msgstr "Invalider"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_form_view
+msgid "Invalidate category: proceed anyway?"
+msgstr "Poursuivre l'invalidation de la catégorie ?"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_object_form_view
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_form_view
+msgid "Invalidate relation: proceed anyway?"
+msgstr "Poursuivre l'invalidation de la relation ?"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,message_is_follower:0
+#: field:partner.relation.category,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est abonné"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,message_last_post:0
+#: field:partner.relation.category,message_last_post:0
+msgid "Last Message Date"
+msgstr "Date du dernier message"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,write_uid:0
+#: field:partner.relation.category,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,write_date:0
+#: field:partner.relation.category,write_date:0
+msgid "Last Updated on"
+msgstr "Date de dernière mise à jour"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,message_ids:0
+#: field:partner.relation.category,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: mozaik_person_coordinate
+#: help:partner.relation,message_ids:0
+#: help:partner.relation.category,message_ids:0
+msgid "Messages and communication history"
+msgstr "Historique des messages et communications"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,mobile_coordinate_id:0
+msgid "Mobile Coordinate"
+msgstr "Coordonnée mobile"
+
+#. module: mozaik_person_coordinate
+#: view:duplicate.analysis.report:mozaik_person_coordinate.duplicate_analysis_report_search_view
+msgid "Model"
+msgstr "Modèle"
+
+#. module: mozaik_person_coordinate
+#: field:duplicate.analysis.report,model:0
+msgid "Models"
+msgstr "Modèles"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_object_form_view
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_form_view
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_form_view
+msgid "More Info"
+msgstr "Plus d'info"
+
+#. module: mozaik_person_coordinate
+#: code:addons\mozaik_person_coordinate\report\duplicates_analysis_report.py:153
+#, python-format
+msgid "Mozaik: Duplicates Summary - %s"
+msgstr "Mozaik: Relevé des doublons - %s"
+
+#. module: mozaik_person_coordinate
+#: field:duplicate.analysis.report,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,object_partner_id:0
+msgid "Object"
+msgstr "Objet"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation.category,object_name:0
+msgid "Object Relation Name"
+msgstr "Nom de la relation objet"
+
+#. module: mozaik_person_coordinate
+#: model:ir.actions.act_window,name:mozaik_person_coordinate.object_relation_action
+#: model:ir.ui.menu,name:mozaik_person_coordinate.object_relation_menu
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_form_view
+#: field:res.partner,partner_is_object_relation_ids:0
+#: field:res.partner,partner_is_object_relation_inactive_ids:0
+msgid "Object Relations"
+msgstr "Relations objet"
+
+#. module: mozaik_person_coordinate
+#: field:duplicate.analysis.report,orig_id:0
+msgid "Original ID"
+msgstr "ID source"
+
+#. module: mozaik_person_coordinate
+#: model:ir.model,name:mozaik_person_coordinate.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: mozaik_person_coordinate
+#: field:duplicate.analysis.report,partner_name:0
+msgid "Partner Name"
+msgstr "Nom du partenaire"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
+msgid "Partner Object"
+msgstr "Partenaire objet"
+
+#. module: mozaik_person_coordinate
+#: model:ir.model,name:mozaik_person_coordinate.model_partner_relation
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_object_form_view
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_object_tree_view
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_form_view
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_tree_view
+msgid "Partners Relation"
+msgstr "Relation de partenaires"
+
+#. module: mozaik_person_coordinate
+#: model:ir.model,name:mozaik_person_coordinate.model_partner_relation_category
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_form_view
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_search_view
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_tree_view
+msgid "Partners Relation Category"
+msgstr "Catégorie de relation de partenaires"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
+msgid "Partner Subject"
+msgstr "Partenaire sujet"
+
+#. module: mozaik_person_coordinate
+#: view:res.partner:mozaik_person_coordinate.res_partner_search_view
+msgid "Phones"
+msgstr "Téléphones"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,postal_coordinate_id:0
+msgid "Postal Coordinate"
+msgstr "Coordonnée postale"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_object_form_view
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_form_view
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_form_view
+msgid "Reactivate document: proceed anyway?"
+msgstr "Poursuivre la réactivation du document ?"
+
+#. module: mozaik_person_coordinate
+#: model:ir.actions.act_window,name:mozaik_person_coordinate.partner_relation_category_action
+#: model:ir.ui.menu,name:mozaik_person_coordinate.relation_category_menu
+msgid "Relation Categories"
+msgstr "Catégories de relation"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,partner_relation_category_id:0
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_search_view
+msgid "Relation Category"
+msgstr "Catégorie de relation"
+
+#. module: mozaik_person_coordinate
+#: model:ir.ui.menu,name:mozaik_person_coordinate.relations_submenu
+#: view:res.partner:mozaik_person_coordinate.view_partner_form
+msgid "Relations"
+msgstr "Relations"
+
+#. module: mozaik_person_coordinate
+#: view:res.partner:mozaik_person_coordinate.view_partner_form
+msgid "Relations where the partner is the object"
+msgstr "Relations dont le partenaire est l'objet"
+
+#. module: mozaik_person_coordinate
+#: view:res.partner:mozaik_person_coordinate.view_partner_form
+msgid "Relations where the partner is the subject"
+msgstr "Relations dont le partenaire est le sujet"
+
+#. module: mozaik_person_coordinate
+#: model:ir.actions.server,name:mozaik_person_coordinate.send_duplicates_summary_action
+#: model:ir.ui.menu,name:mozaik_person_coordinate.send_duplicates_summary_menu
+msgid "Send Duplicates Summary"
+msgstr "Envoyer le relevé des doublons"
+
+#. module: mozaik_person_coordinate
+#: field:duplicate.analysis.report,sequence:0
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,subject_partner_id:0
+msgid "Subject"
+msgstr "Sujet"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation.category,subject_name:0
+msgid "Subject Relation Name"
+msgstr "Nom de la relation sujet"
+
+#. module: mozaik_person_coordinate
+#: model:ir.actions.act_window,name:mozaik_person_coordinate.subject_relation_action
+#: model:ir.ui.menu,name:mozaik_person_coordinate.subject_relation_menu
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_form_view
+#: field:res.partner,partner_is_subject_relation_ids:0
+#: field:res.partner,partner_is_subject_relation_inactive_ids:0
+msgid "Subject Relations"
+msgstr "Relations sujet"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,message_summary:0
+#: field:partner.relation.category,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: mozaik_person_coordinate
+#: code:addons\mozaik_person_coordinate\report\duplicates_analysis_report.py:149
+#, python-format
+msgid "There are no duplicates"
+msgstr "Aucun doublon"
+
+#. module: mozaik_person_coordinate
+#: model:ir.actions.act_window,help:mozaik_person_coordinate.duplicate_analysis_report_action
+msgid "This report provides a global duplicates summary"
+msgstr "Ce rapport produit le relevé des doublons"
+
+#. module: mozaik_person_coordinate
+#: code:addons\mozaik_person_coordinate\report\duplicates_analysis_report.py:144
+#, python-format
+msgid "Unknown birth date"
+msgstr "Date de naissance inconnue"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,message_unread:0
+#: field:partner.relation.category,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_object_form_view
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_form_view
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_form_view
+msgid "Validate"
+msgstr "Valider"
+
+#. module: mozaik_person_coordinate
+#: field:partner.relation,website_message_ids:0
+#: field:partner.relation.category,website_message_ids:0
+msgid "Website Messages"
+msgstr "Messages de site web"
+
+#. module: mozaik_person_coordinate
+#: help:partner.relation,website_message_ids:0
+#: help:partner.relation.category,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historique de communication de site web"
+
+#. module: mozaik_person_coordinate
+#: view:res.partner:mozaik_person_coordinate.view_partner_tree
+msgid "grey:active==False;red:is_duplicate_detected==True;darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP' or email>='N/A' and email<'N/B' or address>='N/A' and address<'N/B'"
+msgstr "grey:active==False;red:is_duplicate_detected==True;darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP' or email>='N/A' and email<'N/B' or address>='N/A' and address<'N/B'"
+

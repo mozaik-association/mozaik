@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Partner Relation Category -->
+        <!-- Category -->
         <record id="partner_relation_category_employee" model="partner.relation.category">
             <field name="subject_name">is employee of</field>
             <field name="object_name">employs</field>
@@ -15,7 +15,7 @@
             <field name="coordinate_category_id" ref="coordinate_category_professional" />
         </record>
 
-        <!-- Partner Relation -->
+        <!-- Partners Relation -->
         <record id="partner_relation" model="partner.relation">
             <field name="subject_partner_id" ref="res_partner_pauline"/>
             <field name="object_partner_id" ref="res_partner_rtbf"/>

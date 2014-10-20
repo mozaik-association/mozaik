@@ -40,7 +40,7 @@
                     <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Exprired Contacts" />
+                        domain="[('active','=',False)]" help="Expired Contacts" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Contacts, expired or not" />

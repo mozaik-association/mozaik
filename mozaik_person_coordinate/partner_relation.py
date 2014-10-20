@@ -33,7 +33,7 @@ class partner_relation_category(orm.Model):
 
     _name = 'partner.relation.category'
     _inherit = ['mozaik.abstract.model']
-    _description = 'Partner Relation Category'
+    _description = 'Partners Relation Category'
 
     _columns = {
         'subject_name': fields.char('Subject Relation Name', required=True, select=True, track_visibility='onchange'),
@@ -91,7 +91,7 @@ class partner_relation(orm.Model):
 
     _name = 'partner.relation'
     _inherit = ['mozaik.abstract.model']
-    _description = 'Partner Relation'
+    _description = 'Partners Relation'
 
     _columns = {
         'subject_partner_id': fields.many2one('res.partner', string='Subject', required=True, select=True, track_visibility='onchange'),
@@ -130,7 +130,7 @@ class partner_relation(orm.Model):
         return True
 
     _constraints = [
-        (_check_relation_qualification, _('Error! A relation must associate two different contacts and must exist in only one way!'),
+        (_check_relation_qualification, _('A relation must associate two contacts and must exist in only one way!'),
                                        ['subject_partner_id', 'object_partner_id', 'partner_relation_category_id']),
     ]
 

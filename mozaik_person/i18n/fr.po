@@ -232,7 +232,7 @@ msgstr "Expiré"
 
 #. module: mozaik_person
 #: view:res.partner:mozaik_person.res_partner_search_view
-msgid "Exprired Contacts"
+msgid "Expired Contacts"
 msgstr "Partenaires expirés"
 
 #. module: mozaik_person
@@ -485,6 +485,7 @@ msgstr "Numéro"
 #. module: mozaik_person
 #: model:ir.model,name:mozaik_person.model_res_partner
 #: view:partner.involvement:mozaik_person.partner_involvement_search_view
+#: field:partner.involvement,partner_id:0
 #: view:res.partner:mozaik_person.res_partner_search_view
 msgid "Partner"
 msgstr "Partenaire"
@@ -530,20 +531,16 @@ msgid "Reactivate"
 msgstr "Réactiver"
 
 #. module: mozaik_person
+#: view:partner.involvement:mozaik_person.partner_involvement_form_view
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
 #: view:res.partner:mozaik_person.view_emails_partner_info_form
 msgid "Reactivate document: proceed anyway?"
 msgstr "Poursuivre la réactivation du document ?"
 
 #. module: mozaik_person
-#: field:partner.involvement,partner_id:0
-msgid "Partner"
-msgstr "Partenaire"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_form_view
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
-msgid "Reactivate document: proceed anyway?"
-msgstr "Poursuivre la réactivation du document ?"
+#: field:create.user.from.partner,nok:0
+msgid "Reason"
+msgstr "Raison"
 
 #. module: mozaik_person
 #: field:res.partner,secondary_website:0
@@ -730,11 +727,6 @@ msgstr ""
 #: view:res.partner:mozaik_person.view_partner_form
 msgid "mozaik_base.res_groups_developper"
 msgstr ""
-
-#. module: mozaik_person
-#: field:create.user.from.partner,nok:0
-msgid "Reason"
-msgstr "Raison"
 
 #. module: mozaik_person
 #: view:res.partner:mozaik_person.view_partner_form_firstname

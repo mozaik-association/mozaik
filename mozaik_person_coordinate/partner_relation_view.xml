@@ -2,13 +2,13 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- Partner Relation -->
+        <!-- Partners Relation -->
 
        <record id="partner_relation_search_view" model="ir.ui.view">
             <field name="name">partner.relation.search</field>
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
-                <search string="Partner Relation">
+                <search string="Partners Relations">
                     <field name="subject_partner_id"/>
                     <field name="object_partner_id"/>
                     <field name="partner_relation_category_id"/>
@@ -33,7 +33,7 @@
             <field name="name">partner.relation.subject.tree</field>
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
-                <tree string="Partner Relation" version="7.0">
+                <tree string="Partners Relations" version="7.0">
                     <field name="subject_partner_id"/>
                     <field name="partner_relation_category_id"/>
                     <field name="object_partner_id"/>
@@ -46,7 +46,7 @@
             <field name="name">partner.relation.object.tree</field>
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
-                <tree string="Partner Relation" version="7.0">
+                <tree string="Partners Relations" version="7.0">
                     <field name="object_partner_id"/>
                     <field name="partner_relation_category_id"/>
                     <field name="subject_partner_id"/>
@@ -79,7 +79,7 @@
             <field name="name">partner.relation.subject.form</field>
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
-                <form string="Partner Relation" version="7.0">
+                <form string="Partners Relation" version="7.0">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
@@ -151,7 +151,7 @@
             <field name="name">partner.relation.object.form</field>
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
-                <form string="Partner Relation" version="7.0">
+                <form string="Partners Relation" version="7.0">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
@@ -199,19 +199,19 @@
             </field>
         </record>
 
-        <!-- Partner Relation Category -->
+        <!-- Category -->
 
-       <record id="partner_relation_category_search_view" model="ir.ui.view">
+        <record id="partner_relation_category_search_view" model="ir.ui.view">
             <field name="name">partner.relation.category.search</field>
             <field name="model">partner.relation.category</field>
             <field name="arch" type="xml">
-                <search string="Partner Relation Category">
+                <search string="Partners Relation Categories">
                     <field name="subject_name" string="Relation Category"
                            filter_domain="['|',('subject_name','ilike',self),('object_name','ilike',self)]"/>
 
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
-                            domain="[('active','=',False)]" help="Exprired Relations" />
+                            domain="[('active','=',False)]" help="Expired Relations" />
                     <filter name="all" string="All"
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Relations, expired or not" />
@@ -223,7 +223,7 @@
             <field name="name">partner.relation.category.tree</field>
             <field name="model">partner.relation.category</field>
             <field name="arch" type="xml">
-                <tree string="Partner Relation Category" version="7.0">
+                <tree string="Partners Relation Categories" version="7.0">
                     <field name="subject_name" />
                     <field name="object_name" />
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
@@ -244,7 +244,7 @@
             <field name="name">partner.relation.category.form</field>
             <field name="model">partner.relation.category</field>
             <field name="arch" type="xml">
-                <form string="Partner Relation Category" version="7.0">
+                <form string="Partners Relation Category" version="7.0">
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
@@ -302,14 +302,15 @@
             </field>
         </record>
 
-        <!-- Relations menu are placed after Coordinates -->
+        <!-- Relations menu -->
         <menuitem id="relations_submenu" name="Relations"
                   sequence="50" parent="mozaik_base.persons_root_menu" />
         <menuitem id="subject_relation_menu" action="subject_relation_action"
                   sequence="10" parent="relations_submenu" />
         <menuitem id="object_relation_menu" action="object_relation_action"
                   sequence="20" parent="relations_submenu" />
-        <!-- Partner Relation Category -->
+
+        <!-- Category -->
         <menuitem id="relation_category_menu" action="partner_relation_category_action"
                   sequence="20" parent="mozaik_base.persons_configuration_submenu" />
 
