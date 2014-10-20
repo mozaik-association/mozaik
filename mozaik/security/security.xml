@@ -87,7 +87,7 @@ account.account_comp_rule
             <field name="model_id" ref="mozaik_mandate.model_sta_candidature"/>
             <field name="domain_force">[
                 ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
-                ('designation_int_assembly_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('designation_int_assembly_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -99,7 +99,7 @@ account.account_comp_rule
             <field name="model_id" ref="mozaik_mandate.model_int_candidature"/>
             <field name="domain_force">[
                 ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
-                ('designation_int_assembly_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('designation_int_assembly_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -111,7 +111,7 @@ account.account_comp_rule
             <field name="model_id" ref="mozaik_mandate.model_ext_candidature"/>
             <field name="domain_force">[
                 ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
-                ('designation_int_assembly_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('designation_int_assembly_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>

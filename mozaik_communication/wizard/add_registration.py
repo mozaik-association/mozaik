@@ -35,7 +35,7 @@ WORKER_PIVOT = 10
 class add_registration(orm.TransientModel):
 
     _name = 'add.registration'
-    _description = 'Add Registration'
+    _description = 'Add Registrations'
 
     _columns = {
         'event_id': fields.many2one(

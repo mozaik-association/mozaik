@@ -639,7 +639,7 @@ class virtual_partner_candidature(orm.Model):
         'model': fields.char('Model'),
         'assembly_id': fields.many2one('res.partner', 'Assembly'),
         'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
-        'mng_int_instance_id': fields.many2one('int.instance', 'Candidature Management Instance'),
+        'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation Assembly'),
 
         'start_date': fields.date('Mandate Start Date'),
 
@@ -684,7 +684,7 @@ class virtual_partner_candidature(orm.Model):
             candidature.mandate_category_id,
             candidature.partner_id,
             candidature.mandate_start_date as start_date,
-            assembly.instance_id as mng_int_instance_id,
+            candidature.designation_int_assembly_id as designation_int_assembly_id,
             partner_assembly.id as assembly_id,
             partner.identifier as identifier,
             partner.birth_date as birth_date,
@@ -725,12 +725,7 @@ class virtual_partner_candidature(orm.Model):
             candidature.mandate_category_id,
             candidature.partner_id,
             candidature.mandate_start_date as start_date,
-            CASE
-                WHEN candidature.electoral_district_id IS NULL
-                THEN assembly.instance_id
-                ELSE ed.int_instance_id
-            END
-            AS mng_int_instance_id,
+            candidature.designation_int_assembly_id as designation_int_assembly_id,
             partner_assembly.id as assembly_id,
             partner.identifier as identifier,
             partner.birth_date as birth_date,
@@ -773,7 +768,7 @@ class virtual_partner_candidature(orm.Model):
             candidature.mandate_category_id,
             candidature.partner_id,
             candidature.mandate_start_date as start_date,
-            assembly.instance_id as mng_int_instance_id,
+            candidature.designation_int_assembly_id as designation_int_assembly_id,
             partner_assembly.id as assembly_id,
             partner.identifier as identifier,
             partner.birth_date as birth_date,
