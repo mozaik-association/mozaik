@@ -33,6 +33,7 @@
     "website": "http://www.acsone.eu",
     'category': 'Political Association',
     'depends': [
+        'mass_mailing_distribution_list',
         'mozaik_membership',
         'mozaik_retrocession',
     ],
