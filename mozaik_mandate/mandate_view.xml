@@ -13,7 +13,7 @@
                     <field name="int_assembly_category_id" invisible="context.get('default_type', False)!='int'"/>
                     <field name="ext_assembly_category_id" invisible="context.get('default_type', False)!='ext'"/>
 
-                    <filter name="is_submission_mandate" string="Mandates Declaration"
+                    <filter name="is_submission_mandate" string="Mandate Declaration"
                             domain="[('is_submission_mandate','=',True)]" invisible="context.get('default_type', False)=='int'" />
                     <separator />
                     <filter name="is_submission_assets" string="Assets Declaration"
@@ -404,7 +404,7 @@
                              invisible="context.get('popup')"
                              groups="mozaik_base.mozaik_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate category: proceed anyway ?" />
+                                    confirm="Invalidate category: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
@@ -475,7 +475,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Validate category: proceed anyway ?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -499,11 +499,11 @@
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_invalidate']" position="after">
                     <button name="button_elected" string="Elected"  class="oe_highlight"
-                                    confirm="Set candidature as elected: proceed anyway ?"
+                                    confirm="Set candidature as elected: proceed anyway?"
                                     attrs="{'invisible': ['|', '|',('is_legislative', '=', False), ('state', 'not in', ['designated']),
                                                           '&amp;', ('is_effective', '=', False),('is_substitute', '=', True)]}"/>
                     <button name="button_non_elected" string="Non-Elected" class="oe_highlight"
-                                    confirm="Set candidature as non-elected: proceed anyway ?"
+                                    confirm="Set candidature as non-elected: proceed anyway?"
                                     attrs="{'invisible': ['|',('is_legislative', '=', False), ('state', 'not in', ['designated'])]}"/>
                 </xpath>
                 <xpath expr="//button[@name='button_create_mandate']" position="attributes">
@@ -722,10 +722,10 @@
                                                   'search_default_all': True}" />
                     <button string="Accept" name="button_accept_candidatures" type="object" class="oe_highlight"
                             attrs="{'invisible': [('state','=','done')]}"
-                            confirm="Accept all candidatures: proceed anyway ?"/>
+                            confirm="Accept all candidatures: proceed anyway?"/>
                     <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
                             attrs="{'invisible': [('state','=','done')]}"
-                            confirm="Refuse all candidatures: proceed anyway ?"/>
+                            confirm="Refuse all candidatures: proceed anyway?"/>
                     <field name="candidature_ids" context="{'default_selection_committee_id': active_id}" attrs="{'readonly': [('decision_date', '!=', False)]}">
                         <tree colors="red:state=='declared';grey:active==False">
                             <field name="list_effective_position" string="#EP"
@@ -808,10 +808,10 @@
                                                   'search_default_all': True}" />
                     <button string="Accept" name="button_accept_candidatures" type="object" class="oe_highlight"
                             attrs="{'invisible': [('state','=','done')]}"
-                            confirm="Accept all candidatures: proceed anyway ?"/>
+                            confirm="Accept all candidatures: proceed anyway?"/>
                     <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
                             attrs="{'invisible': [('state','=','done')]}"
-                            confirm="Refuse all candidatures: proceed anyway ?"/>
+                            confirm="Refuse all candidatures: proceed anyway?"/>
                     <field name="candidature_ids" context="{'default_selection_committee_id': active_id}">
                         <tree colors="red:state=='declared';grey:active==False">
                             <field name="partner_name"/>
@@ -876,10 +876,10 @@
                                                   'search_default_all': True}" />
                     <button string="Accept" name="button_accept_candidatures" type="object" class="oe_highlight"
                             attrs="{'invisible': [('state','=','done')]}"
-                            confirm="Accept all candidatures: proceed anyway ?"/>
+                            confirm="Accept all candidatures: proceed anyway?"/>
                     <button string="Refuse" name="button_refuse_candidatures" type="object" class="oe_highlight"
                             attrs="{'invisible': [('state','=','done')]}"
-                            confirm="Refuse all candidatures: proceed anyway ?"/>
+                            confirm="Refuse all candidatures: proceed anyway?"/>
                     <field name="candidature_ids" context="{'default_selection_committee_id': active_id}">
                         <tree colors="red:state=='declared';grey:active==False">
                             <field name="partner_name"/>

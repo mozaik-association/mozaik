@@ -60,7 +60,7 @@ class electoral_results_wizard(orm.TransientModel):
                                         'Errors'),
         'file_lines': fields.one2many('electoral.results.wizard.lines',
                                         'wizard_id',
-                                        'File lines'),
+                                        'File Lines'),
         }
 
     def default_get(self, cr, uid, flds, context):
@@ -107,7 +107,7 @@ class electoral_results_wizard(orm.TransientModel):
 
             if len(line) != len(file_import_structure):
                 error_msg = _('Wrong number of columns(%s), '\
-                            '%s expected !' % (len(line),
+                            '%s expected!' % (len(line),
                                                len(file_import_structure)))
                 save_error()
                 continue
@@ -220,7 +220,7 @@ class electoral_results_wizard(orm.TransientModel):
                 pass
             elif candidature.state == 'elected':
                 if position_non_elected > 0:
-                    error_msg = _('Candidature is elected but position '\
+                    error_msg = _('Candidate is elected but position '\
                                   'non elected (%s) is set' %
                                   position_non_elected)
                     save_error()
@@ -228,7 +228,7 @@ class electoral_results_wizard(orm.TransientModel):
             elif candidature.state == 'non-elected':
                 pass
             else:
-                error_msg = _('Inconsistent state for candidature: %s ' %
+                error_msg = _('Inconsistent state for candidature: %s' %
                               candidature.state)
                 save_error()
                 continue
@@ -314,5 +314,5 @@ class electoral_results_wizard_lines(orm.TransientModel):
                                           string='Wizard'),
         'sta_candidature_id': fields.many2one('sta.candidature',
                                           string='Candidature'),
-        'data': fields.text('File values')
+        'data': fields.text('File Values')
     }

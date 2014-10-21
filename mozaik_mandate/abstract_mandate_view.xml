@@ -82,21 +82,21 @@
                     <filter name="declared" string="Declared"
                             domain="[('state','=', 'declared')]" help="Declared Candidatures" />
                     <filter name="rejected" string="Rejected"
-                            domain="[('state','=', 'rejected')]" help="Reclared Candidatures" />
+                            domain="[('state','=', 'rejected')]" help="Rejected Candidatures" />
                     <filter name="suggested" string="Suggested"
                             domain="[('state','=', 'suggested')]" help="Suggested Candidatures" />
                     <filter name="designated" string="Designated"
                             domain="[('state','=', 'designated')]" help="Designated Candidatures"/>
                     <filter name="elected" string="Elected"
                             domain="[('state','=', 'elected')]" help="Elected Candidatures"/>
-                    <filter name="non-elected" string="Non-elected"
-                            domain="[('state','=', 'non-elected')]" help="Non-elected Candidatures"/>
+                    <filter name="non-elected" string="Non-Elected"
+                            domain="[('state','=', 'non-elected')]" help="Non-Elected Candidatures"/>
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="committee" string="Selection Committee" domain="[]" context="{'group_by':'selection_committee_id'}" />
                         <filter name="partner" string="Partner" domain="[]" context="{'group_by':'partner_id'}" />
                         <filter name="category" string="Mandate Category" domain="[]" context="{'group_by':'mandate_category_id'}" />
                         <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
-                        <filter name="state" string="State" domain="[]" context="{'group_by':'state'}" />
+                        <filter name="state" string="Status" domain="[]" context="{'group_by':'state'}" />
                     </group>
                 </search>
             </field>
@@ -113,9 +113,9 @@
                     <field name="mandate_category_id"/>
                     <field name="state"/>
                     <button name="button_suggest" string="Suggest"  icon="gtk-apply"
-                            confirm="Suggest candidature: proceed anyway ?" states="declared"/>
+                            confirm="Suggest candidature: proceed anyway?" states="declared"/>
                     <button name="button_reject" string="Reject"  icon="gtk-cancel"
-                            confirm="Reject candidature: proceed anyway ?" states="declared"/>
+                            confirm="Reject candidature: proceed anyway?" states="declared"/>
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
                 </tree>
@@ -251,10 +251,10 @@
                              invisible="context.get('popup')"
                              groups="mozaik_base.mozaik_res_groups_user" name="invalidate">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate mandate: proceed anyway ?"
+                                    confirm="Invalidate mandate: proceed anyway?"
                                     attrs="{'invisible': [('end_date','=',False)]}" />
                             <button name="action_finish" string="Finish" type="object"
-                                    confirm="Finish mandate now: proceed anyway ?"
+                                    confirm="Finish mandate now: proceed anyway?"
                                     attrs="{'invisible': [('end_date','!=',False)]}"/>
                         </div>
                     </header>
@@ -307,7 +307,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Validate mandate: proceed anyway ?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -333,16 +333,16 @@
                              invisible="context.get('popup')"
                              groups="mozaik_base.mozaik_res_groups_user" name="invalidate">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate candidature: proceed anyway ?" />
+                                    confirm="Invalidate candidature: proceed anyway?" />
                             <button name="button_suggest" string="Suggest" class="oe_highlight"
-                                    confirm="Suggest candidature: proceed anyway ?" states="declared"/>
+                                    confirm="Suggest candidature: proceed anyway?" states="declared"/>
                             <button name="button_reject" string="Reject" class="oe_highlight"
-                                    confirm="Reject candidature: proceed anyway ?" states="declared,designated"/>
+                                    confirm="Reject candidature: proceed anyway?" states="declared,designated"/>
                             <button name="button_declare" string="Declare" class="oe_highlight"
                                     attrs="{'invisible': ['|',('is_selection_committee_active','=',False),('state','not in', ['rejected', 'suggested'])]}"
-                                    confirm="Declare candidature: proceed anyway ?"/>
+                                    confirm="Declare candidature: proceed anyway?"/>
                             <button name="button_create_mandate" string="Mandate" type="object"
-                                    confirm="Create mandate from candidature: proceed anyway ?"/>
+                                    confirm="Create mandate from candidature: proceed anyway?"/>
                             <field name="state" widget="statusbar" statusbar_visible='declared,suggested,designated,elected'/>
                         </div>
                     </header>
@@ -380,7 +380,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Validate candidature: proceed anyway ?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -408,14 +408,14 @@
                              invisible="context.get('popup')"
                              groups="mozaik_base.mozaik_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate committee: proceed anyway ?" />
+                                    confirm="Invalidate committee: proceed anyway?" />
                             <field name='state' widget='statusbar'/>
                         </div>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}"
                              invisible="context.get('popup')"
                              groups="mozaik_base.mozaik_res_groups_user">
                             <button name="action_copy" string="Copy" type="object"
-                                    confirm="Copy committee and keep rejected candidatures: proceed anyway ?" />
+                                    confirm="Copy committee and keep rejected candidatures: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
@@ -465,7 +465,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Validate committee: proceed anyway ?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>

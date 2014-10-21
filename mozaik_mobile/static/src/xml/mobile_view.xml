@@ -246,7 +246,7 @@
                     <form role="form" t-attf-action="/partner_mobile"
                         method="get">
                         <fieldset>
-                            <legend>Partner Search</legend>
+                            <legend>Partners Search</legend>
                             <div class="form-group">
                                 <label for="search">Search on</label>
                                 <select id="search" name="search"

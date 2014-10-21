@@ -37,7 +37,7 @@ class electoral_district(orm.Model):
         'selection_committee_ids': fields.one2many(
                                             'sta.selection.committee',
                                             'electoral_district_id',
-                                            'Selection committees'),
+                                            'Selection Committees'),
     }
 
 
@@ -50,12 +50,12 @@ class sta_assembly_category(orm.Model):
         'mandate_category_ids': fields.one2many(
                                             'mandate.category',
                                             'sta_assembly_category_id',
-                                            'Mandate categories',
+                                            'Mandate Categories',
                                             domain=[('active', '=', True)]),
         'mandate_category_inactive_ids': fields.one2many(
                                             'mandate.category',
                                             'sta_assembly_category_id',
-                                            'Mandate categories',
+                                            'Mandate Categories',
                                             domain=[('active', '=', False)]),
     }
 
@@ -69,12 +69,12 @@ class int_assembly_category(orm.Model):
         'mandate_category_ids': fields.one2many(
                                             'mandate.category',
                                             'int_assembly_category_id',
-                                            'Mandate categories',
+                                            'Mandate Categories',
                                             domain=[('active', '=', True)]),
         'mandate_category_inactive_ids': fields.one2many(
                                             'mandate.category',
                                             'int_assembly_category_id',
-                                            'Mandate categories',
+                                            'Mandate Categories',
                                             domain=[('active', '=', False)]),
     }
 
@@ -88,12 +88,12 @@ class ext_assembly_category(orm.Model):
         'mandate_category_ids': fields.one2many(
                                             'mandate.category',
                                             'ext_assembly_category_id',
-                                            'Mandate categories',
+                                            'Mandate Categories',
                                             domain=[('active', '=', True)]),
         'mandate_category_inactive_ids': fields.one2many(
                                             'mandate.category',
                                             'ext_assembly_category_id',
-                                            'Mandate categories',
+                                            'Mandate Categories',
                                             domain=[('active', '=', False)]),
     }
 
@@ -107,12 +107,12 @@ class sta_assembly(orm.Model):
          'selection_committee_ids': fields.one2many(
                                             'sta.selection.committee',
                                             'assembly_id',
-                                            'Selection committees',
+                                            'Selection Committees',
                                             domain=[('active', '=', True)]),
          'selection_committee_inactive_ids': fields.one2many(
                                             'sta.selection.committee',
                                             'assembly_id',
-                                            'Selection committees',
+                                            'Selection Committees',
                                             domain=[('active', '=', False)]),
     }
 
@@ -126,12 +126,12 @@ class int_assembly(orm.Model):
          'selection_committee_ids': fields.one2many(
                                             'int.selection.committee',
                                             'assembly_id',
-                                            'Selection committees',
+                                            'Selection Committees',
                                             domain=[('active', '=', True)]),
          'selection_committee_inactive_ids': fields.one2many(
                                             'int.selection.committee',
                                             'assembly_id',
-                                            'Selection committees',
+                                            'Selection Committees',
                                             domain=[('active', '=', False)]),
     }
 
@@ -145,11 +145,11 @@ class ext_assembly(orm.Model):
          'selection_committee_ids': fields.one2many(
                                             'ext.selection.committee',
                                             'assembly_id',
-                                            'Selection committees',
+                                            'Selection Committees',
                                             domain=[('active', '=', True)]),
          'selection_committee_inactive_ids': fields.one2many(
                                             'ext.selection.committee',
                                             'assembly_id',
-                                            'Selection committees',
+                                            'Selection Committees',
                                             domain=[('active', '=', False)]),
     }

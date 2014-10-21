@@ -665,7 +665,7 @@ class sta_mandate(orm.Model):
         'unique_id': fields.function(
                                      _compute_unique_id,
                                      type="integer",
-                                     String="Unique id",
+                                     string="Unique id",
                                      store=_unique_id_store_trigger),
         'mandate_category_id': fields.many2one(
                                      'mandate.category',

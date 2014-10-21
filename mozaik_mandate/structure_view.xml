@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='status']" position="after">
                     <notebook invisible="context.get('popup')">
-                        <page name="mandate categories" string=" Mandates Categories">
+                        <page name="mandate categories" string="Mandate Categories">
                             <field name="mandate_category_ids" attrs="{'invisible': [('active', '=', False)]}"
                                    readonly="1"               context="{'default_mandate_category_id': active_id}">
                                <tree>
@@ -35,7 +35,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='status']" position="after">
                     <notebook invisible="context.get('popup')">
-                        <page name="mandate categories" string=" Mandates Categories">
+                        <page name="mandate categories" string="Mandate Categories">
                             <field name="mandate_category_ids" attrs="{'invisible': [('active', '=', False)]}"
                                    readonly="1"               context="{'default_mandate_category_id': active_id}">
                                <tree>
@@ -61,7 +61,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='status']" position="after">
                     <notebook invisible="context.get('popup')">
-                        <page name="mandate categories" string=" Mandates Categories">
+                        <page name="mandate categories" string="Mandate Categories">
                             <field name="mandate_category_ids" attrs="{'invisible': [('active', '=', False)]}"
                                    readonly="1"               context="{'default_mandate_category_id': active_id}">
                                <tree>

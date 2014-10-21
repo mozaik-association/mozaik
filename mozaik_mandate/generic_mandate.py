@@ -57,10 +57,10 @@ class generic_mandate(orm.Model):
                                                'Mandate Category'),
         'assembly_name': fields.char("Assembly"),
         'partner_id': fields.many2one('res.partner', 'Representative'),
-        'start_date': fields.date('Start date'),
-        'deadline_date': fields.date('Deadline date'),
+        'start_date': fields.date('Start Date'),
+        'deadline_date': fields.date('Deadline Date'),
         'is_duplicate_detected': fields.boolean('Incompatible Mandate'),
-        'is_duplicate_allowed': fields.boolean('Allowed Mandate'),
+        'is_duplicate_allowed': fields.boolean('Allowed Incompatible Mandate'),
     }
 
     _rec_name = 'mandate_ref'

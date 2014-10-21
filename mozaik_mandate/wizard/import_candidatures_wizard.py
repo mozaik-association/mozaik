@@ -44,7 +44,7 @@ class import_sta_candidatures_wizard(orm.TransientModel):
 
     _columns = {
         'selection_committee_id': fields.many2one(
-            'sta.selection.committee', string='Selection committee',
+            'sta.selection.committee', string='Selection Committee',
             readonly=True, ondelete='cascade'),
         'source_file': fields.binary('Source File'),
         'import_lines': fields.one2many(
@@ -92,14 +92,14 @@ class import_sta_candidatures_wizard(orm.TransientModel):
             if len(data) != len(file_import_structure):
                 raise orm.except_orm(
                     _('Error'),
-                    _('Line %s: wrong number of columns(%s), %s expected !') %
+                    _('Line %s: wrong number of columns(%s), %s expected!') %
                     (line_number, len(data), len(file_import_structure)))
 
             if line_number == 1:
                 if data != file_import_structure:
                     raise orm.except_orm(
                         _('Error'),
-                        _('Wrong file structure, it should be: %s !') %
+                        _('Wrong file structure, it should be: %s!') %
                         ','.join(file_import_structure))
                 continue
 
@@ -111,7 +111,7 @@ class import_sta_candidatures_wizard(orm.TransientModel):
                 raise orm.except_orm(
                     _('Error'),
                     _('Line %s: Partner %s not found in database, '
-                      'please check source file !') %
+                      'please check source file!') %
                     (line_number, identifier))
 
             partner_id = partner_ids[0]

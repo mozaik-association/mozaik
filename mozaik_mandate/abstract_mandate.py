@@ -173,8 +173,8 @@ class abstract_selection_committee(orm.AbstractModel):
 
     _constraints = [
         (_check_decision_date,
-         _("A decision date is mandatory when accepting the \
-           proposal of the committee"), ['state', 'decision_date'])
+         _('A decision date is mandatory when accepting the proposal '
+           'of the committee'), ['state', 'decision_date'])
     ]
 
 # orm methods
@@ -467,7 +467,7 @@ class abstract_mandate(orm.AbstractModel):
     _columns = {
         'unique_id': fields.function(_compute_unique_id,
                                      type="integer",
-                                     String="Unique id",
+                                     string="Unique id",
                                      store=_unique_id_store_trigger),
         'partner_id': fields.many2one('res.partner',
                                       'Representative',
@@ -520,7 +520,7 @@ class abstract_mandate(orm.AbstractModel):
         # Duplicates: redefine string
         'is_duplicate_detected': fields.boolean('Incompatible Mandate',
                                                 readonly=True),
-        'is_duplicate_allowed': fields.boolean('Allowed Mandate',
+        'is_duplicate_allowed': fields.boolean('Allowed Incompatible Mandate',
                                                readonly=True,
                                                track_visibility='onchange'),
     }
@@ -781,7 +781,7 @@ class abstract_candidature(orm.AbstractModel):
         'is_selection_committee_active': fields.related(
                                     'selection_committee_id',
                                     'active',
-                                    string='Is Selection Committee Active ?',
+                                    string='Is Selection Committee Active?',
                                     type='boolean',
                                     store=False),
         'mandate_ids': fields.one2many(_mandate_model,

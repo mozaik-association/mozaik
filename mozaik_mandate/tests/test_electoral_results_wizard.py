@@ -173,48 +173,50 @@ class test_electoral_results_wizard(SharedSetupTransactionCase):
         for error in wizard.error_lines:
 
             if error.line_number == 2:
-                expected_msg = _('Wrong number of columns(%s), %s expected !'\
-                                % (2, len(wizard_class.file_import_structure)))
+                expected_msg = _('Wrong number of columns(%s), '
+                                 '%s expected!') % \
+                                (2, len(wizard_class.file_import_structure))
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 3:
-                expected_msg = _('Votes value should be integer: %s' % 'a')
+                expected_msg = _('Votes value should be integer: %s') % 'a'
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 4:
-                expected_msg = _('Position value should be integer: %s' % 'a')
+                expected_msg = _('Position value should be integer: %s') % 'a'
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 5:
-                expected_msg = _('Position non elected value should '\
-                                 'be integer: %s' % 'a')
+                expected_msg = _('Position non elected value should '
+                                 'be integer: %s') % 'a'
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 6:
-                expected_msg = _('Unknown district: %s' % 'test')
+                expected_msg = _('Unknown district: %s') % 'test'
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 7:
-                expected_msg = _('Unknown candidate: %s' % 'Toto')
+                expected_msg = _('Unknown candidate: %s') % 'Toto'
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 8:
-                expected_msg = _('Inconsistent state for candidature: %s ' %
-                                'rejected')
+                expected_msg = _('Inconsistent state for candidature: %s') % \
+                                'rejected'
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 9:
-                expected_msg = _('Candidature is elected but position '\
-                                  'non elected (%s) is set' % '1')
+                expected_msg = _('Candidate is elected but position '
+                                  'non elected (%s) is set') % '1'
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 10:
-                expected_msg = ('Inconsistent value for column E/S: %s' % 'B')
+                expected_msg = _('Inconsistent value for column E/S: %s') % \
+                                 'B'
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 11:
-                expected_msg = _('Candidature: inconsistent value for '\
-                                   'column E/S: should be %s' % 'S')
+                expected_msg = _('Candidature: inconsistent value for '
+                                 'column E/S: should be %s') % 'S'
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 12:
@@ -226,13 +228,13 @@ class test_electoral_results_wizard(SharedSetupTransactionCase):
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 14:
-                expected_msg = _('Position non elected is incompatible'\
-                              ' with e_s value: %s' % 'E')
+                expected_msg = _('Position non elected is incompatible '
+                                 'with e_s value: %s') % 'E'
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 15:
-                expected_msg = _('Position(%s) and position non elected(%s)'
-                                 ' can not be set both' % ('2', '1'))
+                expected_msg = _('Position(%s) and position non elected(%s) '
+                                 'can not be set both') % ('2', '1')
                 self.assertEquals(error.error_msg, expected_msg)
             else:
                 pass

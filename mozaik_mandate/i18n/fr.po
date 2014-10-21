@@ -1,0 +1,2080 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mozaik_mandate
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-21 18:38+0000\n"
+"PO-Revision-Date: 2014-10-21 18:38+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_mandate
+#: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step2
+#: view:sta.candidature:mozaik_mandate.sta_candidature_tree_view
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "#EP"
+msgstr "#PE"
+
+#. module: mozaik_mandate
+#: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step2
+#: view:sta.candidature:mozaik_mandate.sta_candidature_tree_view
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "#SP"
+msgstr "#PS"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\abstract_mandate.py:242
+#: code:addons\mozaik_mandate\mandate.py:220
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (copie)"
+
+#. module: mozaik_mandate
+#: constraint:abstract.candidature:0
+#: code:addons\mozaik_mandate\abstract_mandate.py:826
+#: code:addons\mozaik_mandate\sta_mandate.py:585
+#: constraint:ext.candidature:0
+#: constraint:int.candidature:0
+#: constraint:sta.candidature:0
+#, python-format
+msgid "A candidature already exists for this partner in this category"
+msgstr "Une candidature existe déjà pour ce partenaire dans cette catégorie"
+
+#. module: mozaik_mandate
+#: constraint:abstract.selection.committee:0
+#: code:addons\mozaik_mandate\abstract_mandate.py:176
+#: constraint:ext.selection.committee:0
+#: constraint:int.selection.committee:0
+#: constraint:sta.selection.committee:0
+#, python-format
+msgid "A decision date is mandatory when accepting the proposal of the committee"
+msgstr "Une date de décision est requise pour accepter la proposition du comité"
+
+#. module: mozaik_mandate
+#: field:abstract.copy.mandate.wizard,assembly_id:0
+#: field:abstract.copy.mandate.wizard,new_assembly_id:0
+#: field:abstract.selection.committee,assembly_id:0
+msgid "Abstract Assembly"
+msgstr "Assemblée abstraite"
+
+#. module: mozaik_mandate
+#: field:abstract.selection.committee,assembly_category_id:0
+msgid "Abstract Assembly Category"
+msgstr "Catégorie abstraite d'assemblée"
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_abstract_candidature
+msgid "Abstract Candidature"
+msgstr "Modèle abstrait de candidature"
+
+#. module: mozaik_mandate
+#: field:abstract.selection.committee,candidature_ids:0
+msgid "Abstract Candidatures"
+msgstr "Candidatures abstraites"
+
+#. module: mozaik_mandate
+#: field:abstract.copy.mandate.wizard,instance_id:0
+msgid "Abstract Instance"
+msgstr "Instance abstraite"
+
+#. module: mozaik_mandate
+#: field:abstract.copy.mandate.wizard,mandate_id:0
+#: model:ir.model,name:mozaik_mandate.model_abstract_mandate
+msgid "Abstract Mandate"
+msgstr "Mandat abstrait"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,mandate_ids:0
+msgid "Abstract Mandates"
+msgstr "Mandats abstraits"
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_abstract_selection_committee
+msgid "Abstract Selection Committee"
+msgstr "Modèle abstrait de comité de sélection"
+
+#. module: mozaik_mandate
+#: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_form_view
+#: view:int.selection.committee:mozaik_mandate.int_selection_committee_form_view
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "Accept"
+msgstr "Accepter"
+
+#. module: mozaik_mandate
+#: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_form_view
+#: view:int.selection.committee:mozaik_mandate.int_selection_committee_form_view
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "Accept all candidatures: proceed anyway?"
+msgstr "Poursuivre l'acceptation de toutes les candidatures ?"
+
+#. module: mozaik_mandate
+#: field:abstract.copy.mandate.wizard,action:0
+#: field:copy.ext.mandate.wizard,action:0
+#: field:copy.int.mandate.wizard,action:0
+#: field:copy.sta.mandate.wizard,action:0
+msgid "Action"
+msgstr "Action"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,active:0
+#: field:abstract.mandate,active:0
+#: field:abstract.selection.committee,active:0
+#: field:ext.candidature,active:0
+#: field:ext.mandate,active:0
+#: field:ext.selection.committee,active:0
+#: field:int.candidature,active:0
+#: field:int.mandate,active:0
+#: field:int.selection.committee,active:0
+#: field:mandate.category,active:0
+#: field:sta.candidature,active:0
+#: field:sta.mandate,active:0
+#: field:sta.selection.committee,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: mozaik_mandate
+#: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard
+#: selection:abstract.copy.mandate.wizard,action:0
+#: selection:copy.ext.mandate.wizard,action:0
+#: selection:copy.int.mandate.wizard,action:0
+#: selection:copy.sta.mandate.wizard,action:0
+msgid "Add Complementary Mandate"
+msgstr "Ajouter un mandat complémentaire"
+
+#. module: mozaik_mandate
+#: field:abstract.mandate,alert_date:0
+#: field:ext.mandate,alert_date:0
+#: field:int.mandate,alert_date:0
+#: field:sta.mandate,alert_date:0
+msgid "Alert Date"
+msgstr "Date d'alerte"
+
+#. module: mozaik_mandate
+#: field:ext.candidature,months_before_end_of_mandate:0
+#: field:ext.mandate,months_before_end_of_mandate:0
+#: field:int.candidature,months_before_end_of_mandate:0
+#: field:int.mandate,months_before_end_of_mandate:0
+#: field:mandates.analysis.report,months_before_end_of_mandate:0
+msgid "Alert Delay (#Months)"
+msgstr "Délai d'alerte (#mois)"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_search_view
+#: view:mandate.category:mozaik_mandate.mandate_category_search_view
+msgid "All"
+msgstr "Tous"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+msgid "All Candidatures, expired or not"
+msgstr "Toutes les candidatures, expirées ou non"
+
+#. module: mozaik_mandate
+#: view:mandate.category:mozaik_mandate.mandate_category_search_view
+msgid "All Categories, expired or not"
+msgstr "Toutes les catégories, expirées ou non"
+
+#. module: mozaik_mandate
+#: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_form_view
+#: view:int.selection.committee:mozaik_mandate.int_selection_committee_form_view
+#: view:res.partner:mozaik_mandate.view_partner_form
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "All Details"
+msgstr "Tous les détails"
+
+#. module: mozaik_mandate
+#: model:ir.ui.menu,name:mozaik_mandate.all_mandates_submenu
+msgid "All Mandates"
+msgstr "Tous les mandats"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+msgid "All Mandates, expired or not"
+msgstr "Tous les mandats, expirés ou non"
+
+#. module: mozaik_mandate
+#: model:ir.actions.act_window,name:mozaik_mandate.allow_incompatible_mandate_action
+msgid "Allow Incompatible Mandates"
+msgstr "Autoriser les mandats incompatibles"
+
+#. module: mozaik_mandate
+#: field:abstract.mandate,is_duplicate_allowed:0
+#: field:ext.mandate,is_duplicate_allowed:0
+#: field:generic.mandate,is_duplicate_allowed:0
+#: field:int.mandate,is_duplicate_allowed:0
+#: field:sta.mandate,is_duplicate_allowed:0
+msgid "Allowed Incompatible Mandate"
+msgstr "Mandat incompatible autorisé"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+#: view:generic.mandate:mozaik_mandate.generic_mandate_search_view
+msgid "Allowed Incompatible Mandates"
+msgstr "Mandats incompatibles autorisés"
+
+#. module: mozaik_mandate
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_search_view
+#: view:ext.candidature:mozaik_mandate.ext_candidature_search_view
+#: view:ext.mandate:mozaik_mandate.ext_mandate_search_view
+#: field:generic.mandate,assembly_name:0
+#: view:int.candidature:mozaik_mandate.int_candidature_search_view
+#: view:int.mandate:mozaik_mandate.int_mandate_search_view
+#: view:sta.candidature:mozaik_mandate.sta_candidature_search_view
+#: view:sta.mandate:mozaik_mandate.sta_mandate_search_view
+msgid "Assembly"
+msgstr "Assemblée"
+
+#. module: mozaik_mandate
+#: view:mandate.category:mozaik_mandate.mandate_category_search_view
+msgid "Assembly Category"
+msgstr "Catégorie d'assemblée"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+#: view:mandate.category:mozaik_mandate.mandate_category_search_view
+msgid "Assets Declaration"
+msgstr "Déclaration de revenus"
+
+#. module: mozaik_mandate
+#: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_form_view
+#: view:int.selection.committee:mozaik_mandate.int_selection_committee_form_view
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "Back to Declared"
+msgstr "Revenir à l'état \"Déclaré\""
+
+#. module: mozaik_mandate
+#: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard
+#: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step1
+#: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step2
+#: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step1
+#: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step2
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,partner_id:0
+#: field:ext.candidature,partner_id:0
+#: field:int.candidature,partner_id:0
+#: field:sta.candidature,partner_id:0
+msgid "Candidate"
+msgstr "Candidat"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,partner_name:0
+#: field:ext.candidature,partner_name:0
+#: field:import.sta.candidatures.file.lines,partner_name:0
+#: field:int.candidature,partner_name:0
+#: field:sta.candidature,partner_name:0
+msgid "Candidate Name"
+msgstr "Nom du candidat"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:223
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:207
+#, python-format
+msgid "Candidate is elected but position non elected (%s) is set"
+msgstr "Le candidat est élu mais la position de non élu (%s) est postionnée"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+#: field:abstract.mandate,candidature_id:0
+#: field:electoral.results.wizard.lines,sta_candidature_id:0
+#: field:ext.mandate,candidature_id:0
+#: field:int.mandate,candidature_id:0
+#: field:sta.mandate,candidature_id:0
+msgid "Candidature"
+msgstr "Candidature"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:223
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:199
+#, python-format
+msgid "Candidature is not flagged as effective"
+msgstr "La candidature n'est pas marquée comme effective"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:227
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:205
+#, python-format
+msgid "Candidature is not flagged as substitute"
+msgstr "La candidature n'est pas marquée comme suppléante"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+msgid "Candidature:"
+msgstr "Candidature:"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:218
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:185
+#, python-format
+msgid "Candidature: inconsistent value for column E/S: should be %s"
+msgstr "Candidature: valeur inconsistente pour la colonne E/S: %s attendu"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_tree_view
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_form_view
+#: view:electoral.district:mozaik_mandate.electoral_district_form_view
+#: view:ext.assembly:mozaik_mandate.ext_assembly_form_view
+#: field:import.sta.candidatures.wizard,import_lines:0
+#: view:int.assembly:mozaik_mandate.int_assembly_form_view
+#: view:legislature:mozaik_mandate.legislature_form_view
+#: view:mandate.category:mozaik_mandate.mandate_category_form_view
+#: view:sta.assembly:mozaik_mandate.sta_assembly_form_view
+msgid "Candidatures"
+msgstr "Candidatures"
+
+#. module: mozaik_mandate
+#: field:sta.selection.committee,cartel_composition:0
+msgid "Cartel composition"
+msgstr "Composition du cartel"
+
+#. module: mozaik_mandate
+#: view:generic.mandate:mozaik_mandate.generic_mandate_search_view
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: mozaik_mandate
+#: selection:abstract.selection.committee,state:0
+#: selection:ext.selection.committee,state:0
+#: selection:int.selection.committee,state:0
+#: selection:sta.selection.committee,state:0
+msgid "Closed"
+msgstr "Terminé"
+
+#. module: mozaik_mandate
+#: view:ext.mandate:mozaik_mandate.ext_mandate_form_view
+#: field:ext.mandate,competencies_m2m_ids:0
+#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
+#: field:sta.mandate,competencies_m2m_ids:0
+msgid "Competencies"
+msgstr "Compétences"
+
+#. module: mozaik_mandate
+#: model:ir.ui.menu,name:mozaik_mandate.configuration_submenu
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: mozaik_mandate
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_form_view
+msgid "Copy"
+msgstr "Copier"
+
+#. module: mozaik_mandate
+#: model:ir.actions.act_window,name:mozaik_mandate.copy_ext_mandate_action
+#: model:ir.actions.act_window,name:mozaik_mandate.copy_int_mandate_action
+#: model:ir.actions.act_window,name:mozaik_mandate.copy_sta_mandate_action
+msgid "Copy Mandate"
+msgstr "Copier le mandat"
+
+#. module: mozaik_mandate
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_form_view
+msgid "Copy committee and keep rejected candidatures: proceed anyway?"
+msgstr "Poursuivre la copie du comité en conservant les candidatures rejetées ?"
+
+#. module: mozaik_mandate
+#: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard
+msgid "Create"
+msgstr "Créer"
+
+#. module: mozaik_mandate
+#: field:abstract.selection.committee,auto_mandate:0
+#: field:ext.selection.committee,auto_mandate:0
+#: field:int.selection.committee,auto_mandate:0
+#: field:sta.selection.committee,auto_mandate:0
+msgid "Create Mandates after Election"
+msgstr "Créer les mandats à l'élection"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+msgid "Create mandate from candidature: proceed anyway?"
+msgstr "Poursuivre la conversion de la candidature en mandat ?"
+
+#. module: mozaik_mandate
+#: field:allow.incompatible.mandate.wizard,create_uid:0
+#: field:copy.ext.mandate.wizard,create_uid:0
+#: field:copy.int.mandate.wizard,create_uid:0
+#: field:copy.sta.mandate.wizard,create_uid:0
+#: field:electoral.results.wizard,create_uid:0
+#: field:electoral.results.wizard.errors,create_uid:0
+#: field:electoral.results.wizard.lines,create_uid:0
+#: field:ext.candidature,create_uid:0
+#: field:ext.mandate,create_uid:0
+#: field:ext.selection.committee,create_uid:0
+#: field:import.sta.candidatures.file.lines,create_uid:0
+#: field:import.sta.candidatures.wizard,create_uid:0
+#: field:int.candidature,create_uid:0
+#: field:int.mandate,create_uid:0
+#: field:int.selection.committee,create_uid:0
+#: field:mandate.category,create_uid:0
+#: field:sta.candidature,create_uid:0
+#: field:sta.mandate,create_uid:0
+#: field:sta.selection.committee,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: mozaik_mandate
+#: field:allow.incompatible.mandate.wizard,create_date:0
+#: field:copy.ext.mandate.wizard,create_date:0
+#: field:copy.int.mandate.wizard,create_date:0
+#: field:copy.sta.mandate.wizard,create_date:0
+#: field:electoral.results.wizard,create_date:0
+#: field:electoral.results.wizard.errors,create_date:0
+#: field:electoral.results.wizard.lines,create_date:0
+#: field:import.sta.candidatures.file.lines,create_date:0
+#: field:import.sta.candidatures.wizard,create_date:0
+msgid "Created on"
+msgstr "Date de création"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,create_date:0
+#: field:abstract.mandate,create_date:0
+#: field:abstract.selection.committee,create_date:0
+#: field:ext.candidature,create_date:0
+#: field:ext.mandate,create_date:0
+#: field:ext.selection.committee,create_date:0
+#: field:int.candidature,create_date:0
+#: field:int.mandate,create_date:0
+#: field:int.selection.committee,create_date:0
+#: field:mandate.category,create_date:0
+#: field:sta.candidature,create_date:0
+#: field:sta.mandate,create_date:0
+#: field:sta.selection.committee,create_date:0
+msgid "Creation Date"
+msgstr "Date de création"
+
+#. module: mozaik_mandate
+#: help:abstract.candidature,message_last_post:0
+#: help:abstract.mandate,message_last_post:0
+#: help:abstract.selection.committee,message_last_post:0
+#: help:ext.candidature,message_last_post:0
+#: help:ext.mandate,message_last_post:0
+#: help:ext.selection.committee,message_last_post:0
+#: help:int.candidature,message_last_post:0
+#: help:int.mandate,message_last_post:0
+#: help:int.selection.committee,message_last_post:0
+#: help:mandate.category,message_last_post:0
+#: help:sta.candidature,message_last_post:0
+#: help:sta.mandate,message_last_post:0
+#: help:sta.selection.committee,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur l'enregistrement."
+
+#. module: mozaik_mandate
+#: field:abstract.copy.mandate.wizard,deadline_date:0
+#: field:abstract.mandate,deadline_date:0
+#: field:copy.ext.mandate.wizard,deadline_date:0
+#: field:copy.int.mandate.wizard,deadline_date:0
+#: field:copy.sta.mandate.wizard,deadline_date:0
+#: field:ext.mandate,deadline_date:0
+#: field:generic.mandate,deadline_date:0
+#: field:int.mandate,deadline_date:0
+#: field:sta.mandate,deadline_date:0
+msgid "Deadline Date"
+msgstr "Date d'échéance"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+msgid "Declare"
+msgstr "Déclarer"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+msgid "Declare candidature: proceed anyway?"
+msgstr "Poursuivre la déclaration de la candidature ?"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: selection:abstract.candidature,state:0
+#: selection:ext.candidature,state:0
+#: selection:int.candidature,state:0
+#: selection:sta.candidature,state:0
+msgid "Declared"
+msgstr "Déclaré"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+msgid "Declared Candidatures"
+msgstr "Candidatures déclarées"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: selection:abstract.candidature,state:0
+#: selection:sta.candidature,state:0
+msgid "Designated"
+msgstr "Désigné"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+msgid "Designated Candidatures"
+msgstr "Candidatures désignées"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: field:abstract.candidature,designation_int_assembly_id:0
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+#: field:abstract.mandate,designation_int_assembly_id:0
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_search_view
+#: field:abstract.selection.committee,designation_int_assembly_id:0
+#: field:ext.candidature,designation_int_assembly_id:0
+#: field:ext.mandate,designation_int_assembly_id:0
+#: field:ext.selection.committee,designation_int_assembly_id:0
+#: field:int.candidature,designation_int_assembly_id:0
+#: field:int.mandate,designation_int_assembly_id:0
+#: field:int.selection.committee,designation_int_assembly_id:0
+#: field:mandates.analysis.report,designation_int_assembly_id:0
+#: field:sta.candidature,designation_int_assembly_id:0
+#: field:sta.mandate,designation_int_assembly_id:0
+#: field:sta.selection.committee,designation_int_assembly_id:0
+msgid "Designation Assembly"
+msgstr "Assemblée de désignation"
+
+#. module: mozaik_mandate
+#: field:abstract.selection.committee,decision_date:0
+#: field:ext.selection.committee,decision_date:0
+#: field:int.selection.committee,decision_date:0
+#: field:sta.selection.committee,decision_date:0
+msgid "Designation Date"
+msgstr "Date de désignation"
+
+#. module: mozaik_mandate
+#: selection:abstract.candidature,state:0
+#: selection:ext.candidature,state:0
+#: selection:int.candidature,state:0
+#: selection:sta.candidature,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: mozaik_mandate
+#: field:import.sta.candidatures.file.lines,is_effective:0
+#: field:sta.candidature,is_effective:0
+msgid "Effective"
+msgstr "Effectif"
+
+#. module: mozaik_mandate
+#: field:sta.candidature,election_effective_position:0
+msgid "Effective Position after Election"
+msgstr "Position d'effectif obtenue"
+
+#. module: mozaik_mandate
+#: field:sta.candidature,effective_votes:0
+msgid "Effective Preferential Votes"
+msgstr "Voix de préférence d'effectif"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: selection:abstract.candidature,state:0
+#: selection:ext.candidature,state:0
+#: selection:int.candidature,state:0
+#: view:sta.candidature:mozaik_mandate.sta_candidature_form_view
+#: selection:sta.candidature,state:0
+msgid "Elected"
+msgstr "Élu"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+msgid "Elected Candidatures"
+msgstr "Candidats élus"
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_electoral_district
+#: view:sta.candidature:mozaik_mandate.sta_candidature_search_view
+#: field:sta.candidature,electoral_district_id:0
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_search_view
+#: field:sta.selection.committee,electoral_district_id:0
+msgid "Electoral District"
+msgstr "Circonscription électorale"
+
+#. module: mozaik_mandate
+#: field:abstract.mandate,email_coordinate_id:0
+#: field:ext.mandate,email_coordinate_id:0
+#: field:int.mandate,email_coordinate_id:0
+#: field:sta.mandate,email_coordinate_id:0
+msgid "Email Coordinate"
+msgstr "Coordonnée électronique"
+
+#. module: mozaik_mandate
+#: field:abstract.mandate,end_date:0
+#: field:ext.mandate,end_date:0
+#: field:int.mandate,end_date:0
+#: field:sta.mandate,end_date:0
+msgid "End Date"
+msgstr "Date de fin"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\report\mandates_analysis_report.py:153
+#, python-format
+msgid "Ending mandates alerts report"
+msgstr "Rapport d'alerte de fins de mandat"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\wizard\import_candidatures_wizard.py:94
+#: code:addons\mozaik_mandate\wizard\import_candidatures_wizard.py:101
+#: code:addons\mozaik_mandate\wizard\import_candidatures_wizard.py:112
+#, python-format
+msgid "Error"
+msgstr "Erreur"
+
+#. module: mozaik_mandate
+#: field:electoral.results.wizard,error_lines:0
+msgid "Errors"
+msgstr "Erreurs"
+
+#. module: mozaik_mandate
+#: view:mandate.category:mozaik_mandate.mandate_category_form_view
+msgid "Exclusive Categories"
+msgstr "Catégories exclusives"
+
+#. module: mozaik_mandate
+#: field:mandate.category,exclusive_category_m2m_ids:0
+msgid "Exclusive Category"
+msgstr "Catégorie exclusive"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,expire_date:0
+#: field:abstract.mandate,expire_date:0
+#: field:abstract.selection.committee,expire_date:0
+#: field:ext.candidature,expire_date:0
+#: field:ext.mandate,expire_date:0
+#: field:ext.selection.committee,expire_date:0
+#: field:int.candidature,expire_date:0
+#: field:int.mandate,expire_date:0
+#: field:int.selection.committee,expire_date:0
+#: field:mandate.category,expire_date:0
+#: field:sta.candidature,expire_date:0
+#: field:sta.mandate,expire_date:0
+#: field:sta.selection.committee,expire_date:0
+msgid "Expiration Date"
+msgstr "Date d'expiration"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_search_view
+#: view:mandate.category:mozaik_mandate.mandate_category_search_view
+msgid "Expired"
+msgstr "Expiré"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+msgid "Expired Candidatures"
+msgstr "Candidatures expirées"
+
+#. module: mozaik_mandate
+#: view:mandate.category:mozaik_mandate.mandate_category_search_view
+msgid "Expired Categories"
+msgstr "Catégories expirées"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+msgid "Expired Mandates"
+msgstr "Mandats expirés"
+
+#. module: mozaik_mandate
+#: model:ir.ui.menu,name:mozaik_mandate.ext_submenu
+#: selection:mandate.category,type:0
+msgid "External"
+msgstr "Externe"
+
+#. module: mozaik_mandate
+#: field:copy.ext.mandate.wizard,assembly_id:0
+#: field:copy.ext.mandate.wizard,new_assembly_id:0
+#: field:ext.candidature,ext_assembly_id:0
+#: field:ext.mandate,ext_assembly_id:0
+#: field:ext.selection.committee,assembly_id:0
+#: model:ir.model,name:mozaik_mandate.model_ext_assembly
+msgid "External Assembly"
+msgstr "Assemblée externe"
+
+#. module: mozaik_mandate
+#: field:ext.mandate,ext_assembly_category_id:0
+#: field:ext.selection.committee,assembly_category_id:0
+#: model:ir.model,name:mozaik_mandate.model_ext_assembly_category
+#: field:mandate.category,ext_assembly_category_id:0
+msgid "External Assembly Category"
+msgstr "Catégorie d'assemblée externe"
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_ext_candidature
+msgid "External Candidature"
+msgstr "Candidature externe"
+
+#. module: mozaik_mandate
+#: field:ext.selection.committee,candidature_ids:0
+#: model:ir.actions.act_window,name:mozaik_mandate.ext_candidature_action
+#: model:ir.ui.menu,name:mozaik_mandate.ext_candidature_submenu
+#: view:res.partner:mozaik_mandate.view_partner_form
+#: field:res.partner,ext_candidature_ids:0
+#: field:res.partner,ext_candidature_inactive_ids:0
+msgid "External Candidatures"
+msgstr "Candidatures externes"
+
+#. module: mozaik_mandate
+#: model:ir.actions.act_window,name:mozaik_mandate.ext_mandate_category_action
+#: model:ir.ui.menu,name:mozaik_mandate.ext_mandate_categories_submenu
+msgid "External Categories"
+msgstr "Catégories externes"
+
+#. module: mozaik_mandate
+#: field:copy.ext.mandate.wizard,mandate_id:0
+#: model:ir.model,name:mozaik_mandate.model_ext_mandate
+msgid "External Mandate"
+msgstr "Mandat externe"
+
+#. module: mozaik_mandate
+#: field:ext.candidature,mandate_ids:0
+#: model:ir.actions.act_window,name:mozaik_mandate.ext_mandate_action
+#: model:ir.ui.menu,name:mozaik_mandate.ext_mandate_submenu
+#: field:mandate.category,ext_mandate_ids:0
+#: view:res.partner:mozaik_mandate.view_partner_form
+#: field:res.partner,ext_mandate_ids:0
+#: field:res.partner,ext_mandate_inactive_ids:0
+msgid "External Mandates"
+msgstr "Mandats externes"
+
+#. module: mozaik_mandate
+#: field:electoral.results.wizard,file_lines:0
+msgid "File Lines"
+msgstr "Lignes du fichier"
+
+#. module: mozaik_mandate
+#: field:electoral.results.wizard.lines,data:0
+msgid "File Values"
+msgstr "Valeurs"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
+msgid "Finish"
+msgstr "Arrêter"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
+msgid "Finish mandate now: proceed anyway?"
+msgstr "Poursuivre l'arrêt du mandat ?"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,message_follower_ids:0
+#: field:abstract.mandate,message_follower_ids:0
+#: field:abstract.selection.committee,message_follower_ids:0
+#: field:ext.candidature,message_follower_ids:0
+#: field:ext.mandate,message_follower_ids:0
+#: field:ext.selection.committee,message_follower_ids:0
+#: field:int.candidature,message_follower_ids:0
+#: field:int.mandate,message_follower_ids:0
+#: field:int.selection.committee,message_follower_ids:0
+#: field:mandate.category,message_follower_ids:0
+#: field:sta.candidature,message_follower_ids:0
+#: field:sta.mandate,message_follower_ids:0
+#: field:sta.selection.committee,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_generic_mandate
+msgid "Generic Mandate"
+msgstr "Mandat générique"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_search_view
+#: view:generic.mandate:mozaik_mandate.generic_mandate_search_view
+#: view:mandate.category:mozaik_mandate.mandate_category_search_view
+msgid "Group By..."
+msgstr "Grouper par..."
+
+#. module: mozaik_mandate
+#: help:abstract.candidature,message_summary:0
+#: help:abstract.mandate,message_summary:0
+#: help:abstract.selection.committee,message_summary:0
+#: help:ext.candidature,message_summary:0
+#: help:ext.mandate,message_summary:0
+#: help:ext.selection.committee,message_summary:0
+#: help:int.candidature,message_summary:0
+#: help:int.mandate,message_summary:0
+#: help:int.selection.committee,message_summary:0
+#: help:mandate.category,message_summary:0
+#: help:sta.candidature,message_summary:0
+#: help:sta.mandate,message_summary:0
+#: help:sta.selection.committee,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est au format HTML pour permettre son utilisation dans la vue kanban."
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,id:0
+#: field:abstract.copy.mandate.wizard,id:0
+#: field:abstract.mandate,id:0
+#: field:abstract.selection.committee,id:0
+#: field:allow.incompatible.mandate.wizard,id:0
+#: field:copy.ext.mandate.wizard,id:0
+#: field:copy.int.mandate.wizard,id:0
+#: field:copy.sta.mandate.wizard,id:0
+#: field:electoral.results.wizard,id:0
+#: field:electoral.results.wizard.errors,id:0
+#: field:electoral.results.wizard.lines,id:0
+#: field:ext.candidature,id:0
+#: field:ext.mandate,id:0
+#: field:ext.selection.committee,id:0
+#: field:generic.mandate,id:0
+#: field:import.sta.candidatures.file.lines,id:0
+#: field:import.sta.candidatures.wizard,id:0
+#: field:int.candidature,id:0
+#: field:int.mandate,id:0
+#: field:int.selection.committee,id:0
+#: field:mandate.category,id:0
+#: field:mandates.analysis.report,id:0
+#: field:sta.candidature,id:0
+#: field:sta.mandate,id:0
+#: field:sta.selection.committee,id:0
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_mandate
+#: help:abstract.candidature,message_unread:0
+#: help:abstract.mandate,message_unread:0
+#: help:abstract.selection.committee,message_unread:0
+#: help:ext.candidature,message_unread:0
+#: help:ext.mandate,message_unread:0
+#: help:ext.selection.committee,message_unread:0
+#: help:int.candidature,message_unread:0
+#: help:int.mandate,message_unread:0
+#: help:int.selection.committee,message_unread:0
+#: help:mandate.category,message_unread:0
+#: help:sta.candidature,message_unread:0
+#: help:sta.mandate,message_unread:0
+#: help:sta.selection.committee,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages requièrent votre attention."
+
+#. module: mozaik_mandate
+#: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step2
+#: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step2
+msgid "Import"
+msgstr "Import"
+
+#. module: mozaik_mandate
+#: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step1
+#: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step2
+#: model:ir.actions.act_window,name:mozaik_mandate.import_sta_candidatures_step1_action
+#: model:ir.actions.act_window,name:mozaik_mandate.import_sta_candidatures_step2_action
+msgid "Import Candidatures"
+msgstr "Importer des candidatures"
+
+#. module: mozaik_mandate
+#: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step1
+#: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step2
+#: model:ir.actions.act_window,name:mozaik_mandate.electoral_results_wizard_step1_action
+#: model:ir.actions.act_window,name:mozaik_mandate.electoral_results_wizard_step2_action
+msgid "Import Electoral Results"
+msgstr "Importer des résultats électoraux"
+
+#. module: mozaik_mandate
+#: selection:abstract.selection.committee,state:0
+#: selection:ext.selection.committee,state:0
+#: selection:int.selection.committee,state:0
+#: selection:sta.selection.committee,state:0
+msgid "In Progress"
+msgstr "en cours"
+
+#. module: mozaik_mandate
+#: field:abstract.mandate,is_duplicate_detected:0
+#: field:ext.mandate,is_duplicate_detected:0
+#: view:generic.mandate:mozaik_mandate.generic_mandate_form_view
+#: field:generic.mandate,is_duplicate_detected:0
+#: field:int.mandate,is_duplicate_detected:0
+#: field:sta.mandate,is_duplicate_detected:0
+msgid "Incompatible Mandate"
+msgstr "Mandat incompatible"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+#: view:generic.mandate:mozaik_mandate.generic_mandate_search_view
+#: view:generic.mandate:mozaik_mandate.generic_mandate_tree_view
+#: model:ir.actions.act_window,name:mozaik_mandate.generic_mandate_action
+#: model:ir.ui.menu,name:mozaik_mandate.incompatible_mandates_submenu
+msgid "Incompatible Mandates"
+msgstr "Mandats incompatibles"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:203
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:231
+#, python-format
+msgid "Inconsistent state for candidature: %s"
+msgstr "Candidature de status inconsistent: %s"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:213
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:209
+#, python-format
+msgid "Inconsistent value for column E/S: %s"
+msgstr "Valeur inconsistente pour la colonne E/S: %s"
+
+#. module: mozaik_mandate
+#: view:ext.mandate:mozaik_mandate.ext_mandate_form_view
+#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
+msgid "Indexation"
+msgstr "Indexation"
+
+#. module: mozaik_mandate
+#: model:ir.ui.menu,name:mozaik_mandate.int_submenu
+#: selection:mandate.category,type:0
+msgid "Internal"
+msgstr "Interne"
+
+#. module: mozaik_mandate
+#: field:copy.int.mandate.wizard,assembly_id:0
+#: field:copy.int.mandate.wizard,new_assembly_id:0
+#: field:int.candidature,int_assembly_id:0
+#: field:int.mandate,int_assembly_id:0
+#: field:int.selection.committee,assembly_id:0
+#: model:ir.model,name:mozaik_mandate.model_int_assembly
+msgid "Internal Assembly"
+msgstr "Assemblée interne"
+
+#. module: mozaik_mandate
+#: field:int.mandate,int_assembly_category_id:0
+#: field:int.selection.committee,assembly_category_id:0
+#: model:ir.model,name:mozaik_mandate.model_int_assembly_category
+#: field:mandate.category,int_assembly_category_id:0
+msgid "Internal Assembly Category"
+msgstr "Catégorie d'assemblée interne"
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_int_candidature
+msgid "Internal Candidature"
+msgstr "Candidature interne"
+
+#. module: mozaik_mandate
+#: field:int.selection.committee,candidature_ids:0
+#: model:ir.actions.act_window,name:mozaik_mandate.int_candidature_action
+#: model:ir.ui.menu,name:mozaik_mandate.int_candidature_submenu
+#: view:res.partner:mozaik_mandate.view_partner_form
+#: field:res.partner,int_candidature_ids:0
+#: field:res.partner,int_candidature_inactive_ids:0
+msgid "Internal Candidatures"
+msgstr "Candidatures internes"
+
+#. module: mozaik_mandate
+#: model:ir.actions.act_window,name:mozaik_mandate.int_mandate_category_action
+#: model:ir.ui.menu,name:mozaik_mandate.int_mandate_categories_submenu
+msgid "Internal Categories"
+msgstr "Catégories internes"
+
+#. module: mozaik_mandate
+#: field:copy.ext.mandate.wizard,instance_id:0
+#: field:copy.int.mandate.wizard,instance_id:0
+msgid "Internal Instance"
+msgstr "Instance interne"
+
+#. module: mozaik_mandate
+#: field:copy.int.mandate.wizard,mandate_id:0
+#: model:ir.model,name:mozaik_mandate.model_int_mandate
+msgid "Internal Mandate"
+msgstr "Mandat interne"
+
+#. module: mozaik_mandate
+#: field:int.candidature,mandate_ids:0
+#: model:ir.actions.act_window,name:mozaik_mandate.int_mandate_action
+#: model:ir.ui.menu,name:mozaik_mandate.int_mandate_submenu
+#: field:mandate.category,int_mandate_ids:0
+#: view:res.partner:mozaik_mandate.view_partner_form
+#: field:res.partner,int_mandate_ids:0
+#: field:res.partner,int_mandate_inactive_ids:0
+msgid "Internal Mandates"
+msgstr "Mandates internes"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_form_view
+#: view:mandate.category:mozaik_mandate.mandate_category_form_view
+msgid "Invalidate"
+msgstr "Invalider"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+msgid "Invalidate candidature: proceed anyway?"
+msgstr "Poursuivre l'invalidation de la candidature ?"
+
+#. module: mozaik_mandate
+#: view:mandate.category:mozaik_mandate.mandate_category_form_view
+msgid "Invalidate category: proceed anyway?"
+msgstr "Poursuivre l'invalidation de la catégorie ?"
+
+#. module: mozaik_mandate
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_form_view
+msgid "Invalidate committee: proceed anyway?"
+msgstr "Poursuivre l'invalidation du comité ?"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
+msgid "Invalidate mandate: proceed anyway?"
+msgstr "Poursuivre l'invalidation du mandat ?"
+
+#. module: mozaik_mandate
+#: field:sta.selection.committee,is_cartel:0
+msgid "Is Cartel"
+msgstr "Cartel"
+
+#. module: mozaik_mandate
+#: field:copy.sta.mandate.wizard,is_legislative:0
+#: field:sta.candidature,is_legislative:0
+#: field:sta.mandate,is_legislative:0
+msgid "Is Legislative"
+msgstr "Assemblée législative"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,is_selection_committee_active:0
+#: field:ext.candidature,is_selection_committee_active:0
+#: field:int.candidature,is_selection_committee_active:0
+#: field:sta.candidature,is_selection_committee_active:0
+msgid "Is Selection Committee Active?"
+msgstr "Comité de sélection actif"
+
+#. module: mozaik_mandate
+#: field:ext.selection.committee,is_virtual:0
+#: field:int.selection.committee,is_virtual:0
+msgid "Is Virtual"
+msgstr "Virtuel"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,message_is_follower:0
+#: field:abstract.mandate,message_is_follower:0
+#: field:abstract.selection.committee,message_is_follower:0
+#: field:ext.candidature,message_is_follower:0
+#: field:ext.mandate,message_is_follower:0
+#: field:ext.selection.committee,message_is_follower:0
+#: field:int.candidature,message_is_follower:0
+#: field:int.mandate,message_is_follower:0
+#: field:int.selection.committee,message_is_follower:0
+#: field:mandate.category,message_is_follower:0
+#: field:sta.candidature,message_is_follower:0
+#: field:sta.mandate,message_is_follower:0
+#: field:sta.selection.committee,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est abonné"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,message_last_post:0
+#: field:abstract.mandate,message_last_post:0
+#: field:abstract.selection.committee,message_last_post:0
+#: field:ext.candidature,message_last_post:0
+#: field:ext.mandate,message_last_post:0
+#: field:ext.selection.committee,message_last_post:0
+#: field:int.candidature,message_last_post:0
+#: field:int.mandate,message_last_post:0
+#: field:int.selection.committee,message_last_post:0
+#: field:mandate.category,message_last_post:0
+#: field:sta.candidature,message_last_post:0
+#: field:sta.mandate,message_last_post:0
+#: field:sta.selection.committee,message_last_post:0
+msgid "Last Message Date"
+msgstr "Date du dernier message"
+
+#. module: mozaik_mandate
+#: field:allow.incompatible.mandate.wizard,write_uid:0
+#: field:copy.ext.mandate.wizard,write_uid:0
+#: field:copy.int.mandate.wizard,write_uid:0
+#: field:copy.sta.mandate.wizard,write_uid:0
+#: field:electoral.results.wizard,write_uid:0
+#: field:electoral.results.wizard.errors,write_uid:0
+#: field:electoral.results.wizard.lines,write_uid:0
+#: field:ext.candidature,write_uid:0
+#: field:ext.mandate,write_uid:0
+#: field:ext.selection.committee,write_uid:0
+#: field:import.sta.candidatures.file.lines,write_uid:0
+#: field:import.sta.candidatures.wizard,write_uid:0
+#: field:int.candidature,write_uid:0
+#: field:int.mandate,write_uid:0
+#: field:int.selection.committee,write_uid:0
+#: field:mandate.category,write_uid:0
+#: field:sta.candidature,write_uid:0
+#: field:sta.mandate,write_uid:0
+#: field:sta.selection.committee,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: mozaik_mandate
+#: field:allow.incompatible.mandate.wizard,write_date:0
+#: field:copy.ext.mandate.wizard,write_date:0
+#: field:copy.int.mandate.wizard,write_date:0
+#: field:copy.sta.mandate.wizard,write_date:0
+#: field:electoral.results.wizard,write_date:0
+#: field:electoral.results.wizard.errors,write_date:0
+#: field:electoral.results.wizard.lines,write_date:0
+#: field:ext.candidature,write_date:0
+#: field:ext.mandate,write_date:0
+#: field:ext.selection.committee,write_date:0
+#: field:import.sta.candidatures.file.lines,write_date:0
+#: field:import.sta.candidatures.wizard,write_date:0
+#: field:int.candidature,write_date:0
+#: field:int.mandate,write_date:0
+#: field:int.selection.committee,write_date:0
+#: field:mandate.category,write_date:0
+#: field:sta.candidature,write_date:0
+#: field:sta.mandate,write_date:0
+#: field:sta.selection.committee,write_date:0
+msgid "Last Updated on"
+msgstr "Date de dernière mise à jour"
+
+#. module: mozaik_mandate
+#: field:copy.sta.mandate.wizard,legislature_id:0
+#: field:electoral.results.wizard,legislature_id:0
+#: view:sta.candidature:mozaik_mandate.sta_candidature_search_view
+#: field:sta.candidature,legislature_id:0
+#: view:sta.mandate:mozaik_mandate.sta_mandate_search_view
+#: field:sta.mandate,legislature_id:0
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_search_view
+#: field:sta.selection.committee,legislature_id:0
+msgid "Legislature"
+msgstr "Législature"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\wizard\import_candidatures_wizard.py:113
+#, python-format
+msgid "Line %s: Partner %s not found in database, please check source file!"
+msgstr "Ligne %s: Partenaire %s inconnu, merci de vérifier le fichier le contenu d'entrée !"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\wizard\import_candidatures_wizard.py:95
+#, python-format
+msgid "Line %s: wrong number of columns(%s), %s expected!"
+msgstr "Ligne %s: nombre de columns(%s) incorrect, %s sont requises !"
+
+#. module: mozaik_mandate
+#: field:electoral.results.wizard.errors,line_number:0
+msgid "Line Number"
+msgstr "Numéro de ligne"
+
+#. module: mozaik_mandate
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "List"
+msgstr "Liste"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+#: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
+msgid "Mandate"
+msgstr "Mandat"
+
+#. module: mozaik_mandate
+#: view:ext.assembly.category:mozaik_mandate.ext_assembly_category_form_view
+#: field:ext.assembly.category,mandate_category_ids:0
+#: field:ext.assembly.category,mandate_category_inactive_ids:0
+#: view:int.assembly.category:mozaik_mandate.int_assembly_category_form_view
+#: field:int.assembly.category,mandate_category_ids:0
+#: field:int.assembly.category,mandate_category_inactive_ids:0
+#: model:ir.ui.menu,name:mozaik_mandate.mandate_category_configuration_submenu
+#: view:mandate.category:mozaik_mandate.mandate_category_search_view
+#: view:mandate.category:mozaik_mandate.mandate_category_tree_view
+#: view:sta.assembly.category:mozaik_mandate.sta_assembly_category_form_view
+#: field:sta.assembly.category,mandate_category_ids:0
+#: field:sta.assembly.category,mandate_category_inactive_ids:0
+msgid "Mandate Categories"
+msgstr "Catégories de mandat"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: field:abstract.candidature,mandate_category_id:0
+#: field:abstract.copy.mandate.wizard,mandate_category_id:0
+#: field:abstract.copy.mandate.wizard,new_mandate_category_id:0
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+#: field:abstract.mandate,mandate_category_id:0
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_search_view
+#: field:abstract.selection.committee,mandate_category_id:0
+#: field:copy.ext.mandate.wizard,mandate_category_id:0
+#: field:copy.ext.mandate.wizard,new_mandate_category_id:0
+#: field:copy.int.mandate.wizard,mandate_category_id:0
+#: field:copy.int.mandate.wizard,new_mandate_category_id:0
+#: field:copy.sta.mandate.wizard,mandate_category_id:0
+#: field:copy.sta.mandate.wizard,new_mandate_category_id:0
+#: field:ext.candidature,mandate_category_id:0
+#: field:ext.mandate,mandate_category_id:0
+#: field:ext.selection.committee,mandate_category_id:0
+#: field:generic.mandate,mandate_category_id:0
+#: field:int.candidature,mandate_category_id:0
+#: field:int.mandate,mandate_category_id:0
+#: field:int.selection.committee,mandate_category_id:0
+#: model:ir.model,name:mozaik_mandate.model_mandate_category
+#: view:mandate.category:mozaik_mandate.mandate_category_form_view
+#: field:sta.candidature,mandate_category_id:0
+#: field:sta.mandate,mandate_category_id:0
+#: field:sta.selection.committee,mandate_category_id:0
+msgid "Mandate Category"
+msgstr "Catégorie de mandat"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+#: view:mandate.category:mozaik_mandate.mandate_category_search_view
+msgid "Mandate Declaration"
+msgstr "Déclaration de mandat"
+
+#. module: mozaik_mandate
+#: field:generic.mandate,mandate_id:0
+msgid "Mandate ID"
+msgstr "ID de mandat"
+
+#. module: mozaik_mandate
+#: field:generic.mandate,mandate_ref:0
+msgid "Mandate Reference"
+msgstr "Référence du mandat"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,mandate_start_date:0
+#: field:ext.candidature,mandate_start_date:0
+#: field:int.candidature,mandate_start_date:0
+#: field:sta.candidature,mandate_start_date:0
+msgid "Mandate Start Date"
+msgstr "Date de début de mandat"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
+msgid "Mandate:"
+msgstr "Mandat:"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_tree_view
+#: view:ext.assembly:mozaik_mandate.ext_assembly_form_view
+#: view:int.assembly:mozaik_mandate.int_assembly_form_view
+#: view:legislature:mozaik_mandate.legislature_form_view
+#: view:mandate.category:mozaik_mandate.mandate_category_form_view
+#: view:res.partner:mozaik_mandate.view_partner_form
+#: view:sta.assembly:mozaik_mandate.sta_assembly_form_view
+msgid "Mandates"
+msgstr "Mandats"
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_mandates_analysis_report
+msgid "Mandates Analysis Report"
+msgstr "Rapport d'analyse de mandats"
+
+#. module: mozaik_mandate
+#: field:abstract.selection.committee,mandate_deadline_date:0
+#: field:ext.selection.committee,mandate_deadline_date:0
+#: field:int.selection.committee,mandate_deadline_date:0
+#: field:sta.selection.committee,mandate_deadline_date:0
+msgid "Mandates Deadline Date"
+msgstr "Date d'échéance des mandats"
+
+#. module: mozaik_mandate
+#: field:abstract.selection.committee,mandate_start_date:0
+#: field:ext.selection.committee,mandate_start_date:0
+#: field:int.selection.committee,mandate_start_date:0
+#: field:sta.selection.committee,mandate_start_date:0
+msgid "Mandates Start Date"
+msgstr "Date de début des mandats"
+
+#. module: mozaik_mandate
+#: field:abstract.selection.committee,meeting_date:0
+#: field:ext.selection.committee,meeting_date:0
+#: field:int.selection.committee,meeting_date:0
+#: field:sta.selection.committee,meeting_date:0
+msgid "Meeting Date"
+msgstr "Date de réunion"
+
+#. module: mozaik_mandate
+#: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_officer_form_view
+#: field:ext.selection.committee,partner_ids:0
+#: view:int.selection.committee:mozaik_mandate.int_selection_committee_officer_form_view
+#: field:int.selection.committee,partner_ids:0
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_officer_form_view
+#: field:sta.selection.committee,partner_ids:0
+msgid "Members"
+msgstr "Membres"
+
+#. module: mozaik_mandate
+#: field:abstract.copy.mandate.wizard,message:0
+#: field:copy.ext.mandate.wizard,message:0
+#: field:copy.int.mandate.wizard,message:0
+#: field:copy.sta.mandate.wizard,message:0
+#: field:electoral.results.wizard.errors,error_msg:0
+msgid "Message"
+msgstr "Message"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,message_ids:0
+#: field:abstract.mandate,message_ids:0
+#: field:abstract.selection.committee,message_ids:0
+#: field:ext.candidature,message_ids:0
+#: field:ext.mandate,message_ids:0
+#: field:ext.selection.committee,message_ids:0
+#: field:int.candidature,message_ids:0
+#: field:int.mandate,message_ids:0
+#: field:int.selection.committee,message_ids:0
+#: field:mandate.category,message_ids:0
+#: field:sta.candidature,message_ids:0
+#: field:sta.mandate,message_ids:0
+#: field:sta.selection.committee,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: mozaik_mandate
+#: help:abstract.candidature,message_ids:0
+#: help:abstract.mandate,message_ids:0
+#: help:abstract.selection.committee,message_ids:0
+#: help:ext.candidature,message_ids:0
+#: help:ext.mandate,message_ids:0
+#: help:ext.selection.committee,message_ids:0
+#: help:int.candidature,message_ids:0
+#: help:int.mandate,message_ids:0
+#: help:int.selection.committee,message_ids:0
+#: help:mandate.category,message_ids:0
+#: help:sta.candidature,message_ids:0
+#: help:sta.mandate,message_ids:0
+#: help:sta.selection.committee,message_ids:0
+msgid "Messages and communication history"
+msgstr "Historique des messages et communications"
+
+#. module: mozaik_mandate
+#: field:generic.mandate,model:0
+#: field:mandates.analysis.report,model:0
+msgid "Models"
+msgstr "Modèles"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+#: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_form_view
+#: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step1
+#: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step2
+#: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step1
+#: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step2
+#: view:mandate.category:mozaik_mandate.mandate_category_form_view
+msgid "More Info"
+msgstr "Plus d'info"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\report\mandates_analysis_report.py:179
+#, python-format
+msgid "Mozaik: Ending Mandates Summary - %s"
+msgstr "Mozaik: Récapitulatif des mandats arrivant à échéance - %s"
+
+#. module: mozaik_mandate
+#: field:abstract.selection.committee,name:0
+#: field:ext.selection.committee,name:0
+#: field:int.selection.committee,name:0
+#: field:mandate.category,name:0
+#: field:sta.selection.committee,listname:0
+#: field:sta.selection.committee,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: mozaik_mandate
+#: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step2
+msgid "No candidature found in input file!"
+msgstr "Le fichier d'entrée est vide !"
+
+#. module: mozaik_mandate
+#: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step2
+msgid "No error detected!"
+msgstr "Aucune erreur détectée !"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: selection:abstract.candidature,state:0
+#: view:sta.candidature:mozaik_mandate.sta_candidature_form_view
+#: selection:sta.candidature,state:0
+msgid "Non-Elected"
+msgstr "Non élu"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+msgid "Non-Elected Candidatures"
+msgstr "Candidats non élus"
+
+#. module: mozaik_mandate
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_form_view
+msgid "Note"
+msgstr "Note"
+
+#. module: mozaik_mandate
+#: field:abstract.selection.committee,note:0
+#: field:ext.selection.committee,note:0
+#: field:int.selection.committee,note:0
+#: field:sta.selection.committee,note:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\abstract_mandate.py:87
+#, python-format
+msgid "Operation Forbidden!"
+msgstr "Opération interdite !"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: field:abstract.copy.mandate.wizard,partner_id:0
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+#: field:copy.ext.mandate.wizard,partner_id:0
+#: field:copy.int.mandate.wizard,partner_id:0
+#: field:copy.sta.mandate.wizard,partner_id:0
+#: view:generic.mandate:mozaik_mandate.generic_mandate_search_view
+#: field:import.sta.candidatures.file.lines,partner_id:0
+#: model:ir.model,name:mozaik_mandate.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:231
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:214
+#, python-format
+msgid "Position non elected is incompatible with e_s value: %s"
+msgstr "La position de non élu est incompatible avec la valeur e_s: %s"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:190
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:140
+#, python-format
+msgid "Position non elected value should be integer: %s"
+msgstr "La position de non élu doit être une valeur entière: %s"
+
+#. module: mozaik_mandate
+#: field:import.sta.candidatures.file.lines,list_effective_position:0
+#: field:sta.candidature,list_effective_position:0
+msgid "Position on Effectives List"
+msgstr "Position d'effectif"
+
+#. module: mozaik_mandate
+#: field:import.sta.candidatures.file.lines,list_substitute_position:0
+#: field:sta.candidature,list_substitute_position:0
+msgid "Position on Substitutes List"
+msgstr "Position de suppléant"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:186
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:133
+#, python-format
+msgid "Position value should be integer: %s"
+msgstr "Une position doit être une valeur entière: %s"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:236
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:193
+#, python-format
+msgid "Position(%s) and position non elected(%s) can not be set both"
+msgstr "La position(%s) et la position de non élu(%s) sont mutuellement exclusives"
+
+#. module: mozaik_mandate
+#: field:abstract.mandate,postal_coordinate_id:0
+#: field:ext.mandate,postal_coordinate_id:0
+#: field:int.mandate,postal_coordinate_id:0
+#: field:sta.mandate,postal_coordinate_id:0
+msgid "Postal Coordinate"
+msgstr "Coordonnée postale"
+
+#. module: mozaik_mandate
+#: field:sta.mandate,sta_power_level_id:0
+msgid "Power Level"
+msgstr "Niveau de pouvoir"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_form_view
+#: view:mandate.category:mozaik_mandate.mandate_category_form_view
+msgid "Reactivate document: proceed anyway?"
+msgstr "Poursuivre la réactivation du document ?"
+
+#. module: mozaik_mandate
+#: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_form_view
+#: view:int.selection.committee:mozaik_mandate.int_selection_committee_form_view
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "Refuse"
+msgstr "Refuser"
+
+#. module: mozaik_mandate
+#: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_form_view
+#: view:int.selection.committee:mozaik_mandate.int_selection_committee_form_view
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "Refuse all candidatures: proceed anyway?"
+msgstr "Poursuivre le refus de toutes candidatures ?"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_tree_view
+#: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_form_view
+#: view:int.selection.committee:mozaik_mandate.int_selection_committee_form_view
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "Reject"
+msgstr "Rejeter"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_tree_view
+msgid "Reject candidature: proceed anyway?"
+msgstr "Poursuivre le rejet de la candidature ?"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: selection:abstract.candidature,state:0
+#: selection:ext.candidature,state:0
+#: selection:int.candidature,state:0
+#: selection:sta.candidature,state:0
+msgid "Rejected"
+msgstr "Rejetée"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+msgid "Rejected Candidatures"
+msgstr "Candidatures réjétées"
+
+#. module: mozaik_mandate
+#: field:mandates.analysis.report,remaining_months_before_end_of_mandate:0
+msgid "Remaining Months before End of Mandate"
+msgstr "Remaining Months before End of Mandate"
+
+#. module: mozaik_mandate
+#: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard
+msgid "Renew"
+msgstr "Renouveler"
+
+#. module: mozaik_mandate
+#: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard
+#: selection:abstract.copy.mandate.wizard,action:0
+#: selection:copy.ext.mandate.wizard,action:0
+#: selection:copy.int.mandate.wizard,action:0
+#: selection:copy.sta.mandate.wizard,action:0
+msgid "Renew Mandate"
+msgstr "Renouveler le mandat"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\wizard\copy_mandate_wizard.py:247
+#, python-format
+msgid "Renew not allowed on a legislative mandate"
+msgstr "Le renouvellement d'un mandat législatif n'est pas permis"
+
+#. module: mozaik_mandate
+#: view:ext.mandate:mozaik_mandate.ext_mandate_tree_view
+#: view:int.mandate:mozaik_mandate.int_mandate_tree_view
+#: view:sta.mandate:mozaik_mandate.sta_mandate_tree_view
+msgid "Renew or Add Complementary Mandate"
+msgstr "Renouveler ou ajouter un mandat complémentaire"
+
+#. module: mozaik_mandate
+#: field:abstract.mandate,partner_id:0
+#: field:ext.mandate,partner_id:0
+#: field:generic.mandate,partner_id:0
+#: field:int.mandate,partner_id:0
+#: field:sta.mandate,partner_id:0
+msgid "Representative"
+msgstr "Mandataire"
+
+#. module: mozaik_mandate
+#: view:allow.incompatible.mandate.wizard:mozaik_mandate.allow_incompatible_mandate_wizard
+msgid "Selected mandates are compatible. Are you sure?"
+msgstr "Poursuivre l'autorisation des mandats incompatibles ?"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: field:abstract.candidature,selection_committee_id:0
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_form_view
+#: field:ext.candidature,selection_committee_id:0
+#: field:import.sta.candidatures.wizard,selection_committee_id:0
+#: field:int.candidature,selection_committee_id:0
+#: model:ir.actions.act_window,name:mozaik_mandate.ext_selection_committee_action
+#: model:ir.actions.act_window,name:mozaik_mandate.int_selection_committee_action
+#: model:ir.actions.act_window,name:mozaik_mandate.sta_selection_committee_action
+#: model:ir.model,name:mozaik_mandate.model_ext_selection_committee
+#: model:ir.model,name:mozaik_mandate.model_int_selection_committee
+#: model:ir.model,name:mozaik_mandate.model_sta_selection_committee
+#: model:ir.ui.menu,name:mozaik_mandate.ext_selection_committee_submenu
+#: model:ir.ui.menu,name:mozaik_mandate.int_selection_committee_submenu
+#: model:ir.ui.menu,name:mozaik_mandate.sta_selection_committee_submenu
+#: field:sta.candidature,selection_committee_id:0
+msgid "Selection Committee"
+msgstr "Comité de sélection"
+
+#. module: mozaik_mandate
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_search_view
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_tree_view
+#: field:electoral.district,selection_committee_ids:0
+#: view:ext.assembly:mozaik_mandate.ext_assembly_form_view
+#: field:ext.assembly,selection_committee_ids:0
+#: field:ext.assembly,selection_committee_inactive_ids:0
+#: view:int.assembly:mozaik_mandate.int_assembly_form_view
+#: field:int.assembly,selection_committee_ids:0
+#: field:int.assembly,selection_committee_inactive_ids:0
+#: view:sta.assembly:mozaik_mandate.sta_assembly_form_view
+#: field:sta.assembly,selection_committee_ids:0
+#: field:sta.assembly,selection_committee_inactive_ids:0
+msgid "Selection Committees"
+msgstr "Comités de sélection"
+
+#. module: mozaik_mandate
+#: view:sta.candidature:mozaik_mandate.sta_candidature_form_view
+msgid "Set candidature as elected: proceed anyway?"
+msgstr "Set candidature as elected: proceed anyway ?"
+
+#. module: mozaik_mandate
+#: view:sta.candidature:mozaik_mandate.sta_candidature_form_view
+msgid "Set candidature as non-elected: proceed anyway?"
+msgstr "Poursuivre l'élection du candidat ?"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\abstract_mandate.py:88
+#, python-format
+msgid "Some candidatures are still in \"declared\" state"
+msgstr "Certaines candidatures restent au statut \"Déclaré\""
+
+#. module: mozaik_mandate
+#: field:sta.candidature,sort_order:0
+msgid "Sort Order"
+msgstr "Ordre de tri"
+
+#. module: mozaik_mandate
+#: field:electoral.results.wizard,source_file:0
+#: field:import.sta.candidatures.wizard,source_file:0
+msgid "Source File"
+msgstr "Fichier d'entrée"
+
+#. module: mozaik_mandate
+#: field:abstract.copy.mandate.wizard,start_date:0
+#: field:abstract.mandate,start_date:0
+#: field:copy.ext.mandate.wizard,start_date:0
+#: field:copy.int.mandate.wizard,start_date:0
+#: field:copy.sta.mandate.wizard,start_date:0
+#: field:ext.mandate,start_date:0
+#: field:generic.mandate,start_date:0
+#: field:int.mandate,start_date:0
+#: field:sta.mandate,start_date:0
+msgid "Start Date"
+msgstr "Date de début"
+
+#. module: mozaik_mandate
+#: model:ir.ui.menu,name:mozaik_mandate.sta_submenu
+#: selection:mandate.category,type:0
+msgid "State"
+msgstr "De l'État"
+
+#. module: mozaik_mandate
+#: field:copy.sta.mandate.wizard,assembly_id:0
+#: field:copy.sta.mandate.wizard,new_assembly_id:0
+#: model:ir.model,name:mozaik_mandate.model_sta_assembly
+#: field:sta.candidature,sta_assembly_id:0
+#: field:sta.mandate,sta_assembly_id:0
+#: field:sta.selection.committee,assembly_id:0
+msgid "State Assembly"
+msgstr "Assemblée de l'État"
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_sta_assembly_category
+#: field:mandate.category,sta_assembly_category_id:0
+#: field:sta.mandate,sta_assembly_category_id:0
+#: field:sta.selection.committee,assembly_category_id:0
+msgid "State Assembly Category"
+msgstr "Catégorie d'assemblée de l'État"
+
+#. module: mozaik_mandate
+#: model:ir.model,name:mozaik_mandate.model_sta_candidature
+msgid "State Candidature"
+msgstr "Candidature politique"
+
+#. module: mozaik_mandate
+#: model:ir.actions.act_window,name:mozaik_mandate.sta_candidature_action
+#: model:ir.ui.menu,name:mozaik_mandate.sta_candidature_submenu
+#: view:res.partner:mozaik_mandate.view_partner_form
+#: field:res.partner,sta_candidature_ids:0
+#: field:res.partner,sta_candidature_inactive_ids:0
+#: field:sta.selection.committee,candidature_ids:0
+msgid "State Candidatures"
+msgstr "Candidatures politiques"
+
+#. module: mozaik_mandate
+#: model:ir.actions.act_window,name:mozaik_mandate.sta_mandate_category_action
+#: model:ir.ui.menu,name:mozaik_mandate.sta_mandate_categories_submenu
+msgid "State Categories"
+msgstr "Categories politiques"
+
+#. module: mozaik_mandate
+#: field:copy.sta.mandate.wizard,instance_id:0
+msgid "State Instance"
+msgstr "Instance de l'État"
+
+#. module: mozaik_mandate
+#: field:copy.sta.mandate.wizard,mandate_id:0
+#: model:ir.model,name:mozaik_mandate.model_sta_mandate
+msgid "State Mandate"
+msgstr "Mandat politique"
+
+#. module: mozaik_mandate
+#: model:ir.actions.act_window,name:mozaik_mandate.sta_mandate_action
+#: model:ir.ui.menu,name:mozaik_mandate.sta_mandate_submenu
+#: field:mandate.category,sta_mandate_ids:0
+#: view:res.partner:mozaik_mandate.view_partner_form
+#: field:res.partner,sta_mandate_ids:0
+#: field:res.partner,sta_mandate_inactive_ids:0
+#: field:sta.candidature,mandate_ids:0
+msgid "State Mandates"
+msgstr "Mandats politique"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: field:abstract.candidature,state:0
+#: field:abstract.selection.committee,state:0
+#: field:ext.candidature,state:0
+#: field:ext.selection.committee,state:0
+#: field:int.candidature,state:0
+#: field:int.selection.committee,state:0
+#: field:sta.candidature,state:0
+#: field:sta.selection.committee,state:0
+msgid "Status"
+msgstr "Statut"
+
+#. module: mozaik_mandate
+#: field:abstract.mandate,is_submission_mandate:0
+#: field:ext.mandate,is_submission_mandate:0
+#: field:int.mandate,is_submission_mandate:0
+#: field:mandate.category,is_submission_mandate:0
+#: field:sta.mandate,is_submission_mandate:0
+msgid "Submission to a Mandate Declaration"
+msgstr "Soumission à une déclaration de mandat"
+
+#. module: mozaik_mandate
+#: field:abstract.mandate,is_submission_assets:0
+#: field:ext.mandate,is_submission_assets:0
+#: field:int.mandate,is_submission_assets:0
+#: field:mandate.category,is_submission_assets:0
+#: field:sta.mandate,is_submission_assets:0
+msgid "Submission to an Assets Declaration"
+msgstr "Soumission à une déclaration de revenus"
+
+#. module: mozaik_mandate
+#: field:import.sta.candidatures.file.lines,is_substitute:0
+#: field:sta.candidature,is_substitute:0
+msgid "Substitute"
+msgstr "Suppléant"
+
+#. module: mozaik_mandate
+#: field:sta.candidature,election_substitute_position:0
+msgid "Substitute Position after Election"
+msgstr "Position de suppléant obtenue"
+
+#. module: mozaik_mandate
+#: field:sta.candidature,substitute_votes:0
+msgid "Substitute Preferential Votes"
+msgstr "Voix de préférence de suppléant"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_tree_view
+#: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_form_view
+#: view:int.selection.committee:mozaik_mandate.int_selection_committee_form_view
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "Suggest"
+msgstr "Suggérer"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_tree_view
+msgid "Suggest candidature: proceed anyway?"
+msgstr "Poursuivre la suggestion de la candidature ?"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+#: selection:abstract.candidature,state:0
+#: selection:ext.candidature,state:0
+#: selection:int.candidature,state:0
+#: selection:sta.candidature,state:0
+msgid "Suggested"
+msgstr "Suggérée"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
+msgid "Suggested Candidatures"
+msgstr "Candidatures suggérées"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,message_summary:0
+#: field:abstract.mandate,message_summary:0
+#: field:abstract.selection.committee,message_summary:0
+#: field:ext.candidature,message_summary:0
+#: field:ext.mandate,message_summary:0
+#: field:ext.selection.committee,message_summary:0
+#: field:int.candidature,message_summary:0
+#: field:int.mandate,message_summary:0
+#: field:int.selection.committee,message_summary:0
+#: field:mandate.category,message_summary:0
+#: field:sta.candidature,message_summary:0
+#: field:sta.mandate,message_summary:0
+#: field:sta.selection.committee,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: mozaik_mandate
+#: view:ext.mandate:mozaik_mandate.ext_mandate_form_view
+#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
+msgid "Terms..."
+msgstr "Termes..."
+
+#. module: mozaik_mandate
+#: sql_constraint:abstract.mandate:0
+#: sql_constraint:ext.mandate:0
+#: sql_constraint:int.mandate:0
+#: sql_constraint:sta.mandate:0
+msgid "The end date must be between start date and deadline date."
+msgstr "La date de fin doit être comprise entre la date de début et la date d'échéance."
+
+#. module: mozaik_mandate
+#: sql_constraint:abstract.copy.mandate.wizard:0
+#: sql_constraint:abstract.mandate:0
+#: sql_constraint:abstract.selection.committee:0
+#: sql_constraint:copy.ext.mandate.wizard:0
+#: sql_constraint:copy.int.mandate.wizard:0
+#: sql_constraint:copy.sta.mandate.wizard:0
+#: sql_constraint:ext.mandate:0
+#: sql_constraint:ext.selection.committee:0
+#: sql_constraint:int.mandate:0
+#: sql_constraint:int.selection.committee:0
+#: sql_constraint:sta.mandate:0
+#: sql_constraint:sta.selection.committee:0
+msgid "The start date must be anterior to the deadline date."
+msgstr "La date de début doit être antérieure à la date d'échéance."
+
+#. module: mozaik_mandate
+#: view:mandate.category:mozaik_mandate.mandate_category_search_view
+#: field:mandate.category,type:0
+msgid "Type"
+msgstr "Type"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_tree_view
+msgid "Undo Allow Incompatible Mandate"
+msgstr "Rétablir les mandats incompatibles"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_tree_view
+msgid "Undo allow incompatible mandate: proceed anyway?"
+msgstr "Poursuivre le rétablissement des mandats incompatibles ?"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,unique_id:0
+#: field:abstract.mandate,unique_id:0
+#: field:ext.candidature,unique_id:0
+#: field:ext.mandate,unique_id:0
+#: field:int.candidature,unique_id:0
+#: field:int.mandate,unique_id:0
+#: field:sta.candidature,unique_id:0
+#: field:sta.mandate,unique_id:0
+msgid "Unique id"
+msgstr "ID Unique"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:199
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:174
+#, python-format
+msgid "Unknown candidate: %s"
+msgstr "Candidat inconnu: %s"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:195
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:152
+#, python-format
+msgid "Unknown district: %s"
+msgstr "Circonscription inconnue: %s"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,message_unread:0
+#: field:abstract.mandate,message_unread:0
+#: field:abstract.selection.committee,message_unread:0
+#: field:ext.candidature,message_unread:0
+#: field:ext.mandate,message_unread:0
+#: field:ext.selection.committee,message_unread:0
+#: field:int.candidature,message_unread:0
+#: field:int.mandate,message_unread:0
+#: field:int.selection.committee,message_unread:0
+#: field:mandate.category,message_unread:0
+#: field:sta.candidature,message_unread:0
+#: field:sta.mandate,message_unread:0
+#: field:sta.selection.committee,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: mozaik_mandate
+#: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
+#: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_form_view
+#: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step1
+#: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step1
+#: view:mandate.category:mozaik_mandate.mandate_category_form_view
+msgid "Validate"
+msgstr "Valider"
+
+#. module: mozaik_mandate
+#: view:generic.mandate:mozaik_mandate.generic_mandate_tree_view
+msgid "View"
+msgstr "Voir"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:182
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:126
+#, python-format
+msgid "Votes value should be integer: %s"
+msgstr "Le nombre de voix de préférence doit être une valeur entière: %s"
+
+#. module: mozaik_mandate
+#: field:abstract.candidature,website_message_ids:0
+#: field:abstract.mandate,website_message_ids:0
+#: field:abstract.selection.committee,website_message_ids:0
+#: field:ext.candidature,website_message_ids:0
+#: field:ext.mandate,website_message_ids:0
+#: field:ext.selection.committee,website_message_ids:0
+#: field:int.candidature,website_message_ids:0
+#: field:int.mandate,website_message_ids:0
+#: field:int.selection.committee,website_message_ids:0
+#: field:mandate.category,website_message_ids:0
+#: field:sta.candidature,website_message_ids:0
+#: field:sta.mandate,website_message_ids:0
+#: field:sta.selection.committee,website_message_ids:0
+msgid "Website Messages"
+msgstr "Messages de site web"
+
+#. module: mozaik_mandate
+#: help:abstract.candidature,website_message_ids:0
+#: help:abstract.mandate,website_message_ids:0
+#: help:abstract.selection.committee,website_message_ids:0
+#: help:ext.candidature,website_message_ids:0
+#: help:ext.mandate,website_message_ids:0
+#: help:ext.selection.committee,website_message_ids:0
+#: help:int.candidature,website_message_ids:0
+#: help:int.mandate,website_message_ids:0
+#: help:int.selection.committee,website_message_ids:0
+#: help:mandate.category,website_message_ids:0
+#: help:sta.candidature,website_message_ids:0
+#: help:sta.mandate,website_message_ids:0
+#: help:sta.selection.committee,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historique de communication de site web"
+
+#. module: mozaik_mandate
+#: field:electoral.results.wizard.errors,wizard_id:0
+#: field:electoral.results.wizard.lines,wizard_id:0
+#: field:import.sta.candidatures.file.lines,wizard_id:0
+msgid "Wizard"
+msgstr "Assistant"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\wizard\import_candidatures_wizard.py:102
+#, python-format
+msgid "Wrong file structure, it should be: %s!"
+msgstr "Structure de fichier incorrecte, elle doit être: %s !"
+
+#. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:176
+#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:111
+#, python-format
+msgid "Wrong number of columns(%s), %s expected!"
+msgstr "Nombre de colonne(%s) incorrect, %s sont requises !"
+
+#. module: mozaik_mandate
+#: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_form_view
+#: view:int.selection.committee:mozaik_mandate.int_selection_committee_form_view
+msgid "[('assembly_category_id', '=', assembly_category_id)]"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:copy.ext.mandate.wizard:mozaik_mandate.copy_ext_mandate_wizard
+msgid "[('id', '!=', mandate_category_id),('type', '=', 'ext')]"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:copy.int.mandate.wizard:mozaik_mandate.copy_int_mandate_wizard
+msgid "[('id', '!=', mandate_category_id),('type', '=', 'int')]"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:copy.sta.mandate.wizard:mozaik_mandate.copy_sta_mandate_wizard
+msgid "[('id', '!=', mandate_category_id),('type', '=', 'sta')]"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:copy.sta.mandate.wizard:mozaik_mandate.copy_sta_mandate_wizard
+msgid "[('instance_id', '=', instance_id), ('is_legislative', '=', False)]"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "[('is_legislative', '=', False)]"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:copy.ext.mandate.wizard:mozaik_mandate.copy_ext_mandate_wizard
+msgid "[('type', '=', 'ext')]"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:copy.int.mandate.wizard:mozaik_mandate.copy_int_mandate_wizard
+msgid "[('type', '=', 'int')]"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:copy.sta.mandate.wizard:mozaik_mandate.copy_sta_mandate_wizard
+msgid "[('type', '=', 'sta')]"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:ext.mandate:mozaik_mandate.ext_mandate_form_view
+#: view:int.mandate:mozaik_mandate.int_mandate_form_view
+#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
+msgid "onchange_mandate_category_id(mandate_category_id)"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:sta.candidature:mozaik_mandate.sta_candidature_form_view
+msgid "{'invisible': ['|', '|', ('state','not in', ['elected', 'non-elected']),\n"
+"                                                           '&', ('state', '=', 'non-elected'), ('is_effective', '=', True)\n"
+"                                                           , ('mandate_ids', '!=', [])]}"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:ext.candidature:mozaik_mandate.ext_candidature_form_view
+msgid "{'invisible': ['|', ('state','!=', 'elected'), ('mandate_ids', '!=', [])]}"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:int.candidature:mozaik_mandate.int_candidature_form_view
+msgid "{'invisible': ['|', ('state','!=', 'elected'),('mandate_ids', '!=', [])]}"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:copy.sta.mandate.wizard:mozaik_mandate.copy_sta_mandate_wizard
+msgid "{'invisible':['|', ('action', '!=', 'renew'), ('is_legislative', '=', True)]}"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "{'readonly': [('electoral_district_id','!=', False),]}"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
+msgid "{'readonly': [('electoral_district_id','!=', False)]}"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
+msgid "{'readonly': [('id','!=', False)]}"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:copy.sta.mandate.wizard:mozaik_mandate.copy_sta_mandate_wizard
+msgid "{'readonly':[('action', '!=', 'renew')]}"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
+msgid "⇒ Show all incompatible mandates"
+msgstr "⇒ Voir tous les mandats incompatibles"
+

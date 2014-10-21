@@ -48,7 +48,7 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
         'new_mandate_category_id': fields.many2one(
             'mandate.category', string='Mandate Category', ondelete='cascade'),
         'mandate_id': fields.many2one(
-            'abstract.mandate', string='Abstract mandate',
+            'abstract.mandate', string='Abstract Mandate',
             readonly=True, ondelete='cascade'),
         'assembly_id': fields.many2one(
             'abstract.assembly', string='Abstract Assembly',
@@ -198,7 +198,7 @@ class copy_sta_mandate_wizard(orm.TransientModel):
 
     _columns = {
         'mandate_id': fields.many2one(
-            'sta.mandate', string='State mandate',
+            'sta.mandate', string='State Mandate',
             readonly=True, ondelete='cascade'),
         'assembly_id': fields.many2one(
             'sta.assembly', string='State Assembly',
@@ -207,7 +207,7 @@ class copy_sta_mandate_wizard(orm.TransientModel):
             'sta.assembly', string='State Assembly', ondelete='cascade'),
         'instance_id': fields.many2one(
             'sta.instance', string='State Instance', ondelete='cascade'),
-        'is_legislative': fields.boolean('Is legislative'),
+        'is_legislative': fields.boolean('Is Legislative'),
         'legislature_id': fields.many2one(
             'legislature', string='Legislature', ondelete='cascade'),
     }
@@ -310,7 +310,7 @@ class copy_int_mandate_wizard(orm.TransientModel):
 
     _columns = {
         'mandate_id': fields.many2one(
-            'int.mandate', string='Internal mandate',
+            'int.mandate', string='Internal Mandate',
             readonly=True, ondelete='cascade'),
         'assembly_id': fields.many2one(
             'int.assembly', string='Internal Assembly',
@@ -368,7 +368,7 @@ class copy_ext_mandate_wizard(orm.TransientModel):
 
     _columns = {
         'mandate_id': fields.many2one(
-            'ext.mandate', string='External mandate',
+            'ext.mandate', string='External Mandate',
             readonly=True, ondelete='cascade'),
         'assembly_id': fields.many2one(
             'ext.assembly', string='External Assembly',

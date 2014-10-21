@@ -21,13 +21,13 @@ msgid "#Days"
 msgstr "#Jours"
 
 #. module: mozaik_membership
-#: code:addons\mozaik_membership\res_partner.py:304
+#: code:addons\mozaik_membership\res_partner.py:313
 #, python-format
 msgid "A Partner is required for a Modification Request"
 msgstr "Un partenaire est requis pour faire une demande de modification"
 
 #. module: mozaik_membership
-#: code:addons\mozaik_membership\res_partner.py:238
+#: code:addons\mozaik_membership\res_partner.py:247
 #, python-format
 msgid "A natural person with membership history cannot be transformed to a legal person"
 msgstr "Une personne physique avec un historique d'ahésions ne peut être transformée en une personne morale"
@@ -305,9 +305,9 @@ msgstr "Adresse électronique principale"
 
 #. module: mozaik_membership
 #: code:addons\mozaik_membership\membership_request.py:706
-#: code:addons\mozaik_membership\res_partner.py:237
-#: code:addons\mozaik_membership\res_partner.py:303
-#: code:addons\mozaik_membership\res_partner.py:396
+#: code:addons\mozaik_membership\res_partner.py:246
+#: code:addons\mozaik_membership\res_partner.py:312
+#: code:addons\mozaik_membership\res_partner.py:405
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -1113,7 +1113,7 @@ msgid "Transform Members to Former Members"
 msgstr "Transformer des membres en anciens membres"
 
 #. module: mozaik_membership
-#: code:addons\mozaik_membership\res_partner.py:397
+#: code:addons\mozaik_membership\res_partner.py:406
 #, python-format
 msgid "Undefined Membership State: %s"
 msgstr "Statut d'adhésion inconnu: %s"
@@ -1138,7 +1138,7 @@ msgstr "Messages non lus"
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_res_users
 msgid "Users"
-msgstr "Utilisateurs"
+msgstr "Utilisateur"
 
 #. module: mozaik_membership
 #: model:product.template,name:mozaik_membership.membership_product_isolated_product_template
