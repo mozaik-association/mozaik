@@ -124,25 +124,41 @@
 
         <!-- Update user form -->
 
-        <record model="ir.ui.view" id="res_user_form">
-            <field name="name">Users Preferences (mozaik_base)</field>
-            <field name="model">res.users</field>
-            <field name="inherit_id" ref="sales_team.res_user_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='default_section_id']" position="attributes">
-                    <attribute name="groups">mozaik_base.res_groups_developper</attribute>
-                </xpath>
-            </field>
+        <record id="sales_team.res_user_form" model="ir.ui.view">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
+        </record>
+
+        <record id="mail.view_users_form_mail" model="ir.ui.view">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
         </record>
 
         <!-- Update Preferences form -->
 
-        <record id="view_users_form_preferences" model="ir.ui.view">
+        <record id="sales_team.view_users_form_preferences" model="ir.ui.view">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
+        </record>
+
+        <record id="mail.view_users_form_simple_modif_mail" model="ir.ui.view">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
+        </record>
+
+        <record id="view_users_form_simple_modif" model="ir.ui.view">
             <field name="name">res.users.preferences.form (mozaik_base)</field>
             <field name="model">res.users</field>
-            <field name="inherit_id" ref="sales_team.view_users_form_preferences"/>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='default_section_id']" position="attributes">
+                <xpath expr="//button[@name='preference_change_password']" position="attributes">
+                    <attribute name="groups">mozaik_base.res_groups_developper</attribute>
+                </xpath>
+                <xpath expr="//field[@name='email']" position="attributes">
                     <attribute name="groups">mozaik_base.res_groups_developper</attribute>
                 </xpath>
             </field>
