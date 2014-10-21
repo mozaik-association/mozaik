@@ -26,7 +26,7 @@
 #
 ##############################################################################
 from datetime import date
-
+from openerp.tests import common
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
@@ -42,15 +42,29 @@ class res_partner(orm.Model):
     # ready for workflow !
     _enable_wkf = True
 
+    def _get_subtype_ids(self, cr, uid, context=None):
+        subtype_ids = []
+        xml_ids = [
+            'former_phone_id_notification',
+            'main_phone_id_notification',
+            'former_email_notification',
+            'main_email_notification',
+            'former_address_id_notification',
+            'main_address_id_notification',
+        ]
+        location = 'mozaik_membership'
+        for xml_id in xml_ids:
+            subtype_ids.append(
+                self.pool['ir.model.data'].get_object_reference(
+                    cr, uid, location, xml_id)[1])
+        return subtype_ids
+
     def _update_follower(
             self, cr, uid, partner_ids, context=None):
         '''
         Update follower for each partner_ids
         '''
-        res_vals = {}
-        e_obj = self.pool['email.coordinate']
-        pc_obj = self.pool['postal.coordinate']
-        phc_obj = self.pool['phone.coordinate']
+
         p_obj = self.pool['res.partner']
         ia_obj = self.pool['int.assembly']
         for partner_id in partner_ids:
@@ -60,34 +74,29 @@ class res_partner(orm.Model):
             f_partner_ids = ia_obj.get_followers_assemblies(
                 cr, uid, int_instance_id, context=context)
             # update even if f_partner_ids is void case to reset
-            write_vals = {
-                'message_follower_ids': [(6, 0, f_partner_ids)],
-            }
-            res_vals[partner_id] = write_vals
-            p_obj.write(
-                cr, uid, partner_id, write_vals, context=context)
+            p_obj.message_subscribe(
+                cr, uid, [partner_id], f_partner_ids,
+                context=context)
+
+            subtype_ids = self._get_subtype_ids(cr, uid, context=context)
 
             # partner are at least follower of their own coordinate
-            f_partner_ids.append(partner_id)
-            e_ids = e_obj.search(
-                cr, uid, [('partner_id', '=', partner_id),
-                          ('is_main', '=', True)], context=context)
-            if e_ids:
-                e_obj.write(cr, uid, e_ids, write_vals, context=context)
+            domain = [('partner_id', '=', partner_id), ('is_main', '=', True)]
+            prefixes = ['email', 'postal', 'phone']
 
-            pc_ids = pc_obj.search(
-                cr, uid, [('partner_id', '=', partner_id),
-                          ('is_main', '=', True)], context=context)
-            if pc_ids:
-                pc_obj.write(cr, uid, pc_ids, write_vals, context=context)
+            for prefix in prefixes:
+                obj = self.pool['%s.coordinate' % prefix]
+                res_ids = obj.search(
+                    cr, uid, domain, context=context)
+                if res_ids:
+                    obj.message_subscribe(
+                        cr, uid, res_ids, f_partner_ids,
+                        subtype_ids=subtype_ids, context=context)
+                    # add partner without subtype too
+                    obj.message_subscribe(
+                        cr, uid, res_ids, f_partner_ids, context=context)
 
-            phone_ids = phc_obj.search(
-                cr, uid, [('partner_id', '=', partner_id),
-                          ('is_main', '=', True)], context=context)
-            if phone_ids:
-                phc_obj.write(cr, uid, phone_ids, write_vals, context=context)
-
-        return res_vals
+        return True
 
     def _generate_membership_reference(self, cr, uid, partner_id, ref_date,
                                        context=None):

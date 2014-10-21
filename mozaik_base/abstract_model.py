@@ -172,8 +172,8 @@ class mozaik_abstract_model(orm.AbstractModel):
                     if hasattr(relation_object, 'action_invalidate'):
                         relation_object.action_invalidate(cr, uid, relation_ids, context=context)
                     else:
-                        if relation == 'mail.followers':
-                            relation_object.unlink(cr, uid, relation_ids, context=context)
+                        if relation in ['mail.followers', 'mail.notification']:
+                            relation_object.unlink(cr, SUPERUSER_ID, relation_ids, context=context)
                         elif hasattr(relation_object, 'active'):
                             relation_object.write(cr, uid, relation_ids, {'active': False}, context=context)
 
@@ -241,11 +241,11 @@ class mozaik_abstract_model(orm.AbstractModel):
             mode = 'activate' if vals['active'] else 'deactivate'
             vals.update(self.get_fields_to_update(cr, uid, mode, context=ctx))
         if mode == 'deactivate' and self._inactive_cascade:
-            mail_follower_object = self.pool['mail.followers']
-            follower_ids = mail_follower_object.search(cr, uid, [('res_model', '=', self._name), ('res_id', 'in', ids)], context=context)
-            if follower_ids:
-                mail_follower_object.unlink(
-                    cr, uid, follower_ids, context=context)
+#             mail_follower_object = self.pool['mail.followers']
+#             follower_ids = mail_follower_object.search(cr, uid, [('res_model', '=', self._name), ('res_id', 'in', ids)], context=context)
+#             if follower_ids:
+#                 mail_follower_object.unlink(
+#                     cr, uid, follower_ids, context=context)
             self._invalidate_active_relations(cr, uid, ids, context=ctx)
         res = super(mozaik_abstract_model, self).write(cr, uid, ids, vals, context=ctx)
         return res
