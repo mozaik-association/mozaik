@@ -16,6 +16,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_person
+#: code:addons\mozaik_person\partner_involvement.py:68
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (copie)"
+
+#. module: mozaik_person
 #: code:addons\mozaik_person\res_partner.py:295
 #, python-format
 msgid "A partner and a login must be provided to create a user!"
@@ -71,16 +77,10 @@ msgid "Allowed Duplicates"
 msgstr "Doublons autorisés"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\partner_involvement.py:94
+#: code:addons\mozaik_person\partner_involvement.py:126
 #, python-format
 msgid "An active involvement cannot be duplicated!"
 msgstr "Une participation active ne peut être dupliquée !"
-
-#. module: mozaik_person
-#: code:addons\mozaik_person\partner_involvement.py:53
-#, python-format
-msgid "An active involvement category cannot be duplicated!"
-msgstr "Une catégorie de participation active ne peut être dupliquée !"
 
 #. module: mozaik_person
 #: field:create.user.from.partner,appl_id:0
@@ -200,8 +200,7 @@ msgid "Enterprise Number"
 msgstr "Numéro d'enterprise"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\partner_involvement.py:53
-#: code:addons\mozaik_person\partner_involvement.py:94
+#: code:addons\mozaik_person\partner_involvement.py:125
 #: code:addons\mozaik_person\res_partner.py:295
 #: code:addons\mozaik_person\res_partner.py:299
 #: code:addons\mozaik_person\res_partner.py:302
@@ -471,6 +470,11 @@ msgid "Not User"
 msgstr "Non utilisateur"
 
 #. module: mozaik_person
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
+msgid "Notes"
+msgstr "Notes"
+
+#. module: mozaik_person
 #: field:partner.involvement,note:0
 #: field:partner.involvement.category,note:0
 msgid "Notes"
@@ -481,6 +485,11 @@ msgstr "Notes"
 #: field:res.partner,identifier:0
 msgid "Number"
 msgstr "Numéro"
+
+#. module: mozaik_person
+#: field:partner.involvement.category,res_users_ids:0
+msgid "Owners"
+msgstr "Propriétaires"
 
 #. module: mozaik_person
 #: model:ir.model,name:mozaik_person.model_res_partner
@@ -551,6 +560,11 @@ msgstr "Second site web"
 #: help:res.partner,secondary_website:0
 msgid "Secondary Website of Partner or Company"
 msgstr "Second site web de la personne physique ou morale"
+
+#. module: mozaik_person
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
+msgid "Security"
+msgstr "Sécurité"
 
 #. module: mozaik_person
 #: field:partner.involvement,message_summary:0

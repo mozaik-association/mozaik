@@ -136,9 +136,6 @@
                                     context="{'search_default_partner_involvement_category_id': active_id,
                                               'default_partner_involvement_category_id': active_id}"/>
                         </div>
-                        <group name="note">
-                            <field name="note" />
-                        </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
@@ -147,6 +144,23 @@
                             <group name="other">
                             </group>
                         </group>
+
+                        <notebook>
+                            <page name="notes" string="Notes" autofocus="autofocus">
+                                <field name="note" />
+                            </page>
+                            <page name="security" string="Security">
+                                <group name="owners">
+                                    <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                                </group>
+                                <div class="oe_clear">
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                </div>
+                            </page>
+                        </notebook>
                     </sheet>
                     <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
@@ -169,15 +183,12 @@
             </field>
         </record>
 
-        <!-- involvements menu are placed after Coordinates -->
         <menuitem id="involvements_submenu" name="Involvements"
                   sequence="50" parent="mozaik_base.persons_root_menu" />
         <menuitem id="partner_involvement_menu" action="partner_involvement_action"
                   sequence="10" parent="involvements_submenu" />
-
-        <!-- Partner Involvement Category -->
         <menuitem id="partner_involvement_category_menu" action="partner_involvement_category_action"
-                  sequence="20" parent="mozaik_base.persons_configuration_submenu" />
+                  sequence="20" parent="involvements_submenu" />
 
     </data>
 </openerp>

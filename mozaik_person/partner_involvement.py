@@ -37,8 +37,18 @@ class partner_involvement_category(orm.Model):
     _description = 'Partner Involvement Category'
 
     _columns = {
-        'name': fields.char('Involvement Category', required=True, select=True, track_visibility='onchange'),
+        'name': fields.char('Involvement Category',
+                            required=True, select=True,
+                            track_visibility='onchange'),
         'note': fields.text('Notes', track_visibility='onchange'),
+        'res_users_ids': fields.many2many(
+            'res.users', 'involvement_category_res_users_rel',
+            id1='category_id', id2='user_id',
+            string='Owners', required=True),
+    }
+
+    _defaults = {
+        'res_users_ids': lambda self, cr, uid, c: [uid],
     }
 
 # constraints
@@ -47,11 +57,25 @@ class partner_involvement_category(orm.Model):
 
 # orm methods
 
-    def copy(self, cr, uid, ids, default=None, context=None):
-        flds = self.read(cr, uid, ids, ['active'], context=context)
-        if flds.get('active', True):
-            raise orm.except_orm(_('Error'), _('An active involvement category cannot be duplicated!'))
-        res = super(partner_involvement_category, self).copy(cr, uid, ids, default=default, context=context)
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        Mark the name as (copy)
+        """
+        default = default or {}
+        res = super(partner_involvement_category, self).copy_data(
+            cr, uid, ids, default=default, context=context)
+        res.update({
+            'name': _('%s (copy)') % res.get('name'),
+        })
+        owners = [uid]
+        if 'res_users_ids' in res:
+            try:
+                owners = res['res_users_ids'][0][2]
+            except:
+                pass
+            if uid not in owners:
+                owners = [uid]
+        res['res_users_ids'] = [(6, 0, owners)]
         return res
 
 
@@ -62,8 +86,12 @@ class partner_involvement(orm.Model):
     _description = 'Partner Involvement'
 
     _columns = {
-        'partner_id': fields.many2one('res.partner', string='Partner', required=True, select=True, track_visibility='onchange'),
-        'partner_involvement_category_id': fields.many2one('partner.involvement.category', string='Involvement Category', required=True, select=True, track_visibility='onchange'),
+        'partner_id': fields.many2one(
+            'res.partner', string='Partner',
+            required=True, select=True, track_visibility='onchange'),
+        'partner_involvement_category_id': fields.many2one(
+            'partner.involvement.category', string='Involvement Category',
+            required=True, select=True, track_visibility='onchange'),
         'note': fields.text('Notes', track_visibility='onchange'),
     }
 
@@ -85,14 +113,17 @@ class partner_involvement(orm.Model):
         res = []
         for record in self.browse(cr, uid, ids, context=context):
             if record.partner_involvement_category_id:
-                res.append((record.id, record.partner_involvement_category_id.name))
+                res.append(
+                    (record.id, record.partner_involvement_category_id.name)
+                )
         return res
 
     def copy(self, cr, uid, ids, default=None, context=None):
         flds = self.read(cr, uid, ids, ['active'], context=context)
         if flds.get('active', True):
-            raise orm.except_orm(_('Error'), _('An active involvement cannot be duplicated!'))
-        res = super(partner_involvement, self).copy(cr, uid, ids, default=default, context=context)
+            raise orm.except_orm(
+                _('Error'),
+                _('An active involvement cannot be duplicated!'))
+        res = super(partner_involvement, self).copy(
+            cr, uid, ids, default=default, context=context)
         return res
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

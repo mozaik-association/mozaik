@@ -162,7 +162,7 @@ class membership_request(orm.Model):
             id1='membership_id', id2='thesaurus_term_id',
             string='Competencies'),
 
-        'note': fields.text('Note'),
+        'note': fields.text('Notes'),
 
         # references
         'partner_id': fields.many2one(

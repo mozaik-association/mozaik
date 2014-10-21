@@ -25,13 +25,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from datetime import datetime
 from openerp.osv import orm
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
 class lang(orm.Model):
+
     _inherit = 'res.lang'
+
+    def _get_default_date_format(self, cursor, user, context=None):
+        '''
+        Use as default date format the european format
+        '''
+        return '%d/%m/%Y'
 
     def _get_date_format(self, cr, uid, context):
         lang = context.get('lang')
