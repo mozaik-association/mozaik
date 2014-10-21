@@ -67,6 +67,7 @@ MOZAIK Base
     ],
     'data': [
         'data/delete_data.xml',
+        'data/base_data.xml',
         'security/base_security.xml',
         'security/ir.model.access.csv',
         'data/ir_filters_data.xml',

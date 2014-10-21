@@ -320,6 +320,7 @@ class mozaik_abstract_model(orm.AbstractModel):
         """
         ctx = dict(context or {}, mail_create_nosubscribe=True)
         ctx.pop('mail_post_autofollow', None)
+        ctx['is_notification'] = True
         return super(mozaik_abstract_model, self).message_post(cr, uid, thread_id, context=ctx, **kwargs)
 
     def get_formview_id(self, cr, uid, id, context=None):

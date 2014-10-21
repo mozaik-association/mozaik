@@ -53,9 +53,10 @@ class res_partner(orm.Model):
         """
         result = {i: False for i in ids}
         coord_obj = self.pool['postal.coordinate']
-        coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
-                                                             ('is_main', '=', True),
-                                                             ('active', '<=', True)], context=context)
+        coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
+                                                    ('is_main', '=', True),
+                                                    ('active', '<=', True)],
+                                          context=context)
         for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
             if coord.active == coord.partner_id.active:
                 result[coord.partner_id.id] = coord.id
@@ -74,7 +75,7 @@ class res_partner(orm.Model):
         coordinate_ids = coord_obj.search(cr, SUPERUSER_ID, [('partner_id', 'in', ids),
                                                              ('is_main', '=', True),
                                                              ('active', '<=', True)], context=context)
-        for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
+        for coord in coord_obj.browse(cr, SUPERUSER_ID, coordinate_ids, context=context):
             if coord.active == coord.partner_id.active:
                 result[coord.partner_id.id] = coord.address_id.street2
         return result
@@ -97,10 +98,11 @@ class res_partner(orm.Model):
         """
         result = {i: {key: False for key in ['country_id', 'zip_id', 'zip', 'city', 'street', 'address']} for i in ids}
         coord_obj = self.pool['postal.coordinate']
-        coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
-                                                    ('is_main', '=', True),
-                                                    ('active', '<=', True)], context=context)
-        for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
+        coordinate_ids = coord_obj.search(
+            cr, SUPERUSER_ID, [('partner_id', 'in', ids),
+                               ('is_main', '=', True),
+                               ('active', '<=', True)], context=context)
+        for coord in coord_obj.browse(cr, SUPERUSER_ID, coordinate_ids, context=context):
             if coord.active == coord.partner_id.active:
                 result[coord.partner_id.id] = {
                     'country_id': coord.address_id.country_id.id,
