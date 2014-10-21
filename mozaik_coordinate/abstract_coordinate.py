@@ -170,9 +170,13 @@ class abstract_coordinate(orm.AbstractModel):
             ids = [ids]
 
         res = []
-        for record in self.read(cr, uid, ids, [self._discriminant_field, 'unauthorized'], context=context):
+        for record in self.read(cr, uid, ids, [self._discriminant_field, 'unauthorized', 'partner_id'], context=context):
             display_name = self._is_discriminant_m2o() and record[self._discriminant_field][1] or record[self._discriminant_field]
-            display_name = 'N/A: %s' % display_name if record['unauthorized'] else display_name
+            if context.get('is_notification', False):
+                display_name = '%s: %s' %\
+                    (record['partner_id'][1], display_name)
+            else:
+                display_name = 'N/A: %s' % display_name if record['unauthorized'] else display_name
             res.append((record['id'], display_name))
         return res
 
