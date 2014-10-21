@@ -46,7 +46,7 @@ class membership_line(orm.Model):
             'res.partner', string='Member',
             ondelete='cascade', required=True, select=True),
         'product_id': fields.many2one(
-            'product.product', string='Membership Product',
+            'product.product', string='Subscription',
             domain="[('membership', '!=', False), ('list_price', '>', 0.0)]",
             select=True),
         'state_id': fields.many2one(
@@ -135,7 +135,7 @@ class membership_state(orm.Model):
         return state_ids and state_ids[0] or False
 
     _columns = {
-        'name': fields.char('Status', required=True,
+        'name': fields.char('Membership State', required=True,
                             track_visibility='onchange', translate=True),
         'code': fields.char('Code', required=True),
     }

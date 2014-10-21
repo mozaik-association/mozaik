@@ -40,7 +40,7 @@ class virtual_master_partner(orm.Model):
 
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Partner'),
-        'membership_state_id':  fields.many2one('membership.state', 'State'),
+        'membership_state_id':  fields.many2one('membership.state', 'Membership State'),
         'display_name': fields.char('Display Name'),
         'identifier': fields.integer('Identifier'),
 

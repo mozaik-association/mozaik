@@ -12,26 +12,26 @@
     <data noupdate="1">
 
         <record id="membership_product_free" model="product.product">
-            <field name="name">Free Membership</field>
+            <field name="name">Free Subscription</field>
         </record>
         <record id="membership_product_first" model="product.product">
-            <field name="name">First Membership</field>
+            <field name="name">First Subscription</field>
             <field name="list_price" eval="10.0" />
         </record>
         <record id="membership_product_isolated" model="product.product">
-            <field name="name">Isolated</field>
+            <field name="name">Usual Subscription</field>
             <field name="list_price" eval="25.0" />
         </record>
         <record id="membership_product_live_together" model="product.product">
-            <field name="name">Live Together</field>
+            <field name="name">Cohabitant Subscription</field>
             <field name="list_price" eval="18.0" />
         </record>
         <record id="membership_product_other" model="product.product">
-            <field name="name">Student or Pensioner</field>
+            <field name="name">Reduced Subscription</field>
             <field name="list_price" eval="12.0" />
         </record>
         <record id="membership_product_undefined" model="product.product">
-            <field name="name">Undefined Membership</field>
+            <field name="name">Undefined Subscription</field>
         </record>
 
     </data>
@@ -39,32 +39,38 @@
     <data noupdate="0">
 
         <record id="membership_product_free" model="product.product">
+            <field name="name">Free Subscription</field>
             <field name="categ_id" ref="membership_product_category" />
             <field name="membership" eval="1" />
             <field name="type">service</field>
             <field name="list_price" eval="0.0" />
         </record>
         <record id="membership_product_first" model="product.product">
+            <field name="name">First Subscription</field>
             <field name="categ_id" ref="membership_product_category" />
             <field name="membership" eval="1" />
             <field name="type">service</field>
         </record>
         <record id="membership_product_isolated" model="product.product">
+            <field name="name">Usual Subscription</field>
             <field name="categ_id" ref="membership_product_category" />
             <field name="membership" eval="1" />
             <field name="type">service</field>
         </record>
         <record id="membership_product_live_together" model="product.product">
+            <field name="name">Cohabitant Subscription</field>
             <field name="categ_id" ref="membership_product_category" />
             <field name="membership" eval="1" />
             <field name="type">service</field>
         </record>
         <record id="membership_product_other" model="product.product">
+            <field name="name">Reduced Subscription</field>
             <field name="categ_id" ref="membership_product_category" />
             <field name="membership" eval="1" />
             <field name="type">service</field>
         </record>
         <record id="membership_product_undefined" model="product.product">
+            <field name="name">Undefined Subscription</field>
             <field name="categ_id" ref="membership_product_category" />
             <field name="membership" eval="1" />
             <field name="type">service</field>

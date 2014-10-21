@@ -6,7 +6,7 @@
             <field name="name">force.int.instance.form</field>
             <field name="model">force.int.instance</field>
             <field name="arch" type="xml">
-                <form string="Force Internal Instance" version="7.0">
+                <form string="Change Internal Instance" version="7.0">
                     <group name="data">
                         <field name="partner_id" readonly="1" options='{"no_open":True}' />
                         <field name="int_instance_id" options='{"no_open":True}' />
@@ -24,7 +24,7 @@
         </record>
 
         <record id="force_int_instance_action" model="ir.actions.act_window">
-            <field name="name">Force Internal Instance</field>
+            <field name="name">Change Internal Instance</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model">res.partner</field>
@@ -35,7 +35,7 @@
         </record>
 
         <record id="create_user_from_partner_value" model="ir.values">
-            <field name="name">Force Internal Instance</field>
+            <field name="name">Change Internal Instance</field>
             <field name="model">res.partner</field>
             <field name="key">action</field>
             <field name="key2">client_action_relate</field>

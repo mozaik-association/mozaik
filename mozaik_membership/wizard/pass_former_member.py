@@ -38,7 +38,7 @@ AVAILABLE_MONTHS = [7, 8, 9]
 class pass_former_member(orm.TransientModel):
 
     _name = "pass.former.member"
-    _description = 'Pass to former Member'
+    _description = 'Wizard to Transform Members to Former Members'
 
     def _get_selected_values(self, cr, uid, context=None):
         partner_obj = self.pool['res.partner']
@@ -62,7 +62,7 @@ class pass_former_member(orm.TransientModel):
 
     _columns = {
         'nb_selected': fields.integer('Selected Partners'),
-        'nb_concerned': fields.integer('Concerned Partners'),
+        'nb_concerned': fields.integer('Concerned Members'),
         'concerned_partner_ids': fields.text('IDS', required=True),
         'go': fields.boolean('Go')
     }

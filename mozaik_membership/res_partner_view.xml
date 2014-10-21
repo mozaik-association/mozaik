@@ -3,8 +3,7 @@
     <data noupdate="0">
 
         <record id="res_partner_search_view" model="ir.ui.view">
-            <field name="name">res.partner.search (mozaik_membership)
-            </field>
+            <field name="name">res.partner.search (mozaik_membership)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="mozaik_person.res_partner_search_view" />
             <field name="arch" type="xml">
@@ -12,10 +11,10 @@
                     <field name="int_instance_id" />
                     <field name="reference" />
                     <field name="membership_state_id" />
-                    <field string="Delivery Welcome Document Date &lt; ..."
+                    <field string="Welcome Documents Sent Date &lt; ..."
                         name="del_doc_date" filter_domain="[('del_doc_date','&lt;', self)]"
                         invisible="'default_is_company' not in context or context.get('default_is_company')" />
-                    <filter string="Waiting Delivery Welcome Document"
+                    <filter string="Undelivered Welcome Documents"
                         name="del_doc_date"
                         domain="[('del_doc_date','=', False),
                                  ('membership_state_id.code','!=', 'without_membership')]"
@@ -34,8 +33,7 @@
         </record>
 
         <record id="view_partner_tree" model="ir.ui.view">
-            <field name="name">res.partner.tree (mozaik_membership)
-            </field>
+            <field name="name">res.partner.tree (mozaik_membership)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="mozaik_person.view_partner_tree" />
             <field name="arch" type="xml">
@@ -132,7 +130,7 @@
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
                 <notebook position="inside">
-                    <page string="Membership"
+                    <page string="Memberships"
                         attrs="{'invisible':[('membership_state_id','in',
                         [False, %(mozaik_membership.without_membership)d])]}">
 

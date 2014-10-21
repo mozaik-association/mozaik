@@ -323,7 +323,7 @@ msgstr "Courriel de masse direct"
 #. module: mozaik_communication
 #: field:virtual.target,display_name:0
 msgid "Display Name"
-msgstr "Nom affiché"
+msgstr "Nom à afficher"
 
 #. module: mozaik_communication
 #: field:add.registration,distribution_list_id:0
@@ -1042,7 +1042,7 @@ msgstr "Courriels de masse"
 #. module: mozaik_communication
 #: field:distribution.list.mass.function,bounce_counter:0
 msgid "Maximum of Fails"
-msgstr "Nombre d'éches maximum"
+msgstr "Nombre d'échecs maximum"
 
 #. module: mozaik_communication
 #: selection:virtual.partner.retrocession,month:0
@@ -1662,12 +1662,12 @@ msgstr "Adresse électronique interdite"
 #. module: mozaik_communication
 #: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
 msgid "Undelivered Member Cards"
-msgstr "Undelivered Member Cards"
+msgstr "Cartes de membre non envoyées"
 
 #. module: mozaik_communication
 #: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
 msgid "Undelivered Welcome Documents"
-msgstr "Undelivered Welcome Documents"
+msgstr "Documents de bienvenue non envoyés"
 
 #. module: mozaik_communication
 #: field:distribution.list,message_unread:0

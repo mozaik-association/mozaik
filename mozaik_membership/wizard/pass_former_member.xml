@@ -6,7 +6,7 @@
             <field name="name">pass.former.member.view</field>
             <field name="model">pass.former.member</field>
             <field name="arch" type="xml">
-                <form string="Pass to Former Member" version="7.0">
+                <form string="Transform Members to Former Members" version="7.0">
                     <separator string="Overview"/>
                     <group name="counter" attrs="{'invisible': [('go', '=', False)]}">
                         <field name="nb_selected" readonly="1"/>
@@ -38,7 +38,7 @@
         </record>
 
         <record id="pass_former_member_action" model="ir.actions.act_window">
-            <field name="name">Pass to Former Member</field>
+            <field name="name">Transform Members to Former Members</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model">res.partner</field>
@@ -49,7 +49,7 @@
         </record>
 
         <record id="pass_former_member_values" model="ir.values">
-            <field name="name">Pass to Former Member</field>
+            <field name="name">Transform Members to Former Members</field>
             <field name="model">res.partner</field>
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>

@@ -43,7 +43,7 @@ def get_year_selection():
 class generate_reference(orm.TransientModel):
 
     _name = "generate.reference"
-    _description = 'Generate Reference'
+    _description = 'Generate References'
 
     def _get_selected_values(self, cr, uid, context=None):
         partner_obj = self.pool['res.partner']
@@ -83,7 +83,7 @@ class generate_reference(orm.TransientModel):
     _columns = {
         'nb_selected': fields.integer('Selected Partners'),
         'nb_member_concerned': fields.integer('Members'),
-        'nb_candidate_concerned': fields.integer('Candidate Members'),
+        'nb_candidate_concerned': fields.integer('Member Candidates'),
         'nb_former_concerned': fields.integer('Former Members'),
         'partner_ids': fields.text('IDS', required=True),
         'reference_date': fields.selection(get_year_selection(),
@@ -117,7 +117,7 @@ class generate_reference(orm.TransientModel):
 
     def generate_reference(self, cr, uid, ids, context=None):
         """
-        Generate reference for all partner
+        Generate reference for all partners
         If concerned partner number is > to the ir.parameter value then
         call connector to delay this work
         **Note**
@@ -147,7 +147,7 @@ class generate_reference(orm.TransientModel):
 def generate_reference_action(
         session, model_name, partner_ids, ref_date, context=None):
     """
-    generate reference for each partner
+    Generate reference for each partner
     """
     cr, uid, = session.cr, session.uid
     partner_obj = session.pool['res.partner']

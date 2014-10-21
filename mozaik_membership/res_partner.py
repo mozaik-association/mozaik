@@ -142,12 +142,10 @@ class res_partner(orm.Model):
         # membership fields: track visibility is done into membership history
         # management
         'membership_line_ids': fields.one2many(
-            'membership.line', 'partner_id', 'Membership'),
-        'free_member': fields.boolean(
-            'Free Member',
-            help="Select if you want to give free membership."),
+            'membership.line', 'partner_id', 'Memberships'),
+        'free_member': fields.boolean('Free Member'),
         'membership_state_id': fields.many2one('membership.state',
-                                               string='State'),
+                                               string='Membership State'),
         'membership_state_code': fields.related('membership_state_id', 'code',
                                                 string='Membership State Code',
                                                 type="char", readonly=True),
@@ -160,8 +158,8 @@ class res_partner(orm.Model):
         'resignation_date': fields.date('Resignation Date'),
         'exclusion_date': fields.date('Exclusion Date'),
 
-        'del_doc_date': fields.date('Delivery Document Date'),
-        'del_mem_card_date': fields.date('Delivery Member Card Date'),
+        'del_doc_date': fields.date('Welcome Documents Sent Date'),
+        'del_mem_card_date': fields.date('Member Card Sent Date'),
         'reference': fields.char('Reference'),
     }
 
@@ -301,9 +299,9 @@ class res_partner(orm.Model):
             partners = self.browse(cr, uid, ids, context=context)
             partner = partners and partners[0]
             if not partner:
-                raise orm.except_orm(_('Error'),
-                                     _('Modification request must be ' +
-                                       'launch with a valid partner id'))
+                raise orm.except_orm(
+                    _('Error'),
+                    _('A Partner is required for a Modification Request'))
             postal_coordinate_id = partner.postal_coordinate_id or False
             mobile_coordinate_id = partner.mobile_coordinate_id or False
             fix_coordinate_id = partner.fix_coordinate_id or False
@@ -396,7 +394,7 @@ class res_partner(orm.Model):
         if not membership_state_ids:
             raise orm.except_orm(
                 _('Error'),
-                _('Try to set an undefined "Membership State" on partner'))
+                _('Undefined Membership State: %s') % membership_state_code)
 
         vals = {
             'membership_state_id': membership_state_ids[0],

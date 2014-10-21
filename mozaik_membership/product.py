@@ -45,8 +45,8 @@ class product_template(orm.Model):
 
     _columns = {
         'membership': fields.boolean(
-            'Membership', help='Check if the product is '
-            'eligible for membership.'),
+            'Subscription',
+            help='Check if the product is eligible for membership.'),
     }
 
 # orm methods

@@ -32,7 +32,7 @@ from openerp.tools import SUPERUSER_ID
 class force_int_instance(orm.TransientModel):
 
     _name = 'force.int.instance'
-    _description = 'Force Internal Instance'
+    _description = 'Change Internal Instance'
 
     _columns = {
         'int_instance_id': fields.many2one(

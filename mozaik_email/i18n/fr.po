@@ -38,7 +38,7 @@ msgstr "Annuler"
 #. module: mozaik_email
 #: model:ir.actions.act_window,name:mozaik_email.change_main_email_action
 msgid "Change Main Email"
-msgstr "Changer d'adresse électronique principale"
+msgstr "Changer l'adresse électronique principale"
 
 #. module: mozaik_email
 #: model:ir.model,name:mozaik_email.model_change_main_email
