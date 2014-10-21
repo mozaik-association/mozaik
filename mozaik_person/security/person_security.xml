@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="partner_involvement_category_base_cud_rule" model="ir.rule">
+            <field name="name">Partner Involvement Category (CUD) for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_person.model_partner_involvement_category" />
+            <field name="domain_force">[('res_users_ids','in', [user.id])]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="partner_involvement_base_cud_rule" model="ir.rule">
+            <field name="name">Partner Involvement (CUD) for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_person.model_partner_involvement" />
+            <field name="domain_force">[('partner_involvement_category_id.res_users_ids','in', [user.id])]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+    </data>
+</openerp>
