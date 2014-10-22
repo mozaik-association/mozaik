@@ -154,19 +154,19 @@ msgstr "Description"
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons\mozaik_mobile\static\src\xml\mobile_view.xml:249
-#: view:website:mozaik_mobile.partner_search_form
-#, python-format
-msgid "Partners Search"
-msgstr "Recherche de partenaires"
-
-#. module: mozaik_mobile
-#. openerp-web
 #: code:addons\mozaik_mobile\static\src\xml\mobile_view.xml:15
 #: view:website:mozaik_mobile.mobile_index
 #, python-format
 msgid "Partners List"
 msgstr "Liste de partenaires"
+
+#. module: mozaik_mobile
+#. openerp-web
+#: code:addons\mozaik_mobile\static\src\xml\mobile_view.xml:249
+#: view:website:mozaik_mobile.partner_search_form
+#, python-format
+msgid "Partners Search"
+msgstr "Recherche de partenaires"
 
 #. module: mozaik_mobile
 #. openerp-web

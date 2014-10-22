@@ -84,7 +84,7 @@ class mandate_category(orm.Model):
     }
 
     _constraints = [
-        (_check_retro_instance_on_assemblies, _("Some impacted assemblies has no retrocession management instance set!"), ['retrocession_mode'])
+        (_check_retro_instance_on_assemblies, _("Some impacted assemblies has no retrocessions management instance!"), ['retrocession_mode'])
     ]
 
 
@@ -164,7 +164,7 @@ class abstract_mandate_retrocession(orm.AbstractModel):
                                        selection=CALCULATION_METHOD_AVAILABLE_TYPES, store=_method_id_store_trigger),
         'has_retrocessions_linked': fields.function(_has_retrocessions_linked, string='Has Retrocessions',
                                  type='boolean', store=False),
-        'retro_instance_id': fields.many2one('int.instance', 'Retrocession Management Instance',
+        'retro_instance_id': fields.many2one('int.instance', 'Retrocessions Management Instance',
                                        select=True, track_visibility='onchange'),
         'reference': fields.char('Communication', size=64, help="The mandate reference for payments."),
         'email_date': fields.date('Last email Sent'),
@@ -258,9 +258,9 @@ class abstract_mandate_retrocession(orm.AbstractModel):
                                          'mozaik_retrocession',
                                          template_ref)[1]
         except ValueError:
-            raise orm.except_orm(_('Error!'),
-                                 _('Email template %s not found !' %
-                                   template_ref))
+            raise orm.except_orm(_('Error'),
+                                 _('Email template %s not found!') % \
+                                   template_ref)
 
         for mandate in self.browse(cr, uid, ids, context=context):
             composer = self.pool['mail.compose.message']

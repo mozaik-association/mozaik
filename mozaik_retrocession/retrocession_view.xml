@@ -292,7 +292,7 @@
                              invisible="context.get('popup')"
                              groups="mozaik_base.mozaik_res_groups_configurator" name="invalidate">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate fractionation: proceed anyway ?" />
+                                    confirm="Invalidate fractionation: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
@@ -354,7 +354,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Validate fractionation: proceed anyway ?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -381,7 +381,7 @@
                              invisible="context.get('popup')"
                              groups="mozaik_base.mozaik_res_groups_configurator" name="invalidate">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate fractionation line: proceed anyway ?" />
+                                    confirm="Invalidate fractionation line: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
@@ -406,7 +406,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Validate fractionation line: proceed anyway ?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -432,7 +432,7 @@
                              invisible="context.get('popup')"
                              groups="mozaik_base.mozaik_res_groups_configurator" name="invalidate">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate calculation method: proceed anyway ?" />
+                                    confirm="Invalidate calculation method: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
@@ -493,7 +493,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Validate calculation method: proceed anyway ?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -519,7 +519,7 @@
                              invisible="context.get('popup')"
                              groups="mozaik_base.mozaik_res_groups_configurator" name="invalidate">
                             <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate calculation rule: proceed anyway ?" />
+                                    confirm="Invalidate calculation rule: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
@@ -555,7 +555,7 @@
                             <h3>More Info</h3>
                             <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
                                 <button name="action_revalidate" string="Validate" type="object"
-                                        confirm="Validate calculation rule: proceed anyway ?" />
+                                        confirm="Reactivate document: proceed anyway?" />
                             </div>
                             <group name="moreinfo">
                                 <field name="id"/>
@@ -580,17 +580,17 @@
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')" name="invalidate">
                             <button name="action_validate" string="Validate" type="object"
-                                    confirm="Validate Retrocession now: proceed anyway ?"
+                                    confirm="Validate Retrocession now: proceed anyway?"
                                     states="draft" class="oe_highlight"/>
                             <button name="action_done" string="Done" type="object"
-                                    confirm="Mark Retrocession as Done: proceed anyway ?" class="oe_highlight"
+                                    confirm="Mark Retrocession as Done: proceed anyway?" class="oe_highlight"
                                     attrs="{'invisible': ['|', ('state', '!=', 'validated'),('need_account_management', '=', True)]}"/>
                             <button name="action_revalidate" string="Reset" type="object"
-                                    states="validated" confirm="Reset Retrocession: proceed anyway ?" />
+                                    states="validated" confirm="Reset Retrocession: proceed anyway?" />
                             <button name="action_invalidate" string="Cancel" type="object"
-                                    states="validated" confirm="Invalidate Retrocession, proceed anyway ?" />
+                                    states="validated" confirm="Invalidate Retrocession, proceed anyway?" />
                             <button name="action_request_for_payment_send" string="Send By Email" type="object"
-                                    states="validated" confirm="Send request for payment by email, proceed anyway ?"
+                                    states="validated" confirm="Send request for payment by email, proceed anyway?"
                                     help="Send to the representative the request for payment."/>
                             <field name="state" widget="statusbar" statusbar_visible="draft,validated,done"/>
                         </div>
@@ -631,7 +631,7 @@
 
                         <notebook invisible="context.get('popup')" attrs="{'invisible': [('id','=',False)]}">
                             <page string="Rules" name="rules" >
-                                <separator string="Imputable Rules"/>
+                                <separator string="Imputable Calculation Rules"/>
                                 <button string="All Details" name="%(calculation_rule_detail_action)d"
                                          type="action" attrs="{'invisible': [('id','=',False)]}"
                                          context="{'search_default_retrocession_id': active_id,
@@ -658,7 +658,7 @@
                                         <field name="amount_subtotal" sum="1"/>
                                     </tree>
                                 </field>
-                                <separator string="Deductible Rules" attrs="{'invisible': [('is_regulation', '=', True)]}"/>
+                                <separator string="Deductible Calculation Rules" attrs="{'invisible': [('is_regulation', '=', True)]}"/>
                                 <button string="All Details" name="%(calculation_rule_detail_action)d"
                                          type="action" attrs="{'invisible': ['|', ('id','=',False), ('is_regulation', '=', True)]}"
                                          context="{'search_default_retrocession_id': active_id,
@@ -741,23 +741,20 @@
         <menuitem id="retrocession_action_submenu" action="retrocession_action"
                   sequence="10" parent="retrocession_submenu" />
 
-        <menuitem id="calculation_submenu" name="Calculation"
+        <menuitem id="retrocession_cfg_submenu" name="Retrocessions"
                   sequence="20" parent="mozaik_mandate.configuration_submenu" />
 
         <menuitem id="calculation_method_submenu" action="calculation_method_action"
-                  sequence="10" parent="calculation_submenu" />
+                  sequence="10" parent="retrocession_cfg_submenu" />
 
         <menuitem id="calculation_rule_submenu" action="calculation_rule_action"
-                  sequence="20" parent="calculation_submenu" />
-
-        <menuitem id="fractionation_submenu" name="Fractionations"
-                  sequence="30" parent="mozaik_mandate.configuration_submenu" />
+                  sequence="20" parent="retrocession_cfg_submenu" />
 
         <menuitem id="fractionation_action_submenu" action="fractionation_action"
-                  sequence="10" parent="fractionation_submenu" />
+                  sequence="30" parent="retrocession_cfg_submenu" />
 
         <menuitem id="fractionation_line_submenu" action="fractionation_line_action"
-                  sequence="20" parent="fractionation_submenu" />
+                  sequence="40" parent="retrocession_cfg_submenu" />
 
     </data>
 </openerp>

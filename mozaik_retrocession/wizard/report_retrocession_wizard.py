@@ -37,7 +37,7 @@ from openerp.tools.translate import _
 
 AVAILABLE_REPORTS = [
     ('fractionations', 'Fractionations'),
-    ('certificates', 'Payment certificates'),
+    ('certificates', 'Payment Certificates'),
 ]
 
 FRACTIONATION_REPORTS_MANDATES_HEADER = [
@@ -60,7 +60,7 @@ _('Amount'),
 
 class report_retrocession_wizard(orm.TransientModel):
     _name = "report.retrocession.wizard"
-    _description = 'Retrocession Report Generator'
+    _description = 'Retrocessions Reports Generator'
 
     _columns = {
         'model': fields.char('Model', size=128, required=True),

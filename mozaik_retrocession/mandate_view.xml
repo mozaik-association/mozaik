@@ -14,16 +14,16 @@
                     <field name="calculation_method_id" invisible="context.get('default_type','')=='int'"/>
                     <field name="fractionation_id" invisible="context.get('default_type','')=='int'"/>
                     <separator/>
-                    <filter name="monthly_retrocession" string="Monthly retrocession"
+                    <filter name="monthly_retrocession" string="Monthly Retrocession"
                             domain="[('retrocession_mode','=','month')]" invisible="context.get('default_type','')=='int'" />
-                    <filter name="yearly_retrocession" string="Yearly retrocession"
+                    <filter name="yearly_retrocession" string="Yearly Retrocession"
                             domain="[('retrocession_mode','=','year')]" invisible="context.get('default_type','')=='int'" />
-                    <filter name="no_retrocession" string="No retrocesssion"
+                    <filter name="no_retrocession" string="No Retrocession"
                             domain="[('retrocession_mode','=','none')]" invisible="context.get('default_type','')=='int'" />
                     <separator/>
                 </xpath>
                 <xpath expr="//filter[@name='ext_assembly_category_id']" position="after">
-                    <filter name="retrocession_mode" string="Retrocession mode" context="{'group_by':'retrocession_mode'}"
+                    <filter name="retrocession_mode" string="Retrocession Mode" context="{'group_by':'retrocession_mode'}"
                             invisible="context.get('default_type','')=='int'"/>
                     <filter name="calculation_method" string="Calculation Method" context="{'group_by':'calculation_method_id'}"
                             invisible="context.get('default_type','')=='int'"/>
@@ -102,7 +102,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_finish']" position="after">
                     <button string="Send mail" name="send_email_for_reference"
-                            confirm="Send email with structured reference now: proceed anyway ?"
+                            confirm="Send email with structured reference now: proceed anyway?"
                             type="object" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"
                             help="Send to the representative the structured reference required for payments"/>
                 </xpath>
@@ -217,7 +217,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_finish']" position="after">
                     <button string="Send mail" name="send_email_for_reference"
-                            confirm="Send email with structured reference now: proceed anyway ?"
+                            confirm="Send email with structured reference now: proceed anyway?"
                             type="object" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>
                 </xpath>
                 <xpath expr="//field[@name='alert_date']" position="after">
@@ -333,11 +333,11 @@
                     <field name="reference"/>
                 </xpath>
                 <xpath expr="//filter[@name='expired']" position="before">
-                    <filter name="monthly_retrocession" string="Monthly retrocession"
+                    <filter name="monthly_retrocession" string="Monthly Retrocession"
                             domain="[('retrocession_mode','=','month')]" />
-                    <filter name="yearly_retrocession" string="Yearly retrocession"
+                    <filter name="yearly_retrocession" string="Yearly Retrocession"
                             domain="[('retrocession_mode','=','year')]" />
-                    <filter name="no_retrocession" string="No retrocession"
+                    <filter name="no_retrocession" string="No Retrocession"
                             domain="[('retrocession_mode','=','none')]" />
                     <separator/>
                     <filter name="mixed_method" string="Mixed Calculation Method"
@@ -383,7 +383,7 @@
                     <separator/>
                 </xpath>
                 <xpath expr="//group[@name='group_by']" position="inside">
-                    <filter name="retrocession_mode" string="Retrocession mode" domain="[]" context="{'group_by':'retrocession_mode'}" />
+                    <filter name="retrocession_mode" string="Retrocession Mode" domain="[]" context="{'group_by':'retrocession_mode'}" />
                     <filter name="method_type" string="Method Type" domain="[]" context="{'group_by':'method_type'}" />
                 </xpath>
             </field>

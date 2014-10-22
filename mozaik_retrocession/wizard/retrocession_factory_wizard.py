@@ -53,7 +53,7 @@ class retrocession_factory_wizard(orm.TransientModel):
         'yearly_duplicates': fields.integer('Yearly Retrocessions Already Existing'),
         'monthly_count': fields.integer('Monthly Retrocessions to Create'),
         'monthly_duplicates': fields.integer('Monthly Retrocessions Already Existing'),
-        'total_retrocession': fields.integer('Total Retrocessions to Create'),
+        'total_retrocession': fields.integer('Number of Retrocessions to Create'),
     }
 
     def default_get(self, cr, uid, flds, context=None):

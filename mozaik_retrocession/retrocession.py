@@ -74,7 +74,7 @@ class fractionation(orm.Model):
 
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
-        'mandate_category_ids': fields.one2many('mandate.category', 'fractionation_id', 'Mandate categories'),
+        'mandate_category_ids': fields.one2many('mandate.category', 'fractionation_id', 'Mandate Categories'),
         'fractionation_line_ids': fields.one2many('fractionation.line', 'fractionation_id', 'Fractionation Lines', domain=[('active', '=', True)]),
         'fractionation_line_inactive_ids': fields.one2many('fractionation.line', 'fractionation_id', 'Fractionation Lines', domain=[('active', '=', False)]),
         'total_percentage': fields.function(_compute_total_percentage, string='Total Percentage',
@@ -603,7 +603,7 @@ class retrocession(orm.Model):
         'need_account_management': fields.related('mandate_ref', 'need_account_management', string='Need accounting management', type='boolean', store=False),
         'default_debit_account': fields.function(_get_defaults_account, string="Default debit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
         'default_credit_account': fields.function(_get_defaults_account, string="Default credit account", type="many2one", relation='account.account', store=False, multi="All_accounts"),
-        'is_regulation': fields.boolean('Regulation Retrocession ?'),
+        'is_regulation': fields.boolean('Regulation Retrocession?'),
         'email_date': fields.date('Last email Sent'),
         'email_coordinate_id': fields.function(_get_email_coordinate, string='Email Coordinate',
                                  type='many2one', relation='email.coordinate', store=False),
@@ -797,8 +797,8 @@ class retrocession(orm.Model):
         # copy fixed rules on retrocession to keep history of calculation basis
         for retrocession in self.browse(cr, uid, ids, context=context):
             if retrocession.amount_total < 0 and not retrocession.is_regulation:
-                raise except_orm(_('Error!'),
-                    _('Amount due for retrocession should positive'))
+                raise except_orm(_('Error'),
+                    _('Amount due for retrocession should be positive'))
             self.write(cr, uid, retrocession.id, {'state': 'validated'}, context=context)
             if not retrocession.unique_id:
                 retro_number = '{mandate}/{year}{month}{regulation}'.format(mandate=retrocession.mandate_ref.unique_id,
@@ -863,11 +863,11 @@ class retrocession(orm.Model):
         ir_model_data = self.pool.get('ir.model.data')
         retro = self.browse(cr, uid, ids[0], context=context)
         if not retro.email_coordinate_id:
-            raise orm.except_orm(_('Error!'), _('Representative has no email template specified'))
+            raise orm.except_orm(_('Error'), _('Representative has no email specified'))
         try:
             template_id = ir_model_data.get_object_reference(cr, uid, 'mozaik_retrocession', 'email_template_request_payment_retrocession')[1]
         except ValueError:
-            raise orm.except_orm(_('Error!'), _('Email template %s not found !' % 'email_template_request_payment_retrocession'))
+            raise orm.except_orm(_('Error'), _('Email template %s not found!') % 'email_template_request_payment_retrocession')
 
         if template_id:
             composer = self.pool['mail.compose.message']
@@ -941,7 +941,7 @@ class retrocession(orm.Model):
         if retro.default_credit_account:
             line_vals['account_id'] = retro.default_credit_account.id
         else:
-            raise orm.except_orm(_('Error!'), _('Please set a retrocession account on mandate category.'))
+            raise orm.except_orm(_('Error'), _('Please set a retrocession account on mandate category.'))
         move_line_obj.create(cr, uid, line_vals)
 
         if deduc_rules_amount > 0:
@@ -950,7 +950,7 @@ class retrocession(orm.Model):
             if retro.default_debit_account:
                 line_vals['account_id'] = retro.default_debit_account.id
             else:
-                raise orm.except_orm(_('Error!'),
+                raise orm.except_orm(_('Error'),
                         _('Please set a cost account on mandate category.'))
             move_line_obj.create(cr, uid, line_vals)
 
@@ -962,4 +962,3 @@ class retrocession(orm.Model):
 
         self.write(cr, uid, retro.id, {'move_id': move_id}, context=context)
         move_obj.post(cr, uid, [move_id], context=context)
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

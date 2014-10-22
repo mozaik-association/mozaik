@@ -19,6 +19,10 @@
             </field>
         </record>
 
+        <record id="mozaik_structure.sta_assembly_action" model="ir.actions.act_window">
+            <field name="search_view_id" ref="sta_assembly_search_view" />
+        </record>
+
         <record id="sta_assembly_fin_search_view" model="ir.ui.view">
             <field name="name">sta.assembly.fin.search (mozaik_retrocession)</field>
             <field name="model">sta.assembly</field>
