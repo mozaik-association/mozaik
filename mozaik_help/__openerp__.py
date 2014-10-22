@@ -46,7 +46,7 @@ MOZAIK Online Help
     'data': [
         'data/ir_config_parameter_data.xml',
         'data/help_auto_backup.xml',
-        'data/help_data.xml',
+        'data/help_online_data.xml',
     ],
     'qweb': [
     ],

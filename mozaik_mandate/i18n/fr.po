@@ -242,7 +242,7 @@ msgstr "Catégorie d'assemblée"
 #: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
 #: view:mandate.category:mozaik_mandate.mandate_category_search_view
 msgid "Assets Declaration"
-msgstr "Déclaration de revenus"
+msgstr "Déclaration de patrimoine"
 
 #. module: mozaik_mandate
 #: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_form_view
@@ -278,8 +278,8 @@ msgid "Candidate Name"
 msgstr "Nom du candidat"
 
 #. module: mozaik_mandate
+#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:208
 #: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:223
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:207
 #, python-format
 msgid "Candidate is elected but position non elected (%s) is set"
 msgstr "Le candidat est élu mais la position de non élu (%s) est postionnée"
@@ -1500,7 +1500,7 @@ msgstr "Refuser"
 #: view:int.selection.committee:mozaik_mandate.int_selection_committee_form_view
 #: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
 msgid "Refuse all candidatures: proceed anyway?"
-msgstr "Poursuivre le refus de toutes candidatures ?"
+msgstr "Poursuivre le refus de toutes les candidatures ?"
 
 #. module: mozaik_mandate
 #: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
@@ -1718,7 +1718,7 @@ msgstr "Mandat politique"
 #: field:res.partner,sta_mandate_inactive_ids:0
 #: field:sta.candidature,mandate_ids:0
 msgid "State Mandates"
-msgstr "Mandats politique"
+msgstr "Mandats politiques"
 
 #. module: mozaik_mandate
 #: view:abstract.candidature:mozaik_mandate.abstract_candidature_search_view
@@ -1740,7 +1740,7 @@ msgstr "Statut"
 #: field:mandate.category,is_submission_mandate:0
 #: field:sta.mandate,is_submission_mandate:0
 msgid "Submission to a Mandate Declaration"
-msgstr "Soumission à une déclaration de mandat"
+msgstr "Soumis à une déclaration de mandat"
 
 #. module: mozaik_mandate
 #: field:abstract.mandate,is_submission_assets:0
@@ -1749,7 +1749,7 @@ msgstr "Soumission à une déclaration de mandat"
 #: field:mandate.category,is_submission_assets:0
 #: field:sta.mandate,is_submission_assets:0
 msgid "Submission to an Assets Declaration"
-msgstr "Soumission à une déclaration de revenus"
+msgstr "Soumis à une déclaration de patrimoine"
 
 #. module: mozaik_mandate
 #: field:import.sta.candidatures.file.lines,is_substitute:0

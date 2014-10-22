@@ -637,7 +637,7 @@
                                          context="{'search_default_retrocession_id': active_id,
                                                    'default_retrocession_id': active_id,
                                                    'search_default_all': True,
-                                                   'search_default_is_not_deductible': True" />
+                                                   'search_default_is_not_deductible': True}" />
                                 <field name="rule_ids" attrs="{'invisible': [('active', '=', False)],
                                                                        'readonly': [('state','not in', ['draft'])]}"
                                                                 context="{'default_is_deductible': False}">

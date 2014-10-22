@@ -163,6 +163,7 @@
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="sta_assembly_id"/>
                     <field name="legislature_id"/>
+                    <field name="competencies_m2m_ids" widget="many2one" />
                 </xpath>
                 <xpath expr="//filter[@name='partner']" position="after">
                     <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'sta_assembly_id'}" />
@@ -194,6 +195,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="ext_assembly_id"/>
+                    <field name="competencies_m2m_ids" widget="many2one" />
                 </xpath>
                 <xpath expr="//filter[@name='partner']" position="after">
                     <filter name="assembly" string="Assembly" domain="[]" context="{'group_by':'ext_assembly_id'}" />
