@@ -186,6 +186,7 @@ class distribution_list_mass_function(orm.TransientModel):
                     value = composer.onchange_template_id(cr, uid, ids, template_id, 'mass_mail', '', 0, context=context)['value']
                     mail_composer_vals.update(value)
                     mail_composer_id = composer.create(cr, uid, mail_composer_vals, context=context)
+                    context['alternative_more_filter'] = [('email_coordinate_id', '=', False)]
 
                     active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [wizard.distribution_list_id.id], context=context)
                     context['active_ids'] = active_ids
