@@ -16,6 +16,36 @@
             </xpath>
         </template>
 
+        <template id="footer_default" inherit_id="website.footer_default"
+            name="Automatic Footer (mozaik_base)">
+            <xpath expr="//div[@class='container hidden-print']" position="replace">
+                <div class="container hidden-print">
+                    <div class="row">
+                        <div class="col-md-5 col-lg-offset-1 pull-right" >
+                           <ul class="list-inline js_language_selector mt16" t-if="(request.website_multilang and len(languages) &gt; 1) or editable">
+                                <li t-foreach="languages" t-as="lg">
+                                    <a t-att-href="url_for(request.httprequest.path + '?' + keep_query(), lang=lg[0])" t-att-data-default-lang="editable and 'true' if lg[0] == website.default_lang_code else None">
+                                     <t t-esc="lg[1].split('/').pop()"/></a>
+                                </li>
+                                <li groups="base.group_website_publisher">
+                                    <t t-set="url_return" t-value="url_for('', '[lang]') + '?' + keep_query()"/>
+                                    <a t-attf-href="/web#action=base.action_view_base_language_install&amp;website_id=#{website.id}&amp;url_return=#{url_return}">
+                                    <i class="fa fa-plus-circle"/>
+                                    Add a language...
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="layout_footer_copyright" inherit_id="website.layout_footer_copyright"
+            name="Footer Copyright (mozaik_base)">
+            <xpath expr="//div[@class='container mt16 mb8']" position="replace" />
+        </template>
+
         <!-- Persons -->
 
         <menuitem id="persons_root_menu" name="Persons"
