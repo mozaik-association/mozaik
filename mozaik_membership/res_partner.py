@@ -26,10 +26,11 @@
 #
 ##############################################################################
 from datetime import date
-from openerp.tests import common
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
+
+TODAY = str(date.today().year)
 
 
 class res_partner(orm.Model):
@@ -98,8 +99,8 @@ class res_partner(orm.Model):
 
         return True
 
-    def _generate_membership_reference(self, cr, uid, partner_id, ref_date,
-                                       context=None):
+    def _generate_membership_reference(self, cr, uid, partner_id,
+                                       ref_date=TODAY, context=None):
         """
         This method will generate a membership reference for payment.
         Comm. Struct. = '9' + ref_date without century +

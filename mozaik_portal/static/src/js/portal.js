@@ -1,10 +1,13 @@
-openerp.mozaik_portal = function(instance, module) {
+openerp.mozaik_portal = function(instance) {
 
     var _super_do_action = instance.web.ActionManager.prototype.do_action;
 
     instance.web.ActionManager.include({
+        init : function() {
+            this._super.apply(this, arguments);
+        },
         do_action : function(action, options) {
-            var parent = this;
+            var parent = this; 
             var ncontext= new instance.web.CompoundContext(action.context);
             var context = instance.web.pyeval.eval('context', ncontext);
             if (context && context.default_open_partner_user){
@@ -15,10 +18,11 @@ openerp.mozaik_portal = function(instance, module) {
                     fields : [ 'partner_id' ]
                 }).then(function(result) {
                     action.res_id = result.partner_id[0];
-                    _super_do_action.call(parent, action, options);
+                    return _super_do_action.call(parent, action, options);
                 });
             }
-            _super_do_action.call(parent, action, options);
+            return this._super.apply(this, arguments);
+
         }
     });
 };
