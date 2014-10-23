@@ -137,7 +137,7 @@ class abstract_instance(orm.AbstractModel):
     _parent_name = 'parent_id'
     _parent_store = True
     _parent_order = 'name'
-    _order = 'parent_left'
+    _order = 'name'
 
 # constraints
 
@@ -210,6 +210,8 @@ class abstract_assembly(orm.AbstractModel):
         'is_company': True,
         'is_assembly': True,
     }
+
+    _order = 'partner_id'
 
 # constraints
 

@@ -32,8 +32,8 @@
             <field name="model">abstract.assembly</field>
             <field name="arch" type="xml">
                 <tree string="Assembly" version="7.0">
-                    <field name="assembly_category_id"/>
                     <field name="instance_id"/>
+                    <field name="assembly_category_id"/>
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
