@@ -42,5 +42,3 @@ class mail_message(orm.Model):
             'active_test': False,
         })
         return super(mail_message, self)._find_allowed_model_wise(cr, uid, doc_model, doc_dict, context=ctx)
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

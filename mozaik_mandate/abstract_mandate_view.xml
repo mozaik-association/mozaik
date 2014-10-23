@@ -287,7 +287,7 @@
                             <group name="Dates">
                                 <field name="start_date"/>
                                 <field name="deadline_date"/>
-                                <field name="end_date" readonly="1"/>
+                                <field name="end_date" readonly="1" attrs="{'invisible': [('end_date','=',False)]}"/>
                                 <field name="alert_date" readonly="1" attrs="{'invisible': [('alert_date','=', False)]}"/>
                             </group>
                             <group name="duplicate">

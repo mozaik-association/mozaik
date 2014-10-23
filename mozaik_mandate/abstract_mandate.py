@@ -537,7 +537,7 @@ class abstract_mandate(orm.AbstractModel):
         ('date_check', "CHECK(start_date <= deadline_date)",
          "The start date must be anterior to the deadline date."),
         ('date_check2',
-         "CHECK((end_date = NULL) or ((start_date <= end_date) and \
+         "CHECK((end_date is NULL) or ((start_date <= end_date) and \
          (end_date <= deadline_date)))",
          "The end date must be between start date and deadline date."),
     ]
