@@ -158,6 +158,11 @@
             Add email address after creating user to avoid to try to send a welcome message
         -->
 
+        <record id="email_coordinate_admin" model="email.coordinate">
+            <field name="partner_id" ref="base.partner_root" />
+            <field name="email">demo+mk+adm@acsone.eu</field>
+        </record>
+
         <record id="email_coordinate_demo_1" model="email.coordinate">
             <field name="partner_id" ref="partner_of_user_1" />
             <field name="email">pierre@mozaik-ec.be</field>

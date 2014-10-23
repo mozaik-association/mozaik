@@ -21,6 +21,11 @@ msgid "Active"
 msgstr "Actif"
 
 #. module: mozaik_base
+#: view:website:website.layout
+msgid "Add a language..."
+msgstr "Ajouter une langue..."
+
+#. module: mozaik_base
 #: model:res.groups,name:mozaik_base.res_groups_base
 msgid "Base (Mozaik)"
 msgstr "Base (Mozaik)"
@@ -34,6 +39,11 @@ msgstr "Communication"
 #: model:ir.ui.menu,name:mozaik_base.persons_configuration_submenu
 msgid "Configuration"
 msgstr "Configuration"
+
+#. module: mozaik_base
+#: model:ir.ui.menu,name:mozaik_base.res_partner_natural_title_menu
+msgid "Contact Titles"
+msgstr "Civilités"
 
 #. module: mozaik_base
 #: model:ir.ui.menu,name:mozaik_base.res_country_menu
@@ -102,11 +112,6 @@ msgstr "Langues"
 #: field:mozaik.abstract.model,message_last_post:0
 msgid "Last Message Date"
 msgstr "Date du dernier message"
-
-#. module: mozaik_base
-#: model:ir.ui.menu,name:mozaik_base.res_partner_legal_title_menu
-msgid "Legal Persons Titles"
-msgstr "Forme juriques de personnes morales"
 
 #. module: mozaik_base
 #: model:ir.ui.menu,name:mozaik_base.localization_submenu
@@ -189,11 +194,6 @@ msgid "Mozaik Vip Reader"
 msgstr "Lecteur Vip Mozaik"
 
 #. module: mozaik_base
-#: model:ir.ui.menu,name:mozaik_base.res_partner_natural_title_menu
-msgid "Natural Persons Titles"
-msgstr "Titres de personnes physiques"
-
-#. module: mozaik_base
 #: model:ir.model,name:mozaik_base.model_mail_mail
 msgid "Outgoing Mails"
 msgstr "Courriels à envoyer"
@@ -231,8 +231,9 @@ msgstr "Table des matières"
 
 #. module: mozaik_base
 #: model:ir.ui.menu,name:mozaik_base.persons_titles_submenu
+#: model:ir.ui.menu,name:mozaik_base.res_partner_legal_title_menu
 msgid "Titles"
-msgstr "Civilités et Formes juridiques"
+msgstr "Formes juridiques"
 
 #. module: mozaik_base
 #: field:mozaik.abstract.model,message_unread:0
@@ -255,8 +256,7 @@ msgid "Website communication history"
 msgstr "Historique des communications de site web"
 
 #. module: mozaik_base
-#: view:res.users:mozaik_base.res_user_form
-#: view:res.users:mozaik_base.view_users_form_preferences
+#: view:res.users:mozaik_base.view_users_form_simple_modif
 msgid "mozaik_base.res_groups_developper"
 msgstr ""
 

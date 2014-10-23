@@ -78,7 +78,7 @@
             <field name="model">int.assembly</field>
             <field name="inherit_id" ref="abstract_assembly_tree_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='instance_id']" position="after">
+                <xpath expr="//field[@name='assembly_category_id']" position="after">
                     <field name="is_designation_assembly" />
                 </xpath>
             </field>
@@ -115,8 +115,11 @@
             <field name="model">ext.assembly</field>
             <field name="inherit_id" ref="abstract_assembly_tree_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='instance_id']" position="before">
+                <xpath expr="//field[@name='instance_id']" position="replace">
                     <field name="ref_partner_id" />
+                </xpath>
+                <xpath expr="//field[@name='assembly_category_id']" position="after">
+                    <field name="instance_id" />
                 </xpath>
             </field>
         </record>
