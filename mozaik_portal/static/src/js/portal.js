@@ -1,6 +1,6 @@
 openerp.mozaik_portal = function(instance) {
 
-//    var _super_do_action = instance.web.ActionManager.prototype.do_action;
+    var _super_do_action = instance.web.ActionManager.prototype.do_action;
 
     instance.web.ActionManager.include({
         init : function() {
