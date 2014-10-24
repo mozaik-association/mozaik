@@ -46,6 +46,8 @@ This module manage portal user features
         'security/ir.model.access.csv',
         'security/portal_security.xml',
         'res_partner_view.xml',
+        'distribution_list_view.xml',
+        'event_view.xml',
         'portal_view.xml',
     ],
     'qweb': [

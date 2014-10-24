@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="event_action" model="ir.actions.act_window">
+            <field name="name">Events</field>
+            <field name="res_model">event.event</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" eval="portal_view_partner_form" />
+        </record>
+
+    </data>
+</openerp>

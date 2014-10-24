@@ -9,11 +9,28 @@
             </xpath>
         </template>
 
+        <!-- Remove messaging from portal menu -->
+        <record model="ir.ui.menu" id="portal.portal_messages">
+            <field name="groups_id" eval="[(5, ref('settings_improvement.unused_features'))]"/>
+        </record>
+
         <!-- Persons -->
         <menuitem id="partner_submenu" name="Persons"
             sequence="20" parent="portal.portal_menu" />
         <menuitem id="natural_partner_submenu" sequence="20"
             parent="partner_submenu" action="natural_res_partner_action"/>
+
+        <!-- Event -->
+        <menuitem id="event_submenu" name="Event"
+            sequence="20" parent="portal.portal_menu" />
+        <menuitem id="event_event_submenu" sequence="20"
+            parent="event_submenu" action="event_action"/>
+
+        <!-- Newsletter -->
+        <menuitem id="newsletter_submenu" name="Newsletter"
+            sequence="20" parent="portal.portal_menu" />
+        <menuitem id="newsletter_newsletter_submenu" sequence="20"
+            parent="newsletter_submenu" action="newsletter_action"/>
 
     </data>
 </openerp>

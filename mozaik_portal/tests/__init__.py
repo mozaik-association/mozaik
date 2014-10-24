@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
+#    Authors: Nemry Jonathan
 #    Copyright (c) 2014 Acsone SA/NV (http://www.acsone.eu)
 #    All Rights Reserved
 #
@@ -25,5 +26,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import res_users
-from . import distribution_list
+from . import test_distribution_list
+
+fast_suite = [
+]
+
+checks = [
+    test_distribution_list,
+]
