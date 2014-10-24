@@ -46,12 +46,12 @@ MOZAIK Person
     'data': [
         'security/ir.model.access.csv',
         'security/person_security.xml',
-        'person_view.xml',
-        'res_partner_view.xml',
+        'data/res_partner_sequence_data.xml',
         'partner_involvement_view.xml',
+        'res_partner_view.xml',
+        'person_view.xml',
         'wizard/create_user_from_partner_view.xml',
         'wizard/allow_duplicate_view.xml',
-        'data/res_partner_sequence_data.xml',
     ],
     'qweb': [
     ],
