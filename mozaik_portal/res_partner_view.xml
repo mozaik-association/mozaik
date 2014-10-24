@@ -3,7 +3,7 @@
     <data noupdate="0">
 
         <record id="portal_view_partner_form" model="ir.ui.view">
-            <field name="name">res.partner.form (ficep_portal)</field>
+            <field name="name">res.partner.form (mozaik_portal)</field>
             <field name="model">res.partner</field>
             <field name="arch" type="xml">
                 <form string="Natural Person" version="7.0">
