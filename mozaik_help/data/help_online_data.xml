@@ -4340,6 +4340,34 @@ SUVORK5CYII=
       <field name="res_model">ir.ui.view</field>
       <field name="mimetype">image/png</field>
     </record>
+    <record id="mozaik-help-delete_img_02" model="ir.attachment">
+      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAB8AAAAbCAMAAACz4aQdAAADAFBMVEX+/v5MTExxtOeU0v/RlEz/
+0pTotHHJjE3v7++PzP9MUYNMc7ZRicdzUUxin91iq+O2c0zdq2LH8///6LYAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAADyntB8AAABAHRSTlP//////////////////////////wAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPUZjQAAA
+AFBJREFUeNpjYBhWgIURCJjwyDMzMLDhlGdnhAIe7PICMHlu8lzHCtPPjEuen42JnZMdtzwTGxML
+M8vAyfMJ4nOfMC/Ee1xCA5YAOEBgECVIALPlAcjyuVcVAAAAAElFTkSuQmCC
+</field>
+      <field name="datas_fname">dustbin.png</field>
+      <field name="name">dustbin.png</field>
+      <field name="res_model">ir.ui.view</field>
+      <field name="mimetype">image/png</field>
+    </record>
     <template name="mozaik-help-delete" id="website.mozaik-help-delete" page="True">
       <t t-call="website.layout">
         <div class="oe_structure oe_empty" id="wrap">
@@ -4355,30 +4383,25 @@ SUVORK5CYII=
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-flag fa-2x"/>
-                        <strong>  Accès fonctionnalité et localisation</strong>
+                        <strong> Accès fonctionnalité et localisation</strong>
                       </span>
-                      <span style="line-height: 1.42857143;">: option disponible dans le menu "Autres options" en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
+                      <span style="line-height: 1.42857143;">: icône "poubelle" en regard d'un objet ou option disponible dans le menu "Autres options" en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
                     </p>
                     <p style="text-align: left;">
-                      <span style="line-height: 1.42857143;"> </span>
+                      <span style="line-height: 1.42857143;"/>
                       <span style="line-height: 1.42857143;">
                         <span class="fa fa-user fa-2x"/>
                       </span>
-                      <span style="line-height: 1.42857143;"><strong>   Audience</strong>
-                         : profils non autorisés:
-                        <span style="background-color:#FFFF00;">xxxxxxx </span>
-                        (voir
-                        <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>
-                         ).
-                      </span>
-                      <span style="line-height: 1.42857143;"> </span>
+                      <span style="line-height: 1.42857143;"><strong>  Audience</strong> : profils non autorisés: 
+                                        <span style="background-color:#FFFF00;">xxxxxxx </span> (voir 
+                                        <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a> ). 
+                                    </span>
+                      <span style="line-height: 1.42857143;"/>
                     </p>
                     <div/>
-                    <div style="text-align: left;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis</strong>
-                       : sélection d'un objet existant dans la liste ou affichage de l'objet en vue "formulaire" (voir
-                      <a href="/page/mozaik-help-views" style="background-color: rgb(255, 255, 255);">Vues</a>
-                       ).
-                    </div>
+                    <div style="text-align: left;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis</strong> : sélection d'un objet existant dans la liste ou affichage de l'objet en vue "formulaire" (voir 
+                                    <a href="/page/mozaik-help-views" style="background-color: rgb(255, 255, 255);">Vues</a> ).
+                                </div>
                     <p style="text-align: left;">
                       <span style="line-height: 1.42857143;"/>
                     </p>
@@ -4407,11 +4430,10 @@ SUVORK5CYII=
                       <tr>
                         <td style="text-align: left;">​1</td>
                         <td style="text-align: left;">Sélectionnez l'option "Supprimer" dans le menu "Autres Options"</td>
-                        <td style="text-align: left;">
-                          Un message de confirmation s'ouvre
-                          <br/>
-                          <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=mozaik-help-delete_img_01" style=""/>
-                        </td>
+                        <td style="text-align: left;">Un message de confirmation s'ouvre
+                                            <br/>
+                                            <img class="img-thumbnail" src="/website/image?field=datas&amp;model=ir.attachment&amp;id=mozaik-help-delete_img_01" style=""/>
+                                        </td>
                       </tr>
                       <tr>
                         <td style="text-align: left;">​2</td>
@@ -4422,15 +4444,16 @@ SUVORK5CYII=
                   </table>
                   <div style="text-align: left;"/>
                   <div style="text-align: left;">
-                    <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px"/>
-                        Le menu "Autres options" ne s'affiche en mode "Liste" qu'après sélection d'un ou de plusieurs objets.
-                    </em>
+                    <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px"/>  Supprimer un objet peut également être exécuté en cliquant sur l'icône représentant une poubelle ( 
+                                    <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-delete_img_02|dece8dd/datas" style=""/> ) en regard d'objets individuels (ex: candidature au sein d'un Comité de Sélection ou encore une filtre dans une Liste de distribution.
+                                </em>
                   </div>
                   <div style="text-align: left;">
                     <em style="line-height: 1.42857143; background-color: transparent;"/>
                     <div>
                       <strong/>
                     </div>
+                    <br/>
                     <div>
                       <strong>
                         <em style="line-height: 1.42857143; background-color: transparent;">
@@ -4460,6 +4483,459 @@ SUVORK5CYII=
                 </div>
               </div>
             </div>
+          </section>
+        </div>
+      </t>
+    </template>
+    <template name="mozaik-help-distribution-list" id="website.mozaik-help-distribution-list" page="True">
+      <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty">
+          <section class="mt_simple_snippet">
+            <section class="mt_simple_snippet">
+              <section class="mt16 mb0 oe_green">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12 text-center mt16 mb4">
+                      <h2>Communication</h2>
+                      <h3 class="text-muted">Listes de Distribution</h3>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="mb16">
+                <div class="container">
+                  <div class="row mt16 mb16">
+                    <div class="text-center col-md-2">
+                      <span class="fa fa-calendar-o fa-3x" style=""/>
+                      <h3 class="mt8 mb0">But</h3>
+                      <div class="text-muted">Accès et gestion des listes de distribution</div>
+                    </div>
+                    <div class="text-center col-md-7">
+                      <span class="fa fa-book fa-3x" style=""/>
+                      <h3 class="mt8 mb0">Contexte</h3>
+                      <div>
+                        <span style="color:#808080;">Le modèle «Liste de distribution» inclut une action de déclenchement d'un Mailing de Masse, <span style="color: rgb(128, 128, 128); text-align: center;"> </span><span style="color: rgb(128, 128, 128); text-align: center;">une action de déclenchement d'un rapport d'étiquettes, </span>deux actions de déclenchement d'extraction CSV, une action permettant de compléter une Liste de Distribution avec les Expressions de plusieurs autres (filtres), un contrôle d'unicité.</span>
+                      </div>
+                      <div class="text-muted">
+                        <span style="background-color: rgba(200, 200, 200, 0.0980392);"/>
+                      </div>
+                    </div>
+                    <div class="text-center col-md-2">
+                      <span class="fa fa-flag fa-3x" style=""/>
+                      <h3 class="mt8 mb0">Localisation</h3>
+                      <div class="text-muted">Communication\Listes de distribution\Liste de distribution</div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <hr/>
+              <section class="oe_dark">
+                <div class="container">
+                  <h3 class="page-header">
+                    <span style="color:#808080;">Listes de distribution: particularités </span>
+                  </h3>
+                  <h4 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">Qu'entend-on par Listes de distribution?</h4>
+                  <p>
+                    <span style="line-height: 1.42857143;">Ce sont des listes dynamiques définies sur des modèles virtuels (i.e. modèles combinés au départ de modèles réels comme Personnes, Assemblée, Mandat, Statut, ...) et composées de filtres contenant des expressions (ex. mandataires de Catégorie "conseiller communal" ou Assemblées Ecolo de Niveau "Régional" ou Partenaire de Statut "Ancien Membre (cotisation)", ...).</span>
+                  </p>
+                  <p>L'exécution d'une Liste de Distribution consiste à déclencher une action de masse (Mailing de Masse, extraction CSV, impression d'étiquettes) sur les éléments qui vérifient les filtres inclus dans la Liste de distribution. Ceux-ci peuvent être inclusifs ou exclusifs. Plusieurs filtres peuvent composer la Liste de distribution.</p>
+                  <h4>Quels avantages me donne l'application sur ce modèle ?</h4>
+                  <div>L'application me permet de les créer, en modifier leur contenu en ajoutant ou supprimant des filtres, et surtout, elles sont le point de départ pour toute actions d'envoi postal ou email ou encore d'impression d'étiquettes en masse. Des fonctionnalités générales sont offertes sur ce modèle telles que création (association), suppression, recherche, export, .....</div>
+                  <h4>Quelles informations sont affichées dans la liste?</h4>
+                  <div>Seuls les noms et l'Instance liée à la Liste sont affichés. Les Listes de distributions affichées sont les Listes "actives" (voir "<a href="/page/mozaik-help-invalidate">Invalider un objet</a>"). Une Instance spécifiée sur la Liste de distribution indique à qui elle est rendue visible et utilisable  (ex: Bruxelles (Local) sur une Liste signifie que celle-ci ne peut être vue et utilisée que par la Locale de Bruxelles). </div>
+                  <h4>Comment crée-t-on un filtre? </h4>
+                  <div>Un filtre est une expression que l'on construira en sélectionnant les Personnes cibles au départ de modèles préparés (dits "virtuels"), qui combinent plusieurs autres modèles. Ces modèles sont les suivants:</div>
+                  <div>
+                    <ul>
+                      <li><u>Partenaire-Instance</u>: Partenaire, Instance Interne, Coordonnées (Postale, Email et Téléphonique), Types de Coordonnées; incluant des filtres sur les Coordonnées Principale, VIP ou Interdites, des recherches sur "employé", "thème", "centre d'intérêt" ou "compétence"; les Coordonnées seront <strong>toutes les Coordonnées</strong> des Partenaires; c'est pour cela d'ailleurs que les Personnes peuvent apparaître plusieurs fois.</li>
+                      <li><u>Partenaire-Adhésion:</u> Partenaire, Instance Ecolo, Adhésion, Statut, Article, Coordonnées (Postale, Email et Téléphonique); incluant des filtres sur les Coordonnées VIP ou Interdites, des recherches sur une date d'Adhésion et date d'envoi de la carte de membre; les Coordonnées seront les <strong>Coordonnées principales</strong> des Partenaires</li>
+                      <li><u>Partenaire-Relation</u>: Partenaire (sujet), Instance Ecolo, Relation, Catégorie de Relation, Partenaire (objet), Coordonnées (Postale, Email et Téléphonique); incluant des filtres sur les Coordonnées VIP ou Interdites, des recherches sur "thème"; les Coordonnées seront les Coordonnées attachées aux Relations (si elles existent, sinon ce seront les Coordonnées principales des Partenaires (sujets))</li>
+                      <li><u>Partenaire-Participation</u>: Partenaire, Instance Ecolo, Participation, Catégorie de Participation, Coordonnées (Postale, Email et Téléphonique); incluant des filtres sur les Coordonnées VIP ou Interdites; les Coordonnées seront les <strong>Coordonnées principale</strong>s des Partenaires</li>
+                      <li><u><u>Partenaire-Candidat</u>: </u>Partenaire, Instance Ecolo, Candidature, Catégorie de Mandat, Assemblée, Coordonnées (Postale, Email et Téléphonique); incluant des filtres sur les Coordonnées VIP ou Interdites; les Coordonnées seront les <strong>Coordonnées principales</strong> des Partenaires</li>
+                      <li><u>Partenaire-Mandat</u>: Partenaire, Instance Ecolo, Mandat, Catégorie de Mandat, Assemblée, Coordonnées (Postale, Email et Téléphonique); incluant des filtres sur les Coordonnées VIP ou Interdites, des recherches sur "thème"; les Coordonnées seront les<strong> Coordonnées attachées aux Mandats</strong> (si elles existent, sinon ce seront les Coordonnées principales des Partenaires)</li>
+                      <li><u>Partenaire-Rétrocessions</u>: Partenaire, Instance Ecolo, Rétrocession, Mandat, Catégorie de Mandat, Coordonnées (Postale, Email et Téléphonique); incluant des filtres sur les Coordonnées VIP ou Interdites, des recherches sur les Rétrocessions payées ou impayées; les Coordonnées seront les <strong>Coordonnées attachées aux Mandats</strong> (si elles existent, les Coordonnées principales sinon)</li>
+                      <li><u>Partenaire-Evénements</u>: Partenaire, Instance Ecolo, Inscription, Événement, Coordonnées (Postale, Email et Téléphonique); incluant des filtres sur les Coordonnées VIP ou Interdites; les Coordonnées seront les <strong>Coordonnées principales</strong> des Partenaires</li>
+                      <li><u>Assemblée-Instance</u>: Assemblée, Instance Ecolo, Catégorie d'Assemblée, Niveau, Partenaire, Coordonnées (Postale, Email et Téléphonique); incluant des filtres sur les Coordonnées VIP ou Interdites, des recherches sur "thème"; les Coordonnées seront les <strong>Coordonnées principales</strong> des Partenaires (personne morale représentant l'Assemblée)</li>
+                    </ul>
+                    <p>Ces modèles affichent donc déjà une liste de Personnes ciblées, cependant, cette pré-recherche peut encore être affinée avant d'être considérée comme une Expression (un filtre) (voir "<a href="/page/mozaik-help-distribution-list-add-filter">Ajouter le filtre à une Liste de distribution</a>")</p>
+                  </div>
+                  <div/>
+                  <h4>Qui peut voir/utiliser mes Listes?</h4>
+                  <div>Un système de "Propriétaire" est appliqué sur les Listes de distribution ainsi que sur les newsletters et les modèles de courriel. En effet, l'utilisateur qui a créé la Liste possède tout pouvoir d'écriture/suppression sur celle-ci et peut décider d'autres "propriétaires". Il peut également limiter la visibilité de celle-ci à des Instances (voir ci-dessous). Le propriétaire de la Liste est obligatoire. Si une Liste doit être vue et utilisée par tous, il faudra demander au "Configurateur" de la créer. </div>
+                  <h4>Quel sera le résultat de ma Liste si plusieurs filtres la compose? </h4>
+                  <div>Les Listes possèdent une intelligence dans la lecture de leurs filtres. En effet, si une Personne est incluse dans un filtre mais exclue dans un autre, cette Personne sera exclue. L'exclusion domine l'inclusion. Si une Personne est présente dans plusieurs filtres, un seul envoi sera exécuté. </div>
+                  <h4>Quelle différence y a-t-il entre une Liste de distribution et une lettre d'information?</h4>
+                  <div>
+                    <div>Une Lettre d'information est une Liste de distribution comportant cependant deux différences:</div>
+                    <ol>
+                      <li>une coche qui peut la déclarer publique; cela signifie qu'elle sera disponible ou non sur le site Internet (permettant la désinscription);</li>
+                      <li>notion d’abonnement ou de désabonnement (Inscrits - Désinscrits). </li>
+                    </ol>
+                    <p>Elle fonctionne de la même façon qu'une Liste de distribution et si la Lettre est constituée de plusieurs filtres, le calcul est opéré de la même façon en retirant toutefois du résultat les Personnes listées dans la colonne des "désinscrits". La désinscription se fait via le lien qui présent dans la lettre d'information ou manuellement dans la fiche de la lettre de l'information.</p>
+                  </div>
+                  <h4>En quoi consiste la création d'une Liste de distribution?</h4>
+                  <div>La création d'une Liste de distribution consiste à lui donner un nom et à lui associer un ou plusieurs filtres. La suppression d'un filtre au sein d'une Liste de distribution s'opère en cliquant sur la petite icône poubelle. </div>
+                  <h4/>
+                  <div/>
+                </div>
+              </section>
+              <hr/>
+              <section class="mt16 mb16 oe_dark">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12 mb16 mt16">
+                      <h3 style="color:#808080;">Fonctionnalités particulières sur les Listes de distribution</h3>
+                      <h4>
+                        <a href="/page/mozaik-help-distribution-list-add-filter">Créer et Ajouter un filtre à une Liste de distribution</a>
+                      </h4>
+                      <div>
+                        <h4>
+                          <a href="/page/mozaik-help-distribution-list-add-filter">Créer et Ajouter un filtre à une Lettre d'information</a>
+                        </h4>
+                      </div>
+                      <h4>
+                        <a href="/page/mozaik-help-merge-distribution-list">
+                          <span style="line-height: 1.42857143;">Fusionner des Listes de distribution</span>
+                        </a>
+                      </h4>
+                      <h4>Définir la sécurité sur la Liste de distribution / Lettre d'information</h4>
+                      <div>
+                        <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
+                          <tbody>
+                            <tr>
+                              <td>Etapes​</td>
+                              <td>​Résultat</td>
+                              <td>​Profils non autorisés</td>
+                            </tr>
+                            <tr>
+                              <td>​1. Editez la fiche de la Liste ou Lettre concernée<br/>
+			2. Dans l'onglet "Sécurité"
+			<ul><li>ajouter une ou plusieurs Instances - cela leur donne droit de visibilité et d'utilisation</li><li>ajouter un ou plusieurs autre "Propriétaires" - cela donne droit d'édition (incluant suppression)  et d'utilisation</li></ul>
+			3. Cliquez sur "Enregistrer" pour sauver vos modifications - "Annuler" annule l'opération</td>
+                              <td>​Des données de sécurité sont ajoutées à la Liste de distribution ou Lettre d'information</td>
+                              <td/>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </section>
+            <section class="mt16 mb16 oe_dark" style="">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 mb16 mt16">
+                    <h3 class="page-header">
+                      <span style="color:#808080;">Fonctionnalités générales </span>
+                    </h3>
+                    <div>
+                      <font color="#777777" size="5">
+                        <span style="line-height: 26.399999618530273px;"/>
+                      </font>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/mozaik-help-create" style="-webkit-user-select: auto; cursor: text !important;">Créer</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/mozaik-help-update" style="-webkit-user-select: auto; cursor: text !important;">Editer</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/mozaik-help-delete" style="-webkit-user-select: auto; cursor: text !important;">Supprimer</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/mozaik-help-duplicate" style="-webkit-user-select: auto; cursor: text !important;">Dupliquer</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/mozaik-help-all-details" style="-webkit-user-select: auto; cursor: text !important;">Détails</a>
+                      </div>
+                      <div class="col-md-1" style="width: 97.5px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/mozaik-help-invalidate" style="-webkit-user-select: auto; cursor: text !important;">Invalider</a>
+                      </div>
+                      <div class="col-md-2" style="width: 195px; color: rgb(119, 119, 119);">
+                        <a class="btn btn-success btn-sm" href="/page/mozaik-help-attachment" style="-webkit-user-select: auto; cursor: text !important;">Gérer des pièces jointes</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="mt16 mb16 oe_dark" style="">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 mb16 mt16">
+                    <h3 class="page-header">
+                      <span style="color:#808080;">Caractéristiques générales de l'écran</span>
+                    </h3>
+                    <p>
+                      <span style="line-height: 1.42857143;"><a href="/page/mozaik-help-filters">Recherche et Filtres</a> - <a href="/page/mozaik-help-navigation">Navigation</a> - <a href="/page/mozaik-help-views">Vues et Affichage</a> - <a href="/page/mozaik-help-messaging">Messagerie et Notes Internes</a> - <a href="/page/mozaik-help-createandedit">Créer et Editer</a> - <a href="/page/mozaik-help-search">Recherche complémentaire sur les listes</a> - <a href="/page/mozaik-help-datacontrol">Surveillance et Historisation des données</a> </span>
+                    </p>
+                    <p>
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </section>
+        </div>
+      </t>
+    </template>
+    <record id="mozaik-help-distribution-list-add-filter_img_01" model="ir.attachment">
+      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAs8AAADVCAMAAACffu1RAAADAFBMVEX+/v7S0v7q6unKy+vHx9Wr
+q7BpaWnY2NiJree1tbi4uMxWVldJSEmWlpbP4f661f6Hh4d3d3c5OTmop8mXvPVUWmOitul7eqyK
+ibViXFWVlLtcYmZmYlstLS2bm8ABAQGAf6+dw/3AvtYdHSRwb6V/gLB/rPSgn8IAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAACaKwvAAAABAHRSTlP/////////////////////////////////////////////
+////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+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
+AAAAAElFTkSuQmCC
+</field>
+      <field name="datas_fname">addfilter.png</field>
+      <field name="name">addfilter.png</field>
+      <field name="res_model">ir.ui.view</field>
+      <field name="mimetype">image/png</field>
+    </record>
+    <record id="mozaik-help-distribution-list-add-filter_img_02" model="ir.attachment">
+      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAeEAAAC7CAMAAABl9tYZAAADAFBMVEX+/v7p6enY2NjHxsaXl5eH
+h4e3t7enp6d4eHhpaWlXV1dISEjSRkamJyfQNzfPJyeqqsTQFRW2OTnTVVXd4+POCAjNdXW6Sko5
+OTnNZGTbpaUAAADWkpLmxcXr1NSzFxe7VlbSiIgtLS3d8/OnBgbavb3jamrkvLwAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAB775DIAAABAHRSTlP+////////////////////////////////////////////
+////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+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
+Y9Ch5gaiAAAAAElFTkSuQmCC
+</field>
+      <field name="datas_fname">filterunicity.png</field>
+      <field name="name">filterunicity.png</field>
+      <field name="res_model">ir.ui.view</field>
+      <field name="mimetype">image/png</field>
+    </record>
+    <template name="mozaik-help-distribution-list-add-filter" id="website.mozaik-help-distribution-list-add-filter" page="True">
+      <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty">
+          <section class="mt_simple_snippet">
+            <section class="mt16 mb0">
+              <div class="container">
+                <div class="row">
+                  <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
+                    <span style="color: rgb(0, 128, 0);"/>
+                  </h2>
+                  <section class="mt16 mb0">
+                    <div class="container">
+                      <div class="row">
+                        <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">
+                          <span style="color: rgb(0, 128, 0);">Créer et ajouter un filtre à une Liste de distribution ou Lettre d'information</span>
+                        </h2>
+                        <p>
+                          <span class="fa fa-flag fa-2x"/>
+                          <strong style="line-height: 1.42857143;">
+                            <span style="line-height: 1.42857143;">
+                              <strong>Accès fonctionnalité et localisation: </strong>
+                            </span>
+                          </strong>
+                          <span style="line-height: 1.42857143;">option disponible dans la fiche d'une Liste de distribution ou dans le menu "Autres options" à partir d'une liste de Personnes des modèles virtuels</span>
+                        </p>
+                        <p>
+                          <span style="line-height: 1.42857143;">
+                            <span class="fa fa-user fa-2x"/>
+                          </span>
+                          <span style="line-height: 1.42857143;"><strong>  Audience: </strong>profils non autorisés:  <span style="background-color: rgb(255, 255, 0);">xxxxxxx </span>(voir  <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a> ). </span>
+                        </p>
+                        <p>
+                          <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong>Pré-requis: </strong>affichage de l'objet en vue "formulaire" (voir  <a href="/page/mozaik-help-views">Vues</a> ). </span>
+                        </p>
+                      </div>
+                    </div>
+                  </section>
+                  <section class="mt16 mb16">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-12 text-center mt16 mb32" style="width: 1170px;"><table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#​</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">​1</td><td style="text-align: left;">Affichez la liste des Personnes pré-sélectionnées d'un des modèles virtuels proposés</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">​2</td><td style="text-align: left;">Affinez éventuellement votre sélection (voir "  <a href="/page/mozaik-help-filters">Recherche et Filtres</a>")</td><td style="text-align: left;">La liste des Personnes est mise à jour</td></tr><tr><td style="text-align: left;">​3</td><td style="text-align: left;">Sélectionnez tous les objets de votre liste en cochant la case en tête de colonne</td><td style="text-align: left;">Toutes les Personnes sont sélectionnées</td></tr><tr><td style="text-align: left;">​4</td><td style="text-align: left;">Sélectionnez l'option "Ajouter ce filtre à une liste de distribution"</td><td style="text-align: left;">L'écran suivant s'ouvre:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-distribution-list-add-filter_img_01|c6c0e14/datas" style=""/></td></tr><tr><td style="text-align: left;">5</td><td style="text-align: left;">Donnez un nom à votre filtre</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">​6</td><td style="text-align: left;">Sélectionnez dans la liste déroulante la Liste de distribution ou la Lettre d'information à laquelle le filtre doit être ajouté - cliquez sur la coche "Exclure" si vous souhaitez que votre sélection soit à exclure</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">​7</td><td style="text-align: left;">Cliquez sur "Ajouter" pour confirmer - "Annuler" stoppe le processus</td><td style="text-align: left;">Le filtre est créé et ajouté directement à une Liste de distribution</td></tr></tbody></table><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"/><div/><div><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  La gestion des filtres, incluant la création, peut également se faire via la fiche d'une Liste de distribution ou Lettre d'information: Editez la fiche et cliquez sur "Ajouter un élément" dans la colonne "Filtres à inclure" pour l'inclure ou "Filtres à exclure" si'il faut l'exclure. Enregistrez vos modifications, le ou les filtres sont ajoutés à la Liste de distribution ou la Lettre d'information. Notez qu'il existe un troisième chemin pour créer un filtre, toutefois moins recommandé: </em><em style="line-height: 1.42857143; background-color: transparent;">via le menu "Filtres", cliquez sur "Créer". Il vous faudra choisir un nom et le modèle source (modèle sur lequel la recherche est faite): choisissez "Partenaire" dans le cas d'un filtre à excercer sur les Personnes. </em></div></div><div><div style="text-align: left;"/></div>
+ 
+
+<div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div>
+
+<p style="text-align: left;"><strong>Nom unique pour un filtre: </strong>le nom d'un filtre est unique, si vous tentez de créer un filtre qui existe déjà, le message suivant s'affiche:</p>
+
+<p style="text-align: left;"><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-distribution-list-add-filter_img_02|48bf9c3/datas" style=""/></p>
+
+<p style="text-align: left;"><a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x"/> Retour au sommaire </a></p>
+</div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </section>
+            <section class="mt16 mb16">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <p style="text-align: left;"/>
+                  </div>
+                </div>
+              </div>
+            </section>
           </section>
         </div>
       </t>
@@ -11425,7 +11901,95 @@ Demandes d'adhésion</div>
         </div>
       </t>
     </template>
-    <record id="mozaik-help-membership-request-confirm_img_01" model="ir.attachment">
+    <template name="mozaik-help-membership-request-confirm" id="website.mozaik-help-membership-request-confirm" page="True">
+      <t t-call="website.layout">
+        <div class="oe_structure oe_empty" id="wrap">
+          <section class="mt_simple_snippet">
+            <section class="mt16 mb0">
+              <div class="container">
+                <div class="row">
+                  <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
+                    <span style="color: rgb(0, 128, 0);">Réceptionner une Demande d'adhésion/de modification</span>
+                  </h2>
+                  <p style="text-align: left;">
+                    <span class="fa fa-flag fa-2x"/>
+                    <strong style="line-height: 1.42857143;">
+                      <span style="line-height: 1.42857143;">
+                        <strong> Accès fonctionnalité et localisation: </strong>
+                      </span>
+                    </strong>
+                    <span style="line-height: 1.42857143;">entrée menu "Demandes d'adhésion" - Toutes les demandes à traiter apparaissent sous forme de liste.</span>
+                  </p>
+                  <p style="text-align: left;">
+                    <span style="line-height: 1.42857143;">
+                      <span class="fa fa-user fa-2x" style=""/>
+                    </span>
+                    <span style="line-height: 1.42857143;"><strong> Audience: </strong> profils non autorisés: <span style="background-color:#FFFF00;">xxxxxxx </span> (voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a> ). </span>
+                  </p>
+                  <p style="text-align: left;">
+                    <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis: </strong> affichage de l'objet en vue "formulaire" (voir <a href="/page/mozaik-help-views">Vues</a> ). </span>
+                  </p>
+                </div>
+              </div>
+            </section>
+            <section class="mt16 mb16">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;">
+                            <strong>#​</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Etape</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Résultat</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">​1</td>
+                          <td style="text-align: left;">Cliquez sur l'entrée de menu "Demandes d'adhésion</td>
+                          <td style="text-align: left;">Les demandes à traiter apparaissent</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  La liste présente toutes les demandes en cours, statuts "Brouillon" et "Confirmé". "Brouillon" signifie que la demande est encore en cours de traitement (toujours éditable). On ne valide que les demandes de statut "Confirmé"</em>
+                    </div>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      <div/>
+                      <div>
+                        <em style="line-height: 1.42857143; background-color: transparent;"> </em>
+                        <div/>
+                        <div>
+                          <strong>
+                            <em style="line-height: 1.42857143; background-color: transparent;">
+                              <span tabindex="-1"><span class="fa fa-exclamation-triangle fa-2x" data-widget="icons"/> </span>
+                            </em>
+                          </strong>
+                          <strong>Exceptions</strong>
+                        </div>
+                      </div>
+                    </div>
+                    <p style="text-align: left;">
+                      <span style="background-color: rgb(255, 255, 0);">To be completed</span>
+                    </p>
+                    <p style="text-align: left;">
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </section>
+        </div>
+      </t>
+    </template>
+    <record id="mozaik-help-membership-request-validate_img_01" model="ir.attachment">
       <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAboAAAIRCAMAAAALGogHAAADAFBMVEX9/f3o6Oja2trKydAAAAC3
 t7enpqeWlpbR5/NmZWbz5tL899VcXFx4eHix1/LU9/xydq2MiLLq2c3y17LN2uiOqM+uudBJR0uQ
 lrOryOeNiYxvhrLRt7OStdivl7CUxu1OWG1umMlwaqdrV06yxdeQueSshm3VtpCNeKjWxrSLmcc5
@@ -11696,7 +12260,7 @@ TkSuQmCC
       <field name="res_model">ir.ui.view</field>
       <field name="mimetype">image/png</field>
     </record>
-    <template name="mozaik-help-membership-request-confirm" id="website.mozaik-help-membership-request-confirm" page="True">
+    <template name="mozaik-help-membership-request-validate" id="website.mozaik-help-membership-request-validate" page="True">
       <t t-call="website.layout">
         <div class="oe_structure oe_empty" id="wrap">
           <section class="mt_simple_snippet">
@@ -11704,7 +12268,7 @@ TkSuQmCC
               <div class="container">
                 <div class="row">
                   <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
-                    <span style="color: rgb(0, 128, 0);">Réceptionner une Demande d'adhésion/de modification</span>
+                    <span style="color: rgb(0, 128, 0);">Valider une Demande d'adhésion/modification</span>
                   </h2>
                   <p style="text-align: left;">
                     <span class="fa fa-flag fa-2x"/>
@@ -11713,16 +12277,14 @@ TkSuQmCC
                         <strong> Accès fonctionnalité et localisation: </strong>
                       </span>
                     </strong>
-                    <span style="line-height: 1.42857143;">entrée menu "Demandes d'adhésion" - Toutes les demandes à traiter apparaissent sous forme de liste.</span>
+                    <span style="line-height: 1.42857143;">Bouton disponible dans la fiche d'une Demande d'adhésion.</span>
                   </p>
                   <p style="text-align: left;">
-                    <span style="line-height: 1.42857143;">
-                      <span class="fa fa-user fa-2x" style=""/>
-                    </span>
-                    <span style="line-height: 1.42857143;"><strong> Audience: </strong> profils non autorisés: <span style="background-color:#FFFF00;">xxxxxxx </span> (voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a> ). </span>
+                    <span style="line-height: 1.42857143;"><span class="fa fa-user fa-2x" style=""/>  </span>
+                    <span style="line-height: 1.42857143;"><strong>Audience: </strong>Officier Mozaik (voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a> ). </span>
                   </p>
                   <p style="text-align: left;">
-                    <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis: </strong> affichage de l'objet en vue "formulaire" (voir <a href="/page/mozaik-help-views">Vues</a> ). </span>
+                    <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis: </strong> affichage de l'objet en vue "formulaire" (voir <a href="/page/mozaik-help-views">Vues</a> ) - l'objet doit être de statut "Confirmé" </span>
                   </p>
                 </div>
               </div>
@@ -11747,137 +12309,30 @@ TkSuQmCC
                         <tr>
                           <td style="text-align: left;">​1</td>
                           <td style="text-align: left;">Afficher la liste des demandes à traiter (entrée menu "Demandes d'adhésion)</td>
-                          <td style="text-align: left;">Les demandes à traiter apparaissent</td>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">​2</td>
-                          <td style="text-align: left;">Cliquez sur une demande et vérifier les données de la demande:
-			<ul><li>données générales (rue ou adresse en fonction du référentiel disponible)</li><li>standard d'écriture (syntaxe)</li><li>est-ce déjà une Personne connue? (Liaison avec une personne connue de la base de donnée sur qui les modifications vont s'appliquer, dans l'onglet "Personne")</li><li>Y a-t-il des compétences ou des centres d'intérêts spécifiés? si oui, il faut les lier avec le Thésaurus (onglet Indexation)</li></ul></td>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">​3</td>
-                          <td style="text-align: left;">Confirmez la Demande en cliquant sur le bouton "Confirmer"</td>
-                          <td style="text-align: left;">Un message de confirmation s'ouvre</td>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">​4</td>
-                          <td style="text-align: left;">Cliquez sur "OK" pour confirmez la Demande - "Annuler" annule le processus</td>
-                          <td style="text-align: left;">La Demande passe en l'état "Confirmé", prête à être validée.</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div style="text-align: left;">
-                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Tant que la Demande est en état "Confirmé", toute édition est encore possible, elle continue d'apparaître dans la liste "Demandes d'adhésion". </em>
-                    </div>
-                    <div style="text-align: left;">
-                      <em style="line-height: 1.42857143; background-color: transparent;"/>
-                      <div/>
-                      <div>
-                        <div>
-                          <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> L'application détecte en se basant sur le nom (syntaxe identique) qu'il s'agit ou non d'une Personne "connue" (existante dans la base de donnée). La liaison s'opère alors de manière automatique (dans l'onglet "Personne" de la demande). C'est au moment de la validation, que les modifications demandées seront appliquées sur la Personne définie à cet endroit. Cette liaison doit être vérifiée. Si la demande n'est attachée à aucune Personne "connue", une nouvelle Personne sera créée. L'exemple ci-dessous détaille une modification du prénom sur la Personne liée (Jane---&gt;Charlotte) </em>
-                        </div>
-                        <div>
-                          <em style="line-height: 1.42857143; background-color: transparent;">
-                            <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-membership-request-confirm_img_01|8cba133/datas"/>
-                          </em>
-                        </div>
-                      </div>
-                      <em style="line-height: 1.42857143; background-color: transparent;"/>
-                    </div>
-                    <div>
-                      <div style="text-align: left;"/>
-                    </div>
-                    <div style="text-align: left;">
-                      <strong>
-                        <em style="line-height: 1.42857143; background-color: transparent;">
-                          <span class="fa fa-exclamation-triangle fa-2x"/>
-                        </em>
-                      </strong>
-                      <strong>Exceptions</strong>
-                    </div>
-                    <p style="text-align: left;">
-                      <span style="background-color: rgb(255, 255, 0);">To be completed</span>
-                    </p>
-                    <p style="text-align: left;">
-                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </section>
-        </div>
-      </t>
-    </template>
-    <template name="mozaik-help-membership-request-validate" id="website.mozaik-help-membership-request-validate" page="True">
-      <t t-call="website.layout">
-        <div class="oe_structure oe_empty" id="wrap">
-          <section class="mt_simple_snippet">
-            <section class="mt16 mb0">
-              <div class="container">
-                <div class="row">
-                  <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
-                    <span style="color: rgb(0, 128, 0);">Valider une Demande d'adhésion/modification</span>
-                  </h2>
-                  <p style="text-align: left;">
-                    <span class="fa fa-flag fa-2x"/>
-                    <strong style="line-height: 1.42857143;">
-                      <span style="line-height: 1.42857143;">
-                        <strong> Accès fonctionnalité et localisation: </strong>
-                      </span>
-                    </strong>
-                    <span style="line-height: 1.42857143;">Bouton disponible dans la fiche d'une Demande d'adhésion.</span>
-                  </p>
-                  <p style="text-align: left;">
-                    <span style="line-height: 1.42857143;">
-                      <span class="fa fa-user fa-2x" style=""/>
-                    </span>
-                    <span style="line-height: 1.42857143;"><strong>  Audience: </strong>
-                       profils non autorisés: User, Reader, Portail (voir
-                      <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>
-                       ).
-                    </span>
-                  </p>
-                  <p style="text-align: left;">
-                    <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis: </strong>
-                       affichage de l'objet en vue "formulaire" (voir
-                      <a href="/page/mozaik-help-views">Vues</a>
-                       ) - l'objet doit être de statut "Confirmé"
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </section>
-            <section class="mt16 mb16">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32">
-                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
-                      <tbody>
-                        <tr>
-                          <td style="text-align: left;">
-                            <strong>#​</strong>
-                          </td>
-                          <td style="text-align: left;">
-                            <strong>Etape</strong>
-                          </td>
-                          <td style="text-align: left;">
-                            <strong>Résultat</strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">​1</td>
-                          <td style="text-align: left;">Afficher la Demande concernée en vue formulaire</td>
                           <td style="text-align: left;"/>
                         </tr>
                         <tr>
                           <td style="text-align: left;">​2</td>
-                          <td style="text-align: left;">Cliquez sur le bouton "Valider"</td>
-                          <td style="text-align: left;">Un message de confirmation s'ouvre</td>
+                          <td>
+                            <p style="text-align: left;">Effectuez les vérifications d'usage concernant la demande (éditez la fiche pour y insérer les modifications)</p>
+                            <ol>
+                              <li style="text-align: left;">données générales (rue ou adresse en fonction du référentiel disponible) - les corriger si nécessaire</li>
+                              <li style="text-align: left;">standard d'écriture (syntaxe/majuscules/minuscules)</li>
+                              <li style="text-align: left;">est-ce déjà une Personne connue? (voir note 'Liaison")</li>
+                              <li style="text-align: left;">Y a-t-il des compétences ou des centres d'intérêts spécifiés? si oui, il faut les lier avec le Thésaurus (onglet Indexation)</li>
+                            </ol>
+                            <p style="text-align: left;">Cliquez sur "Enregistrer" si vous avez effectué des modifications</p>
+                          </td>
+                          <td style="text-align: left;"/>
                         </tr>
                         <tr>
                           <td style="text-align: left;">​3</td>
-                          <td style="text-align: left;">Cliquez sur "OK" pour valider la Demande - "Annuler" annule le processus</td>
+                          <td style="text-align: left;">Cliquez sur "Valider" pour valider la Demande</td>
+                          <td style="text-align: left;">Un message de confirmation s'ouvre</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">​4</td>
+                          <td style="text-align: left;">Cliquez sur "OK" pour confirmer la validation - "Annuler" annule le processus</td>
                           <td style="text-align: left;">La Demande est validée.</td>
                         </tr>
                       </tbody>
@@ -11888,31 +12343,55 @@ TkSuQmCC
                       <em style="line-height: 1.42857143; background-color: transparent;"/>
                       <div/>
                       <div>
-                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                             Les modifications s'appliquent sur la Personne liée (onglet "Personne"), si aucune Personne est liée, une nouvelle entrée sera créée.
-                        </em>
+                        <em style="line-height: 1.42857143; background-color: transparent;"/>
+                        <div/>
+                        <div>
+                          <div/>
+                          <div>
+                            <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  La validation de Demande ne s'effectue que sur des Demandes en état "Confirmé". La Demande  passe en statut "Terminé" et disparaît de la liste (voir "<a href="/page/mozaik-help-invalidate">Invalider un objet</a>")</em>
+                          </div>
+                        </div>
+                        <div>
+                          <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Liaison avec Personne existante (Personne concernée par la Demande): visible dans l'onglet "Partenaire"; La liaison est automatique lorsque la demande a été effectuée via la fiche de la Personne. Si la Demande a été créée sans passer par une fiche, le Valideur devra vérifier si la Demande concerne une Personne existante ou non et effectuer la liaison manuellement (choix dans la liste). Si aucune Personne n'est liée, la Personne sera considérée comme "nouvelle" et sera créée automatiquement à la confirmation de la validation. </em>
+                          <em style="line-height: 1.42857143; background-color: transparent;">L'exemple ci-dessous détaille une modification du prénom sur la Personne liée (Jane---&gt;Charlotte)</em>
+                        </div>
                       </div>
-                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px"/>
-                           La validation d'une
-                        <em style="line-height: 1.42857143; background-color: transparent;">  Demande d'adhésion de type "Membre" créée une Adhésion de statut "Candidat Membre", s'il s'agissait d'une Demande de type "Sympathisant", la Personne est identifiée "Sympathisant" (voir </em>
-                      </em>
+                      <div>
+                        <em style="line-height: 1.42857143; background-color: transparent;">
+                          <span tabindex="-1"/>
+                        </em>
+                        <div>
+                          <div>
+                            <div>
+                              <em style="line-height: 1.42857143; background-color: transparent;"/>
+                            </div>
+                            <div>
+                              <em style="line-height: 1.42857143; background-color: transparent;">
+                                <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-membership-request-validate_img_01|8cba133/datas"/>
+                              </em>
+                            </div>
+                          </div>
+                          <em style="line-height: 1.42857143; background-color: transparent;"/>
+                        </div>
+                        <div style="text-align: center;">
+                          <div style="text-align: left;"/>
+                        </div>
+                        <div>
+                          <strong>
+                            <em style="line-height: 1.42857143; background-color: transparent;"><span tabindex="-1"/> </em>
+                          </strong>
+                        </div>
+                      </div>
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span tabindex="-1"><span class="fa fa-thumbs-up fa-2x" data-widget="icons" style="cursor: default; outline: yellow solid 2px"/></span> La validation d'une <em style="line-height: 1.42857143; background-color: transparent;"> Demande d'adhésion de type "Membre" créée une Adhésion de statut "Candidat Membre", s'il s'agit d'une Demande de type "Sympathisant", la Personne est identifiée "Sympathisant" (voir </em> </em>
                       <a href="/page/mozaik-help-membership-worklow">
                         <em>Cycle de vie d'une Adhésion</em>
                       </a>
                       <em style="line-height: 1.42857143; background-color: transparent;">
-                        <em style="line-height: 1.42857143; background-color: transparent;">).</em>
+                        <em style="line-height: 1.42857143; background-color: transparent;">) - <em style="line-height: 1.42857143; background-color: transparent;">Un onglet "Adhésion" se crée dans la fiche de la Personne. Cet onglet permettra la gestion future de l'Adhésion (voir </em><a href="/page/mozaik-help-membership" style="background-color: rgb(255, 255, 255);"><em>Adhésions</em> </a><em style="line-height: 1.42857143; background-color: transparent;">).</em></em>
                       </em>
                     </div>
                     <div>
-                      <div style="text-align: left;">
-                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                             Un onglet "Adhésion" se crée dans la fiche de la Personne. Cet onglet permettra la gestion future de l'Adhésion (voir
-                        </em>
-                        <a href="/page/mozaik-help-membership">
-                          <em>Adhésions</em>
-                        </a>
-                        <em style="line-height: 1.42857143; background-color: transparent;">) </em>
-                      </div>
+                      <div style="text-align: left;"/>
                     </div>
                     <div style="text-align: left;"/>
                     <div style="text-align: left;">
@@ -11921,7 +12400,9 @@ TkSuQmCC
                     <div style="text-align: left;">
                       <strong>
                         <em style="line-height: 1.42857143; background-color: transparent;">
-                          <span class="fa fa-exclamation-triangle fa-2x"/>
+                          <span tabindex="-1">
+                            <span class="fa fa-exclamation-triangle fa-2x" data-widget="icons"/>
+                          </span>
                         </em>
                       </strong>
                       <strong>Exceptions</strong>
@@ -11930,9 +12411,7 @@ TkSuQmCC
                       <span style="background-color: rgb(255, 255, 0);">To be completed</span>
                     </p>
                     <p style="text-align: left;">
-                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/>
-                         Retour au sommaire
-                      </a>
+                      <a href="/page/mozaik-help-toc"><span tabindex="-1"><span class="fa fa-reply fa-2x" data-widget="icons" style=""/></span> Retour au sommaire </a>
                     </p>
                   </div>
                 </div>
@@ -12125,6 +12604,193 @@ TkSuQmCC
                 </div>
               </div>
             </div>
+          </section>
+        </div>
+      </t>
+    </template>
+    <record id="mozaik-help-merge-distribution-list_img_01" model="ir.attachment">
+      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAs4AAACdCAMAAACTtw5uAAADAFBMVEX+/v7S0v7s7Oy4yfE7OzuQ
+refZ2dnHx8lXV1e4uLhHR0eoqKiYmJh3d3dmZmaHh4eUlLuKibWmpccrKyyxvvG2t9XIyut7eqwG
+BgeencG50fYWFheAf6+RsOfc4/Vvb4dvbqV4eJLAv9gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAACC/BNRAAABAHRSTlP+////////////////////////////////////////////
+/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+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
+AAAASUVORK5CYII=
+</field>
+      <field name="datas_fname">mergedl.png</field>
+      <field name="name">mergedl.png</field>
+      <field name="res_model">ir.ui.view</field>
+      <field name="mimetype">image/png</field>
+    </record>
+    <template name="mozaik-help-merge-distribution-list" id="website.mozaik-help-merge-distribution-list" page="True">
+      <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty">
+          <section class="mt_simple_snippet">
+            <section class="mt16 mb0">
+              <div class="container">
+                <div class="row">
+                  <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
+                    <span style="color: rgb(0, 128, 0);">Fusionner plusieurs Listes de distribution</span>
+                  </h2>
+                  <p style="text-align: left;">
+                    <span class="fa fa-flag fa-2x"/>
+                    <strong style="line-height: 1.42857143;">
+                      <span style="line-height: 1.42857143;">
+                        <strong> Accès fonctionnalité et localisation: </strong>
+                      </span>
+                    </strong>
+                    <span style="line-height: 1.42857143;">option disponible dans le menu "Autres options" en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
+                  </p>
+                  <p style="text-align: left;">
+                    <span style="line-height: 1.42857143;">
+                      <span class="fa fa-user fa-2x" style=""/>
+                    </span>
+                    <span style="line-height: 1.42857143;"><strong>  Audience: </strong> profils non autorisés: 
+                                    <span style="background-color:#FFFF00;">xxxxxxx </span> (voir 
+                                    <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a> ). 
+                                </span>
+                  </p>
+                  <p style="text-align: left;">
+                    <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis: </strong> sélection de plusieurs objets existants dans la liste (voir 
+                                    <a href="/page/mozaik-help-views">Vues</a> ). 
+                                </span>
+                  </p>
+                </div>
+              </div>
+            </section>
+            <section class="mt16 mb16">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;">
+                            <strong>#​</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Etape</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Résultat</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">​1</td>
+                          <td style="text-align: left;">Affichez les Listes de distribution en mode Liste</td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">​2</td>
+                          <td style="text-align: left;">Sélectionnez au moins deux Listes à fusionner</td>
+                          <td style="text-align: left;">L'écran suivant s'ouvre:
+                                                <br/>
+                                                <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-merge-distribution-list_img_01|73f22c1/datas" style=""/>
+                                            </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">​3</td>
+                          <td style="text-align: left;">Choisissez dans la liste déroulante la liste de distribution cible ou créez une nouvelle si besoin (voir "
+                                                <a href="/page/mozaik-help-createandedit">Créer et Editer</a>")
+                                            </td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">​4</td>
+                          <td style="text-align: left;">Cliquez sur "OK" pour confirmer votre fusion - "Annuler" stoppe le processus</td>
+                          <td style="text-align: left;">La Liste de distribution cible est composée des filtres des Listes sources.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Il n'y a pas de fusion des données concernant les propriétaires et les instances des listes. 
+                                    </em>
+                    </div>
+                    <br/>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      <div/>
+                      <div>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Si le filtre est déjà présent dans la liste cible, celui-ci ne sera pas repris une deuxième fois. 
+                                        </em>
+                      </div>
+                    </div>
+                    <br/>
+                    <div>
+                      <div style="text-align: left;"/>
+                    </div>
+                    <div style="text-align: left;">
+                      <strong>
+                        <em style="line-height: 1.42857143; background-color: transparent;">
+                          <span class="fa fa-exclamation-triangle fa-2x"/>
+                        </em>
+                      </strong>
+                      <strong>Exceptions</strong>
+                    </div>
+                    <p style="text-align: left;">Aucune</p>
+                    <p style="text-align: left;">
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire 
+                                    </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
           </section>
         </div>
       </t>
@@ -12353,26 +13019,16 @@ sVisy+j/ART81wJhPxoBAAAAAElFTkSuQmCC
                         <strong>Accès fonctionnalité et localisation: </strong>
                       </span>
                     </strong>
-                    <span style="line-height: 1.42857143;">bouton disponible dans la fiche d'une Personne. </span>
+                    <span style="line-height: 1.42857143;">bouton disponible dans la fiche d'une Personne. Cette fonctionnalité couvre aussi bien une demande de modification de données générales qu'une demande d'adhésion.</span>
                   </p>
                   <p style="text-align: left;">
                     <span style="line-height: 1.42857143;">
                       <span class="fa fa-user fa-2x" style=""/>
                     </span>
-                    <span style="line-height: 1.42857143;"><strong> Audience: </strong>
-                       profils non autorisés:
-                      <span style="background-color:#FFFF00;">xxxxxxx </span>
-                       (voir
-                      <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>
-                       ).
-                    </span>
+                    <span style="line-height: 1.42857143;"><strong> Audience: </strong> profils non autorisés: <span style="background-color:#FFFF00;">xxxxxxx </span> (voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a> ). </span>
                   </p>
                   <p style="text-align: left;">
-                    <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis: </strong>
-                      affichage de l'objet en vue "formulaire" (voir
-                      <a href="/page/mozaik-help-views">Vues</a>
-                       ).
-                    </span>
+                    <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis: </strong> affichage de l'objet en vue "formulaire" (voir <a href="/page/mozaik-help-views">Vues</a> ). </span>
                   </p>
                 </div>
               </div>
@@ -12402,7 +13058,7 @@ sVisy+j/ART81wJhPxoBAAAAAElFTkSuQmCC
                         <tr>
                           <td style="text-align: left;">​2</td>
                           <td style="text-align: left;">Cliquez sur le bouton "Demande de modification"</td>
-                          <td style="text-align: left;">La fiche de la Personne s'affiche. </td>
+                          <td style="text-align: left;">La fiche de la Personne s'affiche.</td>
                         </tr>
                         <tr>
                           <td style="text-align: left;">​3</td>
@@ -12412,31 +13068,21 @@ sVisy+j/ART81wJhPxoBAAAAAElFTkSuQmCC
                         <tr>
                           <td style="text-align: left;">​4</td>
                           <td style="text-align: left;">Cliquez sur "Enregistrer" pour sauver vos modifications - "Annuler" stoppe le processus</td>
-                          <td style="text-align: left;">
-                            La demande de modification apparaît dans le point de menu "Demandes d'Adhésion" - la Personne concernée est attachée à la Demande (voir
-                            <a href="/page/mozaik-help-membership-request">Demandes d'adhésion</a>
-                            )
-                          </td>
+                          <td style="text-align: left;">La demande de modification apparaît dans le point de menu "Demandes d'Adhésion" - la Personne concernée est attachée à la Demande (voir <a href="/page/mozaik-help-membership-request">Demandes d'adhésion</a> )</td>
                         </tr>
                       </tbody>
                     </table>
                     <div style="text-align: left;">
-                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                          Toute modification de donnée générale d'une Personne peut également se faire via l'édition de la fiche; cependant, cette édition n'est pas octroyée à tous les utilisateurs et n'est certainement plus possible une fois que la Personne est adhérente.
-                      </em>
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Toute modification de donnée générale d'une Personne peut également se faire via l'édition de la fiche; cependant, cette édition n'est pas octroyée à tous les utilisateurs et n'est certainement plus possible une fois que la Personne est adhérente. </em>
                     </div>
                     <div>
                       <div style="text-align: left;">
-                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                            Toute demande de modification est liée à une Personne. Cette Personne est liée automatiquement quand la demande s'opère à partir d'elle-même. Cette donnée peut être modifiée. Attention: les modifications s'appliquent sur la Personne liée!
-                        </em>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Toute demande de modification est liée à une Personne. Cette Personne est liée automatiquement quand la demande s'opère à partir d'elle-même. Cette donnée peut être modifiée. Attention: les modifications s'appliquent sur la Personne liée! </em>
                       </div>
                     </div>
                     <div style="text-align: left;">
                       <div>
-                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                            Toute nouvelle peut également être créée via le menu "Demande d'Adhésion". Le principe est exactement le même et sera utilisé pour toute nouvelle demande. A sa validation, la Personne concernée sera automatiquement créée dans la base de donnée.
-                        </em>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Toute nouvelle adhésion peut également être créée via le menu "Demande d'Adhésion". Dans ce cas, aucune liaison avec une Personne existante n'est opérée. Ce sera au Valideur d'effectuer éventuellement cette liaison. Sans liaison, à la validation, la Personne sera créée dans la base de donnée. </em>
                       </div>
                       <em style="line-height: 1.42857143; background-color: transparent;"/>
                     </div>
@@ -12452,9 +13098,7 @@ sVisy+j/ART81wJhPxoBAAAAAElFTkSuQmCC
                       <span style="background-color: rgb(255, 255, 0);">To be completed</span>
                     </p>
                     <p style="text-align: left;">
-                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/>
-                         Retour au sommaire
-                      </a>
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
                     </p>
                   </div>
                 </div>
@@ -19578,20 +20222,15 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                   <span style="line-height: 1.42857143;">
                     <span class="fa fa-user fa-2x" style=""/>
                   </span>
-                  <span style="line-height: 1.42857143;"><strong>   Audience: </strong>
-                     profils non autorisés:
-                    <span style="background-color:#FFFF00;">xxxxxxx </span>
-                     (voir
-                    <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>
-                     ).
-                  </span>
+                  <span style="line-height: 1.42857143;"><strong> Audience: </strong> profils non autorisés: 
+                                <span style="background-color:#FFFF00;">xxxxxxx </span> (voir 
+                                <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a> ). 
+                            </span>
                 </p>
                 <p style="text-align: left;">
-                  <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong>  Pré-requis: </strong>
-                     sélection d'un objet existant dans la liste ou affichage de l'objet en vue "formulaire" (voir
-                    <a href="/page/mozaik-help-views">Vues</a>
-                     ).
-                  </span>
+                  <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis: </strong> sélection d'un objet existant dans la liste ou affichage de l'objet en vue "formulaire" (voir 
+                                <a href="/page/mozaik-help-views">Vues</a> ). 
+                            </span>
                 </p>
               </div>
             </div>
@@ -19626,17 +20265,17 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                     </tbody>
                   </table>
                   <div style="text-align: left;">
-                    <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                       truc et astuce1
-                    </em>
+                    <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> truc et astuce1 
+                                </em>
                   </div>
+                  <br/>
                   <div>
                     <div style="text-align: left;">
-                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                         truc et astuce2
-                      </em>
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> truc et astuce2 
+                                    </em>
                     </div>
                   </div>
+                  <br/>
                   <div style="text-align: left;">
                     <strong>
                       <em style="line-height: 1.42857143; background-color: transparent;">
@@ -19645,13 +20284,10 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                     </strong>
                     <strong>Exceptions</strong>
                   </div>
+                  <p style="text-align: left;">Aucune</p>
                   <p style="text-align: left;">
-                    <span style="background-color: rgb(255, 255, 0);">To be completed</span>
-                  </p>
-                  <p style="text-align: left;">
-                    <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/>
-                       Retour au sommaire
-                    </a>
+                    <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire 
+                                </a>
                   </p>
                 </div>
               </div>
@@ -19687,20 +20323,15 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                     <span style="line-height: 1.42857143;">
                       <span class="fa fa-user fa-2x" style=""/>
                     </span>
-                    <span style="line-height: 1.42857143;"><strong>   Audience: </strong>
-                     profils non autorisés:
-                    <span style="background-color:#FFFF00;">xxxxxxx </span>
-                     (voir
-                    <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>
-                     ).
-                  </span>
+                    <span style="line-height: 1.42857143;"><strong> Audience: </strong> profils non autorisés: 
+                                <span style="background-color:#FFFF00;">xxxxxxx </span> (voir 
+                                <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a> ). 
+                            </span>
                   </p>
                   <p style="text-align: left;">
-                    <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong>  Pré-requis: </strong>
-                     sélection d'un objet existant dans la liste ou affichage de l'objet en vue "formulaire" (voir
-                    <a href="/page/mozaik-help-views">Vues</a>
-                     ).
-                  </span>
+                    <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis: </strong> sélection d'un objet existant dans la liste ou affichage de l'objet en vue "formulaire" (voir 
+                                <a href="/page/mozaik-help-views">Vues</a> ). 
+                            </span>
                   </p>
                 </div>
               </div>
@@ -19735,17 +20366,17 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                       </tbody>
                     </table>
                     <div style="text-align: left;">
-                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                       truc et astuce1
-                    </em>
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> truc et astuce1 
+                                </em>
                     </div>
+                    <br/>
                     <div>
                       <div style="text-align: left;">
-                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                         truc et astuce2
-                      </em>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> truc et astuce2 
+                                    </em>
                       </div>
                     </div>
+                    <br/>
                     <div style="text-align: left;">
                       <strong>
                         <em style="line-height: 1.42857143; background-color: transparent;">
@@ -19754,13 +20385,10 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                       </strong>
                       <strong>Exceptions</strong>
                     </div>
+                    <p style="text-align: left;">Aucune</p>
                     <p style="text-align: left;">
-                      <span style="background-color: rgb(255, 255, 0);">To be completed</span>
-                    </p>
-                    <p style="text-align: left;">
-                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/>
-                       Retour au sommaire
-                    </a>
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire 
+                                </a>
                     </p>
                   </div>
                 </div>
@@ -19781,20 +20409,20 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                 <table class="table table-bordered table-responsive">
                   <tbody>
                     <tr>
-                      <td>
-                        ​
-                        <span style="color: inherit; font-family: inherit; font-size: 24px; line-height: 1.1; background-color: transparent;">Caractéristiques générales des écrans</span>
-                        <div><a href="/page/mozaik-help-filters">Recherches et Filtres</a></div>
-                        <div><a href="/page/mozaik-help-navigation" style="background-color: rgb(255, 255, 255);">Navigation</a></div>
-                        <div><a href="/page/mozaik-help-views" style="background-color: rgb(255, 255, 255);">Vues et Affichage</a></div>
-                        <div><a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a></div>
-                        <div><a href="/page/mozaik-help-createandedit">Créer et modifier</a>
-                           (dans listes)
-                        </div>
-                        <div><a href="/page/mozaik-help-search">Recherche complémentaire</a>
-                           (dans listes)
-                        </div>
-                      </td>
+                      <td>​ <span style="color: inherit; font-family: inherit; font-size: 24px; line-height: 1.1; background-color: transparent;">Caractéristiques générales des écrans</span>
+
+			<div><a href="/page/mozaik-help-filters">Recherches et Filtres</a></div>
+
+			<div><a href="/page/mozaik-help-navigation" style="background-color: rgb(255, 255, 255);">Navigation</a></div>
+
+			<div><a href="/page/mozaik-help-views" style="background-color: rgb(255, 255, 255);">Vues et Affichage</a></div>
+
+			<div><a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a></div>
+
+			<div><a href="/page/mozaik-help-createandedit">Créer et modifier</a> (dans listes)</div>
+
+			<div><a href="/page/mozaik-help-search">Recherche complémentaire</a> (dans listes)</div>
+			</td>
                       <td>
                         <span style="color: inherit; font-family: inherit; font-size: 24px; line-height: 1.1; background-color: transparent;">Fonctionnalités générales</span>
                         <div>
@@ -19837,14 +20465,12 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                 <table class="table table-bordered table-responsive">
                   <tbody>
                     <tr>
-                      <td>
-                        ​
-                        <a href="/page/mozaik-help-res-partner" style="font-family: inherit; font-size: 24px; line-height: 1.1; background-color: rgb(255, 255, 255);">Modèle Personnes:</a>
-                        <div><a href="/page/mozaik-help-address-address">Adresses</a><div><a href="/page/mozaik-help-coordinate-associate-category" style="background-color: rgb(255, 255, 255);">Associer une catégorie à une coordonnée</a></div><div><a href="/page/mozaik-help-change-main-address">Changer la coordonnée postale principale</a></div><div><a href="/page/mozaik-help-change-main-email">Changer la coordonnée email principale</a></div><div><a href="/page/mozaik-help-change-main-phone">Changer la coordonnée téléphonique principale</a></div><div><a href="/page/mozaik-help-email-coordinate" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);"><span style="line-height: 1.42857143;">Coordonnées Email</span></a></div><div><span style="line-height: 1.42857143;"><a href="/page/mozaik-help-postal-coordinate">Coordonnées Postales</a></span></div><div><span style="line-height: 1.42857143;"/><div><a href="/page/mozaik-help-main" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Déclarer la coordonnée comme "Principale"</a></div><div><a href="/page/mozaik-help-unauthorised">Déclarer la coordonnée comme "Privée"</a></div><div><a href="/page/mozaik-help-vip">Déclarer la coordonnée comme "VIP"</a></div></div><div><a href="/page/mozaik-help-bounce-editor" style="background-color: rgb(255, 255, 255);">Editer le compteur d'échec</a></div><div><a href="/page/mozaik-help-export-vcard">Exporter les coordonnées en vCard</a></div><div><a href="/page/mozaik-help-export-csv">Exporter les coordonnées en CSV</a></div><div><span style="line-height: 1.42857143;"><a href="/page/mozaik-help-allow-duplicate-wizard">Gérer les doublons</a></span></div><div><a href="/page/mozaik-help-print-labels">Imprimer des étiquettes</a></div><div><a href="/page/mozaik-help-partner-involvement" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Participations</a></div></div>
-                      </td>
+                      <td>​ <a href="/page/mozaik-help-res-partner" style="font-family: inherit; font-size: 24px; line-height: 1.1; background-color: rgb(255, 255, 255);">Modèle Personnes:</a>
+
+			<div><a href="/page/mozaik-help-address-address">Adresses</a><div><a href="/page/mozaik-help-coordinate-associate-category" style="background-color: rgb(255, 255, 255);">Associer une catégorie à une coordonnée</a></div><div><a href="/page/mozaik-help-change-main-address">Changer la coordonnée postale principale</a></div><div><a href="/page/mozaik-help-change-main-email">Changer la coordonnée email principale</a></div><div><a href="/page/mozaik-help-change-main-phone">Changer la coordonnée téléphonique principale</a></div><div><a href="/page/mozaik-help-email-coordinate" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);"><span style="line-height: 1.42857143;">Coordonnées Email</span></a></div><div><span style="line-height: 1.42857143;"><a href="/page/mozaik-help-postal-coordinate">Coordonnées Postales</a></span></div><div><span style="line-height: 1.42857143;"/><div><a href="/page/mozaik-help-main" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Déclarer la coordonnée comme "Principale"</a></div><div><a href="/page/mozaik-help-unauthorised">Déclarer la coordonnée comme "Privée"</a></div><div><a href="/page/mozaik-help-vip">Déclarer la coordonnée comme "VIP"</a></div></div><div><a href="/page/mozaik-help-bounce-editor" style="background-color: rgb(255, 255, 255);">Editer le compteur d'échec</a></div><div><a href="/page/mozaik-help-export-vcard">Exporter les coordonnées en vCard</a></div><div><a href="/page/mozaik-help-export-csv">Exporter les coordonnées en CSV</a></div><div><span style="line-height: 1.42857143;"><a href="/page/mozaik-help-allow-duplicate-wizard">Gérer les doublons</a></span></div><div><a href="/page/mozaik-help-print-labels">Imprimer des étiquettes</a></div><div><a href="/page/mozaik-help-partner-involvement" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Participations</a></div></div>
+			</td>
                       <td><font size="5"><span style="line-height: 26.3999996185303px;">Structures</span></font><div><a href="/page/mozaik-help-get-sta-assembly">Accéder aux Assemblées de l'Etat</a></div><div><a href="/page/mozaik-help-children" style="background-color: rgb(255, 255, 255);">Accéder aux Enfants</a></div><div><a href="/page/mozaik-help-get-candidates" style="background-color: rgb(255, 255, 255);">Accéder aux Candidatures</a></div><div><a href="/page/mozaik-help-get-electoraldistricts" style="background-color: rgb(255, 255, 255);">Accéder aux Circonscriptions (Electorales)</a></div><div><a href="/page/mozaik-help-get-sta-instance">Accéder aux Instances de l'Etat</a></div><div><a href="/page/mozaik-help-get-mandates" style="background-color: rgb(255, 255, 255);">Accéder aux Mandats</a></div><div><a href="/page/mozaik-help-sta-assembly" style="background-color: rgb(255, 255, 255);">Assemblées de l'Etat</a></div><div><a href="/page/mozaik-help-int-assembly">Assemblées Internes</a></div><div><a href="/page/mozaik-help-ext-assembly">Assemblées Externes</a></div><div><a href="/page/mozaik-help-electoral-district" style="background-color: rgb(255, 255, 255);">Circonscriptions (Electorales)</a></div><div><a href="/page/mozaik-help-sta-instance">Instances de l'Etat</a></div><div><a href="/page/mozaik-help-int-instance">Instances Internes</a></div><div/><div/><div/><div/><div/>
-                                 ​
-                      </td>
+			​</td>
                       <td>
                         <p>
                           <font size="5">
@@ -19973,7 +20599,18 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                         </div>
                         <div/>
                       </td>
-                      <td>​</td>
+                      <td>
+                        <h3>Communication</h3>
+                        <a href="/page/mozaik-help-distribution-list-add-filter">Créer et ajouter un filtre à une Liste de distribution</a>
+                        <br/>
+                        <a href="/page/mozaik-help-distribution-list-add-filter" style="background-color: rgb(255, 255, 255);">Créer et ajouter un filtre à une Lettre d'information</a>
+                        <br/>
+                        <a href="/page/mozaik-help-merge-distribution-list">Fusionner plusieurs Listes de distribution</a>
+                        <br/>
+                        <a href="/page/mozaik-help-distribution-list">Listes de distribution</a>
+                        <br/>
+                        <a href="/page/mozaik-help-virtual-target">Visualiser le résultat d'une Liste de distribution ou d'un filtre</a>
+                      </td>
                       <td>​</td>
                     </tr>
                   </tbody>
@@ -20439,41 +21076,21 @@ RERERERERERERERERERERERERERERERERERERERERET04/ofeg7qZywaqTgAAAAASUVORK5CYII=
                           <div>
                             <p style="text-align: left;">Les Groupes Mozaik seront:</p>
                             <ul>
-                              <li style="text-align: left;"><strong>Mozaik Configurator</strong>
-                                 : les plus privilégiés, accès en lecture/écriture à tous les modèles et notamment les modèles dits "de configuration": Niveaux de Pouvoir, Circonscriptions, Catégories de Mandats... (pour les autres, ces modèles ne seront accessibles qu'en lecture) et Utilisateurs;
-                              </li>
-                              <li style="text-align: left;"><strong>Mozaik Manager</strong>
-                                 : permanents, accès en lecture/écriture à tous les modèles sauf aux modèles "de configuration" (lecture seule), accès en lecture/écriture aux Coordonnées VIP
-                              </li>
-                              <li style="text-align: left;"><strong>Mozaik VIP Reader</strong>
-                                 : idem que Mozaik Manager mais en lecture seule et sans les actions Mozaik (boutons et menus) destinées à modifier les données
-                              </li>
-                              <li style="text-align: left;"><strong>Mozaik Officer</strong>
-                                 : permanents, idem que Mozaik Manager mais sans aucune visibilité sur les Coordonnées VIP
-                              </li>
-                              <li style="text-align: left;"><strong>Mozaik Reader</strong>
-                                 : idem que Mozaik VIP Reader mais sans visibilité sur les Coordonnées VIP
-                              </li>
-                              <li style="text-align: left;"><strong>Mozaik User</strong>
-                                 : mandataires internes non permanents ayant en charge une partie de la gestion du parti (ex: secrétaires locaux, responsables de commission, ...). Ils peuvent:
-                                <ul><li style="text-align: left;">modifier directement un Partenaire (i.e. sans devoir passer par une Demande d'Adhésion) qui n'a pas d'historique d'Adhésions (par ex. simple contact ou personne morale)</li><li style="text-align: left;">accéder aux mandataires des Assemblées liées à leurs Instances</li><li style="text-align: left;">créer et modifier des Assemblées Externes liées à leurs Instances</li></ul>
-                              </li>
-                              <li style="text-align: left;"><strong>Mozaik Financial Manager</strong>
-                                : permanents, accès en lecture/écriture aux fonctionnalités comptables liées aux cotisations et rétrocessions.
-                              </li>
-                              <li style="text-align: left;"><strong>Mozaik Financial User</strong>
-                                :  trésoriers locaux pouvant gérer les rétrocessions.
-                              </li>
+                              <li style="text-align: left;"><strong>Configurateur Mozaik</strong>: les plus privilégiés, accès en lecture/écriture à tous les modèles et notamment les modèles dits "de configuration": Niveaux de Pouvoir, Circonscriptions, Catégories de Mandats... (pour les autres, ces modèles ne seront accessibles qu'en lecture) et Utilisateurs;</li>
+                              <li style="text-align: left;"><strong>Gestionnaire Mozaik</strong>: permanents, accès en lecture/écriture à tous les modèles sauf aux modèles "de configuration" (lecture seule), accès en lecture/écriture aux Coordonnées VIP</li>
+                              <li style="text-align: left;"><strong>Lecteur VIP Mozaik</strong>: idem que Mozaik Manager mais en lecture seule et sans les actions Mozaik (boutons et menus) destinées à modifier les données</li>
+                              <li style="text-align: left;"><strong>Officier Mozaik</strong>: permanents, idem que Gestionnaire Mozaik mais sans aucune visibilité sur les Coordonnées VIP</li>
+                              <li style="text-align: left;"><strong>Lecteur Mozaik</strong>: idem que Lecteur VIP Mozaik mais sans visibilité sur les Coordonnées VIP</li>
+                              <li style="text-align: left;"><strong>Utilisateur Mozaik</strong>: mandataires internes non permanents ayant en charge une partie de la gestion du parti (ex: secrétaires locaux, responsables de commission, ...). Ils peuvent:
+	<ul><li style="text-align: left;">modifier directement une Personne (i.e. sans devoir passer par une Demande d'Adhésion) qui n'a pas d'historique d'Adhésions (par ex. simple contact ou personne morale)</li><li style="text-align: left;">accéder aux mandataires des Assemblées liées à leurs Instances</li><li style="text-align: left;">créer et modifier des Assemblées Externes liées à leurs Instances</li></ul></li>
+                              <li style="text-align: left;"><strong>Gestionnaire Financier Mozaik</strong>: permanents, accès en lecture/écriture aux fonctionnalités comptables liées aux cotisations et rétrocessions.</li>
+                              <li style="text-align: left;"><strong>Trésorier Mozaik</strong>:  trésoriers locaux pouvant gérer les rétrocessions.</li>
                             </ul>
                             <p style="text-align: left;">Le principe d'héritage des Groupes s'illustre dans Mozaik de la façon suivante:</p>
                             <p style="text-align: left;">
                               <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-usergoups_img_01|f5c3da9/datas" style=""/>
                             </p>
-                            <p style="text-align: left;">
-                              Les autres mandataires, membres, sympathisants et simples contacts feront partie du Groupe
-                              <strong><em>Portail</em></strong>
-                               (natif d’OpenERP) uniquement. Ce groupe doit leur être réservé. Si on souhaite que ces contacts aient accès au Portail, l'administrateur devra veiller à ne pas les mettre dans d'autres Groupes.
-                            </p>
+                            <p style="text-align: left;">Les autres mandataires, membres, sympathisants et simples contacts feront partie du Groupe <strong><em>Portail</em></strong> (natif d’OpenERP) uniquement. Ce groupe doit leur être réservé. Si on souhaite que ces contacts aient accès au Portail, l'administrateur devra veiller à ne pas les mettre dans d'autres Groupes.</p>
                             <p style="text-align: left;">Les privilèges attribués aux Groupes sont de 3 ordres: l'accès aux modèles, l'accès aux éléments et l'accès aux fonctionnalités.</p>
                             <p style="text-align: left;">Des règles de confidentialité sont attachées aux différents Groupes qui ont pour conséquence une visibilité/accès à plusieurs niveaux:</p>
                             <ul>
@@ -20485,7 +21102,7 @@ RERERERERERERERERERERERERERERERERERERERERET04/ofeg7qZywaqTgAAAAASUVORK5CYII=
                             <div style="text-align: left;">Dès lors, si l'un ou l'autre ne vous est pas montré, c'est tout simplement parce que vous n'y avez pas accès.</div>
                           </div>
                           <div style="text-align: left;"/>
-                          <div style="text-align: left;">Toute cette gestion de droits d'accès est allouée aux personnes appartenant au Groupe Mozaik Configurator.</div>
+                          <div style="text-align: left;">Toute cette gestion de droits d'accès est allouée aux personnes appartenant au Groupe Configurateur Mozaik.</div>
                         </div>
                       </div>
                     </div>
@@ -22824,6 +23441,172 @@ TkSuQmCC
                         <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);">Retour au sommaire</span>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </section>
+        </div>
+      </t>
+    </template>
+    <record id="mozaik-help-virtual-target_img_01" model="ir.attachment">
+      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAB4AAAAZCAMAAAAR624oAAADAFBMVEXt7fbx8flOmgZz0Rai2yXF
+2Liu8myv62PO3cff3+eK4jSz10dtqjOsy5Ov1xrK0hTY4td8skuWowiLumGZ2Sa60qmv5UvT2iNb
+ohd1rkCjrDSlr0O/v3CkxkGgyXy64DHS338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAABS3AABAAABAHRSTlP///////////////////////////////////////////8A
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALAIWiwAA
+AKtJREFUeNq9ztsWgiAQBdBxQIZCxbvd6/+/sgbKZUjUU4cXYK8zAFky8I2T67c2fJgJgaKOvvm6
+Qcz5BGH7eUblPPbLvCsQFXukrZsjKaVIvPV9MhgKQ6N8RLDDHN+uG0Oyl7ISgj1sd2eSVWUZxXbZ
+9lzQ1fY8e2LNQt7R1CLHcnfFOLZYagB0k9cs/YOIGmJs0G2crnlvDuF3lykvt1OCoS6HOuWwmdef
+cgd3LQWf0USTIwAAAABJRU5ErkJggg==
+</field>
+      <field name="datas_fname">greenarrow.png</field>
+      <field name="name">greenarrow.png</field>
+      <field name="res_model">ir.ui.view</field>
+      <field name="mimetype">image/png</field>
+    </record>
+    <template name="mozaik-help-virtual-target" id="website.mozaik-help-virtual-target" page="True">
+      <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty">
+          <section class="mt_simple_snippet">
+            <section class="mt16 mb0">
+              <div class="container">
+                <div class="row">
+                  <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
+                    <span style="color: rgb(0, 128, 0); font-family: inherit; line-height: 1.1;">Visualiser le résultat d'une Liste de distribution ou d'un filtre</span>
+                  </h2>
+                  <section class="mt16 mb0">
+                    <div class="container">
+                      <div class="row">
+                        <p>
+                          <span class="fa fa-flag fa-2x"/>
+                          <strong style="line-height: 1.42857143;">
+                            <span style="line-height: 1.42857143;">
+                              <strong> Accès fonctionnalité et localisation: </strong>
+                            </span>
+                          </strong>
+                          <span style="line-height: 1.42857143;">icône disponible dans la liste ou dans la fiche d'une Liste de distribution</span>
+                        </p>
+                        <p>
+                          <span style="line-height: 1.42857143;">
+                            <span class="fa fa-user fa-2x"/>
+                          </span>
+                          <span style="line-height: 1.42857143;"><strong>  Audience: </strong>profils non autorisés: 
+                                                
+                                                <span style="background-color: rgb(255, 255, 0);">xxxxxxx </span>(voir 
+                                                
+                                                <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a> ).
+                                            
+                                            </span>
+                        </p>
+                        <p>
+                          <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis: </strong>affichage de l'objet en vue "liste" ou "formulaire" (voir 
+                                                
+                                                <a href="/page/mozaik-help-views">Vues</a> ).
+                                            
+                                            </span>
+                        </p>
+                      </div>
+                    </div>
+                  </section>
+                  <section class="mt16 mb16">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-12 text-center mt16 mb32" style="width: 1170px;">
+                          <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
+                            <tbody>
+                              <tr>
+                                <td style="text-align: left;">
+                                  <strong>#​</strong>
+                                </td>
+                                <td style="text-align: left;">
+                                  <strong>Etape</strong>
+                                </td>
+                                <td style="text-align: left;">
+                                  <strong>Résultat</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="text-align: left;">​1</td>
+                                <td style="text-align: left;">Cliquez sur l'icône 
+                                                            
+                                                            <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-virtual-target_img_01|9925a51/datas"/>
+                                                        </td>
+                                <td style="text-align: left;">Les Personnes répondantes aux critères de la Liste de distribution ou du filtre concerné s'affichent dans une fenêtre pop-up</td>
+                              </tr>
+                              <tr>
+                                <td style="text-align: left;">​2</td>
+                                <td style="text-align: left;"/>
+                                <td style="text-align: left;"/>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div style="text-align: left;">
+                            <em/>
+                            <div/>
+                            <div>
+                              <em style="line-height: 1.42857143; background-color: transparent;">
+                                <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                              </em>
+                              <em style="line-height: 1.42857143;">Aucun résultat n'apparaîtra dans la fenêtre pop-up si aucune Personne ne répond aux critères encodés.</em>
+                            </div>
+                            <div>
+                              <em style="line-height: 1.42857143;"/>
+                              <div/>
+                              <br/>
+                              <div>
+                                <em style="line-height: 1.42857143; background-color: transparent;">
+                                  <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                                </em>
+                                <em style="line-height: 1.42857143;">Cliquez sur la croix en haut à droite de l'écran pop-up pour fermer la fenêtre.</em>
+                              </div>
+                              <em style="line-height: 1.42857143;"/>
+                            </div>
+                          </div>
+                          <br/>
+                          <div>
+                            <div style="text-align: left;"/>
+                          </div>
+                          <div style="text-align: left;">
+                            <strong>
+                              <em style="line-height: 1.42857143; background-color: transparent;">
+                                <span class="fa fa-exclamation-triangle fa-2x"/>
+                              </em>
+                            </strong>
+                            <strong>Exceptions</strong>
+                          </div>
+                          <p style="text-align: left;">Aucune</p>
+                          <p style="text-align: left;">
+                            <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x"/> Retour au sommaire
+                                                
+                                                </a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </section>
+            <section class="mt16 mb16">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <p style="text-align: left;"/>
                   </div>
                 </div>
               </div>
