@@ -36,9 +36,9 @@ class ext_assembly_category(orm.Model):
     _description = 'External Assembly Category'
 
     _columns = {
+        # Unused field
         'power_level_id': fields.many2one('int.power.level',
-                                          'Internal Power Level',
-                                          track_visibility='onchange'),
+                                          'Internal Power Level'),
     }
 
 

@@ -59,6 +59,7 @@ class sta_assembly_category(orm.Model):
         'power_level_id': fields.many2one('sta.power.level',
                                           'State Power Level',
                                           required=True,
+                                          select=True,
                                           track_visibility='onchange'),
         'is_legislative': fields.boolean('Legislative',
                                          track_visibility='onchange')

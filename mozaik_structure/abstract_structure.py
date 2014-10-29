@@ -86,10 +86,7 @@ class abstract_assembly_category(orm.AbstractModel):
                                             'Alert Delay (#Months)',
                                             track_visibility='onchange'),
         'power_level_id': fields.many2one('abstract.power.level',
-                                          'Power Level',
-                                          required=True,
-                                          select=True,
-                                          track_visibility='onchange'),
+                                          'Power Level'),
     }
 
     _order = 'name'
