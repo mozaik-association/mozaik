@@ -31,6 +31,20 @@ from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
 
 TODAY = str(date.today().year)
+XML_IDS = {
+    'coordinates': [
+        'former_phone_id_notification',
+        'main_phone_id_notification',
+        'former_email_notification',
+        'main_email_notification',
+        'former_address_id_notification',
+        'main_address_id_notification',
+        'membership_line_notification',
+    ],
+    'partners': [
+        'membership_line_notification'
+    ]
+}
 
 
 class res_partner(orm.Model):
@@ -43,22 +57,14 @@ class res_partner(orm.Model):
     # ready for workflow !
     _enable_wkf = True
 
-    def _get_subtype_ids(self, cr, uid, context=None):
+    def _get_subtype_ids(self, cr, uid, mode, context=None):
         subtype_ids = []
-        xml_ids = [
-            'former_phone_id_notification',
-            'main_phone_id_notification',
-            'former_email_notification',
-            'main_email_notification',
-            'former_address_id_notification',
-            'main_address_id_notification',
-        ]
         location = 'mozaik_membership'
-        for xml_id in xml_ids:
+        for xml_id in XML_IDS[mode]:
             subtype_ids.append(
                 self.pool['ir.model.data'].get_object_reference(
                     cr, uid, location, xml_id)[1])
-        return subtype_ids
+        return subtype_ids or False
 
     def _update_follower(
             self, cr, uid, partner_ids, context=None):
@@ -75,12 +81,15 @@ class res_partner(orm.Model):
             f_partner_ids = ia_obj.get_followers_assemblies(
                 cr, uid, int_instance_id, context=context)
             # update even if f_partner_ids is void case to reset
+
+            subtype_ids = self._get_subtype_ids(
+                cr, uid, 'partners', context=context)
             p_obj.message_subscribe(
                 cr, uid, [partner_id], f_partner_ids,
-                context=context)
+                subtype_ids=subtype_ids, context=context)
 
-            subtype_ids = self._get_subtype_ids(cr, uid, context=context)
-
+            subtype_ids = self._get_subtype_ids(
+                cr, uid, 'coordinates', context=context)
             # partner are at least follower of their own coordinate
             domain = [('partner_id', '=', partner_id), ('is_main', '=', True)]
             prefixes = ['email', 'postal', 'phone']
@@ -135,6 +144,14 @@ class res_partner(orm.Model):
             res[val['partner_id'][0]] = val.get('product_id') and\
                 val['product_id'][0] or False,
         return res
+
+    _track = {
+        'membership_state_id': {
+            'mozaik_membership.membership_line_notification':
+                lambda self, cr, uid, obj, ctx=None:
+                    obj.membership_state_id.code != 'without_membership',
+        },
+    }
 
     _subscription_store_trigger = {
         'membership.line': (lambda self, cr, uid, ids, context=None:

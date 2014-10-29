@@ -25,21 +25,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import orm
 
-from . import testtool
-from . import url
-from . import ir_model
-from . import ir_import
-from . import res_lang
-from . import res_users
-from . import res_partner
-from . import mail_message
-from . import selections_translator
-from . import document
-from . import more_index
-from . import ir_cron
-from . import ir_rule
-from . import mail_mail
-from . import abstract_model
-from . import base_tools
-from . import mail_followers
+
+class mail_notification(orm.Model):
+    _inherit = 'mail.notification'
+
+    def _notify_email(self, cr, uid, ids, message_id, force_send=False,
+                      user_signature=True, context=None):
+        force_send = context.get('notify_force_send', False)
+        return super(mail_notification, self)._notify_email(
+            cr, uid, ids, message_id, force_send=force_send,
+            user_signature=user_signature, context=context)

@@ -82,10 +82,16 @@ class membership_line(orm.Model):
 
     def _where_calc(self, cr, user, domain, active_test=True, context=None):
         '''
+        If active_test is not present into context then
         Read always inactive membership lines
         '''
+        if context is None:
+            context = {}
+        if not context.get('active_test'):
+            ctx = context.copy()
+            ctx['active_test'] = False
         res = super(membership_line, self)._where_calc(
-            cr, user, domain, active_test=False, context=context)
+            cr, user, domain, active_test=active_test, context=context)
         return res
 
 # public methods

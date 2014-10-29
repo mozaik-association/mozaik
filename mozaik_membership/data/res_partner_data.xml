@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="membership_line_notification" model="mail.message.subtype">
+            <field name="name">Membership Line Notification</field>
+            <field name="res_model">res.partner</field>
+            <field name="default" eval="False"/>
+            <field name="description">A New Membership Line Has Been Created</field>
+        </record>
+
+    </data>
+</openerp>
