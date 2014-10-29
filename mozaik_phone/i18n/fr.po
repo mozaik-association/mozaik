@@ -21,7 +21,7 @@ msgid "+32 476 81 37 00"
 msgstr "+32 476 81 37 00"
 
 #. module: mozaik_phone
-#: code:addons\mozaik_phone\phone_phone.py:192
+#: code:addons\mozaik_phone\phone_phone.py:189
 #, python-format
 msgid "A phone number cannot be duplicated!"
 msgstr "Un numéro de téléphone ne peut être dupliqué !"
@@ -99,8 +99,8 @@ msgid "Date of the last message posted on the record."
 msgstr "Date du dernier message posté sur l'enregistrement."
 
 #. module: mozaik_phone
-#: code:addons\mozaik_phone\phone_phone.py:104
-#: code:addons\mozaik_phone\phone_phone.py:192
+#: code:addons\mozaik_phone\phone_phone.py:102
+#: code:addons\mozaik_phone\phone_phone.py:189
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -140,7 +140,7 @@ msgid "Fix"
 msgstr "Fixe"
 
 #. module: mozaik_phone
-#: code:addons\mozaik_phone\phone_phone.py:48
+#: code:addons\mozaik_phone\phone_phone.py:147
 #, python-format
 msgid "Fix + Fax"
 msgstr "Fixe + Fax"
@@ -176,7 +176,7 @@ msgid "If checked new messages require your attention."
 msgstr "Si coché, de nouveaux messages requièrent votre attention."
 
 #. module: mozaik_phone
-#: code:addons\mozaik_phone\phone_phone.py:99
+#: code:addons\mozaik_phone\phone_phone.py:97
 #, python-format
 msgid "Invalid phone number: %s"
 msgstr "Numéro de téléphone invalide: %s"

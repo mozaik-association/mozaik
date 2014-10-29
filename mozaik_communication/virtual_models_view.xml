@@ -37,8 +37,7 @@
                     <field name="int_instance_id" />
                     <field name="involvement_category_id" />
 
-                    <field name="interests_m2m_ids" string="Interests"
-                        widget="many2one" />
+                    <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
                         widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
@@ -159,8 +158,7 @@
                     <field name="relation_category_id" />
                     <field name="object_partner_id" />
 
-                    <field name="interests_m2m_ids" string="Interests"
-                        widget="many2one" />
+                    <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
                         widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
@@ -280,8 +278,7 @@
                     <field name="partner_id" domain="[('is_assembly','=',False)]" />
                     <field name="int_instance_id" />
                     <field name="membership_state_id" />
-                    <field name="interests_m2m_ids" string="Interests"
-                        widget="many2one" />
+                    <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
                         widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
@@ -556,8 +553,7 @@
                     <field name="mandate_category_id" />
                     <field name="designation_int_assembly_id" />
 
-                    <field name="interests_m2m_ids" string="Interests"
-                        widget="many2one" />
+                    <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
                         widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
@@ -670,8 +666,7 @@
                     <field name="sta_power_level_id" string="State Power Level" />
                     <field name="int_power_level_id" string="Internal Power Level" />
 
-                    <field name="interests_m2m_ids" string="Interests"
-                        widget="many2one" />
+                    <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
                         widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
@@ -784,8 +779,7 @@
                     <field name="partner_id" domain="[('is_company','=',False),('identifier','&gt;',0)]" />
                     <field name="int_instance_id" />
                     <field name="mandate_category_id" />
-                    <field name="interests_m2m_ids" string="Interests"
-                        widget="many2one" />
+                    <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
                         widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
@@ -913,8 +907,7 @@
                     <field string="Member Card Sent Date &lt; ..." name="del_mem_card_date"
                         filter_domain="[('del_mem_card_date','&lt;',self)]" />
 
-                    <field name="interests_m2m_ids" string="Interests"
-                        widget="many2one" />
+                    <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
                         widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
@@ -1050,8 +1043,7 @@
                     <field string="Birth Date &lt; ..." name="birth_date"
                         filter_domain="[('birth_date','&lt;',self)]" />
 
-                    <field name="interests_m2m_ids" string="Interests"
-                        widget="many2one" />
+                    <field name="interests_m2m_ids" widget="many2one" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
                         widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />

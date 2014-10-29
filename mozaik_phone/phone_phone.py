@@ -45,8 +45,6 @@ PHONE_AVAILABLE_TYPES = [
     ('fax', 'Fax'),
 ]
 
-FIXFAX = _('Fix + Fax')
-
 phone_available_types = dict(PHONE_AVAILABLE_TYPES)
 
 PREFIX_CODE = 'BE'
@@ -118,7 +116,6 @@ class phone_phone(orm.Model):
     _order = 'name'
 
     _defaults = {
-        'type': PHONE_AVAILABLE_TYPES[0][0],
         'also_for_fax': False,
     }
 
@@ -144,11 +141,13 @@ class phone_phone(orm.Model):
         if isinstance(ids, (long, int)):
             ids = [ids]
 
+        fld_type = self.fields_get(cr, uid, ['type'], context=context)
+        fld_type = dict(fld_type['type']['selection'])
         res = []
         for record in self.read(cr, uid, ids, ['name', 'type', 'also_for_fax'], context=context):
-            display_name = "%s (%s)" % (record['name'],
-                                        record['also_for_fax'] and FIXFAX
-                                                               or phone_available_types.get(record['type']))
+            phone_type = record['also_for_fax'] and \
+                _('Fix + Fax') or fld_type.get(record['type'], '?')
+            display_name = "%s (%s)" % (record['name'], phone_type)
             res.append((record['id'], display_name))
         return res
 

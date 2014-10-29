@@ -835,7 +835,7 @@ msgstr "Niveau de pouvoir"
 
 #. module: mozaik_structure
 #: constraint:abstract.assembly:0
-#: code:addons\mozaik_structure\abstract_structure.py:243
+#: code:addons\mozaik_structure\abstract_structure.py:242
 #: constraint:ext.assembly:0
 #: constraint:int.assembly:0
 #: constraint:sta.assembly:0
@@ -1057,8 +1057,8 @@ msgstr "Année"
 
 #. module: mozaik_structure
 #: constraint:abstract.instance:0
-#: code:addons\mozaik_structure\abstract_structure.py:146
-#: code:addons\mozaik_structure\sta_structure.py:159
+#: code:addons\mozaik_structure\abstract_structure.py:143
+#: code:addons\mozaik_structure\sta_structure.py:160
 #: constraint:int.instance:0
 #: constraint:sta.instance:0
 #, python-format

@@ -101,7 +101,7 @@ class virtual_partner_involvement(orm.Model):
         'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
                                                obj='thesaurus.term',
                                                rel='res_partner_term_interests_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+                                               id1='partner_id', id2='thesaurus_term_id', string='Interests'),
     }
 
 # orm methods
@@ -198,7 +198,7 @@ class virtual_partner_relation(orm.Model):
         'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
                                                obj='thesaurus.term',
                                                rel='res_partner_term_interests_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+                                               id1='partner_id', id2='thesaurus_term_id', string='Interests'),
 
         'postal_vip': fields.related('postal_coordinate_id', 'vip', type='boolean',
                                      obj='postal.coordinate', string='VIP Address'),
@@ -331,7 +331,7 @@ class virtual_partner_instance(orm.Model):
         'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
                                                obj='thesaurus.term',
                                                rel='res_partner_term_interests_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+                                               id1='partner_id', id2='thesaurus_term_id', string='Interests'),
     }
 
 # orm methods
@@ -664,7 +664,7 @@ class virtual_partner_candidature(orm.Model):
         'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
                                                obj='thesaurus.term',
                                                rel='res_partner_term_interests_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+                                               id1='partner_id', id2='thesaurus_term_id', string='Interests'),
     }
 
 # orm methods
@@ -839,7 +839,7 @@ class virtual_assembly_instance(orm.Model):
         'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
                                                obj='thesaurus.term',
                                                rel='res_partner_term_interests_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+                                               id1='partner_id', id2='thesaurus_term_id', string='Interests'),
     }
 
 # orm methods
@@ -1025,7 +1025,7 @@ class virtual_partner_retrocession(orm.Model):
         'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
                                                obj='thesaurus.term',
                                                rel='res_partner_term_interests_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+                                               id1='partner_id', id2='thesaurus_term_id', string='Interests'),
     }
 
 # orm methods
@@ -1250,7 +1250,7 @@ class virtual_partner_membership(orm.Model):
                                                 interests_rel',
                                             id1='partner_id',
                                             id2='thesaurus_term_id',
-                                            string='Competencies'),
+                                            string='Interests'),
     }
 
 # orm methods
@@ -1363,7 +1363,7 @@ class virtual_partner_event(orm.Model):
                                                 interests_rel',
                                             id1='partner_id',
                                             id2='thesaurus_term_id',
-                                            string='Competencies'),
+                                            string='Interests'),
     }
 
 # orm methods

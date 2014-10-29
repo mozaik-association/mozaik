@@ -2,7 +2,7 @@
 <openerp>
     <data noupdate="0">
         <record id="wz_auto_backup" model="export.help.wizard">
-        </record>       
+        </record>
 
         <function model="export.help.wizard" name="auto_backup"/>
     </data>

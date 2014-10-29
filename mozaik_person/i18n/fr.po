@@ -101,7 +101,7 @@ msgstr "Identifiant de partenaire incorrect: %s!"
 #. module: mozaik_person
 #: field:res.partner,birth_date:0
 msgid "Birth Date"
-msgstr "Date de naissance"
+msgstr "Naissance"
 
 #. module: mozaik_person
 #: view:res.partner:mozaik_person.res_partner_search_view
@@ -126,12 +126,11 @@ msgstr "Catégorie"
 #. module: mozaik_person
 #: field:res.partner,civil_status:0
 msgid "Civil Status"
-msgstr "Civilité"
+msgstr "État civil"
 
 #. module: mozaik_person
 #: view:res.partner:mozaik_person.view_partner_form
 #: field:res.partner,competencies_m2m_ids:0
-#: field:res.partner,interests_m2m_ids:0
 msgid "Competencies"
 msgstr "Compétences"
 
@@ -255,7 +254,7 @@ msgstr "Abonnés"
 #: view:res.partner:mozaik_person.res_partner_search_view
 #: selection:res.partner,tongue:0
 msgid "French"
-msgstr "Francophone"
+msgstr "Français"
 
 #. module: mozaik_person
 #: view:res.partner:mozaik_person.res_partner_search_view
@@ -267,7 +266,7 @@ msgstr "Genre"
 #: view:res.partner:mozaik_person.res_partner_search_view
 #: selection:res.partner,tongue:0
 msgid "German"
-msgstr "Germanophone"
+msgstr "Allemand"
 
 #. module: mozaik_person
 #: view:partner.involvement:mozaik_person.partner_involvement_search_view
@@ -305,8 +304,8 @@ msgid "Indexation"
 msgstr "Indexation"
 
 #. module: mozaik_person
-#: view:res.partner:mozaik_person.res_partner_search_view
 #: view:res.partner:mozaik_person.view_partner_form
+#: field:res.partner,interests_m2m_ids:0
 msgid "Interests"
 msgstr "Intérêts"
 
@@ -425,7 +424,7 @@ msgstr "Homme"
 #. module: mozaik_person
 #: selection:res.partner,civil_status:0
 msgid "Married"
-msgstr "Marrié"
+msgstr "Marié(e)"
 
 #. module: mozaik_person
 #: field:partner.involvement,message_ids:0
@@ -470,12 +469,8 @@ msgid "Not User"
 msgstr "Non utilisateur"
 
 #. module: mozaik_person
-#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
-msgid "Notes"
-msgstr "Notes"
-
-#. module: mozaik_person
 #: field:partner.involvement,note:0
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
 #: field:partner.involvement.category,note:0
 msgid "Notes"
 msgstr "Notes"

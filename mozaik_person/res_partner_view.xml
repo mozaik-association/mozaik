@@ -14,7 +14,7 @@
                     <field name="enterprise_identifier" invisible="'default_is_company' not in context or not context.get('default_is_company')" />
                     <field name="comment" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
-                    <field name="interests_m2m_ids" string="Interests" invisible="'default_is_company' not in context or context.get('default_is_company')" widget="many2one" />
+                    <field name="interests_m2m_ids" invisible="'default_is_company' not in context or context.get('default_is_company')" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one"/>
                     <field name="partner_involvement_ids"/>
 

@@ -21,13 +21,18 @@ msgid "#Days"
 msgstr "#Jours"
 
 #. module: mozaik_membership
-#: code:addons\mozaik_membership\res_partner.py:313
+#: model:mail.message.subtype,description:mozaik_membership.membership_line_notification
+msgid "A New Membership Line Has Been Created"
+msgstr "Un nouvel historique a été créé"
+
+#. module: mozaik_membership
+#: code:addons\mozaik_membership\res_partner.py:331
 #, python-format
 msgid "A Partner is required for a Modification Request"
 msgstr "Un partenaire est requis pour faire une demande de modification"
 
 #. module: mozaik_membership
-#: code:addons\mozaik_membership\res_partner.py:247
+#: code:addons\mozaik_membership\res_partner.py:265
 #, python-format
 msgid "A natural person with membership history cannot be transformed to a legal person"
 msgstr "Une personne physique avec un historique d'ahésions ne peut être transformée en une personne morale"
@@ -305,9 +310,9 @@ msgstr "Adresse électronique principale"
 
 #. module: mozaik_membership
 #: code:addons\mozaik_membership\membership_request.py:706
-#: code:addons\mozaik_membership\res_partner.py:246
-#: code:addons\mozaik_membership\res_partner.py:312
-#: code:addons\mozaik_membership\res_partner.py:405
+#: code:addons\mozaik_membership\res_partner.py:264
+#: code:addons\mozaik_membership\res_partner.py:330
+#: code:addons\mozaik_membership\res_partner.py:423
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -736,6 +741,11 @@ msgid "Membership Line"
 msgstr "Historique d'adhésion"
 
 #. module: mozaik_membership
+#: model:mail.message.subtype,name:mozaik_membership.membership_line_notification
+msgid "Membership Line Notification"
+msgstr "Notification d'historique d'adhésion"
+
+#. module: mozaik_membership
 #: model:ir.actions.act_window,name:mozaik_membership.membership_line_action
 #: model:ir.ui.menu,name:mozaik_membership.membership_line_submenu
 #: view:membership.line:mozaik_membership.membership_line_search_view
@@ -1113,7 +1123,7 @@ msgid "Transform Members to Former Members"
 msgstr "Transformer des membres en anciens membres"
 
 #. module: mozaik_membership
-#: code:addons\mozaik_membership\res_partner.py:406
+#: code:addons\mozaik_membership\res_partner.py:424
 #, python-format
 msgid "Undefined Membership State: %s"
 msgstr "Statut d'adhésion inconnu: %s"

@@ -221,21 +221,13 @@ msgstr ""
 
 #. module: mozaik_communication
 #: field:virtual.assembly.instance,competencies_m2m_ids:0
-#: field:virtual.assembly.instance,interests_m2m_ids:0
 #: field:virtual.partner.candidature,competencies_m2m_ids:0
-#: field:virtual.partner.candidature,interests_m2m_ids:0
 #: field:virtual.partner.event,competencies_m2m_ids:0
-#: field:virtual.partner.event,interests_m2m_ids:0
 #: field:virtual.partner.instance,competencies_m2m_ids:0
-#: field:virtual.partner.instance,interests_m2m_ids:0
 #: field:virtual.partner.involvement,competencies_m2m_ids:0
-#: field:virtual.partner.involvement,interests_m2m_ids:0
 #: field:virtual.partner.membership,competencies_m2m_ids:0
-#: field:virtual.partner.membership,interests_m2m_ids:0
 #: field:virtual.partner.relation,competencies_m2m_ids:0
-#: field:virtual.partner.relation,interests_m2m_ids:0
 #: field:virtual.partner.retrocession,competencies_m2m_ids:0
-#: field:virtual.partner.retrocession,interests_m2m_ids:0
 msgid "Competencies"
 msgstr "Compétences"
 
@@ -445,7 +437,7 @@ msgstr "Employé"
 #. module: mozaik_communication
 #: code:addons\mozaik_communication\event.py:78
 #: code:addons\mozaik_communication\postal_mail.py:172
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:197
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:198
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -516,19 +508,19 @@ msgid "Expired Postal Mailings"
 msgstr "Envois postaux expirés"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:312
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:309
 #, python-format
 msgid "Export CSV"
 msgstr "Exportation CSV"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:260
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:266
 #, python-format
 msgid "Export PDF"
 msgstr "Exportation PDF"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:329
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:326
 #, python-format
 msgid "Export VCF"
 msgstr "Exportation VCF"
@@ -615,7 +607,7 @@ msgstr "Abonnés"
 #: selection:virtual.partner.relation,tongue:0
 #: selection:virtual.partner.retrocession,tongue:0
 msgid "French"
-msgstr "Francophone"
+msgstr "Français"
 
 #. module: mozaik_communication
 #: field:virtual.partner.candidature,gender:0
@@ -645,7 +637,7 @@ msgstr "Genre"
 #: selection:virtual.partner.relation,tongue:0
 #: selection:virtual.partner.retrocession,tongue:0
 msgid "German"
-msgstr "Germanophone"
+msgstr "Allemand"
 
 #. module: mozaik_communication
 #: help:distribution.list.mass.function,extract_csv:0
@@ -743,14 +735,14 @@ msgid "Instance"
 msgstr "Instance"
 
 #. module: mozaik_communication
-#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
-#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
-#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
-#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
-#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
-#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
-#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
-#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.assembly.instance,interests_m2m_ids:0
+#: field:virtual.partner.candidature,interests_m2m_ids:0
+#: field:virtual.partner.event,interests_m2m_ids:0
+#: field:virtual.partner.instance,interests_m2m_ids:0
+#: field:virtual.partner.involvement,interests_m2m_ids:0
+#: field:virtual.partner.membership,interests_m2m_ids:0
+#: field:virtual.partner.relation,interests_m2m_ids:0
+#: field:virtual.partner.retrocession,interests_m2m_ids:0
 msgid "Interests"
 msgstr "Intérêts"
 
@@ -1068,6 +1060,11 @@ msgstr "Date d'envoi de la carte de membre > ..."
 #: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
 msgid "Members"
 msgstr "Membres"
+
+#. module: mozaik_communication
+#: field:virtual.target,membership_state_id:0
+msgid "Membership State"
+msgstr "Statut d'adhésion"
 
 #. module: mozaik_communication
 #: field:distribution.list,message_ids:0
@@ -1417,6 +1414,14 @@ msgid "Public"
 msgstr "Public"
 
 #. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_form
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+#: view:event.event:mozaik_communication.view_event_form
+#: view:event.registration:mozaik_communication.view_event_registration_form
+msgid "Reactivate document: proceed anyway?"
+msgstr "Poursuivre la réactivation du document ?"
+
+#. module: mozaik_communication
 #: field:virtual.partner.membership,reference:0
 msgid "Reference"
 msgstr "Référence"
@@ -1426,14 +1431,6 @@ msgstr "Référence"
 #: field:virtual.partner.relation,relation_category_id:0
 msgid "Relation Category"
 msgstr "Catégorie de relation"
-
-#. module: mozaik_communication
-#: view:distribution.list:mozaik_communication.distribution_list_form
-#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
-#: view:event.event:mozaik_communication.view_event_form
-#: view:event.registration:mozaik_communication.view_event_registration_form
-msgid "Reactivate document: proceed anyway?"
-msgstr "Poursuivre la réactivation du document ?"
 
 #. module: mozaik_communication
 #: model:ir.ui.menu,name:mozaik_communication.virtual_models_submenu
@@ -1517,7 +1514,6 @@ msgstr "Date de début"
 #: field:virtual.partner.membership,membership_state_id:0
 #: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
 #: field:virtual.partner.retrocession,state:0
-#: field:virtual.target,membership_state_id:0
 msgid "State"
 msgstr "Statut"
 
@@ -1600,7 +1596,7 @@ msgid "Templates"
 msgstr "Modèles de courriel"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:197
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:198
 #, python-format
 msgid "There are no recipients"
 msgstr "Aucun destinataire"

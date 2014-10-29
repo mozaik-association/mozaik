@@ -194,6 +194,11 @@ msgid "Mozaik Vip Reader"
 msgstr "Lecteur Vip Mozaik"
 
 #. module: mozaik_base
+#: model:ir.model,name:mozaik_base.model_mail_notification
+msgid "Notifications"
+msgstr "Notifications"
+
+#. module: mozaik_base
 #: model:ir.model,name:mozaik_base.model_mail_mail
 msgid "Outgoing Mails"
 msgstr "Courriels à envoyer"

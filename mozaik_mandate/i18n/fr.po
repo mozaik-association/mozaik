@@ -31,7 +31,7 @@ msgstr "#PS"
 
 #. module: mozaik_mandate
 #: code:addons\mozaik_mandate\abstract_mandate.py:242
-#: code:addons\mozaik_mandate\mandate.py:220
+#: code:addons\mozaik_mandate\mandate.py:228
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
@@ -220,6 +220,11 @@ msgstr "Mandat incompatible autorisé"
 #: view:generic.mandate:mozaik_mandate.generic_mandate_search_view
 msgid "Allowed Incompatible Mandates"
 msgstr "Mandats incompatibles autorisés"
+
+#. module: mozaik_mandate
+#: sql_constraint:mandate.category:0
+msgid "An Assembly Category is required."
+msgstr "Une catégorie d'assemblée est obligatoire."
 
 #. module: mozaik_mandate
 #: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_search_view
@@ -2029,6 +2034,21 @@ msgstr ""
 #: view:int.mandate:mozaik_mandate.int_mandate_form_view
 #: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
 msgid "onchange_mandate_category_id(mandate_category_id)"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:ext.mandate:mozaik_mandate.ext_mandate_form_view
+msgid "{'default_type': 'ext'}"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:int.mandate:mozaik_mandate.int_mandate_form_view
+msgid "{'default_type': 'int'}"
+msgstr ""
+
+#. module: mozaik_mandate
+#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
+msgid "{'default_type': 'sta'}"
 msgstr ""
 
 #. module: mozaik_mandate
