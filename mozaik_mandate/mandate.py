@@ -169,7 +169,8 @@ class mandate_category(orm.Model):
                             track_visibility='onchange'),
         'type': fields.selection(MANDATE_CATEGORY_AVAILABLE_TYPES,
                                  'Type',
-                                 readonly=True),
+                                 select=True,
+                                 required=True),
         'exclusive_category_m2m_ids': fields.many2many(
                                       'mandate.category',
                                       'mandate_category_mandate_category_rel',
@@ -207,7 +208,14 @@ class mandate_category(orm.Model):
 
 # constraints
 
-    _unicity_keys = 'name'
+    _sql_constraints = [
+        ('ref_categ_check',
+         'CHECK(sta_assembly_category_id+int_assembly_category_id+'
+         'ext_assembly_category_id > 0)',
+         'An Assembly Category is required.'),
+    ]
+
+    _unicity_keys = 'type, name'
 
 #orm methods
 

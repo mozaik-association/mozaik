@@ -443,6 +443,7 @@
 
                         <group name="data">
                             <group name="main">
+                                <field name="type" invisible="context.get('default_type')" attrs="{'invisible': [('id','!=',False)]}"/>
                                 <field name="sta_assembly_category_id" attrs="{'invisible': [('type','!=','sta')],
                                                                                'required':[('type','=','sta')] }"/>
                                 <field name="int_assembly_category_id" attrs="{'invisible': [('type','!=','int')],
@@ -451,8 +452,8 @@
                                                                               'required':[('type','=','ext')] }"/>
                             </group>
                             <group name="other">
-                                <field name="is_submission_mandate" attrs="{'invisible': [('type','=','int')]}"/>
-                                <field name="is_submission_assets" attrs="{'invisible': [('type','=','int')]}"/>
+                                <field name="is_submission_mandate" attrs="{'invisible': [('type','not in',['sta', 'ext'])]}"/>
+                                <field name="is_submission_assets" attrs="{'invisible': [('type','not in',['sta', 'ext'])]}"/>
                             </group>
                         </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
@@ -482,7 +483,6 @@
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
-                                <field name="type"/>
                             </group>
                         </div>
                     </div>
@@ -594,6 +594,7 @@
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
+                    <attribute name="context">{'default_type': 'sta'}</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='deadline_date']" position="attributes">
@@ -633,6 +634,7 @@
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
+                    <attribute name="context">{'default_type': 'int'}</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='end_date']" position="after">
@@ -661,6 +663,7 @@
 
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="on_change">onchange_mandate_category_id(mandate_category_id)</attribute>
+                    <attribute name="context">{'default_type': 'ext'}</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='end_date']" position="after">
@@ -709,6 +712,7 @@
                     <field name="mandate_category_id"
                            required="1"
                            domain="[('type', '=', 'sta'), ('sta_assembly_category_id', '=', assembly_category_id)]"
+                           context="{'default_type': 'sta'}"
                            on_change="onchange_mandate_category_id(mandate_category_id)"/>
                 </xpath>
 
@@ -800,6 +804,7 @@
                         <field name="mandate_category_id"
                            required="1"
                            domain="[('type', '=', 'int')]"
+                           context="{'default_type': 'int'}"
                            on_change="onchange_mandate_category_id(mandate_category_id)"/>
                 </xpath>
                 <xpath expr="//page[@name='candidatures']" position="inside">
@@ -868,6 +873,7 @@
                         <field name="mandate_category_id"
                            required="1"
                            domain="[('type', '=', 'ext')]"
+                           context="{'default_type': 'ext'}"
                            on_change="onchange_mandate_category_id(mandate_category_id)"/>
                 </xpath>
                 <xpath expr="//page[@name='candidatures']" position="inside">

@@ -223,7 +223,7 @@
                         <group name="data">
                             <group name="data_1">
                                 <field name="partner_id"/>
-                                <field name="mandate_category_id" class="oe_inline"/>
+                                <field name="mandate_category_id"/>
                                 <field name="assembly_name"/>
                              </group>
                             <group name="data_2">

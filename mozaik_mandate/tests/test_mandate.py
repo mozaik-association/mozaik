@@ -52,7 +52,7 @@ class test_mandate(SharedSetupTransactionCase):
         '''
             Test unique name of mandate category
         '''
-        data = dict(name='category_01')
+        data = dict(type='sta', name='category_01')
         self.registry('mandate.category').create(self.cr, self.uid, data)
 
         with testtool.disable_log_error(self.cr):
