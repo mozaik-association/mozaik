@@ -88,8 +88,8 @@ class membership_line(orm.Model):
         if context is None:
             context = {}
         if not context.get('active_test'):
-            ctx = context.copy()
-            ctx['active_test'] = False
+            context = context.copy()
+            context['active_test'] = False
         res = super(membership_line, self)._where_calc(
             cr, user, domain, active_test=active_test, context=context)
         return res

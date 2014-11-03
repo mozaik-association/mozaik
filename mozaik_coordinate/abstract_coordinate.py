@@ -166,6 +166,8 @@ class abstract_coordinate(orm.AbstractModel):
         if not ids:
             return []
 
+        context = context or {}
+
         if isinstance(ids, (long, int)):
             ids = [ids]
 
