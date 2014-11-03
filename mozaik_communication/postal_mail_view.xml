@@ -83,7 +83,7 @@
                                        attrs="{'readonly':[('postal_coordinate_id','!=',False)]}"/>
                                 <field name="postal_coordinate_id" attrs="{'readonly': [('id','!=',False)]}"
                                        context="{'default_partner_id':partner_id }"
-                                       on_change="onchange_postal_coordinate_id(postal_coordinate_id)"/>
+                                       on_change="onchange_postal_coordinate_id(postal_coordinate_id, partner_id)"/>
                             </group>
                             <group name="data2">
                                 <field name="sent_date"/>
@@ -141,7 +141,8 @@
                             type="action"
                             class="oe_stat_button"
                             icon="fa-list"
-                            context="{'search_default_postal_coordinate_id': active_id}">
+                            context="{'search_default_postal_coordinate_id': active_id,'default_postal_coordinate_id': active_id,
+                                      'search_default_partner_id': partner_id,'default_partner_id': partner_id}">
                     </button>
                 </xpath>
             </field>

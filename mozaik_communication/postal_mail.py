@@ -191,12 +191,12 @@ class postal_mail_log(orm.Model):
 # view methods: onchange, button
 
     def onchange_postal_coordinate_id(
-            self, cr, uid, ids, postal_coordinate_id, context=None):
+            self, cr, uid, ids, postal_coordinate_id, partner_id,
+            context=None):
         """
         Set the partner_id to the id of the partner
         of the selected postal coordinate.
         """
-        partner_id = False
         if postal_coordinate_id:
             partner_id = self.pool['postal.coordinate'].read(
                 cr, uid, [postal_coordinate_id], ['partner_id'],

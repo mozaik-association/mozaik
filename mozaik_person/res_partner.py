@@ -148,12 +148,12 @@ class res_partner(orm.Model):
 
     _defaults = {
         # Redefinition
-        'identifier': False,
         'tz': 'Europe/Brussels',
         'customer': False,
         'notify_email': 'always',
 
         # New fields
+        'identifier': False,
         'tongue': lambda *args: AVAILABLE_TONGUES[0][0],
     }
 

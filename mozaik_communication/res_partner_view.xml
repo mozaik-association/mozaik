@@ -15,7 +15,7 @@
                             type="action"
                             class="oe_stat_button"
                             icon="fa-list"
-                            context="{'search_default_partner_id': active_id}">
+                            context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}">
                     </button>
                 </xpath>
             </field>
