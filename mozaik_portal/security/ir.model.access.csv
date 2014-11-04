@@ -3,7 +3,7 @@ access_int_instance_group_portal,mozaik.int.instance.group.portal,mozaik_structu
 access_phone_coordinate_group_portal,mozaik.phone.coordinate.group.portal,mozaik_phone.model_phone_coordinate,base.group_portal,1,0,0,0
 access_email_coordinate_group_portal,mozaik.email.coordinate.group.portal,mozaik_email.model_email_coordinate,base.group_portal,1,0,0,0
 access_postal_coordinate_group_portal,mozaik.postal.coordinate.group.portal,mozaik_address.model_postal_coordinate,base.group_portal,1,0,0,0
-access_membership_request_group_portal,mozaik.membership.request.group.portal,mozaik_membership.model_membership_request,base.group_portal,1,1,1,0
+access_membership_request_group_portal,mozaik.membership.request.group.portal,mozaik_membership.model_membership_request,base.group_portal,1,1,0,0
 access_address_local_zip_group_portal,mozaik.address.local.zip.group.portal,mozaik_address.model_address_local_zip,base.group_portal,1,0,0,0
 access_address_local_street_group_portal,mozaik.address.local.street.group.portal,mozaik_address.model_address_local_street,base.group_portal,1,0,0,0
 access_coordinate_category_group_portal,mozaik.coordinate.category.group.portal,mozaik_coordinate.model_coordinate_category,base.group_portal,1,0,0,0

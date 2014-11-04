@@ -280,7 +280,7 @@
                             </group>
                         </div>
                     </div>
-                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')" groups="mozaik_base.res_groups_base">
                         <field name="message_follower_ids" widget="mail_followers"
                             groups="mozaik_base.mozaik_res_groups_configurator" />
                         <field name="message_ids" widget="mail_thread" />

@@ -397,7 +397,10 @@ class res_partner(orm.Model):
                                           []]],
             }
             context['mode'] = 'ws'
-            mr_id = mr_obj.create(cr, uid, values, context=context)
+            # create mr in sudo mode for portal user allowing to avoid create
+            # rights on this model for these users
+            u = 'default_open_partner_user' in context and SUPERUSER_ID or uid
+            mr_id = mr_obj.create(cr, u, values, context=context)
         return mr_obj.display_object_in_form_view(
             cr, uid, mr_id, context=context)
 
