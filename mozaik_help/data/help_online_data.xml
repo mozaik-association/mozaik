@@ -8602,7 +8602,7 @@ Tous les résultats s'afficheront dans la page courante mais peuvent se réparti
         </div>
       </t>
     </template>
-    <record id="mozaik-help-generic-mandate_img_01" model="ir.attachment">
+    <record id="mozaik-help-allow-duplicate-wizard_img_01" model="ir.attachment">
       <field name="datas">iVBORw0KGgoAAAANSUhEUgAAACEAAAAeCAMAAACVFoclAAADAFBMVEX9/f3d3d3EoQL36W/34S7v
 7+/awwfq0xnDqSbv2y37863LsjnIskPYw0zo3KXizUDx5o7s6M7Twmzf0pHjzRbp2l3r3G/m2p/3
 8t0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -8885,7 +8885,7 @@ S1Bcikt+Q+x1k29ryxdunLK66S2oLSGEEEIIIYQQQgghhBDjP9ttQpI1xfWNAAAAAElFTkSuQmCC
                                   <td style="text-align: left;">​2</td>
                                   <td style="text-align: left;">
                                     Cliquez sur l'icône
-                                    <img src="/website/image/ir.attachment/mozaik-help-generic-mandate_img_01|467a676/datas" style=""/>
+                                    <img src="/website/image/ir.attachment/mozaik-help-allow-duplicate-wizard_img_01|467a676/datas" style=""/>
                                      affiché en regard de l'élément concerné
                                   </td>
                                   <td style="text-align: left;">Un message de confirmation s'ouvre</td>
@@ -16460,7 +16460,7 @@ P+AbUnklIhrvDLoAAAAASUVORK5CYII=
       <field name="res_model">ir.ui.view</field>
       <field name="mimetype">image/png</field>
     </record>
-    <record id="mozaik-help-refuse-candidature_img_02" model="ir.attachment">
+    <record id="mozaik-help-accept-candidature_img_02" model="ir.attachment">
       <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAd4AAACuCAMAAACvFZyEAAADAFBMVEX+/v7r6+vX2NiXl5eHh4e3
 t7fIx8empqZ3d3doaGhXV1dJSUnTSkqpJSXQKCjTVlbPFha3NzfTNzfOCgrd5OSlHBzNeHg6Ojq6
 SkoBAQHPZ2fXmZnmx8fv2dnUiorbqaknJye6U1PaubkYGBinBgbc9vbjamrlu7sAAAAAAAAAAAAA
@@ -16623,7 +16623,7 @@ PUmhAAAAAElFTkSuQmCC
                     </div>
                     <p style="text-align: left;">Il n'est pas possible de refuser des Candidatures qui n'ont pas été préalablement proposées, donc en l'état "Proposé". Le message suivant sera affiché:</p>
                     <p style="text-align: left;">
-                      <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-refuse-candidature_img_02|30b22ca/datas" style=""/>
+                      <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-accept-candidature_img_02|30b22ca/datas" style=""/>
                     </p>
                     <p style="text-align: left;">
                       <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/>
@@ -19651,7 +19651,7 @@ MqkDGtz9IvcD9eWWyyqTyLWFMiTd+FWp/ajmlxRS6Qx5q5HOskI9nWLrtEROSSPfq9iw99ZW157d
       <field name="res_model">ir.ui.view</field>
       <field name="mimetype">image/png</field>
     </record>
-    <record id="mozaik-help-suggest-candidature_img_03" model="ir.attachment">
+    <record id="mozaik-help-reject-candidature_img_03" model="ir.attachment">
       <field name="datas">iVBORw0KGgoAAAANSUhEUgAAACYAAAAZCAMAAABqz6zkAAADAFBMVEX+/v3EoQL36W/34S7v7+/a
 wwfq0xnDqSbv2y37863LsjnIskPYw0zo3KXizUDx5o7s6M7Twmzf0pHjzRbp2l3r3G/m2p/38t0A
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -19779,7 +19779,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                              Un retour en arrière est possible en affichant la Candidature en mode formulaire et
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             en cliquant sur le bouton "Declare" (+ confirmation) ou sur
-                            <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-suggest-candidature_img_03|5f3c8aa/datas"/>
+                            <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-reject-candidature_img_03|5f3c8aa/datas"/>
                              à partir de la fiche du Comité de Sélection
                           </em>
                           . La Candidature sera remise en l'état "Déclaré".
@@ -21151,7 +21151,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
         </div>
       </t>
     </template>
-    <record id="mozaik-help-update_img_01" model="ir.attachment">
+    <record id="mozaik-help-create_img_01" model="ir.attachment">
       <field name="datas">iVBORw0KGgoAAAANSUhEUgAAASgAAABVCAMAAADNEomAAAADAFBMVEWiYSKdIR/aniqnn5fPWzLD
 VU+BfpylmHSX0ud34fu2YHqiueK9wJ7SMmjTd5Duunr/4T//8kP575QsLCwwMDAFBQUYGBjl5eX4
 +vja2tqzs7OVlZXMzMyLiYoOGCbT+ftIR0n9+9UmGA0tIxZ4eHe25/0aIyv85bFUVlZnZ2fO6Pbz
@@ -21337,7 +21337,7 @@ QP0P4U5g99SRogIAAAAASUVORK5CYII=
                   </div>
                   <p style="text-align: left;">Champ obligatoire non rempli: Si l'un des champs obligatoire n'est pas rempli, voici le message affiché en haut à droite de l'écran:</p>
                   <p style="text-align: left;">
-                    <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-update_img_01|ca6f919/datas" style=""/>
+                    <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-create_img_01|ca6f919/datas" style=""/>
                   </p>
                   <p style="text-align: left;"><br/>
 Les champs listés sont des variables et s'adaptent en fonction.
@@ -23862,7 +23862,7 @@ TkSuQmCC
         </div>
       </t>
     </template>
-    <record id="mozaik-help-virtual-partner-membership_img_01" model="ir.attachment">
+    <record id="mozaik-help-virtual-target_img_01" model="ir.attachment">
       <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAB4AAAAZCAMAAAAR624oAAADAFBMVEXt7fbx8flOmgZz0Rai2yXF
 2Liu8myv62PO3cff3+eK4jSz10dtqjOsy5Ov1xrK0hTY4td8skuWowiLumGZ2Sa60qmv5UvT2iNb
 ohd1rkCjrDSlr0O/v3CkxkGgyXy64DHS338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -23986,7 +23986,7 @@ NjIzRTLkh8QQ4uSBySvMmJUY8Qc7scQdBmacgGWc/AFr9Ev/qFE5FAAAAABJRU5ErkJggg==
                               </tr>
                               <tr>
                                 <td style="text-align: left;">​1</td>
-                                <td style="text-align: left;">En vue liste, cliquez sur l'icône   <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-virtual-partner-membership_img_01|9925a51/datas"/></td>
+                                <td style="text-align: left;">En vue liste, cliquez sur l'icône   <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-virtual-target_img_01|9925a51/datas"/></td>
                                 <td style="text-align: left;"/>
                               </tr>
                               <tr>
