@@ -33,7 +33,7 @@ from openerp.osv import orm, fields
 
 # Constants
 SORT_BY = [
-    ('identification_number asc', 'Identification Number'),
+    ('identifier asc', 'Identification Number'),
     ('display_name asc', 'Name'),
     ('country_id, zip asc,display_name asc', 'Zip Code'),
 ]
@@ -190,13 +190,16 @@ class distribution_list_mass_function(orm.TransientModel):
 
                     active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [wizard.distribution_list_id.id], context=context)
                     context['active_ids'] = active_ids
+                    context['dl_computed'] = True
                     context['email_coordinate_path'] = 'email'
                     if alternative_ids and wizard.extract_csv:
                         self.export_csv(cr, uid, 'postal.coordinate', alternative_ids, wizard.groupby_coresidency, context=context)
+                        if wizard.postal_mail_name:
+                            self._generate_postal_log(cr, uid, wizard.postal_mail_name, alternative_ids, context=context)
                     if not active_ids:
                         raise orm.except_orm(
                             _('Error'), _('There are no recipients'))
-                    self.pool['mail.compose.message'].send_mail(cr, uid, [mail_composer_id], context=context)
+                    composer.send_mail(cr, uid, [mail_composer_id], context=context)
 
                 elif wizard.e_mass_function == 'vcard':
                     context['field_main_object'] = 'email_coordinate_id'

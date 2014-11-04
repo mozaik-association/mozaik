@@ -27,6 +27,7 @@
 ##############################################################################
 from . import test_postal_mail
 from . import test_event
+from . import test_distribution_list
 
 fast_suite = [
 ]
@@ -34,4 +35,5 @@ fast_suite = [
 checks = [
     test_postal_mail,
     test_event,
+    test_distribution_list,
 ]

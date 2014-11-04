@@ -35,6 +35,19 @@ class distribution_list(orm.Model):
     _name = "distribution.list"
     _inherit = ['distribution.list', 'mozaik.abstract.model']
 
+    def _get_mailing_object(
+            self, cr, uid, dl_id, email_from, mailing_model=False,
+            email_field='email', context=None):
+        return super(distribution_list, self)._get_mailing_object(
+            cr, uid, dl_id, email_from, mailing_model='email.coordinate',
+            context=context)
+
+    def _get_mail_compose_message_vals(
+            self, cr, uid, msg, dl_id, mailing_model=False, context=None):
+        return super(distribution_list, self)._get_mail_compose_message_vals(
+            cr, uid, msg, dl_id, mailing_model='email.coordinate',
+            context=context)
+
     _columns = {
         'name': fields.char(
             string='Name', required=True, track_visibility='onchange'),
@@ -90,6 +103,39 @@ class distribution_list(orm.Model):
         res_ids = self.search(cr, uid, domain, context=context)
         return res_ids
 
+    def distribution_list_forwarding(self, cr, uid, msg, dl_id, context=None):
+        """
+        check if the associated user of the email_coordinate (found with
+        msg['email_from']) is into the owners of the distribution list
+        If user is into the owners then call super with uid=found_user_id
+        """
+        if context is None:
+            context = {}
+        ctx = context.copy()
+        ctx['email_coordinate_path'] = 'email'
+
+        coordinate_id = self._get_mailing_object(
+            cr, uid, dl_id, msg['email_from'], context=context)
+        if coordinate_id:
+            coo_values = self.pool['email.coordinate'].read(
+                cr, uid, coordinate_id, ['partner_id'], context=context)
+            partner_id = coo_values.get('partner_id') and \
+                coo_values['partner_id'][0] or False
+            if partner_id:
+                user_ids = self.pool['res.users'].search(
+                    cr, uid, [('partner_id', '=', partner_id)],
+                    context=context)
+                user_id = user_ids and user_ids[0] or False
+                if user_id:
+                    dl_values = self.read(
+                        cr, uid, dl_id, ['res_users_ids'], context=context)
+                    owner_ids = dl_values.get('res_users_ids', False)
+                    if user_id in owner_ids:
+                        return super(distribution_list, self).\
+                            distribution_list_forwarding(
+                                cr, user_id, msg, dl_id, context=ctx)
+        return
+
 
 class distribution_list_line(orm.Model):
 
@@ -104,7 +150,6 @@ class distribution_list_line(orm.Model):
         'src_model_id': fields.many2one(
             'ir.model', string='Model', required=True, select=True,
             domain=[('model', 'in', [
-                'res.partner',
                 'virtual.partner.instance',
                 'virtual.partner.membership',
                 'virtual.partner.event',

@@ -198,12 +198,26 @@
                             <field name="reference"
                                 attrs="{'invisible': [('reference', '=', False)]}"
                                 readonly="1" />
-                            <field name="del_doc_date"
-                                attrs="{'invisible': [('del_doc_date', '=', False)]}"
-                                readonly="1" />
-                            <field name="del_mem_card_date"
-                                attrs="{'invisible': [('del_mem_card_date', '=', False)]}"
-                                readonly="1" />
+                            <div>
+                                <field name="del_doc_date"
+                                    attrs="{'invisible': [('del_doc_date', '=', False)]}"
+                                    readonly="1" />
+                                <button name="button_reset_del_doc_date"
+                                    type="object" class="oe_link" string="⇒ Reset"
+                                    attrs="{'invisible': [('del_doc_date', '=', False)]}"
+                                    groups="mozaik_base.mozaik_res_groups_configurator"
+                                    confirm="Reset Date: proceed anyway?"/>
+                            </div>
+                            <div>
+                                <field name="del_mem_card_date"
+                                    attrs="{'invisible': [('del_mem_card_date', '=', False)]}"
+                                    readonly="1" />
+                                <button name="button_reset_del_mem_card_date"
+                                    type="object" class="oe_link" string="⇒ Reset"
+                                    attrs="{'invisible': [('del_mem_card_date', '=', False)]}"
+                                    groups="mozaik_base.mozaik_res_groups_configurator"
+                                    confirm="Reset Date: proceed anyway?"/>
+                            </div>
                         </group>
                         <field name="membership_line_ids" readonly="1">
                             <tree colors="gray:active==False;green:state_id[0]==%(mozaik_membership.member)d;red:state_id[0] in [%(mozaik_membership.former_supporter)d, %(mozaik_membership.refused_member_candidate)d, %(mozaik_membership.expulsion_former_member)d, %(mozaik_membership.resignation_former_member)d, %(mozaik_membership.inappropriate_former_member)d, %(mozaik_membership.break_former_member)d]">
