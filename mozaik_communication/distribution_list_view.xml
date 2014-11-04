@@ -16,6 +16,9 @@
                 </xpath>
 
                 <xpath expr="//field[@name='name']" position="after">
+                    <field name="mail_alias_id" />
+                    <filter name="mail_forwarding" string="Allow Mail Forwarding"
+                        domain="[('mail_forwarding','=',True)]" />
                     <field name="int_instance_id"/>
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
@@ -87,6 +90,17 @@
                 <xpath expr="//group[@name='info']" position="replace">
                     <group attrs="{'invisible': [('newsletter', '=', False)]}">
                         <field name="public" />
+                    </group>
+                    <group name="forwarding_infos">
+                        <group name="mail_forwarding">
+                            <field name="mail_forwarding"/>
+                        </group>
+                        <group name="mail_alias_id">
+                            <field name="mail_alias_id"
+                                 attrs="{'invisible': ['|',
+                                 ('mail_forwarding', '=', False),
+                                 ('mail_alias_id', '=', False),]}"/>
+                        </group>
                     </group>
                     <group name="state" attrs="{'invisible': [('id','=',False)]}">
                         <group name="validity">
