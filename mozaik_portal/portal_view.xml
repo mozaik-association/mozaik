@@ -20,17 +20,33 @@
         <menuitem id="natural_partner_submenu" sequence="20"
             parent="partner_submenu" action="natural_res_partner_action"/>
 
-        <!-- Event -->
+        <!-- Events -->
         <menuitem id="event_submenu" name="Events"
             sequence="30" parent="portal.portal_menu" />
         <menuitem id="event_event_submenu" sequence="20"
             parent="event_submenu" action="event_action"/>
 
-        <!-- Newsletter -->
+        <!-- Newsletters -->
         <menuitem id="newsletter_submenu" name="Newsletters"
             sequence="40" parent="portal.portal_menu" />
         <menuitem id="newsletter_newsletter_submenu" sequence="20"
             parent="newsletter_submenu" action="newsletter_action"/>
+
+        <!-- User Preferences: only lg and tz -->
+        <record id="view_users_form_simple_modif" model="ir.ui.view">
+            <field name="name">res.users.preferences.form (mozaik_portal)</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_portal')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='image']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[field[@name='signature']]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
 
     </data>
 </openerp>
