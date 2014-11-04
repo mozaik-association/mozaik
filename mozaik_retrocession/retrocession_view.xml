@@ -582,7 +582,7 @@
                             <button name="action_validate" string="Validate" type="object"
                                     confirm="Validate Retrocession now: proceed anyway?"
                                     states="draft" class="oe_highlight"/>
-                            <button name="action_done" string="Done" type="object"
+                            <button name="action_done" string="Close" type="object"
                                     confirm="Mark Retrocession as Done: proceed anyway?" class="oe_highlight"
                                     attrs="{'invisible': ['|', ('state', '!=', 'validated'),('need_account_management', '=', True)]}"/>
                             <button name="action_revalidate" string="Reset" type="object"

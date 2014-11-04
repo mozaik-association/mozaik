@@ -451,6 +451,11 @@ msgid "Certificate of payment"
 msgstr "Attestation de paiement"
 
 #. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Close"
+msgstr "Terminer"
+
+#. module: mozaik_retrocession
 #: field:abstract.mandate.retrocession,reference:0
 #: field:ext.mandate,reference:0
 #: field:sta.mandate,reference:0
@@ -558,7 +563,6 @@ msgid "Details"
 msgstr "Détails"
 
 #. module: mozaik_retrocession
-#: view:retrocession:mozaik_retrocession.retrocession_form_view
 #: view:retrocession:mozaik_retrocession.retrocession_search_view
 #: selection:retrocession,state:0
 msgid "Done"
