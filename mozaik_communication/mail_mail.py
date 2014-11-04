@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
+#    Authors: Nemry Jonathan
 #    Copyright (c) 2014 Acsone SA/NV (http://www.acsone.eu)
 #    All Rights Reserved
 #
@@ -25,12 +26,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import distribution_list
-from . import virtual_models
-from . import wizard
-from . import email_template
-from . import mass_mailing
-from . import postal_mail
-from . import email_coordinate
-from . import event
-from . import mail_mail
+from openerp.osv import orm
+
+
+class MailMail(orm.Model):
+
+    _inherit = 'mail.mail'
+
+    def _get_unsubscribe_url(
+            self, cr, uid, mail, email_to, msg=None, context=None):
+        '''
+        Override native method to manage unsubscribe URL for distribution list
+        case of newsletter.
+        '''
+        mml = mail.mailing_id
+        if mml.distribution_list_id and mml.distribution_list_id.newsletter:
+            return super(MailMail, self)._get_unsubscribe_url(
+                cr, uid, mail, email_to, msg=msg, context=context)
+        else:
+            return False
