@@ -77,8 +77,8 @@ msgstr "Toutes les demandes, expirées ou non"
 
 #. module: mozaik_membership
 #: help:membership.line,price:0
-msgid "Amount for the membership"
-msgstr "Montant de l'adhésion"
+msgid "Amount of the membership"
+msgstr "Montant de la cotisation"
 
 #. module: mozaik_membership
 #: view:res.partner:mozaik_membership.res_partner_search_view
@@ -137,7 +137,7 @@ msgstr "Assistant de changement d'adresse principale"
 #. module: mozaik_membership
 #: help:product.template,membership:0
 msgid "Check if the product is eligible for membership."
-msgstr "Cochez si l'article est éligible pour l'adhésion."
+msgstr "Cochez si l'article est éligible pour une adhésion."
 
 #. module: mozaik_membership
 #: field:membership.request,address_local_zip_id:0
@@ -716,6 +716,16 @@ msgid "Member Card Sent Date"
 msgstr "Date d'envoi de la carte de membre"
 
 #. module: mozaik_membership
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "Member Card Sent Date < ..."
+msgstr "Date d'envoi de la carte de membre < ..."
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "Member Card Sent Date > ..."
+msgstr "Date d'envoi de la carte de membre > ..."
+
+#. module: mozaik_membership
 #: model:membership.state,name:mozaik_membership.member_committee
 msgid "Member Committee"
 msgstr "Comité des membres"
@@ -796,10 +806,14 @@ msgstr "Statuts d'adhésion"
 #. module: mozaik_membership
 #: model:ir.ui.menu,name:mozaik_membership.membership_menu
 #: model:ir.ui.menu,name:mozaik_membership.membership_submenu
-#: view:res.partner:mozaik_membership.view_partner_form_membership
 #: field:res.partner,membership_line_ids:0
 msgid "Memberships"
 msgstr "Adhésions"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Memberships"
+msgstr "Statuts"
 
 #. module: mozaik_membership
 #: field:membership.line,message_ids:0
@@ -937,7 +951,7 @@ msgstr "Adresse principale"
 #. module: mozaik_membership
 #: field:membership.line,price:0
 msgid "Price"
-msgstr "Prix"
+msgstr "Montant"
 
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_product_template
@@ -1043,15 +1057,16 @@ msgstr "Rue (suite)"
 #: field:membership.line,product_id:0
 #: model:product.category,name:mozaik_membership.membership_product_category
 #: field:product.template,membership:0
+#: view:res.partner:mozaik_membership.res_partner_search_view
 #: field:res.partner,subscription_product_id:0
 msgid "Subscription"
-msgstr "Souscription"
+msgstr "Cotisation"
 
 #. module: mozaik_membership
 #: model:ir.actions.act_window,name:mozaik_membership.membership_product_action
 #: model:ir.ui.menu,name:mozaik_membership.membership_product_menu
 msgid "Subscriptions"
-msgstr "Souscriptions"
+msgstr "Cotisations"
 
 #. module: mozaik_membership
 #: field:membership.line,message_summary:0
@@ -1131,7 +1146,12 @@ msgstr "Statut d'adhésion inconnu: %s"
 #. module: mozaik_membership
 #: model:product.template,name:mozaik_membership.membership_product_undefined_product_template
 msgid "Undefined Subscription"
-msgstr "Souscription inconnue"
+msgstr "Cotisation inconnue"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "Undelivered Member Cards"
+msgstr "Cartes de membre non envoyées"
 
 #. module: mozaik_membership
 #: view:res.partner:mozaik_membership.res_partner_search_view
@@ -1198,6 +1218,11 @@ msgstr "Date d'envoi des documents de bienvenue"
 #: view:res.partner:mozaik_membership.res_partner_search_view
 msgid "Welcome Documents Sent Date < ..."
 msgstr "Date d'envoi des documents de bienvenue < ..."
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "Welcome Documents Sent Date > ..."
+msgstr "Date d'envoi des documents de bienvenue > ..."
 
 #. module: mozaik_membership
 #: model:membership.state,name:mozaik_membership.without_membership
