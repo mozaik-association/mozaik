@@ -109,10 +109,10 @@
                                                         ('membership_state_id', '=', False)]}">
                                 (
                                 <field name="membership_state_id"
-                                    readonly="1" class="oe_inline" />
+                                    readonly="1" class="oe_inline" options='{"no_open":True, "no_create":True}'/>
                                 to
                                 <field name="result_type_id"
-                                    readonly="1" class="oe_inline" />
+                                    readonly="1" class="oe_inline" options='{"no_open":True, "no_create":True}'/>
                                 )
                             </span>
                         </h3>
@@ -159,29 +159,32 @@
                             <group name="country">
                                 <field name="country_id"
                                     on_change="onchange_country_id(address_local_street_id, address_local_zip_id,
-                                                   number, box, town_man, street_man, zip_man, country_id)" />
+                                                   number, box, town_man, street_man, zip_man, country_id)"
+                                    options='{"no_open":True, "no_create":True}' />
                             </group>
                             <group name="city" attrs="{'invisible': [('country_id', '=', False)]}">
                                 <field name="address_local_zip_id"
                                     on_change="onchange_local_zip_id(address_local_street_id, address_local_zip_id,
                                                    number, box, town_man, street_man, zip_man, country_id)"
                                     attrs="{'invisible': [('country_code','!=', 'BE')],
-                                                'required': [('country_code','=', 'BE')]}" />
+                                            'required': [('country_code','=', 'BE')]}"
+                                    options='{"no_open":True, "no_create":True}' />
                                 <field name="zip_man"
                                     on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
                                                    number, box, town_man, street_man, zip_man, country_id)"
-                                    attrs="{'invisible': [('address_local_zip_id','!=', False)]}" />
+                                    attrs="{'invisible': [('country_code','=', 'BE')]}" />
                                 <field name="town_man"
                                     on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
                                                    number, box, town_man, street_man, zip_man, country_id)"
-                                    attrs="{'invisible': [('address_local_zip_id','!=', False)]}" />
+                                    attrs="{'invisible': [('country_code','=', 'BE')]}" />
                             </group>
                             <group name="streets" attrs="{'invisible': [('country_id', '=', False)]}">
                                 <field name="address_local_street_id"
                                     domain="[('local_zip','=',local_zip),('disabled','=',False)]"
                                     on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
                                                    number, box, town_man, street_man, zip_man, country_id)"
-                                    attrs="{'invisible': [('country_code','!=', 'BE')]}" />
+                                    attrs="{'invisible': [('country_code','!=', 'BE')]}"
+                                    options='{"no_open":True, "no_create":True}' />
                                 <field name="street_man"
                                     on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
                                                    number, box, town_man, street_man, zip_man, country_id)"

@@ -221,6 +221,8 @@
             <field name="model_id" ref="model_membership_request"/>
             <field name="domain_force">[
                 '|',
+                '|',
+                ('partner_id','=',user.partner_id.id),
                 ('int_instance_id','=',False),
                 ('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)
             ]</field>

@@ -2,13 +2,12 @@
 <openerp>
     <data noupdate="0">
 
-        <!-- do not allow to modify a confirmed membership_request -->
-        <record id="membership_request_portal_cud_rule" model="ir.rule">
-            <field name="name">Membership Request (CUD) for Portal User</field>
-            <field name="model_id" ref="mozaik_membership.model_membership_request" />
-            <field name="domain_force">[('state','!=', 'draft')]</field>
-            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
-            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+        <record id="draft_membership_request_portal_rule" model="ir.rule">
+            <field name="name">Membership Request Draft for Portal User</field>
+            <field name="model_id" ref="mozaik_membership.model_membership_request"/>
+            <field name="domain_force">[('state','=','draft')]</field>
+            <field name="groups" eval="[(6,0,[ref('base.group_portal')])]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="0"/>
         </record>
 

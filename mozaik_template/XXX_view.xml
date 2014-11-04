@@ -5,7 +5,7 @@
     <!--
       "options" attribute value for:
       * m2o:                     options='{"always_reload": True}'
-                                 options='{"no_open":True}'
+                                 options='{"no_open":True, "no_create":True, "no_quick_create":True, "no_create_edit":True}'
                                  options="{'label':{'create':'xxx','edit':'Edit yyy'}}" widget="many2onebutton"
                                  options='{"highlight_first_line": True}'
                                  options='{"create_name_field": "name"}'
