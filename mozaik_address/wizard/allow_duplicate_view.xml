@@ -15,8 +15,8 @@
                 <xpath expr="//strong" position="after">
                     <div>
                         <label for="co_residency_id" string="Selected duplicates will be associated to the following co-residency:"/>
-                        <field name="address_id" attrs="{'invisible': [('co_residency_id','!=',False)]}" widget="selection" />
-                        <field name="co_residency_id" attrs="{'invisible': [('co_residency_id','=',False)]}" widget="selection" />
+                        <field name="address_id" attrs="{'invisible': [('co_residency_id','!=',False)]}" options='{"no_open":True}' />
+                        <field name="co_residency_id" attrs="{'invisible': [('co_residency_id','=',False)]}" options='{"no_open":True}' />
                     </div>
                 </xpath>
 
