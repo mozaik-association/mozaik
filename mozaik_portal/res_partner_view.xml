@@ -28,65 +28,33 @@
                                 <field name="mobile" />
                                 <field name="email" />
                             </group>
-                            <group name="more_info">
-                                <field name="active" />
+                            <group name="more_info" invisible="1">
+                                <field name="active"/>
                             </group>
                         </group>
-                        <notebook>
+                        <notebook attrs="{'invisible': [('active','=',False)]}">
                             <page name="coordinates" string="Coordinates">
-                                <separator name="email"
-                                    string="Email Coordinates" />
-                                <field name="email_coordinate_ids"
-                                    context="{'default_partner_id': active_id}"
-                                    attrs="{'invisible': [('active','=',False)]}">
-                                    <tree edit="1" editable="bottom"
-                                        colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
+                                <separator name="email" string="Email Coordinates" />
+                                <field name="email_coordinate_ids">
+                                    <tree edit="1" editable="bottom">
                                         <field name="email" />
                                         <field name="coordinate_category_id" />
-                                        <field name="is_main" />
-                                        <field name="unauthorized" />
-                                        <field name="vip"
-                                            groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                                        <field name="is_duplicate_detected"
-                                            invisible="1" />
                                     </tree>
                                 </field>
 
-                                <separator name="address"
-                                    string="Postal Coordinates" />
-                                <field name="postal_coordinate_ids"
-                                    context="{'default_partner_id': active_id}"
-                                    attrs="{'invisible': [('active','=',False)]}">
-                                    <tree edit="1" editable="bottom"
-                                        colors="red:is_duplicate_detected==True;darkorange:unauthorized==True;green:co_residency_id!=False">
+                                <separator name="address" string="Postal Coordinates" />
+                                <field name="postal_coordinate_ids">
+                                    <tree edit="1" editable="bottom">
                                         <field name="address_id" />
                                         <field name="coordinate_category_id" />
-                                        <field name="is_main" />
-                                        <field name="unauthorized" />
-                                        <field name="vip"
-                                            groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                                        <field name="is_duplicate_detected"
-                                            invisible="1" />
-                                        <field name="co_residency_id"
-                                            invisible="1" />
                                     </tree>
                                 </field>
 
-                                <separator name="phone"
-                                    string="Phone Coordinates" />
-                                <field name="phone_coordinate_ids"
-                                    context="{'default_partner_id': active_id}"
-                                    attrs="{'invisible': [('active','=',False)]}">
-                                    <tree edit="1" editable="bottom"
-                                        colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
+                                <separator name="phone" string="Phone Coordinates" />
+                                <field name="phone_coordinate_ids">
+                                    <tree edit="1" editable="bottom">
                                         <field name="phone_id" />
                                         <field name="coordinate_category_id" />
-                                        <field name="is_main" />
-                                        <field name="unauthorized" />
-                                        <field name="vip"
-                                            groups="mozaik_base.mozaik_res_groups_vip_reader" />
-                                        <field name="is_duplicate_detected"
-                                            invisible="1" />
                                     </tree>
                                 </field>
                             </page>
@@ -97,7 +65,7 @@
         </record>
 
         <record id="natural_res_partner_action" model="ir.actions.act_window">
-            <field name="name">Natural Persons</field>
+            <field name="name">My Profile</field>
             <field name="res_model">res.partner</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>

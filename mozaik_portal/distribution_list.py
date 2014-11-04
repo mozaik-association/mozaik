@@ -32,6 +32,8 @@ from openerp.osv import orm, fields
 
 class distribution_list(orm.Model):
 
+    _inherit = "distribution.list"
+
     def _get_main_object(self, cr, uid, ids, context=None):
         return 'partner_id'
 
@@ -70,12 +72,9 @@ class distribution_list(orm.Model):
 
         return result
 
-    _inherit = "distribution.list"
-
     _columns = {
         'is_subscribed': fields.function(
-            _compute_subscribe, string='Is subscribe', type='boolean',
-            store=False),
+            _compute_subscribe, string='Is subscribed', type='boolean'),
     }
 
     def subscribe_to_newsletter(self, cr, uid, ids, context=None):

@@ -15,19 +15,19 @@
         </record>
 
         <!-- Persons -->
-        <menuitem id="partner_submenu" name="Persons"
+        <menuitem id="partner_submenu" name="Profile"
             sequence="20" parent="portal.portal_menu" />
         <menuitem id="natural_partner_submenu" sequence="20"
             parent="partner_submenu" action="natural_res_partner_action"/>
 
         <!-- Event -->
-        <menuitem id="event_submenu" name="Event"
+        <menuitem id="event_submenu" name="Events"
             sequence="30" parent="portal.portal_menu" />
         <menuitem id="event_event_submenu" sequence="20"
             parent="event_submenu" action="event_action"/>
 
         <!-- Newsletter -->
-        <menuitem id="newsletter_submenu" name="Newsletter"
+        <menuitem id="newsletter_submenu" name="Newsletters"
             sequence="40" parent="portal.portal_menu" />
         <menuitem id="newsletter_newsletter_submenu" sequence="20"
             parent="newsletter_submenu" action="newsletter_action"/>

@@ -3,7 +3,7 @@
     <data noupdate="0">
 
         <record id="event_action" model="ir.actions.act_window">
-            <field name="name">Events</field>
+            <field name="name">My Registrations</field>
             <field name="res_model">event.event</field>
             <field name="view_type">form</field>
             <field name="view_mode">kanban</field>

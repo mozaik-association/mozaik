@@ -312,7 +312,7 @@ msgstr "Adresse électronique principale"
 #: code:addons\mozaik_membership\membership_request.py:706
 #: code:addons\mozaik_membership\res_partner.py:264
 #: code:addons\mozaik_membership\res_partner.py:330
-#: code:addons\mozaik_membership\res_partner.py:423
+#: code:addons\mozaik_membership\res_partner.py:438
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -1010,6 +1010,11 @@ msgstr "Type de demande"
 
 #. module: mozaik_membership
 #: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Reset Date: proceed anyway?"
+msgstr "Poursuivre la réinitialisation de la date ?"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
 msgid "Resign"
 msgstr "Démissionner"
 
@@ -1138,7 +1143,7 @@ msgid "Transform Members to Former Members"
 msgstr "Transformer des membres en anciens membres"
 
 #. module: mozaik_membership
-#: code:addons\mozaik_membership\res_partner.py:424
+#: code:addons\mozaik_membership\res_partner.py:439
 #, python-format
 msgid "Undefined Membership State: %s"
 msgstr "Statut d'adhésion inconnu: %s"
@@ -1276,4 +1281,9 @@ msgstr ""
 #: view:res.partner:mozaik_membership.view_partner_2_form
 msgid "⇒ Pay Attention"
 msgstr "⇒ Précaution à prendre"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "⇒ Reset"
+msgstr "⇒ Réinitialiser"
 

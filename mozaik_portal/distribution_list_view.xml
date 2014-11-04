@@ -58,7 +58,7 @@
         </record>
 
         <record id="newsletter_action" model="ir.actions.act_window">
-            <field name="name">Newsletters</field>
+            <field name="name">My Subscriptions</field>
             <field name="res_model">distribution.list</field>
             <field name="view_type">form</field>
             <field name="view_mode">kanban</field>
