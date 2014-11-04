@@ -10,5 +10,9 @@
             <field name="view_id" eval="portal_view_partner_form" />
         </record>
 
+        <record id="event.act_register_event_partner" model="ir.actions.act_window">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user')])]"/>
+        </record>
+
     </data>
 </openerp>

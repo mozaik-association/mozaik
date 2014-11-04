@@ -11,7 +11,7 @@
 
         <!-- Remove messaging from portal menu -->
         <record model="ir.ui.menu" id="portal.portal_messages">
-            <field name="groups_id" eval="[(5, ref('settings_improvement.unused_features'))]"/>
+            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')])]"/>
         </record>
 
         <!-- Persons -->
@@ -22,13 +22,13 @@
 
         <!-- Event -->
         <menuitem id="event_submenu" name="Event"
-            sequence="20" parent="portal.portal_menu" />
+            sequence="30" parent="portal.portal_menu" />
         <menuitem id="event_event_submenu" sequence="20"
             parent="event_submenu" action="event_action"/>
 
         <!-- Newsletter -->
         <menuitem id="newsletter_submenu" name="Newsletter"
-            sequence="20" parent="portal.portal_menu" />
+            sequence="40" parent="portal.portal_menu" />
         <menuitem id="newsletter_newsletter_submenu" sequence="20"
             parent="newsletter_submenu" action="newsletter_action"/>
 

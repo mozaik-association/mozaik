@@ -39,7 +39,7 @@
                                 <field name="email_coordinate_ids"
                                     context="{'default_partner_id': active_id}"
                                     attrs="{'invisible': [('active','=',False)]}">
-                                    <tree editable="bottom"
+                                    <tree edit="1" editable="bottom"
                                         colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
                                         <field name="email" />
                                         <field name="coordinate_category_id" />
@@ -57,7 +57,7 @@
                                 <field name="postal_coordinate_ids"
                                     context="{'default_partner_id': active_id}"
                                     attrs="{'invisible': [('active','=',False)]}">
-                                    <tree editable="bottom"
+                                    <tree edit="1" editable="bottom"
                                         colors="red:is_duplicate_detected==True;darkorange:unauthorized==True;green:co_residency_id!=False">
                                         <field name="address_id" />
                                         <field name="coordinate_category_id" />
@@ -77,7 +77,7 @@
                                 <field name="phone_coordinate_ids"
                                     context="{'default_partner_id': active_id}"
                                     attrs="{'invisible': [('active','=',False)]}">
-                                    <tree editable="bottom"
+                                    <tree edit="1" editable="bottom"
                                         colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
                                         <field name="phone_id" />
                                         <field name="coordinate_category_id" />

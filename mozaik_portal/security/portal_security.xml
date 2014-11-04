@@ -11,5 +11,9 @@
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="0"/>
         </record>
 
+        <record id="portal.access_ir_attachment_group_portal" model="ir.model.access">
+            <field name="perm_create" eval="0"/>
+        </record>
+
     </data>
 </openerp>
