@@ -10,3 +10,4 @@ access_coordinate_category_group_portal,mozaik.coordinate.category.group.portal,
 access_address_address_group_portal,mozaik.address.address.group.portal,mozaik_address.model_address_address,base.group_portal,1,0,0,0
 access_phone_phone_group_portal,mozaik.phone.phone.group.portal,mozaik_phone.model_phone_phone,base.group_portal,1,0,0,0
 access_distribution_list_group_portal,mozaik.distribution.list.group.portal,distribution_list.model_distribution_list,base.group_portal,1,0,0,0
+access_res_group_group_portal,mozaik.res.group.group.portal,base.model_res_groups,base.group_portal,1,0,0,0
