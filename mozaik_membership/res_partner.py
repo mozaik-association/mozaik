@@ -401,6 +401,18 @@ class res_partner(orm.Model):
         return mr_obj.display_object_in_form_view(
             cr, uid, mr_id, context=context)
 
+    def button_reset_del_doc_date(self, cr, uid, ids, context=None):
+        vals = {
+            'del_doc_date': False,
+        }
+        self.write(cr, uid, ids, vals, context=context)
+
+    def button_reset_del_mem_card_date(self, cr, uid, ids, context=None):
+        vals = {
+            'del_mem_card_date': False,
+        }
+        self.write(cr, uid, ids, vals, context=context)
+
 # workflow
 
     def update_state(self, cr, uid, ids, membership_state_code, context=None):
