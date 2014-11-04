@@ -61,7 +61,7 @@ class membership_line(orm.Model):
         'date_to': fields.date('To', readonly=True),
         'price': fields.float(
             'Price', digits_compute=dp.get_precision('Product Price'),
-            help='Amount for the membership'),
+            help='Amount of the membership'),
     }
 
     _defaults = {
