@@ -230,21 +230,72 @@ AElFTkSuQmCC
             <section class="mt16 mb16">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Editez le formulaire du Comité de Sélection</td><td style="text-align: left;">Le formulaire s'ouvre</td></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Ajouter les dates de réunion et de décision</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">3</td><td style="text-align: left;">Cliquez sur <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-accept-candidature_img_01|4a9d5d6/datas" style=""/></td><td style="text-align: left;">Un message de confirmation s'ouvre</td></tr><tr><td style="text-align: left;">4</td><td style="text-align: left;">Cliquez sur "OK" pour confirmer - "Annuler" stoppe le process</td><td style="text-align: left;">Les Candidatures passent en l'état "Elu"</td></tr></tbody></table><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/></em><em style="line-height: 1.42857143; background-color: transparent;">L'acceptation s'opère sur toute la liste des Candidats. Il n'est pas possible d'accepter une Candidature individuellement.</em><div><em style="line-height: 1.42857143; background-color: transparent;"/></div><em style="line-height: 1.42857143; background-color: transparent;"/></div>
- 
-
-<div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div>
-
-<p style="text-align: left;">1/ Il n'est pas possible d'accepter des Candidatures qui n'ont pas été préalablement proposées, donc en l'état "Proposé". Le message suivant sera affiché:</p>
-
-<p style="text-align: left;"><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-accept-candidature_img_02|30b22ca/datas"/></p>
-
-<p style="text-align: left;">2/ La date de décision est obligatoire. Il ne sera pas possible d'accepter tant que celle-ci manque. Le message suivant sera affiché:</p>
-
-<p style="text-align: left;"><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-accept-candidature_img_03|f528553/datas" style=""/></p>
-
-<p style="text-align: left;"><a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a></p>
-</div>
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;">
+                            <strong>#</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Etape</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Résultat</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">1</td>
+                          <td style="text-align: left;">Editez le formulaire du Comité de Sélection</td>
+                          <td style="text-align: left;">Le formulaire s'ouvre</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">2</td>
+                          <td style="text-align: left;">Ajouter les dates de réunion et de décision</td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">3</td>
+                          <td style="text-align: left;">Cliquez sur <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-accept-candidature_img_01|4a9d5d6/datas" style=""/></td>
+                          <td style="text-align: left;">Un message de confirmation s'ouvre</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">4</td>
+                          <td style="text-align: left;">Cliquez sur "OK" pour confirmer - "Annuler" stoppe le process</td>
+                          <td style="text-align: left;">Les Candidatures passent en l'état "Elu"</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;">
+                        <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                      </em>
+                      <em style="line-height: 1.42857143; background-color: transparent;">L'acceptation s'opère sur toute la liste des Candidats. Il n'est pas possible d'accepter une Candidature individuellement.</em>
+                      <div>
+                        <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      </div>
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                    </div>
+                    <div style="text-align: left;">
+                      <strong>
+                        <em style="line-height: 1.42857143; background-color: transparent;">
+                          <span class="fa fa-exclamation-triangle fa-2x"/>
+                        </em>
+                      </strong>
+                      <strong>Exceptions</strong>
+                    </div>
+                    <p style="text-align: left;">1/ Il n'est pas possible d'accepter des Candidatures qui n'ont pas été préalablement proposées, donc en l'état "Proposé". Le message suivant sera affiché:</p>
+                    <p style="text-align: left;">
+                      <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-accept-candidature_img_02|30b22ca/datas"/>
+                    </p>
+                    <p style="text-align: left;">2/ La date de décision est obligatoire. Il ne sera pas possible d'accepter tant que celle-ci manque. Le message suivant sera affiché:</p>
+                    <p style="text-align: left;">
+                      <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-accept-candidature_img_03|f528553/datas" style=""/>
+                    </p>
+                    <p style="text-align: left;">
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -1068,40 +1119,122 @@ jbuKbZMPnR/LNDrrk5y7mWxEHcJ1GjJ9rnG1/8/+Yhg+3c1Z+mTDash7O3x6z0uP18jZTWx7G6gT
             <section class="mt16 mb16">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Sélectionnez l'option "Editeur d'échecs" dans le menu "Autres options"</td><td style="text-align: left;">L'écran suivant est proposé:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-bounce-editor_img_01|6b39f23/datas" style=""/></td></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Sélectionnez la raison de l'échec</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">3</td><td style="text-align: left;">Remplissez le champ "Description" - ce champ est obligatoire</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">4</td><td style="text-align: left;">Cliquez sur "Appliquer" pour sauver votre encodage - "Annuler" annule l'opération</td><td style="text-align: left;">Le compteur d'échec est complété manuellement. Les détails seront visibles dans la fiche de la coordonnée concernée.</td></tr></tbody></table><p style="text-align: left;"><span style="text-align: center;"/></p>
- 
-
-<div style="text-align: left;"><div/><div><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px"/> Le champ "Incrément de" dont la valeur par défaut est 1 est la valeur d'incrément qui se calculera à chaque encodage. Cette valeur va alimenter le compteur d'échec qui se trouve dans la fiche de la Coordonnée  <em style="line-height: 1.42857143; background-color: transparent;">(exemple: 4 envois, 4 retours).  <em style="line-height: 1.42857143; background-color: transparent;">Le champ "Raison" n'apparaît que pour les échecs d'envoi postaux. La liste des raisons est préparée par un utilisateur membre du groupe "Configurator".  <em style="line-height: 1.42857143; background-color: transparent;">Le champ "Description" est un champ qui accueille du texte libre. Il est obligatoire. </em> </em> </em> </em></div></div>
-
-<div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"/></div>
-
-<div style="text-align: left;"><div><div/>
- 
-
-<div><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/><em style="line-height: 1.42857143; background-color: transparent;">Toutes les informations encodées ici seront visibles dans la fiche de la coordonnée concernée. La date et heure de l'encodage est également enregistré. A partir de la fiche également, il y aura possibilité de remettre à zéro le compteur.</em></em></div>
-
-<div><em style="line-height: 1.42857143; background-color: transparent;"/><div/>
- 
-
-<div><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/></em><em style="line-height: 1.42857143; background-color: transparent;">Toutes les coordonnées ayant fait l'objet d'échec d'envoi peuvent être facilement retrouvées par l'utilisation des filtres préparés et en l'occurence le filtre "Avec échec" (voir <a href="/page/mozaik-help-filters">Recherches et Filtres</a> ). </em></div>
-</div>
-</div></div>
- 
-
-<div><p style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"/></p><div style="text-align: left;"/><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Un système d'alerte déclenchant l'envoi d'une notification aux abonnées de la personne concerné est d'application dès l'encodage d'un échec. Tous les abonnés de la personne concernée seront avertis. </em></div></div>
-
-<div><em style="line-height: 1.42857143; background-color: transparent;"/></div>
-
-<div style="text-align: center;"><p style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"/></p><div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong> Exceptions</strong><strong/></div><div style="text-align: left;"><strong/></div><p style="text-align: left;">Il sera impossible de sauvegarder tant qu'un champ marqué comme obligatoire est laissé vide ("Incrément de" et "Description")</p><p style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"/></p></div>
-
-<div><em style="line-height: 1.42857143; background-color: transparent;"/></div>
-
-<div><em style="line-height: 1.42857143; background-color: transparent;"/></div>
-
-<div/>
-
-<div style="text-align: left;"><span style="color: rgb(119, 119, 119); line-height: 1.42857143;"><span class="fa fa-reply fa-2x"/></span><a href="/page/mozaik-help-toc" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour au sommaire</a></div>
-</div>
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;">
+                            <strong>#</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Etape</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Résultat</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">1</td>
+                          <td style="text-align: left;">Sélectionnez l'option "Editeur d'échecs" dans le menu "Autres options"</td>
+                          <td style="text-align: left;">L'écran suivant est proposé:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-bounce-editor_img_01|6b39f23/datas" style=""/></td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">2</td>
+                          <td style="text-align: left;">Sélectionnez la raison de l'échec</td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">3</td>
+                          <td style="text-align: left;">Remplissez le champ "Description" - ce champ est obligatoire</td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">4</td>
+                          <td style="text-align: left;">Cliquez sur "Appliquer" pour sauver votre encodage - "Annuler" annule l'opération</td>
+                          <td style="text-align: left;">Le compteur d'échec est complété manuellement. Les détails seront visibles dans la fiche de la coordonnée concernée.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p style="text-align: left;">
+                      <span style="text-align: center;"/>
+                    </p>
+                    <div style="text-align: left;">
+                      <div/>
+                      <div>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px"/> Le champ "Incrément de" dont la valeur par défaut est 1 est la valeur d'incrément qui se calculera à chaque encodage. Cette valeur va alimenter le compteur d'échec qui se trouve dans la fiche de la Coordonnée  <em style="line-height: 1.42857143; background-color: transparent;">(exemple: 4 envois, 4 retours).  <em style="line-height: 1.42857143; background-color: transparent;">Le champ "Raison" n'apparaît que pour les échecs d'envoi postaux. La liste des raisons est préparée par un utilisateur membre du groupe "Configurator".  <em style="line-height: 1.42857143; background-color: transparent;">Le champ "Description" est un champ qui accueille du texte libre. Il est obligatoire. </em> </em> </em> </em>
+                      </div>
+                    </div>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                    </div>
+                    <div style="text-align: left;">
+                      <div>
+                        <div/>
+                        <div>
+                          <em style="line-height: 1.42857143; background-color: transparent;">
+                            <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                            <em style="line-height: 1.42857143; background-color: transparent;">Toutes les informations encodées ici seront visibles dans la fiche de la coordonnée concernée. La date et heure de l'encodage est également enregistré. A partir de la fiche également, il y aura possibilité de remettre à zéro le compteur.</em>
+                          </em>
+                        </div>
+                        <div>
+                          <em style="line-height: 1.42857143; background-color: transparent;"/>
+                          <div/>
+                          <div>
+                            <em style="line-height: 1.42857143; background-color: transparent;">
+                              <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                            </em>
+                            <em style="line-height: 1.42857143; background-color: transparent;">Toutes les coordonnées ayant fait l'objet d'échec d'envoi peuvent être facilement retrouvées par l'utilisation des filtres préparés et en l'occurence le filtre "Avec échec" (voir <a href="/page/mozaik-help-filters">Recherches et Filtres</a> ). </em>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <p style="text-align: left;">
+                        <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      </p>
+                      <div style="text-align: left;"/>
+                      <div style="text-align: left;">
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Un système d'alerte déclenchant l'envoi d'une notification aux abonnées de la personne concerné est d'application dès l'encodage d'un échec. Tous les abonnés de la personne concernée seront avertis. </em>
+                      </div>
+                    </div>
+                    <div>
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                    </div>
+                    <div style="text-align: center;">
+                      <p style="text-align: left;">
+                        <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      </p>
+                      <div style="text-align: left;">
+                        <strong>
+                          <em style="line-height: 1.42857143; background-color: transparent;">
+                            <span class="fa fa-exclamation-triangle fa-2x"/>
+                          </em>
+                        </strong>
+                        <strong> Exceptions</strong>
+                        <strong/>
+                      </div>
+                      <div style="text-align: left;">
+                        <strong/>
+                      </div>
+                      <p style="text-align: left;">Il sera impossible de sauvegarder tant qu'un champ marqué comme obligatoire est laissé vide ("Incrément de" et "Description")</p>
+                      <p style="text-align: left;">
+                        <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      </p>
+                    </div>
+                    <div>
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                    </div>
+                    <div>
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                    </div>
+                    <div/>
+                    <div style="text-align: left;">
+                      <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
+                        <span class="fa fa-reply fa-2x"/>
+                      </span>
+                      <a href="/page/mozaik-help-toc" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour au sommaire</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>
@@ -1197,15 +1330,56 @@ jbuKbZMPnR/LNDrrk5y7mWxEHcJ1GjJ9rnG1/8/+Yhg+3c1Z+mTDash7O3x6z0uP18jZTWx7G6gT
             <section class="mt16 mb16">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Editez le Comité de Sélection</td><td style="text-align: left;">Le formulaire du Comité s'ouvre</td></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Activer d'une coche l'option "Créer les mandats à l'élection"</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">3</td><td style="text-align: left;">Cliquez sur "Enregistrer" pour sauver - "Annuler" stoppe le processus</td><td style="text-align: left;">La Caractéristique de la création automatique du Mandat après élection est activée. </td></tr></tbody></table><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/><span style="background-color: rgba(200, 200, 200, 0.137255);">Les mandats seront créés automatiquement pour les candidats élus avec les dates définies. </span>Si l'option n'est pas choisie, après élection, il faudra aller créer manuellement, pour chaque candidat élu, son Mandat. </em></div><div><div style="text-align: left;"/></div>
- 
-
-<div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div>
-
-<p style="text-align: left;">Aucune</p>
-
-<p style="text-align: left;"><a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a></p>
-</div>
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;">
+                            <strong>#</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Etape</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Résultat</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">1</td>
+                          <td style="text-align: left;">Editez le Comité de Sélection</td>
+                          <td style="text-align: left;">Le formulaire du Comité s'ouvre</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">2</td>
+                          <td style="text-align: left;">Activer d'une coche l'option "Créer les mandats à l'élection"</td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">3</td>
+                          <td style="text-align: left;">Cliquez sur "Enregistrer" pour sauver - "Annuler" stoppe le processus</td>
+                          <td style="text-align: left;">La Caractéristique de la création automatique du Mandat après élection est activée. </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/><span style="background-color: rgba(200, 200, 200, 0.137255);">Les mandats seront créés automatiquement pour les candidats élus avec les dates définies. </span>Si l'option n'est pas choisie, après élection, il faudra aller créer manuellement, pour chaque candidat élu, son Mandat. </em>
+                    </div>
+                    <div>
+                      <div style="text-align: left;"/>
+                    </div>
+                    <div style="text-align: left;">
+                      <strong>
+                        <em style="line-height: 1.42857143; background-color: transparent;">
+                          <span class="fa fa-exclamation-triangle fa-2x"/>
+                        </em>
+                      </strong>
+                      <strong>Exceptions</strong>
+                    </div>
+                    <p style="text-align: left;">Aucune</p>
+                    <p style="text-align: left;">
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -3415,7 +3589,9 @@ H/HxyHIAAoQdAAAAAElFTkSuQmCC
                     <div/>
                     <div>
                       <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                      <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                      <span style="background-color: rgba(200, 200, 200, 0.137255);">
+                        <a href="/page/mozaik-help-toc">Retour au sommaire</a>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -3568,7 +3744,7 @@ QP0P4U5g99SRogIAAAAASUVORK5CYII=
                           <span style="line-height: 1.42857143; font-size: 14px; background-color: transparent;">Remplissez les champs (au moins les champs obligatoires - en bleu) </span>
                           <span style="line-height: 1.42857143; font-size: 14px; background-color: transparent;">en sélectionnant une valeur dans la liste</span>
                         </td>
-                        <td></td>
+                        <td/>
                       </tr>
                       <tr>
                         <td>3</td>
@@ -3711,19 +3887,30 @@ bO3CNNL3Dx061FprocLOHetTbHEpaOjQoTfqemCTQopP38Ybh7KQAlKsO1TsJUgBKda9DxFSQIov
           <section class="mb16 mt0">
             <div class="container">
               <div class="row">
-                <div class="col-md-12 text-center mt16 mb32"><h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">Créer et modifier</h2><p style="text-align: left;"><span class="fa fa-flag fa-2x"/><strong> Localisation</strong>
+                <div class="col-md-12 text-center mt16 mb32">
+                  <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">Créer et modifier</h2>
+                  <p style="text-align: left;"><span class="fa fa-flag fa-2x"/><strong> Localisation</strong>
                     : Option
                     <em>Créer et Modifier</em>
                     dans une liste déroulante
                   </p>
- 
-
                   <p style="text-align: left;">Certaines listes déroulantes vous permette de rajouter (créer) une nouvelle valeur qui ne vous serait pas proposée.</p>
-                  <p style="text-align: left;"><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-createandedit_img_01|5b47072/datas" style=""/></p>
-                  <p style="text-align: left;"><span style="line-height: 1.42857143;">Soyez vigilants lors de cette création. La gestion complète de ces valeurs (création, mise à jour, suppression) est octroyée à des ayant des privilèges avancés, ce qui ne serait pas forcément votre cas.</span></p>
-                  <p style="text-align: left;"><span style="line-height: 1.42857143;"/></p>
+                  <p style="text-align: left;">
+                    <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-createandedit_img_01|5b47072/datas" style=""/>
+                  </p>
+                  <p style="text-align: left;">
+                    <span style="line-height: 1.42857143;">Soyez vigilants lors de cette création. La gestion complète de ces valeurs (création, mise à jour, suppression) est octroyée à des ayant des privilèges avancés, ce qui ne serait pas forcément votre cas.</span>
+                  </p>
+                  <p style="text-align: left;">
+                    <span style="line-height: 1.42857143;"/>
+                  </p>
                   <div/>
-                  <div style="text-align: left;"><span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/><a href="/page/mozaik-help-toc"><span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span></a></div>
+                  <div style="text-align: left;">
+                    <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
+                    <a href="/page/mozaik-help-toc">
+                      <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -4735,21 +4922,88 @@ CIUmG1oUEkKhCaHQhFBoQig0odCEUGhCKDQhFJoQCk0oNCEUmhAKTcgvErpwJ5DHobgs3AvkUZDs
                   <section class="mt16 mb16">
                     <div class="container">
                       <div class="row">
-                        <div class="col-md-12 text-center mt16 mb32" style="width: 1170px;"><table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Affichez la liste des Personnes pré-sélectionnées d'un des modèles virtuels proposés</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Affinez éventuellement votre sélection (voir "  <a href="/page/mozaik-help-filters">Recherche et Filtres</a>")</td><td style="text-align: left;">La liste des Personnes est mise à jour</td></tr><tr><td style="text-align: left;">3</td><td style="text-align: left;">Sélectionnez tous les objets de votre liste en cochant la case en tête de colonne</td><td style="text-align: left;">Toutes les Personnes sont sélectionnées</td></tr><tr><td style="text-align: left;">4</td><td style="text-align: left;">Sélectionnez l'option "Ajouter ce filtre à une liste de distribution"</td><td style="text-align: left;">L'écran suivant s'ouvre:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-distribution-list-add-filter_img_01|c6c0e14/datas" style=""/></td></tr><tr><td style="text-align: left;">5</td><td style="text-align: left;">Donnez un nom à votre filtre</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">6</td><td style="text-align: left;">Sélectionnez dans la liste déroulante la Liste de distribution ou la Lettre d'information à laquelle le filtre doit être ajouté - cliquez sur la coche "Exclure" si vous souhaitez que votre sélection soit à exclure</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">7</td><td style="text-align: left;">Cliquez sur "Ajouter" pour confirmer - "Annuler" stoppe le processus</td><td style="text-align: left;">Le filtre est créé et ajouté directement à une Liste de distribution</td></tr></tbody></table><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"/><div/><div><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  La gestion des filtres, incluant la création, peut également se faire via la fiche d'une Liste de distribution ou Lettre d'information: Editez la fiche et cliquez sur "Ajouter un élément" dans la colonne "Filtres à inclure" pour l'inclure ou "Filtres à exclure" si'il faut l'exclure. Enregistrez vos modifications, le ou les filtres sont ajoutés à la Liste de distribution ou la Lettre d'information. Notez qu'il existe un troisième chemin pour créer un filtre, toutefois moins recommandé: </em><em style="line-height: 1.42857143; background-color: transparent;">via le menu "Filtres", cliquez sur "Créer". Il vous faudra choisir un nom et le modèle source (modèle sur lequel la recherche est faite): choisissez "Partenaire" dans le cas d'un filtre à excercer sur les Personnes. </em></div></div><div><div style="text-align: left;"/></div>
- 
-
-<div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div>
-
-<p style="text-align: left;"><strong>Nom unique pour un filtre: </strong>le nom d'un filtre est unique, si vous tentez de créer un filtre qui existe déjà, le message suivant s'affiche:</p>
-
-<p style="text-align: left;"><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-distribution-list-add-filter_img_02|48bf9c3/datas" style=""/></p>
-
-<p style="text-align: left;"><strong>Sélection incomplète: </strong> une fois le tri effectué, il faut sélectionner tous les objets (cocher la case en tête de colonne). Dans le cas contraire, le message suivant s'affiche:</p>
-
-<p style="text-align: left;"><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-distribution-list-add-filter_img_03|80e247a/datas" style=""/></p>
-
-<p style="text-align: left;"><a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x"/> Retour au sommaire </a></p>
-</div>
+                        <div class="col-md-12 text-center mt16 mb32" style="width: 1170px;">
+                          <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
+                            <tbody>
+                              <tr>
+                                <td style="text-align: left;">
+                                  <strong>#</strong>
+                                </td>
+                                <td style="text-align: left;">
+                                  <strong>Etape</strong>
+                                </td>
+                                <td style="text-align: left;">
+                                  <strong>Résultat</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="text-align: left;">1</td>
+                                <td style="text-align: left;">Affichez la liste des Personnes pré-sélectionnées d'un des modèles virtuels proposés</td>
+                                <td style="text-align: left;"/>
+                              </tr>
+                              <tr>
+                                <td style="text-align: left;">2</td>
+                                <td style="text-align: left;">Affinez éventuellement votre sélection (voir "  <a href="/page/mozaik-help-filters">Recherche et Filtres</a>")</td>
+                                <td style="text-align: left;">La liste des Personnes est mise à jour</td>
+                              </tr>
+                              <tr>
+                                <td style="text-align: left;">3</td>
+                                <td style="text-align: left;">Sélectionnez tous les objets de votre liste en cochant la case en tête de colonne</td>
+                                <td style="text-align: left;">Toutes les Personnes sont sélectionnées</td>
+                              </tr>
+                              <tr>
+                                <td style="text-align: left;">4</td>
+                                <td style="text-align: left;">Sélectionnez l'option "Ajouter ce filtre à une liste de distribution"</td>
+                                <td style="text-align: left;">L'écran suivant s'ouvre:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-distribution-list-add-filter_img_01|c6c0e14/datas" style=""/></td>
+                              </tr>
+                              <tr>
+                                <td style="text-align: left;">5</td>
+                                <td style="text-align: left;">Donnez un nom à votre filtre</td>
+                                <td style="text-align: left;"/>
+                              </tr>
+                              <tr>
+                                <td style="text-align: left;">6</td>
+                                <td style="text-align: left;">Sélectionnez dans la liste déroulante la Liste de distribution ou la Lettre d'information à laquelle le filtre doit être ajouté - cliquez sur la coche "Exclure" si vous souhaitez que votre sélection soit à exclure</td>
+                                <td style="text-align: left;"/>
+                              </tr>
+                              <tr>
+                                <td style="text-align: left;">7</td>
+                                <td style="text-align: left;">Cliquez sur "Ajouter" pour confirmer - "Annuler" stoppe le processus</td>
+                                <td style="text-align: left;">Le filtre est créé et ajouté directement à une Liste de distribution</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div style="text-align: left;">
+                            <em style="line-height: 1.42857143; background-color: transparent;"/>
+                            <div/>
+                            <div>
+                              <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  La gestion des filtres, incluant la création, peut également se faire via la fiche d'une Liste de distribution ou Lettre d'information: Editez la fiche et cliquez sur "Ajouter un élément" dans la colonne "Filtres à inclure" pour l'inclure ou "Filtres à exclure" si'il faut l'exclure. Enregistrez vos modifications, le ou les filtres sont ajoutés à la Liste de distribution ou la Lettre d'information. Notez qu'il existe un troisième chemin pour créer un filtre, toutefois moins recommandé: </em>
+                              <em style="line-height: 1.42857143; background-color: transparent;">via le menu "Filtres", cliquez sur "Créer". Il vous faudra choisir un nom et le modèle source (modèle sur lequel la recherche est faite): choisissez "Partenaire" dans le cas d'un filtre à excercer sur les Personnes. </em>
+                            </div>
+                          </div>
+                          <div>
+                            <div style="text-align: left;"/>
+                          </div>
+                          <div style="text-align: left;">
+                            <strong>
+                              <em style="line-height: 1.42857143; background-color: transparent;">
+                                <span class="fa fa-exclamation-triangle fa-2x"/>
+                              </em>
+                            </strong>
+                            <strong>Exceptions</strong>
+                          </div>
+                          <p style="text-align: left;"><strong>Nom unique pour un filtre: </strong>le nom d'un filtre est unique, si vous tentez de créer un filtre qui existe déjà, le message suivant s'affiche:</p>
+                          <p style="text-align: left;">
+                            <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-distribution-list-add-filter_img_02|48bf9c3/datas" style=""/>
+                          </p>
+                          <p style="text-align: left;"><strong>Sélection incomplète: </strong> une fois le tri effectué, il faut sélectionner tous les objets (cocher la case en tête de colonne). Dans le cas contraire, le message suivant s'affiche:</p>
+                          <p style="text-align: left;">
+                            <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-distribution-list-add-filter_img_03|80e247a/datas" style=""/>
+                          </p>
+                          <p style="text-align: left;">
+                            <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x"/> Retour au sommaire </a>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </section>
@@ -5226,29 +5480,89 @@ HB9bteqhmfNG6ne1+lSN8A48WAnynO7hU3q184mpzBPz7AMrcmuvt29F61S5ttqalsm2O7QW/Kue
             <section class="mt16 mb16">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb128"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Cliquez sur l'icône <img src="/website/image/ir.attachment/mozaik-help-distribution-list-mass-function_img_01|67592a2/datas"/></td><td style="text-align: left;">L'écran suivant est proposé:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-distribution-list-mass-function_img_02|49edb27/datas" style=""/></td></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Sélectionnez le mode d'envoi souhaité:
-			<ul><li>coordonnée électronique: envoi par email</li><li>coordonnée postale: envoi postal</li></ul></td><td style="text-align: left;">L'écran s'adapte en fonction du choix, présentant des options différentes</td></tr><tr><td style="text-align: left;">3</td><td style="text-align: left;">Sélectionnez les fonctionnalités de masse souhaitées (sur base du mode d'envoi sélectionné: 
-			<ul><li>Courriels de masse: pour des envois d'email en masse </li><li>Extraction CSV: souhait d'extraire les coordonnées choisies en format CSV (voir  <a href="/page/mozaik-help-export-csv">Export CSV</a>)</li><li>Extraction VCARD (voir  <a href="/page/mozaik-help-export-vcard">Export VCARD</a>)</li><li>Impression d'étiquettes</li></ul></td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">4</td><td style="text-align: left;">Sélectionnez les caractéristiques de l'envoi
-			<ul><li><strong>Inclure les interdits</strong>: cochez la case si vous souhaitez que les coordonnées marquées "interdites" soient incluses dans votre envoi de masse</li><li><strong>Nombre d'échec maximum</strong>: encodez le nombre d'échec maximum autorisé (par exemple 2: toutes les coordonnées où un nombre plus grand que 2 échecs est associé ne seront PAS incluses dans votre envoi de masse</li><li><strong>Instance interne</strong>: définissez l'instance interne comme filtre complémentaire: ne seront incluses dans votre envoi de masse que les coordonnées des Personnes appartenant à cette instance ou aux enfants de cette instance</li></ul></td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">5</td><td style="text-align: left;">Sélectionner ou définissez les options souhaitées (sur base du mode d'envoi sélectionné)
+                  <div class="col-md-12 text-center mt16 mb128">
+                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;">
+                            <strong>#</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Etape</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Résultat</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">1</td>
+                          <td style="text-align: left;">Cliquez sur l'icône <img src="/website/image/ir.attachment/mozaik-help-distribution-list-mass-function_img_01|67592a2/datas"/></td>
+                          <td style="text-align: left;">L'écran suivant est proposé:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-distribution-list-mass-function_img_02|49edb27/datas" style=""/></td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">2</td>
+                          <td style="text-align: left;">Sélectionnez le mode d'envoi souhaité:
+			<ul><li>coordonnée électronique: envoi par email</li><li>coordonnée postale: envoi postal</li></ul></td>
+                          <td style="text-align: left;">L'écran s'adapte en fonction du choix, présentant des options différentes</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">3</td>
+                          <td style="text-align: left;">Sélectionnez les fonctionnalités de masse souhaitées (sur base du mode d'envoi sélectionné: 
+			<ul><li>Courriels de masse: pour des envois d'email en masse </li><li>Extraction CSV: souhait d'extraire les coordonnées choisies en format CSV (voir  <a href="/page/mozaik-help-export-csv">Export CSV</a>)</li><li>Extraction VCARD (voir  <a href="/page/mozaik-help-export-vcard">Export VCARD</a>)</li><li>Impression d'étiquettes</li></ul></td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">4</td>
+                          <td style="text-align: left;">Sélectionnez les caractéristiques de l'envoi
+			<ul><li><strong>Inclure les interdits</strong>: cochez la case si vous souhaitez que les coordonnées marquées "interdites" soient incluses dans votre envoi de masse</li><li><strong>Nombre d'échec maximum</strong>: encodez le nombre d'échec maximum autorisé (par exemple 2: toutes les coordonnées où un nombre plus grand que 2 échecs est associé ne seront PAS incluses dans votre envoi de masse</li><li><strong>Instance interne</strong>: définissez l'instance interne comme filtre complémentaire: ne seront incluses dans votre envoi de masse que les coordonnées des Personnes appartenant à cette instance ou aux enfants de cette instance</li></ul></td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">5</td>
+                          <td style="text-align: left;">Sélectionner ou définissez les options souhaitées (sur base du mode d'envoi sélectionné)
 			<ul><li><strong>pour envoi d'email en masse</strong> (onglet Courriels de masse)
 				<ul><li>Spécifiez un nom pour votre courriel si vous souhaitez garder une trace (historique)</li><li>Choisissez un modèle de texte pour votre courriel (créé au préalable)</li><li>Cochez l'option "CSV complémentaire pour envoi postal" si vous souhaitez qu'une extraction CSV soit automatiquement exécutée pour tous les destinataires qui manqueraient d'une adresse email - Dans ce cas, un onglet "envoi postal" (voir ci-dessous)</li></ul></li><li>Pour <strong>envoi de courriers postaux </strong>(onglet "Envoi postal de masse")
 				<ul><li>Spécifiez un nom pour votre envoi postal si vous souhaitez garder une trace (historique)</li><li>Choisissez une option de tri
-					<ul><li>alphabétique sur le  nom, </li><li>basé sur le numéro d'identification au sein du parti,</li><li>basé sur code postal (pays, code postal)</li></ul></li><li>Cochez l'option "Grouper par Co-Résidence" si vous souhaitez le regroupement par Co-Résidence (notez que dans ce cas ce sera le nom spécifié pour la Co-résidence qui apparaitra (voir  <a href="/page/mozaik-help-co-residency">Co-Résidence</a>).</li></ul></li></ul></td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">6</td><td style="text-align: left;">Cliquez sur "Exécuter" pour lancer le processus - "Annuler" stoppe le processus</td><td style="text-align: left;">La fonctionnalité de masse est lançée</td></tr></tbody></table><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Si votre envoi de masse concerne les listes de distribution relatives à l'envoi des cartes de membre et/ou des documents de bienvenue (envoi postal), et pour peu que vous avez décidé d'historiser l'envoi, l'application vous proposera d'enregistrer la date d'envoi des documents - Celle-ci sera enregistrée sur les fiches de toutes les personnes concernées par l'envoi. L'enregistrement d'une telle date assurera que les documents ne sont pas envoyés plusieurs fois. Si toutefois vous souhaitez envoyer une seconde fois ces documents, il vous suffit d'enlever la date et la personne sera automatiquement réincluse dans la liste de distribution. </em></div>
- 
-
-<div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"/><div/><div><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Les modèles de courriels doivent être rédigés au préalable, c'est une donnée obligatoire pour pouvoir envoyer les courriels.  </em></div><em style="line-height: 1.42857143; background-color: transparent;"/></div>
- 
-
-<div><div style="text-align: left;"/></div>
-
-<div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div>
-
-<p style="text-align: left;"><strong>Aucun destinataire:</strong> si la liste de distribution ne concerne personne et que vous tentez de l'utiliser pour envoyer un courrier, voici le message qui sera affiché:</p>
-
-<p style="text-align: left;"><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-distribution-list-mass-function_img_03|68e67ae/datas" style=""/></p>
-
-<p style="text-align: left;"><a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a></p>
-</div>
+					<ul><li>alphabétique sur le  nom, </li><li>basé sur le numéro d'identification au sein du parti,</li><li>basé sur code postal (pays, code postal)</li></ul></li><li>Cochez l'option "Grouper par Co-Résidence" si vous souhaitez le regroupement par Co-Résidence (notez que dans ce cas ce sera le nom spécifié pour la Co-résidence qui apparaitra (voir  <a href="/page/mozaik-help-co-residency">Co-Résidence</a>).</li></ul></li></ul></td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">6</td>
+                          <td style="text-align: left;">Cliquez sur "Exécuter" pour lancer le processus - "Annuler" stoppe le processus</td>
+                          <td style="text-align: left;">La fonctionnalité de masse est lançée</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Si votre envoi de masse concerne les listes de distribution relatives à l'envoi des cartes de membre et/ou des documents de bienvenue (envoi postal), et pour peu que vous avez décidé d'historiser l'envoi, l'application vous proposera d'enregistrer la date d'envoi des documents - Celle-ci sera enregistrée sur les fiches de toutes les personnes concernées par l'envoi. L'enregistrement d'une telle date assurera que les documents ne sont pas envoyés plusieurs fois. Si toutefois vous souhaitez envoyer une seconde fois ces documents, il vous suffit d'enlever la date et la personne sera automatiquement réincluse dans la liste de distribution. </em>
+                    </div>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      <div/>
+                      <div>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Les modèles de courriels doivent être rédigés au préalable, c'est une donnée obligatoire pour pouvoir envoyer les courriels.  </em>
+                      </div>
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                    </div>
+                    <div>
+                      <div style="text-align: left;"/>
+                    </div>
+                    <div style="text-align: left;">
+                      <strong>
+                        <em style="line-height: 1.42857143; background-color: transparent;">
+                          <span class="fa fa-exclamation-triangle fa-2x"/>
+                        </em>
+                      </strong>
+                      <strong>Exceptions</strong>
+                    </div>
+                    <p style="text-align: left;"><strong>Aucun destinataire:</strong> si la liste de distribution ne concerne personne et que vous tentez de l'utiliser pour envoyer un courrier, voici le message qui sera affiché:</p>
+                    <p style="text-align: left;">
+                      <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-distribution-list-mass-function_img_03|68e67ae/datas" style=""/>
+                    </p>
+                    <p style="text-align: left;">
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -11138,18 +11452,57 @@ tV1t7b9bXGTWSBAbDgAAAABJRU5ErkJggg==
             <section class="mt16 mb16">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Affichez l'historique des Courriels </td><td style="text-align: left;">Les différents envois emails sont affichés</td></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Cliquez sur l'un des objets listés</td><td style="text-align: left;">Le détail et informations statistiques sont accessibles</td></tr></tbody></table><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/></em><em>  Cet historique n'est alimenté que si un nom a été donné à l'envoi email dans le dialogue d'envoi de masse (voir  <a href="/page/mozaik-help-distribution-list">Listes de distribution</a>).</em><em style="line-height: 1.42857143; background-color: transparent;"/></div>
- 
-
-<div><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Le détail présente les informations suivantes: combien de coordonnées email concernées, l'expéditeurs, la liste de distribution utilisée, le sujet de l'email ainsi que son contenu. De plus, des statistiques sont affichées telles que combien d'email envoyés, reçus, ouverts, ...</em></div></div>
- 
-
-<div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div>
-
-<p style="text-align: left;">Aucune</p>
-
-<p style="text-align: left;"><a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a></p>
-</div>
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;">
+                            <strong>#</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Etape</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Résultat</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">1</td>
+                          <td style="text-align: left;">Affichez l'historique des Courriels </td>
+                          <td style="text-align: left;">Les différents envois emails sont affichés</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">2</td>
+                          <td style="text-align: left;">Cliquez sur l'un des objets listés</td>
+                          <td style="text-align: left;">Le détail et informations statistiques sont accessibles</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;">
+                        <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                      </em>
+                      <em>  Cet historique n'est alimenté que si un nom a été donné à l'envoi email dans le dialogue d'envoi de masse (voir  <a href="/page/mozaik-help-distribution-list">Listes de distribution</a>).</em>
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                    </div>
+                    <div>
+                      <div style="text-align: left;">
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Le détail présente les informations suivantes: combien de coordonnées email concernées, l'expéditeurs, la liste de distribution utilisée, le sujet de l'email ainsi que son contenu. De plus, des statistiques sont affichées telles que combien d'email envoyés, reçus, ouverts, ...</em>
+                      </div>
+                    </div>
+                    <div style="text-align: left;">
+                      <strong>
+                        <em style="line-height: 1.42857143; background-color: transparent;">
+                          <span class="fa fa-exclamation-triangle fa-2x"/>
+                        </em>
+                      </strong>
+                      <strong>Exceptions</strong>
+                    </div>
+                    <p style="text-align: left;">Aucune</p>
+                    <p style="text-align: left;">
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -11411,8 +11764,9 @@ tV1t7b9bXGTWSBAbDgAAAABJRU5ErkJggg==
 			<div><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  La date d'échéance pour les Mandats politiques n'est pas éditable, elle est liée à la Législature</em></div>
 			</td>
                               <td>Les dates sont modifiées</td>
-                              <td><br/>
-			 </td>
+                              <td>
+                                <br/>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
@@ -11986,7 +12340,9 @@ Demandes d'adhésion</div>
                         <div>
                           <strong>
                             <em style="line-height: 1.42857143; background-color: transparent;">
-                              <span tabindex="-1"><span class="fa fa-exclamation-triangle fa-2x" data-widget="icons"/> </span>
+                              <span tabindex="-1">
+                                <span class="fa fa-exclamation-triangle fa-2x" data-widget="icons"/>
+                              </span>
                             </em>
                           </strong>
                           <strong>Exceptions</strong>
@@ -12296,7 +12652,9 @@ TkSuQmCC
                     <span style="line-height: 1.42857143;">Bouton disponible dans la fiche d'une Demande d'adhésion.</span>
                   </p>
                   <p style="text-align: left;">
-                    <span style="line-height: 1.42857143;"><span class="fa fa-user fa-2x" style=""/>  </span>
+                    <span style="line-height: 1.42857143;">
+                      <span class="fa fa-user fa-2x" style=""/>
+                    </span>
                     <span style="line-height: 1.42857143;"><strong>Audience: </strong>Officier Mozaik (voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a> ). </span>
                   </p>
                   <p style="text-align: left;">
@@ -12392,7 +12750,9 @@ TkSuQmCC
                         </div>
                         <div>
                           <strong>
-                            <em style="line-height: 1.42857143; background-color: transparent;"><span tabindex="-1"/> </em>
+                            <em style="line-height: 1.42857143; background-color: transparent;">
+                              <span tabindex="-1"/>
+                            </em>
                           </strong>
                         </div>
                       </div>
@@ -12401,7 +12761,7 @@ TkSuQmCC
                         <em>Cycle de vie d'une Adhésion</em>
                       </a>
                       <em style="line-height: 1.42857143; background-color: transparent;">
-                        <em style="line-height: 1.42857143; background-color: transparent;">) - <em style="line-height: 1.42857143; background-color: transparent;">Un onglet "Adhésion" se crée dans la fiche de la Personne. Cet onglet permettra la gestion future de l'Adhésion (voir </em><a href="/page/mozaik-help-membership" style="background-color: rgb(255, 255, 255);"><em>Adhésions</em> </a><em style="line-height: 1.42857143; background-color: transparent;">).</em></em>
+                        <em style="line-height: 1.42857143; background-color: transparent;">) - <em style="line-height: 1.42857143; background-color: transparent;">Un onglet "Adhésion" se crée dans la fiche de la Personne. Cet onglet permettra la gestion future de l'Adhésion (voir </em><a href="/page/mozaik-help-membership" style="background-color: rgb(255, 255, 255);"><em>Adhésions</em></a><em style="line-height: 1.42857143; background-color: transparent;">).</em></em>
                       </em>
                     </div>
                     <div>
@@ -12707,20 +13067,68 @@ AAAASUVORK5CYII=
             <section class="mt16 mb16">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Affichez les Listes de distribution en mode Liste</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Sélectionnez au moins deux Listes à fusionner et sélectionner l'option "Merge Distribution List(s) into" dans le menu "Autres options"</td><td style="text-align: left;">L'écran suivant s'ouvre:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-merge-distribution-list_img_01|73f22c1/datas" style=""/></td></tr><tr><td style="text-align: left;">3</td><td style="text-align: left;">Choisissez dans la liste déroulante la liste de distribution cible ou créez une nouvelle si besoin (voir " <a href="/page/mozaik-help-createandedit">Créer et Editer</a>")</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">4</td><td style="text-align: left;">Cliquez sur "OK" pour confirmer votre fusion - "Annuler" stoppe le processus</td><td style="text-align: left;">La Liste de distribution cible est composée des filtres des Listes sources.</td></tr></tbody></table><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Il n'y a pas de fusion des données concernant les propriétaires et les instances des listes.  </em></div>
- 
-
-<div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"/><div/><div><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Si le filtre est déjà présent dans la liste cible, celui-ci ne sera pas repris une deuxième fois.  </em></div></div>
- 
-
-<div><div style="text-align: left;"/></div>
-
-<div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div>
-
-<p style="text-align: left;">Aucune</p>
-
-<p style="text-align: left;"><a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a></p>
-</div>
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;">
+                            <strong>#</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Etape</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Résultat</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">1</td>
+                          <td style="text-align: left;">Affichez les Listes de distribution en mode Liste</td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">2</td>
+                          <td style="text-align: left;">Sélectionnez au moins deux Listes à fusionner et sélectionner l'option "Merge Distribution List(s) into" dans le menu "Autres options"</td>
+                          <td style="text-align: left;">L'écran suivant s'ouvre:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-merge-distribution-list_img_01|73f22c1/datas" style=""/></td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">3</td>
+                          <td style="text-align: left;">Choisissez dans la liste déroulante la liste de distribution cible ou créez une nouvelle si besoin (voir " <a href="/page/mozaik-help-createandedit">Créer et Editer</a>")</td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">4</td>
+                          <td style="text-align: left;">Cliquez sur "OK" pour confirmer votre fusion - "Annuler" stoppe le processus</td>
+                          <td style="text-align: left;">La Liste de distribution cible est composée des filtres des Listes sources.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Il n'y a pas de fusion des données concernant les propriétaires et les instances des listes.  </em>
+                    </div>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      <div/>
+                      <div>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Si le filtre est déjà présent dans la liste cible, celui-ci ne sera pas repris une deuxième fois.  </em>
+                      </div>
+                    </div>
+                    <div>
+                      <div style="text-align: left;"/>
+                    </div>
+                    <div style="text-align: left;">
+                      <strong>
+                        <em style="line-height: 1.42857143; background-color: transparent;">
+                          <span class="fa fa-exclamation-triangle fa-2x"/>
+                        </em>
+                      </strong>
+                      <strong>Exceptions</strong>
+                    </div>
+                    <p style="text-align: left;">Aucune</p>
+                    <p style="text-align: left;">
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -16915,7 +17323,7 @@ Mozaik propose une gestion de ces doublons (voir <a href="/page/mozaik-help-allo
 			3. Sélectionnez la coordonnée à ajouter ainsi que ses caractéristiques (choisir dans la liste ou créer une nouvelle - voir <a href="/page/mozaik-help-createandedit">Créer et modifier</a> ) - dans le cas de l'Email, encodez l'adresse<br/>
 			4. Cliquez sur "Enregistrer &amp; fermer" pour n'ajouter que cette coordonnée, sur "Enregistrer &amp; créer" pour continuer l'ajout - "Annuler" stoppe le processus.</td>
                               <td>L'onglet "Coordonnées" est modifié.</td>
-                              <td></td>
+                              <td/>
                             </tr>
                           </tbody>
                         </table>
@@ -16935,7 +17343,7 @@ Mozaik propose une gestion de ces doublons (voir <a href="/page/mozaik-help-allo
 			<ul><li>note interne: texte libre</li><li>Site web (+ deuxième site web)</li><li>Adresses Facebook ou Twitter</li><li>Civilité (choisir dans la liste ou créer une nouvelle - voir <a href="/page/mozaik-help-createandedit">Créer et modifier</a> )</li><li>Fonction occupée</li><li>Statut marital - choix dans une liste fixe de trois statuts</li></ul><p>3. Cliquez sur "Enregistrer" pour sauver vos modifications - "Annuler" stoppe le processus</p>
 			</td>
                               <td>L'onglet "Notes Internes" est modifié.</td>
-                              <td></td>
+                              <td/>
                             </tr>
                           </tbody>
                         </table>
@@ -16953,7 +17361,7 @@ Mozaik propose une gestion de ces doublons (voir <a href="/page/mozaik-help-allo
 			<ul><li>Compétences</li><li>Intérêts</li><li>Etiquette</li></ul><p>3. Cliquez sur "Enregistrer" pour sauver vos modifications - "Annuler" stoppe le processus</p>
 			</td>
                               <td>L'onglet "Indexation" est modifié.</td>
-                              <td></td>
+                              <td/>
                             </tr>
                           </tbody>
                         </table>
@@ -16963,8 +17371,8 @@ Mozaik propose une gestion de ces doublons (voir <a href="/page/mozaik-help-allo
                             <tbody>
                               <tr>
                                 <td>Etapes</td>
-                              <td>Résultat</td>
-                              <td>Audience</td>
+                                <td>Résultat</td>
+                                <td>Audience</td>
                               </tr>
                               <tr>
                                 <td>1. Editez la fiche de la Personne<br/>
@@ -16973,7 +17381,7 @@ Mozaik propose une gestion de ces doublons (voir <a href="/page/mozaik-help-allo
 			4. Cliquez sur "Enregistrer &amp; fermer" pour n'ajouter que cette coordonnée, sur "Enregistrer &amp; créer" pour continuer l'ajout - "Annuler" stoppe le processus.</p>
 			</td>
                                 <td>L'onglet "Participations" est modifié.</td>
-                                <td></td>
+                                <td/>
                               </tr>
                             </tbody>
                           </table>
@@ -16994,7 +17402,7 @@ Mozaik propose une gestion de ces doublons (voir <a href="/page/mozaik-help-allo
 			4. Cliquez sur "Enregistrer &amp; fermer" pour n'ajouter que ce Mandat, sur "Enregistrer &amp; créer" pour continuer l'ajout - "Annuler" stoppe le processus.</p>
 			</td>
                                 <td>L'onglet "Mandats" est modifié.</td>
-                                <td></td>
+                                <td/>
                               </tr>
                             </tbody>
                           </table>
@@ -17014,7 +17422,7 @@ Mozaik propose une gestion de ces doublons (voir <a href="/page/mozaik-help-allo
 			4. Cliquez sur "Enregistrer &amp; fermer" pour n'ajouter que cette Candidature, sur "Enregistrer &amp; créer" pour continuer l'ajout - "Annuler" stoppe le processus.</p>
 			</td>
                                   <td>L'onglet "Mandats" est modifié.</td>
-                                  <td></td>
+                                  <td/>
                                 </tr>
                               </tbody>
                             </table>
@@ -17700,21 +18108,61 @@ VS2M1q3FYQAAAABJRU5ErkJggg==
             <section class="mt16 mb16">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">En vue liste, sélectionnez la ou les Rétrocessions pour lesquelles une demande de paiement doit être générée</td><td style="text-align: left;">Le menu "Imprimer" s'affiche</td></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Sélectionnez dans le menu "Imprimer" l'option "Demande de Paiement"</td><td style="text-align: left;">Un fichier contenant les demandes de paiement est généré et téléchargé sur votre station de travail à des fins d'impression.</td></tr></tbody></table><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Les demandes de paiement peuvent être générées autant de fois que désiré, et ce, peu importe le statut de la Rétrocession. </em></div>
- 
-
-<div><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Au besoin, les demandes de paiement peuvent être directement envoyée au Mandataire par email. Utilisez à cette fin, à partir de la fiche de la Rétrocession concernée, le bouton <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-retrocession-requestforpayment_img_01|71690c2/datas" style=""/> . La demande sera envoyée en pièce jointe à l'adresse email associée au Mandat. Si aucune adresse n'est spécifiée pour le Mandat précis, c'est l'adresse email principale qui sera utilisée. L'envoi de demande par mail n'est pas disponible pour une multiple sélection. </em></div></div>
- 
-
-<div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"/><div/><div><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Le document généré est en format PDF (nécessitant un logiciel de lecture de ce format installé sur la station de travail). Un seul fichier est généré, qui contiendra la ou les demandes (avec un saut de page).</em></div><em style="line-height: 1.42857143; background-color: transparent;"/></div>
- 
-
-<div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div>
-
-<p style="text-align: left;">Aucune</p>
-
-<p style="text-align: left;"><a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a></p>
-</div>
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;">
+                            <strong>#</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Etape</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Résultat</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">1</td>
+                          <td style="text-align: left;">En vue liste, sélectionnez la ou les Rétrocessions pour lesquelles une demande de paiement doit être générée</td>
+                          <td style="text-align: left;">Le menu "Imprimer" s'affiche</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">2</td>
+                          <td style="text-align: left;">Sélectionnez dans le menu "Imprimer" l'option "Demande de Paiement"</td>
+                          <td style="text-align: left;">Un fichier contenant les demandes de paiement est généré et téléchargé sur votre station de travail à des fins d'impression.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Les demandes de paiement peuvent être générées autant de fois que désiré, et ce, peu importe le statut de la Rétrocession. </em>
+                    </div>
+                    <div>
+                      <div style="text-align: left;">
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Au besoin, les demandes de paiement peuvent être directement envoyée au Mandataire par email. Utilisez à cette fin, à partir de la fiche de la Rétrocession concernée, le bouton <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-retrocession-requestforpayment_img_01|71690c2/datas" style=""/> . La demande sera envoyée en pièce jointe à l'adresse email associée au Mandat. Si aucune adresse n'est spécifiée pour le Mandat précis, c'est l'adresse email principale qui sera utilisée. L'envoi de demande par mail n'est pas disponible pour une multiple sélection. </em>
+                      </div>
+                    </div>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      <div/>
+                      <div>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Le document généré est en format PDF (nécessitant un logiciel de lecture de ce format installé sur la station de travail). Un seul fichier est généré, qui contiendra la ou les demandes (avec un saut de page).</em>
+                      </div>
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                    </div>
+                    <div style="text-align: left;">
+                      <strong>
+                        <em style="line-height: 1.42857143; background-color: transparent;">
+                          <span class="fa fa-exclamation-triangle fa-2x"/>
+                        </em>
+                      </strong>
+                      <strong>Exceptions</strong>
+                    </div>
+                    <p style="text-align: left;">Aucune</p>
+                    <p style="text-align: left;">
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -18159,20 +18607,64 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
             <section class="mt16 mb16">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Afficher le Mandat concerné</td><td style="text-align: left;">La fiche du Mandat s'ouvre</td></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Cliquez sur le bouton "Courriel"</td><td style="text-align: left;">Un message de confirmation s'ouvre</td></tr><tr><td style="text-align: left;">3</td><td style="text-align: left;">Cliquez sur "OK" pour confirmer l'envoi de l'email - "Annuler" annule le processus</td><td style="text-align: left;">Un email contenant les références financières est envoyé au Mandataire - le champ "Dernier envoi email" a été mis à jour.</td></tr></tbody></table><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cet email a été envoyé une première fois de manière automatique lors de la création du Mandat. Une trace de l'envoi de l'email est gardée dans la zone historique de la fiche (voir <a href="/page/mozaik-help-datacontrol" style="background-color: rgb(255, 255, 255);">Surveillance des données (historisation)</a>)</em></div>
- 
-
-<div><div style="text-align: left;"/></div>
-
-<div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"/><div/><div><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cette fonctionnalité n'est disponible que dans le cadre où une méthode de Rétrocession a été définie pour le Mandat. </em></div><em style="line-height: 1.42857143; background-color: transparent;"/></div>
- 
-
-<div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div>
-
-<p style="text-align: left;">Aucune</p>
-
-<p style="text-align: left;"><a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a></p>
-</div>
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;">
+                            <strong>#</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Etape</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Résultat</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">1</td>
+                          <td style="text-align: left;">Afficher le Mandat concerné</td>
+                          <td style="text-align: left;">La fiche du Mandat s'ouvre</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">2</td>
+                          <td style="text-align: left;">Cliquez sur le bouton "Courriel"</td>
+                          <td style="text-align: left;">Un message de confirmation s'ouvre</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">3</td>
+                          <td style="text-align: left;">Cliquez sur "OK" pour confirmer l'envoi de l'email - "Annuler" annule le processus</td>
+                          <td style="text-align: left;">Un email contenant les références financières est envoyé au Mandataire - le champ "Dernier envoi email" a été mis à jour.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cet email a été envoyé une première fois de manière automatique lors de la création du Mandat. Une trace de l'envoi de l'email est gardée dans la zone historique de la fiche (voir <a href="/page/mozaik-help-datacontrol" style="background-color: rgb(255, 255, 255);">Surveillance des données (historisation)</a>)</em>
+                    </div>
+                    <div>
+                      <div style="text-align: left;"/>
+                    </div>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      <div/>
+                      <div>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cette fonctionnalité n'est disponible que dans le cadre où une méthode de Rétrocession a été définie pour le Mandat. </em>
+                      </div>
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                    </div>
+                    <div style="text-align: left;">
+                      <strong>
+                        <em style="line-height: 1.42857143; background-color: transparent;">
+                          <span class="fa fa-exclamation-triangle fa-2x"/>
+                        </em>
+                      </strong>
+                      <strong>Exceptions</strong>
+                    </div>
+                    <p style="text-align: left;">Aucune</p>
+                    <p style="text-align: left;">
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -18427,7 +18919,10 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                   <div class="row">
                     <div class="col-md-12 mb16 mt16">
                       <h3 style="color:#808080;">Fonctionnalités particulières sur les Candidatures Politiques</h3>
-                      <h4><a id="editdata" name="editdata"/> <span style="color: inherit; font-family: inherit; line-height: 1.1;">Editer les données liées aux résultats des élections</span></h4>
+                      <h4>
+                        <a id="editdata" name="editdata"/>
+                        <span style="color: inherit; font-family: inherit; line-height: 1.1;">Editer les données liées aux résultats des élections</span>
+                      </h4>
                       <div>
                         <div>
                           <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
@@ -20243,20 +20738,23 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                 <table class="table table-bordered table-responsive">
                   <tbody>
                     <tr>
-                      <td> <span style="color: inherit; font-family: inherit; font-size: 24px; line-height: 1.1; background-color: transparent;">Caractéristiques générales des écrans</span>
-
-			<div><a href="/page/mozaik-help-filters">Recherches et Filtres</a></div>
-
-			<div><a href="/page/mozaik-help-navigation" style="background-color: rgb(255, 255, 255);">Navigation</a></div>
-
-			<div><a href="/page/mozaik-help-views" style="background-color: rgb(255, 255, 255);">Vues et Affichage</a></div>
-
-			<div><a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a></div>
-
-			<div><a href="/page/mozaik-help-createandedit">Créer et modifier</a> (dans listes)</div>
-
-			<div><a href="/page/mozaik-help-search">Recherche complémentaire</a> (dans listes)</div>
-			</td>
+                      <td>
+                        <span style="color: inherit; font-family: inherit; font-size: 24px; line-height: 1.1; background-color: transparent;">Caractéristiques générales des écrans</span>
+                        <div>
+                          <a href="/page/mozaik-help-filters">Recherches et Filtres</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-navigation" style="background-color: rgb(255, 255, 255);">Navigation</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-views" style="background-color: rgb(255, 255, 255);">Vues et Affichage</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a>
+                        </div>
+                        <div><a href="/page/mozaik-help-createandedit">Créer et modifier</a> (dans listes)</div>
+                        <div><a href="/page/mozaik-help-search">Recherche complémentaire</a> (dans listes)</div>
+                      </td>
                       <td>
                         <span style="color: inherit; font-family: inherit; font-size: 24px; line-height: 1.1; background-color: transparent;">Fonctionnalités générales</span>
                         <div>
@@ -20299,12 +20797,115 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                 <table class="table table-bordered table-responsive">
                   <tbody>
                     <tr>
-                      <td> <a href="/page/mozaik-help-res-partner" style="font-family: inherit; font-size: 24px; line-height: 1.1; background-color: rgb(255, 255, 255);">Modèle Personnes:</a>
-
-			<div><a href="/page/mozaik-help-address-address">Adresses</a><div><a href="/page/mozaik-help-coordinate-associate-category" style="background-color: rgb(255, 255, 255);">Associer une catégorie à une coordonnée</a></div><div><a href="/page/mozaik-help-change-main-address">Changer la coordonnée postale principale</a></div><div><a href="/page/mozaik-help-change-main-email">Changer la coordonnée email principale</a></div><div><a href="/page/mozaik-help-change-main-phone">Changer la coordonnée téléphonique principale</a></div><div><a href="/page/mozaik-help-email-coordinate" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);"><span style="line-height: 1.42857143;">Coordonnées Email</span></a></div><div><span style="line-height: 1.42857143;"><a href="/page/mozaik-help-postal-coordinate">Coordonnées Postales</a></span></div><div><a href="/page/mozaik-help-co-residency">Co-Résidences</a></div><div><span style="line-height: 1.42857143;"/><div><a href="/page/mozaik-help-main" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Déclarer la coordonnée comme "Principale"</a></div><div><a href="/page/mozaik-help-unauthorised">Déclarer la coordonnée comme "Privée"</a></div><div><a href="/page/mozaik-help-vip">Déclarer la coordonnée comme "VIP"</a></div></div><div><a href="/page/mozaik-help-bounce-editor" style="background-color: rgb(255, 255, 255);">Editer le compteur d'échec</a></div><div><a href="/page/mozaik-help-export-vcard">Exporter les coordonnées en vCard</a></div><div><a href="/page/mozaik-help-export-csv">Exporter les coordonnées en CSV</a></div><div><span style="line-height: 1.42857143;"><a href="/page/mozaik-help-allow-duplicate-wizard">Gérer les doublons</a></span></div><div><a href="/page/mozaik-help-print-labels">Imprimer des étiquettes</a></div><div><a href="/page/mozaik-help-partner-involvement" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Participations</a></div></div>
-			</td>
-                      <td><font size="5"><span style="line-height: 26.3999996185303px;">Structures</span></font><div><a href="/page/mozaik-help-get-sta-assembly">Accéder aux Assemblées Externes</a></div><div><a href="/page/mozaik-help-children" style="background-color: rgb(255, 255, 255);">Accéder aux Enfants</a></div><div><a href="/page/mozaik-help-get-candidates" style="background-color: rgb(255, 255, 255);">Accéder aux Candidatures</a></div><div><a href="/page/mozaik-help-get-electoraldistricts" style="background-color: rgb(255, 255, 255);">Accéder aux Circonscriptions (Electorales)</a></div><div><a href="/page/mozaik-help-get-sta-instance">Accéder aux Instances de l'Etat</a></div><div><a href="/page/mozaik-help-get-mandates" style="background-color: rgb(255, 255, 255);">Accéder aux Mandats</a></div><div><a href="/page/mozaik-help-sta-assembly" style="background-color: rgb(255, 255, 255);">Assemblées de l'Etat</a></div><div><a href="/page/mozaik-help-int-assembly">Assemblées Internes</a></div><div><a href="/page/mozaik-help-ext-assembly">Assemblées Externes</a></div><div><a href="/page/mozaik-help-electoral-district" style="background-color: rgb(255, 255, 255);">Circonscriptions (Electorales)</a></div><div><a href="/page/mozaik-help-sta-instance">Instances de l'Etat</a></div><div><a href="/page/mozaik-help-int-instance">Instances Internes</a></div><div/><div/><div/><div/><div/>
-			</td>
+                      <td>
+                        <a href="/page/mozaik-help-res-partner" style="font-family: inherit; font-size: 24px; line-height: 1.1; background-color: rgb(255, 255, 255);">Modèle Personnes:</a>
+                        <div>
+                          <a href="/page/mozaik-help-address-address">Adresses</a>
+                          <div>
+                            <a href="/page/mozaik-help-coordinate-associate-category" style="background-color: rgb(255, 255, 255);">Associer une catégorie à une coordonnée</a>
+                          </div>
+                          <div>
+                            <a href="/page/mozaik-help-change-main-address">Changer la coordonnée postale principale</a>
+                          </div>
+                          <div>
+                            <a href="/page/mozaik-help-change-main-email">Changer la coordonnée email principale</a>
+                          </div>
+                          <div>
+                            <a href="/page/mozaik-help-change-main-phone">Changer la coordonnée téléphonique principale</a>
+                          </div>
+                          <div>
+                            <a href="/page/mozaik-help-email-coordinate" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">
+                              <span style="line-height: 1.42857143;">Coordonnées Email</span>
+                            </a>
+                          </div>
+                          <div>
+                            <span style="line-height: 1.42857143;">
+                              <a href="/page/mozaik-help-postal-coordinate">Coordonnées Postales</a>
+                            </span>
+                          </div>
+                          <div>
+                            <a href="/page/mozaik-help-co-residency">Co-Résidences</a>
+                          </div>
+                          <div>
+                            <span style="line-height: 1.42857143;"/>
+                            <div>
+                              <a href="/page/mozaik-help-main" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Déclarer la coordonnée comme "Principale"</a>
+                            </div>
+                            <div>
+                              <a href="/page/mozaik-help-unauthorised">Déclarer la coordonnée comme "Privée"</a>
+                            </div>
+                            <div>
+                              <a href="/page/mozaik-help-vip">Déclarer la coordonnée comme "VIP"</a>
+                            </div>
+                          </div>
+                          <div>
+                            <a href="/page/mozaik-help-bounce-editor" style="background-color: rgb(255, 255, 255);">Editer le compteur d'échec</a>
+                          </div>
+                          <div>
+                            <a href="/page/mozaik-help-export-vcard">Exporter les coordonnées en vCard</a>
+                          </div>
+                          <div>
+                            <a href="/page/mozaik-help-export-csv">Exporter les coordonnées en CSV</a>
+                          </div>
+                          <div>
+                            <span style="line-height: 1.42857143;">
+                              <a href="/page/mozaik-help-allow-duplicate-wizard">Gérer les doublons</a>
+                            </span>
+                          </div>
+                          <div>
+                            <a href="/page/mozaik-help-print-labels">Imprimer des étiquettes</a>
+                          </div>
+                          <div>
+                            <a href="/page/mozaik-help-partner-involvement" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Participations</a>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <font size="5">
+                          <span style="line-height: 26.3999996185303px;">Structures</span>
+                        </font>
+                        <div>
+                          <a href="/page/mozaik-help-get-sta-assembly">Accéder aux Assemblées Externes</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-children" style="background-color: rgb(255, 255, 255);">Accéder aux Enfants</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-get-candidates" style="background-color: rgb(255, 255, 255);">Accéder aux Candidatures</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-get-electoraldistricts" style="background-color: rgb(255, 255, 255);">Accéder aux Circonscriptions (Electorales)</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-get-sta-instance">Accéder aux Instances de l'Etat</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-get-mandates" style="background-color: rgb(255, 255, 255);">Accéder aux Mandats</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-sta-assembly" style="background-color: rgb(255, 255, 255);">Assemblées de l'Etat</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-int-assembly">Assemblées Internes</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-ext-assembly">Assemblées Externes</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-electoral-district" style="background-color: rgb(255, 255, 255);">Circonscriptions (Electorales)</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-sta-instance">Instances de l'Etat</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-int-instance">Instances Internes</a>
+                        </div>
+                        <div/>
+                        <div/>
+                        <div/>
+                        <div/>
+                        <div/>
+                      </td>
                       <td>
                         <p>
                           <font size="5">
@@ -20512,17 +21113,58 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
             <section class="mt16 mb16">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Editer la fiche de la coordonnée</td><td style="text-align: left;">Les champs deviennent éditables.</td></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Cocher la case "Interdit"</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">3</td><td style="text-align: left;">Cliquez sur "Enregister" pour sauver vos modifications - "Annuler" annule l'opération</td><td style="text-align: left;">La caractéristique est enregistrée.</td></tr></tbody></table>
- 
-
-<div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> La coordonnée sera "privée" à son propriétaire et ne sera en aucun cas utilisée par l'application - affichage de l'information dans la liste. </em></div>
- 
-
-<div style="text-align: center;"><div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div><p style="text-align: left;">Aucune</p></div>
- 
-
-<div style="text-align: left;"><div><span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/><span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);">Retour au sommaire</span></div></div>
-</div>
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;">
+                            <strong>#</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Etape</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Résultat</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">1</td>
+                          <td style="text-align: left;">Editer la fiche de la coordonnée</td>
+                          <td style="text-align: left;">Les champs deviennent éditables.</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">2</td>
+                          <td style="text-align: left;">Cocher la case "Interdit"</td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">3</td>
+                          <td style="text-align: left;">Cliquez sur "Enregister" pour sauver vos modifications - "Annuler" annule l'opération</td>
+                          <td style="text-align: left;">La caractéristique est enregistrée.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> La coordonnée sera "privée" à son propriétaire et ne sera en aucun cas utilisée par l'application - affichage de l'information dans la liste. </em>
+                    </div>
+                    <div style="text-align: center;">
+                      <div style="text-align: left;">
+                        <strong>
+                          <em style="line-height: 1.42857143; background-color: transparent;">
+                            <span class="fa fa-exclamation-triangle fa-2x"/>
+                          </em>
+                        </strong>
+                        <strong>Exceptions</strong>
+                      </div>
+                      <p style="text-align: left;">Aucune</p>
+                    </div>
+                    <div style="text-align: left;">
+                      <div>
+                        <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
+                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);">Retour au sommaire</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>
@@ -20682,7 +21324,7 @@ QP0P4U5g99SRogIAAAAASUVORK5CYII=
                             <span style="line-height: 1.42857143; background-color: transparent;">sélectionnant une valeur dans la liste proposée.</span>
                             <span style="line-height: 1.42857143; background-color: transparent;"/>
                           </td>
-                          <td style="text-align: left;"></td>
+                          <td style="text-align: left;"/>
                         </tr>
                         <tr>
                           <td style="line-height: 20px; text-align: left;">3</td>
@@ -23131,14 +23773,64 @@ TkSuQmCC
             <section class="mt16 mb16">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Editez la fiche de la coordonnée</td><td style="text-align: left;">Les champs deviennent éditables</td></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Cochez la case à cocher "VIP"</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">3</td><td style="text-align: left;">Cliquez sur "Enregistrer" pour sauver vos modifications - "Annuler" annule l'opération</td><td style="text-align: left;">La caractéristique est enregistrée.</td></tr></tbody></table><p style="text-align: left;"><span style="text-align: center;"> </span></p><div style="text-align: left;"/><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> La coordonnée marquée comme VIP ne pourra être vue que par les utilisateurs membre du groupe VIP. </em><em>Affichage de l'information dans la vue liste.</em><em style="line-height: 1.42857143; background-color: transparent;"/></div>
- 
-
-<div style="text-align: center;"><div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div><p style="text-align: left;">Aucune</p></div>
- 
-
-<div style="text-align: left;"><div><span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/><span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);">Retour au sommaire</span></div></div>
-</div>
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;">
+                            <strong>#</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Etape</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Résultat</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">1</td>
+                          <td style="text-align: left;">Editez la fiche de la coordonnée</td>
+                          <td style="text-align: left;">Les champs deviennent éditables</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">2</td>
+                          <td style="text-align: left;">Cochez la case à cocher "VIP"</td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">3</td>
+                          <td style="text-align: left;">Cliquez sur "Enregistrer" pour sauver vos modifications - "Annuler" annule l'opération</td>
+                          <td style="text-align: left;">La caractéristique est enregistrée.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p style="text-align: left;">
+                      <span style="text-align: center;"> </span>
+                    </p>
+                    <div style="text-align: left;"/>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> La coordonnée marquée comme VIP ne pourra être vue que par les utilisateurs membre du groupe VIP. </em>
+                      <em>Affichage de l'information dans la vue liste.</em>
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                    </div>
+                    <div style="text-align: center;">
+                      <div style="text-align: left;">
+                        <strong>
+                          <em style="line-height: 1.42857143; background-color: transparent;">
+                            <span class="fa fa-exclamation-triangle fa-2x"/>
+                          </em>
+                        </strong>
+                        <strong>Exceptions</strong>
+                      </div>
+                      <p style="text-align: left;">Aucune</p>
+                    </div>
+                    <div style="text-align: left;">
+                      <div>
+                        <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
+                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);">Retour au sommaire</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>
@@ -23277,7 +23969,7 @@ NjIzRTLkh8QQ4uSBySvMmJUY8Qc7scQdBmacgGWc/AFr9Ev/qFE5FAAAAABJRU5ErkJggg==
                                 <td style="text-align: left;"/>
                               </tr>
                               <tr>
-                                <td style="text-align: left;"></td>
+                                <td style="text-align: left;"/>
                                 <td style="text-align: left;">En vue formulaire, cliquez sur le bouton 
                                                             
                                                             <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-virtual-partner-membership_img_02|a87194d/datas" style=""/>
@@ -23413,21 +24105,64 @@ cgd3LQWf0USTIwAAAABJRU5ErkJggg==
                   <section class="mt16 mb16">
                     <div class="container">
                       <div class="row">
-                        <div class="col-md-12 text-center mt16 mb32" style="width: 1170px;"><table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Cliquez sur l'icône  <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-virtual-target_img_01|9925a51/datas"/></td><td style="text-align: left;">Les Personnes répondantes aux critères de la Liste de distribution ou du filtre concerné s'affichent dans une fenêtre pop-up</td></tr></tbody></table><div style="text-align: left;"><em/><div/><div><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/></em><em style="line-height: 1.42857143;">Aucun résultat n'apparaîtra dans la fenêtre pop-up si aucun objet ne répond aux critères encodés.</em></div><div><em style="line-height: 1.42857143;"/><div/>
- 
-
-<div><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/></em><em style="line-height: 1.42857143;">Cliquez sur la croix en haut à droite de l'écran pop-up pour fermer la fenêtre.</em></div>
-<em style="line-height: 1.42857143;"/></div></div>
- 
-
-<div><div style="text-align: left;"/></div>
-
-<div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div>
-
-<p style="text-align: left;">Aucune</p>
-
-<p style="text-align: left;"><a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x"/> Retour au sommaire </a></p>
-</div>
+                        <div class="col-md-12 text-center mt16 mb32" style="width: 1170px;">
+                          <table class="table table-bordered table-responsive" style="width: 1140px; background-color: rgba(200, 200, 200, 0.137255);">
+                            <tbody>
+                              <tr>
+                                <td style="text-align: left;">
+                                  <strong>#</strong>
+                                </td>
+                                <td style="text-align: left;">
+                                  <strong>Etape</strong>
+                                </td>
+                                <td style="text-align: left;">
+                                  <strong>Résultat</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="text-align: left;">1</td>
+                                <td style="text-align: left;">Cliquez sur l'icône  <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-virtual-target_img_01|9925a51/datas"/></td>
+                                <td style="text-align: left;">Les Personnes répondantes aux critères de la Liste de distribution ou du filtre concerné s'affichent dans une fenêtre pop-up</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div style="text-align: left;">
+                            <em/>
+                            <div/>
+                            <div>
+                              <em style="line-height: 1.42857143; background-color: transparent;">
+                                <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                              </em>
+                              <em style="line-height: 1.42857143;">Aucun résultat n'apparaîtra dans la fenêtre pop-up si aucun objet ne répond aux critères encodés.</em>
+                            </div>
+                            <div>
+                              <em style="line-height: 1.42857143;"/>
+                              <div/>
+                              <div>
+                                <em style="line-height: 1.42857143; background-color: transparent;">
+                                  <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                                </em>
+                                <em style="line-height: 1.42857143;">Cliquez sur la croix en haut à droite de l'écran pop-up pour fermer la fenêtre.</em>
+                              </div>
+                              <em style="line-height: 1.42857143;"/>
+                            </div>
+                          </div>
+                          <div>
+                            <div style="text-align: left;"/>
+                          </div>
+                          <div style="text-align: left;">
+                            <strong>
+                              <em style="line-height: 1.42857143; background-color: transparent;">
+                                <span class="fa fa-exclamation-triangle fa-2x"/>
+                              </em>
+                            </strong>
+                            <strong>Exceptions</strong>
+                          </div>
+                          <p style="text-align: left;">Aucune</p>
+                          <p style="text-align: left;">
+                            <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x"/> Retour au sommaire </a>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </section>
