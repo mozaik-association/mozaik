@@ -4,21 +4,22 @@
 
         <!-- Partner Involvement -->
 
-       <record id="partner_involvement_search_view" model="ir.ui.view">
+        <record id="partner_involvement_search_view" model="ir.ui.view">
             <field name="name">partner.involvement.search</field>
             <field name="model">partner.involvement</field>
             <field name="arch" type="xml">
-                <search string="Partner Involvement">
+                <search string="Partner Involvements">
                     <field name="note"/>
                     <field name="partner_id"/>
                     <field name="partner_involvement_category_id"/>
 
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expire Involvement" />
+                        domain="[('active','=',False)]" help="Expired Involvements" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" />
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]"
+                        help="All Involvements, expired or not" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>
@@ -28,11 +29,11 @@
             </field>
         </record>
 
-        <record id="partner_involvement_object_tree_view" model="ir.ui.view">
+        <record id="partner_involvement_tree_view" model="ir.ui.view">
             <field name="name">partner.involvement.tree</field>
             <field name="model">partner.involvement</field>
             <field name="arch" type="xml">
-                <tree string="Partner Involvement" version="7.0">
+                <tree string="Partner Involvements" version="7.0">
                     <field name="partner_id"/>
                     <field name="partner_involvement_category_id"/>
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
@@ -45,8 +46,8 @@
             <field name="res_model">partner.involvement</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="partner_involvement_tree_view"/>
             <field name="search_view_id" ref="partner_involvement_search_view" />
-            <field name="view_id" eval="partner_involvement_object_tree_view"/>
         </record>
 
         <record id="partner_involvement_form_view" model="ir.ui.view">
@@ -104,11 +105,48 @@
 
         <!-- Partner Involvement Category -->
 
+        <record id="partner_involvement_category_search_view" model="ir.ui.view">
+            <field name="name">partner.involvement.category.search</field>
+            <field name="model">partner.involvement.category</field>
+            <field name="arch" type="xml">
+                <search string="Partner Involvement Categories">
+                    <field name="name"/>
+                    <field name="note"/>
+
+                    <filter name="expired" string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active','=',False)]" help="Expired Categories" />
+                    <filter name="all" string="All"
+                        context="{'invisible_expire_date': False}"
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]"
+                        help="All Categories, expired or not" />
+
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>
+                        <filter name="category" string="Category" context="{'group_by': 'partner_involvement_category_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="partner_involvement_category_tree_view" model="ir.ui.view">
+            <field name="name">partner.involvement.category.tree</field>
+            <field name="model">partner.involvement.category</field>
+            <field name="arch" type="xml">
+                <tree string="Partner Involvement Categories" version="7.0">
+                    <field name="name"/>
+                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
+                </tree>
+            </field>
+        </record>
+
         <record id="partner_involvement_category_action" model="ir.actions.act_window">
             <field name="name">Involvement Categories</field>
             <field name="res_model">partner.involvement.category</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="partner_involvement_category_tree_view"/>
+            <field name="search_view_id" ref="partner_involvement_category_search_view" />
         </record>
 
         <record id="partner_involvement_category_form_view" model="ir.ui.view">
