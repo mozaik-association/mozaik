@@ -53,6 +53,6 @@ class product_template(orm.Model):
 
     def _register_hook(self, cr):
         super(product_template, self)._register_hook(cr)
-        self._columns['name'].track_visibility = 'onchange'
-        self._columns['list_price'].track_visibility = 'onchange'
+        self._fields['name'].track_visibility = 'onchange'
+        self._fields['list_price'].track_visibility = 'onchange'
         pass
