@@ -46,9 +46,15 @@ msgstr "Actif"
 
 #. module: mozaik_person
 #: view:partner.involvement:mozaik_person.partner_involvement_search_view
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
 #: view:res.partner:mozaik_person.res_partner_search_view
 msgid "All"
 msgstr "Tous"
+
+#. module: mozaik_person
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
+msgid "All Categories, expired or not"
+msgstr "Toutes les catégories, expirées ou non"
 
 #. module: mozaik_person
 #: model:ir.actions.act_window,name:mozaik_person.all_res_partner_action
@@ -65,6 +71,11 @@ msgstr "Toutes les partenaires, expirés ou non"
 #: view:res.partner:mozaik_person.view_partner_form
 msgid "All Details"
 msgstr "Tous les détails"
+
+#. module: mozaik_person
+#: view:partner.involvement:mozaik_person.partner_involvement_search_view
+msgid "All Involvements, expired or not"
+msgstr "Toutes les participations, expirées ou non"
 
 #. module: mozaik_person
 #: model:ir.actions.act_window,name:mozaik_person.allow_duplicate_action
@@ -120,6 +131,7 @@ msgstr "Annuler"
 
 #. module: mozaik_person
 #: view:partner.involvement:mozaik_person.partner_involvement_search_view
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
 msgid "Category"
 msgstr "Catégorie"
 
@@ -219,19 +231,25 @@ msgstr "Date d'expiration"
 
 #. module: mozaik_person
 #: view:partner.involvement:mozaik_person.partner_involvement_search_view
-msgid "Expire Involvement"
-msgstr "Participation expirée"
-
-#. module: mozaik_person
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
 #: view:res.partner:mozaik_person.res_partner_search_view
 msgid "Expired"
 msgstr "Expiré"
 
 #. module: mozaik_person
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
+msgid "Expired Categories"
+msgstr "Catégories exipirées"
+
+#. module: mozaik_person
 #: view:res.partner:mozaik_person.res_partner_search_view
 msgid "Expired Contacts"
 msgstr "Partenaires expirés"
+
+#. module: mozaik_person
+#: view:partner.involvement:mozaik_person.partner_involvement_search_view
+msgid "Expired Involvements"
+msgstr "Participations expirées"
 
 #. module: mozaik_person
 #: field:res.partner,facebook:0
@@ -270,6 +288,7 @@ msgstr "Allemand"
 
 #. module: mozaik_person
 #: view:partner.involvement:mozaik_person.partner_involvement_search_view
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
 #: view:res.partner:mozaik_person.res_partner_search_view
 msgid "Group By..."
 msgstr "Grouper par..."
@@ -490,6 +509,7 @@ msgstr "Propriétaires"
 #: model:ir.model,name:mozaik_person.model_res_partner
 #: view:partner.involvement:mozaik_person.partner_involvement_search_view
 #: field:partner.involvement,partner_id:0
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
 #: view:res.partner:mozaik_person.res_partner_search_view
 msgid "Partner"
 msgstr "Partenaire"
@@ -497,10 +517,14 @@ msgstr "Partenaire"
 #. module: mozaik_person
 #: model:ir.model,name:mozaik_person.model_partner_involvement
 #: view:partner.involvement:mozaik_person.partner_involvement_form_view
-#: view:partner.involvement:mozaik_person.partner_involvement_object_tree_view
-#: view:partner.involvement:mozaik_person.partner_involvement_search_view
 msgid "Partner Involvement"
 msgstr "Participation de partnenaire"
+
+#. module: mozaik_person
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_tree_view
+msgid "Partner Involvement Categories"
+msgstr "Catégories de participation de partenaire"
 
 #. module: mozaik_person
 #: model:ir.model,name:mozaik_person.model_partner_involvement_category
@@ -509,6 +533,8 @@ msgid "Partner Involvement Category"
 msgstr "Catégorie de participation de partnenaire"
 
 #. module: mozaik_person
+#: view:partner.involvement:mozaik_person.partner_involvement_search_view
+#: view:partner.involvement:mozaik_person.partner_involvement_tree_view
 #: field:res.partner,partner_involvement_ids:0
 #: field:res.partner,partner_involvement_inactive_ids:0
 msgid "Partner Involvements"
