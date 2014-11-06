@@ -589,9 +589,9 @@ y07JOPoAAAAASUVORK5CYII=
       <field name="mimetype">image/png</field>
     </record>
     <record id="mozaik-help-allow-duplicate-wizard_img_03" model="ir.attachment">
-      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAlQAAADYCAMAAAAaq42RAAADAFBMVEX+/v7m5ubKysrb29uEhIRn
-Z2dMTEyWlpazs7N4eHhVVVWnp6fMAgKfAADHubnn19fTVlbXZmbTRkaoFhbSOTnPFxfVd3eyKCgD
-AwOkCwvSKCjViYnZpqbgc3O2NTUXFxe6RUU3NzfXl5fnxMTjubklJSXgbW3ggIDgrKwAAAAAAAAA
+      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAeAAAACvCAMAAAASc/2qAAADAFBMVEX+/v7p6enY2NhpaWmHh4eW
+lpa3t7fIx8enp6daWlp4eHhHR0fQGBjd5OReXmKrSkrPSEg4ODjNJyfMNzfOV1e2NzfPCgqyJyfY
+p6foyMgUFBTp2NjMdHTitrYpKSy4VlbUlpYKCgqvFhbViorOZGQ6RVI0PUpyeIGKfmupAADZtbUA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -603,51 +603,51 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAACas6rqAAABAHRSTlP+////////////////////////////////////////////
-/////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAADn/0MGAAABAHRSTlP/////////////////////////////////////////////
+////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgxkgFAAA
-CCVJREFUeNrt3Ql7m0YXhmFmYxigsVbvW5O0X///L+w5w2LiTVimnxPnua9G1gKDCq/PDJI8Ku7u
-UmWBxVShuKtcASzIFZVhL2DxWAEAAAAAAAAAAAAAAAAAAOBX1YSyTHa4ZUJ46QPHqXZFYcuyeXWp
-Vx7Cb8KkMouHMxFLqxelLwpX+4JQ/W5c/iy6cQePbyyD1p+6tgczYTV5qaxlgUrLFX6z+uM0VXJx
-KFQm1Dl+ldYfqVqhyqGqQlnn2Bhfl8kNyyb9p71glH8m1mUdtWqlWEe5lJWS6VIZy8p3LdhQRjvW
-QfzqqZqRKU3E+NOE3BFKJpp8RWOW7xqqWApG8qFVKuXgqEZW1d7T1XW3Th+qfMt2DwZC9YlSdXhw
-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
+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
 </field>
-      <field name="datas_fname">wrongselection.png</field>
-      <field name="name">wrongselection.png</field>
+      <field name="datas_fname">duplicateerror.png</field>
+      <field name="name">duplicateerror.png</field>
       <field name="res_model">ir.ui.view</field>
       <field name="mimetype">image/png</field>
     </record>
@@ -826,7 +826,7 @@ qWpm/TUNf/eAt2BWYwAAAAAAAAAAAOBXxBvDWJzlvWEs7F+V/FgvLkbAHAAAAABJRU5ErkJggg==
                             </p>
                             <p style="text-align: left;">2/ Voici le message affiché si vous faites une mauvaise sélection:</p>
                             <p style="text-align: left;">
-                              <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-allow-duplicate-wizard_img_03|1fed677/datas" style=""/>
+                              <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-allow-duplicate-wizard_img_03|372d0a0/datas" style=""/>
                             </p>
                           </div>
                           <div style="text-align: left;">
@@ -4424,7 +4424,7 @@ M8vAyfMJ4nOfMC/Ee1xCA5YAOEBgECVIALPlAcjyuVcVAAAAAElFTkSuQmCC
                   <div class="row">
                     <div class="col-md-12 text-center mt16 mb4">
                       <h2>Communication</h2>
-                      <h3 class="text-muted">Listes de Distribution/Lettre d'information</h3>
+                      <h3 class="text-muted">Listes de Distribution/Lettres d'information</h3>
                     </div>
                   </div>
                 </div>
@@ -4472,24 +4472,11 @@ M8vAyfMJ4nOfMC/Ee1xCA5YAOEBgECVIALPlAcjyuVcVAAAAAElFTkSuQmCC
                   <h4>Quels avantages me donne l'application sur ce modèle ?</h4>
                   <div>L'application me permet de les créer, en modifier leur contenu en ajoutant ou supprimant des filtres, et surtout, elles sont le point de départ pour toute actions d'envoi postal ou email ou encore d'impression d'étiquettes en masse. Des fonctionnalités générales sont offertes sur ce modèle telles que création (association), suppression, recherche, export, .....</div>
                   <h4>Quelles informations sont affichées dans la liste?</h4>
-                  <div>Seuls les noms et l'Instance liée à la Liste sont affichés. Les Listes de distributions affichées sont les Listes "actives" (voir "<a href="/page/mozaik-help-invalidate">Invalider un objet</a>"). Une Instance spécifiée sur la Liste de distribution indique à qui elle est rendue visible et utilisable  (ex: Bruxelles (Local) sur une Liste signifie que celle-ci ne peut être vue et utilisée que par la Locale de Bruxelles). </div>
+                  <div>Seuls les noms et l'Instance liée à la Liste sont affichés. Les Listes de distributions affichées sont les Listes "actives" (voir "<a href="/page/mozaik-help-invalidate">Invalider un objet</a>"). Une Instance spécifiée sur la Liste de distribution indique à qui elle est rendue visible et utilisable (ex: Bruxelles (Local) sur une Liste signifie que celle-ci ne peut être vue et utilisée que par la Locale de Bruxelles).</div>
                   <h4/>
                   <div/>
-                  <h4>Qui peut voir/utiliser mes Listes?</h4>
-                  <div>Un système de "Propriétaire" est appliqué sur les Listes de distribution ainsi que sur les newsletters et les modèles de courriel. En effet, l'utilisateur qui a créé la Liste possède tout pouvoir d'écriture/suppression sur celle-ci et peut décider d'autres "propriétaires". Il peut également limiter la visibilité de celle-ci à des Instances (voir ci-dessous). Le propriétaire de la Liste est obligatoire. Si une Liste doit être vue et utilisée par tous, il faudra demander au "Configurateur" de la créer. </div>
-                  <h4>Quel sera le résultat de ma Liste si plusieurs filtres la composent? </h4>
-                  <div>Les Listes possèdent une intelligence dans la lecture de leurs filtres. En effet, si une Personne est incluse dans un filtre mais exclue dans un autre, cette Personne sera exclue. L'exclusion domine l'inclusion. Si une Personne est présente dans plusieurs filtres, un seul envoi sera exécuté. </div>
-                  <h4>Quelle différence y a-t-il entre une Liste de distribution et une lettre d'information?</h4>
-                  <div>
-                    <div>Une Lettre d'information est une Liste de distribution comportant cependant deux différences:</div>
-                    <ol>
-                      <li>une coche qui peut la déclarer publique; cela signifie qu'elle sera disponible ou non sur le site Internet (permettant la désinscription);</li>
-                      <li>notion d’abonnement ou de désabonnement (Inscrits - Désinscrits). </li>
-                    </ol>
-                    <p>Elle fonctionne de la même façon qu'une Liste de distribution et si la Lettre est constituée de plusieurs filtres, le calcul est opéré de la même façon en retirant toutefois du résultat les Personnes listées dans la colonne des "désinscrits". La désinscription se fait via le lien qui présent dans la lettre d'information ou manuellement dans la fiche de la lettre de l'information.</p>
-                  </div>
                   <h4>En quoi consiste la création d'une Liste de distribution?</h4>
-                  <div>La création d'une Liste de distribution consiste à lui donner un nom et à lui associer un ou plusieurs filtres. La suppression d'un filtre au sein d'une Liste de distribution s'opère en cliquant sur la petite icône poubelle. </div>
+                  <div>La création d'une Liste de distribution consiste à lui donner un nom et à lui associer un ou plusieurs filtres. Les filtres sont donc à créer au préalable, sur base d'un tri précis des objets (voir <a href="/page/mozaik-help-search">Recherches et filtres</a>). Une fois la liste des objets affinée, il faut la sauvegarder comme un nouveau filtre (voir <a href="/page/mozaik-help-distribution-list-add-filter">Créer et Ajouter un filtre à une Liste de distribution/Lettre d'information</a>). La suppression d'un filtre au sein d'une Liste de distribution s'opère en cliquant sur la petite icône poubelle.</div>
                   <div>Notez que trois Listes de distribution ont été préparées et tenues à disposition dans l'application; elle concernent:</div>
                   <ul>
                     <li>l'envoi des cartes de membre (Personnes de statut "Membre", sans date d'envoi de carte de membre d'enregistrée);</li>
@@ -4497,10 +4484,27 @@ M8vAyfMJ4nOfMC/Ee1xCA5YAOEBgECVIALPlAcjyuVcVAAAAAElFTkSuQmCC
                     <li>l'envoi des documents de bienvenue pour les candidats sympathisant (Personnes de statut "Sympathisant", sans date d'envoi de document de bienvenue d'enregistrée).</li>
                   </ul>
                   <p>Ces trois listes ne peuvent être modifiées pour des raisons de sécurité. En effet, elles servent à enregistrer un suivi au niveau de la Personne et notamment la date à laquelle les documents ont été envoyé (afin de ne pas les envoyer plusieurs fois). Elles ne peuvent être modifiées ou supprimées (sauf par un utilisateur de type "Configurator").</p>
-                  <h4>Quel sera le contenu de mes envois?</h4>
-                  <div>Les envois postaux se composent de documents créés hors application, seuls les étiquettes ou les extractions CSV (qui serviront à l'éxécution des fonctions de publipostage) sont issues de Mozaik. Par contre, les textes des emails sont rédigés dans Mozaik et sont appelés Modèles de Courriels. Ils sont listés sous l'entrée de menu "Modèles de courriels" et peuvent s'appliquer à plusieurs objets (Coordonnée email, Mandats, inscription aux événements, ...). Lors d'un envoi de Masse de type "Email", vous serez amenés à choisir l'un des modèles créé au préalable. C'est d'ailleurs une donnée obligatoire!</div>
+                  <h4>Qui peut voir/utiliser mes Listes?</h4>
+                  <div>Un système de "Propriétaire" est appliqué sur les Listes de distribution ainsi que sur les newsletters et les modèles de courriel. En effet, l'utilisateur qui a créé la Liste possède tout pouvoir d'écriture/suppression sur celle-ci et peut décider d'autres "propriétaires". Il peut également limiter la visibilité de celle-ci à des Instances (voir ci-dessous). Le propriétaire de la Liste est obligatoire. Si une Liste doit être vue et utilisée par tous, il faudra demander au "Configurateur" de la créer.</div>
+                  <h4>Quel sera le résultat de ma Liste si plusieurs filtres la composent?</h4>
+                  <div>Les Listes possèdent une intelligence dans la lecture de leurs filtres. En effet, si une Personne est incluse dans un filtre mais exclue dans un autre, cette Personne sera exclue. L'exclusion domine l'inclusion. Si une Personne est présente dans plusieurs filtres, un seul envoi sera exécuté.</div>
+                  <h4>Quelle différence y a-t-il entre une Liste de distribution et une lettre d'information?</h4>
+                  <div>
+                    <div>Une Lettre d'information est une Liste de distribution comportant cependant deux différences:</div>
+                    <ol>
+                      <li>une coche qui peut la déclarer publique; cela signifie qu'elle sera disponible ou non sur le site Internet (permettant la désinscription);</li>
+                      <li>notion d’abonnement ou de désabonnement (Inscrits - Désinscrits).</li>
+                    </ol>
+                    <p>Elle fonctionne de la même façon qu'une Liste de distribution et si la Lettre est constituée de plusieurs filtres, le calcul est opéré de la même façon en retirant toutefois du résultat les Personnes listées dans la colonne des "désinscrits". La désinscription se fait via le lien qui présent dans la lettre d'information ou manuellement dans la fiche de la lettre de l'information.</p>
+                  </div>
+                  <h4>
+                    <span style="color: inherit; font-family: inherit; line-height: 1.1;">Quel sera le contenu de mes envois?</span>
+                  </h4>
+                  <div>Les envois postaux se composent de documents créés hors application, seules les étiquettes ou les extractions CSV (qui serviront à l'éxécution des fonctions de publipostage) sont issues de Mozaik. Par contre, les textes des emails sont rédigés dans Mozaik et sont appelés Modèles de Courriels. Ils sont listés sous l'entrée de menu "Modèles de courriels" et peuvent s'appliquer à plusieurs objets (Coordonnée email, Mandats, inscription aux événements, ...). Lors d'un envoi de Masse de type "Email", vous serez amenés à choisir l'un des modèles créé au préalable. C'est d'ailleurs une donnée obligatoire!</div>
+                  <h4>Puis-je, alors que je ne suis pas connecté(e) à l'application, envoyer des courriels de masse?</h4>
+                  <div>Oui, il faut pour cela activer la coche "Transfert automatique" pour une Liste de distribution ou Lettre d'information particulière. Une adresse email sera automatiquement associée à celle-ci. C'est donc à cette adresse que tout expéditeur non connecté à l'application adressera son mail qui sera ensuite transféré automatiquement à tous les destinataires de la Liste de distribution et/ou Lettre d'information (voir <a href="/page/mozaik-help-distribution-list-forwarding">Transférer automatiquement des courriels</a>).</div>
                   <h4>Les divers envois de courriers sont-ils traçés?</h4>
-                  <div>Oui, tous les envois sont historisés à la condition de l'avoir spécifié lors de l'exécution de l'envoi de masse (voir <a href="/page/mozaik-help-distribution-list-mass-function">Envoyer des courriers de masse</a>). Les historiques des envois postaux sont, de plus, accessible dans la fiche des Personnes concernées (voir <a href="/page/mozaik-help-res-partner">Personnes</a>).</div>
+                  <div>Oui, tous les envois sont historisés à la condition de l'avoir spécifié lors de l'exécution de l'envoi de masse (voir <a href="/page/mozaik-help-distribution-list-mass-function">Envoyer des courriers de masse</a>). Les historiques des envois postaux sont, de plus, accessibles dans la fiche des Personnes concernées (voir <a href="/page/mozaik-help-res-partner">Personnes</a>).</div>
                   <h4/>
                   <div/>
                 </div>
@@ -4519,6 +4523,9 @@ M8vAyfMJ4nOfMC/Ee1xCA5YAOEBgECVIALPlAcjyuVcVAAAAAElFTkSuQmCC
                           <a href="/page/mozaik-help-distribution-list-mass-function">Envoyer des courriers de masse</a>
                         </h4>
                       </div>
+                      <h4>
+                        <a href="/page/mozaik-help-distribution-list-forwarding">Transférer automatiquement des courriels</a>
+                      </h4>
                       <h4>
                         <span style="line-height: 1.42857143;">
                           <a href="/page/mozaik-help-merge-distribution-list">Fusionner des Listes de distribution</a>
@@ -4547,7 +4554,7 @@ M8vAyfMJ4nOfMC/Ee1xCA5YAOEBgECVIALPlAcjyuVcVAAAAAElFTkSuQmCC
                             <tr>
                               <td>1. Editez la fiche de la Liste ou Lettre concernée<br/>
 			2. Dans l'onglet "Sécurité"
-			<ul><li>ajouter une ou plusieurs Instances - cela leur donne droit de visibilité et d'utilisation</li><li>ajouter un ou plusieurs autre "Propriétaires" - cela donne droit d'édition (incluant suppression)  et d'utilisation</li></ul>
+			<ul><li>ajouter une ou plusieurs Instances - cela leur donne droit de visibilité et d'utilisation</li><li>ajouter un ou plusieurs autre "Propriétaires" - cela donne droit d'édition (incluant suppression) et d'utilisation</li></ul>
 			3. Cliquez sur "Enregistrer" pour sauver vos modifications - "Annuler" annule l'opération</td>
                               <td>Des données de sécurité sont ajoutées à la Liste de distribution ou Lettre d'information</td>
                               <td/>
@@ -5015,6 +5022,99 @@ CIUmG1oUEkKhCaHQhFBoQig0odCEUGhCKDQhFJoQCk0oNCEUmhAKTcgvErpwJ5DHobgs3AvkUZDs
                 <div class="row">
                   <div class="col-md-12 text-center mt16 mb32">
                     <p style="text-align: left;"/>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </section>
+        </div>
+      </t>
+    </template>
+    <template name="mozaik-help-distribution-list-forwarding" id="website.mozaik-help-distribution-list-forwarding" page="True">
+      <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty">
+          <section class="mt_simple_snippet">
+            <section class="mt16 mb0">
+              <div class="container">
+                <div class="row">
+                  <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
+                    <span style="color: rgb(0, 128, 0);">Transfert automatique de courriel</span>
+                  </h2>
+                  <p style="text-align: left;">
+                    <span class="fa fa-flag fa-2x"/>
+                    <strong style="line-height: 1.42857143;">
+                      <span style="line-height: 1.42857143;">
+                        <strong> Accès fonctionnalité et localisation: </strong>
+                      </span>
+                    </strong>
+                    <span style="line-height: 1.42857143;">option disponible dans la fiche d'une Liste de distribution et/ou d'une Lettre d'information (case à cocher). </span>
+                  </p>
+                  <p style="text-align: left;">
+                    <span style="line-height: 1.42857143;">
+                      <span class="fa fa-user fa-2x" style=""/>
+                    </span>
+                    <span style="line-height: 1.42857143;"><strong> Audience</strong>: <span style="background-color: rgb(255, 255, 0);">xxxxxxx</span> (voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>). </span>
+                  </p>
+                  <p style="text-align: left;">
+                    <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis: </strong>affichage de l'objet en vue "formulaire" (voir <a href="/page/mozaik-help-views">Vues</a> ). </span>
+                  </p>
+                </div>
+              </div>
+            </section>
+            <section class="mt16 mb16">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 text-center mt16 mb32">
+                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
+                      <tbody>
+                        <tr>
+                          <td style="text-align: left;">
+                            <strong>#</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Etape</strong>
+                          </td>
+                          <td style="text-align: left;">
+                            <strong>Résultat</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">1</td>
+                          <td style="text-align: left;">Editez une Liste de distribution ou une Lettre d'information</td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">2</td>
+                          <td style="text-align: left;">Cochez la case "Transfert de courriel"</td>
+                          <td style="text-align: left;"/>
+                        </tr>
+                        <tr>
+                          <td style="text-align: left;">3</td>
+                          <td style="text-align: left;">Cliquez sur "Enregistrer" - "Annuler" stoppe le processus</td>
+                          <td style="text-align: left;">Un champ "Alias" apparaît affichant l'adresse destinataire pour l'exécution du transfert</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  L'alias présente l'adresse email à laquelle il faudra adresser son courriel pour qu'il soit, ensuite, transférer aux destinataires de la Liste de distribution et/ou à la Lettre d'information. Cette adresse est le résultat d'une configuration technique réalisée par un utilisateur ayant des privilèges avancés (type "Configurateur").</em>
+                    </div>
+                    <div>
+                      <div style="text-align: left;">
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Le nommage pour l'historisation de l'envoi est automatique en ce cas.</em>
+                      </div>
+                    </div>
+                    <div style="text-align: left;">
+                      <strong>
+                        <em style="line-height: 1.42857143; background-color: transparent;">
+                          <span class="fa fa-exclamation-triangle fa-2x"/>
+                        </em>
+                      </strong>
+                      <strong>Exceptions</strong>
+                    </div>
+                    <p style="text-align: left;">Pas de transfert si la Liste de distribution/Lettre d'information n'a pas de destinataires de spécifié.</p>
+                    <p style="text-align: left;">
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -20681,8 +20781,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                   <div style="text-align: left;">
                     <a href="/page/mozaik-help-get-mandates">Accéder aux Mandats</a>
                   </div>
-                  <div style="text-align: left;"><a href="/page/mozaik-help-sta-assembly#selectioncom" style="background-color: rgb(255, 255, 255);">Consulter les Comités de Sélection</a> (Etat)
-                            </div>
+                  <div style="text-align: left;"><a href="/page/mozaik-help-sta-assembly#selectioncom" style="background-color: rgb(255, 255, 255);">Consulter les Comités de Sélection</a> (Etat)</div>
                   <div style="text-align: left;">
                     <a href="/page/mozaik-help-int-assembly#comselint" style="background-color: rgb(255, 255, 255);">Consulter les Comités de Sélection associés à l'Assemblée Interne</a>
                   </div>
@@ -20714,6 +20813,9 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                     <a href="/page/mozaik-help-merge-distribution-list" style="background-color: rgb(255, 255, 255);">Fusionner plusieurs Listes de distribution</a>
                     <br/>
                     <a href="/page/mozaik-help-distribution-list-mass-function" style="background-color: rgb(255, 255, 255);">Fonctionnalités de masse (envois courriers)</a>
+                  </div>
+                  <div style="text-align: left;">
+                    <a href="/page/mozaik-help-distribution-list-forwarding" style="background-color: rgb(255, 255, 255);">Transférer automatiquement des courriels</a>
                     <br/>
                     <a href="/page/mozaik-help-postal-mail-log">Voir l'historique du courrier postal</a>
                     <br/>
@@ -20732,7 +20834,9 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
           <section class="mt16 mb16">
             <div class="container">
               <h1 class="row">Mozaik documentation</h1>
-              <div>Lien vers la <a href="/page/mozaik-help-tests">page des tests</a></div>
+              <div>Lien vers la 
+                        <a href="/page/mozaik-help-tests">page des tests</a>
+                    </div>
               <h2 class="row">Sommaire</h2>
               <div>
                 <table class="table table-bordered table-responsive">
@@ -20752,8 +20856,10 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                         <div>
                           <a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a>
                         </div>
-                        <div><a href="/page/mozaik-help-createandedit">Créer et modifier</a> (dans listes)</div>
-                        <div><a href="/page/mozaik-help-search">Recherche complémentaire</a> (dans listes)</div>
+                        <div><a href="/page/mozaik-help-createandedit">Créer et modifier</a> (dans listes)
+                                        </div>
+                        <div><a href="/page/mozaik-help-search">Recherche complémentaire</a> (dans listes)
+                                        </div>
                       </td>
                       <td>
                         <span style="color: inherit; font-family: inherit; font-size: 24px; line-height: 1.1; background-color: transparent;">Fonctionnalités générales</span>
@@ -20909,8 +21015,9 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                       <td>
                         <p>
                           <font size="5">
-                            <span style="line-height: 26.3999996185303px;"><a href="/page/mozaik-help-candidature">Candidatures </a>et <a href="/page/mozaik-help-mandates">Mandats</a></span>
-                            <a href="/page/mozaik-help-mandates"> </a>
+                            <span style="line-height: 26.3999996185303px;"><a href="/page/mozaik-help-candidature">Candidatures </a>et 
+                                                    <a href="/page/mozaik-help-mandates">Mandats</a></span>
+                            <a href="/page/mozaik-help-mandates"/>
                           </font>
                         </p>
                         <div>
@@ -21048,7 +21155,10 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                           <a href="/page/mozaik-help-distribution-list">Listes de distribution/Lettres d'information</a>
                         </div>
                         <div>
-                          <a href="/page/mozaik-help-virtual-target">Visualiser le résultat d'une Liste de distribution/Lettre d'information</a>
+                          <a href="/page/mozaik-help-distribution-list-forwarding">Transférer automatiquement des courriels</a>
+                        </div>
+                        <div>
+                          <a href="/page/mozaik-help-virtual-target" style="line-height: 1.42857143;">Visualiser le résultat d'une Liste de distribution/Lettre d'information</a>
                         </div>
                         <div>
                           <a href="/page/mozaik-help-virtual-partner-membership" style="background-color: rgb(255, 255, 255);">Visualiser le résultat d'un Filtre</a>
