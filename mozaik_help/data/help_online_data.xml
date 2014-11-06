@@ -475,6 +475,11 @@ AElFTkSuQmCC
                     <p>
                       <span style="line-height: 1.42857143;"><a href="/page/mozaik-help-filters">Recherche et Filtres</a> - <a href="/page/mozaik-help-navigation">Navigation</a> - <a href="/page/mozaik-help-views">Vues et Affichage</a> - <a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a> - <a href="/page/mozaik-help-createandedit">Créer et Editer</a> - <a href="/page/mozaik-help-search">Recherche complémentaire sur les listes</a> - <a href="/page/mozaik-help-datacontrol">Surveillance des données (historisation) et Travail collaboratif</a> </span>
                     </p>
+                    <div/>
+                    <div>
+                      <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                      <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                    </div>
                     <p/>
                   </div>
                 </div>
@@ -831,9 +836,7 @@ ZysC4LGVawx43GhccZ1iEMUX/g2qbHxjiLHWCI2nHdY/AMdfVUpeLzBLAAAAAElFTkSuQmCC
                           </div>
                           <div style="text-align: left;">
                             <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                            <span style="background-color: rgba(200, 200, 200, 0.137255);">
-                              <a href="/page/mozaik-help-toc">Retour au sommaire</a>
-                            </span>
+                            <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
                           </div>
                         </div>
                       </div>
@@ -1161,7 +1164,7 @@ jbuKbZMPnR/LNDrrk5y7mWxEHcJ1GjJ9rnG1/8/+Yhg+3c1Z+mTDash7O3x6z0uP18jZTWx7G6gT
                     <div style="text-align: left;">
                       <div/>
                       <div>
-                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px"/> Le champ "Incrément de" dont la valeur par défaut est 1 est la valeur d'incrément qui se calculera à chaque encodage. Cette valeur va alimenter le compteur d'échec qui se trouve dans la fiche de la Coordonnée  <em style="line-height: 1.42857143; background-color: transparent;">(exemple: 4 envois, 4 retours).  <em style="line-height: 1.42857143; background-color: transparent;">Le champ "Raison" n'apparaît que pour les échecs d'envoi postaux. La liste des raisons est préparée par un utilisateur membre du groupe "Configurator".  <em style="line-height: 1.42857143; background-color: transparent;">Le champ "Description" est un champ qui accueille du texte libre. Il est obligatoire. </em> </em> </em> </em>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px"/> Le champ "Incrément de" dont la valeur par défaut est 1 est la valeur d'incrément qui se calculera à chaque encodage. Cette valeur va alimenter le compteur d'échec qui se trouve dans la fiche de la Coordonnée <em style="line-height: 1.42857143; background-color: transparent;">(exemple: 4 envois, 4 retours). <em style="line-height: 1.42857143; background-color: transparent;">Le champ "Raison" n'apparaît que pour les échecs d'envoi postaux. La liste des raisons est préparée par un utilisateur membre du groupe "Configurator". <em style="line-height: 1.42857143; background-color: transparent;">Le champ "Description" est un champ qui accueille du texte libre. Il est obligatoire. </em> </em> </em> </em>
                       </div>
                     </div>
                     <div style="text-align: left;">
@@ -1229,10 +1232,12 @@ jbuKbZMPnR/LNDrrk5y7mWxEHcJ1GjJ9rnG1/8/+Yhg+3c1Z+mTDash7O3x6z0uP18jZTWx7G6gT
                     </div>
                     <div/>
                     <div style="text-align: left;">
-                      <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
-                        <span class="fa fa-reply fa-2x"/>
-                      </span>
-                      <a href="/page/mozaik-help-toc" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour au sommaire</a>
+                      <span style="color: rgb(119, 119, 119); line-height: 1.42857143;"/>
+                      <div/>
+                      <div>
+                        <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                        <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -2072,8 +2077,11 @@ NyPpotmvIzPC2SD0VXjeOzx8f8h/ZWuPN1mah5zs79P5nj493FvBMwQ9IZ5fzAHVjRcvdOPFdduL
                       <span style="color: rgb(119, 119, 119); line-height: 1.42857143;"/>
                       <div/>
                       <div>
-                        <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span>
+                        <div/>
+                        <div>
+                          <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                          <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -2325,8 +2333,12 @@ AAAAAADAEwbXDoEtkjnjfhCwJVA2sXoLwBbga/wfTOcvfGgdTwUAAAAASUVORK5CYII=
                           <span style="color: rgb(119, 119, 119); line-height: 1.42857143;"/>
                           <div/>
                           <div>
-                            <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                            <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span>
+                            <div/>
+                            <div>
+                              <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                              <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                            </div>
+                            <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
                           </div>
                         </div>
                       </div>
@@ -2868,8 +2880,12 @@ YBz6ADC0XI2VMQhr1ot/4eeDdQN+MSGgbLWi9D/YMFrk5NgHWAAAAABJRU5ErkJggg==
                       <span style="color: rgb(119, 119, 119); line-height: 1.42857143;"/>
                       <div/>
                       <div>
-                        <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span>
+                        <div/>
+                        <div>
+                          <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                          <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                        </div>
+                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
                       </div>
                     </div>
                   </div>
@@ -3589,9 +3605,7 @@ H/HxyHIAAoQdAAAAAElFTkSuQmCC
                     <div/>
                     <div>
                       <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                      <span style="background-color: rgba(200, 200, 200, 0.137255);">
-                        <a href="/page/mozaik-help-toc">Retour au sommaire</a>
-                      </span>
+                      <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
                     </div>
                   </div>
                 </div>
@@ -6752,8 +6766,12 @@ RK5CYII=
                             <span style="color: rgb(119, 119, 119); line-height: 1.42857143;"/>
                             <div/>
                             <div>
-                              <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                              <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span>
+                              <div/>
+                              <div>
+                                <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                                <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                              </div>
+                              <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
                             </div>
                           </div>
                         </div>
@@ -11732,8 +11750,12 @@ tV1t7b9bXGTWSBAbDgAAAABJRU5ErkJggg==
                       <span style="color: rgb(119, 119, 119); line-height: 1.42857143;"/>
                       <div/>
                       <div>
-                        <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span>
+                        <div/>
+                        <div>
+                          <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                          <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                        </div>
+                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
                       </div>
                     </div>
                   </div>
@@ -15464,20 +15486,12 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                   <h4>Quels avantages me donne l'application sur ce modèle?</h4>
                   <div>L'application me permet d'associer une personne à un événement que seul un utilisateur membre du groupe "Configurator" pourra créer. Des fonctionnalités générales sont offertes sur ce modèle telles que création (association), suppression, recherche, export, .....</div>
                   <h4>Quelles informations sont affichées dans la liste?</h4>
-                  <div>
-                    En vue liste ne seront affichées que les participations "actives" (voir
-                    <a href="/page/mozaik-help-invalidate"> Invalider un objet)</a>
-                     et seules deux informations sont affichées: la personne concernée et le ou les 'événement(s) associé(s). Si une personne participe à plusieurs événements, il y aura autant de lignes que d'événements.
-                  </div>
+                  <div>En vue liste ne seront affichées que les participations "actives" (voir <a href="/page/mozaik-help-invalidate"> Invalider un objet)</a> et seules deux informations sont affichées: la personne concernée et le ou les 'événement(s) associé(s). Si une personne participe à plusieurs événements, il y aura autant de lignes que d'événements.</div>
                   <div>Des fonctionnalités de recherche et de groupage d'affichage sont disponibles. Des filtres pré-définis sont à disposition .</div>
                   <h4>Combien d'événements peut-on associer à une personne?</h4>
                   <div>Il n'y a pas de limite.</div>
                   <h4>Où apparaissent les événements associés à une personne?</h4>
-                  <div>
-                    Dans la fiche de la Personne, onglet "Participations" (voir
-                    <a href="/page/mozaik-help-res-partner">Personnes</a>
-                    )
-                  </div>
+                  <div>Dans la fiche de la Personne, onglet "Participations" (voir <a href="/page/mozaik-help-res-partner">Personnes</a> )</div>
                 </div>
               </section>
               <hr/>
@@ -15539,25 +15553,16 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                       <span style="color:#808080;">Caractéristiques générales de l'écran</span>
                     </h3>
                     <p>
-                      <span style="line-height: 1.42857143;"><a href="/page/mozaik-help-filters">Recherche et Filtres </a>
-                         -
-                        <a href="/page/mozaik-help-navigation">Navigation </a>
-                         -
-                        <a href="/page/mozaik-help-views">Vues </a>
-                         -
-                        <a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a>
-                         -
-                        <a href="/page/mozaik-help-createandedit">Créer et Editer</a>
-                         -
-                        <a href="/page/mozaik-help-search">Recherche complémentaire sur les listes</a>
-                         -
-                        <a href="/page/mozaik-help-datacontrol">Surveillance des données (Historisation) et Travail collaboratif</a>
-                      </span>
+                      <span style="line-height: 1.42857143;"><a href="/page/mozaik-help-filters">Recherche et Filtres </a> - <a href="/page/mozaik-help-navigation">Navigation </a> - <a href="/page/mozaik-help-views">Vues </a> - <a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a> - <a href="/page/mozaik-help-createandedit">Créer et Editer</a> - <a href="/page/mozaik-help-search">Recherche complémentaire sur les listes</a> - <a href="/page/mozaik-help-datacontrol">Surveillance des données (Historisation) et Travail collaboratif</a> </span>
                     </p>
                     <div/>
                     <div>
-                      <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                      <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span>
+                      <div/>
+                      <div>
+                        <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                        <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                      </div>
+                      <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
                     </div>
                   </div>
                 </div>
@@ -15742,6 +15747,11 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                     <p>
                       <span style="line-height: 1.42857143;"><a href="/page/mozaik-help-filters">Recherche et Filtres</a> - <a href="/page/mozaik-help-navigation">Navigation</a> - <a href="/page/mozaik-help-views">Vues et Affichage</a> - <a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a> - <a href="/page/mozaik-help-createandedit">Créer et Editer</a> - <a href="/page/mozaik-help-search">Recherche complémentaire sur les listes</a> - <a href="/page/mozaik-help-datacontrol">Surveillance des données (Historisation) et Travail collaboratif</a> </span>
                     </p>
+                    <div/>
+                    <div>
+                      <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                      <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -15800,37 +15810,24 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                   <h4 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">Qu'entend-on par Coordonnée Téléphonique ?</h4>
                   <p>Il s'agit ici du ou des numéros de téléphone assigné(s) à une personne agrémenté de ses caractéristiques. Ces caractéristiques sont des classifications par catégories (privée ou professionnelle), par type (mobile, fix ou fax) mais aussi des caractéristiques de confidentialité que l'on retrouve pour les autres coordonnées (email et postale).</p>
                   <h4>Combien de Coordonnées Téléphoniques puis-je assigner à une personne?</h4>
-                  <div>
-                    Une et une seule coordonnée téléphonique peut être assignée à une personne à la fois mais il n'y a pas de limitation. Dans la liste, toutes les coordonnées téléphoniques connues pour une personne seront affichées tant que ces coordonnées restent "actives" (voir
-                    <a href="/page/mozaik-help-invalidate">Invalider un objet</a>
-                      ). Une détection des doublons a été mise en place. Le doublon va apparaître en rouge, à vous de confirmer ou de corriger.
-                  </div>
+                  <div>Une et une seule coordonnée téléphonique peut être assignée à une personne à la fois mais il n'y a pas de limitation. Dans la liste, toutes les coordonnées téléphoniques connues pour une personne seront affichées tant que ces coordonnées restent "actives" (voir <a href="/page/mozaik-help-invalidate">Invalider un objet</a> ). Une détection des doublons a été mise en place. Le doublon va apparaître en rouge, à vous de confirmer ou de corriger.</div>
                   <h4>Quelles informations sont affichées dans la liste?</h4>
-                  <div>
-                    Hormis les informations claires telles que le nom du contact et son numéro de téléphone associé (numéro + type), sont affichées les caractéristiques de la coordonnée téléphonique (catégorie), mais aussi si celle-ci est la coordonnée considérée comme principale, si elle est considérée comme VIP, ou encore si elle peut être utilisée ou non (non-autorisée).
-                    <span style="background-color: rgba(200, 200, 200, 0.137255);"> </span>
-                     La dernière colonne présente l'information du nombre d'échec d'envoi sur cette coordonnée. L'information complète sur ce compteur d'échec se trouve dans la fiche de la coordonnée. Ce compteur s'incrémente manuellement, au nombre d'appels téléphoniques non-aboutis (voir
-                    <a href="/page/mozaik-help-bounce-editor">Editer le compteur d'échec</a>
-                      ).
-                  </div>
+                  <div>Hormis les informations claires telles que le nom du contact et son numéro de téléphone associé (numéro + type), sont affichées les caractéristiques de la coordonnée téléphonique (catégorie), mais aussi si celle-ci est la coordonnée considérée comme principale, si elle est considérée comme VIP, ou encore si elle peut être utilisée ou non (non-autorisée). <span style="background-color: rgba(200, 200, 200, 0.137255);"> </span> La dernière colonne présente l'information du nombre d'échec d'envoi sur cette coordonnée. L'information complète sur ce compteur d'échec se trouve dans la fiche de la coordonnée. Ce compteur s'incrémente manuellement, au nombre d'appels téléphoniques non-aboutis (voir <a href="/page/mozaik-help-bounce-editor">Editer le compteur d'échec</a> ).</div>
                   <div>Des fonctionnalités de recherche et de groupage d'affichage sont disponibles. Nombreux filtres pré-définis sont à disposition et notamment, des recherches rapides sur des coordonnées mal-formattées, les non-actives, les VIP, etc...</div>
                   <div>
                     <h4>Pourquoi une coordonnée apparait-elle en rouge dans la liste?</h4>
-                    <div>
-                      Si la coordonnée (postale, téléphonique ou email) apparaît en rouge dans la liste cela signifie que c'est un doublon. Puisque les doublons sont interdits au niveau des Téléphones et Adresses, la détection s'organise au niveau des modèles suivants: Partenaires, Coordonnée Téléphonique, Coordonnée Email et Coordonnée Postale. Cette détection ne s'opère que sur les élements actifs.
-                      <div/>
-                      <div>Si les doublons sont licites (ex. membres de la même famille vivant à la même adresse ou partageant le même numéro de téléphone fixe, collègues partageant le même email professionnel, ...), une action permettra de les marquer comme "justifiés" afin qu'ils ne soient plus identifiés comme suspects lors de la prochaine exécution de la détection.</div>
-                      <div><span style="line-height: 1.42857143;">Mozaik propose une gestion de ces doublons (voi</span>
-                         r
-                        <a href="/page/mozaik-help-allow-duplicate-wizard">Gérer les doublons</a>
-                          ).
-                      </div>
-                    </div>
+                    <div>Si la coordonnée (postale, téléphonique ou email) apparaît en rouge dans la liste cela signifie que c'est un doublon. Puisque les doublons sont interdits au niveau des Téléphones et Adresses, la détection s'organise au niveau des modèles suivants: Partenaires, Coordonnée Téléphonique, Coordonnée Email et Coordonnée Postale. Cette détection ne s'opère que sur les élements actifs.
+<div/>
+
+<div>Si les doublons sont licites (ex. membres de la même famille vivant à la même adresse ou partageant le même numéro de téléphone fixe, collègues partageant le même email professionnel, ...), une action permettra de les marquer comme "justifiés" afin qu'ils ne soient plus identifiés comme suspects lors de la prochaine exécution de la détection.</div>
+
+<div><span style="line-height: 1.42857143;">Mozaik propose une gestion de ces doublons (voi</span> r <a href="/page/mozaik-help-allow-duplicate-wizard">Gérer les doublons</a> ).</div>
+</div>
                     <h4>Pourquoi une coordonnée apparait-elle en orange?</h4>
                     <div>Si la personne ou n'importe quelle donnée listée (adress, email, ...) apparaît en orange dans la liste cela signifie qu'il ne vous est pas permis de voir le détail de cette donnée (donnée non autorisée). Il s'agit ici de la mise en place de la confidentialité de certaines coordonnées et notamment ici, le fait que le propriétaire de la donnée a coché l'option "Interdit".</div>
                     <h4>Quels types/catégories de Coordonnées Téléphoniques existent-il?</h4>
                     <div>Les coordonnées téléphoniques sont de deux catégories: Privée ou Professionnelle. La gestion de ces catégories est réservée aux utilisateurs membre du groupe "Configurator". Une coche indiquera l'adresse email considérée comme principale (celle à utiliser si aucun contexte n'est précisé).</div>
-                    <div>Ces coordonnées sont également de trois types: fixe, mobile ou fax. </div>
+                    <div>Ces coordonnées sont également de trois types: fixe, mobile ou fax.</div>
                     <h4>Qui voit les Coordonnées Téléphoniques?</h4>
                     <div>Des règles de confidentialité sont applicables aux coordonnées en général (Postales, Email, Téléphoniques). L'on cochera ou non les particularités suivantes:</div>
                     <ul>
@@ -15923,21 +15920,14 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                       <span style="color:#808080;">Caractéristiques générales de l'écran</span>
                     </h3>
                     <p>
-                      <span style="line-height: 1.42857143;"><a href="/page/mozaik-help-filters">Recherche et Filtres</a>
-                         -
-                        <a href="/page/mozaik-help-navigation">Navigation</a>
-                         -
-                        <a href="/page/mozaik-help-views">Vues et Affichage</a>
-                         -
-                        <a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a>
-                         -
-                        <a href="/page/mozaik-help-createandedit">Créer et Editer</a>
-                         -
-                        <a href="/page/mozaik-help-search">Recherche complémentaire sur les listes</a>
-                         -
-                        <a href="/page/mozaik-help-datacontrol">Surveillance des données (Historisation) et Travail collaboratif</a>
-                      </span>
+                      <span style="line-height: 1.42857143;"><a href="/page/mozaik-help-filters">Recherche et Filtres</a> - <a href="/page/mozaik-help-navigation">Navigation</a> - <a href="/page/mozaik-help-views">Vues et Affichage</a> - <a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a> - <a href="/page/mozaik-help-createandedit">Créer et Editer</a> - <a href="/page/mozaik-help-search">Recherche complémentaire sur les listes</a> - <a href="/page/mozaik-help-datacontrol">Surveillance des données (Historisation) et Travail collaboratif</a> </span>
                     </p>
+                    <div/>
+                    <div>
+                      <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                      <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                    </div>
+                    <div/>
                   </div>
                 </div>
               </div>
@@ -16089,6 +16079,11 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                     <p>
                       <span style="line-height: 1.42857143;"><a href="/page/mozaik-help-filters">Recherche et Filtres</a> - <a href="/page/mozaik-help-navigation">Navigation</a> - <a href="/page/mozaik-help-views">Vues et Affichage</a> - <a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a> - <a href="/page/mozaik-help-createandedit">Créer et Editer</a> - <a href="/page/mozaik-help-search">Recherche complémentaire sur les listes</a> - <a href="/page/mozaik-help-datacontrol">Surveillance des données (Historisation) et Travail collaboratif</a> </span>
                     </p>
+                    <div/>
+                    <div>
+                      <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                      <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -16151,29 +16146,19 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                     <span style="color:#808080;">Coordonnées Postales: particularités </span>
                   </h3>
                   <h4>Combien d'adresses postales puis-je assigner à une personne?</h4>
-                  <p>
-                    Une et une seule coordonnée postale peut être assignée à une personne à la fois mais il n'y a pas de limitation. Dans la liste, toutes les adresses postales connues pour une personne seront affichées tant que ces coordonnées restent "actives" (voir
-                    <a href="/page/mozaik-help-invalidate">Invalider un objet</a>
-                     ). Une détection des doublons a été mise en place. Le doublon va apparaître en rouge, à vous de confirmer ou de corriger. Cependant, le cas particulier des Coordonnées Postales introduit le concept de Co-résidence. "Justifier" des doublons consiste à associer plusieurs Coordonnées Postales d'une même adresse (i.e. des doublons) à une même Co-résidence.
-                  </p>
+                  <p>Une et une seule coordonnée postale peut être assignée à une personne à la fois mais il n'y a pas de limitation. Dans la liste, toutes les adresses postales connues pour une personne seront affichées tant que ces coordonnées restent "actives" (voir <a href="/page/mozaik-help-invalidate">Invalider un objet</a> ). Une détection des doublons a été mise en place. Le doublon va apparaître en rouge, à vous de confirmer ou de corriger. Cependant, le cas particulier des Coordonnées Postales introduit le concept de Co-résidence. "Justifier" des doublons consiste à associer plusieurs Coordonnées Postales d'une même adresse (i.e. des doublons) à une même Co-résidence.</p>
                   <p>A noter cependant aussi que certaines adresses sont pourtant identiques: c'est le cas des petits immeubles dont les appartements partagent la même boîte aux lettres. Dans ce cas, un numéro d'identification (1, 2, 3, ...) sera attribué à l'adresse pour la différencier de l'autre, ainsi la rendre unique et l'associer à des Coordonnées Postales sans déclencher la détection de doublons avec la première.</p>
                   <h4>Quelles informations sont affichées dans la liste?</h4>
-                  <div>
-                    Hormis les informations claires telles que le nom du contact et son adresse associée, sont affichées les caractéristiques de la coordonnée postale mais aussi si celle-ci est l'adresse considérée comme principale, si elle est considérée comme VIP, ou encore si elle peut être utilisée ou non (non-autorisée). La dernière colonne présente l'information du nombre d'échec d'envoi sur cette coordonnée. L'information complète sur ce compteur d'échec se trouve dans la fiche de la coordonnée. Ce compteur s'incrémente manuellement, au nombre de retours postaux enregistrés (voir
-                    <a href="/page/mozaik-help-bounce-editor">Editer le compteur d'échec</a>
-                     ).
-                  </div>
+                  <div>Hormis les informations claires telles que le nom du contact et son adresse associée, sont affichées les caractéristiques de la coordonnée postale mais aussi si celle-ci est l'adresse considérée comme principale, si elle est considérée comme VIP, ou encore si elle peut être utilisée ou non (non-autorisée). La dernière colonne présente l'information du nombre d'échec d'envoi sur cette coordonnée. L'information complète sur ce compteur d'échec se trouve dans la fiche de la coordonnée. Ce compteur s'incrémente manuellement, au nombre de retours postaux enregistrés (voir <a href="/page/mozaik-help-bounce-editor">Editer le compteur d'échec</a> ).</div>
                   <h4>Pourquoi une coordonnée apparait-elle en rouge dans la liste?</h4>
-                  <div>
-                    Si la coordonnée (postale, téléphonique ou email) apparaît en rouge dans la liste cela signifie que c'est un doublon. Puisque les doublons sont interdits au niveau des Téléphones et Adresses, la détection s'organise au niveau des modèles suivants: Partenaires, Coordonnée Téléphonique, Coordonnée Email et Coordonnée Postale. Cette détection ne s'opère que sur les élements actifs.
-                    <div/>
-                    <div>Si les doublons sont licites (ex. membres de la même famille vivant à la même adresse ou partageant le même numéro de téléphone fixe, collègues partageant le même email professionnel, ...), une action permettra de les marquer comme "justifiés" afin qu'ils ne soient plus identifiés comme suspects lors de la prochaine exécution de la détection.</div>
-                    <div><p>Le cas particulier des Coordonnées Postales introduit le concept de Co-résidence. "Justifier" des doublons consiste à associer plusieurs Coordonnées Postales d'une même Adresse (i.e. des doublons) à une même Co-résidence.</p><p>Dans le cas particulier des adresses identiques mais de domiciles différents (petits immeubles à plusieurs appartements sans distinction postale officielle), il sera possible de dupliquer une adresse où tous les champs seront identiques. La nouvelle adresse aura un numéro d'identification la différenciant de la source permettant de contourner le contrôle d'unicité contraignant.</p>
-Mozaik propose une gestion de ces doublons (voir
-                      <a href="/page/mozaik-help-allow-duplicate-wizard">Gérer les doublons</a>
-                       ).
-                    </div>
-                  </div>
+                  <div>Si la coordonnée (postale, téléphonique ou email) apparaît en rouge dans la liste cela signifie que c'est un doublon. Puisque les doublons sont interdits au niveau des Téléphones et Adresses, la détection s'organise au niveau des modèles suivants: Partenaires, Coordonnée Téléphonique, Coordonnée Email et Coordonnée Postale. Cette détection ne s'opère que sur les élements actifs.
+<div/>
+
+<div>Si les doublons sont licites (ex. membres de la même famille vivant à la même adresse ou partageant le même numéro de téléphone fixe, collègues partageant le même email professionnel, ...), une action permettra de les marquer comme "justifiés" afin qu'ils ne soient plus identifiés comme suspects lors de la prochaine exécution de la détection.</div>
+
+<div><p>Le cas particulier des Coordonnées Postales introduit le concept de Co-résidence. "Justifier" des doublons consiste à associer plusieurs Coordonnées Postales d'une même Adresse (i.e. des doublons) à une même Co-résidence.</p><p>Dans le cas particulier des adresses identiques mais de domiciles différents (petits immeubles à plusieurs appartements sans distinction postale officielle), il sera possible de dupliquer une adresse où tous les champs seront identiques. La nouvelle adresse aura un numéro d'identification la différenciant de la source permettant de contourner le contrôle d'unicité contraignant.</p>
+Mozaik propose une gestion de ces doublons (voir <a href="/page/mozaik-help-allow-duplicate-wizard">Gérer les doublons</a> ).</div>
+</div>
                   <h4>Pourquoi une coordonnée apparait-elle en orange?</h4>
                   <div>Si la personne ou n'importe quelle donnée listée (adress, email, ...) apparaît en orange dans la liste cela signifie qu'il ne vous est pas permis de voir le détail de cette donnée (donnée non autorisée). Il s'agit ici de la mise en place de la confidentialité de certaines coordonnées et notamment ici, le fait que le propriétaire de la donnée a coché l'option "Interdit".</div>
                   <h4>Pourquoi, dans les coordonnées postales de la personne, une adresse postale apparait-elle en vert?</h4>
@@ -16212,7 +16197,7 @@ Mozaik propose une gestion de ces doublons (voir
                           <a href="/page/mozaik-help-vip">Déclarer la coordonnée postale comme "VIP"</a>
                         </h4>
                         <h4>
-                          <a href="/page/mozaik-help-exportcsv">Exporter les coordonnées en format CSV</a>
+                          <a href="/page/mozaik-help-export-csv">Exporter les coordonnées en format CSV</a>
                         </h4>
                       </div>
                       <h4>
@@ -16279,26 +16264,17 @@ Mozaik propose une gestion de ces doublons (voir
                       <span style="color:#808080;">Caractéristiques générales de l'écran</span>
                     </h3>
                     <p>
-                      <span style="line-height: 1.42857143;"><a href="/page/mozaik-help-filters">Recherche et Filtres </a>
-                         -
-                        <a href="/page/mozaik-help-navigation">Navigation </a>
-                         -
-                        <a href="/page/mozaik-help-views">Vues </a>
-                         -
-                        <a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a>
-                         -
-                        <a href="/page/mozaik-help-createandedit">Créer et Editer</a>
-                         -
-                        <a href="/page/mozaik-help-search">Recherche complémentaire sur les listes</a>
-                         -
-                        <a href="/page/mozaik-help-datacontrol">Surveillance des données (Historisation) et Travail collaboratif</a>
-                      </span>
+                      <span style="line-height: 1.42857143;"><a href="/page/mozaik-help-filters">Recherche et Filtres </a> - <a href="/page/mozaik-help-navigation">Navigation </a> - <a href="/page/mozaik-help-views">Vues </a> - <a href="/page/mozaik-help-messaging">Messagerie et Notes internes</a> - <a href="/page/mozaik-help-createandedit">Créer et Editer</a> - <a href="/page/mozaik-help-search">Recherche complémentaire sur les listes</a> - <a href="/page/mozaik-help-datacontrol">Surveillance des données (Historisation) et Travail collaboratif</a> </span>
                     </p>
                     <div>
                       <div/>
                       <div>
-                        <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span>
+                        <div/>
+                        <div>
+                          <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                          <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                        </div>
+                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
                       </div>
                     </div>
                   </div>
@@ -16620,10 +16596,12 @@ OfRE3+Jw1Dj6C4bGUY5Trw+5Wqv1A0JoHFkIbza2AAAAAElFTkSuQmCC
                     </div>
                     <div/>
                     <div style="text-align: left;">
-                      <span style="color: rgb(119, 119, 119); line-height: 1.42857143;">
-                        <span class="fa fa-reply fa-2x"/>
-                      </span>
-                      <a href="/page/mozaik-help-toc" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Retour au sommaire</a>
+                      <span style="color: rgb(119, 119, 119); line-height: 1.42857143;"/>
+                      <div/>
+                      <div>
+                        <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                        <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -21270,8 +21248,12 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                     </div>
                     <div style="text-align: left;">
                       <div>
-                        <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);">Retour au sommaire</span>
+                        <div/>
+                        <div>
+                          <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                          <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                        </div>
+                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
                       </div>
                     </div>
                   </div>
@@ -23936,8 +23918,12 @@ TkSuQmCC
                     </div>
                     <div style="text-align: left;">
                       <div>
-                        <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);">Retour au sommaire</span>
+                        <div/>
+                        <div>
+                          <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
+                          <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
+                        </div>
+                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
                       </div>
                     </div>
                   </div>
