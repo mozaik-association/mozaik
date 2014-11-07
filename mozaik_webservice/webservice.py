@@ -88,6 +88,7 @@ class custom_webservice(orm.Model):
         ==================
         Create a `membership.request` with the giving values
         """
+        self.check_access_rights(cr, uid, 'read')
         context = context or {}
         membership_request = self.pool['membership.request']
         vals = {
@@ -120,6 +121,7 @@ class custom_webservice(orm.Model):
 
     @web_service
     def get_login(self, cr, uid, email, birth_date, context=None):
+        self.check_access_rights(cr, uid, 'read')
         partner_obj = self.pool['res.partner']
         try:
             res = partner_obj.get_login(cr, SUPERUSER_ID, email, birth_date, context=context)
@@ -129,6 +131,7 @@ class custom_webservice(orm.Model):
 
     @web_service
     def get_partner_coordinate(self, cr, uid, grh_identifier, context=None):
+        self.check_access_rights(cr, uid, 'read')
         partner_obj = self.pool['res.partner']
         try:
             res = partner_obj.get_coordinate(

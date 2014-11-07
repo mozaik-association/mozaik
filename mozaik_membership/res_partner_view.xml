@@ -123,23 +123,29 @@
                                                   ('membership_state_id', '=', False)]}" />
                 </xpath>
 
+            </field>
+        </record>
+
+        <record id="view_partner_3_form" model="ir.ui.view">
+            <field name="name">res.partner.form (mozaik_membership) for configurator</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="mozaik_person.view_partner_form" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_configurator')]),
+                                          ]"/>
+            <field name="arch" type="xml">
+
                 <xpath expr="//page[@name='user']" position="inside">
                     <separator string="Internal Instances" />
                     <field name="int_instance_m2m_ids" widget="many2many_tags"
                         placeholder="Instances..."
-                        attrs="{'required': [('user_ids','!=',[]),
-                                                ('membership_state_id','!=',False)]}" />
-                    <!-- Some blank lines to see the entire elapsed many2many_tags
-                        widget -->
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
+                        attrs="{'required': [('user_ids','!=',[]),('membership_state_id','!=',False)]}" />
+                    <div class="oe_clear">
+                        <!-- Some blank lines to see the entire elapsed many2many_tags widget -->
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                    </div>
                 </xpath>
 
             </field>

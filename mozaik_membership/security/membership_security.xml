@@ -57,60 +57,75 @@
             <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
         </record>
 
+        <record id="mozaik_address.postal_coordinate_user_rule" model="ir.rule">
+            <field name="active" eval="0"/>
+        </record>
+
         <record id="postal_coordinate_user_rule" model="ir.rule">
             <field name="name">Postal Coordinate for Mozaik User</field>
             <field name="model_id" ref="mozaik_address.model_postal_coordinate"/>
             <field name="domain_force"
-                   eval="['|',('partner_id.is_company','=',True),('partner_id.membership_state_id','=',ref('mozaik_membership.without_membership'))]"/>
+                   eval="[('vip','=',False),
+                          '|',('partner_id.is_company','=',True),('partner_id.membership_state_id','=',ref('mozaik_membership.without_membership'))]"/>
             <field name="groups" eval="[(6,0,[ref('mozaik_base.mozaik_res_groups_user')])]"/>
             <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
-            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
         <record id="postal_coordinate_officier_rule" model="ir.rule">
             <field name="name">Postal Coordinate for Mozaik Officer</field>
             <field name="model_id" ref="mozaik_address.model_postal_coordinate"/>
-            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="domain_force">[('vip','=',False)]</field>
             <field name="groups" eval="[(6,0,[ref('mozaik_base.mozaik_res_groups_officer')])]"/>
-            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="mozaik_email.email_coordinate_user_rule" model="ir.rule">
+            <field name="active" eval="0"/>
         </record>
 
         <record id="email_coordinate_user_rule" model="ir.rule">
             <field name="name">Email Coordinate for Mozaik User</field>
             <field name="model_id" ref="mozaik_email.model_email_coordinate"/>
             <field name="domain_force"
-                   eval="['|',('partner_id.is_company','=',True),('partner_id.membership_state_id','=',ref('mozaik_membership.without_membership'))]"/>
+                   eval="[('vip','=',False),
+                          '|',('partner_id.is_company','=',True),('partner_id.membership_state_id','=',ref('mozaik_membership.without_membership'))]"/>
             <field name="groups" eval="[(6,0,[ref('mozaik_base.mozaik_res_groups_user')])]"/>
             <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
-            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
         <record id="email_coordinate_officier_rule" model="ir.rule">
             <field name="name">Email Coordinate for Mozaik Officer</field>
             <field name="model_id" ref="mozaik_email.model_email_coordinate"/>
-            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="domain_force">[('vip','=',False)]</field>
             <field name="groups" eval="[(6,0,[ref('mozaik_base.mozaik_res_groups_officer')])]"/>
-            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="mozaik_phone.phone_coordinate_user_rule" model="ir.rule">
+            <field name="active" eval="0"/>
         </record>
 
         <record id="phone_coordinate_user_rule" model="ir.rule">
             <field name="name">Phone Coordinate for Mozaik User</field>
             <field name="model_id" ref="mozaik_phone.model_phone_coordinate"/>
             <field name="domain_force"
-                   eval="['|',('partner_id.is_company','=',True),('partner_id.membership_state_id','=',ref('mozaik_membership.without_membership'))]"/>
+                   eval="[('vip','=',False),
+                          '|',('partner_id.is_company','=',True),('partner_id.membership_state_id','=',ref('mozaik_membership.without_membership'))]"/>
             <field name="groups" eval="[(6,0,[ref('mozaik_base.mozaik_res_groups_user')])]"/>
             <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
-            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
         <record id="phone_coordinate_officier_rule" model="ir.rule">
             <field name="name">Phone Coordinate for Mozaik Officer</field>
             <field name="model_id" ref="mozaik_phone.model_phone_coordinate"/>
-            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="domain_force">[('vip','=',False)]</field>
             <field name="groups" eval="[(6,0,[ref('mozaik_base.mozaik_res_groups_officer')])]"/>
-            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
