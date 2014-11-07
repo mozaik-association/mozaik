@@ -518,7 +518,7 @@ msgstr "Partenaire"
 #: model:ir.model,name:mozaik_person.model_partner_involvement
 #: view:partner.involvement:mozaik_person.partner_involvement_form_view
 msgid "Partner Involvement"
-msgstr "Participation de partnenaire"
+msgstr "Participation de partenaire"
 
 #. module: mozaik_person
 #: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
@@ -530,7 +530,7 @@ msgstr "Catégories de participation de partenaire"
 #: model:ir.model,name:mozaik_person.model_partner_involvement_category
 #: view:partner.involvement.category:mozaik_person.partner_involvement_category_form_view
 msgid "Partner Involvement Category"
-msgstr "Catégorie de participation de partnenaire"
+msgstr "Catégorie de participation de partenaire"
 
 #. module: mozaik_person
 #: view:partner.involvement:mozaik_person.partner_involvement_search_view
@@ -538,7 +538,7 @@ msgstr "Catégorie de participation de partnenaire"
 #: field:res.partner,partner_involvement_ids:0
 #: field:res.partner,partner_involvement_inactive_ids:0
 msgid "Partner Involvements"
-msgstr "Participations de partnenaire"
+msgstr "Participations de partenaire"
 
 #. module: mozaik_person
 #: model:ir.ui.menu,name:mozaik_person.persons_menu

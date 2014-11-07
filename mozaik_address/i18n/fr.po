@@ -77,11 +77,6 @@ msgid "An Address without sequence number cannot be duplicated!"
 msgstr "Une adresse sans numéro de séquence ne peut être dupliquée !"
 
 #. module: mozaik_address
-#: view:address.address:mozaik_address.address_address_search_view
-msgid "Not standard streets"
-msgstr "Rues non standards"
-
-#. module: mozaik_address
 #: model:ir.model,name:mozaik_address.model_bounce_editor
 msgid "Bounce Editor"
 msgstr "Editeur d'échecs"
@@ -162,6 +157,11 @@ msgstr "Pays"
 #: field:address.address,country_code:0
 msgid "Country Code"
 msgstr "Code du pays"
+
+#. module: mozaik_address
+#: field:res.country,country_group_ids:0
+msgid "Country Groups"
+msgstr "Groupes de pays"
 
 #. module: mozaik_address
 #: field:address.address,create_uid:0
@@ -353,6 +353,11 @@ msgid "Label Lines"
 msgstr "Lignes d'étiquette"
 
 #. module: mozaik_address
+#: model:ir.actions.report.xml,name:mozaik_address.postal_coordinate_label_report
+msgid "Labels"
+msgstr "Étiquettes"
+
+#. module: mozaik_address
 #: field:postal.coordinate,bounce_date:0
 msgid "Last Failure Date"
 msgstr "Date de dernier échec"
@@ -502,6 +507,11 @@ msgid "Non-standard Streets"
 msgstr "Rues non-standard"
 
 #. module: mozaik_address
+#: view:address.address:mozaik_address.address_address_search_view
+msgid "Not standard streets"
+msgstr "Rues non standards"
+
+#. module: mozaik_address
 #: field:address.address,number:0
 msgid "Number"
 msgstr "Numéro"
@@ -520,11 +530,6 @@ msgstr "Partenaire"
 #: model:ir.model,name:mozaik_address.model_postal_coordinate
 msgid "Postal Coordinate"
 msgstr "Coordonnée postale"
-
-#. module: mozaik_address
-#: model:ir.actions.report.xml,name:mozaik_address.postal_coordinate_label_report
-msgid "Postal Coordinate Label"
-msgstr "Etiquettes pour coordonnées postales"
 
 #. module: mozaik_address
 #: field:address.address,postal_coordinate_ids:0
@@ -578,8 +583,8 @@ msgid "Street2"
 msgstr "Rue (suite)"
 
 #. module: mozaik_address
-#: view:streets.repository.loader:mozaik_address.streets_repository_loader_view
 #: model:ir.model,name:mozaik_address.model_streets_repository_loader
+#: view:streets.repository.loader:mozaik_address.streets_repository_loader_view
 msgid "Streets Repository Loader"
 msgstr "Chargement du référenciel des rues"
 

@@ -77,7 +77,7 @@
         </record>
 
         <record id="postal_coordinate_label_paperformat" model="report.paperformat">
-            <field name="name">Postal Coordinate Label</field>
+            <field name="name">Postal Coordinate Labels</field>
             <field name="default" eval="True"/>
             <field name="format">custom</field>
             <field name="orientation">Portrait</field>
@@ -90,7 +90,7 @@
             <field name="dpi">90</field>
         </record>
 
-        <report string="Postal Coordinate Label"
+        <report string="Labels"
                 id="postal_coordinate_label_report"
                 model="postal.coordinate"
                 report_type="qweb-pdf"
@@ -263,7 +263,7 @@
                     <field name="line" string="Label Lines" filter_domain="['|',('line','ilike', self),('line2','ilike', self)]"/>
 
                     <filter name="empty" string="Empty Co-Residencies"
-                            domain="[('postal_coordinate_ids', '=', False),('postal_coordinate_inactive_ids', '=', False)]" />
+                            domain="[('postal_coordinate_ids', '=', False)]" />
                     <separator />
                 </search>
             </field>
