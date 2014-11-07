@@ -149,6 +149,19 @@ msgid "Followers"
 msgstr "Abonnés"
 
 #. module: mozaik_person_coordinate
+#: field:partner.realtion,date_from:0
+msgid "From"
+msgstr "De"
+
+#. module: mozaik_person_coordinate
+msgid "From < ..."
+msgstr "Á partir de < ..."
+
+#. module: mozaik_person_coordinate
+msgid "From < ..."
+msgstr "Á partir de < ..."
+
+#. module: mozaik_person_coordinate
 #: view:duplicate.analysis.report:mozaik_person_coordinate.duplicate_analysis_report_search_view
 #: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
 msgid "Group By..."
@@ -259,6 +272,11 @@ msgstr "Mozaik: Relevé des doublons - %s"
 #: field:duplicate.analysis.report,name:0
 msgid "Name"
 msgstr "Nom"
+
+#. module: mozaik_person_coordinate
+#: field:partner.involvement,note:0
+msgid "Notes"
+msgstr "Notes"
 
 #. module: mozaik_person_coordinate
 #: field:partner.relation,object_partner_id:0
@@ -413,6 +431,19 @@ msgstr "Aucun doublon"
 #: model:ir.actions.act_window,help:mozaik_person_coordinate.duplicate_analysis_report_action
 msgid "This report provides a global duplicates summary"
 msgstr "Ce rapport produit le relevé des doublons"
+
+#. module: mozaik_person_coordinate
+#: field:partner.realtion,date_to:0
+msgid "To"
+msgstr "Á"
+
+#. module: mozaik_person_coordinate
+msgid "To < ..."
+msgstr "Jusqu'à < ..."
+
+#. module: mozaik_person_coordinate
+msgid "To < ..."
+msgstr "Jusqu'à < ..."
 
 #. module: mozaik_person_coordinate
 #: code:addons\mozaik_person_coordinate\report\duplicates_analysis_report.py:144

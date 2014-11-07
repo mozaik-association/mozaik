@@ -97,6 +97,9 @@ class partner_relation(orm.Model):
         'subject_partner_id': fields.many2one('res.partner', string='Subject', required=True, select=True, track_visibility='onchange'),
         'object_partner_id': fields.many2one('res.partner', string='Object', required=True, select=True, track_visibility='onchange'),
         'partner_relation_category_id': fields.many2one('partner.relation.category', string='Relation Category', required=True, select=True, track_visibility='onchange'),
+        'note': fields.text('Notes', track_visibility='onchange'),
+        'date_from': fields.date('From', track_visibility='onchange'),
+        'date_to': fields.date('To', track_visibility='onchange'),
 
         # coordinates
         'email_coordinate_id': fields.many2one('email.coordinate', string='Email Coordinate', select=True, track_visibility='onchange'),
@@ -136,6 +139,11 @@ class partner_relation(orm.Model):
 
     _unicity_keys = 'subject_partner_id, partner_relation_category_id, object_partner_id'
 
+    _sql_constraints = [
+        ('date_check', "CHECK((date_from <= date_to or date_to is null) or (date_from is null and date_to is null))",
+         "The start date must be anterior to the end date."),
+    ]
+
 # orm methods
 
     def name_get(self, cr, uid, ids, context=None):
@@ -156,5 +164,3 @@ class partner_relation(orm.Model):
             raise orm.except_orm(_('Error'), _('An active relation cannot be duplicated!'))
         res = super(partner_relation, self).copy(cr, uid, ids, default=default, context=context)
         return res
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

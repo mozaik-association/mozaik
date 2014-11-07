@@ -9,6 +9,12 @@
             <field name="model">partner.relation</field>
             <field name="arch" type="xml">
                 <search string="Partners Relations">
+                    <field name="note"/>
+                    <field string="From > ..." name="date_from" filter_domain="[('date_from','>', self)]" />
+                    <field string="From &lt; ..." name="date_from" filter_domain="[('date_from','&lt;', self)]" />
+                    <field string="To > ..." name="date_to" filter_domain="[('date_to','>', self)]" />
+                    <field string="To &lt; ..." name="date_to" filter_domain="[('date_to','&lt;', self)]" />
+
                     <field name="subject_partner_id"/>
                     <field name="object_partner_id"/>
                     <field name="partner_relation_category_id"/>
@@ -37,6 +43,8 @@
                     <field name="subject_partner_id"/>
                     <field name="partner_relation_category_id"/>
                     <field name="object_partner_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
@@ -50,6 +58,8 @@
                     <field name="object_partner_id"/>
                     <field name="partner_relation_category_id"/>
                     <field name="subject_partner_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
                 </tree>
             </field>
@@ -97,12 +107,17 @@
                             <label for="object_partner_id" class="oe_edit_only"/>
                             <h1><field name="object_partner_id" /></h1>
                         </div>
+                        <group name="note">
+                            <field name="note" />
+                        </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                             </group>
-                            <group name="other">
+                            <group name="dates">
+                                <field name="date_from" />
+                                <field name="date_to" />
                             </group>
                         </group>
 
@@ -174,7 +189,9 @@
                                 <field name="create_date" />
                                 <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
                             </group>
-                            <group name="other">
+                            <group name="dates">
+                                <field name="date_from" />
+                                <field name="date_to" />
                             </group>
                         </group>
                     </sheet>
