@@ -97,6 +97,9 @@
         <record id="mail.mail_feeds" model="ir.ui.menu">
             <field name="parent_id" ref="communication_root_menu" />
             <field name="sequence">5</field>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.mozaik_res_groups_user'),
+            ])]" />
         </record>
 
         <record id="help_online.menu_help_main" model="ir.ui.menu">

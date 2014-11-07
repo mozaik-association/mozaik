@@ -50,15 +50,17 @@
                 <!-- No more mass mailing but mass function in our case -->
                 <xpath expr="//button[@name='mass_mailing']" position="replace">
                     <button name="%(distribution_list_mass_function_action)d" type="action" icon="terp-partner"
-                            string="Mass Action" attrs="{'invisible':[('active', '=', False)]}"/>
+                            string="Mass Action" attrs="{'invisible':[('active', '=', False)]}"
+                            groups="mozaik_base.mozaik_res_groups_user"/>
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
                 </xpath>
 
                 <xpath expr="//button[@name='get_action_from_domains']" position="replace">
-                    <button groups="base.group_user" name="get_action_from_domains"
+                    <button name="get_action_from_domains"
                             attrs="{'invisible':[('active', '=', False)]}"
-                            string="See Distribution List Result" type="object" icon="gtk-redo"/>
+                            string="See Distribution List Result" type="object" icon="gtk-redo"
+                            groups="mozaik_base.res_groups_base" />
                 </xpath>
 
             </field>
@@ -115,7 +117,7 @@
                 <!-- Add user tree into distribution list form -->
                 <xpath expr="//sheet" position="inside">
                     <notebook>
-                        <page name="security" string="Security" autofocus="autofocus">
+                        <page name="security" string="Security" autofocus="autofocus" groups="mozaik_base.mozaik_res_groups_user">
                             <group name="validity">
                                 <field name="int_instance_id" />
                                 <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
@@ -191,9 +193,10 @@
                 </xpath>
 
                 <xpath expr="//button[@name='get_list_from_domain']" position="replace">
-                    <button groups="base.group_user" name="get_list_from_domain"
+                    <button name="get_list_from_domain"
                             string="See Filter Result" type="object"
-                            attrs="{'invisible':[('active', '=', False)]}" icon="gtk-redo"/>
+                            attrs="{'invisible':[('active', '=', False)]}" icon="gtk-redo"
+                            groups="mozaik_base.res_groups_base" />
                 </xpath>
 
             </field>

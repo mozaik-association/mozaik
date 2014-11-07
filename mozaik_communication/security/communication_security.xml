@@ -2,6 +2,14 @@
 <openerp>
     <data noupdate="0">
 
+        <record id="distribution_list.access_distribution_list_user" model="ir.model.access">
+            <field name="group_id" eval="ref('mozaik_base.mozaik_res_groups_user')"/>
+        </record>
+
+        <record id="distribution_list.access_distribution_list_line_user" model="ir.model.access">
+            <field name="group_id" eval="ref('mozaik_base.mozaik_res_groups_user')"/>
+        </record>
+
         <!-- Pyramidal Confidentiality -->
 
         <record id="distribution_list_base_cud_rule" model="ir.rule">

@@ -71,6 +71,7 @@
             <field name="implied_ids" eval="[(6, 0, [
                 ref('mozaik_res_groups_reader'),
                 ref('mozaik_res_groups_user'),
+                ref('event.group_event_manager'),
             ])]" />
         </record>
 
@@ -80,7 +81,6 @@
             <field name="implied_ids" eval="[(6, 0, [
                 ref('mozaik_res_groups_financial_user'),
                 ref('mozaik_res_groups_officer'),
-                ref('event.group_event_manager'),
             ])]" />
         </record>
 

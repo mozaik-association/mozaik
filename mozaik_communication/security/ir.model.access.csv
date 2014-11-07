@@ -15,3 +15,6 @@ access_postal_mail_res_groups_configurator,mozaik.postal.mail.res.groups.configu
 access_postal_mail_log_res_groups_base,mozaik.postal.mail.log.res.groups.base,model_postal_mail_log,mozaik_base.res_groups_base,1,0,0,0
 access_postal_mail_log_res_groups_officer,mozaik.postal.mail.log.res.groups.officer,model_postal_mail_log,mozaik_base.mozaik_res_groups_officer,1,1,1,0
 access_postal_mail_log_res_groups_configurator,mozaik.postal.mail.log.res.groups.configurator,model_postal_mail_log,mozaik_base.mozaik_res_groups_configurator,1,1,1,1
+access_distribution_list_res_groups_base,distribution.list.res.groups.base,distribution_list.model_distribution_list,mozaik_base.res_groups_base,1,0,0,0
+access_distribution_list_line_res_groups_base,distribution.list.line.res.groups.base,distribution_list.model_distribution_list_line,mozaik_base.res_groups_base,1,0,0,0
+
