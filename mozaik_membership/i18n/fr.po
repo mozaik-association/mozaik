@@ -460,6 +460,16 @@ msgid "From"
 msgstr "De"
 
 #. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+msgid "From < ..."
+msgstr "Á partir de < ..."
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+msgid "From > ..."
+msgstr "Á partir de > ..."
+
+#. module: mozaik_membership
 #: field:membership.request,gender:0
 msgid "Gender"
 msgstr "Genre"
@@ -544,7 +554,7 @@ msgid "Instance"
 msgstr "Instance"
 
 #. module: mozaik_membership
-#: view:res.partner:mozaik_membership.view_partner_2_form
+#: view:res.partner:mozaik_membership.view_partner_3_form
 msgid "Instances..."
 msgstr "Instances..."
 
@@ -573,7 +583,7 @@ msgid "Internal Instance"
 msgstr "Instance interne"
 
 #. module: mozaik_membership
-#: view:res.partner:mozaik_membership.view_partner_2_form
+#: view:res.partner:mozaik_membership.view_partner_3_form
 #: field:res.partner,int_instance_m2m_ids:0
 msgid "Internal Instances"
 msgstr "Instances internes"
@@ -1130,6 +1140,16 @@ msgstr "Cet assistant est uniquement prévu en juillet, août ou septembre pour 
 #: field:membership.line,date_to:0
 msgid "To"
 msgstr "Á"
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+msgid "To < ..."
+msgstr "Jusqu'à < ..."
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+msgid "To > ..."
+msgstr "Jusqu'à > ..."
 
 #. module: mozaik_membership
 #: field:membership.request,town_man:0

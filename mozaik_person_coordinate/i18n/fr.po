@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_person_coordinate
-#: code:addons\mozaik_person_coordinate\partner_relation.py:133
+#: code:addons\mozaik_person_coordinate\partner_relation.py:136
 #: constraint:partner.relation:0
 #, python-format
 msgid "A relation must associate two contacts and must exist in only one way!"
@@ -51,7 +51,7 @@ msgid "All Relations, expired or not"
 msgstr "Toutes les relations, expirées ou non"
 
 #. module: mozaik_person_coordinate
-#: code:addons\mozaik_person_coordinate\partner_relation.py:156
+#: code:addons\mozaik_person_coordinate\partner_relation.py:164
 #, python-format
 msgid "An active relation cannot be duplicated!"
 msgstr "Une relation active ne peut être dupliquée !"
@@ -109,7 +109,7 @@ msgid "Email Coordinate"
 msgstr "Coordonnée électronique"
 
 #. module: mozaik_person_coordinate
-#: code:addons\mozaik_person_coordinate\partner_relation.py:156
+#: code:addons\mozaik_person_coordinate\partner_relation.py:164
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -149,17 +149,19 @@ msgid "Followers"
 msgstr "Abonnés"
 
 #. module: mozaik_person_coordinate
-#: field:partner.realtion,date_from:0
+#: field:partner.relation,date_from:0
 msgid "From"
 msgstr "De"
 
 #. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
 msgid "From < ..."
 msgstr "Á partir de < ..."
 
 #. module: mozaik_person_coordinate
-msgid "From < ..."
-msgstr "Á partir de < ..."
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
+msgid "From > ..."
+msgstr "Á partir de > ..."
 
 #. module: mozaik_person_coordinate
 #: view:duplicate.analysis.report:mozaik_person_coordinate.duplicate_analysis_report_search_view
@@ -274,7 +276,7 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: mozaik_person_coordinate
-#: field:partner.involvement,note:0
+#: field:partner.relation,note:0
 msgid "Notes"
 msgstr "Notes"
 
@@ -319,26 +321,42 @@ msgstr "Partenaire objet"
 
 #. module: mozaik_person_coordinate
 #: model:ir.model,name:mozaik_person_coordinate.model_partner_relation
-#: view:partner.relation:mozaik_person_coordinate.partner_relation_object_form_view
-#: view:partner.relation:mozaik_person_coordinate.partner_relation_object_tree_view
-#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
-#: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_form_view
-#: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_tree_view
-msgid "Partners Relation"
-msgstr "Relation de partenaires"
+msgid "Partner Relation"
+msgstr "Relation de partenaire"
 
 #. module: mozaik_person_coordinate
 #: model:ir.model,name:mozaik_person_coordinate.model_partner_relation_category
-#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_form_view
-#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_search_view
-#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_tree_view
-msgid "Partners Relation Category"
-msgstr "Catégorie de relation de partenaires"
+msgid "Partner Relation Category"
+msgstr "Catégorie de relation de partenaire"
 
 #. module: mozaik_person_coordinate
 #: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
 msgid "Partner Subject"
 msgstr "Partenaire sujet"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_object_form_view
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_form_view
+msgid "Partners Relation"
+msgstr "Relation de partenaires"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_search_view
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_tree_view
+msgid "Partners Relation Categories"
+msgstr "Catégories de relation de partenaires"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_form_view
+msgid "Partners Relation Category"
+msgstr "Catégorie de relation de partenaires"
+
+#. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_object_tree_view
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_tree_view
+msgid "Partners Relations"
+msgstr "Relations de partenaires"
 
 #. module: mozaik_person_coordinate
 #: view:res.partner:mozaik_person_coordinate.res_partner_search_view
@@ -422,6 +440,11 @@ msgid "Summary"
 msgstr "Résumé"
 
 #. module: mozaik_person_coordinate
+#: sql_constraint:partner.relation:0
+msgid "The start date must be anterior to the end date."
+msgstr "La date de début doit être antérieure à la date de fin."
+
+#. module: mozaik_person_coordinate
 #: code:addons\mozaik_person_coordinate\report\duplicates_analysis_report.py:149
 #, python-format
 msgid "There are no duplicates"
@@ -433,17 +456,19 @@ msgid "This report provides a global duplicates summary"
 msgstr "Ce rapport produit le relevé des doublons"
 
 #. module: mozaik_person_coordinate
-#: field:partner.realtion,date_to:0
+#: field:partner.relation,date_to:0
 msgid "To"
 msgstr "Á"
 
 #. module: mozaik_person_coordinate
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
 msgid "To < ..."
 msgstr "Jusqu'à < ..."
 
 #. module: mozaik_person_coordinate
-msgid "To < ..."
-msgstr "Jusqu'à < ..."
+#: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
+msgid "To > ..."
+msgstr "Jusqu'à > ..."
 
 #. module: mozaik_person_coordinate
 #: code:addons\mozaik_person_coordinate\report\duplicates_analysis_report.py:144
