@@ -44,6 +44,8 @@ class email_coordinate(orm.Model):
     _description = "Email Coordinate"
     _mail_mass_mailing = _('Email Coordinate')
 
+    _mail_post_access = 'read'
+
     _discriminant_field = 'email'
     _undo_redirect_action = 'mozaik_email.email_coordinate_action'
 
