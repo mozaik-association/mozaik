@@ -7,6 +7,12 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="mozaik_person.view_partner_form" />
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='identifier']" position="after">
+                    <span attrs="{'invisible':[('sta_mandate_ids','=',[])]}">
+                        <br/>
+                        <label class="oe_representative" string="⇒ State Representative"/>
+                    </span>
+                </xpath>
                 <xpath expr="//notebook" position="inside">
                     <page name="mandates" string="Mandates" invisible="context.get('popup')" attrs="{'invisible': [('is_company','=',True)]}">
                         <separator name="state_mandate" string="State Mandates"/>

@@ -25,6 +25,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+import datetime as DT
+
+import openerp.tools as tools
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
@@ -294,6 +298,28 @@ class legislature(orm.Model):
         ('date_check2', 'CHECK ( election_date <= start_date )',
          'The election date must be anterior to the start date.'),
     ]
+
+# orm methods
+
+    def name_get(self, cr, uid, ids, context=None):
+        if not ids:
+            return []
+
+        if isinstance(ids, (long, int)):
+            ids = [ids]
+
+        fmt = tools.DEFAULT_SERVER_DATE_FORMAT
+        res = []
+        for record in self.read(
+                cr, uid, ids,
+                ['name', 'start_date', 'deadline_date'],
+                context=context):
+            sdate = DT.datetime.strptime(record['start_date'], fmt)
+            edate = DT.datetime.strptime(record['deadline_date'], fmt)
+            display_name = '%s (%s-%s)' % \
+                (record['name'], sdate.strftime('%Y'), edate.strftime('%Y'))
+            res.append((record['id'], display_name))
+        return res
 
 
 class sta_assembly(orm.Model):

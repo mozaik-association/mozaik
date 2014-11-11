@@ -2098,3 +2098,7 @@ msgstr ""
 msgid "⇒ Show all incompatible mandates"
 msgstr "⇒ Voir tous les mandats incompatibles"
 
+#. module: mozaik_mandate
+#: view:res.partner:mozaik_mandate.view_partner_form
+msgid "⇒ State Representative"
+msgstr "⇒ Mandataire politique"
