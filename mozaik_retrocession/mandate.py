@@ -185,14 +185,19 @@ class abstract_mandate_retrocession(orm.AbstractModel):
 
         res = super(abstract_mandate_retrocession, self).create(cr, uid, vals, context=context)
 
-        self.generate_mandate_reference(cr, uid, res)
-        if res:
+        if res and vals['retrocession_mode'] != 'none' \
+                and vals.get('active', True):
+            self.generate_mandate_reference(cr, uid, res)
+
             mandate = self.browse(cr, uid, res, context=context)
             if mandate.calculation_method_id:
-                self.pool.get('calculation.method').copy_fixed_rules_on_mandate(cr, uid, mandate.calculation_method_id.id, mandate.id, self._retrocession_foreign_key, context=context)
+                self.pool['calculation.method'].copy_fixed_rules_on_mandate(
+                    cr, uid, mandate.calculation_method_id.id,
+                    mandate.id, self._retrocession_foreign_key,
+                    context=context)
 
-        if vals['retrocession_mode'] != 'None':
             self.send_email_for_reference(cr, uid, [res])
+
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
