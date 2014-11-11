@@ -120,7 +120,9 @@
                                       'default_name': reference}" />
                 </xpath>
                 <xpath expr="//page[@name='index']" position="before">
-                    <page name="rules" string="Retrocessions">
+                    <page name="rules" string="Retrocessions"
+                          invisible="context.get('popup')"
+                          attrs="{'invisible': [('retrocession_mode', '=', 'none')]}">
                         <group>
                             <field name="retrocession_mode" readonly="1"/>
                             <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
@@ -234,12 +236,14 @@
                                       'default_name': reference}" />
                 </xpath>
                 <xpath expr="//page[@name='index']" position="before">
-                    <page name="rules" string="Retrocessions">
+                    <page name="rules" string="Retrocessions"
+                          invisible="context.get('popup')"
+                          attrs="{'invisible': [('retrocession_mode', '=', 'none')]}">
                         <group>
                            <field name="retrocession_mode" readonly="1"/>
                            <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
                            <field name="retro_instance_id" attrs="{'invisible': [('retrocession_mode', '=', 'none')],
-                                                                  'required': [('retrocession_mode', '!=', 'none')]}"/>
+                                                                   'required': [('retrocession_mode', '!=', 'none')]}"/>
                            <field name="reference" readonly="1"
                                    attrs="{'invisible': ['|', ('reference', '=', False), ('retrocession_mode', '=', 'none')]}"/>
                         </group>
