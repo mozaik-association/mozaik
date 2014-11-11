@@ -125,7 +125,8 @@ class test_phone_coordinate_wizard(SharedSetupTransactionCase):
         self.assertEqual(nb_inactive_phone_coord, 0, 'Wrong expected reference data for this test')
 
         # Add a coordinate to the partner
-        phone_id = phone_model.create(cr, uid, {'name': '061785612'}, context=context)
+        vals = {'name': '061785612', 'type': 'fix'}
+        phone_id = phone_model.create(cr, uid, vals, context=context)
         coord_id = phone_coordinate_model.create(cr, uid, {'partner_id': nouvelobs_id,
                                                            'phone_id': phone_id,
                                                           }, context=context)

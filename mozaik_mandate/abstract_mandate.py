@@ -482,7 +482,6 @@ class abstract_mandate(orm.AbstractModel):
         'designation_int_assembly_id': fields.many2one(
                                                 'int.assembly',
                                                 'Designation Assembly',
-                                                required=True,
                                                 select=True,
                                                 track_visibility='onchange',
                                                 domain=[

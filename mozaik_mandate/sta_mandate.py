@@ -670,17 +670,21 @@ class sta_mandate(orm.Model):
         'mandate_category_id': fields.many2one(
                                      'mandate.category',
                                      string='Mandate Category',
+                                     select=True,
                                      required=True,
                                      track_visibility='onchange',
                                      domain=[('type', '=', 'sta')]),
         'legislature_id': fields.many2one(
                                      'legislature',
                                      string='Legislature',
+                                     select=True,
                                      required=True,
                                      track_visibility='onchange'),
         'sta_assembly_id': fields.many2one(
                                      'sta.assembly',
-                                     string='State Assembly'),
+                                     string='State Assembly',
+                                     select=True,
+                                     required=True),
         'sta_assembly_category_id': fields.related(
                                      'mandate_category_id',
                                      'sta_assembly_category_id',
