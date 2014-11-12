@@ -26,23 +26,9 @@
 #
 ##############################################################################
 
-import logging
-
 from openerp.osv import orm, fields
 from openerp import tools
-
-_logger = logging.getLogger(__name__)
-
-
-@tools.ormcache(skiparg=3)
-def _get_cached_default(self, cr, uid, alts):
-    """
-    Returns an object id with possible alternatives
-    """
-    imd_obj = self.pool['ir.model.data']
-    res_id = imd_obj.get_object_alternative(cr, uid, alts)
-    _logger.info('Cache: %s => %s', alts, res_id)
-    return res_id
+from openerp.tools import SUPERUSER_ID
 
 
 class int_power_level(orm.Model):
@@ -76,14 +62,9 @@ class int_power_level(orm.Model):
         """
         Returns the default Internal Power Level
         """
-        alts = (
-            '.__MIG_IPL_1',                        # Production
-            'mozaik_structure.int_power_level_01',  # Test
-        )
-        res = _get_cached_default(self, cr, uid, alts)
-        if not res:
-            _get_cached_default.clear_cache(self)
-        return res
+        res_id = self.xmlid_to_res_id(
+            cr, SUPERUSER_ID, 'mozaik_structure.int_power_level_01')
+        return res_id
 
 
 class int_assembly_category(orm.Model):
@@ -171,16 +152,11 @@ class int_instance(orm.Model):
 
     def get_default(self, cr, uid, context=None):
         """
-        Returns the default Internal Instance
+        Returns the default Internal Power Level
         """
-        alts = (
-            '.__MIG_II_286',                   # Production
-            'mozaik_structure.int_instance_01'  # Test
-        )
-        res = _get_cached_default(self, cr, uid, alts)
-        if not res:
-            _get_cached_default.clear_cache(self)
-        return res
+        res_id = self.xmlid_to_res_id(
+            cr, SUPERUSER_ID, 'mozaik_structure.int_instance_01')
+        return res_id
 
 
 class int_assembly(orm.Model):

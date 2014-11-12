@@ -77,26 +77,3 @@ class ir_model(orm.Model):
             return relation_ids[0]['name']
 
         return False
-
-
-class ir_model_data(orm.Model):
-
-    _inherit = 'ir.model.data'
-
-# public methods
-
-    def get_object_alternative(self, cr, uid, alts):
-        """
-        Returns first res_id matching a list of xml_id
-        """
-        alts = alts or ()
-
-        for alt in alts:
-            res_id = self.xmlid_to_res_id(cr, SUPERUSER_ID, alt)
-            if res_id:
-                return res_id
-
-        raise ValueError('External ID not found in the system: %s' % alts)
-        return False
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
