@@ -62,7 +62,7 @@ class int_power_level(orm.Model):
         """
         Returns the default Internal Power Level
         """
-        res_id = self.xmlid_to_res_id(
+        res_id = self.pool['ir.model.data'].xmlid_to_res_id(
             cr, SUPERUSER_ID, 'mozaik_structure.int_power_level_01')
         return res_id
 
@@ -154,7 +154,7 @@ class int_instance(orm.Model):
         """
         Returns the default Internal Power Level
         """
-        res_id = self.xmlid_to_res_id(
+        res_id = self.pool['ir.model.data'].xmlid_to_res_id(
             cr, SUPERUSER_ID, 'mozaik_structure.int_instance_01')
         return res_id
 
