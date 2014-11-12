@@ -286,11 +286,11 @@ class legislature(orm.Model):
                                           track_visibility='onchange'),
     }
 
-    _order = 'start_date desc'
+    _order = 'start_date desc, name'
 
 # constraints
 
-    _unicity_keys = 'power_level_id, name'
+    _unicity_keys = 'power_level_id, name, start_date'
 
     _sql_constraints = [
         ('date_check1', 'CHECK ( start_date <= deadline_date )',

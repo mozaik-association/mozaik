@@ -996,7 +996,7 @@ msgstr "Mandat interne"
 #: field:res.partner,int_mandate_ids:0
 #: field:res.partner,int_mandate_inactive_ids:0
 msgid "Internal Mandates"
-msgstr "Mandates internes"
+msgstr "Mandats internes"
 
 #. module: mozaik_mandate
 #: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view

@@ -4,7 +4,7 @@
 
         <record id="mozaik_email_template" model="email.template">
             <field name="name">Mozaik Mass Mailing</field>
-            <field name="auto_delete" eval="0"/>
+            <field name="auto_delete" eval="1"/>
         </record>
 
     </data>

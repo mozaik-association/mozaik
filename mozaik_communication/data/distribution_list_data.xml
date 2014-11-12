@@ -28,6 +28,7 @@
 
         <record id="dl_del_doc_member" model="distribution.list">
             <field name="name">First Membership Documents to Send (Members)</field>
+            <field name="int_instance_id" ref='mozaik_structure.int_instance_01'/>
             <field name="company_id" ref='base.main_company'/>
             <field name="to_include_distribution_list_line_ids" eval="[[4,ref('dll_del_doc_member')]]"/>
         </record>
@@ -42,6 +43,7 @@
 
         <record id="dl_del_doc_supporter" model="distribution.list">
             <field name="name">First Membership Documents to Send (Supporters)</field>
+            <field name="int_instance_id" ref='mozaik_structure.int_instance_01'/>
             <field name="company_id" ref='base.main_company'/>
             <field name="to_include_distribution_list_line_ids" eval="[[4,ref('dll_del_doc_supporter')]]"/>
         </record>
