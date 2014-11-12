@@ -212,6 +212,17 @@ class mozaik_abstract_model(orm.AbstractModel):
 
 # orm methods
 
+    def _apply_ir_rules(self, cr, uid, query, mode='read', context=None):
+        context = context or {}
+        if 'apply_for_%s' % mode in context:
+            res = super(mozaik_abstract_model, self)._apply_ir_rules(
+                cr, uid, query, mode=context['apply_for_%s' % mode],
+                context=context)
+        else:
+            res = super(mozaik_abstract_model, self)._apply_ir_rules(
+                cr, uid, query, mode=mode, context=context)
+        return res
+
     def create(self, cr, uid, vals, context=None):
         """
         Do not add creator to followers nor track message on create

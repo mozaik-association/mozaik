@@ -603,7 +603,8 @@
                             <h1><field name="sta_mandate_id" on_change="onchange_sta_mandate_id(sta_mandate_id)"
                                    domain="[('retrocession_mode', '!=', 'none')]"
                                    attrs="{'required': [('id','=', False), ('ext_mandate_id','=', False)],
-                                           'readonly': [('id','!=', False)]}"/></h1>
+                                           'readonly': [('id','!=', False)]}"
+                                   context="{'apply_for_read': 'create'}" options='{"no_create":True}'/></h1>
                         </div>
                         <div class="oe_title" name="title2" attrs="{'invisible': ['|', '&amp;', ('id','!=', False),('ext_mandate_id','=', False),
                                                                                   '&amp;', ('id','=', False), ('sta_mandate_id','!=', False)]}">
@@ -611,7 +612,8 @@
                             <h1><field name="ext_mandate_id" on_change="onchange_ext_mandate_id(ext_mandate_id)"
                                    domain="[('retrocession_mode', '!=', 'none')]"
                                    attrs="{'required': [('id','=', False), ('sta_mandate_id','=', False)],
-                                           'readonly': [('id','!=', False)]}"/></h1>
+                                           'readonly': [('id','!=', False)]}"
+                                   context="{'apply_for_read': 'create'}" options='{"no_create":True}'/></h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
