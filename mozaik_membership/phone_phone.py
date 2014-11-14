@@ -25,6 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm
 
 
@@ -44,4 +46,12 @@ class phone_coordinate(orm.Model):
             'mozaik_membership.former_phone_id_notification':
                 lambda self, cr, uid, obj, ctx=None: obj.expire_date,
         },
+    }
+
+    _int_instance_store_trigger = {
+        'res.partner': (lambda self, cr, uid, ids, context=None:
+                        self.pool['phone.coordinate'].search(
+                                cr, SUPERUSER_ID, [('partner_id', 'in', ids)],
+                                context=context),
+                        ['int_instance_id'], 10),
     }

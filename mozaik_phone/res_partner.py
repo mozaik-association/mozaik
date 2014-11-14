@@ -62,7 +62,8 @@ class res_partner(orm.Model):
         coordinate_ids = coord_obj.search(cr, uid, [('partner_id', 'in', ids),
                                                     ('is_main', '=', True),
                                                     ('active', '<=', True)], context=context)
-        for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
+        for coord in coord_obj.browse(
+            cr, SUPERUSER_ID, coordinate_ids, context=context):
             if coord.active == coord.partner_id.active:
                 if coord.phone_id.also_for_fax:
                     result[coord.partner_id.id]['fax_coordinate_id'] = coord.id

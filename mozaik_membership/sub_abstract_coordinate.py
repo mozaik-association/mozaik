@@ -25,11 +25,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
+
+from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 
 
 class sub_abstract_coordinate(orm.AbstractModel):
+
+    _name = 'sub.abstract.coordinate'
+    _inherit = ['abstract.coordinate']
 
     def _update_notify_followers(
             self, cr, uid, ids, partner_ids, context=None):
@@ -47,7 +51,14 @@ class sub_abstract_coordinate(orm.AbstractModel):
     _track = {}
     _update_track = {}
 
-    _name = 'sub.abstract.coordinate'
+    _int_instance_store_trigger = {}
+
+    _columns = {
+        'int_instance_id': fields.related(
+            'partner_id', 'int_instance_id', string='Internal Instance',
+            type='many2one', relation='int.instance',
+            select=True, readonly=True, store=True),
+    }
 
     def write(self, cr, uid, ids, vals, not_main_ids=False, context=None):
         '''
@@ -104,7 +115,19 @@ class sub_abstract_coordinate(orm.AbstractModel):
 
     def _register_hook(self, cr):
         '''
-        update track dict with new values
+        Update track dict with new values
+        Add trigger to int_instance_id related field
         '''
         super(sub_abstract_coordinate, self)._register_hook(cr)
         self._track.update(self._update_track)
+
+        store = self._int_instance_store_trigger
+        self._fields['int_instance_id'].column.store = store
+        pool = self.pool
+        for model, spec in store.iteritems():
+            (fct, flds, order) = spec
+            pool._store_function.setdefault(model, [])
+            t = (self._name, 'int_instance_id', fct, tuple(flds), order, None)
+            if t not in pool._store_function[model]:
+                pool._store_function[model].append(t)
+                pool._store_function[model].sort(key=lambda x: x[4])

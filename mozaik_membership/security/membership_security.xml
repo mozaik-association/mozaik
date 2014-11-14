@@ -161,7 +161,7 @@
         <record id="postal_coordinate_base_rule" model="ir.rule">
             <field name="name">Postal Coordinate for Mozaik</field>
             <field name="model_id" ref="mozaik_address.model_postal_coordinate"/>
-            <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
@@ -173,7 +173,7 @@
             <field name="domain_force">[
                '|',
                ('postal_coordinate_ids','=',False),
-               ('postal_coordinate_ids.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)
+               ('postal_coordinate_ids.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -183,7 +183,7 @@
         <record id="email_coordinate_base_rule" model="ir.rule">
             <field name="name">Email Coordinate for Mozaik</field>
             <field name="model_id" ref="mozaik_email.model_email_coordinate"/>
-            <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
@@ -192,7 +192,7 @@
         <record id="phone_coordinate_base_rule" model="ir.rule">
             <field name="name">Phone Coordinate for Mozaik</field>
             <field name="model_id" ref="mozaik_phone.model_phone_coordinate"/>
-            <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
@@ -202,8 +202,8 @@
             <field name="name">Partner Relation for Mozaik</field>
             <field name="model_id" ref="mozaik_person_coordinate.model_partner_relation"/>
             <field name="domain_force">[
-                ('subject_partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
-                ('object_partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)
+                ('sbj_int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('obj_int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -213,7 +213,7 @@
         <record id="partner_involvement_base_rule" model="ir.rule">
             <field name="name">Partner Involvement for Mozaik</field>
             <field name="model_id" ref="mozaik_person.model_partner_involvement"/>
-            <field name="domain_force">[('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
+            <field name="domain_force">[('int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids)]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>

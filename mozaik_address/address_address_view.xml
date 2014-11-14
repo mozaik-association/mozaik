@@ -63,6 +63,7 @@
                     <h1><field name="address_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
                 </xpath>
                 <xpath expr="//field[@name='coordinate_category_id']" position="before">
+                    <span name="anchor_for_inherit_view" />
                     <field name="co_residency_id" readonly="not context.get('is_developper')" attrs="{'invisible': [('co_residency_id','=',False)]}"/>
                 </xpath>
 

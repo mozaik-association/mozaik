@@ -25,6 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from . import product
 from . import membership_request
 from . import membership
@@ -39,3 +40,5 @@ from . import sub_abstract_coordinate
 from . import email_coordinate
 from . import address_address
 from . import phone_phone
+from . import partner_involvement
+from . import partner_relation

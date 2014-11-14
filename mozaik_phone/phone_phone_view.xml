@@ -65,6 +65,10 @@
                     <h1><field name="phone_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
                 </xpath>
 
+                <xpath expr="//field[@name='coordinate_category_id']" position="before">
+                    <span name="anchor_for_inherit_view" />
+                </xpath>
+
                 <xpath expr="//button[@name='button_all_duplicates']" position="attributes">
                     <attribute name="name">%(phone_coordinate_action)d</attribute>
                     <attribute name="context">{'search_default_duplicate': True,

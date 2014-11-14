@@ -57,7 +57,8 @@ class res_partner(orm.Model):
                                                     ('is_main', '=', True),
                                                     ('active', '<=', True)],
                                           context=context)
-        for coord in coord_obj.browse(cr, uid, coordinate_ids, context=context):
+        for coord in coord_obj.browse(
+            cr, SUPERUSER_ID, coordinate_ids, context=context):
             if coord.active == coord.partner_id.active:
                 result[coord.partner_id.id] = coord.id
         return result
