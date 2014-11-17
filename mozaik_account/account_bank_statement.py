@@ -76,6 +76,7 @@ class account_bank_statement(orm.Model):
                 'account_id': credit_account.id,
                 'debit': 0,
                 'credit': bank_line.amount,
+                'name': bank_line.name,
             }]
             bsl_obj.process_reconciliation(
                 cr, uid, bank_line.id, move_dicts, context=context,
@@ -168,57 +169,73 @@ class account_bank_statement_line(orm.Model):
         if not subscription_account:
             return
 
-        is_membership = False
-        amount_paid = bank_line.amount
         for data in mv_line_dicts:
             if data['account_id'] == subscription_account.id:
-                is_membership = True
-                amount_paid = data['credit']
-                break
+                self.manage_membership_payment(cr,
+                                               uid,
+                                               bank_line.partner_id.id,
+                                               data.get('name', False),
+                                               prod_id,
+                                               data['credit'],
+                                               context)
 
-        if is_membership:
-            ml_obj = self.pool.get('membership.line')
-            mdata_obj = self.pool.get('ir.model.data')
-            partner_obj = self.pool.get('res.partner')
-            partner_id = bank_line.partner_id.id
+    def manage_membership_payment(self, cr, uid, partner_id,
+                                  reference, prod_id, amount_paid, context={}):
+        ml_obj = self.pool.get('membership.line')
+        mdata_obj = self.pool.get('ir.model.data')
+        partner_obj = self.pool.get('res.partner')
 
-            if not prod_id:
-                res = self.get_membership_prod_info(
-                                                    cr,
-                                                    uid,
-                                                    amount_paid,
-                                                    bank_line.partner_id.id,
-                                                    bank_line.name,
-                                                    context=context)
-                prod_id, price = res[0], res[1]
-            if not prod_id:
-                # no matching price found
-                prod_id = mdata_obj.get_object_reference(
-                                            cr,
-                                            uid,
-                                            'mozaik_membership',
-                                            'membership_product_undefined')[1]
-                price = amount_paid
+        if reference:
+            domain = [('reference', '=', reference),
+                      ('active', '<=', True)]
 
-            # if the partner is already member then its states will not change
-            # so we have to force notification ()
-            force_notify = bank_line.partner_id.\
-                membership_state_id.code == 'member'
+            data = self.pool.get('res.partner').search(cr,
+                                                       uid,
+                                                       domain,
+                                                       context=context)
+            if data:
+                partner_id = data[0]
 
-            partner_obj.signal_workflow(
-                cr, uid, [partner_id], 'paid')
+        price = amount_paid
+        if not prod_id:
+            res = self.get_membership_prod_info(cr,
+                                                uid,
+                                                amount_paid,
+                                                partner_id,
+                                                reference,
+                                                context=context)
+            prod_id, price = res[0], res[1]
 
-            vals = {
-                'product_id': prod_id,
-                'price': price,
-            }
-            ml_ids = ml_obj.search(
-                cr, uid, [('partner_id', '=', partner_id),
-                          ('active', '=', True)])
-            if ml_ids:
-                self.pool['membership.line'].write(
-                    cr, uid, ml_ids, vals, context=context)
-                if force_notify:
-                    subtype = 'mozaik_membership.membership_line_notification'
-                    partner_obj._message_post(
-                        cr, uid, partner_id, subtype=subtype, context=context)
+        if not prod_id:
+            # no matching price found
+            prod_id = mdata_obj.get_object_reference(
+                cr,
+                uid,
+                'mozaik_membership',
+                'membership_product_undefined')[1]
+            price = amount_paid
+
+        partner = partner_obj.browse(cr, uid, partner_id, context)
+
+        # if the partner is already member then its states will not change
+        # so we have to force notification ()
+        force_notify = partner.\
+            membership_state_id.code == 'member'
+
+        partner_obj.signal_workflow(
+            cr, uid, [partner_id], 'paid')
+
+        vals = {
+            'product_id': prod_id,
+            'price': price,
+        }
+        ml_ids = ml_obj.search(
+            cr, uid, [('partner_id', '=', partner_id),
+                      ('active', '=', True)])
+        if ml_ids:
+            self.pool['membership.line'].write(
+                cr, uid, ml_ids, vals, context=context)
+            if force_notify:
+                subtype = 'mozaik_membership.membership_line_notification'
+                partner_obj._message_post(
+                    cr, uid, partner_id, subtype=subtype, context=context)
