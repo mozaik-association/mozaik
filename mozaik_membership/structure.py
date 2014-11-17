@@ -26,7 +26,6 @@
 #
 ##############################################################################
 
-from openerp import tools
 from openerp.osv import orm
 
 
@@ -75,9 +74,27 @@ class int_instance(orm.Model):
 
     _inherit = 'int.instance'
 
+# orm methods
+
+    def create(self, cr, uid, vals, context=None):
+        res = super(int_instance, self).create(cr, uid, vals, context=context)
+        self.pool['ir.rule'].clear_cache(cr, uid)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        res = super(int_instance, self).write(
+            cr, uid, ids, vals, context=context)
+        if 'partner_id' in vals:
+            self.pool['ir.rule'].clear_cache(cr, uid)
+        return res
+
+    def unlink(self, cr, uid, ids, context=None):
+        res = super(int_instance, self).unlink(cr, uid, ids, context=context)
+        self.pool['ir.rule'].clear_cache(cr, uid)
+        return res
+
 # public methods
 
-    @tools.ormcache(skiparg=2)
     def get_default(self, cr, uid, context=None):
         """
         Returns the default Internal Instance
@@ -86,10 +103,7 @@ class int_instance(orm.Model):
         if res:
             res = self.search(cr, uid, [('id', 'in', res)], context=context)
         if not res:
-            res = self.pool['res.users'].read(
-                cr, uid, uid,
-                ['int_instance_m2m_ids'],
-                context=context)['int_instance_m2m_ids']
+            res = self.pool['res.users'].internal_instances(cr, uid)
         return res and res[0] or False
 
 

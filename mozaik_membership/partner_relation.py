@@ -35,6 +35,9 @@ class partner_relation(orm.Model):
     _inherit = ['partner.relation']
 
     _sbj_int_instance_store_trigger = {
+        'partner.relation': (
+            lambda self, cr, uid, ids, context=None: ids,
+            ['subject_partner_id'], 10),
         'res.partner': (lambda self, cr, uid, ids, context=None:
                         self.pool['partner.relation'].search(
                             cr, SUPERUSER_ID,
@@ -44,6 +47,9 @@ class partner_relation(orm.Model):
     }
 
     _obj_int_instance_store_trigger = {
+        'partner.relation': (
+            lambda self, cr, uid, ids, context=None: ids,
+            ['object_partner_id'], 10),
         'res.partner': (lambda self, cr, uid, ids, context=None:
                         self.pool['partner.relation'].search(
                             cr, SUPERUSER_ID,
@@ -53,12 +59,12 @@ class partner_relation(orm.Model):
     }
 
     _columns = {
-        'sbj_int_instance_id': fields.related(
+        'subject_instance_id': fields.related(
             'subject_partner_id', 'int_instance_id',
             string='Subject Internal Instance',
             type='many2one', relation='int.instance',
             select=True, readonly=True, store=_sbj_int_instance_store_trigger),
-        'obj_int_instance_id': fields.related(
+        'object_instance_id': fields.related(
             'object_partner_id', 'int_instance_id',
             string='Object Internal Instance',
             type='many2one', relation='int.instance',

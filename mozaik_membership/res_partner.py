@@ -276,16 +276,14 @@ class res_partner(orm.Model):
 
             if is_company:
                 vals['membership_state_id'] = None
+
         res = super(res_partner, self).write(
             cr, uid, ids, vals, context=context)
 
         if 'int_instance_m2m_ids' in vals:
             rule_obj = self.pool['ir.rule']
-            for partner in self.browse(cr, uid, ids, context=context):
-                for u in partner.user_ids:
-                    rule_obj.clear_cache(cr, u.id)
-            int_obj = self.pool['int.instance']
-            int_obj.get_default.clear_cache(self)
+            rule_obj.clear_cache(cr, uid)
+
         return res
 
 # view methods: onchange, button

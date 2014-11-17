@@ -30,6 +30,7 @@ from datetime import datetime
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp.tools import SUPERUSER_ID
 import openerp.addons.decimal_precision as dp
 
 from .common import RETROCESSION_MODES_AVAILABLE, CALCULATION_METHOD_AVAILABLE_TYPES, CALCULATION_RULE_AVAILABLE_TYPES
@@ -569,6 +570,80 @@ class retrocession(orm.Model):
         cr.execute("SELECT model, name from ir_model WHERE model IN ('sta.mandate', 'ext.mandate') ORDER BY name")
         return cr.fetchall()
 
+    def _get_retrocessions(self, cr, uid, partner_ids, context=None):
+        """
+        Return retrocessions ids associated to a list of partners
+        """
+        query = """
+            SELECT r.id
+              FROM generic_mandate g, retrocession r
+             WHERE g.model = 'sta.mandate'
+               AND g.partner_id IN %s
+               AND r.sta_mandate_id = g.mandate_id
+            UNION
+            SELECT r.id
+              FROM generic_mandate g, retrocession r
+             WHERE g.model = 'ext.mandate'
+               AND g.partner_id IN %s
+               AND r.ext_mandate_id = g.mandate_id"""
+        ids = tuple(partner_ids)
+        cr.execute(query, (ids, ids,))
+        r_ids = [x[0] for x in cr.fetchall()]
+        return r_ids
+
+    def _get_partner_instance_id(self, cr, uid, ids, name, args, context=None):
+        """
+        Recompute partner instance id associated to retrocession ids
+        """
+        query = """
+            SELECT r.id, g.partner_instance_id
+              FROM retrocession r, generic_mandate g
+             WHERE r.id IN %s
+               AND g.mandate_ref = r.mandate_ref"""
+        cr.execute(query, (tuple(ids),))
+        res = {x[0]: x[1] for x in cr.fetchall()}
+        return res
+
+    def _get_retro_instance_id(self, cr, uid, ids, name, args, context=None):
+        """
+        Recompute retro instance id associated to retrocession ids
+        """
+        query = """
+            SELECT r.id, m.retro_instance_id
+              FROM retrocession r, sta_mandate m
+             WHERE r.id IN %s
+               AND m.id = r.sta_mandate_id
+            UNION
+            SELECT r.id, m.retro_instance_id
+              FROM retrocession r, ext_mandate m
+             WHERE r.id IN %s
+               AND m.id = r.ext_mandate_id"""
+        r_ids = tuple(ids)
+        cr.execute(query, (r_ids, r_ids,))
+        res = {x[0]: x[1] for x in cr.fetchall()}
+        return res
+
+    _int_instance_store_trigger = {
+        'retrocession': (lambda self, cr, uid, ids, context=None: ids,
+                         ['sta_mandate_id', 'ext_mandate_id'], 10),
+        'res.partner': (_get_retrocessions, ['int_instance_id'], 10),
+    }
+
+    _retro_instance_store_trigger = {
+        'retrocession': (lambda self, cr, uid, ids, context=None: ids,
+                         ['sta_mandate_id', 'ext_mandate_id'], 10),
+        'sta.mandate': (lambda self, cr, uid, ids, context=None:
+                        self.pool['retrocession'].search(
+                            cr, SUPERUSER_ID, [('sta_mandate_id', 'in', ids)],
+                            context=context),
+                        ['retro_instance_id'], 10),
+        'ext.mandate': (lambda self, cr, uid, ids, context=None:
+                        self.pool['retrocession'].search(
+                            cr, SUPERUSER_ID, [('ext_mandate_id', 'in', ids)],
+                            context=context),
+                        ['retro_instance_id'], 10),
+    }
+
     _columns = {
         'unique_id': fields.char('Retrocession Number'),
         'state': fields.selection(RETROCESSION_AVAILABLE_STATES, 'State', size=128, required=True, select=True, track_visibility='onchange'),
@@ -609,6 +684,14 @@ class retrocession(orm.Model):
                                  type='many2one', relation='email.coordinate', store=False),
         'postal_coordinate_id': fields.function(_get_postal_coordinate, string='Postal Coordinate',
                                  type='many2one', relation='postal.coordinate', store=False),
+        'partner_instance_id': fields.function(
+            _get_partner_instance_id, string='Partner Internal Instance',
+            type='many2one', relation='int.instance',
+            select=True, readonly=True, store=_int_instance_store_trigger),
+        'retro_instance_id': fields.function(
+            _get_retro_instance_id, string='Retrocessions Management Instance',
+            type='many2one', relation='int.instance',
+            select=True, readonly=True, store=_retro_instance_store_trigger),
     }
 
     _rec_name = 'mandate_ref'

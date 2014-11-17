@@ -1026,6 +1026,7 @@ class virtual_partner_retrocession(orm.Model):
                                                obj='thesaurus.term',
                                                rel='res_partner_term_interests_rel',
                                                id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'retro_instance_id': fields.many2one('int.instance', 'Retrocession Management Instance'),
     }
 
 # orm methods
@@ -1073,6 +1074,7 @@ class virtual_partner_retrocession(orm.Model):
             m.id as sta_mandate_id,
             NULL::int as ext_mandate_id,
             m.mandate_category_id,
+            m.retro_instance_id,
             r.state as state,
             CASE
                 WHEN m.email_coordinate_id IS NULL
@@ -1150,6 +1152,7 @@ class virtual_partner_retrocession(orm.Model):
             NULL::int as sta_mandate_id,
             m.id as ext_mandate_id,
             m.mandate_category_id,
+            m.retro_instance_id,
             r.state as state,
             CASE
                 WHEN m.email_coordinate_id IS NULL

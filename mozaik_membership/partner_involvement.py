@@ -35,6 +35,8 @@ class partner_involvement(orm.Model):
     _inherit = ['partner.involvement']
 
     _int_instance_store_trigger = {
+        'partner.involvement': (
+            lambda self, cr, uid, ids, context=None: ids, ['partner_id'], 10),
         'res.partner': (lambda self, cr, uid, ids, context=None:
                         self.pool['partner.involvement'].search(
                             cr, SUPERUSER_ID, [('partner_id', 'in', ids)],
@@ -43,8 +45,9 @@ class partner_involvement(orm.Model):
     }
 
     _columns = {
-        'int_instance_id': fields.related(
-            'partner_id', 'int_instance_id', string='Internal Instance',
+        'partner_instance_id': fields.related(
+            'partner_id', 'int_instance_id',
+            string='Partner Internal Instance',
             type='many2one', relation='int.instance',
             select=True, readonly=True, store=_int_instance_store_trigger),
     }

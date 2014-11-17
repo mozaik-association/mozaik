@@ -13,6 +13,9 @@
         <record id="base.property_rule" model="ir.rule"><field name="active" eval="0"/></record>
         <record id="distribution_list.distribution_list_line_company_rule" model="ir.rule"><field name="active" eval="0"/></record>
         <record id="distribution_list.distribution_list_company_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="event.event_event_company_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="event.event_registration_company_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="event.report_event_registration_company_rule" model="ir.rule"><field name="active" eval="0"/></record>
         <record id="connector.queue_job_comp_rule" model="ir.rule"><field name="active" eval="0"/></record>
 
         <!-- Other candidates are:
@@ -53,7 +56,7 @@ account.account_comp_rule
             <field name="name">State Selection Committee for Mozaik Base</field>
             <field name="model_id" ref="mozaik_mandate.model_sta_selection_committee"/>
             <field name="domain_force">[
-                ('designation_int_assembly_id.instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('designation_int_assembly_id.instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -64,7 +67,7 @@ account.account_comp_rule
             <field name="name">Internal Selection Committee for Mozaik Base</field>
             <field name="model_id" ref="mozaik_mandate.model_int_selection_committee"/>
             <field name="domain_force">[
-                ('designation_int_assembly_id.instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('designation_int_assembly_id.instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -75,7 +78,7 @@ account.account_comp_rule
             <field name="name">External Selection Committee for Mozaik Base</field>
             <field name="model_id" ref="mozaik_mandate.model_ext_selection_committee"/>
             <field name="domain_force">[
-                ('designation_int_assembly_id.instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('designation_int_assembly_id.instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -86,8 +89,8 @@ account.account_comp_rule
             <field name="name">State Candidature for Mozaik Base</field>
             <field name="model_id" ref="mozaik_mandate.model_sta_candidature"/>
             <field name="domain_force">[
-                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
-                ('designation_int_assembly_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                ('designation_int_assembly_id.int_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -98,8 +101,8 @@ account.account_comp_rule
             <field name="name">Internal Candidature for Mozaik Base</field>
             <field name="model_id" ref="mozaik_mandate.model_int_candidature"/>
             <field name="domain_force">[
-                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
-                ('designation_int_assembly_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                ('designation_int_assembly_id.int_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -110,8 +113,8 @@ account.account_comp_rule
             <field name="name">External Candidature for Mozaik Base</field>
             <field name="model_id" ref="mozaik_mandate.model_ext_candidature"/>
             <field name="domain_force">[
-                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
-                ('designation_int_assembly_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                ('designation_int_assembly_id.int_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -122,7 +125,7 @@ account.account_comp_rule
             <field name="name">State Mandate (RU) for Mozaik Base</field>
             <field name="model_id" ref="mozaik_mandate.model_sta_mandate"/>
             <field name="domain_force">[
-                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -133,8 +136,8 @@ account.account_comp_rule
             <field name="name">State Mandate (CD) for Mozaik Base</field>
             <field name="model_id" ref="mozaik_mandate.model_sta_mandate"/>
             <field name="domain_force">[
-                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
-                '|',('retrocession_mode','=','none'),('retro_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                '|',('retrocession_mode','=','none'),('retro_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="0"/><field name="perm_write" eval="0"/>
@@ -145,7 +148,7 @@ account.account_comp_rule
             <field name="name">Internal Mandate for Mozaik Base</field>
             <field name="model_id" ref="mozaik_mandate.model_int_mandate"/>
             <field name="domain_force">[
-                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -156,7 +159,7 @@ account.account_comp_rule
             <field name="name">External Mandate (RU) for Mozaik Base</field>
             <field name="model_id" ref="mozaik_mandate.model_ext_mandate"/>
             <field name="domain_force">[
-                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -167,8 +170,8 @@ account.account_comp_rule
             <field name="name">External Mandate (CD) for Mozaik Base</field>
             <field name="model_id" ref="mozaik_mandate.model_ext_mandate"/>
             <field name="domain_force">[
-                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
-                '|',('retrocession_mode','=','none'),('retro_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                '|',('retrocession_mode','=','none'),('retro_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="0"/><field name="perm_write" eval="0"/>
@@ -179,7 +182,7 @@ account.account_comp_rule
             <field name="name">Generic Mandate for Mozaik Base</field>
             <field name="model_id" ref="mozaik_mandate.model_generic_mandate"/>
             <field name="domain_force">[
-                ('partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
@@ -190,12 +193,8 @@ account.account_comp_rule
             <field name="name">Retrocession for Mozaik Base</field>
             <field name="model_id" ref="mozaik_retrocession.model_retrocession"/>
             <field name="domain_force">[
-                '|',
-                ('sta_mandate_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
-                ('ext_mandate_id.partner_id.int_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
-                '|',
-                ('sta_mandate_id.retro_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
-                ('ext_mandate_id.retro_instance_id','child_of',user.partner_id.int_instance_m2m_ids.ids),
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                ('retro_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
             ]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>

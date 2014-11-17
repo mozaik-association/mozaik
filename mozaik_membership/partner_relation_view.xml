@@ -14,8 +14,8 @@
             ])]" />
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='moreinfo']" position="inside">
-                    <field name="sbj_int_instance_id" />
-                    <field name="obj_int_instance_id" />
+                    <field name="subject_instance_id" />
+                    <field name="object_instance_id" />
                 </xpath>
             </field>
         </record>
@@ -30,8 +30,8 @@
             ])]" />
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='moreinfo']" position="inside">
-                    <field name="sbj_int_instance_id" />
-                    <field name="obj_int_instance_id" />
+                    <field name="subject_instance_id" />
+                    <field name="object_instance_id" />
                 </xpath>
             </field>
         </record>

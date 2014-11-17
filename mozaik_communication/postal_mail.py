@@ -29,6 +29,7 @@
 import datetime
 
 from openerp.osv import orm, fields
+from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
 
 
@@ -118,13 +119,27 @@ class postal_mail_log(orm.Model):
     _inherit = ['mozaik.abstract.model']
     _description = 'Postal Mail Log'
 
+    _int_instance_store_trigger = {
+        'postal.mail.log': (
+            lambda self, cr, uid, ids, context=None: ids, ['partner_id'], 10),
+        'res.partner': (lambda self, cr, uid, ids, context=None:
+                        self.pool['postal.mail.log'].search(
+                            cr, SUPERUSER_ID, [('partner_id', 'in', ids)],
+                            context=context),
+                        ['int_instance_id'], 10),
+    }
+
     _columns = {
         'name': fields.char('Name', size=256, track_visibility='onchange'),
         'sent_date': fields.date('Sent Date', required=True, track_visibility='onchange'),
-        'postal_mail_id': fields.many2one('postal.mail', 'Postal Mailing', readonly=True, track_visibility='onchange'),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', required=True,
-                                                track_visibility='onchange'),
-        'partner_id': fields.many2one('res.partner', string='Partner', track_visibility='onchange'),
+        'postal_mail_id': fields.many2one('postal.mail', 'Postal Mailing', readonly=True),
+        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', required=True),
+        'partner_id': fields.many2one('res.partner', string='Partner', required=True),
+        'partner_instance_id': fields.related(
+            'partner_id', 'int_instance_id',
+            string='Partner Internal Instance',
+            type='many2one', relation='int.instance',
+            select=True, readonly=True, store=_int_instance_store_trigger),
     }
 
     _defaults = {

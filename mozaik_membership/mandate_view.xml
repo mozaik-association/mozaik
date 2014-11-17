@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="sta_candidature_form_view" model="ir.ui.view">
+            <field name="name">sta.candidature.form (mozaik_membership)</field>
+            <field name="model">sta.candidature</field>
+            <field name="inherit_id" ref="mozaik_mandate.sta_candidature_form_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.res_groups_developper'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="partner_instance_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sta_mandate_form_view" model="ir.ui.view">
+            <field name="name">sta.mandate.form (mozaik_membership)</field>
+            <field name="model">sta.mandate</field>
+            <field name="inherit_id" ref="mozaik_mandate.sta_mandate_form_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.res_groups_developper'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="partner_instance_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="int_candidature_form_view" model="ir.ui.view">
+            <field name="name">int.candidature.form (mozaik_membership)</field>
+            <field name="model">int.candidature</field>
+            <field name="inherit_id" ref="mozaik_mandate.int_candidature_form_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.res_groups_developper'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="partner_instance_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="int_mandate_form_view" model="ir.ui.view">
+            <field name="name">int.mandate.form (mozaik_membership)</field>
+            <field name="model">int.mandate</field>
+            <field name="inherit_id" ref="mozaik_mandate.int_mandate_form_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.res_groups_developper'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="partner_instance_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="ext_candidature_form_view" model="ir.ui.view">
+            <field name="name">ext.candidature.form (mozaik_membership)</field>
+            <field name="model">ext.candidature</field>
+            <field name="inherit_id" ref="mozaik_mandate.ext_candidature_form_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.res_groups_developper'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="partner_instance_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="ext_mandate_form_view" model="ir.ui.view">
+            <field name="name">ext.mandate.form (mozaik_membership)</field>
+            <field name="model">ext.mandate</field>
+            <field name="inherit_id" ref="mozaik_mandate.ext_mandate_form_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.res_groups_developper'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="partner_instance_id"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

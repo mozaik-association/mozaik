@@ -49,9 +49,19 @@ class email_coordinate(orm.Model):
     }
 
     _int_instance_store_trigger = {
+        'email.coordinate': (
+            lambda self, cr, uid, ids, context=None: ids, ['partner_id'], 10),
         'res.partner': (lambda self, cr, uid, ids, context=None:
                         self.pool['email.coordinate'].search(
                                 cr, SUPERUSER_ID, [('partner_id', 'in', ids)],
                                 context=context),
                         ['int_instance_id'], 10),
+    }
+
+    _columns = {
+        'partner_instance_id': fields.related(
+            'partner_id', 'int_instance_id',
+            string='Partner Internal Instance',
+            type='many2one', relation='int.instance',
+            select=True, readonly=True, store=_int_instance_store_trigger),
     }

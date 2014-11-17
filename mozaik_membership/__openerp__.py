@@ -69,6 +69,7 @@ local zip, default instance otherwise. This field is added to all views
         'coordinate_view.xml',
         'partner_involvement_view.xml',
         'partner_relation_view.xml',
+        'mandate_view.xml',
         'wizard/change_main_address.xml',
         'wizard/force_int_instance.xml',
         'wizard/generate_reference.xml',

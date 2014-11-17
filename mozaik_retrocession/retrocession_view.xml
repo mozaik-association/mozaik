@@ -624,6 +624,7 @@
                                                         'readonly': [('state','not in', ['draft'])]}"/>
                             <field name="year" required="1" attrs="{'readonly': [('state','not in', ['draft'])]}"/>
                             <field name="is_regulation" attrs="{'invisible': ['|',('retrocession_mode','!=', 'month'),('month','!=', '12')]}"/>
+                            <field name="retro_instance_id" attrs="{'invisible': [('id','=', False)]}"/>
                         </group>
                         <group name="state" attrs="{'invisible': [('id','=',False)]}">
                             <field name="create_date" />
@@ -724,6 +725,7 @@
                                 <field name="active"/>
                                 <field name="retrocession_mode"/>
                                 <field name="need_account_management"/>
+                                <field name="partner_instance_id"/>
                             </group>
                         </div>
                     </div>

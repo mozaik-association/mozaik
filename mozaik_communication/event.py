@@ -25,7 +25,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields
+from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
 
 
@@ -51,9 +53,9 @@ class event_event(orm.Model):
 
 # constraints
 
-    _unicity_keys = 'name, int_instance_id'
+    _unicity_keys = 'int_instance_id, name'
 
-    # orm methods
+# orm methods
 
     def write(self, cr, uid, ids, vals, context=None):
         if vals.get('int_instance_id', False):
@@ -87,7 +89,7 @@ class event_registration(orm.Model):
     _inherit = ['event.registration', 'mozaik.abstract.model']
     _description = "Event Registration"
 
-    # private methods
+# private methods
 
     def _get_coordinates(self, cr, uid, vals, context=None):
         '''
@@ -121,14 +123,29 @@ class event_registration(orm.Model):
 
 # constraints
 
-    _columns = {
-        'email_coordinate_id': fields.many2one(
-            'email.coordinate', string='Email Coordinate')
+    _int_instance_store_trigger = {
+        'event.registration': (
+            lambda self, cr, uid, ids, context=None: ids, ['partner_id'], 10),
+        'res.partner': (lambda self, cr, uid, ids, context=None:
+                        self.pool['event.registration'].search(
+                            cr, SUPERUSER_ID, [('partner_id', 'in', ids)],
+                            context=context),
+                        ['int_instance_id'], 10),
     }
 
-    _unicity_keys = 'partner_id, event_id'
+    _columns = {
+        'email_coordinate_id': fields.many2one(
+            'email.coordinate', string='Email Coordinate'),
+        'partner_instance_id': fields.related(
+            'partner_id', 'int_instance_id',
+            string='Partner Internal Instance',
+            type='many2one', relation='int.instance',
+            select=True, readonly=True, store=_int_instance_store_trigger),
+    }
 
-    # orm methods
+    _unicity_keys = 'event_id, partner_id'
+
+# orm methods
 
     def create(self, cr, uid, vals, context=None):
         '''
@@ -147,7 +164,7 @@ class event_registration(orm.Model):
         return super(event_registration, self).create(
             cr, uid, vals, context=context)
 
-    # public methods
+# public methods
 
     def update_coordinates(self, cr, uid, reg_id, context=None):
         reg_vals = self.read(cr, uid, reg_id, ['partner_id'])

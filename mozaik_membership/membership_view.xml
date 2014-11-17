@@ -204,6 +204,7 @@
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="active"/>
+                                <field name="partner_instance_id" />
                             </group>
                         </div>
                     </div>

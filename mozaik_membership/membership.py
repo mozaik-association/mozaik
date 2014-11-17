@@ -25,7 +25,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields
+from openerp.tools import SUPERUSER_ID
 import openerp.addons.decimal_precision as dp
 
 DEFAULT_STATE = 'without_membership'
@@ -41,6 +43,16 @@ class membership_line(orm.Model):
 
     _inactive_cascade = True
 
+    _int_instance_store_trigger = {
+        'membership.line': (
+            lambda self, cr, uid, ids, context=None: ids, ['partner_id'], 10),
+        'res.partner': (lambda self, cr, uid, ids, context=None:
+                        self.pool['membership.line'].search(
+                            cr, SUPERUSER_ID, [('partner_id', 'in', ids)],
+                            context=context),
+                        ['int_instance_id'], 10),
+    }
+
     _columns = {
         'partner_id': fields.many2one(
             'res.partner', string='Member',
@@ -55,6 +67,11 @@ class membership_line(orm.Model):
         'int_instance_id': fields.many2one(
             'int.instance', string='Internal Instance',
             required=True, select=True),
+        'partner_instance_id': fields.related(
+            'partner_id', 'int_instance_id',
+            string='Partner Internal Instance',
+            type='many2one', relation='int.instance',
+            select=True, readonly=True, store=_int_instance_store_trigger),
         'reference': fields.char('Reference'),
 
         'date_from': fields.date('From', readonly=True),

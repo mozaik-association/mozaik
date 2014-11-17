@@ -40,7 +40,10 @@
                     <field name="postal_coordinate_id" />
                 </xpath>
                 <xpath expr="//tree/field[@name='name']" position="replace">
-                    <field name="partner_id" />
+                    <field name="partner_id" required="1"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='email']" position="replace">
+                    <field name="email" readonly="1"/>
                 </xpath>
                 <xpath expr="//field[@name='organizer_id']" position="replace" />
 
@@ -83,11 +86,11 @@
                     <filter name="expired" string="Expired"
                             context="{'invisible_expire_date': False}"
                             domain="[('active','=',False)]"
-                            help="Expired Events" />
+                            help="Expired Registrations" />
                     <filter name="all" string="All"
                             context="{'invisible_expire_date': False}"
                             domain="['|', ('active', '=', True), ('active', '!=', True)]"
-                            help="All Events, expired or not" />
+                            help="All Registrations, expired or not" />
                 </xpath>
 
             </field>
@@ -199,6 +202,7 @@
                                 <field name="phone" />
                                 <field name="email" />
                                 <field name="email_coordinate_id" />
+                                <field name="partner_instance_id" />
                             </group>
                         </div>
                     </div>

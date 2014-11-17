@@ -65,15 +65,15 @@
                     <h1><field name="phone_id" attrs="{'readonly': [('id','!=',False)]}" /></h1>
                 </xpath>
 
-                <xpath expr="//field[@name='coordinate_category_id']" position="before">
-                    <span name="anchor_for_inherit_view" />
-                </xpath>
-
                 <xpath expr="//button[@name='button_all_duplicates']" position="attributes">
                     <attribute name="name">%(phone_coordinate_action)d</attribute>
                     <attribute name="context">{'search_default_duplicate': True,
                                                'search_default_phone_id': phone_id,
                                                'default_phone_id': phone_id}</attribute>
+                </xpath>
+
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <span name="anchor_for_inherit_view" />
                 </xpath>
 
             </field>

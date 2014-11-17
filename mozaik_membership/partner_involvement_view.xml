@@ -12,7 +12,7 @@
             ])]" />
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='moreinfo']" position="inside">
-                    <field name="int_instance_id" />
+                    <field name="partner_instance_id" />
                 </xpath>
             </field>
         </record>

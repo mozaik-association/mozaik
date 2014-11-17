@@ -57,15 +57,15 @@
                     <h1><field name="email" attrs="{'readonly': [('id','!=',False)]}" widget="email" /></h1>
                 </xpath>
 
-                <xpath expr="//field[@name='coordinate_category_id']" position="before">
-                    <span name="anchor_for_inherit_view" />
-                </xpath>
-
                 <xpath expr="//button[@name='button_all_duplicates']" position="attributes">
                     <attribute name="name">%(email_coordinate_action)d</attribute>
                     <attribute name="context">{'search_default_duplicate': True,
                                                'search_default_email': email,
                                                'default_email': email}</attribute>
+                </xpath>
+
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <span name="anchor_for_inherit_view" />
                 </xpath>
 
             </field>

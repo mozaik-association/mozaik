@@ -42,3 +42,4 @@ from . import address_address
 from . import phone_phone
 from . import partner_involvement
 from . import partner_relation
+from . import mandate

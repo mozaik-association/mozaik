@@ -27,6 +27,7 @@
 ##############################################################################
 
 from openerp.osv import orm
+from openerp.tools import SUPERUSER_ID
 
 
 class res_users(orm.Model):
@@ -42,3 +43,18 @@ class res_users(orm.Model):
         self.SELF_READABLE_FIELDS = list(self.SELF_READABLE_FIELDS)
         self.SELF_READABLE_FIELDS.append('int_instance_m2m_ids')
         return init_res
+
+    def internal_instances(self, cr, uid):
+        """
+        Cache the int_instance_m2m_ids domain result
+        """
+        user = self.pool['res.users'].browse(cr, SUPERUSER_ID, [uid])[0]
+        if not user.partner_id.int_instance_m2m_ids.ids:
+            return []
+        dom = [(
+            'id',
+            'child_of',
+            user.partner_id.int_instance_m2m_ids.ids
+        )]
+        ids = self.pool['int.instance'].search(cr, SUPERUSER_ID, dom)
+        return ids
