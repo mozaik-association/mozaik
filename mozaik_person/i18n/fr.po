@@ -193,7 +193,7 @@ msgstr "Date du dernier message posté sur l'enregistrement."
 #. module: mozaik_person
 #: selection:res.partner,civil_status:0
 msgid "Divorced"
-msgstr "Divorcé"
+msgstr "Divorcé(e)"
 
 #. module: mozaik_person
 #: view:res.partner:mozaik_person.res_partner_search_view
@@ -588,6 +588,11 @@ msgid "Security"
 msgstr "Sécurité"
 
 #. module: mozaik_person
+#: selection:res.partner,civil_status:0
+msgid "Separated"
+msgstr "Séparé(e)"
+
+#. module: mozaik_person
 #: field:partner.involvement,message_summary:0
 #: field:partner.involvement.category,message_summary:0
 msgid "Summary"
@@ -747,6 +752,11 @@ msgstr "Messages de site web"
 #: help:res.partner,website_message_ids:0
 msgid "Website communication history"
 msgstr "Historique de communication de site web"
+
+#. module: mozaik_person
+#: selection:res.partner,civil_status:0
+msgid "Widowed"
+msgstr "Veuf(ve)"
 
 #. module: mozaik_person
 #: model:ir.model,name:mozaik_person.model_create_user_from_partner

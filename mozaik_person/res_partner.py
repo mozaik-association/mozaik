@@ -46,6 +46,8 @@ AVAILABLE_CIVIL_STATUS = [
                           ('u', 'Unmarried'),
                           ('m', 'Married'),
                           ('d', 'Divorced'),
+                          ('w', 'Widowed'),
+                          ('s', 'Separated'),
                          ]
 
 available_civil_status = dict(AVAILABLE_CIVIL_STATUS)
