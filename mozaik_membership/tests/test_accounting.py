@@ -48,6 +48,7 @@ class test_accounting_with_product(object):
     ml_obj = None
     partner_obj = None
     partner = None
+    partner_2 = None
 
     def setUp(self):
         super(test_accounting_with_product, self).setUp()
@@ -61,13 +62,19 @@ class test_accounting_with_product(object):
         self.ml_obj = self.registry('membership.line')
         self.partner_obj = self.registry('res.partner')
         self.partner = self.get_partner()
-        self.assertEquals(self.partner.membership_state_id.code,
-                          'without_membership',
-                          'Create: should be "without_status"')
-        self.partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
-                       'free_member': False})
+        self.partner_2 = self.get_partner()
+        for partner_rec in [self.partner, self.partner_2]:
+            self.assertEquals(partner_rec.membership_state_id.code,
+                              'without_membership',
+                              'Create: should be "without_status"')
+            partner_rec.write(
+                {'accepted_date': date.today().strftime('%Y-%m-%d'),
+                 'free_member': False})
         self.partner = self.get_partner(self.partner.id)
+        self.partner_2 = self.get_partner(self.partner_2.id)
         self.assertEquals(self.partner.membership_state_id.code,
+                          'member_candidate', 'Should be "member_candidate"')
+        self.assertEquals(self.partner_2.membership_state_id.code,
                           'member_candidate', 'Should be "member_candidate"')
 
     def get_partner(self, partner_id=False):
@@ -91,7 +98,8 @@ class test_accounting_with_product(object):
         wiz_obj = self.registry('generate.reference')
         wiz_id = wiz_obj.create(self.cr, self.uid, {}, context={
                                                     'active_ids':
-                                                    [self.partner.id]})
+                                                    [self.partner.id,
+                                                     self.partner_2.id]})
         wiz_obj.generate_reference(self.cr, self.uid, wiz_id)
         self.partner = self.get_partner(self.partner.id)
         b_statement_id = self.bs_obj.create(self.cr,
@@ -132,6 +140,7 @@ class test_accounting_with_product(object):
                     'account_id': subscription_account.id,
                     'debit': 0,
                     'credit': self.product.list_price,
+                    'name': self.partner.reference
                     })
         if additional_amount > 0:
             account = None
@@ -297,3 +306,88 @@ class test_accounting_undefined(test_accounting_with_product,
 
     def test_accounting_auto_reconcile(self):
         return
+
+
+class test_accounting_grouped_payment(test_accounting_with_product, 
+                                      SharedSetupTransactionCase):
+    def setUp(self):
+        self.product = self.browse_ref('%s.membership_product_live_together'
+                                       % self._module_ns)
+        super(test_accounting_grouped_payment, self).setUp()
+
+    def _get_manual_move_dict(self, additional_amount):
+        property_obj = self.registry('ir.property')
+        res = []
+        subscription_account = property_obj.get(
+                                            self.cr,
+                                            self.uid,
+                                            'property_subscription_account',
+                                            'product.template')
+        if self.product:
+            if self.product.list_price > 0:
+                res.append({
+                    'account_id': subscription_account.id,
+                    'debit': 0,
+                    'credit': self.product.list_price,
+                    'name': self.partner.reference
+                    })
+
+        if additional_amount > 0:
+            if self.product.list_price > 0:
+                res.append({
+                    'account_id': subscription_account.id,
+                    'debit': 0,
+                    'credit': self.product.list_price,
+                    'name': self.partner_2.reference
+                    })
+        return res
+
+    def test_accounting_auto_reconcile(self):
+        return
+
+    def test_accounting_manual_reconcile_without_partner(self):
+        return
+
+    def test_accounting_manual_reconcile(self):
+        additional_amount = self.product.list_price
+        b_statement_id = self._generate_payment(
+            additional_amount=additional_amount)
+        self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id)
+        for bank_s in self.bs_obj.browse(self.cr, self.uid, b_statement_id):
+            for line in bank_s.line_ids:
+                self.assertFalse(line.journal_entry_id)
+
+        move_dicts = self._get_manual_move_dict(additional_amount)
+
+        self.bsl_obj.process_reconciliation(
+            self.cr, self.uid, bank_s.line_ids[0].id, move_dicts)
+
+        for partner in [self.get_partner(self.partner.id),
+                        self.get_partner(self.partner_2.id)]:
+            self.assertEquals(partner.membership_state_id.code,
+                              'member_committee',
+                              'Should be "member_committee"')
+
+            if not self.product:
+                prod_id = self.ref('%s.membership_product_undefined'
+                                   % self._module_ns)
+            else:
+                prod_id = self.product.id
+
+            self.assertEquals(partner.subscription_product_id.id,
+                              prod_id,
+                              'Wrong product affected')
+
+            ml_data = self.ml_obj.search_read(self.cr,
+                                              self.uid,
+                                              [('partner_id', '=', partner.id),
+                                               ('active', '=', True)],
+                                              ['price'])[0]
+            price = 0.0
+            if self.product:
+                price = self.product.list_price
+            else:
+                price = additional_amount
+
+            self.assertEqual(ml_data['price'], price,
+                             'Wrong price specified')
