@@ -25,19 +25,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import re
 
 from openerp.osv import orm, fields
+from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
-from openerp.tools.mail import single_email_re
 
-from openerp.addons.mozaik_base.base_tools import format_email
+from openerp.addons.mozaik_base.base_tools import format_email, check_email
 
 
 class email_coordinate(orm.Model):
-
-    def _check_email_format(self, cr, uid, email, context=None):
-        return re.match(single_email_re, email)
 
     _name = 'email.coordinate'
     _inherit = ['abstract.coordinate']
@@ -58,13 +54,15 @@ class email_coordinate(orm.Model):
 # constraints
 
     def _check_email(self, cr, uid, ids, context=None):
+        uid = SUPERUSER_ID
         coordinates = self.browse(cr, uid, ids, context=context)
         for coordinate in coordinates:
-            if not self._check_email_format(cr, uid, coordinate.email, context=context) != None:
+            if not check_email(coordinate.email):
                 return False
         return True
 
     def _check_main_authorized(self, cr, uid, ids, context=None):
+        uid = SUPERUSER_ID
         coordinates = self.browse(cr, uid, ids, context=context)
         for coordinate in coordinates:
             if coordinate.is_main and coordinate.unauthorized:
@@ -73,12 +71,14 @@ class email_coordinate(orm.Model):
 
     _constraints = [
         (_check_email, _('Invalid Email Format'), ['email']),
-        (_check_main_authorized, _('Main Coordinate Could Not Be Unauthorized'), ['is_main', 'unauthorized']),
+        (_check_main_authorized,
+            _('Main Coordinate Could Not Be Unauthorized'),
+            ['is_main', 'unauthorized']),
     ]
 
     _unicity_keys = 'partner_id, email'
 
-#orm methods
+# orm methods
 
     def create(self, cr, uid, vals, context=None):
         """
@@ -89,7 +89,8 @@ class email_coordinate(orm.Model):
         """
         if 'email' in vals:
             vals['email'] = format_email(vals['email'])
-        return super(email_coordinate, self).create(cr, uid, vals, context=context)
+        return super(email_coordinate, self).create(
+            cr, uid, vals, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
         """
@@ -100,6 +101,5 @@ class email_coordinate(orm.Model):
         """
         if 'email' in vals:
             vals['email'] = format_email(vals['email'])
-        return super(email_coordinate, self).write(cr, uid, ids, vals, context=context)
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        return super(email_coordinate, self).write(
+            cr, uid, ids, vals, context=context)

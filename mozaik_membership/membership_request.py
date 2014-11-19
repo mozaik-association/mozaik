@@ -35,7 +35,7 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
 
-from openerp.addons.mozaik_base.base_tools import format_email
+from openerp.addons.mozaik_base.base_tools import format_email, check_email
 from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
 from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
 
@@ -558,9 +558,7 @@ class membership_request(orm.Model):
         :rparam: formated email value
         """
         if email:
-            email_obj = self.pool['email.coordinate']
-            if email_obj._check_email_format(cr, uid, email, context=context)\
-                    is not None:
+            if check_email(email):
                 email = format_email(email)
         return email
 

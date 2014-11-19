@@ -13,6 +13,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//span[@name='anchor_for_inherit_view']" position="replace">
                     <field name="partner_instance_id" />
+                    <field name="partner_kind" />
                 </xpath>
             </field>
         </record>
@@ -28,6 +29,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//span[@name='anchor_for_inherit_view']" position="replace">
                     <field name="partner_instance_id" />
+                    <field name="partner_kind" />
                 </xpath>
             </field>
         </record>
@@ -43,6 +45,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//span[@name='anchor_for_inherit_view']" position="replace">
                     <field name="partner_instance_id" />
+                    <field name="partner_kind" />
                 </xpath>
             </field>
         </record>

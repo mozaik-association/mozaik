@@ -90,7 +90,7 @@ class res_partner(orm.Model):
     }
 
     _columns = {
-        'email_coordinate_ids': fields.one2many('email.coordinate', 'partner_id', 'Email Coordinates', domain=[('active', '=', True)]),
+        'email_coordinate_ids': fields.one2many('email.coordinate', 'partner_id', 'Email Coordinates', domain=[('active', '=', True)], context={'force_recompute': True}),
         'email_coordinate_inactive_ids': fields.one2many('email.coordinate', 'partner_id', 'Email Coordinates', domain=[('active', '=', False)]),
 
         'email_coordinate_id': fields.function(_get_main_email_coordinate_ids, string='Email',

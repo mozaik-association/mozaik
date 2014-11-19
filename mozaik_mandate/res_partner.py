@@ -38,65 +38,42 @@ class res_partner(orm.Model):
     _inactive_cascade = True
 
     _columns = {
-        'sta_mandate_ids': fields.one2many('sta.mandate',
-                                           'partner_id',
-                                           'State Mandates',
-                                           domain=[('active', '=', True)]),
+        'sta_mandate_ids': fields.one2many(
+            'sta.mandate', 'partner_id', string='State Mandates',
+            domain=[('active', '=', True)], context={'force_recompute': True}),
         'sta_mandate_inactive_ids': fields.one2many(
-                                        'sta.mandate',
-                                        'partner_id',
-                                        'State Mandates',
-                                        domain=[('active', '=', False)]),
+            'sta.mandate', 'partner_id', string='State Mandates',
+            domain=[('active', '=', False)]),
         'sta_candidature_ids': fields.one2many(
-                                        'sta.candidature',
-                                        'partner_id',
-                                        'State Candidatures',
-                                        domain=[('active', '=', True)]),
+            'sta.candidature', 'partner_id', string='State Candidatures',
+            domain=[('active', '=', True)]),
         'sta_candidature_inactive_ids': fields.one2many(
-                                        'sta.candidature',
-                                        'partner_id',
-                                        'State Candidatures',
-                                        domain=[('active', '=', False)]),
+            'sta.candidature', 'partner_id', string='State Candidatures',
+            domain=[('active', '=', False)]),
         'int_mandate_ids': fields.one2many(
-                                        'int.mandate',
-                                        'partner_id',
-                                        'Internal Mandates',
-                                        domain=[('active', '=', True)]),
+            'int.mandate', 'partner_id', string='Internal Mandates',
+            domain=[('active', '=', True)], context={'force_recompute': True}),
         'int_mandate_inactive_ids': fields.one2many(
-                                        'int.mandate',
-                                        'partner_id',
-                                        'Internal Mandates',
-                                        domain=[('active', '=', False)]),
+            'int.mandate', 'partner_id', string='Internal Mandates',
+            domain=[('active', '=', False)]),
         'int_candidature_ids': fields.one2many(
-                                        'int.candidature',
-                                        'partner_id',
-                                        'Internal Candidatures',
-                                        domain=[('active', '=', True)]),
+            'int.candidature', 'partner_id', string='Internal Candidatures',
+            domain=[('active', '=', True)]),
         'int_candidature_inactive_ids': fields.one2many(
-                                        'int.candidature',
-                                        'partner_id',
-                                        'Internal Candidatures',
-                                        domain=[('active', '=', False)]),
+            'int.candidature', 'partner_id', string='Internal Candidatures',
+            domain=[('active', '=', False)]),
         'ext_mandate_ids': fields.one2many(
-                                        'ext.mandate',
-                                        'partner_id',
-                                        'External Mandates',
-                                        domain=[('active', '=', True)]),
+            'ext.mandate', 'partner_id', string='External Mandates',
+            domain=[('active', '=', True)], context={'force_recompute': True}),
         'ext_mandate_inactive_ids': fields.one2many(
-                                        'ext.mandate',
-                                        'partner_id',
-                                        'External Mandates',
-                                        domain=[('active', '=', False)]),
+            'ext.mandate', 'partner_id', string='External Mandates',
+            domain=[('active', '=', False)]),
         'ext_candidature_ids': fields.one2many(
-                                        'ext.candidature',
-                                        'partner_id',
-                                        'External Candidatures',
-                                        domain=[('active', '=', True)]),
+            'ext.candidature', 'partner_id', string='External Candidatures',
+            domain=[('active', '=', True)]),
         'ext_candidature_inactive_ids': fields.one2many(
-                                        'ext.candidature',
-                                        'partner_id',
-                                        'External Candidatures',
-                                        domain=[('active', '=', False)]),
+            'ext.candidature', 'partner_id', string='External Candidatures',
+            domain=[('active', '=', False)]),
     }
 
 # orm methods

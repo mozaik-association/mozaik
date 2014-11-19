@@ -25,8 +25,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp.tools import SUPERUSER_ID
 
 
 class partner_relation_category(orm.Model):
@@ -122,6 +124,7 @@ class partner_relation(orm.Model):
                  Else True
         :rtype: Boolean
         """
+        uid = SUPERUSER_ID
         partner_relations = self.browse(cr, uid, ids, context=context)
         for partner_relation in partner_relations:
             if partner_relation.subject_partner_id.id == partner_relation.object_partner_id.id:

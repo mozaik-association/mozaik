@@ -25,6 +25,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields
 
 
@@ -39,8 +40,13 @@ class res_partner(orm.Model):
 
     _columns = {
         # relation fields
-        'partner_is_subject_relation_ids': fields.one2many('partner.relation', 'subject_partner_id', string='Subject Relations', domain=[('active', '=', True)]),
-        'partner_is_object_relation_ids': fields.one2many('partner.relation', 'object_partner_id', string='Object Relations', domain=[('active', '=', True)]),
+        'partner_is_subject_relation_ids': fields.one2many(
+            'partner.relation', 'subject_partner_id',
+            string='Subject Relations',
+            domain=[('active', '=', True)], context={'force_recompute': True}),
+        'partner_is_object_relation_ids': fields.one2many(
+            'partner.relation', 'object_partner_id', string='Object Relations',
+            domain=[('active', '=', True)], context={'force_recompute': True}),
 
         'partner_is_subject_relation_inactive_ids': fields.one2many('partner.relation', 'subject_partner_id', string='Subject Relations', domain=[('active', '=', False)]),
         'partner_is_object_relation_inactive_ids': fields.one2many('partner.relation', 'object_partner_id', string='Object Relations', domain=[('active', '=', False)]),

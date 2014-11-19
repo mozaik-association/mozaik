@@ -25,12 +25,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from datetime import date
+
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
 
-TODAY = str(date.today().year)
+# Constants
+AVAILABLE_PARTNER_KINDS = [
+    ('a', 'Assembly'),
+    ('t', 'Technical'),
+    ('c', 'Company'),
+    ('p', 'Partner'),
+    ('m', 'Member'),
+]
+
 XML_IDS = {
     'coordinates': [
         'former_phone_id_notification',
@@ -109,12 +119,13 @@ class res_partner(orm.Model):
         return True
 
     def _generate_membership_reference(self, cr, uid, partner_id,
-                                       ref_date=TODAY, context=None):
+                                       ref_date=None, context=None):
         """
         This method will generate a membership reference for payment.
         Comm. Struct. = '9' + ref_date without century +
             member identifier on 7 positions + % 97
         """
+        ref_date = ref_date or str(date.today().year)
         partner = self.browse(cr, uid, partner_id, context=context)
         base_identifier = '0000000'
         identifier = '%s' % partner.identifier
@@ -145,6 +156,29 @@ class res_partner(orm.Model):
                 val['product_id'][0] or False,
         return res
 
+    def _get_partner_kind(self, cr, uid, ids, name, arg, context=None):
+        '''
+        Compute the kind of partner, computed field used in ir.rule
+        '''
+        flds = [
+            'is_assembly', 'is_company', 'identifier', 'membership_state_code',
+        ]
+        res = {}
+        vals = self.read(cr, SUPERUSER_ID, ids, flds, context=context)
+        for val in vals:
+            if val['is_assembly']:
+                k = 'a'
+            elif not val['identifier']:
+                k = 't'
+            elif val['is_company']:
+                k = 'c'
+            elif val['membership_state_code'] == 'without_membership':
+                k = 'p'
+            else:
+                k = 'm'
+            res[val['id']] = k
+        return res
+
     _track = {
         'membership_state_id': {
             'mozaik_membership.membership_line_notification':
@@ -158,6 +192,14 @@ class res_partner(orm.Model):
                             self.pool['membership.line'].get_linked_partners(
                                 cr, uid, ids, context=context),
                             ['product_id'], 10),
+    }
+
+    _partner_kind_store_trigger = {
+        'res.partner': (lambda self, cr, uid, ids, context=None: ids,
+                        [
+                            'is_assembly', 'is_company',
+                            'identifier', 'membership_state_id'
+                        ], 10),
     }
     _columns = {
         'int_instance_id': fields.many2one(
@@ -179,6 +221,10 @@ class res_partner(orm.Model):
         'subscription_product_id': fields.function(
             _get_product_id, type='many2one', relation="product.product",
             string='Subscription', store=_subscription_store_trigger),
+        'kind': fields.function(
+            _get_partner_kind, string='Partner Kind', type='selection',
+            selection=AVAILABLE_PARTNER_KINDS,
+            store=_partner_kind_store_trigger),
         'accepted_date': fields.date('Accepted Date'),
         'decline_payment_date': fields.date('Decline Payment Date'),
         'rejected_date': fields.date('Rejected Date'),
@@ -289,23 +335,23 @@ class res_partner(orm.Model):
 # view methods: onchange, button
 
     def decline_payment(self, cr, uid, ids, context=None):
-        return self.write(cr, uid, ids, {'decline_payment_date':
-                                         date.today().strftime('%Y-%m-%d')},
+        today = fields.date.today()
+        return self.write(cr, uid, ids, {'decline_payment_date': today},
                           context=context)
 
     def reject(self, cr, uid, ids, context=None):
-        return self.write(cr, uid, ids, {'rejected_date': date.today().
-                                         strftime('%Y-%m-%d')},
+        today = fields.date.today()
+        return self.write(cr, uid, ids, {'rejected_date': today},
                           context=context)
 
     def exclude(self, cr, uid, ids, context=None):
-        return self.write(cr, uid, ids, {'exclusion_date': date.today().
-                                         strftime('%Y-%m-%d')},
+        today = fields.date.today()
+        return self.write(cr, uid, ids, {'exclusion_date': today},
                           context=context)
 
     def resign(self, cr, uid, ids, context=None):
-        return self.write(cr, uid, ids, {'resignation_date': date.today().
-                                         strftime('%Y-%m-%d')},
+        today = fields.date.today()
+        return self.write(cr, uid, ids, {'resignation_date': today},
                           context=context)
 
     def button_modification_request(self, cr, uid, ids, context=None):
@@ -475,7 +521,7 @@ class res_partner(orm.Model):
         * else invalidate it updating its `date_to` and duplicate it
           with the right state
         """
-        today = date.today().strftime('%Y-%m-%d')
+        today = fields.date.today()
         values = {
             'date_from': today,
             'date_to': False,

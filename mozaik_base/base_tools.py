@@ -26,6 +26,10 @@
 #
 ##############################################################################
 
+import re
+
+from openerp.tools.mail import single_email_re
+
 
 def format_email(value):
     """
@@ -39,3 +43,7 @@ def format_email(value):
     value = value.lower().strip()
     value = value.replace(' ', '')
     return value
+
+
+def check_email(email):
+    return re.match(single_email_re, email) is not None

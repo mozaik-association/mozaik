@@ -136,7 +136,7 @@ class res_partner(orm.Model):
      }
 
     _columns = {
-        'postal_coordinate_ids': fields.one2many('postal.coordinate', 'partner_id', 'Postal Coordinates', domain=[('active', '=', True)]),
+        'postal_coordinate_ids': fields.one2many('postal.coordinate', 'partner_id', 'Postal Coordinates', domain=[('active', '=', True)], context={'force_recompute': True}),
         'postal_coordinate_inactive_ids': fields.one2many('postal.coordinate', 'partner_id', 'Postal Coordinates', domain=[('active', '=', False)]),
 
         'postal_coordinate_id': fields.function(_get_main_postal_coordinate_id, string='Address',
