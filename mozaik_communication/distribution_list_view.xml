@@ -74,7 +74,7 @@
         <record id="distribution_list_form" model="ir.ui.view">
             <field name="name">distribution.list.form (mozaik_communication)</field>
             <field name="model">distribution.list</field>
-            <field name="inherit_id" ref="distribution_list.distribution_list_form" />
+            <field name="inherit_id" ref="mass_mailing_distribution_list.distribution_list_form" />
             <field name="arch" type="xml">
 
                 <!-- Rebuild header -->
