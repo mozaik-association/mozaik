@@ -47,7 +47,7 @@ msgid "Allowed Duplicates"
 msgstr "Doublons autorisés"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\abstract_coordinate.py:249
+#: code:addons\mozaik_coordinate\abstract_coordinate.py:257
 #, python-format
 msgid "An active coordinate cannot be duplicated!"
 msgstr "Une coordonnée active ne peut être dupliquée !"
@@ -174,8 +174,8 @@ msgid "Email Coordinates"
 msgstr "Coordonnées électroniques"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\abstract_coordinate.py:242
-#: code:addons\mozaik_coordinate\abstract_coordinate.py:249
+#: code:addons\mozaik_coordinate\abstract_coordinate.py:250
+#: code:addons\mozaik_coordinate\abstract_coordinate.py:257
 #: code:addons\mozaik_coordinate\wizard\bounce_editor.py:62
 #: code:addons\mozaik_coordinate\wizard\bounce_editor.py:65
 #: code:addons\mozaik_coordinate\wizard\bounce_editor.py:71
@@ -187,7 +187,7 @@ msgstr "Erreur"
 
 #. module: mozaik_coordinate
 #: constraint:abstract.coordinate:0
-#: code:addons\mozaik_coordinate\abstract_coordinate.py:41
+#: code:addons\mozaik_coordinate\abstract_coordinate.py:42
 #, python-format
 msgid "Exactly one main coordinate must exist for a given partner"
 msgstr "Un partenanire ne peut avoir qu'une seule coordonnée principale"

@@ -22,7 +22,7 @@ msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\res_partner.py:295
+#: code:addons\mozaik_person\res_partner.py:298
 #, python-format
 msgid "A partner and a login must be provided to create a user!"
 msgstr "Un partenaire et un login sont requis pour créer un utilisateur !"
@@ -104,7 +104,7 @@ msgid "Assemblies"
 msgstr "Assemblées"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\res_partner.py:299
+#: code:addons\mozaik_person\res_partner.py:302
 #, python-format
 msgid "Bad partner id: %s!"
 msgstr "Identifiant de partenaire incorrect: %s!"
@@ -212,11 +212,11 @@ msgstr "Numéro d'enterprise"
 
 #. module: mozaik_person
 #: code:addons\mozaik_person\partner_involvement.py:125
-#: code:addons\mozaik_person\res_partner.py:295
-#: code:addons\mozaik_person\res_partner.py:299
+#: code:addons\mozaik_person\res_partner.py:298
 #: code:addons\mozaik_person\res_partner.py:302
 #: code:addons\mozaik_person\res_partner.py:305
 #: code:addons\mozaik_person\res_partner.py:308
+#: code:addons\mozaik_person\res_partner.py:311
 #: code:addons\mozaik_person\wizard\create_user_from_partner.py:63
 #, python-format
 msgid "Error"
@@ -619,19 +619,19 @@ msgid "Terms..."
 msgstr "Termes..."
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\res_partner.py:305
+#: code:addons\mozaik_person\res_partner.py:308
 #, python-format
 msgid "The partner %s cannot be a company to be associated to a user!"
 msgstr "Le partenaire %s ne peut être une personne morale pour devenir un utilisateur !"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\res_partner.py:308
+#: code:addons\mozaik_person\res_partner.py:311
 #, python-format
 msgid "The partner %s has to be active!"
 msgstr "Le partenaire %s doit être actif !"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\res_partner.py:302
+#: code:addons\mozaik_person\res_partner.py:305
 #, python-format
 msgid "The partner %s is already a user!"
 msgstr "Le partenaire %s est déjà un utilisateur !"
@@ -652,7 +652,7 @@ msgid "The selected partner is deactivated."
 msgstr "Le partenaire sélectionné est désactivé."
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\res_partner.py:181
+#: code:addons\mozaik_person\res_partner.py:184
 #: constraint:res.partner:0
 #, python-format
 msgid "This identifier is already assigned"

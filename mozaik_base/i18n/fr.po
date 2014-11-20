@@ -16,6 +16,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_base
+#: code:addons\mozaik_base\abstract_model.py:276
+#, python-format
+msgid "Access Denied"
+msgstr "Accès refusé"
+
+#. module: mozaik_base
 #: field:mozaik.abstract.model,active:0
 msgid "Active"
 msgstr "Actif"
@@ -91,7 +97,7 @@ msgid "If checked new messages require your attention."
 msgstr "Si coché, de nouveaux messages requièrent votre attention."
 
 #. module: mozaik_base
-#: code:addons\mozaik_base\abstract_model.py:40
+#: code:addons\mozaik_base\abstract_model.py:41
 #: constraint:mozaik.abstract.model:0
 #: constraint:res.partner:0
 #, python-format
@@ -235,6 +241,18 @@ msgid "Table of Contents"
 msgstr "Table des matières"
 
 #. module: mozaik_base
+#: code:addons\mozaik_base\abstract_model.py:277
+#, python-format
+msgid "The requested operation cannot be completed due to security restrictions\n"
+"(Document type: %s, Operation: %s)\n"
+"or due to some undefined names while evaluating:\n"
+"%s"
+msgstr "L'opération demandée ne peut pas être effectuée en raison de la politique de sécurité\n"
+"(Type de document: %s, Opération: %s)\n"
+"ou à cause de certains noms non définis en évaluant l'expression:\n"
+"%s"
+
+#. module: mozaik_base
 #: model:ir.ui.menu,name:mozaik_base.persons_titles_submenu
 #: model:ir.ui.menu,name:mozaik_base.res_partner_legal_title_menu
 msgid "Titles"
@@ -259,6 +277,11 @@ msgstr "Messages de site web"
 #: help:mozaik.abstract.model,website_message_ids:0
 msgid "Website communication history"
 msgstr "Historique des communications de site web"
+
+#. module: mozaik_base
+#: model:res.groups,name:mozaik_base.res_groups_ws
+msgid "Ws (Mozaik)"
+msgstr ""
 
 #. module: mozaik_base
 #: view:res.users:mozaik_base.view_users_form_simple_modif

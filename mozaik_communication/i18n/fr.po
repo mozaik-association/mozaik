@@ -16,14 +16,14 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\postal_mail.py:79
-#: code:addons\mozaik_communication\postal_mail.py:187
+#: code:addons\mozaik_communication\postal_mail.py:80
+#: code:addons\mozaik_communication\postal_mail.py:202
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\postal_mail.py:172
+#: code:addons\mozaik_communication\postal_mail.py:187
 #, python-format
 msgid "A postal mail log cannot be copied when linked to a postal mailing!"
 msgstr "Un courrier postal ne peut être dupliqué s'il est lié à un envoi postal de masse !"
@@ -81,7 +81,6 @@ msgstr "Toutes les coordonnées, expirées ou non"
 
 #. module: mozaik_communication
 #: view:event.event:mozaik_communication.view_event_search
-#: view:event.registration:mozaik_communication.view_registration_search
 msgid "All Events, expired or not"
 msgstr "Tous les événements, expirés ou non"
 
@@ -94,6 +93,16 @@ msgstr "Tous les courriers postaux, expirés ou non"
 #: view:postal.mail:mozaik_communication.postal_mail_search_view
 msgid "All Postal Mailings, expired or not"
 msgstr "Tous les envois postaux de masse, expirés ou non"
+
+#. module: mozaik_communication
+#: view:event.registration:mozaik_communication.view_registration_search
+msgid "All Registrations, expired or not"
+msgstr "Toutes les inscriptions, expirées ou non"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_search
+msgid "Allow Mail Forwarding"
+msgstr "Transfert de courriels supporté"
 
 #. module: mozaik_communication
 #: selection:virtual.partner.retrocession,month:0
@@ -284,7 +293,6 @@ msgid "Creation Date"
 msgstr "Date de création"
 
 #. module: mozaik_communication
-#: help:distribution.list,message_last_post:0
 #: help:distribution.list.line,message_last_post:0
 #: help:postal.mail,message_last_post:0
 #: help:postal.mail.log,message_last_post:0
@@ -435,9 +443,9 @@ msgid "Employee"
 msgstr "Employé"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\event.py:78
-#: code:addons\mozaik_communication\postal_mail.py:172
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:198
+#: code:addons\mozaik_communication\event.py:80
+#: code:addons\mozaik_communication\postal_mail.py:187
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:201
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -493,7 +501,6 @@ msgstr "Coordonnées expirées"
 
 #. module: mozaik_communication
 #: view:event.event:mozaik_communication.view_event_search
-#: view:event.registration:mozaik_communication.view_registration_search
 msgid "Expired Events"
 msgstr "Évènements expirés"
 
@@ -508,19 +515,24 @@ msgid "Expired Postal Mailings"
 msgstr "Envois postaux expirés"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:309
+#: view:event.registration:mozaik_communication.view_registration_search
+msgid "Expired Registrations"
+msgstr "Inscriptions expirées"
+
+#. module: mozaik_communication
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:312
 #, python-format
 msgid "Export CSV"
 msgstr "Exportation CSV"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:266
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:269
 #, python-format
 msgid "Export PDF"
 msgstr "Exportation PDF"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:326
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:329
 #, python-format
 msgid "Export VCF"
 msgstr "Exportation VCF"
@@ -584,7 +596,6 @@ msgid "Firstname"
 msgstr "Prénom"
 
 #. module: mozaik_communication
-#: field:distribution.list,message_follower_ids:0
 #: field:distribution.list.line,message_follower_ids:0
 #: field:postal.mail,message_follower_ids:0
 #: field:postal.mail.log,message_follower_ids:0
@@ -670,7 +681,6 @@ msgid "History"
 msgstr "Historique"
 
 #. module: mozaik_communication
-#: help:distribution.list,message_summary:0
 #: help:distribution.list.line,message_summary:0
 #: help:postal.mail,message_summary:0
 #: help:postal.mail.log,message_summary:0
@@ -706,7 +716,6 @@ msgid "Identifier"
 msgstr "Identifiant"
 
 #. module: mozaik_communication
-#: help:distribution.list,message_unread:0
 #: help:distribution.list.line,message_unread:0
 #: help:postal.mail,message_unread:0
 #: help:postal.mail.log,message_unread:0
@@ -846,7 +855,6 @@ msgid "Is a Company"
 msgstr "Personne morale"
 
 #. module: mozaik_communication
-#: field:distribution.list,message_is_follower:0
 #: field:distribution.list.line,message_is_follower:0
 #: field:postal.mail,message_is_follower:0
 #: field:postal.mail.log,message_is_follower:0
@@ -879,7 +887,6 @@ msgid "Label Printing"
 msgstr "Impression d'étiquettes"
 
 #. module: mozaik_communication
-#: field:distribution.list,message_last_post:0
 #: field:distribution.list.line,message_last_post:0
 #: field:postal.mail,message_last_post:0
 #: field:postal.mail.log,message_last_post:0
@@ -1067,7 +1074,6 @@ msgid "Membership State"
 msgstr "Statut d'adhésion"
 
 #. module: mozaik_communication
-#: field:distribution.list,message_ids:0
 #: field:distribution.list.line,message_ids:0
 #: field:postal.mail,message_ids:0
 #: field:postal.mail.log,message_ids:0
@@ -1075,7 +1081,6 @@ msgid "Messages"
 msgstr "Messages"
 
 #. module: mozaik_communication
-#: help:distribution.list,message_ids:0
 #: help:distribution.list.line,message_ids:0
 #: help:postal.mail,message_ids:0
 #: help:postal.mail.log,message_ids:0
@@ -1155,7 +1160,7 @@ msgid "Number"
 msgstr "Numéro"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\event.py:78
+#: code:addons\mozaik_communication\event.py:80
 #, python-format
 msgid "Number of seats is not reached"
 msgstr "Nombre of places non atteint"
@@ -1174,6 +1179,11 @@ msgstr "Octobre"
 #: selection:virtual.partner.retrocession,state:0
 msgid "Open"
 msgstr "Á valider"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_mail_mail
+msgid "Outgoing Mails"
+msgstr "Courriels à envoyer"
 
 #. module: mozaik_communication
 #: field:distribution.list,res_users_ids:0
@@ -1203,6 +1213,12 @@ msgstr "Propriétaires"
 #: field:virtual.target,partner_id:0
 msgid "Partner"
 msgstr "Partenaire"
+
+#. module: mozaik_communication
+#: field:event.registration,partner_instance_id:0
+#: field:postal.mail.log,partner_instance_id:0
+msgid "Partner Internal Instance"
+msgstr "Instance interne du partenaire"
 
 #. module: mozaik_communication
 #: model:ir.model,name:mozaik_communication.model_virtual_partner_candidature
@@ -1433,6 +1449,11 @@ msgid "Relation Category"
 msgstr "Catégorie de relation"
 
 #. module: mozaik_communication
+#: field:virtual.partner.retrocession,retro_instance_id:0
+msgid "Retrocessions Management Instance"
+msgstr "Instance de gestion des rétrocessions"
+
+#. module: mozaik_communication
 #: model:ir.ui.menu,name:mozaik_communication.virtual_models_submenu
 msgid "Searching Models"
 msgstr "Modèles de recherche"
@@ -1559,7 +1580,6 @@ msgid "Subject"
 msgstr "Sujet"
 
 #. module: mozaik_communication
-#: field:distribution.list,message_summary:0
 #: field:distribution.list.line,message_summary:0
 #: field:postal.mail,message_summary:0
 #: field:postal.mail.log,message_summary:0
@@ -1596,7 +1616,7 @@ msgid "Templates"
 msgstr "Modèles de courriel"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:198
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:201
 #, python-format
 msgid "There are no recipients"
 msgstr "Aucun destinataire"
@@ -1666,7 +1686,6 @@ msgid "Undelivered Welcome Documents"
 msgstr "Documents de bienvenue non envoyés"
 
 #. module: mozaik_communication
-#: field:distribution.list,message_unread:0
 #: field:distribution.list.line,message_unread:0
 #: field:postal.mail,message_unread:0
 #: field:postal.mail.log,message_unread:0
@@ -1739,7 +1758,6 @@ msgid "Virtual Target"
 msgstr "Destination virtuelle"
 
 #. module: mozaik_communication
-#: field:distribution.list,website_message_ids:0
 #: field:distribution.list.line,website_message_ids:0
 #: field:event.event,website_message_ids:0
 #: field:event.registration,website_message_ids:0
@@ -1749,7 +1767,6 @@ msgid "Website Messages"
 msgstr "Messages de site web"
 
 #. module: mozaik_communication
-#: help:distribution.list,website_message_ids:0
 #: help:distribution.list.line,website_message_ids:0
 #: help:event.event,website_message_ids:0
 #: help:event.registration,website_message_ids:0

@@ -41,7 +41,7 @@ msgid "Mandate Category"
 msgstr "Catégorie de mandat"
 
 #. module: mozaik_account
-#: code:addons\mozaik_account\account_bank_statement.py:153
+#: code:addons\mozaik_account\account_bank_statement.py:154
 #, python-format
 msgid "No Partner Defined!"
 msgstr "Aucun partenaire défini !"
@@ -52,6 +52,7 @@ msgid "Product Template"
 msgstr "Modèle d'article"
 
 #. module: mozaik_account
+#: field:account.chart.template,property_retrocession_account:0
 #: field:mandate.category,property_retrocession_account:0
 msgid "Retrocession Account"
 msgstr "Compte de rétrocession"
@@ -80,7 +81,7 @@ msgid "Templates for Account Chart"
 msgstr "Modèles de plan comptable"
 
 #. module: mozaik_account
-#: code:addons\mozaik_account\account_bank_statement.py:154
+#: code:addons\mozaik_account\account_bank_statement.py:155
 #, python-format
 msgid "You must first select a partner!"
 msgstr "Vous devez selectionner un partenaire !"

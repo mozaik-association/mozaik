@@ -91,7 +91,7 @@ msgid "Email"
 msgstr "Adresse électronique"
 
 #. module: mozaik_email
-#: code:addons\mozaik_email\email_coordinate.py:45
+#: code:addons\mozaik_email\email_coordinate.py:41
 #: model:ir.model,name:mozaik_email.model_email_coordinate
 #, python-format
 msgid "Email Coordinate"
@@ -228,7 +228,7 @@ msgid "Launch"
 msgstr "Exécuter"
 
 #. module: mozaik_email
-#: code:addons\mozaik_email\email_coordinate.py:74
+#: code:addons\mozaik_email\email_coordinate.py:75
 #: constraint:email.coordinate:0
 #, python-format
 msgid "Main Coordinate Could Not Be Unauthorized"

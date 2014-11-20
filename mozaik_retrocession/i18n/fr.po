@@ -16,167 +16,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_retrocession
-#: model:email.template,body_html:mozaik_retrocession.email_template_request_payment_retrocession
-msgid "\n"
-"<div style=\"font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p>Hello ${object.partner_id.name},</p>\n"
-"\n"
-"    <p>A new request for payment is available for you: </p>\n"
-"\n"
-"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
-"       &nbsp;&nbsp;<strong>REFERENCES</strong><br />\n"
-"       &nbsp;&nbsp;Retrocession: <strong>${object.unique_id}</strong><br />\n"
-"       &nbsp;&nbsp;Period: <strong>${object.month or ''} ${object.year}</strong><br/>\n"
-"       &nbsp;&nbsp;Amount: <strong>${object.amount_due} ${object.partner_id.company_id.currency_id.name}</strong><br/>\n"
-"    </p>\n"
-"    <br/>\n"
-"    <p>If you have any question, do not hesitate to contact us.</p>\n"
-"    <br/>\n"
-"    <br/>\n"
-"</div>\n"
-"            "
-msgstr "\n"
-"<div style=\"font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p>Bonjour ${object.partner_id.name},</p>\n"
-"\n"
-"    <p>Une nouvelle demande de paiement est disponible pour vous: </p>\n"
-"\n"
-"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
-"       &nbsp;&nbsp;<strong>RÉFÉRENCES</strong><br />\n"
-"       &nbsp;&nbsp;Rétrocession: <strong>${object.unique_id}</strong><br />\n"
-"       &nbsp;&nbsp;Période: <strong>${object.month or ''} ${object.year}</strong><br/>\n"
-"       &nbsp;&nbsp;Montant: <strong>${object.amount_due} ${object.partner_id.company_id.currency_id.name}</strong><br/>\n"
-"    </p>\n"
-"    <br/>\n"
-"    <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>\n"
-"    <br/>\n"
-"    <br/>\n"
-"</div>\n"
-"            "
-
-#. module: mozaik_retrocession
-#: model:email.template,body_html:mozaik_retrocession.email_template_ext_mandate_reference
-msgid "\n"
-"<div style=\"font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p>Hello ${object.partner_id.name},</p>\n"
-"\n"
-"    <p>Please use <b>${object.reference}</b> as structured reference for all payments concerning following mandate:</p>\n"
-"    <p>\n"
-"    <table>\n"
-"        <tr>\n"
-"            <td><u>Representative: </u></td>\n"
-"            <td><b>${object.partner_id.name}</b></td>\n"
-"        </tr>\n"
-"        <tr>\n"
-"            <td><u>Type: </u></td>\n"
-"            <td><b>${object.mandate_category_id.name}</b></td>\n"
-"        </tr>\n"
-"        <tr>\n"
-"            <td><u>Assembly: </u></td>\n"
-"            <td><b>${object.ext_assembly_id.name}</b></td>\n"
-"        </tr>\n"
-"    </table>\n"
-"    </p>\n"
-"    <p>Regards,</p>\n"
-"    <br>\n"
-"    <p style=\"font-size:12px;color:grey\">\n"
-"    This message is automatically generated, please do not reply directly.\n"
-"    </p>\n"
-"</div>\n"
-"            "
-msgstr "\n"
-"<div style=\"font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p>Bonjour ${object.partner_id.name},</p>\n"
-"\n"
-"    <p>Merci d'utiliser <b>${object.reference}</b> comme communication structurée lors des paiements relatifs au mandat suivant:</p>\n"
-"    <p>\n"
-"    <table>\n"
-"        <tr>\n"
-"            <td><u>Mandataire: </u></td>\n"
-"            <td><b>${object.partner_id.name}</b></td>\n"
-"        </tr>\n"
-"        <tr>\n"
-"            <td><u>Type: </u></td>\n"
-"            <td><b>${object.mandate_category_id.name}</b></td>\n"
-"        </tr>\n"
-"        <tr>\n"
-"            <td><u>Assemblée: </u></td>\n"
-"            <td><b>${object.ext_assembly_id.name}</b></td>\n"
-"        </tr>\n"
-"    </table>\n"
-"    </p>\n"
-"    <br>\n"
-"    <p style=\"font-size:12px;color:grey\">\n"
-"    Ce message est généré automatiquement, merci de ne pas y répondre.\n"
-"    </p>\n"
-"</div>\n"
-"            "
-
-#. module: mozaik_retrocession
-#: model:email.template,body_html:mozaik_retrocession.email_template_sta_mandate_reference
-msgid "\n"
-"<div style=\"font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p>Hello ${object.partner_id.name},</p>\n"
-"\n"
-"    <p>Please use <b>${object.reference}</b> as structured reference for all payments concerning following mandate:</p>\n"
-"    <p>\n"
-"    <table>\n"
-"        <tr>\n"
-"            <td><u>Representative: </u></td>\n"
-"            <td><b>${object.partner_id.name}</b></td>\n"
-"        </tr>\n"
-"        <tr>\n"
-"            <td><u>Type: </u></td>\n"
-"            <td><b>${object.mandate_category_id.name}</b></td>\n"
-"        </tr>\n"
-"        <tr>\n"
-"            <td><u>Assembly: </u></td>\n"
-"            <td><b>${object.sta_assembly_id.name}</b></td>\n"
-"        </tr>\n"
-"    </table>\n"
-"    </p>\n"
-"    <p>Regards,</p>\n"
-"    <br>\n"
-"    <p style=\"font-size:12px;color:grey\">\n"
-"    This message is automatically generated, please do not reply directly.\n"
-"    </p>\n"
-"</div>\n"
-"            "
-msgstr "\n"
-"<div style=\"font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
-"\n"
-"    <p>Bonjour ${object.partner_id.name},</p>\n"
-"\n"
-"    <p>Merci d'utiliser <b>${object.reference}</b> comme communication structurée lors des paiements relatifs au mandat suivant:</p>\n"
-"    <p>\n"
-"    <table>\n"
-"        <tr>\n"
-"            <td><u>Mandataire: </u></td>\n"
-"            <td><b>${object.partner_id.name}</b></td>\n"
-"        </tr>\n"
-"        <tr>\n"
-"            <td><u>Type: </u></td>\n"
-"            <td><b>${object.mandate_category_id.name}</b></td>\n"
-"        </tr>\n"
-"        <tr>\n"
-"            <td><u>Assemblée: </u></td>\n"
-"            <td><b>${object.sta_assembly_id.name}</b></td>\n"
-"        </tr>\n"
-"    </table>\n"
-"    </p>\n"
-"    <br>\n"
-"    <p style=\"font-size:12px;color:grey\">\n"
-"    Ce message est généré automatiquement, merci de ne pas y répondre.\n"
-"    </p>\n"
-"</div>\n"
-"            "
-
-#. module: mozaik_retrocession
 #: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
 msgid "#Existing"
 msgstr "#Existant"
@@ -197,7 +36,7 @@ msgid "#To Print"
 msgstr "#Á imprimer"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:96
+#: code:addons\mozaik_retrocession\retrocession.py:97
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
@@ -208,14 +47,14 @@ msgid "(update)"
 msgstr "(mise à jour)"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:708
+#: code:addons\mozaik_retrocession\retrocession.py:791
 #: constraint:retrocession:0
 #, python-format
 msgid "A regulation retrocession should only occur on December"
 msgstr "Une rétrocession rectificative n'est possible qu'en décembre"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:706
+#: code:addons\mozaik_retrocession\retrocession.py:789
 #: constraint:retrocession:0
 #, python-format
 msgid "A retrocession already exists for this mandate at this period"
@@ -333,7 +172,7 @@ msgid "Amount deductible"
 msgstr "Montant déductible"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:801
+#: code:addons\mozaik_retrocession\retrocession.py:884
 #, python-format
 msgid "Amount due for retrocession should be positive"
 msgstr "Le montant dû doit être positif"
@@ -575,8 +414,8 @@ msgid "Email Coordinate"
 msgstr "Coordonnée électronique"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\mandate.py:262
-#: code:addons\mozaik_retrocession\retrocession.py:870
+#: code:addons\mozaik_retrocession\mandate.py:268
+#: code:addons\mozaik_retrocession\retrocession.py:953
 #, python-format
 msgid "Email template %s not found!"
 msgstr "Modèle de courriel %s non trouvé !"
@@ -589,12 +428,12 @@ msgid "End Date"
 msgstr "Date de fin"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\mandate.py:261
-#: code:addons\mozaik_retrocession\retrocession.py:800
-#: code:addons\mozaik_retrocession\retrocession.py:866
-#: code:addons\mozaik_retrocession\retrocession.py:870
-#: code:addons\mozaik_retrocession\retrocession.py:944
+#: code:addons\mozaik_retrocession\mandate.py:267
+#: code:addons\mozaik_retrocession\retrocession.py:883
+#: code:addons\mozaik_retrocession\retrocession.py:949
 #: code:addons\mozaik_retrocession\retrocession.py:953
+#: code:addons\mozaik_retrocession\retrocession.py:1027
+#: code:addons\mozaik_retrocession\retrocession.py:1036
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -1170,7 +1009,7 @@ msgid "No Retrocession"
 msgstr "Sans rétrocession"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:709
+#: code:addons\mozaik_retrocession\retrocession.py:792
 #: constraint:retrocession:0
 #, python-format
 msgid "No amount paid specified."
@@ -1234,6 +1073,11 @@ msgid "Partner"
 msgstr "Partenaire"
 
 #. module: mozaik_retrocession
+#: field:retrocession,partner_instance_id:0
+msgid "Partner Internal Instance"
+msgstr "Instance interne du partenaire"
+
+#. module: mozaik_retrocession
 #: model:ir.actions.report.xml,name:mozaik_retrocession.action_report_payment_certificate_ext
 msgid "Payment Certificate for External Mandates"
 msgstr "Attestation de paiement pour mandats externes"
@@ -1262,7 +1106,7 @@ msgid "Percentage"
 msgstr "Pourcentage"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:274
+#: code:addons\mozaik_retrocession\retrocession.py:275
 #: constraint:calculation.rule:0
 #, python-format
 msgid "Percentage must be positive for a deductible rule."
@@ -1284,13 +1128,13 @@ msgid "Period: from"
 msgstr "Période: de"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:954
+#: code:addons\mozaik_retrocession\retrocession.py:1037
 #, python-format
 msgid "Please set a cost account on mandate category."
 msgstr "Un compte de charge doit être spécifié sur la catégorie de mandat."
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:944
+#: code:addons\mozaik_retrocession\retrocession.py:1027
 #, python-format
 msgid "Please set a retrocession account on mandate category."
 msgstr "Un compte de rétrocession doit être spécifié sur la catégorie de mandat."
@@ -1360,7 +1204,7 @@ msgid "Representative"
 msgstr "Mandataire"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:866
+#: code:addons\mozaik_retrocession\retrocession.py:949
 #, python-format
 msgid "Representative has no email specified"
 msgstr "Le mandataire n'a pas d'adresse électronique"
@@ -1419,11 +1263,6 @@ msgid "Retrocession N°"
 msgstr "Rétrocession N°"
 
 #. module: mozaik_retrocession
-#: model:ir.model,name:mozaik_retrocession.model_report_retrocession_wizard
-msgid "Retrocessions Reports Generator"
-msgstr "Générateur de rapports de rétrocessions"
-
-#. module: mozaik_retrocession
 #: model:email.template,report_name:mozaik_retrocession.email_template_request_payment_retrocession
 msgid "Retrocession_${(object.unique_id or '').replace('/','_')}"
 msgstr ""
@@ -1456,10 +1295,16 @@ msgstr "Générateur de rétrocessions"
 #: field:abstract.mandate.retrocession,retro_instance_id:0
 #: field:ext.assembly,retro_instance_id:0
 #: field:ext.mandate,retro_instance_id:0
+#: field:retrocession,retro_instance_id:0
 #: field:sta.assembly,retro_instance_id:0
 #: field:sta.mandate,retro_instance_id:0
 msgid "Retrocessions Management Instance"
 msgstr "Instance de gestion des rétrocessions"
+
+#. module: mozaik_retrocession
+#: model:ir.model,name:mozaik_retrocession.model_report_retrocession_wizard
+msgid "Retrocessions Reports Generator"
+msgstr "Générateur de rapports de rétrocessions"
 
 #. module: mozaik_retrocession
 #: view:calculation.method:mozaik_retrocession.calculation_method_form_view
@@ -1796,7 +1641,7 @@ msgid "Yearly Retrocessions to Create"
 msgstr "Rétrocessions annuelles à créer"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:707
+#: code:addons\mozaik_retrocession\retrocession.py:790
 #: constraint:retrocession:0
 #, python-format
 msgid "You can not validate a negative retrocession"
