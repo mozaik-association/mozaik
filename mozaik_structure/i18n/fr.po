@@ -134,7 +134,7 @@ msgstr "Assemblée"
 #: field:sta.power.level,assembly_category_ids:0
 #: field:sta.power.level,assembly_category_inactive_ids:0
 msgid "Assembly Categories"
-msgstr "Categories d'assemblée"
+msgstr "Catégories d'assemblée"
 
 #. module: mozaik_structure
 #: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_form_view
@@ -144,7 +144,7 @@ msgstr "Categories d'assemblée"
 #: field:int.assembly,assembly_category_id:0
 #: field:sta.assembly,assembly_category_id:0
 msgid "Assembly Category"
-msgstr "Categorie d'assemblée"
+msgstr "Catégorie d'assemblée"
 
 #. module: mozaik_structure
 #: field:abstract.assembly,partner_id:0

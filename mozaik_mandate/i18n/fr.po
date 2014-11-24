@@ -1701,7 +1701,7 @@ msgstr "Candidatures politiques"
 #: model:ir.actions.act_window,name:mozaik_mandate.sta_mandate_category_action
 #: model:ir.ui.menu,name:mozaik_mandate.sta_mandate_categories_submenu
 msgid "State Categories"
-msgstr "Categories politiques"
+msgstr "Catégories politiques"
 
 #. module: mozaik_mandate
 #: field:copy.sta.mandate.wizard,instance_id:0

@@ -19,7 +19,7 @@
             <field name="code">refused_member_candidate</field>
         </record>
         <record id="member_committee" model="membership.state">
-            <field name="name">Member Committee</field>
+            <field name="name">Members Committee</field>
             <field name="code">member_committee</field>
         </record>
         <record id="former_member_committee" model="membership.state">

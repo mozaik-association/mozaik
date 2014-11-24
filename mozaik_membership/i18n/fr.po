@@ -835,11 +835,6 @@ msgid "Member Card Sent Date > ..."
 msgstr "Date d'envoi de la carte de membre > ..."
 
 #. module: mozaik_membership
-#: model:membership.state,name:mozaik_membership.member_committee
-msgid "Member Committee"
-msgstr "Comité des membres"
-
-#. module: mozaik_membership
 #: field:generate.reference,nb_member_concerned:0
 msgid "Members"
 msgstr "Membres"
@@ -848,10 +843,11 @@ msgstr "Membres"
 #: model:ir.actions.act_window,name:mozaik_membership.waiting_member_report_action
 #: model:ir.model,name:mozaik_membership.model_waiting_member_report
 #: model:ir.ui.menu,name:mozaik_membership.members_committe
+#: model:membership.state,name:mozaik_membership.member_committee
 #: view:waiting.member.report:mozaik_membership.waiting_member_report_search_view
 #: view:waiting.member.report:mozaik_membership.waiting_member_report_tree_view
 msgid "Members Committee"
-msgstr "Comité des membres"
+msgstr "Commission des membres"
 
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_membership_line
