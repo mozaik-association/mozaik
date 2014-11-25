@@ -231,8 +231,10 @@ class res_partner(orm.Model):
         'resignation_date': fields.date('Resignation Date'),
         'exclusion_date': fields.date('Exclusion Date'),
 
-        'del_doc_date': fields.date('Welcome Documents Sent Date'),
-        'del_mem_card_date': fields.date('Member Card Sent Date'),
+        'del_doc_date': fields.date('Welcome Documents Sent Date',
+                                    track_visibility='onchange'),
+        'del_mem_card_date': fields.date('Member Card Sent Date',
+                                         track_visibility='onchange'),
         'reference': fields.char('Reference'),
     }
 
