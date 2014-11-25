@@ -156,6 +156,7 @@ def generate_reference_action(
             cr, uid, partner_id, ref_date, context=context)
         vals = {
             'reference': ref,
+            'del_mem_card_date': False,
         }
         partner_obj.write(cr, uid, [partner_id], vals, context=context)
 

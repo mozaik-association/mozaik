@@ -329,7 +329,7 @@
             <field name="arch" type="xml">
                 <form string="Candidature" version="7.0">
                     <header>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                        <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
                              groups="mozaik_base.mozaik_res_groups_user" name="invalidate">
                             <button name="action_invalidate" string="Invalidate" type="object"
@@ -343,8 +343,8 @@
                                     confirm="Declare candidature: proceed anyway?"/>
                             <button name="button_create_mandate" string="Mandate" type="object"
                                     confirm="Create mandate from candidature: proceed anyway?"/>
-                            <field name="state" widget="statusbar" statusbar_visible='declared,suggested,designated,elected'/>
-                        </div>
+                        </span>
+                        <field name="state" widget="statusbar" statusbar_visible='declared,suggested,designated,elected'/>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -404,19 +404,19 @@
             <field name="arch" type="xml">
                 <form string="Selection Committee" version="7.0">
                     <header>
-                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                         <span attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
                              groups="mozaik_base.mozaik_res_groups_user">
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate committee: proceed anyway?" />
-                            <field name='state' widget='statusbar'/>
-                        </div>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}"
+                        </span>
+                        <span attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}"
                              invisible="context.get('popup')"
                              groups="mozaik_base.mozaik_res_groups_user">
                             <button name="action_copy" string="Copy" type="object"
                                     confirm="Copy committee and keep rejected candidatures: proceed anyway?" />
-                        </div>
+                        </span>
+                        <field name='state' widget='statusbar'/>
                     </header>
                     <sheet>
                         <div class="oe_title">
