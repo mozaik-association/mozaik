@@ -207,11 +207,11 @@ class report_retrocession_wizard(orm.TransientModel):
                                       ('year', '=', year),
                                       ('state', 'in', ['validated', 'done']),
                                       ('active', '<=', True)],
-                                     ['amount_due', 'amount_paid'],
+                                     ['amount_total', 'amount_paid'],
                                      context=context)
-        amount_due = sum([record['amount_due'] for record in data])
+        amount_total = sum([record['amount_total'] for record in data])
         amount_paid = sum([record['amount_paid'] for record in data])
-        return amount_due, amount_paid
+        return amount_total, amount_paid
 
     def _get_fractionation_data(self, cr, uid, mandate_ids, mandate_model,
                                 assembly_model, year, context=None):
@@ -244,7 +244,7 @@ class report_retrocession_wizard(orm.TransientModel):
 
             instance_id = mandate.partner_id.int_instance_id.id
 
-            amount_due, amount_paid = self._get_mandate_retrocession_amounts(
+            amount_total, amount_paid = self._get_mandate_retrocession_amounts(
                                                             cr,
                                                             uid,
                                                             mandate_model,
@@ -280,7 +280,7 @@ class report_retrocession_wizard(orm.TransientModel):
                                                    context=context)
             data['Representative'] = mandate.partner_id.name
             data['Retrocession Mode'] = mandate.retrocession_mode
-            data['Amount Due'] = amount_due
+            data['Amount Due'] = amount_total
             data['Amount Paid'] = amount_paid
             data['split'] = pl_split
             mandates_data[mandate.id] = data
@@ -388,14 +388,15 @@ class report_retrocession_wizard(orm.TransientModel):
 
             secretariat_dict[mandate['id']] = secretariat_name
 
-            amount_due, amount_paid = self._get_mandate_retrocession_amounts(
+            amount_total, amount_paid = self._get_mandate_retrocession_amounts(
                                                             cr,
                                                             uid,
                                                             wizard.model,
                                                             mandate['id'],
                                                             wizard.year,
                                                             context=context)
-            retro_amounts[mandate['id']] = amount_paid
+            retro_amounts[mandate['id']] = amount_paid \
+                if amount_paid <= amount_total else amount_total
 
         data = {'model': wizard.model,
                 'year': wizard.year,
