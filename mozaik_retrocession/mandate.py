@@ -27,6 +27,7 @@
 ##############################################################################
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
+from openerp.tools import SUPERUSER_ID
 from structure import sta_assembly, ext_assembly
 from openerp.addons.mozaik_retrocession.common import RETROCESSION_MODES_AVAILABLE, CALCULATION_METHOD_AVAILABLE_TYPES
 
@@ -53,6 +54,7 @@ class mandate_category(orm.Model):
                  False otherwise
         :rtype: boolean
         """
+        uid = SUPERUSER_ID
         for category in self.browse(cr, uid, ids, context=context):
             if category.retrocession_mode != 'none':
                 if category.type == 'sta':

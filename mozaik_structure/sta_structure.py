@@ -29,6 +29,7 @@
 import datetime as DT
 
 import openerp.tools as tools
+from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
@@ -157,6 +158,7 @@ class sta_instance(orm.Model):
                  False otherwise
         :rtype: boolean
         """
+        uid = SUPERUSER_ID
         return orm.Model._check_recursion(self, cr, uid, ids, context=context,
                                           parent='secondary_parent_id')
 

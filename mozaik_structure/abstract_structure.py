@@ -28,7 +28,7 @@
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
-
+from openerp.tools import SUPERUSER_ID
 
 class abstract_power_level(orm.AbstractModel):
 
@@ -225,6 +225,7 @@ class abstract_assembly(orm.AbstractModel):
         Note:
         Only relevant for internal and state assemblies
         """
+        uid = SUPERUSER_ID
         assemblies = self.browse(cr, uid, ids, context=context)
         for assembly in assemblies:
             if not assembly.assembly_category_id._model._columns.\

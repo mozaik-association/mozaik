@@ -32,6 +32,7 @@ from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT,\
                           DEFAULT_SERVER_DATE_FORMAT
 from openerp.osv import orm, osv, fields
 from openerp.tools.translate import _
+from openerp.tools import SUPERUSER_ID
 
 from openerp.addons.mozaik_mandate.mandate import mandate_category
 
@@ -163,7 +164,7 @@ class abstract_selection_committee(orm.AbstractModel):
                  False otherwise
         :rtype: boolean
         """
-
+        uid = SUPERUSER_ID
         committees = self.browse(cr, uid, ids)
 
         for committee in committees:
@@ -805,6 +806,7 @@ class abstract_candidature(orm.AbstractModel):
                  False otherwise
         :rtype: boolean
         """
+        uid = SUPERUSER_ID
         candidatures = self.browse(cr, uid, ids)
         for candidature in candidatures:
             if len(self.search(cr,

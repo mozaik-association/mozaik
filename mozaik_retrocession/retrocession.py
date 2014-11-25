@@ -244,6 +244,7 @@ class calculation_rule(orm.Model):
                  False otherwise
         :rtype: boolean
         """
+        uid = SUPERUSER_ID
         for rule in self.browse(cr, uid, ids, context=context):
             return False if (rule.is_deductible and rule.percentage < 0) else True
 
@@ -713,6 +714,7 @@ class retrocession(orm.Model):
                  False otherwise
         :rtype: boolean
         """
+        uid = SUPERUSER_ID
         retrocessions = self.browse(cr, uid, ids)
         for retro in retrocessions:
             domain = [(self.get_relation_column_name(cr, uid, retro.mandate_ref._name, context=context), '=', retro.mandate_ref.id),
@@ -745,6 +747,7 @@ class retrocession(orm.Model):
                  False otherwise
         :rtype: boolean
         """
+        uid = SUPERUSER_ID
         for retro in self.browse(cr, uid, ids):
             if retro.state == 'validated' and retro.amount_total < 0:
                 return False
@@ -761,6 +764,7 @@ class retrocession(orm.Model):
                  False otherwise
         :rtype: boolean
         """
+        uid = SUPERUSER_ID
         for retro in self.browse(cr, uid, ids):
             if retro.is_regulation and int(retro.month) != 12:
                 return False
@@ -777,6 +781,7 @@ class retrocession(orm.Model):
                  False otherwise
         :rtype: boolean
         """
+        uid = SUPERUSER_ID
         for retro in self.browse(cr, uid, ids):
             if retro.state == 'done'\
                 and retro.amount_paid == 0\

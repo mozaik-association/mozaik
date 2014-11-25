@@ -28,6 +28,7 @@
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp.tools import SUPERUSER_ID
 
 from openerp.addons.mozaik_mandate.abstract_mandate import abstract_candidature
 from openerp.addons.mozaik_mandate.mandate import mandate_category
@@ -566,6 +567,7 @@ class sta_candidature(orm.Model):
                  False otherwise
         :rtype: boolean
         """
+        uid = SUPERUSER_ID
         candidatures = self.browse(cr, uid, ids)
         for candidature in candidatures:
             if len(self.search(cr, uid, [('partner_id',
