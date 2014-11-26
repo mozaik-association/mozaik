@@ -60,7 +60,6 @@
             <field name="name">Mozaik Financial User</field>
             <field name="category_id" ref="base.module_category_political_association"/>
             <field name="implied_ids" eval="[(6, 0, [
-                ref('mozaik_res_groups_reader'),
                 ref('mozaik_res_groups_user'),
             ])]" />
         </record>
