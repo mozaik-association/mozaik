@@ -110,7 +110,7 @@
                                 (
                                 <field name="membership_state_id"
                                     readonly="1" class="oe_inline" options='{"no_open":True, "no_create":True}'/>
-                                to
+                                <label string="to"/>
                                 <field name="result_type_id"
                                     readonly="1" class="oe_inline" options='{"no_open":True, "no_create":True}'/>
                                 )

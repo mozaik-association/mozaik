@@ -26,16 +26,21 @@ msgid "A New Membership Line Has Been Created"
 msgstr "Un nouvel historique a été créé"
 
 #. module: mozaik_membership
-#: code:addons\mozaik_membership\res_partner.py:375
+#: code:addons\mozaik_membership\res_partner.py:377
 #, python-format
 msgid "A Partner is required for a Modification Request"
 msgstr "Un partenaire est requis pour faire une demande de modification"
 
 #. module: mozaik_membership
-#: code:addons\mozaik_membership\res_partner.py:311
+#: code:addons\mozaik_membership\res_partner.py:313
 #, python-format
 msgid "A natural person with membership history cannot be transformed to a legal person"
 msgstr "Une personne physique avec un historique d'ahésions ne peut être transformée en une personne morale"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_sub_abstract_coordinate
+msgid "Abstract Coordinate"
+msgstr "Coordonnée abstraite"
 
 #. module: mozaik_membership
 #: view:res.partner:mozaik_membership.view_partner_form_membership
@@ -344,9 +349,9 @@ msgstr "Adresse électronique principale"
 
 #. module: mozaik_membership
 #: code:addons\mozaik_membership\membership_request.py:704
-#: code:addons\mozaik_membership\res_partner.py:310
-#: code:addons\mozaik_membership\res_partner.py:374
-#: code:addons\mozaik_membership\res_partner.py:482
+#: code:addons\mozaik_membership\res_partner.py:312
+#: code:addons\mozaik_membership\res_partner.py:376
+#: code:addons\mozaik_membership\res_partner.py:484
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -1029,10 +1034,17 @@ msgstr "Partenaire"
 
 #. module: mozaik_membership
 #: field:email.coordinate,partner_instance_id:0
+#: field:ext.candidature,partner_instance_id:0
+#: field:ext.mandate,partner_instance_id:0
+#: field:generic.mandate,partner_instance_id:0
+#: field:int.candidature,partner_instance_id:0
+#: field:int.mandate,partner_instance_id:0
 #: field:membership.line,partner_instance_id:0
 #: field:partner.involvement,partner_instance_id:0
 #: field:phone.coordinate,partner_instance_id:0
 #: field:postal.coordinate,partner_instance_id:0
+#: field:sta.candidature,partner_instance_id:0
+#: field:sta.mandate,partner_instance_id:0
 #: field:sub.abstract.coordinate,partner_instance_id:0
 msgid "Partner Internal Instance"
 msgstr "Instance interne du partenaire"
@@ -1305,6 +1317,11 @@ msgid "To"
 msgstr "Á"
 
 #. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "to"
+msgstr "vers"
+
+#. module: mozaik_membership
 #: view:membership.line:mozaik_membership.membership_line_search_view
 msgid "To < ..."
 msgstr "Jusqu'à < ..."
@@ -1331,7 +1348,7 @@ msgid "Unauthorized"
 msgstr "Interdit"
 
 #. module: mozaik_membership
-#: code:addons\mozaik_membership\res_partner.py:483
+#: code:addons\mozaik_membership\res_partner.py:485
 #, python-format
 msgid "Undefined Membership State: %s"
 msgstr "Statut d'adhésion inconnu: %s"
