@@ -44,4 +44,4 @@ class MailMail(orm.Model):
             return super(MailMail, self)._get_unsubscribe_url(
                 cr, uid, mail, email_to, msg=msg, context=context)
         else:
-            return False
+            return ''
