@@ -95,7 +95,9 @@
                 </head>
                 <body class="container">
                     <div id="wrapwrap">
-                        <t t-raw="0"/>
+                        <main>
+                            <t t-raw="0"/>
+                        </main>
                     </div>
                 </body>
             </html>
@@ -104,26 +106,27 @@
         <template id="mozaik_address.postal_coordinate_label_report_card">
             <!-- Put more margin-left for the second and third sticker so they will be centered -->
             <div class="col-xs-4 card" t-att-style="modulo(o_index, 3) != 0 and 'margin-left: 5mm;' or ''">
-                <span t-esc="'(' + str(o.partner_id.identifier) + ')'" t-if="o.partner_id.identifier"/>
-                <br t-if="o.partner_id.identifier"/>
-                <span t-esc="o.partner_id.printable_name"/>
-                <br/>
-                <div t-if="o.co_residency_id">
-                    <span t-esc="o.co_residency_id.line"/>
-                    <br/>
-                    <span t-esc="o.co_residency_id.line2"/>
-                    <br/>
-                </div>
-                <div t-if="not o.co_residency_id">
-                    <span t-if="o.address_id and o.address_id.street2" t-esc="o.address_id.street2"/>
-                    <br t-if="o.address_id and o.address_id.street2"/>
-                </div>
+                <t t-if="not o.co_residency_id">
+                    <span t-esc="o.partner_id.printable_name"/><br/>
+                </t>
+                <t t-if="o.co_residency_id and o.co_residency_id.line">
+                    <span t-esc="o.co_residency_id.line"/><br/>
+                </t>
+                <t t-if="o.co_residency_id and o.co_residency_id.line2">
+                   <span t-esc="o.co_residency_id.line2"/><br/>
+                </t>
+                <t t-if="o.address_id.street2">
+                    <span t-esc="o.address_id.street2"/><br/>
+                </t>
                 <span t-esc="o.address_id.street"/>
                 <br/>
                 <span t-esc="o.address_id.zip"/>
                 <span t-esc="o.address_id.city"/>
                 <br/>
                 <span t-esc="o.address_id and o.address_id.country_id and o.address_id.country_id.name or ''"/>
+                <t t-if="o.partner_id.identifier">
+                  <br/><div class="text-right" t-esc="'(' + str(o.partner_id.identifier) + ')'"/>
+                </t>
             </div>
         </template>
 
