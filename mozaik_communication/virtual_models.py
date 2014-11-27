@@ -489,7 +489,7 @@ class virtual_partner_mandate(orm.Model):
         JOIN int_assembly AS assembly
             ON assembly.id = mandate.int_assembly_id
         JOIN res_partner AS partner_assembly
-        ON partner_assembly.id = assembly.partner_id
+            ON partner_assembly.id = assembly.partner_id
         JOIN res_partner AS partner
             ON partner.id = mandate.partner_id
         LEFT OUTER JOIN postal_coordinate pc

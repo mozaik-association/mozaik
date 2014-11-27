@@ -231,7 +231,7 @@ class mozaik_abstract_model(orm.AbstractModel):
         Disable tracking if possible: when testing, installing, migrating, ...
         """
         ctx = dict(context or {}, mail_no_autosubscribe=True)
-        if ctx.get('install_mode') or not 'uid' in ctx:
+        if ctx.get('install_mode') or 'uid' not in ctx:
             ctx['tracking_disable'] = True
         if not ctx.get('tracking_disable'):
             ctx.update({
@@ -240,7 +240,10 @@ class mozaik_abstract_model(orm.AbstractModel):
             })
         if ctx.get('force_recompute'):
             ctx.pop('recompute', None)
-        new_id = super(mozaik_abstract_model, self).create(cr, uid, vals, context=ctx)
+        new_id = super(mozaik_abstract_model, self).create(
+            cr, uid, vals, context=ctx)
+        if ctx.get('install_mode') and vals.get('create_date'):
+            cr.execute('update %s set create_date=%%s where id=%%s' % self._table, (vals['create_date'], new_id))
         return new_id
 
     def write(self, cr, uid, ids, vals, context=None):
