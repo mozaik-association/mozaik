@@ -540,7 +540,7 @@ msgstr "Générer"
 #: model:ir.actions.act_window,name:mozaik_membership.generate_reference_action
 #: model:ir.model,name:mozaik_membership.model_generate_reference
 msgid "Generate References"
-msgstr "Générer les références"
+msgstr "Générer les communications structurées"
 
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_generic_mandate
