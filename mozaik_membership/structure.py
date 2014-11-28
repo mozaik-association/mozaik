@@ -107,9 +107,6 @@ class int_instance(orm.Model):
         return res and res[0] or False
 
 
-# these 2 classes should be merged into one inherited abstract class of
-# abstract.assembly
-# unfortunately that does not work: methods is never called !!
 class int_assembly(orm.Model):
 
     _inherit = 'int.assembly'
@@ -124,6 +121,7 @@ class int_assembly(orm.Model):
         if 'instance_id' in vals:
             vals.update({'int_instance_id': vals['instance_id']})
         res = super(int_assembly, self).create(cr, uid, vals, context=context)
+        self.pool['ir.rule'].clear_cache(cr, uid)
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -132,8 +130,14 @@ class int_assembly(orm.Model):
         '''
         if 'instance_id' in vals:
             vals.update({'int_instance_id': vals['instance_id']})
-        res = super(int_assembly, self).\
-            write(cr, uid, ids, vals, context=context)
+        res = super(int_assembly, self).write(
+            cr, uid, ids, vals, context=context)
+        self.pool['ir.rule'].clear_cache(cr, uid)
+        return res
+
+    def unlink(self, cr, uid, ids, context=None):
+        res = super(int_assembly, self).unlink(cr, uid, ids, context=context)
+        self.pool['ir.rule'].clear_cache(cr, uid)
         return res
 
 

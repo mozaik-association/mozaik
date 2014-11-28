@@ -114,13 +114,48 @@ class int_mandate(orm.Model):
                         ['int_instance_id'], 10),
     }
 
+    _int_mandate_instance_store_trigger = {
+        'int.mandate': (lambda self, cr, uid, ids, context=None: ids,
+                        ['int_assembly_id'], 10),
+        'int.assembly': (lambda self, cr, uid, ids, context=None:
+                        self.pool['int.mandate'].search(
+                            cr, SUPERUSER_ID, [('int_assembly_id', 'in', ids)],
+                            context=context),
+                        ['instance_id'], 10),
+    }
+
     _columns = {
         'partner_instance_id': fields.related(
             'partner_id', 'int_instance_id',
             string='Partner Internal Instance',
             type='many2one', relation='int.instance',
             select=True, readonly=True, store=_int_instance_store_trigger),
+        'mandate_instance_id': fields.related(
+            'int_assembly_id', 'instance_id',
+            string='Mandate Internal Instance',
+            type='many2one', relation='int.instance',
+            select=True, readonly=True,
+            store=_int_mandate_instance_store_trigger),
     }
+
+# orm methods
+
+    def create(self, cr, uid, vals, context=None):
+        res = super(int_mandate, self).create(cr, uid, vals, context=context)
+        self.pool['ir.rule'].clear_cache(cr, uid)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        res = super(int_mandate, self).write(
+            cr, uid, ids, vals, context=context)
+        if 'partner_id' in vals:
+            self.pool['ir.rule'].clear_cache(cr, uid)
+        return res
+
+    def unlink(self, cr, uid, ids, context=None):
+        res = super(int_mandate, self).unlink(cr, uid, ids, context=context)
+        self.pool['ir.rule'].clear_cache(cr, uid)
+        return res
 
 
 class ext_candidature(orm.Model):

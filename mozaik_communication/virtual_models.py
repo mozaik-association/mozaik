@@ -438,6 +438,7 @@ class virtual_partner_mandate(orm.Model):
                                                obj='thesaurus.term',
                                                rel='ext_mandate_term_competencies_rel',
                                                id1='ext_mandate_id', id2='thesaurus_term_id', string='External Mandate Competencies'),
+        'mandate_instance_id': fields.many2one('int.instance', 'Mandate Instance'),
     }
 
 # orm methods
@@ -484,7 +485,8 @@ class virtual_partner_mandate(orm.Model):
                 THEN pc.id
                 ELSE mandate.postal_coordinate_id
             END
-            AS postal_coordinate_id
+            AS postal_coordinate_id,
+            mandate.mandate_instance_id as mandate_instance_id
         FROM int_mandate AS mandate
         JOIN int_assembly AS assembly
             ON assembly.id = mandate.int_assembly_id
@@ -542,7 +544,8 @@ class virtual_partner_mandate(orm.Model):
                 THEN pc.id
                 ELSE mandate.postal_coordinate_id
             END
-            AS postal_coordinate_id
+            AS postal_coordinate_id,
+            NULL as mandate_instance_id
         FROM sta_mandate AS mandate
         JOIN sta_assembly AS assembly
             ON assembly.id = mandate.sta_assembly_id
@@ -600,7 +603,8 @@ class virtual_partner_mandate(orm.Model):
                 THEN pc.id
                 ELSE mandate.postal_coordinate_id
             END
-            AS postal_coordinate_id
+            AS postal_coordinate_id,
+            NULL as mandate_instance_id
         FROM ext_mandate AS mandate
         JOIN ext_assembly AS assembly
             ON assembly.id = mandate.ext_assembly_id

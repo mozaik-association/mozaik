@@ -173,8 +173,11 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         'need_account_management': fields.function(_need_account_management, string='Need accounting management', type='boolean', store=False),
     }
 
-    #orm methods
+# orm methods
+
     def create(self, cr, uid, vals, context=None):
+        context = context or {}
+
         if 'retrocession_mode' not in vals:
             mandate_category_id = vals['mandate_category_id']
             category = self.pool.get('mandate.category').browse(cr, uid, mandate_category_id)
@@ -199,7 +202,9 @@ class abstract_mandate_retrocession(orm.AbstractModel):
                     mandate.id, self._retrocession_foreign_key,
                     context=context)
 
-            self.send_email_for_reference(cr, uid, [res], context=context)
+            if not context.get('install_mode', False):
+                # do not send mails during mass loading (e.g. migration)
+                self.send_email_for_reference(cr, uid, [res], context=context)
 
         return res
 
@@ -220,6 +225,8 @@ class abstract_mandate_retrocession(orm.AbstractModel):
                 if mandate.id in method_dict and method_dict[mandate.id] != mandate_method_id:
                     self.pool.get('calculation.method').copy_fixed_rules_on_mandate(cr, uid, mandate.calculation_method_id.id, mandate.id, self._retrocession_foreign_key, context=context)
         return res
+
+# public methods
 
     def generate_mandate_reference(self, cr, uid, mandate_id, context=None):
         """
