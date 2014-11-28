@@ -108,7 +108,7 @@ class phone_phone(orm.Model):
         'also_for_fax': fields.boolean('Also for Fax', track_visibility='onchange'),
 
         'phone_coordinate_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinates',
-                                                domain=[('active', '=', True)]),
+                                                domain=[('active', '=', True)], context={'force_recompute': True}),
         'phone_coordinate_inactive_ids': fields.one2many('phone.coordinate', 'phone_id', 'Phone Coordinates',
                                                 domain=[('active', '=', False)]),
     }

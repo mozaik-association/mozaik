@@ -216,7 +216,7 @@ class address_address(orm.Model):
         'sequence': fields.integer('Sequence', track_visibility='onchange'),
 
         'postal_coordinate_ids': fields.one2many('postal.coordinate', 'address_id', string='Postal Coordinates',
-                                                 domain=[('active', '=', True)]),
+                                                 domain=[('active', '=', True)], context={'force_recompute': True}),
         'postal_coordinate_inactive_ids': fields.one2many('postal.coordinate', 'address_id', string='Postal Coordinates',
                                                  domain=[('active', '=', False)]),
     }
