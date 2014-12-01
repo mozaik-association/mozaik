@@ -99,6 +99,7 @@ class email_coordinate(orm.Model):
         =====
         format email by removing whitespace and changing upper to lower
         """
+        context = context or {}
         if 'email' in vals:
             vals['email'] = format_email(vals['email'])
         return super(email_coordinate, self).write(

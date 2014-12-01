@@ -27,10 +27,25 @@
 ##############################################################################
 
 from openerp.osv import orm
+from openerp.tools import SUPERUSER_ID
+from email.utils import formataddr
 
 
 class mail_message(orm.Model):
     _inherit = "mail.message"
+
+    def _get_default_from(self, cr, uid, context=None):
+        """
+        If force_from is into the context then use this email as email_from
+        otherwise call super()
+        """
+        context = context or {}
+        this = self.pool.get('res.users').browse(
+            cr, SUPERUSER_ID, uid, context=context)
+        if context.get('force_from'):
+            return formataddr((this.name, this.email))
+        return super(mail_message, self)._get_default_from(
+            cr, uid, context=context)
 
     def _find_allowed_model_wise(self, cr, uid, doc_model, doc_dict, context=None):
         '''
