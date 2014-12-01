@@ -195,8 +195,8 @@ class abstract_coordinate(orm.AbstractModel):
         ======
         create
         ======
-        When 'is_main' is true the coordinate has to become the main coordinate for its
-        associated partner.
+        When 'is_main' is true the coordinate has to become
+        the main coordinate for its associated partner.
         Automatically add the partner as follower of its coordinate
         :rparam: id of the new coordinate
         :rtype: integer
@@ -206,19 +206,25 @@ class abstract_coordinate(orm.AbstractModel):
         the database then the other(s) will not be main anymore
         """
         context = context or {}
-        vals['coordinate_type'] = vals.get('coordinate_type') or COORDINATE_AVAILABLE_TYPES[0][0]
-        domain_other_active_main = self.get_target_domain(vals['partner_id'], vals['coordinate_type'])
+        vals['coordinate_type'] = vals.get('coordinate_type') or \
+            COORDINATE_AVAILABLE_TYPES[0][0]
+        domain_other_active_main = self.get_target_domain(
+            vals['partner_id'], vals['coordinate_type'])
         self._validate_vals(cr, uid, vals, context=context)
         if vals.get('is_main'):
             mode = context.get('invalidate') and 'deactivate' or 'secondary'
             validate_fields = self.get_fields_to_update(cr, uid, mode, context)
-            # assure that there are no other main coordinate of this type for this partner
-            ctx = context.copy()
+            # assure that there are no other main coordinate
+            # of this type for this partner
+            ctx = context
             if self._discriminant_field == 'email':
+                ctx = context.copy()
                 self._check_force_from(
                     cr, uid, vals['email'], vals['partner_id'],
                     context=ctx)
-            self.search_and_update(cr, uid, domain_other_active_main, validate_fields, context=ctx)
+            self.search_and_update(
+                cr, uid, domain_other_active_main, validate_fields,
+                context=ctx)
         if self._track.get('bounce_counter'):
             # automatically add the partner as follower of its coordinate
             partner_id = vals['partner_id']
@@ -228,7 +234,8 @@ class abstract_coordinate(orm.AbstractModel):
             vals.update({
                 'message_follower_ids': message_follower_ids,
             })
-        new_id = super(abstract_coordinate, self).create(cr, uid, vals, context=context)
+        new_id = super(abstract_coordinate, self).create(
+            cr, uid, vals, context=context)
         if self._track.get('bounce_counter'):
             # do not chat with the coordinate owner
             fol_obj = self.pool['mail.followers']
@@ -238,7 +245,9 @@ class abstract_coordinate(orm.AbstractModel):
                 ('res_model', '=', self._name),
             ], context=context)
             if fol_ids:
-                _, discussion_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'mail', 'mt_comment')
+                imd_obj = self.pool['ir.model.data']
+                _, discussion_id = imd_obj.get_object_reference(
+                    cr, uid, 'mail', 'mt_comment')
                 fol_obj.write(cr, SUPERUSER_ID, fol_ids, {
                     'subtype_ids': [(3, discussion_id)],
                 }, context=context)
@@ -308,20 +317,22 @@ class abstract_coordinate(orm.AbstractModel):
         :rtype: boolean
         """
         context = context or {}
-        ctx = context.copy()
         coordinate = self.browse(cr, uid, ids, context=context)[0]
 
         # 1) Reset is_main of previous main coordinate
-        target_domain = self.get_target_domain(coordinate.partner_id.id, coordinate.coordinate_type)
+        target_domain = self.get_target_domain(
+            coordinate.partner_id.id, coordinate.coordinate_type)
         mode = context.get('invalidate') and 'deactivate' or 'secondary'
+        fields_to_update = self.get_fields_to_update(
+            cr, uid, mode, context=context)
+        ctx = context
         if self._discriminant_field == 'email':
             ctx = context.copy()
-            if self._discriminant_field == 'email':
-                self._check_force_from(
-                    cr, uid, coordinate.email, coordinate.partner_id,
-                    context=ctx)
-        fields_to_update = self.get_fields_to_update(cr, uid, mode, ctx)
-        self.search_and_update(cr, uid, target_domain, fields_to_update, context=context)
+            self._check_force_from(
+                cr, uid, coordinate.email, coordinate.partner_id,
+                context=ctx)
+        self.search_and_update(
+            cr, uid, target_domain, fields_to_update, context=ctx)
 
         # 2) Set is_main of new main coordinate
         res = self.write(cr, uid, ids, {'is_main': True}, context=context)
