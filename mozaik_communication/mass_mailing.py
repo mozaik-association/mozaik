@@ -82,3 +82,19 @@ class MassMailing(orm.Model):
             # remove last insert: mailing list
             res.pop(len(res)-1)
         return res
+
+    def get_recipients(self, cr, uid, mailing, context=None):
+        """
+        Override this method to get resulting ids of the distribution list
+        """
+        context = context or {}
+        if mailing.distribution_list_id:
+            context['field_main_object'] = 'email_coordinate_id'
+            dl_obj = self.pool['distribution.list']
+            if mailing.mailing_model == 'email.coordinate':
+                res = dl_obj.get_complex_distribution_list_ids(
+                    cr, uid, [mailing.distribution_list_id.id],
+                    context=context)[0]
+                return res
+        return super(MassMailing, self).get_recipients(
+            cr, uid, mailing, context=context)
