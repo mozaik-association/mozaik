@@ -40,9 +40,9 @@ class mail_message(orm.Model):
         otherwise call super()
         """
         context = context or {}
-        this = self.pool.get('res.users').browse(
-            cr, SUPERUSER_ID, uid, context=context)
         if context.get('force_from'):
+            this = self.pool.get('res.users').browse(
+                cr, SUPERUSER_ID, uid, context=context)
             return formataddr((this.name, this.email))
         return super(mail_message, self)._get_default_from(
             cr, uid, context=context)
