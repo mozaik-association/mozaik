@@ -117,9 +117,11 @@ class sta_instance(orm.Model):
         'power_level_id': fields.many2one('sta.power.level',
                                           'State Power Level',
                                           required=True,
+                                          select=True,
                                           track_visibility='onchange'),
         'int_instance_id': fields.many2one('int.instance',
                                            'Internal Instance',
+                                           required=True,
                                            select=True,
                                            track_visibility='onchange'),
         'identifier': fields.char('External Identifier (INS)',
@@ -146,6 +148,10 @@ class sta_instance(orm.Model):
                                                          ]),
     }
 
+    _defaults = {
+        'int_instance_id': lambda self, cr, uid, ids, context = None:
+            self.pool['int.instance'].get_default(cr, uid),
+    }
 # constraints
 
     def _check_recursion(self, cr, uid, ids, context=None):
