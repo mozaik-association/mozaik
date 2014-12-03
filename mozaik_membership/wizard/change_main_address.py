@@ -39,9 +39,9 @@ class change_main_address(orm.TransientModel):
         # 2: user's choice
         # 3: forbiden
         'keep_instance': fields.boolean(
-            string='Keep Current Internal Instance?'),
+            string='Keep Previous Internal Instance?'),
         'old_int_instance_id': fields.many2one(
-            'int.instance', string='Current Internal Instance',
+            'int.instance', string='Previous Internal Instance',
             ondelete='cascade'),
         'new_int_instance_id': fields.many2one(
             'int.instance', string='New Internal Instance',

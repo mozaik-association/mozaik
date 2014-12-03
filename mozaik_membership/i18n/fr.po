@@ -261,11 +261,6 @@ msgid "Creation Date"
 msgstr "Date de création"
 
 #. module: mozaik_membership
-#: field:change.main.address,old_int_instance_id:0
-msgid "Current Internal Instance"
-msgstr "Instance interne courante"
-
-#. module: mozaik_membership
 #: field:membership.request,membership_state_id:0
 msgid "Current State"
 msgstr "Statut actuel"
@@ -719,8 +714,8 @@ msgstr "Est abonné"
 
 #. module: mozaik_membership
 #: field:change.main.address,keep_instance:0
-msgid "Keep Current Internal Instance?"
-msgstr "Conserver l'instance interne courante ?"
+msgid "Keep Previous Internal Instance?"
+msgstr "Conserver l'instance interne précédente ?"
 
 #. module: mozaik_membership
 #: field:sub.abstract.coordinate,bounce_date:0
@@ -801,6 +796,11 @@ msgstr "Notification de la nouvelle adresse"
 #: selection:membership.request,gender:0
 msgid "Male"
 msgstr "Homme"
+
+#. module: mozaik_membership
+#: field:int.mandate,mandate_instance_id:0
+msgid "Mandate Internal Instance"
+msgstr "Instance interne du mandat"
 
 #. module: mozaik_membership
 #: selection:email.coordinate,partner_kind:0
@@ -1108,6 +1108,11 @@ msgstr "Adresse interdite"
 #: field:virtual.master.partner,postal_is_main:0
 msgid "Postal is Main"
 msgstr "Adresse principale"
+
+#. module: mozaik_membership
+#: field:change.main.address,old_int_instance_id:0
+msgid "Previous Internal Instance"
+msgstr "Instance interne précédente"
 
 #. module: mozaik_membership
 #: field:membership.line,price:0
