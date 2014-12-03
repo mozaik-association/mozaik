@@ -33,7 +33,7 @@
                     <field string="Birth Date &lt; ..." name="birth_date"
                         filter_domain="[('birth_date','&lt;',self)]" />
 
-                    <field name="partner_id" domain="[('is_assembly','=',False)]" />
+                    <field name="partner_id" />
                     <field name="int_instance_id" />
                     <field name="involvement_category_id" />
 
@@ -275,7 +275,7 @@
                         filter_domain="[('birth_date','>',self)]" />
                     <field string="Birth Date &lt; ..." name="birth_date"
                         filter_domain="[('birth_date','&lt;',self)]" />
-                    <field name="partner_id" domain="[('is_assembly','=',False)]" />
+                    <field name="partner_id" />
                     <field name="int_instance_id" />
                     <field name="membership_state_id" />
                     <field name="interests_m2m_ids" widget="many2one" />
@@ -293,6 +293,7 @@
                         domain="[('main_postal','=',1)]" />
                     <filter string="Main Email" name="main_email"
                         domain="[('main_email','=',1)]" />
+                    <separator />
                     <filter string="Natural Persons" name="type_person"
                         domain="[('is_company','=',0)]" />
                     <filter string="Legal Persons" name="type_company"
@@ -412,10 +413,10 @@
                     <field string="Mandate End Date &lt; ..."
                         name="deadline_date" filter_domain="[('deadline_date','&lt;',self)]" />
 
-                    <field name="partner_id" domain="[('is_company','=',False),('identifier','&gt;',0)]" />
+                    <field name="partner_id" />
                     <field name="int_instance_id" />
 
-                    <field name="assembly_id" domain="[('is_assembly','=',True)]" />
+                    <field name="assembly_id" />
                     <field name="mandate_category_id" />
 
                     <field name="ext_competencies_m2m_ids" string="External Mandate Competencies"
@@ -546,10 +547,10 @@
                     <field string="Mandate Start Date &lt; ..."
                         name="start_date" filter_domain="[('start_date','&lt;',self)]" />
 
-                    <field name="partner_id" domain="[('is_company','=',False),('identifier','&gt;',0)]" />
+                    <field name="partner_id" />
                     <field name="int_instance_id" />
 
-                    <field name="assembly_id" domain="[('is_assembly','=',True)]" />
+                    <field name="assembly_id" />
                     <field name="mandate_category_id" />
                     <field name="designation_int_assembly_id" />
 
@@ -656,7 +657,7 @@
             <field name="model">virtual.assembly.instance</field>
             <field name="arch" type="xml">
                 <search string="Assemblies/Instances">
-                    <field name="partner_id" domain="[('is_assembly','=',True)]" />
+                    <field name="partner_id" />
                     <field name="int_instance_id" />
 
                     <field name="int_category_assembly_id" string="Internal Assembly Category" />
@@ -776,7 +777,7 @@
                     <field string="Birth Date &lt; ..." name="birth_date"
                         filter_domain="[('birth_date','&lt;',self)]" />
                     <field name="state" />
-                    <field name="partner_id" domain="[('is_company','=',False),('identifier','&gt;',0)]" />
+                    <field name="partner_id" />
                     <field name="int_instance_id" />
                     <field name="mandate_category_id" />
                     <field name="interests_m2m_ids" widget="many2one" />
@@ -888,7 +889,7 @@
             <field name="arch" type="xml">
                 <search string="Partners/Membership">
                     <field name="identifier" />
-                    <field name="partner_id" domain="[('is_company','=',False),('identifier','&gt;',0)]" />
+                    <field name="partner_id" />
                     <field name="int_instance_id" />
                     <field name="membership_state_id" />
 
@@ -1033,7 +1034,7 @@
             <field name="arch" type="xml">
                 <search string="Partners/Events">
                     <field name="identifier" />
-                    <field name="partner_id" domain="[('identifier','&gt;',0)]" />
+                    <field name="partner_id" />
                     <field name="int_instance_id" />
                     <field name="event_id" />
                     <field name="event_registration_id" />
