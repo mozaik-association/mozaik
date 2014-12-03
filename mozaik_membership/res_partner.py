@@ -530,10 +530,12 @@ class res_partner(orm.Model):
         }
         membership_line_obj = self.pool['membership.line']
         membership_state_obj = self.pool['membership.state']
+        def_state = membership_state_obj._state_default_get(cr, uid)
         for partner in self.browse(cr, uid, ids, context=context):
+            if partner.is_company:
+                continue
             values['state_id'] = partner.membership_state_id.id
-            if values['state_id'] != \
-                    membership_state_obj._state_default_get(cr, uid):
+            if values['state_id'] != def_state:
                 values['int_instance_id'] = partner.int_instance_id and \
                     partner.int_instance_id.id or False,
                 values['reference'] = ref
