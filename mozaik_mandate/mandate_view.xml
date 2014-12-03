@@ -9,6 +9,7 @@
             <field name="model">mandate.category</field>
             <field name="arch" type="xml">
                 <search string="Mandate Categories" version="7.0">
+                    <field name="name"/>
                     <field name="sta_assembly_category_id" invisible="context.get('default_type', False)!='sta'"/>
                     <field name="int_assembly_category_id" invisible="context.get('default_type', False)!='int'"/>
                     <field name="ext_assembly_category_id" invisible="context.get('default_type', False)!='ext'"/>
