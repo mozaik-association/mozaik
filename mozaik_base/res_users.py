@@ -54,6 +54,7 @@ class res_users(orm.Model):
         '''
         Add the users's login in the record name
         '''
+        uid = SUPERUSER_ID
         ids = isinstance(ids, (long, int)) and [ids] or ids
 
         res = []
