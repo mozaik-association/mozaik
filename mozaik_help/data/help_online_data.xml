@@ -9116,7 +9116,7 @@ bEIk6YBLSThi+D9yLPOSAyoxqQAAAABJRU5ErkJggg==
                     </div>
                     <div>
                       <div style="text-align: left;">
-                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cette communication doit être générée avant toute demande de renouvellement de cotisation, pour assurer la réconciliation comptable. Elle sera ajoutée à la fiche de la Personne (onglet "Adhésion") et aussi présente dans toute extraction CSV à des fins de publipostage (voir 
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cette communication doit être générée avant toute demande de renouvellement de cotisation, pour assurer la réconciliation comptable. Elle sera ajoutée à la fiche de la Personne (onglet "Statuts") et aussi présente dans toute extraction CSV à des fins de publipostage (voir 
                                         </em>
                         <a href="/page/mozaik-help-distribution-list-mass-function">Envoyer des courriers de masse</a>
                         <em style="line-height: 1.42857143;"> ) . </em>
@@ -12986,7 +12986,7 @@ TkSuQmCC
                               <li style="text-align: left;">données générales (rue ou adresse en fonction du référentiel disponible) - les corriger si nécessaire</li>
                               <li style="text-align: left;">standard d'écriture (syntaxe/majuscules/minuscules)</li>
                               <li style="text-align: left;">est-ce déjà une Personne connue? (voir note 'Liaison")</li>
-                              <li style="text-align: left;">Y a-t-il des compétences ou des centres d'intérêts spécifiés? si oui, il faut les lier avec le Thésaurus (onglet Indexation)</li>
+                              <li style="text-align: left;">Y a-t-il des compétences ou des centres d'intérêts spécifiés? si oui, il faut les lier avec le Thésaurus (onglet "Indexation")</li>
                             </ol>
                             <p style="text-align: left;">Cliquez sur "Enregistrer" si vous avez effectué des modifications</p>
                           </td>
@@ -13060,7 +13060,7 @@ TkSuQmCC
                       </a>
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <em style="line-height: 1.42857143; background-color: transparent;">) - 
-                                            <em style="line-height: 1.42857143; background-color: transparent;">Un onglet "Adhésion" se crée dans la fiche de la Personne. Cet onglet permettra la gestion future de l'Adhésion (voir </em>
+                                            <em style="line-height: 1.42857143; background-color: transparent;">Un onglet "Statuts" se crée dans la fiche de la Personne. Cet onglet permettra la gestion future de l'Adhésion (voir </em>
                                             <a href="/page/mozaik-help-membership" style="background-color: rgb(255, 255, 255);"><em>Adhésions</em></a>
                                             <em style="line-height: 1.42857143; background-color: transparent;">).</em>
                                         </em>
@@ -13114,7 +13114,7 @@ TkSuQmCC
                         <strong> Accès fonctionnalité et localisation: </strong>
                       </span>
                     </strong>
-                    <span style="line-height: 1.42857143;">option disponible dans la fiche de la Personne, dans l'onglet "Adhésion". </span>
+                    <span style="line-height: 1.42857143;">option disponible dans la fiche de la Personne, dans l'onglet "Statuts". </span>
                   </p>
                   <p style="text-align: left;">
                     <span style="line-height: 1.42857143;">
@@ -13158,7 +13158,7 @@ TkSuQmCC
                         </tr>
                         <tr>
                           <td style="text-align: left;">2</td>
-                          <td style="text-align: left;">Dans l'onglet "Adhésion", cliquez sur le bouton "Démission"</td>
+                          <td style="text-align: left;">Dans l'onglet "Statuts", cliquez sur le bouton "Démission"</td>
                           <td style="text-align: left;">La démission est enregistrée - le statut d'adhésion de la Personne est modifié</td>
                         </tr>
                       </tbody>
@@ -17074,7 +17074,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                             <span style="line-height: 1.42857143;">option disponible dans la liste des Candidatures ou sous forme de bouton dans le formulaire de la Candidature.</span>
                           </li>
                           <li style="text-align: left;">
-                            <span style="line-height: 1.42857143;"> option disponible dans le formulaire d'un Comité de Sélection, onglet "Candidature" <span style="line-height: 1.42857143;"/> </span>
+                            <span style="line-height: 1.42857143;"> option disponible dans le formulaire d'un Comité de Sélection, onglet "Candidatures" <span style="line-height: 1.42857143;"/> </span>
                           </li>
                         </ul>
                         <p><span style="line-height: 1.42857143;"><span class="fa fa-user fa-2x"/></span><span style="line-height: 1.42857143;"><strong>  Audience</strong>: </span>Utilisateur <span style="line-height: 1.42857143;">(voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>).</span></p>
@@ -17123,7 +17123,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                           </div>
                           <div>
                             <div style="text-align: left;">
-                              <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Un retour en arrière est possible en affichant la Candidature en mode formulaire et en cliquant sur le bouton "Declare" (+ confirmation) ou sur <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-reject-candidature_img_03|5f3c8aa/datas" style=""/> à partir de la fiche du Comité de Sélection, onglet "Candidature". La Candidature sera remise en l'état "Déclaré". </em>
+                              <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Un retour en arrière est possible en affichant la Candidature en mode formulaire et en cliquant sur le bouton "Declare" (+ confirmation) ou sur <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-reject-candidature_img_03|5f3c8aa/datas" style=""/> à partir de la fiche du Comité de Sélection, onglet "Candidatures". La Candidature sera remise en l'état "Déclaré". </em>
                             </div>
                           </div>
                           <div style="text-align: left;">
@@ -18696,7 +18696,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                             <tr>
                               <td style="line-height: 20px;">1. Editez le Comité de Sélection
                                                         <br/>
-			2. Dans l'onglet "Candidature", cliquez sur "Ajouter un élement" - l'écran de création d'une Candidature s'ouvre
+			2. Dans l'onglet "Candidatures", cliquez sur "Ajouter un élement" - l'écran de création d'une Candidature s'ouvre
                                                         <br/>
 			3. Sélectionner la Personne et éventuellement modifiez le nom de présentation
                                                         <br/>
@@ -19436,7 +19436,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               <tr>
                                 <td style="line-height: 20px;">1. Afficher le détail de l'Instance (vue formulaire)
                                                             <br/>
-			2. Dans l'onglet "Circonscription électorale", cliquez sur un des objets listés
+			2. Dans l'onglet "Circonscriptions électorales", cliquez sur un des objets listés
                                                         </td>
                                 <td>La fiche de la Circonscription s'ouvre</td>
                                 <td>Tous</td>
@@ -20035,7 +20035,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                       <span style="line-height: 1.42857143;">option disponible dans la liste des Candidatures ou sous forme de bouton dans le formulaire de la Candidature.</span>
                     </li>
                     <li style="text-align: left;">
-                      <span style="line-height: 1.42857143;">option disponible dans le formulaire d'un Comité de Sélection, onglet "Candidature"</span>
+                      <span style="line-height: 1.42857143;">option disponible dans le formulaire d'un Comité de Sélection, onglet "Candidatures"</span>
                     </li>
                   </ul>
                   <p style="text-align: left;"><span style="line-height: 1.42857143;"><span class="fa fa-user fa-2x" style=""/></span><span style="line-height: 1.42857143;"><strong>  Audience</strong>:</span> Utilisateur <span style="line-height: 1.42857143;">(voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>).</span></p>
