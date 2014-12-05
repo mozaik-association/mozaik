@@ -146,11 +146,15 @@ class mozaik_abstract_model(orm.AbstractModel):
                 invalidate_ids.remove(rec.id)
 
         if invalidate_ids:
-            rels_dict = self.pool.get('ir.model')._get_active_relations(cr, uid, invalidate_ids, self._name, context=context)
+            im_obj = self.pool['ir.model']
+            rels_dict = im_obj._get_active_relations(
+                cr, uid, invalidate_ids, self._name, context=context)
 
             if len(rels_dict) > 0:
                 for k in rels_dict.keys():
-                    _logger.info('Remaining active m2o for %s(%s): %s', self._name, k, rels_dict[k])
+                    _logger.info(
+                        'Remaining active m2o for %s(%s): %s',
+                        self._name, k, rels_dict[k])
                 return False
 
         return True

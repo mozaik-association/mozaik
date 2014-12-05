@@ -34,12 +34,19 @@ class ir_model(orm.Model):
 
     _inherit = 'ir.model'
 
-    def _get_active_relations(self, cr, uid, ids, model_name, context=None, with_ids=False):
+    def _get_active_relations(
+            self, cr, uid, ids, model_name, context=None, with_ids=False):
         uid = SUPERUSER_ID
-        relation_ids = self.pool.get('ir.model.fields').search(cr, uid, [('relation', '=', model_name),
-                                                                         ('ttype', '=', 'many2one')],
-                                                               context=context)
-        relations = self.pool.get('ir.model.fields').browse(cr, uid, relation_ids, context=context)
+        imf_obj = self.pool['ir.model.fields']
+        relation_ids = imf_obj.search(
+            cr, uid,
+            [('relation', '=', model_name), ('ttype', '=', 'many2one')],
+            context=context)
+        relations = imf_obj.browse(cr, uid, relation_ids, context=context)
+
+        # force active_test in context to be sure to not retrieve inactive
+        # documents later in this method
+        ctx = dict(context or {}, active_test=True)
 
         results = {}
         for record_id in ids:
@@ -48,8 +55,11 @@ class ir_model(orm.Model):
                 model = self.pool.get(relation.model, False)
                 if not model:
                     continue
-                if not model._auto or model._transient or not model._columns.get(relation.name):
+                if not model._auto or model._transient:
                     continue
+                if not model._columns.get(relation.name):
+                    continue
+
                 col = model._columns[relation.name]
                 if hasattr(col, 'store') and not col.store:
                     continue
@@ -57,11 +67,14 @@ class ir_model(orm.Model):
                     if model_name in model._allowed_inactive_link_models:
                         continue
 
-                active_dep_ids = model.search(cr, uid, [(relation.name, '=', record_id)], context=context)
+                active_dep_ids = model.search(
+                    cr, uid, [(relation.name, '=', record_id)], context=ctx)
 
                 if len(active_dep_ids) > 0:
                     if with_ids:
-                        relation_models.update({relation.model: active_dep_ids})
+                        relation_models.update({
+                            relation.model: active_dep_ids
+                        })
                         results.update({record_id: relation_models})
                     else:
                         results.update({record_id: relation.model})
