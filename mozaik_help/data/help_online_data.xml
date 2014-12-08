@@ -1468,7 +1468,7 @@ jbuKbZMPnR/LNDrrk5y7mWxEHcJ1GjJ9rnG1/8/+Yhg+3c1Z+mTDash7O3x6z0uP18jZTWx7G6gT
                     <div>Enfin, des fonctionnalités directes sont offertes: Proposer la candidature et Rejeter la Candidature.</div>
                     <h4>En quoi consiste la création d'une Candidature?</h4>
                     <div>La création d'une candidature s'opère par la sélection de la Personne et d'un Comité de Sélection. Ce dernier étant liée aux Assemblées et aux catégories de Candidatures, dès sa sélection, les champs "Assemblée" (Politique, Interne ou Externe) ainsi que l'Assemblée de Désignation s'alimentent automatiquement. La catégorie de mandat (le poste) s'affiche dans la liste.</div>
-                    <div>Un nom de présentation peut à ce moment être encodé, nom potentiellement différent des noms officiels et usuels de la Personne.L'information de la candidature ou du mandat que vise ou qu'exerce la Personne se retrouvera dans la fiche de la personne (onglet Mandats).</div>
+                    <div>Un nom de présentation peut à ce moment être encodé, nom potentiellement différent des noms officiels et usuels de la Personne.L'information de la candidature ou du mandat que vise ou qu'exerce la Personne se retrouvera dans la fiche de la personne (onglet "Mandats").</div>
                     <div>Les Candidatures peuvent également être créées par l'import d'un fichier particulier via le Comité de Sélection (voir 
                                     <a href="/page/mozaik-help-import-sta-candidatures-wizard">Importer des Candidatures</a> ).
                                 </div>
@@ -5901,8 +5901,8 @@ HB9bteqhmfNG6ne1+lSN8A48WAnynO7hU3q184mpzBPz7AMrcmuvt29F61S5ttqalsm2O7QW/Kue
                         <tr>
                           <td style="text-align: left;">5</td>
                           <td style="text-align: left;">Sélectionner ou définissez les options souhaitées (sur base du mode d'envoi sélectionné)
-			<ul><li><strong>pour envoi d'email en masse</strong> (onglet Courriels de masse)
-				<ul><li>Spécifiez un nom pour votre courriel si vous souhaitez garder une trace (historique)</li><li>Choisissez un modèle de texte pour votre courriel (créé au préalable)</li><li>Cochez l'option "CSV complémentaire pour envoi postal" si vous souhaitez qu'une extraction CSV soit automatiquement exécutée pour tous les destinataires qui manqueraient d'une adresse email - Dans ce cas, un onglet "envoi postal" (voir ci-dessous)</li></ul></li><li>Pour <strong>envoi de courriers postaux </strong>(onglet "Envoi postal de masse")
+			<ul><li><strong>pour envoi d'email en masse</strong> (onglet "Courriels de masse")
+				<ul><li>Spécifiez un nom pour votre courriel si vous souhaitez garder une trace (historique)</li><li>Choisissez un modèle de texte pour votre courriel (créé au préalable)</li><li>Cochez l'option "CSV complémentaire pour envoi postal" si vous souhaitez qu'une extraction CSV soit automatiquement exécutée pour tous les destinataires qui manqueraient d'une adresse email - Dans ce cas, un onglet "Envoi postal" (voir ci-dessous)</li></ul></li><li>Pour <strong>envoi de courriers postaux </strong>(onglet "Envoi postal de masse")
 				<ul><li>Spécifiez un nom pour votre envoi postal si vous souhaitez garder une trace (historique)</li><li>Choisissez une option de tri
 					<ul><li>alphabétique sur le nom,</li><li>basé sur le numéro d'identification au sein du parti,</li><li>basé sur code postal (pays, code postal)</li></ul></li><li>Cochez l'option "Grouper par Co-Résidence" si vous souhaitez le regroupement par Co-Résidence (notez que dans ce cas ce sera le nom spécifié pour la Co-résidence qui apparaitra (voir <a href="/page/mozaik-help-co-residency">Co-Résidence</a>).</li></ul></li></ul></td>
                           <td style="text-align: left;"/>
@@ -9069,7 +9069,7 @@ bEIk6YBLSThi+D9yLPOSAyoxqQAAAABJRU5ErkJggg==
             <section class="mt16 mb16">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Affichez en mode liste les Personnes concernées</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Sélectionnez une ou plusieurs Personnes et sélectionnez dans le menu "Autres options" l'option "Générer les références"</td><td style="text-align: left;">L'écran suivant s'ouvre:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-generate-reference_img_01|60b4a36/datas" style=""/></td></tr><tr><td style="text-align: left;">3</td><td style="text-align: left;">Cliquez sur "Générer" pour lancer la génération des communications - "Annuler" annule le processus.</td><td style="text-align: left;">Les communications structurées sont générées pour chaque Personne concernée</td></tr></tbody></table><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cette communication est envoyée par mail à la Personne concernée, lui rappelant son utilisation pour tout paiement. </em></div><div><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cette communication doit être générée avant toute demande de paiement (1ère fois ou renouvellement de cotisation), pour assurer la réconciliation comptable. Elle sera ajoutée à la fiche de la Personne (onglet "Adhésion") et aussi présente dans toute extraction CSV à des fins de publipostage (voir </em><a href="/page/mozaik-help-distribution-list-mass-function">Envoyer des courriers de masse</a><em style="line-height: 1.42857143;"> ) . </em></div></div>
+                  <div class="col-md-12 text-center mt16 mb32"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Affichez en mode liste les Personnes concernées</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Sélectionnez une ou plusieurs Personnes et sélectionnez dans le menu "Autres options" l'option "Générer les références"</td><td style="text-align: left;">L'écran suivant s'ouvre:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-generate-reference_img_01|60b4a36/datas" style=""/></td></tr><tr><td style="text-align: left;">3</td><td style="text-align: left;">Cliquez sur "Générer" pour lancer la génération des communications - "Annuler" annule le processus.</td><td style="text-align: left;">Les communications structurées sont générées pour chaque Personne concernée</td></tr></tbody></table><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cette communication est envoyée par mail à la Personne concernée, lui rappelant son utilisation pour tout paiement. </em></div><div><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cette communication doit être générée avant toute demande de paiement (1ère fois ou renouvellement de cotisation), pour assurer la réconciliation comptable. Elle sera ajoutée à la fiche de la Personne (onglet "Statuts") et aussi présente dans toute extraction CSV à des fins de publipostage (voir </em><a href="/page/mozaik-help-distribution-list-mass-function">Envoyer des courriers de masse</a><em style="line-height: 1.42857143;"> ) . </em></div></div>
  
 
 <div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div>
@@ -10754,7 +10754,7 @@ BptikNYqEg72f6euY9S7i84tAAAAAElFTkSuQmCC
                             <tr>
                               <td>1. Affichez l'Instance Interne en mode formulaire
                                                         <br/>
-			2. Dans l'onglet "Multi-Instance", cliquez sur l'un des objets listés
+			2. Dans l'onglet "Multi-Instances", cliquez sur l'un des objets listés
                                                     </td>
                               <td>La fiche de l'Instance concernée s'ouvre</td>
                               <td>Tous</td>
@@ -12930,7 +12930,7 @@ TkSuQmCC
                               <li style="text-align: left;">données générales (rue ou adresse en fonction du référentiel disponible) - les corriger si nécessaire</li>
                               <li style="text-align: left;">standard d'écriture (syntaxe/majuscules/minuscules)</li>
                               <li style="text-align: left;">est-ce déjà une Personne connue? (voir note 'Liaison")</li>
-                              <li style="text-align: left;">Y a-t-il des compétences ou des centres d'intérêts spécifiés? si oui, il faut les lier avec le Thésaurus (onglet Indexation)</li>
+                              <li style="text-align: left;">Y a-t-il des compétences ou des centres d'intérêts spécifiés? si oui, il faut les lier avec le Thésaurus (onglet "Indexation")</li>
                             </ol>
                             <p style="text-align: left;">Cliquez sur "Enregistrer" si vous avez effectué des modifications</p>
                           </td>
@@ -13004,7 +13004,7 @@ TkSuQmCC
                       </a>
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <em style="line-height: 1.42857143; background-color: transparent;">) - 
-                                            <em style="line-height: 1.42857143; background-color: transparent;">Un onglet "Adhésion" se crée dans la fiche de la Personne. Cet onglet permettra la gestion future de l'Adhésion (voir </em>
+                                            <em style="line-height: 1.42857143; background-color: transparent;">Un onglet "Statuts" se crée dans la fiche de la Personne. Cet onglet permettra la gestion future de l'Adhésion (voir </em>
                                             <a href="/page/mozaik-help-membership" style="background-color: rgb(255, 255, 255);"><em>Adhésions</em></a>
                                             <em style="line-height: 1.42857143; background-color: transparent;">).</em>
                                         </em>
@@ -13058,7 +13058,7 @@ TkSuQmCC
                         <strong> Accès fonctionnalité et localisation: </strong>
                       </span>
                     </strong>
-                    <span style="line-height: 1.42857143;">option disponible dans la fiche de la Personne, dans l'onglet "Adhésion". </span>
+                    <span style="line-height: 1.42857143;">option disponible dans la fiche de la Personne, dans l'onglet "Statuts". </span>
                   </p>
                   <p style="text-align: left;">
                     <span style="line-height: 1.42857143;">
@@ -13102,7 +13102,7 @@ TkSuQmCC
                         </tr>
                         <tr>
                           <td style="text-align: left;">2</td>
-                          <td style="text-align: left;">Dans l'onglet "Adhésion", cliquez sur le bouton "Démission"</td>
+                          <td style="text-align: left;">Dans l'onglet "Statuts", cliquez sur le bouton "Démission"</td>
                           <td style="text-align: left;">La démission est enregistrée - le statut d'adhésion de la Personne est modifié</td>
                         </tr>
                       </tbody>
@@ -16853,7 +16853,7 @@ ZJgfGcVxwevJMDOi+D8LKGZsJchiAgAAAABJRU5ErkJggg==
                         <strong> Accès fonctionnalité et localisation: </strong>
                       </span>
                     </strong>
-                    <span style="line-height: 1.42857143;">option disponible dans le formulaire du Comité de Sélection, onglet "Candidature".</span>
+                    <span style="line-height: 1.42857143;">option disponible dans le formulaire du Comité de Sélection, onglet "Candidatures".</span>
                   </p>
                   <p style="text-align: left;"><span style="line-height: 1.42857143;"><span class="fa fa-user fa-2x" style=""/></span>  <span style="line-height: 1.42857143;"><strong>Audience</strong>: </span>Utilisateur  <span style="line-height: 1.42857143;">(voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>). </span></p>
                   <p style="text-align: left;">
@@ -17005,7 +17005,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                             <span style="line-height: 1.42857143;">option disponible dans la liste des Candidatures ou sous forme de bouton dans le formulaire de la Candidature.</span>
                           </li>
                           <li style="text-align: left;">
-                            <span style="line-height: 1.42857143;"> option disponible dans le formulaire d'un Comité de Sélection, onglet "Candidature" <span style="line-height: 1.42857143;"/> </span>
+                            <span style="line-height: 1.42857143;"> option disponible dans le formulaire d'un Comité de Sélection, onglet "Candidatures" <span style="line-height: 1.42857143;"/> </span>
                           </li>
                         </ul>
                         <p><span style="line-height: 1.42857143;"><span class="fa fa-user fa-2x"/></span><span style="line-height: 1.42857143;"><strong>  Audience</strong>: </span>Utilisateur <span style="line-height: 1.42857143;">(voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>).</span></p>
@@ -17054,7 +17054,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                           </div>
                           <div>
                             <div style="text-align: left;">
-                              <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Un retour en arrière est possible en affichant la Candidature en mode formulaire et en cliquant sur le bouton "Declare" (+ confirmation) ou sur <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-reject-candidature_img_03|5f3c8aa/datas" style=""/> à partir de la fiche du Comité de Sélection, onglet "Candidature". La Candidature sera remise en l'état "Déclaré". </em>
+                              <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Un retour en arrière est possible en affichant la Candidature en mode formulaire et en cliquant sur le bouton "Declare" (+ confirmation) ou sur <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-reject-candidature_img_03|5f3c8aa/datas" style=""/> à partir de la fiche du Comité de Sélection, onglet "Candidatures". La Candidature sera remise en l'état "Déclaré". </em>
                             </div>
                           </div>
                           <div style="text-align: left;">
@@ -18627,7 +18627,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                             <tr>
                               <td style="line-height: 20px;">1. Editez le Comité de Sélection
                                                         <br/>
-			2. Dans l'onglet "Candidature", cliquez sur "Ajouter un élement" - l'écran de création d'une Candidature s'ouvre
+			2. Dans l'onglet "Candidatures", cliquez sur "Ajouter un élement" - l'écran de création d'une Candidature s'ouvre
                                                         <br/>
 			3. Sélectionner la Personne et éventuellement modifiez le nom de présentation
                                                         <br/>
@@ -19367,7 +19367,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               <tr>
                                 <td style="line-height: 20px;">1. Afficher le détail de l'Instance (vue formulaire)
                                                             <br/>
-			2. Dans l'onglet "Circonscription électorale", cliquez sur un des objets listés
+			2. Dans l'onglet "Circonscriptions électorales", cliquez sur un des objets listés
                                                         </td>
                                 <td>La fiche de la Circonscription s'ouvre</td>
                                 <td>Tous</td>
@@ -19966,7 +19966,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                       <span style="line-height: 1.42857143;">option disponible dans la liste des Candidatures ou sous forme de bouton dans le formulaire de la Candidature.</span>
                     </li>
                     <li style="text-align: left;">
-                      <span style="line-height: 1.42857143;">option disponible dans le formulaire d'un Comité de Sélection, onglet "Candidature"</span>
+                      <span style="line-height: 1.42857143;">option disponible dans le formulaire d'un Comité de Sélection, onglet "Candidatures"</span>
                     </li>
                   </ul>
                   <p style="text-align: left;"><span style="line-height: 1.42857143;"><span class="fa fa-user fa-2x" style=""/></span><span style="line-height: 1.42857143;"><strong>  Audience</strong>:</span> Utilisateur <span style="line-height: 1.42857143;">(voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>).</span></p>
