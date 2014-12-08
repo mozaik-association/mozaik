@@ -9059,16 +9059,9 @@ bEIk6YBLSThi+D9yLPOSAyoxqQAAAABJRU5ErkJggg==
                     </strong>
                     <span style="line-height: 1.42857143;">option disponible dans le menu "Autres options" en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
                   </p>
-                  <p style="text-align: left;"><span style="line-height: 1.42857143;"><span class="fa fa-user fa-2x" style=""/></span><span style="line-height: 1.42857143;"><strong>  Audience</strong>: 
-                                </span>Gestionnaire/Gestionnaire Financier 
-                                <span style="line-height: 1.42857143;">(voir 
-                                    <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>).
-                                </span>
-                            </p>
+                  <p style="text-align: left;"><span style="line-height: 1.42857143;"><span class="fa fa-user fa-2x" style=""/></span><span style="line-height: 1.42857143;"><strong>  Audience</strong>: </span>Gestionnaire/Gestionnaire Financier  <span style="line-height: 1.42857143;">(voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>). </span></p>
                   <p style="text-align: left;">
-                    <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis: </strong> sélection d'un ou de plusieurs objet(s) existant(s) dans la liste ou affichage de l'objet en vue "formulaire" (voir 
-                                    <a href="/page/mozaik-help-views">Vues</a> ). 
-                                </span>
+                    <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis: </strong> sélection d'un ou de plusieurs objet(s) existant(s) dans la liste ou affichage de l'objet en vue "formulaire" (voir <a href="/page/mozaik-help-views">Vues</a> ). </span>
                   </p>
                 </div>
               </div>
@@ -9076,67 +9069,15 @@ bEIk6YBLSThi+D9yLPOSAyoxqQAAAABJRU5ErkJggg==
             <section class="mt16 mb16">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32">
-                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
-                      <tbody>
-                        <tr>
-                          <td style="text-align: left;">
-                            <strong>#</strong>
-                          </td>
-                          <td style="text-align: left;">
-                            <strong>Etape</strong>
-                          </td>
-                          <td style="text-align: left;">
-                            <strong>Résultat</strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">1</td>
-                          <td style="text-align: left;">Affichez en mode liste les Personnes concernées</td>
-                          <td style="text-align: left;"/>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">2</td>
-                          <td style="text-align: left;">Sélectionnez une ou plusieurs Personnes et sélectionnez dans le menu "Autres options" l'option "Générer les références"</td>
-                          <td style="text-align: left;">L'écran suivant s'ouvre:
-                                                <br/>
-                                                <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-generate-reference_img_01|60b4a36/datas" style=""/>
-                                            </td>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">3</td>
-                          <td style="text-align: left;">Cliquez sur "Générer" pour lancer la génération des communications - "Annuler" annule le processus.</td>
-                          <td style="text-align: left;">Les communications structurées sont générées pour chaque Personne concernée</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div style="text-align: left;">
-                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cette communication est envoyée par mail à la Personne concernée, lui rappelant son utilisation pour tout paiement. 
-                                    </em>
-                    </div>
-                    <div>
-                      <div style="text-align: left;">
-                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cette communication doit être générée avant toute demande de renouvellement de cotisation, pour assurer la réconciliation comptable. Elle sera ajoutée à la fiche de la Personne (onglet "Statuts") et aussi présente dans toute extraction CSV à des fins de publipostage (voir 
-                                        </em>
-                        <a href="/page/mozaik-help-distribution-list-mass-function">Envoyer des courriers de masse</a>
-                        <em style="line-height: 1.42857143;"> ) . </em>
-                      </div>
-                    </div>
-                    <br/>
-                    <div style="text-align: left;">
-                      <strong>
-                        <em style="line-height: 1.42857143; background-color: transparent;">
-                          <span class="fa fa-exclamation-triangle fa-2x"/>
-                        </em>
-                      </strong>
-                      <strong>Exceptions</strong>
-                    </div>
-                    <p style="text-align: left;">Le bouton "Générer" n'est pas affiché si aucune génération n'est à exécuter.</p>
-                    <p style="text-align: left;">
-                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire 
-                                    </a>
-                    </p>
-                  </div>
+                  <div class="col-md-12 text-center mt16 mb32"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Affichez en mode liste les Personnes concernées</td><td style="text-align: left;"/></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Sélectionnez une ou plusieurs Personnes et sélectionnez dans le menu "Autres options" l'option "Générer les références"</td><td style="text-align: left;">L'écran suivant s'ouvre:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-generate-reference_img_01|60b4a36/datas" style=""/></td></tr><tr><td style="text-align: left;">3</td><td style="text-align: left;">Cliquez sur "Générer" pour lancer la génération des communications - "Annuler" annule le processus.</td><td style="text-align: left;">Les communications structurées sont générées pour chaque Personne concernée</td></tr></tbody></table><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cette communication est envoyée par mail à la Personne concernée, lui rappelant son utilisation pour tout paiement. </em></div><div><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cette communication doit être générée avant toute demande de paiement (1ère fois ou renouvellement de cotisation), pour assurer la réconciliation comptable. Elle sera ajoutée à la fiche de la Personne (onglet "Adhésion") et aussi présente dans toute extraction CSV à des fins de publipostage (voir </em><a href="/page/mozaik-help-distribution-list-mass-function">Envoyer des courriers de masse</a><em style="line-height: 1.42857143;"> ) . </em></div></div>
+ 
+
+<div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div>
+
+<p style="text-align: left;">Le bouton "Générer" n'est pas affiché si aucune génération n'est à exécuter.</p>
+
+<p style="text-align: left;"><a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a></p>
+</div>
                 </div>
               </div>
             </section>
@@ -12166,21 +12107,26 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                     <span style="color:#808080;">Adhésions et Cotisations: particularités </span>
                   </h3>
                   <h4 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51);">Qu'entend-on par Gestion des Membres?</h4>
-                  <p>La gestion des Membres sous-entend la gestion des statuts, le suivi des cotisations (paiement et non-paiement), l'envoi de cartes de membre, .... tout cela en assurant la circulation de l'information aux Instances responsables. </p>
+                  <p>La gestion des Membres sous-entend la gestion des statuts, le suivi des cotisations (paiement et non-paiement), l'envoi de cartes de membre, .... tout cela en assurant la circulation de l'information aux Instances responsables.</p>
                   <h4>Quels avantages me donne l'application sur ce modèle?</h4>
-                  <div>A ce niveau, l'application me permet la gestion complète des Membres existants et des nouveaux (enregistrement de la Personne et de son souhait), gestion de sa cotisation et de ses paiements, renouvellement, gestion des cotisations impayées, réconciliation paiements/factures (automatique, assistée, groupée), envoi de document de bienvenue, de newsletters, envoi de masse pour les cartes de membre....</div>
+                  <div>A ce niveau, l'application me permet</div>
+                  <ul>
+                    <li>la gestion complète des Membres existants et des nouveaux (enregistrement de la Personne et de son souhait - voir <a href="/page/mozaik-help-membership-request">Demandes d'adhésion</a>), </li>
+                    <li>la gestion de sa cotisation et de ses paiements, renouvellement, gestion des cotisations impayées, réconciliation paiements/factures (automatique, assistée, groupée) - fonctionnalités comptables,</li>
+                    <li>envoi de document de bienvenue, de newsletters, envoi de masse pour les cartes de membre...(voir<a href="/page/mozaik-help-distribution-list"> Listes de Distribution</a> - module Communication)</li>
+                  </ul>
                   <div>Des fonctionnalités générales sont offertes sur ce modèle telles que création (association), suppression, recherche, export, .....</div>
                   <div>
                     <h4>Puisqu'il y a une gestion d'état sur les Adhésions, quelles en sont les étapes?</h4>
                   </div>
-                  <div>
-                    Référez-vous à la page
-                    <a href="/page/mozaik-help-membership-worklow">Cycle de vie d'une Adhésion.</a>
-                  </div>
-                  <h4>Quel est le délai de paiement pour la cotisation? </h4>
-                  <div>30 jours est le délai de paiement pour tout nouveau membre, 6 mois pour une action de renouvellement. </div>
+                  <div>Référez-vous à la page <a href="/page/mozaik-help-membership-worklow">Cycle de vie d'une Adhésion.</a></div>
+                  <h4>Quel est le délai de paiement pour la cotisation?</h4>
+                  <div>30 jours est le délai de paiement pour tout nouveau membre, 6 mois pour une action de renouvellement.</div>
                   <h4>Quel tarif appliquer pour les cotisations?</h4>
                   <div>Les tarifs sont fixés et encodés dans l'application. Seul un utilisateur ayant des privilèges avancés (type "Configurator") a accès à ces données. Les tarifs appliqués sont les tarifs officiels, et varie selon l'article (isolé, cohabitant, étudiant ou pensionné) ou encore s'il s'agit d'une première cotisation. Les tarifs sont communiqués aux Membres sur la demande de paiement qui leur sera envoyée (mail ou envoi postal).</div>
+                  <h4>Garde-t-on l'historique d'adhésion?</h4>
+                  <div>Oui, l'historique complet de l'adhésion est détaillée dans la fiche de la personne concernée, onglet "Statuts" ou disponible par le menu "<a href="/page/mozaik-help-membership-line">Historique d'adhésion</a>". </div>
+                  <div/>
                 </div>
               </section>
               <hr/>
@@ -12189,11 +12135,7 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                   <div class="row">
                     <div class="col-md-12 mb16 mt16">
                       <h3 style="color:#808080;">Fonctionnalités particulières sur les Adhésions</h3>
-                      <p>
-                        Référez vous à la page "
-                        <a href="/page/mozaik-help-res-partner">Personnes</a>
-                         "
-                      </p>
+                      <p>Référez vous à la page " <a href="/page/mozaik-help-res-partner">Personnes</a> "</p>
                     </div>
                   </div>
                 </div>
@@ -12244,25 +12186,10 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                       <span style="color:#808080;">Caractéristiques générales de l'écran</span>
                     </h3>
                     <p>
-                      <span style="line-height: 1.42857143;"><a href="/page/mozaik-help-filters">Recherche et Filtres</a>
-                         -
-                        <a href="/page/mozaik-help-navigation">Navigation</a>
-                         -
-                        <a href="/page/mozaik-help-views">Vues et Affichage</a>
-                         -
-                        <a href="/page/mozaik-help-messaging">Messagerie et Notes Internes</a>
-                         -
-                        <a href="/page/mozaik-help-createandedit">Créer et Editer</a>
-                         -
-                        <a href="/page/mozaik-help-search">Recherche complémentaire sur les listes</a>
-                         -
-                        <a href="/page/mozaik-help-datacontrol">Surveillance et Historisation des données</a>
-                      </span>
+                      <span style="line-height: 1.42857143;"><a href="/page/mozaik-help-filters">Recherche et Filtres</a> - <a href="/page/mozaik-help-navigation">Navigation</a> - <a href="/page/mozaik-help-views">Vues et Affichage</a> - <a href="/page/mozaik-help-messaging">Messagerie et Notes Internes</a> - <a href="/page/mozaik-help-createandedit">Créer et Editer</a> - <a href="/page/mozaik-help-search">Recherche complémentaire sur les listes</a> - <a href="/page/mozaik-help-datacontrol">Surveillance et Historisation des données</a> </span>
                     </p>
                     <p>
-                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/>
-                         Retour au sommaire
-                      </a>
+                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
                     </p>
                   </div>
                 </div>
@@ -12270,6 +12197,23 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
             </section>
           </section>
         </div>
+      </t>
+    </template>
+    <template name="mozaik-help-membership-line" id="website.mozaik-help-membership-line" page="True">
+      <t t-call="website.layout">
+        <section>
+          <div class="container">
+            <div class="row"><h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">Historique d'Adhésion</h2><p>Toute personne ayant fait l'objet d'une demande d'adhésion acceptée hérite d'un historique d'adhésion (voir <a href="/page/mozaik-help-membership-request-validate">Valider une Demande d'adhésion</a>). Cet historique est détaillé dans un nouvel onglet dans la fiche de la Personne (onglet qui se crée à la demande d'adhésion validée). Cet historique est également disponible via l'entrée de menu "Historique d'adhésion".</p><p>Les différents types d'adhésion sont établis en fonction des tarifs appliqués: </p><ul><li style="text-align: left;"><span style="color: rgb(51, 51, 51); font-size: 14px; line-height: 1.42857143;">cotisation gratuite,</span></li><li style="text-align: left;"><span style="color: rgb(51, 51, 51); font-size: 14px; line-height: 1.42857143;">primo-cotisant,</span></li><li style="text-align: left;"><span style="color: rgb(51, 51, 51); font-size: 14px; line-height: 1.42857143;">cotisation normale,</span></li><li style="text-align: left;"><span style="color: rgb(51, 51, 51); font-size: 14px; line-height: 1.42857143;">cotisation réduite,</span></li><li style="text-align: left;"><span style="color: rgb(51, 51, 51); font-size: 14px; line-height: 1.42857143;">cotisation cohabitant, </span></li><li style="text-align: left;"><span style="color: rgb(51, 51, 51); font-size: 14px; line-height: 1.42857143;">...</span></li></ul><p style="text-align: left;"><span style="color: rgb(51, 51, 51); font-size: 14px; line-height: 1.42857143;">​Ces cotisations sont définies au préalable par un utilisateur ayant des privilièges avancés qui a également le droit de les gérer. </span></p><div>Pour faciliter la lecture d'un historique d'adhésion qui peut devenir long au fil des années, des couleurs ont été définies afin d'aider à la lecture de ce détail: </div><ul><li style="padding: 4px 0px;">gris: les adhésions qui ne sont plus actives</li><li style="padding: 4px 0px;">vert: les membres en règle de cotisation</li><li style="padding: 4px 0px;">rouge: toutes les adhésions de type rejet et démission</li><li style="padding: 4px 0px;">noir: les autres (sympathisant, candidat membre, ...)</li></ul><div>Enfin, dans l'onglet de la fiche de la personne, est affiché également la date d'envoi de documents de bienvenue, directement lié à l'envoi de masse afférent (voir <a href="/page/mozaik-help-distribution-list">Listes de distributions</a> - module Communications).</div>
+ 
+
+<div><span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/><a href="/page/mozaik-help-membership"> Retour Page Adhésions</a></div>
+
+<div/>
+
+<div><span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/><a href="/page/mozaik-help-toc"> Retour au sommaire</a></div>
+</div>
+          </div>
+        </section>
       </t>
     </template>
     <template name="mozaik-help-membership-reject" id="website.mozaik-help-membership-reject" page="True">
@@ -12986,7 +12930,7 @@ TkSuQmCC
                               <li style="text-align: left;">données générales (rue ou adresse en fonction du référentiel disponible) - les corriger si nécessaire</li>
                               <li style="text-align: left;">standard d'écriture (syntaxe/majuscules/minuscules)</li>
                               <li style="text-align: left;">est-ce déjà une Personne connue? (voir note 'Liaison")</li>
-                              <li style="text-align: left;">Y a-t-il des compétences ou des centres d'intérêts spécifiés? si oui, il faut les lier avec le Thésaurus (onglet "Indexation")</li>
+                              <li style="text-align: left;">Y a-t-il des compétences ou des centres d'intérêts spécifiés? si oui, il faut les lier avec le Thésaurus (onglet Indexation)</li>
                             </ol>
                             <p style="text-align: left;">Cliquez sur "Enregistrer" si vous avez effectué des modifications</p>
                           </td>
@@ -13060,7 +13004,7 @@ TkSuQmCC
                       </a>
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <em style="line-height: 1.42857143; background-color: transparent;">) - 
-                                            <em style="line-height: 1.42857143; background-color: transparent;">Un onglet "Statuts" se crée dans la fiche de la Personne. Cet onglet permettra la gestion future de l'Adhésion (voir </em>
+                                            <em style="line-height: 1.42857143; background-color: transparent;">Un onglet "Adhésion" se crée dans la fiche de la Personne. Cet onglet permettra la gestion future de l'Adhésion (voir </em>
                                             <a href="/page/mozaik-help-membership" style="background-color: rgb(255, 255, 255);"><em>Adhésions</em></a>
                                             <em style="line-height: 1.42857143; background-color: transparent;">).</em>
                                         </em>
@@ -13114,7 +13058,7 @@ TkSuQmCC
                         <strong> Accès fonctionnalité et localisation: </strong>
                       </span>
                     </strong>
-                    <span style="line-height: 1.42857143;">option disponible dans la fiche de la Personne, dans l'onglet "Statuts". </span>
+                    <span style="line-height: 1.42857143;">option disponible dans la fiche de la Personne, dans l'onglet "Adhésion". </span>
                   </p>
                   <p style="text-align: left;">
                     <span style="line-height: 1.42857143;">
@@ -13158,7 +13102,7 @@ TkSuQmCC
                         </tr>
                         <tr>
                           <td style="text-align: left;">2</td>
-                          <td style="text-align: left;">Dans l'onglet "Statuts", cliquez sur le bouton "Démission"</td>
+                          <td style="text-align: left;">Dans l'onglet "Adhésion", cliquez sur le bouton "Démission"</td>
                           <td style="text-align: left;">La démission est enregistrée - le statut d'adhésion de la Personne est modifié</td>
                         </tr>
                       </tbody>
@@ -13216,56 +13160,43 @@ TkSuQmCC
                   <div style="text-align: left;">
                     <span style="color: rgb(51, 51, 51); font-size: 14px; line-height: 1.42857143;"/>
                     <ul>
-                      <li><strong>Sympathisant</strong>
-                         : c'est le Statut de création d'une Adhésion à la validation d'une Demande d'Adhésion de type "Sympathisant". C'est également le Statut d'une Adhésion qui a débuté par la validation d'une Demande d'Adhésion de type "Membre" mais pour laquelle le paiement n'a pas été constaté dans les délais. C’est aussi le Statut d’une Adhésion qui a été refusée par la commission des membres mais qui est finalement acceptée comme "Sympathisant"
-                      </li>
-                      <li><strong>Ancien Sympathisant</strong>
-                         : la Personne a marqué son désintérêt
-                      </li>
-                      <li><strong>Candidat Membre:</strong>
-                         à la validation d'une Demande d'Adhésion de type "Membre", c'est le Statut de création de la première Adhésion ou d'une nouvelle Adhésion au départ du Statut "Sympathisant" ou "Rejeté". Dès cet instant:
-                        <ul style="list-style-type:circle;"><li>on peut générer la communication structurée et envoyer la demande de paiement (de montant réduit et avec des documents de bienvenue s'il s'agit de la première adhésion);</li><li>l'Adhésion est en attente de paiement;</li><li>en constatant le Paiement, l'Adhésion passe au Statut "Commission (futures) Membres"</li><li>finalement, faute de Paiement, l'Adhésion passe au Statut "Sympathisant".</li></ul>
-                      </li>
-                      <li><strong>Commission (futures) Membres</strong>
-                        : Statut de l'Adhésion des Personnes qui n'ont jamais été "Membre" et pour laquelle un paiement de cotisation vient d'être constaté. Dès cet instant:
-                        <ul style="list-style-type:circle;"><li>l'Adhésion connaît une période transitoire d'un mois durant laquelle la commission des membres peut décider de rejeter l'Adhésion</li><li>la période écoulée sans rejet, l'Adhésion passe automatiquement au Statut "Membre".</li></ul>
-                      </li>
-                      <li><strong>Candidat Membre Refusé</strong>
-                        : la candidature d'Adhésion a été rejetée.
-                      </li>
-                      <li><strong>Membre</strong>
-                        : Statut usuel des Adhésions en règle de cotisation:
-                        <ul style="list-style-type:circle;"><li>
-                            sur une base annuelle, le processus de renouvellement peut être mis en oeuvre. Dès cet instant:
-                            <ul><li>il faut regénérer une communication structurée;</li><li>l'Adhésion est en attente de paiement;</li><li>en constatant le paiement, l'Adhésion renouvelle son Statut "Membre" à la date du paiement;</li><li>finalement, faute de paiement, l'Adhésion passe automatiquement au Statut "Ancien Membre (cotisation)".</li></ul>
-                          </li><li>
-                            d'une façon
-                            <em>adhoc</em>
-                             , suite au rattachement à une autre Instance Ecolo, l'Adhésion renouvelle son Statut "Membre";
-                          </li></ul>
-                      </li>
-                      <li><strong>Commission (anciens) Membres</strong>
-                        : Statut de l'Adhésion d’un "Ancien Membre (cotisation)" pour laquelle un paiement de cotisation vient d'être constaté. Dès cet instant:
-                        <ul style="list-style-type:circle;"><li>l'Adhésion connaît une période transitoire d'un mois durant laquelle la commission des membres peut décider d’exclure l'Adhésion</li><li>la période écoulée sans exclusion, l'Adhésion passe automatiquement au Statut "Membre".</li></ul>
-                      </li>
-                      <li><strong>Ancien Membre (cotisation)</strong>
-                        : Statut des Adhésions dont la cotisation n'a pas été renouvelée;
-                      </li>
-                      <li><strong>Ancien Membre (exclusion)</strong>
-                        : le "Membre" est exclu par Ecolo;
-                      </li>
-                      <li><strong>Ancien Membre (inopportun)</strong>
-                        : l'"Ancien Membre (cotisation)"est exclu par Ecolo;
-                      </li>
-                      <li><strong>Ancien Membre (démission)</strong>
-                        : le "Membre" marque son désintérêt;
-                      </li>
+                      <li><strong>Sympathisant</strong> : c'est le Statut de création d'une Adhésion à la validation d'une Demande d'Adhésion de type "Sympathisant". C'est également le Statut d'une Adhésion qui a débuté par la validation d'une Demande d'Adhésion de type "Membre" mais pour laquelle le paiement n'a pas été constaté dans les délais. C’est aussi le Statut d’une Adhésion qui a été refusée par la commission des membres mais qui est finalement acceptée comme "Sympathisant"</li>
+                      <li><strong>Ancien Sympathisant</strong> : la Personne a marqué son désintérêt</li>
+                      <li><strong>Candidat Membre:</strong> à la validation d'une Demande d'Adhésion de type "Membre", c'est le Statut de création de la première Adhésion ou d'une nouvelle Adhésion au départ du Statut "Sympathisant" ou "Rejeté". Dès cet instant:
+	<ul style="list-style-type:circle;"><li>on peut générer la communication structurée et envoyer la demande de paiement (de montant réduit et avec des documents de bienvenue s'il s'agit de la première adhésion);</li><li>l'Adhésion est en attente de paiement;</li><li>en constatant le Paiement, l'Adhésion passe au Statut "Commission (futures) Membres"</li><li>finalement, faute de Paiement, l'Adhésion passe au Statut "Sympathisant".</li></ul></li>
+                      <li><strong>Commission (futures) Membres</strong> : Statut de l'Adhésion des Personnes qui n'ont jamais été "Membre" et pour laquelle un paiement de cotisation vient d'être constaté. Dès cet instant:
+	<ul style="list-style-type:circle;"><li>l'Adhésion connaît une période transitoire d'un mois durant laquelle la commission des membres peut décider de rejeter l'Adhésion</li><li>la période écoulée sans rejet, l'Adhésion passe automatiquement au Statut "Membre".</li></ul></li>
+                      <li><strong>Candidat Membre Refusé</strong> : la candidature d'Adhésion a été rejetée.</li>
+                      <li><strong>Membre</strong> : Statut usuel des Adhésions en règle de cotisation:
+	<ul style="list-style-type:circle;"><li>sur une base annuelle, le processus de renouvellement peut être mis en oeuvre. Dès cet instant:
+		<ul><li>il faut regénérer une communication structurée;</li><li>l'Adhésion est en attente de paiement;</li><li>en constatant le paiement, l'Adhésion renouvelle son Statut "Membre" à la date du paiement;</li><li>finalement, faute de paiement, l'Adhésion passe automatiquement au Statut "Ancien Membre (cotisation)".</li></ul></li><li>d'une façon <em>adhoc</em> , suite au rattachement à une autre Instance Ecolo, l'Adhésion renouvelle son Statut "Membre";</li></ul></li>
+                      <li><strong>Commission (anciens) Membres</strong> : Statut de l'Adhésion d’un "Ancien Membre (cotisation)" pour laquelle un paiement de cotisation vient d'être constaté. Dès cet instant:
+	<ul style="list-style-type:circle;"><li>l'Adhésion connaît une période transitoire d'un mois durant laquelle la commission des membres peut décider d’exclure l'Adhésion</li><li>la période écoulée sans exclusion, l'Adhésion passe automatiquement au Statut "Membre".</li></ul></li>
+                      <li><strong>Ancien Membre (cotisation)</strong> : Statut des Adhésions dont la cotisation n'a pas été renouvelée;</li>
+                      <li><strong>Ancien Membre (exclusion)</strong> : le "Membre" est exclu par Ecolo;</li>
+                      <li><strong>Ancien Membre (inopportun)</strong> : l'"Ancien Membre (cotisation)"est exclu par Ecolo;</li>
+                      <li><strong>Ancien Membre (démission)</strong> : le "Membre" marque son désintérêt;</li>
                       <li>
-                        <span style="color: rgb(51, 51, 51); font-size: 14px; line-height: 1.42857143;"><strong>Ancien Membre (en rupture)</strong>
-                          : l'"Ancien Membre (cotisation)" marque son désintérêt
-                        </span>
+                        <span style="color: rgb(51, 51, 51); font-size: 14px; line-height: 1.42857143;"><strong>Ancien Membre (en rupture)</strong> : l'"Ancien Membre (cotisation)" marque son désintérêt </span>
                       </li>
                     </ul>
+                    <div>
+                      <div/>
+                      <div>
+                        <div/>
+                        <div>
+                          <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
+                          <a href="/page/mozaik-help-membership">
+                            <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour Page Adhésions</span>
+                          </a>
+                        </div>
+                      </div>
+                      <div/>
+                      <div>
+                        <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
+                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"> Retour au sommaire</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-12 mb16 mt16">
@@ -17074,7 +17005,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                             <span style="line-height: 1.42857143;">option disponible dans la liste des Candidatures ou sous forme de bouton dans le formulaire de la Candidature.</span>
                           </li>
                           <li style="text-align: left;">
-                            <span style="line-height: 1.42857143;"> option disponible dans le formulaire d'un Comité de Sélection, onglet "Candidatures" <span style="line-height: 1.42857143;"/> </span>
+                            <span style="line-height: 1.42857143;"> option disponible dans le formulaire d'un Comité de Sélection, onglet "Candidature" <span style="line-height: 1.42857143;"/> </span>
                           </li>
                         </ul>
                         <p><span style="line-height: 1.42857143;"><span class="fa fa-user fa-2x"/></span><span style="line-height: 1.42857143;"><strong>  Audience</strong>: </span>Utilisateur <span style="line-height: 1.42857143;">(voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>).</span></p>
@@ -17123,7 +17054,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                           </div>
                           <div>
                             <div style="text-align: left;">
-                              <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Un retour en arrière est possible en affichant la Candidature en mode formulaire et en cliquant sur le bouton "Declare" (+ confirmation) ou sur <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-reject-candidature_img_03|5f3c8aa/datas" style=""/> à partir de la fiche du Comité de Sélection, onglet "Candidatures". La Candidature sera remise en l'état "Déclaré". </em>
+                              <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Un retour en arrière est possible en affichant la Candidature en mode formulaire et en cliquant sur le bouton "Declare" (+ confirmation) ou sur <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-reject-candidature_img_03|5f3c8aa/datas" style=""/> à partir de la fiche du Comité de Sélection, onglet "Candidature". La Candidature sera remise en l'état "Déclaré". </em>
                             </div>
                           </div>
                           <div style="text-align: left;">
@@ -18696,7 +18627,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                             <tr>
                               <td style="line-height: 20px;">1. Editez le Comité de Sélection
                                                         <br/>
-			2. Dans l'onglet "Candidatures", cliquez sur "Ajouter un élement" - l'écran de création d'une Candidature s'ouvre
+			2. Dans l'onglet "Candidature", cliquez sur "Ajouter un élement" - l'écran de création d'une Candidature s'ouvre
                                                         <br/>
 			3. Sélectionner la Personne et éventuellement modifiez le nom de présentation
                                                         <br/>
@@ -19436,7 +19367,7 @@ yP8BEmI1kyXHb1EAAAAASUVORK5CYII=
                               <tr>
                                 <td style="line-height: 20px;">1. Afficher le détail de l'Instance (vue formulaire)
                                                             <br/>
-			2. Dans l'onglet "Circonscriptions électorales", cliquez sur un des objets listés
+			2. Dans l'onglet "Circonscription électorale", cliquez sur un des objets listés
                                                         </td>
                                 <td>La fiche de la Circonscription s'ouvre</td>
                                 <td>Tous</td>
@@ -20035,7 +19966,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                       <span style="line-height: 1.42857143;">option disponible dans la liste des Candidatures ou sous forme de bouton dans le formulaire de la Candidature.</span>
                     </li>
                     <li style="text-align: left;">
-                      <span style="line-height: 1.42857143;">option disponible dans le formulaire d'un Comité de Sélection, onglet "Candidatures"</span>
+                      <span style="line-height: 1.42857143;">option disponible dans le formulaire d'un Comité de Sélection, onglet "Candidature"</span>
                     </li>
                   </ul>
                   <p style="text-align: left;"><span style="line-height: 1.42857143;"><span class="fa fa-user fa-2x" style=""/></span><span style="line-height: 1.42857143;"><strong>  Audience</strong>:</span> Utilisateur <span style="line-height: 1.42857143;">(voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>).</span></p>
@@ -21386,6 +21317,9 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                           <a href="/page/mozaik-help-generate-reference" style="background-color: rgb(255, 255, 255);">Générer une communication structurée en vue du paiement</a>
                         </div>
                         <div>
+                          <a href="/page/mozaik-help-membership-line">Historique d'adhésion</a>
+                        </div>
+                        <div>
                           <a href="/page/mozaik-help-membership-resign" style="background-color: rgb(255, 255, 255);">Marquer la démission d'un Membre ou d'un Sympathisant</a>
                         </div>
                         <div>
@@ -21788,8 +21722,7 @@ Les champs listés sont des variables et s'adaptent en fonction.</p>
       </t>
     </template>
     <record id="mozaik-help-usergoups_img_01" model="ir.attachment">
-      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAqcAAAH+CAMAAACWUleUAAADAFBMVEX+/v4nJyfk5ORKSkqXl5em
-pqa6urqGhoZ1dXXHx8dZWVllZWXZ2dk3NzcZGRkEBAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAzMAAAI0CAMAAAAeB4eIAAADAFBMVEXu7u7///8AAAAHBwcAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -21802,97 +21735,70 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAADKeVXUAAABAHRSTlP/////////////////////AAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAFT/1mAAABAHRSTlMA//9AIBEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfti4rAAA
-Ew9JREFUeNrt3YtC2zgaQGHd77Le/233l5xQLp0tpSGxwzk7DGnsdOP4Q5YNE5QiIiIiIiIiIiIi
-IiIiIiIiOmH5e+MFpltkRrHfVxlApZs41d/61/fAS0wncOoNrzHdyKkx13+9nbr+uq+F9m5hCL8X
-2HBK3+TUb0ZuuPfLkqrxgq/Y8nam6azNnxifcUq3cxqGXx/GWtXk7CcJQxEaVXKquclUHAtUWSao
-jeh1w8u5fOstKp9V9irKetUGVeSvmZ+NCxmndFunpeZSnbKtWZXbME7YJbWp5JUVaL6seYFZy9PI
-LsqytX4d87MsH0WV0GoO2/oczEiMp3Tj434quUen5Lb8Y2TQbDlWuZ3SOoz7+rKunmOsuJyff/15
-rivz2WaD3KeNqv5y/Mcp3dKp/eW0yeDZaunLqa7zwtIaT3N76/KV07CchlI2nNI3Oq255t3dOtaL
-M6WXRS93qH1uWtpl+cVpneu7MdfdltMh/wTT5yNwSt/i9DJOblvOYxOipcfLfW6d8pdtDqlOlr8a
-T2V9Lw+/rKtML0XmpU71LSmc0s2dfrUQsv3/a+CUHu7UdNsVTuno4+mfwynhlHCKU8IpEU4Jp3+X
-xindxOnQ39kIOKVbOO3f+tdz3Cfmp4RTnBJOiXBKOMUp4ZQIp4RTnBJOCac4JZzilHBKOMUp4ZTo
-m5w2nNKjnA4XP5n7/Kq/HoJTukmpls+Vxhip/GU145TuWnTdJ14GOng191Z5GejYrffmrY4Xgg6d
-zfM9fC0vBB25bvb3RO+8FHTc5nv2r/fgt40Xgw6bNhenZuPFoMOeRK0T/fWtq8SpFB32sK9enCou
-3NPBD/68BIRTIpwSTolwSoRTwikRTolwSjglwinhlAinRDglnBLhlAinhFMinBLhlHBKhFPCKRFO
-iXBKOCXCKRFOCadEOCXCKeGUCKeEUyKcEuGUcEqEUyKcEk6JcEqEU8IpEU4Jp0Q4JcIp4ZQIp0Q4
-JZwS4ZQIp4RTIpwSTolwSoRTwikRTolwSjglwikRTgmnRDglnNJBMo/qqFurNnXwjTjwfv62p59H
-1w9ppEfsrfGJZ/b5F6SPfBambtxhn/bxbVBzedQLVx8xGN34mN7DaZzeZVjQ3/Z1m+2DXrj4FE69
-wenrlzeYBzg1yrxMbtqvP3xc7dVn8/qegzr9/XM0L/eZ53b6h81/WWxaa9epbTP/tdfv6TTKv8z2
-Ycwuqu/3RZnERvVfM4Tr/duaAMoTTfbQTs18jvXD1lTj9/v+Y/nTOB2iL/YP+6Pl/WAz1r70Vc0z
-l3A9hSnvN9SG+zt18tTnR6tJ5ZqSF0XyNLyyWWW5Ed1c1avcYpx7tMqqIdS5dXHer0J1l7FqyP4d
-9e068+8ypcl6fq7njH+wU3lW8zRuPscqmzu3eW6G7BsV3y1v2c89nPZtMPPp/9qGkzrt+25KNctH
-qrLbZYODaX1tvpub52Sr9WXs2Ymsfarmrl4Egrwg63HexPuNp7JHUm+tBC+jih8mxSBYN2Wbsebq
-dJNx1QnM4kMxeSTZrdHFJPf7GuT+5XSTR8byep3kQgqqhDqUT3O9YdtjnW4xz92znqMPm8tzu5U2
-8lUlX5gvy20IRYURZRdVN/eLDWUoF4O8HPs2nNOpFoRyBK0+VBlJemp2bn4JzcpLstvc5vrvnZb5
-esiulkXVx5HNetnKFu7n1PVQapu35cmZOQtQacIrvl8uapS5SFDKOsaofllX9pZZD1He7k67cz2X
-1+tc/6798XM98+Djfo9+Pke53UWbfCEaI8e8bkKZTC/L69wGsSvbsrahOrO2QUZTV67nY6d02kPs
-ee2uIsRkUJX5p+zq3HrdDxLzH1l/Xsmam9fGfhVx+ZVXIvT5WCvry5f0Tvt+TvOLU/myko++uel0
-K2vsc/s+lsEwWBV0Hy0vuGu/ajkgygTm6tT3OQzNa2n7Oq334S5OZabjLvv4oU7DfI7TqZn7SSWt
-+3Q61nWmfXld2zDnAmbfBr87TZvW/txO/SuncthUUffldPS1n8Vrvo6nVyJzeio7TwapetnVda6v
-ZTzNd3QaXQplOd3m+DL3X5+grMn9Mgv95VQm2tvFdG9mrpacKhenuqUoPofM8i6W5Wty4Qxjrqf8
-AZzKcxSn29zOOYOW8TH2/fZ4WV7XNlycyqp6OvWbmhPVcGqn2qQku3WbTo3sXrntl1O7nwrLYvPG
-qazT1teo7Dw5JNa5nhl5EnBrTL6X0zQnmTI2yriSw9h0NN2WKPfJ+f48FqS0z0/l8xpPq25hmW5d
-jvzypEtP+0bKgaC3V+uYtY6Nym1xrqfX+g92usmu8nPM1zJZHjKUpi3q/b55yt+uy7e0zc9tbkOx
-TsYdJ8cO+2sbzul0m3NRrbLWYlGO6SrOfbPft67UzHOmWK/buJzOIcbP10vG09TlsVWHySW8Pe//
-/uun++XR+Q3a9W3a9Z1a8x9XzNqrS26Xy27m/XU58+ua3Pq72vrSfVn/wddP9//rdt1a1V7uM6+X
-v93OyzaYX9tw7uun5s3mv7mC/HZ/v37Am9384fv5j7nOf1MgfTvMdf4vZrb328D3o57O6YGu898w
-nOIUpzjFKU5xilOc4hSnP9JpwSlOT+B06Af9dycPcbrdeCPCWZz6u+znkZ9uPHWMp4ynzE/v7DTi
-FKeHd+o3j1OcHtxpHvH4R3+c/mynqvmiThBOf7bTUk/BFKc/2qnVZ7kw5XH6c526MfqD3vbor69s
-Rpz+4PH0NBdQGU+ZnzI/xenhz/eNtzjF6dGdzv+6aKSGU5we3Snfj8LpOZzy/X2cnsMpx/3DOjXP
-6tTg9IBOt+C/VNDR/0v2MT8n/YkNG59+RcI4j9P+td1U7F/4CNu3OTXFfqmix/jiQy+5R+zi9OcN
-G3+zYaf5PRLtiztrjP43Kr7x9TDtK7+AJZSeyr/8spf2oF/M86etjVHHePCNuN9+LrWUdvid+n/y
-qeSunrAa5nuf0m7b+ljambdgvtf0M0L1ZX8vXtr3sktqO/EGRDffE73mp9szZb63aS4QnYU6nSZ/
-2g2Yb7g7zyHOfUz4HdO2rl01oO5M1/WsdNrDy/wtCtNpDU+2a+ZMRl8+//jm24hPp/6s8/U0v024
-rslsz7Vn1u9NuLzn9I9v/T6p9f2Bcs7hqK3LZMtpjM+0Z9avu9q/Z1X9j3e6XoLlNJxzQDVrVrpf
-436qA/9++U//2safPZ6qq1N15vNlm590/2hFL7l09i3AKU5xilOc4hSnOMUpTnGKU5ziFKc4xSlO
-cYpTnOIUpzjFKU5xilOc4hSnOMUpTnGKU5ziFKc4xSlOcYpTnOIUpzjFKU5xilOc4hSnOMUpTnGK
-U5ziFKc4xSlOcYpTnOIUpzjFKU5xilOc4hSnOMUpTnGKU5ziFKc4xSlOcYpTnOIUpzjFKU5xilOc
-ohOnOMXpnZ02nOL0BE57eYYCTp/baQtPUE4Fp8/t9Dn6za9CxilOD5fHKU5xilPCKU5xSjjFKU4J
-pzjFKU4JpzglnOIUpzglnOIUpzjFKU5xSjjFKU4JpzjFKeEUpzjFKeEUp4RTnOIUp4RTnOIUpzjF
-KU4JpzjFKeEUpzglnOIUpzglnOKUcIpTnOKUcIpTnOIUpzjFKeEUpzjFKU5xilPCKU5xilPCKU4J
-p2d2avU92jxOcfov3WffpGpwitPDO40Fpzg9gVPGU5z+s9P1m+g//Dp655V9mcNuJv/H877en+d+
-d07+VRtOcfoNTje9f+TQVJaUCkEpY+bC/LL/mvwvCDcT8vxDmBrnn9tc3agwUac4Wed9nfX3qSZ/
-zxGdBpyezamuuRWtcrHVVLsNk6yNKiU177vuP3G4JZuUrGFlpK1Whs1o67zfWbk/zDXjctrUWmf+
-fU2NGg7iNMTXFe3i29x4f8/va6c3+ImNdLZ/4tXId3Xacym5T19RvohcVH7eL+a6WYOOtjZMj1p8
-ZiPsNlXqXK5lQJ1Op838yukcW508ev555KMc93uNt0jHszNtI96mXu87noZSg57Ha3E1vbWtj2Vs
-uLVOzuu4rtcx3W9aL9NxPXia1H3sTtNlPI1blxnvpuXx+jDz036b55CSObnTbG81N7jfZZzlNNea
-X9vTymz7bdteHff1Zax8Ma3nPFXmA7LK7nRNasqcye6P3ee4R3HacLo77ed0ukxugizWPCdppro6
-rvet5Zf56RxPZaHVMlWYY2eVJyr3p5jGOtar/e9QrUSZQczbYX/wcZyub4x9+O6YnPBd7zNxnUC4
-0KK7XBl4Sqdtvhr5w6a4dW48l/92Ku4f6VROefJ8Bi4FmZ1G2Q/JvNx3fXIyL/XrBL8luSGf53WB
-1Ob9KsnEYH5W+98hG7kmAOu2P5bTOZOpH07sczPb5aZ8iVW1XobnduqG7MoRPkIslx2pxemHS4zb
-I53e4QTzOE77/tE3OU3UelNh24yMnmZOaubkWp5oKGF0PZrMZKqsKs/drfn2mto8i1MvJ7jzI2x6
-fmxJzifSvIwuTudlcDdHGrntt3WJfS5rw8sj42bngorT73Tac7Kyn+R2kp0hH2W+BsmZvoiu10PM
-duOr3K7OlP32vK8/1Xgae7Apt36d+6U8Z3lavhwvBnNupTW7Xp+2L4tjfpb7tGU8/X6n+upU5tIq
-um3e3rRXv3G6rhME7ZK+vlTP4zSXF6dehksf7bRYyzq4u610GW7b5uK2lq1TbK1cd3KQ0Rz3v9ep
-DsmGq9OS53x0dzpcvU7AZK76wWnMSpvncqrzy3i6mCZX4nK6JubzuJ92p+Fl2XI6L+/j9LudqhTN
-umaW/JyTykca8/iu9+VzDioTAHFa9vnA9bhfns1pkqlOCbtTG+aU04y4jvttXy4fdV1rlTlr3pdd
-jvsVp9/ttMg505yTzvOo+fM1Ko98vW+dJuV5XiXnTiGq9+dRT+XUz6l5ejmP0nIeZcPlPlm2Pq7L
-ZduLLJPzqHI9j8Lp9zr997jO/5DrUvYOlQ2nOP03p/kOtYpTnHLcxylOcYpTnOIUpzh955SfP8Xp
-CZxal8O/l8vpnTZ9ixdCXoqK0+9w2stNrrHF0zsd5TaXG3XF6fGP+6cdV2/23514xtPDn0eFzTE/
-xenBnTZdlcIpTo/sVJlklcIpTg/t1JV67lOphtOf4HS4k78jCuPpD3Cax+hdn7rN4vT5x9Oo7/i2
-St+SYTz9Ccf9GFM/9ZH/hxz3698PJ+m5zvdVsw2nd3Vatr9tjKH/+kHx2a7z9xJwekenyrS/K9fN
-ur99UGtP9/2oZitOy3GvzwVbw3bK3XPrnz/1OD2w0/l+vr7ilPnpoZ2GIk5bwSlOj+x0vV1I3n+5
-yemc/ulF9T/F6Ql/ru8LY5I4VWe8gNj/8HPSddRP/PxwGYmfk77+yPhRna63l55OVT/h7vHu/+X1
-0O4z5bM7VcG72xQO+lJUf3VasnqyUui5KnqC2voR9uVUPduvZzfVdFMbO/lpsvkZt2q9j2R17F6c
-HvpQsd7fe/5OIcLpcZvfYtPq/S/0IJwe6ww4XZwmzw7G6WHTL7/rhAEVp4dt/bKk/WdxXWQP4/TY
-gyr7Fqc4JZzilHBKOMUp4RSnOMUp4RSnhFOc4hSnhFOcEk4JpzglnOKUcEo4xSnhFKc4xSnhFKeE
-U5ziFKeEU5wSTgmnOCWc4pRwSjjFKeEUpzjFKeEUp4RTnOIUp4RTnBJOCac4JZzilHBKOMUp4RSn
-OMUp4RSnhFOc4hSnhFOcEk4JpzglnOKUcEqnctpwSidwWtIzFHD63GX3DJWCUzp+oeKUjp/HKeGU
-CKeEUyKcEuGUcEqEUyKcEk6JcEo4xSnhlAinhFMinBLhlHBKhFMinBJOiXBKOMUp4ZQIp4RTIpwS
-4ZSeKt4HjY48il5Kdkv1bWm8v+d9nheQ7lKP/lrw7/t4z9vcxgtI93Fq/uHBZmu8gnQXpw2ndBKn
-Tl3/9Wbqmq/3zU/G4ZQe63QkpeyHk/tmzGX+OT+1Daf0YKdWLHb5w5ZU19swfhOB0RuxK4vW9al5
-ey5Xa1lyBad0Z6c9V5u10kalqFTyqs4xNDnTF9OrUxlRfZheZdlgPKV7O9UhFXHa5zipTJG7appO
-1dj8K6e+1qzMSII0eZzSA5zaoOc1KrFpjTI2CFu5veViLvPTOVcNoQaz5ZDnMpzSvZ3OY7xWJZjk
-8yYnUH0e2Ou8b/3u1maNkQmAjKbVyzJTZBlO6d5Oq3JhzkmtluG0d5G6tXS5b/2WvqbX2f5cvt92
-Aad0b6dfDaeEUyKcEk6JcEo4xSkd0yk/f0onyEb/9aLGKd3Haalfr+CUTnDcVxz3ifMoIpwSTolw
-SjjFKeGUCKeEU5wSTolwSjjlFSScEuGUcEp0U6f8XB+dILvpfwmndJdMDv9QNryCRERERERERERE
-RERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERE
-RERERERERERERERERERERERERERERERERERERERERET04/ofeg7qZywaqTgAAAAASUVORK5CYII=
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAx8CB2QAA
+DNFJREFUeNrt3Yt6okoQReFDyfu/MmeiIt1cFAyES/8rGU0iZrp217KB8CX//QcAAAAAAAAAAAAA
+AAAAAAAAAAAAS4l9aBrR46zOVHsQNWfAmUXO3GrRgzOcAWc4A0w4k94O+jt74N/x+9g28c694Ayu
+50y0Nx+aPsYV+LCqcAYXdua+YtxPB7erRySmdOtR+1i73fMbdBs/Po7s5vFFzuAS+2ZRRd+OTpgY
+7L21j0W+SUT/oeTp0S1lnMElnamSjo9q3Jm+VvldVY08xhlc0pl4Htm3y8eXznTfgTO4tjORe9Hb
+N4u5zoR1Btd1ZqS3+8cr6XmzCWdi6rCGM7iqM73zZrlJ6U9iXufUsuf2Tp+1H6bn4DiDSziz3g/4
+XQcAzsz35f3VAJwBZ1xvBs5wBuAMwBmAMwBnOAPOcAbgDPCFM/vAGVhnrDPgDGcAzgCcATgDcIYz
+4AxnwBnOAJwBOANwBuAMZ8AZzgCcATgDcAbgDGfAGc6AM5wBOAPs7ExwBuU64/fOAIto6ttyfpr+
+d9SN6FHS2nR/A8AZYCNlnu8AOANsoszrH4BZyiQ3ADgDrK5MdguAM8DKyvTuAMxUBwBnAM4AnAE4
+A3AGAGcAzgCcATgDcAbgDADOAJwBOANwBuAMAM4AnAE4A3AG4AzAGQCcATgDcAbgDMAZgDMAOANw
+BuAMwBmAMwA4A3AG4AzAGYAzAGcAcAbgDMAZgDMAZwDOiADgDMAZgDMAZwDOAOAMwBmAMwBnAM4A
+nAHAGYAzAGcAzgCcAcAZgDMAZwDOAJwBOAOAMwBnAM4AnAE4A3AGAGcAzgCcATgDcAYAZwDOAJwB
+OANwBuAMAM4UPbkHpWlKTOp4VZ+/w9bPNKpDEvXxnCmy6tN32AaZHtWZW12iM8er+vzOrJ8pZzjD
+Gc5whjPbO5PeDv7T5IH7QdXUhskTso/effPTOTM7qS+KLsCZmfG1m8Wr5V7dFx967u+cifbm/YiW
+9sCcb34yZ+Ym9UXRJTgzL77UmVkvvrs681hHor3r9E/G/vjSo/J2m/az50avpw6/ee+pP59kj53F
+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
 </field>
       <field name="datas_fname">GroupsInheritance.png</field>
       <field name="name">GroupsInheritance.png</field>
@@ -21927,13 +21833,21 @@ RERERERERERERERERERERERERERERERERERERERERET04/ofeg7qZywaqTgAAAAASUVORK5CYII=
                               <li style="text-align: left;"><strong>Utilisateur Mozaik</strong>: mandataires internes non permanents ayant en charge une partie de la gestion du parti (ex: secrétaires locaux, responsables de commission, ...). Ils peuvent:
 	<ul><li style="text-align: left;">modifier directement une Personne (i.e. sans devoir passer par une Demande d'Adhésion) qui n'a pas d'historique d'Adhésions (par ex. simple contact ou personne morale)</li><li style="text-align: left;">accéder aux mandataires des Assemblées liées à leurs Instances</li><li style="text-align: left;">créer et modifier des Assemblées Externes liées à leurs Instances</li></ul></li>
                               <li style="text-align: left;"><strong>Gestionnaire Financier Mozaik</strong>: permanents, accès en lecture/écriture aux fonctionnalités comptables liées aux cotisations et rétrocessions.</li>
-                              <li style="text-align: left;"><strong>Trésorier Mozaik</strong>:  trésoriers locaux pouvant gérer les rétrocessions.</li>
+                              <li style="text-align: left;"><strong>Trésorier Mozaik</strong>: trésoriers locaux pouvant gérer les rétrocessions.</li>
                             </ul>
                             <p style="text-align: left;">Le principe d'héritage des Groupes s'illustre dans Mozaik de la façon suivante:</p>
                             <p style="text-align: left;">
-                              <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-usergoups_img_01|f5c3da9/datas" style=""/>
+                              <span style="line-height: 1.42857143;">
+                                <img src="/website/image/ir.attachment/mozaik-help-usergoups_img_01|996bb99/datas" style="-webkit-transform: scaleX(Infinity)  scaleY(Infinity);-moz-transform: scaleX(Infinity)  scaleY(Infinity);-ms-transform: scaleX(Infinity)  scaleY(Infinity);-o-transform: scaleX(Infinity)  scaleY(Infinity);transform: scaleX(Infinity)  scaleY(Infinity)"/>
+                              </span>
                             </p>
-                            <p style="text-align: left;">Les autres mandataires, membres, sympathisants et simples contacts feront partie du Groupe <strong><em>Portail</em></strong> (natif d’OpenERP) uniquement. Ce groupe doit leur être réservé. Si on souhaite que ces contacts aient accès au Portail, l'administrateur devra veiller à ne pas les mettre dans d'autres Groupes.</p>
+                            <p style="text-align: left;">
+                              <span style="line-height: 1.42857143;">Les autres mandataires, membres, sympathisants et simples contacts feront partie du Groupe </span>
+                              <strong style="line-height: 1.42857143;">
+                                <em>Portail</em>
+                              </strong>
+                              <span style="line-height: 1.42857143;"> (natif d’OpenERP) uniquement. Ce groupe doit leur être réservé. Si on souhaite que ces contacts aient accès au Portail, l'administrateur devra veiller à ne pas les mettre dans d'autres Groupes.</span>
+                            </p>
                             <p style="text-align: left;">Les privilèges attribués aux Groupes sont de 3 ordres: l'accès aux modèles, l'accès aux éléments et l'accès aux fonctionnalités.</p>
                             <p style="text-align: left;">Des règles de confidentialité sont attachées aux différents Groupes qui ont pour conséquence une visibilité/accès à plusieurs niveaux:</p>
                             <ul>
@@ -21984,11 +21898,11 @@ RERERERERERERERERERERERERERERERERERERERERET04/ofeg7qZywaqTgAAAAASUVORK5CYII=
       </t>
     </template>
     <record id="mozaik-help-validate-retrocession_img_01" model="ir.attachment">
-      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAEMAAAAYCAMAAACWXbB1AAADAFBMVEXPNjayJSX6+vmmHBzHWVjS
-RUVkERHBLS3p5u23NDTJmtHwm07716i8Q0XNY2Xc3Nz+58rMqdfHjcrvh0v1um75zI7IOpTOveLy
-kz3p2fT84bqPJyfLR5fMaLnStNzbw+b3xnj/+Nt+ISGdHByWMDCraWnJOVHFOnTJXZLMWK7QdXrM
-dbTVlbTlPDzieXDwlWjoy+afXFy/MmW/QnHNSmDNV2zQbMLNdobIhb/qTk7qZlHwh2D0qUj2uon2
-yM381J8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAGMAAAAcCAMAAABCkfGzAAADAFBMVEXn5+fZ2dn39/eHh4fDw8Pm
+0qdtTItNTEy+5OTI5ufm5s2LweiMTEyHvORQUmqna0zl47uLZ1OJU1Wr1ehzrNWYmJhUU1FOaaNw
+mMaEtNXTp2/mzapRWZBsUlBsUGnGmGzXuYtNeLNfnc5uTE5uTHOXwtzcsnflwo3k2sVVZIFMi8Fk
+gKyGq8OxglCpqam8vLyizeXJl1/V3ubhtYBQZHd4ZFVtbYqUfF+JgHKUqIGKrLuyd1C+k3Kmk4m/
+5tLSoF/f0b4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -21998,21 +21912,23 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAABkImlUAAABAHRSTlP/////////////////////////////////////////////
-////////////////////////////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAJNW15AAABAHRSTlP/////////////////////////////////////////////
+/////////////////////////////////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/wFuFwAA
-AW5JREFUeNrNk9lSwzAMRe2LHezWCUn3nZbuC7TsO/z/XyE3pUmbocCYB+5oLEszPpaciMFd7G8Y
-aug5aUiM2UA4aUCMpnQUg2pK5iTLOPsnDC8Vj+q9c3J3KG8SOdTI7K6yzWW0y2AdvNB6iuKWkSez
-uxbev2KoXUYbhrGxCkXCkIGMGeaHjBtFzcxRlqxAf6CJ66jZIKRoTrlXChRK+4zjRKxKbdhWqP2A
-fNxLBY2LFYx1kX2gxkwkh7Rl6DSjje5IhVS9uF/U1wCyCEsxgYnwLG+VyaEkU/fGDJ6SVOEUXcav
-6jRJn4wqHrVUproesTBCPn0ky6BmVnjSvIBSECV1FPlYmQ6WQRAISvCDDN6mmyS3jMm2jhalOjBT
-NMQDylnGibeD4D49OlGvqZc3dGOGXgA9GJmz30ruMXiWoUXgx47m2vetae7bIfe1b5PaJg4z6PjG
-kfYCvln5t4zfas04ctKa0XRnXHp9F0Tf+wB4qCADL+crYAAAAABJRU5ErkJggg==
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANGWagwAA
+AbZJREFUeNrdlulygjAUhW8UjAnFHbCodV9at2r3ve//VM0lQaTigNNJO9PzgyV3+ci5cUbI6Rf8
+K4aR1yUjZJCVtj2siGI4+hwDRzIgnwNdyuVBMUCf/ozBz6hQaYzPrYs6mAWmIvjEt/GF6OU0hiWu
+vTbWdq1vFby2v5IKUAx5P2DwspVUIYOnMeAoQ3xwq4qWmYWiOXrquE3hy3uZUkssQK9D3TkLvCry
+rkvnAobp52DeP1A7G8Nvs0pNVFxcI2PYBLMjmjMMYmec09CWjKmwddmAMH3YyLIPnPllHW488XEf
+A2w0qqN5O0YRpJuIL7BpaYGWBembAeamMiqiTaXaZOAji17JRqplRTE+3x5dKhnCuDt6O47SWTaG
+cKYBk74abNCIl+2AYePCtPRshPvATfFum0XpWRg4skmpbgqDZ9VGjMFrAcP3GO9SW4Z8bws9j0Xp
+RxgkEjII8Jc+w4OCpwkbEcXYUOwyE5HFciBD/NXF8cEufa8ZCRkkxsCF4BoTSfsd7JXEGSSBEcs4
+DEBCBOB4eirj5/pdBtGnkLF2tCGcdXCIhFGGo+lviWMkngQNMzH06wvZcibOl91TEwAAAABJRU5E
+rkJggg==
 </field>
-      <field name="datas_fname">valider.png</field>
-      <field name="name">valider.png</field>
+      <field name="datas_fname">reset.png</field>
+      <field name="name">reset.png</field>
       <field name="res_model">ir.ui.view</field>
       <field name="mimetype">image/png</field>
     </record>
