@@ -47,7 +47,7 @@
         'settings_improvement',  # from https://github.com/acsone/acsone-addons
         'distribution_list',     # from https://github.com/acsone/acsone-addons
         'readonly_bypass',       # from https://github.com/acsone/acsone-addons
-        'html_widget_embedded_picture' 
+        'html_widget_embedded_picture', 
                                  # from https://github.com/acsone/acsone-addons
         'help_online',           # from https://github.com/OCA/web
 
