@@ -39,7 +39,7 @@ COORDINATE_AVAILABLE_TYPES = [
 
 coordinate_available_types = dict(COORDINATE_AVAILABLE_TYPES)
 
-MAIN_COORDINATE_ERROR = _('Exactly one main coordinate must exist for a given partner')
+MAIN_COORDINATE_ERROR = 'Exactly one main coordinate must exist for a given partner'
 
 
 class abstract_coordinate(orm.AbstractModel):
@@ -267,7 +267,7 @@ class abstract_coordinate(orm.AbstractModel):
         super(abstract_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
         coordinate_ids = list(set(ids).difference(coordinate_ids))
         if not self._check_one_main_coordinate(cr, uid, coordinate_ids, for_unlink=True, context=context):
-            raise orm.except_orm(_('Error'), MAIN_COORDINATE_ERROR)
+            raise orm.except_orm(_('Error'), _(MAIN_COORDINATE_ERROR))
         res = super(abstract_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
         return res
 
