@@ -232,19 +232,22 @@ class copy_sta_mandate_wizard(orm.TransientModel):
             return res
 
         for mandate in self.pool[model].browse(cr, uid, ids, context=context):
-            domain = [
-              ('power_level_id', '=',
-               mandate.sta_assembly_id.assembly_category_id.power_level_id.id),
-            ('start_date', '>', fields.datetime.now())]
-            legislature_ids = self.pool['legislature'].search(cr, uid, domain)
             legislature_id = False
-            if legislature_ids:
-                legislature_id = legislature_ids[0]
-
             if mandate.sta_assembly_id.is_legislative and\
                res['action'] == WIZARD_AVAILABLE_ACTIONS[0][0]:
                 res['message'] = \
                                 _('Renew not allowed on a legislative mandate')
+
+            if res['action'] == WIZARD_AVAILABLE_ACTIONS[0][0]:
+                domain = [
+                    ('power_level_id', '=',
+                   mandate.sta_assembly_id.assembly_category_id.power_level_id.id),
+                    ('start_date', '>', fields.datetime.now())]
+                legislature_ids = self.pool['legislature'].search(cr, uid, domain)
+                legislature_id = legislature_ids[0] \
+                    if legislature_ids else False
+            else:
+                legislature_id = mandate.legislature_id.id
 
             res['legislature_id'] = legislature_id
             res['is_legislative'] = mandate.sta_assembly_id.is_legislative

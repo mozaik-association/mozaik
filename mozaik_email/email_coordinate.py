@@ -104,3 +104,12 @@ class email_coordinate(orm.Model):
             vals['email'] = format_email(vals['email'])
         return super(email_coordinate, self).write(
             cr, uid, ids, vals, context=context)
+
+    def check_mail_message_access(self, cr, uid, mids, operation,
+                                  model_obj=None, context=None):
+        if context.get('active_model', False) == 'distribution.list'\
+           and context.get('target_model', False) == 'email.coordinate':
+            pass
+        else:
+            super(email_coordinate, self).check_mail_message_access(
+                cr, uid, mids, operation, context=context)
