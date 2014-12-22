@@ -48,6 +48,8 @@ class waiting_member_report(orm.Model):
         'nb_days': fields.integer('#Days')
     }
 
+    _order = "nb_days desc, partner_id"
+
 # orm methods
 
     def init(self, cr):
