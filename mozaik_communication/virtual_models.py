@@ -502,9 +502,11 @@ class virtual_partner_mandate(orm.Model):
         LEFT OUTER JOIN postal_coordinate pc
             ON pc.partner_id = mandate.partner_id
             and pc.is_main = TRUE
+            AND pc.active = TRUE
         LEFT OUTER JOIN email_coordinate e
             ON e.partner_id = mandate.partner_id
             and e.is_main = TRUE
+            AND e.active = TRUE
         WHERE mandate.active = True
         AND (e.id IS NOT NULL
         OR pc.id IS NOT NULL)
@@ -561,9 +563,11 @@ class virtual_partner_mandate(orm.Model):
         LEFT OUTER JOIN postal_coordinate pc
             ON pc.partner_id = mandate.partner_id
             and pc.is_main = TRUE
+            AND pc.active = TRUE
         LEFT OUTER JOIN email_coordinate e
             ON e.partner_id = mandate.partner_id
             and e.is_main = TRUE
+            AND e.active = TRUE
         WHERE mandate.active = True
         AND (e.id IS NOT NULL
         OR pc.id IS NOT NULL)
@@ -620,9 +624,11 @@ class virtual_partner_mandate(orm.Model):
         LEFT OUTER JOIN postal_coordinate pc
             ON pc.partner_id = mandate.partner_id
             and pc.is_main = TRUE
+            AND pc.active = TRUE
         LEFT OUTER JOIN email_coordinate e
             ON e.partner_id = mandate.partner_id
             and e.is_main = TRUE
+            AND e.active = TRUE
         WHERE mandate.active = True
         AND (e.id IS NOT NULL
         OR pc.id IS NOT NULL)
@@ -717,9 +723,11 @@ class virtual_partner_candidature(orm.Model):
         LEFT OUTER JOIN postal_coordinate pc
             ON pc.partner_id = candidature.partner_id
             and pc.is_main = TRUE
+            AND pc.active = TRUE
         LEFT OUTER JOIN email_coordinate e
             ON e.partner_id = candidature.partner_id
             and e.is_main = TRUE
+            AND e.active = TRUE
         WHERE candidature.active = True
         AND (e.id IS NOT NULL
         OR pc.id IS NOT NULL)
@@ -760,9 +768,11 @@ class virtual_partner_candidature(orm.Model):
         LEFT OUTER JOIN postal_coordinate pc
             ON pc.partner_id = candidature.partner_id
             and pc.is_main = TRUE
+            AND pc.active = TRUE
         LEFT OUTER JOIN email_coordinate e
             ON e.partner_id = candidature.partner_id
             and e.is_main = TRUE
+            AND e.active = TRUE
         WHERE candidature.active = True
         AND (e.id IS NOT NULL
         OR pc.id IS NOT NULL)
@@ -801,9 +811,11 @@ class virtual_partner_candidature(orm.Model):
         LEFT OUTER JOIN postal_coordinate pc
             ON pc.partner_id = candidature.partner_id
             and pc.is_main = TRUE
+            AND pc.active = TRUE
         LEFT OUTER JOIN email_coordinate e
             ON e.partner_id = candidature.partner_id
             and e.is_main = TRUE
+            AND e.active = TRUE
         WHERE candidature.active = True
         AND (e.id IS NOT NULL
         OR pc.id IS NOT NULL)
