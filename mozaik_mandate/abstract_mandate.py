@@ -499,13 +499,15 @@ class abstract_mandate(orm.AbstractModel):
         'is_submission_mandate': fields.related(
                                 'mandate_category_id',
                                 'is_submission_mandate',
-                                string='Submission to a Mandate Declaration',
+                                string='With Wages Declaration',
+                                help='Submission to a Mandates and Wages Declaration',
                                 type='boolean',
                                 store=True),
         'is_submission_assets': fields.related(
                                 'mandate_category_id',
                                 'is_submission_assets',
-                                string='Submission to an Assets Declaration',
+                                string='With Assets Declaration',
+                                help='Submission to a Mandates and Assets Declaration',
                                 type='boolean',
                                 store=True),
         'candidature_id': fields.many2one('abstract.candidature',

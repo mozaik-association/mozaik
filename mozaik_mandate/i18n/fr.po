@@ -1220,12 +1220,6 @@ msgid "Mandate Category"
 msgstr "Catégorie de mandat"
 
 #. module: mozaik_mandate
-#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
-#: view:mandate.category:mozaik_mandate.mandate_category_search_view
-msgid "Mandate Declaration"
-msgstr "Déclaration de mandat"
-
-#. module: mozaik_mandate
 #: field:generic.mandate,mandate_id:0
 msgid "Mandate ID"
 msgstr "ID de mandat"
@@ -1414,7 +1408,7 @@ msgid "Notes"
 msgstr "Notes"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\abstract_mandate.py:87
+#: code:addons\mozaik_mandate\abstract_mandate.py:88
 #, python-format
 msgid "Operation Forbidden!"
 msgstr "Opération interdite !"
@@ -1629,7 +1623,7 @@ msgid "Set candidature as non-elected: proceed anyway?"
 msgstr "Poursuivre l'élection du candidat ?"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\abstract_mandate.py:88
+#: code:addons\mozaik_mandate\abstract_mandate.py:89
 #, python-format
 msgid "Some candidatures are still in \"declared\" state"
 msgstr "Certaines candidatures restent au statut \"Déclaré\""
@@ -1739,22 +1733,22 @@ msgid "Status"
 msgstr "Statut"
 
 #. module: mozaik_mandate
-#: field:abstract.mandate,is_submission_mandate:0
-#: field:ext.mandate,is_submission_mandate:0
-#: field:int.mandate,is_submission_mandate:0
-#: field:mandate.category,is_submission_mandate:0
-#: field:sta.mandate,is_submission_mandate:0
-msgid "Submission to a Mandate Declaration"
-msgstr "Soumis à une déclaration de mandat"
+#: help:abstract.mandate,is_submission_assets:0
+#: help:ext.mandate,is_submission_assets:0
+#: help:int.mandate,is_submission_assets:0
+#: help:mandate.category,is_submission_assets:0
+#: help:sta.mandate,is_submission_assets:0
+msgid "Submission to a Mandates and Assets Declaration"
+msgstr "Soumis à une déclaration de mandats et de patrimoines"
 
 #. module: mozaik_mandate
-#: field:abstract.mandate,is_submission_assets:0
-#: field:ext.mandate,is_submission_assets:0
-#: field:int.mandate,is_submission_assets:0
-#: field:mandate.category,is_submission_assets:0
-#: field:sta.mandate,is_submission_assets:0
-msgid "Submission to an Assets Declaration"
-msgstr "Soumis à une déclaration de patrimoine"
+#: help:abstract.mandate,is_submission_mandate:0
+#: help:ext.mandate,is_submission_mandate:0
+#: help:int.mandate,is_submission_mandate:0
+#: help:mandate.category,is_submission_mandate:0
+#: help:sta.mandate,is_submission_mandate:0
+msgid "Submission to a Mandates and Wages Declaration"
+msgstr "Soumis à une déclaration de mandats et de rémunérations"
 
 #. module: mozaik_mandate
 #: field:import.sta.candidatures.file.lines,is_substitute:0
@@ -1930,6 +1924,12 @@ msgid "Votes value should be integer: %s"
 msgstr "Le nombre de voix de préférence doit être une valeur entière: %s"
 
 #. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_search_view
+#: view:mandate.category:mozaik_mandate.mandate_category_search_view
+msgid "Wage Declaration"
+msgstr "Déclaration de rémunération"
+
+#. module: mozaik_mandate
 #: field:abstract.candidature,website_message_ids:0
 #: field:abstract.mandate,website_message_ids:0
 #: field:abstract.selection.committee,website_message_ids:0
@@ -1962,6 +1962,24 @@ msgstr "Messages de site web"
 #: help:sta.selection.committee,website_message_ids:0
 msgid "Website communication history"
 msgstr "Historique de communication de site web"
+
+#. module: mozaik_mandate
+#: field:abstract.mandate,is_submission_assets:0
+#: field:ext.mandate,is_submission_assets:0
+#: field:int.mandate,is_submission_assets:0
+#: field:mandate.category,is_submission_assets:0
+#: field:sta.mandate,is_submission_assets:0
+msgid "With Assets Declaration"
+msgstr "Avec déclaration de patrimoines"
+
+#. module: mozaik_mandate
+#: field:abstract.mandate,is_submission_mandate:0
+#: field:ext.mandate,is_submission_mandate:0
+#: field:int.mandate,is_submission_mandate:0
+#: field:mandate.category,is_submission_mandate:0
+#: field:sta.mandate,is_submission_mandate:0
+msgid "With Wages Declaration"
+msgstr "Avec déclaration de rémunérations"
 
 #. module: mozaik_mandate
 #: field:electoral.results.wizard.errors,wizard_id:0
@@ -2035,6 +2053,15 @@ msgstr ""
 #: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
 msgid "onchange_mandate_category_id(mandate_category_id)"
 msgstr ""
+
+#. module: mozaik_mandate
+#: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard
+#: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step1
+#: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step2
+#: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step1
+#: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step2
+msgid "or"
+msgstr "ou"
 
 #. module: mozaik_mandate
 #: view:ext.mandate:mozaik_mandate.ext_mandate_form_view

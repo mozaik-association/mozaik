@@ -199,9 +199,11 @@ class mandate_category(orm.Model):
                                            'mandate_category_id',
                                            'External Mandates'),
         'is_submission_mandate': fields.boolean(
-                                        'Submission to a Mandate Declaration'),
+            string='With Wages Declaration',
+            help='Submission to a Mandates and Wages Declaration'),
         'is_submission_assets': fields.boolean(
-                                        'Submission to an Assets Declaration'),
+            string='With Assets Declaration',
+            help='Submission to a Mandates and Assets Declaration'),
     }
 
     _order = 'name'

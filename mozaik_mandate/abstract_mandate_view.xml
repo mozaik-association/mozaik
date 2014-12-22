@@ -13,7 +13,7 @@
                     <field name="mandate_category_id"/>
                     <field name="designation_int_assembly_id"/>
 
-                    <filter name="is_submission_mandate" string="Mandate Declaration"
+                    <filter name="is_submission_mandate" string="Wage Declaration"
                             domain="[('is_submission_mandate','=',True)]" />
                     <separator />
                     <filter name="is_submission_assets" string="Assets Declaration"

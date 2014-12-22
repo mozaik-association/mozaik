@@ -172,7 +172,7 @@ msgid "Amount deductible"
 msgstr "Montant déductible"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:884
+#: code:addons\mozaik_retrocession\retrocession.py:889
 #, python-format
 msgid "Amount due for retrocession should be positive"
 msgstr "Le montant dû doit être positif"
@@ -414,8 +414,8 @@ msgid "Email Coordinate"
 msgstr "Coordonnée électronique"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\mandate.py:268
-#: code:addons\mozaik_retrocession\retrocession.py:953
+#: code:addons\mozaik_retrocession\mandate.py:277
+#: code:addons\mozaik_retrocession\retrocession.py:958
 #, python-format
 msgid "Email template %s not found!"
 msgstr "Modèle de courriel %s non trouvé !"
@@ -428,12 +428,12 @@ msgid "End Date"
 msgstr "Date de fin"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\mandate.py:267
-#: code:addons\mozaik_retrocession\retrocession.py:883
-#: code:addons\mozaik_retrocession\retrocession.py:949
-#: code:addons\mozaik_retrocession\retrocession.py:953
-#: code:addons\mozaik_retrocession\retrocession.py:1027
-#: code:addons\mozaik_retrocession\retrocession.py:1036
+#: code:addons\mozaik_retrocession\mandate.py:276
+#: code:addons\mozaik_retrocession\retrocession.py:888
+#: code:addons\mozaik_retrocession\retrocession.py:954
+#: code:addons\mozaik_retrocession\retrocession.py:958
+#: code:addons\mozaik_retrocession\retrocession.py:1032
+#: code:addons\mozaik_retrocession\retrocession.py:1041
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -582,7 +582,7 @@ msgid "Fractionation Lines"
 msgstr "Lignes de répartition"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:527
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:528
 #: view:fractionation:mozaik_retrocession.fractionation_search_view
 #: view:fractionation:mozaik_retrocession.fractionation_tree_view
 #: model:ir.actions.act_window,name:mozaik_retrocession.fractionation_action
@@ -690,7 +690,7 @@ msgid "Instance"
 msgstr "Instance"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:506
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:507
 #, python-format
 msgid "Instances"
 msgstr "Instances"
@@ -851,7 +851,7 @@ msgid "Mandate:"
 msgstr "Mandat:"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:446
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:447
 #, python-format
 msgid "Mandates"
 msgstr "Mandats"
@@ -1009,7 +1009,7 @@ msgid "No Retrocession"
 msgstr "Sans rétrocession"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:792
+#: code:addons\mozaik_retrocession\retrocession.py:797
 #: constraint:retrocession:0
 #, python-format
 msgid "No amount paid specified."
@@ -1106,7 +1106,7 @@ msgid "Percentage"
 msgstr "Pourcentage"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:275
+#: code:addons\mozaik_retrocession\retrocession.py:276
 #: constraint:calculation.rule:0
 #, python-format
 msgid "Percentage must be positive for a deductible rule."
@@ -1128,13 +1128,13 @@ msgid "Period: from"
 msgstr "Période: de"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:1037
+#: code:addons\mozaik_retrocession\retrocession.py:1042
 #, python-format
 msgid "Please set a cost account on mandate category."
 msgstr "Un compte de charge doit être spécifié sur la catégorie de mandat."
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:1027
+#: code:addons\mozaik_retrocession\retrocession.py:1032
 #, python-format
 msgid "Please set a retrocession account on mandate category."
 msgstr "Un compte de rétrocession doit être spécifié sur la catégorie de mandat."
@@ -1204,7 +1204,7 @@ msgid "Representative"
 msgstr "Mandataire"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:949
+#: code:addons\mozaik_retrocession\retrocession.py:954
 #, python-format
 msgid "Representative has no email specified"
 msgstr "Le mandataire n'a pas d'adresse électronique"
@@ -1367,7 +1367,7 @@ msgid "Sequence"
 msgstr "Sequence"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\mandate.py:87
+#: code:addons\mozaik_retrocession\mandate.py:89
 #: constraint:mandate.category:0
 #, python-format
 msgid "Some impacted assemblies has no retrocessions management instance!"
@@ -1406,14 +1406,14 @@ msgid "State Mandate"
 msgstr "Mandat politique"
 
 #. module: mozaik_retrocession
-#: field:abstract.mandate.retrocession,is_submission_mandate:0
-msgid "Submission to a Mandate Declaration"
-msgstr "Soumission à une déclaration de mandat"
+#: help:abstract.mandate.retrocession,is_submission_assets:0
+msgid "Submission to a Mandates and Assets Declaration"
+msgstr "Soumission à une déclaration de mandats et de patrimoines"
 
 #. module: mozaik_retrocession
-#: field:abstract.mandate.retrocession,is_submission_assets:0
-msgid "Submission to an Assets Declaration"
-msgstr "Soumission à une déclaration de revenus"
+#: help:abstract.mandate.retrocession,is_submission_mandate:0
+msgid "Submission to a Mandates and Wages Declaration"
+msgstr "Soumission à une déclaration de mandats et de rémunérations"
 
 #. module: mozaik_retrocession
 #: field:calculation.rule,amount_subtotal:0
@@ -1590,6 +1590,16 @@ msgid "Website communication history"
 msgstr "Historique de communication de site web"
 
 #. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,is_submission_assets:0
+msgid "With Assets Declaration"
+msgstr "Avec déclaration de patrimoines"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,is_submission_mandate:0
+msgid "With Wages Declaration"
+msgstr "Avec déclaration de rémunérations"
+
+#. module: mozaik_retrocession
 #: field:report.retrocession.wizard,data:0
 msgid "XLS"
 msgstr ""
@@ -1641,7 +1651,7 @@ msgid "Yearly Retrocessions to Create"
 msgstr "Rétrocessions annuelles à créer"
 
 #. module: mozaik_retrocession
-#: code:addons\mozaik_retrocession\retrocession.py:790
+#: code:addons\mozaik_retrocession\retrocession.py:795
 #: constraint:retrocession:0
 #, python-format
 msgid "You can not validate a negative retrocession"
@@ -1658,9 +1668,20 @@ msgid "as retrocession for the year"
 msgstr "comme rétrocession pour l'année"
 
 #. module: mozaik_retrocession
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+msgid "or"
+msgstr "ou"
+
+#. module: mozaik_retrocession
 #: view:website:mozaik_retrocession.report_payment_certificate_document
 msgid "paid"
 msgstr "a payé"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_certificate_document
+msgid "to"
+msgstr "à"
 
 #. module: mozaik_retrocession
 #: view:ext.mandate:mozaik_retrocession.ext_mandate_form_view

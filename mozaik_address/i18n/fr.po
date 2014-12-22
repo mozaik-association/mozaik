@@ -144,7 +144,7 @@ msgstr "Type de coordonnée"
 #: view:address.address:mozaik_address.address_address_form_view
 #: view:co.residency:mozaik_address.co_residency_form_view
 msgid "Coordinates"
-msgstr "coordonnées"
+msgstr "Coordonnées"
 
 #. module: mozaik_address
 #: view:address.address:mozaik_address.address_address_search_view

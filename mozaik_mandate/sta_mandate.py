@@ -707,7 +707,8 @@ class sta_mandate(orm.Model):
         'is_submission_mandate': fields.related(
                                  'mandate_category_id',
                                  'is_submission_mandate',
-                                 string='Submission to a Mandate Declaration',
+                                 string='With Wages Declaration',
+                                 help='Submission to a Mandates and Wages Declaration',
                                  type='boolean',
                                  store={'mandate.category':
                                  (mandate_category.get_linked_sta_mandate_ids,
@@ -715,7 +716,8 @@ class sta_mandate(orm.Model):
         'is_submission_assets': fields.related(
                                  'mandate_category_id',
                                  'is_submission_assets',
-                                 string='Submission to an Assets Declaration',
+                                 string='With Assets Declaration',
+                                 help='Submission to a Mandates and Assets Declaration',
                                  type='boolean',
                                  store={'mandate.category':
                                  (mandate_category.get_linked_sta_mandate_ids,

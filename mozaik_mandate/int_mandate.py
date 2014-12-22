@@ -385,14 +385,16 @@ class int_mandate(orm.Model):
         'candidature_id': fields.many2one('int.candidature', 'Candidature'),
         'is_submission_mandate': fields.related('mandate_category_id',
                               'is_submission_mandate',
-                              string='Submission to a Mandate Declaration',
+                              string='With Wages Declaration',
+                              help='Submission to a Mandates and Wages Declaration',
                               type='boolean',
                               store={'mandate.category':
                               (mandate_category.get_linked_int_mandate_ids,
                               ['is_submission_mandate'], 20)}),
         'is_submission_assets': fields.related('mandate_category_id',
                               'is_submission_assets',
-                              string='Submission to an Assets Declaration',
+                              string='With Assets Declaration',
+                              help='Submission to a Mandates and Assets Declaration',
                               type='boolean',
                               store={'mandate.category':
                               (mandate_category.get_linked_int_mandate_ids,
