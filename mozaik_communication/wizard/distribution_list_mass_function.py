@@ -76,9 +76,6 @@ class distribution_list_mass_function(orm.TransientModel):
 
         'sort_by': fields.selection(SORT_BY, 'Sort by'),
 
-        'set_memcard_date': fields.boolean('Set Member Card Sent Date'),
-        'set_del_doc_date': fields.boolean('Set Welcome Documents Sent Date'),
-
         'bounce_counter': fields.integer('Maximum of Fails'),
         'include_unauthorized': fields.boolean('Include Unauthorized'),
         'internal_instance_id': fields.many2one(
@@ -234,9 +231,8 @@ class distribution_list_mass_function(orm.TransientModel):
                     context['field_main_object'] = 'postal_coordinate_id'
                     context['target_model'] = wizard.trg_model
                     active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [wizard.distribution_list_id.id], context=context)
-                    self.select_date(
-                        cr, uid, wizard.set_memcard_date,
-                        wizard.set_del_doc_date, active_ids, context=context)
+                    self.post_processing(
+                        cr, uid, wizard, active_ids, context=context)
                     self.export_csv(cr, uid, wizard.trg_model, active_ids, wizard.groupby_coresidency, context=context)
 
                     if wizard.postal_mail_name:
@@ -250,9 +246,8 @@ class distribution_list_mass_function(orm.TransientModel):
                     context['field_main_object'] = 'postal_coordinate_id'
                     context['target_model'] = wizard.trg_model
                     active_ids, alternative_ids = self.pool['distribution.list'].get_complex_distribution_list_ids(cr, uid, [wizard.distribution_list_id.id], context=context)
-                    self.select_date(
-                        cr, uid, wizard.set_memcard_date,
-                        wizard.set_del_doc_date, active_ids, context=context)
+                    self.post_processing(
+                        cr, uid, wizard, active_ids, context=context)
                     ctx = context.copy()
                     ctx.update({
                         'active_model': 'postal.coordinate',
@@ -330,45 +325,5 @@ class distribution_list_mass_function(orm.TransientModel):
 
         return True
 
-    def select_date(
-            self, cr, uid, set_memcard_date,
-            set_del_doc_date, active_ids, context=None):
-        # impact delivery member card date of associated partner
-        dates_to_update = []
-        if set_memcard_date and active_ids:
-            dates_to_update.append('del_mem_card_date')
-        if set_del_doc_date and active_ids:
-            dates_to_update.append('del_doc_date')
-        if dates_to_update:
-            self.set_date(
-                cr, uid, active_ids, dates_to_update, context=context)
-
-    def set_date(self, cr, uid, postal_coordinate_ids,
-                 dates_to_update, context=None):
-        '''
-        This method will set the date `dates_to_update` for each partner of
-        `postal.coordinate` concerned by `postal_coordinate_ids`
-        :type postal_coordinate_ids: [integer]
-        :param postal_coordinate_ids: ids of `postal.coordinate`
-        :type date_to_update: [char]
-        :param date_to_update: name of the field to update
-        '''
-        postal_coordinate_obj = self.pool['postal.coordinate']
-        partner_obj = self.pool['res.partner']
-        partner_ids = []
-        candidate_ids = []
-        for postal_coordinate in postal_coordinate_obj.browse(
-                cr, uid, postal_coordinate_ids, context=context):
-            partner = postal_coordinate.partner_id
-            partner_ids.append(partner.id)
-            if partner.membership_state_id.code == 'member_candidate':
-                candidate_ids.append(partner.id)
-        date_today = fields.date.today()
-        vals = {}
-        for date_to_update in dates_to_update:
-            vals[date_to_update] = '%s' % date_today
-        if partner_ids:
-            partner_obj.write(cr, uid, partner_ids, vals, context=context)
-        if candidate_ids:
-            partner_obj.update_membership_reference(
-                cr, uid, candidate_ids, context=context)
+    def post_processing(self, cr, uid, wizard, active_ids, context=None):
+        pass
