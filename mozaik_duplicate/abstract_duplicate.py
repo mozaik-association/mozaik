@@ -38,6 +38,7 @@ class abstract_duplicate(orm.AbstractModel):
 
     _discriminant_field = None
     _discriminant_model = None
+    _reset_allowed = False
     _trigger_fields = []
     _undo_redirect_action = None
 
@@ -214,7 +215,7 @@ class abstract_duplicate(orm.AbstractModel):
                             val = value
                             if is_ok == 2:
                                 break
-                    if is_ok == 1:
+                    if is_ok == 1 or self._reset_allowed:
                         val['is_duplicate_allowed'] = False
 
                     is_ok = 0

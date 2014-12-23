@@ -448,6 +448,7 @@ class abstract_mandate(orm.AbstractModel):
     _inherit = ['abstract.duplicate']
 
     _inactive_cascade = True
+    _reset_allowed = True
     _discriminant_field = 'partner_id'
     _discriminant_model = 'generic.mandate'
     _trigger_fields = ['mandate_category_id',
@@ -632,7 +633,8 @@ class abstract_mandate(orm.AbstractModel):
                                                  ['mandate_category_id',
                                                   'start_date',
                                                   'deadline_date',
-                                                  'is_duplicate_detected'],
+                                                  'is_duplicate_detected',
+                                                  'is_duplicate_allowed'],
                                                  context=context)
         for mandate_data in mandate_dataset:
             category = self.pool.get('mandate.category').browse(
@@ -665,11 +667,13 @@ class abstract_mandate(orm.AbstractModel):
                             duplicate_ids.append(mandate_id)
                         if mandate_id in reset_ids:
                             reset_ids.remove(mandate_id)
-                elif mandate_data['is_duplicate_detected']:
+                elif mandate_data['is_duplicate_detected'] or\
+                     mandate_data['is_duplicate_allowed']:
                     reset_ids.append(mandate_data['id'])
 
-            elif mandate_data['is_duplicate_detected']:
-                reset_ids.append(mandate_data['id'])
+            elif mandate_data['is_duplicate_detected'] or\
+                 mandate_data['is_duplicate_allowed']:
+                    reset_ids.append(mandate_data['id'])
 
         return reset_ids, duplicate_ids
 
