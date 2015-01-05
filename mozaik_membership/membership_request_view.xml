@@ -160,9 +160,10 @@
                                 <field name="country_id"
                                     on_change="onchange_country_id(address_local_street_id, address_local_zip_id,
                                                    number, box, town_man, street_man, zip_man, country_id)"
+                                    attrs="{'required': ['|',('zip_man','!=', False),('address_local_zip_id','!=', False)]}"
                                     options='{"no_open":True, "no_create":True}' />
                             </group>
-                            <group name="city" attrs="{'invisible': [('country_id', '=', False)]}">
+                            <group name="city">
                                 <field name="address_local_zip_id"
                                     on_change="onchange_local_zip_id(address_local_street_id, address_local_zip_id,
                                                    number, box, town_man, street_man, zip_man, country_id)"
@@ -172,11 +173,11 @@
                                 <field name="zip_man"
                                     on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
                                                    number, box, town_man, street_man, zip_man, country_id)"
-                                    attrs="{'invisible': [('country_code','=', 'BE')]}" />
+                                    attrs="{'invisible': [('country_code','=', 'BE'),('address_local_zip_id', '!=', False)]}" />
                                 <field name="town_man"
                                     on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
                                                    number, box, town_man, street_man, zip_man, country_id)"
-                                    attrs="{'invisible': [('country_code','=', 'BE')]}" />
+                                    attrs="{'invisible': [('country_code','=', 'BE'),('address_local_zip_id', '!=', False)]}" />
                             </group>
                             <group name="streets" attrs="{'invisible': [('country_id', '=', False)]}">
                                 <field name="address_local_street_id"

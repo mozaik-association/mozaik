@@ -37,12 +37,12 @@ options
 * `1` test membership request
 * `2` test get uid
 """
-if len(sys.argv) != 5:
-    raise Exception('Four arguments are required to launch this sample: "db user password {1 | 2}"')
+if len(sys.argv) != 3:
+    raise Exception('Two arguments are required to launch this sample: "db {1 | 2 | 3}"')
 
 DBNAME = sys.argv[1]
-USERNAME = sys.argv[2]
-PWD = sys.argv[3]
+USERNAME = 'ws'
+PWD = 'ws%123'
 
 sock_common = xmlrpclib.ServerProxy(URL + 'xmlrpc/common')
 UID = sock_common.login(DBNAME, USERNAME, PWD)
@@ -50,16 +50,26 @@ UID = sock_common.login(DBNAME, USERNAME, PWD)
 sock = xmlrpclib.ServerProxy(URL + 'xmlrpc/object')
 
 OBJECT = 'custom.webservice'
-if sys.argv[4] == '1':
+if sys.argv[2] == '1':
     METHOD = 'membership_request'
-    res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, \
-                   'LHERMITTE', 'Thierry', 'm', 'Rue Louis Maréhal 6/2B', '4360', 'Oreye', 'm', 01, 04, 1985, \
-                   'thierry@gmail.com', '0465000000', '061412002', \
-                   'Foot, Snowboard')
-elif  sys.argv[4] == '2':
+    res = sock.execute(
+        DBNAME, UID, PWD, OBJECT, METHOD,
+        'LHERMITTE', 'Thierry', 'm', 'Rue Louis Maréhal 6/2B', '4360', 'Oreye', 'm',
+        01, 04, 1985,
+        'thierry@gmail.com', '0465000000', '061412002',
+        'Foot, Snowboard', False)
+elif sys.argv[2] == '2':
     METHOD = 'get_login'
     res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 'pauline@gmail.com', '1949-03-29')
+elif sys.argv[2] == '3':
+    METHOD = 'membership_request'
+    res = sock.execute( \
+        DBNAME, UID, PWD, OBJECT, METHOD, \
+        'MARCEAU', 'Sophie', 'f', 'Rue Louis Maréhal 6/2B', '4360', 'Oreye', False, \
+        False, False, False,
+        'vic.beretton@gmail.com', False, False,
+        False, 'demande newsletter etopia')
 else:
-    raise Exception('1 or 2 for available options')
+    raise Exception('1, 2 or 3 for available options')
 
 print res

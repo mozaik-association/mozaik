@@ -30,6 +30,8 @@ from openerp.tools import logging
 from openerp.osv import orm
 from openerp.tools import SUPERUSER_ID
 
+from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
+
 logger = logging.getLogger(__name__)
 
 
@@ -81,16 +83,19 @@ class custom_webservice(orm.Model):
     @web_service
     def membership_request(self, cr, uid, lastname, firstname, gender, street, zip_code, town, status,\
                            day=False, month=False, year=False, email=False, mobile=False,
-                           phone=False, interest=False, context=None):
+                           phone=False, interest=False, note=False, context=None):
         """
         ==================
         membership_request
         ==================
         Create a `membership.request` with the giving values
         """
+        uuid = uid
+        uid = SUPERUSER_ID
         self.check_access_rights(cr, uid, 'read')
         context = context or {}
         membership_request = self.pool['membership.request']
+        town = town.strip()
         vals = {
             'lastname': lastname,
             'firstname': firstname,
@@ -111,12 +116,27 @@ class custom_webservice(orm.Model):
             'email': email,
 
             'interests': interest,
+            'note': note,
         }
+        if zip_code and town:
+            domain = [
+                ('local_zip', '=', zip_code),
+                ('town', 'ilike', town),
+            ]
+            zids = self.pool['address.local.zip'].search(
+                cr, uid, domain, context=context)
+            if zids:
+                vals['country_id'] = \
+                    self.pool['res.country']._country_default_get(
+                        cr, uid, COUNTRY_CODE, context=context)
+                vals['address_local_zip_id'] = zids[0]
+                vals.pop('zip_man', False)
+                vals.pop('town_man', False)
         context['mode'] = 'ws'
         try:
-            res = membership_request.create(cr, SUPERUSER_ID, vals, context=context)
+            res = membership_request.create(cr, uid, vals, context=context)
         except Exception as e:
-            raise WebServiceException(uid, 'Membership Request', 'CREATE ERROR', e.message)
+            raise WebServiceException(uuid, 'Membership Request', 'CREATE ERROR', e.message)
         return res
 
     @web_service
