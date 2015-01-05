@@ -33,6 +33,19 @@ class RetrocessionHelper(orm.Model):
     _name = 'retrocession.helper'
     _auto = False
 
+    def create_fiscal_year(self, cr, uid, year, context=None):
+        company_id = self.pool['ir.model.data'].xmlid_to_res_id(
+            cr, uid, 'base.main_company')
+        fiscalyear_obj = self.pool['account.fiscalyear']
+        fiscalyear_id = fiscalyear_obj.create(cr, uid, {
+            'name': year,
+            'code': year,
+            'date_start': year + '-01-01',
+            'date_stop': year + '-12-31',
+            'company_id': company_id
+        })
+        fiscalyear_obj.create_period3(cr, uid, [fiscalyear_id])
+
     def validate_retrocession_with_accounting(self, cr, uid, retro_ids,
                                               context=None):
 

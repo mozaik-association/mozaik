@@ -49,7 +49,7 @@ class test_retrocession_with_accounting(object):
         super(test_retrocession_with_accounting, self).setUp()
         wiz_id = self.ref('%s.pcmn_mozaik' % self._module_ns)
         self.registry('wizard.multi.charts.accounts').execute(self.cr, self.uid, [wiz_id])
-
+        self.registry('retrocession.helper').create_fiscal_year(self.cr, self.uid, '2014')
         # members to instanciate by real test
         self.retro = None
 
