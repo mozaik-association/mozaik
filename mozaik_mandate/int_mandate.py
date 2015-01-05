@@ -85,7 +85,8 @@ class int_selection_committee(orm.Model):
         'candidature_ids': fields.one2many(_candidature_model,
                                            'selection_committee_id',
                                            'Internal Candidatures',
-                                           domain=[('active', '<=', True)]),
+                                           domain=[('active', '<=', True)],
+                                           context={'force_recompute': True}),
         'assembly_category_id': fields.related(
                                            'mandate_category_id',
                                            _mandate_category_foreign_key,
