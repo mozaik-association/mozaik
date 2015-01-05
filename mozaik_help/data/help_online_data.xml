@@ -9956,9 +9956,9 @@ w5pu8wgYVJq/rnepzQaAvIf5xtF4EylNutzL8SuN1rQw6QrwWxC6a3c4fHD7d/Uy+Bhqf7i8Br+I
       <field name="mimetype">image/png</field>
     </record>
     <record id="mozaik-help-import-sta-candidatures-wizard_img_03" model="ir.attachment">
-      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAEUAAAAdCAMAAADLjlGBAAADAFBMVEX9/PzPNjayJSWlHBz06urP
-RUVmExPHWVmEJSW4NTXCLS3y1tbjpqbTdna8RUXQaWnahobot7d7IiLvycmYNjbdl5fim5u2eXma
-HBy+VFSwbW3gj48AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAEYAAAAdCAMAAAAgueqCAAADAFBMVEX9/PzPNjayJSWmHBzy7e3R
+RUXHWVmEJSVoFBS5NDTBLS3ip6fYh4dhDw/qt7ftxcXTdXXz1tbUa2u8RkbdmJh+ISHjnZ2tamrd
+o6OdHByXMDC0d3fgiIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -9970,18 +9970,17 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAB42tAyAAABAHRSTlP/////////////////////////////////////AAAAAAAA
+AAAAAAAAAAAAAAC5t2sUAAABAHRSTlP//////////////////////////////////////wAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsvRhBAAA
-AUJJREFUeNrt1e1ygyAQBdAVF3HLtxqTtO//nl0kRs1oTa0/e2cYQZYzYowC/Gcj+NlUR9NcR8V2
-d3U0984+lFr+Jd1TKY5H1qcozUNpTlGq+VmP7d46vxiuKhb1jqL1GQriYlhtKRoR0HALuftVFIbr
-+qIHHvFjuq58TGFFIsQewBhoC4Q2IPrABw3WgA4WUc0WTAq9KmgV14YBDCqCaeGieogGouRZOVNo
-UsSUrEjevRy7AYxGSyEpZrgvs/p1xQ9LiWspK16YdC1WZEWkmXcUx3XEzedb5PlCLtAq3lVSSKNa
-VcRSoUmh9JvghVzkuugGJcKCWVVIOZKSBLfU5R0p5YRw/BZwfIZSV4o9ZRlWeO3Qo+e+iX6vkPg5
-k1JuRTi3PZkr3lHEDlLW47/xWt3Ko7lVs9d3fTRdmH9MjubUT9o3S9Uas5ydA/QAAAAASUVORK5C
-YII=
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcwvR4wAA
+AStJREFUeNrdlduSgyAMhmMENIUFTz3uvv9zbmK1YMfaDu3Fzv5OJhiTzwAzAPBfpY71V/ZzvGGa
+i8nXpZkxlX5HVcQU+YqY/VuY/YcxdRrulH9S2HWL13oV0zzD3CdkYn7gVcwBWoAQ2KahZg9cflAK
+xsEqhnZRgrHQujCas6CcB+8gNB6sfPBCjfm0hfGGi7QXjDemVUE5zc5ycOAed+sYjLpi3GwWBipa
+1SqNhWAcOfBp/mMMSfZk/H8k6aYTxwF8DdNdMTgZr40ZwPNMtIUwYTAHwztleJnESdAoCOuYBV33
+SIZmO8FgTE/Y85mgibQETZ8WrGPudOIlGpsluvVMmIPBbSWY8pGQeELllhJMtZGF25QEc6zPZa7O
+9Xc806t8ucUdk6u/eGH+AnDOHBTuYD5gAAAAAElFTkSuQmCC
 </field>
       <field name="datas_fname">import.png</field>
       <field name="name">import.png</field>
@@ -10255,86 +10254,38 @@ BptikNYqEg72f6euY9S7i84tAAAAAElFTkSuQmCC
             <section class="mt16 mb16">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32">
-                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
-                      <tbody>
-                        <tr>
-                          <td style="text-align: left;">
-                            <strong>#</strong>
-                          </td>
-                          <td style="text-align: left;">
-                            <strong>Etape</strong>
-                          </td>
-                          <td style="text-align: left;">
-                            <strong>Résultat</strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">1</td>
-                          <td style="text-align: left;">Affichez les Comités de Sélection Politiques en mode Liste et ouvrez la fiche d'un Comité pour lequel des Candidatures doivent être importées</td>
-                          <td style="text-align: left;">Le menu "Autres options" s'affiche</td>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">2</td>
-                          <td style="text-align: left;">Sélectionnez l'option "Importer des Candidatures"</td>
-                          <td style="text-align: left;">L'écran suivant s'ouvre:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-import-sta-candidatures-wizard_img_01|b0db39b/datas" style=""/></td>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">3</td>
-                          <td style="text-align: left;">Cliquez sur le bouton <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-import-sta-candidatures-wizard_img_02|8c056ba/datas" style=""/> pour localiser le fichier à importer sur votre station de travail et cliquez sur "Valider" - "Annuler" stoppe le processus</td>
-                          <td style="text-align: left;">Les premières Candidatures du fichiers sont montrées, le fichier a passé l'épreuve de la validation</td>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">4</td>
-                          <td style="text-align: left;">Cliquez sur le bouton <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-import-sta-candidatures-wizard_img_03|d3d3693/datas" style=""/> pour importer le fichier - "Annuler" stoppe le processus</td>
-                          <td style="text-align: left;">Les Candidatures sont importées dans le Comité de Sélection préalablement sélectionné.</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div style="text-align: left;">
-                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cet import n'est disponible que pour les Candidatures aux Mandats Politiques (Mandats Legislatifs). </em>
-                    </div>
-                    <div>
-                      <div style="text-align: left;">
-                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> L'application n'accepte que des fichiers d'imports de type .CSV (sans limitation de taille). Tout autre format ou fichier ne correspondant pas au standard requis fera échouer le processus. De plus, le fichier à importer doit respecter une certaine structure. Si celle-ci est corrompue, l'import échouera. </em>
-                      </div>
-                    </div>
-                    <div style="text-align: left;">
-                      <em style="line-height: 1.42857143; background-color: transparent;"/>
-                      <div/>
-                      <div>
-                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Le bouton "Vider" vous permet de vider votre sélection. Le bouton "Enregistrer sous" n'est pas pertinent dans ce cadre. </em>
-                      </div>
-                      <em style="line-height: 1.42857143; background-color: transparent;"/>
-                    </div>
-                    <div style="text-align: left;">
-                      <strong>
-                        <em style="line-height: 1.42857143; background-color: transparent;">
-                          <span class="fa fa-exclamation-triangle fa-2x"/>
-                        </em>
-                      </strong>
-                      <strong>Exceptions</strong>
-                    </div>
-                    <p style="text-align: left;">1/ Utilisation d'un mauvais format: voici le message qui sera en ce cas affiché:</p>
-                    <p style="text-align: left;">
-                      <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-import-sta-candidatures-wizard_img_04|baab2fb/datas" style=""/>
-                    </p>
-                    <p style="text-align: left;">Ici, le fichier n'est pas en "colonnes", c'est ce que l'application détecte.</p>
-                    <p style="text-align: left;">
-                      <span style="line-height: 1.42857143;">2/ Utilisation d'un fichier qui ne répond pas au standard: voici le message qui sera en ce cas affiché:</span>
-                    </p>
-                    <p style="text-align: left;">
-                      <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-import-sta-candidatures-wizard_img_05|1a1f099/datas" style=""/>
-                    </p>
-                    <p style="text-align: left;">Ici, la structure du fichier se rapproche plus mais contient une erreur.</p>
-                    <p style="text-align: left;">3/ Si vous tentez d'importer plusieurs fois le même fichier ou que les Candidatures existent déjà, voici le message qui sera affiché:</p>
-                    <p style="text-align: left;">
-                      <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-import-sta-candidatures-wizard_img_06|d6baf77/datas" style=""/>
-                    </p>
-                    <p style="text-align: left;">
-                      <a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a>
-                    </p>
-                  </div>
+                  <div class="col-md-12 text-center mt16 mb32"><table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);"><tbody><tr><td style="text-align: left;"><strong>#</strong></td><td style="text-align: left;"><strong>Etape</strong></td><td style="text-align: left;"><strong>Résultat</strong></td></tr><tr><td style="text-align: left;">1</td><td style="text-align: left;">Affichez en mode formulaire le Comité de Sélection Politique pour lequel des Candidatures doivent être importées</td><td style="text-align: left;">Le menu "Autres options" s'affiche</td></tr><tr><td style="text-align: left;">2</td><td style="text-align: left;">Sélectionnez l'option "Importer des Candidatures"</td><td style="text-align: left;">L'écran suivant s'ouvre:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-import-sta-candidatures-wizard_img_01|b0db39b/datas" style=""/></td></tr><tr><td style="text-align: left;">3</td><td style="text-align: left;">Cliquez sur le bouton <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-import-sta-candidatures-wizard_img_02|8c056ba/datas" style=""/> pour localiser le fichier à importer sur votre station de travail et cliquez sur "Valider" - "Annuler" stoppe le processus</td><td style="text-align: left;">Les premières Candidatures du fichiers sont montrées, les candidats ont été "reconnus" (colonne "Partenaire"), le fichier a passé l'épreuve de la validation; les valeurs présentes dans le fichier excel sont replacées.</td></tr><tr><td style="text-align: left;">4</td><td style="text-align: left;">Cliquez sur le bouton <img src="/website/image/ir.attachment/mozaik-help-import-sta-candidatures-wizard_img_03|cb3525e/datas" style=""/> pour importer le fichier - "Annuler" stoppe le processus</td><td style="text-align: left;">Les Candidatures sont importées dans le Comité de Sélection préalablement sélectionné. Elles apparaissent en rouge car elles sont dans l'état "déclaré". </td></tr></tbody></table><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Cet import n'est disponible que pour les Candidatures aux Mandats Politiques (Mandats Legislatifs). Il s'opère à partir de la fiche d'un comité de sélection où les candidatures apparaissent dans la zone inférieure de l'écran. Un code couleur est appliqué selon le statut de la candidature: seules les candidatures d'état "déclaré" sont affichées en rouge; les autres sont affichées en noir (voir <a href="/page/mozaik-help-workflow-candidacy">Cycle de vie d'une candidature</a>). </em></div>
+ 
+
+<div><div style="text-align: left;"><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> L'application n'accepte que des fichiers d'imports de type .CSV UTF-8, sans limitation de taille et avec, comme séparateur la virgule. Tout autre format ou fichier ne correspondant pas au standard requis fera échouer le processus. De plus, le fichier à importer doit respecter une certaine structure. Si celle-ci est corrompue, l'import échouera. </em></div></div>
+
+<div style="text-align: left;"><i>Un fichier CSV à importer comporte 6 colonnes:</i></div>
+
+<ul><li style="text-align: left;"><i>l'identifiant (identifier): il s'agit du numéro de membre; champ obligatoire</i></li><li style="text-align: left;"><i>le nom du candidat (partner_name): celui que le candidat souhaite voir apparaître sur les listes électorales; <i>champ obligatoire</i></i></li><li style="text-align: left;"><i>candidat effectif (is_effective): valeur "1" pour une candidature d'"effectif", pas de valeur dans le cas contraire;</i></li><li style="text-align: left;"><i>la position du candidat effectif (list_effective_position); il s'agit ici d'un simple numéro correspondant à la place du candidat sur la liste</i></li><li style="text-align: left;"><i>candidat suppléant (is_substitute): valeur "1" pour une candidature de "suppléant", pas de valeur dans le cas contraire;</i></li><li style="text-align: left;"><i>la position du candidat suppléant (list_substitute_position): il s'agit d'un simple numéro, correspondant à la place du candidat sur la liste.</i></li></ul><p style="text-align: left;"><i>Dans le cas précis des élections communales où tous les candidats sont à la fois effectifs et suppléants, les deux champs "is_effective" et "is_substitute" doivent rester vides, et seul le champ "list_effective_position" est pertinent.</i></p>
+
+<div style="text-align: left;"><div><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Le bouton "Vider" vous permet de vider votre sélection. Le bouton "Enregistrer sous" n'est pas pertinent dans ce cadre. </em></div><em style="line-height: 1.42857143; background-color: transparent;"/></div>
+ 
+
+<div style="text-align: left;"><strong><em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-exclamation-triangle fa-2x"/></em></strong><strong>Exceptions</strong></div>
+
+<p style="text-align: left;">1/ Utilisation d'un mauvais format: voici le message qui sera en ce cas affiché:</p>
+
+<p style="text-align: left;"><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-import-sta-candidatures-wizard_img_04|baab2fb/datas" style=""/></p>
+
+<p style="text-align: left;">Ici, le fichier n'est pas en "colonnes", c'est ce que l'application détecte.</p>
+
+<p style="text-align: left;"><span style="line-height: 1.42857143;">2/ Utilisation d'un fichier qui ne répond pas au standard: voici le message qui sera en ce cas affiché:</span></p>
+
+<p style="text-align: left;"><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-import-sta-candidatures-wizard_img_05|1a1f099/datas" style=""/></p>
+
+<p style="text-align: left;">Ici, la structure du fichier se rapproche plus mais contient une erreur.</p>
+
+<p style="text-align: left;">3/ Si vous tentez d'importer plusieurs fois le même fichier ou que les Candidatures existent déjà, voici le message qui sera affiché:</p>
+
+<p style="text-align: left;"><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-import-sta-candidatures-wizard_img_06|d6baf77/datas" style=""/></p>
+
+<p style="text-align: left;"><a href="/page/mozaik-help-toc"><span class="fa fa-reply fa-2x" style=""/> Retour au sommaire </a></p>
+</div>
                 </div>
               </div>
             </section>
@@ -19951,7 +19902,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
               <div class="container">
                 <div class="row">
                   <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
-                    <span style="color: rgb(0, 128, 0);">Proposer une Candidature</span>
+                    <span style="color: rgb(0, 128, 0);">Proposer/suggérer une Candidature</span>
                   </h2>
                   <p style="text-align: left;">
                     <span class="fa fa-flag fa-2x"/>
@@ -20006,16 +19957,16 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                         <tr>
                           <td style="text-align: left;">3</td>
                           <td style="text-align: left;">Cliquez sur "OK" pour confirmer - "Annuler" stoppe le process</td>
-                          <td style="text-align: left;">La Candidature passe en statut "Proposé"</td>
+                          <td style="text-align: left;">La Candidature passe en statut "Suggérée"</td>
                         </tr>
                       </tbody>
                     </table>
                     <div style="text-align: left;">
-                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Le Candidat concerné et listé dans l'onglet "Candidatures" du Comité de Sélection est mis à jour. </em>
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Le Candidat concerné est listé dans l'onglet "Candidatures" du Comité de Sélection est mis à jour. </em>
                     </div>
                     <div>
                       <div style="text-align: left;">
-                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Un retour en arrière est possible en affichant la Candidature en mode formulaire et <em style="line-height: 1.42857143; background-color: transparent;"> en cliquant sur le bouton "Declare" (+ confirmation) ou sur <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-reject-candidature_img_03|5f3c8aa/datas"/> à partir de la fiche du Comité de Sélection </em> . La Candidature sera remise en l'état "Déclaré". </em>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Un retour en arrière est possible en affichant la Candidature en mode formulaire et <em style="line-height: 1.42857143; background-color: transparent;"> en cliquant sur le bouton "Déclarer" (+ confirmation) ou sur <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-reject-candidature_img_03|5f3c8aa/datas"/> à partir de la fiche du Comité de Sélection </em> . La Candidature sera remise en l'état "Déclaré". </em>
                       </div>
                     </div>
                     <div style="text-align: left;">
