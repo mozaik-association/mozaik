@@ -136,6 +136,11 @@ class distribution_list(orm.Model):
                                 cr, user_id, msg, dl_id, context=ctx)
         return
 
+    def _register_hook(self, cr):
+        super(distribution_list, self)._register_hook(cr)
+        self._fields['note'].track_visibility = 'onchange'
+        pass
+
 
 class distribution_list_line(orm.Model):
 

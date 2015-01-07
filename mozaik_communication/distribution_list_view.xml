@@ -107,21 +107,19 @@
                 </xpath>
 
                 <!-- Add user tree into distribution list form -->
-                <xpath expr="//sheet" position="inside">
-                    <notebook>
-                        <page name="security" string="Security" autofocus="autofocus" groups="mozaik_base.mozaik_res_groups_user">
-                            <group name="validity">
-                                <field name="int_instance_id" />
-                                <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
-                            </group>
-                            <div class="oe_clear">
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                            </div>
-                        </page>
-                    </notebook>
+                <xpath expr="//notebook[@name='dl_notebook']" position="inside">
+                    <page name="security" string="Security" autofocus="autofocus" groups="mozaik_base.mozaik_res_groups_user">
+                        <group name="validity">
+                            <field name="int_instance_id" />
+                            <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                        </group>
+                        <div class="oe_clear">
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                    </page>
                 </xpath>
 
                 <!-- Add developper tools and chatter -->
