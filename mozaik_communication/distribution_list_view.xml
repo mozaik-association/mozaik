@@ -29,11 +29,7 @@
                 </xpath>
             </field>
         </record>
-        <record id="mass_mailing_distribution_list.distribution_list_search" model="ir.ui.view">
-            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
-                                          ]"/>
-        </record>
-
+        
         <!-- TREE -->
         <record id="distribution_list_tree" model="ir.ui.view">
             <field name="name">distribution.list.tree (mozaik_communication)</field>
@@ -42,7 +38,6 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='dst_model_id']" position="replace">
                     <field name="dst_model_id" invisible="1"/>
-                    <field name="newsletter" invisible="1"/>
                     <field name="int_instance_id"/>
                     <field name="active" invisible="1"/>
                 </xpath>
@@ -65,10 +60,6 @@
 
             </field>
         </record>
-        <record id="mass_mailing_distribution_list.distribution_list_tree" model="ir.ui.view">
-            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
-                                          ]"/>
-        </record>
 
         <!-- FORM -->
         <record id="distribution_list_form" model="ir.ui.view">
@@ -90,8 +81,9 @@
                 </xpath>
 
                 <xpath expr="//group[@name='info']" position="replace">
-                    <group attrs="{'invisible': [('newsletter', '=', False)]}">
-                        <field name="public" />
+                    <group>
+                        <field name="newsletter"/>
+                        <field name="public" attrs="{'invisible': [('newsletter', '=', False)]}"/>
                     </group>
                     <group name="forwarding_infos">
                         <group name="mail_forwarding">
@@ -146,7 +138,6 @@
                                 <field name="id"/>
                                 <field name="active"/>
                                 <field name="company_id"/>
-                                <field name="newsletter"/>
                                 <field name="dst_model_id"
                                        on_change="onchange_dst_model(dst_model_id)"
                                        domain="[('model', 'in', ['virtual.target', 'res.partner'])]"/>

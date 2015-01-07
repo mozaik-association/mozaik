@@ -8,20 +8,6 @@
             - Filters
         -->
 
-        <record id="distribution_list.distribution_list_action" model="ir.actions.act_window">
-            <field name="domain">[('newsletter', '=', False)]</field>
-            <field name="context">{'default_newsletter': False}</field>
-        </record>
-
-        <record id="newsletter_action" model="ir.actions.act_window">
-            <field name="name">Newsletters</field>
-            <field name="res_model">distribution.list</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[('newsletter', '=', True)]</field>
-            <field name="context">{'default_newsletter': True}</field>
-        </record>
-
         <menuitem id="distribution_lists_submenu" name="Distribution Lists"
                   sequence="20" parent="mozaik_base.communication_root_menu" />
 
@@ -29,9 +15,6 @@
             <field name="sequence">10</field>
             <field name="parent_id" ref="distribution_lists_submenu" />
         </record>
-
-        <menuitem id="newsletter" parent="distribution_lists_submenu"
-            sequence="20" action="newsletter_action"/>
 
         <record id="distribution_list.distribution_list_line" model="ir.ui.menu">
             <field name="sequence">30</field>

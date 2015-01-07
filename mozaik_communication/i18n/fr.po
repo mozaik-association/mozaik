@@ -1127,12 +1127,6 @@ msgid "Natural Persons"
 msgstr "Personnes physiques"
 
 #. module: mozaik_communication
-#: model:ir.actions.act_window,name:mozaik_communication.newsletter_action
-#: model:ir.ui.menu,name:mozaik_communication.newsletter
-msgid "Newsletters"
-msgstr "Lettres d'information"
-
-#. module: mozaik_communication
 #: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
 #: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
