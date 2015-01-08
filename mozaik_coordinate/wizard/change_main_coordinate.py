@@ -37,7 +37,46 @@ class change_main_coordinate(orm.TransientModel):
 
     _columns = {
         'invalidate_previous_coordinate': fields.boolean('Invalidate Previous Main Coordinate'),
+        'change_allowed': fields.boolean(string='Change Allowed'),
     }
+
+    _defaults = {
+        'change_allowed': True
+    }
+
+    def _switch_context(self, cr, uid, model, res_id, context=None):
+        context = context or {}
+        coord = self.pool.get(model).browse(cr, uid, res_id, context=context)
+        context['active_model'] = 'res.partner'
+        context['active_id'] = coord.partner_id.id
+        context['res_id'] = [coord.partner_id.id]
+        context.pop('active_ids', False)
+        context['target_id'] = coord.id
+
+    def default_get(self, cr, uid, flds, context):
+        """
+        To get default values for the object.
+        """
+        res = {}
+        res['change_allowed'] = True
+        context = context or {}
+        if not context.get('target_model'):
+            raise orm.except_orm(_('Error'), _('Target model not specified!'))
+
+        model = context.get('active_model', False)
+        mode = context.get('mode', 'new')
+
+        ids = context.get('active_ids') \
+            or (context.get('active_id') and [context.get('active_id')]) \
+            or []
+
+        if mode == 'switch':
+            # switch of a main coordinate to another existing coordinate
+            if not len(ids) == 1:
+                raise orm.except_orm(_('Error'), _('Please select only one coordinate!'))
+            self._switch_context(cr, uid, model, ids[0], context=context)
+
+        return res
 
     def button_change_main_coordinate(self, cr, uid, ids, context=None):
         """
@@ -56,6 +95,14 @@ class change_main_coordinate(orm.TransientModel):
         context = context or {}
         if not context.get('target_model'):
             raise orm.except_orm(_('Error'), _('Target model not specified!'))
+        mode = context.get('mode', 'new')
+        model = context.get('active_model', False)
+        if mode == 'switch':
+            # switch of a main coordinate to another existing coordinate
+            coord_ids = context.get('active_ids') \
+                or (context.get('active_id') and [context.get('active_id')]) \
+                or []
+            self._switch_context(cr, uid, model, coord_ids[0], context=context)
 
         partner_ids = context.get('active_ids', False) if context.get('active_ids', False) else list(context.get('res_id', False))
         if not partner_ids:

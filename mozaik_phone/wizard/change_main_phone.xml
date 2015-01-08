@@ -11,9 +11,14 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='invalidate_previous_coordinate']" position="before">
-                    <field name="phone_id" options='{"no_open":True}' />
+                    <field name="old_phone_id" options='{"no_open":True}' readonly='1'/>
+                    <field name="phone_id" options='{"no_open":True}' 
+                           readonly="context.get('mode', '') == 'switch'"
+                           on_change="onchange_phone_id(phone_id, partner_id)"/>
                 </xpath>
-
+                <xpath expr="//group[@name='data']" position="inside">
+                    <field name="partner_id" groups="mozaik_base.res_groups_developper"/>
+                </xpath>
             </field>
         </record>
 
@@ -35,6 +40,26 @@
             <field name="key">action</field>
             <field name="key2">client_action_multi</field>
             <field name="value" eval="'ir.actions.act_window,%s' % ref('change_main_phone_action')"/>
+        </record>
+
+        <record id="set_as_main_action" model="ir.actions.act_window">
+            <field name="name">Set as main</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">phone.coordinate</field>
+            <field name="res_model">change.main.phone</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="change_main_phone_wizard" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+            <field name="context">{'target_model': 'phone.coordinate', 'mode': 'switch'}</field>
+        </record>
+
+        <record id="set_as_main_value" model="ir.values">
+            <field name="name">Set as main</field>
+            <field name="model">phone.coordinate</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('set_as_main_action')" />
         </record>
     </data>
 </openerp>

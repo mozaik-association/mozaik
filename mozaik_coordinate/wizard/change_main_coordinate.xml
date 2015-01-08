@@ -11,9 +11,10 @@
                 <form string="Change Main Coordinate" version="7.0">
                     <group name="data">
                         <field name="invalidate_previous_coordinate" />
+                        <field name="change_allowed" groups="mozaik_base.res_groups_developper"/>
                     </group>
                     <footer>
-                        <span name="go-wizard">
+                        <span name="go-wizard" attrs="{'invisible': [('change_allowed','=', False)]}">
                             <button string="Change" name="button_change_main_coordinate"
                                     type="object" class="oe_highlight" />
                             or

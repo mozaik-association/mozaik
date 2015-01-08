@@ -76,11 +76,7 @@
                     <header>
                         <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                              invisible="context.get('popup')"
-                             groups="mozaik_base.mozaik_res_groups_user">
-                            <button name="set_as_main" string="Set As Main" type="object"
-                                    attrs="{'invisible': [('is_main','=',True)]}"
-                                    context="{'invalidate': True}"
-                                    confirm="Set this coordinate as main and invalidate the previous one: proceed anyway?" />
+                             groups="mozaik_base.mozaik_res_groups_user">                            
                             <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
                                     attrs="{'invisible': [('is_duplicate_allowed','=',False)]}"
                                     confirm="Undo allow duplicate: proceed anyway?" />
@@ -159,6 +155,5 @@
                 </form>
             </field>
         </record>
-
     </data>
 </openerp>

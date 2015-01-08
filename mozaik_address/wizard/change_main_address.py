@@ -27,6 +27,7 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
+from openerp.tools import SUPERUSER_ID
 
 
 class change_main_address(orm.TransientModel):
@@ -36,7 +37,24 @@ class change_main_address(orm.TransientModel):
     _description = 'Change Main Address Wizard'
 
     _columns = {
+        'old_address_id': fields.many2one(
+            'address.address', 'Current Main Address'),
         'address_id': fields.many2one(
             'address.address', 'New Main Address',
             required=True, ondelete='cascade'),
     }
+
+    def default_get(self, cr, uid, flds, context):
+        res = super(change_main_address, self).default_get(cr, uid, flds, context=context)
+        if context.get('mode', False) == 'switch':
+            coord = self.pool.get(context.get('target_model')).browse(cr, uid, context.get('target_id', False))
+            res['address_id'] = coord.address_id.id
+        ids = context.get('active_ids') \
+            or (context.get('active_id') and [context.get('active_id')]) \
+            or []
+        if len(ids) == 1:
+            partner = self.pool.get('res.partner').browse(cr, SUPERUSER_ID, ids[0], context=context)
+            res['old_address_id'] = partner.postal_coordinate_id.address_id.id
+            if context.get('address_id', False):
+                res['change_allowed'] = not(res['address_id'] == res['old_address_id'])
+        return res
