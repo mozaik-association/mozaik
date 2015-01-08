@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-20 09:41+0000\n"
-"PO-Revision-Date: 2014-10-20 09:41+0000\n"
+"POT-Creation-Date: 2015-01-08 12:22+0000\n"
+"PO-Revision-Date: 2015-01-08 12:22+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -71,18 +71,22 @@ msgstr "Ajouter des inscriptions"
 #: view:postal.mail:mozaik_communication.postal_mail_search_view
 #: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
 msgid "All"
-msgstr "Tout"
+msgstr "Tous"
 
 #. module: mozaik_communication
 #: view:distribution.list:mozaik_communication.distribution_list_search
-#: view:distribution.list.line:mozaik_communication.distribution_list_line_search
-msgid "All Coordinates, expired or not"
-msgstr "Toutes les coordonnées, expirées ou non"
+msgid "All Distribution Lists, expired or not"
+msgstr "Toutes les listes de distributions, expirées ou non"
 
 #. module: mozaik_communication
 #: view:event.event:mozaik_communication.view_event_search
 msgid "All Events, expired or not"
 msgstr "Tous les événements, expirés ou non"
+
+#. module: mozaik_communication
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_search
+msgid "All Filters, expired or not"
+msgstr "Tous les filtres, expirés ou non"
 
 #. module: mozaik_communication
 #: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
@@ -98,11 +102,6 @@ msgstr "Tous les envois postaux de masse, expirés ou non"
 #: view:event.registration:mozaik_communication.view_registration_search
 msgid "All Registrations, expired or not"
 msgstr "Toutes les inscriptions, expirées ou non"
-
-#. module: mozaik_communication
-#: view:distribution.list:mozaik_communication.distribution_list_search
-msgid "Allow Mail Forwarding"
-msgstr "Transfert de courriels supporté"
 
 #. module: mozaik_communication
 #: selection:virtual.partner.retrocession,month:0
@@ -445,7 +444,7 @@ msgstr "Employé"
 #. module: mozaik_communication
 #: code:addons\mozaik_communication\event.py:80
 #: code:addons\mozaik_communication\postal_mail.py:187
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:201
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:198
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -495,14 +494,18 @@ msgstr "Expiré"
 
 #. module: mozaik_communication
 #: view:distribution.list:mozaik_communication.distribution_list_search
-#: view:distribution.list.line:mozaik_communication.distribution_list_line_search
-msgid "Expired Coordinates"
-msgstr "Coordonnées expirées"
+msgid "Expired Distribution Lists"
+msgstr "Listes de distribution expirées"
 
 #. module: mozaik_communication
 #: view:event.event:mozaik_communication.view_event_search
 msgid "Expired Events"
 msgstr "Évènements expirés"
+
+#. module: mozaik_communication
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_search
+msgid "Expired Filters"
+msgstr "Filtres expirés"
 
 #. module: mozaik_communication
 #: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
@@ -520,19 +523,19 @@ msgid "Expired Registrations"
 msgstr "Inscriptions expirées"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:312
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:307
 #, python-format
 msgid "Export CSV"
 msgstr "Exportation CSV"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:269
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:264
 #, python-format
 msgid "Export PDF"
 msgstr "Exportation PDF"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:329
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:324
 #, python-format
 msgid "Export VCF"
 msgstr "Exportation VCF"
@@ -994,6 +997,11 @@ msgstr "Date de fin de mandat < ..."
 #: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
 msgid "Mandate End Date > ..."
 msgstr "Date de fin de mandat > ..."
+
+#. module: mozaik_communication
+#: field:virtual.partner.mandate,mandate_instance_id:0
+msgid "Mandate Instance"
+msgstr "Instance du mandat"
 
 #. module: mozaik_communication
 #: field:virtual.partner.candidature,start_date:0
@@ -1610,7 +1618,7 @@ msgid "Templates"
 msgstr "Modèles de courriel"
 
 #. module: mozaik_communication
-#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:201
+#: code:addons\mozaik_communication\wizard\distribution_list_mass_function.py:198
 #, python-format
 msgid "There are no recipients"
 msgstr "Aucun destinataire"
@@ -1807,14 +1815,20 @@ msgid "mozaik_base.mozaik_res_groups_user"
 msgstr ""
 
 #. module: mozaik_communication
+#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_form
+msgid "mozaik_base.res_groups_developper"
+msgstr ""
+
+#. module: mozaik_communication
 #: view:distribution.list.line:mozaik_communication.distribution_list_line_form
 msgid "not context.get('is_developper')"
 msgstr ""
 
 #. module: mozaik_communication
-#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_distribution_list_form
-msgid "{'invisible': [('distribution_list_id', '!=', False)]}"
-msgstr ""
+#: view:add.registration:mozaik_communication.add_registration_wizard
+#: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+msgid "or"
+msgstr "ou"
 
 #. module: mozaik_communication
 #: view:distribution.list.line:mozaik_communication.distribution_list_line_form
@@ -1824,6 +1838,11 @@ msgstr ""
 #. module: mozaik_communication
 #: view:event.registration:mozaik_communication.view_event_registration_form
 msgid "{'readonly': [('id', '!=', False)]}"
+msgstr ""
+
+#. module: mozaik_communication
+#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_form
+msgid "{'required': [('mailing_model', '!=','email.coordinate')],'invisible': [('mailing_model', '=','email.coordinate')]}"
 msgstr ""
 
 #. module: mozaik_communication

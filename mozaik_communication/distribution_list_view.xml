@@ -16,20 +16,17 @@
                 </xpath>
 
                 <xpath expr="//field[@name='name']" position="after">
-                    <field name="mail_alias_id" />
-                    <filter name="mail_forwarding" string="Allow Mail Forwarding"
-                        domain="[('mail_forwarding','=',True)]" />
                     <field name="int_instance_id"/>
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expired Coordinates" />
+                        domain="[('active','=',False)]" help="Expired Distribution Lists" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Coordinates, expired or not" />
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Distribution Lists, expired or not" />
                 </xpath>
             </field>
         </record>
-        
+
         <!-- TREE -->
         <record id="distribution_list_tree" model="ir.ui.view">
             <field name="name">distribution.list.tree (mozaik_communication)</field>
@@ -162,10 +159,10 @@
                 <xpath expr="//field[@name='src_model_id']" position="after">
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
-                        domain="[('active','=',False)]" help="Expired Coordinates" />
+                        domain="[('active','=',False)]" help="Expired Filters" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
-                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Coordinates, expired or not" />
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Filters, expired or not" />
                 </xpath>
             </field>
         </record>
