@@ -4796,7 +4796,7 @@ M8vAyfMJ4nOfMC/Ee1xCA5YAOEBgECVIALPlAcjyuVcVAAAAAElFTkSuQmCC
                       <li>la notion d’abonnement ou de désabonnement (Inscrits/Opt-in - Désinscrits/Opt-out).</li>
                       <li>une coche qui peut la déclarer publique; cela signifie qu'elle sera disponible ou non sur le site Internet (permettant la désinscription);</li>
                     </ol>
-                    <p>Elle fonctionne de la même façon qu'une Liste de distribution et si la Lettre est constituée de plusieurs filtres, le calcul est opéré de la même façon en retirant toutefois du résultat les Personnes listées dans la colonne des "désinscrits". La désinscription se fait via le lien qui est présent dans la lettre d'information (insertion automatique par le système dès le moment où l'on choisit de créer une lettre d'information) ou manuellement dans la fiche de la lettre de l'information (ajout de la personne dans la zone "désinscription/Opt-out").</p>
+                    <p>Elle fonctionne de la même façon qu'une Liste de distribution et si la Lettre est constituée de plusieurs filtres, le calcul est opéré de la même façon en retirant toutefois du résultat les Personnes listées dans la colonne des "désinscrits". La désinscription se fait via le lien qui est présent dans la lettre d'information (insertion automatique par le système dès le moment où l'on choisit de créer une lettre d'information associée à une campagne (voir <a href="/page/mozaik-help-distribution-list-mass-function">Envoyer des courriers de masse</a>) ou manuellement dans la fiche de la lettre de l'information (ajout de la personne dans la zone "désinscription/Opt-out").</p>
                   </div>
                   <h4>
                     <span style="color: inherit; font-family: inherit; line-height: 1.1;">Quel sera le contenu de mes envois?</span>
@@ -5928,7 +5928,7 @@ HB9bteqhmfNG6ne1+lSN8A48WAnynO7hU3q184mpzBPz7AMrcmuvt29F61S5ttqalsm2O7QW/Kue
                           <td style="text-align: left;">5</td>
                           <td style="text-align: left;">Sélectionner ou définissez les options souhaitées (sur base du mode d'envoi sélectionné)
 			<ul><li><strong>pour envoi d'email en masse</strong> (onglet "Courriels de masse")
-				<ul><li>Spécifiez un nom pour votre courriel si vous souhaitez garder une trace (historique)</li><li>Choisissez un modèle de texte pour votre courriel (créé au préalable)</li><li>Cochez l'option "CSV complémentaire pour envoi postal" si vous souhaitez qu'une extraction CSV soit automatiquement exécutée pour tous les destinataires qui manqueraient d'une adresse email - Dans ce cas, un onglet "Envoi postal" (voir ci-dessous)</li></ul></li><li>Pour <strong>envoi de courriers postaux </strong>(onglet "Envoi postal de masse")
+				<ul><li>Spécifiez un nom pour votre courriel si vous souhaitez garder une trace (historique) et si vous souhaitez qu'un lien de désinscription soit inséré automatiquement</li><li>Choisissez un modèle de texte pour votre courriel (créé au préalable)</li><li>Cochez l'option "CSV complémentaire pour envoi postal" si vous souhaitez qu'une extraction CSV soit automatiquement exécutée pour tous les destinataires qui manqueraient d'une adresse email - Dans ce cas, un onglet "Envoi postal" (voir ci-dessous)</li></ul></li><li>Pour <strong>envoi de courriers postaux </strong>(onglet "Envoi postal de masse")
 				<ul><li>Spécifiez un nom pour votre envoi postal si vous souhaitez garder une trace (historique)</li><li>Choisissez une option de tri
 					<ul><li>alphabétique sur le nom,</li><li>basé sur le numéro d'identification au sein du parti,</li><li>basé sur code postal (pays, code postal)</li></ul></li><li>Cochez l'option "Grouper par Co-Résidence" si vous souhaitez le regroupement par Co-Résidence (notez que dans ce cas ce sera le nom spécifié pour la Co-résidence qui apparaitra (voir <a href="/page/mozaik-help-co-residency">Co-Résidence</a>).</li></ul></li></ul></td>
                           <td style="text-align: left;"/>
@@ -5941,13 +5941,21 @@ HB9bteqhmfNG6ne1+lSN8A48WAnynO7hU3q184mpzBPz7AMrcmuvt29F61S5ttqalsm2O7QW/Kue
                       </tbody>
                     </table>
                     <div style="text-align: left;">
-                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Si votre envoi de masse concerne les listes de distribution relatives à l'envoi des cartes de membre et/ou des documents de bienvenue (envoi postal), et pour peu que vous avez décidé d'historiser l'envoi, l'application vous proposera d'enregistrer la date d'envoi des documents - Celle-ci sera enregistrée sur les fiches de toutes les personnes concernées par l'envoi. L'enregistrement d'une telle date assurera que les documents ne sont pas envoyés plusieurs fois. Si toutefois vous souhaitez envoyer une seconde fois ces documents, il vous suffit d'enlever la date et la personne sera automatiquement réincluse dans la liste de distribution. </em>
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Si votre envoi de masse concerne les listes de distribution relatives à l'envoi des cartes de membre et/ou des documents de bienvenue (envoi postal), et pour peu que vous avez décidé d'historiser l'envoi, l'application vous proposera d'enregistrer la date d'envoi des documents - Celle-ci sera enregistrée sur les fiches de toutes les personnes concernées par l'envoi. L'enregistrement d'une telle date assurera que les documents ne sont pas envoyés plusieurs fois. Si toutefois vous souhaitez envoyer une seconde fois ces documents, il vous suffit d'enlever la date et la personne sera automatiquement réincluse dans la liste de distribution. </em>
                     </div>
                     <div style="text-align: left;">
                       <em style="line-height: 1.42857143; background-color: transparent;"/>
                       <div/>
                       <div>
-                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Les modèles de courriels doivent être rédigés au préalable, c'est une donnée obligatoire pour pouvoir envoyer les courriels. </em>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Dans le cas d'envoi d'une lettre d'information, il est impératif de nommer le courriel de masse afin de s'assurer que le lien pour pouvoir se désinscrire soit bien inséré. </em>
+                      </div>
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                    </div>
+                    <div style="text-align: left;">
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      <div/>
+                      <div>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Les modèles de courriels doivent être rédigés au préalable, c'est une donnée obligatoire pour pouvoir envoyer les courriels. </em>
                       </div>
                       <em style="line-height: 1.42857143; background-color: transparent;"/>
                     </div>
