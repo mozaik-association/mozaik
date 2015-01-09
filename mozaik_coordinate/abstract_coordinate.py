@@ -329,7 +329,7 @@ class abstract_coordinate(orm.AbstractModel):
         if self._discriminant_field == 'email':
             ctx = context.copy()
             self._check_force_from(
-                cr, uid, coordinate.email, coordinate.partner_id,
+                cr, uid, coordinate.email, coordinate.partner_id.id,
                 context=ctx)
         self.search_and_update(
             cr, uid, target_domain, fields_to_update, context=ctx)
@@ -431,5 +431,24 @@ class abstract_coordinate(orm.AbstractModel):
                 'is_main': False,
             })
         return res
+
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+        rejected_ids = []
+        for coordinate in self.browse(cr, uid, ids, context=context):
+            coord_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
+                                              ('coordinate_type', '=', coordinate.coordinate_type),
+                                              ('id', '!=', coordinate.id)], context=context)
+            if coordinate.is_main and len(coord_ids) == 1:
+                # only one coordinate will remain after invalidate -> set it automatically as new main
+                new_main = self.browse(cr, uid, coord_ids[0], context=context)
+                context['invalidate'] = True
+                coordinate_field = self._discriminant_field
+                coordinate_value = self._is_discriminant_m2o() and new_main[coordinate_field].id or new_main[coordinate_field]
+                self.change_main_coordinate(cr, uid, [coordinate.partner_id.id], coordinate_value, context=context)
+                if vals:
+                    self.write(cr, uid, coordinate.id, vals, context=context)
+            else:
+                rejected_ids.append(coordinate.id)
+        return super(abstract_coordinate, self). action_invalidate(cr, uid, rejected_ids, context=context, vals=vals)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

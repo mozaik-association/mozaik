@@ -45,6 +45,9 @@ class test_phone_coordinate(abstract_coordinate, common.TransactionCase):
         self.field_id_2 = model_phone.create(self.cr, self.uid, {'name': '+32 465 00 00 00',
                                                                  'type': 'mobile'
                                                                 }, context={})
+        self.field_id_3 = model_phone.create(self.cr, self.uid, {'name': '+32 465 00 00 01',
+                                                                 'type': 'mobile'
+                                                                }, context={})
         self.coo_into_partner = 'mobile_coordinate_id'
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

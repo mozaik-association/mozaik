@@ -272,7 +272,7 @@ class abstract_coordinate(object):
 
     def test_bad_invalidate(self):
         """
-        :test_case: * create two model coordinate with same model_id for the
+        :test_case: * create three models coordinate with same model_id for the
                         same partner
                     * invalidate main coordinate
                     * check that it fails
@@ -290,6 +290,39 @@ class abstract_coordinate(object):
         }
         self.model_coordinate.create(
             cr, uid, vals, context=context)
+        vals = {
+            'partner_id': self.partner_id_1,
+            self.model_coordinate._discriminant_field: self.field_id_3,
+        }
+        self.model_coordinate.create(
+            cr, uid, vals, context=context)
         self.assertRaises(orm.except_orm,
                           self.model_coordinate.action_invalidate, cr, uid,
                           [coordinate_id_1], context=context)
+
+    def test_autoswitch_main_on_invalidate(self):
+        """
+        :test_case: * create 2 models coordinate with same model_id for the
+                        same partner
+                    * invalidate main coordinate
+                    * check if the second one is now the main coordinate
+        """
+        cr, uid, context = self.cr, self.uid, {}
+        vals = {
+            'partner_id': self.partner_id_1,
+            self.model_coordinate._discriminant_field: self.field_id_1,
+        }
+        coordinate_id_1 = self.model_coordinate.create(
+            cr, uid, vals, context=context)
+        vals = {
+            'partner_id': self.partner_id_1,
+            self.model_coordinate._discriminant_field: self.field_id_2,
+        }
+        coordinate_id_2 = self.model_coordinate.create(
+            cr, uid, vals, context=context)
+
+        self.model_coordinate.action_invalidate(cr, uid,
+                                                [coordinate_id_1], context=context)
+        coordinate = self.model_coordinate.browse(cr, uid,
+                                                  coordinate_id_2, context=context)
+        self.assertTrue(coordinate.is_main)
