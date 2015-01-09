@@ -184,6 +184,14 @@ class test_coordinate_wizard(object):
         self.assertEqual(active, True, 'Previous model Coordinate should not be invalidate')
 
     def test_switch_main_coordinate(self):
+        """
+        ========================================
+        test_switch_main_coordinate
+        ========================================
+        This test check the ability of the wizard
+        to set a selected coordinate as main, unflag the current one
+        and eventually invalidate it
+        """
         vals = {
             'partner_id': self.partner_id_4,
             self.model_coordinate._discriminant_field: self.field_id_1,
