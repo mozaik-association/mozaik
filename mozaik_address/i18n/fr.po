@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-19 22:09+0000\n"
-"PO-Revision-Date: 2014-10-19 22:09+0000\n"
+"POT-Creation-Date: 2015-01-09 02:08+0000\n"
+"PO-Revision-Date: 2015-01-09 02:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -92,6 +92,11 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #. module: mozaik_address
+#: field:change.main.address,change_allowed:0
+msgid "Change Allowed"
+msgstr "Changement autorisé"
+
+#. module: mozaik_address
 #: model:ir.actions.act_window,name:mozaik_address.change_main_address_action
 msgid "Change Main Address"
 msgstr "Changer l'adresse principale"
@@ -159,11 +164,6 @@ msgid "Country Code"
 msgstr "Code du pays"
 
 #. module: mozaik_address
-#: field:res.country,country_group_ids:0
-msgid "Country Groups"
-msgstr "Groupes de pays"
-
-#. module: mozaik_address
 #: field:address.address,create_uid:0
 #: field:address.local.street,create_uid:0
 #: field:address.local.zip,create_uid:0
@@ -190,6 +190,11 @@ msgstr "Date de création"
 #: field:postal.coordinate,create_date:0
 msgid "Creation Date"
 msgstr "Date de création"
+
+#. module: mozaik_address
+#: field:change.main.address,old_address_id:0
+msgid "Current Main Address"
+msgstr "Adresse principale actuelle"
 
 #. module: mozaik_address
 #: help:address.address,message_last_post:0
@@ -570,6 +575,11 @@ msgid "Sequence"
 msgstr "Séquence"
 
 #. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.set_as_main_action
+msgid "Set as main"
+msgstr "Positionner comme principale"
+
+#. module: mozaik_address
 #: field:address.address,street:0
 #: field:address.address,street_man:0
 #: view:address.local.street:mozaik_address.address_local_street_search_view
@@ -704,6 +714,11 @@ msgstr "Code postal"
 #: view:address.address:mozaik_address.address_address_form_view
 msgid "address"
 msgstr "adresse"
+
+#. module: mozaik_address
+#: view:streets.repository.loader:mozaik_address.streets_repository_loader_view
+msgid "or"
+msgstr "ou"
 
 #. module: mozaik_address
 #: view:postal.coordinate:mozaik_address.postal_coordinate_form_view

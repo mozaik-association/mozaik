@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-20 14:51+0000\n"
-"PO-Revision-Date: 2014-10-20 14:51+0000\n"
+"POT-Creation-Date: 2015-01-09 01:47+0000\n"
+"PO-Revision-Date: 2015-01-09 01:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgid "Allowed Duplicates"
 msgstr "Doublons autorisés"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\abstract_coordinate.py:257
+#: code:addons\mozaik_coordinate\abstract_coordinate.py:277
 #, python-format
 msgid "An active coordinate cannot be duplicated!"
 msgstr "Une coordonnée active ne peut être dupliquée !"
@@ -58,7 +58,7 @@ msgid "Apply"
 msgstr "Appliquer"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:62
+#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:109
 #, python-format
 msgid "At least one partner is required to change its main coordinate!"
 msgstr "Au moins un partenanire est requis pour changer sa coordonnée principale !"
@@ -85,6 +85,11 @@ msgstr "Catégorie"
 #: view:change.main.coordinate:mozaik_coordinate.change_main_coordinate_wizard
 msgid "Change"
 msgstr "Changer"
+
+#. module: mozaik_coordinate
+#: field:change.main.coordinate,change_allowed:0
+msgid "Change Allowed"
+msgstr "Changement autorisé"
 
 #. module: mozaik_coordinate
 #: view:change.main.coordinate:mozaik_coordinate.change_main_coordinate_wizard
@@ -174,21 +179,21 @@ msgid "Email Coordinates"
 msgstr "Coordonnées électroniques"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\abstract_coordinate.py:250
-#: code:addons\mozaik_coordinate\abstract_coordinate.py:257
+#: code:addons\mozaik_coordinate\abstract_coordinate.py:270
+#: code:addons\mozaik_coordinate\abstract_coordinate.py:277
 #: code:addons\mozaik_coordinate\wizard\bounce_editor.py:62
 #: code:addons\mozaik_coordinate\wizard\bounce_editor.py:65
 #: code:addons\mozaik_coordinate\wizard\bounce_editor.py:71
-#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:58
-#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:62
+#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:64
+#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:76
+#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:97
+#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:109
 #, python-format
 msgid "Error"
 msgstr "Erreur"
 
 #. module: mozaik_coordinate
 #: constraint:abstract.coordinate:0
-#: code:addons\mozaik_coordinate\abstract_coordinate.py:42
-#, python-format
 msgid "Exactly one main coordinate must exist for a given partner"
 msgstr "Un partenanire ne peut avoir qu'une seule coordonnée principale"
 
@@ -417,6 +422,12 @@ msgid "Phone Coordinates"
 msgstr "Coordonnées téléphoniques"
 
 #. module: mozaik_coordinate
+#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:76
+#, python-format
+msgid "Please select only one coordinate!"
+msgstr "Veuillez sélectionner une seule coordonnée!"
+
+#. module: mozaik_coordinate
 #: view:res.partner:mozaik_coordinate.view_partner_form
 msgid "Postal Coordinates"
 msgstr "Coordonnées postales"
@@ -438,23 +449,14 @@ msgid "Reset Counter: proceed anyway?"
 msgstr "Poursuivre la réinitialisation du compteur ?"
 
 #. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
-msgid "Set As Main"
-msgstr "Positionner comme principale"
-
-#. module: mozaik_coordinate
-#: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view
-msgid "Set this coordinate as main and invalidate the previous one: proceed anyway?"
-msgstr "Poursuivre le changement de coordonnée principale en invalidant la précédente ?"
-
-#. module: mozaik_coordinate
 #: field:abstract.coordinate,message_summary:0
 #: field:coordinate.category,message_summary:0
 msgid "Summary"
 msgstr "Résumé"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:58
+#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:64
+#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:97
 #, python-format
 msgid "Target model not specified!"
 msgstr "Modèle destination non spécifié !"
@@ -526,6 +528,13 @@ msgstr "Avec échecs"
 #: view:res.partner:mozaik_coordinate.view_partner_form
 msgid "autofocus"
 msgstr ""
+
+#. module: mozaik_coordinate
+#: view:bounce.editor:mozaik_coordinate.bounce_editor_wizard
+#: view:change.main.coordinate:mozaik_coordinate.change_main_coordinate_wizard
+#: view:export.csv:mozaik_coordinate.export_csv_wizard
+msgid "or"
+msgstr "ou"
 
 #. module: mozaik_coordinate
 #: view:abstract.coordinate:mozaik_coordinate.abstract_coordinate_form_view

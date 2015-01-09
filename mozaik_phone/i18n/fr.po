@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-20 19:44+0000\n"
-"PO-Revision-Date: 2014-10-20 19:44+0000\n"
+"POT-Creation-Date: 2015-01-09 02:24+0000\n"
+"PO-Revision-Date: 2015-01-09 02:24+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -48,6 +48,11 @@ msgstr "Autoriser les doublons"
 #: field:phone.phone,also_for_fax:0
 msgid "Also for Fax"
 msgstr "Également pour fax"
+
+#. module: mozaik_phone
+#: field:change.main.phone,change_allowed:0
+msgid "Change Allowed"
+msgstr "Changement autorisé"
 
 #. module: mozaik_phone
 #: model:ir.actions.act_window,name:mozaik_phone.change_main_phone_action
@@ -91,6 +96,11 @@ msgstr "Date de création"
 #: field:phone.phone,create_date:0
 msgid "Creation Date"
 msgstr "Date de création"
+
+#. module: mozaik_phone
+#: field:change.main.phone,old_phone_id:0
+msgid "Current Main Phone"
+msgstr "Téléphone principal actuel"
 
 #. module: mozaik_phone
 #: help:phone.coordinate,message_last_post:0
@@ -284,6 +294,7 @@ msgid "Number"
 msgstr "Numéro"
 
 #. module: mozaik_phone
+#: field:change.main.phone,partner_id:0
 #: model:ir.model,name:mozaik_phone.model_res_partner
 msgid "Partner"
 msgstr "Partenaire"
@@ -332,6 +343,11 @@ msgstr "Type de téléphone"
 #: view:phone.phone:mozaik_phone.phone_phone_tree_view
 msgid "Phones"
 msgstr "Téléphones"
+
+#. module: mozaik_phone
+#: model:ir.actions.act_window,name:mozaik_phone.set_as_main_action
+msgid "Set as main"
+msgstr "Positionner comme principale"
 
 #. module: mozaik_phone
 #: field:phone.coordinate,message_summary:0
