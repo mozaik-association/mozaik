@@ -138,12 +138,16 @@
                     <field name="partner_id"/>
                     <field name="int_instance_id"/>
                     <field name="state_id"/>
-                    <field name="product_id"/>
+                    <field name="product_id"
+                        attrs="{'invisible': [('state_code', '!=', 'member'),
+                        ('state_code', '!=', 'former_member_committee'),
+                        ('state_code', '!=', 'member_committee')]}"/>
                     <field name="reference" />
                     <field name="date_from"/>
                     <field name="date_to"/>
                     <field name="active" invisible="1"/>
                     <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
+                    <field name="state_code" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -169,9 +173,11 @@
 
                         <group name="data">
                             <group name="main">
-                                <field name="state_id" readonly="not context.get('is_developper')" />
-                                <field name="product_id" readonly="not context.get('is_developper')"
-                                       attrs="{'invisible': [('product_id','=',False)]}" />
+                               <field name="state_id" readonly="not context.get('is_developper')" />
+                               <field name="product_id"
+                                    attrs="{'invisible': ['|',
+                                                    ('product_id','=',False),
+                                                    ('state_code', 'not in', ['member', 'former_member_committee','member_committee'])]}"/>
                                 <field name="price" readonly="not context.get('in_mozaik_configurator')"
                                        attrs="{'invisible': [('product_id','=',False)]}" />
                                 <field name="reference" readonly="not context.get('is_developper')"
@@ -205,6 +211,7 @@
                                 <field name="id"/>
                                 <field name="active"/>
                                 <field name="partner_instance_id" />
+                                <field name="state_code" />
                             </group>
                         </div>
                     </div>

@@ -202,7 +202,10 @@
                             <group name="membership_subscription">
                                 <field name="subscription_product_id"
                                     widget="selection"
-                                    attrs="{'invisible': [('membership_state_code','=', False)]}" />
+                                    attrs="{'invisible': ['|',
+                                                          ('membership_state_code','=', False),
+                                                          ('membership_state_code', 'not in', ['member',
+                                                          'former_member_committee', 'member_committee'])]}"/>
                                 <field name="reference"
                                     attrs="{'invisible': [('reference', '=', False)]}"
                                     readonly="1" />
@@ -230,11 +233,13 @@
                             <tree colors="gray:active==False;green:state_id[0]==%(mozaik_membership.member)d;red:state_id[0] in [%(mozaik_membership.former_supporter)d, %(mozaik_membership.refused_member_candidate)d, %(mozaik_membership.expulsion_former_member)d, %(mozaik_membership.resignation_former_member)d, %(mozaik_membership.inappropriate_former_member)d, %(mozaik_membership.break_former_member)d]">
                                 <field name="int_instance_id" />
                                 <field name="state_id" />
-                                <field name="product_id" />
+                                <field name="product_id"
+                                    attrs="{'invisible': [('state_code', 'not in', ['member', 'former_member_committee', 'member_committee'])]}"/>
                                 <field name="reference" />
                                 <field name="date_from" />
                                 <field name="date_to" />
                                 <field name="active" invisible="1" />
+                                <field name="state_code" invisible="1"/>
                             </tree>
                         </field>
                     </page>

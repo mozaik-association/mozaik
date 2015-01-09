@@ -64,6 +64,9 @@ class membership_line(orm.Model):
         'state_id': fields.many2one(
             'membership.state', string='State',
             select=True),
+        'state_code': fields.related('state_id', 'code',
+                                     string='State Code', type="char",
+                                     readonly=True),
         'int_instance_id': fields.many2one(
             'int.instance', string='Internal Instance',
             required=True, select=True),
