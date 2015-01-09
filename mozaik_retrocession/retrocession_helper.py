@@ -38,7 +38,7 @@ class RetrocessionHelper(orm.Model):
             cr, uid, 'base.main_company')
         fiscalyear_obj = self.pool['account.fiscalyear']
         dm = [('company_id', '=', company_id), ('code', '=', year)]
-        if fiscalyear_obj.serarch(cr, uid, dm):
+        if fiscalyear_obj.search(cr, uid, dm):
             return
         fiscalyear_id = fiscalyear_obj.create(cr, uid, {
             'name': year,
