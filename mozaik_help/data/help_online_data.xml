@@ -1809,7 +1809,7 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                       </span>
                     </strong>
                     <span style="line-height: 1.42857143;"/>
-                    <span style="line-height: 1.42857143;">option disponible dans le menu "Autres options" en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet. </span>
+                    <span style="line-height: 1.42857143;">option disponible dans le menu "Autres options" en dessous du fil d'Ariane, partie supérieure de l'écran, à partir des Personnes ou des coordonnées postales. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet. </span>
                   </p>
                   <p style="text-align: left;"><span style="line-height: 1.42857143;"><span style="background-color:#FFFF00;"/></span><span style="line-height: 1.42857143;"><span class="fa fa-user fa-2x"/></span><span style="line-height: 1.42857143;"><strong> Audience</strong>: </span>Utilisateur (<span style="line-height: 1.42857143;">voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>).</span><span style="line-height: 1.42857143;"><span style="background-color:#FFFF00;"/></span></p>
                   <p style="text-align: left;">
@@ -1838,8 +1838,9 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                       </tr>
                       <tr>
                         <td style="text-align: left;">1</td>
-                        <td style="text-align: left;">A partir d'une fiche d'un Personne, sélectionnez l'option "Changer l'adresse principale" dans le menu "Autres Options"</td>
-                        <td style="text-align: left;">L'écran suivant est proposé:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-change-main-address_img_01|188887a/datas" style=""/></td>
+                        <td style="text-align: left;">Sélectionnez l'option "Changer l'adresse principale" / "Positionner comme principale" dans le menu "Autres Options".</td>
+                        <td style="text-align: left;">L'écran suivant est proposé:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-change-main-address_img_01|188887a/datas" style=""/><br/>
+			 </td>
                       </tr>
                       <tr>
                         <td style="text-align: left;">2</td>
@@ -1848,7 +1849,7 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                       </tr>
                       <tr>
                         <td>3</td>
-                        <td style="text-align: left;">Cochez la case "Invalider la précédente coordonnée principale" si vous désirez invalider celle-ci</td>
+                        <td style="text-align: left;">Cochez la case "Invalider l'adresse principale précédente" si vous désirez invalider celle-ci</td>
                         <td style="text-align: left;"/>
                       </tr>
                       <tr>
@@ -1864,13 +1865,13 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                     <div/>
                   </div>
                   <div style="text-align: left;">
-                    <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px"/> Les adresses affichées dans la liste sont les adresses préalablement créées dans l'application. Vous avez la possibilité d'en créer une par cette liste en sélectionnant l'option "Créer et Modifier" (voir <a href="/page/mozaik-help-createandedit">Créer et Modifier </a> ). </em>
+                    <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px"/>  Les adresses affichées dans la liste sont les adresses préalablement créées dans l'application. Vous avez la possibilité d'en créer une par cette liste en sélectionnant l'option "Créer et Modifier" (voir <a href="/page/mozaik-help-createandedit">Créer et Modifier </a> ). </em>
                   </div>
                   <div style="text-align: left;">
                     <em style="line-height: 1.42857143; background-color: transparent;"/>
                     <div/>
                     <div>
-                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Dans le cas où le contact n'a pas encore d'adresse encodée, celle sélectionnée dans cet écran lui sera automatiquement attribuée. Notez que si l'adresse réfère à une autre instance Ecolo, trois points de menus complémentaires seront proposés: </em>
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  Dans le cas où le contact n'a pas encore d'adresse encodée, celle sélectionnée dans cet écran lui sera automatiquement attribuée. Notez que si l'adresse réfère à une autre instance Ecolo, trois points de menus complémentaires seront proposés: </em>
                     </div>
                     <div>
                       <em style="line-height: 1.42857143; background-color: transparent;"> </em>
@@ -1886,19 +1887,24 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                     <em style="line-height: 1.42857143; background-color: transparent;"/>
                     <div/>
                     <div>
-                      <em style="line-height: 1.42857143; background-color: transparent;">
-                        <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                      </em>
-                      <em style="line-height: 1.42857143; background-color: transparent;"> Par "invalidation" on entend le fait que l'objet est rendu inactif. Il ne s'affiche plus dans la liste et ne sera plus inclu dans aucune opération. Les objets inactifs peuvent être retrouvés par l'activation du filtre "Expiré" (voir <a href="/page/mozaik-help-filters">Recherche et Filtres</a> ) <a href="/page/mozaik-help-filters"> </a> . Une date d'expiration sera rajoutée aux détails de l'objet. </em>
+                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  </em>
+                      <em style="line-height: 1.42857143; background-color: transparent;">Par "invalidation" on entend le fait que l'objet est rendu inactif. Il ne s'affiche plus dans la liste et ne sera plus inclu dans aucune opération. Les objets inactifs peuvent être retrouvés par l'activation du filtre "Expiré" (voir <a href="/page/mozaik-help-filters">Recherche et Filtres</a> ) <a href="/page/mozaik-help-filters"> </a> . Une date d'expiration sera rajoutée aux détails de l'objet. </em>
                     </div>
                     <div>
                       <em style="line-height: 1.42857143; background-color: transparent;"/>
                       <div/>
                       <div>
-                        <em style="line-height: 1.42857143; background-color: transparent;">
-                          <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
-                        </em>
-                        <em style="line-height: 1.42857143; background-color: transparent;"> Le changement d'adresse va générer une alerte aux abonnés suivant l'objet (voir <a href="/page/mozaik-help-datacontrol">Surveillance des données (Historisation) et Travail collaboratif</a> ). </em>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> </em>
+                        <em style="line-height: 1.42857143; background-color: transparent;"> A partir de la coordonnée (Postale, Email ou téléphonique), cette action s'opère par l'option "Positionner comme principale", aussi disponible sous "Autres options". Ici, le wizard sera pré-rémpli par l'adresse sélectionnée. </em>
+                      </div>
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                    </div>
+                    <div>
+                      <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      <div/>
+                      <div>
+                        <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>  </em>
+                        <em style="line-height: 1.42857143; background-color: transparent;">Le changement d'adresse va générer une alerte aux abonnés suivant l'objet (voir <a href="/page/mozaik-help-datacontrol">Surveillance des données (Historisation) et Travail collaboratif</a> ). </em>
                       </div>
                       <em style="line-height: 1.42857143; background-color: transparent;"/>
                     </div>
@@ -1922,11 +1928,11 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                     <div style="text-align: left;">
                       <strong/>
                     </div>
-                    <p style="text-align: left;">Il n'est pas permis de modifier la Coordonnée Postale d'une Personne ayant un statut d'adhésion; voici en ce cas le message affiché:</p>
+                    <p style="text-align: left;">Si vous êtes de profil utilisateur, il n'est pas permis de modifier la Coordonnée Postale d'une Personne ayant un statut d'adhésion; voici en ce cas le message affiché:</p>
                     <p style="text-align: left;">
                       <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-change-main-address_img_02|e17d7e9/datas" style=""/>
                     </p>
-                    <p style="text-align: left;">Il faudra procéder par une demande de modification (voir <a href="/page/mozaik-help-modification-request">Faire une demande d'adhésion/de modification</a>)</p>
+                    <p style="text-align: left;">Il faudra procéder par une demande de modification (voir <a href="/page/mozaik-help-modification-request">Faire une demande d'adhésion/de modification</a>). Cette fonctionnalité est cependant sans exception pour tout utilisateur ayant des privilièges plus avancés. </p>
                     <p style="text-align: left;">
                       <em style="line-height: 1.42857143; background-color: transparent;"/>
                     </p>
@@ -2175,7 +2181,7 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                             <strong> Accès fonctionnalité et localisation: </strong>
                           </span>
                         </strong>
-                        <span style="line-height: 1.42857143;">option disponible dans le menu "Autres options" en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
+                        <span style="line-height: 1.42857143;">option disponible dans le menu "Autres options" en dessous du fil d'Ariane, partie supérieure de l'écran, à partir des Personnes ou des coordonnées Email. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
                       </p>
                       <p style="text-align: left;"><span style="line-height: 1.42857143;"><span style="background-color: rgb(255, 255, 0);"/></span><span style="line-height: 1.42857143;"><span class="fa fa-user fa-2x"/></span><span style="line-height: 1.42857143;"><strong>  Audience</strong>:</span> Utilisateur <span style="line-height: 1.42857143;">(voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>).</span><span style="line-height: 1.42857143;"><span style="background-color: rgb(255, 255, 0);"/></span></p>
                       <p style="text-align: left;">
@@ -2205,7 +2211,7 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                         </tr>
                         <tr>
                           <td style="text-align: left;">1</td>
-                          <td style="text-align: left;">A partir de la fiche de la Personne, sélectionnez l'option "Changer l'adresse électronique principale" dans le menu "Autres Options".</td>
+                          <td style="text-align: left;">Sélectionnez l'option "Changer l'adresse électronique principale" / "Positionner comme principale" dans le menu "Autres Options".</td>
                           <td style="text-align: left;">L'écran suivant est proposé:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-change-main-email_img_01|53dc55e/datas" style="-webkit-animation-play-state: paused; -webkit-transition: none; transition: none"/></td>
                         </tr>
                         <tr>
@@ -2233,7 +2239,7 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                       <em style="line-height: 1.42857143; background-color: transparent;">
                         <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
                       </em>
-                      <em style="line-height: 1.42857143; background-color: transparent;">Dans le cas où le contact n'a pas encore d'adresse email encodée, celle nouvellement encodée lui sera automatiquement attribuée.</em>
+                      <em style="line-height: 1.42857143; background-color: transparent;"> Dans le cas où le contact n'a pas encore d'adresse email encodée, celle nouvellement encodée lui sera automatiquement attribuée.</em>
                       <div>
                         <em style="line-height: 1.42857143; background-color: transparent;"/>
                       </div>
@@ -2244,7 +2250,7 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
                           </em>
-                          <em style="line-height: 1.42857143; background-color: transparent;"> Par "invalidation" on entend le fait que l'objet est rendu inactif. Il ne s'affiche plus dans la liste et ne sera plus inclu dans aucune opération. Les objets inactifs peuvent être retrouvés par l'activation du filtre "Expiré" (voir <a href="/page/mozaik-help-filters">Recherche et Filtres</a> ) . Une date d'expiration sera rajoutée aux détails de l'objet. </em>
+                          <em style="line-height: 1.42857143; background-color: transparent;">  Par "invalidation" on entend le fait que l'objet est rendu inactif. Il ne s'affiche plus dans la liste et ne sera plus inclu dans aucune opération. Les objets inactifs peuvent être retrouvés par l'activation du filtre "Expiré" (voir <a href="/page/mozaik-help-filters">Recherche et Filtres</a> ) . Une date d'expiration sera rajoutée aux détails de l'objet. </em>
                         </div>
                       </div>
                       <div>
@@ -2254,7 +2260,18 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                           <em style="line-height: 1.42857143; background-color: transparent;">
                             <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
                           </em>
-                          <em style="line-height: 1.42857143; background-color: transparent;"> Le changement d'adresse email va générer une alerte aux abonnés suivant l'objet (voir <a href="/page/mozaik-help-datacontrol">Surveillance des données (Historisation) et Travail collaboratif</a> ). </em>
+                          <em style="line-height: 1.42857143; background-color: transparent;">  A partir de la coordonnée (Postale, Email ou téléphonique), cette action s'opère par l'option "Positionner comme principale", aussi disponible sous "Autres options". Ici, le wizard sera pré-rémpli par l'adresse sélectionnée. </em>
+                        </div>
+                        <em style="line-height: 1.42857143; background-color: transparent;"/>
+                      </div>
+                      <div>
+                        <em style="line-height: 1.42857143; background-color: transparent;"/>
+                        <div/>
+                        <div>
+                          <em style="line-height: 1.42857143; background-color: transparent;">
+                            <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
+                          </em>
+                          <em style="line-height: 1.42857143; background-color: transparent;">  Le changement d'adresse email va générer une alerte aux abonnés suivant l'objet (voir <a href="/page/mozaik-help-datacontrol">Surveillance des données (Historisation) et Travail collaboratif</a> ). </em>
                         </div>
                         <em style="line-height: 1.42857143; background-color: transparent;"/>
                       </div>
@@ -2281,13 +2298,13 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                       <div/>
                       <div>
                         <div style="text-align: left;">
-                          <span style="text-align: left; line-height: 1.42857143;">Il n'est pas permis de modifier la Coordonnée d'une Personne ayant un statut d'adhésion; voici en ce cas le message affiché:</span>
+                          <span style="text-align: left; line-height: 1.42857143;">Si vous êtes de profil utilisateur, il ne vous sera pas permis de modifier la Coordonnée d'une Personne ayant un statut d'adhésion; voici en ce cas le message affiché:</span>
                         </div>
                         <div style="text-align: center;">
                           <p style="text-align: left;">
                             <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-change-main-address_img_02|e17d7e9/datas"/>
                           </p>
-                          <p style="text-align: left;">Il faudra procéder par une demande de modification (voir <a href="/page/mozaik-help-modification-request">Faire une demande d'adhésion/de modification</a>)</p>
+                          <p style="text-align: left;">Il faudra procéder par une demande de modification (voir <a href="/page/mozaik-help-modification-request">Faire une demande d'adhésion/de modification</a>). Cette fonctionnalité est cependant sans exception pour tout utilisateur ayant des privilièges plus avancés. </p>
                         </div>
                       </div>
                       <p style="text-align: left;">
@@ -2535,7 +2552,7 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                           </span>
                         </strong>
                         <span style="line-height: 1.42857143;"/>
-                        <span style="line-height: 1.42857143;">option disponible dans le menu "Autres options" en dessous du fil d'Ariane, partie supérieure de l'écran. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
+                        <span style="line-height: 1.42857143;">option disponible dans le menu "Autres options" en dessous du fil d'Ariane, partie supérieure de l'écran à partir des Personnes ou des coordonnées téléphoniques. Attention, en mode liste, ce menu n'apparaît qu'après une sélection d'objet.</span>
                       </p>
                       <p style="text-align: left;">
                         <span style="line-height: 1.42857143;">
@@ -2577,7 +2594,7 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                         </tr>
                         <tr>
                           <td style="text-align: left;">1</td>
-                          <td style="text-align: left;">Sélectionnez l'option "Changer le téléphone principal" dans le menu "Autres Options".</td>
+                          <td style="text-align: left;">Sélectionnez l'option "Changer le téléphone principal" / "Positionner comme principale" dans le menu "Autres Options".</td>
                           <td style="text-align: left;">L'écran suivant est proposé:<br/><img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-change-main-phone_img_01|5d592ab/datas" style=""/></td>
                         </tr>
                         <tr>
@@ -2625,9 +2642,18 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                               <em style="line-height: 1.42857143; background-color: transparent;">
                                 <span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/>
                               </em>
-                              <em style="line-height: 1.42857143; background-color: transparent;">  Par "invalidation" on entend le fait que l'objet est rendu inactif. Il ne s'affiche plus dans la liste et ne sera plus inclu dans aucune opération. Les objets inactifs peuvent être retrouvés par l'activation du filtre "Expiré" (voir <a href="/page/mozaik-help-filters">Recherche et Filtres</a> ). Une date d'expiration sera rajoutée aux détails de l'objet: </em>
+                              <em style="line-height: 1.42857143; background-color: transparent;">  Par "invalidation" on entend le fait que l'objet est rendu inactif. Il ne s'affiche plus dans la liste et ne sera plus inclu dans aucune opération. Les objets inactifs peuvent être retrouvés par l'activation du filtre "Expiré" (voir <a href="/page/mozaik-help-filters">Recherche et Filtres</a> ). Une date d'expiration sera rajoutée aux détails de l'objet.</em>
                             </div>
                           </div>
+                        </div>
+                        <div>
+                          <em style="line-height: 1.42857143; background-color: transparent;"/>
+                          <div/>
+                          <div>
+                            <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> </em>
+                            <em style="line-height: 1.42857143; background-color: transparent;"> A partir de la coordonnée (Postale, Email ou téléphonique), cette action s'opère par l'option "Positionner comme principale", aussi disponible sous "Autres options". Ici, le wizard sera pré-rémpli par l'adresse sélectionnée. </em>
+                          </div>
+                          <em style="line-height: 1.42857143; background-color: transparent;"/>
                         </div>
                         <div style="text-align: center;">
                           <em style="line-height: 1.42857143; background-color: transparent;"/>
@@ -2648,11 +2674,11 @@ EnhDAm9I4A0JvCGBN/CGBN6QkxEJE6xZyhQLjStuvJspSwBe6cBbN9tpO6eQVcq8PVO8ZyErle12
                             <div>
                               <strong/>
                             </div>
-                            <p style="text-align: left;">Il n'est pas permis de modifier la Coordonnée d'une Personne ayant un statut d'adhésion; voici en ce cas le message affiché:</p>
+                            <p style="text-align: left;">Si vous êtes de profil utilisateur, il n'est pas permis de modifier la Coordonnée d'une Personne ayant un statut d'adhésion; voici en ce cas le message affiché:</p>
                             <p style="text-align: left;">
                               <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-change-main-address_img_02|e17d7e9/datas"/>
                             </p>
-                            <p style="text-align: left;">Il faudra procéder par une demande de modification (voir <a href="/page/mozaik-help-modification-request">Faire une demande d'adhésion/de modification</a>)</p>
+                            <p style="text-align: left;">Il faudra procéder par une demande de modification (voir <a href="/page/mozaik-help-modification-request">Faire une demande d'adhésion/de modification</a>). Cette fonctionnalité est cependant sans exception pour tout utilisateur ayant des privilièges plus avancés. </p>
                           </div>
                           <p style="text-align: left;">
                             <em style="line-height: 1.42857143; background-color: transparent;"/>
@@ -4747,18 +4773,18 @@ M8vAyfMJ4nOfMC/Ee1xCA5YAOEBgECVIALPlAcjyuVcVAAAAAElFTkSuQmCC
                   <h4>Quels avantages me donne l'application sur ce modèle ?</h4>
                   <div>L'application me permet de les créer, en modifier leur contenu en ajoutant ou supprimant des filtres, et surtout, elles sont le point de départ pour toute actions d'envoi postal ou email ou encore d'impression d'étiquettes en masse. Des fonctionnalités générales sont offertes sur ce modèle telles que création (association), suppression, recherche, export, .....</div>
                   <h4>Quelles informations sont affichées dans la liste?</h4>
-                  <div>Seuls les noms et l'Instance liée à la Liste sont affichés. Les Listes de distributions affichées sont les Listes "actives" (voir "<a href="/page/mozaik-help-invalidate">Invalider un objet</a>"). Une Instance spécifiée sur la Liste de distribution indique à qui elle est rendue visible et utilisable (ex: Bruxelles (Local) sur une Liste signifie que celle-ci ne peut être vue et utilisée que par la Locale de Bruxelles).</div>
+                  <div>Les noms, l'Instance liée, l'information s'il s'agit d'une lettre d'information ou non (coche "Newsletter" activée ou non) et si la liste de distribution est soumise ou non à un transfert automatique d'email (voir <a href="/page/mozaik-help-distribution-list-forwarding">Transférer automatiquement des courriels</a>)  sont affichés. Les Listes de distributions affichées sont les Listes "actives" (voir "<a href="/page/mozaik-help-invalidate">Invalider un objet</a>"). Une Instance spécifiée sur la Liste de distribution indique à qui elle est rendue visible et utilisable (ex: Bruxelles (Local) sur une Liste signifie que celle-ci ne peut être vue et utilisée que par la Locale de Bruxelles). Deux icônes sont également présentée pour chacune des listes de distribution: celle qui permet de visualiser le résultat des filtres associés (les destinataires) ainsi que l'icône qui permet l'accès direct vers les fonctions de masse (voir <a href="/page/mozaik-help-distribution-list-mass-function">Envoyer des courriers de masse</a>).</div>
                   <h4/>
                   <div/>
                   <h4>En quoi consiste la création d'une Liste de distribution?</h4>
                   <div>La création d'une Liste de distribution consiste à lui donner un nom et à lui associer un ou plusieurs filtres. Les filtres sont donc à créer au préalable, sur base d'un tri précis des objets (voir <a href="/page/mozaik-help-search">Recherches et filtres</a>). Une fois la liste des objets affinée, il faut la sauvegarder comme un nouveau filtre (voir <a href="/page/mozaik-help-distribution-list-add-filter">Créer et Ajouter un filtre à une Liste de distribution/Lettre d'information</a>). La suppression d'un filtre au sein d'une Liste de distribution s'opère en cliquant sur la petite icône poubelle.</div>
                   <div>Notez que trois Listes de distribution ont été préparées et tenues à disposition dans l'application; elle concernent:</div>
                   <ul>
-                    <li>l'envoi des cartes de membre (Personnes de statut "Membre", sans date d'envoi de carte de membre d'enregistrée);</li>
-                    <li>l'envoi des documents de bienvenue pour les candidats membre (Personnes de statut "Candidat membre", sans date d'envoi de document de bienvenue d'enregistrée);</li>
-                    <li>l'envoi des documents de bienvenue pour les candidats sympathisant (Personnes de statut "Sympathisant", sans date d'envoi de document de bienvenue d'enregistrée).</li>
+                    <li>l'envoi des cartes de membre - tri effectué sur les Personnes de statut "Membre", et qui n'ont pas encore de date d'envoi de carte de membre d'enregistrée;</li>
+                    <li>l'envoi des documents de bienvenue pour les candidats membre - tri effectué sur les Personnes de statut "Candidat membre", et qui n'ont pas encore de date d'envoi de document de bienvenue d'enregistrée;</li>
+                    <li>l'envoi des documents de bienvenue pour les candidats sympathisants - tri effectué sur les Personnes de statut "Sympathisant", et qui n'ont pas encore de sans date d'envoi de document de bienvenue d'enregistrée.</li>
                   </ul>
-                  <p>Ces trois listes ne peuvent être modifiées pour des raisons de sécurité. En effet, elles servent à enregistrer un suivi au niveau de la Personne et notamment la date à laquelle les documents ont été envoyé (afin de ne pas les envoyer plusieurs fois). Elles ne peuvent être modifiées ou supprimées (sauf par un utilisateur de type "Configurator").</p>
+                  <p>Ces trois listes ne peuvent être modifiées pour des raisons de sécurité. En effet, elles servent à enregistrer un suivi au niveau de la Personne et notamment la date à laquelle les documents ont été envoyés (afin de ne pas les envoyer plusieurs fois). Elles ne peuvent être modifiées ou supprimées (sauf par un utilisateur de type "Configurator").</p>
                   <h4>Qui peut voir/utiliser mes Listes?</h4>
                   <div>Un système de "Propriétaire" est appliqué sur les Listes de distribution ainsi que sur les newsletters et les modèles de courriel. En effet, l'utilisateur qui a créé la Liste possède tout pouvoir d'écriture/suppression sur celle-ci et peut décider d'autres "propriétaires". Il peut également limiter la visibilité de celle-ci à des Instances (voir ci-dessous). Le propriétaire de la Liste est obligatoire. Si une Liste doit être vue et utilisée par tous, il faudra demander au "Configurateur" de la créer.</div>
                   <h4>Quel sera le résultat de ma Liste si plusieurs filtres la composent?</h4>
@@ -4767,10 +4793,10 @@ M8vAyfMJ4nOfMC/Ee1xCA5YAOEBgECVIALPlAcjyuVcVAAAAAElFTkSuQmCC
                   <div>
                     <div>Une Lettre d'information est une Liste de distribution comportant cependant deux différences:</div>
                     <ol>
+                      <li>la notion d’abonnement ou de désabonnement (Inscrits/Opt-in - Désinscrits/Opt-out).</li>
                       <li>une coche qui peut la déclarer publique; cela signifie qu'elle sera disponible ou non sur le site Internet (permettant la désinscription);</li>
-                      <li>notion d’abonnement ou de désabonnement (Inscrits - Désinscrits).</li>
                     </ol>
-                    <p>Elle fonctionne de la même façon qu'une Liste de distribution et si la Lettre est constituée de plusieurs filtres, le calcul est opéré de la même façon en retirant toutefois du résultat les Personnes listées dans la colonne des "désinscrits". La désinscription se fait via le lien qui présent dans la lettre d'information ou manuellement dans la fiche de la lettre de l'information.</p>
+                    <p>Elle fonctionne de la même façon qu'une Liste de distribution et si la Lettre est constituée de plusieurs filtres, le calcul est opéré de la même façon en retirant toutefois du résultat les Personnes listées dans la colonne des "désinscrits". La désinscription se fait via le lien qui est présent dans la lettre d'information (insertion automatique par le système dès le moment où l'on choisit de créer une lettre d'information) ou manuellement dans la fiche de la lettre de l'information (ajout de la personne dans la zone "désinscription/Opt-out").</p>
                   </div>
                   <h4>
                     <span style="color: inherit; font-family: inherit; line-height: 1.1;">Quel sera le contenu de mes envois?</span>
@@ -6376,12 +6402,9 @@ kSMSxaryfwc4hYwMoDAfAAAAAElFTkSuQmCC
                       </h4>
                       <div>
                         <h4>
-                          <a href="/page/mozaik-help-change-main-email">Changer la coordonnée email principale</a>
+                          <a href="/page/mozaik-help-change-main-email">Déclarer la coordonnée email comme "Principale"</a>
                         </h4>
                       </div>
-                      <h4>
-                        <a href="/page/mozaik-help-main">Déclarer la coordonnée email comme "Principale"</a>
-                      </h4>
                       <h4>
                         <a href="/page/mozaik-help-unauthorised">Déclarer la coordonnée email comme "Privée" </a>
                       </h4>
@@ -11569,258 +11592,6 @@ tV1t7b9bXGTWSBAbDgAAAABJRU5ErkJggg==
         </div>
       </t>
     </template>
-    <record id="mozaik-help-change-main-address_img_02" model="ir.attachment">
-      <field name="datas">iVBORw0KGgoAAAANSUhEUgAAAd4AAADLCAMAAAD3LAJtAAADAFBMVEX+/v7p6enY2NhoaGiHh4fH
-x8eXl5enp6e3t7cnJyd4eHhXV1dJSUk2NjanFRXTJibUNzfUbGzQGRnTVlbPRUXe5OS1ODjOCAjS
-dXW0Kiru19e9Vlbmx8fRhobbqKgWFhalCAi7SEjbtLTkurq7aGjXlZUJCQngUlLhnJwAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAC8W+G/AAABAHRSTlP/////////////////////////////////////////////
-/////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-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
-+z/oPZOrrLOcLAAAAABJRU5ErkJggg==
-</field>
-      <field name="datas_fname">erroraddress.png</field>
-      <field name="name">erroraddress.png</field>
-      <field name="res_model">ir.ui.view</field>
-      <field name="mimetype">image/png</field>
-    </record>
-    <template name="mozaik-help-main" id="website.mozaik-help-main" page="True">
-      <t t-call="website.layout">
-        <div class="oe_structure oe_empty" id="wrap">
-          <section class="mt_simple_snippet">
-            <section class="mt16 mb16">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-12 text-center mt16 mb0">
-                    <h2 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); text-align: left;">
-                      <span style="color: rgb(0, 128, 0);">Déclarer la coordonnée comme "Principale"</span>
-                      <span style="color: rgb(255, 255, 255);"/>
-                    </h2>
-                    <div style="text-align: center;">
-                      <p style="text-align: left;">
-                        <span style="line-height: 1.42857143;">
-                          <span class="fa fa-flag fa-2x"/>
-                        </span>
-                        <strong style="line-height: 1.42857143;">
-                          <span style="line-height: 1.42857143;">
-                            <strong> Accès fonctionnalité et localisation:</strong>
-                          </span>
-                        </strong>
-                        <strong style="line-height: 1.42857143;">
-                          <span style="line-height: 1.42857143;"> </span>
-                        </strong>
-                        <span style="line-height: 1.42857143;">bouton ou </span>
-                        <span style="line-height: 1.42857143;">case à cocher disponible dans la fiche de la coordonnée (postale, email, téléphonique)</span>
-                      </p>
-                      <p style="text-align: left;">
-                        <span style="line-height: 1.42857143;">
-                          <span style="background-color: rgb(255, 255, 0);"/>
-                        </span>
-                        <span style="line-height: 1.42857143;">
-                          <span class="fa fa-user fa-2x"/>
-                        </span>
-                        <span style="line-height: 1.42857143;"><strong> Audience</strong>: Utilisateur </span>
-                        <span style="line-height: 1.42857143;">(voir <a href="/page/mozaik-help-usergoups">Groupes d'utilisateurs</a>).</span>
-                      </p>
-                      <p style="text-align: left;">
-                        <span style="line-height: 1.42857143;"><span class="fa fa-exchange fa-2x"/><strong> Pré-requis</strong> : sélection d'un objet existant dans la liste ou affichage de l'objet en vue "formulaire" (voir <a href="/page/mozaik-help-views">Vues</a> ). </span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <section class="mt16 mb16">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-12 text-center mt16 mb32">
-                    <table class="table table-bordered table-responsive" style="width: 1140px; text-align: center; background-color: rgba(200, 200, 200, 0.137255);">
-                      <tbody>
-                        <tr>
-                          <td style="text-align: left;">
-                            <strong>#</strong>
-                          </td>
-                          <td style="text-align: left;">
-                            <strong>Etape</strong>
-                          </td>
-                          <td style="text-align: left;">
-                            <strong>Résultat</strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">1</td>
-                          <td style="text-align: left;">Editez la fiche de la coordonnée (qui deviendra la principale)</td>
-                          <td style="text-align: left;"/>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">2</td>
-                          <td style="text-align: left;">Cliquez sur le bouton "Positionner comme Principale"</td>
-                          <td style="text-align: left;">Un message de confirmation s'ouvre</td>
-                        </tr>
-                        <tr>
-                          <td style="text-align: left;">3</td>
-                          <td style="text-align: left;">Cliquez sur "OK" pour continuer le processus - "Annuler" annule l'opération</td>
-                          <td style="text-align: left;">La coordonnée est caractérisée comme "Principale" et remplace toute adresse précédemment principale. Cette dernière est également automatiquement invalidée.</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <p style="text-align: left;">
-                      <span style="text-align: center;"> </span>
-                    </p>
-                    <div style="text-align: left;"/>
-                    <div style="text-align: left;">
-                      <em style="line-height: 1.42857143; background-color: transparent;"><span class="fa fa-thumbs-up fa-2x" style="cursor: default; outline: yellow solid 2px;"/> Le bouton "Positionner comme principale" n'apparaît que pour une sélection de coordonnées postales qui ne sont pas marquées comme "principales". La précédente adresse est rendue inactive (mais pas supprimée) (voir <a href="/page/mozaik-help-invalidate">Invalider un objet</a> ). </em>
-                    </div>
-                    <div>
-                      <p style="text-align: left;">
-                        <em style="line-height: 1.42857143; background-color: transparent;"/>
-                      </p>
-                      <div style="text-align: left;"/>
-                      <div style="text-align: left;"/>
-                    </div>
-                    <div style="text-align: center;">
-                      <div style="text-align: left;">
-                        <strong>
-                          <em style="line-height: 1.42857143; background-color: transparent;">
-                            <span class="fa fa-exclamation-triangle fa-2x"/>
-                          </em>
-                        </strong>
-                        <strong>Exceptions</strong>
-                        <strong/>
-                      </div>
-                      <div style="text-align: left;">
-                        <strong/>
-                      </div>
-                      <div/>
-                      <div>
-                        <div style="text-align: left;">
-                          <span style="line-height: 1.42857143;">Il n'est pas permis de modifier la Coordonnée d'une Personne ayant un statut d'adhésion; voici en ce cas le message affiché:</span>
-                        </div>
-                        <div style="text-align: center;">
-                          <p style="text-align: left;">
-                            <img class="img-thumbnail" src="/website/image/ir.attachment/mozaik-help-change-main-address_img_02|e17d7e9/datas"/>
-                          </p>
-                          <p style="text-align: left;">Il faudra procéder par une demande de modification (voir <a href="/page/mozaik-help-modification-request">Faire une demande d'adhésion/de modification</a>)</p>
-                        </div>
-                      </div>
-                      <p style="text-align: left;">
-                        <em style="line-height: 1.42857143; background-color: transparent;"/>
-                      </p>
-                    </div>
-                    <div>
-                      <em style="line-height: 1.42857143; background-color: transparent;"/>
-                    </div>
-                    <div>
-                      <em style="line-height: 1.42857143; background-color: transparent;"/>
-                    </div>
-                    <div/>
-                    <div style="text-align: left;">
-                      <span style="color: rgb(119, 119, 119); line-height: 1.42857143;"/>
-                      <div/>
-                      <div>
-                        <div/>
-                        <div>
-                          <span class="fa fa-reply fa-2x" style="color: rgb(66, 139, 202);"/>
-                          <span style="background-color: rgba(200, 200, 200, 0.137255);"> <a href="/page/mozaik-help-toc">Retour au sommaire</a></span>
-                        </div>
-                        <span style="color: rgb(66, 139, 202); background-color: rgba(200, 200, 200, 0.137255);"/>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </section>
-        </div>
-      </t>
-    </template>
     <template name="mozaik-help-mandates" id="website.mozaik-help-mandates" page="True">
       <t t-call="website.layout">
         <div class="oe_structure oe_empty" id="wrap">
@@ -15985,7 +15756,7 @@ Q2xe9PAHnZNltmj1xrDQIOdfOjo6NBqNt7c3ep+ezw8fwEZXq9VgSkwzIFdPhwULFix+BvhfB7zt
                         <a href="/page/mozaik-help-coordinate-associate-category">Associer une catégorie à une coordonnée téléphonique</a>
                       </h4>
                       <h4>
-                        <a href="/page/mozaik-help-main">Déclarer la coordonnée téléphonique comme "Principale"</a>
+                        <a href="/page/mozaik-help-change-main-phone">Déclarer la coordonnée téléphonique comme "Principale"</a>
                       </h4>
                       <h4>
                         <a href="/page/mozaik-help-unauthorised">Déclarer la coordonnée téléphonique comme "Privée"</a>
@@ -16322,7 +16093,7 @@ Mozaik propose une gestion de ces doublons (voir <a href="/page/mozaik-help-allo
                           <a href="/page/mozaik-help-coordinate-associate-category">Associer une catégorie à une coordonnée postale</a>
                         </h4>
                         <h4>
-                          <a href="/page/mozaik-help-main">Déclarer la coordonnée postale comme "Principale"</a>
+                          <a href="/page/mozaik-help-change-main-address">Déclarer la coordonnée postale comme "Principale"</a>
                         </h4>
                         <h4>
                           <a href="/page/mozaik-help-unauthorised">Déclarer la coordonnée postale comme "Privée" </a>
@@ -20695,7 +20466,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                       <a href="/page/mozaik-help-coordinate-associate-category">Associer une catégorie à une coordonnée email</a>
                     </div>
                     <div>
-                      <a href="/page/mozaik-help-main" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Déclarer la coordonnée email comme "Principale"</a>
+                      <a href="/page/mozaik-help-change-main-email" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Déclarer la coordonnée email comme "Principale"</a>
                     </div>
                     <div>
                       <a href="/page/mozaik-help-unauthorised">Déclarer la coordonnée email comme "Privée"</a>
@@ -20720,7 +20491,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                       <a href="/page/mozaik-help-coordinate-associate-category">Associer une catégorie à une coordonnée postale</a>
                     </div>
                     <div>
-                      <a href="/page/mozaik-help-main" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Déclarer la coordonnée postale comme "Principale"</a>
+                      <a href="/page/mozaik-help-change-main-address" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Déclarer la coordonnée postale comme "Principale"</a>
                     </div>
                     <div>
                       <a href="/page/mozaik-help-unauthorised">Déclarer la coordonnée postale comme "Privée"</a>
@@ -20758,7 +20529,7 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                       <a href="/page/mozaik-help-coordinate-associate-category" style="background-color: rgb(255, 255, 255);">Associer une catégorie à une coordonnée téléphonique</a>
                     </div>
                     <div>
-                      <a href="/page/mozaik-help-main">Déclarer la coordonnée téléphonique comme "Principale"</a>
+                      <a href="/page/mozaik-help-change-main-phone">Déclarer la coordonnée téléphonique comme "Principale"</a>
                     </div>
                     <div>
                       <a href="/page/mozaik-help-unauthorised" style="line-height: 1.42857143;">Déclarer la coordonnée téléphonique comme "Privée"</a>
@@ -21061,14 +20832,24 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                             <a href="/page/mozaik-help-change-main-phone">Changer la coordonnée téléphonique principale</a>
                           </div>
                           <div>
-                            <a href="/page/mozaik-help-email-coordinate" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">
-                              <span style="line-height: 1.42857143;">Coordonnées Email</span>
-                            </a>
+                            <span style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">
+                              <a href="/page/mozaik-help-email-coordinate" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Coordonnées Email</a>
+                            </span>
+                            <a href="/page/mozaik-help-email-coordinate"> </a>
                           </div>
                           <div>
-                            <span style="line-height: 1.42857143;">
-                              <a href="/page/mozaik-help-postal-coordinate">Coordonnées Postales</a>
-                            </span>
+                            <a href="/page/mozaik-help-postal-coordinate" style="background-color: rgb(255, 255, 255);">Coordonnées Postales</a>
+                          </div>
+                          <div>
+                            <a href="/page/mozaik-help-phone-coordinate">Coordonnées Téléphoniques</a>
+                          </div>
+                          <div>
+                            <a href="/page/mozaik-help-unauthorised" style="line-height: 1.42857143;">Déclarer une coordonnée comme "Privée"</a>
+                          </div>
+                          <div>
+                            <div>
+                              <a href="/page/mozaik-help-vip">Déclarer une coordonnée comme "VIP"</a>
+                            </div>
                           </div>
                           <div>
                             <a href="/page/mozaik-help-co-residency">Co-Résidences</a>
@@ -21076,17 +20857,8 @@ B3y6W378SXfiBzstAtqTB1PdAAAAAElFTkSuQmCC
                           <div>
                             <span style="line-height: 1.42857143;"/>
                             <div>
-                              <a href="/page/mozaik-help-main" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Déclarer la coordonnée comme "Principale"</a>
+                              <a href="/page/mozaik-help-bounce-editor" style="line-height: 1.42857143; background-color: rgb(255, 255, 255);">Editer le compteur d'échec</a>
                             </div>
-                            <div>
-                              <a href="/page/mozaik-help-unauthorised">Déclarer la coordonnée comme "Privée"</a>
-                            </div>
-                            <div>
-                              <a href="/page/mozaik-help-vip">Déclarer la coordonnée comme "VIP"</a>
-                            </div>
-                          </div>
-                          <div>
-                            <a href="/page/mozaik-help-bounce-editor" style="background-color: rgb(255, 255, 255);">Editer le compteur d'échec</a>
                           </div>
                           <div>
                             <a href="/page/mozaik-help-export-vcard">Exporter les coordonnées en vCard</a>
