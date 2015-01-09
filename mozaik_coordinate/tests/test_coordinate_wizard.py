@@ -39,6 +39,7 @@ class test_coordinate_wizard(object):
         self.partner_id_1 = self.ref('%s.res_partner_marc' % self._module_ns)
         self.partner_id_2 = self.ref('%s.res_partner_thierry' % self._module_ns)
         self.partner_id_3 = self.ref('%s.res_partner_jacques' % self._module_ns)
+        self.partner_id_4 = self.ref('%s.res_partner_pauline' % self._module_ns)
 
         # members to instanciate by real test
         self.model_coordinate_wizard = None
@@ -47,6 +48,8 @@ class test_coordinate_wizard(object):
         self.coo_into_partner = None
         self.model_coordinate_id_1 = None
         self.model_coordinate_id_2 = None
+        self.field_id_1 = None
+        self.field_id_2 = None
 
     def change_main_coordinate(self, invalidate):
         """
@@ -67,6 +70,35 @@ class test_coordinate_wizard(object):
             'invalidate_previous_coordinate': invalidate,
         }
         wiz_id = self.model_coordinate_wizard.create(self.cr, self.uid, wiz_vals, context=context)
+        return self.model_coordinate_wizard.button_change_main_coordinate(self.cr, self.uid, [wiz_id], context=context)
+
+    def switch_main_coordinate(self, new_main_coordinate, invalidate):
+        """
+        ========================
+        switch_main_coordinate
+        ========================
+        :param new_main_coordinate_id: id of coordinate to set as main
+        :param invalidate: value for ``invalidate_previous_model_coordinate``
+        :type invalidate: boolean
+        :rparam: id or [ids]
+        :rtype: integer
+        """
+        context = {
+            'active_id': self.partner_id_4,
+            'target_model': self.model_coordinate._name,
+        }
+        wiz_vals = {
+            self.model_coordinate._discriminant_field: new_main_coordinate[self.model_coordinate._discriminant_field].id
+            or new_main_coordinate[self.model_coordinate._discriminant_field],
+            'invalidate_previous_coordinate': invalidate,
+        }
+        wiz_id = self.model_coordinate_wizard.create(self.cr, self.uid, wiz_vals, context=context)
+        context = {
+            'active_id': new_main_coordinate.id,
+            'active_model': self.model_coordinate._name,
+            'target_model': self.model_coordinate._name,
+            'mode': 'switch',
+        }
         return self.model_coordinate_wizard.button_change_main_coordinate(self.cr, self.uid, [wiz_id], context=context)
 
     def test_mass_replication(self):
@@ -151,4 +183,38 @@ class test_coordinate_wizard(object):
                                                   context={})['active']
         self.assertEqual(active, True, 'Previous model Coordinate should not be invalidate')
 
+    def test_switch_main_coordinate(self):
+        vals = {
+            'partner_id': self.partner_id_4,
+            self.model_coordinate._discriminant_field: self.field_id_1,
+        }
+        coordinate_id_1 = self.model_coordinate.create(
+            self.cr, self.uid, vals, context={})
+        vals = {
+            'partner_id': self.partner_id_4,
+            self.model_coordinate._discriminant_field: self.field_id_2,
+        }
+        coordinate_id_2 = self.model_coordinate.create(
+            self.cr, self.uid, vals, context={})
+        coordinate2 = self.model_coordinate.browse(self.cr, self.uid,
+                                                   coordinate_id_2, context={})
+        self.switch_main_coordinate(coordinate2, False)
+
+        coordinate1 = self.model_coordinate.browse(self.cr, self.uid,
+                                                   coordinate_id_1, context={})
+        self.assertFalse(coordinate1.is_main)
+        self.assertTrue(coordinate1.active)
+
+        coordinate2 = self.model_coordinate.browse(self.cr, self.uid,
+                                                   coordinate_id_2, context={})
+        self.assertTrue(coordinate2.is_main)
+
+        self.switch_main_coordinate(coordinate1, True)
+        coordinate1 = self.model_coordinate.browse(self.cr, self.uid,
+                                                   coordinate_id_1, context={})
+        self.assertTrue(coordinate1.is_main)
+
+        coordinate2 = self.model_coordinate.browse(self.cr, self.uid,
+                                                   coordinate_id_2, context={})
+        self.assertFalse(coordinate2.active)
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
