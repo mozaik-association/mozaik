@@ -196,6 +196,7 @@
                 <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="has_retrocessions_linked"/>
                     <field name="need_account_management"/>
+                    <field name="calculation_method_id"/>
                 </xpath>
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
@@ -312,6 +313,7 @@
                 <xpath expr="//group[@name='moreinfo']" position="inside">
                     <field name="has_retrocessions_linked"/>
                     <field name="need_account_management"/>
+                    <field name="calculation_method_id"/>
                 </xpath>
                 <xpath expr="//field[@name='mandate_category_id']" position="attributes">
                     <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
