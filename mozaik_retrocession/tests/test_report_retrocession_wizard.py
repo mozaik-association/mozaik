@@ -349,3 +349,145 @@ class test_report_retrocession_wizard(SharedSetupTransactionCase):
                                              mand_data,
                                              {})
         self.assertListEqual(sorted(pl_ids), sorted(expected_result))
+
+    def test_report_fractionations_sta_mandate(self):
+        federal_inst = self.browse_ref('mozaik_structure.int_instance_01')
+        liege_inst = self.browse_ref('%s.int_instance_03'
+                                      % self._module_ns)
+        huy_waremme_inst = self.browse_ref('%s.int_instance_04'
+                                      % self._module_ns)
+        huy_inst = self.browse_ref('%s.int_instance_05'
+                                      % self._module_ns)
+        orey_inst = self.browse_ref('%s.int_instance_06'
+                                      % self._module_ns)
+        wanze_inst = self.browse_ref('%s.int_instance_07'
+                                      % self._module_ns)
+
+        federal_pl_id = self.ref('mozaik_structure.int_power_level_01')
+        provincial_pl_id = self.ref('%s.int_power_level_03'
+                                            % self._module_ns)
+        regional_pl_id = self.ref('%s.int_power_level_04'
+                                            % self._module_ns)
+        local_pl_id = self.ref('%s.int_power_level_05'
+                                            % self._module_ns)
+
+        mandate_id1 = self.ref('%s.stam_jacques_bourgmestre' % self._module_ns)
+        mandate_ids = [mandate_id1]
+
+        wiz_id = self.ref('%s.pcmn_mozaik' % self._module_ns)
+        self.registry('wizard.multi.charts.accounts').execute(self.cr,
+                                                              self.uid,
+                                                              [wiz_id])
+        wizard_pool = self.registry('report.retrocession.wizard')
+        context = dict(active_model='sta.mandate',
+                     active_ids=mandate_ids)
+
+        data = wizard_pool.default_get(self.cr, self.uid, [], context=context)
+        data['year'] = '2014'
+        data['report'] = 'fractionations'
+        wizard_pool.create(self.cr, self.uid, data, context=context)
+
+        res = wizard_pool.mandate_selection_analysis(self.cr,
+                                                     self.uid,
+                                                     data['year'],
+                                                     data['model'],
+                                                     eval(data['mandate_ids']))
+        self.assertEqual(res['monthly_count'], 0)
+        self.assertEqual(res['yearly_count'], 1)
+        self.assertEqual(res['monthly_print'], 0)
+        self.assertEqual(res['yearly_print'], 0)
+        self.assertEqual(res['total_mandates'], 0)
+
+        helper_pool = self.registry('retrocession.helper')
+        retro_ids = []
+        retro_ids.append(self.ref('%s.retro_jacques_bourg_2014'\
+                             % self._module_ns))
+        helper_pool.create_fiscal_year(self.cr, self.uid, '2014')
+        helper_pool.validate_retrocession_with_accounting(
+                                                     self.cr,
+                                                     self.uid,
+                                                     retro_ids)
+
+        res = wizard_pool.mandate_selection_analysis(self.cr,
+                                                     self.uid,
+                                                     data['year'],
+                                                     data['model'],
+                                                     eval(data['mandate_ids']))
+        self.assertEqual(res['monthly_count'], 0)
+        self.assertEqual(res['yearly_count'], 1)
+        self.assertEqual(res['monthly_print'], 0)
+        self.assertEqual(res['yearly_print'], 1)
+        self.assertEqual(res['total_mandates'], 1)
+
+        inst_data, mand_data = wizard_pool._get_fractionation_data(
+                                                                self.cr,
+                                                                self.uid,
+                                                                mandate_ids,
+                                                                'sta.mandate',
+                                                                'sta.assembly',
+                                                                2014, {})
+
+        expected_result = {
+           'Unfractioned': {
+                         'Instance': 'Unfractioned Amount',
+                         'Amount': 96.75999999999999,
+                         'Power Level': ''},
+           federal_inst.id: {
+                         'Instance': federal_inst.name,
+                         'Amount': 580.5,
+                         'Power Level': federal_inst.power_level_id.name},
+           liege_inst.id: {
+                         'Instance': liege_inst.name,
+                         'Amount': 96.75,
+                         'Power Level': liege_inst.power_level_id.name},
+           huy_waremme_inst.id: {
+                         'Instance': huy_waremme_inst.name,
+                         'Amount': 29.02,
+                         'Power Level': huy_waremme_inst.power_level_id.name},
+           huy_inst.id: {
+                         'Instance': huy_inst.name,
+                         'Amount': 164.47,
+                         'Power Level': huy_inst.power_level_id.name},
+                           }
+
+        self.assertDictEqual(inst_data, expected_result)
+
+        expected_result = {
+            mandate_id1: {
+                         'Unfractioned': 96.75999999999999,
+                         federal_pl_id: {
+                                        'amount': 580.5,
+                                        'name': federal_inst.name,
+                                        'id': federal_inst.id
+                                        },
+                         regional_pl_id: {
+                                        'amount': 29.02,
+                                        'name': huy_waremme_inst.name,
+                                        'id': huy_waremme_inst.id
+                                        },
+                         provincial_pl_id: {
+                                        'amount': 96.75,
+                                        'name': liege_inst.name,
+                                        'id': liege_inst.id
+                                        },
+                         local_pl_id: {
+                                        'amount': 164.47,
+                                        'name': huy_inst.name,
+                                        'id': huy_inst.id
+                                        }
+                         },
+                         }
+
+        for mandate_id in mandate_ids:
+            split_dict = mand_data[mandate_id]['split']
+            self.assertDictEqual(split_dict, expected_result[mandate_id])
+
+        expected_result = list(set([federal_pl_id,
+                                    regional_pl_id,
+                                    provincial_pl_id,
+                                    local_pl_id]))
+        pl_ids = wizard_pool._extract_power_level_ids(self.cr,
+                                             self.uid,
+                                             mand_data,
+                                             {})
+        self.assertListEqual(sorted(pl_ids), sorted(expected_result))

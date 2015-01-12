@@ -234,8 +234,10 @@ class report_retrocession_wizard(orm.TransientModel):
                                                        mandate_ids,
                                                        context=context):
 
-            fractionation = mandate[assembly_key].fractionation_id
+            fractionation = mandate[assembly_key].fractionation_id \
+                or mandate.mandate_category_id.fractionation_id
             if not fractionation:
+
                 continue
 
             level_dict = {}
