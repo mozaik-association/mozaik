@@ -51,7 +51,6 @@ This module manages postal addresses and postal coordinates.
         'address_local_street_view.xml',
         'coordinate_category_view.xml',
         'res_partner_view.xml',
-        'wizard/streets_repository_loader_view.xml',
         'wizard/change_main_address.xml',
         'wizard/allow_duplicate_view.xml',
         'wizard/bounce_editor_view.xml',

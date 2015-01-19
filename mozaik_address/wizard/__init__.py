@@ -28,7 +28,4 @@
 
 from . import change_main_address
 from . import allow_duplicate_wizard
-from . import streets_repository_loader
 from . import bounce_editor
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

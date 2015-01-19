@@ -95,8 +95,8 @@ class res_users(orm.Model):
         imd_obj = self.pool['ir.model.data']
         _, appl_id = imd_obj.get_object_reference(
             cr, uid, 'base', 'module_category_political_association')
-        _, dev_id = imd_obj.get_object_reference(
-            cr, uid, 'mozaik_base', 'res_groups_developper')
+        dev_id = imd_obj.xmlid_to_res_id(
+            cr, uid, 'mozaik_base.res_groups_developper')
         for g in user.groups_id:
             if g.category_id.id == appl_id:
                 result.update({'in_%s' % g.name.lower().replace(' ', '_'): 1})

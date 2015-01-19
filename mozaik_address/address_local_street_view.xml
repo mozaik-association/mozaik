@@ -77,21 +77,11 @@
             </field>
         </record>
 
-        <record id="streets_repository_loader_action" model="ir.actions.act_window">
-            <field name="name">Update Streets Repository</field>
-            <field name="res_model">streets.repository.loader</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record>
-
         <menuitem id="address_local_street_submenu" name="Local Streets"
                   sequence="10" parent="mozaik_base.localization_submenu" />
 
         <menuitem id="address_local_street_menu" action="address_local_street_action"
                   sequence="10" parent="address_local_street_submenu" />
 
-        <menuitem id="streets_repository_loader_menu" action="streets_repository_loader_action"
-                  sequence="20" parent="address_local_street_submenu"/>
     </data>
 </openerp>
