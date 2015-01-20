@@ -25,11 +25,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+import logging
 from datetime import date
 
 from openerp.osv import orm, fields
 from openerp.addons.connector.queue.job import job
 from openerp.addons.connector.session import ConnectorSession
+
+_logger = logging.getLogger(__name__)
 
 WORKER_PIVOT = 10
 
@@ -106,7 +110,7 @@ class generate_reference(orm.TransientModel):
         res['nb_member_concerned'] = len(member_ids)
         res['nb_candidate_concerned'] = len(candidate_ids)
         res['nb_former_concerned'] = len(former_ids)
-        concerned_ids = member_ids+candidate_ids
+        concerned_ids = member_ids+candidate_ids+former_ids
         res['partner_ids'] = str(concerned_ids)
         res['go'] = (len(concerned_ids) > 0)
         month = date.today().month
@@ -159,5 +163,7 @@ def generate_reference_action(
             'del_mem_card_date': False,
         }
         partner_obj.write(cr, uid, [partner_id], vals, context=context)
+        _logger.info(
+            'Reference %s generated for partner [%s]' % (ref, partner_id))
 
     return
