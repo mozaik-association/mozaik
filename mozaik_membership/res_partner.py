@@ -125,16 +125,16 @@ class res_partner(orm.Model):
         Comm. Struct. = '9' + ref_date without century +
             member identifier on 7 positions + % 97
         """
-        ref_date = ref_date or str(date.today().year)
+        ref_date = ref_date or date.today().year
         partner = self.browse(cr, uid, partner_id, context=context)
-        base_identifier = '0000000'
-        identifier = '%s' % partner.identifier
-        base = '9%s%s' % (('%s' % ref_date)[2:],
-                          ''.join((base_identifier[:-len(identifier)],
-                                   identifier)))
-        comm_struct = '%s%s' % (base, int(base) % 97 or 97)
-        return '+++%s/%s/%s+++' % (comm_struct[:3], comm_struct[3:7],
-                                   comm_struct[7:])
+        identifier = ('0000000%s' % partner.identifier)[-7:]
+        ref_date = ('%s' % ref_date)[-2:]
+        base = '9%s%s' % (ref_date, identifier)
+        mod97 = ('0%s' % (int(base) % 97 or 97))[-2:]
+        comm_struct = '%s%s' % (base, mod97)
+        comm_struct = '+++%s/%s/%s+++' % (
+            comm_struct[:3], comm_struct[3:7], comm_struct[7:])
+        return comm_struct
 
     def _update_user_partner(self, cr, uid, partner, vals, context=None):
         """
