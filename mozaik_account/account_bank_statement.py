@@ -88,7 +88,7 @@ class account_bank_statement(orm.Model):
                 is_retrocession = bank_line.name.startswith('+++8')
                 is_membership = bank_line.name.startswith('+++9')
 
-                if not bank_line.partner_id:
+                if not bank_line.partner_id or bank_line.journal_entry_id.id:
                     continue
 
                 if is_retrocession:
