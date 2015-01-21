@@ -415,7 +415,8 @@ class co_residency(orm.Model):
         cids = []
         for c in coords:
             cids += c['postal_coordinate_ids']
-        self.pool['postal.coordinate'].button_undo_allow_duplicate(
-            cr, uid, cids, context=None)
+        if cids:
+            self.pool['postal.coordinate'].button_undo_allow_duplicate(
+                cr, uid, cids, context=context)
         res = super(co_residency, self).unlink(cr, uid, ids, context=context)
         return res
