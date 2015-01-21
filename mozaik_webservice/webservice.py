@@ -160,3 +160,55 @@ class custom_webservice(orm.Model):
             raise WebServiceException(
                 uid, "Partner Coordinate", 'SEARCH ERROR', e.message)
         return res
+
+    @web_service
+    def get_distribution_list(self, cr, uid, distribution_list_id, context=None):
+        self.check_access_rights(cr, uid, 'read')
+        list_obj = self.pool['distribution.list']
+        partner_obj = self.pool['res.partner']
+        res = []
+        context = context or {}
+        try:
+            context['field_main_object'] = 'partner_id'
+            active_ids, _ = list_obj.get_complex_distribution_list_ids(
+                cr,
+                SUPERUSER_ID,
+                [distribution_list_id],
+                context=context)
+            res = partner_obj.read(cr,
+                                   SUPERUSER_ID,
+                                   active_ids,
+                                   ['lastname',
+                                    'firstname',
+                                    'usual_lastname',
+                                    'usual_firstname',
+                                    'email',
+                                    'ldap_id',
+                                    'ldap_name'],
+                                   context=context)
+            for data in res:
+                for key in data.keys():
+                    if not data[key]:
+                        data.pop(key)
+                    elif isinstance(data[key], (list, tuple)):
+                        data[key] = data[key][1]
+
+        except Exception as e:
+            raise WebServiceException(
+                uid, "Distribution List", 'READ ERROR', e.message or e.value)
+        return res
+
+    @web_service
+    def update_partner_ldap(self, cr, uid, partner_id, ldap_id, context=None):
+        self.check_access_rights(cr, uid, 'read')
+        partner_obj = self.pool['res.partner']
+        try:
+            res = partner_obj.write(cr,
+                                    SUPERUSER_ID,
+                                    partner_id,
+                                    {'ldap_id': ldap_id},
+                                    context=context)
+        except Exception as e:
+            raise WebServiceException(
+                uid, "Partner", 'UPDATE ERROR', e.message or e.value)
+        return res

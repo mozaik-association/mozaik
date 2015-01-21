@@ -38,7 +38,7 @@ options
 * `2` test get uid
 """
 if len(sys.argv) != 3:
-    raise Exception('Two arguments are required to launch this sample: "db {1 | 2 | 3}"')
+    raise Exception('Two arguments are required to launch this sample: "db {1 | 2 | 3 | 4 | 5}"')
 
 DBNAME = sys.argv[1]
 USERNAME = 'ws'
@@ -69,7 +69,13 @@ elif sys.argv[2] == '3':
         False, False, False,
         'vic.beretton@gmail.com', False, False,
         False, 'demande newsletter etopia')
+elif sys.argv[2] == '4':
+    METHOD = 'get_distribution_list'
+    res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 1)
+elif sys.argv[2] == '5':
+    METHOD = 'update_partner_ldap'
+    res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 7, 456)
 else:
-    raise Exception('1, 2 or 3 for available options')
+    raise Exception('1, 2, 3, 4 or 5 for available options')
 
 print res
