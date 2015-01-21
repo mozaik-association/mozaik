@@ -8,7 +8,7 @@ A sandbox environnement is available [here](http://mozaik.odoodemo.acsone.eu/web
 Summary
 -------
 
-Ecolo (the green Belgian political party) entrusted to Acsone the development of Mozaik, an application to manage and communicate with it's human resources: be it members (and manage membership), supporters, Ecolo politicians and political representatives in the boards of various organisations, and state owned agencies.
+[Ecolo](http://www.ecolo.be) (the green Belgian political party) entrusted to [Acsone](http://www.acsone.eu) the development of Mozaik, an application to manage and communicate with it's human resources: be it members (and manage membership), supporters, Ecolo politicians and political representatives in the boards of various organisations, and state owned agencies.
 
 By choice model of society, Ecolo since it's beginning always used as many FOSS as possible for itself, and also promoted a maximum use of OOS by the states administrations, that's why you can get the whole application and modules of Mozaik open sourced under AGPL.
 
@@ -41,11 +41,11 @@ More technically
 The application is intended for Odoo v8, but is currently mostly coded using the classic OpenERP api.
 
 Some more generic modules have been move to other repositories:
-- [Acsone Addons](https://github.com/acsone/acsone-addons) for distribution lists and newsletters (distribution_list)
-- [OCA/web](https://github.com/OCA/web) for online help (help_online)
-- [OCA/Server Tools](https://github.com/OCA/server-tools) for SSO authentication (auth_from_http_remote_user)
+- [Acsone Addons](https://github.com/acsone/acsone-addons) for distribution lists and newsletters (```distribution_list```)
+- [OCA/web](https://github.com/OCA/web) for online help (```help_online```)
+- [OCA/Server Tools](https://github.com/OCA/server-tools) for SSO authentication (```auth_from_http_remote_user```)
 
-A special module is provided to quickly build a non empty sandbox database: mozaik_sample_accounting.
+A special module is provided to quickly build a non empty sandbox database: ```mozaik_sample_accounting```.
 
-List of dependencies needed to the whole project can be consulted in the mozaik_base/__openerp__.py manifest.
+List of dependencies needed to the whole project can be consulted in the ```mozaik_base/__openerp__.py``` manifest.
 
