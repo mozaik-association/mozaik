@@ -74,7 +74,7 @@ elif sys.argv[2] == '4':
     res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 1)
 elif sys.argv[2] == '5':
     METHOD = 'update_partner_ldap'
-    res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 7, 456)
+    res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 7, 456, 'new name')
 else:
     raise Exception('1, 2, 3, 4 or 5 for available options')
 
