@@ -3,7 +3,7 @@ Mozaik
 
 A suite of Odoo modules to manage large associative organizations (members, committees, subscriptions, ...).
 
-A sandbox environnement is available [here](http://mozaik.odoodemo.acsone.eu/web). A demo user with guest/guest credentials can be used to log on.
+A [sandbox environnement](http://mozaik.odoodemo.acsone.eu/web) is available. A demo user with guest/guest credentials can be used to log on.
 
 Summary
 -------
