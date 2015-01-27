@@ -199,15 +199,24 @@ class custom_webservice(orm.Model):
         return res
 
     @web_service
-    def update_partner_ldap(self, cr, uid, partner_id, ldap_id, context=None):
+    def update_partner_ldap(self, cr, uid, partner_id, ldap_id, ldap_name,
+                            context=None):
         self.check_access_rights(cr, uid, 'read')
         partner_obj = self.pool['res.partner']
+        res = False
         try:
-            res = partner_obj.write(cr,
-                                    SUPERUSER_ID,
-                                    partner_id,
-                                    {'ldap_id': ldap_id},
-                                    context=context)
+            data = {}
+            if ldap_id:
+                data['ldap_id'] = ldap_id
+            if ldap_name:
+                data['ldap_name'] = ldap_name
+
+            if data:
+                res = partner_obj.write(cr,
+                                        SUPERUSER_ID,
+                                        partner_id,
+                                        data,
+                                        context=context)
         except Exception as e:
             raise WebServiceException(
                 uid, "Partner", 'UPDATE ERROR', e.message or e.value)
