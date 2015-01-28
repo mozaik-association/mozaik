@@ -146,12 +146,16 @@ class test_accounting_with_product(object):
             account = None
             if self.product:
                 account = other_account
+                name = 'Comment'
             else:
                 account = subscription_account
+                name = self.partner.reference
+
             res.append({
                 'account_id': account.id,
                 'debit': 0,
-                'credit': additional_amount})
+                'credit': additional_amount,
+                'name': name})
 
         return res
 
