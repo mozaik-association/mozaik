@@ -160,17 +160,8 @@ class account_bank_statement_line(orm.Model):
                                                             mv_line_dicts,
                                                             context=context)
 
-        property_obj = self.pool.get('ir.property')
-        subscription_account = property_obj.get(
-                                        cr,
-                                        uid,
-                                        'property_subscription_account',
-                                        'product.template')
-        if not subscription_account:
-            return
-
         for data in mv_line_dicts:
-            if data['account_id'] == subscription_account.id:
+            if data.get('name', "").startswith('+++9'):
                 self.manage_membership_payment(cr,
                                                uid,
                                                bank_line.partner_id.id,

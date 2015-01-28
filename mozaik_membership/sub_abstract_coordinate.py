@@ -107,7 +107,7 @@ class sub_abstract_coordinate(orm.AbstractModel):
                         partner_ids.append(pc.partner_id.id)
                 else:
                     partner_ids.append(vals['partner_id'])
-        else:
+        elif vals.get('partner_id', False):
             partner_ids = [vals['partner_id']]
             new_main_ids = not_main_ids
         if new_main_ids:
