@@ -41,7 +41,6 @@
         'product',
         'event_mass_mailing',    # from https://github.com/acsone/acsone-addons
         'partner_firstname',     # from https://github.com/OCA/partner-contact
-        #'mass_editing',          # from https://github.com/OCA/server-tools/7.0
         'cron_run_manually',     # from https://github.com/OCA/server-tools/7.0
         'auth_admin_passkey',    # from https://github.com/OCA/server-tools/7.0
         'settings_improvement',  # from https://github.com/acsone/acsone-addons
@@ -50,13 +49,6 @@
         'html_widget_embedded_picture', 
                                  # from https://github.com/acsone/acsone-addons
         'help_online',           # from https://github.com/OCA/web
-
-        # to speed test without testing standard addons from a pre-loaded squeleton database:
-        'analytic',
-        'edi',
-        # load manually in this database mozaik_base and the following modules:
-        #'account_accountant',
-        #'account_cancel',
     ],
     'description': """
 MOZAIK Base

@@ -575,46 +575,22 @@ class test_partner(SharedSetupTransactionCase):
 
     def test_generate_membership_reference(self):
         """
-        check the membership reference is correct.
-        Comm. Struct. = '9' + year without century +
-            member identifier on 7 positions + % 97
+        Check if the membership reference match the arbitrary pattern:
+          'MS: YYYY/<partner-id>'
         """
         cr, uid, context = self.cr, self.uid, {}
-        # create first membership_line
-        today = date.today().strftime('%Y-%m-%d')
-        partner_id = self.partner_obj.create(
-            cr, uid, {'lastname': '%s' % uuid.uuid4()}, context)
-        partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
-        ref = self.partner_obj._generate_membership_reference(
-            cr, uid, partner_id, str(date.today().year), context=context)
-        s = ref.split('/')
-        self.assertTrue(len(s) == 3, 'Should be separated into 3 \
-            parts with a "/"')
+        p_obj = self.partner_obj
+        # create a partner
+        partner_id = p_obj.create(
+            cr, uid, {'lastname': '%s' % uuid.uuid4()}, context=context)
+        year = str(date.today().year)
+        # generate the reference
+        genref = p_obj._generate_membership_reference(
+            cr, uid, partner_id, year, context=context)
 
-        s_left = s[0].split('+')
-        s_center = s[1].split('+')
-        s_right = s[2].split('+')
-
-        self.assertTrue(len(s_left) == 4, 'Should have 4 parts')
-        self.assertTrue(s_left[3].isdigit(), 'Should have +++NUMBER for left \
-            part')
-
-        self.assertTrue(len(s_right) == 4, 'Should have 4 parts')
-        self.assertTrue(s_right[0].isdigit(), 'Should have NUMBER+++ for \
-            right part')
-
-        self.assertTrue(len(s_center) == 1, 'Should not have + into the \
-            center part of ref')
-
-        full_number = '%s%s%s' % (s_left[3], s_center[0], s_right[0])
-        self.assertTrue(int(full_number[:1]) == 9, 'First number should be 9')
-        self.assertEquals(full_number[1:3], today[2:4], '+ year without \
-            century: Should have the save value')
-        self.assertEquals(partner.identifier, int(full_number[3:-2]),
-                          'Identifier should be the same')
-        self.assertEquals(
-            int(full_number[:-2]) % 97 or 97,
-            int(full_number[-2:]), 'Identifier should be the same')
+        ref = 'MS: %s/%s' % (year, partner_id)
+        self.assertEquals(genref, ref,
+                          'Reference should be equal to %s' % ref)
 
     def test_create_user_from_partner(self):
         """

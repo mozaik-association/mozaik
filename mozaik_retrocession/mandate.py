@@ -191,7 +191,8 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         res = super(abstract_mandate_retrocession, self).create(cr, uid, vals, context=context)
 
         if res:
-            self.generate_mandate_reference(cr, uid, res)
+            reference = self.generate_mandate_reference(cr, uid, res)
+            self.write(cr, uid, res, {'reference': reference}, context=context)
 
         if res and vals['retrocession_mode'] != 'none' \
                 and vals.get('active', True):
@@ -230,20 +231,14 @@ class abstract_mandate_retrocession(orm.AbstractModel):
 
     def generate_mandate_reference(self, cr, uid, mandate_id, context=None):
         """
-        ==========================
-        generate_mandate_reference
-        ==========================
-        Generate and store structured reference for mandate
-        :rparam: True
-        :rtype: Bolean
+        This method is intended to be overriden regarding
+        locale conventions.
+        Here is an arbitrary convention: "RC: <mandate_unique_id>"
         """
-        unique_id = self.read(cr, uid, mandate_id, ['unique_id'], context=context)['unique_id']
-        base = 8000000000 + unique_id
-        mod = base % 97 or 97
-        mod = str(mod).rjust(2, '0')
-        base_str = str(base)
-        reference = '+++%s/%s/%s%s+++' % (base_str[:3], base_str[3:7], base_str[7:], mod)
-        return self.write(cr, uid, mandate_id, {'reference': reference}, context=context)
+        unique_id = self.read(
+            cr, uid, mandate_id, ['unique_id'], context=context)['unique_id']
+        ref = 'RC: %s' % unique_id
+        return ref
 
     def get_retro_instance_id(self, cr, uid, assembly_id, context=None):
         if assembly_id:
