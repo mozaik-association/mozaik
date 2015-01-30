@@ -254,30 +254,29 @@ class abstract_mandate_retrocession(orm.AbstractModel):
 
     def send_email_for_reference(self, cr, uid, ids, context=None):
         """
-        ==========================
-        send_email_for_reference
-        ==========================
-        Send a email to partner to communicate reference for payments
+        Send an email to partner to communicate reference for payments
         """
-        context = {} if context == None else context
-        ir_model_data = self.pool.get('ir.model.data')
+        ir_model_data = self.pool['ir.model.data']
         template_ref = False
         if self._assembly_model == 'sta.assembly':
             template_ref = 'email_template_sta_mandate_reference'
         else:
             template_ref = 'email_template_ext_mandate_reference'
+
         try:
             template_id = ir_model_data.get_object_reference(
-                                         cr,
-                                         uid,
-                                         'mozaik_retrocession',
-                                         template_ref)[1]
+                cr, uid, 'mozaik_retrocession', template_ref)[1]
         except ValueError:
-            raise orm.except_orm(_('Error'),
-                                 _('Email template %s not found!') % \
-                                   template_ref)
+            raise orm.except_orm(
+                _('Error'),
+                _('Email template %s not found!') % template_ref)
 
-        for mandate in self.browse(cr, uid, ids, context=context):
+        # Remove navigation history: maybe we're coming from partner
+        ctx = dict(context or {})
+        ctx.pop('active_model', None)
+        ctx.pop('active_id', None)
+        ctx.pop('active_ids', None)
+        for mandate in self.browse(cr, uid, ids, context=ctx):
             composer = self.pool['mail.compose.message']
             mail_composer_vals = {'parent_id': False,
                                   'use_active_domain': False,
@@ -286,26 +285,22 @@ class abstract_mandate_retrocession(orm.AbstractModel):
                                                    [mandate.partner_id.id]]],
                                   'notify': False,
                                   'template_id': template_id,
-                                  'subject': "",
                                   'model': self._name,
+                                  'record_name': mandate.display_name,
+                                  'res_id': mandate.id,
                                   }
-            context['active_ids'] = [mandate.id]
-            value = composer.onchange_template_id(cr,
-                                                  uid,
-                                                  mandate.id,
-                                                  template_id,
-                                                  'mass_mail',
-                                                  '',
-                                                  0,
-                                                  context=context)['value']
-            value['email_from'] = composer._get_default_from(cr, uid,
-                                                             context=context)
+            value = composer.onchange_template_id(
+                cr, uid, mandate.id, template_id, 'mass_mail',
+                False, False,
+                context=ctx)['value']
+            value['email_from'] = composer._get_default_from(
+                cr, uid, context=ctx)
             mail_composer_vals.update(value)
-            mail_composer_id = composer.create(cr, uid, mail_composer_vals,
-                                               context=context)
-            composer.send_mail(cr, uid, [mail_composer_id], context=context)
+            mail_composer_id = composer.create(
+                cr, uid, mail_composer_vals, context=ctx)
+            composer.send_mail(cr, uid, [mail_composer_id], context=ctx)
             self.write(cr, uid, mandate.id,
-                       {'email_date': fields.date.today()}, context=context)
+                       {'email_date': fields.date.today()}, context=ctx)
 
 
 class sta_mandate(orm.Model):

@@ -803,9 +803,9 @@ class retrocession(orm.Model):
 
     def create(self, cr, uid, vals, context=None):
         if vals.get('sta_mandate_id', False):
-            vals['mandate_ref'] = "sta.mandate, %s" % vals.get('sta_mandate_id')
+            vals['mandate_ref'] = "sta.mandate,%s" % vals.get('sta_mandate_id')
         else:
-            vals['mandate_ref'] = "ext.mandate, %s" % vals.get('ext_mandate_id')
+            vals['mandate_ref'] = "ext.mandate,%s" % vals.get('ext_mandate_id')
         if vals.get('month', '') != '12':
             vals['is_regulation'] = False
         res = super(retrocession, self).create(cr, uid, vals, context=context)
@@ -943,21 +943,30 @@ class retrocession(orm.Model):
 
     def action_request_for_payment_send(self, cr, uid, ids, context=None):
         """
-        ================================
-        action_request_for_payment_send
-        ================================
         Send an email with request for payment attached
         """
+        tmpl_xmlid = 'email_template_request_payment_retrocession'
         ir_model_data = self.pool.get('ir.model.data')
         retro = self.browse(cr, uid, ids[0], context=context)
         if not retro.email_coordinate_id:
-            raise orm.except_orm(_('Error'), _('Representative has no email specified'))
+            raise orm.except_orm(
+                _('Error'),
+                _('Representative has no email specified'))
         try:
-            template_id = ir_model_data.get_object_reference(cr, uid, 'mozaik_retrocession', 'email_template_request_payment_retrocession')[1]
+            template_id = ir_model_data.get_object_reference(
+                cr, uid, 'mozaik_retrocession', tmpl_xmlid)[1]
         except ValueError:
-            raise orm.except_orm(_('Error'), _('Email template %s not found!') % 'email_template_request_payment_retrocession')
+            raise orm.except_orm(
+                _('Error'),
+                _('Email template %s not found!') % tmpl_xmlid)
 
         if template_id:
+            # Remove navigation history: maybe we're coming from a mandate
+            ctx = dict(context or {},
+                       email_coordinate_path='email_coordinate_id.email')
+            ctx.pop('active_model', None)
+            ctx.pop('active_id', None)
+            ctx.pop('active_ids', None)
             composer = self.pool['mail.compose.message']
             mail_composer_vals = {'parent_id': False,
                                   'use_active_domain': False,
@@ -965,17 +974,22 @@ class retrocession(orm.Model):
                                   'partner_ids': [[6, False, []]],
                                   'notify': False,
                                   'template_id': template_id,
-                                  'subject': "",
                                   'model': 'retrocession',
+                                  'record_name': retro.display_name,
+                                  'res_id': retro.id,
                                   }
-            context['email_coordinate_path'] = 'email_coordinate_id.email'
-            context['active_ids'] = [retro.id]
-            value = composer.onchange_template_id(cr, uid, retro.id, template_id, 'mass_mail', '', 0, context=context)['value']
-            value['email_from'] = composer._get_default_from(cr, uid, context=context)
+            value = composer.onchange_template_id(
+                cr, uid, retro.id, template_id, 'mass_mail',
+                False, False,
+                context=ctx)['value']
+            value['email_from'] = composer._get_default_from(
+                cr, uid, context=ctx)
             mail_composer_vals.update(value)
-            mail_composer_id = composer.create(cr, uid, mail_composer_vals, context=context)
-            composer.send_mail(cr, uid, [mail_composer_id], context=context)
-            self.write(cr, uid, retro.id, {'email_date': fields.date.today()}, context=context)
+            mail_composer_id = composer.create(
+                cr, uid, mail_composer_vals, context=ctx)
+            composer.send_mail(cr, uid, [mail_composer_id], context=ctx)
+            self.write(cr, uid, retro.id,
+                       {'email_date': fields.date.today()}, context=ctx)
 
     def generate_account_move(self, cr, uid, retro, context=None):
         """
