@@ -26,11 +26,4 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import test_async_send
-
-fast_suite = [
-]
-
-checks = [
-    test_async_send,
-]
+from . import test_async_send

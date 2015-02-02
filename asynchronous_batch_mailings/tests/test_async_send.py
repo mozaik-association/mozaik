@@ -72,13 +72,10 @@ class test_async_mail_send(common.TransactionCase):
             'name': 'Mitch',
             'email': 'mitch@mi.tch',
         }
-        partner_id = self.registry['res.partner'].create(
-            cr, uid, vals, context=context)
 
         mail_vals = {
             'composition_mode': 'mass_mail',
             'body': '<p>sample body</p>',
-            'partner_ids': [partner_id],
             'use_active_domain': False,
             'attachment_ids': [[6, False, [attachment_id]]],
             'template_id': 1,
