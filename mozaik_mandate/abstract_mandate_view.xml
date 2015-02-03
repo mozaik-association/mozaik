@@ -253,9 +253,6 @@
                             <button name="action_invalidate" string="Invalidate" type="object"
                                     confirm="Invalidate mandate: proceed anyway?"
                                     attrs="{'invisible': [('end_date','=',False)]}" />
-                            <button name="action_finish" string="Finish" type="object"
-                                    confirm="Finish mandate now: proceed anyway?"
-                                    attrs="{'invisible': [('end_date','!=',False)]}"/>
                         </div>
                     </header>
                     <sheet>

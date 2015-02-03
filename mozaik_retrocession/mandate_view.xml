@@ -100,7 +100,7 @@
                 ref('mozaik_base.mozaik_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='action_finish']" position="after">
+                <xpath expr="//button[@name='action_invalidate']" position="after">
                     <button string="Send mail" name="send_email_for_reference"
                             confirm="Send email with structured reference now: proceed anyway?"
                             type="object" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"
@@ -218,7 +218,7 @@
                 ref('mozaik_base.mozaik_res_groups_financial_user'),
             ])]"/>
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='action_finish']" position="after">
+                <xpath expr="//button[@name='action_invalidate']" position="after">
                     <button string="Send mail" name="send_email_for_reference"
                             confirm="Send email with structured reference now: proceed anyway?"
                             type="object" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>

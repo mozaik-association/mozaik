@@ -26,15 +26,16 @@
 #
 ##############################################################################
 from datetime import datetime
+
 from dateutil.relativedelta import relativedelta
 
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT,\
-                          DEFAULT_SERVER_DATE_FORMAT
-from openerp.osv import orm, osv, fields
-from openerp.tools.translate import _
-from openerp.tools import SUPERUSER_ID
-
 from openerp.addons.mozaik_mandate.mandate import mandate_category
+from openerp.osv import orm, osv, fields
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, \
+                          DEFAULT_SERVER_DATE_FORMAT
+from openerp.tools import SUPERUSER_ID
+from openerp.tools.translate import _
+
 
 SELECTION_COMMITTEE_AVAILABLE_STATES = [
     ('draft', 'In Progress'),
@@ -546,32 +547,6 @@ class abstract_mandate(orm.AbstractModel):
     ]
 
 # view methods: onchange, button
-
-    def action_finish(self, cr, uid, ids, context=None):
-        """
-        =================
-        action_finish
-        =================
-        Finish mandate at the current date
-        :rparam: True
-        :rtype: boolean
-        """
-        for mandate_data in self.read(cr, uid, ids, ['deadline_date'],
-                                      context=context):
-            deadline = datetime.strptime(mandate_data['deadline_date'],
-                                         DEFAULT_SERVER_DATE_FORMAT)
-            if datetime.strptime(fields.datetime.now(),
-                                 DEFAULT_SERVER_DATETIME_FORMAT) >= deadline:
-                end_date = mandate_data['deadline_date']
-            else:
-                end_date = fields.datetime.now()
-            self.action_invalidate(cr,
-                                   uid,
-                                   [mandate_data['id']],
-                                   context=context,
-                                   vals={'end_date': end_date})
-
-        return True
 
 # orm methods
     def create(self, cr, uid, vals, context=None):
