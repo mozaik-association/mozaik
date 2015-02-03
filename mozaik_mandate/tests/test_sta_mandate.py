@@ -318,3 +318,30 @@ class test_sta_mandate(SharedSetupTransactionCase):
                           self.cr,
                           self.uid,
                           [committee_id])
+
+    def test_legislature_early_closing(self):
+        '''
+        Test the mass update of mandates if deadline date of legislature
+        is changed
+        '''
+        cr, uid, context = self.cr, self.uid, {}
+        legislature_obj = self.registry['legislature']
+        mandate_obj = self.registry['sta.mandate']
+        legislature_id = self.ref('%s.legislature_01' % self._module_ns)
+        mandate_id = self.ref('%s.stam_pauline_bourgmestre' % self._module_ns)
+
+        self.assertRaises(orm.except_orm,
+                          legislature_obj.write,
+                          cr,
+                          uid,
+                          legislature_id,
+                          {'deadline_date': '2015-01-01'})
+        new_deadline_date = '2020-12-02'
+        legislature_obj.write(cr, uid, legislature_id, {'deadline_date':
+                                                        new_deadline_date},
+                              context=context)
+        mandate = mandate_obj.browse(cr, uid, mandate_id, context=context)
+        legislature = legislature_obj.browse(cr, uid, legislature_id,
+                                             context=context)
+        self.assertEquals(legislature.deadline_date, new_deadline_date)
+        self.assertEquals(mandate.deadline_date, new_deadline_date)

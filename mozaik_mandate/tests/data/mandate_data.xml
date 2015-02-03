@@ -253,6 +253,16 @@
             <field name="sta_assembly_id" ref="sta_assembly_03"/>
             <field name="partner_id" ref="res_partner_thierry"/>
         </record>
+        
+        <record id="stam_pauline_bourgmestre" model="sta.mandate">
+            <field name="mandate_category_id" ref="mc_bourgmestre"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="legislature_id" ref="legislature_01"/>
+            <field name="start_date">2018-12-03</field>
+            <field name="deadline_date">2024-12-02</field>
+            <field name="sta_assembly_id" ref="sta_assembly_03"/>
+            <field name="partner_id" ref="res_partner_pauline"/>
+        </record>
 
         <!-- Create Internal mandates -->
 

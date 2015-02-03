@@ -26,6 +26,40 @@
 #
 ##############################################################################
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT,\
+    DEFAULT_SERVER_DATETIME_FORMAT
+from datetime import datetime as dt
+
+
+class legislature(orm.Model):
+    _name = 'legislature'
+    _inherit = 'legislature'
+
+    def write(self, cr, uid, ids, vals, context=None):
+        new_deadline_date = vals.get('deadline_date', False)
+        if new_deadline_date:
+            for legis in self.browse(cr, uid, ids, context=context):
+                if legis.deadline_date != new_deadline_date:
+                    if (dt.strptime(new_deadline_date,
+                        DEFAULT_SERVER_DATE_FORMAT) <
+                        dt.strptime(fields.datetime.now(),
+                                    DEFAULT_SERVER_DATETIME_FORMAT)):
+                        raise orm.except_orm(
+                            _('Warning'),
+                            _('New deadline date must be greater or'
+                              ' equal than today !'))
+                    mandate_obj = self.pool.get('sta.mandate')
+                    mandate_ids = mandate_obj.search(
+                        cr,
+                        uid,
+                        [('legislature_id', '=', legis.id),
+                         ('deadline_date', '>', new_deadline_date)])
+                    if mandate_ids:
+                        mandate_obj.write(cr, uid, mandate_ids,
+                                          {'deadline_date': new_deadline_date})
+        return super(legislature, self).write(cr, uid, ids, vals,
+                                              context=context)
 
 
 class electoral_district(orm.Model):
