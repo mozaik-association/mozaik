@@ -664,6 +664,18 @@ class sta_mandate(orm.Model):
                                                            arg,
                                                            context=context)
 
+    def _check_legislature_date_consistency(self, cr, uid, ids, context=None):
+        uid = SUPERUSER_ID
+        for mandate in self.browse(cr, uid, ids, context=context):
+            if (mandate.start_date >= mandate.legislature_id.start_date
+                and mandate.start_date <= mandate.legislature_id.deadline_date
+                and mandate.deadline_date >= mandate.start_date
+                and mandate.deadline_date <=
+                    mandate.legislature_id.deadline_date):
+                return True
+            else:
+                return False
+
     _columns = {
         'unique_id': fields.function(
                                      _compute_unique_id,
@@ -740,6 +752,11 @@ class sta_mandate(orm.Model):
     _order = 'partner_id, sta_assembly_id, legislature_id, mandate_category_id'
 
 # constraints
+    _constraints = [
+        (_check_legislature_date_consistency,
+         _('Mandate period is inconsistent with legislature period!'),
+         ['start_date', 'deadline_date'])
+    ]
 
     _unicity_keys = 'partner_id, sta_assembly_id, legislature_id,\
                      mandate_category_id'
