@@ -566,6 +566,14 @@
             <field name="deadline_date">2014-04-15</field>
             <field name="election_date">2012-10-14</field>
         </record>
+        
+        <record id="legislature_03_opened" model="legislature">
+            <field name="name">Legislature communale ouverte</field>
+            <field name="power_level_id" ref="sta_power_level_05"/>
+            <field name="start_date">2014-10-26</field>
+            <field name="deadline_date">2024-10-25</field>
+            <field name="election_date">2014-10-14</field>
+        </record>
 
         <!-- Create Electoral Districts -->
 
