@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_mandate
+#   * mozaik_mandate
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-21 18:38+0000\n"
-"PO-Revision-Date: 2014-10-21 18:38+0000\n"
+"POT-Creation-Date: 2015-02-06 19:59+0000\n"
+"PO-Revision-Date: 2015-02-06 19:59+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,16 +30,16 @@ msgid "#SP"
 msgstr "#PS"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\abstract_mandate.py:242
-#: code:addons\mozaik_mandate\mandate.py:228
+#: code:addons/mozaik_mandate/abstract_mandate.py:244
+#: code:addons/mozaik_mandate/mandate.py:230
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_mandate
 #: constraint:abstract.candidature:0
-#: code:addons\mozaik_mandate\abstract_mandate.py:826
-#: code:addons\mozaik_mandate\sta_mandate.py:585
+#: code:addons/mozaik_mandate/abstract_mandate.py:808
+#: code:addons/mozaik_mandate/sta_mandate.py:588
 #: constraint:ext.candidature:0
 #: constraint:int.candidature:0
 #: constraint:sta.candidature:0
@@ -49,7 +49,7 @@ msgstr "Une candidature existe déjà pour ce partenaire dans cette catégorie"
 
 #. module: mozaik_mandate
 #: constraint:abstract.selection.committee:0
-#: code:addons\mozaik_mandate\abstract_mandate.py:176
+#: code:addons/mozaik_mandate/abstract_mandate.py:178
 #: constraint:ext.selection.committee:0
 #: constraint:int.selection.committee:0
 #: constraint:sta.selection.committee:0
@@ -258,6 +258,7 @@ msgstr "Revenir à l'état \"Déclaré\""
 
 #. module: mozaik_mandate
 #: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard
+#: view:abstract.update.mandate.end.date.wizard:mozaik_mandate.update_mandate_end_date_wizard
 #: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step1
 #: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step2
 #: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step1
@@ -283,8 +284,8 @@ msgid "Candidate Name"
 msgstr "Nom du candidat"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:208
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:223
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:208
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:223
 #, python-format
 msgid "Candidate is elected but position non elected (%s) is set"
 msgstr "Le candidat est élu mais la position de non élu (%s) est postionnée"
@@ -300,15 +301,15 @@ msgid "Candidature"
 msgstr "Candidature"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:223
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:199
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:223
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:199
 #, python-format
 msgid "Candidature is not flagged as effective"
 msgstr "La candidature n'est pas marquée comme effective"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:227
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:205
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:227
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:205
 #, python-format
 msgid "Candidature is not flagged as substitute"
 msgstr "La candidature n'est pas marquée comme suppléante"
@@ -319,8 +320,8 @@ msgid "Candidature:"
 msgstr "Candidature:"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:218
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:185
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:218
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:185
 #, python-format
 msgid "Candidature: inconsistent value for column E/S: should be %s"
 msgstr "Candidature: valeur inconsistente pour la colonne E/S: %s attendu"
@@ -425,6 +426,9 @@ msgstr "Poursuivre la conversion de la candidature en mandat ?"
 #: field:sta.candidature,create_uid:0
 #: field:sta.mandate,create_uid:0
 #: field:sta.selection.committee,create_uid:0
+#: field:update.ext.mandate.end.date.wizard,create_uid:0
+#: field:update.int.mandate.end.date.wizard,create_uid:0
+#: field:update.sta.mandate.end.date.wizard,create_uid:0
 msgid "Created by"
 msgstr "Créé par"
 
@@ -438,6 +442,9 @@ msgstr "Créé par"
 #: field:electoral.results.wizard.lines,create_date:0
 #: field:import.sta.candidatures.file.lines,create_date:0
 #: field:import.sta.candidatures.wizard,create_date:0
+#: field:update.ext.mandate.end.date.wizard,create_date:0
+#: field:update.int.mandate.end.date.wizard,create_date:0
+#: field:update.sta.mandate.end.date.wizard,create_date:0
 msgid "Created on"
 msgstr "Date de création"
 
@@ -617,15 +624,21 @@ msgid "End Date"
 msgstr "Date de fin"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\report\mandates_analysis_report.py:153
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:82
+#, python-format
+msgid "End date must be lower or equal than today !"
+msgstr "La date de fin doit être antérieure à la date du jour!"
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/report/mandates_analysis_report.py:153
 #, python-format
 msgid "Ending mandates alerts report"
 msgstr "Rapport d'alerte de fins de mandat"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\wizard\import_candidatures_wizard.py:94
-#: code:addons\mozaik_mandate\wizard\import_candidatures_wizard.py:101
-#: code:addons\mozaik_mandate\wizard\import_candidatures_wizard.py:112
+#: code:addons/mozaik_mandate/wizard/import_candidatures_wizard.py:94
+#: code:addons/mozaik_mandate/wizard/import_candidatures_wizard.py:101
+#: code:addons/mozaik_mandate/wizard/import_candidatures_wizard.py:112
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -758,16 +771,6 @@ msgid "File Values"
 msgstr "Valeurs"
 
 #. module: mozaik_mandate
-#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
-msgid "Finish"
-msgstr "Arrêter"
-
-#. module: mozaik_mandate
-#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
-msgid "Finish mandate now: proceed anyway?"
-msgstr "Poursuivre l'arrêt du mandat ?"
-
-#. module: mozaik_mandate
 #: field:abstract.candidature,message_follower_ids:0
 #: field:abstract.mandate,message_follower_ids:0
 #: field:abstract.selection.committee,message_follower_ids:0
@@ -820,6 +823,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:abstract.copy.mandate.wizard,id:0
 #: field:abstract.mandate,id:0
 #: field:abstract.selection.committee,id:0
+#: field:abstract.update.mandate.end.date.wizard,id:0
 #: field:allow.incompatible.mandate.wizard,id:0
 #: field:copy.ext.mandate.wizard,id:0
 #: field:copy.int.mandate.wizard,id:0
@@ -841,6 +845,9 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:sta.candidature,id:0
 #: field:sta.mandate,id:0
 #: field:sta.selection.committee,id:0
+#: field:update.ext.mandate.end.date.wizard,id:0
+#: field:update.int.mandate.end.date.wizard,id:0
+#: field:update.sta.mandate.end.date.wizard,id:0
 msgid "ID"
 msgstr ""
 
@@ -911,15 +918,15 @@ msgid "Incompatible Mandates"
 msgstr "Mandats incompatibles"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:203
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:231
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:203
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:231
 #, python-format
 msgid "Inconsistent state for candidature: %s"
 msgstr "Candidature de status inconsistent: %s"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:213
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:209
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:213
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:209
 #, python-format
 msgid "Inconsistent value for column E/S: %s"
 msgstr "Valeur inconsistente pour la colonne E/S: %s"
@@ -1106,6 +1113,9 @@ msgstr "Date du dernier message"
 #: field:sta.candidature,write_uid:0
 #: field:sta.mandate,write_uid:0
 #: field:sta.selection.committee,write_uid:0
+#: field:update.ext.mandate.end.date.wizard,write_uid:0
+#: field:update.int.mandate.end.date.wizard,write_uid:0
+#: field:update.sta.mandate.end.date.wizard,write_uid:0
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
@@ -1129,12 +1139,16 @@ msgstr "Dernière mise à jour par"
 #: field:sta.candidature,write_date:0
 #: field:sta.mandate,write_date:0
 #: field:sta.selection.committee,write_date:0
+#: field:update.ext.mandate.end.date.wizard,write_date:0
+#: field:update.int.mandate.end.date.wizard,write_date:0
+#: field:update.sta.mandate.end.date.wizard,write_date:0
 msgid "Last Updated on"
 msgstr "Date de dernière mise à jour"
 
 #. module: mozaik_mandate
 #: field:copy.sta.mandate.wizard,legislature_id:0
 #: field:electoral.results.wizard,legislature_id:0
+#: model:ir.model,name:mozaik_mandate.model_legislature
 #: view:sta.candidature:mozaik_mandate.sta_candidature_search_view
 #: field:sta.candidature,legislature_id:0
 #: view:sta.mandate:mozaik_mandate.sta_mandate_search_view
@@ -1145,13 +1159,13 @@ msgid "Legislature"
 msgstr "Législature"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\wizard\import_candidatures_wizard.py:113
+#: code:addons/mozaik_mandate/wizard/import_candidatures_wizard.py:113
 #, python-format
 msgid "Line %s: Partner %s not found in database, please check source file!"
 msgstr "Ligne %s: Partenaire %s inconnu, merci de vérifier le fichier le contenu d'entrée !"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\wizard\import_candidatures_wizard.py:95
+#: code:addons/mozaik_mandate/wizard/import_candidatures_wizard.py:95
 #, python-format
 msgid "Line %s: wrong number of columns(%s), %s expected!"
 msgstr "Ligne %s: nombre de columns(%s) incorrect, %s sont requises !"
@@ -1170,6 +1184,10 @@ msgstr "Liste"
 #: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
 #: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard
 #: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
+#: field:abstract.update.mandate.end.date.wizard,mandate_id:0
+#: field:update.ext.mandate.end.date.wizard,mandate_id:0
+#: field:update.int.mandate.end.date.wizard,mandate_id:0
+#: field:update.sta.mandate.end.date.wizard,mandate_id:0
 msgid "Mandate"
 msgstr "Mandat"
 
@@ -1220,6 +1238,14 @@ msgid "Mandate Category"
 msgstr "Catégorie de mandat"
 
 #. module: mozaik_mandate
+#: field:abstract.update.mandate.end.date.wizard,mandate_end_date:0
+#: field:update.ext.mandate.end.date.wizard,mandate_end_date:0
+#: field:update.int.mandate.end.date.wizard,mandate_end_date:0
+#: field:update.sta.mandate.end.date.wizard,mandate_end_date:0
+msgid "Mandate End Date"
+msgstr "Date de fin du mandat"
+
+#. module: mozaik_mandate
 #: field:generic.mandate,mandate_id:0
 msgid "Mandate ID"
 msgstr "ID de mandat"
@@ -1236,6 +1262,19 @@ msgstr "Référence du mandat"
 #: field:sta.candidature,mandate_start_date:0
 msgid "Mandate Start Date"
 msgstr "Date de début de mandat"
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/sta_mandate.py:757
+#: constraint:sta.mandate:0
+#, python-format
+msgid "Mandate period is inconsistent with legislature period!"
+msgstr "La période du mandat est incohérente avec celle de la législature !"
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:70
+#, python-format
+msgid "Mandate will be invalidated by setting end date !"
+msgstr "Attention: ce mandat sera invalidé à la fin de cette action !"
 
 #. module: mozaik_mandate
 #: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
@@ -1295,10 +1334,14 @@ msgstr "Membres"
 
 #. module: mozaik_mandate
 #: field:abstract.copy.mandate.wizard,message:0
+#: field:abstract.update.mandate.end.date.wizard,message:0
 #: field:copy.ext.mandate.wizard,message:0
 #: field:copy.int.mandate.wizard,message:0
 #: field:copy.sta.mandate.wizard,message:0
 #: field:electoral.results.wizard.errors,error_msg:0
+#: field:update.ext.mandate.end.date.wizard,message:0
+#: field:update.int.mandate.end.date.wizard,message:0
+#: field:update.sta.mandate.end.date.wizard,message:0
 msgid "Message"
 msgstr "Message"
 
@@ -1347,6 +1390,7 @@ msgstr "Modèles"
 #: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard
 #: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
 #: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_form_view
+#: view:abstract.update.mandate.end.date.wizard:mozaik_mandate.update_mandate_end_date_wizard
 #: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step1
 #: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step2
 #: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step1
@@ -1356,7 +1400,7 @@ msgid "More Info"
 msgstr "Plus d'info"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\report\mandates_analysis_report.py:179
+#: code:addons/mozaik_mandate/report/mandates_analysis_report.py:179
 #, python-format
 msgid "Mozaik: Ending Mandates Summary - %s"
 msgstr "Mozaik: Récapitulatif des mandats arrivant à échéance - %s"
@@ -1370,6 +1414,12 @@ msgstr "Mozaik: Récapitulatif des mandats arrivant à échéance - %s"
 #: field:sta.selection.committee,name:0
 msgid "Name"
 msgstr "Nom"
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/structure.py:50
+#, python-format
+msgid "New deadline date must be greater or equal than today !"
+msgstr "La date d'échéance doit être supérieur ou égale à la date du jour !"
 
 #. module: mozaik_mandate
 #: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step2
@@ -1408,7 +1458,7 @@ msgid "Notes"
 msgstr "Notes"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\abstract_mandate.py:88
+#: code:addons/mozaik_mandate/abstract_mandate.py:89
 #, python-format
 msgid "Operation Forbidden!"
 msgstr "Opération interdite !"
@@ -1427,15 +1477,15 @@ msgid "Partner"
 msgstr "Partenaire"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:231
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:214
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:231
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:214
 #, python-format
 msgid "Position non elected is incompatible with e_s value: %s"
 msgstr "La position de non élu est incompatible avec la valeur e_s: %s"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:190
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:140
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:190
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:140
 #, python-format
 msgid "Position non elected value should be integer: %s"
 msgstr "La position de non élu doit être une valeur entière: %s"
@@ -1453,15 +1503,15 @@ msgid "Position on Substitutes List"
 msgstr "Position de suppléant"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:186
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:133
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:186
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:133
 #, python-format
 msgid "Position value should be integer: %s"
 msgstr "Une position doit être une valeur entière: %s"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:236
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:193
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:236
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:193
 #, python-format
 msgid "Position(%s) and position non elected(%s) can not be set both"
 msgstr "La position(%s) et la position de non élu(%s) sont mutuellement exclusives"
@@ -1550,7 +1600,7 @@ msgid "Renew Mandate"
 msgstr "Renouveler le mandat"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\wizard\copy_mandate_wizard.py:247
+#: code:addons/mozaik_mandate/wizard/copy_mandate_wizard.py:239
 #, python-format
 msgid "Renew not allowed on a legislative mandate"
 msgstr "Le renouvellement d'un mandat législatif n'est pas permis"
@@ -1613,6 +1663,14 @@ msgid "Selection Committees"
 msgstr "Comités de sélection"
 
 #. module: mozaik_mandate
+#: view:abstract.update.mandate.end.date.wizard:mozaik_mandate.update_mandate_end_date_wizard
+#: model:ir.actions.act_window,name:mozaik_mandate.update_ext_mandate_end_date_action
+#: model:ir.actions.act_window,name:mozaik_mandate.update_int_mandate_end_date_action
+#: model:ir.actions.act_window,name:mozaik_mandate.update_sta_mandate_end_date_action
+msgid "Set End Date"
+msgstr "Finir le mandat"
+
+#. module: mozaik_mandate
 #: view:sta.candidature:mozaik_mandate.sta_candidature_form_view
 msgid "Set candidature as elected: proceed anyway?"
 msgstr "Set candidature as elected: proceed anyway ?"
@@ -1623,7 +1681,17 @@ msgid "Set candidature as non-elected: proceed anyway?"
 msgstr "Poursuivre l'élection du candidat ?"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\abstract_mandate.py:89
+#: view:abstract.update.mandate.end.date.wizard:mozaik_mandate.update_mandate_end_date_wizard
+msgid "Set end date"
+msgstr "Finir le mandat"
+
+#. module: mozaik_mandate
+#: view:abstract.update.mandate.end.date.wizard:mozaik_mandate.update_mandate_end_date_wizard
+msgid "Set end date, proceed anyway?"
+msgstr "Poursuivre l'arrêt du mandat ?"
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/abstract_mandate.py:90
 #, python-format
 msgid "Some candidatures are still in \"declared\" state"
 msgstr "Certaines candidatures restent au statut \"Déclaré\""
@@ -1871,15 +1939,15 @@ msgid "Unique id"
 msgstr "ID Unique"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:199
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:174
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:199
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:174
 #, python-format
 msgid "Unknown candidate: %s"
 msgstr "Candidat inconnu: %s"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:195
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:152
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:195
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:152
 #, python-format
 msgid "Unknown district: %s"
 msgstr "Circonscription inconnue: %s"
@@ -1917,8 +1985,8 @@ msgid "View"
 msgstr "Voir"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:182
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:126
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:182
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:126
 #, python-format
 msgid "Votes value should be integer: %s"
 msgstr "Le nombre de voix de préférence doit être une valeur entière: %s"
@@ -1928,6 +1996,13 @@ msgstr "Le nombre de voix de préférence doit être une valeur entière: %s"
 #: view:mandate.category:mozaik_mandate.mandate_category_search_view
 msgid "Wage Declaration"
 msgstr "Déclaration de rémunération"
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/structure.py:49
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:81
+#, python-format
+msgid "Warning"
+msgstr "Attention"
 
 #. module: mozaik_mandate
 #: field:abstract.candidature,website_message_ids:0
@@ -1989,136 +2064,27 @@ msgid "Wizard"
 msgstr "Assistant"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\wizard\import_candidatures_wizard.py:102
+#: code:addons/mozaik_mandate/wizard/import_candidatures_wizard.py:102
 #, python-format
 msgid "Wrong file structure, it should be: %s!"
 msgstr "Structure de fichier incorrecte, elle doit être: %s !"
 
 #. module: mozaik_mandate
-#: code:addons\mozaik_mandate\tests\test_electoral_results_wizard.py:176
-#: code:addons\mozaik_mandate\wizard\electoral_results_wizard.py:111
+#: code:addons/mozaik_mandate/tests/test_electoral_results_wizard.py:176
+#: code:addons/mozaik_mandate/wizard/electoral_results_wizard.py:111
 #, python-format
 msgid "Wrong number of columns(%s), %s expected!"
 msgstr "Nombre de colonne(%s) incorrect, %s sont requises !"
 
 #. module: mozaik_mandate
-#: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_form_view
-#: view:int.selection.committee:mozaik_mandate.int_selection_committee_form_view
-msgid "[('assembly_category_id', '=', assembly_category_id)]"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:copy.ext.mandate.wizard:mozaik_mandate.copy_ext_mandate_wizard
-msgid "[('id', '!=', mandate_category_id),('type', '=', 'ext')]"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:copy.int.mandate.wizard:mozaik_mandate.copy_int_mandate_wizard
-msgid "[('id', '!=', mandate_category_id),('type', '=', 'int')]"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:copy.sta.mandate.wizard:mozaik_mandate.copy_sta_mandate_wizard
-msgid "[('id', '!=', mandate_category_id),('type', '=', 'sta')]"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:copy.sta.mandate.wizard:mozaik_mandate.copy_sta_mandate_wizard
-msgid "[('instance_id', '=', instance_id), ('is_legislative', '=', False)]"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
-msgid "[('is_legislative', '=', False)]"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:copy.ext.mandate.wizard:mozaik_mandate.copy_ext_mandate_wizard
-msgid "[('type', '=', 'ext')]"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:copy.int.mandate.wizard:mozaik_mandate.copy_int_mandate_wizard
-msgid "[('type', '=', 'int')]"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:copy.sta.mandate.wizard:mozaik_mandate.copy_sta_mandate_wizard
-msgid "[('type', '=', 'sta')]"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:ext.mandate:mozaik_mandate.ext_mandate_form_view
-#: view:int.mandate:mozaik_mandate.int_mandate_form_view
-#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
-msgid "onchange_mandate_category_id(mandate_category_id)"
-msgstr ""
-
-#. module: mozaik_mandate
 #: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard
+#: view:abstract.update.mandate.end.date.wizard:mozaik_mandate.update_mandate_end_date_wizard
 #: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step1
 #: view:electoral.results.wizard:mozaik_mandate.electoral_results_wizard_step2
 #: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step1
 #: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step2
 msgid "or"
 msgstr "ou"
-
-#. module: mozaik_mandate
-#: view:ext.mandate:mozaik_mandate.ext_mandate_form_view
-msgid "{'default_type': 'ext'}"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:int.mandate:mozaik_mandate.int_mandate_form_view
-msgid "{'default_type': 'int'}"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
-msgid "{'default_type': 'sta'}"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:sta.candidature:mozaik_mandate.sta_candidature_form_view
-msgid "{'invisible': ['|', '|', ('state','not in', ['elected', 'non-elected']),\n"
-"                                                           '&', ('state', '=', 'non-elected'), ('is_effective', '=', True)\n"
-"                                                           , ('mandate_ids', '!=', [])]}"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:ext.candidature:mozaik_mandate.ext_candidature_form_view
-msgid "{'invisible': ['|', ('state','!=', 'elected'), ('mandate_ids', '!=', [])]}"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:int.candidature:mozaik_mandate.int_candidature_form_view
-msgid "{'invisible': ['|', ('state','!=', 'elected'),('mandate_ids', '!=', [])]}"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:copy.sta.mandate.wizard:mozaik_mandate.copy_sta_mandate_wizard
-msgid "{'invisible':['|', ('action', '!=', 'renew'), ('is_legislative', '=', True)]}"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
-msgid "{'readonly': [('electoral_district_id','!=', False),]}"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
-msgid "{'readonly': [('electoral_district_id','!=', False)]}"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
-msgid "{'readonly': [('id','!=', False)]}"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:copy.sta.mandate.wizard:mozaik_mandate.copy_sta_mandate_wizard
-msgid "{'readonly':[('action', '!=', 'renew')]}"
-msgstr ""
 
 #. module: mozaik_mandate
 #: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
