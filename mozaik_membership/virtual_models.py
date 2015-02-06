@@ -113,7 +113,12 @@ class virtual_master_partner(orm.Model):
                 WHEN e.vip is TRUE
                 THEN 'VIP'
                 ELSE e.email
-            END as email
+            END as email,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM
             res_partner p
 

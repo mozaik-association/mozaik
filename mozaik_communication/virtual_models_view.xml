@@ -73,6 +73,9 @@
                     <separator />
                     <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="without_coordinate" string="Without Coordinate"
+                        domain="[('active','=',False)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner"
@@ -196,7 +199,9 @@
                     <separator />
                     <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-
+                    <separator />
+                    <filter name="without_coordinate" string="Without Coordinate"
+                        domain="[('active','=',False)]" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner"
                             context="{'group_by':'partner_id'}" />
@@ -325,7 +330,9 @@
                     <separator />
                     <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-
+                    <separator />
+                    <filter name="without_coordinate" string="Without Coordinate"
+                        domain="[('active','=',False)]" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner"
                             context="{'group_by':'partner_id'}" />
@@ -457,7 +464,9 @@
                     <separator />
                     <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-
+                    <separator />
+                    <filter name="without_coordinate" string="Without Coordinate"
+                        domain="[('active','=',False)]" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner"
                             context="{'group_by':'partner_id'}" />
@@ -577,7 +586,9 @@
                     <separator />
                     <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
-
+                    <separator />
+                    <filter name="without_coordinate" string="Without Coordinate"
+                        domain="[('active','=',False)]" />
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner"
                             context="{'group_by':'partner_id'}" />
@@ -690,6 +701,9 @@
                     <separator />
                     <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="without_coordinate" string="Without Coordinate"
+                        domain="[('active','=',False)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner"
@@ -801,6 +815,9 @@
                     <separator />
                     <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="without_coordinate" string="Without Coordinate"
+                        domain="[('active','=',False)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner"
@@ -959,6 +976,9 @@
                     <separator />
                     <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="without_coordinate" string="Without Coordinate"
+                        domain="[('active','=',False)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner"
@@ -1080,6 +1100,9 @@
                     <separator />
                     <filter name="e_unauthorized" string="Unauthorized Email"
                         domain="[('email_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="without_coordinate" string="Without Coordinate"
+                        domain="[('active','=',False)]" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner"

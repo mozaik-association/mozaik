@@ -28,6 +28,7 @@
 
 from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
+from openerp.tools.translate import _
 
 
 class distribution_list(orm.Model):
@@ -191,3 +192,24 @@ class distribution_list_line(orm.Model):
 
         super(distribution_list_line, self).check_access_rule(
             cr, uid, ids, operation, context=context)
+
+    def get_list_without_coordinate_from_domain(self,
+                                                cr,
+                                                uid, ids, context=None):
+        context = context or {}
+        current_filter = self.browse(cr, uid, ids, context)
+        res = super(distribution_list_line, self).get_list_from_domain(
+            cr,
+            uid,
+            ids,
+            context=context)
+        res['name'] = _('Result of %s Filter without coordinate')\
+            % current_filter.name
+        no_coord_domain = [('active', '=', False)]
+        if current_filter.src_model_id.model == 'res.partner':
+            no_coord_domain = [('email', '=', False),
+                               ('address', '=', False)]
+        domain = eval(res['domain'])
+        domain.extend(no_coord_domain)
+        res['domain'] = str(domain)
+        return res

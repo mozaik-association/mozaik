@@ -103,6 +103,7 @@ class virtual_partner_involvement(orm.Model):
                                                obj='thesaurus.term',
                                                rel='res_partner_term_interests_rel',
                                                id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'active': fields.boolean("Active")
     }
 
 # orm methods
@@ -128,8 +129,12 @@ class virtual_partner_involvement(orm.Model):
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
             e.vip as email_vip,
-            e.unauthorized as email_unauthorized
-
+            e.unauthorized as email_unauthorized,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM
             partner_involvement pi
 
@@ -157,8 +162,6 @@ class virtual_partner_involvement(orm.Model):
         AND e.is_main = TRUE)
 
         WHERE pi.active = TRUE
-        AND (pc.id IS NOT NULL
-        OR e.id IS NOT NULL)
         )""")
 
 
@@ -210,6 +213,7 @@ class virtual_partner_relation(orm.Model):
                                      obj='email.coordinate', string='VIP Email'),
         'email_unauthorized': fields.related('email_coordinate_id', 'unauthorized', type='boolean',
                                      obj='email.coordinate', string='Unauthorized Email'),
+        'active': fields.boolean("Active")
     }
 
 # orm methods
@@ -220,7 +224,8 @@ class virtual_partner_relation(orm.Model):
         create or replace view virtual_partner_relation as (
         SELECT
             r.id as id,
-            concat(CASE
+            concat(
+                   CASE
                        WHEN r.postal_coordinate_id IS NULL
                        THEN pc.id
                        ELSE r.postal_coordinate_id
@@ -253,8 +258,14 @@ class virtual_partner_relation(orm.Model):
                 THEN pc.id
                 ELSE r.postal_coordinate_id
             END
-            AS postal_coordinate_id
-
+            AS postal_coordinate_id,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL
+                      OR r.email_coordinate_id IS NOT NULL
+                      OR r.postal_coordinate_id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM
             partner_relation r
 
@@ -282,10 +293,6 @@ class virtual_partner_relation(orm.Model):
         AND e.is_main = TRUE)
 
         WHERE r.active = TRUE
-        AND (pc.id IS NOT NULL
-        OR e.id IS NOT NULL
-        OR r.email_coordinate_id IS NOT NULL
-        OR r.postal_coordinate_id IS NOT NULL)
         )""")
 
 
@@ -334,6 +341,7 @@ class virtual_partner_instance(orm.Model):
                                                obj='thesaurus.term',
                                                rel='res_partner_term_interests_rel',
                                                id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'active': fields.boolean("Active")
     }
 
 # orm methods
@@ -343,7 +351,7 @@ class virtual_partner_instance(orm.Model):
         cr.execute("""
         create or replace view virtual_partner_instance as (
         SELECT
-            concat(pc.id, '/', e.id) as id,
+            concat(p.id, '/', pc.id, '/', e.id) as id,
             concat(pc.id, '/', e.id) as common_id,
             p.id as partner_id,
             p.int_instance_id as int_instance_id,
@@ -363,7 +371,12 @@ class virtual_partner_instance(orm.Model):
             e.coordinate_category_id as email_category_id,
             e.is_main as main_email,
             e.unauthorized as email_unauthorized,
-            ms.id as membership_state_id
+            ms.id as membership_state_id,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
 
         FROM
             res_partner p
@@ -384,8 +397,6 @@ class virtual_partner_instance(orm.Model):
 
         WHERE p.active = TRUE
         AND p.identifier > 0
-        AND (e.id IS NOT NULL
-        OR pc.id IS NOT NULL)
         )""")
 
 
@@ -444,6 +455,7 @@ class virtual_partner_mandate(orm.Model):
                                                rel='ext_mandate_term_competencies_rel',
                                                id1='ext_mandate_id', id2='thesaurus_term_id', string='External Mandate Competencies'),
         'mandate_instance_id': fields.many2one('int.instance', 'Mandate Instance'),
+        'active': fields.boolean("Active")
     }
 
 # orm methods
@@ -491,7 +503,12 @@ class virtual_partner_mandate(orm.Model):
                 ELSE mandate.postal_coordinate_id
             END
             AS postal_coordinate_id,
-            mandate.mandate_instance_id as mandate_instance_id
+            mandate.mandate_instance_id as mandate_instance_id,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM int_mandate AS mandate
         JOIN int_assembly AS assembly
             ON assembly.id = mandate.int_assembly_id
@@ -508,8 +525,6 @@ class virtual_partner_mandate(orm.Model):
             and e.is_main = TRUE
             AND e.active = TRUE
         WHERE mandate.active = True
-        AND (e.id IS NOT NULL
-        OR pc.id IS NOT NULL)
 
         UNION
 
@@ -552,7 +567,12 @@ class virtual_partner_mandate(orm.Model):
                 ELSE mandate.postal_coordinate_id
             END
             AS postal_coordinate_id,
-            NULL as mandate_instance_id
+            NULL as mandate_instance_id,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM sta_mandate AS mandate
         JOIN sta_assembly AS assembly
             ON assembly.id = mandate.sta_assembly_id
@@ -569,8 +589,6 @@ class virtual_partner_mandate(orm.Model):
             and e.is_main = TRUE
             AND e.active = TRUE
         WHERE mandate.active = True
-        AND (e.id IS NOT NULL
-        OR pc.id IS NOT NULL)
 
         UNION
 
@@ -613,7 +631,12 @@ class virtual_partner_mandate(orm.Model):
                 ELSE mandate.postal_coordinate_id
             END
             AS postal_coordinate_id,
-            NULL as mandate_instance_id
+            NULL as mandate_instance_id,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM ext_mandate AS mandate
         JOIN ext_assembly AS assembly
             ON assembly.id = mandate.ext_assembly_id
@@ -630,8 +653,6 @@ class virtual_partner_mandate(orm.Model):
             and e.is_main = TRUE
             AND e.active = TRUE
         WHERE mandate.active = True
-        AND (e.id IS NOT NULL
-        OR pc.id IS NOT NULL)
         )""")
 
 
@@ -683,6 +704,7 @@ class virtual_partner_candidature(orm.Model):
                                                obj='thesaurus.term',
                                                rel='res_partner_term_interests_rel',
                                                id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'active': fields.boolean("Active")
     }
 
 # orm methods
@@ -712,7 +734,12 @@ class virtual_partner_candidature(orm.Model):
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
             e.vip as email_vip,
-            e.unauthorized as email_unauthorized
+            e.unauthorized as email_unauthorized,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM int_candidature AS candidature
         JOIN int_assembly AS assembly
             ON assembly.id = candidature.int_assembly_id
@@ -729,8 +756,6 @@ class virtual_partner_candidature(orm.Model):
             and e.is_main = TRUE
             AND e.active = TRUE
         WHERE candidature.active = True
-        AND (e.id IS NOT NULL
-        OR pc.id IS NOT NULL)
 
         UNION
 
@@ -755,7 +780,12 @@ class virtual_partner_candidature(orm.Model):
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
             e.vip as email_vip,
-            e.unauthorized as email_unauthorized
+            e.unauthorized as email_unauthorized,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM sta_candidature AS candidature
         JOIN sta_assembly AS assembly
             ON assembly.id = candidature.sta_assembly_id
@@ -774,8 +804,6 @@ class virtual_partner_candidature(orm.Model):
             and e.is_main = TRUE
             AND e.active = TRUE
         WHERE candidature.active = True
-        AND (e.id IS NOT NULL
-        OR pc.id IS NOT NULL)
 
         UNION
 
@@ -800,7 +828,12 @@ class virtual_partner_candidature(orm.Model):
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
             e.vip as email_vip,
-            e.unauthorized as email_unauthorized
+            e.unauthorized as email_unauthorized,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM ext_candidature AS candidature
         JOIN ext_assembly AS assembly
             ON assembly.id = candidature.ext_assembly_id
@@ -817,8 +850,6 @@ class virtual_partner_candidature(orm.Model):
             and e.is_main = TRUE
             AND e.active = TRUE
         WHERE candidature.active = True
-        AND (e.id IS NOT NULL
-        OR pc.id IS NOT NULL)
         )""")
 
 
@@ -865,6 +896,7 @@ class virtual_assembly_instance(orm.Model):
                                                obj='thesaurus.term',
                                                rel='res_partner_term_interests_rel',
                                                id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'active': fields.boolean('Active')
     }
 
 # orm methods
@@ -894,7 +926,12 @@ class virtual_assembly_instance(orm.Model):
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
             e.vip as email_vip,
-            e.unauthorized as email_unauthorized
+            e.unauthorized as email_unauthorized,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM int_assembly assembly
         JOIN res_partner p
             ON p.id = assembly.partner_id
@@ -910,8 +947,6 @@ class virtual_assembly_instance(orm.Model):
             AND e.active = TRUE)
         WHERE assembly.active = TRUE
         AND p.active = TRUE
-        AND (e.id IS NOT NULL
-        OR pc.id IS NOT NULL)
 
         UNION
 
@@ -936,7 +971,12 @@ class virtual_assembly_instance(orm.Model):
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
             e.vip as email_vip,
-            e.unauthorized as email_unauthorized
+            e.unauthorized as email_unauthorized,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM sta_assembly assembly
         JOIN res_partner p
             ON p.id = assembly.partner_id
@@ -952,8 +992,6 @@ class virtual_assembly_instance(orm.Model):
             AND e.active = TRUE)
         WHERE assembly.active = TRUE
         AND p.active = TRUE
-        AND (e.id IS NOT NULL
-        OR pc.id IS NOT NULL)
 
         UNION
 
@@ -978,7 +1016,12 @@ class virtual_assembly_instance(orm.Model):
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
             e.vip as email_vip,
-            e.unauthorized as email_unauthorized
+            e.unauthorized as email_unauthorized,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM ext_assembly assembly
         JOIN res_partner p
             ON p.id = assembly.partner_id
@@ -992,8 +1035,6 @@ class virtual_assembly_instance(orm.Model):
             AND e.active = TRUE)
         WHERE assembly.active = TRUE
         AND p.active = TRUE
-        AND (e.id IS NOT NULL
-        OR pc.id IS NOT NULL)
         )""")
 
 
@@ -1054,6 +1095,7 @@ class virtual_partner_retrocession(orm.Model):
                                                rel='res_partner_term_interests_rel',
                                                id1='partner_id', id2='thesaurus_term_id', string='Interests'),
         'retro_instance_id': fields.many2one('int.instance', 'Retrocessions Management Instance'),
+        'active': fields.boolean('Active')
     }
 
 # orm methods
@@ -1114,7 +1156,15 @@ class virtual_partner_retrocession(orm.Model):
                 THEN pc.id
                 ELSE m.postal_coordinate_id
             END
-            AS postal_coordinate_id
+            AS postal_coordinate_id,
+            CASE
+                WHEN (e.id IS NOT NULL
+                       OR pc.id IS NOT NULL
+                       or m.postal_coordinate_id is not null
+                       or m.email_coordinate_id is not null)
+                THEN True
+                ELSE False
+            END as active
         FROM
             retrocession r
         JOIN sta_mandate m
@@ -1133,10 +1183,6 @@ class virtual_partner_retrocession(orm.Model):
             ON (e.partner_id = p.id
             AND e.is_main = True
             AND e.active = True)
-        WHERE
-            e.id is not null or pc.id is not null
-            or m.postal_coordinate_id is not null
-            or m.email_coordinate_id is not null
 
         UNION
 
@@ -1192,7 +1238,15 @@ class virtual_partner_retrocession(orm.Model):
                 THEN pc.id
                 ELSE m.postal_coordinate_id
             END
-            AS postal_coordinate_id
+            AS postal_coordinate_id,
+            CASE
+                WHEN (e.id IS NOT NULL
+                       OR pc.id IS NOT NULL
+                       or m.postal_coordinate_id is not null
+                       or m.email_coordinate_id is not null)
+                THEN True
+                ELSE False
+            END as active
         FROM
             retrocession r
         JOIN ext_mandate m
@@ -1211,10 +1265,6 @@ class virtual_partner_retrocession(orm.Model):
             ON (e.partner_id = p.id
             AND e.is_main = True
             AND e.active = True)
-        WHERE
-            e.id is not null or pc.id is not null
-            or m.postal_coordinate_id is not null
-            or m.email_coordinate_id is not null
         )""")
 
 
@@ -1283,6 +1333,7 @@ class virtual_partner_membership(orm.Model):
                                             id1='partner_id',
                                             id2='thesaurus_term_id',
                                             string='Interests'),
+        'active': fields.boolean('Active')
     }
 
 # orm methods
@@ -1312,7 +1363,13 @@ class virtual_partner_membership(orm.Model):
             e.vip as email_vip,
             e.coordinate_category_id as email_category_id,
             e.unauthorized as email_unauthorized,
-            p.membership_state_id as membership_state_id
+            p.membership_state_id as membership_state_id,
+            CASE
+                WHEN (e.id IS NOT NULL
+                      OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM
             res_partner p
 
@@ -1330,7 +1387,6 @@ class virtual_partner_membership(orm.Model):
 
         WHERE p.active = TRUE
         AND p.is_company = FALSE
-        AND (e.id IS NOT NULL OR pc.id IS NOT NULL)
         )""")
 
 
@@ -1397,6 +1453,7 @@ class virtual_partner_event(orm.Model):
                                             id1='partner_id',
                                             id2='thesaurus_term_id',
                                             string='Interests'),
+        'active': fields.boolean('Active')
     }
 
 # orm methods
@@ -1424,7 +1481,13 @@ class virtual_partner_event(orm.Model):
             e.coordinate_category_id as email_category_id,
             e.unauthorized as email_unauthorized,
             er.id as event_registration_id,
-            er.event_id as event_id
+            er.event_id as event_id,
+            CASE
+                WHEN (e.id IS NOT NULL
+                       OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active
         FROM
             res_partner p
 
@@ -1446,5 +1509,4 @@ class virtual_partner_event(orm.Model):
 
         WHERE p.active = TRUE
         AND p.is_company = FALSE
-        AND (e.id IS NOT NULL OR pc.id IS NOT NULL)
         )""")
