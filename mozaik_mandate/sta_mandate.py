@@ -777,18 +777,6 @@ class sta_mandate(orm.Model):
                                                           context=context,
                                                           vals=vals)
 
-    def action_finish(self, cr, uid, ids, context=None):
-        """
-        =================
-        action_finish
-        =================
-        Finish mandate at the current date
-        :rparam: True
-        :rtype: boolean
-        """
-        return super(sta_mandate, self).action_finish(cr, uid, ids,
-                                                      context=context)
-
     def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id,
                                      context=None):
         sta_assembly_category_id = False
