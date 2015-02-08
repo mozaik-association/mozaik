@@ -20,13 +20,13 @@ msgstr ""
 #: code:addons/mozaik_communication/postal_mail.py:202
 #, python-format
 msgid "%s (copy)"
-msgstr "%s (copy)"
+msgstr "%s (copie)"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/postal_mail.py:187
 #, python-format
 msgid "A postal mail log cannot be copied when linked to a postal mailing!"
-msgstr "A postal mail log cannot be copied when linked to a postal mailing!"
+msgstr "Un courrier postal ne peut être dupliqué s'il est lié à un envoi postal de masse !"
 
 #. module: mozaik_communication
 #: field:distribution.list,active:0
@@ -456,7 +456,7 @@ msgstr "Employé"
 #: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:198
 #, python-format
 msgid "Error"
-msgstr "Error"
+msgstr "Erreur"
 
 #. module: mozaik_communication
 #: field:add.registration,event_id:0
@@ -535,19 +535,19 @@ msgstr "Inscriptions expirées"
 #: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:307
 #, python-format
 msgid "Export CSV"
-msgstr "Export CSV"
+msgstr "Exportation CSV""
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:264
 #, python-format
 msgid "Export PDF"
-msgstr "Export PDF"
+msgstr "Exportation PDF"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:324
 #, python-format
 msgid "Export VCF"
-msgstr "Export VCF"
+msgstr "Exportation VCF"
 
 #. module: mozaik_communication
 #: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
@@ -715,7 +715,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:virtual.partner.retrocession,id:0
 #: field:virtual.target,id:0
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: mozaik_communication
 #: selection:distribution.list.mass.function,sort_by:0
@@ -816,7 +816,7 @@ msgstr "Niveau de pouvoir interne"
 #: code:addons/mozaik_communication/mass_mailing.py:61
 #, python-format
 msgid "Invalid Email Address"
-msgstr "Invalid Email Address"
+msgstr "Adresse électronique invalide"
 
 #. module: mozaik_communication
 #: view:distribution.list:mozaik_communication.distribution_list_form
@@ -1174,7 +1174,7 @@ msgstr "Numéro"
 #: code:addons/mozaik_communication/event.py:80
 #, python-format
 msgid "Number of seats is not reached"
-msgstr "Number of seats is not reached"
+msgstr "Nombre of places non atteint"
 
 #. module: mozaik_communication
 #: field:virtual.partner.relation,object_partner_id:0
@@ -1633,7 +1633,7 @@ msgstr "Modèles"
 #: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:198
 #, python-format
 msgid "There are no recipients"
-msgstr "There are no recipients"
+msgstr "Aucun destinataire"
 
 #. module: mozaik_communication
 #: field:virtual.partner.candidature,tongue:0
