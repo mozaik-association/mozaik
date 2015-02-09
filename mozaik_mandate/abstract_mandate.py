@@ -652,6 +652,32 @@ class abstract_mandate(orm.AbstractModel):
 
         return reset_ids, duplicate_ids
 
+    def action_finish(self, cr, uid, ids, context=None):
+        """
+        =================
+        action_finish
+        =================
+        Finish mandate at the current date
+        :rparam: True
+        :rtype: boolean
+        """
+        for mandate_data in self.read(cr, uid, ids, ['deadline_date'],
+                                      context=context):
+            deadline = datetime.strptime(mandate_data['deadline_date'],
+                                         DEFAULT_SERVER_DATE_FORMAT)
+            if datetime.strptime(fields.datetime.now(),
+                                 DEFAULT_SERVER_DATETIME_FORMAT) >= deadline:
+                end_date = mandate_data['deadline_date']
+            else:
+                end_date = fields.datetime.now()
+            self.action_invalidate(cr,
+                                   uid,
+                                   [mandate_data['id']],
+                                   context=context,
+                                   vals={'end_date': end_date})
+
+        return True
+
     def detect_and_repair_duplicate(self, cr, uid, vals, context=None,
                                     detection_model=None, columns_to_read=[],
                                     model_id_name=None):
