@@ -166,7 +166,7 @@ class test_accounting_with_product(object):
 
         for bank_s in self.bs_obj.browse(self.cr, self.uid, b_statement_id):
             for line in bank_s.line_ids:
-                self.assertNotEqual(line.journal_entry_id, False)
+                self.assertNotEqual(line.journal_entry_id.id, False)
 
         partner = self.get_partner(self.partner.id)
         self.assertEquals(partner.membership_state_id.code, 'member_committee',

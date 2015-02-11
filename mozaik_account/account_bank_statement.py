@@ -32,7 +32,8 @@ from openerp.tools.translate import _
 class account_bank_statement(orm.Model):
     _inherit = 'account.bank.statement'
 
-    def _reconcile_statement_line(self, cr, uid, bank_line, context=None):
+    def _reconcile_statement_line(self, cr, uid, bank_line, reference,
+                                  context=None):
         """
         Method to auto reconcile all bank statement lines related to
         retrocession
@@ -45,7 +46,7 @@ class account_bank_statement(orm.Model):
         else:
             return
 
-        if bank_line.name != move_line['ref']:
+        if reference != move_line['ref']:
             return
 
         if move_line['debit'] == bank_line.amount \
@@ -58,25 +59,26 @@ class account_bank_statement(orm.Model):
             bsl_obj.process_reconciliation(
                 cr, uid, bank_line.id, move_dicts, context=context)
 
-    def _create_membership_move(self, cr, uid, bank_line, context=None):
+    def _create_membership_move(self, cr, uid, bank_line, reference,
+                                context=None):
         """
         Method to create account move linked to membership payment
         """
         bsl_obj = self.pool.get('account.bank.statement.line')
         product_id, price, credit_account = bsl_obj.get_membership_prod_info(
-                                                    cr,
-                                                    uid,
-                                                    bank_line.amount,
-                                                    bank_line.partner_id.id,
-                                                    bank_line.name,
-                                                    context=context)
+            cr,
+            uid,
+            bank_line.amount,
+            bank_line.partner_id.id,
+            reference,
+            context=context)
 
         if credit_account:
             move_dicts = [{
                 'account_id': credit_account.id,
                 'debit': 0,
                 'credit': bank_line.amount,
-                'name': bank_line.name,
+                'name': reference,
             }]
             bsl_obj.process_reconciliation(
                 cr, uid, bank_line.id, move_dicts, context=context,
@@ -89,15 +91,15 @@ class account_bank_statement(orm.Model):
                 if not bank_line.partner_id or bank_line.journal_entry_id.id:
                     continue
 
-                mode, _ = bsl_obj.search_partner_id_with_reference(
+                mode, _, reference = bsl_obj.search_partner_id_with_reference(
                     cr, uid, bank_line.name, context=context)
 
                 if mode == 'membership':
                     self._create_membership_move(
-                        cr, uid, bank_line, context=context)
+                        cr, uid, bank_line, reference, context=context)
                 elif mode == 'retrocession':
                     self._reconcile_statement_line(
-                        cr, uid, bank_line, context=context)
+                        cr, uid, bank_line, reference, context=context)
 
 
 class account_bank_statement_line(orm.Model):
@@ -172,7 +174,7 @@ class account_bank_statement_line(orm.Model):
         mdata_obj = self.pool.get('ir.model.data')
         partner_obj = self.pool.get('res.partner')
 
-        mode, partner_id = self.search_partner_id_with_reference(
+        mode, partner_id, reference = self.search_partner_id_with_reference(
             cr, uid, reference, context=context)
 
         if mode != 'membership':
@@ -228,7 +230,7 @@ class account_bank_statement_line(orm.Model):
         Get the mode and the partner id associated to a given reference
         '''
         if not reference:
-            return False, False
+            return False, False, False
 
         models = []
         if self.pool.get('membership.line'):
@@ -251,6 +253,6 @@ class account_bank_statement_line(orm.Model):
                     res = res[0]
                 mode = model.endswith('mandate') and \
                     'retrocession' or 'membership'
-                return mode, res
+                return mode, res, reference
 
-        return False, False
+        return False, False, False
