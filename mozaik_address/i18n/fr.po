@@ -87,9 +87,24 @@ msgid "Box"
 msgstr "Boîte"
 
 #. module: mozaik_address
+#: view:change.co.residency.address:mozaik_address.change_co_residency_address_wizard
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: mozaik_address
+#: view:change.co.residency.address:mozaik_address.change_co_residency_address_wizard
+msgid "Change"
+msgstr "Modifier"
+
+#. module: mozaik_address
 #: field:change.main.address,change_allowed:0
 msgid "Change Allowed"
 msgstr "Changement autorisé"
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.change_co_residency_address_action
+msgid "Change Co-Residency Address"
+msgstr "Modifier l'adresse de co-résidence"
 
 #. module: mozaik_address
 #: model:ir.actions.act_window,name:mozaik_address.change_main_address_action
@@ -163,6 +178,7 @@ msgstr "Code du pays"
 #: field:address.local.street,create_uid:0
 #: field:address.local.zip,create_uid:0
 #: field:allow.duplicate.address.wizard,create_uid:0
+#: field:change.co.residency.address,create_uid:0
 #: field:change.main.address,create_uid:0
 #: field:co.residency,create_uid:0
 #: field:postal.coordinate,create_uid:0
@@ -172,6 +188,7 @@ msgstr "Créé par"
 #. module: mozaik_address
 #: field:address.local.street,create_date:0
 #: field:allow.duplicate.address.wizard,create_date:0
+#: field:change.co.residency.address,create_date:0
 #: field:change.main.address,create_date:0
 msgid "Created on"
 msgstr "Date de création"
@@ -183,6 +200,11 @@ msgstr "Date de création"
 #: field:postal.coordinate,create_date:0
 msgid "Creation Date"
 msgstr "Date de création"
+
+#. module: mozaik_address
+#: field:change.co.residency.address,old_address_id:0
+msgid "Current Address"
+msgstr "Addresse actuelle"
 
 #. module: mozaik_address
 #: field:change.main.address,old_address_id:0
@@ -269,6 +291,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:address.local.street,id:0
 #: field:address.local.zip,id:0
 #: field:allow.duplicate.address.wizard,id:0
+#: field:change.co.residency.address,id:0
 #: field:change.main.address,id:0
 #: field:co.residency,id:0
 #: field:postal.coordinate,id:0
@@ -298,6 +321,11 @@ msgstr "Numéro de boîte non conforme"
 #: selection:bounce.editor,reason:0
 msgid "Incomplete/Invalid address"
 msgstr "Adresse incomplète/invalide"
+
+#. module: mozaik_address
+#: field:change.co.residency.address,invalidate:0
+msgid "Invalidate Co-Residency"
+msgstr "Invalider la co-résidence actuelle"
 
 #. module: mozaik_address
 #: field:change.main.address,invalidate_previous_coordinate:0
@@ -370,6 +398,7 @@ msgstr "Dernière mise à jour"
 #: field:address.local.street,write_uid:0
 #: field:address.local.zip,write_uid:0
 #: field:allow.duplicate.address.wizard,write_uid:0
+#: field:change.co.residency.address,write_uid:0
 #: field:change.main.address,write_uid:0
 #: field:co.residency,write_uid:0
 #: field:postal.coordinate,write_uid:0
@@ -380,6 +409,7 @@ msgstr "Dernière mise à jour par"
 #: field:address.address,write_date:0
 #: field:address.local.zip,write_date:0
 #: field:allow.duplicate.address.wizard,write_date:0
+#: field:change.co.residency.address,write_date:0
 #: field:change.main.address,write_date:0
 #: field:co.residency,write_date:0
 #: field:postal.coordinate,write_date:0
@@ -436,6 +466,11 @@ msgid "Local Zip Codes"
 msgstr "Codes postaux locaux"
 
 #. module: mozaik_address
+#: field:change.co.residency.address,message:0
+msgid "Message"
+msgstr "Message"
+
+#. module: mozaik_address
 #: field:address.address,message_ids:0
 #: field:address.local.zip,message_ids:0
 #: field:co.residency,message_ids:0
@@ -455,6 +490,7 @@ msgstr "Historique des messages et communications"
 #: view:address.address:mozaik_address.address_address_form_view
 #: view:address.local.street:mozaik_address.address_local_street_form_view
 #: view:address.local.zip:mozaik_address.address_local_zip_form_view
+#: view:change.co.residency.address:mozaik_address.change_co_residency_address_wizard
 #: view:co.residency:mozaik_address.co_residency_form_view
 msgid "More Info"
 msgstr "Plus d'info"
@@ -468,6 +504,11 @@ msgstr "A déménagé"
 #: selection:postal.coordinate,coordinate_type:0
 msgid "N/A"
 msgstr "N/A"
+
+#. module: mozaik_address
+#: field:change.co.residency.address,address_id:0
+msgid "New Address"
+msgstr "Nouvelle addresse"
 
 #. module: mozaik_address
 #: field:change.main.address,address_id:0
@@ -673,8 +714,14 @@ msgstr "Code postal"
 
 #. module: mozaik_address
 #: view:address.address:mozaik_address.address_address_form_view
+#: view:change.co.residency.address:mozaik_address.change_co_residency_address_wizard
 msgid "address"
 msgstr "adresse"
+
+#. module: mozaik_address
+#: view:change.co.residency.address:mozaik_address.change_co_residency_address_wizard
+msgid "or"
+msgstr "ou"
 
 #. module: mozaik_address
 #: view:postal.coordinate:mozaik_address.postal_coordinate_form_view

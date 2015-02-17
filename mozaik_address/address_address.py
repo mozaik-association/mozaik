@@ -366,6 +366,8 @@ class co_residency(orm.Model):
     _inherit = ['mozaik.abstract.model']
     _description = 'Co-Residency'
 
+    _inactive_cascade = True
+
     _columns = {
         'address_id': fields.many2one(
             'address.address', string='Address',

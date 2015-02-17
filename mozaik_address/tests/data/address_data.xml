@@ -33,6 +33,12 @@
             <field name="is_main" eval="True"/>
         </record>
 
+        <record id="postal_coordinate_2_duplicate_4" model="postal.coordinate">
+            <field name="address_id" ref="address_2"/>
+            <field name="partner_id" ref="res_partner_paul"/>
+            <field name="vip" eval="True"/>
+        </record>
+
         <!-- ============================================================== -->
 
         <record id="postal_coordinate_3" model="postal.coordinate">

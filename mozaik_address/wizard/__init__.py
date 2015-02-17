@@ -29,3 +29,4 @@
 from . import change_main_address
 from . import allow_duplicate_wizard
 from . import bounce_editor
+from . import change_co_residency_address
