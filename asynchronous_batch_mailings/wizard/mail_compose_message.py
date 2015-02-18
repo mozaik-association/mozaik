@@ -1,31 +1,29 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Authors: Nemry Jonathan
-#    Copyright (c) 2014 Acsone SA/NV (http://www.acsone.eu)
-#    All Rights Reserved
+#     This file is part of asynchronous_batch_mailings, an Odoo module.
 #
-#    WARNING: This program as such is intended to be used by professional
-#    programmers who take the whole responsibility of assessing all potential
-#    consequences resulting from its eventual inadequacies and bugs.
-#    End users who are looking for a ready-to-use solution with commercial
-#    guarantees and support are strongly advised to contact a Free Software
-#    Service Company.
+#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
 #
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
+#     asynchronous_batch_mailings is free software:
+#     you can redistribute it and/or
+#     modify it under the terms of the GNU Affero General Public License
+#     as published by the Free Software Foundation, either version 3 of
+#     the License, or (at your option) any later version.
 #
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
+#     asynchronous_batch_mailings is distributed in the hope
+#     that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU Affero General Public License for more details.
 #
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#     You should have received a copy of the
+#     GNU Affero General Public License
+#     along with asynchronous_batch_mailings.
+#     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 import logging
 
 from openerp.osv import orm
@@ -56,16 +54,16 @@ class mail_compose_message(orm.TransientModel):
         """
         if context is None:
             context = {}
-        if context.get('active_ids', False):
-            if not context.get('not_async', False):
+        if context.get('active_ids'):
+            if not context.get('not_async'):
                 try:
                     parameter_obj = self.pool['ir.config_parameter']
                     worker_pivot = int(parameter_obj.get_param(
                         cr, uid, 'mail_worker_pivot', WORKER_PIVOT))
                 except:
                     worker_pivot = WORKER_PIVOT
-                if len(context.get('active_ids')) > worker_pivot:
-                    res_ids = context.get('active_ids')
+                if len(context['active_ids']) > worker_pivot:
+                    res_ids = context['active_ids']
                     vals = self.read(cr, uid, ids, [], context=context)[0]
                     self._prepare_vals(vals)
 
@@ -91,9 +89,9 @@ def prepare_mailings(session, model_name, vals, active_ids, context=None):
 
     if not chunck_size.isdigit() or int(chunck_size) < 1:
         chunck_size = CHUNK_SIZE
-        _logger.warning('Could not Retrieve a Valid Value in'
-                        '"job_mail_chunck_size".'
-                        'Chunck Size is %s') % CHUNK_SIZE
+        _logger.warning('Could not retrieve a valid value from '
+                        '"job_mail_chunck_size" parameter. '
+                        'Chunck size is %s') % CHUNK_SIZE
 
     chunck_size = int(chunck_size)
     chunck_list_active_ids = \
