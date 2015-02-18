@@ -42,7 +42,7 @@
 MOZAIK Account
 ==============
 Manage accounting features
-    """,
+""",
     'images': [
     ],
     'data': [
@@ -55,8 +55,8 @@ Manage accounting features
     ],
     'test': [
     ],
-    'sequence': 150,
     'license': 'AGPL-3',
+    'sequence': 150,
     'installable': True,
     'auto_install': False,
     'application': False,

@@ -54,6 +54,7 @@ MOZAIK Online Help
     ],
     'test': [
     ],
+    'license': 'AGPL-3',
     'sequence': 150,
     'installable': True,
     'auto_install': False,

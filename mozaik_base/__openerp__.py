@@ -41,8 +41,8 @@
         'product',
         'event_mass_mailing',    # from https://github.com/acsone/acsone-addons
         'partner_firstname',     # from https://github.com/OCA/partner-contact
-        'cron_run_manually',     # from https://github.com/OCA/server-tools/7.0
-        'auth_admin_passkey',    # from https://github.com/OCA/server-tools/7.0
+        'cron_run_manually',     # from https://github.com/OCA/server-tools
+        'auth_admin_passkey',    # from https://github.com/OCA/server-tools
         'settings_improvement',  # from https://github.com/acsone/acsone-addons
         'distribution_list',     # from https://github.com/acsone/acsone-addons
         'readonly_bypass',       # from https://github.com/acsone/acsone-addons
@@ -56,7 +56,7 @@ MOZAIK Base
 * improve user context adding a flag by Mozaik group
 * provide a work-around to handle correctly the readonly attribute of the widget mail_thread
 * define Mozaik menus skeleton
-    """,
+""",
     'images': [
     ],
     'data': [
@@ -76,8 +76,8 @@ MOZAIK Base
     ],
     'test': [
     ],
-    'sequence': 150,
     'license': 'AGPL-3',
+    'sequence': 150,
     'installable': True,
     'auto_install': False,
     'application': False,

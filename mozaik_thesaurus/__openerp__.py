@@ -49,19 +49,14 @@ Creating a new term will send a message to all this followers requesting their v
         'data/thesaurus_data.xml',
         'thesaurus_view.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
     'test': [
     ],
+    'license': 'AGPL-3',
     'sequence': 150,
     'installable': True,
     'auto_install': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

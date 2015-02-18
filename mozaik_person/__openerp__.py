@@ -40,7 +40,7 @@
     'description': """
 MOZAIK Person
 =============
-    """,
+""",
     'images': [
     ],
     'data': [
@@ -59,6 +59,7 @@ MOZAIK Person
     ],
     'test': [
     ],
+    'license': 'AGPL-3',
     'sequence': 150,
     'auto_install': False,
     'installable': True,

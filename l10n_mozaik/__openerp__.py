@@ -40,7 +40,7 @@
 l10n MOZAIK
 ===========
 This is the base module to manage the generic accounting chart for the application
-    """,
+""",
     'images': [
     ],
     'data': [
@@ -54,8 +54,8 @@ This is the base module to manage the generic accounting chart for the applicati
     ],
     'test': [
     ],
-    'sequence': 150,
     'license': 'AGPL-3',
+    'sequence': 150,
     'installable': True,
     'auto_install': False,
     'application': False,

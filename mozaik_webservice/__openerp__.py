@@ -39,14 +39,20 @@
 MOZAIK Web Service
 ==================
 Allow specific calls from outside using XML-RPC
-    """,
+""",
     'images': [
     ],
     'data': [
         'security/ir.model.access.csv',
     ],
+    'qweb': [
+    ],
+    'demo': [
+    ],
+    'test': [
+    ],
+    'license': 'AGPL-3',
     'sequence': 150,
     'auto_install': True,
     'installable': True,
 }
-

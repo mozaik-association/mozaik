@@ -46,7 +46,7 @@ MOZAIK Person - Coordinate
 ** Persons/Relations/Subject Relations
 ** Persons/Relations/Object Relations
 ** Persons/Configuration/Relation Category
-    """,
+""",
     'images': [
     ],
     'data': [
@@ -62,6 +62,7 @@ MOZAIK Person - Coordinate
     ],
     'test': [
     ],
+    'license': 'AGPL-3',
     'sequence': 150,
     'auto_install': True,  # automatically install if all depends loaded
     'installable': True,

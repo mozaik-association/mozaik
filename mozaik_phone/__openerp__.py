@@ -62,6 +62,7 @@ Numbers are normalized regarding the external python library: phonenumbers
     ],
     'test': [
     ],
+    'license': 'AGPL-3',
     'sequence': 150,
     'installable': True,
     'auto_install': False,

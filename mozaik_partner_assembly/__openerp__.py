@@ -40,7 +40,7 @@ MOZAIK Partner - Assembly
 =========================
 Add a readonly field 'is_assembly' to a partner.
 This module is a dependency of both persons and structures modules.
-    """,
+""",
     'images': [
     ],
     'data': [
@@ -51,6 +51,7 @@ This module is a dependency of both persons and structures modules.
     ],
     'test': [
     ],
+    'license': 'AGPL-3',
     'sequence': 150,
     'auto_install': False,
     'installable': True,

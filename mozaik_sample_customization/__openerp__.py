@@ -38,7 +38,7 @@
     'description': """
 MOZAIK Sample Customization
 ===========================
-    """,
+""",
     'images': [
     ],
     'data': [
@@ -72,6 +72,7 @@ MOZAIK Sample Customization
     ],
     'test': [
     ],
+    'license': 'AGPL-3',
     'sequence': 150,
     'auto_install': False,
     'installable': True,

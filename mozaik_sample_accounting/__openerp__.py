@@ -39,26 +39,21 @@
     'description': """
 MOZAIK Sample Accounting Localization
 =====================================
-    """,
+""",
     'images': [
     ],
     'data': [
          '../mozaik_account/tests/data/account_installer.xml',
          'data/retrocession_validation.xml'
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
     'test': [
     ],
+    'license': 'AGPL-3',
     'sequence': 150,
     'auto_install': False,
     'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

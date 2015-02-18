@@ -82,6 +82,7 @@ local zip, default instance otherwise. This field is added to all views
     ],
     'test': [
     ],
+    'license': 'AGPL-3',
     'sequence': 150,
     'auto_install': False,
     'installable': True,

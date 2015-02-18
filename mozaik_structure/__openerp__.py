@@ -38,7 +38,7 @@
     'description': """
 MOZAIK Structure
 ================
-    """,
+""",
     'images': [
     ],
     'data': [
@@ -47,16 +47,13 @@ MOZAIK Structure
         'structure_view.xml',
         'data/structure_data.xml',
     ],
-    'js': [
-    ],
     'qweb': [
-    ],
-    'css': [
     ],
     'demo': [
     ],
     'test': [
     ],
+    'license': 'AGPL-3',
     'sequence': 150,
     'auto_install': False,
     'installable': True,

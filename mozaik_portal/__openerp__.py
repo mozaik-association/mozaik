@@ -39,7 +39,7 @@
 MOZAIK Portal
 =============
 This module manage portal user features
-    """,
+""",
     'images': [
     ],
     'data': [
@@ -56,6 +56,7 @@ This module manage portal user features
     ],
     'test': [
     ],
+    'license': 'AGPL-3',
     'sequence': 150,
     'auto_install': False,
     'installable': True,

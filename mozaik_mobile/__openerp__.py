@@ -39,7 +39,7 @@
 MOZAIK Mobile
 =============
 * Provide mobile render to access partners
-    """,
+""",
     'images': [
     ],
     'data': [
@@ -55,6 +55,7 @@ MOZAIK Mobile
     ],
     'test': [
     ],
+    'license': 'AGPL-3',
     'sequence': 150,
     'auto_install': False,
     'installable': True,
