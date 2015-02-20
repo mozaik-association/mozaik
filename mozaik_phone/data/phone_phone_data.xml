@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Bounce Notification -->
+
+        <record id="phone_failure_notification" model="mail.message.subtype">
+            <field name="name">Failure Notification</field>
+            <field name="res_model">phone.coordinate</field>
+            <field name="default" eval="True"/>
+            <field name="description">This Phone Coordinate seems to be down</field>
+        </record>
+
+    </data>
+</openerp>

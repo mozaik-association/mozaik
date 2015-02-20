@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="address_local_street_search_view" model="ir.ui.view">
+            <field name="name">address.local.street.search</field>
+            <field name="model">address.local.street</field>
+            <field name="arch" type="xml">
+                <search string="Local Street" version="7.0">
+                    <field name="local_street" string="Street" filter_domain="['|',('local_street','ilike', self),('local_street_alternative','ilike', self)]" />
+                    <field name="local_zip" />
+
+                    <filter name="disabled" string="Obsolete Streets" domain="[('disabled','=',True)]" />
+                    <seperator/>
+                    <filter name="with_alt" string="With Alternative" domain="[('local_street_alternative','!=',False)]" />
+                    <filter name="without_alt" string="Without Alternative" domain="[('local_street_alternative','=',False)]" />
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter string="Zip" context="{'group_by': 'local_zip'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="address_local_street_tree_view" model="ir.ui.view">
+            <field name="name">address.local.street.tree</field>
+            <field name="model">address.local.street</field>
+            <field name="arch" type="xml">
+                <tree string="Local Street" version="7.0">
+                    <field name="local_zip" />
+                    <field name="local_street" />
+                    <field name="local_street_alternative" />
+                    <field name="disabled" />
+                    <field name="write_date" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="address_local_street_action" model="ir.actions.act_window">
+            <field name="name">Local Streets</field>
+            <field name="res_model">address.local.street</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="address_local_street_search_view" />
+            <field name="view_id" ref="address_local_street_tree_view" />
+        </record>
+
+        <record id="address_local_street_form_view" model="ir.ui.view">
+            <field name="name">address.local.street.form</field>
+            <field name="model">address.local.street</field>
+            <field name="arch" type="xml">
+                <form string="Local Street" version="7.0">
+                    <header>
+                    </header>
+                    <sheet>
+                        <div class="oe_title" name="title">
+                            <label for="local_zip" class="oe_edit_only"/>
+                            <h1><field name="local_zip" placeholder="1040, 4000,..." /></h1>
+                            <label for="local_street" class="oe_edit_only"/>
+                            <h1><field name="local_street" placeholder="Local Street..." /></h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')"/>
+                        <group>
+                            <field name="local_street_alternative" placeholder="Local Street Alternative..." />
+                            <field name="disabled" />
+                        </group>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="identifier"/>
+                            </group>
+                        </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="address_local_street_submenu" name="Local Streets"
+                  sequence="10" parent="mozaik_base.localization_submenu" />
+
+        <menuitem id="address_local_street_menu" action="address_local_street_action"
+                  sequence="10" parent="address_local_street_submenu" />
+
+    </data>
+</openerp>

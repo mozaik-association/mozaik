@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Event Kanban View -->
+
+        <record model="ir.ui.view" id="view_distribution_list_kanban_view">
+            <field name="name">distribution.list.kanban (mozaik_portal)
+            </field>
+            <field name="model">distribution.list</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name" />
+                    <field name="is_subscribed" />
+                    <field name="create_date" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_module_vignette">
+                                <div class="oe_module_desc">
+                                    <p>
+                                        <h3>
+                                            <a type="open">
+                                                <t t-if="record.name">
+                                                    <field name="name" />
+                                                    <br />
+                                                </t>
+                                            </a>
+                                        </h3>
+                                    </p>
+                                    <div
+                                        groups="base.group_user,base.group_portal">
+                                        <t
+                                            t-if="!record.is_subscribed.raw_value">
+                                            <button type="object"
+                                                name="subscribe_to_newsletter">
+                                                <span>
+                                                    Subscribe
+                                                </span>
+                                            </button>
+                                        </t>
+                                        <t
+                                            t-if="record.is_subscribed.raw_value">
+                                            <button type="object"
+                                                name="unsubscribe_to_newsletter"
+                                                class="oe_unsubscribe_button ">
+                                                <span>Subscribed</span>
+                                                <span class="oe_unsubscribe">Unsubscribe
+                                                </span>
+                                            </button>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="newsletter_action" model="ir.actions.act_window">
+            <field name="name">My Subscriptions</field>
+            <field name="res_model">distribution.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban</field>
+            <field name="domain"
+                eval="[('newsletter', '=', True),
+                       ('public', '=', True)]" />
+        </record>
+
+    </data>
+</openerp>

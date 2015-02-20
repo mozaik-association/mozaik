@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="email_coordinate_form_view" model="ir.ui.view">
+            <field name="name">email.coordinate.form (mozaik_membership)</field>
+            <field name="model">email.coordinate</field>
+            <field name="inherit_id" ref="mozaik_email.email_coordinate_form_view" />
+            <field name="priority" eval="10" />
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
+            <field name="arch" type="xml">
+                <xpath expr="//span[@name='anchor_for_inherit_view']" position="replace">
+                    <field name="partner_instance_id" />
+                    <field name="partner_kind" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="postal_coordinate_form_view" model="ir.ui.view">
+            <field name="name">postal.coordinate.form (mozaik_membership)</field>
+            <field name="model">postal.coordinate</field>
+            <field name="inherit_id" ref="mozaik_address.postal_coordinate_form_view" />
+            <field name="priority" eval="10" />
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
+            <field name="arch" type="xml">
+                <xpath expr="//span[@name='anchor_for_inherit_view']" position="replace">
+                    <field name="partner_instance_id" />
+                    <field name="partner_kind" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="phone_coordinate_form_view" model="ir.ui.view">
+            <field name="name">phone.coordinate.form (mozaik_membership)</field>
+            <field name="model">phone.coordinate</field>
+            <field name="inherit_id" ref="mozaik_phone.phone_coordinate_form_view" />
+            <field name="priority" eval="10" />
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
+            <field name="arch" type="xml">
+                <xpath expr="//span[@name='anchor_for_inherit_view']" position="replace">
+                    <field name="partner_instance_id" />
+                    <field name="partner_kind" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

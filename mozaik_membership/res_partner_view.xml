@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="res_partner_search_view" model="ir.ui.view">
+            <field name="name">res.partner.search (mozaik_membership)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="mozaik_person.res_partner_search_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//filter[1]" position="before">
+                    <field name="int_instance_id" />
+                    <field name="subscription_product_id" />
+                    <field name="membership_state_id" />
+                    <field name="reference" />
+                    <field string="Welcome Documents Sent Date > ..." name="del_doc_date"
+                        filter_domain="[('del_doc_date','>',self)]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <field string="Welcome Documents Sent Date &lt; ..." name="del_doc_date"
+                        filter_domain="[('del_doc_date','&lt;',self)]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
+
+                    <field string="Member Card Sent Date > ..." name="del_mem_card_date"
+                        filter_domain="[('del_mem_card_date','>',self)]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <field string="Member Card Sent Date &lt; ..." name="del_mem_card_date"
+                        filter_domain="[('del_mem_card_date','&lt;',self)]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
+
+                    <filter string="Undelivered Welcome Documents"
+                        name="del_doc_date"
+                        domain="[('del_doc_date','=', False),
+                                 ('membership_state_id.code','in', ['member_candidate','supporter'])]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <separator/>
+                    <filter string="Undelivered Member Cards"
+                        name="del_mem_card_date"
+                        domain="[('del_mem_card_date','=', False),
+                                 ('membership_state_id.code','=', 'member')]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <separator/>
+                    <filter string="Awaiting payment" name="awaiting_payment"
+                        domain="[('reference','!=', False)]"
+                        invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <separator/>
+                </xpath>
+                <xpath expr="//filter[@name='country']" position="after">
+                    <filter name="instance" string="Internal Instance"
+                        context="{'group_by': 'int_instance_id'}" />
+                    <filter name="membership_state" string="Membership State"
+                        context="{'group_by': 'membership_state_id'}" />
+                    <filter name="subscription_product" string="Subscription"
+                        context="{'group_by': 'subscription_product_id'}" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree (mozaik_membership)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="mozaik_person.view_partner_tree" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='identifier']"
+                    position="before">
+                    <field name="membership_state_id"
+                        invisible="context.get('default_is_company')" />
+                    <field name="int_instance_id" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_partner_form_address" model="ir.ui.view">
+            <field name="name">res.partner.form (mozaik_membership)
+            </field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="mozaik_address.view_partner_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='postal_coordinate_id']"
+                    position="after">
+                    <field name="int_instance_id"
+                        attrs="{'readonly': ['|', ('is_assembly','=',True),
+                                            ('id','!=', False)]}" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_partner_2_form" model="ir.ui.view">
+            <field name="name">res.partner.form (mozaik_membership)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="mozaik_person.view_partner_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='identifier']"
+                    position="after">
+                    <span attrs="{'invisible':[('is_company', '=', True)]}">
+                        (
+                        <field name="membership_state_id"
+                            readonly="1" class="oe_inline" />
+                        )
+                        <span attrs="{'invisible': [('membership_state_code', 'not in', ['former_supporter', 'refused_member_candidate', 'expulsion_former_member', 'resignation_former_member', 'inappropriate_former_member', 'break_former_member'])]}">
+                            <br/>
+                            <label class="oe_attention" string="⇒ Pay Attention"/>
+                        </span>
+                    </span>
+                </xpath>
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="kind" />
+                    <field name="free_member" />
+                    <field name="membership_state_code" />
+                    <field name="accepted_date" />
+                    <field name="decline_payment_date" />
+                    <field name="rejected_date" />
+                    <field name="resignation_date" />
+                    <field name="exclusion_date" />
+                </xpath>
+
+                <xpath expr="//header/div" position="inside">
+                    <button name="button_modification_request"
+                        string="Modification Request" type="object"
+                        attrs="{'invisible': ['|',('is_company','=',True),
+                                                  ('membership_state_id', '=', False)]}" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_partner_3_form" model="ir.ui.view">
+            <field name="name">res.partner.form (mozaik_membership) for configurator</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="mozaik_person.view_partner_form" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_configurator')]),
+                                          ]"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='user']" position="inside">
+                    <separator string="Internal Instances" />
+                    <field name="int_instance_m2m_ids" widget="many2many_tags"
+                        placeholder="Instances..."
+                        attrs="{'required': [('user_ids','!=',[]),('membership_state_id','!=',False)]}" />
+                    <div class="oe_clear">
+                        <!-- Some blank lines to see the entire elapsed many2many_tags widget -->
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Membership -->
+        <record id="view_partner_form_membership" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit (mozaik_membership)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Memberships"
+                        attrs="{'invisible':[('membership_state_id','in',
+                        [False, %(mozaik_membership.without_membership)d])]}">
+
+                        <div name="state_management">
+                            <button name="accept" string="Accept"
+                                groups="mozaik_base.res_groups_developper"
+                                attrs="{'invisible': [('membership_state_code', '!=', 'member_committee'),
+                                ('membership_state_code', '!=', 'former_member_committee')]}" />
+
+                            <button name="paid" string="Paid"
+                                groups="mozaik_base.res_groups_developper"
+                                attrs="{'invisible': [('membership_state_code', '!=', 'member_candidate'),
+                                ('membership_state_code', '!=', 'member'),
+                                ('membership_state_code', '!=', 'supporter'),
+                                ('membership_state_code', '!=', 'former_member'),]}" />
+
+                            <button name="decline_payment"
+                                string="Decline Payment" type="object"
+                                attrs="{'invisible': [('membership_state_code', '!=', 'member_candidate'),
+                                ('membership_state_code', '!=', 'member')]}" />
+
+                            <button name="reject" string="Reject"
+                                type="object"
+                                attrs="{'invisible': [('membership_state_code', '!=', 'member_candidate'),
+                                ('membership_state_code', '!=', 'member_committee')]}" />
+
+                            <button name="exclude" string="Exclude"
+                                type="object"
+                                attrs="{'invisible': [('membership_state_code', '!=', 'member'),
+                                ('membership_state_code', '!=', 'former_member'),
+                                ('membership_state_code', '!=', 'former_member_committee')]}" />
+
+                            <button name="resign" string="Resign"
+                                type="object"
+                                attrs="{'invisible': [('membership_state_code', '!=', 'member'),
+                                ('membership_state_code', '!=', 'former_member'),
+                                ('membership_state_code', '!=', 'supporter')]}" />
+                        </div>
+                        <group name="membership_data">
+                            <group name="membership_subscription">
+                                <field name="subscription_product_id"
+                                    widget="selection"
+                                    attrs="{'invisible': ['|',
+                                                          ('membership_state_code','=', False),
+                                                          ('membership_state_code', 'not in', ['member',
+                                                          'former_member_committee', 'member_committee'])]}"/>
+                                <field name="reference"
+                                    attrs="{'invisible': [('reference', '=', False)]}"
+                                    readonly="1" />
+                            </group>
+                            <group name="membership_dates">
+                                <label for="del_doc_date" attrs="{'invisible': [('del_doc_date','=',False)]}"/>
+                                <div attrs="{'invisible': [('del_doc_date', '=', False)]}">
+                                    <field name="del_doc_date" readonly="1" />
+                                    <button name="button_reset_del_doc_date"
+                                        type="object" class="oe_link" string="⇒ Reset"
+                                        groups="mozaik_base.mozaik_res_groups_configurator"
+                                        confirm="Reset Date: proceed anyway?"/>
+                                </div>
+                                <label for="del_mem_card_date" attrs="{'invisible': [('del_mem_card_date','=',False)]}"/>
+                                <div attrs="{'invisible': [('del_mem_card_date', '=', False)]}">
+                                    <field name="del_mem_card_date" readonly="1" />
+                                    <button name="button_reset_del_mem_card_date"
+                                        type="object" class="oe_link" string="⇒ Reset"
+                                        groups="mozaik_base.mozaik_res_groups_configurator"
+                                        confirm="Reset Date: proceed anyway?"/>
+                                </div>
+                            </group>
+                        </group>
+                        <field name="membership_line_ids" readonly="1">
+                            <tree colors="gray:active==False;green:state_id[0]==%(mozaik_membership.member)d;red:state_id[0] in [%(mozaik_membership.former_supporter)d, %(mozaik_membership.refused_member_candidate)d, %(mozaik_membership.expulsion_former_member)d, %(mozaik_membership.resignation_former_member)d, %(mozaik_membership.inappropriate_former_member)d, %(mozaik_membership.break_former_member)d]">
+                                <field name="int_instance_id" />
+                                <field name="state_id" />
+                                <field name="product_id"
+                                    attrs="{'invisible': [('state_code', 'not in', ['member', 'former_member_committee', 'member_committee'])]}"/>
+                                <field name="reference" />
+                                <field name="date_from" />
+                                <field name="date_to" />
+                                <field name="active" invisible="1" />
+                                <field name="state_code" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

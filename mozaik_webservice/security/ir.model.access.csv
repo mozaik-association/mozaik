@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_custom_webservice_res_groups_ws,custom.webservice.res.groups.ws,model_custom_webservice,mozaik_base.res_groups_ws,1,0,0,0

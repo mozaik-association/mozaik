@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- While application is mono-company inactive some multi-company rules. -->
+
+        <record id="base.res_users_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="base.res_partner_bank_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="base.res_partner_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="base.res_currency_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="base.res_company_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="base.multi_company_default_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="base.property_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="distribution_list.distribution_list_line_company_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="distribution_list.distribution_list_company_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="event.event_event_company_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="event.event_registration_company_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="event.report_event_registration_company_rule" model="ir.rule"><field name="active" eval="0"/></record>
+        <record id="connector.queue_job_comp_rule" model="ir.rule"><field name="active" eval="0"/></record>
+
+        <!-- Other candidates are:
+product.product_supplierinfo_comp_rule
+product.product_pricelist_version_comp_rule
+product.product_pricelist_item_comp_rule
+product.product_pricelist_comp_rule
+procurement.product_pulled_flow_comp_rule
+procurement.procurement_rule
+account_voucher.voucher_line_comp_rule
+account_voucher.voucher_comp_rule
+account.tax_code_comp_rule
+account.tax_comp_rule
+account.account_subscription_line_comp_rule
+account.period_comp_rule
+account.account_move_line_comp_rule
+account.account_move_comp_rule
+account.account_model_comp_rule
+account.journal_period_comp_rule
+account.journal_comp_rule
+account.invoice_analysis_comp_rule
+account.account_invoice_line_comp_rule
+account.invoice_comp_rule
+account.fiscal_year_comp_rule
+account.account_fiscal_position_comp_rule
+account.entry_analysis_comp_rule
+account.account_bank_statement_line_comp_rule
+account.account_bank_statement_comp_rule
+analytic.analytic_line_comp_rule
+account.analytic_journal_comp_rule
+analytic.analytic_comp_rule
+account.account_comp_rule
+-->
+
+        <!-- Pyramidal Confidentiality -->
+
+        <record id="sta_selection_committee_base_rule" model="ir.rule">
+            <field name="name">State Selection Committee for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_mandate.model_sta_selection_committee"/>
+            <field name="domain_force">[
+                ('designation_int_assembly_id.instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="int_selection_committee_base_rule" model="ir.rule">
+            <field name="name">Internal Selection Committee for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_mandate.model_int_selection_committee"/>
+            <field name="domain_force">[
+                ('designation_int_assembly_id.instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="ext_selection_committee_base_rule" model="ir.rule">
+            <field name="name">External Selection Committee for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_mandate.model_ext_selection_committee"/>
+            <field name="domain_force">[
+                ('designation_int_assembly_id.instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="sta_candidature_base_rule" model="ir.rule">
+            <field name="name">State Candidature for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_mandate.model_sta_candidature"/>
+            <field name="domain_force">[
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                ('designation_int_assembly_id.int_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="int_candidature_base_rule" model="ir.rule">
+            <field name="name">Internal Candidature for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_mandate.model_int_candidature"/>
+            <field name="domain_force">[
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                ('designation_int_assembly_id.int_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="ext_candidature_base_rule" model="ir.rule">
+            <field name="name">External Candidature for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_mandate.model_ext_candidature"/>
+            <field name="domain_force">[
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                ('designation_int_assembly_id.int_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="sta_mandate_base_ru_rule" model="ir.rule">
+            <field name="name">State Mandate (RU) for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_mandate.model_sta_mandate"/>
+            <field name="domain_force">[
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="sta_mandate_base_cd_rule" model="ir.rule">
+            <field name="name">State Mandate (CD) for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_mandate.model_sta_mandate"/>
+            <field name="domain_force">[
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                '|',('retrocession_mode','=','none'),('retro_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="int_mandate_base_rule" model="ir.rule">
+            <field name="name">Internal Mandate for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_mandate.model_int_mandate"/>
+            <field name="domain_force">[
+                '|',
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                ('mandate_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="ext_mandate_base_ru_rule" model="ir.rule">
+            <field name="name">External Mandate (RU) for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_mandate.model_ext_mandate"/>
+            <field name="domain_force">[
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="ext_mandate_base_cd_rule" model="ir.rule">
+            <field name="name">External Mandate (CD) for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_mandate.model_ext_mandate"/>
+            <field name="domain_force">[
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                '|',('retrocession_mode','=','none'),('retro_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="generic_mandate_base_rule" model="ir.rule">
+            <field name="name">Generic Mandate for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_mandate.model_generic_mandate"/>
+            <field name="domain_force">[
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="retrocession_base_rule" model="ir.rule">
+            <field name="name">Retrocession for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_retrocession.model_retrocession"/>
+            <field name="domain_force">[
+                ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                ('retro_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+    </data>
+</openerp>

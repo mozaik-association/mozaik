@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Move Notification -->
+
+        <record id="former_address_id_notification" model="mail.message.subtype">
+            <field name="name">Former Postal Coordinate Notification</field>
+            <field name="res_model">postal.coordinate</field>
+            <field name="default" eval="False"/>
+            <field name="description">This Postal Coordinate is no "Main" any longer</field>
+        </record>
+
+        <record id="main_address_id_notification" model="mail.message.subtype">
+            <field name="name">Main Postal Coordinate Notification</field>
+            <field name="res_model">postal.coordinate</field>
+            <field name="default" eval="False"/>
+            <field name="description">This Postal Coordinate is "Main"</field>
+        </record>
+
+        <!-- Email Notification -->
+
+        <record id="former_email_notification" model="mail.message.subtype">
+            <field name="name">Former Email Coordinate Notification</field>
+            <field name="res_model">email.coordinate</field>
+            <field name="default" eval="False"/>
+            <field name="description">This Email Coordinate is no "Main" any longer</field>
+        </record>
+
+        <record id="main_email_notification" model="mail.message.subtype">
+            <field name="name">Main Email Coordinate Notification</field>
+            <field name="res_model">email.coordinate</field>
+            <field name="default" eval="False"/>
+            <field name="description">This Email Coordinate is "Main"</field>
+        </record>
+
+        <!-- Phone Notification -->
+
+        <record id="former_phone_id_notification" model="mail.message.subtype">
+            <field name="name">Former Phone Coordinate Notification</field>
+            <field name="res_model">phone.coordinate</field>
+            <field name="default" eval="False"/>
+            <field name="description">This Phone Coordinate is no "Main" any longer</field>
+        </record>
+
+        <record id="main_phone_id_notification" model="mail.message.subtype">
+            <field name="name">Main Phone Coordinate Notification</field>
+            <field name="res_model">phone.coordinate</field>
+            <field name="default" eval="False"/>
+            <field name="description">This Phone Coordinate is "Main"</field>
+        </record>
+
+    </data>
+</openerp>

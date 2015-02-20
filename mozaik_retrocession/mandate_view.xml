@@ -1,0 +1,399 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="mandate_category_search_view" model="ir.ui.view">
+            <field name="name">mandate.category.search (mozaik_retrocession)</field>
+            <field name="model">mandate.category</field>
+            <field name="inherit_id" ref="mozaik_mandate.mandate_category_search_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='is_submission_mandate']" position="before">
+                    <field name="calculation_method_id" invisible="context.get('default_type','')=='int'"/>
+                    <field name="fractionation_id" invisible="context.get('default_type','')=='int'"/>
+                    <separator/>
+                    <filter name="monthly_retrocession" string="Monthly Retrocession"
+                            domain="[('retrocession_mode','=','month')]" invisible="context.get('default_type','')=='int'" />
+                    <filter name="yearly_retrocession" string="Yearly Retrocession"
+                            domain="[('retrocession_mode','=','year')]" invisible="context.get('default_type','')=='int'" />
+                    <filter name="no_retrocession" string="No Retrocession"
+                            domain="[('retrocession_mode','=','none')]" invisible="context.get('default_type','')=='int'" />
+                    <separator/>
+                </xpath>
+                <xpath expr="//filter[@name='ext_assembly_category_id']" position="after">
+                    <filter name="retrocession_mode" string="Retrocession Mode" context="{'group_by':'retrocession_mode'}"
+                            invisible="context.get('default_type','')=='int'"/>
+                    <filter name="calculation_method" string="Calculation Method" context="{'group_by':'calculation_method_id'}"
+                            invisible="context.get('default_type','')=='int'"/>
+                    <filter name="fractionation" string="Fractionation" context="{'group_by':'fractionation_id'}"
+                            invisible="context.get('default_type','')=='int'"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mandate_category_form_view" model="ir.ui.view">
+            <field name="name">mandate.category.form.view (mozaik_retrocession)</field>
+            <field name="model">mandate.category</field>
+            <field name="inherit_id" ref="mozaik_mandate.mandate_category_form_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
+            ])]"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//page[@name='exclusive_categories']" position="after">
+                    <page string="Retrocessions" name="retrocession"
+                          attrs="{'invisible': [('type', '=', 'int')]}">
+                        <group>
+                            <field name="retrocession_mode"/>
+                            <field name="calculation_method_id" attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : [('retrocession_mode', '=', 'none')]}"/>
+                        </group>
+                    </page>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="mandate_category_fin_form_view" model="ir.ui.view">
+            <field name="name">mandate.category.fin.form.view (mozaik_retrocession)</field>
+            <field name="model">mandate.category</field>
+            <field name="inherit_id" ref="mandate_category_form_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.mozaik_res_groups_financial_manager'),
+            ])]"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//page[@name='retrocession']/group" position="inside">
+                      <field name="fractionation_id" domain="[('total_percentage', '=', '100.0')]"
+                             attrs="{'required' : [('retrocession_mode', '!=', 'none')], 'invisible' : [('retrocession_mode', '=', 'none')]}"/>
+                 </xpath>
+                 <xpath expr="//page[@name='retrocession']/group" position="after">
+                    <separator string="Accounting"
+                               attrs="{'invisible' : [('retrocession_mode', '=', 'none')]}"/>
+                    <group attrs="{'invisible' : [('retrocession_mode', '=', 'none')]}">
+                        <field name ="property_retrocession_account"
+                               attrs="{'required' : [('retrocession_mode', '!=', 'none')]}"/>
+                        <field name ="property_retrocession_cost_account"
+                               attrs="{'required' : [('retrocession_mode', '!=', 'none')]}"/>
+                    </group>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="mandate_category_tree_view" model="ir.ui.view">
+            <field name="name">mandate.category.form.tree (mozaik_retrocession)</field>
+            <field name="model">mandate.category</field>
+            <field name="inherit_id" ref="mozaik_mandate.mandate_category_tree_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
+            ])]"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//tree" position="inside">
+                     <field name="retrocession_mode" invisible="1"/>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="sta_mandate_form_view" model="ir.ui.view">
+            <field name="name">sta.mandate.form (mozaik_retrocession)</field>
+            <field name="model">sta.mandate</field>
+            <field name="inherit_id" ref="mozaik_mandate.sta_mandate_form_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_invalidate']" position="after">
+                    <button string="Send mail" name="send_email_for_reference"
+                            confirm="Send email with structured reference now: proceed anyway?"
+                            type="object" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"
+                            help="Send to the representative the structured reference required for payments"/>
+                </xpath>
+                <xpath expr="//field[@name='alert_date']" position="after">
+                    <field name="email_date" readonly="1" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>
+                </xpath>
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button string="Retrocessions" name="%(retrocession_action)d"
+                            type="action" attrs="{'invisible': ['|',('id','=',False)]}"
+                            context="{'search_default_sta_mandate_id': active_id,
+                                      'default_sta_mandate_id': active_id}" />
+                    <button string="Journal Entries" name="%(account.action_move_journal_line)d"
+                            type="action" attrs="{'invisible': ['|',('id','=',False), ('need_account_management', '=', False)]}"
+                            context="{'search_default_name': reference,
+                                      'default_name': reference}" />
+                </xpath>
+                <xpath expr="//page[@name='index']" position="before">
+                    <page name="rules" string="Retrocessions"
+                          invisible="context.get('popup')"
+                          attrs="{'invisible': [('retrocession_mode', '=', 'none')]}">
+                        <group>
+                            <field name="retrocession_mode" readonly="1"/>
+                            <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
+                            <field name="retro_instance_id" attrs="{'invisible': [('retrocession_mode', '=', 'none')],
+                                                                   'required': [('retrocession_mode', '!=', 'none')]}"/>
+                            <field name="reference" readonly="1"
+                                   attrs="{'invisible': ['|', ('reference', '=', False), ('retrocession_mode', '=', 'none')]}"/>
+                        </group>
+                        <separator string="Imputable Fixed Rules"/>
+                        <button string="All Details" name="%(calculation_rule_detail_action)d"
+                                 type="action" attrs="{'invisible': [('id','=',False)]}"
+                                 context="{'search_default_sta_mandate_id': active_id,
+                                           'default_sta_mandate_id': active_id,
+                                           'search_default_all': True,
+                                           'search_default_is_not_deductible': True,
+                                           'default_is_deductible': False,
+                                           'default_type': 'fixed'}" />
+                        <field name="rule_ids" attrs="{'invisible': [('active', '=', False)]}"
+                               context="{'default_type': 'fixed',
+                                         'default_is_deductible': False,
+                                         'default_sta_mandate_id': active_id}">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="type" invisible="1"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
+                                <field name="is_deductible" invisible="1"/>
+                            </tree>
+                        </field>
+                        <field name="rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
+                            </tree>
+                        </field>
+                        <separator string="Deductible Fixed Rules"/>
+                        <button string="All Details" name="%(calculation_rule_detail_action)d"
+                                 type="action" attrs="{'invisible': [('id','=',False)]}"
+                                 context="{'search_default_sta_mandate_id': active_id,
+                                           'default_sta_mandate_id': active_id,
+                                           'search_default_all': True,
+                                           'search_default_is_deductible': True,
+                                           'default_is_deductible': True,
+                                           'default_type': 'fixed'}" />
+                        <field name="deductible_rule_ids" attrs="{'invisible': [('active', '=', False)]}"
+                               context="{'default_type': 'fixed',
+                                         'default_is_deductible': True,
+                                         'default_sta_mandate_id': active_id}">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="type" invisible="1"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
+                                <field name="is_deductible" invisible="1"/>
+                            </tree>
+                        </field>
+                        <field name="deductible_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="has_retrocessions_linked"/>
+                    <field name="need_account_management"/>
+                    <field name="calculation_method_id"/>
+                </xpath>
+                <xpath expr="//field[@name='mandate_category_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sta_assembly_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="ext_mandate_form_view" model="ir.ui.view">
+            <field name="name">ext.mandate.form (mozaik_retrocession)</field>
+            <field name="model">ext.mandate</field>
+            <field name="inherit_id" ref="mozaik_mandate.ext_mandate_form_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_invalidate']" position="after">
+                    <button string="Send mail" name="send_email_for_reference"
+                            confirm="Send email with structured reference now: proceed anyway?"
+                            type="object" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='alert_date']" position="after">
+                    <field name="email_date" readonly ="1" attrs="{'invisible': [('retrocession_mode','=', 'none')]}"/>
+                </xpath>
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button string="Retrocessions" name="%(retrocession_action)d"
+                             type="action" attrs="{'invisible': ['|',('id','=',False)]}"
+                             context="{'search_default_ext_mandate_id': active_id,
+                                       'default_ext_mandate_id': active_id}" />
+                    <button string="Journal Entries" name="%(account.action_move_journal_line)d"
+                            type="action" attrs="{'invisible': ['|',('id','=',False), ('need_account_management', '=', False)]}"
+                            context="{'search_default_name': reference,
+                                      'default_name': reference}" />
+                </xpath>
+                <xpath expr="//page[@name='index']" position="before">
+                    <page name="rules" string="Retrocessions"
+                          invisible="context.get('popup')"
+                          attrs="{'invisible': [('retrocession_mode', '=', 'none')]}">
+                        <group>
+                           <field name="retrocession_mode" readonly="1"/>
+                           <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
+                           <field name="retro_instance_id" attrs="{'invisible': [('retrocession_mode', '=', 'none')],
+                                                                   'required': [('retrocession_mode', '!=', 'none')]}"/>
+                           <field name="reference" readonly="1"
+                                   attrs="{'invisible': ['|', ('reference', '=', False), ('retrocession_mode', '=', 'none')]}"/>
+                        </group>
+                        <separator string="Imputable Fixed Rules"/>
+                        <button string="All Details" name="%(calculation_rule_detail_action)d"
+                                 type="action" attrs="{'invisible': [('id','=',False)]}"
+                                 context="{'search_default_ext_mandate_id': active_id,
+                                           'default_ext_mandate_id': active_id,
+                                           'search_default_all': True,
+                                           'search_default_is_not_deductible': True,
+                                           'default_is_deductible': False,
+                                           'default_type': 'fixed'}" />
+                        <field name="rule_ids" attrs="{'invisible': [('active', '=', False)]}"
+                               context="{'default_type': 'fixed',
+                                         'default_is_deductible': False,
+                                         'default_ext_mandate_id': active_id}">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="type" invisible="1"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
+                                <field name="is_deductible" invisible="1"/>
+                            </tree>
+                        </field>
+                        <field name="rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
+                            </tree>
+                        </field>
+                        <separator string="Deductible Fixed Rules"/>
+                        <button string="All Details" name="%(calculation_rule_detail_action)d"
+                                 type="action" attrs="{'invisible': [('id','=',False)]}"
+                                 context="{'search_default_ext_mandate_id': active_id,
+                                           'default_ext_mandate_id': active_id,
+                                           'search_default_all': True,
+                                           'search_default_is_deductible': True,
+                                           'default_is_deductible': True,
+                                           'default_type': 'fixed'}" />
+                        <field name="deductible_rule_ids" attrs="{'invisible': [('active', '=', False)]}"
+                               context="{'default_type': 'fixed',
+                                         'default_is_deductible': 1,
+                                         'default_ext_mandate_id': active_id}">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="type" invisible="1"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
+                                <field name="is_deductible" invisible="1"/>
+                            </tree>
+                        </field>
+                        <field name="deductible_rule_inactive_ids" attrs="{'invisible': [('active', '=', True)]}" readonly="1">
+                            <tree version="7.0" editable="bottom">
+                                <field name="name"/>
+                                <field name="percentage"/>
+                                <field name="amount"/>
+                                <field name="amount_subtotal" sum="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="has_retrocessions_linked"/>
+                    <field name="need_account_management"/>
+                    <field name="calculation_method_id"/>
+                </xpath>
+                <xpath expr="//field[@name='mandate_category_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='ext_assembly_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('has_retrocessions_linked', '=', True)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sta_mandate_search_view" model="ir.ui.view">
+            <field name="name">sta.mandate.search (mozaik_retrocession)</field>
+            <field name="model">sta.mandate</field>
+            <field name="inherit_id" ref="mozaik_mandate.sta_mandate_search_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='legislature_id']" position="after">
+                    <field name="reference"/>
+                </xpath>
+                <xpath expr="//filter[@name='expired']" position="before">
+                    <filter name="monthly_retrocession" string="Monthly Retrocession"
+                            domain="[('retrocession_mode','=','month')]" />
+                    <filter name="yearly_retrocession" string="Yearly Retrocession"
+                            domain="[('retrocession_mode','=','year')]" />
+                    <filter name="no_retrocession" string="No Retrocession"
+                            domain="[('retrocession_mode','=','none')]" />
+                    <separator/>
+                    <filter name="mixed_method" string="Mixed Calculation Method"
+                            domain="[('method_type','=','mixed')]" />
+                    <filter name="fixed_method" string="Fixed Calculation Method"
+                            domain="[('method_type','=','fixed')]" />
+                    <filter name="variable_method" string="Variable Calculation Method"
+                            domain="[('method_type','=','variable')]" />
+                    <separator/>
+                </xpath>
+                <xpath expr="//group[@name='group_by']" position="inside">
+                    <filter name="retrocession_mode" string="Retrocession Mode" domain="[]" context="{'group_by':'retrocession_mode'}" />
+                    <filter name="method_type" string="Method Type" domain="[]" context="{'group_by':'method_type'}" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="ext_mandate_search_view" model="ir.ui.view">
+            <field name="name">ext.mandate.search (mozaik_retrocession)</field>
+            <field name="model">ext.mandate</field>
+            <field name="inherit_id" ref="mozaik_mandate.ext_mandate_search_view" />
+            <field name="groups_id" eval="[(6,0,[
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
+            ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ext_assembly_id']" position="after">
+                    <field name="reference"/>
+                </xpath>
+                <xpath expr="//filter[@name='expired']" position="before">
+                    <filter name="monthly_retrocession" string="Monthly Retrocession"
+                            domain="[('retrocession_mode','=','month')]" />
+                    <filter name="yearly_retrocession" string="Yearly Retrocession"
+                            domain="[('retrocession_mode','=','year')]" />
+                    <filter name="no_retrocession" string="No Retrocession"
+                            domain="[('retrocession_mode','=','none')]" />
+                    <separator/>
+                    <filter name="mixed_method" string="Mixed Calculation Method"
+                            domain="[('method_type','=','mixed')]" />
+                    <filter name="fixed_method" string="Fixed Calculation Method"
+                            domain="[('method_type','=','fixed')]" />
+                    <filter name="variable_method" string="Variable Calculation Method"
+                            domain="[('method_type','=','variable')]" />
+                    <separator/>
+                </xpath>
+                <xpath expr="//group[@name='group_by']" position="inside">
+                    <filter name="retrocession_mode" string="Retrocession Mode" domain="[]" context="{'group_by':'retrocession_mode'}" />
+                    <filter name="method_type" string="Method Type" domain="[]" context="{'group_by':'method_type'}" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

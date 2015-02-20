@@ -1,0 +1,228 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+         <record id="sta_assembly_category_form_view" model="ir.ui.view">
+            <field name="name">sta.assembly.category.form.view (mozaik_mandate)</field>
+            <field name="model">sta.assembly.category</field>
+            <field name="inherit_id" ref="mozaik_structure.sta_assembly_category_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='status']" position="after">
+                    <notebook invisible="context.get('popup')">
+                        <page name="mandate categories" string="Mandate Categories">
+                            <field name="mandate_category_ids" attrs="{'invisible': [('active', '=', False)]}"
+                                   readonly="1"               context="{'default_mandate_category_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                           <field name="mandate_category_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                                   readonly="1" context="{'default_mandate_category_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+         </record>
+         
+         <record id="int_assembly_category_form_view" model="ir.ui.view">
+            <field name="name">int.assembly.category.form.view (mozaik_mandate)</field>
+            <field name="model">int.assembly.category</field>
+            <field name="inherit_id" ref="mozaik_structure.int_assembly_category_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='status']" position="after">
+                    <notebook invisible="context.get('popup')">
+                        <page name="mandate categories" string="Mandate Categories">
+                            <field name="mandate_category_ids" attrs="{'invisible': [('active', '=', False)]}"
+                                   readonly="1"               context="{'default_mandate_category_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                           <field name="mandate_category_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                                   readonly="1" context="{'default_mandate_category_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+         </record>
+         
+         <record id="ext_assembly_category_form_view" model="ir.ui.view">
+            <field name="name">ext.assembly.category.form.view (mozaik_mandate)</field>
+            <field name="model">ext.assembly.category</field>
+            <field name="inherit_id" ref="mozaik_structure.ext_assembly_category_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='status']" position="after">
+                    <notebook invisible="context.get('popup')">
+                        <page name="mandate categories" string="Mandate Categories">
+                            <field name="mandate_category_ids" attrs="{'invisible': [('active', '=', False)]}"
+                                   readonly="1"               context="{'default_mandate_category_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                           <field name="mandate_category_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                                   readonly="1" context="{'default_mandate_category_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+         </record>
+
+         <record id="sta_assembly_form_view" model="ir.ui.view">
+            <field name="name">sta.assembly.form.view (mozaik_mandate)</field>
+            <field name="model">sta.assembly</field>
+            <field name="inherit_id" ref="mozaik_structure.sta_assembly_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[@name='buttons']" position="inside">
+                    <button string="Candidatures" name="%(sta_candidature_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_sta_assembly_id': active_id,
+                                          'default_sta_assembly_id': active_id}" />
+                    <button string="Mandates" name="%(sta_mandate_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_sta_assembly_id': active_id,
+                                          'default_sta_assembly_id': active_id}" />
+                </xpath>
+                 <xpath expr="//group[@name='status']" position="after">
+                    <notebook invisible="context.get('popup')">
+                        <page name="selection committees" string="Selection Committees">
+                            <field name="selection_committee_ids" attrs="{'invisible': [('active', '=', False)]}"
+                                   readonly="1" context="{'default_assembly_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                                   <field name="legislature_id"/>
+                                   <field name="electoral_district_id"/>
+                               </tree>
+                           </field>
+                           <field name="selection_committee_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                                   readonly="1" context="{'default_assembly_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                                   <field name="legislature_id"/>
+                                   <field name="electoral_district_id"/>
+                               </tree>
+                           </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+         </record>
+         
+         <record id="int_assembly_form_view" model="ir.ui.view">
+            <field name="name">int.assembly.form.view (mozaik_mandate)</field>
+            <field name="model">int.assembly</field>
+            <field name="inherit_id" ref="mozaik_structure.int_assembly_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[@name='buttons']" position="inside">
+                    <button string="Candidatures" name="%(int_candidature_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_int_assembly_id': active_id,
+                                          'default_int_assembly_id': active_id}" />
+                    <button string="Mandates" name="%(int_mandate_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_int_assembly_id': active_id,
+                                          'default_int_assembly_id': active_id}" />
+                </xpath>
+                <xpath expr="//group[@name='status']" position="after">
+                    <notebook invisible="context.get('popup')">
+                        <page name="selection committees" string="Selection Committees">
+                            <field name="selection_committee_ids" attrs="{'invisible': [('active', '=', False)]}"
+                                   readonly="1" context="{'default_assembly_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                           <field name="selection_committee_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                                   readonly="1" context="{'default_assembly_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+         </record>
+         
+         <record id="ext_assembly_form_view" model="ir.ui.view">
+            <field name="name">ext.assembly.form.view (mozaik_mandate)</field>
+            <field name="model">ext.assembly</field>
+            <field name="inherit_id" ref="mozaik_structure.ext_assembly_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[@name='buttons']" position="inside">
+                    <button string="Candidatures" name="%(ext_candidature_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_ext_assembly_id': active_id,
+                                          'default_ext_assembly_id': active_id}" />
+                    <button string="Mandates" name="%(ext_mandate_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_ext_assembly_id': active_id,
+                                          'default_ext_assembly_id': active_id}" />
+                </xpath>
+                <xpath expr="//group[@name='status']" position="after">
+                    <notebook invisible="context.get('popup')">
+                        <page name="selection committees" string="Selection Committees">
+                            <field name="selection_committee_ids" attrs="{'invisible': [('active', '=', False)]}"
+                                   readonly="1" context="{'default_assembly_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                           <field name="selection_committee_inactive_ids" attrs="{'invisible': [('active', '=', True)]}"
+                                   readonly="1" context="{'default_assembly_id': active_id}">
+                               <tree>
+                                   <field name="name"/>
+                               </tree>
+                           </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+         </record>
+         
+         <record id="legislature_form_view" model="ir.ui.view">
+            <field name="name">legislature.form (mozaik_mandate)</field>
+            <field name="model">legislature</field>
+            <field name="inherit_id" ref="mozaik_structure.legislature_form_view" />
+            <field name="arch" type="xml">
+                 <xpath expr="//sheet/div[@name='buttons']" position="inside">
+                    <button string="Candidatures" name="%(sta_candidature_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_legislature_id': active_id,
+                                          'default_legislature_id': active_id}" />
+                    <button string="Mandates" name="%(sta_mandate_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_legislature_id': active_id,
+                                          'default_legislature_id': active_id}" />
+                 </xpath>
+            </field>
+         </record>
+
+         <record id="electoral_district_form_view" model="ir.ui.view">
+            <field name="name">electoral.district.form (mozaik_mandate)</field>
+            <field name="model">electoral.district</field>
+            <field name="inherit_id" ref="mozaik_structure.electoral_district_form_view" />
+            <field name="arch" type="xml">
+                 <xpath expr="//sheet/div[@name='buttons']" position="inside">
+                    <button string="Candidatures" name="%(sta_candidature_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_electoral_district_id': active_id,
+                                          'default_electoral_district_id': active_id}" />
+                 </xpath>
+            </field>
+         </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="filter_all_prts_int" model="distribution.list.line">
+            <field name="name">All Natural Persons</field>
+            <field name="src_model_id" ref="mozaik_communication.model_virtual_partner_instance" />
+            <field name="domain">[]</field>
+            <field name="company_id" ref='base.main_company'/>
+        </record>
+
+        <record id="distribution_list" model="distribution.list">
+            <field name="name">Everybody</field>
+            <field name="company_id" ref='base.main_company'/>
+            <field name="to_include_distribution_list_line_ids" eval="[[4,ref('filter_all_prts_int')]]"/>
+        </record>
+
+    </data>
+</openerp>

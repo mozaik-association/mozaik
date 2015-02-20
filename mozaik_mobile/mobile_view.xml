@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Action partner_mobile -->
+
+        <record id="partner_mobile_action" model="ir.actions.act_url">
+            <field name="name">Mozaik Mobile</field>
+            <field name="url">/partner_search_form</field>
+            <field name="target">self</field>
+        </record>
+
+        <menuitem id="partner_mobile_menu" name="Mozaik Mobile" action="partner_mobile_action"
+                  sequence="10" parent="mozaik_communication.websites_submenu" />
+
+    </data>
+</openerp>

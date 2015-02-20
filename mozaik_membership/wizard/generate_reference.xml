@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="generate_reference_view" model="ir.ui.view">
+            <field name="name">generate.reference.view</field>
+            <field name="model">generate.reference</field>
+            <field name="arch" type="xml">
+                <form string="Generate References" version="7.0">
+
+                    <group name="ref_date">
+                        <field name="reference_date" required="1"/>
+                    </group>
+
+                    <group name="counter" string="Overview">
+                        <field name="nb_selected" readonly="1"/>
+                        <field name="nb_candidate_concerned" readonly="1" />
+                        <field name="nb_member_concerned" readonly="1" />
+                        <field name="nb_former_concerned" readonly="1" />
+                    </group>
+
+                    <div name="dev" groups="mozaik_base.res_groups_developper">
+                        <h3>More Info</h3>
+                        <group name="moreinfo">
+                            <field name="partner_ids"/>
+                            <field name="go"/>
+                        </group>
+                    </div>
+
+                    <footer>
+                        <span name="go-wizard" attrs="{'invisible': [('go', '=', False)]}">
+                            <button string="Generate" name="generate_reference"
+                                    type="object" class="oe_highlight"/>
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="generate_reference_action" model="ir.actions.act_window">
+            <field name="name">Generate References</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">res.partner</field>
+            <field name="res_model">generate.reference</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="generate_reference_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
+
+        <record id="generate_reference_values" model="ir.values">
+            <field name="name">Generate References</field>
+            <field name="model">res.partner</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('generate_reference_action')" />
+        </record>
+
+    </data>
+</openerp>

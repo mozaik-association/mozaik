@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="without_membership" model="membership.state">
+            <field name="name">Without Status</field>
+            <field name="code">without_membership</field>
+        </record>
+        <record id="supporter" model="membership.state">
+            <field name="name">Supporter</field>
+            <field name="code">supporter</field>
+        </record>
+        <record id="former_supporter" model="membership.state">
+            <field name="name">Former Supporter</field>
+            <field name="code">former_supporter</field>
+        </record>
+        <record id="refused_member_candidate" model="membership.state">
+            <field name="name">Refused Member Candidate</field>
+            <field name="code">refused_member_candidate</field>
+        </record>
+        <record id="member_committee" model="membership.state">
+            <field name="name">Members Committee</field>
+            <field name="code">member_committee</field>
+        </record>
+        <record id="former_member_committee" model="membership.state">
+            <field name="name">Former Member Committee</field>
+            <field name="code">former_member_committee</field>
+        </record>
+        <record id="former_member" model="membership.state">
+            <field name="name">Former Member</field>
+            <field name="code">former_member</field>
+        </record>
+        <record id="member" model="membership.state">
+            <field name="name">Member</field>
+            <field name="code">member</field>
+        </record>
+        <record id="member_candidate" model="membership.state">
+            <field name="name">Member Candidate</field>
+            <field name="code">member_candidate</field>
+        </record>
+        <record id="expulsion_former_member" model="membership.state">
+            <field name="name">Former Member (expulsion)</field>
+            <field name="code">expulsion_former_member</field>
+        </record>
+        <record id="resignation_former_member" model="membership.state">
+            <field name="name">Former Member (resignation)</field>
+            <field name="code">resignation_former_member</field>
+        </record>
+        <record id="inappropriate_former_member" model="membership.state">
+            <field name="name">Former Member (inappropriate)</field>
+            <field name="code">inappropriate_former_member</field>
+        </record>
+        <record id="break_former_member" model="membership.state">
+            <field name="name">Former Member (break)</field>
+            <field name="code">break_former_member</field>
+        </record>
+
+    </data>
+</openerp>

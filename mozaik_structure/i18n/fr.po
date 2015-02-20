@@ -1,0 +1,1084 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mozaik_structure
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-20 20:10+0000\n"
+"PO-Revision-Date: 2014-10-20 20:10+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_structure
+#: model:ir.model,name:mozaik_structure.model_abstract_assembly
+msgid "Abstract Assembly"
+msgstr "Assemblée abstraite"
+
+#. module: mozaik_structure
+#: model:ir.model,name:mozaik_structure.model_abstract_assembly_category
+msgid "Abstract Assembly Category"
+msgstr "Catégorie abstraite d'assemblée"
+
+#. module: mozaik_structure
+#: model:ir.model,name:mozaik_structure.model_abstract_instance
+msgid "Abstract Instance"
+msgstr "Instance abstraite"
+
+#. module: mozaik_structure
+#: model:ir.model,name:mozaik_structure.model_abstract_power_level
+msgid "Abstract Power Level"
+msgstr "Niveau de pouvoir abstrait"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,active:0
+#: field:abstract.assembly.category,active:0
+#: field:abstract.instance,active:0
+#: field:abstract.power.level,active:0
+#: field:electoral.district,active:0
+#: field:ext.assembly,active:0
+#: field:ext.assembly.category,active:0
+#: field:int.assembly,active:0
+#: field:int.assembly.category,active:0
+#: field:int.instance,active:0
+#: field:int.power.level,active:0
+#: field:legislature,active:0
+#: field:sta.assembly,active:0
+#: field:sta.assembly.category,active:0
+#: field:sta.instance,active:0
+#: field:sta.power.level,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,months_before_end_of_mandate:0
+#: field:abstract.assembly.category,months_before_end_of_mandate:0
+#: field:ext.assembly,months_before_end_of_mandate:0
+#: field:ext.assembly.category,months_before_end_of_mandate:0
+#: field:int.assembly,months_before_end_of_mandate:0
+#: field:int.assembly.category,months_before_end_of_mandate:0
+#: field:sta.assembly,months_before_end_of_mandate:0
+#: field:sta.assembly.category,months_before_end_of_mandate:0
+msgid "Alert Delay (#Months)"
+msgstr "Délai d'alerte (#mois)"
+
+#. module: mozaik_structure
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_search_view
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_search_view
+#: view:abstract.instance:mozaik_structure.abstract_instance_search_view
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_search_view
+#: view:electoral.district:mozaik_structure.electoral_district_search_view
+#: view:legislature:mozaik_structure.legislature_search_view
+msgid "All"
+msgstr "Tous"
+
+#. module: mozaik_structure
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_search_view
+msgid "All Assemblies, expired or not"
+msgstr "Toutes les assemblées, expirées ou non"
+
+#. module: mozaik_structure
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_search_view
+msgid "All Categories, expired or not"
+msgstr "Toutes les catégories, expirées ou non"
+
+#. module: mozaik_structure
+#: view:int.instance:mozaik_structure.int_instance_form_view
+#: view:int.power.level:mozaik_structure.int_power_level_form_view
+#: view:sta.instance:mozaik_structure.sta_instance_form_view
+#: view:sta.power.level:mozaik_structure.sta_power_level_form_view
+msgid "All Details"
+msgstr "Tous les détails"
+
+#. module: mozaik_structure
+#: view:abstract.instance:mozaik_structure.abstract_instance_search_view
+msgid "All Instances, expired or not"
+msgstr "Toutes les instances, expirées ou non"
+
+#. module: mozaik_structure
+#: view:legislature:mozaik_structure.legislature_search_view
+msgid "All Legislatures, expired or not"
+msgstr "Toutes les législatures, expirées ou non"
+
+#. module: mozaik_structure
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_search_view
+msgid "All Power Levels, expired or not"
+msgstr "Tous les niveaux de pouvoir, expirés ou non"
+
+#. module: mozaik_structure
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_form_view
+#: view:abstract.instance:mozaik_structure.abstract_instance_form_view
+#: field:abstract.instance,assembly_ids:0
+#: field:abstract.instance,assembly_inactive_ids:0
+msgid "Assemblies"
+msgstr "Assemblées"
+
+#. module: mozaik_structure
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_form_view
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_search_view
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_tree_view
+#: view:electoral.district:mozaik_structure.electoral_district_search_view
+#: field:electoral.district,assembly_id:0
+msgid "Assembly"
+msgstr "Assemblée"
+
+#. module: mozaik_structure
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_form_view
+#: field:abstract.power.level,assembly_category_ids:0
+#: field:abstract.power.level,assembly_category_inactive_ids:0
+#: field:sta.power.level,assembly_category_ids:0
+#: field:sta.power.level,assembly_category_inactive_ids:0
+msgid "Assembly Categories"
+msgstr "Catégories d'assemblée"
+
+#. module: mozaik_structure
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_form_view
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_search_view
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_tree_view
+#: field:ext.assembly,assembly_category_id:0
+#: field:int.assembly,assembly_category_id:0
+#: field:sta.assembly,assembly_category_id:0
+msgid "Assembly Category"
+msgstr "Catégorie d'assemblée"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,partner_id:0
+#: field:ext.assembly,partner_id:0
+#: field:int.assembly,partner_id:0
+#: field:sta.assembly,partner_id:0
+msgid "Associated Partner"
+msgstr "Partenaire associé"
+
+#. module: mozaik_structure
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_search_view
+#: field:abstract.assembly,assembly_category_id:0
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: mozaik_structure
+#: view:abstract.instance:mozaik_structure.abstract_instance_form_view
+#: view:sta.instance:mozaik_structure.sta_instance_form_view
+msgid "Children"
+msgstr "Enfants"
+
+#. module: mozaik_structure
+#: model:ir.actions.act_window,name:mozaik_structure.sta_instance_children_action
+msgid "Children State Instances"
+msgstr "Instances de l'État enfants"
+
+#. module: mozaik_structure
+#: view:int.instance:mozaik_structure.int_instance_form_view
+msgid "Composition"
+msgstr "Composition"
+
+#. module: mozaik_structure
+#: model:ir.ui.menu,name:mozaik_structure.configuration_submenu
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: mozaik_structure
+#: field:electoral.district,create_uid:0
+#: field:ext.assembly,create_uid:0
+#: field:ext.assembly.category,create_uid:0
+#: field:int.assembly,create_uid:0
+#: field:int.assembly.category,create_uid:0
+#: field:int.instance,create_uid:0
+#: field:int.power.level,create_uid:0
+#: field:legislature,create_uid:0
+#: field:sta.assembly,create_uid:0
+#: field:sta.assembly.category,create_uid:0
+#: field:sta.instance,create_uid:0
+#: field:sta.power.level,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,create_date:0
+#: field:abstract.assembly.category,create_date:0
+#: field:abstract.instance,create_date:0
+#: field:abstract.power.level,create_date:0
+#: field:electoral.district,create_date:0
+#: field:ext.assembly,create_date:0
+#: field:ext.assembly.category,create_date:0
+#: field:int.assembly,create_date:0
+#: field:int.assembly.category,create_date:0
+#: field:int.instance,create_date:0
+#: field:int.power.level,create_date:0
+#: field:legislature,create_date:0
+#: field:sta.assembly,create_date:0
+#: field:sta.assembly.category,create_date:0
+#: field:sta.instance,create_date:0
+#: field:sta.power.level,create_date:0
+msgid "Creation Date"
+msgstr "Date de création"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,message_last_post:0
+#: help:abstract.assembly.category,message_last_post:0
+#: help:abstract.instance,message_last_post:0
+#: help:abstract.power.level,message_last_post:0
+#: help:electoral.district,message_last_post:0
+#: help:ext.assembly,message_last_post:0
+#: help:ext.assembly.category,message_last_post:0
+#: help:int.assembly,message_last_post:0
+#: help:int.assembly.category,message_last_post:0
+#: help:int.instance,message_last_post:0
+#: help:int.power.level,message_last_post:0
+#: help:legislature,message_last_post:0
+#: help:sta.assembly,message_last_post:0
+#: help:sta.assembly.category,message_last_post:0
+#: help:sta.instance,message_last_post:0
+#: help:sta.power.level,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur l'enregistrement."
+
+#. module: mozaik_structure
+#: field:legislature,deadline_date:0
+msgid "Deadline Date"
+msgstr "Date d'échéance"
+
+#. module: mozaik_structure
+#: field:electoral.district,designation_int_assembly_id:0
+#: field:ext.assembly,designation_int_assembly_id:0
+#: field:int.assembly,designation_int_assembly_id:0
+msgid "Designation Assembly"
+msgstr "Assemblée de désignation"
+
+#. module: mozaik_structure
+#: field:ext.assembly,dummy:0
+#: field:int.assembly,dummy:0
+#: field:sta.assembly,dummy:0
+msgid "Dummy"
+msgstr ""
+
+#. module: mozaik_structure
+#: field:abstract.assembly.category,duration:0
+#: field:ext.assembly.category,duration:0
+#: field:int.assembly.category,duration:0
+#: field:sta.assembly.category,duration:0
+msgid "Duration of Mandates"
+msgstr "Durée des mandats"
+
+#. module: mozaik_structure
+#: field:legislature,election_date:0
+msgid "Election Date"
+msgstr "Date électorale"
+
+#. module: mozaik_structure
+#: view:electoral.district:mozaik_structure.electoral_district_form_view
+#: view:electoral.district:mozaik_structure.electoral_district_search_view
+#: view:electoral.district:mozaik_structure.electoral_district_tree_view
+#: model:ir.model,name:mozaik_structure.model_electoral_district
+msgid "Electoral District"
+msgstr "Circonscription électorale"
+
+#. module: mozaik_structure
+#: view:int.instance:mozaik_structure.int_instance_form_view
+#: field:int.instance,electoral_district_ids:0
+#: field:int.instance,electoral_district_inactive_ids:0
+#: model:ir.actions.act_window,name:mozaik_structure.electoral_district_action
+#: model:ir.ui.menu,name:mozaik_structure.electoral_district_menu
+#: view:legislature:mozaik_structure.legislature_form_view
+#: view:sta.assembly:mozaik_structure.sta_assembly_form_view
+#: view:sta.instance:mozaik_structure.sta_instance_form_view
+#: field:sta.instance,electoral_district_ids:0
+#: field:sta.instance,electoral_district_inactive_ids:0
+msgid "Electoral Districts"
+msgstr "Circonscriptions électorales"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,expire_date:0
+#: field:abstract.assembly.category,expire_date:0
+#: field:abstract.instance,expire_date:0
+#: field:abstract.power.level,expire_date:0
+#: field:electoral.district,expire_date:0
+#: field:ext.assembly,expire_date:0
+#: field:ext.assembly.category,expire_date:0
+#: field:int.assembly,expire_date:0
+#: field:int.assembly.category,expire_date:0
+#: field:int.instance,expire_date:0
+#: field:int.power.level,expire_date:0
+#: field:legislature,expire_date:0
+#: field:sta.assembly,expire_date:0
+#: field:sta.assembly.category,expire_date:0
+#: field:sta.instance,expire_date:0
+#: field:sta.power.level,expire_date:0
+msgid "Expiration Date"
+msgstr "Date d'expiration"
+
+#. module: mozaik_structure
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_search_view
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_search_view
+#: view:abstract.instance:mozaik_structure.abstract_instance_search_view
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_search_view
+#: view:electoral.district:mozaik_structure.electoral_district_search_view
+#: view:legislature:mozaik_structure.legislature_search_view
+msgid "Expired"
+msgstr "Expiré"
+
+#. module: mozaik_structure
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_search_view
+msgid "Expired Assemblies"
+msgstr "Assemblées expirées"
+
+#. module: mozaik_structure
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_search_view
+msgid "Expired Categories"
+msgstr "Catégories expirées"
+
+#. module: mozaik_structure
+#: view:abstract.instance:mozaik_structure.abstract_instance_search_view
+msgid "Expired Instances"
+msgstr "Instances expirées"
+
+#. module: mozaik_structure
+#: view:legislature:mozaik_structure.legislature_search_view
+msgid "Expired Legislatures"
+msgstr "Législatures expirées"
+
+#. module: mozaik_structure
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_search_view
+msgid "Expired Power Levels"
+msgstr "Niveaux de pouvoir expirés"
+
+#. module: mozaik_structure
+#: model:ir.ui.menu,name:mozaik_structure.external_configuration_submenu
+#: model:ir.ui.menu,name:mozaik_structure.external_submenu
+msgid "External"
+msgstr "Externe"
+
+#. module: mozaik_structure
+#: view:int.instance:mozaik_structure.int_instance_form_view
+#: model:ir.actions.act_window,name:mozaik_structure.ext_assembly_action
+#: model:ir.ui.menu,name:mozaik_structure.external_assembly_menu
+msgid "External Assemblies"
+msgstr "Assemblées externes"
+
+#. module: mozaik_structure
+#: model:ir.model,name:mozaik_structure.model_ext_assembly
+msgid "External Assembly"
+msgstr "Assemblée externe"
+
+#. module: mozaik_structure
+#: model:ir.actions.act_window,name:mozaik_structure.ext_assembly_category_action
+#: model:ir.ui.menu,name:mozaik_structure.ext_assembly_category_menu
+msgid "External Assembly Categories"
+msgstr "Catégories d'assemblée externe"
+
+#. module: mozaik_structure
+#: model:ir.model,name:mozaik_structure.model_ext_assembly_category
+msgid "External Assembly Category"
+msgstr "Catégorie d'assemblée externe"
+
+#. module: mozaik_structure
+#: field:sta.instance,identifier:0
+msgid "External Identifier (INS)"
+msgstr "Identifiant externe (INS)"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,message_follower_ids:0
+#: field:abstract.assembly.category,message_follower_ids:0
+#: field:abstract.instance,message_follower_ids:0
+#: field:abstract.power.level,message_follower_ids:0
+#: field:electoral.district,message_follower_ids:0
+#: field:ext.assembly,message_follower_ids:0
+#: field:ext.assembly.category,message_follower_ids:0
+#: field:int.assembly,message_follower_ids:0
+#: field:int.assembly.category,message_follower_ids:0
+#: field:int.instance,message_follower_ids:0
+#: field:int.power.level,message_follower_ids:0
+#: field:legislature,message_follower_ids:0
+#: field:sta.assembly,message_follower_ids:0
+#: field:sta.assembly.category,message_follower_ids:0
+#: field:sta.instance,message_follower_ids:0
+#: field:sta.power.level,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: mozaik_structure
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_search_view
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_search_view
+#: view:abstract.instance:mozaik_structure.abstract_instance_search_view
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_search_view
+#: view:electoral.district:mozaik_structure.electoral_district_search_view
+#: view:legislature:mozaik_structure.legislature_search_view
+msgid "Group By..."
+msgstr "Grouper par..."
+
+#. module: mozaik_structure
+#: help:abstract.assembly,message_summary:0
+#: help:abstract.assembly.category,message_summary:0
+#: help:abstract.instance,message_summary:0
+#: help:abstract.power.level,message_summary:0
+#: help:electoral.district,message_summary:0
+#: help:ext.assembly,message_summary:0
+#: help:ext.assembly.category,message_summary:0
+#: help:int.assembly,message_summary:0
+#: help:int.assembly.category,message_summary:0
+#: help:int.instance,message_summary:0
+#: help:int.power.level,message_summary:0
+#: help:legislature,message_summary:0
+#: help:sta.assembly,message_summary:0
+#: help:sta.assembly.category,message_summary:0
+#: help:sta.instance,message_summary:0
+#: help:sta.power.level,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est au format HTML pour permettre son utilisation dans la vue kanban."
+
+#. module: mozaik_structure
+#: field:abstract.assembly,id:0
+#: field:abstract.assembly.category,id:0
+#: field:abstract.instance,id:0
+#: field:abstract.power.level,id:0
+#: field:electoral.district,id:0
+#: field:ext.assembly,id:0
+#: field:ext.assembly.category,id:0
+#: field:int.assembly,id:0
+#: field:int.assembly.category,id:0
+#: field:int.instance,id:0
+#: field:int.power.level,id:0
+#: field:legislature,id:0
+#: field:sta.assembly,id:0
+#: field:sta.assembly.category,id:0
+#: field:sta.instance,id:0
+#: field:sta.power.level,id:0
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_structure
+#: help:abstract.assembly,message_unread:0
+#: help:abstract.assembly.category,message_unread:0
+#: help:abstract.instance,message_unread:0
+#: help:abstract.power.level,message_unread:0
+#: help:electoral.district,message_unread:0
+#: help:ext.assembly,message_unread:0
+#: help:ext.assembly.category,message_unread:0
+#: help:int.assembly,message_unread:0
+#: help:int.assembly.category,message_unread:0
+#: help:int.instance,message_unread:0
+#: help:int.power.level,message_unread:0
+#: help:legislature,message_unread:0
+#: help:sta.assembly,message_unread:0
+#: help:sta.assembly.category,message_unread:0
+#: help:sta.instance,message_unread:0
+#: help:sta.power.level,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages requièrent votre attention."
+
+#. module: mozaik_structure
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_search_view
+#: field:abstract.assembly,instance_id:0
+#: view:abstract.instance:mozaik_structure.abstract_instance_form_view
+#: view:abstract.instance:mozaik_structure.abstract_instance_search_view
+#: view:abstract.instance:mozaik_structure.abstract_instance_tree_view
+#: view:electoral.district:mozaik_structure.electoral_district_search_view
+msgid "Instance"
+msgstr "Instance"
+
+#. module: mozaik_structure
+#: view:int.power.level:mozaik_structure.int_power_level_form_view
+#: view:sta.power.level:mozaik_structure.sta_power_level_form_view
+msgid "Instances"
+msgstr "Instances"
+
+#. module: mozaik_structure
+#: model:ir.ui.menu,name:mozaik_structure.internal_configuration_submenu
+#: model:ir.ui.menu,name:mozaik_structure.internal_submenu
+msgid "Internal"
+msgstr "Interne"
+
+#. module: mozaik_structure
+#: field:int.instance,assembly_ids:0
+#: field:int.instance,assembly_inactive_ids:0
+#: model:ir.actions.act_window,name:mozaik_structure.int_assembly_action
+#: model:ir.ui.menu,name:mozaik_structure.internal_assembly_menu
+msgid "Internal Assemblies"
+msgstr "Assemblées internes"
+
+#. module: mozaik_structure
+#: model:ir.model,name:mozaik_structure.model_int_assembly
+msgid "Internal Assembly"
+msgstr "Assemblée interne"
+
+#. module: mozaik_structure
+#: field:int.power.level,assembly_category_ids:0
+#: field:int.power.level,assembly_category_inactive_ids:0
+#: model:ir.actions.act_window,name:mozaik_structure.int_assembly_category_action
+#: model:ir.ui.menu,name:mozaik_structure.int_assembly_category_menu
+msgid "Internal Assembly Categories"
+msgstr "Catégories d'assemblée interne"
+
+#. module: mozaik_structure
+#: model:ir.model,name:mozaik_structure.model_int_assembly_category
+msgid "Internal Assembly Category"
+msgstr "Catégorie d'assemblée interne"
+
+#. module: mozaik_structure
+#: view:electoral.district:mozaik_structure.electoral_district_search_view
+#: field:electoral.district,int_instance_id:0
+#: field:ext.assembly,instance_id:0
+#: field:int.assembly,instance_id:0
+#: model:ir.model,name:mozaik_structure.model_int_instance
+#: view:sta.instance:mozaik_structure.sta_instance_search_view
+#: field:sta.instance,int_instance_id:0
+msgid "Internal Instance"
+msgstr "Instance interne"
+
+#. module: mozaik_structure
+#: model:ir.actions.act_window,name:mozaik_structure.int_instance_action
+#: model:ir.ui.menu,name:mozaik_structure.internal_instance_menu
+msgid "Internal Instances"
+msgstr "Instances internes"
+
+#. module: mozaik_structure
+#: field:ext.assembly.category,power_level_id:0
+#: field:int.assembly.category,power_level_id:0
+#: field:int.instance,power_level_id:0
+#: model:ir.model,name:mozaik_structure.model_int_power_level
+msgid "Internal Power Level"
+msgstr "Niveau de pouvoir interne"
+
+#. module: mozaik_structure
+#: model:ir.actions.act_window,name:mozaik_structure.int_power_level_action
+#: model:ir.ui.menu,name:mozaik_structure.int_power_level_menu
+msgid "Internal Power Levels"
+msgstr "Niveaux de pouvoir internes"
+
+#. module: mozaik_structure
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_form_view
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_form_view
+#: view:abstract.instance:mozaik_structure.abstract_instance_form_view
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_form_view
+#: view:electoral.district:mozaik_structure.electoral_district_form_view
+#: view:legislature:mozaik_structure.legislature_form_view
+msgid "Invalidate"
+msgstr "Invalider"
+
+#. module: mozaik_structure
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_form_view
+msgid "Invalidate assembly: proceed anyway?"
+msgstr "Poursuivre l'invalidation de l'assemblée ?"
+
+#. module: mozaik_structure
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_form_view
+msgid "Invalidate category: proceed anyway?"
+msgstr "Poursuivre l'invalidation de la catégorie ?"
+
+#. module: mozaik_structure
+#: view:electoral.district:mozaik_structure.electoral_district_form_view
+msgid "Invalidate electoral district: proceed anyway?"
+msgstr "Poursuivre l'invalidation de la circonscription ?"
+
+#. module: mozaik_structure
+#: view:abstract.instance:mozaik_structure.abstract_instance_form_view
+msgid "Invalidate instance: proceed anyway?"
+msgstr "Poursuivre l'invalidation de l'instance ?"
+
+#. module: mozaik_structure
+#: view:legislature:mozaik_structure.legislature_form_view
+msgid "Invalidate legislature: proceed anyway?"
+msgstr "Poursuivre l'invalidation de la législature ?"
+
+#. module: mozaik_structure
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_form_view
+msgid "Invalidate level: proceed anyway?"
+msgstr "Poursuivre l'invalidation du niveau de pouvoir ?"
+
+#. module: mozaik_structure
+#: field:int.assembly,is_designation_assembly:0
+msgid "Is Designation Assembly"
+msgstr "Assemblée de désignation"
+
+#. module: mozaik_structure
+#: field:sta.assembly,is_legislative:0
+msgid "Is Legislative"
+msgstr "Assemblée législative"
+
+#. module: mozaik_structure
+#: field:int.assembly,is_secretariat:0
+#: field:int.assembly.category,is_secretariat:0
+msgid "Is Secretariat"
+msgstr "Secrétariat"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,message_is_follower:0
+#: field:abstract.assembly.category,message_is_follower:0
+#: field:abstract.instance,message_is_follower:0
+#: field:abstract.power.level,message_is_follower:0
+#: field:electoral.district,message_is_follower:0
+#: field:ext.assembly,message_is_follower:0
+#: field:ext.assembly.category,message_is_follower:0
+#: field:int.assembly,message_is_follower:0
+#: field:int.assembly.category,message_is_follower:0
+#: field:int.instance,message_is_follower:0
+#: field:int.power.level,message_is_follower:0
+#: field:legislature,message_is_follower:0
+#: field:sta.assembly,message_is_follower:0
+#: field:sta.assembly.category,message_is_follower:0
+#: field:sta.instance,message_is_follower:0
+#: field:sta.power.level,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est abonné"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,message_last_post:0
+#: field:abstract.assembly.category,message_last_post:0
+#: field:abstract.instance,message_last_post:0
+#: field:abstract.power.level,message_last_post:0
+#: field:electoral.district,message_last_post:0
+#: field:ext.assembly,message_last_post:0
+#: field:ext.assembly.category,message_last_post:0
+#: field:int.assembly,message_last_post:0
+#: field:int.assembly.category,message_last_post:0
+#: field:int.instance,message_last_post:0
+#: field:int.power.level,message_last_post:0
+#: field:legislature,message_last_post:0
+#: field:sta.assembly,message_last_post:0
+#: field:sta.assembly.category,message_last_post:0
+#: field:sta.instance,message_last_post:0
+#: field:sta.power.level,message_last_post:0
+msgid "Last Message Date"
+msgstr "Date du dernier message"
+
+#. module: mozaik_structure
+#: field:electoral.district,write_uid:0
+#: field:ext.assembly,write_uid:0
+#: field:ext.assembly.category,write_uid:0
+#: field:int.assembly,write_uid:0
+#: field:int.assembly.category,write_uid:0
+#: field:int.instance,write_uid:0
+#: field:int.power.level,write_uid:0
+#: field:legislature,write_uid:0
+#: field:sta.assembly,write_uid:0
+#: field:sta.assembly.category,write_uid:0
+#: field:sta.instance,write_uid:0
+#: field:sta.power.level,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: mozaik_structure
+#: field:electoral.district,write_date:0
+#: field:ext.assembly,write_date:0
+#: field:ext.assembly.category,write_date:0
+#: field:int.assembly,write_date:0
+#: field:int.assembly.category,write_date:0
+#: field:int.instance,write_date:0
+#: field:int.power.level,write_date:0
+#: field:legislature,write_date:0
+#: field:sta.assembly,write_date:0
+#: field:sta.assembly.category,write_date:0
+#: field:sta.instance,write_date:0
+#: field:sta.power.level,write_date:0
+msgid "Last Updated on"
+msgstr "Date de dernière mise à jour"
+
+#. module: mozaik_structure
+#: field:abstract.instance,parent_left:0
+#: field:int.instance,parent_left:0
+#: field:sta.instance,parent_left:0
+msgid "Left Parent"
+msgstr "Parent gauche"
+
+#. module: mozaik_structure
+#: field:ext.assembly,ref_partner_id:0
+msgid "Legal Person"
+msgstr "Personne morale"
+
+#. module: mozaik_structure
+#: field:sta.assembly.category,is_legislative:0
+msgid "Legislative"
+msgstr "Législative"
+
+#. module: mozaik_structure
+#: model:ir.model,name:mozaik_structure.model_legislature
+#: view:legislature:mozaik_structure.legislature_form_view
+#: view:legislature:mozaik_structure.legislature_search_view
+#: view:legislature:mozaik_structure.legislature_tree_view
+msgid "Legislature"
+msgstr "Législature"
+
+#. module: mozaik_structure
+#: model:ir.actions.act_window,name:mozaik_structure.legislature_action
+#: model:ir.ui.menu,name:mozaik_structure.legislatures_menu
+#: view:sta.power.level:mozaik_structure.sta_power_level_form_view
+msgid "Legislatures"
+msgstr "Législatures"
+
+#. module: mozaik_structure
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_search_view
+#: field:int.power.level,level_for_followers:0
+msgid "Level For Followers"
+msgstr "Niveau à abonner"
+
+#. module: mozaik_structure
+#: view:int.instance:mozaik_structure.int_instance_form_view
+msgid "Membership"
+msgstr "Appartenance"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,message_ids:0
+#: field:abstract.assembly.category,message_ids:0
+#: field:abstract.instance,message_ids:0
+#: field:abstract.power.level,message_ids:0
+#: field:electoral.district,message_ids:0
+#: field:ext.assembly,message_ids:0
+#: field:ext.assembly.category,message_ids:0
+#: field:int.assembly,message_ids:0
+#: field:int.assembly.category,message_ids:0
+#: field:int.instance,message_ids:0
+#: field:int.power.level,message_ids:0
+#: field:legislature,message_ids:0
+#: field:sta.assembly,message_ids:0
+#: field:sta.assembly.category,message_ids:0
+#: field:sta.instance,message_ids:0
+#: field:sta.power.level,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,message_ids:0
+#: help:abstract.assembly.category,message_ids:0
+#: help:abstract.instance,message_ids:0
+#: help:abstract.power.level,message_ids:0
+#: help:electoral.district,message_ids:0
+#: help:ext.assembly,message_ids:0
+#: help:ext.assembly.category,message_ids:0
+#: help:int.assembly,message_ids:0
+#: help:int.assembly.category,message_ids:0
+#: help:int.instance,message_ids:0
+#: help:int.power.level,message_ids:0
+#: help:legislature,message_ids:0
+#: help:sta.assembly,message_ids:0
+#: help:sta.assembly.category,message_ids:0
+#: help:sta.instance,message_ids:0
+#: help:sta.power.level,message_ids:0
+msgid "Messages and communication history"
+msgstr "Historique des messages et communications"
+
+#. module: mozaik_structure
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_form_view
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_form_view
+#: view:abstract.instance:mozaik_structure.abstract_instance_form_view
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_form_view
+#: view:electoral.district:mozaik_structure.electoral_district_form_view
+#: view:legislature:mozaik_structure.legislature_form_view
+msgid "More Info"
+msgstr "Plus d'info"
+
+#. module: mozaik_structure
+#: view:int.instance:mozaik_structure.int_instance_form_view
+#: field:int.instance,multi_instance_cp_m2m_ids:0
+#: field:int.instance,multi_instance_pc_m2m_ids:0
+msgid "Multi-Instances"
+msgstr "Multi-Instances"
+
+#. module: mozaik_structure
+#: field:abstract.assembly.category,name:0
+#: field:abstract.instance,name:0
+#: field:abstract.power.level,name:0
+#: field:electoral.district,name:0
+#: field:ext.assembly.category,name:0
+#: field:int.assembly.category,name:0
+#: field:int.instance,name:0
+#: field:int.power.level,name:0
+#: field:legislature,name:0
+#: field:sta.assembly.category,name:0
+#: field:sta.instance,name:0
+#: field:sta.power.level,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: mozaik_structure
+#: view:abstract.instance:mozaik_structure.abstract_instance_search_view
+msgid "Parent"
+msgstr "Parent"
+
+#. module: mozaik_structure
+#: field:abstract.instance,parent_id:0
+msgid "Parent Instance"
+msgstr "Instance parent"
+
+#. module: mozaik_structure
+#: field:int.instance,parent_id:0
+msgid "Parent Internal Instance"
+msgstr "Instance interne parent"
+
+#. module: mozaik_structure
+#: field:sta.instance,parent_id:0
+msgid "Parent State Instance"
+msgstr "Instance de l'État parent"
+
+#. module: mozaik_structure
+#: view:ext.assembly:mozaik_structure.ext_assembly_search_view
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: mozaik_structure
+#: field:abstract.assembly.category,power_level_id:0
+#: view:abstract.instance:mozaik_structure.abstract_instance_search_view
+#: field:abstract.instance,power_level_id:0
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_form_view
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_search_view
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_tree_view
+#: field:electoral.district,power_level_id:0
+#: view:int.assembly.category:mozaik_structure.int_assembly_category_search_view
+#: view:legislature:mozaik_structure.legislature_search_view
+#: field:legislature,power_level_id:0
+#: view:sta.assembly.category:mozaik_structure.sta_assembly_category_search_view
+msgid "Power Level"
+msgstr "Niveau de pouvoir"
+
+#. module: mozaik_structure
+#: constraint:abstract.assembly:0
+#: code:addons\mozaik_structure\abstract_structure.py:242
+#: constraint:ext.assembly:0
+#: constraint:int.assembly:0
+#: constraint:sta.assembly:0
+#, python-format
+msgid "Power level of category and instance are inconsistent"
+msgstr "Le niveau de pouvoir de la catégorie et de l'instance sont incompatibles"
+
+#. module: mozaik_structure
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_form_view
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_form_view
+#: view:abstract.instance:mozaik_structure.abstract_instance_form_view
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_form_view
+#: view:electoral.district:mozaik_structure.electoral_district_form_view
+#: view:legislature:mozaik_structure.legislature_form_view
+msgid "Reactivate document: proceed anyway?"
+msgstr "Poursuivre la réactivation du document ?"
+
+#. module: mozaik_structure
+#: field:abstract.instance,parent_right:0
+#: field:int.instance,parent_right:0
+#: field:sta.instance,parent_right:0
+msgid "Right Parent"
+msgstr "Parent droit"
+
+#. module: mozaik_structure
+#: view:sta.instance:mozaik_structure.sta_instance_search_view
+msgid "Secondary Parent"
+msgstr "Parent secondaire"
+
+#. module: mozaik_structure
+#: field:sta.instance,secondary_parent_id:0
+msgid "Secondary Parent State Instance"
+msgstr "Instance de l'État parent secondaire"
+
+#. module: mozaik_structure
+#: field:abstract.power.level,sequence:0
+#: field:int.power.level,sequence:0
+#: field:sta.power.level,sequence:0
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: mozaik_structure
+#: field:legislature,start_date:0
+msgid "Start Date"
+msgstr "Date de début"
+
+#. module: mozaik_structure
+#: model:ir.ui.menu,name:mozaik_structure.state_configuration_submenu
+#: model:ir.ui.menu,name:mozaik_structure.state_submenu
+msgid "State"
+msgstr "De l'État"
+
+#. module: mozaik_structure
+#: model:ir.actions.act_window,name:mozaik_structure.sta_assembly_action
+#: model:ir.ui.menu,name:mozaik_structure.state_assembly_menu
+#: field:sta.instance,assembly_ids:0
+#: field:sta.instance,assembly_inactive_ids:0
+msgid "State Assemblies"
+msgstr "Assemblées de l'État"
+
+#. module: mozaik_structure
+#: model:ir.model,name:mozaik_structure.model_sta_assembly
+msgid "State Assembly"
+msgstr "Assemblée de l'État"
+
+#. module: mozaik_structure
+#: model:ir.actions.act_window,name:mozaik_structure.sta_assembly_category_action
+#: model:ir.ui.menu,name:mozaik_structure.sta_assembly_category_menu
+msgid "State Assembly Categories"
+msgstr "Catégories d'assemblée de l'État"
+
+#. module: mozaik_structure
+#: field:electoral.district,assembly_category_id:0
+#: model:ir.model,name:mozaik_structure.model_sta_assembly_category
+msgid "State Assembly Category"
+msgstr "Catégorie d'assemblée de l'État"
+
+#. module: mozaik_structure
+#: field:electoral.district,sta_instance_id:0
+#: model:ir.model,name:mozaik_structure.model_sta_instance
+#: field:sta.assembly,instance_id:0
+msgid "State Instance"
+msgstr "Instance de l'État"
+
+#. module: mozaik_structure
+#: view:int.instance:mozaik_structure.int_instance_form_view
+#: model:ir.actions.act_window,name:mozaik_structure.sta_instance_action
+#: model:ir.ui.menu,name:mozaik_structure.state_instance_menu
+msgid "State Instances"
+msgstr "Instances de l'État"
+
+#. module: mozaik_structure
+#: model:ir.model,name:mozaik_structure.model_sta_power_level
+#: field:sta.assembly.category,power_level_id:0
+#: field:sta.instance,power_level_id:0
+msgid "State Power Level"
+msgstr "Niveau de pouvoir de l'État"
+
+#. module: mozaik_structure
+#: model:ir.actions.act_window,name:mozaik_structure.sta_power_level_action
+#: model:ir.ui.menu,name:mozaik_structure.sta_power_level_menu
+msgid "State Power Levels"
+msgstr "Niveaux de pouvoir de l'État"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,message_summary:0
+#: field:abstract.assembly.category,message_summary:0
+#: field:abstract.instance,message_summary:0
+#: field:abstract.power.level,message_summary:0
+#: field:electoral.district,message_summary:0
+#: field:ext.assembly,message_summary:0
+#: field:ext.assembly.category,message_summary:0
+#: field:int.assembly,message_summary:0
+#: field:int.assembly.category,message_summary:0
+#: field:int.instance,message_summary:0
+#: field:int.power.level,message_summary:0
+#: field:legislature,message_summary:0
+#: field:sta.assembly,message_summary:0
+#: field:sta.assembly.category,message_summary:0
+#: field:sta.instance,message_summary:0
+#: field:sta.power.level,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: mozaik_structure
+#: sql_constraint:legislature:0
+msgid "The election date must be anterior to the start date."
+msgstr "La date électorale doit être antérieure à la date de début."
+
+#. module: mozaik_structure
+#: sql_constraint:sta.instance:0
+msgid "The external identifier (INS) must be unique."
+msgstr "L'identifiant externe (INS) doit être unique."
+
+#. module: mozaik_structure
+#: sql_constraint:electoral.district:0
+msgid "The name must be unique."
+msgstr "Le nom doit être unique."
+
+#. module: mozaik_structure
+#: sql_constraint:legislature:0
+msgid "The start date must be anterior to the deadline date."
+msgstr "La date de début doit être antérieure à la date d'échéance."
+
+#. module: mozaik_structure
+#: field:abstract.assembly,message_unread:0
+#: field:abstract.assembly.category,message_unread:0
+#: field:abstract.instance,message_unread:0
+#: field:abstract.power.level,message_unread:0
+#: field:electoral.district,message_unread:0
+#: field:ext.assembly,message_unread:0
+#: field:ext.assembly.category,message_unread:0
+#: field:int.assembly,message_unread:0
+#: field:int.assembly.category,message_unread:0
+#: field:int.instance,message_unread:0
+#: field:int.power.level,message_unread:0
+#: field:legislature,message_unread:0
+#: field:sta.assembly,message_unread:0
+#: field:sta.assembly.category,message_unread:0
+#: field:sta.instance,message_unread:0
+#: field:sta.power.level,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: mozaik_structure
+#: view:abstract.assembly:mozaik_structure.abstract_assembly_form_view
+#: view:abstract.assembly.category:mozaik_structure.abstract_assembly_category_form_view
+#: view:abstract.instance:mozaik_structure.abstract_instance_form_view
+#: view:abstract.power.level:mozaik_structure.abstract_power_level_form_view
+#: view:electoral.district:mozaik_structure.electoral_district_form_view
+#: view:legislature:mozaik_structure.legislature_form_view
+msgid "Validate"
+msgstr "Valider"
+
+#. module: mozaik_structure
+#: field:abstract.assembly,website_message_ids:0
+#: field:abstract.assembly.category,website_message_ids:0
+#: field:abstract.instance,website_message_ids:0
+#: field:abstract.power.level,website_message_ids:0
+#: field:electoral.district,website_message_ids:0
+#: field:ext.assembly,website_message_ids:0
+#: field:ext.assembly.category,website_message_ids:0
+#: field:int.assembly,website_message_ids:0
+#: field:int.assembly.category,website_message_ids:0
+#: field:int.instance,website_message_ids:0
+#: field:int.power.level,website_message_ids:0
+#: field:legislature,website_message_ids:0
+#: field:sta.assembly,website_message_ids:0
+#: field:sta.assembly.category,website_message_ids:0
+#: field:sta.instance,website_message_ids:0
+#: field:sta.power.level,website_message_ids:0
+msgid "Website Messages"
+msgstr "Messages de site web"
+
+#. module: mozaik_structure
+#: help:abstract.assembly,website_message_ids:0
+#: help:abstract.assembly.category,website_message_ids:0
+#: help:abstract.instance,website_message_ids:0
+#: help:abstract.power.level,website_message_ids:0
+#: help:electoral.district,website_message_ids:0
+#: help:ext.assembly,website_message_ids:0
+#: help:ext.assembly.category,website_message_ids:0
+#: help:int.assembly,website_message_ids:0
+#: help:int.assembly.category,website_message_ids:0
+#: help:int.instance,website_message_ids:0
+#: help:int.power.level,website_message_ids:0
+#: help:legislature,website_message_ids:0
+#: help:sta.assembly,website_message_ids:0
+#: help:sta.assembly.category,website_message_ids:0
+#: help:sta.instance,website_message_ids:0
+#: help:sta.power.level,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historique de communication de site web"
+
+#. module: mozaik_structure
+#: view:legislature:mozaik_structure.legislature_search_view
+msgid "Year"
+msgstr "Année"
+
+#. module: mozaik_structure
+#: constraint:abstract.instance:0
+#: code:addons\mozaik_structure\abstract_structure.py:143
+#: code:addons\mozaik_structure\sta_structure.py:160
+#: constraint:int.instance:0
+#: constraint:sta.instance:0
+#, python-format
+msgid "You can not create recursive instances"
+msgstr "Vous ne pouvez pas créer d'instances récursives"
+
+#. module: mozaik_structure
+#: view:ext.assembly:mozaik_structure.ext_assembly_form_view
+#: view:int.assembly:mozaik_structure.int_assembly_form_view
+msgid "onchange_assembly_category_id(assembly_category_id)"
+msgstr ""
+
+#. module: mozaik_structure
+#: view:sta.instance:mozaik_structure.sta_instance_form_view
+msgid "{'default_instance_id': active_id}"
+msgstr ""
+
+#. module: mozaik_structure
+#: view:int.power.level:mozaik_structure.int_power_level_form_view
+#: view:sta.power.level:mozaik_structure.sta_power_level_form_view
+msgid "{'default_power_level_id': active_id}"
+msgstr ""
+

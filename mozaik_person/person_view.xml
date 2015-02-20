@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <menuitem id="persons_menu" name="Persons"
+                  sequence="10" parent="mozaik_base.persons_root_menu" />
+        <menuitem id="natural_persons_menu" action="natural_res_partner_action"
+                  sequence="10" parent="persons_menu" />
+        <menuitem id="legal_persons_menu" action="legal_res_partner_action"
+                  sequence="20" parent="persons_menu" />
+        <menuitem id="all_persons_menu" action="all_res_partner_action"
+                  sequence="30" parent="persons_menu" />
+
+        <!-- Rename standard actions -->
+
+        <record id="base.action_partner_title_contact" model="ir.actions.act_window">
+            <field name="name">Natural Persons Titles</field>
+        </record>
+
+        <record id="base.action_partner_title_partner" model="ir.actions.act_window">
+            <field name="name">Legal Persons Titles</field>
+        </record>
+
+    </data>
+</openerp>

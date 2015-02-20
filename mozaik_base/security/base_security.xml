@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Temporary -->
+
+        <record model="res.groups" id="help_online.help_online_group_writer">
+            <field name="implied_ids" eval="[(6, 0, [
+                ref('base.group_website_designer'),
+            ])]" />
+        </record>
+
+        <!-- Extra technical groups not belonging to Political Association application -->
+
+        <record model="res.groups" id="res_groups_ws">
+            <field name="name">Ws (Mozaik)</field>
+            <field name="category_id" ref="base.module_category_usability"/>
+        </record>
+
+        <record model="res.groups" id="res_groups_base">
+            <field name="name">Base (Mozaik)</field>
+            <field name="category_id" ref="base.module_category_usability"/>
+            <field name="implied_ids" eval="[(6, 0, [
+                ref('base.group_user'),
+                ref('base.group_no_one'),
+            ])]" />
+        </record>
+
+        <record model="res.groups" id="res_groups_developper">
+            <field name="name">Developper (Mozaik)</field>
+            <field name="category_id" ref="base.module_category_usability"/>
+            <field name="implied_ids" eval="[(6, 0, [
+                ref('base.group_no_one'),
+            ])]" />
+        </record>
+
+        <!-- Groups belonging to Political Association application -->
+
+        <record model="res.groups" id="mozaik_res_groups_reader">
+            <field name="name">Mozaik Reader</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(6, 0, [
+                ref('res_groups_base'),
+            ])]" />
+        </record>
+
+        <record model="res.groups" id="mozaik_res_groups_user">
+            <field name="name">Mozaik User</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(6, 0, [
+                ref('res_groups_base'),
+                ref('base.group_partner_manager'),
+                ref('help_online.help_online_group_reader'),
+                ref('event.group_event_user'),
+                ref('connector.group_connector_manager'),
+            ])]" />
+        </record>
+
+        <record model="res.groups" id="mozaik_res_groups_financial_user">
+            <field name="name">Mozaik Financial User</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(6, 0, [
+                ref('mozaik_res_groups_user'),
+            ])]" />
+        </record>
+
+        <record model="res.groups" id="mozaik_res_groups_officer">
+            <field name="name">Mozaik Officer</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(6, 0, [
+                ref('mozaik_res_groups_reader'),
+                ref('mozaik_res_groups_user'),
+                ref('event.group_event_manager'),
+            ])]" />
+        </record>
+
+        <record model="res.groups" id="mozaik_res_groups_financial_manager">
+            <field name="name">Mozaik Financial Manager</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(6, 0, [
+                ref('mozaik_res_groups_financial_user'),
+                ref('mozaik_res_groups_officer'),
+            ])]" />
+        </record>
+
+        <record model="res.groups" id="mozaik_res_groups_vip_reader">
+            <field name="name">Mozaik Vip Reader</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(6, 0, [
+                ref('mozaik_res_groups_reader'),
+            ])]" />
+        </record>
+
+        <record model="res.groups" id="mozaik_res_groups_manager">
+            <field name="name">Mozaik Manager</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(6, 0, [
+                ref('mozaik_res_groups_vip_reader'),
+                ref('mozaik_res_groups_officer'),
+            ])]" />
+        </record>
+
+        <record model="res.groups" id="mozaik_res_groups_configurator">
+            <field name="name">Mozaik Configurator</field>
+            <field name="category_id" ref="base.module_category_political_association"/>
+            <field name="implied_ids" eval="[(6, 0, [
+                ref('mozaik_res_groups_manager'),
+                ref('help_online.help_online_group_writer'),
+            ])]" />
+        </record>
+
+        <!-- Admin is a Configurator and a ws user -->
+
+        <record model="res.users" id="base.user_root">
+            <field name="groups_id" eval="[
+                (4, ref('mozaik_res_groups_configurator')),
+                (4, ref('res_groups_ws')),
+            ]" />
+        </record>
+
+        <!-- Add a webservice User -->
+
+        <record id="res_partner_ws_user" model="res.partner">
+            <field name="lastname">Web Service User</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="active" eval="0"/>
+        </record>
+
+        <record id="res_users_ws" model="res.users">
+            <field name="partner_id" ref="res_partner_ws_user"/>
+            <field name="login">ws</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('res_groups_ws'),
+            ])]"/>
+        </record>
+
+        <!-- Inactivate Sharing Group -->
+
+        <record model="res.groups" id="share.group_share_user">
+            <field name="users" eval="[(5, 0, 0)]" />
+        </record>
+
+    </data>
+
+    <data noupdate="1">
+
+        <record id="res_users_ws" model="res.users">
+            <field name="password">ws%123</field>
+            <field name="signature">ws</field>
+        </record>
+
+    </data>
+</openerp>

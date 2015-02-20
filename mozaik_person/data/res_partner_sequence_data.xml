@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Internal number for partners -->
+
+        <record id="sequence_res_partner" model="ir.sequence.type">
+            <field name="name">Partner</field>
+            <field name="code">res.partner</field>
+        </record>
+
+        <record id="identifier_res_partner_seq" model="ir.sequence">
+            <field name="name">Partner Identifier Sequence</field>
+            <field name="code">res.partner</field>
+            <field eval="1" name="number_increment"/>
+        </record>
+
+    </data>
+</openerp>

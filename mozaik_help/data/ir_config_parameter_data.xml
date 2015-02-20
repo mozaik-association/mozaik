@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+
+    <data noupdate="1">
+        <record id="help_online.help_online_autobackup_path" model="ir.config_parameter">
+            <field name="value">/tmp/</field>
+        </record>
+    </data>
+
+    <data noupdate="0">
+        <record id="help_online.help_online_page_prefix" model="ir.config_parameter">
+            <field name="value">mozaik-help</field>
+        </record>
+
+        <record id="help_online.help_online_template_prefix" model="ir.config_parameter">
+             <field name="value">mozaik-help-template</field>
+        </record>
+    </data>
+
+</openerp>

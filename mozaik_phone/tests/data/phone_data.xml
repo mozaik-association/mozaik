@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Create Number -->
+
+        <record id="fix_one" model="phone.phone">
+            <field name="name">061548798</field>
+            <field name="type">fix</field>
+        </record>
+
+        <record id="mobile_one" model="phone.phone">
+            <field name="name">+32 478 85 25 25</field>
+            <field name="type">mobile</field>
+        </record>
+
+        <record id="mobile_two" model="phone.phone">
+            <field name="name">+32 465 00 00 00</field>
+            <field name="type">mobile</field>
+        </record>
+
+        <record id="mobile_three" model="phone.phone">
+            <field name="name">+32 473 78 10 78</field>
+            <field name="type">mobile</field>
+        </record>
+
+        <record id="fax_one" model="phone.phone">
+            <field name="name">061548799</field>
+            <field name="type">fax</field>
+        </record>
+
+        <record id="fix_for_test_update_1" model="phone.phone">
+            <field name="name">061458978</field>
+            <field name="type">fix</field>
+        </record>
+
+        <record id="fix_for_test_update_2" model="phone.phone">
+            <field name="name">061411232</field>
+            <field name="type">fix</field>
+        </record>
+
+        <record id="fax_nouvelobs" model="phone.phone">
+            <field name="name">+33 01 40 23 86 13</field>
+            <field name="type">fax</field>
+        </record>
+
+        <!-- Create Phone Coordinates -->
+
+        <!-- Partner Pauline -->
+
+        <record id="phone_coo_for_test_update_1" model="phone.coordinate">
+            <field name="phone_id" ref="fix_for_test_update_1" />
+            <field name="partner_id" ref="res_partner_pauline" />
+        </record>
+
+        <!-- Partner Paul -->
+
+        <record id="phone_coo_for_test_update_2" model="phone.coordinate">
+            <field name="phone_id" ref="fix_for_test_update_1" />
+            <field name="partner_id" ref="res_partner_paul" />
+        </record>
+
+        <!-- Partner Marc -->
+
+        <record id="main_fix_coordinate_one" model="phone.coordinate">
+            <field name="phone_id" ref="fix_one" />
+            <field name="partner_id" ref="res_partner_marc" />
+        </record>
+
+        <record id="main_mobile_coordinate_one" model="phone.coordinate">
+            <field name="phone_id" ref="mobile_one" />
+            <field name="partner_id" ref="res_partner_marc" />
+        </record>
+
+        <record id="main_fax_coordinate_one" model="phone.coordinate">
+            <field name="phone_id" ref="fax_one" />
+            <field name="partner_id" ref="res_partner_marc" />
+        </record>
+
+        <!-- Partner Thierry -->
+
+        <record id="main_mobile_coordinate_two" model="phone.coordinate">
+            <field name="phone_id" ref="mobile_two" />
+            <field name="partner_id" ref="res_partner_thierry" />
+        </record>
+
+        <record id="mobile_coordinate_two" model="phone.coordinate">
+            <field name="phone_id" ref="mobile_three" />
+            <field name="partner_id" ref="res_partner_thierry" />
+        </record>
+
+        <!-- Partner Nouvel Obs -->
+
+        <record id="main_fax_coordinate_for_nouvelobs" model="phone.coordinate">
+            <field name="phone_id" ref="fax_nouvelobs" />
+            <field name="partner_id" ref="res_partner_nouvelobs" />
+        </record>
+
+    </data>
+</openerp>

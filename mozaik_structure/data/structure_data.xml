@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Create Internal Power Level -->
+
+        <record id="mozaik_structure.int_power_level_01" model="int.power.level"><!-- force id on mozaik_structure module -->
+            <field name="name">State</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <!-- Create Internal Instance -->
+
+        <record id="mozaik_structure.int_instance_01" model="int.instance"><!-- force id on mozaik_structure module -->
+            <field name="name">Mozaik Headquarter</field>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
+        </record>
+
+    </data>
+</openerp>

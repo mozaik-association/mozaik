@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="mozaik_retrocession.retrocession_rule_table_rows">
+            <tr><td colspan="4"><strong><u><span t-esc='title'></span></u></strong></td></tr>
+            <tr t-foreach="rule_ids" t-as="rule">
+                <td style="{border:none}">
+                   <span t-field="rule.name"/>
+                </td>
+                <td class="text-right">
+                    <span t-field="rule.percentage"/><span>&#160;&#37;</span>
+                </td>
+                <td class="text-right">
+                    <span t-field="rule.amount"
+                          t-field-options='{"widget": "monetary", "display_currency": "o.partner_id.company_id.currency_id"}'/>
+                </td>
+                <td class="text-right">
+                    <span t-field="rule.amount_subtotal"
+                          t-field-options='{"widget": "monetary", "display_currency": "o.partner_id.company_id.currency_id"}'/>
+                </td>
+            </tr>
+        </template>
+
+        <template id="mozaik_retrocession.retrocession_rules_table">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th class="text-right">Percentage</th>
+                        <th class="text-right">Amount</th>
+                        <th class="text-right">Subtotal</th>
+                    </tr>
+               </thead>
+               <tbody class="rule_tbody">
+                    <t t-if="len(o.rule_ids) > 0">
+                        <t t-call="mozaik_retrocession.retrocession_rule_table_rows">
+                            <t t-set="rule_ids" t-value="o.rule_ids"/>
+                            <t t-set="title" t-value="'Imputable Calculation Rules'"/>
+                        </t>
+                    </t>
+                    <br/>
+                    <t t-if="len(o.deductible_rule_ids) > 0">
+                        <t t-call="mozaik_retrocession.retrocession_rule_table_rows">
+                            <t t-set="rule_ids" t-value="o.deductible_rule_ids"/>
+                            <t t-set="title" t-value="'Deductible Calculation Rules'"/>
+                        </t>
+                    </t>
+                </tbody>
+            </table>
+        </template>
+
+        <template id="mozaik_retrocession.report_payment_request_document">
+            <t t-call="report.external_layout">
+                <div class="page">
+                   <t t-if='o.sta_mandate_id'>
+                       <t t-set="mandate" t-value="o.sta_mandate_id"/>
+                       <t t-set="assembly" t-value="o.sta_mandate_id.sta_assembly_id"/>
+                   </t>
+                   <t t-if='o.ext_mandate_id'>
+                       <t t-set="mandate" t-value="o.ext_mandate_id"/>
+                       <t t-set="assembly" t-value="o.ext_mandate_id.ext_assembly_id"/>
+                   </t>
+
+                   <div class="row">
+                        <div class="col-xs-5 col-xs-offset-7">
+                             <span t-field="mandate.partner_id"
+                                   t-field-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": true}'/>
+                        </div>
+                   </div>
+                   <div class="row">
+                       <h3>
+                           <div class="col-xs-7">
+                                <span t-if="o.state not in ['draft']">Retrocession N°</span>
+                                <span t-field="o.unique_id"/>
+                           </div>
+                       </h3>
+                   </div>
+
+                   <div class="row mt32 mb32">
+                        <div class="col-xs-3">
+                           <span><strong>Period:</strong></span>
+                           <p><span t-field="o.month"/>
+                           <span t-field="o.year"/></p>
+                       </div>
+
+                        <div class="col-xs-3">
+                            <strong>Type:</strong>
+                            <p t-field="mandate.mandate_category_id.name"/>
+                        </div>
+                        <div class="col-xs-5">
+                            <strong>Assembly:</strong>
+                            <p t-field="assembly.name"/>
+                        </div>
+                   </div>
+
+                   <t t-call="mozaik_retrocession.retrocession_rules_table">
+                       <t t-set="o" t-value="o"/>
+                   </t>
+
+                   <div class="row">
+                       <div class="col-xs-4 pull-right">
+                        <table class="table table-condensed">
+                            <tr>
+                                <td><strong>Total Retrocession</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_retrocession"
+                                                   t-field-options='{"widget": "monetary", "display_currency": "o.partner_id.company_id.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Total Deductions</td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_deduction"
+                                          t-field-options='{"widget": "monetary", "display_currency": "o.partner_id.company_id.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Total Provisions</td>
+                                <td class="text-right">
+                                    -<span t-field="o.provision"
+                                                    t-field-options='{"widget": "monetary", "display_currency": "o.partner_id.company_id.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr class="border-black">
+                                <td><strong>Total To Pay</strong></td>
+                                <td class="text-right">
+                                    <strong><span t-field="o.amount_due"
+                                                   t-field-options='{"widget": "monetary", "display_currency": "o.partner_id.company_id.currency_id"}'/></strong>
+                                </td>
+                            </tr>
+                        </table>
+                       </div>
+                       <span>
+                            <p>
+                                Please use <span t-field="mandate.reference"/> as reference for payment.
+                            </p>
+                        </span>
+                    </div>
+               </div>
+            </t>
+        </template>
+
+        <template id="report_payment_request">
+            <t t-call="report.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'mozaik_retrocession.report_payment_request_document')"/>
+                </t>
+            </t>
+        </template>
+
+        <report string="Request for Payment"
+                id="action_report_payment_request"
+                model="retrocession"
+                report_type="qweb-pdf"
+                name="mozaik_retrocession.report_payment_request"
+                file="mozaik_retrocession.report_payment_request"/>
+    </data>
+</openerp>

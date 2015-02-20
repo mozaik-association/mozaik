@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Coordinate Category -->
+
+        <record id="coordinate_category_form_view" model="ir.ui.view">
+            <field name="name">coordinate.category.form (mozaik_phone)</field>
+            <field name="model">coordinate.category</field>
+            <field name="inherit_id" ref="mozaik_coordinate.coordinate_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button string="Phone Coordinates"
+                            name="%(phone_coordinate_action)d"
+                            type="action"
+                            context="{'search_default_coordinate_category_id': active_id, 'default_coordinate_category_id': active_id}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

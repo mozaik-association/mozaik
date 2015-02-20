@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Partner Involvement -->
+
+        <record id="partner_involvement_search_view" model="ir.ui.view">
+            <field name="name">partner.involvement.search</field>
+            <field name="model">partner.involvement</field>
+            <field name="arch" type="xml">
+                <search string="Partner Involvements">
+                    <field name="note"/>
+                    <field name="partner_id"/>
+                    <field name="partner_involvement_category_id"/>
+
+                    <filter name="expired" string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active','=',False)]" help="Expired Involvements" />
+                    <filter name="all" string="All"
+                        context="{'invisible_expire_date': False}"
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]"
+                        help="All Involvements, expired or not" />
+
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>
+                        <filter name="category" string="Category" context="{'group_by': 'partner_involvement_category_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="partner_involvement_tree_view" model="ir.ui.view">
+            <field name="name">partner.involvement.tree</field>
+            <field name="model">partner.involvement</field>
+            <field name="arch" type="xml">
+                <tree string="Partner Involvements" version="7.0">
+                    <field name="partner_id"/>
+                    <field name="partner_involvement_category_id"/>
+                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="partner_involvement_action" model="ir.actions.act_window">
+            <field name="name">Involvements</field>
+            <field name="res_model">partner.involvement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="partner_involvement_tree_view"/>
+            <field name="search_view_id" ref="partner_involvement_search_view" />
+        </record>
+
+        <record id="partner_involvement_form_view" model="ir.ui.view">
+            <field name="name">partner.involvement.form</field>
+            <field name="model">partner.involvement</field>
+            <field name="arch" type="xml">
+                <form string="Partner Involvement" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="mozaik_base.mozaik_res_groups_user">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate involvement: proceed anyway?" />
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="partner_id" class="oe_edit_only"/>
+                            <h1><field name="partner_id" domain="[('is_assembly','=',False)]" /></h1>
+                            <label for="partner_involvement_category_id" class="oe_edit_only"/>
+                            <h1><field name="partner_involvement_category_id" context="{'apply_for_read': 'write'}" /></h1>
+                        </div>
+                        <group name="note">
+                            <field name="note" />
+                        </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_revalidate" string="Validate" type="object"
+                                        confirm="Reactivate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Partner Involvement Category -->
+
+        <record id="partner_involvement_category_search_view" model="ir.ui.view">
+            <field name="name">partner.involvement.category.search</field>
+            <field name="model">partner.involvement.category</field>
+            <field name="arch" type="xml">
+                <search string="Partner Involvement Categories">
+                    <field name="name"/>
+                    <field name="note"/>
+
+                    <filter name="expired" string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active','=',False)]" help="Expired Categories" />
+                    <filter name="all" string="All"
+                        context="{'invisible_expire_date': False}"
+                        domain="['|', ('active', '=', True), ('active', '!=', True)]"
+                        help="All Categories, expired or not" />
+
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>
+                        <filter name="category" string="Category" context="{'group_by': 'partner_involvement_category_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="partner_involvement_category_tree_view" model="ir.ui.view">
+            <field name="name">partner.involvement.category.tree</field>
+            <field name="model">partner.involvement.category</field>
+            <field name="arch" type="xml">
+                <tree string="Partner Involvement Categories" version="7.0">
+                    <field name="name"/>
+                    <field name="expire_date" invisible="context.get('invisible_expire_date', True)" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="partner_involvement_category_action" model="ir.actions.act_window">
+            <field name="name">Involvement Categories</field>
+            <field name="res_model">partner.involvement.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="partner_involvement_category_tree_view"/>
+            <field name="search_view_id" ref="partner_involvement_category_search_view" />
+        </record>
+
+        <record id="partner_involvement_category_form_view" model="ir.ui.view">
+            <field name="name">partner.involvement.category.form</field>
+            <field name="model">partner.involvement.category</field>
+            <field name="arch" type="xml">
+                <form string="Partner Involvement Category" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="mozaik_base.mozaik_res_groups_configurator">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate category: proceed anyway?" />
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                            <button string="Involvements"
+                                    name="%(partner_involvement_action)d"
+                                    type="action"
+                                    context="{'search_default_partner_involvement_category_id': active_id,
+                                              'default_partner_involvement_category_id': active_id}"/>
+                        </div>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="notes" string="Notes" autofocus="autofocus">
+                                <field name="note" />
+                            </page>
+                            <page name="security" string="Security">
+                                <group name="owners">
+                                    <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                                </group>
+                                <div class="oe_clear">
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                </div>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_revalidate" string="Validate" type="object"
+                                        confirm="Reactivate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="involvements_submenu" name="Involvements"
+                  sequence="50" parent="mozaik_base.persons_root_menu" />
+        <menuitem id="partner_involvement_menu" action="partner_involvement_action"
+                  sequence="10" parent="involvements_submenu" />
+        <menuitem id="partner_involvement_category_menu" action="partner_involvement_category_action"
+                  sequence="20" parent="involvements_submenu" />
+
+    </data>
+</openerp>

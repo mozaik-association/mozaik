@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Partners -->
+
+        <record id="res_partner_paul" model="res.partner">
+            <field name="int_instance_id" ref="int_instance_07" />
+        </record>
+
+        <record id="res_partner_marc" model="res.partner">
+            <field name="int_instance_id" ref="int_instance_06" />
+        </record>
+
+        <record id="res_partner_jacques" model="res.partner">
+            <field name="int_instance_id" ref="int_instance_05" />
+        </record>
+
+        <!-- Create Fractionations -->
+
+        <record id="f_sample_01" model="fractionation">
+            <field name="name">Fractionation sample 01</field>
+        </record>
+
+        <record id="f_sample_01_line_01" model="fractionation.line">
+            <field name="fractionation_id" ref="f_sample_01"/>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
+            <field name="percentage">60.00</field>
+        </record>
+
+        <record id="f_sample_01_line_02" model="fractionation.line">
+            <field name="fractionation_id" ref="f_sample_01"/>
+            <field name="power_level_id" ref="int_power_level_03"/>
+            <field name="percentage">10.00</field>
+        </record>
+
+        <record id="f_sample_01_line_03" model="fractionation.line">
+            <field name="fractionation_id" ref="f_sample_01"/>
+            <field name="power_level_id" ref="int_power_level_04"/>
+            <field name="percentage">3.00</field>
+        </record>
+
+        <record id="f_sample_01_line_04" model="fractionation.line">
+            <field name="fractionation_id" ref="f_sample_01"/>
+            <field name="power_level_id" ref="int_power_level_05"/>
+            <field name="percentage">17.00</field>
+        </record>
+
+        <record id="f_sample_01_line_05" model="fractionation.line">
+            <field name="fractionation_id" ref="f_sample_01"/>
+            <field name="power_level_id" ref="int_power_level_06"/>
+            <field name="percentage">10.00</field>
+        </record>
+
+        <record id="f_sample_01" model="fractionation">
+            <field name="fractionation_line_ids"
+                   eval="[(4,ref('f_sample_01_line_01')),
+                          (4,ref('f_sample_01_line_02')),
+                          (4,ref('f_sample_01_line_03')),
+                          (4,ref('f_sample_01_line_04')),
+                          (4,ref('f_sample_01_line_05'))]"/>
+        </record>
+
+        <record id="f_sample_02" model="fractionation">
+            <field name="name">Fractionation sample 02</field>
+        </record>
+
+        <record id="f_sample_02_line_01" model="fractionation.line">
+            <field name="fractionation_id" ref="f_sample_02"/>
+            <field name="power_level_id" ref="mozaik_structure.int_power_level_01"/>
+            <field name="percentage">42</field>
+        </record>
+
+        <record id="f_sample_02" model="fractionation">
+            <field name="fractionation_line_ids"
+                   eval="[(4,ref('f_sample_02_line_01'))]"/>
+        </record>
+
+        <!-- Create Calculation methods -->
+
+        <record id="cm_sample_01" model="calculation.method">
+            <field name="name">Calculation method sample 01</field>
+        </record>
+
+        <record id="cm_sample_02" model="calculation.method">
+            <field name="name">Calculation method sample 02</field>
+        </record>
+
+        <record id="cm_sample_03" model="calculation.method">
+            <field name="name">Calculation method sample 03</field>
+        </record>
+
+        <record id="cm_sample_04" model="calculation.method">
+            <field name="name">Calculation method sample 04</field>
+        </record>
+
+        <!-- Create Calculation rules -->
+
+        <record id="cr_sample_01" model="calculation.rule">
+            <field name="name">Calculation rule sample 01</field>
+            <field name="calculation_method_id" ref="cm_sample_01"/>
+            <field name="type">fixed</field>
+            <field name="percentage">2.15</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="cr_sample_02" model="calculation.rule">
+            <field name="name">Calculation rule sample 02</field>
+            <field name="calculation_method_id" ref="cm_sample_01"/>
+            <field name="type">fixed</field>
+            <field name="percentage">1.25</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="cr_sample_03" model="calculation.rule">
+            <field name="name">Calculation rule sample 03</field>
+            <field name="calculation_method_id" ref="cm_sample_01"/>
+            <field name="type">variable</field>
+            <field name="percentage">0.75</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="cr_sample_04" model="calculation.rule">
+            <field name="name">Calculation rule sample 04</field>
+            <field name="calculation_method_id" ref="cm_sample_02"/>
+            <field name="type">fixed</field>
+            <field name="percentage">2.00</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="cr_sample_05" model="calculation.rule">
+            <field name="name">Calculation rule sample 05</field>
+            <field name="calculation_method_id" ref="cm_sample_03"/>
+            <field name="type">fixed</field>
+            <field name="percentage">4.00</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="cr_sample_06" model="calculation.rule">
+            <field name="name">Calculation rule sample 06</field>
+            <field name="calculation_method_id" ref="cm_sample_01"/>
+            <field name="type">variable</field>
+            <field name="percentage">100</field>
+            <field name="is_deductible" eval="1"/>
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="cr_sample_07" model="calculation.rule">
+            <field name="name">Calculation rule sample 07</field>
+            <field name="calculation_method_id" ref="cm_sample_04"/>
+            <field name="type">fixed</field>
+            <field name="percentage">10.15</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- Update assemblies -->
+
+        <record id="ext_assembly_01" model="ext.assembly">
+            <field name="retro_instance_id" ref="int_instance_02"/>
+            <field name="fractionation_id" ref="f_sample_01"/>
+        </record>
+
+        <record id="ext_assembly_02" model="ext.assembly">
+            <field name="calculation_method_id" ref="cm_sample_01"/>
+            <field name="retro_instance_id" ref="mozaik_structure.int_instance_01"/>
+            <field name="fractionation_id" ref="f_sample_01"/>
+        </record>
+
+        <record id="sta_assembly_01" model="sta.assembly">
+            <field name="calculation_method_id" ref="cm_sample_03"/>
+            <field name="retro_instance_id" ref="mozaik_structure.int_instance_01"/>
+        </record>
+
+        <record id="sta_assembly_03" model="sta.assembly">
+            <field name="retro_instance_id" ref="mozaik_structure.int_instance_01"/>
+        </record>
+
+        <record id="sta_assembly_04" model="sta.assembly">
+            <field name="retro_instance_id" ref="int_instance_02"/>
+        </record>
+
+        <!-- Update mandate categories -->
+
+        <record id="mc_conseiller_communal" model="mandate.category">
+            <field name="calculation_method_id" ref ="cm_sample_01"/>
+            <field name="retrocession_mode">year</field>
+            <field name="fractionation_id" ref ="f_sample_01"/>
+        </record>
+
+        <record id="mc_administrateur" model="mandate.category">
+            <field name="calculation_method_id" ref ="cm_sample_02"/>
+            <field name="retrocession_mode">month</field>
+            <field name="fractionation_id" ref ="f_sample_01"/>
+        </record>
+
+        <record id="mc_membre_effectif_ag" model="mandate.category">
+            <field name="calculation_method_id" ref ="cm_sample_01"/>
+            <field name="retrocession_mode">month</field>
+            <field name="fractionation_id" ref ="f_sample_01"/>
+        </record>
+
+        <record id="mc_bourgmestre" model="mandate.category">
+            <field name="calculation_method_id" ref ="cm_sample_01"/>
+            <field name="retrocession_mode">year</field>
+            <field name="fractionation_id" ref ="f_sample_01"/>
+        </record>
+
+        <record id="mc_gouverneur" model="mandate.category">
+            <field name="calculation_method_id" ref ="cm_sample_02"/>
+            <field name="retrocession_mode">year</field>
+            <field name="fractionation_id" ref ="f_sample_01"/>
+        </record>
+
+        <!-- Create mandates -->
+
+        <record id="extm_jacques_membre_ag" model="ext.mandate">
+            <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="ext_assembly_id" ref="ext_assembly_02"/>
+            <field name="start_date">2013-12-01</field>
+            <field name="deadline_date">2018-04-15</field>
+            <field name="partner_id" ref="res_partner_jacques"/>
+            <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
+        </record>
+
+        <record id="extm_paul_membre_ag" model="ext.mandate">
+            <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="ext_assembly_id" ref="ext_assembly_02"/>
+            <field name="start_date">2013-12-01</field>
+            <field name="deadline_date">2018-04-15</field>
+            <field name="partner_id" ref="res_partner_paul"/>
+            <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
+        </record>
+
+        <record id="extm_marc_membre_ag" model="ext.mandate">
+            <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="ext_assembly_id" ref="ext_assembly_02"/>
+            <field name="start_date">2013-12-01</field>
+            <field name="deadline_date">2018-04-15</field>
+            <field name="partner_id" ref="res_partner_marc"/>
+            <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
+        </record>
+
+        <record id="extm_paul_adm" model="ext.mandate">
+            <field name="mandate_category_id" ref="mc_administrateur"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="ext_assembly_id" ref="ext_assembly_01"/>
+            <field name="start_date">2013-12-01</field>
+            <field name="deadline_date">2018-04-15</field>
+            <field name="partner_id" ref="res_partner_paul"/>
+            <field name="retro_instance_id" ref ="int_instance_02"/>
+        </record>
+
+        <record id="stam_jacques_bourgmestre" model="sta.mandate">
+            <field name="mandate_category_id" ref="mc_bourgmestre"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="legislature_id" ref="legislature_01"/>
+            <field name="start_date">2018-12-03</field>
+            <field name="deadline_date">2024-12-02</field>
+            <field name="sta_assembly_id" ref="sta_assembly_03"/>
+            <field name="partner_id" ref="res_partner_jacques"/>
+            <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
+        </record>
+
+        <record id="stam_paul_gouverneur" model="sta.mandate">
+            <field name="mandate_category_id" ref="mc_gouverneur"/>
+            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
+            <field name="legislature_id" ref="legislature_02"/>
+            <field name="start_date">2018-10-26</field>
+            <field name="deadline_date">2024-10-25</field>
+            <field name="sta_assembly_id" ref="sta_assembly_02"/>
+            <field name="partner_id" ref="res_partner_paul"/>
+            <field name="retro_instance_id" ref ="int_instance_02"/>
+        </record>
+
+        <!-- Create retrocessions -->
+
+        <record id="retro_paul_ag_january_2014" model="retrocession">
+            <field name="ext_mandate_id" ref ="extm_paul_membre_ag"/>
+            <field name="month">01</field>
+            <field name="year">2014</field>
+        </record>
+
+        <record id="retro_marc_ag_january_2014" model="retrocession">
+            <field name="ext_mandate_id" ref ="extm_marc_membre_ag"/>
+            <field name="month">01</field>
+            <field name="year">2014</field>
+        </record>
+
+        <record id="retro_jacques_ag_january_2014" model="retrocession">
+            <field name="ext_mandate_id" ref ="extm_jacques_membre_ag"/>
+            <field name="month">01</field>
+            <field name="year">2014</field>
+        </record>
+
+        <record id="retro_paul_ag_mai_2014" model="retrocession">
+            <field name="ext_mandate_id" ref ="extm_paul_membre_ag"/>
+            <field name="month">05</field>
+            <field name="year">2014</field>
+        </record>
+
+        <record id="retro_paul_adm_mai_2014" model="retrocession">
+            <field name="ext_mandate_id" ref ="extm_paul_adm"/>
+            <field name="month">05</field>
+            <field name="year">2014</field>
+        </record>
+
+        <record id="retro_jacques_ag_mai_2014" model="retrocession">
+            <field name="ext_mandate_id" ref ="extm_jacques_membre_ag"/>
+            <field name="month">05</field>
+            <field name="year">2014</field>
+        </record>
+
+        <record id="retro_jacques_bourg_2014" model="retrocession">
+            <field name="sta_mandate_id" ref ="stam_jacques_bourgmestre"/>
+            <field name="year">2014</field>
+        </record>
+
+        <record id="retro_paul_gouv_2014" model="retrocession">
+            <field name="sta_mandate_id" ref ="stam_paul_gouverneur"/>
+            <field name="year">2014</field>
+        </record>
+        
+        <record id="retro_paul_december_2014" model="retrocession">
+            <field name="ext_mandate_id" ref ="extm_paul_membre_ag"/>
+            <field name="month">12</field>
+            <field name="year">2014</field>
+            <field name="is_regulation" eval="1"/>
+        </record>
+    </data>
+</openerp>

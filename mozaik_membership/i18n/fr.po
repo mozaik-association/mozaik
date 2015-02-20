@@ -1,0 +1,1507 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mozaik_membership
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-21 10:37+0000\n"
+"PO-Revision-Date: 2014-10-21 10:37+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_membership
+#: field:waiting.member.report,nb_days:0
+msgid "#Days"
+msgstr "#Jours"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,description:mozaik_membership.membership_line_notification
+msgid "A New Membership Line Has Been Created"
+msgstr "Un nouvel historique a été créé"
+
+#. module: mozaik_membership
+#: code:addons\mozaik_membership\res_partner.py:377
+#, python-format
+msgid "A Partner is required for a Modification Request"
+msgstr "Un partenaire est requis pour faire une demande de modification"
+
+#. module: mozaik_membership
+#: code:addons\mozaik_membership\res_partner.py:313
+#, python-format
+msgid "A natural person with membership history cannot be transformed to a legal person"
+msgstr "Une personne physique avec un historique d'ahésions ne peut être transformée en une personne morale"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_sub_abstract_coordinate
+msgid "Abstract Coordinate"
+msgstr "Coordonnée abstraite"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Accept"
+msgstr "Accepter"
+
+#. module: mozaik_membership
+#: field:res.partner,accepted_date:0
+msgid "Accepted Date"
+msgstr "Date d'acceptation"
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+#: field:membership.line,active:0
+#: field:membership.request,active:0
+#: field:membership.state,active:0
+#: field:sub.abstract.coordinate,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+msgid "Active Memberships"
+msgstr "Adhésions actives"
+
+#. module: mozaik_membership
+#: field:membership.request,address_id:0
+msgid "Address"
+msgstr "Adresse"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_search_view
+msgid "All"
+msgstr "Tous"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_search_view
+msgid "All Requests, expired or not"
+msgstr "Toutes les demandes, expirées ou non"
+
+#. module: mozaik_membership
+#: help:membership.line,price:0
+msgid "Amount of the membership"
+msgstr "Montant de la cotisation"
+
+#. module: mozaik_membership
+#: selection:email.coordinate,partner_kind:0
+#: selection:phone.coordinate,partner_kind:0
+#: selection:postal.coordinate,partner_kind:0
+#: selection:res.partner,kind:0
+msgid "Assembly"
+msgstr "Assemblée"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "Awaiting payment"
+msgstr "En attente de paiement"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+#: field:membership.request,birth_date:0
+#: field:virtual.custom.partner,birth_date:0
+#: field:virtual.master.partner,birth_date:0
+msgid "Birth Date"
+msgstr "Date de naissance"
+
+#. module: mozaik_membership
+#: field:membership.request,box:0
+msgid "Box"
+msgstr "Boîte"
+
+#. module: mozaik_membership
+#: view:force.int.instance:mozaik_membership.force_int_instance_form
+#: view:generate.reference:mozaik_membership.generate_reference_view
+#: view:membership.request:mozaik_membership.membership_request_form_view
+#: view:pass.former.member:mozaik_membership.pass_former_member_view
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "Cancel Membership Request: proceed anyway?"
+msgstr "Poursuivre l'annulation de la demande ?"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_search_view
+#: selection:membership.request,state:0
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: mozaik_membership
+#: view:force.int.instance:mozaik_membership.force_int_instance_form
+msgid "Change"
+msgstr "Changer"
+
+#. module: mozaik_membership
+#: view:force.int.instance:mozaik_membership.force_int_instance_form
+#: model:ir.actions.act_window,name:mozaik_membership.force_int_instance_action
+#: model:ir.model,name:mozaik_membership.model_force_int_instance
+msgid "Change Internal Instance"
+msgstr "Changer l'instance interne"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_change_main_address
+msgid "Change Main Address Wizard"
+msgstr "Assistant de changement d'adresse principale"
+
+#. module: mozaik_membership
+#: help:product.template,membership:0
+msgid "Check if the product is eligible for membership."
+msgstr "Cochez si l'article est éligible pour une adhésion."
+
+#. module: mozaik_membership
+#: field:membership.request,address_local_zip_id:0
+msgid "City"
+msgstr "Ville"
+
+#. module: mozaik_membership
+#: field:membership.state,code:0
+msgid "Code"
+msgstr "Code"
+
+#. module: mozaik_membership
+#: model:product.template,name:mozaik_membership.membership_product_live_together_product_template
+msgid "Cohabitant Subscription"
+msgstr "Cotisation cohabitant"
+
+#. module: mozaik_membership
+#: selection:email.coordinate,partner_kind:0
+#: selection:phone.coordinate,partner_kind:0
+#: selection:postal.coordinate,partner_kind:0
+#: selection:res.partner,kind:0
+msgid "Company"
+msgstr "Société"
+
+#. module: mozaik_membership
+#: field:membership.request,competencies:0
+#: field:membership.request,competencies_m2m_ids:0
+msgid "Competencies"
+msgstr "Compétences"
+
+#. module: mozaik_membership
+#: field:pass.former.member,nb_concerned:0
+msgid "Concerned Members"
+msgstr "Membres concernés"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "Confirm Membership Request: proceed anyway?"
+msgstr "Poursuivre la confirmation de la demande ?"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_search_view
+#: selection:membership.request,state:0
+msgid "Confirmed"
+msgstr "Confirmé"
+
+#. module: mozaik_membership
+#: field:sub.abstract.coordinate,partner_id:0
+msgid "Contact"
+msgstr "Partenaire"
+
+#. module: mozaik_membership
+#: field:sub.abstract.coordinate,coordinate_category_id:0
+msgid "Coordinate Category"
+msgstr "Catégorie de coordonnée"
+
+#. module: mozaik_membership
+#: field:sub.abstract.coordinate,coordinate_type:0
+msgid "Coordinate Type"
+msgstr "Type de coordonnée"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "Coordinates"
+msgstr "Coordonnées"
+
+#. module: mozaik_membership
+#: field:membership.request,country_id:0
+#: field:virtual.custom.partner,country_id:0
+#: field:virtual.master.partner,country_id:0
+msgid "Country"
+msgstr "Pays"
+
+#. module: mozaik_membership
+#: field:membership.request,country_code:0
+msgid "Country Code"
+msgstr "Code du pays"
+
+#. module: mozaik_membership
+#: field:force.int.instance,create_uid:0
+#: field:generate.reference,create_uid:0
+#: field:membership.line,create_uid:0
+#: field:membership.request,create_uid:0
+#: field:membership.state,create_uid:0
+#: field:pass.former.member,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: mozaik_membership
+#: field:force.int.instance,create_date:0
+#: field:generate.reference,create_date:0
+#: field:pass.former.member,create_date:0
+msgid "Created on"
+msgstr "Date de création"
+
+#. module: mozaik_membership
+#: field:membership.line,create_date:0
+#: field:membership.request,create_date:0
+#: field:membership.state,create_date:0
+#: field:sub.abstract.coordinate,create_date:0
+msgid "Creation Date"
+msgstr "Date de création"
+
+#. module: mozaik_membership
+#: field:membership.request,membership_state_id:0
+msgid "Current State"
+msgstr "Statut actuel"
+
+#. module: mozaik_membership
+#: help:membership.line,message_last_post:0
+#: help:membership.request,message_last_post:0
+#: help:membership.state,message_last_post:0
+#: help:sub.abstract.coordinate,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur l'enregistrement."
+
+#. module: mozaik_membership
+#: field:membership.request,day:0
+msgid "Day"
+msgstr "Jour"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Decline Payment"
+msgstr "Decliner le paiement"
+
+#. module: mozaik_membership
+#: field:res.partner,decline_payment_date:0
+msgid "Decline Payment Date"
+msgstr "Date de refus de paiement"
+
+#. module: mozaik_membership
+#: field:virtual.custom.partner,display_name:0
+#: field:virtual.master.partner,display_name:0
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_search_view
+#: selection:membership.request,state:0
+msgid "Done"
+msgstr "Terminé"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_search_view
+#: selection:membership.request,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: mozaik_membership
+#: field:membership.request,email:0
+msgid "Email"
+msgstr "Adresse électronique"
+
+#. module: mozaik_membership
+#: field:virtual.custom.partner,email_bounce_counter:0
+#: field:virtual.master.partner,email_bounce_counter:0
+msgid "Email Bounce Counter"
+msgstr "Compteur d'échecs de courriel"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_email_coordinate
+#: field:virtual.custom.partner,email:0
+#: field:virtual.master.partner,email:0
+msgid "Email Coordinate"
+msgstr "Coordonnée électronique"
+
+#. module: mozaik_membership
+#: field:virtual.custom.partner,email_coordinate_id:0
+#: field:virtual.master.partner,email_coordinate_id:0
+msgid "Email Coordinate ID"
+msgstr "ID de coordonnée électronique"
+
+#. module: mozaik_membership
+#: field:virtual.custom.partner,email_unauthorized:0
+#: field:virtual.master.partner,email_unauthorized:0
+msgid "Email Unauthorized"
+msgstr "Adresse électronique interdite"
+
+#. module: mozaik_membership
+#: field:virtual.custom.partner,email_is_main:0
+#: field:virtual.master.partner,email_is_main:0
+msgid "Email is Main"
+msgstr "Adresse électronique principale"
+
+#. module: mozaik_membership
+#: code:addons\mozaik_membership\membership_request.py:704
+#: code:addons\mozaik_membership\res_partner.py:312
+#: code:addons\mozaik_membership\res_partner.py:376
+#: code:addons\mozaik_membership\res_partner.py:484
+#, python-format
+msgid "Error"
+msgstr "Erreur"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Exclude"
+msgstr "Exclure"
+
+#. module: mozaik_membership
+#: field:res.partner,exclusion_date:0
+msgid "Exclusion Date"
+msgstr "Date d'exclusion"
+
+#. module: mozaik_membership
+#: view:pass.former.member:mozaik_membership.pass_former_member_view
+msgid "Execute"
+msgstr "Executer"
+
+#. module: mozaik_membership
+#: field:membership.request,result_type_id:0
+msgid "Expected State"
+msgstr "Statut demandé"
+
+#. module: mozaik_membership
+#: field:membership.line,expire_date:0
+#: field:membership.request,expire_date:0
+#: field:membership.state,expire_date:0
+#: field:sub.abstract.coordinate,expire_date:0
+msgid "Expiration Date"
+msgstr "Date d'expiration"
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+#: view:membership.request:mozaik_membership.membership_request_search_view
+msgid "Expired"
+msgstr "Expiré"
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+msgid "Expired Memberships"
+msgstr "Adhésions expirées"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_search_view
+msgid "Expired Requests"
+msgstr "Demandes expirées"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_ext_assembly
+msgid "External Assembly"
+msgstr "Assemblée externe"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_ext_candidature
+msgid "External Candidature"
+msgstr "Candidature externe"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_ext_mandate
+msgid "External Mandate"
+msgstr "Mandat externe"
+
+#. module: mozaik_membership
+#: field:sub.abstract.coordinate,bounce_counter:0
+msgid "Failures Counter"
+msgstr "Compteur d'échecs"
+
+#. module: mozaik_membership
+#: selection:membership.request,gender:0
+msgid "Female"
+msgstr "Femme"
+
+#. module: mozaik_membership
+#: model:product.template,name:mozaik_membership.membership_product_first_product_template
+msgid "First Subscription"
+msgstr "Cotisation primo-cotisant"
+
+#. module: mozaik_membership
+#: field:membership.request,firstname:0
+#: field:virtual.custom.partner,firstname:0
+#: field:virtual.master.partner,firstname:0
+msgid "Firstname"
+msgstr "Prénom"
+
+#. module: mozaik_membership
+#: field:membership.line,message_follower_ids:0
+#: field:membership.request,message_follower_ids:0
+#: field:membership.state,message_follower_ids:0
+#: field:sub.abstract.coordinate,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,name:mozaik_membership.former_email_notification
+msgid "Former Email Coordinate Notification"
+msgstr "Notification de l'ancienne adresse électronique"
+
+#. module: mozaik_membership
+#: model:membership.state,name:mozaik_membership.former_member
+msgid "Former Member"
+msgstr "Ancien membre"
+
+#. module: mozaik_membership
+#: model:membership.state,name:mozaik_membership.break_former_member
+msgid "Former Member (break)"
+msgstr "Ancien membre (rupture)"
+
+#. module: mozaik_membership
+#: model:membership.state,name:mozaik_membership.expulsion_former_member
+msgid "Former Member (expulsion)"
+msgstr "Ancien membre (expulsion)"
+
+#. module: mozaik_membership
+#: model:membership.state,name:mozaik_membership.inappropriate_former_member
+msgid "Former Member (inappropriate)"
+msgstr "Ancien membre (inopportun)"
+
+#. module: mozaik_membership
+#: model:membership.state,name:mozaik_membership.resignation_former_member
+msgid "Former Member (resignation)"
+msgstr "Ancien membre (démission)"
+
+#. module: mozaik_membership
+#: model:membership.state,name:mozaik_membership.former_member_committee
+msgid "Former Member Committee"
+msgstr "Comité des anciens membres"
+
+#. module: mozaik_membership
+#: field:generate.reference,nb_former_concerned:0
+msgid "Former Members"
+msgstr "Anciens membres"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,name:mozaik_membership.former_phone_id_notification
+msgid "Former Phone Coordinate Notification"
+msgstr "Notification de l'ancien numéro de téléphone"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,name:mozaik_membership.former_address_id_notification
+msgid "Former Postal Coordinate Notification"
+msgstr "Notification de l'ancienne adresse"
+
+#. module: mozaik_membership
+#: model:membership.state,name:mozaik_membership.former_supporter
+msgid "Former Supporter"
+msgstr "Ancien sympathisant"
+
+#. module: mozaik_membership
+#: field:res.partner,free_member:0
+msgid "Free Member"
+msgstr "Membre non payant"
+
+#. module: mozaik_membership
+#: model:product.template,name:mozaik_membership.membership_product_free_product_template
+msgid "Free Subscription"
+msgstr "Cotisation gratuite"
+
+#. module: mozaik_membership
+#: field:membership.line,date_from:0
+msgid "From"
+msgstr "De"
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+msgid "From < ..."
+msgstr "Á partir de < ..."
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+msgid "From > ..."
+msgstr "Á partir de > ..."
+
+#. module: mozaik_membership
+#: field:membership.request,gender:0
+msgid "Gender"
+msgstr "Genre"
+
+#. module: mozaik_membership
+#: view:generate.reference:mozaik_membership.generate_reference_view
+msgid "Generate"
+msgstr "Générer"
+
+#. module: mozaik_membership
+#: view:generate.reference:mozaik_membership.generate_reference_view
+#: model:ir.actions.act_window,name:mozaik_membership.generate_reference_action
+#: model:ir.model,name:mozaik_membership.model_generate_reference
+msgid "Generate References"
+msgstr "Générer les communications structurées"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_generic_mandate
+msgid "Generic Mandate"
+msgstr "Mandat générique"
+
+#. module: mozaik_membership
+#: field:generate.reference,go:0
+#: field:pass.former.member,go:0
+msgid "Go"
+msgstr ""
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+#: view:membership.request:mozaik_membership.membership_request_search_view
+#: view:waiting.member.report:mozaik_membership.waiting_member_report_search_view
+msgid "Group By..."
+msgstr "Grouper par..."
+
+#. module: mozaik_membership
+#: help:membership.line,message_summary:0
+#: help:membership.request,message_summary:0
+#: help:membership.state,message_summary:0
+#: help:sub.abstract.coordinate,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est au format HTML pour permettre son utilisation dans la vue kanban."
+
+#. module: mozaik_membership
+#: field:force.int.instance,id:0
+#: field:generate.reference,id:0
+#: field:membership.line,id:0
+#: field:membership.request,id:0
+#: field:membership.state,id:0
+#: field:pass.former.member,id:0
+#: field:sub.abstract.coordinate,id:0
+#: field:virtual.custom.partner,id:0
+#: field:virtual.master.partner,id:0
+#: field:waiting.member.report,id:0
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_membership
+#: field:generate.reference,partner_ids:0
+#: field:pass.former.member,concerned_partner_ids:0
+msgid "IDS"
+msgstr ""
+
+#. module: mozaik_membership
+#: field:membership.request,identifier:0
+#: field:virtual.custom.partner,identifier:0
+#: field:virtual.master.partner,identifier:0
+#: field:waiting.member.report,identifier:0
+msgid "Identifier"
+msgstr "Identifiant"
+
+#. module: mozaik_membership
+#: help:membership.line,message_unread:0
+#: help:membership.request,message_unread:0
+#: help:membership.state,message_unread:0
+#: help:sub.abstract.coordinate,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages requièrent votre attention."
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "Indexation"
+msgstr "Indexation"
+
+#. module: mozaik_membership
+#: view:address.local.zip:mozaik_membership.address_local_zip_search_view
+#: view:membership.line:mozaik_membership.membership_line_search_view
+#: view:membership.request:mozaik_membership.membership_request_search_view
+msgid "Instance"
+msgstr "Instance"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_3_form
+msgid "Instances..."
+msgstr "Instances..."
+
+#. module: mozaik_membership
+#: field:membership.request,interests:0
+#: field:membership.request,interests_m2m_ids:0
+msgid "Interests"
+msgstr "Intérêts"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_int_assembly
+msgid "Internal Assembly"
+msgstr "Assemblée interne"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_int_candidature
+msgid "Internal Candidature"
+msgstr "Candidature interne"
+
+#. module: mozaik_membership
+#: field:address.local.zip,int_instance_id:0
+#: field:force.int.instance,int_instance_id:0
+#: model:ir.model,name:mozaik_membership.model_int_instance
+#: field:membership.line,int_instance_id:0
+#: field:membership.request,int_instance_id:0
+#: view:res.partner:mozaik_membership.res_partner_search_view
+#: field:res.partner,int_instance_id:0
+#: field:virtual.custom.partner,int_instance_id:0
+#: field:virtual.master.partner,int_instance_id:0
+msgid "Internal Instance"
+msgstr "Instance interne"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_3_form
+#: field:res.partner,int_instance_m2m_ids:0
+msgid "Internal Instances"
+msgstr "Instances internes"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_int_mandate
+msgid "Internal Mandate"
+msgstr "Mandat interne"
+
+#. module: mozaik_membership
+#: code:addons\mozaik_membership\membership_request.py:704
+#, python-format
+msgid "Invalid Data"
+msgstr "Données invalides"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+#: view:membership.state:mozaik_membership.membership_state_view
+msgid "Invalidate"
+msgstr "Invalider"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "Invalidate Membership Request: proceed anyway?"
+msgstr "Poursuivre l'invalidation de la demande ?"
+
+#. module: mozaik_membership
+#: view:membership.state:mozaik_membership.membership_state_view
+msgid "Invalidate Membership State: proceed anyway?"
+msgstr "Poursuivre l'invalidation du statut d'adhésion ?"
+
+#. module: mozaik_membership
+#: field:virtual.custom.partner,is_company:0
+#: field:virtual.master.partner,is_company:0
+msgid "Is Company"
+msgstr "Personne morale"
+
+#. module: mozaik_membership
+#: field:sub.abstract.coordinate,is_duplicate_allowed:0
+msgid "Is Duplicate Allowed"
+msgstr "Doublon autorisé"
+
+#. module: mozaik_membership
+#: field:sub.abstract.coordinate,is_duplicate_detected:0
+msgid "Is Duplicate Detected"
+msgstr "Doublon détecté"
+
+#. module: mozaik_membership
+#: field:sub.abstract.coordinate,is_main:0
+msgid "Is Main"
+msgstr "Principale"
+
+#. module: mozaik_membership
+#: field:membership.request,is_update:0
+msgid "Is Update"
+msgstr "Mise à jour"
+
+#. module: mozaik_membership
+#: field:membership.line,message_is_follower:0
+#: field:membership.request,message_is_follower:0
+#: field:membership.state,message_is_follower:0
+#: field:sub.abstract.coordinate,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est abonné"
+
+#. module: mozaik_membership
+#: field:change.main.address,keep_instance:0
+msgid "Keep Previous Internal Instance?"
+msgstr "Conserver l'instance interne précédente ?"
+
+#. module: mozaik_membership
+#: field:sub.abstract.coordinate,bounce_date:0
+msgid "Last Failure Date"
+msgstr "Date du dernier échec"
+
+#. module: mozaik_membership
+#: field:sub.abstract.coordinate,bounce_description:0
+msgid "Last Failure Description"
+msgstr "Description du dernier échec"
+
+#. module: mozaik_membership
+#: field:membership.line,message_last_post:0
+#: field:membership.request,message_last_post:0
+#: field:membership.state,message_last_post:0
+#: field:sub.abstract.coordinate,message_last_post:0
+msgid "Last Message Date"
+msgstr "Date du dernier message"
+
+#. module: mozaik_membership
+#: field:force.int.instance,write_uid:0
+#: field:generate.reference,write_uid:0
+#: field:membership.line,write_uid:0
+#: field:membership.request,write_uid:0
+#: field:membership.state,write_uid:0
+#: field:pass.former.member,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: mozaik_membership
+#: field:force.int.instance,write_date:0
+#: field:generate.reference,write_date:0
+#: field:membership.line,write_date:0
+#: field:membership.request,write_date:0
+#: field:membership.state,write_date:0
+#: field:pass.former.member,write_date:0
+msgid "Last Updated on"
+msgstr "Date de dernière mise à jour"
+
+#. module: mozaik_membership
+#: field:membership.request,lastname:0
+#: field:virtual.custom.partner,lastname:0
+#: field:virtual.master.partner,lastname:0
+msgid "Lastname"
+msgstr "Nom de famille"
+
+#. module: mozaik_membership
+#: field:membership.request,local_zip:0
+msgid "Local Zip"
+msgstr "Code postal"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_address_local_zip
+msgid "Local Zip Code"
+msgstr "Code postal local"
+
+#. module: mozaik_membership
+#: model:ir.ui.menu,name:mozaik_membership.structure_address_menu
+msgid "Local Zip Codes"
+msgstr "Codes postaux locaux"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,name:mozaik_membership.main_email_notification
+msgid "Main Email Coordinate Notification"
+msgstr "Notification de la nouvelle adresse électronique"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,name:mozaik_membership.main_phone_id_notification
+msgid "Main Phone Coordinate Notification"
+msgstr "Notification du nouveau numéro de téléphone"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,name:mozaik_membership.main_address_id_notification
+msgid "Main Postal Coordinate Notification"
+msgstr "Notification de la nouvelle adresse"
+
+#. module: mozaik_membership
+#: selection:membership.request,gender:0
+msgid "Male"
+msgstr "Homme"
+
+#. module: mozaik_membership
+#: field:int.mandate,mandate_instance_id:0
+msgid "Mandate Internal Instance"
+msgstr "Instance interne du mandat"
+
+#. module: mozaik_membership
+#: selection:email.coordinate,partner_kind:0
+#: view:membership.line:mozaik_membership.membership_line_search_view
+#: field:membership.line,partner_id:0
+#: selection:membership.request,request_type:0
+#: model:membership.state,name:mozaik_membership.member
+#: selection:phone.coordinate,partner_kind:0
+#: selection:postal.coordinate,partner_kind:0
+#: selection:res.partner,kind:0
+msgid "Member"
+msgstr "Membre"
+
+#. module: mozaik_membership
+#: model:membership.state,name:mozaik_membership.member_candidate
+msgid "Member Candidate"
+msgstr "Candidat membre"
+
+#. module: mozaik_membership
+#: field:generate.reference,nb_candidate_concerned:0
+msgid "Member Candidates"
+msgstr "Candidats membre"
+
+#. module: mozaik_membership
+#: field:res.partner,del_mem_card_date:0
+msgid "Member Card Sent Date"
+msgstr "Date d'envoi de la carte de membre"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "Member Card Sent Date < ..."
+msgstr "Date d'envoi de la carte de membre < ..."
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "Member Card Sent Date > ..."
+msgstr "Date d'envoi de la carte de membre > ..."
+
+#. module: mozaik_membership
+#: field:generate.reference,nb_member_concerned:0
+msgid "Members"
+msgstr "Membres"
+
+#. module: mozaik_membership
+#: model:ir.actions.act_window,name:mozaik_membership.waiting_member_report_action
+#: model:ir.model,name:mozaik_membership.model_waiting_member_report
+#: model:ir.ui.menu,name:mozaik_membership.members_committe
+#: model:membership.state,name:mozaik_membership.member_committee
+#: view:waiting.member.report:mozaik_membership.waiting_member_report_search_view
+#: view:waiting.member.report:mozaik_membership.waiting_member_report_tree_view
+msgid "Members Committee"
+msgstr "Commission des membres"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_membership_line
+#: view:membership.line:mozaik_membership.membership_line_form_view
+msgid "Membership Line"
+msgstr "Historique d'adhésion"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,name:mozaik_membership.membership_line_notification
+msgid "Membership Line Notification"
+msgstr "Notification d'historique d'adhésion"
+
+#. module: mozaik_membership
+#: model:ir.actions.act_window,name:mozaik_membership.membership_line_action
+#: model:ir.ui.menu,name:mozaik_membership.membership_line_submenu
+#: view:membership.line:mozaik_membership.membership_line_search_view
+#: view:membership.line:mozaik_membership.membership_line_tree_view
+msgid "Membership Lines"
+msgstr "Historiques d'adhésion"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_membership_request
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "Membership Request"
+msgstr "Demande d'adhésion"
+
+#. module: mozaik_membership
+#: model:ir.actions.act_window,name:mozaik_membership.membership_request_action
+#: model:ir.ui.menu,name:mozaik_membership.membership_request_menu
+#: view:membership.request:mozaik_membership.membership_request_search_view
+#: view:membership.request:mozaik_membership.membership_request_tree_view
+msgid "Membership Requests"
+msgstr "Demandes d'adhésion"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_membership_state
+#: view:membership.line:mozaik_membership.membership_line_search_view
+#: view:membership.state:mozaik_membership.membership_state_view
+#: field:membership.state,name:0
+#: view:res.partner:mozaik_membership.res_partner_search_view
+#: field:res.partner,membership_state_id:0
+#: field:virtual.custom.partner,membership_state_id:0
+#: field:virtual.master.partner,membership_state_id:0
+#: field:waiting.member.report,membership_state_id:0
+msgid "Membership State"
+msgstr "Statut d'adhésion"
+
+#. module: mozaik_membership
+#: field:res.partner,membership_state_code:0
+msgid "Membership State Code"
+msgstr "Code de statut d'adhésion"
+
+#. module: mozaik_membership
+#: model:ir.actions.act_window,name:mozaik_membership.membership_state_action
+#: model:ir.ui.menu,name:mozaik_membership.membership_state_menu
+#: view:membership.state:mozaik_membership.membership_state_search_view
+#: view:membership.state:mozaik_membership.membership_state_tree_view
+msgid "Membership States"
+msgstr "Statuts d'adhésion"
+
+#. module: mozaik_membership
+#: model:ir.ui.menu,name:mozaik_membership.membership_menu
+#: model:ir.ui.menu,name:mozaik_membership.membership_submenu
+#: field:res.partner,membership_line_ids:0
+msgid "Memberships"
+msgstr "Adhésions"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Memberships"
+msgstr "Statuts"
+
+#. module: mozaik_membership
+#: field:membership.line,message_ids:0
+#: field:membership.request,message_ids:0
+#: field:membership.state,message_ids:0
+#: field:sub.abstract.coordinate,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: mozaik_membership
+#: help:membership.line,message_ids:0
+#: help:membership.request,message_ids:0
+#: help:membership.state,message_ids:0
+#: help:sub.abstract.coordinate,message_ids:0
+msgid "Messages and communication history"
+msgstr "Historique des messages et communications"
+
+#. module: mozaik_membership
+#: field:membership.request,mobile:0
+#: field:membership.request,mobile_id:0
+msgid "Mobile"
+msgstr "Mobile"
+
+#. module: mozaik_membership
+#: field:change.main.address,keeping_mode:0
+msgid "Mode"
+msgstr "Mode"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_2_form
+msgid "Modification Request"
+msgstr "Demande de modification"
+
+#. module: mozaik_membership
+#: field:membership.request,month:0
+msgid "Month"
+msgstr "Mois"
+
+#. module: mozaik_membership
+#: view:generate.reference:mozaik_membership.generate_reference_view
+#: view:membership.line:mozaik_membership.membership_line_form_view
+#: view:membership.request:mozaik_membership.membership_request_form_view
+#: view:membership.state:mozaik_membership.membership_state_view
+#: view:pass.former.member:mozaik_membership.pass_former_member_view
+msgid "More Info"
+msgstr "Plus d'info"
+
+#. module: mozaik_membership
+#: selection:sub.abstract.coordinate,coordinate_type:0
+msgid "N/A"
+msgstr "N/A"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "NEW"
+msgstr "NOUVEAU"
+
+#. module: mozaik_membership
+#: field:waiting.member.report,partner_id:0
+msgid "Natural Persons"
+msgstr "Personnes physiques"
+
+#. module: mozaik_membership
+#: field:change.main.address,new_int_instance_id:0
+msgid "New Internal Instance"
+msgstr "Nouvelle instance interne"
+
+#. module: mozaik_membership
+#: field:membership.request,note:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: mozaik_membership
+#: field:membership.request,number:0
+msgid "Number"
+msgstr "Numéro"
+
+#. module: mozaik_membership
+#: field:partner.relation,object_instance_id:0
+msgid "Object Internal Instance"
+msgstr "Instance interne de l'objet de la relation"
+
+#. module: mozaik_membership
+#: view:generate.reference:mozaik_membership.generate_reference_view
+#: view:pass.former.member:mozaik_membership.pass_former_member_view
+msgid "Overview"
+msgstr "Aperçu"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Paid"
+msgstr "Payer"
+
+#. module: mozaik_membership
+#: selection:email.coordinate,partner_kind:0
+#: field:force.int.instance,partner_id:0
+#: model:ir.model,name:mozaik_membership.model_res_partner
+#: view:membership.request:mozaik_membership.membership_request_form_view
+#: field:membership.request,partner_id:0
+#: selection:phone.coordinate,partner_kind:0
+#: selection:postal.coordinate,partner_kind:0
+#: selection:res.partner,kind:0
+#: field:virtual.custom.partner,partner_id:0
+#: field:virtual.master.partner,partner_id:0
+#: view:waiting.member.report:mozaik_membership.waiting_member_report_search_view
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: mozaik_membership
+#: field:email.coordinate,partner_instance_id:0
+#: field:ext.candidature,partner_instance_id:0
+#: field:ext.mandate,partner_instance_id:0
+#: field:generic.mandate,partner_instance_id:0
+#: field:int.candidature,partner_instance_id:0
+#: field:int.mandate,partner_instance_id:0
+#: field:membership.line,partner_instance_id:0
+#: field:partner.involvement,partner_instance_id:0
+#: field:phone.coordinate,partner_instance_id:0
+#: field:postal.coordinate,partner_instance_id:0
+#: field:sta.candidature,partner_instance_id:0
+#: field:sta.mandate,partner_instance_id:0
+#: field:sub.abstract.coordinate,partner_instance_id:0
+msgid "Partner Internal Instance"
+msgstr "Instance interne du partenaire"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_partner_involvement
+msgid "Partner Involvement"
+msgstr "Participation de partenaire"
+
+#. module: mozaik_membership
+#: field:email.coordinate,partner_kind:0
+#: field:phone.coordinate,partner_kind:0
+#: field:postal.coordinate,partner_kind:0
+#: field:res.partner,kind:0
+msgid "Partner Kind"
+msgstr "Type de partenaire"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_partner_relation
+msgid "Partners Relation"
+msgstr "Relation de partenaires"
+
+#. module: mozaik_membership
+#: field:membership.request,phone:0
+#: field:membership.request,phone_id:0
+msgid "Phone"
+msgstr "Téléphone"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_phone_coordinate
+msgid "Phone Coordinate"
+msgstr "Coordonnée téléphonique"
+
+#. module: mozaik_membership
+#: field:virtual.custom.partner,postal_bounce_counter:0
+#: field:virtual.master.partner,postal_bounce_counter:0
+msgid "Postal Bounce Counter"
+msgstr "Compteur d'échecs postaux"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_postal_coordinate
+#: field:virtual.custom.partner,postal:0
+#: field:virtual.master.partner,postal:0
+msgid "Postal Coordinate"
+msgstr "Coordonnée postale"
+
+#. module: mozaik_membership
+#: field:virtual.custom.partner,postal_coordinate_id:0
+#: field:virtual.master.partner,postal_coordinate_id:0
+msgid "Postal Coordinate ID"
+msgstr "ID de coordonnée postale"
+
+#. module: mozaik_membership
+#: field:virtual.custom.partner,postal_unauthorized:0
+#: field:virtual.master.partner,postal_unauthorized:0
+msgid "Postal Unauthorized"
+msgstr "Adresse interdite"
+
+#. module: mozaik_membership
+#: field:virtual.custom.partner,postal_is_main:0
+#: field:virtual.master.partner,postal_is_main:0
+msgid "Postal is Main"
+msgstr "Adresse principale"
+
+#. module: mozaik_membership
+#: field:change.main.address,old_int_instance_id:0
+msgid "Previous Internal Instance"
+msgstr "Instance interne précédente"
+
+#. module: mozaik_membership
+#: field:membership.line,price:0
+msgid "Price"
+msgstr "Montant"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_form_view
+#: view:membership.request:mozaik_membership.membership_request_form_view
+#: view:membership.state:mozaik_membership.membership_state_view
+msgid "Reactivate"
+msgstr "Réactiver"
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_form_view
+#: view:membership.request:mozaik_membership.membership_request_form_view
+#: view:membership.state:mozaik_membership.membership_state_view
+msgid "Reactivate document: proceed anyway?"
+msgstr "Poursuivre la réactivation du document ?"
+
+#. module: mozaik_membership
+#: model:product.template,name:mozaik_membership.membership_product_other_product_template
+msgid "Reduced Subscription"
+msgstr "Cotisation réduite"
+
+#. module: mozaik_membership
+#: field:membership.line,reference:0
+#: field:res.partner,reference:0
+msgid "Reference"
+msgstr "Référence"
+
+#. module: mozaik_membership
+#: field:membership.request,address_local_street_id:0
+msgid "Reference Street"
+msgstr "Rue de référence"
+
+#. module: mozaik_membership
+#: model:membership.state,name:mozaik_membership.refused_member_candidate
+msgid "Refused Member Candidate"
+msgstr "Candidat membre refusé"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Reject"
+msgstr "Exclure"
+
+#. module: mozaik_membership
+#: field:res.partner,rejected_date:0
+msgid "Rejected Date"
+msgstr "Date d'exclusion"
+
+#. module: mozaik_membership
+#: field:membership.request,request_type:0
+msgid "Request Type"
+msgstr "Type de demande"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Reset Date: proceed anyway?"
+msgstr "Poursuivre la réinitialisation de la date ?"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Resign"
+msgstr "Démissionner"
+
+#. module: mozaik_membership
+#: field:res.partner,resignation_date:0
+msgid "Resignation Date"
+msgstr "Date de démission"
+
+#. module: mozaik_membership
+#: field:generate.reference,nb_selected:0
+#: field:pass.former.member,nb_selected:0
+msgid "Selected Partners"
+msgstr "Partenaires sélectionnés"
+
+#. module: mozaik_membership
+#: field:membership.request,sequence:0
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: mozaik_membership
+#: field:membership.line,state_id:0
+#: view:membership.request:mozaik_membership.membership_request_search_view
+#: field:membership.request,state:0
+#: view:waiting.member.report:mozaik_membership.waiting_member_report_search_view
+msgid "State"
+msgstr "Statut"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_sta_assembly
+msgid "State Assembly"
+msgstr "Assemblée de l'État"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_sta_candidature
+msgid "State Candidature"
+msgstr "Candidature politique"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_sta_mandate
+msgid "State Mandate"
+msgstr "Mandat politique"
+
+#. module: mozaik_membership
+#: field:membership.request,street_man:0
+msgid "Street"
+msgstr "Rue"
+
+#. module: mozaik_membership
+#: field:membership.request,street2:0
+msgid "Street2"
+msgstr "Rue (suite)"
+
+#. module: mozaik_membership
+#: field:partner.relation,subject_instance_id:0
+msgid "Subject Internal Instance"
+msgstr "Instance interne du sujet de la relation"
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+#: field:membership.line,product_id:0
+#: model:product.category,name:mozaik_membership.membership_product_category
+#: field:product.template,membership:0
+#: view:res.partner:mozaik_membership.res_partner_search_view
+#: field:res.partner,subscription_product_id:0
+msgid "Subscription"
+msgstr "Cotisation"
+
+#. module: mozaik_membership
+#: model:ir.actions.act_window,name:mozaik_membership.membership_product_action
+#: model:ir.ui.menu,name:mozaik_membership.membership_product_menu
+msgid "Subscriptions"
+msgstr "Cotisations"
+
+#. module: mozaik_membership
+#: field:membership.line,message_summary:0
+#: field:membership.request,message_summary:0
+#: field:membership.state,message_summary:0
+#: field:sub.abstract.coordinate,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: mozaik_membership
+#: selection:membership.request,request_type:0
+#: model:membership.state,name:mozaik_membership.supporter
+msgid "Supporter"
+msgstr "Sympathisant"
+
+#. module: mozaik_membership
+#: selection:email.coordinate,partner_kind:0
+#: selection:phone.coordinate,partner_kind:0
+#: selection:postal.coordinate,partner_kind:0
+#: selection:res.partner,kind:0
+msgid "Technical"
+msgstr "Technique"
+
+#. module: mozaik_membership
+#: field:membership.request,technical_name:0
+msgid "Technical Name"
+msgstr "Nom technique"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,description:mozaik_membership.main_email_notification
+msgid "This Email Coordinate is \"Main\""
+msgstr "L'adresse électronique en sujet est maintenant principale"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,description:mozaik_membership.former_email_notification
+msgid "This Email Coordinate is no \"Main\" any longer"
+msgstr "L'adresse électronique en sujet n'est plus principale"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,description:mozaik_membership.main_phone_id_notification
+msgid "This Phone Coordinate is \"Main\""
+msgstr "Le téléphone en sujet est maintenant principal"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,description:mozaik_membership.former_phone_id_notification
+msgid "This Phone Coordinate is no \"Main\" any longer"
+msgstr "Le téléphone en sujet n'est plus principal"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,description:mozaik_membership.main_address_id_notification
+msgid "This Postal Coordinate is \"Main\""
+msgstr "L'adresse en sujet est maintenant principale"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,description:mozaik_membership.former_address_id_notification
+msgid "This Postal Coordinate is no \"Main\" any longer"
+msgstr "L'adresse en sujet n'est plus principale"
+
+#. module: mozaik_membership
+#: view:pass.former.member:mozaik_membership.pass_former_member_view
+msgid "This wizard is only intended in July, August or September to cancel memberships due to payement failure."
+msgstr "Cet assistant est uniquement prévu en juillet, août ou septembre pour annuler l'adhésion des membres pour défaut de paiement."
+
+#. module: mozaik_membership
+#: field:membership.line,date_to:0
+msgid "To"
+msgstr "Á"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "to"
+msgstr "vers"
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+msgid "To < ..."
+msgstr "Jusqu'à < ..."
+
+#. module: mozaik_membership
+#: view:membership.line:mozaik_membership.membership_line_search_view
+msgid "To > ..."
+msgstr "Jusqu'à > ..."
+
+#. module: mozaik_membership
+#: field:membership.request,town_man:0
+msgid "Town"
+msgstr "Ville"
+
+#. module: mozaik_membership
+#: model:ir.actions.act_window,name:mozaik_membership.pass_former_member_action
+#: view:pass.former.member:mozaik_membership.pass_former_member_view
+msgid "Transform Members to Former Members"
+msgstr "Transformer des membres en anciens membres"
+
+#. module: mozaik_membership
+#: field:sub.abstract.coordinate,unauthorized:0
+msgid "Unauthorized"
+msgstr "Interdit"
+
+#. module: mozaik_membership
+#: code:addons\mozaik_membership\res_partner.py:485
+#, python-format
+msgid "Undefined Membership State: %s"
+msgstr "Statut d'adhésion inconnu: %s"
+
+#. module: mozaik_membership
+#: model:product.template,name:mozaik_membership.membership_product_undefined_product_template
+msgid "Undefined Subscription"
+msgstr "Cotisation inconnue"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "Undelivered Member Cards"
+msgstr "Cartes de membre non envoyées"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "Undelivered Welcome Documents"
+msgstr "Documents de bienvenue non envoyés"
+
+#. module: mozaik_membership
+#: field:membership.line,message_unread:0
+#: field:membership.request,message_unread:0
+#: field:membership.state,message_unread:0
+#: field:sub.abstract.coordinate,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_res_users
+msgid "Users"
+msgstr "Utilisateurs"
+
+#. module: mozaik_membership
+#: model:product.template,name:mozaik_membership.membership_product_isolated_product_template
+msgid "Usual Subscription"
+msgstr "Cotisation normale"
+
+#. module: mozaik_membership
+#: field:sub.abstract.coordinate,vip:0
+msgid "VIP"
+msgstr "VIP"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "Validate"
+msgstr "Valider"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "Validate Membership Request: proceed anyway?"
+msgstr "Poursuivre la validation de la demande ?"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_virtual_custom_partner
+msgid "Virtual Custom Partner"
+msgstr ""
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_virtual_master_partner
+msgid "Virtual Master Partner"
+msgstr ""
+
+#. module: mozaik_membership
+#: field:membership.line,website_message_ids:0
+#: field:membership.request,website_message_ids:0
+#: field:membership.state,website_message_ids:0
+#: field:sub.abstract.coordinate,website_message_ids:0
+msgid "Website Messages"
+msgstr "Messages de site web"
+
+#. module: mozaik_membership
+#: help:membership.line,website_message_ids:0
+#: help:membership.request,website_message_ids:0
+#: help:membership.state,website_message_ids:0
+#: help:sub.abstract.coordinate,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historique de communication de site web"
+
+#. module: mozaik_membership
+#: field:res.partner,del_doc_date:0
+msgid "Welcome Documents Sent Date"
+msgstr "Date d'envoi des documents de bienvenue"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "Welcome Documents Sent Date < ..."
+msgstr "Date d'envoi des documents de bienvenue < ..."
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.res_partner_search_view
+msgid "Welcome Documents Sent Date > ..."
+msgstr "Date d'envoi des documents de bienvenue > ..."
+
+#. module: mozaik_membership
+#: model:membership.state,name:mozaik_membership.without_membership
+msgid "Without Status"
+msgstr "Sans statut"
+
+#. module: mozaik_membership
+#: model:ir.model,name:mozaik_membership.model_pass_former_member
+msgid "Wizard to Transform Members to Former Members"
+msgstr "Assistant de transformation des membres en anciens membres"
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "YYYY"
+msgstr ""
+
+#. module: mozaik_membership
+#: field:generate.reference,reference_date:0
+#: field:membership.request,year:0
+msgid "Year"
+msgstr "Année"
+
+#. module: mozaik_membership
+#: field:membership.request,zip_man:0
+msgid "Zip"
+msgstr "Code postal"
+
+#. module: mozaik_membership
+#: field:virtual.custom.partner,zip:0
+#: field:virtual.master.partner,zip:0
+msgid "Zip Code"
+msgstr "Code postal"
+
+#. module: mozaik_membership
+#: view:change.main.address:mozaik_membership.change_main_address_wizard
+msgid "onchange_address_id(address_id, old_int_instance_id)"
+msgstr ""
+
+#. module: mozaik_membership
+#: view:product.template:mozaik_membership.product_template_only_form_view
+msgid "{'invisible': ['|',('product_variant_count', '>', 1),('membership', '=', True)]}"
+msgstr ""
+
+#. module: mozaik_membership
+#: view:product.template:mozaik_membership.product_template_form_view
+#: view:product.template:mozaik_membership.product_template_only_form_view
+msgid "{'invisible': [('membership', '=', True)]}"
+msgstr ""
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_2_form
+msgid "⇒ Pay Attention"
+msgstr "⇒ Précaution à prendre"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "⇒ Reset"
+msgstr "⇒ Réinitialiser"
+

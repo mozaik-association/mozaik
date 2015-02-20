@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="retrocession_factory_wizard_view" model="ir.ui.view">
+            <field name="name">retrocession.factory.wizard.view</field>
+            <field name="model">retrocession.factory.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Retrocessions Generator" version="7.0">
+                    <group name="data">
+                        <group name="data_1">
+                            <field name="month" attrs="{'required': [('monthly_count', '&gt;', 0)]}" on_change="onchange_month_year(month, year, model, mandate_ids)"/>
+                            <field name="year" on_change="onchange_month_year(month, year, model, mandate_ids)"/>
+                        </group>
+                        <group name="data_2"/>
+                    </group>
+
+                    <separator string="Overview"/>
+                    <group name="counter">
+                        <field name="mandate_selected" readonly="1"/>
+                    </group>
+
+                    <separator name="details" string="Details"/>
+                    <table class="oe_form_retrocession">
+                        <tr>
+                            <td class="oe_retrocession_grey" width="160px"><label string="Retrocession Mode"/></td>
+                            <th class="oe_retrocession_grey" width="100px"><label string="#Existing"/></th>
+                            <th class="oe_retrocession_grey" width="100px"><label string="#To Create"/></th>
+                        </tr><tr name="yearly">
+                            <td class="oe_retrocession_grey">
+                                <label string="Yearly"/>
+                            </td><td>
+                                <field class="oe_inline" name="yearly_duplicates" readonly="1"/>
+                            </td><td>
+                                <field class="oe_inline" name="yearly_count" readonly="1"/>
+                            </td>
+                        </tr><tr name="monthly">
+                            <td class="oe_retrocession_grey">
+                                <label string="Monthly"/>
+                            </td><td>
+                                <field class="oe_inline" name="monthly_duplicates" readonly="1"/>
+                            </td><td>
+                                <field class="oe_inline" name="monthly_count" readonly="1"/>
+                            </td>
+                        </tr><tr name="total">
+                            <td class="oe_retrocession_grey">
+                                <label string="Total"/>
+                            </td><td class="oe_retrocession_grey">
+                            </td><td class="oe_retrocession_grey">
+                                <field name="total_retrocession" class="oe_inline" readonly="1"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div name="dev" groups="mozaik_base.res_groups_developper">
+                        <h3>More Info</h3>
+                        <group name="moreinfo">
+                            <field name="model"/>
+                            <field name="mandate_ids"/>
+                        </group>
+                    </div>
+
+                    <footer>
+                        <span name="go-wizard" attrs="{'invisible': [('total_retrocession', '=', 0)]}">
+                            <button string="Generate" name="generate_retrocessions"
+                                    type="object" class="oe_highlight"/>
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="retrocession_factory_wizard_action" model="ir.actions.act_window">
+            <field name="name">Generate Retrocessions</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">retrocession</field>
+            <field name="res_model">retrocession.factory.wizard</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="retrocession_factory_wizard_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_financial_user')])]" />
+        </record>
+
+        <record id="sta_mandate_retrocession_factory" model="ir.values">
+            <field name="name">Generate Retrocessions</field>
+            <field name="model">sta.mandate</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('retrocession_factory_wizard_action')" />
+        </record>
+
+        <record id="ext_mandate_retrocession_factory" model="ir.values">
+            <field name="name">Generate Retrocessions</field>
+            <field name="model">ext.mandate</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('retrocession_factory_wizard_action')" />
+        </record>
+
+    </data>
+</openerp>

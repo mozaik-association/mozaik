@@ -1,0 +1,765 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Add web resources -->
+
+        <template id="assets_backend" name="retrocession_css" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/mozaik_retrocession/static/src/css/retrocession.css"/>
+            </xpath>
+        </template>
+
+         <!-- Search and Tree Views -->
+
+        <record id="fractionation_search_view" model="ir.ui.view">
+            <field name="name">fractionation.search</field>
+            <field name="model">fractionation</field>
+            <field name="arch" type="xml">
+                <search string="Fractionations" version="7.0">
+                    <field name="name"/>
+                    <filter name="diff100" string="Uncomplete"
+                            domain="[('total_percentage', '!=', 100.0)]" help="Non 100% Fractionations" />
+                    <separator/>
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Expired Fractionations" />
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Fractionations, expired or not" />
+                </search>
+            </field>
+        </record>
+
+        <record id="fractionation_tree_view" model="ir.ui.view">
+            <field name="name">fractionation.tree</field>
+            <field name="model">fractionation</field>
+            <field name="arch" type="xml">
+                <tree string="Fractionations" version="7.0" colors="red:total_percentage &lt;&gt; 100.0">
+                    <field name="name"/>
+                    <field name="total_percentage" attrs="{'invisible': [('total_percentage', '=', 100.0)]}"/>
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="fractionation_line_search_view" model="ir.ui.view">
+            <field name="name">fractionation.line.search</field>
+            <field name="model">fractionation.line</field>
+            <field name="arch" type="xml">
+                <search string="Fractionation Lines" version="7.0">
+                    <field name="fractionation_id"/>
+                    <field name="power_level_id"/>
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Expired Fractionation Lines" />
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Fractionation Lines, expired or not" />
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="fractionation" string="Fractionation" domain="[]" context="{'group_by':'fractionation_id'}" />
+                        <filter name="level" string="Power Level" domain="[]" context="{'group_by':'power_level_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="fractionation_line_tree_view" model="ir.ui.view">
+            <field name="name">fractionation.line.tree</field>
+            <field name="model">fractionation.line</field>
+            <field name="arch" type="xml">
+                <tree string="Fractionation Lines" version="7.0" create="0">
+                    <field name="fractionation_id"/>
+                    <field name="power_level_id"/>
+                    <field name="percentage"/>
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="calculation_method_search_view" model="ir.ui.view">
+            <field name="name">calculation.method.search</field>
+            <field name="model">calculation.method</field>
+            <field name="arch" type="xml">
+                <search string="Calculation Methods" version="7.0">
+                    <field name="name"/>
+                    <filter name="fixed" string="Fixed"
+                            domain="[('type', '=', 'fixed')]" help="Fixed Calculation Methods" />
+                    <filter name="variable" string="Variable"
+                            domain="[('type', '=', 'variable')]" help="Variable Calculation Methods" />
+                    <filter name="mixed" string="Mixed"
+                            domain="[('type', '=', 'mixed')]" help="Mixed Calculation Methods" />
+                    <separator/>
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Expired Calculation Methods" />
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Calculation Methods, expired or not" />
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="calculation_method_tree_view" model="ir.ui.view">
+            <field name="name">calculation.method.tree</field>
+            <field name="model">calculation.method</field>
+            <field name="arch" type="xml">
+                <tree string="Calculation Methods" version="7.0">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="calculation_rule_search_view" model="ir.ui.view">
+            <field name="name">calculation.rule.search</field>
+            <field name="model">calculation.rule</field>
+            <field name="arch" type="xml">
+                <search string="Calculation Rules" version="7.0">
+                    <field name="name"/>
+                    <field name="calculation_method_id" invisible="not context.get('show_calculation_method_id')"/>
+                    <field name="sta_mandate_id" invisible="1"/>
+                    <field name="ext_mandate_id" invisible="1"/>
+                    <field name="retrocession_id" invisible="1"/>
+                    <filter name="fixed" string="Fixed"
+                            domain="[('type', '=', 'fixed')]" help="Fixed Calculation Rules" />
+                    <filter name="variable" string="Variable"
+                            domain="[('type', '=', 'variable')]" help="Variable Calculation Rules" />
+                    <separator/>
+                    <filter name="is_deductible" string="Deductible"
+                            domain="[('is_deductible', '=', True)]" help="Deductible Calculation Rules" />
+                    <filter name="is_not_deductible" string="Non-Deductible"
+                            domain="[('is_deductible', '=', False)]" help="Non-Deductible Calculation Rules" />
+                    <separator/>
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Expired Calculation Rules" />
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Calculation Rules, expired or not" />
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}" />
+                        <filter name="method" string="Calculation Method" context="{'group_by':'calculation_method_id'}" invisible="not context.get('show_calculation_method_id')"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="calculation_rule_tree_view" model="ir.ui.view">
+            <field name="name">calculation.rule.tree</field>
+            <field name="model">calculation.rule</field>
+            <field name="arch" type="xml">
+                <tree string="Calculation Rules" version="7.0">
+                    <field name="calculation_method_id"
+                           invisible="not context.get('show_calculation_method_id')"/>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="is_deductible"/>
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)" />
+                </tree>
+            </field>
+        </record>
+
+         <record id="retrocession_search_view" model="ir.ui.view">
+            <field name="name">retrocession.search</field>
+            <field name="model">retrocession</field>
+            <field name="arch" type="xml">
+                <search string="Retrocessions" version="7.0">
+                    <field name="unique_id"/>
+                    <field name="year"/>
+                    <field name="sta_mandate_id"/>
+                    <field name="ext_mandate_id"/>
+                    <field name="amount_total"/>
+                    <filter name="in_progress" string="Waiting Validation"
+                            domain="[('state', '=', 'draft')]" />
+                    <filter name="validated" string="Validated"
+                            domain="[('state', '=', 'validated')]" />
+                    <filter name="done" string="Done"
+                            domain="[('state', '=', 'done'), ('active','=',False)]" />
+                    <filter name="cancel" string="Cancelled"
+                            domain="[('state', '=', 'cancelled')]" />
+                    <separator/>
+                    <filter name="expired" string="Expired"
+                            context="{'invisible_expire_date': False}"
+                            domain="[('active','=',False)]" help="Expired Retrocessions" />
+                    <filter name="all" string="All"
+                            context="{'invisible_expire_date': False}"
+                            domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Retrocessions, expired or not" />
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="state" string="State" domain="[]" context="{'group_by':'state'}" />
+                        <filter name="year" string="Year" domain="[]" context="{'group_by':'year'}" />
+                        <filter name="month" string="Month" domain="[]" context="{'group_by':'month'}" />
+                        <filter name="sta_mandate" string="State Mandate" domain="[('sta_mandate_id', '!=', False)]" context="{'group_by':'sta_mandate_id'}" />
+                        <filter name="ext_mandate" string="External Mandate" domain="[('ext_mandate_id', '!=', False)]" context="{'group_by':'ext_mandate_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="retrocession_tree_view" model="ir.ui.view">
+            <field name="name">retrocession.tree</field>
+            <field name="model">retrocession</field>
+            <field name="arch" type="xml">
+                <tree string="Retrocessions" version="7.0">
+                    <field name="unique_id"/>
+                    <field name="year"/>
+                    <field name="month"/>
+                    <field name="sta_mandate_id"/>
+                    <field name="ext_mandate_id"/>
+                    <field name="amount_total" sum="1"/>
+                    <field name="state"/>
+                    <field name="expire_date"
+                           invisible="context.get('invisible_expire_date', True)" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Actions -->
+
+        <record id="fractionation_action" model="ir.actions.act_window">
+            <field name="name">Fractionations</field>
+            <field name="res_model">fractionation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="fractionation_search_view" />
+            <field name="view_id" ref="fractionation_tree_view" />
+        </record>
+
+        <record id="fractionation_line_action" model="ir.actions.act_window">
+            <field name="name">Fractionation Lines</field>
+            <field name="res_model">fractionation.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="fractionation_line_search_view" />
+            <field name="view_id" ref="fractionation_line_tree_view" />
+        </record>
+
+        <record id="calculation_method_action" model="ir.actions.act_window">
+            <field name="name">Calculation Methods</field>
+            <field name="res_model">calculation.method</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="calculation_method_search_view" />
+            <field name="view_id" ref="calculation_method_tree_view" />
+        </record>
+
+        <record id="calculation_rule_action" model="ir.actions.act_window">
+            <field name="name">Calculation Rules</field>
+            <field name="res_model">calculation.rule</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="calculation_rule_search_view" />
+            <field name="view_id" ref="calculation_rule_tree_view" />
+            <field name="context">{'show_calculation_method_id': 1, 'group_by_method': 1}</field>
+            <field name="domain">[('calculation_method_id', '!=', False)]</field>
+        </record>
+
+        <record id="calculation_rule_detail_action" model="ir.actions.act_window">
+            <field name="name">Calculation Rules</field>
+            <field name="res_model">calculation.rule</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="calculation_rule_search_view" />
+            <field name="view_id" ref="calculation_rule_tree_view" />
+        </record>
+
+        <record id="retrocession_action" model="ir.actions.act_window">
+            <field name="name">Retrocessions</field>
+            <field name="res_model">retrocession</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="retrocession_search_view" />
+            <field name="view_id" ref="retrocession_tree_view" />
+        </record>
+
+        <!-- Form Views -->
+
+        <record id="fractionation_form_view" model="ir.ui.view">
+            <field name="name">fractionation.form</field>
+            <field name="model">fractionation</field>
+            <field name="arch" type="xml">
+                <form string="Fractionation" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="mozaik_base.mozaik_res_groups_configurator" name="invalidate">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate fractionation: proceed anyway?" />
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_title" name="title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" class="oe_inline"/></h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                            <button string="State Assemblies" name="%(mozaik_structure.sta_assembly_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_fractionation_id': active_id,
+                                          'default_fractionation_id': active_id}" />
+                            <button string="External Assemblies" name="%(mozaik_structure.ext_assembly_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_fractionation_id': active_id,
+                                          'default_fractionation_id': active_id}" />
+                        </div>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <field name="create_date" />
+                            <field name="expire_date" attrs="{'invisible': [('active','=', True)]}"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Lines" name="lines">
+                                <button string="All Details" name="%(fractionation_line_action)d"
+                                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                                        context="{'search_default_fractionation_id': active_id,
+                                                  'default_fractionation_id': active_id,
+                                                  'search_default_all': True}" />
+                                <field name="fractionation_line_ids" attrs="{'invisible': [('active', '=', False)]}">
+                                    <tree version="7.0" editable="bottom">
+                                        <field name="power_level_id"/>
+                                        <field name="percentage" sum="1"/>
+                                    </tree>
+                                </field>
+                                <field name="fractionation_line_inactive_ids" attrs="{'invisible': [('active', '=', True)]}">
+                                    <tree version="7.0" editable="bottom">
+                                        <field name="power_level_id"/>
+                                        <field name="percentage" sum="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Mandate Categories" name="mandate_categories" invisible="context.get('popup')">
+                                <button string="All Details" name="%(mandate_category_action)d"
+                                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                                        context="{'search_default_fractionation_id': active_id,
+                                                  'default_fractionation_id': active_id,
+                                                  'search_default_all': True}" />
+                                <field name="mandate_category_ids" readonly="1" attrs="{'invisible': [('active', '=', False)]}">
+                                    <tree version="7.0" >
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_revalidate" string="Validate" type="object"
+                                        confirm="Reactivate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                                <field name="total_percentage"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="fractionation_line_form_view" model="ir.ui.view">
+            <field name="name">fractionation.line.form</field>
+            <field name="model">fractionation.line</field>
+            <field name="arch" type="xml">
+                <form string="Fractionation Line" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="mozaik_base.mozaik_res_groups_configurator" name="invalidate">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate fractionation line: proceed anyway?" />
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_title" name="title">
+                            <label for="fractionation_id" class="oe_edit_only"/>
+                            <h1><field name="fractionation_id" readonly="1" class="oe_inline"/></h1>
+                            <label for="power_level_id" class="oe_edit_only"/>
+                            <h1><field name="power_level_id" class="oe_inline"/></h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                        </div>
+                        <group name="data">
+                            <field name="percentage"/>
+                        </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <field name="create_date" />
+                            <field name="expire_date" attrs="{'invisible': [('active','=', True)]}"/>
+                        </group>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_revalidate" string="Validate" type="object"
+                                        confirm="Reactivate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="calculation_method_form_view" model="ir.ui.view">
+            <field name="name">calculation.method.form</field>
+            <field name="model">calculation.method</field>
+            <field name="arch" type="xml">
+                <form string="Calculation Method" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="mozaik_base.mozaik_res_groups_configurator" name="invalidate">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate calculation method: proceed anyway?" />
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_title" name="title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" class="oe_inline"/></h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                             <button string="State Assemblies" name="%(mozaik_structure.sta_assembly_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_calculation_method_id': active_id,
+                                          'default_calculation_method_id': active_id}" />
+                            <button string="External Assemblies" name="%(mozaik_structure.ext_assembly_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_calculation_method_id': active_id,
+                                          'default_calculation_method_id': active_id}" />
+                        </div>
+                        <group name="data">
+                            <field name="type"/>
+                        </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <field name="create_date" />
+                            <field name="expire_date" attrs="{'invisible': [('active','=', True)]}"/>
+                        </group>
+                        <notebook>
+                           <page string="Rules" name="rules">
+                               <button string="All Details" name="%(calculation_rule_detail_action)d"
+                                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                                        context="{'search_default_calculation_method_id': active_id,
+                                                  'default_calculation_method_id': active_id,
+                                                  'search_default_all': True}" />
+                               <field name="calculation_rule_ids" attrs="{'invisible': [('active', '=', False)]}">
+                                   <tree version="7.0" editable="bottom">
+                                       <field name="sequence" widget="handle"/>
+                                       <field name="name"/>
+                                       <field name="type"/>
+                                       <field name="is_deductible"/>
+                                       <field name="percentage"/>
+                                   </tree>
+                               </field>
+                           </page>
+                           <page string="Mandate Categories" name="mandate_categories" invisible="context.get('popup')">
+                               <button string="All Details" name="%(mandate_category_action)d"
+                                        type="action" attrs="{'invisible': [('id','=',False)]}"
+                                        context="{'search_default_calculation_method_id': active_id,
+                                                  'default_calculation_method_id': active_id,
+                                                  'search_default_all': True}" />
+                               <field name="mandate_category_ids" readonly="1" attrs="{'invisible': [('active', '=', False)]}">
+                                   <tree version="7.0">
+                                       <field name="name"/>
+                                   </tree>
+                               </field>
+                           </page>
+                        </notebook>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_revalidate" string="Validate" type="object"
+                                        confirm="Reactivate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="calculation_rule_form_view" model="ir.ui.view">
+            <field name="name">calculation.rule.form</field>
+            <field name="model">calculation.rule</field>
+            <field name="arch" type="xml">
+                <form string="Calculation Rule" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')"
+                             groups="mozaik_base.mozaik_res_groups_configurator" name="invalidate">
+                            <button name="action_invalidate" string="Invalidate" type="object"
+                                    confirm="Invalidate calculation rule: proceed anyway?" />
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_title" name="title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" class="oe_inline"/></h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                        </div>
+                        <group name="data">
+                            <group name="data1">
+                                <field name="calculation_method_id" attrs="{'invisible': [('calculation_method_id','=',False), ('id', '!=', False)],
+                                                                            'readonly': [('id', '!=', False)],
+                                                                            'required': [('id', '=', False)]}"/>
+                                <field name="sta_mandate_id" attrs="{'invisible': [('sta_mandate_id','=',False)]}" readonly="1"/>
+                                <field name="ext_mandate_id" attrs="{'invisible': [('ext_mandate_id','=',False)]}" readonly="1"/>
+                                <field name="retrocession_id" attrs="{'invisible': [('retrocession_id','=',False)]}" readonly="1"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group name="data2">
+                                <field name="type"/>
+                                <field name="percentage"/>
+                                <field name="is_deductible"/>
+                            </group>
+                        </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <field name="create_date" />
+                            <field name="expire_date" attrs="{'invisible': [('active','=', True)]}"/>
+                        </group>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_revalidate" string="Validate" type="object"
+                                        confirm="Reactivate document: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="retrocession_form_view" model="ir.ui.view">
+            <field name="name">retrocession.form</field>
+            <field name="model">retrocession</field>
+            <field name="arch" type="xml">
+                <form string="Retrocession" version="7.0">
+                    <header>
+                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                             invisible="context.get('popup')" name="invalidate">
+                            <button name="action_validate" string="Validate" type="object"
+                                    confirm="Validate Retrocession now: proceed anyway?"
+                                    states="draft" class="oe_highlight"/>
+                            <button name="action_done" string="Close" type="object"
+                                    confirm="Mark Retrocession as Done: proceed anyway?" class="oe_highlight"
+                                    attrs="{'invisible': ['|', ('state', '!=', 'validated'),('need_account_management', '=', True)]}"/>
+                            <button name="action_revalidate" string="Reset" type="object"
+                                    states="validated" confirm="Reset Retrocession: proceed anyway?" />
+                            <button name="action_invalidate" string="Cancel" type="object"
+                                    states="validated" confirm="Invalidate Retrocession, proceed anyway?" />
+                            <button name="action_request_for_payment_send" string="Send By Email" type="object"
+                                    states="validated" confirm="Send request for payment by email, proceed anyway?"
+                                    help="Send to the representative the request for payment."/>
+                            <field name="state" widget="statusbar" statusbar_visible="draft,validated,done"/>
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_title" name="title1" attrs="{'invisible': ['|', '&amp;', ('id','!=', False),('sta_mandate_id','=', False),
+                                                                                  '&amp;', ('id','=', False), ('ext_mandate_id','!=', False)]}">
+
+                            <label for="sta_mandate_id" class="oe_edit_only"/>
+                            <h1><field name="sta_mandate_id" on_change="onchange_sta_mandate_id(sta_mandate_id)"
+                                   domain="[('retrocession_mode', '!=', 'none')]"
+                                   attrs="{'required': [('id','=', False), ('ext_mandate_id','=', False)],
+                                           'readonly': [('id','!=', False)]}"
+                                   context="{'apply_for_read': 'create'}" options='{"no_create":True}'/></h1>
+                        </div>
+                        <div class="oe_title" name="title2" attrs="{'invisible': ['|', '&amp;', ('id','!=', False),('ext_mandate_id','=', False),
+                                                                                  '&amp;', ('id','=', False), ('sta_mandate_id','!=', False)]}">
+                            <label for="ext_mandate_id" class="oe_edit_only"/>
+                            <h1><field name="ext_mandate_id" on_change="onchange_ext_mandate_id(ext_mandate_id)"
+                                   domain="[('retrocession_mode', '!=', 'none')]"
+                                   attrs="{'required': [('id','=', False), ('sta_mandate_id','=', False)],
+                                           'readonly': [('id','!=', False)]}"
+                                   context="{'apply_for_read': 'create'}" options='{"no_create":True}'/></h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                        </div>
+                        <group name="data">
+                            <field name="unique_id" readonly="1" attrs="{'invisible': [('unique_id', '=', False)]}"/>
+                            <field name="month" attrs="{'invisible': [('retrocession_mode','!=', 'month')],
+                                                        'required': [('retrocession_mode','=', 'month')],
+                                                        'readonly': [('state','not in', ['draft'])]}"/>
+                            <field name="year" required="1" attrs="{'readonly': [('state','not in', ['draft'])]}"/>
+                            <field name="is_regulation" attrs="{'invisible': ['|',('retrocession_mode','!=', 'month'),('month','!=', '12')]}"/>
+                            <field name="retro_instance_id" attrs="{'invisible': [('id','=', False)]}"/>
+                        </group>
+                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                            <field name="create_date" />
+                            <field name="expire_date" attrs="{'invisible': [('active','=', True)]}"/>
+                            <field name="email_date" attrs="{'invisible': [('email_date','=', False)]}"/>
+                        </group>
+
+                        <notebook invisible="context.get('popup')" attrs="{'invisible': [('id','=',False)]}">
+                            <page string="Rules" name="rules" >
+                                <separator string="Imputable Calculation Rules"/>
+                                <button string="All Details" name="%(calculation_rule_detail_action)d"
+                                         type="action" attrs="{'invisible': [('id','=',False)]}"
+                                         context="{'search_default_retrocession_id': active_id,
+                                                   'default_retrocession_id': active_id,
+                                                   'search_default_all': True,
+                                                   'search_default_is_not_deductible': True}" />
+                                <field name="rule_ids" attrs="{'invisible': [('active', '=', False)],
+                                                                       'readonly': [('state','not in', ['draft'])]}"
+                                                                context="{'default_is_deductible': False}">
+                                    <tree version="7.0" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="percentage"/>
+                                        <field name="amount"/>
+                                        <field name="amount_subtotal" sum="1"/>
+                                        <field name="is_deductible" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <field name="rule_inactive_ids" sum="1" attrs="{'invisible': [('active', '=', True)],
+                                                                                'readonly': [('state','not in', ['draft'])]}">
+                                    <tree version="7.0" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="percentage"/>
+                                        <field name="amount"/>
+                                        <field name="amount_subtotal" sum="1"/>
+                                    </tree>
+                                </field>
+                                <separator string="Deductible Calculation Rules" attrs="{'invisible': [('is_regulation', '=', True)]}"/>
+                                <button string="All Details" name="%(calculation_rule_detail_action)d"
+                                         type="action" attrs="{'invisible': ['|', ('id','=',False), ('is_regulation', '=', True)]}"
+                                         context="{'search_default_retrocession_id': active_id,
+                                                   'default_retrocession_id': active_id,
+                                                   'search_default_all': True,
+                                                   'search_default_is_deductible': True}" />
+                                <field name="deductible_rule_ids" attrs="{'invisible': ['|', ('active', '=', False), ('is_regulation', '=', True)],
+                                                                        'readonly': [('state','not in', ['draft'])]}"
+                                                                context="{'default_is_deductible': True}">
+                                    <tree version="7.0" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="percentage"/>
+                                        <field name="amount"/>
+                                        <field name="amount_subtotal" sum="1"/>
+                                        <field name="is_deductible" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <field name="deductible_rule_inactive_ids" attrs="{'invisible': ['|', ('active', '=', True), ('is_regulation', '=', True)]}" readonly="1">
+                                    <tree version="7.0" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="percentage"/>
+                                        <field name="amount"/>
+                                        <field name="amount_subtotal" sum="1"/>
+                                    </tree>
+                                </field>
+                                <group name="amounts" class="oe_subtotal_footer oe_right">
+                                    <div class="oe_subtotal_footer_separator">
+                                        <span class="oe_inline">Total:</span>
+                                        <button name="button_dummy" string="(update)" type="object"
+                                                states="draft" class="oe_edit_only oe_link"/>
+                                    </div>
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </page>
+                            <page string="Accounting" name="accounting">
+                                <separator string="Amounts"/>
+                                <group>
+                                    <field name="provision" attrs="{'invisible': ['|', ('retrocession_mode','=', 'month'),
+                                                                                  ('state', '=', 'done')],
+                                                                    'readonly': [('need_account_management', '=', True)]}"/>
+                                    <field name="amount_reconcilied" readonly="1" attrs="{'invisible': ['|', ('need_account_management', '=', False), ('state', '=', 'draft')]}"/>
+                                    <field name="amount_due" readonly="1"/>
+                                    <field name="amount_paid" attrs="{'invisible':[('need_account_management', '=', True), ('state', 'not in', ['done'])],
+                                                                      'readonly': [('need_account_management', '=', True)]}"/>
+                                </group>
+                                <separator string="Journal Entry" attrs="{'invisible': [('move_id', '=', False)]}"/>
+                                <group>
+                                    <field name="move_id" readonly="1" attrs="{'invisible': [('move_id', '=', False)]}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id"/>
+                                <field name="active"/>
+                                <field name="retrocession_mode"/>
+                                <field name="need_account_management"/>
+                                <field name="mandate_ref"/>
+                                <field name="partner_instance_id"/>
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Menus -->
+
+        <menuitem id="retrocession_submenu" name="Retrocessions"
+                  sequence="70" parent="mozaik_base.mandates_root_menu" />
+
+        <menuitem id="retrocession_action_submenu" action="retrocession_action"
+                  sequence="10" parent="retrocession_submenu" />
+
+        <menuitem id="retrocession_cfg_submenu" name="Retrocessions"
+                  sequence="20" parent="mozaik_mandate.configuration_submenu" />
+
+        <menuitem id="calculation_method_submenu" action="calculation_method_action"
+                  sequence="10" parent="retrocession_cfg_submenu" />
+
+        <menuitem id="calculation_rule_submenu" action="calculation_rule_action"
+                  sequence="20" parent="retrocession_cfg_submenu" />
+
+        <menuitem id="fractionation_action_submenu" action="fractionation_action"
+                  sequence="30" parent="retrocession_cfg_submenu" />
+
+        <menuitem id="fractionation_line_submenu" action="fractionation_line_action"
+                  sequence="40" parent="retrocession_cfg_submenu" />
+
+    </data>
+</openerp>

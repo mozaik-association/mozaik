@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="initial_thesaurus" model="thesaurus">
+            <field name="name">Thesaurus</field>
+        </record>
+
+        <!-- Thesaurus -->
+        <record id="mt_thesaurus_add_term" model="mail.message.subtype">
+            <field name="name">New Term to Validate</field>
+            <field name="res_model">thesaurus</field>
+            <field name="default" eval="True"/>
+            <field name="description">New Term to Validate</field>
+        </record>
+
+    </data>
+</openerp>

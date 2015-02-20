@@ -1,0 +1,305 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Membership Request -->
+
+        <!-- SEARCH -->
+        <record id="membership_request_search_view" model="ir.ui.view">
+            <field name="name">membership.request.search</field>
+            <field name="model">membership.request</field>
+            <field name="arch" type="xml">
+                <search string="Membership Requests" version="7.0">
+                    <field name="partner_id" />
+                    <field name="int_instance_id" />
+                    <field name="address_id" />
+                    <field name="mobile_id" domain="[('type','=','mobile')]"/>
+                    <field name="phone_id" domain="[('type','=','fix')]"/>
+
+                    <filter name="state_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]" />
+                    <filter name="state_confirmed" string="Confirmed"
+                        domain="[('state', '=', 'confirm')]" />
+                    <filter name="state_validated" string="Done"
+                        domain="[('state', '=', 'validate')]" context="{'active_test': False}" />
+                    <filter name="state_cancelled" string="Cancelled"
+                        domain="[('state', '=', 'cancel')]" context="{'active_test': False}" />
+                    <separator />
+                    <filter name="expired" string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active', '=' ,False)]" help="Expired Requests" />
+                    <filter name="all" string="All"
+                        context="{'invisible_expire_date': False, 'active_test': False}"
+                        domain="[]" help="All Requests, expired or not" />
+
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="instance" string="Instance" domain="[]"
+                            context="{'group_by':'int_instance_id'}" />
+                        <filter name="state" string="State" domain="[]"
+                            context="{'group_by':'state'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- TREE -->
+        <record id="membership_request_tree_view" model="ir.ui.view">
+            <field name="name">membership.request.tree</field>
+            <field name="model">membership.request</field>
+            <field name="arch" type="xml">
+                <tree string="Membership Requests" version="7.0">
+                    <field name="lastname" />
+                    <field name="firstname" />
+                    <field name="request_type" />
+                    <field name="partner_id" />
+                    <field name="int_instance_id" />
+                    <field name="state" />
+
+                    <field name="expire_date"
+                        invisible="context.get('invisible_expire_date', True)" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- FORM -->
+        <record id="membership_request_form_view" model="ir.ui.view">
+            <field name="name">membership.request.form</field>
+            <field name="model">membership.request</field>
+            <field name="arch" type="xml">
+                <form string="Membership Request" version="7.0">
+                    <header>
+                        <span
+                            attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                            invisible="context.get('popup')">
+
+                            <button name="confirm_request"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"
+                                string="Confirm" type="object"
+                                confirm="Confirm Membership Request: proceed anyway?" />
+
+                            <!-- Validate or Cancel State -->
+                            <button name="validate_request"
+                                attrs="{'invisible': [('state', '!=', 'confirm')]}"
+                                string="Validate" type="object"
+                                confirm="Validate Membership Request: proceed anyway?"
+                                groups="mozaik_base.mozaik_res_groups_officer" />
+                            <button name="cancel_request" string="Cancel"
+                                attrs="{'invisible': [('state', '!=', 'confirm')]}"
+                                type="object"
+                                confirm="Cancel Membership Request: proceed anyway?"
+                                groups="mozaik_base.mozaik_res_groups_officer" />
+
+                        </span>
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="draft,confirm,validate" groups="mozaik_base.res_groups_base"/>
+                    </header>
+                    <sheet>
+                        <h3 attrs="{'invisible': [('id', '=', False)]}"
+                            groups="mozaik_base.res_groups_base">
+                            <label string="#" />
+                            <field name="identifier" readonly="1"
+                                attrs="{'invisible': [('identifier', '=', 0)]}"
+                                class="oe_inline" />
+                            <span
+                                attrs="{'invisible':[('partner_id', '!=', False)]}">
+                                NEW
+                            </span>
+                            <span
+                                attrs="{'invisible':['|',('partner_id', '=', False),
+                                                        ('membership_state_id', '=', False)]}">
+                                (
+                                <field name="membership_state_id"
+                                    readonly="1" class="oe_inline" options='{"no_open":True, "no_create":True}'/>
+                                <label string="to"/>
+                                <field name="result_type_id"
+                                    readonly="1" class="oe_inline" options='{"no_open":True, "no_create":True}'/>
+                                )
+                            </span>
+                        </h3>
+                        <div class="oe_right oe_button_box" name="buttons"
+                             invisible="context.get('popup')">
+                        </div>
+
+                        <group name="partner">
+                            <group name="partner_info1">
+                                <field name="lastname"
+                                    on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
+                                <field name="firstname"
+                                    on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)" />
+                            </group>
+                            <group name="request_info">
+                                <field name="request_type"
+                                    on_change="onchange_partner_id(request_type, partner_id)" />
+                            </group>
+                        </group>
+
+                        <group name="partner_more_info">
+                            <group name="gender_bdate">
+                                <label for="day" string="Birth Date"/>
+                                <div>
+                                    <field name="day" widget="char" style="width: 25%" placeholder="DD"
+                                           on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)"/>
+                                    <label string=" / "/>
+                                    <field name="month" widget="char" style="width: 25%" placeholder="MM"
+                                           on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)"/>
+                                    <label string=" / "/>
+                                    <field name="year" widget="char" style="width: 40%" placeholder="YYYY"
+                                           on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)"/>
+                                </div>
+                                <field name="gender"/>
+                            </group>
+                            <group name="coordinates">
+                                <field name="phone" on_change="onchange_phone(phone)"/>
+                                <field name="mobile" on_change="onchange_mobile(mobile)"/>
+                                <field name="email" on_change="onchange_partner_component(day,month,year,lastname,firstname,email,is_update)"/>
+                            </group>
+                        </group>
+
+                        <group name="address_informations">
+                            <group name="country">
+                                <field name="country_id"
+                                    on_change="onchange_country_id(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)"
+                                    attrs="{'required': ['|',('zip_man','!=', False),('address_local_zip_id','!=', False)]}"
+                                    options='{"no_open":True, "no_create":True}' />
+                            </group>
+                            <group name="city">
+                                <field name="address_local_zip_id"
+                                    on_change="onchange_local_zip_id(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)"
+                                    attrs="{'invisible': [('country_code','!=', 'BE')],
+                                            'required': [('country_code','=', 'BE')]}"
+                                    options='{"no_open":True, "no_create":True}' />
+                                <field name="zip_man"
+                                    on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)"
+                                    attrs="{'invisible': [('country_code','=', 'BE'),('address_local_zip_id', '!=', False)]}" />
+                                <field name="town_man"
+                                    on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)"
+                                    attrs="{'invisible': [('country_code','=', 'BE'),('address_local_zip_id', '!=', False)]}" />
+                            </group>
+                            <group name="streets" attrs="{'invisible': [('country_id', '=', False)]}">
+                                <field name="address_local_street_id"
+                                    domain="[('local_zip','=',local_zip),('disabled','=',False)]"
+                                    on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)"
+                                    attrs="{'invisible': [('country_code','!=', 'BE')]}"
+                                    options='{"no_open":True, "no_create":True}' />
+                                <field name="street_man"
+                                    on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)"
+                                    attrs="{'invisible': [('address_local_street_id','!=', False)]}" />
+                                <field name="street2" />
+                            </group>
+                            <group name="numbers" attrs="{'invisible': [('country_id', '=', False)]}">
+                                <field name="number"
+                                    on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)" />
+                                <field name="box"
+                                    on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)" />
+                                <field name="sequence" />
+                            </group>
+                        </group>
+
+                        <group name="comp_int">
+                            <group name="competencies">
+                                <field name="competencies" />
+                            </group>
+                            <group name="interests">
+                                <field name="interests" />
+                            </group>
+                        </group>
+
+                        <group name="note">
+                            <field name="note" />
+                        </group>
+
+                        <notebook groups="mozaik_base.mozaik_res_groups_officer">
+                            <page string="Partner" name="partner">
+                                <group>
+                                    <field name="partner_id"
+                                        domain="[('is_company','=', False),('identifier','!=',0)]"
+                                        attrs="{'readonly':[('is_update', '=', True)],
+                                                   'required':[('is_update', '=', True)]}"
+                                        on_change="onchange_partner_id(request_type, partner_id)" />
+                                    <field name="birth_date" />
+                                    <field name="int_instance_id"
+                                        readonly="1" />
+                                </group>
+                            </page>
+                            <page string="Indexation" name="indexation">
+                                <group>
+                                    <field name="competencies_m2m_ids"
+                                        widget="many2many_tags" />
+                                    <field name="interests_m2m_ids"
+                                        widget="many2many_tags" />
+                                </group>
+                                <div class="oe_clear">
+                                    <!-- Some blank lines to see the entire elapsed many2many_tags widget -->
+                                    <br />
+                                    <br />
+                                </div>
+                            </page>
+                            <page string="Coordinates" name="coordinates">
+                                <group>
+                                    <field name="address_id" />
+                                </group>
+                                <group>
+                                    <field name="phone_id" />
+                                    <field name="mobile_id" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <div
+                                attrs="{'invisible': ['|',('id','=',False),('active','=',True)]}">
+                                <button name="action_validate"
+                                    string="Reactivate" type="object"
+                                    confirm="Reactivate document: proceed anyway?" />
+                            </div>
+                            <div
+                                attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}">
+                                <button name="action_invalidate"
+                                    string="Invalidate" type="object"
+                                    confirm="Invalidate Membership Request: proceed anyway?" />
+                            </div>
+                            <group name="moreinfo">
+                                <field name="id" />
+                                <field name="is_update" />
+                                <field name="technical_name"
+                                    on_change="onchange_technical_name(technical_name)" />
+                                <field name="country_code"
+                                    on_change="onchange_other_address_componants(address_local_street_id, address_local_zip_id,
+                                                   number, box, town_man, street_man, zip_man, country_id)" />
+                                <field name="local_zip" />
+                                <field name="active" />
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')" groups="mozaik_base.res_groups_base">
+                        <field name="message_follower_ids" widget="mail_followers"
+                            groups="mozaik_base.mozaik_res_groups_configurator" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+
+        <record id="membership_request_action" model="ir.actions.act_window">
+            <field name="name">Membership Requests</field>
+            <field name="res_model">membership.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="membership_request_tree_view" />
+            <field name="search_view_id" ref="membership_request_search_view" />
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="distribution_list.access_distribution_list_user" model="ir.model.access">
+            <field name="group_id" eval="ref('mozaik_base.mozaik_res_groups_user')"/>
+        </record>
+
+        <record id="distribution_list.access_distribution_list_line_user" model="ir.model.access">
+            <field name="group_id" eval="ref('mozaik_base.mozaik_res_groups_user')"/>
+        </record>
+
+        <!-- Pyramidal Confidentiality -->
+
+        <record id="distribution_list_base_cud_rule" model="ir.rule">
+            <field name="name">Distribution List (CUD) for Mozaik Base</field>
+            <field name="model_id" ref="distribution_list.model_distribution_list" />
+            <field name="domain_force">[('res_users_ids','in', [user.id])]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="distribution_list_base_r_rule" model="ir.rule">
+            <field name="name">Distribution List (R) for Mozaik Base</field>
+            <field name="model_id" ref="distribution_list.model_distribution_list"/>
+            <field name="domain_force">['|',('int_instance_id','=',False),
+                                            ('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="email_template_base_cud_rule" model="ir.rule">
+            <field name="name">Email Template (CUD) for Mozaik Base</field>
+            <field name="model_id" ref="email_template.model_email_template" />
+            <field name="domain_force">[('res_users_ids','in', [user.id])]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="email_template_base_r_rule" model="ir.rule">
+            <field name="name">Email Template (R) for Mozaik Base</field>
+            <field name="model_id" ref="email_template.model_email_template"/>
+            <field name="domain_force">['|',('int_instance_id','=',False),
+                                            ('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="postal_mail_log_base_rule" model="ir.rule">
+            <field name="name">Postal Mail Log for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_communication.model_postal_mail_log"/>
+            <field name="domain_force">[('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="event_base_rule" model="ir.rule">
+            <field name="name">Event for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_communication.model_event_event"/>
+            <field name="domain_force">[('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="event_registration_base_rule" model="ir.rule">
+            <field name="name">Event Registration for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_communication.model_event_registration"/>
+            <field name="domain_force">[('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="virtual_partner_involvement_base_rule" model="ir.rule">
+            <field name="name">Partner/Involvement for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_communication.model_virtual_partner_involvement"/>
+            <field name="domain_force">[('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="virtual_partner_relation_base_rule" model="ir.rule">
+            <field name="name">Partner/Relation for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_communication.model_virtual_partner_relation"/>
+            <field name="domain_force">[('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="virtual_partner_instance_base_rule" model="ir.rule">
+            <field name="name">Partner/Instance for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_communication.model_virtual_partner_instance"/>
+            <field name="domain_force">[('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="virtual_partner_mandate_base_rule" model="ir.rule">
+            <field name="name">Partner/Mandate for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_communication.model_virtual_partner_mandate"/>
+            <field name="domain_force">[
+                '|',
+                ('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                ('mandate_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="virtual_partner_candidature_base_rule" model="ir.rule">
+            <field name="name">Partner/Candidature for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_communication.model_virtual_partner_candidature"/>
+            <field name="domain_force">[
+                ('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                ('designation_int_assembly_id.int_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="virtual_assembly_instance_base_rule" model="ir.rule">
+            <field name="name">Assembly/Instance for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_communication.model_virtual_assembly_instance"/>
+            <field name="domain_force">[('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="virtual_partner_retrocession_base_rule" model="ir.rule">
+            <field name="name">Partner/Retrocession for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_communication.model_virtual_partner_retrocession"/>
+            <field name="domain_force">[
+                ('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+                ('retro_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="virtual_partner_membership_base_rule" model="ir.rule">
+            <field name="name">Partner/Membership for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_communication.model_virtual_partner_membership"/>
+            <field name="domain_force">[('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="virtual_partner_event_base_rule" model="ir.rule">
+            <field name="name">Partner/Event for Mozaik Base</field>
+            <field name="model_id" ref="mozaik_communication.model_virtual_partner_event"/>
+            <field name="domain_force">[('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+    </data>
+</openerp>

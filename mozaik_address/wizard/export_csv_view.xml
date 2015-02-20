@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Export active coordinates to CSV -->
+
+        <record id="export_csv_postal_action" model="ir.actions.act_window">
+            <field name="name">Export CSV</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">postal.coordinate</field>
+            <field name="res_model">export.csv</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="mozaik_coordinate.export_csv_wizard"/>
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]"/>
+        </record>
+
+        <record id="export_csv_postal_values" model="ir.values">
+            <field name="name">Export CSV</field>
+            <field name="model">postal.coordinate</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('export_csv_postal_action')"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,1842 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * mozaik_communication
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-06 19:50+0000\n"
+"PO-Revision-Date: 2015-02-06 19:50+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/postal_mail.py:80
+#: code:addons/mozaik_communication/postal_mail.py:202
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (copie)"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/postal_mail.py:187
+#, python-format
+msgid "A postal mail log cannot be copied when linked to a postal mailing!"
+msgstr "Un courrier postal ne peut être dupliqué s'il est lié à un envoi postal de masse !"
+
+#. module: mozaik_communication
+#: field:distribution.list,active:0
+#: field:distribution.list.line,active:0
+#: field:event.event,active:0
+#: field:event.registration,active:0
+#: field:postal.mail,active:0
+#: field:postal.mail.log,active:0
+#: field:virtual.assembly.instance,active:0
+#: field:virtual.partner.candidature,active:0
+#: field:virtual.partner.event,active:0
+#: field:virtual.partner.instance,active:0
+#: field:virtual.partner.involvement,active:0
+#: field:virtual.partner.mandate,active:0
+#: field:virtual.partner.membership,active:0
+#: field:virtual.partner.relation,active:0
+#: field:virtual.partner.retrocession,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: mozaik_communication
+#: view:add.registration:mozaik_communication.add_registration_wizard
+msgid "Add"
+msgstr "Ajouter"
+
+#. module: mozaik_communication
+#: model:ir.actions.act_window,name:mozaik_communication.add_filter_from_assembly_action
+#: model:ir.actions.act_window,name:mozaik_communication.add_filter_from_candidature_action
+#: model:ir.actions.act_window,name:mozaik_communication.add_filter_from_event_action
+#: model:ir.actions.act_window,name:mozaik_communication.add_filter_from_instance_action
+#: model:ir.actions.act_window,name:mozaik_communication.add_filter_from_invovlement_action
+#: model:ir.actions.act_window,name:mozaik_communication.add_filter_from_mandate_action
+#: model:ir.actions.act_window,name:mozaik_communication.add_filter_from_membership_action
+#: model:ir.actions.act_window,name:mozaik_communication.add_filter_from_relation_action
+#: model:ir.actions.act_window,name:mozaik_communication.add_filter_from_retrocession_action
+msgid "Add Filter To Distribution List"
+msgstr "Ajouter ce filtre à une liste de distribution"
+
+#. module: mozaik_communication
+#: view:add.registration:mozaik_communication.add_registration_wizard
+#: model:ir.actions.act_window,name:mozaik_communication.add_registration_action
+#: model:ir.model,name:mozaik_communication.model_add_registration
+msgid "Add Registrations"
+msgstr "Ajouter des inscriptions"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_search
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_search
+#: view:event.event:mozaik_communication.view_event_search
+#: view:event.registration:mozaik_communication.view_registration_search
+#: view:postal.mail:mozaik_communication.postal_mail_search_view
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
+msgid "All"
+msgstr "Tous"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_search
+msgid "All Distribution Lists, expired or not"
+msgstr "Toutes les listes de distributions, expirées ou non"
+
+#. module: mozaik_communication
+#: view:event.event:mozaik_communication.view_event_search
+msgid "All Events, expired or not"
+msgstr "Tous les événements, expirés ou non"
+
+#. module: mozaik_communication
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_search
+msgid "All Filters, expired or not"
+msgstr "Tous les filtres, expirés ou non"
+
+#. module: mozaik_communication
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
+msgid "All Postal Mail Logs, expired or not"
+msgstr "Tous les courriers postaux, expirés ou non"
+
+#. module: mozaik_communication
+#: view:postal.mail:mozaik_communication.postal_mail_search_view
+msgid "All Postal Mailings, expired or not"
+msgstr "Tous les envois postaux de masse, expirés ou non"
+
+#. module: mozaik_communication
+#: view:event.registration:mozaik_communication.view_registration_search
+msgid "All Registrations, expired or not"
+msgstr "Toutes les inscriptions, expirées ou non"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,month:0
+msgid "April"
+msgstr "Avril"
+
+#. module: mozaik_communication
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+msgid "Assemblies"
+msgstr "Assemblées"
+
+#. module: mozaik_communication
+#: model:ir.actions.act_window,name:mozaik_communication.virtual_assembly_instance_action
+#: model:ir.ui.menu,name:mozaik_communication.virtual_assembly_instance_menu
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_tree_view
+msgid "Assemblies/Instances"
+msgstr "Assemblées/Instances"
+
+#. module: mozaik_communication
+#: field:virtual.assembly.instance,partner_id:0
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: field:virtual.partner.candidature,assembly_id:0
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,assembly_id:0
+msgid "Assembly"
+msgstr "Assemblée"
+
+#. module: mozaik_communication
+#: field:virtual.assembly.instance,category:0
+msgid "Assembly Category"
+msgstr "Catégorie d'assemblées"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_virtual_assembly_instance
+msgid "Assembly/Instance"
+msgstr "Assemblée/Instance"
+
+#. module: mozaik_communication
+#: view:event.registration:mozaik_communication.view_event_registration_form
+msgid "Attended"
+msgstr "Présent"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,month:0
+msgid "August"
+msgstr "Août"
+
+#. module: mozaik_communication
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+msgid "Awaiting payment"
+msgstr "En attente de paiement"
+
+#. module: mozaik_communication
+#: field:virtual.partner.candidature,birth_date:0
+#: field:virtual.partner.event,birth_date:0
+#: field:virtual.partner.instance,birth_date:0
+#: field:virtual.partner.involvement,birth_date:0
+#: field:virtual.partner.mandate,birth_date:0
+#: field:virtual.partner.membership,birth_date:0
+#: field:virtual.partner.relation,birth_date:0
+#: field:virtual.partner.retrocession,birth_date:0
+#: field:virtual.target,birth_date:0
+msgid "Birth Date"
+msgstr "Date de naissance"
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+msgid "Birth Date < ..."
+msgstr "Date de naissance < ..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+msgid "Birth Date > ..."
+msgstr "Date de naissance > ..."
+
+#. module: mozaik_communication
+#: selection:distribution.list.mass.function,e_mass_function:0
+#: selection:distribution.list.mass.function,p_mass_function:0
+msgid "CSV Extraction"
+msgstr "Extraction CSV"
+
+#. module: mozaik_communication
+#: view:add.registration:mozaik_communication.add_registration_wizard
+#: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: mozaik_communication
+#: view:event.registration:mozaik_communication.view_event_registration_form
+msgid "Cancel Registration"
+msgstr "Annuler l'inscription"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,state:0
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: mozaik_communication
+#: field:virtual.assembly.instance,common_id:0
+#: field:virtual.partner.candidature,common_id:0
+#: field:virtual.partner.event,common_id:0
+#: field:virtual.partner.instance,common_id:0
+#: field:virtual.partner.involvement,common_id:0
+#: field:virtual.partner.mandate,common_id:0
+#: field:virtual.partner.membership,common_id:0
+#: field:virtual.partner.relation,common_id:0
+#: field:virtual.partner.retrocession,common_id:0
+msgid "Common ID"
+msgstr "Common ID"
+
+#. module: mozaik_communication
+#: field:virtual.assembly.instance,competencies_m2m_ids:0
+#: field:virtual.partner.candidature,competencies_m2m_ids:0
+#: field:virtual.partner.event,competencies_m2m_ids:0
+#: field:virtual.partner.instance,competencies_m2m_ids:0
+#: field:virtual.partner.involvement,competencies_m2m_ids:0
+#: field:virtual.partner.membership,competencies_m2m_ids:0
+#: field:virtual.partner.relation,competencies_m2m_ids:0
+#: field:virtual.partner.retrocession,competencies_m2m_ids:0
+msgid "Competencies"
+msgstr "Compétences"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+msgid "Competencies & Topics"
+msgstr "Compétences & thèmes"
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,extract_csv:0
+msgid "Complementary Postal CSV"
+msgstr "CSV complémentaire pour envoi postal"
+
+#. module: mozaik_communication
+#: model:ir.ui.menu,name:mozaik_communication.configuration_submenu
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: mozaik_communication
+#: view:event.registration:mozaik_communication.view_event_registration_form
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: mozaik_communication
+#: field:virtual.target,country_id:0
+msgid "Country"
+msgstr "Pays"
+
+#. module: mozaik_communication
+#: field:add.registration,create_uid:0
+#: field:distribution.list.mass.function,create_uid:0
+#: field:postal.mail,create_uid:0
+#: field:postal.mail.log,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: mozaik_communication
+#: field:add.registration,create_date:0
+#: field:distribution.list.mass.function,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: mozaik_communication
+#: field:postal.mail,create_date:0
+#: field:postal.mail.log,create_date:0
+msgid "Creation Date"
+msgstr "Date de création"
+
+#. module: mozaik_communication
+#: help:distribution.list.line,message_last_post:0
+#: help:postal.mail,message_last_post:0
+#: help:postal.mail.log,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur l'enregistrement."
+
+#. module: mozaik_communication
+#: field:virtual.partner.mandate,deadline_date:0
+msgid "Deadline Date"
+msgstr "Date d'échéance"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,month:0
+msgid "December"
+msgstr "Décembre"
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: field:virtual.partner.candidature,designation_int_assembly_id:0
+msgid "Designation Assembly"
+msgstr "Assemblée de désignation"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_form
+msgid "Direct Mass Mailing"
+msgstr "Courriel de masse direct"
+
+#. module: mozaik_communication
+#: field:virtual.target,display_name:0
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: mozaik_communication
+#: field:add.registration,distribution_list_id:0
+#: field:distribution.list.mass.function,distribution_list_id:0
+#: model:ir.model,name:mozaik_communication.model_distribution_list
+msgid "Distribution List"
+msgstr "Liste de distribution"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_distribution_list_line
+msgid "Distribution List Line"
+msgstr "Ligne de liste de distribution"
+
+#. module: mozaik_communication
+#: model:ir.ui.menu,name:mozaik_communication.distribution_lists_submenu
+msgid "Distribution Lists"
+msgstr "Listes de distribution"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,state:0
+msgid "Done"
+msgstr "Terminé"
+
+#. module: mozaik_communication
+#: field:virtual.target,email_bounce_counter:0
+msgid "Email Bounce Counter"
+msgstr "Compteur d'échecs de courriel"
+
+#. module: mozaik_communication
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+msgid "Email Category"
+msgstr "Catégorie d'adresse électronique"
+
+#. module: mozaik_communication
+#: selection:distribution.list.mass.function,trg_model:0
+#: field:event.registration,email_coordinate_id:0
+#: model:ir.model,name:mozaik_communication.model_email_coordinate
+#: field:virtual.assembly.instance,email_coordinate_id:0
+#: field:virtual.partner.candidature,email_coordinate_id:0
+#: field:virtual.partner.event,email_coordinate_id:0
+#: field:virtual.partner.instance,email_coordinate_id:0
+#: field:virtual.partner.involvement,email_coordinate_id:0
+#: field:virtual.partner.mandate,email_coordinate_id:0
+#: field:virtual.partner.membership,email_coordinate_id:0
+#: field:virtual.partner.relation,email_coordinate_id:0
+#: field:virtual.partner.retrocession,email_coordinate_id:0
+#: field:virtual.target,email:0
+msgid "Email Coordinate"
+msgstr "Coordonnée électronique"
+
+#. module: mozaik_communication
+#: field:virtual.partner.event,email_category_id:0
+#: field:virtual.partner.instance,email_category_id:0
+#: field:virtual.partner.membership,email_category_id:0
+msgid "Email Coordinate Category"
+msgstr "Catégorie de coordonnée électronique"
+
+#. module: mozaik_communication
+#: field:virtual.target,email_coordinate_id:0
+msgid "Email Coordinate ID"
+msgstr "ID de coordonnée électronique"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_mail_mail_statistics
+msgid "Email Statistics"
+msgstr "Statistiques de courriel de masse"
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,email_template_id:0
+msgid "Email Template"
+msgstr "Modèle de courriel"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_email_template
+msgid "Email Templates"
+msgstr "Modèles de courriels"
+
+#. module: mozaik_communication
+#: field:virtual.partner.involvement,email_unauthorized:0
+#: field:virtual.target,email_unauthorized:0
+msgid "Email Unauthorized"
+msgstr "Adresse électronique interdite"
+
+#. module: mozaik_communication
+#: field:virtual.partner.involvement,email_vip:0
+msgid "Email VIP"
+msgstr "Adresse électronique VIP"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_mail_compose_message
+msgid "Email composition wizard"
+msgstr "Assistant de composition de courriel"
+
+#. module: mozaik_communication
+#: field:virtual.target,email_is_main:0
+msgid "Email is Main"
+msgstr "Adresse électronique principale"
+
+#. module: mozaik_communication
+#: field:virtual.partner.candidature,employee:0
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: field:virtual.partner.event,employee:0
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: field:virtual.partner.instance,employee:0
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: field:virtual.partner.involvement,employee:0
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,employee:0
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: field:virtual.partner.membership,employee:0
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: field:virtual.partner.relation,employee:0
+#: field:virtual.partner.retrocession,employee:0
+msgid "Employee"
+msgstr "Employé"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/event.py:80
+#: code:addons/mozaik_communication/postal_mail.py:187
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:198
+#, python-format
+msgid "Error"
+msgstr "Erreur"
+
+#. module: mozaik_communication
+#: field:add.registration,event_id:0
+#: model:ir.model,name:mozaik_communication.model_event_event
+#: field:virtual.partner.event,event_id:0
+msgid "Event"
+msgstr "Évènement"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_event_registration
+#: field:virtual.partner.event,event_registration_id:0
+msgid "Event Registration"
+msgstr "Inscription à l'évènement"
+
+#. module: mozaik_communication
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+msgid "Events"
+msgstr "Évènements"
+
+#. module: mozaik_communication
+#: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+msgid "Execute Distribution List"
+msgstr "Exécuter la liste de distribution"
+
+#. module: mozaik_communication
+#: field:distribution.list,expire_date:0
+#: field:distribution.list.line,expire_date:0
+#: field:event.event,expire_date:0
+#: field:event.registration,expire_date:0
+#: field:postal.mail,expire_date:0
+#: field:postal.mail.log,expire_date:0
+msgid "Expiration Date"
+msgstr "Date d'expiration"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_search
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_search
+#: view:event.event:mozaik_communication.view_event_search
+#: view:event.registration:mozaik_communication.view_registration_search
+#: view:postal.mail:mozaik_communication.postal_mail_search_view
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
+msgid "Expired"
+msgstr "Expiré"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_search
+msgid "Expired Distribution Lists"
+msgstr "Listes de distribution expirées"
+
+#. module: mozaik_communication
+#: view:event.event:mozaik_communication.view_event_search
+msgid "Expired Events"
+msgstr "Évènements expirés"
+
+#. module: mozaik_communication
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_search
+msgid "Expired Filters"
+msgstr "Filtres expirés"
+
+#. module: mozaik_communication
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
+msgid "Expired Postal Mail Logs"
+msgstr "Courriers postaux expirés"
+
+#. module: mozaik_communication
+#: view:postal.mail:mozaik_communication.postal_mail_search_view
+msgid "Expired Postal Mailings"
+msgstr "Envois postaux expirés"
+
+#. module: mozaik_communication
+#: view:event.registration:mozaik_communication.view_registration_search
+msgid "Expired Registrations"
+msgstr "Inscriptions expirées"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:307
+#, python-format
+msgid "Export CSV"
+msgstr "Exportation CSV""
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:264
+#, python-format
+msgid "Export PDF"
+msgstr "Exportation PDF"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:324
+#, python-format
+msgid "Export VCF"
+msgstr "Exportation VCF"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+msgid "External Assembly"
+msgstr "Assemblée externe"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: field:virtual.assembly.instance,ext_category_assembly_id:0
+msgid "External Assembly Category"
+msgstr "Catégorie d'assemblée externe"
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+msgid "External Candidature"
+msgstr "Candidature externe"
+
+#. module: mozaik_communication
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,ext_mandate_id:0
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.partner.retrocession,ext_mandate_id:0
+msgid "External Mandate"
+msgstr "Mandat externe"
+
+#. module: mozaik_communication
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,ext_competencies_m2m_ids:0
+msgid "External Mandate Competencies"
+msgstr "Compétences de mandat externe"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,month:0
+msgid "February"
+msgstr "Février"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.candidature,gender:0
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: selection:virtual.partner.event,gender:0
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: selection:virtual.partner.instance,gender:0
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: selection:virtual.partner.involvement,gender:0
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: selection:virtual.partner.mandate,gender:0
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: selection:virtual.partner.membership,gender:0
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: selection:virtual.partner.relation,gender:0
+#: selection:virtual.partner.retrocession,gender:0
+msgid "Female"
+msgstr "Femme"
+
+#. module: mozaik_communication
+#: field:virtual.target,firstname:0
+msgid "Firstname"
+msgstr "Prénom"
+
+#. module: mozaik_communication
+#: field:distribution.list.line,message_follower_ids:0
+#: field:postal.mail,message_follower_ids:0
+#: field:postal.mail.log,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.candidature,tongue:0
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: selection:virtual.partner.event,tongue:0
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: selection:virtual.partner.instance,tongue:0
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: selection:virtual.partner.involvement,tongue:0
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: selection:virtual.partner.mandate,tongue:0
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: selection:virtual.partner.membership,tongue:0
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: selection:virtual.partner.relation,tongue:0
+#: selection:virtual.partner.retrocession,tongue:0
+msgid "French"
+msgstr "Français"
+
+#. module: mozaik_communication
+#: field:virtual.partner.candidature,gender:0
+#: field:virtual.partner.event,gender:0
+#: field:virtual.partner.instance,gender:0
+#: field:virtual.partner.involvement,gender:0
+#: field:virtual.partner.mandate,gender:0
+#: field:virtual.partner.membership,gender:0
+#: field:virtual.partner.relation,gender:0
+#: field:virtual.partner.retrocession,gender:0
+msgid "Gender"
+msgstr "Genre"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.candidature,tongue:0
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: selection:virtual.partner.event,tongue:0
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: selection:virtual.partner.instance,tongue:0
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: selection:virtual.partner.involvement,tongue:0
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: selection:virtual.partner.mandate,tongue:0
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: selection:virtual.partner.membership,tongue:0
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: selection:virtual.partner.relation,tongue:0
+#: selection:virtual.partner.retrocession,tongue:0
+msgid "German"
+msgstr "Allemand"
+
+#. module: mozaik_communication
+#: help:distribution.list.mass.function,extract_csv:0
+msgid "Get a CSV file for partners without email"
+msgstr "Produire un fichier CSV pour les partenaires sans adresse électronique"
+
+#. module: mozaik_communication
+#: view:postal.mail:mozaik_communication.postal_mail_search_view
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+msgid "Group By..."
+msgstr "Grouper par..."
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,groupby_coresidency:0
+msgid "Group by Co-Residency"
+msgstr "Grouper par Co-Résidence"
+
+#. module: mozaik_communication
+#: view:postal.mail:mozaik_communication.postal_mail_form_view
+msgid "History"
+msgstr "Historique"
+
+#. module: mozaik_communication
+#: help:distribution.list.line,message_summary:0
+#: help:postal.mail,message_summary:0
+#: help:postal.mail.log,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est au format HTML pour permettre son utilisation dans la vue kanban."
+
+#. module: mozaik_communication
+#: field:add.registration,id:0
+#: field:distribution.list.mass.function,id:0
+#: field:postal.mail,id:0
+#: field:postal.mail.log,id:0
+#: field:virtual.assembly.instance,id:0
+#: field:virtual.partner.candidature,id:0
+#: field:virtual.partner.event,id:0
+#: field:virtual.partner.instance,id:0
+#: field:virtual.partner.involvement,id:0
+#: field:virtual.partner.mandate,id:0
+#: field:virtual.partner.membership,id:0
+#: field:virtual.partner.relation,id:0
+#: field:virtual.partner.retrocession,id:0
+#: field:virtual.target,id:0
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_communication
+#: selection:distribution.list.mass.function,sort_by:0
+msgid "Identification Number"
+msgstr "Numéro d'identification"
+
+#. module: mozaik_communication
+#: field:virtual.target,identifier:0
+msgid "Identifier"
+msgstr "Identifiant"
+
+#. module: mozaik_communication
+#: help:distribution.list.line,message_unread:0
+#: help:postal.mail,message_unread:0
+#: help:postal.mail.log,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages requièrent votre attention."
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,include_unauthorized:0
+msgid "Include Unauthorized"
+msgstr "Inclure les interdits"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_search
+#: view:email.template:mozaik_communication.view_email_template_search
+#: view:event.event:mozaik_communication.view_event_search
+#: field:virtual.assembly.instance,int_instance_id:0
+#: field:virtual.partner.candidature,int_instance_id:0
+#: field:virtual.partner.event,int_instance_id:0
+#: field:virtual.partner.instance,int_instance_id:0
+#: field:virtual.partner.involvement,int_instance_id:0
+#: field:virtual.partner.mandate,int_instance_id:0
+#: field:virtual.partner.membership,int_instance_id:0
+#: field:virtual.partner.relation,int_instance_id:0
+#: field:virtual.partner.retrocession,int_instance_id:0
+msgid "Instance"
+msgstr "Instance"
+
+#. module: mozaik_communication
+#: field:virtual.assembly.instance,interests_m2m_ids:0
+#: field:virtual.partner.candidature,interests_m2m_ids:0
+#: field:virtual.partner.event,interests_m2m_ids:0
+#: field:virtual.partner.instance,interests_m2m_ids:0
+#: field:virtual.partner.involvement,interests_m2m_ids:0
+#: field:virtual.partner.membership,interests_m2m_ids:0
+#: field:virtual.partner.relation,interests_m2m_ids:0
+#: field:virtual.partner.retrocession,interests_m2m_ids:0
+msgid "Interests"
+msgstr "Intérêts"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+msgid "Internal Assembly"
+msgstr "Assemblée interne"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: field:virtual.assembly.instance,int_category_assembly_id:0
+msgid "Internal Assembly Category"
+msgstr "Catégorie d'assemblée interne"
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+msgid "Internal Candidature"
+msgstr "Candidature interne"
+
+#. module: mozaik_communication
+#: field:distribution.list,int_instance_id:0
+#: field:distribution.list.mass.function,internal_instance_id:0
+#: field:email.template,int_instance_id:0
+#: field:event.event,int_instance_id:0
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.target,int_instance_id:0
+msgid "Internal Instance"
+msgstr "Instance interne"
+
+#. module: mozaik_communication
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+msgid "Internal Mandate"
+msgstr "Mandat interne"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: field:virtual.assembly.instance,int_power_level_id:0
+msgid "Internal Power Level"
+msgstr "Niveau de pouvoir interne"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/mass_mailing.py:61
+#, python-format
+msgid "Invalid Email Address"
+msgstr "Adresse électronique invalide"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_form
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+#: view:event.registration:mozaik_communication.view_event_registration_form
+#: view:postal.mail:mozaik_communication.postal_mail_form_view
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_form_view
+msgid "Invalidate"
+msgstr "Invalider"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_form
+#: view:event.registration:mozaik_communication.view_event_registration_form
+msgid "Invalidate Distribution List: proceed anyway?"
+msgstr "Poursuivre l'invalidation la liste de distribution ?"
+
+#. module: mozaik_communication
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+msgid "Invalidate Filter: proceed anyway?"
+msgstr "Poursuivre l'invalidation du filtre ?"
+
+#. module: mozaik_communication
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_form_view
+msgid "Invalidate Postal Mail Log: proceed anyway?"
+msgstr "Poursuivre l'invalidation du courrier postal ?"
+
+#. module: mozaik_communication
+#: view:postal.mail:mozaik_communication.postal_mail_form_view
+msgid "Invalidate Postal Mailing: proceed anyway?"
+msgstr "Poursuivre l'invalidation de l'envoi postal de masse ?"
+
+#. module: mozaik_communication
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: field:virtual.partner.involvement,involvement_category_id:0
+msgid "Involvement Category"
+msgstr "Catégorie de participation"
+
+#. module: mozaik_communication
+#: field:virtual.target,is_company:0
+msgid "Is Company"
+msgstr "Personne morale"
+
+#. module: mozaik_communication
+#: field:virtual.partner.instance,is_company:0
+#: field:virtual.partner.involvement,is_company:0
+#: field:virtual.partner.relation,is_company:0
+msgid "Is a Company"
+msgstr "Personne morale"
+
+#. module: mozaik_communication
+#: field:distribution.list.line,message_is_follower:0
+#: field:postal.mail,message_is_follower:0
+#: field:postal.mail.log,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est abonné"
+
+#. module: mozaik_communication
+#: field:virtual.partner.relation,is_assembly:0
+msgid "Is an Assembly"
+msgstr "Est une assemblée"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,month:0
+msgid "January"
+msgstr "Janvier"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,month:0
+msgid "July"
+msgstr "Juillet"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,month:0
+msgid "June"
+msgstr "Juin"
+
+#. module: mozaik_communication
+#: selection:distribution.list.mass.function,p_mass_function:0
+msgid "Label Printing"
+msgstr "Impression d'étiquettes"
+
+#. module: mozaik_communication
+#: field:distribution.list.line,message_last_post:0
+#: field:postal.mail,message_last_post:0
+#: field:postal.mail.log,message_last_post:0
+msgid "Last Message Date"
+msgstr "Date du dernier message"
+
+#. module: mozaik_communication
+#: field:add.registration,write_uid:0
+#: field:distribution.list.mass.function,write_uid:0
+#: field:postal.mail,write_uid:0
+#: field:postal.mail.log,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: mozaik_communication
+#: field:add.registration,write_date:0
+#: field:distribution.list.mass.function,write_date:0
+#: field:postal.mail,write_date:0
+#: field:postal.mail.log,write_date:0
+msgid "Last Updated on"
+msgstr "Date de dernière mise à jour"
+
+#. module: mozaik_communication
+#: field:virtual.target,lastname:0
+msgid "Lastname"
+msgstr "Nom"
+
+#. module: mozaik_communication
+#: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+msgid "Launch"
+msgstr "Exécuter"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+msgid "Legal Persons"
+msgstr "Personnes morales"
+
+#. module: mozaik_communication
+#: field:event.event,postal_coordinate_id:0
+msgid "Location"
+msgstr "Lieu"
+
+#. module: mozaik_communication
+#: field:postal.mail,postal_mail_log_count:0
+msgid "Log Count"
+msgstr "Nombre de courriers"
+
+#. module: mozaik_communication
+#: model:ir.ui.menu,name:mozaik_communication.mailings_submenu
+msgid "Mailings"
+msgstr "Courriels"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+msgid "Main Coordinate"
+msgstr "Coordonnée principale"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: field:virtual.partner.instance,main_email:0
+msgid "Main Email"
+msgstr "Adresse électronique principale"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: field:virtual.partner.instance,main_postal:0
+msgid "Main Postal"
+msgstr "Adresse principale"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.candidature,gender:0
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: selection:virtual.partner.event,gender:0
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: selection:virtual.partner.instance,gender:0
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: selection:virtual.partner.involvement,gender:0
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: selection:virtual.partner.mandate,gender:0
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: selection:virtual.partner.membership,gender:0
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: selection:virtual.partner.relation,gender:0
+#: selection:virtual.partner.retrocession,gender:0
+msgid "Male"
+msgstr "Homme"
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: field:virtual.partner.candidature,mandate_category_id:0
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,mandate_category_id:0
+#: field:virtual.partner.retrocession,mandate_category_id:0
+msgid "Mandate Category"
+msgstr "Catégorie de mandat"
+
+#. module: mozaik_communication
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+msgid "Mandate End Date < ..."
+msgstr "Date de fin de mandat < ..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+msgid "Mandate End Date > ..."
+msgstr "Date de fin de mandat > ..."
+
+#. module: mozaik_communication
+#: field:virtual.partner.mandate,mandate_instance_id:0
+msgid "Mandate Instance"
+msgstr "Instance du mandat"
+
+#. module: mozaik_communication
+#: field:virtual.partner.candidature,start_date:0
+msgid "Mandate Start Date"
+msgstr "Date de début de mandat"
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+msgid "Mandate Start Date < ..."
+msgstr "Date de début de mandat < ..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+msgid "Mandate Start Date > ..."
+msgstr "Date de début de mandat > ..."
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,month:0
+msgid "March"
+msgstr "Mars"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_tree
+msgid "Mass Action"
+msgstr "Fonctionnalité de masse"
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,e_mass_function:0
+#: field:distribution.list.mass.function,p_mass_function:0
+#: model:ir.actions.act_window,name:mozaik_communication.distribution_list_mass_function_action
+#: model:ir.model,name:mozaik_communication.model_distribution_list_mass_function
+msgid "Mass Function"
+msgstr "Fonctionnalité de masse"
+
+#. module: mozaik_communication
+#: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+#: selection:distribution.list.mass.function,e_mass_function:0
+#: field:distribution.list.mass.function,mass_mailing_name:0
+#: model:ir.model,name:mozaik_communication.model_mail_mass_mailing
+msgid "Mass Mailing"
+msgstr "Courriels de masse"
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,bounce_counter:0
+msgid "Maximum of Fails"
+msgstr "Nombre d'échecs maximum"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,month:0
+msgid "May"
+msgstr "Mai"
+
+#. module: mozaik_communication
+#: field:virtual.partner.membership,del_mem_card_date:0
+msgid "Member Card Sent Date"
+msgstr "Date d'envoi de la carte de membre"
+
+#. module: mozaik_communication
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+msgid "Member Card Sent Date < ..."
+msgstr "Date d'envoi de la carte de membre < ..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+msgid "Member Card Sent Date > ..."
+msgstr "Date d'envoi de la carte de membre > ..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+msgid "Members"
+msgstr "Membres"
+
+#. module: mozaik_communication
+#: field:virtual.target,membership_state_id:0
+msgid "Membership State"
+msgstr "Statut d'adhésion"
+
+#. module: mozaik_communication
+#: field:distribution.list.line,message_ids:0
+#: field:postal.mail,message_ids:0
+#: field:postal.mail.log,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: mozaik_communication
+#: help:distribution.list.line,message_ids:0
+#: help:postal.mail,message_ids:0
+#: help:postal.mail.log,message_ids:0
+msgid "Messages and communication history"
+msgstr "Historique des messages et communications"
+
+#. module: mozaik_communication
+#: field:virtual.assembly.instance,model:0
+#: field:virtual.partner.candidature,model:0
+#: field:virtual.partner.mandate,model:0
+msgid "Model"
+msgstr "Modèle"
+
+#. module: mozaik_communication
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.partner.retrocession,month:0
+msgid "Month"
+msgstr "Mois"
+
+#. module: mozaik_communication
+#: view:add.registration:mozaik_communication.add_registration_wizard
+#: view:distribution.list:mozaik_communication.distribution_list_form
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+#: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+#: view:event.event:mozaik_communication.view_event_form
+#: view:event.registration:mozaik_communication.view_event_registration_form
+#: view:postal.mail:mozaik_communication.postal_mail_form_view
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_form_view
+msgid "More Info"
+msgstr "Plus d'info"
+
+#. module: mozaik_communication
+#: selection:distribution.list.mass.function,sort_by:0
+#: field:postal.mail,name:0
+#: field:postal.mail.log,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+msgid "Natural Persons"
+msgstr "Personnes physiques"
+
+#. module: mozaik_communication
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+msgid "Not Employee"
+msgstr "Non employé"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,month:0
+msgid "November"
+msgstr "Novembre"
+
+#. module: mozaik_communication
+#: field:virtual.partner.candidature,identifier:0
+#: field:virtual.partner.event,identifier:0
+#: field:virtual.partner.instance,identifier:0
+#: field:virtual.partner.involvement,identifier:0
+#: field:virtual.partner.mandate,identifier:0
+#: field:virtual.partner.membership,identifier:0
+#: field:virtual.partner.relation,identifier:0
+#: field:virtual.partner.retrocession,identifier:0
+msgid "Number"
+msgstr "Numéro"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/event.py:80
+#, python-format
+msgid "Number of seats is not reached"
+msgstr "Nombre of places non atteint"
+
+#. module: mozaik_communication
+#: field:virtual.partner.relation,object_partner_id:0
+msgid "Object"
+msgstr "Objet"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,month:0
+msgid "October"
+msgstr "Octobre"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,state:0
+msgid "Open"
+msgstr "Á valider"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_mail_mail
+msgid "Outgoing Mails"
+msgstr "Courriels à envoyer"
+
+#. module: mozaik_communication
+#: field:distribution.list,res_users_ids:0
+#: field:email.template,res_users_ids:0
+msgid "Owners"
+msgstr "Propriétaires"
+
+#. module: mozaik_communication
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
+#: field:postal.mail.log,partner_id:0
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: field:virtual.partner.candidature,partner_id:0
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: field:virtual.partner.event,partner_id:0
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: field:virtual.partner.instance,partner_id:0
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: field:virtual.partner.involvement,partner_id:0
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,partner_id:0
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: field:virtual.partner.membership,partner_id:0
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.partner.retrocession,partner_id:0
+#: field:virtual.target,partner_id:0
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: mozaik_communication
+#: field:event.registration,partner_instance_id:0
+#: field:postal.mail.log,partner_instance_id:0
+msgid "Partner Internal Instance"
+msgstr "Instance interne du partenaire"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_virtual_partner_candidature
+msgid "Partner/Candidature"
+msgstr "Partenaire/Candidature"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_virtual_partner_event
+msgid "Partner/Event"
+msgstr "Partenaire/Évènement"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_virtual_partner_instance
+msgid "Partner/Instance"
+msgstr "Partenaire/Instance"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_virtual_partner_involvement
+msgid "Partner/Involvement"
+msgstr "Partenaire/Participation"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_virtual_partner_mandate
+msgid "Partner/Mandate"
+msgstr "Partenaire/Mandat"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_virtual_partner_membership
+msgid "Partner/Membership"
+msgstr "Partenaire/Adhésion"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_virtual_partner_relation
+msgid "Partner/Relation"
+msgstr "Partenaire/Relation"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_virtual_partner_retrocession
+msgid "Partner/Retrocession"
+msgstr "Partenaire/Rétrocession"
+
+#. module: mozaik_communication
+#: model:ir.actions.act_window,name:mozaik_communication.virtual_partner_candidature_action
+#: model:ir.ui.menu,name:mozaik_communication.virtual_partner_candidature_menu
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_tree_view
+msgid "Partners/Candidatures"
+msgstr "Partenaires/Candidatures"
+
+#. module: mozaik_communication
+#: model:ir.actions.act_window,name:mozaik_communication.virtual_partner_event_action
+#: model:ir.ui.menu,name:mozaik_communication.virtual_partner_event_menu
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_tree_view
+msgid "Partners/Events"
+msgstr "Partenaires/Évènements"
+
+#. module: mozaik_communication
+#: model:ir.actions.act_window,name:mozaik_communication.virtual_partner_instance_action
+#: model:ir.ui.menu,name:mozaik_communication.virtual_partner_instance_menu
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_tree_view
+msgid "Partners/Instances"
+msgstr "Partenaires/Instances"
+
+#. module: mozaik_communication
+#: model:ir.actions.act_window,name:mozaik_communication.virtual_partner_involvement_action
+#: model:ir.ui.menu,name:mozaik_communication.virtual_partner_involvement_menu
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_tree_view
+msgid "Partners/Involvements"
+msgstr "Partenaires/Participations"
+
+#. module: mozaik_communication
+#: model:ir.actions.act_window,name:mozaik_communication.virtual_partner_mandate_action
+#: model:ir.ui.menu,name:mozaik_communication.virtual_partner_mandate_menu
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_tree_view
+msgid "Partners/Mandates"
+msgstr "Partenaires/Mandats"
+
+#. module: mozaik_communication
+#: model:ir.actions.act_window,name:mozaik_communication.virtual_partner_membership_action
+#: model:ir.ui.menu,name:mozaik_communication.virtual_partner_membership_menu
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_tree_view
+msgid "Partners/Membership"
+msgstr "Partenaires/Adhésions"
+
+#. module: mozaik_communication
+#: model:ir.actions.act_window,name:mozaik_communication.virtual_partner_relation_action
+#: model:ir.ui.menu,name:mozaik_communication.virtual_partner_relation_menu
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_tree_view
+msgid "Partners/Relations"
+msgstr "Partenaires/Relations"
+
+#. module: mozaik_communication
+#: model:ir.actions.act_window,name:mozaik_communication.virtual_partner_retrocession_action
+#: model:ir.ui.menu,name:mozaik_communication.virtual_partner_retrocession_menu
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_tree_view
+msgid "Partners/Retrocessions"
+msgstr "Partenaires/Rétrocessions"
+
+#. module: mozaik_communication
+#: field:virtual.target,postal_bounce_counter:0
+msgid "Postal Bounce Counter"
+msgstr "Compteur d'échecs postaux"
+
+#. module: mozaik_communication
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+msgid "Postal Category"
+msgstr "Catégorie d'adresse"
+
+#. module: mozaik_communication
+#: selection:distribution.list.mass.function,trg_model:0
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
+#: field:postal.mail.log,postal_coordinate_id:0
+#: field:virtual.assembly.instance,postal_coordinate_id:0
+#: field:virtual.partner.candidature,postal_coordinate_id:0
+#: field:virtual.partner.event,postal_coordinate_id:0
+#: field:virtual.partner.instance,postal_coordinate_id:0
+#: field:virtual.partner.involvement,postal_coordinate_id:0
+#: field:virtual.partner.mandate,postal_coordinate_id:0
+#: field:virtual.partner.membership,postal_coordinate_id:0
+#: field:virtual.partner.relation,postal_coordinate_id:0
+#: field:virtual.partner.retrocession,postal_coordinate_id:0
+#: field:virtual.target,postal:0
+msgid "Postal Coordinate"
+msgstr "Coordonnée postale"
+
+#. module: mozaik_communication
+#: field:virtual.partner.event,postal_category_id:0
+#: field:virtual.partner.instance,postal_category_id:0
+#: field:virtual.partner.membership,postal_category_id:0
+msgid "Postal Coordinate Category"
+msgstr "Catégorie de coordonnée postale"
+
+#. module: mozaik_communication
+#: field:virtual.target,postal_coordinate_id:0
+msgid "Postal Coordinate ID"
+msgstr "ID de coordonnée postale"
+
+#. module: mozaik_communication
+#: view:postal.coordinate:mozaik_communication.postal_coordinate_form_view
+#: view:res.partner:mozaik_communication.view_partner_form
+msgid "Postal History"
+msgstr "Courrier postal"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_postal_mail_log
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_form_view
+msgid "Postal Mail Log"
+msgstr "Courrier postal"
+
+#. module: mozaik_communication
+#: model:ir.actions.act_window,name:mozaik_communication.postal_mail_log_action
+#: model:ir.ui.menu,name:mozaik_communication.postal_mailing_postal_mail_history_menu
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_tree_view
+msgid "Postal Mail Logs"
+msgstr "Courriers postaux"
+
+#. module: mozaik_communication
+#: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+#: model:ir.model,name:mozaik_communication.model_postal_mail
+#: view:postal.mail:mozaik_communication.postal_mail_form_view
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
+#: field:postal.mail.log,postal_mail_id:0
+msgid "Postal Mailing"
+msgstr "Envoi postal de masse"
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,postal_mail_name:0
+msgid "Postal Mailing Name"
+msgstr "Nom de l'envoi postal de masse"
+
+#. module: mozaik_communication
+#: model:ir.actions.act_window,name:mozaik_communication.postal_mail_action
+#: model:ir.ui.menu,name:mozaik_communication.postal_mailing_postal_mail_menu
+#: model:ir.ui.menu,name:mozaik_communication.postal_mailings_submenu
+#: view:postal.mail:mozaik_communication.postal_mail_search_view
+#: view:postal.mail:mozaik_communication.postal_mail_tree_view
+msgid "Postal Mailings"
+msgstr "Envois postaux de masse"
+
+#. module: mozaik_communication
+#: field:virtual.partner.involvement,postal_unauthorized:0
+#: field:virtual.target,postal_unauthorized:0
+msgid "Postal Unauthorized"
+msgstr "Adresse interdite"
+
+#. module: mozaik_communication
+#: field:virtual.partner.involvement,postal_vip:0
+msgid "Postal VIP"
+msgstr "Adresse VIP"
+
+#. module: mozaik_communication
+#: field:virtual.target,postal_is_main:0
+msgid "Postal is Main"
+msgstr "Adresse principale"
+
+#. module: mozaik_communication
+#: field:distribution.list,public:0
+msgid "Public"
+msgstr "Public"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_form
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+#: view:event.event:mozaik_communication.view_event_form
+#: view:event.registration:mozaik_communication.view_event_registration_form
+msgid "Reactivate document: proceed anyway?"
+msgstr "Poursuivre la réactivation du document ?"
+
+#. module: mozaik_communication
+#: field:virtual.partner.membership,reference:0
+msgid "Reference"
+msgstr "Référence"
+
+#. module: mozaik_communication
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: field:virtual.partner.relation,relation_category_id:0
+msgid "Relation Category"
+msgstr "Catégorie de relation"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/distribution_list.py:206
+#, python-format
+msgid "Result of %s Filter without coordinate"
+msgstr "Résultat du filtre %s (injoignables)"
+
+#. module: mozaik_communication
+#: field:virtual.partner.retrocession,retro_instance_id:0
+msgid "Retrocessions Management Instance"
+msgstr "Instance de gestion des rétrocessions"
+
+#. module: mozaik_communication
+#: model:ir.ui.menu,name:mozaik_communication.virtual_models_submenu
+msgid "Searching Models"
+msgstr "Modèles de recherche"
+
+#. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_virtual_target
+msgid "Searching Result"
+msgstr "Résultat de la recherche"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_form
+#: view:email.template:mozaik_communication.email_template_form
+msgid "Security"
+msgstr "Securité"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_tree
+msgid "See Distribution List Result"
+msgstr "Voir le résultat de la liste de distribution"
+
+#. module: mozaik_communication
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_tree
+msgid "See Filter Result"
+msgstr "Voir le résultat du filtre"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_form
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_tree
+msgid "See Result Without Coordinate"
+msgstr "Voir les injoignables"
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,trg_model:0
+msgid "Sending Mode"
+msgstr "Mode d'envoi"
+
+#. module: mozaik_communication
+#: view:postal.mail:mozaik_communication.postal_mail_search_view
+#: field:postal.mail,sent_date:0
+#: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
+#: field:postal.mail.log,sent_date:0
+msgid "Sent Date"
+msgstr "Date d'envoi"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,month:0
+msgid "September"
+msgstr "Septembre"
+
+#. module: mozaik_communication
+#: view:event.event:mozaik_communication.view_event_form
+msgid "Set To Draft"
+msgstr "Mettre à l'état \"Brouillon\""
+
+#. module: mozaik_communication
+#: view:event.registration:mozaik_communication.view_event_registration_form
+msgid "Set To Unconfirmed"
+msgstr "Marquer comme non confirmé"
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,sort_by:0
+msgid "Sort by"
+msgstr "Trié par"
+
+#. module: mozaik_communication
+#: field:virtual.partner.mandate,start_date:0
+msgid "Start Date"
+msgstr "Date de début"
+
+#. module: mozaik_communication
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: field:virtual.partner.instance,membership_state_id:0
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: field:virtual.partner.membership,membership_state_id:0
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.partner.retrocession,state:0
+msgid "State"
+msgstr "Statut"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+msgid "State Assembly"
+msgstr "Assemblée de l'État"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: field:virtual.assembly.instance,sta_category_assembly_id:0
+msgid "State Assembly Category"
+msgstr "Catégorie d'assemblée de l'État"
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+msgid "State Candidature"
+msgstr "Candidature politique"
+
+#. module: mozaik_communication
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,sta_mandate_id:0
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.partner.retrocession,sta_mandate_id:0
+msgid "State Mandate"
+msgstr "Mandat politique"
+
+#. module: mozaik_communication
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,sta_competencies_m2m_ids:0
+msgid "State Mandate Competencies"
+msgstr "Compétences de mandat politique"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: field:virtual.assembly.instance,sta_power_level_id:0
+msgid "State Power Level"
+msgstr "Niveau de pouvoir de l'État"
+
+#. module: mozaik_communication
+#: field:virtual.partner.relation,partner_id:0
+msgid "Subject"
+msgstr "Sujet"
+
+#. module: mozaik_communication
+#: field:distribution.list.line,message_summary:0
+#: field:postal.mail,message_summary:0
+#: field:postal.mail.log,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+msgid "Tag"
+msgstr "Étiquette"
+
+#. module: mozaik_communication
+#: field:virtual.assembly.instance,category_id:0
+#: field:virtual.partner.candidature,category_id:0
+#: field:virtual.partner.event,category_id:0
+#: field:virtual.partner.instance,category_id:0
+#: field:virtual.partner.involvement,category_id:0
+#: field:virtual.partner.membership,category_id:0
+#: field:virtual.partner.relation,category_id:0
+#: field:virtual.partner.retrocession,category_id:0
+msgid "Tags"
+msgstr "Étiquettes"
+
+#. module: mozaik_communication
+#: model:ir.ui.menu,name:mozaik_communication.templates_menu
+msgid "Templates"
+msgstr "Modèles"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:198
+#, python-format
+msgid "There are no recipients"
+msgstr "Aucun destinataire"
+
+#. module: mozaik_communication
+#: field:virtual.partner.candidature,tongue:0
+#: field:virtual.partner.event,tongue:0
+#: field:virtual.partner.instance,tongue:0
+#: field:virtual.partner.involvement,tongue:0
+#: field:virtual.partner.mandate,tongue:0
+#: field:virtual.partner.membership,tongue:0
+#: field:virtual.partner.relation,tongue:0
+#: field:virtual.partner.retrocession,tongue:0
+msgid "Tongue"
+msgstr "Langue"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: field:virtual.assembly.instance,postal_unauthorized:0
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: field:virtual.partner.candidature,postal_unauthorized:0
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: field:virtual.partner.event,postal_unauthorized:0
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: field:virtual.partner.instance,postal_unauthorized:0
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,postal_unauthorized:0
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: field:virtual.partner.membership,postal_unauthorized:0
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: field:virtual.partner.relation,postal_unauthorized:0
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.partner.retrocession,postal_unauthorized:0
+msgid "Unauthorized Address"
+msgstr "Adresse interdite"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: field:virtual.assembly.instance,email_unauthorized:0
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: field:virtual.partner.candidature,email_unauthorized:0
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: field:virtual.partner.event,email_unauthorized:0
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: field:virtual.partner.instance,email_unauthorized:0
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,email_unauthorized:0
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: field:virtual.partner.membership,email_unauthorized:0
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: field:virtual.partner.relation,email_unauthorized:0
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.partner.retrocession,email_unauthorized:0
+msgid "Unauthorized Email"
+msgstr "Adresse électronique interdite"
+
+#. module: mozaik_communication
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+msgid "Undelivered Member Cards"
+msgstr "Cartes de membre non envoyées"
+
+#. module: mozaik_communication
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+msgid "Undelivered Welcome Documents"
+msgstr "Documents de bienvenue non envoyés"
+
+#. module: mozaik_communication
+#: field:distribution.list.line,message_unread:0
+#: field:postal.mail,message_unread:0
+#: field:postal.mail.log,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: mozaik_communication
+#: selection:distribution.list.mass.function,e_mass_function:0
+msgid "VCARD Extraction"
+msgstr "Extraction VCARD"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: field:virtual.assembly.instance,postal_vip:0
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: field:virtual.partner.candidature,postal_vip:0
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: field:virtual.partner.event,postal_vip:0
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: field:virtual.partner.instance,postal_vip:0
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,postal_vip:0
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: field:virtual.partner.membership,postal_vip:0
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: field:virtual.partner.relation,postal_vip:0
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.partner.retrocession,postal_vip:0
+msgid "VIP Address"
+msgstr "Adresse VIP"
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: field:virtual.assembly.instance,email_vip:0
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: field:virtual.partner.candidature,email_vip:0
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: field:virtual.partner.event,email_vip:0
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: field:virtual.partner.instance,email_vip:0
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,email_vip:0
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: field:virtual.partner.membership,email_vip:0
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: field:virtual.partner.relation,email_vip:0
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.partner.retrocession,email_vip:0
+msgid "VIP Email"
+msgstr "Adresse électronique VIP"
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_form
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+#: view:event.event:mozaik_communication.view_event_form
+#: view:event.registration:mozaik_communication.view_event_registration_form
+msgid "Validate"
+msgstr "Valider"
+
+#. module: mozaik_communication
+#: selection:virtual.partner.retrocession,state:0
+msgid "Validated"
+msgstr "Validé"
+
+#. module: mozaik_communication
+#: view:virtual.target:mozaik_communication.virtual_target_tree_view
+msgid "Virtual Target"
+msgstr "Destination virtuelle"
+
+#. module: mozaik_communication
+#: field:distribution.list.line,website_message_ids:0
+#: field:event.event,website_message_ids:0
+#: field:event.registration,website_message_ids:0
+#: field:postal.mail,website_message_ids:0
+#: field:postal.mail.log,website_message_ids:0
+msgid "Website Messages"
+msgstr "Messages de site web"
+
+#. module: mozaik_communication
+#: help:distribution.list.line,website_message_ids:0
+#: help:event.event,website_message_ids:0
+#: help:event.registration,website_message_ids:0
+#: help:postal.mail,website_message_ids:0
+#: help:postal.mail.log,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historique de communication de site web"
+
+#. module: mozaik_communication
+#: model:ir.ui.menu,name:mozaik_communication.websites_submenu
+msgid "Websites"
+msgstr "Sites web"
+
+#. module: mozaik_communication
+#: field:virtual.partner.membership,del_doc_date:0
+msgid "Welcome Documents Sent Date"
+msgstr "Date d'envoi des documents de bienvenue"
+
+#. module: mozaik_communication
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+msgid "Welcome Documents Sent Date < ..."
+msgstr "Date d'envoi des documents de bienvenue < ..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+msgid "Welcome Documents Sent Date > ..."
+msgstr "Date d'envoi des documents de bienvenue > ..."
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+msgid "Without Coordinate"
+msgstr "Injoignable"
+
+#. module: mozaik_communication
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.partner.retrocession,year:0
+msgid "Year"
+msgstr "Année"
+
+#. module: mozaik_communication
+#: selection:distribution.list.mass.function,sort_by:0
+#: field:virtual.target,zip:0
+msgid "Zip Code"
+msgstr "Code postal"
+
+
+#. module: mozaik_communication
+#: view:add.registration:mozaik_communication.add_registration_wizard
+#: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
+msgid "or"
+msgstr "ou"

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- SHORTCUTS res.partner -->
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form (mozaik_communication)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button string="Postal History"
+                            name="%(postal_mail_log_action)d"
+                            type="action"
+                            class="oe_stat_button"
+                            icon="fa-list"
+                            context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}">
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="address_local_zip_search_view" model="ir.ui.view">
+            <field name="name">address.local.zip.search (mozaik_membership)</field>
+            <field name="model">address.local.zip</field>
+            <field name="inherit_id" ref="mozaik_address.address_local_zip_search_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='town']" position="after">
+                    <field name="int_instance_id" />
+                </xpath>
+
+                <xpath expr="//filter[@name='zip']" position="after">
+                    <filter name="instance" string="Instance" context="{'group_by': 'int_instance_id'}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="address_local_zip_tree_view" model="ir.ui.view">
+            <field name="name">address.local.zip.tree (mozaik_membership)</field>
+            <field name="model">address.local.zip</field>
+            <field name="inherit_id" ref="mozaik_address.address_local_zip_tree_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='town']" position="after">
+                    <field name="int_instance_id" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="address_local_zip_form_view" model="ir.ui.view">
+            <field name="name">address.local.zip.form (mozaik_membership)</field>
+            <field name="model">address.local.zip</field>
+            <field name="inherit_id" ref="mozaik_address.address_local_zip_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[@name='data']" position="inside">
+                    <field name="int_instance_id" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <menuitem id="structure_address_menu" action="mozaik_address.address_local_zip_action"
+                  sequence="30" parent="mozaik_structure.internal_configuration_submenu" />
+
+    </data>
+</openerp>

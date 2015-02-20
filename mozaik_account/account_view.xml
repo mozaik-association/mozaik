@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Only for accountants -->
+
+        <record id="account.partner_view_buttons" model="ir.ui.view">
+            <field name="groups_id" eval="[(4, ref('mozaik_base.mozaik_res_groups_financial_manager')),
+                                          ]"/>
+        </record>
+
+        <record id="partner_view_buttons" model="ir.ui.view">
+            <field name="name">partner.view.buttons (mozaik_account)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.partner_view_buttons"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[field[@name='contracts_count']]" position="replace"/>
+            </field>
+        </record>
+
+        <record id="account.action_report_print_overdue" model="ir.actions.report.xml">
+            <field name="groups_id" eval="[(4, ref('mozaik_base.mozaik_res_groups_financial_manager')),
+                                          ]"/>
+        </record>
+
+        <record id="account.action_account_partner_ledger" model="ir.actions.act_window">
+            <field name="groups_id" eval="[(4, ref('mozaik_base.mozaik_res_groups_financial_manager')),
+                                          ]"/>
+        </record>
+
+        <!-- Re-assign standard menus -->
+
+        <record id="account.menu_finance_payables" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
+                                          ]"/>
+        </record>
+
+        <record id="account.menu_account_customer" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('settings_improvement.unused_features')]),
+                                          ]"/>
+        </record>
+        
+        <record id="view_bank_statement_form" model="ir.ui.view">
+            <field name="name">account.bank.statement.form (mozaik_account)</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@string='Reconcile']" position="after">
+                    <button name="auto_reconcile" states="draft" string="Auto-reconcile" type="object" class="oe_highlight"/>
+                </xpath>
+            </field>
+        </record>
+      
+
+        <record id="view_account_chart_template_form" model="ir.ui.view">
+            <field name="name">account.chart.template.form (mozaik_retrocession)</field>
+            <field name="model">account.chart.template</field>
+            <field name="inherit_id" ref="account.view_account_chart_template_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='property_account_expense_opening']" position="after">
+                    <field name="property_retrocession_account" domain="[('id', 'child_of', [account_root_id])]"/>
+                    <field name="property_retrocession_cost_account" domain="[('id', 'child_of', [account_root_id])]"/>
+                    <field name="property_subscription_account" domain="[('id', 'child_of', [account_root_id])]"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

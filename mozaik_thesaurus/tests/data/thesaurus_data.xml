@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Create Terms -->
+
+        <record id="term_confirmed_one" model="thesaurus.term">
+            <field name="name">Sport</field>
+            <field name="ext_identifier">ID5623</field>
+            <field name="state">confirm</field>
+        </record>
+
+        <record id="term_confirmed_two" model="thesaurus.term">
+            <field name="name">Ressources Humaines</field>
+            <field name="ext_identifier">ID1288</field>
+            <field name="state">confirm</field>
+        </record>
+
+        <record id="term_draft_one" model="thesaurus.term">
+            <field name="name">Véhicules électriques</field>
+        </record>
+
+    </data>
+</openerp>

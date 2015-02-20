@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_thesaurus_res_group_base,thesaurus.res.group.base,model_thesaurus,mozaik_base.res_groups_base,1,0,0,0
+access_thesaurus_res_group_configurator,thesaurus.res.group.user,model_thesaurus,mozaik_base.mozaik_res_groups_configurator,1,1,1,1
+access_thesaurus_term_res_group_base,thesaurus.term.res.group.base,model_thesaurus_term,mozaik_base.res_groups_base,1,0,0,0
+access_thesaurus_term_res_group_user,thesaurus.term.res.group.user,model_thesaurus_term,mozaik_base.mozaik_res_groups_user,1,0,1,0
+access_thesaurus_term_res_group_configurator,thesaurus.term.res.group.configurator,model_thesaurus_term,mozaik_base.mozaik_res_groups_configurator,1,1,1,1

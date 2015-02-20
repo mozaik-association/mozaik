@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="portal_view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form (mozaik_portal)</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="Natural Person" version="7.0">
+                    <header>
+                        <button name="button_modification_request"
+                            string="Modification Request" type="object" />
+                    </header>
+                    <sheet>
+                        <group name="partner">
+                            <group name="partner_info1">
+                                <field name="lastname" />
+                                <field name="firstname" />
+                            </group>
+                        </group>
+                        <group name="partner_more_info">
+                            <group name="gender_bdate">
+                                <field name="birth_date" />
+                                <field name="gender" />
+                            </group>
+                            <group name="coordinates">
+                                <field name="phone" />
+                                <field name="mobile" />
+                                <field name="email" />
+                            </group>
+                            <group name="more_info" invisible="1">
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <notebook attrs="{'invisible': [('active','=',False)]}">
+                            <page name="coordinates" string="Coordinates">
+                                <separator name="email" string="Email Coordinates" />
+                                <field name="email_coordinate_ids">
+                                    <tree edit="1" editable="bottom">
+                                        <field name="email" />
+                                        <field name="coordinate_category_id" />
+                                    </tree>
+                                </field>
+
+                                <separator name="address" string="Postal Coordinates" />
+                                <field name="postal_coordinate_ids">
+                                    <tree edit="1" editable="bottom">
+                                        <field name="address_id" />
+                                        <field name="coordinate_category_id" />
+                                    </tree>
+                                </field>
+
+                                <separator name="phone" string="Phone Coordinates" />
+                                <field name="phone_coordinate_ids">
+                                    <tree edit="1" editable="bottom">
+                                        <field name="phone_id" />
+                                        <field name="coordinate_category_id" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="natural_res_partner_action" model="ir.actions.act_window">
+            <field name="name">My Profile</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" eval="portal_view_partner_form" />
+            <field name="context">{'default_open_partner_user': True}
+            </field>
+        </record>
+
+    </data>
+</openerp>

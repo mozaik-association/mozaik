@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="retrocession_retrocession_wizard_view" model="ir.ui.view">
+            <field name="name">report.retrocession.wizard.view</field>
+            <field name="model">report.retrocession.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Payments certificates" version="7.0">
+                    <group name="data">
+                        <group name="data_1">
+                            <field name="year" on_change="onchange_year(year, model, mandate_ids)"/>
+                        </group>
+                    </group>
+
+                    <separator string="Overview"/>
+                    <group name="counter">
+                        <field name="mandate_selected" readonly="1"/>
+                    </group>
+
+                    <separator name="details" string="Details"/>
+                    <table class="oe_form_retrocession">
+                        <tr>
+                            <td class="oe_retrocession_grey" width="160px"><label string="Retrocession Mode"/></td>
+                            <th class="oe_retrocession_grey" width="100px"><label string="#Selected"/></th>
+                            <th class="oe_retrocession_grey" width="100px"><label string="#To Print"/></th>
+                        </tr><tr name="yearly">
+                            <td class="oe_retrocession_grey">
+                                <label string="Yearly"/>
+                            </td><td>
+                                <field class="oe_inline" name="yearly_count" readonly="1"/>
+                            </td><td>
+                                <field class="oe_inline" name="yearly_print" readonly="1"/>
+                            </td>
+                        </tr><tr name="monthly">
+                            <td class="oe_retrocession_grey">
+                                <label string="Monthly"/>
+                            </td><td>
+                                <field class="oe_inline" name="monthly_count" readonly="1"/>
+                            </td><td>
+                                <field class="oe_inline" name="monthly_print" readonly="1"/>
+                            </td>
+                        </tr><tr name="total">
+                            <td class="oe_retrocession_grey">
+                                <label string="Total"/>
+                            </td><td class="oe_retrocession_grey">
+                            </td><td class="oe_retrocession_grey">
+                                <field name="total_mandates" class="oe_inline" readonly="1"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <group>
+                        <field name="data"
+                           nolabel="1"
+                           readonly="1"
+                           filename="export_filename" />
+                    </group>
+
+                    <div name="dev" groups="mozaik_base.res_groups_developper">
+                        <h3>More Info</h3>
+                        <group name="moreinfo">
+                            <field name="model"/>
+                            <field name="mandate_ids"/>
+                            <field name="report"/>
+                            <field name="export_filename"/>
+                        </group>
+                    </div>
+
+                    <footer>
+                        <span name="go-wizard" attrs="{'invisible': [('total_mandates', '=', 0)]}">
+                            <button string="Print" name="print_report"
+                                    type="object" class="oe_highlight"/>
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="report_fractionations_wizard_action" model="ir.actions.act_window">
+            <field name="name">Retrocessions Fractionation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model"></field>
+            <field name="res_model">report.retrocession.wizard</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="retrocession_retrocession_wizard_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_financial_manager')])]" />
+            <field name="context">{'document': 'fractionations'}</field>
+        </record>
+
+        <record id="report_certificates_wizard_action" model="ir.actions.act_window">
+            <field name="name">Payment Certificates</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model"></field>
+            <field name="res_model">report.retrocession.wizard</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="retrocession_retrocession_wizard_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_financial_user')])]" />
+            <field name="context">{'document': 'certificates'}</field>
+        </record>
+
+        <record id="sta_mandate_fractionations_report" model="ir.values">
+            <field name="name">Retrocessions Fractionation</field>
+            <field name="model">sta.mandate</field>
+            <field name="key">action</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('report_fractionations_wizard_action')" />
+        </record>
+
+        <record id="sta_mandate_certificates_report" model="ir.values">
+            <field name="name">Payment Certificates</field>
+            <field name="model">sta.mandate</field>
+            <field name="key">action</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('report_certificates_wizard_action')" />
+        </record>
+
+        <record id="ext_mandate_fractionations_report" model="ir.values">
+            <field name="name">Retrocessions Fractionation</field>
+            <field name="model">ext.mandate</field>
+            <field name="key">action</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('report_fractionations_wizard_action')" />
+        </record>
+
+        <record id="ext_mandate_certificates_report" model="ir.values">
+            <field name="name">Payment Certificates</field>
+            <field name="model">ext.mandate</field>
+            <field name="key">action</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('report_certificates_wizard_action')" />
+        </record>
+
+    </data>
+</openerp>

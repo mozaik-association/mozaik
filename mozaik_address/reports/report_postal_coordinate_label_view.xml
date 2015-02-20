@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="style">
+            html,body {
+                padding: 0;
+                margin: 0;
+                margin-left: -1mm; // cancels the 1mm of margin_left defined in the paperformat
+            }
+            body {
+                font-family: Courier, monospace;
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 0;
+                margin: 0;
+            }
+
+            .page {
+                padding:0;
+                margin:0;
+            }
+
+            .card {
+                height:32mm;
+                width: 74mm;
+                margin:-1px;
+                padding-left:2px;
+                padding-top: 10px;
+                margin-left: 2mm;
+                word-wrap:break-word;
+                line-height:15px;
+                overflow: hidden;
+            }
+
+            .pageTop {
+                height: 3mm; // +1mm of margin_top defined in the paperformat
+            }
+
+            #wrapwrap {
+                padding: 0;
+                margin:0;
+            }
+        </template>
+        
+        <template id="layout" inherit_id="report.layout">
+            <!-- Add report style -->
+            <xpath expr="//head" position="inside">
+                <style type="text/css">
+                    <t t-call="mozaik_address.style"/>
+                </style>
+            </xpath>
+        </template>
+
+        <template id="html_container">
+            <t t-set="body_classname" t-value="'container'"/>
+            <t t-call="report.layout">
+                <t t-raw="0"/>
+            </t>
+        </template>
+
+        <template id="postal_coordinate_label_report_card">
+            <t t-if="not o.co_residency_id">
+                <t t-set="o" t-value="o"/>
+            </t>
+            <!-- Put more margin-left for the second and third sticker so they will be centered -->
+            <div class="col-xs-3 card" t-att-style="modulo(o_index, 3) != 0 and 'margin-left:'+ str(10+((1-modulo(modulo(o_index, 3),2))*2))+'mm;' or ''">
+                <t t-if="not o.co_residency_id">
+                    <span t-esc="o.partner_id.printable_name"/><br/>
+                </t>
+                <t t-if="o.co_residency_id and o.co_residency_id.line">
+                    <span t-esc="o.co_residency_id.line"/><br/>
+                </t>
+                <t t-if="o.co_residency_id and o.co_residency_id.line2">
+                   <span t-esc="o.co_residency_id.line2"/><br/>
+                </t>
+                <t t-if="o.address_id.street2">
+                    <span t-esc="o.address_id.street2"/><br/>
+                </t>
+                <span t-esc="o.address_id.street"/>
+                <br/>
+                <span t-esc="o.address_id.zip"/>
+                <span t-esc="o.address_id.city"/>
+                <br/>
+                <span t-esc="o.address_id and o.address_id.country_id and o.address_id.country_id.name or ''"/>
+                <t t-if="o.partner_id.identifier">
+                  <br/><div class="text-right" t-esc="'(' + str(o.partner_id.identifier) + ')'"/>
+                </t>
+            </div>
+        </template>
+
+        <template id="report_postal_coordinate_label">
+            <t t-call="mozaik_address.html_container">
+                <div class="page">
+                    <t t-foreach="docs" t-as="o">
+                        <div style="page-break-after:always;" t-if="not o_first and modulo(o_index, 33) == 0"/>
+                        <div class="pageTop" t-if="o_first or modulo(o_index, 33) == 0"/>
+
+                        <t t-call="mozaik_address.postal_coordinate_label_report_card">
+                            <t t-set="o" t-value="o"/>
+                            <t t-set="o_index" t-value="o_index"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>

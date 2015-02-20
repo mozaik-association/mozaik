@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Change Main address Wizard on res.partner -->
+
+        <record id="change_main_address_wizard" model="ir.ui.view">
+            <field name="name">change.main.address.wizard (mozaik_membership)</field>
+            <field name="model">change.main.address</field>
+            <field name="inherit_id" ref="mozaik_address.change_main_address_wizard" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='address_id']" position="attributes">
+                    <attribute name="on_change">onchange_address_id(address_id, old_int_instance_id)</attribute>
+                </xpath>
+
+                <xpath expr="//group[@name='data']" position="inside">
+                    <field name="keeping_mode" groups="mozaik_base.res_groups_developper"/>
+                    <field name="old_int_instance_id" attrs="{'invisible': [('keeping_mode','!=',2)]}" readonly="not context.get('is_developper')" options='{"no_open":True}' />
+                    <field name="keep_instance" attrs="{'invisible': [('keeping_mode','!=',2)]}" />
+                    <field name="new_int_instance_id" attrs="{'invisible': [('keeping_mode','!=',2)]}" readonly="not context.get('is_developper')" options='{"no_open":True}' />
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

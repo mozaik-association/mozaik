@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="partner_of_user_1" model="res.partner">
+            <field name="lastname">DETAILLE</field>
+            <field name="firstname">Pierre</field>
+            <field name="usual_lastname">KIROUL</field>
+            <field name="usual_firstname"></field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('int_instance_03'),
+            ])]"/>
+        </record>
+
+        <record id="partner_of_user_2" model="res.partner">
+            <field name="lastname">LELOUCH</field>
+            <field name="firstname">Claude</field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('int_instance_local_bxl'),
+            ])]"/>
+        </record>
+
+        <record id="partner_of_user_3" model="res.partner">
+            <field name="lastname">DARCIS</field>
+            <field name="firstname">Steve</field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="employee" eval="1"/>
+            <field name="website">http://www.aftnet.be/portail-aft/Joueurs/Fiche-signaletique-membre.aspx?numfed=4021764</field>
+            <field name="secondary_website">http://www.itftennis.com/procircuit/players/player/profile.aspx?playerid=30020306</field>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('int_instance_04'),
+                ref('int_instance_local_bxl'),
+            ])]"/>
+        </record>
+
+        <record id="partner_of_user_4" model="res.partner">
+            <field name="lastname">BARRAL</field>
+            <field name="firstname">Léon</field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('int_instance_06'),
+            ])]"/>
+        </record>
+
+        <record id="partner_of_user_5" model="res.partner">
+            <field name="lastname">ADJANI</field>
+            <field name="firstname">Isabelle</field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="employee" eval="1"/>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('mozaik_structure.int_instance_01'),
+            ])]"/>
+        </record>
+
+        <record id="partner_of_user_6" model="res.partner">
+            <field name="lastname">TESTUD</field>
+            <field name="firstname">Sylvie</field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="employee" eval="1"/>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('mozaik_structure.int_instance_01'),
+            ])]"/>
+        </record>
+
+        <record id="res_partner_paul" model="res.partner">
+            <field name="employee" eval="1"/>
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('mozaik_structure.int_instance_01'),
+            ])]"/>
+        </record>
+
+        <!--
+            Create user: one for each partner
+        -->
+
+        <record id="user_1" model="res.users">
+            <field name="partner_id" ref="partner_of_user_1"/>
+            <field name="login">fr1</field>
+            <field name="password">aa</field>
+            <field name="signature">pierre</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.mozaik_res_groups_reader'),
+            ])]"/>
+        </record>
+
+        <record id="user_2" model="res.users">
+            <field name="partner_id" ref="partner_of_user_2"/>
+            <field name="login">fu1</field>
+            <field name="password">aa</field>
+            <field name="signature">claude</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
+            ])]"/>
+        </record>
+
+        <record id="user_3" model="res.users">
+            <field name="partner_id" ref="partner_of_user_3"/>
+            <field name="login">fo1</field>
+            <field name="password">aa</field>
+            <field name="signature">steve</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.mozaik_res_groups_officer'),
+            ])]"/>
+        </record>
+
+        <record id="user_4" model="res.users">
+            <field name="partner_id" ref="partner_of_user_4"/>
+            <field name="login">fvr1</field>
+            <field name="password">aa</field>
+            <field name="signature">leon</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.mozaik_res_groups_vip_reader'),
+            ])]"/>
+        </record>
+
+        <record id="user_5" model="res.users">
+            <field name="partner_id" ref="partner_of_user_5"/>
+            <field name="login">fm1</field>
+            <field name="password">aa</field>
+            <field name="signature">isabelle</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.mozaik_res_groups_manager'),
+                ref('mozaik_base.mozaik_res_groups_financial_user'),
+                ref('help_online.help_online_group_writer'),
+            ])]"/>
+        </record>
+
+        <record id="user_6" model="res.users">
+            <field name="partner_id" ref="partner_of_user_6"/>
+            <field name="login">fc1</field>
+            <field name="password">aa</field>
+            <field name="signature">sylvie</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.mozaik_res_groups_configurator'),
+                ref('mozaik_base.mozaik_res_groups_financial_manager'),
+            ])]"/>
+        </record>
+
+        <!--
+            Add email address after creating user to avoid to try to send a welcome message
+        -->
+
+        <record id="email_coordinate_admin" model="email.coordinate">
+            <field name="partner_id" ref="base.partner_root" />
+            <field name="email">demo+mk+adm@acsone.eu</field>
+        </record>
+
+        <record id="email_coordinate_demo_1" model="email.coordinate">
+            <field name="partner_id" ref="partner_of_user_1" />
+            <field name="email">pierre@mozaik-ec.be</field>
+        </record>
+
+        <record id="email_coordinate_demo_2" model="email.coordinate">
+            <field name="partner_id" ref="partner_of_user_2" />
+            <field name="email">claude@mozaik-ec.be</field>
+        </record>
+
+        <record id="email_coordinate_demo_3" model="email.coordinate">
+            <field name="partner_id" ref="partner_of_user_3" />
+            <field name="email">steve@mozaik-ec.be</field>
+        </record>
+
+        <record id="email_coordinate_demo_4" model="email.coordinate">
+            <field name="partner_id" ref="partner_of_user_4" />
+            <field name="email">leon@mozaik-ec.be</field>
+            <field name="unauthorized" eval="0"/>
+        </record>
+
+        <record id="email_coordinate_demo_5" model="email.coordinate">
+            <field name="partner_id" ref="partner_of_user_5" />
+            <field name="email">isabelle@mozaik-ec.be</field>
+        </record>
+
+        <record id="email_coordinate_demo_6" model="email.coordinate">
+            <field name="partner_id" ref="partner_of_user_6" />
+            <field name="email">sylvie@mozaik-ec.be</field>
+        </record>
+
+    </data>
+</openerp>

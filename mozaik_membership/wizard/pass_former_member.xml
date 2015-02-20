@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="pass_former_member_view" model="ir.ui.view">
+            <field name="name">pass.former.member.view</field>
+            <field name="model">pass.former.member</field>
+            <field name="arch" type="xml">
+                <form string="Transform Members to Former Members" version="7.0">
+                    <separator string="Overview"/>
+                    <group name="counter" attrs="{'invisible': [('go', '=', False)]}">
+                        <field name="nb_selected" readonly="1"/>
+                        <field name="nb_concerned" readonly="1" />
+                    </group>
+
+                    <div name="noway" attrs="{'invisible': [('go', '!=', False)]}">
+                        <p>This wizard is only intended in July, August or September to cancel memberships due to payement failure.</p>
+                    </div>
+
+                    <div name="dev" groups="mozaik_base.res_groups_developper">
+                        <h3>More Info</h3>
+                        <group name="moreinfo">
+                            <field name="concerned_partner_ids"/>
+                            <field name="go"/>
+                        </group>
+                    </div>
+
+                    <footer>
+                        <span name="go-wizard" attrs="{'invisible': [('go', '=', False)]}">
+                            <button string="Execute" name="pass_former_member"
+                                    type="object" class="oe_highlight"/>
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="pass_former_member_action" model="ir.actions.act_window">
+            <field name="name">Transform Members to Former Members</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">res.partner</field>
+            <field name="res_model">pass.former.member</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="pass_former_member_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_officer')])]" />
+        </record>
+
+        <record id="pass_former_member_values" model="ir.values">
+            <field name="name">Transform Members to Former Members</field>
+            <field name="model">res.partner</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('pass_former_member_action')" />
+        </record>
+
+    </data>
+</openerp>

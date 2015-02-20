@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!--
+            Distribution Lists:
+            - Distribution Lists
+            - Filters
+        -->
+
+        <menuitem id="distribution_lists_submenu" name="Distribution Lists"
+                  sequence="20" parent="mozaik_base.communication_root_menu" />
+
+        <record id="distribution_list.distribution_list_submenu" model="ir.ui.menu">
+            <field name="sequence">10</field>
+            <field name="parent_id" ref="distribution_lists_submenu" />
+        </record>
+
+        <record id="distribution_list.distribution_list_line" model="ir.ui.menu">
+            <field name="sequence">30</field>
+            <field name="parent_id" ref="distribution_lists_submenu" />
+        </record>
+
+        <!--
+            Mailing:
+            - Templates
+            - Mass Mailing
+        -->
+
+        <menuitem id="mailings_submenu" name="Mailings"
+                  sequence="30" parent="mozaik_base.communication_root_menu"
+                  groups="mozaik_base.mozaik_res_groups_user" />
+
+        <menuitem id="templates_menu" action="email_template.action_email_template_tree_all"
+                  sequence="10" parent="mailings_submenu"/>
+
+        <record id="mass_mailing.menu_email_mass_mailings" model="ir.ui.menu">
+            <field name="sequence">20</field>
+            <field name="parent_id" ref="mailings_submenu" />
+        </record>
+
+        <record id="mass_mailing.action_view_mass_mailings" model="ir.actions.act_window">
+            <field name="view_mode">tree,form</field><!-- hide kanban -->
+        </record>
+
+        <!--
+            Postal Mailing
+        -->
+
+        <menuitem id="postal_mailings_submenu" name="Postal Mailings"
+                  sequence="40" parent="mozaik_base.communication_root_menu" />
+
+        <menuitem id="postal_mailing_postal_mail_menu" action="postal_mail_action"
+                  sequence="15" parent="postal_mailings_submenu"/>
+
+        <menuitem id="postal_mailing_postal_mail_history_menu" action="postal_mail_log_action"
+                  sequence="20" parent="postal_mailings_submenu"/>
+
+        <!-- Virtual Models -->
+
+        <menuitem id="virtual_models_submenu" name="Searching Models"
+                  sequence="60" parent="mozaik_base.communication_root_menu" />
+
+        <!-- Configuration -->
+
+        <menuitem id="configuration_submenu" name="Configuration"
+                  sequence="90" parent="mozaik_base.communication_root_menu"
+                  groups="mozaik_base.mozaik_res_groups_configurator" />
+
+        <!-- Websites -->
+
+        <menuitem id="websites_submenu" name="Websites"
+                  sequence="99" parent="mozaik_base.communication_root_menu"
+                  groups="mozaik_base.mozaik_res_groups_configurator" />
+
+        <record id="website.menu_website" model="ir.ui.menu">
+            <field name="sequence">50</field>
+            <field name="parent_id" ref="websites_submenu" />
+        </record>
+
+        <!-- Events -->
+
+        <record id="event.event_main_menu" model="ir.ui.menu">
+            <field name="sequence">35</field>
+            <field name="parent_id" ref="mozaik_base.communication_root_menu" />
+        </record>
+        <record id="event.menu_reporting_events" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('settings_improvement.unused_features'),
+            ])]" />
+        </record>
+
+    </data>
+</openerp>

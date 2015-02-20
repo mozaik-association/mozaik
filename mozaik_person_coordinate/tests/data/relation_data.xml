@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Category -->
+        <record id="partner_relation_category_employee" model="partner.relation.category">
+            <field name="subject_name">is employee of</field>
+            <field name="object_name">employs</field>
+        </record>
+
+        <!-- Email Coordinate -->
+        <record id="email_coordinate_prof_pauline" model="email.coordinate">
+            <field name="email">pauline@rtbf-reyers.be</field>
+            <field name="partner_id" ref="res_partner_pauline" />
+            <field name="coordinate_category_id" ref="coordinate_category_professional" />
+        </record>
+
+        <!-- Partners Relation -->
+        <record id="partner_relation" model="partner.relation">
+            <field name="subject_partner_id" ref="res_partner_pauline"/>
+            <field name="object_partner_id" ref="res_partner_rtbf"/>
+            <field name="partner_relation_category_id" ref="partner_relation_category_employee"/>
+            <field name="email_coordinate_id" ref="email_coordinate_prof_pauline"/>
+        </record>
+
+    </data>
+</openerp>

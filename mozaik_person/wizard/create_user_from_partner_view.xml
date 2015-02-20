@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Create a User from a Partner -->
+
+        <record id="create_user_from_partner_wizard" model="ir.ui.view">
+            <field name="name">create.user.from.partner.wizard</field>
+            <field name="model">create.user.from.partner</field>
+            <field name="arch" type="xml">
+                <form string="Create a User from a Partner" version="7.0">
+                    <group name="portal" attrs="{'invisible': [('nok','in',['user','company','active'])]}">
+                        <group name="check">
+                            <field name="portal_only" attrs="{'readonly': [('nok','!=',False)]}" />
+                        </group>
+                        <group name="help">
+                            <span attrs="{'invisible': [('nok','!=','birthdate')]}">To become a member of the portal the contact has to have a known birthdate.</span>
+                            <span attrs="{'invisible': [('nok','!=','email')]}">To become a member of the portal the contact has to have an authorized email.</span>
+                        </group>
+                    </group>
+                    <group name="data" attrs="{'invisible': ['|',('portal_only','=',True),('nok','in',['user','company','active'])]}">
+                        <group name="main">
+                            <field name="login" attrs="{'required': [('portal_only','=',False)]}" />
+                        </group>
+                        <group name="other">
+                            <field name="group_id" attrs="{'required': [('portal_only','=',False)]}" options='{"no_open":True}' />
+                        </group>
+                    </group>
+                    <div name="dev" groups="mozaik_base.res_groups_developper">
+                        <h3>More Info</h3>
+                        <group name="moreinfo">
+                            <field name="appl_id"/>
+                            <field name="nok"/>
+                        </group>
+                    </div>
+                    <div name="noway">
+                        <p attrs="{'invisible': [('nok','!=','user')]}">The selected partner is already a user.</p>
+                        <p attrs="{'invisible': [('nok','!=','company')]}">The selected partner is a legal person.</p>
+                        <p attrs="{'invisible': [('nok','!=','active')]}">The selected partner is deactivated.</p>
+                    </div>
+                    <footer>
+                        <span name="go-wizard" attrs="{'invisible': [('nok','in',['user','company','active'])]}">
+                            <button string="Create" name="create_user_from_partner"
+                                    type="object" class="oe_highlight" />
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="create_user_from_partner_action" model="ir.actions.act_window">
+            <field name="name">Transform to a User</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">res.partner</field>
+            <field name="res_model">create.user.from.partner</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="create_user_from_partner_wizard"/>
+            <field name="groups_id"
+                   eval="[(6, 0, [
+                           ref('mozaik_base.mozaik_res_groups_configurator'),
+                         ]),]" />
+            <field name="context" eval='"{&apos;default_group_id&apos;: %s, &apos;default_appl_id&apos;: %s}"
+                                          % (ref("mozaik_base.mozaik_res_groups_user"), ref("base.module_category_political_association"))' />
+        </record>
+
+        <record id="create_user_from_partner_value" model="ir.values">
+            <field name="name">Transform to a User</field>
+            <field name="model">res.partner</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_relate</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('create_user_from_partner_action')"/>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="postal_mail_1" model="postal.mail">
+            <field name="name">Test Postal Mailing</field>
+        </record>
+
+    </data>
+</openerp>

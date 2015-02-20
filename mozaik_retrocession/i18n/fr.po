@@ -1,0 +1,1691 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mozaik_retrocession
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-21 21:16+0000\n"
+"PO-Revision-Date: 2014-10-21 21:16+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_retrocession
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+msgid "#Existing"
+msgstr "#Existant"
+
+#. module: mozaik_retrocession
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+msgid "#Selected"
+msgstr "#Sélectionnés"
+
+#. module: mozaik_retrocession
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+msgid "#To Create"
+msgstr "#Á créer"
+
+#. module: mozaik_retrocession
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+msgid "#To Print"
+msgstr "#Á imprimer"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\retrocession.py:97
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (copie)"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "(update)"
+msgstr "(mise à jour)"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\retrocession.py:791
+#: constraint:retrocession:0
+#, python-format
+msgid "A regulation retrocession should only occur on December"
+msgstr "Une rétrocession rectificative n'est possible qu'en décembre"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\retrocession.py:789
+#: constraint:retrocession:0
+#, python-format
+msgid "A retrocession already exists for this mandate at this period"
+msgstr "Une rétrocession existe déjà pour ce mandat à cette période"
+
+#. module: mozaik_retrocession
+#: model:ir.model,name:mozaik_retrocession.model_abstract_mandate_retrocession
+msgid "Abstract Mandate for retrocession"
+msgstr "Modèle abstrait de mandat pour rétrocession"
+
+#. module: mozaik_retrocession
+#: view:mandate.category:mozaik_retrocession.mandate_category_fin_form_view
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Accounting"
+msgstr "Comptabilité"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,active:0
+#: field:calculation.method,active:0
+#: field:calculation.rule,active:0
+#: field:fractionation,active:0
+#: field:fractionation.line,active:0
+#: field:retrocession,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,alert_date:0
+msgid "Alert Date"
+msgstr "Date d'alerte"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_search_view
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+#: view:fractionation:mozaik_retrocession.fractionation_search_view
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_search_view
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+msgid "All"
+msgstr "Tous"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_search_view
+msgid "All Calculation Methods, expired or not"
+msgstr "Toutes les méthodes de calcul, expirées ou non"
+
+#. module: mozaik_retrocession
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+msgid "All Calculation Rules, expired or not"
+msgstr "Toutes les règles de calcul, expirées ou non"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_form_view
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_form_view
+#: view:fractionation:mozaik_retrocession.fractionation_form_view
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_form_view
+msgid "All Details"
+msgstr "Tous les détails"
+
+#. module: mozaik_retrocession
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_search_view
+msgid "All Fractionation Lines, expired or not"
+msgstr "Toutes les lignes de répartition, expirées ou non"
+
+#. module: mozaik_retrocession
+#: view:fractionation:mozaik_retrocession.fractionation_search_view
+msgid "All Fractionations, expired or not"
+msgstr "Toutes les répartitions, expirées ou non"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+msgid "All Retrocessions, expired or not"
+msgstr "Toutes les rétrocessions, expirées ou non"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,is_duplicate_allowed:0
+msgid "Allowed Incompatible Mandate"
+msgstr "Mandat incompatible autorisé"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:57
+#: field:calculation.rule,amount:0
+#: view:website:mozaik_retrocession.retrocession_rules_table
+#, python-format
+msgid "Amount"
+msgstr "Montant"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:50
+#: field:retrocession,amount_due:0
+#, python-format
+msgid "Amount Due"
+msgstr "Montant dû"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:51
+#: field:retrocession,amount_paid:0
+#, python-format
+msgid "Amount Paid"
+msgstr "Montant payé"
+
+#. module: mozaik_retrocession
+#: field:retrocession,amount_reconcilied:0
+msgid "Amount Reconcilied"
+msgstr "Montant réconcilié"
+
+#. module: mozaik_retrocession
+#: field:calculation.rule,type:0
+msgid "Amount Type"
+msgstr "Type de montant"
+
+#. module: mozaik_retrocession
+#: field:retrocession,amount_deduction:0
+msgid "Amount deductible"
+msgstr "Montant déductible"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\retrocession.py:889
+#, python-format
+msgid "Amount due for retrocession should be positive"
+msgstr "Le montant dû doit être positif"
+
+#. module: mozaik_retrocession
+#: sql_constraint:calculation.rule:0
+msgid "Amount of rule must be positive."
+msgstr "Le montant de la règle doit être positif."
+
+#. module: mozaik_retrocession
+#: field:retrocession,amount_retrocession:0
+msgid "Amount to Retrocede"
+msgstr "Montant à retrocéder"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Amounts"
+msgstr "Montants"
+
+#. module: mozaik_retrocession
+#: selection:retrocession,month:0
+#: selection:retrocession.factory.wizard,month:0
+msgid "April"
+msgstr "Avril"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:45
+#, python-format
+msgid "Assembly"
+msgstr "Assemblée"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_certificate_document
+#: view:website:mozaik_retrocession.report_payment_request_document
+msgid "Assembly:"
+msgstr "Assemblée:"
+
+#. module: mozaik_retrocession
+#: selection:retrocession,month:0
+#: selection:retrocession.factory.wizard,month:0
+msgid "August"
+msgstr "Août"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,calculation_method_id:0
+#: view:calculation.method:mozaik_retrocession.calculation_method_form_view
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+#: field:calculation.rule,calculation_method_id:0
+#: view:ext.assembly:mozaik_retrocession.ext_assembly_search_view
+#: field:ext.assembly,calculation_method_id:0
+#: field:ext.mandate,calculation_method_id:0
+#: model:ir.model,name:mozaik_retrocession.model_calculation_method
+#: view:mandate.category:mozaik_retrocession.mandate_category_search_view
+#: field:mandate.category,calculation_method_id:0
+#: view:sta.assembly:mozaik_retrocession.sta_assembly_search_view
+#: field:sta.assembly,calculation_method_id:0
+#: field:sta.mandate,calculation_method_id:0
+msgid "Calculation Method"
+msgstr "Méthode de calcul"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,method_type:0
+#: field:ext.mandate,method_type:0
+#: field:sta.mandate,method_type:0
+msgid "Calculation Method Type"
+msgstr "Type de méthode de calcul"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_search_view
+#: view:calculation.method:mozaik_retrocession.calculation_method_tree_view
+#: model:ir.actions.act_window,name:mozaik_retrocession.calculation_method_action
+#: model:ir.ui.menu,name:mozaik_retrocession.calculation_method_submenu
+msgid "Calculation Methods"
+msgstr "Méthodes de calcul"
+
+#. module: mozaik_retrocession
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_form_view
+#: model:ir.model,name:mozaik_retrocession.model_calculation_rule
+msgid "Calculation Rule"
+msgstr "Règle de calcul"
+
+#. module: mozaik_retrocession
+#: field:calculation.method,calculation_rule_ids:0
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_tree_view
+#: model:ir.actions.act_window,name:mozaik_retrocession.calculation_rule_action
+#: model:ir.actions.act_window,name:mozaik_retrocession.calculation_rule_detail_action
+#: model:ir.ui.menu,name:mozaik_retrocession.calculation_rule_submenu
+#: field:retrocession,rule_ids:0
+#: field:retrocession,rule_inactive_ids:0
+msgid "Calculation Rules"
+msgstr "Règles de calcul"
+
+#. module: mozaik_retrocession
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+#: selection:retrocession,state:0
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,candidature_id:0
+msgid "Candidature"
+msgstr "Candidature"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_certificate_document
+msgid "Certificate of payment"
+msgstr "Attestation de paiement"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Close"
+msgstr "Terminer"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,reference:0
+#: field:ext.mandate,reference:0
+#: field:sta.mandate,reference:0
+msgid "Communication"
+msgstr "Communication"
+
+#. module: mozaik_retrocession
+#: field:calculation.method,create_uid:0
+#: field:calculation.rule,create_uid:0
+#: field:fractionation,create_uid:0
+#: field:fractionation.line,create_uid:0
+#: field:report.retrocession.wizard,create_uid:0
+#: field:retrocession,create_uid:0
+#: field:retrocession.factory.wizard,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: mozaik_retrocession
+#: field:report.retrocession.wizard,create_date:0
+#: field:retrocession.factory.wizard,create_date:0
+msgid "Created on"
+msgstr "Date de création"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,create_date:0
+#: field:calculation.method,create_date:0
+#: field:calculation.rule,create_date:0
+#: field:fractionation,create_date:0
+#: field:fractionation.line,create_date:0
+#: field:retrocession,create_date:0
+msgid "Creation Date"
+msgstr "Date de création"
+
+#. module: mozaik_retrocession
+#: help:abstract.mandate.retrocession,message_last_post:0
+#: help:calculation.method,message_last_post:0
+#: help:calculation.rule,message_last_post:0
+#: help:fractionation,message_last_post:0
+#: help:fractionation.line,message_last_post:0
+#: help:retrocession,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur l'enregistrement."
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,deadline_date:0
+msgid "Deadline Date"
+msgstr "Date d'échéance"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_certificate_document
+msgid "Dear representative,"
+msgstr "Cher mandataire,"
+
+#. module: mozaik_retrocession
+#: selection:retrocession,month:0
+#: selection:retrocession.factory.wizard,month:0
+msgid "December"
+msgstr "Décembre"
+
+#. module: mozaik_retrocession
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+msgid "Deductible"
+msgstr "Déductible"
+
+#. module: mozaik_retrocession
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+#: field:retrocession,deductible_rule_ids:0
+#: field:retrocession,deductible_rule_inactive_ids:0
+msgid "Deductible Calculation Rules"
+msgstr "Règles de calcul déductibles"
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_form_view
+#: field:ext.mandate,deductible_rule_ids:0
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_form_view
+#: field:sta.mandate,deductible_rule_ids:0
+msgid "Deductible Fixed Rules"
+msgstr "Règles fixes déductibles"
+
+#. module: mozaik_retrocession
+#: field:retrocession,default_credit_account:0
+msgid "Default credit account"
+msgstr "Compte à créditer par défaut"
+
+#. module: mozaik_retrocession
+#: field:retrocession,default_debit_account:0
+msgid "Default debit account"
+msgstr "Compte à débiter par défaut"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.retrocession_rules_table
+msgid "Description"
+msgstr "Description"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,designation_int_assembly_id:0
+msgid "Designation Assembly"
+msgstr "Assemblée de désignation"
+
+#. module: mozaik_retrocession
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+msgid "Details"
+msgstr "Détails"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+#: selection:retrocession,state:0
+msgid "Done"
+msgstr "Terminé"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,email_coordinate_id:0
+#: field:retrocession,email_coordinate_id:0
+msgid "Email Coordinate"
+msgstr "Coordonnée électronique"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\mandate.py:277
+#: code:addons\mozaik_retrocession\retrocession.py:958
+#, python-format
+msgid "Email template %s not found!"
+msgstr "Modèle de courriel %s non trouvé !"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,end_date:0
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:47
+#, python-format
+msgid "End Date"
+msgstr "Date de fin"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\mandate.py:276
+#: code:addons\mozaik_retrocession\retrocession.py:888
+#: code:addons\mozaik_retrocession\retrocession.py:954
+#: code:addons\mozaik_retrocession\retrocession.py:958
+#: code:addons\mozaik_retrocession\retrocession.py:1032
+#: code:addons\mozaik_retrocession\retrocession.py:1041
+#, python-format
+msgid "Error"
+msgstr "Erreur"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,expire_date:0
+#: field:calculation.method,expire_date:0
+#: field:calculation.rule,expire_date:0
+#: field:fractionation,expire_date:0
+#: field:fractionation.line,expire_date:0
+#: field:retrocession,expire_date:0
+msgid "Expiration Date"
+msgstr "Date d'expiration"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_search_view
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+#: view:fractionation:mozaik_retrocession.fractionation_search_view
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_search_view
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+msgid "Expired"
+msgstr "Expiré"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_search_view
+msgid "Expired Calculation Methods"
+msgstr "Méthodes de calcul expirées"
+
+#. module: mozaik_retrocession
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+msgid "Expired Calculation Rules"
+msgstr "Règles de calcul expirées"
+
+#. module: mozaik_retrocession
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_search_view
+msgid "Expired Fractionation Lines"
+msgstr "Lignes de répartition expirées"
+
+#. module: mozaik_retrocession
+#: view:fractionation:mozaik_retrocession.fractionation_search_view
+msgid "Expired Fractionations"
+msgstr "Répartitions expirées"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+msgid "Expired Retrocessions"
+msgstr "Rétrocessions expirées"
+
+#. module: mozaik_retrocession
+#: field:report.retrocession.wizard,export_filename:0
+msgid "Export XLS Filename"
+msgstr "Fichier XLS de sortie"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_form_view
+#: view:fractionation:mozaik_retrocession.fractionation_form_view
+msgid "External Assemblies"
+msgstr "Assemblées externes"
+
+#. module: mozaik_retrocession
+#: model:ir.model,name:mozaik_retrocession.model_ext_assembly
+msgid "External Assembly"
+msgstr "Assemblée externe"
+
+#. module: mozaik_retrocession
+#: field:calculation.rule,ext_mandate_id:0
+#: model:ir.model,name:mozaik_retrocession.model_ext_mandate
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+#: field:retrocession,ext_mandate_id:0
+msgid "External Mandate"
+msgstr "Mandat externe"
+
+#. module: mozaik_retrocession
+#: selection:retrocession,month:0
+#: selection:retrocession.factory.wizard,month:0
+msgid "February"
+msgstr "Février"
+
+#. module: mozaik_retrocession
+#: selection:abstract.mandate.retrocession,method_type:0
+#: view:calculation.method:mozaik_retrocession.calculation_method_search_view
+#: selection:calculation.method,type:0
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+#: selection:calculation.rule,type:0
+#: selection:ext.mandate,method_type:0
+#: selection:sta.mandate,method_type:0
+msgid "Fixed"
+msgstr "Fixe"
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_search_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_search_view
+msgid "Fixed Calculation Method"
+msgstr "Méthode de calcul fixe"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_search_view
+msgid "Fixed Calculation Methods"
+msgstr "Méthodes de calcul fixes"
+
+#. module: mozaik_retrocession
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+#: field:ext.mandate,deductible_rule_inactive_ids:0
+#: field:sta.mandate,deductible_rule_inactive_ids:0
+msgid "Fixed Calculation Rules"
+msgstr "Règles de calcul fixes"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,message_follower_ids:0
+#: field:calculation.method,message_follower_ids:0
+#: field:calculation.rule,message_follower_ids:0
+#: field:fractionation,message_follower_ids:0
+#: field:fractionation.line,message_follower_ids:0
+#: field:retrocession,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: mozaik_retrocession
+#: view:ext.assembly:mozaik_retrocession.ext_assembly_fin_search_view
+#: field:ext.assembly,fractionation_id:0
+#: view:fractionation:mozaik_retrocession.fractionation_form_view
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_search_view
+#: field:fractionation.line,fractionation_id:0
+#: model:ir.model,name:mozaik_retrocession.model_fractionation
+#: view:mandate.category:mozaik_retrocession.mandate_category_search_view
+#: field:mandate.category,fractionation_id:0
+#: view:sta.assembly:mozaik_retrocession.sta_assembly_fin_search_view
+#: field:sta.assembly,fractionation_id:0
+msgid "Fractionation"
+msgstr "Répartition"
+
+#. module: mozaik_retrocession
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_form_view
+#: model:ir.model,name:mozaik_retrocession.model_fractionation_line
+msgid "Fractionation Line"
+msgstr "Ligne de répartition"
+
+#. module: mozaik_retrocession
+#: field:fractionation,fractionation_line_ids:0
+#: field:fractionation,fractionation_line_inactive_ids:0
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_search_view
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_tree_view
+#: model:ir.actions.act_window,name:mozaik_retrocession.fractionation_line_action
+#: model:ir.ui.menu,name:mozaik_retrocession.fractionation_line_submenu
+msgid "Fractionation Lines"
+msgstr "Lignes de répartition"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:528
+#: view:fractionation:mozaik_retrocession.fractionation_search_view
+#: view:fractionation:mozaik_retrocession.fractionation_tree_view
+#: model:ir.actions.act_window,name:mozaik_retrocession.fractionation_action
+#: model:ir.ui.menu,name:mozaik_retrocession.fractionation_action_submenu
+#: selection:report.retrocession.wizard,report:0
+#, python-format
+msgid "Fractionations"
+msgstr "Répartitions"
+
+#. module: mozaik_retrocession
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+msgid "Generate"
+msgstr "Générer"
+
+#. module: mozaik_retrocession
+#: model:ir.actions.act_window,name:mozaik_retrocession.retrocession_factory_wizard_action
+msgid "Generate Retrocessions"
+msgstr "Générer les rétrocessions"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_search_view
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_search_view
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+msgid "Group By..."
+msgstr "Grouper par..."
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,has_retrocessions_linked:0
+#: field:ext.mandate,has_retrocessions_linked:0
+#: field:sta.mandate,has_retrocessions_linked:0
+msgid "Has Retrocessions"
+msgstr "A des rétrocessions"
+
+#. module: mozaik_retrocession
+#: help:abstract.mandate.retrocession,message_summary:0
+#: help:calculation.method,message_summary:0
+#: help:calculation.rule,message_summary:0
+#: help:fractionation,message_summary:0
+#: help:fractionation.line,message_summary:0
+#: help:retrocession,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est au format HTML pour permettre son utilisation dans la vue kanban."
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_certificate_document
+msgid "I hereby certify that"
+msgstr "Je certifie par la présente que"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,id:0
+#: field:calculation.method,id:0
+#: field:calculation.rule,id:0
+#: field:fractionation,id:0
+#: field:fractionation.line,id:0
+#: field:report.mozaik_retrocession.report_payment_certificate,id:0
+#: field:report.mozaik_retrocession.report_payment_request,id:0
+#: field:report.retrocession.wizard,id:0
+#: field:retrocession,id:0
+#: field:retrocession.factory.wizard,id:0
+#: field:retrocession.helper,id:0
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_retrocession
+#: field:report.retrocession.wizard,mandate_ids:0
+#: field:retrocession.factory.wizard,mandate_ids:0
+msgid "IDS"
+msgstr ""
+
+#. module: mozaik_retrocession
+#: help:abstract.mandate.retrocession,message_unread:0
+#: help:calculation.method,message_unread:0
+#: help:calculation.rule,message_unread:0
+#: help:fractionation,message_unread:0
+#: help:fractionation.line,message_unread:0
+#: help:retrocession,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages requièrent votre attention."
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Imputable Calculation Rules"
+msgstr "Règles de calcul imputables"
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_form_view
+#: field:ext.mandate,rule_ids:0
+#: field:ext.mandate,rule_inactive_ids:0
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_form_view
+#: field:sta.mandate,rule_ids:0
+#: field:sta.mandate,rule_inactive_ids:0
+msgid "Imputable Fixed Rules"
+msgstr "Règles fixes imputables"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,is_duplicate_detected:0
+msgid "Incompatible Mandate"
+msgstr "Mandat incompatible"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:56
+#, python-format
+msgid "Instance"
+msgstr "Instance"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:507
+#, python-format
+msgid "Instances"
+msgstr "Instances"
+
+#. module: mozaik_retrocession
+#: field:fractionation.line,power_level_id:0
+msgid "Internal Power Level"
+msgstr "Niveau de pouvoir interne"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_form_view
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_form_view
+#: view:fractionation:mozaik_retrocession.fractionation_form_view
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_form_view
+msgid "Invalidate"
+msgstr "Invalider"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Invalidate Retrocession, proceed anyway?"
+msgstr "Poursuivre l'invalidation de la rétrocession ?"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_form_view
+msgid "Invalidate calculation method: proceed anyway?"
+msgstr "Poursuivre l'invalidation de la méthode de calcul ?"
+
+#. module: mozaik_retrocession
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_form_view
+msgid "Invalidate calculation rule: proceed anyway?"
+msgstr "Poursuivre l'invalidation de la règle de calcul ?"
+
+#. module: mozaik_retrocession
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_form_view
+msgid "Invalidate fractionation line: proceed anyway?"
+msgstr "Poursuivre l'invalidation de la ligne de répartition ?"
+
+#. module: mozaik_retrocession
+#: view:fractionation:mozaik_retrocession.fractionation_form_view
+msgid "Invalidate fractionation: proceed anyway?"
+msgstr "Poursuivre l'invalidation de la répartition ?"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,message_is_follower:0
+#: field:calculation.method,message_is_follower:0
+#: field:calculation.rule,message_is_follower:0
+#: field:fractionation,message_is_follower:0
+#: field:fractionation.line,message_is_follower:0
+#: field:retrocession,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est abonné"
+
+#. module: mozaik_retrocession
+#: selection:retrocession,month:0
+#: selection:retrocession.factory.wizard,month:0
+msgid "January"
+msgstr "Janvier"
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_form_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_form_view
+msgid "Journal Entries"
+msgstr "Pièces comptables"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+#: field:retrocession,move_id:0
+msgid "Journal Entry"
+msgstr "Pièce comptable"
+
+#. module: mozaik_retrocession
+#: model:ir.model,name:mozaik_retrocession.model_account_move_line
+msgid "Journal Items"
+msgstr "Écritures comptables"
+
+#. module: mozaik_retrocession
+#: selection:retrocession,month:0
+#: selection:retrocession.factory.wizard,month:0
+msgid "July"
+msgstr "Juillet"
+
+#. module: mozaik_retrocession
+#: selection:retrocession,month:0
+#: selection:retrocession.factory.wizard,month:0
+msgid "June"
+msgstr "Juin"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,message_last_post:0
+#: field:calculation.method,message_last_post:0
+#: field:calculation.rule,message_last_post:0
+#: field:fractionation,message_last_post:0
+#: field:fractionation.line,message_last_post:0
+#: field:retrocession,message_last_post:0
+msgid "Last Message Date"
+msgstr "Date du dernier message"
+
+#. module: mozaik_retrocession
+#: field:calculation.method,write_uid:0
+#: field:calculation.rule,write_uid:0
+#: field:fractionation,write_uid:0
+#: field:fractionation.line,write_uid:0
+#: field:report.retrocession.wizard,write_uid:0
+#: field:retrocession,write_uid:0
+#: field:retrocession.factory.wizard,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: mozaik_retrocession
+#: field:calculation.method,write_date:0
+#: field:calculation.rule,write_date:0
+#: field:fractionation,write_date:0
+#: field:fractionation.line,write_date:0
+#: field:report.retrocession.wizard,write_date:0
+#: field:retrocession,write_date:0
+#: field:retrocession.factory.wizard,write_date:0
+msgid "Last Updated on"
+msgstr "Date de dernière mise à jour"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,email_date:0
+#: field:ext.mandate,email_date:0
+#: field:retrocession,email_date:0
+#: field:sta.mandate,email_date:0
+msgid "Last email Sent"
+msgstr "Date d'envoi du dernier courriel"
+
+#. module: mozaik_retrocession
+#: view:fractionation:mozaik_retrocession.fractionation_form_view
+msgid "Lines"
+msgstr "Lignes"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_form_view
+#: field:calculation.method,mandate_category_ids:0
+#: view:fractionation:mozaik_retrocession.fractionation_form_view
+#: field:fractionation,mandate_category_ids:0
+#: model:ir.actions.act_window,name:mozaik_retrocession.mandate_category_action
+msgid "Mandate Categories"
+msgstr "Catégories de mandat"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,mandate_category_id:0
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:44
+#: model:ir.model,name:mozaik_retrocession.model_mandate_category
+#, python-format
+msgid "Mandate Category"
+msgstr "Catégorie de mandat"
+
+#. module: mozaik_retrocession
+#: field:retrocession,mandate_ref:0
+msgid "Mandate Reference"
+msgstr "Référence du mandat"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_certificate_document
+msgid "Mandate:"
+msgstr "Mandat:"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:447
+#, python-format
+msgid "Mandates"
+msgstr "Mandats"
+
+#. module: mozaik_retrocession
+#: field:report.retrocession.wizard,total_mandates:0
+msgid "Mandates To Print"
+msgstr "Mandats à imprimer"
+
+#. module: mozaik_retrocession
+#: selection:retrocession,month:0
+#: selection:retrocession.factory.wizard,month:0
+msgid "March"
+msgstr "Mars"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Mark Retrocession as Done: proceed anyway?"
+msgstr "Poursuivre la clôture de la rétrocession ?"
+
+#. module: mozaik_retrocession
+#: selection:retrocession,month:0
+#: selection:retrocession.factory.wizard,month:0
+msgid "May"
+msgstr "Mai"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,message_ids:0
+#: field:calculation.method,message_ids:0
+#: field:calculation.rule,message_ids:0
+#: field:fractionation,message_ids:0
+#: field:fractionation.line,message_ids:0
+#: field:retrocession,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: mozaik_retrocession
+#: help:abstract.mandate.retrocession,message_ids:0
+#: help:calculation.method,message_ids:0
+#: help:calculation.rule,message_ids:0
+#: help:fractionation,message_ids:0
+#: help:fractionation.line,message_ids:0
+#: help:retrocession,message_ids:0
+msgid "Messages and communication history"
+msgstr "Historique des messages et communications"
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_search_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_search_view
+msgid "Method Type"
+msgstr "Type de méthode"
+
+#. module: mozaik_retrocession
+#: selection:abstract.mandate.retrocession,method_type:0
+#: view:calculation.method:mozaik_retrocession.calculation_method_search_view
+#: selection:calculation.method,type:0
+#: selection:ext.mandate,method_type:0
+#: selection:sta.mandate,method_type:0
+msgid "Mixed"
+msgstr "Mixe"
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_search_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_search_view
+msgid "Mixed Calculation Method"
+msgstr "Méthode de calcul mixe"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_search_view
+msgid "Mixed Calculation Methods"
+msgstr "Méthodes de calcul mixes"
+
+#. module: mozaik_retrocession
+#: field:report.retrocession.wizard,model:0
+#: field:retrocession.factory.wizard,model:0
+msgid "Model"
+msgstr "Modèle"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+#: field:retrocession,month:0
+#: field:retrocession.factory.wizard,month:0
+msgid "Month"
+msgstr "Mois"
+
+#. module: mozaik_retrocession
+#: selection:abstract.mandate.retrocession,retrocession_mode:0
+#: selection:ext.mandate,retrocession_mode:0
+#: selection:mandate.category,retrocession_mode:0
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+#: selection:retrocession,retrocession_mode:0
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+#: selection:sta.mandate,retrocession_mode:0
+msgid "Monthly"
+msgstr "Mensuellement"
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_search_view
+#: view:mandate.category:mozaik_retrocession.mandate_category_search_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_search_view
+msgid "Monthly Retrocession"
+msgstr "Rétrocession mensuelle"
+
+#. module: mozaik_retrocession
+#: field:retrocession.factory.wizard,monthly_duplicates:0
+msgid "Monthly Retrocessions Already Existing"
+msgstr "Rétrocessions mensuelles existantes"
+
+#. module: mozaik_retrocession
+#: field:report.retrocession.wizard,monthly_count:0
+msgid "Monthly Retrocessions Selected"
+msgstr "Rétrocessions mensuelles sélectionnées"
+
+#. module: mozaik_retrocession
+#: field:report.retrocession.wizard,monthly_print:0
+msgid "Monthly Retrocessions To Print"
+msgstr "Rétrocessions mensuelles à imprimer"
+
+#. module: mozaik_retrocession
+#: field:retrocession.factory.wizard,monthly_count:0
+msgid "Monthly Retrocessions to Create"
+msgstr "Rétrocessions mensuelles à créer"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_form_view
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_form_view
+#: view:fractionation:mozaik_retrocession.fractionation_form_view
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_form_view
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+msgid "More Info"
+msgstr "Plus d'info"
+
+#. module: mozaik_retrocession
+#: field:calculation.method,name:0
+#: field:calculation.rule,name:0
+#: field:fractionation,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,need_account_management:0
+#: field:ext.mandate,need_account_management:0
+#: field:retrocession,need_account_management:0
+#: field:sta.mandate,need_account_management:0
+msgid "Need accounting management"
+msgstr "Nécessite une gestion comptable"
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_search_view
+#: view:mandate.category:mozaik_retrocession.mandate_category_search_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_search_view
+msgid "No Retrocession"
+msgstr "Sans rétrocession"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\retrocession.py:797
+#: constraint:retrocession:0
+#, python-format
+msgid "No amount paid specified."
+msgstr "Pas de montant payé spécifié."
+
+#. module: mozaik_retrocession
+#: view:fractionation:mozaik_retrocession.fractionation_search_view
+msgid "Non 100% Fractionations"
+msgstr "Répartitions incomplètes"
+
+#. module: mozaik_retrocession
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+msgid "Non-Deductible"
+msgstr "Non déductible"
+
+#. module: mozaik_retrocession
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+msgid "Non-Deductible Calculation Rules"
+msgstr "Régles de calcul non déductible"
+
+#. module: mozaik_retrocession
+#: selection:abstract.mandate.retrocession,retrocession_mode:0
+#: selection:ext.mandate,retrocession_mode:0
+#: selection:mandate.category,retrocession_mode:0
+#: selection:retrocession,retrocession_mode:0
+#: selection:sta.mandate,retrocession_mode:0
+msgid "None"
+msgstr "Sans"
+
+#. module: mozaik_retrocession
+#: selection:retrocession,month:0
+#: selection:retrocession.factory.wizard,month:0
+msgid "November"
+msgstr "Novembre"
+
+#. module: mozaik_retrocession
+#: field:retrocession.factory.wizard,total_retrocession:0
+msgid "Number of Retrocessions to Create"
+msgstr "Nombre de rétrocessions à créer"
+
+#. module: mozaik_retrocession
+#: selection:retrocession,month:0
+#: selection:retrocession.factory.wizard,month:0
+msgid "October"
+msgstr "Octobre"
+
+#. module: mozaik_retrocession
+#: selection:retrocession,state:0
+msgid "Open"
+msgstr "Ouverte"
+
+#. module: mozaik_retrocession
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+msgid "Overview"
+msgstr "Aperçu"
+
+#. module: mozaik_retrocession
+#: field:retrocession,partner_id:0
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: mozaik_retrocession
+#: field:retrocession,partner_instance_id:0
+msgid "Partner Internal Instance"
+msgstr "Instance interne du partenaire"
+
+#. module: mozaik_retrocession
+#: model:ir.actions.report.xml,name:mozaik_retrocession.action_report_payment_certificate_ext
+msgid "Payment Certificate for External Mandates"
+msgstr "Attestation de paiement pour mandats externes"
+
+#. module: mozaik_retrocession
+#: model:ir.actions.report.xml,name:mozaik_retrocession.action_report_payment_certificate_sta
+msgid "Payment Certificate for State Mandates"
+msgstr "Attestation de paiement pour mandats politiques"
+
+#. module: mozaik_retrocession
+#: model:ir.actions.act_window,name:mozaik_retrocession.report_certificates_wizard_action
+#: selection:report.retrocession.wizard,report:0
+msgid "Payment Certificates"
+msgstr "Attestations de paiement"
+
+#. module: mozaik_retrocession
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+msgid "Payments certificates"
+msgstr "Payments certificates"
+
+#. module: mozaik_retrocession
+#: field:calculation.rule,percentage:0
+#: field:fractionation.line,percentage:0
+#: view:website:mozaik_retrocession.retrocession_rules_table
+msgid "Percentage"
+msgstr "Pourcentage"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\retrocession.py:276
+#: constraint:calculation.rule:0
+#, python-format
+msgid "Percentage must be positive for a deductible rule."
+msgstr "Le pourcentage doit être positif pour une règle déductible."
+
+#. module: mozaik_retrocession
+#: sql_constraint:fractionation.line:0
+msgid "Percentage should be greater than zero and lower or equal to 100 %"
+msgstr "Le pourcentage doit être positif et inférieur ou égal à 100 %"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_request_document
+msgid "Period:"
+msgstr "Période:"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_certificate_document
+msgid "Period: from"
+msgstr "Période: de"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\retrocession.py:1042
+#, python-format
+msgid "Please set a cost account on mandate category."
+msgstr "Un compte de charge doit être spécifié sur la catégorie de mandat."
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\retrocession.py:1032
+#, python-format
+msgid "Please set a retrocession account on mandate category."
+msgstr "Un compte de rétrocession doit être spécifié sur la catégorie de mandat."
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_request_document
+msgid "Please use"
+msgstr "Merci d'utiliser"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,postal_coordinate_id:0
+#: field:retrocession,postal_coordinate_id:0
+msgid "Postal Coordinate"
+msgstr "Coordonnée postale"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:55
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_search_view
+#, python-format
+msgid "Power Level"
+msgstr "Niveau de pouvoir"
+
+#. module: mozaik_retrocession
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+msgid "Print"
+msgstr "Imprimer"
+
+#. module: mozaik_retrocession
+#: field:retrocession,provision:0
+msgid "Provision"
+msgstr "Provision"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_form_view
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_form_view
+#: view:fractionation:mozaik_retrocession.fractionation_form_view
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_form_view
+msgid "Reactivate document: proceed anyway?"
+msgstr "Poursuivre la réactivation du document ?"
+
+#. module: mozaik_retrocession
+#: model:email.template,subject:mozaik_retrocession.email_template_ext_mandate_reference
+#: model:email.template,subject:mozaik_retrocession.email_template_sta_mandate_reference
+msgid "Reference for payments"
+msgstr "Référence pour paiements"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_certificate_document
+msgid "Regards,"
+msgstr "Salutations distinguées,"
+
+#. module: mozaik_retrocession
+#: field:retrocession,is_regulation:0
+msgid "Regulation Retrocession?"
+msgstr "Rétrocession rectificative"
+
+#. module: mozaik_retrocession
+#: field:report.retrocession.wizard,report:0
+msgid "Report"
+msgstr "Rapport"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,partner_id:0
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:48
+#, python-format
+msgid "Representative"
+msgstr "Mandataire"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\retrocession.py:954
+#, python-format
+msgid "Representative has no email specified"
+msgstr "Le mandataire n'a pas d'adresse électronique"
+
+#. module: mozaik_retrocession
+#: model:ir.actions.report.xml,name:mozaik_retrocession.action_report_payment_request
+msgid "Request for Payment"
+msgstr "Demande de paiement"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Reset Retrocession: proceed anyway?"
+msgstr "Poursuivre la réinitialisation de la rétrocession ?"
+
+#. module: mozaik_retrocession
+#: field:calculation.rule,retrocession_id:0
+#: model:ir.model,name:mozaik_retrocession.model_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Retrocession"
+msgstr "Rétrocession"
+
+#. module: mozaik_retrocession
+#: model:email.template,subject:mozaik_retrocession.email_template_request_payment_retrocession
+msgid "Retrocession ${object.unique_id}: Request for payment"
+msgstr "Rétrocession ${object.unique_id}: demande de paiement"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,retrocession_mode:0
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:49
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_search_view
+#: field:ext.mandate,retrocession_mode:0
+#: view:mandate.category:mozaik_retrocession.mandate_category_search_view
+#: field:mandate.category,retrocession_mode:0
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+#: field:retrocession,retrocession_mode:0
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_search_view
+#: field:sta.mandate,retrocession_mode:0
+#, python-format
+msgid "Retrocession Mode"
+msgstr "Mode de rétrocession"
+
+#. module: mozaik_retrocession
+#: field:retrocession,unique_id:0
+msgid "Retrocession Number"
+msgstr "Numéro de rétrocession"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_request_document
+msgid "Retrocession N°"
+msgstr "Rétrocession N°"
+
+#. module: mozaik_retrocession
+#: model:email.template,report_name:mozaik_retrocession.email_template_request_payment_retrocession
+msgid "Retrocession_${(object.unique_id or '').replace('/','_')}"
+msgstr ""
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_form_view
+#: model:ir.actions.act_window,name:mozaik_retrocession.retrocession_action
+#: model:ir.ui.menu,name:mozaik_retrocession.retrocession_action_submenu
+#: model:ir.ui.menu,name:mozaik_retrocession.retrocession_cfg_submenu
+#: model:ir.ui.menu,name:mozaik_retrocession.retrocession_submenu
+#: view:mandate.category:mozaik_retrocession.mandate_category_form_view
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+#: view:retrocession:mozaik_retrocession.retrocession_tree_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_form_view
+msgid "Retrocessions"
+msgstr "Rétrocessions"
+
+#. module: mozaik_retrocession
+#: model:ir.actions.act_window,name:mozaik_retrocession.report_fractionations_wizard_action
+msgid "Retrocessions Fractionation"
+msgstr "Répartition de rétrocessions"
+
+#. module: mozaik_retrocession
+#: model:ir.model,name:mozaik_retrocession.model_retrocession_factory_wizard
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+msgid "Retrocessions Generator"
+msgstr "Générateur de rétrocessions"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,retro_instance_id:0
+#: field:ext.assembly,retro_instance_id:0
+#: field:ext.mandate,retro_instance_id:0
+#: field:retrocession,retro_instance_id:0
+#: field:sta.assembly,retro_instance_id:0
+#: field:sta.mandate,retro_instance_id:0
+msgid "Retrocessions Management Instance"
+msgstr "Instance de gestion des rétrocessions"
+
+#. module: mozaik_retrocession
+#: model:ir.model,name:mozaik_retrocession.model_report_retrocession_wizard
+msgid "Retrocessions Reports Generator"
+msgstr "Générateur de rapports de rétrocessions"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_form_view
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Rules"
+msgstr "Règles"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_certificate_document
+msgid "Secretariat:"
+msgstr "Secrétariat:"
+
+#. module: mozaik_retrocession
+#: field:report.retrocession.wizard,mandate_selected:0
+#: field:retrocession.factory.wizard,mandate_selected:0
+msgid "Selected Mandates"
+msgstr "Mandats sélectionnés"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Send By Email"
+msgstr "Envoi par courriel"
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_form_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_form_view
+msgid "Send email with structured reference now: proceed anyway?"
+msgstr "Poursuivre l'envoi de la communication structurée ?"
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_form_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_form_view
+msgid "Send mail"
+msgstr "Courriel"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Send request for payment by email, proceed anyway?"
+msgstr "Poursuivre l'envoi de la demande de paiement ?"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Send to the representative the request for payment."
+msgstr "Envoyer la demande de paiement au mandataire."
+
+#. module: mozaik_retrocession
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_form_view
+msgid "Send to the representative the structured reference required for payments"
+msgstr "Envoyer au mandataire la communication structurée requise pour les paiments"
+
+#. module: mozaik_retrocession
+#: selection:retrocession,month:0
+#: selection:retrocession.factory.wizard,month:0
+msgid "September"
+msgstr "Septembre"
+
+#. module: mozaik_retrocession
+#: field:calculation.rule,sequence:0
+msgid "Sequence"
+msgstr "Sequence"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\mandate.py:89
+#: constraint:mandate.category:0
+#, python-format
+msgid "Some impacted assemblies has no retrocessions management instance!"
+msgstr "Certaines assemblées impactées n'ont pas d'instance de gestion de rétrocessions !"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,start_date:0
+#: code:addons\mozaik_retrocession\wizard\report_retrocession_wizard.py:46
+#, python-format
+msgid "Start Date"
+msgstr "Date de début"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+#: field:retrocession,state:0
+msgid "State"
+msgstr "Statut"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_form_view
+#: view:fractionation:mozaik_retrocession.fractionation_form_view
+msgid "State Assemblies"
+msgstr "Assemblées de l'État"
+
+#. module: mozaik_retrocession
+#: model:ir.model,name:mozaik_retrocession.model_sta_assembly
+msgid "State Assembly"
+msgstr "Assemblée de l'État"
+
+#. module: mozaik_retrocession
+#: field:calculation.rule,sta_mandate_id:0
+#: model:ir.model,name:mozaik_retrocession.model_sta_mandate
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+#: field:retrocession,sta_mandate_id:0
+msgid "State Mandate"
+msgstr "Mandat politique"
+
+#. module: mozaik_retrocession
+#: help:abstract.mandate.retrocession,is_submission_assets:0
+msgid "Submission to a Mandates and Assets Declaration"
+msgstr "Soumission à une déclaration de mandats et de patrimoines"
+
+#. module: mozaik_retrocession
+#: help:abstract.mandate.retrocession,is_submission_mandate:0
+msgid "Submission to a Mandates and Wages Declaration"
+msgstr "Soumission à une déclaration de mandats et de rémunérations"
+
+#. module: mozaik_retrocession
+#: field:calculation.rule,amount_subtotal:0
+#: view:website:mozaik_retrocession.retrocession_rules_table
+msgid "Subtotal"
+msgstr "Sous total"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,message_summary:0
+#: field:calculation.method,message_summary:0
+#: field:calculation.rule,message_summary:0
+#: field:fractionation,message_summary:0
+#: field:fractionation.line,message_summary:0
+#: field:retrocession,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: mozaik_retrocession
+#: help:abstract.mandate.retrocession,reference:0
+#: help:ext.mandate,reference:0
+#: help:sta.mandate,reference:0
+msgid "The mandate reference for payments."
+msgstr "La référence pour les paiements relatifs au mandat."
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_certificate_document
+msgid "This amount concerns following mandate:"
+msgstr "Ce montant concerne le mandat suivant:"
+
+#. module: mozaik_retrocession
+#: field:calculation.rule,is_deductible:0
+msgid "To deduct"
+msgstr "Á déduire"
+
+#. module: mozaik_retrocession
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+#: field:retrocession,amount_total:0
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+msgid "Total"
+msgstr "Total"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_request_document
+msgid "Total Deductions"
+msgstr "Total des déductions"
+
+#. module: mozaik_retrocession
+#: field:fractionation,total_percentage:0
+msgid "Total Percentage"
+msgstr "Pourcentage total"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_request_document
+msgid "Total Provisions"
+msgstr "Total des provisions"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_request_document
+msgid "Total Retrocession"
+msgstr "Total de la rétrocession"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_request_document
+msgid "Total To Pay"
+msgstr "Total à payer"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Total:"
+msgstr "Total:"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_search_view
+#: field:calculation.method,type:0
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+msgid "Type"
+msgstr "Type"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_request_document
+msgid "Type:"
+msgstr "Type:"
+
+#. module: mozaik_retrocession
+#: view:fractionation:mozaik_retrocession.fractionation_search_view
+msgid "Uncomplete"
+msgstr "Incomplète"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,unique_id:0
+msgid "Unique id"
+msgstr "ID Unique"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,message_unread:0
+#: field:calculation.method,message_unread:0
+#: field:calculation.rule,message_unread:0
+#: field:fractionation,message_unread:0
+#: field:fractionation.line,message_unread:0
+#: field:retrocession,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_form_view
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_form_view
+#: view:fractionation:mozaik_retrocession.fractionation_form_view
+#: view:fractionation.line:mozaik_retrocession.fractionation_line_form_view
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Validate"
+msgstr "Valider"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_form_view
+msgid "Validate Retrocession now: proceed anyway?"
+msgstr "Poursuivre la validation de la rétrocession ?"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+#: selection:retrocession,state:0
+msgid "Validated"
+msgstr "Validé"
+
+#. module: mozaik_retrocession
+#: selection:abstract.mandate.retrocession,method_type:0
+#: view:calculation.method:mozaik_retrocession.calculation_method_search_view
+#: selection:calculation.method,type:0
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+#: selection:calculation.rule,type:0
+#: selection:ext.mandate,method_type:0
+#: selection:sta.mandate,method_type:0
+msgid "Variable"
+msgstr "Variable"
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_search_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_search_view
+msgid "Variable Calculation Method"
+msgstr "Méthode de calcul variable"
+
+#. module: mozaik_retrocession
+#: view:calculation.method:mozaik_retrocession.calculation_method_search_view
+msgid "Variable Calculation Methods"
+msgstr "Méthodes de calcul variables"
+
+#. module: mozaik_retrocession
+#: view:calculation.rule:mozaik_retrocession.calculation_rule_search_view
+msgid "Variable Calculation Rules"
+msgstr "Règles de calcul variables"
+
+#. module: mozaik_retrocession
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+msgid "Waiting Validation"
+msgstr "Á valider"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,website_message_ids:0
+#: field:calculation.method,website_message_ids:0
+#: field:calculation.rule,website_message_ids:0
+#: field:fractionation,website_message_ids:0
+#: field:fractionation.line,website_message_ids:0
+#: field:retrocession,website_message_ids:0
+msgid "Website Messages"
+msgstr "Messages de site web"
+
+#. module: mozaik_retrocession
+#: help:abstract.mandate.retrocession,website_message_ids:0
+#: help:calculation.method,website_message_ids:0
+#: help:calculation.rule,website_message_ids:0
+#: help:fractionation,website_message_ids:0
+#: help:fractionation.line,website_message_ids:0
+#: help:retrocession,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historique de communication de site web"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,is_submission_assets:0
+msgid "With Assets Declaration"
+msgstr "Avec déclaration de patrimoines"
+
+#. module: mozaik_retrocession
+#: field:abstract.mandate.retrocession,is_submission_mandate:0
+msgid "With Wages Declaration"
+msgstr "Avec déclaration de rémunérations"
+
+#. module: mozaik_retrocession
+#: field:report.retrocession.wizard,data:0
+msgid "XLS"
+msgstr ""
+
+#. module: mozaik_retrocession
+#: field:report.retrocession.wizard,year:0
+#: view:retrocession:mozaik_retrocession.retrocession_search_view
+#: field:retrocession,year:0
+#: field:retrocession.factory.wizard,year:0
+msgid "Year"
+msgstr "Année"
+
+#. module: mozaik_retrocession
+#: selection:abstract.mandate.retrocession,retrocession_mode:0
+#: selection:ext.mandate,retrocession_mode:0
+#: selection:mandate.category,retrocession_mode:0
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+#: selection:retrocession,retrocession_mode:0
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+#: selection:sta.mandate,retrocession_mode:0
+msgid "Yearly"
+msgstr "Annuellement"
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_search_view
+#: view:mandate.category:mozaik_retrocession.mandate_category_search_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_search_view
+msgid "Yearly Retrocession"
+msgstr "Rétrocession annuelle"
+
+#. module: mozaik_retrocession
+#: field:retrocession.factory.wizard,yearly_duplicates:0
+msgid "Yearly Retrocessions Already Existing"
+msgstr "Rétrocessions annuelles existantes"
+
+#. module: mozaik_retrocession
+#: field:report.retrocession.wizard,yearly_count:0
+msgid "Yearly Retrocessions Selected"
+msgstr "Rétrocessions annuelles sélectionnées"
+
+#. module: mozaik_retrocession
+#: field:report.retrocession.wizard,yearly_print:0
+msgid "Yearly Retrocessions To Print"
+msgstr "Rétrocessions annuelles à imprimer"
+
+#. module: mozaik_retrocession
+#: field:retrocession.factory.wizard,yearly_count:0
+msgid "Yearly Retrocessions to Create"
+msgstr "Rétrocessions annuelles à créer"
+
+#. module: mozaik_retrocession
+#: code:addons\mozaik_retrocession\retrocession.py:795
+#: constraint:retrocession:0
+#, python-format
+msgid "You can not validate a negative retrocession"
+msgstr "Vous ne pouvez pas valider une rétrocession négative"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_request_document
+msgid "as reference for payment."
+msgstr "comme référence de paiement."
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_certificate_document
+msgid "as retrocession for the year"
+msgstr "comme rétrocession pour l'année"
+
+#. module: mozaik_retrocession
+#: view:report.retrocession.wizard:mozaik_retrocession.retrocession_retrocession_wizard_view
+#: view:retrocession.factory.wizard:mozaik_retrocession.retrocession_factory_wizard_view
+msgid "or"
+msgstr "ou"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_certificate_document
+msgid "paid"
+msgstr "a payé"
+
+#. module: mozaik_retrocession
+#: view:website:mozaik_retrocession.report_payment_certificate_document
+msgid "to"
+msgstr "à"
+
+#. module: mozaik_retrocession
+#: view:ext.mandate:mozaik_retrocession.ext_mandate_form_view
+#: view:sta.mandate:mozaik_retrocession.sta_mandate_form_view
+msgid "{'readonly': [('has_retrocessions_linked', '=', True)]}"
+msgstr ""
+

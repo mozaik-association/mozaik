@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Used by phone library -->
+        <record id="default_country_code_phone" model="ir.config_parameter">
+            <field name="key">default.country.code.phone</field>
+            <field name="value">BE</field>
+        </record>
+    </data>
+</openerp>

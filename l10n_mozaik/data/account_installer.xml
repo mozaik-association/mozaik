@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+       
+        <!-- Disable standard Configure Accounting Data wizard -->
+
+        <record id="account.action_wizard_multi_chart_todo" model="ir.actions.todo">
+            <field name="state">done</field>
+        </record>
+
+        <!-- Add wizard data for main company -->
+        <record id="pcmn_mozaik" model="wizard.multi.charts.accounts">
+            <field name="chart_template_id" ref="mozaik_chart_template"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="sale_tax_rate" eval="21"/>
+            <field name="purchase_tax_rate" eval="21"/>
+            <field name="code_digits" eval="6"/>
+        </record>
+
+        <function model="wizard.multi.charts.accounts" name="auto_execute"/>
+
+    </data>
+</openerp>

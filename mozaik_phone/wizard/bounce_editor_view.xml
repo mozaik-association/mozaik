@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Bounce Editor -->
+
+        <record id="phone_editor_value" model="ir.values">
+            <field name="name">Failure Editor</field>
+            <field name="model">phone.coordinate</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_relate</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('mozaik_coordinate.bounce_editor_action')" />
+        </record>
+
+    </data>
+</openerp>

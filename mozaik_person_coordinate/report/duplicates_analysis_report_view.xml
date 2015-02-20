@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="duplicate_analysis_report_search_view" model="ir.ui.view">
+            <field name="name">duplicate.analysis.report.search</field>
+            <field name="model">duplicate.analysis.report</field>
+            <field name="arch" type="xml">
+                <search string="Duplicates Analysis">
+                    <field name="model" />
+                    <group expand="1" string="Group By...">
+                        <filter string="Model" icon="terp-personal" name="mod" context="{'group_by':'model'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="duplicate_analysis_report_tree_view" model="ir.ui.view">
+            <field eval="1" name="priority"/>
+            <field name="name">duplicate.analysis.report.tree</field>
+            <field name="model">duplicate.analysis.report</field>
+            <field name="arch" type="xml">
+                <tree string="Duplicates Analysis" create="0" delete="0">
+                    <field name="model" />
+                    <field name="partner_name" />
+                    <field name="name"/>
+                    <field name="sequence"/>
+                    <field name="id" />
+                    <field name="orig_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="duplicate_analysis_report_action" model="ir.actions.act_window">
+            <field name="name">Duplicates Analysis</field>
+            <field name="res_model">duplicate.analysis.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="duplicate_analysis_report_search_view"/>
+            <field name="view_id" ref="duplicate_analysis_report_tree_view"/>
+            <field name="help">This report provides a global duplicates summary</field>
+        </record>
+
+        <record id="send_duplicates_summary_action" model="ir.actions.server">
+            <field name="name">Send Duplicates Summary</field>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_duplicate_analysis_report" />
+            <field name="state">code</field>
+            <field name="code">self.process_notify_duplicates(cr, uid, force_send=True, context=context)</field>
+        </record>
+
+        <menuitem id="duplicate_analysis_menu" name="Duplicates Analysis"
+                  sequence="99" parent="mozaik_base.persons_configuration_submenu" groups="mozaik_base.res_groups_developper" />
+
+        <menuitem id="duplicate_analysis_report_menu" action="duplicate_analysis_report_action"
+                  sequence="10" parent="duplicate_analysis_menu" />
+
+        <menuitem id="send_duplicates_summary_menu" action="send_duplicates_summary_action"
+                  sequence="20" parent="duplicate_analysis_menu" />
+
+    </data>
+</openerp>

@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Improve person search view -->
+
+       <record id="res_partner_search_view" model="ir.ui.view">
+            <field name="name">res.partner.search (mozaik_person_coordinate)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="mozaik_person.res_partner_search_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//filter[1]" position="before">
+                    <field name="partner_is_subject_relation_ids"/>
+                    <field name="partner_is_object_relation_ids" context="{'object': True}"/>
+                    <field string="Email" name="email" filter_domain="[('email','ilike',self)]" />
+                    <field string="Address" name="street" filter_domain="[('address','ilike',self)] "/>
+                    <field string="Phones" name="phone" filter_domain="['|','|',('phone','ilike',self),('mobile','ilike',self),('fax','ilike',self)]" />
+                    <filter name="without_coordinate" string="Without Coordinate"
+                            domain="[('email','=',False), ('address', '=', False)]" />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Add calculated fields to moreinfo zone -->
+
+        <record id="view_emails_partner_info_form" model="ir.ui.view">
+            <field name="name">res.partner.emails.info.inherit (mozaik_person_coordinate)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="mozaik_person.view_emails_partner_info_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="email"/>
+
+                    <field name="address" />
+                    <field name="country_id"/>
+                    <field name="state_id"/>
+                    <field name="zip_id"/>
+                    <field name="zip" />
+                    <field name="city" />
+                    <field name="street" />
+                    <field name="street2" />
+
+                    <field name="phone"/>
+                    <field name="mobile" />
+                    <field name="fax" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Final colors expression is only possible when all coordinates modules are loaded -->
+
+        <record id="view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree (mozaik_person_coordinate)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field name="priority" eval="20" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="colors">grey:active==False;red:is_duplicate_detected==True;darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP' or email>='N/A' and email&lt;'N/B' or address>='N/A' and address&lt;'N/B'</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form (mozaik_person_coordinate)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook" position="inside">
+                    <page name="relation" string="Relations" invisible="context.get('popup')">
+                        <separator string="Relations where the partner is the subject" />
+                        <!-- Active -->
+                        <button string="All Details" name="%(subject_relation_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_subject_partner_id': active_id,
+                                          'default_subject_partner_id': active_id,
+                                          'search_default_all': True}" />
+                        <field name="partner_is_subject_relation_ids"
+                               context="{'default_subject_partner_id': active_id,
+                                         'form_view_ref': 'mozaik_person_coordinate.partner_relation_subject_form_view'}"
+                               attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
+                            <tree>
+                                <field name="partner_relation_category_id"/>
+                                <field name="object_partner_id" />
+                            </tree>
+                        </field>
+                        <!-- Inactive -->
+                        <field name="partner_is_subject_relation_inactive_ids"
+                               context="{'form_view_ref': 'mozaik_person_coordinate.partner_relation_subject_form_view'}"
+                               readonly="1" attrs="{'invisible': [('active','=',True)], 'readonly': [('id','=',False)]}">
+                            <tree>
+                                <field name="partner_relation_category_id"/>
+                                <field name="object_partner_id" />
+                            </tree>
+                        </field>
+                        <separator string="Relations where the partner is the object" />
+                        <!-- Active -->
+                        <button string="All Details" name="%(object_relation_action)d"
+                                type="action" attrs="{'invisible': [('id','=',False)]}"
+                                context="{'search_default_object_partner_id': active_id,
+                                          'default_object_partner_id': active_id,
+                                          'search_default_all': True}" />
+                        <field name="partner_is_object_relation_ids"
+                               context="{'default_object_partner_id': active_id, 'object': True,
+                                         'form_view_ref': 'mozaik_person_coordinate.partner_relation_object_form_view'}"
+                               attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
+                            <tree>
+                                <field name="partner_relation_category_id" />
+                                <field name="subject_partner_id" />
+                            </tree>
+                        </field>
+                        <!-- Inactive -->
+                        <field name="partner_is_object_relation_inactive_ids"
+                               context="{'object': True, 'form_view_ref': 'mozaik_person_coordinate.partner_relation_object_form_view'}"
+                               readonly="1" attrs="{'invisible': [('active','=',True)], 'readonly': [('id','=',False)]}">
+                            <tree>
+                                <field name="partner_relation_category_id" />
+                                <field name="subject_partner_id" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

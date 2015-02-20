@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Local Zip -->
+
+        <record id="local_zip_1" model="address.local.zip">
+            <field name="int_instance_id" ref="int_instance_05"/>
+        </record>
+
+        <record id="local_zip_2" model="address.local.zip">
+            <field name="int_instance_id" ref="int_instance_06"/>
+        </record>
+
+        <record id="local_zip_3" model="address.local.zip">
+            <field name="int_instance_id" ref="int_instance_local_bxl"/>
+        </record>
+
+    </data>
+</openerp>

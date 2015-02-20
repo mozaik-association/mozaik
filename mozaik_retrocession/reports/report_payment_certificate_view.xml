@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="mozaik_retrocession.report_payment_certificate_document">
+            <t t-call="report.external_layout">
+                <div class="page">
+                   <div class="row">
+                       <div class="col-xs-7">
+                             <t t-if="data['secretariat']['%s' % o.id]">
+                                 <u><span>Secretariat:</span></u>
+                                 <span t-esc="data['secretariat']['%s' % o.id]"/>
+                             </t>
+                       </div>
+                   </div>
+                   <br/>
+                   <br/>
+                   <br/>
+                   <div class="row">
+                       <h3>
+                           <div class="col-xs-7">
+                                <span>Certificate of payment</span>
+                           </div>
+                       </h3>
+                   </div>
+                   <br/>
+                   <br/>
+                   <br/>
+                   <div class="row">
+                        <div class="col-xs-5 col-xs-offset-7">
+                             <span t-field="o.partner_id"
+                                   t-field-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": true}'/>
+                        </div>
+                   </div>
+                   <br/>
+                   <br/>
+                   <br/>
+                   <div class="row">
+                        <div class="col-xs-4 pull-right">
+                            <span t-esc="datetime.datetime.now().strftime('%A %d %B %Y')"/>
+                            <span>,</span>
+                        </div>
+                   </div>
+                   <br/>
+                   <br/>
+                   <div class="row">
+                       <div class="col-xs-11">
+                          <t t-if="data['model']=='sta.mandate'">
+                               <t t-set="assembly" t-value="o.sta_assembly_id"/>
+                           </t>
+                           <t t-if="data['model']=='ext.mandate'">
+                               <t t-set="assembly" t-value="o.ext_assembly_id"/>
+                           </t>
+
+                           <p>Dear representative,</p>
+                           <br/>
+                           <p>I hereby certify that
+                              <span t-field="o.partner_id.title"/>
+                              <span t-field="o.partner_id.name"/>
+                              paid
+                              <strong><span t-esc="data['amounts']['%s' % o.id]"
+                                            t-esc-options='{"widget": "monetary", "display_currency": "o.partner_id.company_id.currency_id"}'/>
+                              </strong>
+                              as retrocession for the year <span t-esc="data['year']"/>.
+                           </p>
+                           <p>This amount concerns following mandate:</p>
+                           <p style="margin-left: 30px;">
+                                Mandate: <strong><span t-field="o.mandate_category_id.name"/></strong><br />
+                                Assembly: <strong><span t-field="assembly.name"/></strong><br/>
+                                Period: from <strong><span t-field="o.start_date"/></strong> to
+                                <t t-if="o.deadline_date and not o.end_date">
+                                    <strong><span t-field="o.deadline_date"/></strong>  <br/>
+                                </t>
+                                <t t-if="o.end_date">
+                                    <strong><span t-field="o.end_date"/></strong>  <br/>
+                                </t>
+                           </p>
+                           <br/>
+                           <br/>
+                           <br/>
+                           <div class="col-xs-7">
+                               <p>Regards,</p>
+                               <br/>
+                               <t t-if="data['signature']['%s' % o.id]">
+                                   <div name='signature'>
+                                   </div>
+                               </t>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_payment_certificate">
+            <t t-call="report.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'mozaik_retrocession.report_payment_certificate_document')"/>
+                </t>
+            </t>
+        </template>
+
+        <report string="Payment Certificate for State Mandates"
+                id="action_report_payment_certificate_sta"
+                model="sta.mandate"
+                report_type="qweb-pdf"
+                name="mozaik_retrocession.report_payment_certificate"
+                file="mozaik_retrocession.report_payment_certificate"
+                menu="False"/>
+
+        <report string="Payment Certificate for External Mandates"
+                id="action_report_payment_certificate_ext"
+                model="ext.mandate"
+                report_type="qweb-pdf"
+                name="mozaik_retrocession.report_payment_certificate"
+                file="mozaik_retrocession.report_payment_certificate"
+                menu="False"/>
+    </data>
+</openerp>

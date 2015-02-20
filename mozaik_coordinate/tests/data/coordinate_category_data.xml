@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Create Coordinate Category -->
+
+        <record id="coordinate_category_private" model="coordinate.category">
+            <field name="name">Privée</field>
+        </record>
+
+        <record id="coordinate_category_professional" model="coordinate.category">
+            <field name="name">Professionnelle</field>
+        </record>
+
+    </data>
+</openerp>

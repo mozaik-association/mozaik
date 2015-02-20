@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data>
+        <!-- MASS MAILING FORM from mass_mailing-->
+        <record id="view_mail_mass_mailing_form" model="ir.ui.view">
+            <field name="name">mail.mass_mailing.form (mozaik_communication mass_mailing)</field>
+            <field name="model">mail.mass_mailing</field>
+            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mailing_domain']" position="attributes">
+                    <attribute name="attrs">{'required': [('mailing_model', '!=','email.coordinate')],'invisible': [('mailing_model', '=','email.coordinate')]}</attribute>
+                </xpath>
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">0</attribute>
+                    <attribute name="edit">0</attribute>
+                </xpath>
+                <xpath expr="//header" position="attributes">
+                    <attribute name="groups">mozaik_base.res_groups_developper</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_edit_html']" position="attributes">
+                    <attribute name="groups">mozaik_base.res_groups_developper</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_edit_html']/following-sibling::button[1]" position="attributes">
+                    <attribute name="groups">mozaik_base.res_groups_developper</attribute>
+                </xpath>
+            </field>
+        </record>
+        <!-- MASS MAILING FORM (from mass_mailing_distribution_list) -->
+        <record id="view_mail_mass_mailing_distribution_list_form" model="ir.ui.view">
+            <field name="name">mail.mass_mailing.form (mozaik_communication mass_mailing_distribution_list)</field>
+            <field name="model">mail.mass_mailing</field>
+            <field name="inherit_id" ref="mass_mailing_distribution_list.view_mail_mass_mailing_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='distribution_list_id']" position="attributes">
+                    <attribute name="attrs">{'required': [('mailing_model', '=','email.coordinate')],'invisible': [('mailing_model', '!=','email.coordinate')]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='mailing_model']" position="attributes">
+                    <attribute name="attrs"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

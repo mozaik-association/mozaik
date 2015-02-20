@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data noupdate="0">
+
+        <!-- Chart template -->
+        <record id="mozaik_chart_template" model="account.chart.template">
+            <field name="name">Mozaik Chart of Account</field>
+            <field name="account_root_id" ref="a_root"/>
+            <field name="bank_account_view_id" ref="a55"/>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="complete_tax_set" eval="False" />
+            <field name="property_account_receivable" ref="a40"/>
+            <field name="property_account_payable" ref="a440"/>
+            <field name="property_retrocession_account" ref="a7492"/>
+            <field name="property_retrocession_cost_account" ref="a6504"/>
+            <field name="property_subscription_account" ref="a7493"/>
+        </record>
+
+  </data>
+</openerp>

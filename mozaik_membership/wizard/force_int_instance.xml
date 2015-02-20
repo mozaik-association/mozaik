@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="force_int_instance_form" model="ir.ui.view">
+            <field name="name">force.int.instance.form</field>
+            <field name="model">force.int.instance</field>
+            <field name="arch" type="xml">
+                <form string="Change Internal Instance" version="7.0">
+                    <group name="data">
+                        <field name="partner_id" readonly="1" options='{"no_open":True}' />
+                        <field name="int_instance_id" options='{"no_open":True}' />
+                    </group>
+                    <footer>
+                        <span name="go-wizard">
+                            <button string="Change" name="force_int_instance_action"
+                                type="object" class="oe_highlight" />
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="force_int_instance_action" model="ir.actions.act_window">
+            <field name="name">Change Internal Instance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">res.partner</field>
+            <field name="res_model">force.int.instance</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="force_int_instance_form"/>
+            <field name="groups_id" eval="[(4, ref('mozaik_base.mozaik_res_groups_officer'))]" />
+        </record>
+
+        <record id="create_user_from_partner_value" model="ir.values">
+            <field name="name">Change Internal Instance</field>
+            <field name="model">res.partner</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_relate</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('force_int_instance_action')"/>
+        </record>
+
+    </data>
+</openerp>

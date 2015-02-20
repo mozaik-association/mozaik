@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="mandate_category_action" model="ir.actions.act_window">
+            <field name="name">Mandate Categories</field>
+            <field name="res_model">mandate.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="mozaik_mandate.mandate_category_search_view" />
+            <field name="view_id" ref="mozaik_mandate.mandate_category_tree_view" />
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="partner_involvement_form_view" model="ir.ui.view">
+            <field name="name">partner.involvement.form (mozaik_membership)</field>
+            <field name="model">partner.involvement</field>
+            <field name="inherit_id" ref="mozaik_person.partner_involvement_form_view" />
+            <field name="priority" eval="10" />
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="partner_instance_id" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

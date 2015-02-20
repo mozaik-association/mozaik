@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Partners Relation -->
+
+        <record id="partner_relation_subject_form_view" model="ir.ui.view">
+            <field name="name">partner.relation.subject.form (mozaik_membership)</field>
+            <field name="model">partner.relation</field>
+            <field name="priority" eval="10" />
+            <field name="inherit_id" ref="mozaik_person_coordinate.partner_relation_subject_form_view" />
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="subject_instance_id" />
+                    <field name="object_instance_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="partner_relation_obbject_form_view" model="ir.ui.view">
+            <field name="name">partner.relation.object.form (mozaik_membership)</field>
+            <field name="model">partner.relation</field>
+            <field name="priority" eval="10" />
+            <field name="inherit_id" ref="mozaik_person_coordinate.partner_relation_object_form_view" />
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.res_groups_developper'),
+            ])]" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='moreinfo']" position="inside">
+                    <field name="subject_instance_id" />
+                    <field name="object_instance_id" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

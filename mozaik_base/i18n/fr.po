@@ -1,0 +1,290 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mozaik_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-19 21:29+0000\n"
+"PO-Revision-Date: 2014-10-19 21:29+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mozaik_base
+#: code:addons\mozaik_base\abstract_model.py:276
+#, python-format
+msgid "Access Denied"
+msgstr "Accès refusé"
+
+#. module: mozaik_base
+#: field:mozaik.abstract.model,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: mozaik_base
+#: view:website:website.layout
+msgid "Add a language..."
+msgstr "Ajouter une langue..."
+
+#. module: mozaik_base
+#: model:res.groups,name:mozaik_base.res_groups_base
+msgid "Base (Mozaik)"
+msgstr "Base (Mozaik)"
+
+#. module: mozaik_base
+#: model:ir.ui.menu,name:mozaik_base.communication_root_menu
+msgid "Communication"
+msgstr "Communication"
+
+#. module: mozaik_base
+#: model:ir.ui.menu,name:mozaik_base.persons_configuration_submenu
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: mozaik_base
+#: model:ir.ui.menu,name:mozaik_base.res_partner_natural_title_menu
+msgid "Contact Titles"
+msgstr "Civilités"
+
+#. module: mozaik_base
+#: model:ir.ui.menu,name:mozaik_base.res_country_menu
+msgid "Countries"
+msgstr "Pays"
+
+#. module: mozaik_base
+#: field:mozaik.abstract.model,create_date:0
+msgid "Creation Date"
+msgstr "Date de création"
+
+#. module: mozaik_base
+#: help:mozaik.abstract.model,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur l'enregistrement."
+
+#. module: mozaik_base
+#: model:res.groups,name:mozaik_base.res_groups_developper
+msgid "Developper (Mozaik)"
+msgstr "Développeur (Mozaik)"
+
+#. module: mozaik_base
+#: field:mozaik.abstract.model,expire_date:0
+msgid "Expiration Date"
+msgstr "Date d'expiration"
+
+#. module: mozaik_base
+#: field:mozaik.abstract.model,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: mozaik_base
+#: help:mozaik.abstract.model,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est au format HTML pour permettre son utilisation dans la vue kanban."
+
+#. module: mozaik_base
+#: field:mozaik.abstract.model,id:0
+msgid "ID"
+msgstr ""
+
+#. module: mozaik_base
+#: help:mozaik.abstract.model,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages requièrent votre attention."
+
+#. module: mozaik_base
+#: code:addons\mozaik_base\abstract_model.py:41
+#: constraint:mozaik.abstract.model:0
+#: constraint:res.partner:0
+#, python-format
+msgid "Invalidation impossible, at least one dependency is still active"
+msgstr "Invalidation impossible, au moins une dépendance est encore active"
+
+#. module: mozaik_base
+#: field:mozaik.abstract.model,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est abonné"
+
+#. module: mozaik_base
+#: model:ir.model,name:mozaik_base.model_res_lang
+msgid "Languages"
+msgstr "Langues"
+
+#. module: mozaik_base
+#: field:mozaik.abstract.model,message_last_post:0
+msgid "Last Message Date"
+msgstr "Date du dernier message"
+
+#. module: mozaik_base
+#: model:ir.ui.menu,name:mozaik_base.localization_submenu
+msgid "Localization"
+msgstr "Localisation"
+
+#. module: mozaik_base
+#: model:ir.ui.menu,name:mozaik_base.mandates_root_menu
+msgid "Mandates"
+msgstr "Mandats"
+
+#. module: mozaik_base
+#: model:ir.ui.menu,name:mozaik_base.membership_root_menu
+msgid "Membership"
+msgstr "Adhésions"
+
+#. module: mozaik_base
+#: model:ir.model,name:mozaik_base.model_mail_message
+msgid "Message"
+msgstr "Message"
+
+#. module: mozaik_base
+#: field:mozaik.abstract.model,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: mozaik_base
+#: help:mozaik.abstract.model,message_ids:0
+msgid "Messages and communication history"
+msgstr "Historique des messages et communications"
+
+#. module: mozaik_base
+#: model:ir.model,name:mozaik_base.model_ir_model
+msgid "Models"
+msgstr "Modèles"
+
+#. module: mozaik_base
+#: model:ir.filters,name:mozaik_base.mozaik_filter
+msgid "Mozaik"
+msgstr ""
+
+#. module: mozaik_base
+#: model:res.groups,name:mozaik_base.mozaik_res_groups_configurator
+msgid "Mozaik Configurator"
+msgstr "Configurateur Mozaik"
+
+#. module: mozaik_base
+#: model:res.groups,name:mozaik_base.mozaik_res_groups_financial_manager
+msgid "Mozaik Financial Manager"
+msgstr "Gestionnaire financier Mozaik"
+
+#. module: mozaik_base
+#: model:res.groups,name:mozaik_base.mozaik_res_groups_financial_user
+msgid "Mozaik Financial User"
+msgstr "Trésorier Mozaik"
+
+#. module: mozaik_base
+#: model:res.groups,name:mozaik_base.mozaik_res_groups_manager
+msgid "Mozaik Manager"
+msgstr "Gestionnaire Mozaik"
+
+#. module: mozaik_base
+#: model:res.groups,name:mozaik_base.mozaik_res_groups_officer
+msgid "Mozaik Officer"
+msgstr "Officier Mozaik"
+
+#. module: mozaik_base
+#: model:res.groups,name:mozaik_base.mozaik_res_groups_reader
+msgid "Mozaik Reader"
+msgstr "Lecteur Mozaik"
+
+#. module: mozaik_base
+#: model:res.groups,name:mozaik_base.mozaik_res_groups_user
+msgid "Mozaik User"
+msgstr "Utilisateur Mozaik"
+
+#. module: mozaik_base
+#: model:res.groups,name:mozaik_base.mozaik_res_groups_vip_reader
+msgid "Mozaik Vip Reader"
+msgstr "Lecteur Vip Mozaik"
+
+#. module: mozaik_base
+#: model:ir.model,name:mozaik_base.model_mail_notification
+msgid "Notifications"
+msgstr "Notifications"
+
+#. module: mozaik_base
+#: model:ir.model,name:mozaik_base.model_mail_mail
+msgid "Outgoing Mails"
+msgstr "Courriels à envoyer"
+
+#. module: mozaik_base
+#: model:ir.model,name:mozaik_base.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: mozaik_base
+#: model:ir.ui.menu,name:mozaik_base.res_partner_category_menu
+msgid "Partner Tags"
+msgstr "Étiquettes du partenaire"
+
+#. module: mozaik_base
+#: model:ir.ui.menu,name:mozaik_base.persons_root_menu
+msgid "Persons"
+msgstr "Personnes"
+
+#. module: mozaik_base
+#: model:ir.ui.menu,name:mozaik_base.structures_root_menu
+msgid "Structures"
+msgstr "Structures"
+
+#. module: mozaik_base
+#: field:mozaik.abstract.model,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: mozaik_base
+#: model:ir.actions.act_url,name:mozaik_base.help_toc_action
+#: model:ir.ui.menu,name:mozaik_base.help_toc_menu
+msgid "Table of Contents"
+msgstr "Table des matières"
+
+#. module: mozaik_base
+#: code:addons\mozaik_base\abstract_model.py:277
+#, python-format
+msgid "The requested operation cannot be completed due to security restrictions\n"
+"(Document type: %s, Operation: %s)\n"
+"or due to some undefined names while evaluating:\n"
+"%s"
+msgstr "L'opération demandée ne peut pas être effectuée en raison de la politique de sécurité\n"
+"(Type de document: %s, Opération: %s)\n"
+"ou à cause de certains noms non définis en évaluant l'expression:\n"
+"%s"
+
+#. module: mozaik_base
+#: model:ir.ui.menu,name:mozaik_base.persons_titles_submenu
+#: model:ir.ui.menu,name:mozaik_base.res_partner_legal_title_menu
+msgid "Titles"
+msgstr "Formes juridiques"
+
+#. module: mozaik_base
+#: field:mozaik.abstract.model,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: mozaik_base
+#: model:ir.model,name:mozaik_base.model_res_users
+msgid "Users"
+msgstr "Utilisateurs"
+
+#. module: mozaik_base
+#: field:mozaik.abstract.model,website_message_ids:0
+msgid "Website Messages"
+msgstr "Messages de site web"
+
+#. module: mozaik_base
+#: help:mozaik.abstract.model,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historique des communications de site web"
+
+#. module: mozaik_base
+#: model:res.groups,name:mozaik_base.res_groups_ws
+msgid "Ws (Mozaik)"
+msgstr ""
+
+#. module: mozaik_base
+#: view:res.users:mozaik_base.view_users_form_simple_modif
+msgid "mozaik_base.res_groups_developper"
+msgstr ""
+
