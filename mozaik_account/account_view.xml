@@ -9,15 +9,6 @@
                                           ]"/>
         </record>
 
-        <record id="partner_view_buttons" model="ir.ui.view">
-            <field name="name">partner.view.buttons (mozaik_account)</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="account.partner_view_buttons"/>
-            <field name="arch" type="xml">
-                <xpath expr="//button[field[@name='contracts_count']]" position="replace"/>
-            </field>
-        </record>
-
         <record id="account.action_report_print_overdue" model="ir.actions.report.xml">
             <field name="groups_id" eval="[(4, ref('mozaik_base.mozaik_res_groups_financial_manager')),
                                           ]"/>
