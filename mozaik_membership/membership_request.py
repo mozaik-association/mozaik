@@ -36,6 +36,10 @@ from openerp.addons.mozaik_base.base_tools import format_email, check_email
 from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
 from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
 
+from openerp.api import Environment
+from openerp import api
+import openerp
+
 _logger = logging.getLogger(__name__)
 
 MEMBERSHIP_AVAILABLE_STATES = [
@@ -90,7 +94,8 @@ class membership_request(orm.Model):
         vals.pop('country_code', None)
 
     _columns = {
-        'identifier': fields.integer('Identifier'),
+        'identifier': fields.related('partner_id', 'identifier',
+                                     string='Identifier', type='integer'),
         'lastname': fields.char('Lastname', required=True,
                                 track_visibility='onchange'),
         'firstname': fields.char('Firstname', track_visibility='onchange'),
@@ -307,7 +312,6 @@ class membership_request(orm.Model):
         res_value = {'value': {}}
         interests_ids = []
         competencies_ids = []
-        identifier = False
         if partner_id:
             res_partner_obj = self.pool['res.partner']
             partner = res_partner_obj.browse(cr, uid, partner_id,
@@ -315,7 +319,6 @@ class membership_request(orm.Model):
             # take current status of partner
             partner_status_id = partner.membership_state_id and \
                 partner.membership_state_id.id or False
-            identifier = partner.identifier
             interests_ids = partner.interests_m2m_ids and \
                 ([interest.id for interest in partner.interests_m2m_ids]) or \
                 False
@@ -332,7 +335,6 @@ class membership_request(orm.Model):
             context=context)
 
         res_value['value'] = {
-            'identifier': identifier,
             'membership_state_id': partner_status_id,
             'result_type_id': result_type_id,
             'interests_m2m_ids': interests_ids and
@@ -383,8 +385,7 @@ class membership_request(orm.Model):
             self.pool.pure_function_fields = orig_pure_fct_fields
 
     def get_partner_preview(self, cr, uid, request_type, partner_id=False,
-                            partner_datas={'lastname': '%s' % uuid4()},
-                            context=None):
+                            partner_datas={'lastname': '%s' % uuid4()}, context=None):
         """
         Try to advancing workflow of partner
         If no partner then create one.
@@ -412,23 +413,24 @@ class membership_request(orm.Model):
         name = 'preview-%s' % uuid1().hex
         cr.execute('SAVEPOINT "%s"' % name)
         try:
+            ctx = context.copy().update({'tracking_disable': True})
             if not partner_id:
                 with self.protect_v8_cache(pffs):
                     # safe mode is here mandatory
                     partner_id = partner_obj.create(
-                        cr, uid, partner_datas, context=context)
+                        cr, uid, partner_datas, context=ctx)
             status_id = partner_obj.read(
                 cr, uid, partner_id, ['membership_state_id'],
-                context=context)['membership_state_id'][0]
+                context=ctx)['membership_state_id'][0]
             vals = get_status_values(request_type)
             if vals:
                 with self.protect_v8_cache(pffs):
                     # safe mode is here mandatory
                     partner_obj.write(
-                        cr, uid, partner_id, vals, context=context)
+                        cr, uid, partner_id, vals, context=ctx)
                 status_id = partner_obj.read(
                     cr, uid, partner_id, ['membership_state_id'],
-                    context=context)['membership_state_id'][0]
+                    context=ctx)['membership_state_id'][0]
         except:
             pass
         finally:
@@ -600,7 +602,6 @@ class membership_request(orm.Model):
         day = vals.get('day', False)
         month = vals.get('month', False)
         year = vals.get('year', False)
-        identifier = vals.get('identifier', False)
         email = vals.get('email', False)
         mobile = vals.get('mobile', False)
         phone = vals.get('phone', False)
@@ -648,7 +649,6 @@ class membership_request(orm.Model):
         if partner_id:
             partner = self.pool['res.partner'].browse(cr, uid, partner_id,
                                                       context=context)
-            identifier = partner.identifier
             membership_state_id = partner.membership_state_id and \
                 partner.membership_state_id.id or False
             result_type_id = self.get_partner_preview(
@@ -657,7 +657,6 @@ class membership_request(orm.Model):
         # update vals dictionary because some inputs may have changed
         # (and new values too)
         vals.update({
-            'identifier': identifier,
             'partner_id': partner_id,
             'lastname': lastname,
             'firstname': firstname,
