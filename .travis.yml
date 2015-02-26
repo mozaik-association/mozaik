@@ -19,6 +19,7 @@ install:
   - git clone --depth=1 https://github.com/acsone/acsone-addons -b ${VERSION} $HOME/acsone-addons
   - git clone --depth=1 https://github.com/OCA/web -b ${VERSION} $HOME/web
   - git clone --depth=1 https://github.com/OCA/server-tools -b ${VERSION} $HOME/server-tools
+  - git clone --depth=1 https://github.com/OCA/connector -b ${VERSION} $HOME/connector
 
 script:
   - travis_run_tests
