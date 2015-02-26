@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/acsone/mozaik.svg?branch=8.0)](https://travis-ci.org/acsone/mozaik)
+[![Coverage Status](https://coveralls.io/repos/acsone/mozaik/badge.svg?branch=8.0)](https://coveralls.io/r/acsone/mozaik?branch=8.0)
 Mozaik
 ======
 
