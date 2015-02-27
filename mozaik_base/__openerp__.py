@@ -31,6 +31,7 @@
     'category': 'Political Association',
     'depends': [
         'base',
+        'portal',
         'asynchronous_batch_mailings',
                                  # from https://github.com/acsone/acsone-addons
         'document',
