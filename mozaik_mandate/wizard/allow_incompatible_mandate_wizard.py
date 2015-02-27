@@ -34,7 +34,7 @@ class allow_incompatible_mandate_wizard(orm.TransientModel):
     def button_allow_duplicate(self, cr, uid, ids, context=None, vals=None):
         context = context or {}
         super(allow_incompatible_mandate_wizard, self).button_allow_duplicate(
-                                    cr, uid, ids, context=context, vals=vals)
+            cr, uid, ids, context=context, vals=vals)
 
         # redirect to the representative's form view
         ids = context.get('active_ids')
@@ -44,7 +44,7 @@ class allow_incompatible_mandate_wizard(orm.TransientModel):
                                                             ['partner_id'],
                                                             context=context)
         return self.pool['res.partner'].display_object_in_form_view(
-                                            cr,
-                                            uid,
-                                            generic_mandate['partner_id'][0],
-                                            context=context)
+            cr,
+            uid,
+            generic_mandate['partner_id'][0],
+            context=context)

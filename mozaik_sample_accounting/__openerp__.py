@@ -40,8 +40,8 @@ MOZAIK Sample Accounting Localization
     'images': [
     ],
     'data': [
-         '../mozaik_account/tests/data/account_installer.xml',
-         'data/retrocession_validation.xml'
+        '../mozaik_account/tests/data/account_installer.xml',
+        'data/retrocession_validation.xml'
     ],
     'qweb': [
     ],

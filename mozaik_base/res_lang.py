@@ -42,7 +42,8 @@ class lang(orm.Model):
         lang = context.get('lang')
         if not lang:
             lang = 'en_US'
-        lang_id = self.search(cr, uid, [('code', '=', lang)], context=context)[0]
+        lang_id = self.search(
+            cr, uid, [('code', '=', lang)], context=context)[0]
         return self.read(cr, uid, lang_id, ['date_format'])['date_format']
 
     def format_date(self, cr, uid, date_to_format, context):
@@ -50,5 +51,6 @@ class lang(orm.Model):
         if not date_format:
             date_format = self._get_date_format(cr, uid, context)
 
-        date_obj = datetime.strptime(date_to_format, DEFAULT_SERVER_DATE_FORMAT)
+        date_obj = datetime.strptime(
+            date_to_format, DEFAULT_SERVER_DATE_FORMAT)
         return date_obj.strftime(date_format)

@@ -143,13 +143,18 @@ class mandate_category(orm.Model):
         ==============================
         Impact relative categories to add or remove a link to current id
         """
-        for exclu_data in self.search_read(cr, uid, [('id', 'in', linked_ids),
-                                               ('exclusive_category_m2m_ids',
-                                               operator, [category_id])],
-                                               ['exclusive_category_m2m_ids'],
-                                               context=context):
-            exclu_ids.extend([exclu_id for exclu_id in\
-                              exclu_data['exclusive_category_m2m_ids']\
+        for exclu_data in self.search_read(cr,
+                                           uid,
+                                           [('id',
+                                             'in',
+                                             linked_ids),
+                                            ('exclusive_category_m2m_ids',
+                                             operator,
+                                             [category_id])],
+                                           ['exclusive_category_m2m_ids'],
+                                           context=context):
+            exclu_ids.extend([exclu_id for exclu_id in
+                              exclu_data['exclusive_category_m2m_ids']
                               if exclu_id != category_id])
             vals = dict(exclusive_category_m2m_ids=[[6, False, exclu_ids]])
             super(mandate_category, self).write(cr,
@@ -169,23 +174,23 @@ class mandate_category(orm.Model):
                                  select=True,
                                  required=True),
         'exclusive_category_m2m_ids': fields.many2many(
-                                      'mandate.category',
-                                      'mandate_category_mandate_category_rel',
-                                      'id',
-                                      'exclu_id',
-                                      'Exclusive Category'),
+            'mandate.category',
+            'mandate_category_mandate_category_rel',
+            'id',
+            'exclu_id',
+            'Exclusive Category'),
         'sta_assembly_category_id': fields.many2one(
-                                        'sta.assembly.category',
-                                        string='State Assembly Category',
-                                        track_visibility='onchange'),
+            'sta.assembly.category',
+            string='State Assembly Category',
+            track_visibility='onchange'),
         'ext_assembly_category_id': fields.many2one(
-                                        'ext.assembly.category',
-                                        string='External Assembly Category',
-                                        track_visibility='onchange'),
+            'ext.assembly.category',
+            string='External Assembly Category',
+            track_visibility='onchange'),
         'int_assembly_category_id': fields.many2one(
-                                        'int.assembly.category',
-                                        string='Internal Assembly Category',
-                                        track_visibility='onchange'),
+            'int.assembly.category',
+            string='Internal Assembly Category',
+            track_visibility='onchange'),
         'sta_mandate_ids': fields.one2many('sta.mandate',
                                            'mandate_category_id',
                                            'State Mandates'),
@@ -216,7 +221,7 @@ class mandate_category(orm.Model):
 
     _unicity_keys = 'type, name'
 
-#orm methods
+# orm methods
 
     def copy_data(self, cr, uid, id_, default=None, context=None):
         res = super(mandate_category, self).copy_data(cr, uid, id_,

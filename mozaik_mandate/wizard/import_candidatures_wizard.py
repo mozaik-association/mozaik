@@ -47,7 +47,7 @@ class import_sta_candidatures_wizard(orm.TransientModel):
         'import_lines': fields.one2many(
             'import.sta.candidatures.file.lines', 'wizard_id',
             string='Candidatures'),
-        }
+    }
 
     def default_get(self, cr, uid, flds, context):
         """
@@ -116,13 +116,14 @@ class import_sta_candidatures_wizard(orm.TransientModel):
             is_effective = data[file_import_structure.index('is_effective')] \
                 in ['True', '1']
             list_effective_position = is_effective and \
-                data[file_import_structure.index('list_effective_position')] \
-                or 0
-            is_substitute = data[file_import_structure.index('is_substitute')] \
+                data[file_import_structure.index(
+                    'list_effective_position')] or 0
+            is_substitute = data[
+                file_import_structure.index('is_substitute')] \
                 in ['True', '1']
             list_substitute_position = is_substitute and \
-                data[file_import_structure.index('list_substitute_position')] \
-                or 0
+                data[file_import_structure.index(
+                    'list_substitute_position')] or 0
 
             values = dict(
                 wizard_id=wizard.id,
@@ -170,14 +171,17 @@ class import_sta_candidatures_wizard(orm.TransientModel):
                       ('partner_id', '=', line.partner_id.id)]
             candidature_ids = candidature_pool.search(cr, uid, domain)
 
-            candidature_values = dict(partner_id=line.partner_id.id,
-                        partner_name=line.partner_name,
-                        is_effective=line.is_effective,
-                        is_substitute=line.is_substitute,
-                        list_effective_position=line.list_effective_position\
-                                            if line.is_effective else False,
-                        list_substitute_position=line.list_substitute_position\
-                                            if line.is_substitute else False)
+            candidature_values = dict(
+                partner_id=line.partner_id.id,
+                partner_name=line.partner_name,
+                is_effective=line.is_effective,
+                is_substitute=line.is_substitute,
+                list_effective_position=(
+                    line.list_effective_position if
+                    line.is_effective else False),
+                list_substitute_position=(
+                    line.list_substitute_position if
+                    line.is_substitute else False))
 
             if candidature_ids:
                 candidature_pool.write(cr,
@@ -187,7 +191,7 @@ class import_sta_candidatures_wizard(orm.TransientModel):
                                        context=context)
             else:
                 candidature_values['selection_committee_id'] =\
-                                               wizard.selection_committee_id.id
+                    wizard.selection_committee_id.id
                 candidature_pool.create(cr,
                                         uid,
                                         candidature_values,
@@ -215,4 +219,4 @@ class import_sta_candidature_file_lines (orm.TransientModel):
             'Position on Effectives List'),
         'list_substitute_position': fields.integer(
             'Position on Substitutes List'),
-        }
+    }

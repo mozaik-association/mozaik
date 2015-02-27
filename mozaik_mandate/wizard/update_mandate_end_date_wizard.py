@@ -140,4 +140,5 @@ class update_ext_mandate_end_date_wizard(orm.TransientModel):
 
     def set_mandate_end_date(self, cr, uid, ids, context=None):
         return super(update_ext_mandate_end_date_wizard,
-                     self).set_mandate_end_date(cr, uid, ids, context=context)
+                     self).set_mandate_end_date(
+            cr, uid, ids, context=context)

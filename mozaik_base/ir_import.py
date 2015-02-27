@@ -86,4 +86,3 @@ class ir_import(orm.TransientModel):
             for m in res:
                 _logger.error(m['message'])
         return res
-

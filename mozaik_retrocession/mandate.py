@@ -25,8 +25,9 @@
 from openerp.tools.translate import _
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
-from structure import sta_assembly, ext_assembly
-from openerp.addons.mozaik_retrocession.common import RETROCESSION_MODES_AVAILABLE, CALCULATION_METHOD_AVAILABLE_TYPES
+from .structure import sta_assembly, ext_assembly
+from openerp.addons.mozaik_retrocession.common import \
+    RETROCESSION_MODES_AVAILABLE, CALCULATION_METHOD_AVAILABLE_TYPES
 
 
 class mandate_category(orm.Model):
@@ -36,17 +37,36 @@ class mandate_category(orm.Model):
     _inherit = ['mandate.category']
 
     def get_linked_sta_mandate_ids(self, cr, uid, ids, context=None):
-        return super(mandate_category, self).get_linked_sta_mandate_ids(cr, uid, ids, context=context)
+        return super(
+            mandate_category,
+            self).get_linked_sta_mandate_ids(
+            cr,
+            uid,
+            ids,
+            context=context)
 
     def get_linked_ext_mandate_ids(self, cr, uid, ids, context=None):
-        return super(mandate_category, self).get_linked_ext_mandate_ids(cr, uid, ids, context=context)
+        return super(
+            mandate_category,
+            self).get_linked_ext_mandate_ids(
+            cr,
+            uid,
+            ids,
+            context=context)
 
-    def _check_retro_instance_on_assemblies(self, cr, uid, ids, for_unlink=False, context=None):
+    def _check_retro_instance_on_assemblies(
+            self,
+            cr,
+            uid,
+            ids,
+            for_unlink=False,
+            context=None):
         """
         ==============
         _check_retro_instance_on_assemblies
         ==============
-        Check if a retrocession management instance is set on all impacted assemblie
+        Check if a retrocession management instance is set on all impacted
+        assemblie
         :rparam: True if it is the case
                  False otherwise
         :rtype: boolean
@@ -63,19 +83,32 @@ class mandate_category(orm.Model):
                 else:
                     continue
 
-                assembly_ids = self.pool.get(assembly_model).search(cr, uid, [('assembly_category_id', '=', assembly_cat_id),
-                                                                              ('retro_instance_id', '=', False)], context=context)
+                assembly_ids = self.pool.get(assembly_model).search(
+                    cr, uid, [
+                        ('assembly_category_id', '=', assembly_cat_id),
+                        ('retro_instance_id', '=', False)],
+                    context=context)
                 if len(assembly_ids) > 0:
                     return False
 
         return True
 
     _columns = {
-        'fractionation_id': fields.many2one('fractionation', string='Fractionation',
-                                            select=True, track_visibility='onchange'),
-        'calculation_method_id': fields.many2one('calculation.method', string='Calculation Method',
-                                            select=True, track_visibility='onchange'),
-        'retrocession_mode': fields.selection(RETROCESSION_MODES_AVAILABLE, 'Retrocession Mode', required=True, track_visibility='onchange'),
+        'fractionation_id': fields.many2one(
+            'fractionation',
+            string='Fractionation',
+            select=True,
+            track_visibility='onchange'),
+        'calculation_method_id': fields.many2one(
+            'calculation.method',
+            string='Calculation Method',
+            select=True,
+            track_visibility='onchange'),
+        'retrocession_mode': fields.selection(
+            RETROCESSION_MODES_AVAILABLE,
+            'Retrocession Mode',
+            required=True,
+            track_visibility='onchange'),
     }
 
     _defaults = {
@@ -83,8 +116,10 @@ class mandate_category(orm.Model):
     }
 
     _constraints = [
-        (_check_retro_instance_on_assemblies, _("Some impacted assemblies has no retrocessions management instance!"), ['retrocession_mode'])
-    ]
+        (_check_retro_instance_on_assemblies,
+         _("Some impacted assemblies has no retrocessions management "
+           "instance!"),
+            ['retrocession_mode'])]
 
 
 class abstract_mandate_retrocession(orm.AbstractModel):
@@ -112,7 +147,8 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         res = {}
         for mandate in self.browse(cr, uid, ids, context=context):
             cat_method = mandate.mandate_category_id.calculation_method_id
-            ass_method = mandate[self._assembly_foreign_key].calculation_method_id
+            ass_method = mandate[
+                self._assembly_foreign_key].calculation_method_id
 
             if ass_method:
                 method_id = ass_method.id
@@ -123,7 +159,8 @@ class abstract_mandate_retrocession(orm.AbstractModel):
             res[mandate.id] = method_id
         return res
 
-    def _has_retrocessions_linked(self, cr, uid, ids, fname, arg, context=None):
+    def _has_retrocessions_linked(self, cr, uid, ids, fname, arg,
+                                  context=None):
         """
         =========================
         has_retrocessions_linked
@@ -134,7 +171,11 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         """
         res = {}
         for mandate_id in ids:
-            nb_retro = len(self.pool.get('retrocession').search(cr, uid, [(self._retrocession_foreign_key, '=', mandate_id)], context=context))
+            nb_retro = len(
+                self.pool.get('retrocession').search(
+                    cr, uid, [
+                        (self._retrocession_foreign_key, '=', mandate_id)],
+                    context=context))
             res[mandate_id] = True if nb_retro > 0 else False
         return res
 
@@ -143,31 +184,64 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         ========================
         _need_account_management
         ========================
-        Determine whether retrocession of mandate need account management or not
+        Determine whether retrocession of mandate need account management or
+        not
         :rparam: True if accounting management needed otherwise False
         :rtype: Boolean
         """
         res = {}
         for mandate in self.browse(cr, uid, ids, context=context):
-            res[mandate.id] = mandate.retro_instance_id.id == self.pool.get('int.instance').get_default(cr, uid, context=context) \
-                            if mandate.retrocession_mode != 'none' else False
+            val = False
+            if mandate.retrocession_mode != 'none':
+                default = self.pool['int.instance'].get_default(
+                    cr, uid, context=context)
+                val = mandate.retro_instance_id.id == default
+            res[mandate.id] = val
 
         return res
 
     _columns = {
-        'retrocession_mode': fields.related('mandate_category_id', 'retrocession_mode', string='Retrocession Mode', type='selection',
-                               selection=RETROCESSION_MODES_AVAILABLE, store=_retrocession_mode_store_trigger),
-        'calculation_method_id': fields.function(_get_method_id, string='Calculation Method',
-                                 type='many2one', relation="calculation.method", select=True, store=_method_id_store_trigger),
-        'method_type': fields.related('calculation_method_id', 'type', string='Calculation Method Type', type='selection',
-                                       selection=CALCULATION_METHOD_AVAILABLE_TYPES, store=_method_id_store_trigger),
-        'has_retrocessions_linked': fields.function(_has_retrocessions_linked, string='Has Retrocessions',
-                                 type='boolean', store=False),
-        'retro_instance_id': fields.many2one('int.instance', 'Retrocessions Management Instance',
-                                       select=True, track_visibility='onchange'),
-        'reference': fields.char('Communication', size=64, help="The mandate reference for payments."),
+        'retrocession_mode': fields.related(
+            'mandate_category_id',
+            'retrocession_mode',
+            string='Retrocession Mode',
+            type='selection',
+            selection=RETROCESSION_MODES_AVAILABLE,
+            store=_retrocession_mode_store_trigger),
+        'calculation_method_id': fields.function(
+            _get_method_id,
+            string='Calculation Method',
+            type='many2one',
+            relation="calculation.method",
+            select=True,
+            store=_method_id_store_trigger),
+        'method_type': fields.related(
+            'calculation_method_id',
+            'type',
+            string='Calculation Method Type',
+            type='selection',
+            selection=CALCULATION_METHOD_AVAILABLE_TYPES,
+            store=_method_id_store_trigger),
+        'has_retrocessions_linked': fields.function(
+            _has_retrocessions_linked,
+            string='Has Retrocessions',
+            type='boolean',
+            store=False),
+        'retro_instance_id': fields.many2one(
+            'int.instance',
+            'Retrocessions Management Instance',
+            select=True,
+            track_visibility='onchange'),
+        'reference': fields.char(
+            'Communication',
+            size=64,
+            help="The mandate reference for payments."),
         'email_date': fields.date('Last email Sent'),
-        'need_account_management': fields.function(_need_account_management, string='Need accounting management', type='boolean', store=False),
+        'need_account_management': fields.function(
+            _need_account_management,
+            string='Need accounting management',
+            type='boolean',
+            store=False),
     }
 
 # orm methods
@@ -177,15 +251,29 @@ class abstract_mandate_retrocession(orm.AbstractModel):
 
         if 'retrocession_mode' not in vals:
             mandate_category_id = vals['mandate_category_id']
-            category = self.pool.get('mandate.category').browse(cr, uid, mandate_category_id)
+            category = self.pool.get('mandate.category').browse(
+                cr,
+                uid,
+                mandate_category_id)
             vals['retrocession_mode'] = category.retrocession_mode
 
-        if ('retro_instance_id' not in vals or vals['retro_instance_id'] == False):
+        if ('retro_instance_id' not in vals or vals[
+                'retro_instance_id']):
             assembly_id = vals[self._assembly_foreign_key]
-            assembly = self.pool.get(self._assembly_model).browse(cr, uid, assembly_id)
+            assembly = self.pool.get(
+                self._assembly_model).browse(
+                cr,
+                uid,
+                assembly_id)
             vals['retro_instance_id'] = assembly.retro_instance_id.id
 
-        res = super(abstract_mandate_retrocession, self).create(cr, uid, vals, context=context)
+        res = super(
+            abstract_mandate_retrocession,
+            self).create(
+            cr,
+            uid,
+            vals,
+            context=context)
 
         if res:
             reference = self.generate_mandate_reference(cr, uid, res)
@@ -211,17 +299,44 @@ class abstract_mandate_retrocession(orm.AbstractModel):
             ids = [ids]
 
         if self._assembly_foreign_key in vals or 'mandate_category_id' in vals:
-            dataset = self.read(cr, uid, ids, ['calculation_method_id'], context=context)
+            dataset = self.read(
+                cr,
+                uid,
+                ids,
+                ['calculation_method_id'],
+                context=context)
             method_dict = {}
             for value in dataset:
-                method_dict[value['id']] = value['calculation_method_id'][0] if type(value['calculation_method_id']) == tuple else False
+                method_dict[
+                    value['id']] = value[
+                        'calculation_method_id'][0] if isinstance(
+                    value['calculation_method_id'],
+                    tuple) else False
 
-        res = super(abstract_mandate_retrocession, self).write(cr, uid, ids, vals, context=context)
+        res = super(
+            abstract_mandate_retrocession,
+            self).write(
+            cr,
+            uid,
+            ids,
+            vals,
+            context=context)
         if self._assembly_foreign_key in vals or 'mandate_category_id' in vals:
             for mandate in self.browse(cr, uid, ids, context=context):
-                mandate_method_id = mandate.calculation_method_id.id if mandate.calculation_method_id else False
-                if mandate.id in method_dict and method_dict[mandate.id] != mandate_method_id:
-                    self.pool.get('calculation.method').copy_fixed_rules_on_mandate(cr, uid, mandate.calculation_method_id.id, mandate.id, self._retrocession_foreign_key, context=context)
+                calculation_method = mandate.calculation_method_id
+                mandate_method_id = False
+                if calculation_method:
+                    mandate_method_id = calculation_method.id
+                if mandate.id in method_dict and method_dict[
+                        mandate.id] != mandate_method_id:
+                    self.pool[
+                        'calculation.method'].copy_fixed_rules_on_mandate(
+                        cr,
+                        uid,
+                        mandate.calculation_method_id.id,
+                        mandate.id,
+                        self._retrocession_foreign_key,
+                        context=context)
         return res
 
 # public methods
@@ -239,7 +354,11 @@ class abstract_mandate_retrocession(orm.AbstractModel):
 
     def get_retro_instance_id(self, cr, uid, assembly_id, context=None):
         if assembly_id:
-            assembly = self.pool.get(self._assembly_model).browse(cr, uid, assembly_id)
+            assembly = self.pool.get(
+                self._assembly_model).browse(
+                cr,
+                uid,
+                assembly_id)
             return assembly.retro_instance_id.id
 
         return False
@@ -305,48 +424,168 @@ class sta_mandate(orm.Model):
     _assembly_model = 'sta.assembly'
 
     def _get_method_id(self, cr, uid, ids, fname, arg, context=None):
-        return super(sta_mandate, self)._get_method_id(cr, uid, ids, fname, arg, context=context)
+        return super(
+            sta_mandate,
+            self)._get_method_id(
+            cr,
+            uid,
+            ids,
+            fname,
+            arg,
+            context=context)
 
-    def _has_retrocessions_linked(self, cr, uid, ids, fname, arg, context=None):
-        return super(sta_mandate, self)._has_retrocessions_linked(cr, uid, ids, fname, arg, context=context)
+    def _has_retrocessions_linked(self, cr, uid, ids, fname, arg,
+                                  context=None):
+        return super(
+            sta_mandate,
+            self)._has_retrocessions_linked(
+            cr,
+            uid,
+            ids,
+            fname,
+            arg,
+            context=context)
 
     _method_id_store_trigger = {
-        'sta.mandate': (lambda self, cr, uid, ids, context=None: ids,
-            ['sta_assembly_id', 'mandate_category_id'], 20),
-        'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['calculation_method_id'], 20),
-        'sta.assembly': (sta_assembly.get_linked_sta_mandate_ids, ['calculation_method_id'], 20),
-    }
+        'sta.mandate': (
+            lambda self, cr, uid, ids, context=None: ids, [
+                'sta_assembly_id', 'mandate_category_id'], 20),
+        'mandate.category': (
+            mandate_category.get_linked_sta_mandate_ids,
+            ['calculation_method_id'], 20),
+        'sta.assembly': (
+            sta_assembly.get_linked_sta_mandate_ids,
+            ['calculation_method_id'], 20), }
 
     _retrocession_mode_store_trigger = {
-       'sta.mandate': (lambda self, cr, uid, ids, context=None: ids,
-            ['mandate_category_id'], 20),
-       'mandate.category': (mandate_category.get_linked_sta_mandate_ids, ['retrocession_mode'], 20),
+        'sta.mandate': (
+            lambda self,
+            cr,
+            uid,
+            ids,
+            context=None: ids,
+            ['mandate_category_id'],
+            20),
+        'mandate.category': (
+            mandate_category.get_linked_sta_mandate_ids,
+            ['retrocession_mode'],
+            20),
     }
 
     _columns = {
-        'retrocession_mode': fields.related('mandate_category_id', 'retrocession_mode', string='Retrocession Mode', type='selection',
-                               selection=RETROCESSION_MODES_AVAILABLE, store=_retrocession_mode_store_trigger),
-        'calculation_method_id': fields.function(_get_method_id, string='Calculation Method',
-                                 type='many2one', relation="calculation.method", select=True, store=_method_id_store_trigger),
-        'method_type': fields.related('calculation_method_id', 'type', string='Calculation Method Type', type='selection',
-                                       selection=CALCULATION_METHOD_AVAILABLE_TYPES, store=_method_id_store_trigger),
-        'rule_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Imputable Fixed Rules', domain=[('active', '=', True), ('is_deductible', '=', False)]),
-        'rule_inactive_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Imputable Fixed Rules', domain=[('active', '=', False), ('is_deductible', '=', False)]),
-        'deductible_rule_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Deductible Fixed Rules', domain=[('active', '=', True), ('is_deductible', '=', True)]),
-        'deductible_rule_inactive_ids': fields.one2many('calculation.rule', 'sta_mandate_id', 'Fixed Calculation Rules', domain=[('active', '=', False), ('is_deductible', '=', True)]),
+        'retrocession_mode': fields.related(
+            'mandate_category_id',
+            'retrocession_mode',
+            string='Retrocession Mode',
+            type='selection',
+            selection=RETROCESSION_MODES_AVAILABLE,
+            store=_retrocession_mode_store_trigger),
+        'calculation_method_id': fields.function(
+            _get_method_id,
+            string='Calculation Method',
+            type='many2one',
+            relation="calculation.method",
+            select=True,
+            store=_method_id_store_trigger),
+        'method_type': fields.related(
+            'calculation_method_id',
+            'type',
+            string='Calculation Method Type',
+            type='selection',
+            selection=CALCULATION_METHOD_AVAILABLE_TYPES,
+            store=_method_id_store_trigger),
+        'rule_ids': fields.one2many(
+            'calculation.rule',
+            'sta_mandate_id',
+            'Imputable Fixed Rules',
+            domain=[
+                ('active',
+                 '=',
+                 True),
+                ('is_deductible',
+                 '=',
+                 False)]),
+        'rule_inactive_ids': fields.one2many(
+            'calculation.rule',
+            'sta_mandate_id',
+            'Imputable Fixed Rules',
+            domain=[
+                ('active',
+                 '=',
+                 False),
+                ('is_deductible',
+                 '=',
+                 False)]),
+        'deductible_rule_ids': fields.one2many(
+            'calculation.rule',
+            'sta_mandate_id',
+            'Deductible Fixed Rules',
+            domain=[
+                ('active',
+                 '=',
+                 True),
+                ('is_deductible',
+                 '=',
+                 True)]),
+        'deductible_rule_inactive_ids': fields.one2many(
+            'calculation.rule',
+            'sta_mandate_id',
+            'Fixed Calculation Rules',
+            domain=[
+                ('active',
+                 '=',
+                 False),
+                ('is_deductible',
+                 '=',
+                 True)]),
     }
 
-    def onchange_sta_assembly_id(self, cr, uid, ids, sta_assembly_id, context=None):
-        res = super(sta_mandate, self).onchange_sta_assembly_id(cr, uid, ids, sta_assembly_id, context=context)
-        res['value']['retro_instance_id'] = self.get_retro_instance_id(cr, uid, sta_assembly_id, context=context)
+    def onchange_sta_assembly_id(
+            self,
+            cr,
+            uid,
+            ids,
+            sta_assembly_id,
+            context=None):
+        res = super(
+            sta_mandate,
+            self).onchange_sta_assembly_id(
+            cr,
+            uid,
+            ids,
+            sta_assembly_id,
+            context=context)
+        res['value']['retro_instance_id'] = self.get_retro_instance_id(
+            cr,
+            uid,
+            sta_assembly_id,
+            context=context)
 
         return res
 
-    def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id, context=None):
-        res = super(sta_mandate, self).onchange_mandate_category_id(cr, uid, ids, mandate_category_id, context=context)
+    def onchange_mandate_category_id(
+            self,
+            cr,
+            uid,
+            ids,
+            mandate_category_id,
+            context=None):
+        res = super(
+            sta_mandate,
+            self).onchange_mandate_category_id(
+            cr,
+            uid,
+            ids,
+            mandate_category_id,
+            context=context)
 
         if mandate_category_id:
-            category_data = self.pool.get('mandate.category').read(cr, uid, mandate_category_id, ['retrocession_mode'], context)
+            category_data = self.pool.get('mandate.category').read(
+                cr,
+                uid,
+                mandate_category_id,
+                ['retrocession_mode'],
+                context)
             retrocession_mode = category_data['retrocession_mode'] or False
 
             res['value']['retrocession_mode'] = retrocession_mode
@@ -364,48 +603,168 @@ class ext_mandate(orm.Model):
     _assembly_model = 'ext.assembly'
 
     def _get_method_id(self, cr, uid, ids, fname, arg, context=None):
-        return super(ext_mandate, self)._get_method_id(cr, uid, ids, fname, arg, context=context)
+        return super(
+            ext_mandate,
+            self)._get_method_id(
+            cr,
+            uid,
+            ids,
+            fname,
+            arg,
+            context=context)
 
-    def _has_retrocessions_linked(self, cr, uid, ids, fname, arg, context=None):
-        return super(ext_mandate, self)._has_retrocessions_linked(cr, uid, ids, fname, arg, context=context)
+    def _has_retrocessions_linked(self, cr, uid, ids, fname, arg,
+                                  context=None):
+        return super(
+            ext_mandate,
+            self)._has_retrocessions_linked(
+            cr,
+            uid,
+            ids,
+            fname,
+            arg,
+            context=context)
 
     _method_id_store_trigger = {
-        'ext.mandate': (lambda self, cr, uid, ids, context=None: ids,
-            ['ext_assembly_id', 'mandate_category_id'], 20),
-        'mandate.category': (mandate_category.get_linked_ext_mandate_ids, ['calculation_method_id'], 20),
-        'ext.assembly': (ext_assembly.get_linked_ext_mandate_ids, ['calculation_method_id'], 20),
-    }
+        'ext.mandate': (
+            lambda self, cr, uid, ids, context=None: ids, [
+                'ext_assembly_id', 'mandate_category_id'], 20),
+        'mandate.category': (
+            mandate_category.get_linked_ext_mandate_ids,
+            ['calculation_method_id'], 20),
+        'ext.assembly': (
+            ext_assembly.get_linked_ext_mandate_ids,
+            ['calculation_method_id'], 20), }
 
     _retrocession_mode_store_trigger = {
-       'ext.mandate': (lambda self, cr, uid, ids, context=None: ids,
-            ['mandate_category_id'], 20),
-       'mandate.category': (mandate_category.get_linked_ext_mandate_ids, ['retrocession_mode'], 20),
+        'ext.mandate': (
+            lambda self,
+            cr,
+            uid,
+            ids,
+            context=None: ids,
+            ['mandate_category_id'],
+            20),
+        'mandate.category': (
+            mandate_category.get_linked_ext_mandate_ids,
+            ['retrocession_mode'],
+            20),
     }
 
     _columns = {
-        'retrocession_mode': fields.related('mandate_category_id', 'retrocession_mode', string='Retrocession Mode', type='selection',
-                                       selection=RETROCESSION_MODES_AVAILABLE, store=_retrocession_mode_store_trigger),
-        'calculation_method_id': fields.function(_get_method_id, string='Calculation Method',
-                                 type='many2one', relation="calculation.method", select=True, store=_method_id_store_trigger),
-        'method_type': fields.related('calculation_method_id', 'type', string='Calculation Method Type', type='selection',
-                                       selection=CALCULATION_METHOD_AVAILABLE_TYPES, store=_method_id_store_trigger),
-        'rule_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Imputable Fixed Rules', domain=[('active', '=', True), ('is_deductible', '=', False)]),
-        'rule_inactive_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Imputable Fixed Rules', domain=[('active', '=', False), ('is_deductible', '=', False)]),
-        'deductible_rule_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Deductible Fixed Rules', domain=[('active', '=', True), ('is_deductible', '=', True)]),
-        'deductible_rule_inactive_ids': fields.one2many('calculation.rule', 'ext_mandate_id', 'Fixed Calculation Rules', domain=[('active', '=', False), ('is_deductible', '=', True)]),
+        'retrocession_mode': fields.related(
+            'mandate_category_id',
+            'retrocession_mode',
+            string='Retrocession Mode',
+            type='selection',
+            selection=RETROCESSION_MODES_AVAILABLE,
+            store=_retrocession_mode_store_trigger),
+        'calculation_method_id': fields.function(
+            _get_method_id,
+            string='Calculation Method',
+            type='many2one',
+            relation="calculation.method",
+            select=True,
+            store=_method_id_store_trigger),
+        'method_type': fields.related(
+            'calculation_method_id',
+            'type',
+            string='Calculation Method Type',
+            type='selection',
+            selection=CALCULATION_METHOD_AVAILABLE_TYPES,
+            store=_method_id_store_trigger),
+        'rule_ids': fields.one2many(
+            'calculation.rule',
+            'ext_mandate_id',
+            'Imputable Fixed Rules',
+            domain=[
+                ('active',
+                 '=',
+                 True),
+                ('is_deductible',
+                 '=',
+                 False)]),
+        'rule_inactive_ids': fields.one2many(
+            'calculation.rule',
+            'ext_mandate_id',
+            'Imputable Fixed Rules',
+            domain=[
+                ('active',
+                 '=',
+                 False),
+                ('is_deductible',
+                 '=',
+                 False)]),
+        'deductible_rule_ids': fields.one2many(
+            'calculation.rule',
+            'ext_mandate_id',
+            'Deductible Fixed Rules',
+            domain=[
+                ('active',
+                 '=',
+                 True),
+                ('is_deductible',
+                 '=',
+                 True)]),
+        'deductible_rule_inactive_ids': fields.one2many(
+            'calculation.rule',
+            'ext_mandate_id',
+            'Fixed Calculation Rules',
+            domain=[
+                ('active',
+                 '=',
+                 False),
+                ('is_deductible',
+                 '=',
+                 True)]),
     }
 
-    def onchange_ext_assembly_id(self, cr, uid, ids, ext_assembly_id, context=None):
-        res = super(ext_mandate, self).onchange_ext_assembly_id(cr, uid, ids, ext_assembly_id, context=context)
-        res['value']['retro_instance_id'] = self.get_retro_instance_id(cr, uid, ext_assembly_id, context=context)
+    def onchange_ext_assembly_id(
+            self,
+            cr,
+            uid,
+            ids,
+            ext_assembly_id,
+            context=None):
+        res = super(
+            ext_mandate,
+            self).onchange_ext_assembly_id(
+            cr,
+            uid,
+            ids,
+            ext_assembly_id,
+            context=context)
+        res['value']['retro_instance_id'] = self.get_retro_instance_id(
+            cr,
+            uid,
+            ext_assembly_id,
+            context=context)
 
         return res
 
-    def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id, context=None):
-        res = super(ext_mandate, self).onchange_mandate_category_id(cr, uid, ids, mandate_category_id, context=context)
+    def onchange_mandate_category_id(
+            self,
+            cr,
+            uid,
+            ids,
+            mandate_category_id,
+            context=None):
+        res = super(
+            ext_mandate,
+            self).onchange_mandate_category_id(
+            cr,
+            uid,
+            ids,
+            mandate_category_id,
+            context=context)
 
         if mandate_category_id:
-            category_data = self.pool.get('mandate.category').read(cr, uid, mandate_category_id, ['retrocession_mode'], context)
+            category_data = self.pool.get('mandate.category').read(
+                cr,
+                uid,
+                mandate_category_id,
+                ['retrocession_mode'],
+                context)
             retrocession_mode = category_data['retrocession_mode'] or False
 
             res['value']['retrocession_mode'] = retrocession_mode

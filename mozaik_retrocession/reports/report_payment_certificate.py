@@ -45,4 +45,3 @@ class report_payment_certificate_wrapper(osv.AbstractModel):
     _inherit = 'report.abstract_report'
     _template = 'mozaik_retrocession.report_payment_certificate'
     _wrapped_report_class = report_payment_certificate
-

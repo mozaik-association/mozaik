@@ -51,9 +51,11 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
             'abstract.assembly', string='Abstract Assembly',
             readonly=True, ondelete='cascade'),
         'new_assembly_id': fields.many2one(
-            'abstract.assembly', string='Abstract Assembly', ondelete='cascade'),
+            'abstract.assembly', string='Abstract Assembly',
+            ondelete='cascade'),
         'instance_id': fields.many2one(
-            'abstract.instance', string='Abstract Instance', ondelete='cascade'),
+            'abstract.instance', string='Abstract Instance',
+            ondelete='cascade'),
         'action': fields.selection(WIZARD_AVAILABLE_ACTIONS, 'Action'),
         'partner_id': fields.many2one(
             'res.partner', string='Partner',
@@ -103,15 +105,15 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
                                = mandate[self._mandate_assembly_foreign_key].id
             res['mandate_id'] = mandate.id
             res['instance_id'] =\
-                     mandate[self._mandate_assembly_foreign_key].instance_id.id
+                mandate[self._mandate_assembly_foreign_key].instance_id.id
             if action == 'add':
                 res['start_date'] = mandate.start_date
                 res['deadline_date'] = mandate.deadline_date
             if action == 'renew':
                 start_date = mandate.end_date if mandate.end_date\
-                                              else mandate.deadline_date
+                    else mandate.deadline_date
                 start_date = (datetime.strptime(start_date,
-                                                '%Y-%m-%d') +\
+                                                '%Y-%m-%d') +
                               relativedelta(days=1))
                 res['start_date'] = start_date.strftime('%Y-%m-%d')
             res['action'] = action
@@ -174,10 +176,10 @@ class abstract_copy_mandate_wizard(orm.AbstractModel):
         new_mandate_id = mandate_obj.copy(cr, uid, mandate_id, default=vals,
                                           context=context)
         view_ref = self.pool.get('ir.model.data').get_object_reference(
-                                                               cr,
-                                                               uid,
-                                                               'mozaik_mandate',
-                                                               self._form_view)
+            cr,
+            uid,
+            'mozaik_mandate',
+            self._form_view)
         view_id = view_ref and view_ref[1] or False,
 
         res['res_id'] = new_mandate_id
@@ -223,7 +225,7 @@ class copy_sta_mandate_wizard(orm.TransientModel):
                                                                context=context)
 
         ids = context.get('active_id') and\
-              [context.get('active_id')] or context.get('active_ids') or []
+            [context.get('active_id')] or context.get('active_ids') or []
         model = context.get('active_model', False)
         if not model:
             return res
@@ -233,14 +235,16 @@ class copy_sta_mandate_wizard(orm.TransientModel):
             if mandate.sta_assembly_id.is_legislative and\
                res['action'] == WIZARD_AVAILABLE_ACTIONS[0][0]:
                 res['message'] = \
-                                _('Renew not allowed on a legislative mandate')
+                    _('Renew not allowed on a legislative mandate')
 
             if res['action'] == WIZARD_AVAILABLE_ACTIONS[0][0]:
+                assembly_id = mandate.sta_assembly_id
                 domain = [
                     ('power_level_id', '=',
-                   mandate.sta_assembly_id.assembly_category_id.power_level_id.id),
+                     assembly_id.assembly_category_id.power_level_id.id),
                     ('start_date', '>', fields.datetime.now())]
-                legislature_ids = self.pool['legislature'].search(cr, uid, domain)
+                legislature_ids = self.pool[
+                    'legislature'].search(cr, uid, domain)
                 legislature_id = legislature_ids[0] \
                     if legislature_ids else False
             else:
@@ -262,13 +266,14 @@ class copy_sta_mandate_wizard(orm.TransientModel):
                             mandate_deadline_date=False)
         if legislature_id:
             legislature_data = self.pool.get('legislature').read(
-                                                             cr,
-                                                             uid,
-                                                             legislature_id,
-                                                             ['start_date',
-                                                              'deadline_date'])
-            res['value'] = dict(start_date=legislature_data['start_date'],
-                            deadline_date=legislature_data['deadline_date'])
+                cr,
+                uid,
+                legislature_id,
+                ['start_date',
+                 'deadline_date'])
+            res['value'] = dict(
+                start_date=legislature_data['start_date'],
+                deadline_date=legislature_data['deadline_date'])
         return res
 
     def renew_mandate(self, cr, uid, ids, context=None):
@@ -281,11 +286,11 @@ class copy_sta_mandate_wizard(orm.TransientModel):
         wizard = self.browse(cr, uid, ids, context=context)[0]
         values = dict(legislature_id=wizard.legislature_id.id)
         return super(copy_sta_mandate_wizard, self).renew_mandate(
-                                                              cr,
-                                                              uid,
-                                                              ids,
-                                                              values,
-                                                              context=context)
+            cr,
+            uid,
+            ids,
+            values,
+            context=context)
 
     def add_mandate(self, cr, uid, ids, context=None):
         """
@@ -295,10 +300,10 @@ class copy_sta_mandate_wizard(orm.TransientModel):
         Add a complementary mandate
         """
         return super(copy_sta_mandate_wizard, self).add_mandate(
-                                                            cr,
-                                                            uid,
-                                                            ids,
-                                                            context=context)
+            cr,
+            uid,
+            ids,
+            context=context)
 
 
 class copy_int_mandate_wizard(orm.TransientModel):
@@ -326,10 +331,10 @@ class copy_int_mandate_wizard(orm.TransientModel):
         To get default values for the object.
         """
         return super(copy_int_mandate_wizard, self).default_get(
-                                                            cr,
-                                                            uid,
-                                                            flds,
-                                                            context=context)
+            cr,
+            uid,
+            flds,
+            context=context)
 
     def renew_mandate(self, cr, uid, ids, context=None):
         """
@@ -339,11 +344,11 @@ class copy_int_mandate_wizard(orm.TransientModel):
         Renew a mandate
         """
         return super(copy_int_mandate_wizard, self).renew_mandate(
-                                                              cr,
-                                                              uid,
-                                                              ids,
-                                                              {},
-                                                              context=context)
+            cr,
+            uid,
+            ids,
+            {},
+            context=context)
 
     def add_mandate(self, cr, uid, ids, context=None):
         """
@@ -353,10 +358,10 @@ class copy_int_mandate_wizard(orm.TransientModel):
         Add a complementary mandate
         """
         return super(copy_int_mandate_wizard, self).add_mandate(
-                                                            cr,
-                                                            uid,
-                                                            ids,
-                                                            context=context)
+            cr,
+            uid,
+            ids,
+            context=context)
 
 
 class copy_ext_mandate_wizard(orm.TransientModel):
@@ -384,10 +389,10 @@ class copy_ext_mandate_wizard(orm.TransientModel):
         To get default values for the object.
         """
         return super(copy_ext_mandate_wizard, self).default_get(
-                                                            cr,
-                                                            uid,
-                                                            flds,
-                                                            context=context)
+            cr,
+            uid,
+            flds,
+            context=context)
 
     def renew_mandate(self, cr, uid, ids, context=None):
         """
@@ -397,11 +402,11 @@ class copy_ext_mandate_wizard(orm.TransientModel):
         Renew a mandate
         """
         return super(copy_ext_mandate_wizard, self).renew_mandate(
-                                                              cr,
-                                                              uid,
-                                                              ids,
-                                                              {},
-                                                              context=context)
+            cr,
+            uid,
+            ids,
+            {},
+            context=context)
 
     def add_mandate(self, cr, uid, ids, context=None):
         """
@@ -411,7 +416,7 @@ class copy_ext_mandate_wizard(orm.TransientModel):
         Add a complementary mandate
         """
         return super(copy_ext_mandate_wizard, self).add_mandate(
-                                                            cr,
-                                                            uid,
-                                                            ids,
-                                                            context=context)
+            cr,
+            uid,
+            ids,
+            context=context)

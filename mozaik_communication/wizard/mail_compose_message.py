@@ -38,13 +38,14 @@ class mail_compose_message(orm.TransientModel):
         If the wizard's model is `email.coordinate` then the recipient is the
         email of the `email.coordinate`
         """
-        values = super(mail_compose_message, self).get_mail_values(cr, uid, wizard, res_ids, context=context)
+        values = super(mail_compose_message, self).get_mail_values(
+            cr, uid, wizard, res_ids, context=context)
         email_path = context.get('email_coordinate_path', False)
         if email_path:
-            for model_obj in self.pool[wizard.model].browse(cr, SUPERUSER_ID, values.keys(), context=context):
+            for model_obj in self.pool[wizard.model].browse(
+                    cr, SUPERUSER_ID, values.keys(), context=context):
                 email = eval('%s.%s' % ('model_obj', email_path))
                 if email:
                     values[model_obj['id']].pop('recipient_ids', [])
                     values[model_obj['id']]['email_to'] = email
         return values
-

@@ -59,12 +59,11 @@ class bounce_editor(orm.TransientModel):
         value = False
         if context.get('lang'):
             name = '%s,reason' % self._inherit
-            value = self.pool['ir.translation']._get_source(cr, uid, name, 'selection', context['lang'], src)
+            value = self.pool['ir.translation']._get_source(
+                cr, uid, name, 'selection', context['lang'], src)
         if not value:
             value = src
         res = {'description': value}
         return {
             'value': res,
         }
-
-

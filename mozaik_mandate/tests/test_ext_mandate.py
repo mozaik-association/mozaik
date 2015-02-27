@@ -74,11 +74,9 @@ class test_ext_mandate(SharedSetupTransactionCase):
         new_committee_id = res['res_id']
         self.assertNotEqual(new_committee_id, False)
 
-        candidature_commitee_id = self._candidature_pool.read(self.cr,
-                                                  self.uid,
-                                                  rejected_id.id,
-                                                  ['selection_committee_id']\
-                                                 )['selection_committee_id']
+        candidature_commitee_id = self._candidature_pool.read(
+            self.cr, self.uid, rejected_id.id,
+            ['selection_committee_id'])['selection_committee_id']
         self.assertEqual(new_committee_id, candidature_commitee_id[0])
 
     def test_duplicate_ext_candidature_in_same_category(self):
@@ -95,12 +93,13 @@ class test_ext_mandate(SharedSetupTransactionCase):
         committee = self._committee_pool.browse(self.cr,
                                                 self.uid,
                                                 selection_committee_id)
-
-        data = dict(mandate_category_id=membre_eff_cat_id,
-          selection_committee_id=selection_committee_id,
-          designation_int_assembly_id=committee.designation_int_assembly_id.id,
-          ext_assembly_id=committee.assembly_id.id,
-          partner_id=jacques_partner_id)
+        assembly_id = committee.designation_int_assembly_id.id
+        data = dict(
+            mandate_category_id=membre_eff_cat_id,
+            selection_committee_id=selection_committee_id,
+            designation_int_assembly_id=assembly_id,
+            ext_assembly_id=committee.assembly_id.id,
+            partner_id=jacques_partner_id)
 
         self._candidature_pool.create(self.cr, self.uid, data)
 
@@ -197,11 +196,11 @@ class test_ext_mandate(SharedSetupTransactionCase):
             Mandate is automatically created for Thierry candidature
                                         - mandate is linked to candidature
         '''
-        mandate_ids = self._mandate_pool.search(self.cr,
-                                                self.uid,
-                                                [('candidature_id',
-                                                  'in', candidature_ids)
-                                                ])
+        mandate_ids = self._mandate_pool.search(
+            self.cr, self.uid,
+            [('candidature_id',
+              'in', candidature_ids)
+             ])
         self.assertEqual(len(mandate_ids), 1)
 
     def test_no_decision_date(self):

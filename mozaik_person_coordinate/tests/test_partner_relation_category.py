@@ -46,7 +46,8 @@ class test_partner_relation_category(SharedSetupTransactionCase):
 
         self.registry('ir.model').clear_caches()
         self.registry('ir.model.data').clear_caches()
-        self.model_partner_relation_category = self.registry('partner.relation.category')
+        self.model_partner_relation_category = self.registry(
+            'partner.relation.category')
 
     def test_name_get(self):
         """
@@ -54,24 +55,50 @@ class test_partner_relation_category(SharedSetupTransactionCase):
         the method name_get of partner_relation_category will return either
         subject_name or object_name depending context['object'] False or Not
         """
-        rec_relation = self.browse_ref("mozaik_person_coordinate.partner_relation")
-        res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [rec_relation.partner_relation_category_id.id], context=None)
-        self.assertEqual('is employee of', res[0][1], "Without context: should be subject name")
-        res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [rec_relation.partner_relation_category_id.id], context={'object': False})
-        self.assertEqual('is employee of', res[0][1], "Without object false into context: should be subject name")
-        res = self.model_partner_relation_category.name_get(self.cr, SUPERUSER_ID, [rec_relation.partner_relation_category_id.id], context={'object': True})
-        self.assertEqual('employs', res[0][1], "With object into context: should be object name")
+        rec_relation = self.browse_ref(
+            "mozaik_person_coordinate.partner_relation")
+        res = self.model_partner_relation_category.name_get(
+            self.cr, SUPERUSER_ID, [
+                rec_relation.partner_relation_category_id.id], context=None)
+        self.assertEqual(
+            'is employee of',
+            res[0][1],
+            "Without context: should be subject name")
+        res = self.model_partner_relation_category.name_get(
+            self.cr, SUPERUSER_ID, [
+                rec_relation.partner_relation_category_id.id], context={
+                'object': False})
+        self.assertEqual(
+            'is employee of',
+            res[0][1],
+            "Without object false into context: should be subject name")
+        res = self.model_partner_relation_category.name_get(
+            self.cr, SUPERUSER_ID, [
+                rec_relation.partner_relation_category_id.id], context={
+                'object': True})
+        self.assertEqual(
+            'employs',
+            res[0][1],
+            "With object into context: should be object name")
 
     def test_check_relation_qualification(self):
-        rec_relation = self.browse_ref("mozaik_person_coordinate.partner_relation")
-        self.assertRaises(orm.except_orm, rec_relation._model.create, self.cr,
-                                          SUPERUSER_ID,
-                                          {'object_partner_id': rec_relation.subject_partner_id.id,
-                                           'subject_partner_id': rec_relation.object_partner_id.id,
-                                           'partner_relation_category_id': rec_relation.partner_relation_category_id.id})
-        self.assertRaises(orm.except_orm, rec_relation._model.create, self.cr,
-                                          SUPERUSER_ID,
-                                          {'object_partner_id': rec_relation.subject_partner_id.id,
-                                           'subject_partner_id': rec_relation.subject_partner_id.id,
-                                           'partner_relation_category_id': rec_relation.partner_relation_category_id.id})
-
+        rec_relation = self.browse_ref(
+            "mozaik_person_coordinate.partner_relation")
+        category_id = rec_relation.partner_relation_category_id.id
+        self.assertRaises(
+            orm.except_orm,
+            rec_relation._model.create,
+            self.cr,
+            SUPERUSER_ID,
+            {'object_partner_id': rec_relation.subject_partner_id.id,
+             'subject_partner_id': rec_relation.object_partner_id.id,
+             'partner_relation_category_id': category_id})
+        self.assertRaises(
+            orm.except_orm,
+            rec_relation._model.create,
+            self.cr,
+            SUPERUSER_ID,
+            {
+                'object_partner_id': rec_relation.subject_partner_id.id,
+                'subject_partner_id': rec_relation.subject_partner_id.id,
+                'partner_relation_category_id': category_id})

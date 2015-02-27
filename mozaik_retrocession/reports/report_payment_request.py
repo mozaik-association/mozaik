@@ -30,7 +30,13 @@ from openerp.report import report_sxw
 class report_payment_request(report_sxw.rml_parse):
 
     def __init__(self, cr, uid, name, context):
-        super(report_payment_request, self).__init__(cr, uid, name, context=context)
+        super(
+            report_payment_request,
+            self).__init__(
+            cr,
+            uid,
+            name,
+            context=context)
         self.localcontext.update({
             'modulo': self._modulo,
         })
@@ -44,4 +50,3 @@ class report_payment_request_wrapper(osv.AbstractModel):
     _inherit = 'report.abstract_report'
     _template = 'mozaik_retrocession.report_payment_request'
     _wrapped_report_class = report_payment_request
-

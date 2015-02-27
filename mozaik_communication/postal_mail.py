@@ -37,18 +37,24 @@ class postal_mail(orm.Model):
 
     _inactive_cascade = True
 
-    def _postal_mail_log_count(self, cr, uid, ids, field_name, arg, context=None):
+    def _postal_mail_log_count(self, cr, uid, ids, field_name, arg,
+                               context=None):
         PostalMailLog = self.pool('postal.mail.log')
         return {
-            postal_mail_id: PostalMailLog.search_count(cr, uid, [('postal_mail_id', '=', postal_mail_id)],
-                                                       context=context)
+            postal_mail_id: PostalMailLog.search_count(
+                cr, uid, [('postal_mail_id', '=', postal_mail_id)],
+                context=context)
             for postal_mail_id in ids
         }
 
     _columns = {
-        'name': fields.char('Name', size=256, required=True, track_visibility='onchange'),
-        'sent_date': fields.date('Sent Date', required=True, track_visibility='onchange'),
-        'postal_mail_log_count': fields.function(_postal_mail_log_count, string="Log Count", type="integer"),
+        'name': fields.char('Name', size=256, required=True,
+                            track_visibility='onchange'),
+        'sent_date': fields.date('Sent Date', required=True,
+                                 track_visibility='onchange'),
+        'postal_mail_log_count': fields.function(_postal_mail_log_count,
+                                                 string="Log Count",
+                                                 type="integer"),
     }
 
     _defaults = {
@@ -72,7 +78,8 @@ class postal_mail(orm.Model):
         default.update({
             'sent_date': datetime.date.today(),
         })
-        res = super(postal_mail, self).copy_data(cr, uid, ids, default=default, context=context)
+        res = super(postal_mail, self).copy_data(
+            cr, uid, ids, default=default, context=context)
         res.update({
             'name': _('%s (copy)') % res.get('name'),
         })
@@ -128,10 +135,15 @@ class postal_mail_log(orm.Model):
 
     _columns = {
         'name': fields.char('Name', size=256, track_visibility='onchange'),
-        'sent_date': fields.date('Sent Date', required=True, track_visibility='onchange'),
-        'postal_mail_id': fields.many2one('postal.mail', 'Postal Mailing', readonly=True),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate', required=True),
-        'partner_id': fields.many2one('res.partner', string='Partner', required=True),
+        'sent_date': fields.date('Sent Date', required=True,
+                                 track_visibility='onchange'),
+        'postal_mail_id': fields.many2one('postal.mail', 'Postal Mailing',
+                                          readonly=True),
+        'postal_coordinate_id': fields.many2one('postal.coordinate',
+                                                'Postal Coordinate',
+                                                required=True),
+        'partner_id': fields.many2one('res.partner', string='Partner',
+                                      required=True),
         'partner_instance_id': fields.related(
             'partner_id', 'int_instance_id',
             string='Partner Internal Instance',
@@ -168,7 +180,8 @@ class postal_mail_log(orm.Model):
 
         res = []
         for record in self.browse(cr, uid, ids, context=context):
-            res.append((record['id'], record.name or record.postal_mail_id.name))
+            res.append(
+                (record['id'], record.name or record.postal_mail_id.name))
 
         return res
 
@@ -181,8 +194,12 @@ class postal_mail_log(orm.Model):
         """
         flds = self.read(cr, uid, ids, ['postal_mail_id'], context=context)
         if flds.get('postal_mail_id', False):
-            raise orm.except_orm(_('Error'), _('A postal mail log cannot be copied when linked to a postal mailing!'))
-        res = super(postal_mail_log, self).copy(cr, uid, ids, default=default, context=context)
+            raise orm.except_orm(
+                _('Error'),
+                _('A postal mail log cannot be copied when linked to a postal '
+                  'mailing!'))
+        res = super(postal_mail_log, self).copy(
+            cr, uid, ids, default=default, context=context)
         return res
 
     def copy_data(self, cr, uid, ids, default=None, context=None):

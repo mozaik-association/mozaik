@@ -43,13 +43,20 @@ class allow_duplicate_wizard(orm.TransientModel):
         """
         To get default values for the object.
         """
-        res = super(allow_duplicate_wizard, self).default_get(cr, uid, fields, context=context)
+        res = super(allow_duplicate_wizard, self).default_get(
+            cr, uid, fields, context=context)
         context = context or {}
 
-        ids = context.get('active_id') and [context.get('active_id')] or context.get('active_ids') or []
+        ids = context.get('active_id') and \
+            [context.get('active_id')] or \
+            context.get('active_ids') or []
         for coord_id in ids:
-            address_id = res['address_id'] = self.pool['postal.coordinate'].read(cr, uid, coord_id, ['address_id'], context=context)['address_id'][0]
-            cor_ids = self.pool['co.residency'].search(cr, uid, [('address_id', '=', address_id)], context=context)
+            vals = self.pool['postal.coordinate'].read(
+                cr, uid, coord_id, ['address_id'], context=context)
+            address_id = vals['address_id'][0]
+            res['address_id'] = address_id
+            cor_ids = self.pool['co.residency'].search(
+                cr, uid, [('address_id', '=', address_id)], context=context)
             if cor_ids:
                 res['co_residency_id'] = cor_ids[0]
             break
@@ -71,15 +78,18 @@ class allow_duplicate_wizard(orm.TransientModel):
             cor_id = wizard.co_residency_id.id
         else:
             vals = {'address_id': wizard.address_id.id}
-            cor_id = self.pool['co.residency'].create(cr, uid, vals, context=context)
+            cor_id = self.pool['co.residency'].create(
+                cr, uid, vals, context=context)
             new_co = True
 
         vals = {'co_residency_id': cor_id}
-        super(allow_duplicate_wizard, self).button_allow_duplicate(cr, uid, ids, context=context, vals=vals)
+        super(allow_duplicate_wizard, self).button_allow_duplicate(
+            cr, uid, ids, context=context, vals=vals)
 
         if context and context.get('get_co_residency', False):
             return cor_id
 
         if new_co:
             # go directly to the newly created co-residency
-            return self.pool['co.residency'].display_object_in_form_view(cr, uid, cor_id, context=context)
+            return self.pool['co.residency'].display_object_in_form_view(
+                cr, uid, cor_id, context=context)

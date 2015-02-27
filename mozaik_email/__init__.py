@@ -26,4 +26,3 @@
 from . import email_coordinate
 from . import res_partner
 from . import wizard
-

@@ -69,26 +69,26 @@ class test_mandate(SharedSetupTransactionCase):
         category_pool = self.registry('mandate.category')
 
         test_category_id_1 =\
-                    category_pool.create(
-                                  self.cr,
-                                  self.uid,
-                                  dict(
-                                   name='Category 1',
-                                   type='sta',
-                                   sta_assembly_category_id=sta_assembly_id))
+            category_pool.create(
+                self.cr,
+                self.uid,
+                dict(
+                    name='Category 1',
+                    type='sta',
+                    sta_assembly_category_id=sta_assembly_id))
         '''
             Test consistency on create
         '''
         magic_number = [[6, False, [test_category_id_1]]]
         test_category_id_2 =\
-                    category_pool.create(
-                                  self.cr,
-                                  self.uid,
-                                  dict(
-                                   name='Category 2',
-                                   type='ext',
-                                   ext_assembly_category_id=ext_assembly_id,
-                                   exclusive_category_m2m_ids=magic_number))
+            category_pool.create(
+                self.cr,
+                self.uid,
+                dict(
+                    name='Category 2',
+                    type='ext',
+                    ext_assembly_category_id=ext_assembly_id,
+                    exclusive_category_m2m_ids=magic_number))
 
         exclu_ids = category_pool.read(self.cr,
                                        self.uid,
@@ -145,9 +145,9 @@ class test_mandate(SharedSetupTransactionCase):
                                                 self.uid,
                                                 mc_bourgmestre_id,
                                                 {'exclusive_category_m2m_ids':
-                                                [[6,
-                                                  False,
-                                                  [mc_membre_effectif_ag_id]]]
+                                                 [[6,
+                                                   False,
+                                                   [mc_membre_effectif_ag_id]]]
                                                  })
         '''
             Create a mandate in first category
@@ -201,11 +201,11 @@ class test_mandate(SharedSetupTransactionCase):
             Allow exclusive mandates
         '''
         ids = self.registry('generic.mandate').search(
-                                                  self.cr,
-                                                  self.uid,
-                                                  [('mandate_id', 'in',
-                                                  [mandate_id_1, mandate_id_2])
-                                                  ])
+            self.cr,
+            self.uid,
+            [('mandate_id', 'in',
+              [mandate_id_1, mandate_id_2])
+             ])
 
         ctx = {'active_model': 'generic.mandate',
                'active_ids': ids,
@@ -217,10 +217,10 @@ class test_mandate(SharedSetupTransactionCase):
                                                                {},
                                                                context=ctx)
         self.registry('allow.duplicate.wizard').button_allow_duplicate(
-                                                        self.cr,
-                                                        self.uid,
-                                                        wz_id,
-                                                        context=ctx)
+            self.cr,
+            self.uid,
+            wz_id,
+            context=ctx)
 
         mandata_data_1 = sta_mandate_pool.read(self.cr,
                                                self.uid,

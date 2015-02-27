@@ -35,7 +35,8 @@ from openerp.exceptions import except_orm
 _logger = logging.getLogger(__name__)
 
 
-INVALIDATE_ERROR = _('Invalidation impossible, at least one dependency is still active')
+INVALIDATE_ERROR = _(
+    'Invalidation impossible, at least one dependency is still active')
 
 
 class mozaik_abstract_model(orm.AbstractModel):
@@ -73,7 +74,8 @@ class mozaik_abstract_model(orm.AbstractModel):
         Note: Argument vals must be the last in the signature
         """
         vals = vals or {}
-        vals.update(self.get_fields_to_update(cr, uid, 'deactivate', context=context))
+        vals.update(self.get_fields_to_update(
+            cr, uid, 'deactivate', context=context))
         return self.write(cr, uid, ids, vals, context=context)
 
     def action_revalidate(self, cr, uid, ids, context=None, vals=None):
@@ -86,7 +88,8 @@ class mozaik_abstract_model(orm.AbstractModel):
         :rtype: boolean
         """
         vals = vals or {}
-        vals.update(self.get_fields_to_update(cr, uid, 'activate', context=context))
+        vals.update(self.get_fields_to_update(
+            cr, uid, 'activate', context=context))
         return self.write(cr, uid, ids, vals, context=context)
 
     def get_fields_to_update(self, cr, uid, mode, context=None):
@@ -94,7 +97,8 @@ class mozaik_abstract_model(orm.AbstractModel):
         ====================
         get_fields_to_update
         ====================
-        Depending on a mode, builds a dictionary allowing to update validity fields
+        Depending on a mode, builds a dictionary allowing to update validity
+        fields
         :rparam: fields to update
         :rtype: dictionary
         """
@@ -114,7 +118,8 @@ class mozaik_abstract_model(orm.AbstractModel):
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'create_date': fields.datetime('Creation Date', readonly=True),
-        'expire_date': fields.datetime('Expiration Date', readonly=True, track_visibility='onchange'),
+        'expire_date': fields.datetime('Expiration Date', readonly=True,
+                                       track_visibility='onchange'),
         'active': fields.boolean('Active'),
     }
 
@@ -130,7 +135,8 @@ class mozaik_abstract_model(orm.AbstractModel):
         =================
         _check_invalidate
         =================
-        Check if object can be desactivated, dependencies must be desactivated before
+        Check if object can be desactivated, dependencies must be desactivated
+        before
         :rparam: True if it is the case
                  False otherwise
         :rtype: boolean
@@ -162,12 +168,15 @@ class mozaik_abstract_model(orm.AbstractModel):
         """
         invalidate_ids = isinstance(ids, (long, int)) and [ids] or ids
         if invalidate_ids:
-            rels_dict = self.pool.get('ir.model')._get_active_relations(cr, uid, invalidate_ids, self._name, context=context, with_ids=True)
+            rels_dict = self.pool['ir.model']._get_active_relations(
+                cr, uid, invalidate_ids, self._name, context=context,
+                with_ids=True)
             for relation_models in rels_dict.values():
                 for relation, relation_ids in relation_models.iteritems():
                     relation_object = self.pool.get(relation)
                     if hasattr(relation_object, 'action_invalidate'):
-                        relation_object.action_invalidate(cr, uid, relation_ids, context=context)
+                        relation_object.action_invalidate(
+                            cr, uid, relation_ids, context=context)
                     elif relation in ['mail.followers', 'mail.notification']:
                         '''
                         Unlink obsolete followers. Sudo rights are required.
@@ -197,12 +206,13 @@ class mozaik_abstract_model(orm.AbstractModel):
             return
 
         createit = True
-        index_def = "CREATE UNIQUE INDEX %s_unique_idx ON %s USING btree (%s) WHERE (active IS TRUE)" % \
+        index_def = """CREATE UNIQUE INDEX %s_unique_idx ON %s
+                      USING btree (%s) WHERE (active IS TRUE)""" % \
                     (self._table, self._table, self._unicity_keys)
         cr.execute("""SELECT indexdef
                       FROM pg_indexes
-                      WHERE tablename = '%s' and indexname = '%s_unique_idx'""" % \
-                   (self._table, self._table))
+                      WHERE tablename = '%s' and indexname = '%s_unique_idx'
+                    """ % (self._table, self._table))
         sql_res = cr.dictfetchone()
         if sql_res:
             if sql_res['indexdef'] != index_def:
@@ -290,11 +300,13 @@ class mozaik_abstract_model(orm.AbstractModel):
                   'or due to some undefined names while evaluating:\n%s') %
                 (self._description, 'read', s[1]))
 
-    def message_auto_subscribe(self, cr, uid, ids, updated_fields, context=None, values=None):
+    def message_auto_subscribe(self, cr, uid, ids, updated_fields,
+                               context=None, values=None):
         ctx = context or {}
         if ctx.get('mail_no_autosubscribe'):
             return True
-        res = super(mozaik_abstract_model, self).message_auto_subscribe(cr, uid, ids, updated_fields, context=ctx, values=values)
+        res = super(mozaik_abstract_model, self).message_auto_subscribe(
+            cr, uid, ids, updated_fields, context=ctx, values=values)
         return res
 
     def message_subscribe(
@@ -313,16 +325,23 @@ class mozaik_abstract_model(orm.AbstractModel):
         Reset some fields to their initial values
         """
         default = default or {}
-        default.update(self.get_fields_to_update(cr, uid, 'activate', context=context))
-        res = super(mozaik_abstract_model, self).copy_data(cr, uid, ids, default=default, context=context)
+        default.update(
+            self.get_fields_to_update(cr, uid, 'activate', context=context))
+        res = super(mozaik_abstract_model, self).copy_data(
+            cr, uid, ids, default=default, context=context)
         return res
 
-    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form',
+                        context=None, toolbar=False, submenu=False):
         """
-        * Add the "popup" item into the context if the form will be shown as a popup
-        * Generate a domain on all fields to make the form readonly when document is inactive
-        * Work around the automatic form generation when it is inherited from an other model
-        * Wrongly handle by oe, add manually the readonly attribute to message_ids if needed
+        * Add the "popup" item into the context if the form will be shown as a
+          popup
+        * Generate a domain on all fields to make the form readonly when
+          document is inactive
+        * Work around the automatic form generation when it is inherited from
+          an other model
+        * Wrongly handle by oe, add manually the readonly attribute to
+          message_ids if needed
         """
         context = context or {}
 
@@ -336,30 +355,37 @@ class mozaik_abstract_model(orm.AbstractModel):
             cr.execute("""SELECT id
                           FROM ir_ui_view
                           WHERE model=%s AND type=%s AND inherit_id IS NULL
-                          ORDER BY priority LIMIT 1""", (self._name, view_type))
+                          ORDER BY priority LIMIT 1""",
+                       (self._name, view_type))
             sql_res = cr.dictfetchone()
             if not sql_res:
                 cr.execute("""SELECT id
                               FROM ir_ui_view
                               WHERE model=%s AND type=%s
-                              ORDER BY priority LIMIT 1""", (self._name, view_type))
+                              ORDER BY priority LIMIT 1""",
+                           (self._name, view_type))
                 sql_res = cr.dictfetchone()
                 if sql_res:
                     # force this existing view
                     view_id = sql_res['id']
                 elif view_type in ['tree', 'search']:
-                    # Heuristic at this point: maybe an abstract search or tree view is declared on an ir.act.window
-                    col = view_type == 'search' and 'search_view_id' or 'view_id'
+                    # Heuristic at this point: maybe an abstract search or
+                    # tree view is declared on an ir.act.window
+                    col = view_type == 'search' and \
+                        'search_view_id' or 'view_id'
                     cr.execute("""SELECT %s as v
                                   FROM ir_act_window, ir_ui_view i
                                   WHERE res_model=%%s AND i.id = %s
-                                  ORDER BY priority LIMIT 1""" % (col, col), (self._name, ))
+                                  ORDER BY priority LIMIT 1""" % (col, col),
+                               (self._name, ))
                     sql_res = cr.dictfetchone()
                     if sql_res:
                         # force this existing view
                         view_id = sql_res['v']
 
-        res = super(mozaik_abstract_model, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
+        res = super(mozaik_abstract_model, self).fields_view_get(
+            cr, uid, view_id=view_id, view_type=view_type, context=context,
+            toolbar=toolbar, submenu=submenu)
 
         if view_type == 'form' and not context.get('in_mozaik_user'):
             doc = etree.XML(res['arch'])
@@ -378,17 +404,18 @@ class mozaik_abstract_model(orm.AbstractModel):
         ctx = dict(context or {}, mail_create_nosubscribe=True)
         ctx.pop('mail_post_autofollow', None)
         ctx['is_notification'] = True
-        return super(mozaik_abstract_model, self).message_post(cr, uid, thread_id, context=ctx, **kwargs)
+        return super(mozaik_abstract_model, self).message_post(
+            cr, uid, thread_id, context=ctx, **kwargs)
 
     def get_formview_id(self, cr, uid, id, context=None):
         """ Return a view id to open the document with.
 
             :param int id: id of the document to open
         """
-        view_ids = self.pool['ir.ui.view'].search(cr, uid,
-                                            [('model', '=', self._name),
-                                             ('type', '=', 'form')],
-                                             limit=1, context=context)
+        view_ids = self.pool['ir.ui.view'].search(
+            cr, uid, [('model', '=', self._name),
+                      ('type', '=', 'form')],
+            limit=1, context=context)
         return view_ids[0] if view_ids else False
 
     def display_object_in_form_view(self, cr, uid, object_id, context=None):
@@ -398,7 +425,8 @@ class mozaik_abstract_model(orm.AbstractModel):
         return self.get_formview_action(cr, uid, object_id, context=None)
 
     def get_relation_column_name(self, cr, uid, relation_model, context=None):
-        return self.pool.get('ir.model')._get_relation_column_name(cr, uid, self._name, relation_model, context=context)
+        return self.pool['ir.model']._get_relation_column_name(
+            cr, uid, self._name, relation_model, context=context)
 
 # Replace the orm.transfer_node_to_modifiers functions.
 
@@ -407,7 +435,8 @@ XP = "//field[not(ancestor::div[(@name='dev') or (@name='chat')])]" \
      "[not(ancestor::field)]"
 
 
-def transfer_node_to_modifiers(node, modifiers, context=None, in_tree_view=False):
+def transfer_node_to_modifiers(node, modifiers, context=None,
+                               in_tree_view=False):
     '''
     Add conditions on usefull fields (but chatting fields) to make
     the form readonly if the document is inactive
@@ -456,4 +485,3 @@ def transfer_node_to_modifiers(node, modifiers, context=None, in_tree_view=False
     return fct_src(node, modifiers, context=context, in_tree_view=in_tree_view)
 
 orm.transfer_node_to_modifiers = transfer_node_to_modifiers
-

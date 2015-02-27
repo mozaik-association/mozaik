@@ -40,6 +40,6 @@ class res_partner(orm.Model):
         Do not launch workflow if not yet ready for
         """
         if self._enable_wkf:
-            return super(res_partner, self).create_workflow(cr, uid, ids, context=context)
+            return super(res_partner, self).create_workflow(
+                cr, uid, ids, context=context)
         return True
-

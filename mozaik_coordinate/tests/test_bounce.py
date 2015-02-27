@@ -31,8 +31,9 @@ DESC = 'Bad Coordinate'
 
 
 class test_bounce(object):
-    #unittest2 run test for the abstract class too
-    #resolved with a dual inherit on the abstract and the common.NAME
+    """ unittest2 run test for the abstract class too
+    resolved with a dual inherit on the abstract and the common.NAME
+    """
 
     def setUp(self):
         super(test_bounce, self).setUp()
@@ -74,24 +75,36 @@ class test_bounce(object):
         cr, uid, context = self.cr, self.uid, self.context
 
         # 1/ Check for reference data
-        bc = self.model_coordinate.read(cr, uid, self.model_coordinate_id, ['bounce_counter'], context=context)['bounce_counter']
+        bc = self.model_coordinate.read(
+            cr, uid, self.model_coordinate_id, ['bounce_counter'],
+            context=context)['bounce_counter']
         self.assertFalse(bc, 'Wrong expected reference data for this test')
 
         # 2/ Create wizard record
         wiz_id = self.create_bounce_data(2)
 
         # 3/ Execute wizard
-        self.model_wizard.update_bounce_datas(cr, uid, [wiz_id], context=context)
-        coord = self.model_coordinate.read(cr, uid, self.model_coordinate_id, ['bounce_counter', 'bounce_description'], context=context)
-        self.assertEqual(coord['bounce_counter'], 2, 'Update coordinate fails with wrong bounce_counter')
-        self.assertEqual(coord['bounce_description'], DESC, 'Update coordinate fails with wrong bounce_description')
+        self.model_wizard.update_bounce_datas(
+            cr, uid, [wiz_id], context=context)
+        coord = self.model_coordinate.read(
+            cr, uid, self.model_coordinate_id,
+            ['bounce_counter', 'bounce_description'], context=context)
+        self.assertEqual(
+            coord['bounce_counter'], 2,
+            'Update coordinate fails with wrong bounce_counter')
+        self.assertEqual(
+            coord['bounce_description'], DESC,
+            'Update coordinate fails with wrong bounce_description')
 
         # 4/ Reset counter
-        self.model_coordinate.button_reset_counter(cr, uid, self.model_coordinate_id, context=context)
-        bc = self.model_coordinate.read(cr, uid, self.model_coordinate_id, ['bounce_counter'], context=context)['bounce_counter']
+        self.model_coordinate.button_reset_counter(
+            cr, uid, self.model_coordinate_id, context=context)
+        bc = self.model_coordinate.read(
+            cr, uid, self.model_coordinate_id, ['bounce_counter'],
+            context=context)['bounce_counter']
         self.assertFalse(bc, 'Reset counter fails with wrong bounce_counter')
 
         # 5/ Try to create an invalid wizard record
         with testtool.disable_log_error(cr):
-            self.assertRaises(psycopg2.IntegrityError, self.create_bounce_data, -2)
-
+            self.assertRaises(
+                psycopg2.IntegrityError, self.create_bounce_data, -2)

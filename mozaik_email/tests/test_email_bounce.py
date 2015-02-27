@@ -40,5 +40,5 @@ class test_email_bounce(test_bounce, SharedSetupTransactionCase):
 
         # instanciate members of abstract test
         self.model_coordinate = self.registry('email.coordinate')
-        self.model_coordinate_id = self.ref('%s.email_coordinate_thierry_two' % self._module_ns)
-
+        self.model_coordinate_id = self.ref(
+            '%s.email_coordinate_thierry_two' % self._module_ns)

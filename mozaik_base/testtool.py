@@ -33,4 +33,3 @@ def disable_log_error(cr):
         yield
     finally:
         cr._default_log_exceptions = True
-

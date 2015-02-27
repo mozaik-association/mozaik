@@ -25,9 +25,9 @@
 
 import sys
 
-WIN = sys.platform.startswith('win')
-
 from openerp.osv import orm
+
+WIN = sys.platform.startswith('win')
 
 
 class document_file(orm.Model):

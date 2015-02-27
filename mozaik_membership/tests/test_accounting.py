@@ -94,15 +94,15 @@ class test_accounting_with_product(object):
     def _generate_payment(self, additional_amount=0, with_partner=True):
         wiz_obj = self.registry('generate.reference')
         wiz_id = wiz_obj.create(self.cr, self.uid, {}, context={
-                                                    'active_ids':
-                                                    [self.partner.id,
-                                                     self.partner_2.id]})
+            'active_ids':
+            [self.partner.id,
+             self.partner_2.id]})
         wiz_obj.generate_reference(self.cr, self.uid, wiz_id)
         self.partner = self.get_partner(self.partner.id)
         b_statement_id = self.bs_obj.create(self.cr,
-                                       self.uid,
-                                       {},
-                                       context={'journal_type': 'bank'})
+                                            self.uid,
+                                            {},
+                                            context={'journal_type': 'bank'})
         amount = 0.0
         if self.product:
             amount = self.product.list_price
@@ -122,15 +122,15 @@ class test_accounting_with_product(object):
         property_obj = self.registry('ir.property')
         res = []
         subscription_account = property_obj.get(
-                                            self.cr,
-                                            self.uid,
-                                            'property_subscription_account',
-                                            'product.template')
+            self.cr,
+            self.uid,
+            'property_subscription_account',
+            'product.template')
         other_account = property_obj.get(
-                                        self.cr,
-                                        self.uid,
-                                        'property_retrocession_cost_account',
-                                        'mandate.category')
+            self.cr,
+            self.uid,
+            'property_retrocession_cost_account',
+            'mandate.category')
         if self.product:
             if self.product.list_price > 0:
                 res.append({
@@ -138,7 +138,7 @@ class test_accounting_with_product(object):
                     'debit': 0,
                     'credit': self.product.list_price,
                     'name': self.partner.reference
-                    })
+                })
         if additional_amount > 0:
             account = None
             if self.product:
@@ -172,10 +172,10 @@ class test_accounting_with_product(object):
                           self.product.id,
                           'Wrong product affected')
         ml_data = self.ml_obj.search_read(self.cr,
-                                    self.uid,
-                                    [('partner_id', '=', partner.id),
-                                     ('active', '=', True)],
-                                    ['price'])[0]
+                                          self.uid,
+                                          [('partner_id', '=', partner.id),
+                                           ('active', '=', True)],
+                                          ['price'])[0]
 
         self.assertEqual(ml_data['price'], self.product.list_price,
                          'Wrong price specified')
@@ -183,7 +183,7 @@ class test_accounting_with_product(object):
     def test_accounting_manual_reconcile(self):
         additional_amount = 1999.99
         b_statement_id = self._generate_payment(
-                                        additional_amount=additional_amount)
+            additional_amount=additional_amount)
         self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id)
         for bank_s in self.bs_obj.browse(self.cr, self.uid, b_statement_id):
             for line in bank_s.line_ids:
@@ -199,7 +199,7 @@ class test_accounting_with_product(object):
 
         if not self.product:
             prod_id = self.ref('%s.membership_product_undefined'
-                                  % self._module_ns)
+                               % self._module_ns)
         else:
             prod_id = self.product.id
 
@@ -208,10 +208,10 @@ class test_accounting_with_product(object):
                           'Wrong product affected')
 
         ml_data = self.ml_obj.search_read(self.cr,
-                                    self.uid,
-                                    [('partner_id', '=', partner.id),
-                                     ('active', '=', True)],
-                                    ['price'])[0]
+                                          self.uid,
+                                          [('partner_id', '=', partner.id),
+                                           ('active', '=', True)],
+                                          ['price'])[0]
         price = 0.0
         if self.product:
             price = self.product.list_price
@@ -224,8 +224,8 @@ class test_accounting_with_product(object):
     def test_accounting_manual_reconcile_without_partner(self):
         additional_amount = 1999.99
         b_statement_id = self._generate_payment(
-                                        additional_amount=additional_amount,
-                                        with_partner=False)
+            additional_amount=additional_amount,
+            with_partner=False)
         self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id)
         for bank_s in self.bs_obj.browse(self.cr, self.uid, b_statement_id):
             for line in bank_s.line_ids:
@@ -234,7 +234,7 @@ class test_accounting_with_product(object):
         move_dicts = self._get_manual_move_dict(additional_amount)
 
         self.assertRaises(orm.except_orm, self.bsl_obj.process_reconciliation,
-            self.cr, self.uid, bank_s.line_ids[0].id, move_dicts)
+                          self.cr, self.uid, bank_s.line_ids[0].id, move_dicts)
 
 
 class test_accounting_first_membership_accepted (test_accounting_with_product,
@@ -242,16 +242,16 @@ class test_accounting_first_membership_accepted (test_accounting_with_product,
 
     def setUp(self):
         self.product = self.browse_ref('%s.membership_product_first'
-                                  % self._module_ns)
+                                       % self._module_ns)
         super(test_accounting_first_membership_accepted, self).setUp()
 
 
 class test_accounting_first_membership_refused (test_accounting_with_product,
-                                                 SharedSetupTransactionCase):
+                                                SharedSetupTransactionCase):
 
     def setUp(self):
         self.product = self.browse_ref('%s.membership_product_first'
-                                  % self._module_ns)
+                                       % self._module_ns)
         super(test_accounting_first_membership_refused, self).setUp()
 
     def test_accounting_auto_reconcile(self):
@@ -274,34 +274,35 @@ class test_accounting_first_membership_refused (test_accounting_with_product,
 
 
 class test_accounting_isolated (test_accounting_with_product,
-                                                 SharedSetupTransactionCase):
+                                SharedSetupTransactionCase):
 
     def setUp(self):
         self.product = self.browse_ref('%s.membership_product_isolated'
-                                  % self._module_ns)
+                                       % self._module_ns)
         super(test_accounting_isolated, self).setUp()
 
 
 class test_accounting_live_together (test_accounting_with_product,
-                                                 SharedSetupTransactionCase):
+                                     SharedSetupTransactionCase):
 
     def setUp(self):
         self.product = self.browse_ref('%s.membership_product_live_together'
-                                  % self._module_ns)
+                                       % self._module_ns)
         super(test_accounting_live_together, self).setUp()
 
 
 class test_accounting_other (test_accounting_with_product,
-                                                 SharedSetupTransactionCase):
+                             SharedSetupTransactionCase):
 
     def setUp(self):
         self.product = self.browse_ref('%s.membership_product_other'
-                                  % self._module_ns)
+                                       % self._module_ns)
         super(test_accounting_other, self).setUp()
 
 
 class test_accounting_undefined(test_accounting_with_product,
-                                                 SharedSetupTransactionCase):
+                                SharedSetupTransactionCase):
+
     def setUp(self):
         super(test_accounting_undefined, self).setUp()
 
@@ -309,8 +310,9 @@ class test_accounting_undefined(test_accounting_with_product,
         return
 
 
-class test_accounting_grouped_payment(test_accounting_with_product, 
+class test_accounting_grouped_payment(test_accounting_with_product,
                                       SharedSetupTransactionCase):
+
     def setUp(self):
         self.product = self.browse_ref('%s.membership_product_live_together'
                                        % self._module_ns)
@@ -320,10 +322,10 @@ class test_accounting_grouped_payment(test_accounting_with_product,
         property_obj = self.registry('ir.property')
         res = []
         subscription_account = property_obj.get(
-                                            self.cr,
-                                            self.uid,
-                                            'property_subscription_account',
-                                            'product.template')
+            self.cr,
+            self.uid,
+            'property_subscription_account',
+            'product.template')
         if self.product:
             if self.product.list_price > 0:
                 res.append({
@@ -331,7 +333,7 @@ class test_accounting_grouped_payment(test_accounting_with_product,
                     'debit': 0,
                     'credit': self.product.list_price,
                     'name': self.partner.reference
-                    })
+                })
 
         if additional_amount > 0:
             if self.product.list_price > 0:
@@ -340,7 +342,7 @@ class test_accounting_grouped_payment(test_accounting_with_product,
                     'debit': 0,
                     'credit': self.product.list_price,
                     'name': self.partner_2.reference
-                    })
+                })
         return res
 
     def test_accounting_auto_reconcile(self):

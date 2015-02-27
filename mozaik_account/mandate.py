@@ -30,12 +30,12 @@ class mandate_category(orm.Model):
     _inherit = ['mandate.category']
 
     _columns = {
-        'property_retrocession_account': fields.property(
-                                            type='many2one',
-                                            relation='account.account',
-                                            string='Retrocession Account',),
-        'property_retrocession_cost_account': fields.property(
-                                            type='many2one',
-                                             relation='account.account',
-                                             string='Cost Account',),
+        'property_retrocession_account':
+            fields.property(type='many2one',
+                            relation='account.account',
+                            string='Retrocession Account',),
+        'property_retrocession_cost_account':
+            fields.property(type='many2one',
+                            relation='account.account',
+                            string='Cost Account',),
     }

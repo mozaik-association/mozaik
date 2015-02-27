@@ -76,11 +76,11 @@ class test_int_mandate(SharedSetupTransactionCase):
         self.assertNotEqual(new_committee_id, False)
 
         candidature_commitee_id =\
-                self._candidature_pool.read(self.cr,
-                                            self.uid,
-                                            rejected_id.id,
-                                            ['selection_committee_id']\
-                                            )['selection_committee_id']
+            self._candidature_pool.read(self.cr,
+                                        self.uid,
+                                        rejected_id.id,
+                                        ['selection_committee_id']
+                                        )['selection_committee_id']
         self.assertEqual(new_committee_id, candidature_commitee_id[0])
 
     def test_duplicate_int_candidature_in_same_category(self):
@@ -98,11 +98,13 @@ class test_int_mandate(SharedSetupTransactionCase):
                                                 self.uid,
                                                 selection_committee_id)
 
-        data = dict(mandate_category_id=conseil_comm_cat_id,
-         selection_committee_id=selection_committee_id,
-         designation_int_assembly_id=committee.designation_int_assembly_id.id,
-         int_assembly_id=committee.assembly_id.id,
-         partner_id=jacques_partner_id)
+        assembly_id = committee.designation_int_assembly_id.id
+        data = dict(
+            mandate_category_id=conseil_comm_cat_id,
+            selection_committee_id=selection_committee_id,
+            designation_int_assembly_id=assembly_id,
+            int_assembly_id=committee.assembly_id.id,
+            partner_id=jacques_partner_id)
 
         self._candidature_pool.create(self.cr, self.uid, data)
 

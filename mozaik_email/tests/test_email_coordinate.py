@@ -50,13 +50,16 @@ class test_email_coordinate(common.TransactionCase):
         model_email = self.registry('email.coordinate')
         model_partner = self.registry('res.partner')
         partner_id_1 = model_partner.create(cr, uid, {'name': 'test'})
-        self.assertRaises(orm.except_orm, model_email.create, cr, uid, {'partner_id': partner_id_1,
-                                                                        'email': 'bad'})
-        email_id = model_email.create(cr, uid, {'partner_id': partner_id_1,
-                                                     'email': 'first bad AFTER right@ok.be'})
-        self.assertEqual('firstbadafterright@ok.be',
-                         model_email.browse(self.cr,
-                                                 self.uid,
-                                                 [email_id])[0].email,
-                                                 'Email Should Not Contains Upper Case Or Whitespace')
-
+        self.assertRaises(
+            orm.except_orm,
+            model_email.create,
+            cr, uid, {'partner_id': partner_id_1,
+                      'email': 'bad'})
+        email_id = model_email.create(
+            cr, uid, {'partner_id': partner_id_1,
+                      'email': 'first bad AFTER right@ok.be'})
+        self.assertEqual(
+            'firstbadafterright@ok.be',
+            model_email.browse(
+                self.cr, self.uid, [email_id])[0].email,
+            'Email Should Not Contains Upper Case Or Whitespace')

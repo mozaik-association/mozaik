@@ -33,7 +33,7 @@
         'base',
         'portal',
         'asynchronous_batch_mailings',
-                                 # from https://github.com/acsone/acsone-addons
+        # from https://github.com/acsone/acsone-addons
         'document',
         'mass_mailing',
         'product',
@@ -44,7 +44,7 @@
         'settings_improvement',  # from https://github.com/acsone/acsone-addons
         'distribution_list',     # from https://github.com/acsone/acsone-addons
         'readonly_bypass',       # from https://github.com/acsone/acsone-addons
-        'html_widget_embedded_picture', 
+        'html_widget_embedded_picture',
                                  # from https://github.com/acsone/acsone-addons
         'help_online',           # from https://github.com/OCA/web
     ],
@@ -52,7 +52,8 @@
 MOZAIK Base
 ===========
 * improve user context adding a flag by Mozaik group
-* provide a work-around to handle correctly the readonly attribute of the widget mail_thread
+* provide a work-around to handle correctly the readonly attribute of the
+widget mail_thread
 * define Mozaik menus skeleton
 """,
     'images': [

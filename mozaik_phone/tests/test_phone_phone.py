@@ -54,7 +54,10 @@ class test_phone_phone(common.TransactionCase):
         """
         cr, uid = self.cr, self.uid
         num = self.model_phone._check_and_format_number(cr, uid, '061140220')
-        self.assertEquals(num, '+32 61 14 02 20', '061140220 should give +32 61 14 02 20')
+        self.assertEquals(
+            num,
+            '+32 61 14 02 20',
+            '061140220 should give +32 61 14 02 20')
 
     def test_insert_with_prefix(self):
         """
@@ -67,8 +70,12 @@ class test_phone_phone(common.TransactionCase):
         :expected: +32 489 58 75 20
         """
         cr, uid = self.cr, self.uid
-        num = self.model_phone._check_and_format_number(cr, uid, '+32489587520')
-        self.assertEquals(num, '+32 489 58 75 20', '+32489587520 should give +32 489 58 75 20')
+        num = self.model_phone._check_and_format_number(
+            cr, uid, '+32489587520')
+        self.assertEquals(
+            num,
+            '+32 489 58 75 20',
+            '+32489587520 should give +32 489 58 75 20')
 
     def test_proper_escaping(self):
         """
@@ -81,8 +88,14 @@ class test_phone_phone(common.TransactionCase):
         :expected: +32 61 54 10 45
         """
         cr, uid = self.cr, self.uid
-        num = self.model_phone._check_and_format_number(cr, uid, '061-54/10    45')
-        self.assertEquals(num, '+32 61 54 10 45', '061-54/10    45 should give +32 61 54 10 45')
+        num = self.model_phone._check_and_format_number(
+            cr,
+            uid,
+            '061-54/10    45')
+        self.assertEquals(
+            num,
+            '+32 61 54 10 45',
+            '061-54/10    45 should give +32 61 54 10 45')
 
     def test_insert_bad_query(self):
         """
@@ -95,5 +108,10 @@ class test_phone_phone(common.TransactionCase):
         :expected: orm_exception
         """
         cr, uid = self.cr, self.uid
-        self.assertRaises(orm.except_orm, self.model_phone._check_and_format_number, cr, uid, 'badquery', context={})
-
+        self.assertRaises(
+            orm.except_orm,
+            self.model_phone._check_and_format_number,
+            cr,
+            uid,
+            'badquery',
+            context={})

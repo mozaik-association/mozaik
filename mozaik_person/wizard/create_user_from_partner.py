@@ -27,7 +27,7 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 
-#TODO: must be completed with Internal Instances M2M
+# TODO: must be completed with Internal Instances M2M
 
 class create_user_from_partner(orm.TransientModel):
 
@@ -57,11 +57,23 @@ class create_user_from_partner(orm.TransientModel):
         """
         partner_id = context and context.get('active_id', False) or False
         if not partner_id:
-            raise orm.except_orm(_('Error'), _('A partner is required to create a new user!'))
+            raise orm.except_orm(
+                _('Error'),
+                _('A partner is required to create a new user!'))
 
-        res = super(create_user_from_partner, self).default_get(cr, uid, fields, context=context)
+        res = super(
+            create_user_from_partner,
+            self).default_get(
+            cr,
+            uid,
+            fields,
+            context=context)
 
-        partner = self.pool['res.partner'].browse(cr, uid, partner_id, context=context)
+        partner = self.pool['res.partner'].browse(
+            cr,
+            uid,
+            partner_id,
+            context=context)
 
         nok = False
         if partner.user_ids:
@@ -86,13 +98,14 @@ class create_user_from_partner(orm.TransientModel):
         ========================
         create_user_from_partner
         ========================
-        Create a user based on the selected partner (active_id) and associate it
-        to the choosen group
+        Create a user based on the selected partner (active_id) and associate
+        it to the choosen group
         :param ids: id of the wizard
         :type ids: int
 
         **Note**
-        This is not a mass wizard. Only one partner can be transformed to a user at a time.
+        This is not a mass wizard. Only one partner can be transformed to a
+        user at a time.
         """
         if context is None:
             context = {}
@@ -101,14 +114,24 @@ class create_user_from_partner(orm.TransientModel):
 
         wizard = self.browse(cr, uid, ids, context=context)[0]
         if wizard.portal_only:
-            _, group_id = self.pool['ir.model.data'].get_object_reference(cr, uid, 'base', 'group_portal')
+            _, group_id = self.pool['ir.model.data'].get_object_reference(
+                cr, uid, 'base', 'group_portal')
 
-            partner = self.pool['res.partner'].browse(cr, uid, partner_id, context=context)
+            partner = self.pool['res.partner'].browse(
+                cr,
+                uid,
+                partner_id,
+                context=context)
 
             login = partner.email
         else:
             group_id = wizard.group_id.id
             login = wizard.login
 
-        return self.pool['res.partner'].create_user(cr, uid, login, partner_id, [group_id], context=context)
-
+        return self.pool['res.partner'].create_user(
+            cr,
+            uid,
+            login,
+            partner_id,
+            [group_id],
+            context=context)

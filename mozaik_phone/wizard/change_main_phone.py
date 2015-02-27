@@ -44,27 +44,54 @@ class change_main_phone(orm.TransientModel):
     }
 
     def default_get(self, cr, uid, flds, context):
-        res = super(change_main_phone, self).default_get(cr, uid, flds, context=context)
+        res = super(
+            change_main_phone,
+            self).default_get(
+            cr,
+            uid,
+            flds,
+            context=context)
         ids = context.get('active_ids') \
             or (context.get('active_id') and [context.get('active_id')]) \
             or []
         if len(ids) == 1:
             res['partner_id'] = ids[0]
         if context.get('mode', False) == 'switch':
-            coord = self.pool.get(context.get('target_model')).browse(cr, uid, context.get('target_id', False))
+            coord = self.pool.get(
+                context.get('target_model')).browse(
+                cr,
+                uid,
+                context.get(
+                    'target_id',
+                    False))
             res['phone_id'] = coord.phone_id.id
         return res
 
-    def onchange_phone_id(self, cr, uid, ids, phone_id, partner_id, context=None):
+    def onchange_phone_id(
+            self,
+            cr,
+            uid,
+            ids,
+            phone_id,
+            partner_id,
+            context=None):
         res = {}
         if partner_id:
-            partner = self.pool.get('res.partner').browse(cr, SUPERUSER_ID, partner_id, context=context)
-            phone = self.pool.get('phone.phone').browse(cr, SUPERUSER_ID, phone_id, context=context)
+            partner = self.pool.get('res.partner').browse(
+                cr,
+                SUPERUSER_ID,
+                partner_id,
+                context=context)
+            phone = self.pool.get('phone.phone').browse(
+                cr,
+                SUPERUSER_ID,
+                phone_id,
+                context=context)
             if phone.type == 'fix':
-                res['old_phone_id'] = partner.fix_coordinate_id.phone_id.id or False
+                res['old_phone_id'] = partner.fix_coordinate_id.phone_id.id
             elif phone.type == 'fax':
-                res['old_phone_id'] = partner.fax_coordinate_id.phone_id.id or False
+                res['old_phone_id'] = partner.fax_coordinate_id.phone_id.id
             else:
-                res['old_phone_id'] = partner.mobile_coordinate_id.phone_id.id or False
+                res['old_phone_id'] = partner.mobile_coordinate_id.phone_id.id
             res['change_allowed'] = not(phone_id == res['old_phone_id'])
         return {'value': res}

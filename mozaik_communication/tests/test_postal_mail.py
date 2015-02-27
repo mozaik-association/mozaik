@@ -49,20 +49,25 @@ class test_postal_mail(SharedSetupTransactionCase):
         self._postal_mail_log_pool = self.registry('postal.mail.log')
 
         self.test_postal_mail = self.ref('%s.postal_mail_1' % self._module_ns)
-        self.test_distribution_list = self.ref('%s.distribution_list' % self._module_ns)
+        self.test_distribution_list = self.ref(
+            '%s.distribution_list' % self._module_ns)
 
     def test_unique_postal_mail(self):
         '''
             Postal mail name must be unique
         '''
-        self._postal_mail_pool.create(self.cr, self.uid, {'name': 'Postal Mail'})
+        self._postal_mail_pool.create(
+            self.cr, self.uid, {'name': 'Postal Mail'})
         with testtool.disable_log_error(self.cr):
-            self.assertRaises(psycopg2.IntegrityError, self._postal_mail_pool.create, self.cr, self.uid,
-                              {'name': 'Postal Mail'})
+            self.assertRaises(
+                psycopg2.IntegrityError,
+                self._postal_mail_pool.create, self.cr, self.uid,
+                {'name': 'Postal Mail'})
 
     def test_postal_mail_log_generation(self):
         '''
-            Postal mail logs should be generated when exporting a CSV and linking a postal mail.
+            Postal mail logs should be generated when exporting a CSV and
+            linking a postal mail.
         '''
         mass_function_obj = self.registry['distribution.list.mass.function']
         wiz_id = mass_function_obj.create(self.cr, self.uid, {
@@ -71,8 +76,10 @@ class test_postal_mail(SharedSetupTransactionCase):
             'postal_mail_name': '%s' % uuid4(),
             'distribution_list_id': self.test_distribution_list,
         })
-        postal_mail_logs_before = self._postal_mail_log_pool.search_count(self.cr, self.uid, [])
-        mass_function_obj.mass_function(self.cr, self.uid, [wiz_id], context={})
-        postal_mail_logs_after = self._postal_mail_log_pool.search_count(self.cr, self.uid, [])
+        postal_mail_logs_before = self._postal_mail_log_pool.search_count(
+            self.cr, self.uid, [])
+        mass_function_obj.mass_function(
+            self.cr, self.uid, [wiz_id], context={})
+        postal_mail_logs_after = self._postal_mail_log_pool.search_count(
+            self.cr, self.uid, [])
         self.assertTrue(postal_mail_logs_after - postal_mail_logs_before > 0)
-

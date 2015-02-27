@@ -36,7 +36,8 @@ COORDINATE_AVAILABLE_TYPES = [
 
 coordinate_available_types = dict(COORDINATE_AVAILABLE_TYPES)
 
-MAIN_COORDINATE_ERROR = 'Exactly one main coordinate must exist for a given partner'
+MAIN_COORDINATE_ERROR = \
+    'Exactly one main coordinate must exist for a given partner'
 
 
 class abstract_coordinate(orm.AbstractModel):
@@ -78,19 +79,26 @@ class abstract_coordinate(orm.AbstractModel):
 # fields
 
     _columns = {
-        'partner_id': fields.many2one('res.partner', 'Contact', readonly=True, required=True, select=True),
+        'partner_id': fields.many2one(
+            'res.partner', 'Contact',
+            readonly=True, required=True, select=True),
         'coordinate_category_id': fields.many2one(
             'coordinate.category', string='Coordinate Category',
             select=True, track_visibility='onchange'),
-        'coordinate_type': fields.selection(COORDINATE_AVAILABLE_TYPES, 'Coordinate Type'),
+        'coordinate_type': fields.selection(
+            COORDINATE_AVAILABLE_TYPES, 'Coordinate Type'),
 
         'is_main': fields.boolean('Is Main', readonly=True, select=True),
-        'unauthorized': fields.boolean('Unauthorized', track_visibility='onchange'),
+        'unauthorized': fields.boolean(
+            'Unauthorized', track_visibility='onchange'),
         'vip': fields.boolean('VIP', track_visibility='onchange'),
 
-        'bounce_counter': fields.integer('Failures Counter', track_visibility='onchange'),
-        'bounce_description': fields.text('Last Failure Description', track_visibility='onchange'),
-        'bounce_date': fields.datetime('Last Failure Date', track_visibility='onchange')
+        'bounce_counter': fields.integer(
+            'Failures Counter', track_visibility='onchange'),
+        'bounce_description': fields.text(
+            'Last Failure Description', track_visibility='onchange'),
+        'bounce_date': fields.datetime(
+            'Last Failure Date', track_visibility='onchange')
     }
 
     _defaults = {
@@ -105,7 +113,8 @@ class abstract_coordinate(orm.AbstractModel):
 
 # constraints
 
-    def _check_one_main_coordinate(self, cr, uid, ids, for_unlink=False, context=None):
+    def _check_one_main_coordinate(self, cr, uid, ids, for_unlink=False,
+                                   context=None):
         """
         ==========================
         _check_one_main_coordinate
@@ -122,8 +131,11 @@ class abstract_coordinate(orm.AbstractModel):
             if for_unlink and not coordinate.is_main:
                 continue
 
-            coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
-                                                   ('coordinate_type', '=', coordinate.coordinate_type)], context=context)
+            coordinate_ids = self.search(
+                cr, uid,
+                [('partner_id', '=', coordinate.partner_id.id),
+                 ('coordinate_type', '=', coordinate.coordinate_type)],
+                context=context)
 
             if for_unlink and len(coordinate_ids) > 1 and coordinate.is_main:
                 return False
@@ -131,9 +143,11 @@ class abstract_coordinate(orm.AbstractModel):
             if not coordinate_ids:
                 continue
 
-            coordinate_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
-                                                   ('coordinate_type', '=', coordinate.coordinate_type),
-                                                   ('is_main', '=', True)], context=context)
+            coordinate_ids = self.search(
+                cr, uid,
+                [('partner_id', '=', coordinate.partner_id.id),
+                 ('coordinate_type', '=', coordinate.coordinate_type),
+                 ('is_main', '=', True)], context=context)
             if len(coordinate_ids) != 1:
                 return False
 
@@ -155,7 +169,8 @@ class abstract_coordinate(orm.AbstractModel):
             'bounce_description': False,
             'bounce_date': False,
         })
-        res = super(abstract_coordinate, self).copy_data(cr, uid, ids, default=default, context=context)
+        res = super(abstract_coordinate, self).copy_data(
+            cr, uid, ids, default=default, context=context)
         return res
 
     def name_get(self, cr, uid, ids, context=None):
@@ -177,13 +192,19 @@ class abstract_coordinate(orm.AbstractModel):
             ids = [ids]
 
         res = []
-        for record in self.read(cr, uid, ids, [self._discriminant_field, 'unauthorized', 'partner_id'], context=context):
-            display_name = self._is_discriminant_m2o() and record[self._discriminant_field][1] or record[self._discriminant_field]
+        for record in self.read(
+                cr, uid, ids, [self._discriminant_field,
+                               'unauthorized', 'partner_id'], context=context):
+            display_name = self._is_discriminant_m2o() and \
+                record[self._discriminant_field][1] or \
+                record[self._discriminant_field]
             if context.get('is_notification', False):
                 display_name = '%s: %s' %\
                     (record['partner_id'][1], display_name)
             else:
-                display_name = 'N/A: %s' % display_name if record['unauthorized'] else display_name
+                display_name = \
+                    'N/A: %s' % display_name if record[
+                        'unauthorized'] else display_name
             res.append((record['id'], display_name))
         return res
 
@@ -260,19 +281,26 @@ class abstract_coordinate(orm.AbstractModel):
         :raise: Error if the coordinate is main
                 and another coordinate of the same type exists
         """
-        coordinate_ids = self.search(cr, uid, [('id', 'in', ids), ('is_main', '=', False)], context=context)
-        super(abstract_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
+        coordinate_ids = self.search(
+            cr, uid, [('id', 'in', ids),
+                      ('is_main', '=', False)], context=context)
+        super(abstract_coordinate, self).unlink(
+            cr, uid, coordinate_ids, context=context)
         coordinate_ids = list(set(ids).difference(coordinate_ids))
-        if not self._check_one_main_coordinate(cr, uid, coordinate_ids, for_unlink=True, context=context):
+        if not self._check_one_main_coordinate(
+                cr, uid, coordinate_ids, for_unlink=True, context=context):
             raise orm.except_orm(_('Error'), _(MAIN_COORDINATE_ERROR))
-        res = super(abstract_coordinate, self).unlink(cr, uid, coordinate_ids, context=context)
+        res = super(abstract_coordinate, self).unlink(
+            cr, uid, coordinate_ids, context=context)
         return res
 
     def copy(self, cr, uid, ids, default=None, context=None):
         flds = self.read(cr, uid, ids, ['active'], context=context)
         if flds.get('active', True):
-            raise orm.except_orm(_('Error'), _('An active coordinate cannot be duplicated!'))
-        res = super(abstract_coordinate, self).copy(cr, uid, ids, default=default, context=context)
+            raise orm.except_orm(
+                _('Error'), _('An active coordinate cannot be duplicated!'))
+        res = super(abstract_coordinate, self).copy(
+            cr, uid, ids, default=default, context=context)
         return res
 
 # view methods: onchange, button
@@ -336,7 +364,8 @@ class abstract_coordinate(orm.AbstractModel):
 
         return res
 
-    def change_main_coordinate(self, cr, uid, partner_ids, field_id, context=None):
+    def change_main_coordinate(self, cr, uid, partner_ids, field_id,
+                               context=None):
         """
         ========================
         change_main_coordinate
@@ -350,17 +379,22 @@ class abstract_coordinate(orm.AbstractModel):
         """
         return_ids = []
         for partner_id in partner_ids:
-            res_ids = self.search(cr, uid, [('partner_id', '=', partner_id),
-                                            (self._discriminant_field, '=', field_id)], context=context)
+            res_ids = self.search(
+                cr, uid, [('partner_id', '=', partner_id),
+                          (self._discriminant_field, '=', field_id)],
+                context=context)
             if not res_ids:
                 # must be create
-                return_ids.append(self.create(cr, uid, {'partner_id': partner_id,
-                                                        self._discriminant_field: field_id,
-                                                        'is_main': True,
-                                                       }, context=context))
+                return_ids.append(
+                    self.create(cr, uid, {'partner_id': partner_id,
+                                          self._discriminant_field: field_id,
+                                          'is_main': True,
+                                          }, context=context))
             else:
                 # If the coordinate is not already ``main``, set it as main
-                if not self.read(cr, uid, res_ids[0], ['is_main'], context=context)['is_main']:
+                if not self.read(
+                        cr, uid, res_ids[0], ['is_main'],
+                        context=context)['is_main']:
                     self.set_as_main(cr, uid, res_ids, context=context)
         return return_ids
 
@@ -370,7 +404,8 @@ class abstract_coordinate(orm.AbstractModel):
         super(abstract_coordinate, self)._validate_fields(
             cr, uid, ids, field_names, context=context)
 
-    def search_and_update(self, cr, uid, target_domain, fields_to_update, context=None):
+    def search_and_update(self, cr, uid, target_domain, fields_to_update,
+                          context=None):
         """
         ==================
         search_and_update
@@ -401,7 +436,8 @@ class abstract_coordinate(orm.AbstractModel):
         :type partner_id: integer
         :parma coordinate_type: type of the coordinate
         :type coordinate_type: char
-        :rparam: dictionary with ``coordinate_type`` and ``partner_id`` well set
+        :rparam: dictionary with ``coordinate_type`` and ``partner_id`` well
+        set
         :rtype: dictionary
         """
         return [
@@ -418,7 +454,8 @@ class abstract_coordinate(orm.AbstractModel):
         :param mode: return a dictionary depending on mode value
         :type mode: char
         """
-        res = super(abstract_coordinate, self).get_fields_to_update(cr, uid, mode, context=context)
+        res = super(abstract_coordinate, self).get_fields_to_update(
+            cr, uid, mode, context=context)
         if mode == 'main':
             res.update({
                 'is_main': True,
@@ -432,19 +469,25 @@ class abstract_coordinate(orm.AbstractModel):
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
         rejected_ids = []
         for coordinate in self.browse(cr, uid, ids, context=context):
-            coord_ids = self.search(cr, uid, [('partner_id', '=', coordinate.partner_id.id),
-                                              ('coordinate_type', '=', coordinate.coordinate_type),
-                                              ('id', '!=', coordinate.id)], context=context)
+            coord_ids = self.search(
+                cr, uid, [('partner_id', '=', coordinate.partner_id.id),
+                          ('coordinate_type', '=', coordinate.coordinate_type),
+                          ('id', '!=', coordinate.id)], context=context)
             if coordinate.is_main and len(coord_ids) == 1:
-                # only one coordinate will remain after invalidate -> set it automatically as new main
+                # only one coordinate will remain after invalidate -> set it
+                # automatically as new main
                 new_main = self.browse(cr, uid, coord_ids[0], context=context)
                 context['invalidate'] = True
                 coordinate_field = self._discriminant_field
-                coordinate_value = self._is_discriminant_m2o() and new_main[coordinate_field].id or new_main[coordinate_field]
-                self.change_main_coordinate(cr, uid, [coordinate.partner_id.id], coordinate_value, context=context)
+                coordinate_value = self._is_discriminant_m2o() and \
+                    new_main[coordinate_field].id or \
+                    new_main[coordinate_field]
+                self.change_main_coordinate(
+                    cr, uid, [coordinate.partner_id.id],
+                    coordinate_value, context=context)
                 if vals:
                     self.write(cr, uid, coordinate.id, vals, context=context)
             else:
                 rejected_ids.append(coordinate.id)
-        return super(abstract_coordinate, self). action_invalidate(cr, uid, rejected_ids, context=context, vals=vals)
-
+        return super(abstract_coordinate, self). action_invalidate(
+            cr, uid, rejected_ids, context=context, vals=vals)

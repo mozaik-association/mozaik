@@ -35,8 +35,9 @@ ADMIN_USER_ID = common.ADMIN_USER_ID
 
 class test_address_address(SharedSetupTransactionCase):
 
-    _data_files = ('data/reference_data.xml',
-                  )
+    _data_files = (
+        'data/reference_data.xml',
+    )
 
     _module_ns = 'mozaik_address'
 
@@ -59,21 +60,40 @@ class test_address_address(SharedSetupTransactionCase):
         }
         adr_id = self.model_address.create(cr, uid, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.name, 'Rue de Colard Trouillet 7 - 4100 Seraing', 'Create address fails with wrong name')
-        self.assertEqual(adr.zip, '4100', 'Create address fails with wrong zip')
-        self.assertEqual(adr.street, 'Rue de Colard Trouillet 7', 'Create address fails with wrong street')
+        self.assertEqual(
+            adr.name,
+            'Rue de Colard Trouillet 7 - 4100 Seraing',
+            'Create address fails with wrong name')
+        self.assertEqual(
+            adr.zip, '4100', 'Create address fails with wrong zip')
+        self.assertEqual(
+            adr.street,
+            'Rue de Colard Trouillet 7',
+            'Create address fails with wrong street')
 
         dic = {
-            'country_id': self.ref("base.be"),
-            'address_local_zip_id': self.ref("mozaik_address.local_zip_1"),
-            'address_local_street_id': self.ref("mozaik_address.local_street_1"),
+            'country_id':
+                self.ref("base.be"),
+            'address_local_zip_id':
+                self.ref("mozaik_address.local_zip_1"),
+            'address_local_street_id':
+                self.ref("mozaik_address.local_street_1"),
             'box': '4b',
         }
         adr_id = self.model_address.create(cr, uid, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.name, 'Grand-Place -/4b - 4500 Huy', 'Create address fails with wrong name')
-        self.assertEqual(adr.zip, '4500', 'Create address fails with wrong zip')
-        self.assertEqual(adr.street, 'Grand-Place -/4b', 'Create address fails with wrong street')
+        self.assertEqual(
+            adr.name,
+            'Grand-Place -/4b - 4500 Huy',
+            'Create address fails with wrong name')
+        self.assertEqual(
+            adr.zip,
+            '4500',
+            'Create address fails with wrong zip')
+        self.assertEqual(
+            adr.street,
+            'Grand-Place -/4b',
+            'Create address fails with wrong street')
 
         dic = {
             'number': '7',
@@ -82,8 +102,14 @@ class test_address_address(SharedSetupTransactionCase):
         }
         self.model_address.write(cr, uid, adr_id, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.name, 'Grand-Place 7 [3] - 4500 Huy', 'Update address fails with wrong name')
-        self.assertEqual(adr.street, 'Grand-Place 7', 'Update address fails with wrong street')
+        self.assertEqual(
+            adr.name,
+            'Grand-Place 7 [3] - 4500 Huy',
+            'Update address fails with wrong name')
+        self.assertEqual(
+            adr.street,
+            'Grand-Place 7',
+            'Update address fails with wrong street')
 
         dic = {
             'country_id': self.ref("base.us"),
@@ -93,11 +119,20 @@ class test_address_address(SharedSetupTransactionCase):
         }
         adr_id = self.model_address.create(cr, uid, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.name, 'United Nations - New York - United States', 'Create address fails with wrong name')
-        self.assertEqual(adr.zip, '10017', 'Create address fails with wrong zip')
-        self.assertEqual(adr.street, 'United Nations', 'Create address fails with wrong street')
+        self.assertEqual(
+            adr.name,
+            'United Nations - New York - United States',
+            'Create address fails with wrong name')
+        self.assertEqual(
+            adr.zip,
+            '10017',
+            'Create address fails with wrong zip')
+        self.assertEqual(
+            adr.street,
+            'United Nations',
+            'Create address fails with wrong street')
 
-        #test the technical name
+        # test the technical name
         dic = {
             'country_id': self.ref("base.be"),
             'zip_man': '4100',
@@ -107,7 +142,9 @@ class test_address_address(SharedSetupTransactionCase):
         }
         adr_id = self.model_address.create(cr, uid, dic)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertTrue('aaaaaaeecuieee' in adr.technical_name, 'No Accented char and no Upper For technical name')
+        self.assertTrue(
+            'aaaaaaeecuieee' in adr.technical_name,
+            'No Accented char and no Upper For technical name')
 
     def test_copy_address(self):
         cr, uid = self.cr, self.uid
@@ -115,10 +152,11 @@ class test_address_address(SharedSetupTransactionCase):
         adr_4 = self.ref('%s.address_4' % self._module_ns)
 
         # 1/ an address with a null sequence cannot be duplicated
-        self.assertRaises(orm.except_orm, self.model_address.copy, cr, uid, adr_3)
+        self.assertRaises(
+            orm.except_orm, self.model_address.copy, cr, uid, adr_3)
 
         # 2/ otherwise copy is allowed and the sequence is increased
         adr_id = self.model_address.copy(cr, uid, adr_4)
         adr = self.model_address.browse(cr, uid, [adr_id])[0]
-        self.assertEqual(adr.sequence, 2, 'Copy address fails with wrong sequence')
-
+        self.assertEqual(
+            adr.sequence, 2, 'Copy address fails with wrong sequence')

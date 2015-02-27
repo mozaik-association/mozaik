@@ -68,11 +68,11 @@ class test_sta_mandate(SharedSetupTransactionCase):
         self.assertNotEqual(new_committee_id, False)
 
         candidature_commitee_id = candidature_pool.read(
-                                                    self.cr,
-                                                    self.uid,
-                                                    rejected_id.id,
-                                                    ['selection_committee_id']
-                                                    )['selection_committee_id']
+            self.cr,
+            self.uid,
+            rejected_id.id,
+            ['selection_committee_id']
+        )['selection_committee_id']
         self.assertEqual(new_committee_id, candidature_commitee_id[0])
 
     def test_duplicate_sta_candidature_in_same_category(self):
@@ -86,18 +86,20 @@ class test_sta_mandate(SharedSetupTransactionCase):
         selection_committee_id = self.ref('%s.sc_tete_huy_communale' %
                                           self._module_ns)
 
-        committee =\
-        self.registry('sta.selection.committee').browse(self.cr,
-                                                        self.uid,
-                                                        selection_committee_id)
+        committee = self.registry('sta.selection.committee').browse(
+            self.cr,
+            self.uid,
+            selection_committee_id)
 
-        data = dict(mandate_category_id=conseil_comm_cat_id,
-         selection_committee_id=selection_committee_id,
-         designation_int_assembly_id=committee.designation_int_assembly_id.id,
-         legislature_id=committee.legislature_id.id,
-         electoral_district_id=committee.electoral_district_id.id,
-         sta_assembly_id=committee.assembly_id.id,
-         partner_id=jacques_partner_id)
+        assembly_id = committee.designation_int_assembly_id.id
+        data = dict(
+            mandate_category_id=conseil_comm_cat_id,
+            selection_committee_id=selection_committee_id,
+            designation_int_assembly_id=assembly_id,
+            legislature_id=committee.legislature_id.id,
+            electoral_district_id=committee.electoral_district_id.id,
+            sta_assembly_id=committee.assembly_id.id,
+            partner_id=jacques_partner_id)
 
         with testtool.disable_log_error(self.cr):
             self.assertRaises(psycopg2.IntegrityError,

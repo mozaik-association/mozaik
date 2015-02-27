@@ -22,7 +22,6 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import pooler
 from openerp.osv import orm
 
 
@@ -50,7 +49,7 @@ class RetrocessionHelper(orm.Model):
                                               context=None):
 
         retro_ids = isinstance(retro_ids, (long, int))\
-                    and [retro_ids] or retro_ids
+            and [retro_ids] or retro_ids
 
         registry = self.pool
         rule_pool = registry['calculation.rule']
@@ -64,7 +63,7 @@ class RetrocessionHelper(orm.Model):
                                          uid,
                                          retro_id,
                                          ['state', 'need_account_management'],
-                                          context=context)
+                                         context=context)
 
             if retro_data['state'] == 'done'\
                or not retro_data['need_account_management']:
@@ -90,17 +89,17 @@ class RetrocessionHelper(orm.Model):
                                              context={'journal_type': 'bank'})
 
             statement_line_vals = {'statement_id': b_statement_id,
-                                   'name': retro.sta_mandate_id.reference\
-                                          if retro.sta_mandate_id else\
-                                             retro.ext_mandate_id.reference,
+                                   'name': retro.sta_mandate_id.reference
+                                   if retro.sta_mandate_id else
+                                   retro.ext_mandate_id.reference,
                                    'amount': retro.amount_due,
                                    'partner_id': retro.partner_id.id,
                                    'ref': retro.unique_id
                                    }
             line_id = absl_pool.create(cr,
-                                           uid,
-                                           statement_line_vals,
-                                           context=context)
+                                       uid,
+                                       statement_line_vals,
+                                       context=context)
             line = absl_pool.browse(cr, uid, line_id, context=context)
 
             ret = absl_pool.get_reconciliation_proposition(cr,
@@ -110,7 +109,7 @@ class RetrocessionHelper(orm.Model):
             vals = {'counterpart_move_line_id': ret[0]['id'],
                     'debit': ret[0]['credit'],
                     'credit': ret[0]['debit'],
-                }
+                    }
 
             absl_pool.process_reconciliation(cr,
                                              uid,

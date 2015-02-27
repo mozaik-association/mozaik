@@ -25,4 +25,3 @@
 from . import partner_relation
 from . import res_partner
 from . import report
-

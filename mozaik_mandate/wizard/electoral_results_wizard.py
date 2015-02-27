@@ -53,12 +53,12 @@ class electoral_results_wizard(orm.TransientModel):
                                           string='Legislature',),
         'source_file': fields.binary('Source File'),
         'error_lines': fields.one2many('electoral.results.wizard.errors',
-                                        'wizard_id',
-                                        'Errors'),
+                                       'wizard_id',
+                                       'Errors'),
         'file_lines': fields.one2many('electoral.results.wizard.lines',
-                                        'wizard_id',
-                                        'File Lines'),
-        }
+                                      'wizard_id',
+                                      'File Lines'),
+    }
 
     def default_get(self, cr, uid, flds, context):
         """
@@ -83,9 +83,9 @@ class electoral_results_wizard(orm.TransientModel):
     def validate_file(self, cr, uid, ids, context=None):
         def save_error():
             error_obj.create(cr, uid,
-                                 {'wizard_id': wizard.id,
-                                  'line_number': line_number,
-                                  'error_msg': error_msg})
+                             {'wizard_id': wizard.id,
+                              'line_number': line_number,
+                              'error_msg': error_msg})
         district_obj = self.pool.get('electoral.district')
         candi_obj = self.pool.get('sta.candidature')
         error_obj = self.pool.get('electoral.results.wizard.errors')
@@ -103,9 +103,9 @@ class electoral_results_wizard(orm.TransientModel):
                 continue
 
             if len(line) != len(file_import_structure):
-                error_msg = _('Wrong number of columns(%s), '\
-                            '%s expected!' % (len(line),
-                                               len(file_import_structure)))
+                error_msg = _('Wrong number of columns(%s), '
+                              '%s expected!' % (len(line),
+                                                len(file_import_structure)))
                 save_error()
                 continue
 
@@ -134,7 +134,7 @@ class electoral_results_wizard(orm.TransientModel):
 
             if position_non_elected:
                 if not is_integer(position_non_elected):
-                    error_msg = _('Position non elected value should '\
+                    error_msg = _('Position non elected value should '
                                   'be integer: %s' % position_non_elected)
                     save_error()
                     continue
@@ -142,9 +142,9 @@ class electoral_results_wizard(orm.TransientModel):
             district_id = False
             if district not in known_districts:
                 district_id = district_obj.search(cr, uid,
-                                    [('name', '=', district)],
-                                    limit=1,
-                                    context=context)
+                                                  [('name', '=', district)],
+                                                  limit=1,
+                                                  context=context)
                 if not district_id:
                     error_msg = _('Unknown district: %s' %
                                   district)
@@ -154,24 +154,24 @@ class electoral_results_wizard(orm.TransientModel):
                     known_districts[name] = district_id[0]
 
             candidature_ids = candi_obj.search(cr, uid,
-                                              [('partner_name',
-                                                '=',
-                                                name),
-                                               ('electoral_district_id',
-                                                '=',
-                                                district_id[0]),
-                                               ('legislature_id',
-                                                '=',
-                                                wizard.legislature_id.id),
-                                               ('active', '<=', True)],
-                                              limit=1,
-                                              context=context)
+                                               [('partner_name',
+                                                 '=',
+                                                 name),
+                                                ('electoral_district_id',
+                                                 '=',
+                                                 district_id[0]),
+                                                ('legislature_id',
+                                                 '=',
+                                                 wizard.legislature_id.id),
+                                                ('active', '<=', True)],
+                                               limit=1,
+                                               context=context)
 
             if not candidature_ids:
-                    error_msg = _('Unknown candidate: %s' %
-                                  name)
-                    save_error()
-                    continue
+                error_msg = _('Unknown candidate: %s' %
+                              name)
+                save_error()
+                continue
 
             candidature = candi_obj.browse(cr, uid, candidature_ids[0],
                                            context=context)
@@ -179,8 +179,8 @@ class electoral_results_wizard(orm.TransientModel):
             if not e_s:
                 if candidature.is_effective or candidature.is_substitute:
                     value = 'E' if candidature.is_effective else 'S'
-                    error_msg = _('Candidature: inconsistent value for '\
-                                   'column E/S: should be %s' % value)
+                    error_msg = _('Candidature: inconsistent value for '
+                                  'column E/S: should be %s' % value)
                     save_error()
                     continue
                 if position and position_non_elected:
@@ -208,7 +208,7 @@ class electoral_results_wizard(orm.TransientModel):
                 continue
 
             if e_s and position_non_elected:
-                error_msg = _('Position non elected is incompatible'\
+                error_msg = _('Position non elected is incompatible'
                               ' with e_s value: %s' % e_s)
                 save_error()
                 continue
@@ -217,7 +217,7 @@ class electoral_results_wizard(orm.TransientModel):
                 pass
             elif candidature.state == 'elected':
                 if position_non_elected > 0:
-                    error_msg = _('Candidate is elected but position '\
+                    error_msg = _('Candidate is elected but position '
                                   'non elected (%s) is set' %
                                   position_non_elected)
                     save_error()
@@ -236,11 +236,11 @@ class electoral_results_wizard(orm.TransientModel):
                             context=context)
 
         model, res_id =\
-        self.pool.get('ir.model.data').get_object_reference(
-                                    cr,
-                                    uid,
-                                    'mozaik_mandate',
-                                    'electoral_results_wizard_step2_action')
+            self.pool.get('ir.model.data').get_object_reference(
+                cr,
+                uid,
+                'mozaik_mandate',
+                'electoral_results_wizard_step2_action')
         action = self.pool[model].read(cr, uid, res_id, context=context)
         action['res_id'] = ids[0]
         action.pop('context', '')
@@ -297,7 +297,7 @@ class electoral_results_wizard_errors(orm.TransientModel):
 
     _columns = {
         'wizard_id': fields.many2one('electoral.results.wizard',
-                                          string='Wizard'),
+                                     string='Wizard'),
         'line_number': fields.integer('Line Number'),
         'error_msg': fields.text('Message')
     }
@@ -308,8 +308,8 @@ class electoral_results_wizard_lines(orm.TransientModel):
 
     _columns = {
         'wizard_id': fields.many2one('electoral.results.wizard',
-                                          string='Wizard'),
+                                     string='Wizard'),
         'sta_candidature_id': fields.many2one('sta.candidature',
-                                          string='Candidature'),
+                                              string='Candidature'),
         'data': fields.text('File Values')
     }
