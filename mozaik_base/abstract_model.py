@@ -178,9 +178,7 @@ class mozaik_abstract_model(orm.AbstractModel):
                         relation_object.action_invalidate(
                             cr, uid, relation_ids, context=context)
                     elif relation in ['mail.followers', 'mail.notification']:
-                        '''
-                        Unlink obsolete followers. Sudo rights are required.
-                        '''
+                        # Unlink obsolete followers. Sudo rights are required.
                         relation_object.unlink(
                             cr, SUPERUSER_ID, relation_ids, context=context)
                     elif hasattr(relation_object, 'active'):

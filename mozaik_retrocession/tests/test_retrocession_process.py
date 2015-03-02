@@ -364,9 +364,7 @@ class test_retrocession_with_accounting(object):
             self.uid,
             statement_line_vals)
 
-        '''
-            Reconcile statement
-        '''
+        # Reconcile statement
         self.registry('account.bank.statement').auto_reconcile(
             self.cr,
             self.uid,

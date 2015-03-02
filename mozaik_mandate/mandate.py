@@ -136,13 +136,14 @@ class mandate_category(orm.Model):
 
     def _impact_related_exclusive_category(self, cr, uid, category_id,
                                            linked_ids, operator, context=None,
-                                           exclu_ids=[]):
+                                           exclu_ids=None):
         """
         ==============================
         _impact_related_exclusive_category
         ==============================
         Impact relative categories to add or remove a link to current id
         """
+        exclu_ids = exclu_ids or []
         for exclu_data in self.search_read(cr,
                                            uid,
                                            [('id',

@@ -26,9 +26,7 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 
-"""
-Available States for thesaurus terms
-"""
+# Available States for thesaurus terms
 TERM_AVAILABLE_STATES = [
     ('draft', 'Unconfirmed'),
     ('confirm', 'Confirmed'),

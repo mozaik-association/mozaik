@@ -199,9 +199,7 @@ class test_retrocession(SharedSetupTransactionCase):
         rule_pool = self.registry('calculation.rule')
         mandate_id = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
 
-        '''
-            Retrocession mode should be monthly
-        '''
+        # Retrocession mode should be monthly
         retrocession_mode = self.registry('ext.mandate').read(
             self.cr,
             self.uid,
@@ -209,17 +207,13 @@ class test_retrocession(SharedSetupTransactionCase):
             ['retrocession_mode'])['retrocession_mode']
         self.assertEqual(retrocession_mode, 'month')
 
-        '''
-            Check if fixed rules has been copied from method to mandate
-        '''
+        # Check if fixed rules has been copied from method to mandate
         rule_ids = rule_pool.search(
             self.cr, self.uid, [
                 ('ext_mandate_id', '=', mandate_id), ('type', '=', 'fixed')])
         self.assertEqual(len(rule_ids), 2)
 
-        '''
-            Check changing mandate category and assembly changes rules
-        '''
+        # Check changing mandate category and assembly changes rules
         assembly_id = self.ref('%s.ext_assembly_01' % self._module_ns)
         mandate_cat_id = self.ref('%s.mc_administrateur' % self._module_ns)
         self.registry('ext.mandate').write(
@@ -244,9 +238,7 @@ class test_retrocession(SharedSetupTransactionCase):
         rule_pool = self.registry('calculation.rule')
         mandate_id = self.ref('%s.stam_jacques_bourgmestre' % self._module_ns)
 
-        '''
-            Retrocession mode should be yearly
-        '''
+        # Retrocession mode should be yearly
         retrocession_mode = self.registry('sta.mandate').read(
             self.cr,
             self.uid,
@@ -254,17 +246,13 @@ class test_retrocession(SharedSetupTransactionCase):
             ['retrocession_mode'])['retrocession_mode']
         self.assertEqual(retrocession_mode, 'year')
 
-        '''
-            Check if fixed rules has been copied from method to mandate
-        '''
+        # Check if fixed rules has been copied from method to mandate
         rule_ids = rule_pool.search(
             self.cr, self.uid, [
                 ('sta_mandate_id', '=', mandate_id)])
         self.assertEqual(len(rule_ids), 2)
 
-        '''
-            Check changing mandate category changes rules
-        '''
+        # Check changing mandate category changes rules
         mandate_cat_id = self.ref('%s.mc_administrateur' % self._module_ns)
         self.registry('sta.mandate').write(
             self.cr, self.uid, mandate_id, {
@@ -279,9 +267,7 @@ class test_retrocession(SharedSetupTransactionCase):
             self.cr, self.uid, mandate_id, {
                 'mandate_category_id': mandate_cat_id})
 
-        '''
-            Check changing assembly changes rules
-        '''
+        # Check changing assembly changes rules
         assembly_id = self.ref('%s.sta_assembly_01' % self._module_ns)
         self.registry('sta.mandate').write(
             self.cr, self.uid, mandate_id, {
@@ -328,9 +314,7 @@ class test_retrocession(SharedSetupTransactionCase):
         '''
         mandate_id = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
 
-        '''
-            Try to create a regulation retrocession for May
-        '''
+        # Try to create a regulation retrocession for May
         data = {'ext_mandate_id': mandate_id,
                 'month': '05',
                 'year': 2014
@@ -342,9 +326,7 @@ class test_retrocession(SharedSetupTransactionCase):
             self.uid,
             data)
 
-        '''
-            Create a regulation retrocession for December
-        '''
+        # Create a regulation retrocession for December
         data = {'ext_mandate_id': mandate_id,
                 'month': '12',
                 'year': 2014

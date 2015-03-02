@@ -23,5 +23,5 @@
 #
 ##############################################################################
 
-import report_payment_request
-import report_payment_certificate
+from . import report_payment_request
+from . import report_payment_certificate

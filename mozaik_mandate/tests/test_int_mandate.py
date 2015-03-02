@@ -124,27 +124,21 @@ class test_int_mandate(SharedSetupTransactionCase):
         int_thierry_secretaire_id = self.ref('%s.int_thierry_secretaire' %
                                              self._module_ns)
         candidature_ids = [int_thierry_secretaire_id, int_paul_id]
-        '''
-           Attempt to accept candidatures before suggesting them
-        '''
+        # Attempt to accept candidatures before suggesting them
         self.assertRaises(orm.except_orm,
                           self._committee_pool.button_accept_candidatures,
                           self.cr,
                           self.uid,
                           [committee_id])
 
-        '''
-            Paul and Thierry are suggested
-        '''
+        # Paul and Thierry are suggested
         self._candidature_pool.signal_workflow(cr,
                                                uid,
                                                candidature_ids,
                                                'button_suggest',
                                                context=context)
 
-        '''
-            Candidatures are refused
-        '''
+        # Candidatures are refused
         self._committee_pool.button_refuse_candidatures(self.cr,
                                                         self.uid,
                                                         [committee_id])
@@ -154,9 +148,7 @@ class test_int_mandate(SharedSetupTransactionCase):
                                                             ['state']):
             self.assertEqual(candidature_data['state'], 'declared')
 
-        '''
-            Paul candidature is rejected
-        '''
+        # Paul candidature is rejected
         self._candidature_pool.signal_workflow(cr,
                                                uid,
                                                [int_paul_id],
@@ -168,9 +160,7 @@ class test_int_mandate(SharedSetupTransactionCase):
                                                      ['state'])['state'],
                          'rejected')
 
-        '''
-            Thierry is suggested again
-        '''
+        # Thierry is suggested again
         candidature_ids = [int_thierry_secretaire_id]
         self._candidature_pool.signal_workflow(cr,
                                                uid,
@@ -184,9 +174,7 @@ class test_int_mandate(SharedSetupTransactionCase):
                                                             ['state']):
             self.assertEqual(candidature_data['state'], 'suggested')
 
-        '''
-            Accept Candidatures
-        '''
+        # Accept Candidatures
         self._committee_pool.write(self.cr,
                                    self.uid,
                                    [committee_id],
@@ -200,10 +188,8 @@ class test_int_mandate(SharedSetupTransactionCase):
                                                             ['state']):
             self.assertEqual(candidature_data['state'], 'elected')
 
-        '''
-            Mandate is automatically created for Thierry candidature
-                                        - mandate is linked to candidature
-        '''
+        # Mandate is automatically created for Thierry candidature
+        #                                - mandate is linked to candidature
         mandate_ids = self._mandate_pool.search(self.cr,
                                                 self.uid,
                                                 [('candidature_id',

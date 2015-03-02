@@ -386,9 +386,7 @@ class membership_request(orm.Model):
             uid,
             request_type,
             partner_id=False,
-            partner_datas={
-                'lastname': '%s' %
-                uuid4()},
+            partner_datas=None,
             context=None):
         """
         Try to advancing workflow of partner
@@ -404,6 +402,9 @@ class membership_request(orm.Model):
         :rparam: next status in partner's workflow depending on `request_type`
         """
         context = context or {}
+        partner_datas = partner_datas or {
+            'lastname': '%s' %
+            uuid4()}
 
         partner_obj = self.pool['res.partner']
 

@@ -166,7 +166,9 @@ class account_bank_statement_line(orm.Model):
                                            context)
 
     def manage_membership_payment(self, cr, uid, partner_id,
-                                  reference, prod_id, amount_paid, context={}):
+                                  reference, prod_id, amount_paid,
+                                  context=None):
+        context = context or {}
         ml_obj = self.pool.get('membership.line')
         mdata_obj = self.pool.get('ir.model.data')
         partner_obj = self.pool.get('res.partner')

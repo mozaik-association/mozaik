@@ -678,7 +678,7 @@ class abstract_mandate(orm.AbstractModel):
         return True
 
     def detect_and_repair_duplicate(self, cr, uid, vals, context=None,
-                                    detection_model=None, columns_to_read=[],
+                                    detection_model=None, columns_to_read=None,
                                     model_id_name=None):
         """
         ===========================
@@ -691,6 +691,7 @@ class abstract_mandate(orm.AbstractModel):
         :param vals: discriminant values
         :type vals: list
         """
+        columns_to_read = columns_to_read or []
         super(abstract_mandate, self).detect_and_repair_duplicate(
             cr, uid, vals, context=context,
             columns_to_read=['model', 'mandate_id'],

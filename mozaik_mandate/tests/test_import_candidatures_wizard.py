@@ -138,9 +138,7 @@ class test_import_sta_candidature_wizard(SharedSetupTransactionCase):
                           self.uid,
                           [wiz_id])
 
-        '''
-            File with bad column in header
-        '''
+        # File with bad column in header
         temp_file = tempfile.SpooledTemporaryFile(mode='w+r')
         header = []
         header.extend(wizard.file_import_structure)
@@ -167,9 +165,7 @@ class test_import_sta_candidature_wizard(SharedSetupTransactionCase):
                           self.uid,
                           [wiz_id])
 
-        '''
-            File with unknown partner
-        '''
+        # File with unknown partner
         temp_file = tempfile.SpooledTemporaryFile(mode='w+r')
         temp_file.write(','.join(wizard.file_import_structure) + '\n')
         data = [str(9999999), '', 'True', '1', 'True', '1']

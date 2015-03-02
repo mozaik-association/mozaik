@@ -46,7 +46,7 @@ KEY_FIELDS = OrderedDict([
 TRIGGER_FIELDS = KEY_FIELDS.keys() + [
     'sequence', 'select_alternative_address_local_street']
 
-CHARS_TO_ESCAPE = re.compile('[%s\s]+' % re.escape(string.punctuation))
+CHARS_TO_ESCAPE = re.compile(r'[%s\s]+' % re.escape(string.punctuation))
 
 
 def format_value(value):

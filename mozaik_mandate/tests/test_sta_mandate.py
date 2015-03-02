@@ -132,18 +132,14 @@ class test_sta_mandate(SharedSetupTransactionCase):
                            sta_marc_communal_id,
                            sta_thierry_communal_id,
                            sta_jacques_communal_id]
-        '''
-           Attempt to accept candidatures before suggesting them
-        '''
+        # Attempt to accept candidatures before suggesting them
         self.assertRaises(orm.except_orm,
                           committee_pool.button_accept_candidatures,
                           cr,
                           uid,
                           [committee_id])
 
-        '''
-            Paul, Pauline, Marc and Thierry candidatures are suggested
-        '''
+        # Paul, Pauline, Marc and Thierry candidatures are suggested
         candidature_pool.signal_workflow(cr,
                                          uid,
                                          candidature_ids,
@@ -156,9 +152,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
                                                       ['state']):
             self.assertEqual(candidature_data['state'], 'suggested')
 
-        '''
-            Candidatures are refused
-        '''
+        # Candidatures are refused
         committee_pool.button_refuse_candidatures(self.cr,
                                                   self.uid,
                                                   [committee_id])
@@ -168,9 +162,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
                                                       ['state']):
             self.assertEqual(candidature_data['state'], 'declared')
 
-        '''
-            Paul candidature is rejected
-        '''
+        # Paul candidature is rejected
         candidature_pool.signal_workflow(cr,
                                          uid,
                                          [sta_paul_communal_id],
@@ -181,9 +173,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
                                                sta_paul_communal_id,
                                                ['state'])['state'], 'rejected')
 
-        '''
-            Pauline, Marc and Thierry candidatures are suggested again
-        '''
+        # Pauline, Marc and Thierry candidatures are suggested again
         candidature_ids = [sta_pauline_communal_id,
                            sta_marc_communal_id,
                            sta_thierry_communal_id,
@@ -200,9 +190,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
                                                       ['state']):
             self.assertEqual(candidature_data['state'], 'suggested')
 
-        '''
-            Accept Candidatures
-        '''
+        # Accept Candidatures
         committee_pool.write(self.cr, self.uid, [committee_id],
                              {'decision_date': '2014-04-01'})
         committee_pool.button_accept_candidatures(self.cr,
@@ -214,11 +202,9 @@ class test_sta_mandate(SharedSetupTransactionCase):
                                                       ['state']):
             self.assertEqual(candidature_data['state'], 'designated')
 
-        '''
-            Result of election:
-                            - Pauline is not elected
-                            - Marc and Thierry are elected
-        '''
+        # Result of election:
+        #                    - Pauline is not elected
+        #                    - Marc and Thierry are elected
         non_elected_ids = [sta_pauline_communal_id]
         elected_ids = [sta_marc_communal_id, sta_thierry_communal_id]
 
@@ -244,10 +230,8 @@ class test_sta_mandate(SharedSetupTransactionCase):
                                                       ['state']):
             self.assertEqual(candidature_data['state'], 'elected')
 
-        '''
-            Create Mandates for elected candidatures:
-                                     - mandates are linked to candidatures
-        '''
+        # Create Mandates for elected candidatures:
+        #                             - mandates are linked to candidatures
         candidature_pool.button_create_mandate(cr, uid, elected_ids)
         mandate_ids = mandate_pool.search(cr,
                                           uid,

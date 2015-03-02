@@ -60,11 +60,11 @@ class selection_converter(object):
     def __str__(self):
         return self._str
 
-''' Use following dictionary as value for fields_process attribute of browse
- method
-    It will return the translated value for selections fields
-    Example :
-    record = self.browse(cr, uid, obj_id, context=context,
- fields_process=translate_selections)
-'''
+# Use following dictionary as value for fields_process attribute of browse
+# method
+#    It will return the translated value for selections fields
+#    Example :
+#    record = self.browse(cr, uid, obj_id, context=context,
+# fields_process=translate_selections)
+
 translate_selections = {'selection': selection_converter}

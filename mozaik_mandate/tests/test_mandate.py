@@ -76,9 +76,7 @@ class test_mandate(SharedSetupTransactionCase):
                     name='Category 1',
                     type='sta',
                     sta_assembly_category_id=sta_assembly_id))
-        '''
-            Test consistency on create
-        '''
+        # Test consistency on create
         magic_number = [[6, False, [test_category_id_1]]]
         test_category_id_2 =\
             category_pool.create(
@@ -97,9 +95,7 @@ class test_mandate(SharedSetupTransactionCase):
                                        )['exclusive_category_m2m_ids']
         self.assertTrue(test_category_id_2 in exclu_ids)
 
-        '''
-            Remove exclusive relation to test write method
-        '''
+        # Remove exclusive relation to test write method
         category_pool.write(self.cr,
                             self.uid,
                             test_category_id_2,
@@ -111,9 +107,7 @@ class test_mandate(SharedSetupTransactionCase):
                                        )['exclusive_category_m2m_ids']
         self.assertFalse(exclu_ids)
 
-        '''
-            Add again exclusive relation to test write method
-        '''
+        # Add again exclusive relation to test write method
         magic_number = [[6, False, [test_category_id_1]]]
         category_pool.write(self.cr,
                             self.uid,
@@ -138,9 +132,7 @@ class test_mandate(SharedSetupTransactionCase):
 
         sta_mandate_pool = self.registry('sta.mandate')
         ext_mandate_pool = self.registry('ext.mandate')
-        '''
-            Categories are exclusives
-        '''
+        # Categories are exclusives
         self.registry('mandate.category').write(self.cr,
                                                 self.uid,
                                                 mc_bourgmestre_id,
@@ -149,9 +141,7 @@ class test_mandate(SharedSetupTransactionCase):
                                                    False,
                                                    [mc_membre_effectif_ag_id]]]
                                                  })
-        '''
-            Create a mandate in first category
-        '''
+        # Create a mandate in first category
         data = dict(mandate_category_id=mc_bourgmestre_id,
                     designation_int_assembly_id=self.ref('%s.int_assembly_01' %
                                                          self._module_ns),
@@ -165,9 +155,7 @@ class test_mandate(SharedSetupTransactionCase):
 
         mandate_id_1 = sta_mandate_pool.create(self.cr, self.uid, data)
 
-        '''
-            Create a mandate in first category
-        '''
+        # Create a mandate in first category
         data = dict(mandate_category_id=mc_membre_effectif_ag_id,
                     designation_int_assembly_id=self.ref('%s.int_assembly_01' %
                                                          self._module_ns),
@@ -179,9 +167,7 @@ class test_mandate(SharedSetupTransactionCase):
 
         mandate_id_2 = ext_mandate_pool.create(self.cr, self.uid, data)
 
-        '''
-            System should have detected mandates as exclusive
-        '''
+        # System should have detected mandates as exclusive
         mandata_data_1 = sta_mandate_pool.read(self.cr,
                                                self.uid,
                                                mandate_id_1,
@@ -197,9 +183,7 @@ class test_mandate(SharedSetupTransactionCase):
         self.assertTrue(mandata_data_2['is_duplicate_detected'])
         self.assertFalse(mandata_data_2['is_duplicate_allowed'])
 
-        '''
-            Allow exclusive mandates
-        '''
+        # Allow exclusive mandates
         ids = self.registry('generic.mandate').search(
             self.cr,
             self.uid,
@@ -238,9 +222,7 @@ class test_mandate(SharedSetupTransactionCase):
         self.assertFalse(mandata_data_2['is_duplicate_detected'])
         self.assertTrue(mandata_data_2['is_duplicate_allowed'])
 
-        '''
-            Undo allow exclusive mandates
-        '''
+        # Undo allow exclusive mandates
         sta_mandate_pool.button_undo_allow_duplicate(self.cr,
                                                      self.uid,
                                                      [mandate_id_1])
