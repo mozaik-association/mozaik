@@ -1434,21 +1434,18 @@ class virtual_partner_membership(orm.Model):
             END as active
         FROM
             res_partner p
-
-        LEFT OUTER JOIN
-            postal_coordinate pc
-        ON (pc.partner_id = p.id
-        AND pc.active = TRUE
-        AND pc.is_main = TRUE)
-
-        LEFT OUTER JOIN
-            email_coordinate e
-        ON (e.partner_id = p.id
-        AND e.active = TRUE
-        AND e.is_main = TRUE)
-
+        JOIN membership_line m
+            ON (m.partner_id = p.id
+            AND m.active = TRUE)
+        LEFT OUTER JOIN postal_coordinate pc
+            ON (pc.partner_id = p.id
+            AND pc.active = TRUE
+            AND pc.is_main = TRUE)
+        LEFT OUTER JOIN email_coordinate e
+            ON (e.partner_id = p.id
+            AND e.active = TRUE
+            AND e.is_main = TRUE)
         WHERE p.active = TRUE
-        AND p.is_company = FALSE
         )""")
 
 
