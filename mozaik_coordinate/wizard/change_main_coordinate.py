@@ -33,8 +33,10 @@ class change_main_coordinate(orm.TransientModel):
     _description = 'Change Main Coordinate Wizard'
 
     _columns = {
-        'invalidate_previous_coordinate': fields.boolean('Invalidate Previous Main Coordinate'),
-        'change_allowed': fields.boolean(string='Change Allowed'),
+        'invalidate_previous_coordinate':
+            fields.boolean('Invalidate Previous Main Coordinate'),
+        'change_allowed':
+            fields.boolean(string='Change Allowed'),
     }
 
     _defaults = {
@@ -70,7 +72,9 @@ class change_main_coordinate(orm.TransientModel):
         if mode == 'switch':
             # switch of a main coordinate to another existing coordinate
             if not len(ids) == 1:
-                raise orm.except_orm(_('Error'), _('Please select only one coordinate!'))
+                raise orm.except_orm(
+                    _('Error'),
+                    _('Please select only one coordinate!'))
             self._switch_context(cr, uid, model, ids[0], context=context)
 
         return res
@@ -101,15 +105,20 @@ class change_main_coordinate(orm.TransientModel):
                 or []
             self._switch_context(cr, uid, model, coord_ids[0], context=context)
 
-        partner_ids = context.get('active_ids', False) if context.get('active_ids', False) else list(context.get('res_id', False))
+        partner_ids = context.get('active_ids') if context.get(
+            'active_ids') else list(context.get('res_id'))
         if not partner_ids:
-            raise orm.except_orm(_('Error'), _('At least one partner is required to change its main coordinate!'))
+            raise orm.except_orm(
+                _('Error'),
+                _('At least one partner is required to change its '
+                  'main coordinate!'))
 
         wizard = self.browse(cr, uid, ids, context=context)[0]
         coord_obj = self.pool[context.get('target_model')]
         coordinate_field = coord_obj._discriminant_field
-        coordinate_value = coord_obj._is_discriminant_m2o() and wizard[coordinate_field].id or wizard[coordinate_field]
+        coordinate_value = coord_obj._is_discriminant_m2o() and \
+            wizard[coordinate_field].id or wizard[coordinate_field]
 
         context['invalidate'] = wizard.invalidate_previous_coordinate
-        coord_obj.change_main_coordinate(cr, uid, partner_ids, coordinate_value, context=context)
-
+        coord_obj.change_main_coordinate(
+            cr, uid, partner_ids, coordinate_value, context=context)

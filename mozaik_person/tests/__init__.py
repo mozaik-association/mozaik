@@ -32,4 +32,3 @@ checks = [
     test_res_partner,
     test_create_user_from_partner,
 ]
-

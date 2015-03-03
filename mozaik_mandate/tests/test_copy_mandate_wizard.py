@@ -88,7 +88,7 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
         Try to renew a legislative state mandate which is not allowed
         '''
         stam_thierry_communal_2012_id =\
-                    self.ref('%s.stam_thierry_communal_2012' % self._module_ns)
+            self.ref('%s.stam_thierry_communal_2012' % self._module_ns)
 
         context = {
             'active_ids': [stam_thierry_communal_2012_id],
@@ -105,7 +105,7 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
         Renew a non-legislative state mandate
         '''
         stam_thierry_bourgmestre_2012_id =\
-                 self.ref('%s.stam_thierry_bourgmestre_2012' % self._module_ns)
+            self.ref('%s.stam_thierry_bourgmestre_2012' % self._module_ns)
         legislature_01_id = self.ref('%s.legislature_01' % self._module_ns)
         mandate_pool = self.registry('sta.mandate')
 
@@ -161,7 +161,7 @@ class test_copy_mandate_wizard(SharedSetupTransactionCase):
         mandate_id = mandate_pool.search(self.cr, self.uid,
                                          [('candidature_id',
                                            '=', sta_thierry_communal_id)
-                                         ])[0]
+                                          ])[0]
 
         context = {
             'active_ids': [mandate_id],

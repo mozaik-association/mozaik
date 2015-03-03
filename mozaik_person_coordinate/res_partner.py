@@ -45,8 +45,12 @@ class res_partner(orm.Model):
             'partner.relation', 'object_partner_id', string='Object Relations',
             domain=[('active', '=', True)], context={'force_recompute': True}),
 
-        'partner_is_subject_relation_inactive_ids': fields.one2many('partner.relation', 'subject_partner_id', string='Subject Relations', domain=[('active', '=', False)]),
-        'partner_is_object_relation_inactive_ids': fields.one2many('partner.relation', 'object_partner_id', string='Object Relations', domain=[('active', '=', False)]),
+        'partner_is_subject_relation_inactive_ids': fields.one2many(
+            'partner.relation', 'subject_partner_id',
+            string='Subject Relations', domain=[('active', '=', False)]),
+        'partner_is_object_relation_inactive_ids': fields.one2many(
+            'partner.relation', 'object_partner_id',
+            string='Object Relations', domain=[('active', '=', False)]),
     }
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
@@ -61,6 +65,12 @@ class res_partner(orm.Model):
             'partner_is_subject_relation_inactive_ids': [],
             'partner_is_object_relation_inactive_ids': [],
         })
-        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        res = super(
+            res_partner,
+            self).copy_data(
+            cr,
+            uid,
+            ids,
+            default=default,
+            context=context)
         return res
-

@@ -30,7 +30,8 @@ from collections import OrderedDict
 from openerp.tools.translate import _
 from openerp.osv import orm
 
-from openerp.addons.mozaik_person.res_partner import available_genders, available_tongues
+from openerp.addons.mozaik_person.res_partner import available_genders, \
+    available_tongues
 
 HEADER_ROW = [
     'Internal Identifier',
@@ -223,7 +224,8 @@ class export_csv(orm.TransientModel):
         partner_ids = self.pool['res.partner'].search(
             cr, uid, [('user_ids', '=', uid)], context=context)
         if partner_ids:
-            self.pool['mail.thread'].message_post(cr, uid,
+            self.pool['mail.thread'].message_post(
+                cr, uid,
                 False, attachments=attachment, context=context,
                 partner_ids=partner_ids, subject=_('Export CSV'))
         return True

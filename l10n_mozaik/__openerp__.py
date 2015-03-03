@@ -36,7 +36,8 @@
     'description': """
 l10n MOZAIK
 ===========
-This is the base module to manage the generic accounting chart for the application
+This is the base module to manage the generic accounting chart for the
+application
 """,
     'images': [
     ],

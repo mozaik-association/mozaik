@@ -26,4 +26,3 @@
 from . import coordinate_category
 from . import abstract_coordinate
 from . import wizard
-

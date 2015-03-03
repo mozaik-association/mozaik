@@ -26,4 +26,3 @@
 from . import res_partner
 from . import wizard
 from . import partner_involvement
-

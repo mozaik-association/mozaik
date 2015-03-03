@@ -109,13 +109,14 @@ class change_co_residency_address(orm.TransientModel):
                 domain = [('partner_id', '=', coord.partner_id.id),
                           ('address_id', '=', wiz.address_id.id)]
                 pc_ids = coord_obj.search(cr, uid, domain, context=context)
-                vals = dict(partner_id=coord.partner_id.id,
-                            address_id=wiz.address_id.id,
-                            vip=coord.vip,
-                            unauthorized=coord.unauthorized,
-                            coordinate_category_id=coord.coordinate_category_id.id,
-                            coordinate_type=coord.coordinate_type,
-                            is_main=coord.is_main)
+                vals = dict(
+                    partner_id=coord.partner_id.id,
+                    address_id=wiz.address_id.id,
+                    vip=coord.vip,
+                    unauthorized=coord.unauthorized,
+                    coordinate_category_id=coord.coordinate_category_id.id,
+                    coordinate_type=coord.coordinate_type,
+                    is_main=coord.is_main)
                 if not pc_ids:
                     pc_ids = [coord_obj.create(cr, uid, vals, context=context)]
             if pc_ids:

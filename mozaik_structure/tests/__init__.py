@@ -28,5 +28,5 @@ fast_suite = [
 ]
 
 checks = [
-     test_structure,
+    test_structure,
 ]

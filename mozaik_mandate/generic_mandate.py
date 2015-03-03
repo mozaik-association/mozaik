@@ -24,7 +24,7 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
-from openerp     import tools
+from openerp import tools
 
 
 def _get_document_types(s, cr, uid, context=None):
@@ -142,6 +142,6 @@ class generic_mandate(orm.Model):
         View mandates in its form view depending on model
         """
         (model, m_id) = self.read(cr, uid, ids[0], ['mandate_ref'],
-                                   context=context)['mandate_ref'].split(',')
+                                  context=context)['mandate_ref'].split(',')
         return self.pool[model].display_object_in_form_view(cr, uid, int(m_id),
-                                                             context=context)
+                                                            context=context)

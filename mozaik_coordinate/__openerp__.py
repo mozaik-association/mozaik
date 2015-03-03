@@ -35,7 +35,8 @@
     'description': """
 MOZAIK Coordinate
 =================
-* Manage categories of email, phone and postal coordinates: private, professional, ...
+* Manage categories of email, phone and postal coordinates: private,
+  professional, ...
 * provide an abstract model (and related wizard) for all kinds of coordinates
 """,
     'images': [

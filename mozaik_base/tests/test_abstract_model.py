@@ -40,20 +40,27 @@ class test_abstract_model(object):
         self.validate_ids = None
 
     def test_action_invalidate_success(self):
-        res = self.model_abstract.action_invalidate(self.cr, self.uid, self.invalidate_success_ids, context=None)
+        res = self.model_abstract.action_invalidate(
+            self.cr, self.uid, self.invalidate_success_ids, context=None)
         self.assertEqual(res, True)
 
-        for obj in self.model_abstract.browse(self.cr, self.uid, self.invalidate_success_ids):
+        for obj in self.model_abstract.browse(
+                self.cr, self.uid, self.invalidate_success_ids):
             self.assertEqual(obj.active, False)
             self.assertNotEqual(obj.expire_date, False)
 
     def test_action_invalidate_fail(self):
-        self.assertRaises(orm.except_orm, self.model_abstract.action_invalidate, self.cr, self.uid, self.invalidate_fail_ids)
+        self.assertRaises(
+            orm.except_orm,
+            self.model_abstract.action_invalidate,
+            self.cr, self.uid, self.invalidate_fail_ids)
 
     def test_action_revalidate_success(self):
-        res = self.model_abstract.action_revalidate(self.cr, self.uid, self.validate_ids, context=None)
+        res = self.model_abstract.action_revalidate(
+            self.cr, self.uid, self.validate_ids, context=None)
         self.assertEqual(res, True)
 
-        for obj in self.model_abstract.browse(self.cr, self.uid, self.validate_ids):
+        for obj in self.model_abstract.browse(
+                self.cr, self.uid, self.validate_ids):
             self.assertEqual(obj.active, True)
             self.assertEqual(obj.expire_date, False)

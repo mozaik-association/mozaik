@@ -27,6 +27,7 @@ from openerp import tools
 
 
 class virtual_master_partner(orm.Model):
+
     """
     All partners with their postal/email coordinates
     """
@@ -36,36 +37,35 @@ class virtual_master_partner(orm.Model):
     _auto = False
 
     _columns = {
-        'partner_id': fields.many2one('res.partner', 'Partner'),
-        'membership_state_id':  fields.many2one('membership.state', 'Membership State'),
+        'partner_id': fields.many2one(
+            'res.partner',
+            'Partner'),
+        'membership_state_id': fields.many2one(
+            'membership.state',
+            'Membership State'),
         'display_name': fields.char('Display Name'),
         'identifier': fields.integer('Identifier'),
-
         'lastname': fields.char('Lastname'),
         'firstname': fields.char('Firstname'),
         'birth_date': fields.date('Birth Date'),
         'is_company': fields.boolean('Is Company'),
-
         'postal_coordinate_id': fields.integer('Postal Coordinate ID'),
         'email_coordinate_id': fields.integer('Email Coordinate ID'),
-
         'email': fields.char('Email Coordinate'),
         'postal': fields.char('Postal Coordinate'),
-
         'email_is_main': fields.boolean('Email is Main'),
         'postal_is_main': fields.boolean('Postal is Main'),
-
         'email_unauthorized': fields.boolean('Email Unauthorized'),
         'postal_unauthorized': fields.boolean('Postal Unauthorized'),
-
         'email_bounce_counter': fields.integer('Email Bounce Counter'),
         'postal_bounce_counter': fields.integer('Postal Bounce Counter'),
-
         'zip': fields.char("Zip Code"),
-        'country_id': fields.many2one('res.country', string='Country'),
-
-        'int_instance_id': fields.many2one('int.instance',
-                                           string='Internal Instance'),
+        'country_id': fields.many2one(
+            'res.country',
+            string='Country'),
+        'int_instance_id': fields.many2one(
+            'int.instance',
+            string='Internal Instance'),
     }
 
 # orm methods

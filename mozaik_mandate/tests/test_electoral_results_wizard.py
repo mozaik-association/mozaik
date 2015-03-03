@@ -29,7 +29,7 @@ from openerp.tools.translate import _
 
 from anybox.testing.openerp import SharedSetupTransactionCase
 from openerp.addons.mozaik_mandate.wizard \
-     import electoral_results_wizard as wizard_class
+    import electoral_results_wizard as wizard_class
 
 _logger = logging.getLogger(__name__)
 
@@ -45,23 +45,23 @@ class test_electoral_results_wizard(SharedSetupTransactionCase):
 
     def setUp(self):
         super(test_electoral_results_wizard, self).setUp()
-        self.district_01 = self.browse_ref('%s.electoral_district_01' %
-                                           self._module_ns)
-        self.legislature_01_id = self.ref('%s.legislature_01' %
-                                           self._module_ns)
-        self.sta_paul_communal = self.browse_ref('%s.sta_paul_communal' %
-                                        self._module_ns)
-        self.sta_pauline_communal = self.browse_ref('%s.sta_pauline_communal' %
-                                           self._module_ns)
-        self.sta_marc_communal = self.browse_ref('%s.sta_marc_communal' %
-                                        self._module_ns)
-        self.sta_thierry_communal = self.browse_ref('%s.sta_thierry_communal' %
-                                           self._module_ns)
-        self.sta_jacques_communal = self.browse_ref('%s.sta_jacques_communal' %
-                                           self._module_ns)
+        self.district_01 = self.browse_ref(
+            '%s.electoral_district_01' % self._module_ns)
+        self.legislature_01_id = self.ref(
+            '%s.legislature_01' % self._module_ns)
+        self.sta_paul_communal = self.browse_ref(
+            '%s.sta_paul_communal' % self._module_ns)
+        self.sta_pauline_communal = self.browse_ref(
+            '%s.sta_pauline_communal' % self._module_ns)
+        self.sta_marc_communal = self.browse_ref(
+            '%s.sta_marc_communal' % self._module_ns)
+        self.sta_thierry_communal = self.browse_ref(
+            '%s.sta_thierry_communal' % self._module_ns)
+        self.sta_jacques_communal = self.browse_ref(
+            '%s.sta_jacques_communal' % self._module_ns)
 
-        self.committee_id = self.ref('%s.sc_tete_huy_communale'
-                                        % self._module_ns)
+        self.committee_id = self.ref(
+            '%s.sc_tete_huy_communale' % self._module_ns)
 
         committee_pool = self.registry('sta.selection.committee')
         candidature_pool = self.registry['sta.candidature']
@@ -83,9 +83,8 @@ class test_electoral_results_wizard(SharedSetupTransactionCase):
 
         committee_pool.write(self.cr, self.uid, [self.committee_id],
                              {'decision_date': '2014-04-01'})
-        committee_pool.button_accept_candidatures(self.cr,
-                                                 self.uid,
-                                                 [self.committee_id])
+        committee_pool.button_accept_candidatures(
+            self.cr, self.uid, [self.committee_id])
 
     def test_electoral_results_wizard_wrong_file(self):
         '''
@@ -98,53 +97,53 @@ class test_electoral_results_wizard(SharedSetupTransactionCase):
                                          'button_elected')
         temp_file = tempfile.SpooledTemporaryFile(mode='w+r')
         temp_file.write(','.join(wizard_class.file_import_structure) + '\n')
-        #wrong row size
+        # wrong row size
         data = ['a', 'b']
         temp_file.write(','.join(data) + '\n')
-        #votes non numerical
+        # votes non numerical
         data = ['test', '', 'Toto', 'a', '', '']
         temp_file.write(','.join(data) + '\n')
-        #position non numerical
+        # position non numerical
         data = ['test', '', 'Toto', '3', 'a', '']
         temp_file.write(','.join(data) + '\n')
-        #position non elected non numerical
+        # position non elected non numerical
         data = ['test', '', 'Toto', '3', '2', 'a']
         temp_file.write(','.join(data) + '\n')
-        #unknown district
+        # unknown district
         data = ['test', '', 'Toto', '3', '2', '1']
         temp_file.write(','.join(data) + '\n')
-        #unknown candidate
+        # unknown candidate
         data = [self.district_01.name, '', 'Toto', '3', '2', '']
         temp_file.write(','.join(data) + '\n')
-        #bad candidature state
+        # bad candidature state
         data = [self.district_01.name, '', self.sta_marc_communal.partner_name,
                 '3', '2', '']
         temp_file.write(','.join(data) + '\n')
-        #elected candidate with position non elected set
+        # elected candidate with position non elected set
         data = [self.district_01.name, '', self.sta_paul_communal.partner_name,
                 '3', '', '1']
         temp_file.write(','.join(data) + '\n')
-        #inconsistent value for column E/S
+        # inconsistent value for column E/S
         data = [self.district_01.name, 'B',
                 self.sta_pauline_communal.partner_name, '3', '2', '1']
         temp_file.write(','.join(data) + '\n')
-        #inconsistent value for column E/S with candidature settings
+        # inconsistent value for column E/S with candidature settings
         data = [self.district_01.name, '',
                 self.sta_thierry_communal.partner_name, '3', '2', '1']
         temp_file.write(','.join(data) + '\n')
-        #Effective line with substitute candidature
+        # Effective line with substitute candidature
         data = [self.district_01.name, 'E',
                 self.sta_thierry_communal.partner_name, '3', '2', '1']
         temp_file.write(','.join(data) + '\n')
-        #Substitute line with effective candidature
+        # Substitute line with effective candidature
         data = [self.district_01.name, 'S',
                 self.sta_pauline_communal.partner_name, '3', '2', '1']
         temp_file.write(','.join(data) + '\n')
-        #Position non elected should not be set with e_S value
+        # Position non elected should not be set with e_S value
         data = [self.district_01.name, 'E',
                 self.sta_pauline_communal.partner_name, '3', '2', '1']
         temp_file.write(','.join(data) + '\n')
-        #Position and position non elected can not be set both
+        # Position and position non elected can not be set both
         data = [self.district_01.name, '',
                 self.sta_paul_communal.partner_name, '3', '2', '1']
         temp_file.write(','.join(data) + '\n')
@@ -158,10 +157,9 @@ class test_electoral_results_wizard(SharedSetupTransactionCase):
         }
         wizard_pool = self.registry('electoral.results.wizard')
         wiz_id = wizard_pool.create(
-                            self.cr,
-                            self.uid,
-                            {'source_file': base64.encodestring(data_file)},
-                            context=context)
+            self.cr, self.uid,
+            {'source_file': base64.encodestring(data_file)},
+            context=context)
         wizard_pool.validate_file(self.cr, self.uid, [wiz_id])
 
         wizard = wizard_pool.browse(self.cr, self.uid, wiz_id)
@@ -197,18 +195,19 @@ class test_electoral_results_wizard(SharedSetupTransactionCase):
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 8:
-                expected_msg = _('Inconsistent state for candidature: %s') % \
-                                'rejected'
+                expected_msg = _(
+                    'Inconsistent state for candidature: %s') % 'rejected'
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 9:
-                expected_msg = _('Candidate is elected but position '
-                                  'non elected (%s) is set') % '1'
+                expected_msg = _(
+                    'Candidate is elected but position '
+                    'non elected (%s) is set') % '1'
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 10:
-                expected_msg = _('Inconsistent value for column E/S: %s') % \
-                                 'B'
+                expected_msg = _(
+                    'Inconsistent value for column E/S: %s') % 'B'
                 self.assertEquals(error.error_msg, expected_msg)
 
             elif error.line_number == 11:
@@ -274,10 +273,9 @@ class test_electoral_results_wizard(SharedSetupTransactionCase):
         }
         wizard_pool = self.registry('electoral.results.wizard')
         wiz_id = wizard_pool.create(
-                            self.cr,
-                            self.uid,
-                            {'source_file': base64.encodestring(data_file)},
-                            context=context)
+            self.cr, self.uid,
+            {'source_file': base64.encodestring(data_file)},
+            context=context)
         wizard_pool.validate_file(self.cr, self.uid, [wiz_id])
 
         wizard = wizard_pool.browse(self.cr, self.uid, wiz_id)
@@ -331,10 +329,9 @@ class test_electoral_results_wizard(SharedSetupTransactionCase):
         }
         wizard_pool = self.registry('electoral.results.wizard')
         wiz_id = wizard_pool.create(
-                            self.cr,
-                            self.uid,
-                            {'source_file': base64.encodestring(data_file)},
-                            context=context)
+            self.cr, self.uid,
+            {'source_file': base64.encodestring(data_file)},
+            context=context)
         wizard_pool.validate_file(self.cr, self.uid, [wiz_id])
 
         wizard = wizard_pool.browse(self.cr, self.uid, wiz_id)

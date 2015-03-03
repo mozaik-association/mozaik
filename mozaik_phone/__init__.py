@@ -26,4 +26,3 @@
 from . import phone_phone
 from . import res_partner
 from . import wizard
-

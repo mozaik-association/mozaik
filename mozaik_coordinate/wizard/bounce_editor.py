@@ -46,28 +46,42 @@ class bounce_editor(orm.TransientModel):
 # constraints
 
     _sql_constraints = [
-        ('increase_check', 'CHECK(increase > 0)', '"increase" field should be a positive value'),
+        ('increase_check',
+         'CHECK(increase > 0)', '"increase" field should be a positive value'),
     ]
 
 # orm methods
 
-    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form',
+                        context=None, toolbar=False, submenu=False):
         if view_type == 'form':
             context = context or {}
 
             if not context.get('active_model', False):
-                raise orm.except_orm(_('Error'), _('Missing active_model in context!'))
+                raise orm.except_orm(
+                    _('Error'),
+                    _('Missing active_model in context!'))
 
             if not context.get('active_ids', False):
-                raise orm.except_orm(_('Error'), _('Missing active_ids in context!'))
+                raise orm.except_orm(
+                    _('Error'),
+                    _('Missing active_ids in context!'))
 
             document_ids = context.get('active_ids')
 
-            ids = self.pool[context['active_model']].search(cr, uid, [('id', 'in', document_ids), ('active', '=', False)], context=context)
+            ids = self.pool[context['active_model']].search(
+                cr, uid,
+                [('id', 'in', document_ids),
+                 ('active', '=', False)],
+                context=context)
             if ids:
-                raise orm.except_orm(_('Error'), _('This action is not allowed on inactive documents!'))
+                raise orm.except_orm(
+                    _('Error'),
+                    _('This action is not allowed on inactive documents!'))
 
-        res = super(bounce_editor, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
+        res = super(bounce_editor, self).fields_view_get(
+            cr, uid, view_id=view_id, view_type=view_type, context=context,
+            toolbar=toolbar, submenu=submenu)
         return res
 
 # public methods
@@ -78,7 +92,8 @@ class bounce_editor(orm.TransientModel):
         update_bounce_datas
         ===================
         Update the bounce information of coordinate.
-        ``ids`` of the coordinate is contained into the active_ids of the context.
+        ``ids`` of the coordinate is contained into the active_ids of the
+        context.
         """
         res_ids = context.get('active_ids', False)
         if not res_ids:
@@ -89,11 +104,12 @@ class bounce_editor(orm.TransientModel):
                 'bounce_date': datetime.today().strftime('%Y-%m-%d %H:%M:%S'),
             }
             active_model = self.pool[wiz.model]
-            coordinate_values = active_model.read(cr, uid, res_ids, ['bounce_counter'], context=context)
+            coordinate_values = active_model.read(
+                cr, uid, res_ids, ['bounce_counter'], context=context)
             for coordinate_value in coordinate_values:
                 bounce_counter = coordinate_value['bounce_counter']
                 vals.update({
                     'bounce_counter': bounce_counter + wiz.increase,
                 })
-                active_model.write(cr, uid, [coordinate_value['id']], vals, context=context)
-
+                active_model.write(
+                    cr, uid, [coordinate_value['id']], vals, context=context)

@@ -115,10 +115,11 @@ class int_mandate(orm.Model):
         'int.mandate': (lambda self, cr, uid, ids, context=None: ids,
                         ['int_assembly_id'], 10),
         'int.assembly': (lambda self, cr, uid, ids, context=None:
-                        self.pool['int.mandate'].search(
-                            cr, SUPERUSER_ID, [('int_assembly_id', 'in', ids)],
-                            context=context),
-                        ['instance_id'], 10),
+                         self.pool['int.mandate'].search(
+                             cr, SUPERUSER_ID,
+                             [('int_assembly_id', 'in', ids)],
+                             context=context),
+                         ['instance_id'], 10),
     }
 
     _columns = {

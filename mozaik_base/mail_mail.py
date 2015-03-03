@@ -30,7 +30,8 @@ class mail_mail(osv.Model):
 
     _inherit = 'mail.mail'
 
-    def _get_partner_access_link(self, cr, uid, mail, partner=None, context=None):
+    def _get_partner_access_link(self, cr, uid, mail, partner=None,
+                                 context=None):
         """
         Do not generate trailing shortcut in mails
         """

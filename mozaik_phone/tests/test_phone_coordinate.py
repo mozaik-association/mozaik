@@ -24,7 +24,8 @@
 ##############################################################################
 
 import openerp.tests.common as common
-from openerp.addons.mozaik_coordinate.tests.test_abstract_coordinate import abstract_coordinate
+from openerp.addons.mozaik_coordinate.tests.test_abstract_coordinate import \
+    abstract_coordinate
 
 
 class test_phone_coordinate(abstract_coordinate, common.TransactionCase):
@@ -36,14 +37,13 @@ class test_phone_coordinate(abstract_coordinate, common.TransactionCase):
 
         # instanciated members of abstract test
         self.model_coordinate = self.registry('phone.coordinate')
-        self.field_id_1 = model_phone.create(self.cr, self.uid, {'name': '+32 478 85 25 25',
-                                                                 'type': 'mobile'
-                                                                }, context={})
-        self.field_id_2 = model_phone.create(self.cr, self.uid, {'name': '+32 465 00 00 00',
-                                                                 'type': 'mobile'
-                                                                }, context={})
-        self.field_id_3 = model_phone.create(self.cr, self.uid, {'name': '+32 465 00 00 01',
-                                                                 'type': 'mobile'
-                                                                }, context={})
+        self.field_id_1 = model_phone.create(
+            self.cr, self.uid, {
+                'name': '+32 478 85 25 25', 'type': 'mobile'}, context={})
+        self.field_id_2 = model_phone.create(
+            self.cr, self.uid, {
+                'name': '+32 465 00 00 00', 'type': 'mobile'}, context={})
+        self.field_id_3 = model_phone.create(
+            self.cr, self.uid, {
+                'name': '+32 465 00 00 01', 'type': 'mobile'}, context={})
         self.coo_into_partner = 'mobile_coordinate_id'
-

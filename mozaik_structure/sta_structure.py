@@ -42,12 +42,12 @@ class sta_power_level(orm.Model):
                                                  'power_level_id',
                                                  'Assembly Categories'),
         'assembly_category_inactive_ids': fields.one2many(
-                                                 'sta.assembly.category',
-                                                 'power_level_id',
-                                                 'Assembly Categories',
-                                                 domain=[
-                                                 ('active', '=', False)
-                                                        ]),
+            'sta.assembly.category',
+            'power_level_id',
+            'Assembly Categories',
+            domain=[
+                ('active', '=', False)
+            ]),
     }
 
 
@@ -107,10 +107,10 @@ class sta_instance(orm.Model):
                                      ondelete='restrict',
                                      track_visibility='onchange'),
         'secondary_parent_id': fields.many2one(
-                                     'sta.instance',
-                                     'Secondary Parent State Instance',
-                                     select=True,
-                                     track_visibility='onchange'),
+            'sta.instance',
+            'Secondary Parent State Instance',
+            select=True,
+            track_visibility='onchange'),
         'power_level_id': fields.many2one('sta.power.level',
                                           'State Power Level',
                                           required=True,
@@ -131,18 +131,18 @@ class sta_instance(orm.Model):
                                                  'instance_id',
                                                  'State Assemblies',
                                                  domain=[
-                                                 ('active', '=', False)
-                                                        ]),
+                                                     ('active', '=', False)
+                                                 ]),
         'electoral_district_ids': fields.one2many('electoral.district',
                                                   'sta_instance_id',
                                                   'Electoral Districts'),
         'electoral_district_inactive_ids': fields.one2many(
-                                                  'electoral.district',
-                                                  'sta_instance_id',
-                                                  'Electoral Districts',
-                                                  domain=[
-                                                  ('active', '=', False)
-                                                         ]),
+            'electoral.district',
+            'sta_instance_id',
+            'Electoral Districts',
+            domain=[
+                ('active', '=', False)
+            ]),
     }
 
     _defaults = {
@@ -167,7 +167,7 @@ class sta_instance(orm.Model):
 
     _constraints = [
         (_check_recursion, _('You can not create recursive instances'),
-                             ['secondary_parent_id']),
+         ['secondary_parent_id']),
     ]
 
     _sql_constraints = [
@@ -183,11 +183,11 @@ class electoral_district(orm.Model):
     _description = 'Electoral District'
 
     _instance_store_dict = {
-          'electoral.district': (lambda self, cr, uid, ids, context=None:
-                                 ids, ['sta_instance_id'], 10),
-          'sta.instance': (sta_instance.get_linked_electoral_districts,
-                           ['int_instance_id'], 20),
-          }
+        'electoral.district': (lambda self, cr, uid, ids, context=None:
+                               ids, ['sta_instance_id'], 10),
+        'sta.instance': (sta_instance.get_linked_electoral_districts,
+                         ['int_instance_id'], 20),
+    }
     _columns = {
         'name': fields.char('Name',
                             size=128,
@@ -206,7 +206,7 @@ class electoral_district(orm.Model):
                                           type='many2one',
                                           relation="int.instance",
                                           store=_instance_store_dict,
-                                         ),
+                                          ),
         'assembly_id': fields.many2one('sta.assembly',
                                        'Assembly',
                                        required=True,
@@ -220,20 +220,20 @@ class electoral_district(orm.Model):
                                          type='many2one',
                                          relation='sta.power.level'),
         'designation_int_assembly_id': fields.many2one(
-                                         'int.assembly',
-                                         string='Designation Assembly',
-                                         required=True,
-                                         select=True,
-                                         track_visibility='onchange',
-                                         domain=[
-                                         ('is_designation_assembly', '=', True)
-                                                ]),
+            'int.assembly',
+            string='Designation Assembly',
+            required=True,
+            select=True,
+            track_visibility='onchange',
+            domain=[
+                ('is_designation_assembly', '=', True)
+            ]),
         'assembly_category_id': fields.related(
-                                         'assembly_id',
-                                         'assembly_category_id',
-                                         string='State Assembly Category',
-                                         type='many2one',
-                                         relation='sta.assembly.category'),
+            'assembly_id',
+            'assembly_category_id',
+            string='State Assembly Category',
+            type='many2one',
+            relation='sta.assembly.category'),
     }
 
 # constraints
@@ -249,16 +249,14 @@ class electoral_district(orm.Model):
                                  context=None):
         return {
             'value': {
-                'name': sta_instance_id and\
+                'name': sta_instance_id and
                 self.pool.get('sta.instance').name_get(
-                            cr, uid, sta_instance_id, context=context)[0][1]\
-                        or False,
-                'int_instance_id': sta_instance_id and\
+                    cr, uid, sta_instance_id, context=context)[0][1] or False,
+                'int_instance_id': sta_instance_id and
                 self.pool.get('sta.instance').read(
-                            cr, uid, sta_instance_id, ['int_instance_id'],
-                            context=context)['int_instance_id']\
-                        or False,
-             }
+                    cr, uid, sta_instance_id, ['int_instance_id'],
+                    context=context)['int_instance_id'] or False,
+            }
         }
 
 
@@ -345,19 +343,21 @@ class sta_assembly(orm.Model):
         return res
 
     _name_store_triggers = {
-        'sta.assembly': (lambda self, cr, uid, ids, context=None: ids,
-                         ['instance_id', 'assembly_category_id', ], 10),
-        'sta.instance': (lambda self, cr, uid, ids, context=None:
-                         self.pool['sta.assembly'].search(cr, uid,
-                                                 [('instance_id', 'in', ids)],
-                                                 context=context),
-                         ['name', ], 10),
-        'sta.assembly.category': (lambda self, cr, uid, ids, context=None:
-                         self.pool['sta.assembly'].search(cr, uid,
-                                  [('assembly_category_id', 'in', ids)],
-                                  context=context),
-                                  ['name', ], 10),
-    }
+        'sta.assembly': (
+            lambda self, cr, uid, ids, context=None: ids, [
+                'instance_id', 'assembly_category_id', ], 10),
+        'sta.instance': (
+            lambda self, cr, uid, ids, context=None:
+            self.pool['sta.assembly'].search(
+                cr, uid, [
+                    ('instance_id', 'in', ids)], context=context), [
+                'name', ], 10),
+        'sta.assembly.category': (
+            lambda self, cr, uid, ids, context=None:
+            self.pool['sta.assembly'].search(
+                cr, uid, [
+                    ('assembly_category_id', 'in', ids)], context=context), [
+                'name', ], 10), }
 
     _columns = {
         # dummy: define a dummy function to update the partner name associated
@@ -393,14 +393,20 @@ class sta_assembly(orm.Model):
         if not vals.get('name') and not vals.get('partner_id'):
             instance = ''
             if vals.get('instance_id'):
-                instance = self.pool['sta.instance'].read(cr, uid,
-                                            vals.get('instance_id'), ['name'],
-                                            context=context)
+                instance = self.pool['sta.instance'].read(
+                    cr,
+                    uid,
+                    vals.get('instance_id'),
+                    ['name'],
+                    context=context)
             category = ''
             if vals.get('assembly_category_id'):
-                category = self.pool['sta.assembly.category'].read(cr, uid,
-                                   vals.get('assembly_category_id'), ['name'],
-                                   context=context)
+                category = self.pool['sta.assembly.category'].read(
+                    cr,
+                    uid,
+                    vals.get('assembly_category_id'),
+                    ['name'],
+                    context=context)
             vals['name'] = '%s (%s)' % (instance['name'], category['name'])
         res = super(sta_assembly, self).create(cr, uid, vals, context=context)
         return res

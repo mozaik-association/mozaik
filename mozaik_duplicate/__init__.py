@@ -25,4 +25,3 @@
 
 from . import abstract_duplicate
 from . import wizard
-

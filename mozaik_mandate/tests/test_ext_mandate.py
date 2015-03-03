@@ -74,11 +74,9 @@ class test_ext_mandate(SharedSetupTransactionCase):
         new_committee_id = res['res_id']
         self.assertNotEqual(new_committee_id, False)
 
-        candidature_commitee_id = self._candidature_pool.read(self.cr,
-                                                  self.uid,
-                                                  rejected_id.id,
-                                                  ['selection_committee_id']\
-                                                 )['selection_committee_id']
+        candidature_commitee_id = self._candidature_pool.read(
+            self.cr, self.uid, rejected_id.id,
+            ['selection_committee_id'])['selection_committee_id']
         self.assertEqual(new_committee_id, candidature_commitee_id[0])
 
     def test_duplicate_ext_candidature_in_same_category(self):
@@ -95,12 +93,13 @@ class test_ext_mandate(SharedSetupTransactionCase):
         committee = self._committee_pool.browse(self.cr,
                                                 self.uid,
                                                 selection_committee_id)
-
-        data = dict(mandate_category_id=membre_eff_cat_id,
-          selection_committee_id=selection_committee_id,
-          designation_int_assembly_id=committee.designation_int_assembly_id.id,
-          ext_assembly_id=committee.assembly_id.id,
-          partner_id=jacques_partner_id)
+        assembly_id = committee.designation_int_assembly_id.id
+        data = dict(
+            mandate_category_id=membre_eff_cat_id,
+            selection_committee_id=selection_committee_id,
+            designation_int_assembly_id=assembly_id,
+            ext_assembly_id=committee.assembly_id.id,
+            partner_id=jacques_partner_id)
 
         self._candidature_pool.create(self.cr, self.uid, data)
 
@@ -119,27 +118,21 @@ class test_ext_mandate(SharedSetupTransactionCase):
         ext_paul_id = self.ref('%s.ext_paul_membre_ag' % self._module_ns)
         ext_thierry_id = self.ref('%s.ext_thierry_membre_ag' % self._module_ns)
         candidature_ids = [ext_thierry_id, ext_paul_id]
-        '''
-           Attempt to accept candidatures before suggesting them
-        '''
+        # Attempt to accept candidatures before suggesting them
         self.assertRaises(orm.except_orm,
                           self._committee_pool.button_accept_candidatures,
                           cr,
                           uid,
                           [committee_id])
 
-        '''
-            Paul and Thierry are suggested
-        '''
+        # Paul and Thierry are suggested
         self._candidature_pool.signal_workflow(cr,
                                                uid,
                                                candidature_ids,
                                                'button_suggest',
                                                context=context)
 
-        '''
-            Candidatures are refused
-        '''
+        # Candidatures are refused
         self._committee_pool.button_refuse_candidatures(cr,
                                                         uid,
                                                         [committee_id])
@@ -149,9 +142,7 @@ class test_ext_mandate(SharedSetupTransactionCase):
                                                             ['state']):
             self.assertEqual(candidature_data['state'], 'declared')
 
-        '''
-            Paul candidature is rejected
-        '''
+        # Paul candidature is rejected
         self._candidature_pool.signal_workflow(cr,
                                                uid,
                                                [ext_paul_id],
@@ -163,9 +154,7 @@ class test_ext_mandate(SharedSetupTransactionCase):
                                                      ['state'])['state'],
                          'rejected')
 
-        '''
-            Thierry is suggested again
-        '''
+        # Thierry is suggested again
         candidature_ids = [ext_thierry_id]
         self._candidature_pool.signal_workflow(cr,
                                                uid,
@@ -179,9 +168,7 @@ class test_ext_mandate(SharedSetupTransactionCase):
                                                             ['state']):
             self.assertEqual(candidature_data['state'], 'suggested')
 
-        '''
-            Accept Candidatures
-        '''
+        # Accept Candidatures
         self._committee_pool.write(self.cr, self.uid, [committee_id],
                                    {'decision_date': '2014-04-01'})
         self._committee_pool.button_accept_candidatures(self.cr,
@@ -193,15 +180,13 @@ class test_ext_mandate(SharedSetupTransactionCase):
                                                             ['state']):
             self.assertEqual(candidature_data['state'], 'elected')
 
-        '''
-            Mandate is automatically created for Thierry candidature
-                                        - mandate is linked to candidature
-        '''
-        mandate_ids = self._mandate_pool.search(self.cr,
-                                                self.uid,
-                                                [('candidature_id',
-                                                  'in', candidature_ids)
-                                                ])
+        # Mandate is automatically created for Thierry candidature
+        #                                - mandate is linked to candidature
+        mandate_ids = self._mandate_pool.search(
+            self.cr, self.uid,
+            [('candidature_id',
+              'in', candidature_ids)
+             ])
         self.assertEqual(len(mandate_ids), 1)
 
     def test_no_decision_date(self):

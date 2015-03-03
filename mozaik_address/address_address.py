@@ -43,9 +43,10 @@ KEY_FIELDS = OrderedDict([
     ('number', False),
     ('box', False),
 ])
-TRIGGER_FIELDS = KEY_FIELDS.keys() + ['sequence', 'select_alternative_address_local_street']
+TRIGGER_FIELDS = KEY_FIELDS.keys() + [
+    'sequence', 'select_alternative_address_local_street']
 
-CHARS_TO_ESCAPE = re.compile('[%s\s]+' % re.escape(string.punctuation))
+CHARS_TO_ESCAPE = re.compile(r'[%s\s]+' % re.escape(string.punctuation))
 
 
 def format_value(value):
@@ -55,11 +56,12 @@ def format_value(value):
     ============
     :type value: char
     :rtype: char
-    :rparam: upper to lower case for value stripping all special characters to one space
+    :rparam: upper to lower case for value stripping all special characters
+             to one space
     """
     if value:
         value = ''.join(c for c in unicodedata.normalize('NFD', u'%s' % value)
-                          if unicodedata.category(c) != 'Mn')
+                        if unicodedata.category(c) != 'Mn')
         value = re.sub(CHARS_TO_ESCAPE, ' ', value)
         value = value.lower().strip()
     return value
@@ -99,10 +101,12 @@ class address_address(orm.Model):
         return '#'.join(technical_value)
 
     def _get_linked_coordinates(self, cr, uid, ids, context=None):
-        return self.pool['postal.coordinate'].search(cr, uid, [('address_id', 'in', ids)], context=context)
+        return self.pool['postal.coordinate'].search(
+            cr, uid, [('address_id', 'in', ids)], context=context)
 
     def _get_integral_address(self, cr, uid, ids, name, args, context=None):
-        result = {i: {key: False for key in ['name', 'technical_name']} for i in ids}
+        result = {i: {
+            key: False for key in ['name', 'technical_name']} for i in ids}
         adrs_recs = self.browse(cr, uid, ids, context=context)
         for adrs in adrs_recs:
             elts = [
@@ -118,10 +122,12 @@ class address_address(orm.Model):
 
             values = KEY_FIELDS.copy()
             for field in KEY_FIELDS.keys():
-                to_evaluate = field if not KEY_FIELDS[field] else '%s.%s' % (field, KEY_FIELDS[field])
+                to_evaluate = field if not KEY_FIELDS[field] else '%s.%s' % (
+                    field, KEY_FIELDS[field])
                 real_value = eval('adrs.%s' % to_evaluate)
                 values[field] = real_value
-            technical_name = self._get_technical_name(cr, uid, values, context=context)
+            technical_name = self._get_technical_name(
+                cr, uid, values, context=context)
 
             result[adrs.id] = {
                 'name': adr or False,
@@ -135,11 +141,11 @@ class address_address(orm.Model):
         for adrs in adrs_recs:
             number = adrs.number or '-'
             number = adrs.box and '%s/%s' % (number, adrs.box) or \
-                     adrs.number or False
+                adrs.number or False
             if adrs.address_local_street_id:
                 street = adrs.select_alternative_address_local_street and \
-                         adrs.address_local_street_id.local_street_alternative or \
-                         adrs.address_local_street_id.local_street
+                    adrs.address_local_street_id.local_street_alternative or \
+                    adrs.address_local_street_id.local_street
             else:
                 street = adrs.street_man or False
             result[adrs.id] = ' '.join([el for el in [street, number] if el])
@@ -151,76 +157,142 @@ class address_address(orm.Model):
         adrs_recs = self.browse(cr, uid, ids, context=context)
         for adrs in adrs_recs:
             result[adrs.id] = {
-                'zip': adrs.address_local_zip_id and adrs.address_local_zip_id.local_zip or adrs.zip_man or False,
-                'city': adrs.address_local_zip_id and adrs.address_local_zip_id.town or adrs.town_man or False,
+                'zip':
+                    adrs.address_local_zip_id and
+                    adrs.address_local_zip_id.local_zip or
+                    adrs.zip_man or False,
+                'city':
+                    adrs.address_local_zip_id and
+                    adrs.address_local_zip_id.town or
+                    adrs.town_man or
+                    False,
             }
 
         return result
 
     _address_store_triggers = {
-        # this MUST be executed in last for consistency: sequence is greater than other
-        'address.address': (lambda self, cr, uid, ids, context=None: ids,
-            TRIGGER_FIELDS, 20),
-        'address.local.zip': (lambda self, cr, uid, ids, context=None: self.pool['address.local.zip']._get_linked_addresses(cr, uid, ids, context=context),
-            ['local_zip', 'town'], 15),
-        'address.local.street': (lambda self, cr, uid, ids, context=None: self.pool['address.local.street']._get_linked_addresses(cr, uid, ids, context=context),
-            ['local_street', 'local_street_alternative'], 15),
-        'res.country': (lambda self, cr, uid, ids, context=None: self.pool['res.country']._get_linked_addresses(cr, uid, ids, context=context),
-            ['name'], 15),
+        # this MUST be executed in last for consistency: sequence is greater
+        # than other
+        'address.address':
+            (lambda self, cr, uid, ids, context=None: ids, TRIGGER_FIELDS, 20),
+        'address.local.zip':
+            (lambda self, cr, uid, ids, context=None:
+             self.pool['address.local.zip']._get_linked_addresses(
+                 cr, uid, ids, context=context),
+             ['local_zip', 'town'], 15),
+        'address.local.street':
+            (lambda self, cr, uid, ids, context=None:
+             self.pool['address.local.street']._get_linked_addresses(
+                 cr, uid, ids, context=context),
+             ['local_street', 'local_street_alternative'], 15),
+        'res.country':
+            (lambda self, cr, uid, ids, context=None:
+             self.pool['res.country']._get_linked_addresses(
+                 cr, uid, ids, context=context),
+             ['name'], 15),
     }
     _zip_store_triggers = {
-        'address.address': (lambda self, cr, uid, ids, context=None: ids,
-            ['address_local_zip_id', 'zip_man', 'town_man'], 10),
-        'address.local.zip': (lambda self, cr, uid, ids, context=None: self.pool['address.local.zip']._get_linked_addresses(cr, uid, ids, context=context),
-            ['local_zip', 'town'], 10),
+        'address.address':
+            (lambda self, cr, uid, ids, context=None: ids,
+             ['address_local_zip_id', 'zip_man', 'town_man'], 10),
+        'address.local.zip':
+            (lambda self, cr, uid, ids, context=None:
+             self.pool['address.local.zip']._get_linked_addresses(
+                 cr, uid, ids, context=context),
+             ['local_zip', 'town'], 10),
     }
     _street_store_triggers = {
-        'address.address': (lambda self, cr, uid, ids, context=None: ids,
-            ['address_local_street_id', 'select_alternative_address_local_street', 'street_man', 'number', 'box'], 10),
-        'address.local.street': (lambda self, cr, uid, ids, context=None: self.pool['address.local.street']._get_linked_addresses(cr, uid, ids, context=context),
-            ['local_street', 'local_street_alternative'], 10),
+        'address.address':
+            (lambda self, cr, uid, ids, context=None: ids,
+             ['address_local_street_id',
+              'select_alternative_address_local_street',
+              'street_man', 'number', 'box'], 10),
+        'address.local.street':
+            (lambda self, cr, uid, ids, context=None:
+             self.pool['address.local.street']._get_linked_addresses(
+                 cr, uid, ids, context=context),
+             ['local_street', 'local_street_alternative'], 10),
     }
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
-        'name': fields.function(_get_integral_address, string='Address', type='char', select=True,
-                                multi='display_and_technical', store=_address_store_triggers),
-        'technical_name': fields.function(_get_integral_address, string='Technical Name', type='char', select=True,
-                                multi='display_and_technical', store=_address_store_triggers),
+        'id':
+            fields.integer('ID', readonly=True),
+        'name':
+            fields.function(
+                _get_integral_address, string='Address', type='char',
+                select=True, multi='display_and_technical',
+                store=_address_store_triggers),
+        'technical_name':
+            fields.function(
+                _get_integral_address, string='Technical Name', type='char',
+                select=True, multi='display_and_technical',
+                store=_address_store_triggers),
 
-        'country_id': fields.many2one('res.country', 'Country', required=True, select=True, track_visibility='onchange'),
-        'country_code': fields.related('country_id', 'code', string='Country Code', type='char'),
+        'country_id':
+            fields.many2one(
+                'res.country', 'Country', required=True, select=True,
+                track_visibility='onchange'),
+        'country_code':
+            fields.related(
+                'country_id', 'code', string='Country Code', type='char'),
 
-        'zip': fields.function(_get_zip, string='Zip', type='char',
-                               multi='ZipAndCity', store=_zip_store_triggers),
-        'address_local_zip_id': fields.many2one('address.local.zip', string='City', track_visibility='onchange'),
-        'zip_man': fields.char(string='Zip', track_visibility='onchange'),
+        'zip':
+            fields.function(
+                _get_zip, string='Zip', type='char', multi='ZipAndCity',
+                store=_zip_store_triggers),
+        'address_local_zip_id':
+            fields.many2one(
+                'address.local.zip', string='City',
+                track_visibility='onchange'),
+        'zip_man':
+            fields.char(string='Zip', track_visibility='onchange'),
 
-        'city': fields.function(_get_zip, string='City', type='char',
-                                multi='ZipAndCity', store=_zip_store_triggers),
-        'town_man': fields.char(string='Town', track_visibility='onchange'),
+        'city':
+            fields.function(
+                _get_zip, string='City', type='char', multi='ZipAndCity',
+                store=_zip_store_triggers),
+        'town_man':
+            fields.char(string='Town', track_visibility='onchange'),
 
-        'street': fields.function(_get_street, string='Street', type='char',
-                                  store=_street_store_triggers),
-        'address_local_street_id': fields.many2one('address.local.street', string='Reference Street', track_visibility='onchange'),
-        'select_alternative_address_local_street': fields.boolean('Use Alternative Reference Street', track_visibility='onchange'),
-        'street_man': fields.char(string='Street', track_visibility='onchange'),
+        'street':
+            fields.function(
+                _get_street, string='Street', type='char',
+                store=_street_store_triggers),
+        'address_local_street_id':
+            fields.many2one(
+                'address.local.street', string='Reference Street',
+                track_visibility='onchange'),
+        'select_alternative_address_local_street':
+            fields.boolean(
+                'Use Alternative Reference Street',
+                track_visibility='onchange'),
+        'street_man':
+            fields.char(string='Street', track_visibility='onchange'),
+        'street2':
+            fields.char(string='Street2', track_visibility='onchange'),
 
-        'street2': fields.char(string='Street2', track_visibility='onchange'),
+        'number':
+            fields.char(string='Number', track_visibility='onchange'),
+        'box':
+            fields.char(string='Box', track_visibility='onchange'),
+        'sequence':
+            fields.integer('Sequence', track_visibility='onchange'),
 
-        'number': fields.char(string='Number', track_visibility='onchange'),
-        'box': fields.char(string='Box', track_visibility='onchange'),
-        'sequence': fields.integer('Sequence', track_visibility='onchange'),
-
-        'postal_coordinate_ids': fields.one2many('postal.coordinate', 'address_id', string='Postal Coordinates',
-                                                 domain=[('active', '=', True)], context={'force_recompute': True}),
-        'postal_coordinate_inactive_ids': fields.one2many('postal.coordinate', 'address_id', string='Postal Coordinates',
-                                                 domain=[('active', '=', False)]),
+        'postal_coordinate_ids':
+            fields.one2many(
+                'postal.coordinate', 'address_id', string='Postal Coordinates',
+                domain=[('active', '=', True)],
+                context={'force_recompute': True}),
+        'postal_coordinate_inactive_ids':
+            fields.one2many(
+                'postal.coordinate', 'address_id', string='Postal Coordinates',
+                domain=[('active', '=', False)]),
     }
 
     _defaults = {
         'country_id': lambda self, cr, uid, c:
-            self.pool.get('res.country')._country_default_get(cr, uid, COUNTRY_CODE, context=c),
+            self.pool.get('res.country')._country_default_get(
+                cr, uid, COUNTRY_CODE, context=c),
         'country_code': COUNTRY_CODE,
         'sequence': 0,
     }
@@ -238,12 +310,18 @@ class address_address(orm.Model):
         Increase sequence value when duplicating address
         """
         adr_id = isinstance(ids, (long, int)) and [ids] or ids
-        technical_name = self.read(cr, uid, adr_id[0], ['technical_name'], context=context)['technical_name']
-        cr.execute('SELECT MAX(sequence) FROM %s WHERE technical_name=%%s' % (self._table,), (technical_name,))
+        technical_name = self.read(
+            cr, uid, adr_id[0], ['technical_name'],
+            context=context)['technical_name']
+        cr.execute(
+            'SELECT MAX(sequence) FROM %s WHERE technical_name=%%s' % (
+                self._table,), (technical_name,))
         sequence = cr.fetchone()
         sequence = sequence and sequence[0] or False
         if not sequence:
-            raise orm.except_orm(_('Error'), _('An Address without sequence number cannot be duplicated!'))
+            raise orm.except_orm(
+                _('Error'),
+                _('An Address without sequence number cannot be duplicated!'))
 
         default = dict(default or {})
         default.update({
@@ -251,7 +329,8 @@ class address_address(orm.Model):
             'postal_coordinate_ids': [],
             'postal_coordinate_inactive_ids': [],
         })
-        res = super(address_address, self).copy_data(cr, uid, ids, default=default, context=context)
+        res = super(address_address, self).copy_data(
+            cr, uid, ids, default=default, context=context)
         return res
 
 # view methods: onchange, button
@@ -259,17 +338,18 @@ class address_address(orm.Model):
     def onchange_country_id(self, cr, uid, ids, country_id, context=None):
         return {
             'value': {
-                'country_code': self.pool.get('res.country').read(cr, uid, \
-                                [country_id], ['code'], context=context)[0]['code']
-                                if country_id else False,
+                'country_code': self.pool.get('res.country').read(
+                    cr, uid, [country_id], ['code'],
+                    context=context)[0]['code'] if country_id else False,
                 'address_local_zip_id': False,
-             }
+            }
         }
 
     def onchange_local_zip_id(self, cr, uid, ids, local_zip_id, context=None):
         _zip, city = False, False
         if local_zip_id:
-            zip_city = self.pool.get('address.local.zip').read(cr, uid, [local_zip_id], [], context=context)[0]
+            zip_city = self.pool.get('address.local.zip').read(
+                cr, uid, [local_zip_id], [], context=context)[0]
             _zip, city = zip_city['local_zip'], zip_city['town']
         return {
             'value': {
@@ -277,18 +357,20 @@ class address_address(orm.Model):
                 'city': city,
                 'zip_man': False,
                 'town_man': False,
-             }
+            }
         }
 
     def onchange_zip(self, cr, uid, ids, _zip, context=None):
         return {
             'value': {
                 'address_local_street_id': False,
-             }
+            }
         }
 
-    def onchange_local_street_id(self, cr, uid, ids, local_street_id, context=None):
-        vals = {} if local_street_id else {'select_alternative_address_local_street': False}
+    def onchange_local_street_id(self, cr, uid, ids, local_street_id,
+                                 context=None):
+        vals = {} if local_street_id else {
+            'select_alternative_address_local_street': False}
         vals.update({'street_man': False})
         return {
             'value': vals
@@ -308,7 +390,8 @@ class address_address(orm.Model):
         :rtype: list of ids
         """
         coord_ids = self._get_linked_coordinates(cr, uid, ids, context=context)
-        return self.pool['postal.coordinate'].get_linked_partners(cr, uid, coord_ids, context=context)
+        return self.pool['postal.coordinate'].get_linked_partners(
+            cr, uid, coord_ids, context=context)
 
 
 class postal_coordinate(orm.Model):
@@ -329,8 +412,12 @@ class postal_coordinate(orm.Model):
     _undo_redirect_action = 'mozaik_address.postal_coordinate_action'
 
     _columns = {
-        'address_id': fields.many2one('address.address', string='Address', required=True, readonly=True, select=True),
-        'co_residency_id': fields.many2one('co.residency', string='Co-Residency', select=True),
+        'address_id':
+            fields.many2one(
+                'address.address', string='Address', required=True,
+                readonly=True, select=True),
+        'co_residency_id':
+            fields.many2one('co.residency', string='Co-Residency', select=True)
     }
 
     _rec_name = _discriminant_field
@@ -351,7 +438,8 @@ class postal_coordinate(orm.Model):
         :rtype: dictionary
         :rparam: values to update
         """
-        res = super(postal_coordinate, self).get_fields_to_update(cr, uid, mode, context=context)
+        res = super(postal_coordinate, self).get_fields_to_update(
+            cr, uid, mode, context=context)
         if mode in ['duplicate', 'reset']:
             res.update({'co_residency_id': False})
         return res

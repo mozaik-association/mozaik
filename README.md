@@ -1,3 +1,6 @@
+![Licence](https://img.shields.io/badge/licence-AGPL--3-blue.svg)
+[![Build Status](https://travis-ci.org/acsone/mozaik.svg?branch=8.0)](https://travis-ci.org/acsone/mozaik)
+[![Coverage Status](https://coveralls.io/repos/acsone/mozaik/badge.svg?branch=8.0)](https://coveralls.io/r/acsone/mozaik?branch=8.0)
 Mozaik
 ======
 
@@ -44,8 +47,14 @@ Some more generic modules have been move to other repositories:
 - [Acsone Addons](https://github.com/acsone/acsone-addons) for distribution lists and newsletters (```distribution_list```)
 - [OCA/web](https://github.com/OCA/web) for online help (```help_online```)
 - [OCA/Server Tools](https://github.com/OCA/server-tools) for SSO authentication (```auth_from_http_remote_user```)
+- [OCA/connector](https://github.com/OCA/connector)
+- [OCA/partner-contact](https://github.com/OCA/partner-contact)
 
 A special module is provided to quickly build a non empty sandbox database: ```mozaik_sample_accounting```.
 
 List of dependencies needed to the whole project can be consulted in the ```mozaik_base/__openerp__.py``` manifest.
+
+Additional python dependencies:
+- anybox.testing.openerp
+- phonenumbers
 

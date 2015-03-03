@@ -35,7 +35,9 @@ options
 * `2` test get uid
 """
 if len(sys.argv) != 3:
-    raise Exception('Two arguments are required to launch this sample: "db {1 | 2 | 3 | 4 | 5}"')
+    raise Exception(
+        'Two arguments are required to launch this sample: '
+        '"db {1 | 2 | 3 | 4 | 5}"')
 
 DBNAME = sys.argv[1]
 USERNAME = 'ws'
@@ -50,22 +52,59 @@ OBJECT = 'custom.webservice'
 if sys.argv[2] == '1':
     METHOD = 'membership_request'
     res = sock.execute(
-        DBNAME, UID, PWD, OBJECT, METHOD,
-        'LHERMITTE', 'Thierry', 'm', 'Rue Louis Maréhal 6/2B', '4360', 'Oreye', 'm',
-        01, 04, 1985,
-        'thierry@gmail.com', '0465000000', '061412002',
-        'Foot, Snowboard', False)
+        DBNAME,
+        UID,
+        PWD,
+        OBJECT,
+        METHOD,
+        'LHERMITTE',
+        'Thierry',
+        'm',
+        'Rue Louis Maréhal 6/2B',
+        '4360',
+        'Oreye',
+        'm',
+        0o1,
+        0o4,
+        1985,
+        'thierry@gmail.com',
+        '0465000000',
+        '061412002',
+        'Foot, Snowboard',
+        False)
 elif sys.argv[2] == '2':
     METHOD = 'get_login'
-    res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 'pauline@gmail.com', '1949-03-29')
+    res = sock.execute(
+        DBNAME,
+        UID,
+        PWD,
+        OBJECT,
+        METHOD,
+        'pauline@gmail.com',
+        '1949-03-29')
 elif sys.argv[2] == '3':
     METHOD = 'membership_request'
-    res = sock.execute( \
-        DBNAME, UID, PWD, OBJECT, METHOD, \
-        'MARCEAU', 'Sophie', 'f', 'Rue Louis Maréhal 6/2B', '4360', 'Oreye', False, \
-        False, False, False,
-        'vic.beretton@gmail.com', False, False,
-        False, 'demande newsletter etopia')
+    res = sock.execute(
+        DBNAME,
+        UID,
+        PWD,
+        OBJECT,
+        METHOD,
+        'MARCEAU',
+        'Sophie',
+        'f',
+        'Rue Louis Maréhal 6/2B',
+        '4360',
+        'Oreye',
+        False,
+        False,
+        False,
+        False,
+        'vic.beretton@gmail.com',
+        False,
+        False,
+        False,
+        'demande newsletter etopia')
 elif sys.argv[2] == '4':
     METHOD = 'get_distribution_list'
     res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 1)

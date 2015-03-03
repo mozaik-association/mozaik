@@ -68,11 +68,11 @@ class test_sta_mandate(SharedSetupTransactionCase):
         self.assertNotEqual(new_committee_id, False)
 
         candidature_commitee_id = candidature_pool.read(
-                                                    self.cr,
-                                                    self.uid,
-                                                    rejected_id.id,
-                                                    ['selection_committee_id']
-                                                    )['selection_committee_id']
+            self.cr,
+            self.uid,
+            rejected_id.id,
+            ['selection_committee_id']
+        )['selection_committee_id']
         self.assertEqual(new_committee_id, candidature_commitee_id[0])
 
     def test_duplicate_sta_candidature_in_same_category(self):
@@ -86,18 +86,20 @@ class test_sta_mandate(SharedSetupTransactionCase):
         selection_committee_id = self.ref('%s.sc_tete_huy_communale' %
                                           self._module_ns)
 
-        committee =\
-        self.registry('sta.selection.committee').browse(self.cr,
-                                                        self.uid,
-                                                        selection_committee_id)
+        committee = self.registry('sta.selection.committee').browse(
+            self.cr,
+            self.uid,
+            selection_committee_id)
 
-        data = dict(mandate_category_id=conseil_comm_cat_id,
-         selection_committee_id=selection_committee_id,
-         designation_int_assembly_id=committee.designation_int_assembly_id.id,
-         legislature_id=committee.legislature_id.id,
-         electoral_district_id=committee.electoral_district_id.id,
-         sta_assembly_id=committee.assembly_id.id,
-         partner_id=jacques_partner_id)
+        assembly_id = committee.designation_int_assembly_id.id
+        data = dict(
+            mandate_category_id=conseil_comm_cat_id,
+            selection_committee_id=selection_committee_id,
+            designation_int_assembly_id=assembly_id,
+            legislature_id=committee.legislature_id.id,
+            electoral_district_id=committee.electoral_district_id.id,
+            sta_assembly_id=committee.assembly_id.id,
+            partner_id=jacques_partner_id)
 
         with testtool.disable_log_error(self.cr):
             self.assertRaises(psycopg2.IntegrityError,
@@ -130,18 +132,14 @@ class test_sta_mandate(SharedSetupTransactionCase):
                            sta_marc_communal_id,
                            sta_thierry_communal_id,
                            sta_jacques_communal_id]
-        '''
-           Attempt to accept candidatures before suggesting them
-        '''
+        # Attempt to accept candidatures before suggesting them
         self.assertRaises(orm.except_orm,
                           committee_pool.button_accept_candidatures,
                           cr,
                           uid,
                           [committee_id])
 
-        '''
-            Paul, Pauline, Marc and Thierry candidatures are suggested
-        '''
+        # Paul, Pauline, Marc and Thierry candidatures are suggested
         candidature_pool.signal_workflow(cr,
                                          uid,
                                          candidature_ids,
@@ -154,9 +152,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
                                                       ['state']):
             self.assertEqual(candidature_data['state'], 'suggested')
 
-        '''
-            Candidatures are refused
-        '''
+        # Candidatures are refused
         committee_pool.button_refuse_candidatures(self.cr,
                                                   self.uid,
                                                   [committee_id])
@@ -166,9 +162,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
                                                       ['state']):
             self.assertEqual(candidature_data['state'], 'declared')
 
-        '''
-            Paul candidature is rejected
-        '''
+        # Paul candidature is rejected
         candidature_pool.signal_workflow(cr,
                                          uid,
                                          [sta_paul_communal_id],
@@ -179,9 +173,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
                                                sta_paul_communal_id,
                                                ['state'])['state'], 'rejected')
 
-        '''
-            Pauline, Marc and Thierry candidatures are suggested again
-        '''
+        # Pauline, Marc and Thierry candidatures are suggested again
         candidature_ids = [sta_pauline_communal_id,
                            sta_marc_communal_id,
                            sta_thierry_communal_id,
@@ -198,9 +190,7 @@ class test_sta_mandate(SharedSetupTransactionCase):
                                                       ['state']):
             self.assertEqual(candidature_data['state'], 'suggested')
 
-        '''
-            Accept Candidatures
-        '''
+        # Accept Candidatures
         committee_pool.write(self.cr, self.uid, [committee_id],
                              {'decision_date': '2014-04-01'})
         committee_pool.button_accept_candidatures(self.cr,
@@ -212,11 +202,9 @@ class test_sta_mandate(SharedSetupTransactionCase):
                                                       ['state']):
             self.assertEqual(candidature_data['state'], 'designated')
 
-        '''
-            Result of election:
-                            - Pauline is not elected
-                            - Marc and Thierry are elected
-        '''
+        # Result of election:
+        #                    - Pauline is not elected
+        #                    - Marc and Thierry are elected
         non_elected_ids = [sta_pauline_communal_id]
         elected_ids = [sta_marc_communal_id, sta_thierry_communal_id]
 
@@ -242,10 +230,8 @@ class test_sta_mandate(SharedSetupTransactionCase):
                                                       ['state']):
             self.assertEqual(candidature_data['state'], 'elected')
 
-        '''
-            Create Mandates for elected candidatures:
-                                     - mandates are linked to candidatures
-        '''
+        # Create Mandates for elected candidatures:
+        #                             - mandates are linked to candidatures
         candidature_pool.button_create_mandate(cr, uid, elected_ids)
         mandate_ids = mandate_pool.search(cr,
                                           uid,

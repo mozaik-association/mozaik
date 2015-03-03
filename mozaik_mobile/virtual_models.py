@@ -42,12 +42,12 @@ class virtual_mobile_partner(orm.Model):
 # orm methods
 
     def init(self, cr):
-        tools.drop_view_if_exists(cr, 'virtual_mobile_partner')
         """
         Select partner_id and email from master partner
         and get phones of partners too
         Get Only row with at least a phone or an email
         """
+        tools.drop_view_if_exists(cr, 'virtual_mobile_partner')
         cr.execute("""
         create or replace view virtual_mobile_partner as (
         SELECT

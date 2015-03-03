@@ -49,12 +49,17 @@ class test_create_user_from_partner(SharedSetupTransactionCase):
         self.user_model = self.registry('res.users')
         self.p2u_wizard_model = self.registry('create.user.from.partner')
 
-        self.partner_jacques_id = self.ref('%s.res_partner_jacques' % self._module_ns)
-        self.partner_paul_id = self.ref('%s.res_partner_paul' % self._module_ns)
+        self.partner_jacques_id = self.ref(
+            '%s.res_partner_jacques' %
+            self._module_ns)
+        self.partner_paul_id = self.ref(
+            '%s.res_partner_paul' % self._module_ns)
 
         self.group_fr_id = self.ref('mozaik_base.mozaik_res_groups_reader')
 
-        _, self.portal_id = self.registry('ir.model.data').get_object_reference(self.cr, self.uid, 'base', 'group_portal')
+        _, self.portal_id = self.registry(
+            'ir.model.data').get_object_reference(
+            self.cr, self.uid, 'base', 'group_portal')
 
         self.context = {}
 
@@ -71,23 +76,62 @@ class test_create_user_from_partner(SharedSetupTransactionCase):
         partner_model, user_model = self.partner_model, self.user_model
 
         # Check for reference data
-        vals = user_model.search(cr, uid, [('partner_id', '=', jacques_id)], context=context)
-        self.assertFalse(len(vals), 'Wrong expected reference data for this test')
-        vals = partner_model.search(cr, uid, [('id', '=', jacques_id), ('ldap_name', '>', '')], context=context)
-        self.assertFalse(len(vals), 'Wrong expected reference data for this test')
-        vals = user_model.search(cr, uid, [('partner_id', '=', paul_id)], context=context)
-        self.assertTrue(len(vals), 'Wrong expected reference data for this test')
+        vals = user_model.search(
+            cr, uid, [
+                ('partner_id', '=', jacques_id)], context=context)
+        self.assertFalse(
+            len(vals),
+            'Wrong expected reference data for this test')
+        vals = partner_model.search(
+            cr, uid, [
+                ('id', '=', jacques_id), ('ldap_name', '>', '')],
+            context=context)
+        self.assertFalse(
+            len(vals),
+            'Wrong expected reference data for this test')
+        vals = user_model.search(
+            cr, uid, [
+                ('partner_id', '=', paul_id)], context=context)
+        self.assertTrue(
+            len(vals),
+            'Wrong expected reference data for this test')
 
         # Create a user from a partner
-        user_id = partner_model.create_user(cr, uid, 'jack', jacques_id, [fr_id], context=context)
+        user_id = partner_model.create_user(
+            cr,
+            uid,
+            'jack',
+            jacques_id,
+            [fr_id],
+            context=context)
         user = user_model.browse(cr, uid, user_id, context=context)
-        self.assertEqual(user.partner_id.id, jacques_id, 'Create user fails with wrong partner_id')
-        self.assertEqual(user.login, 'jack', 'Create user fails with wrong login')
-        self.assertTrue(fr_id in [g.id for g in user.groups_id], 'Create user fails with wrong group')
-        self.assertEqual(user.partner_id.ldap_name, 'jack', 'Update partner fails with wrong ldap_name')
+        self.assertEqual(
+            user.partner_id.id,
+            jacques_id,
+            'Create user fails with wrong partner_id')
+        self.assertEqual(
+            user.login,
+            'jack',
+            'Create user fails with wrong login')
+        self.assertTrue(
+            fr_id in [
+                g.id for g in user.groups_id],
+            'Create user fails with wrong group')
+        self.assertEqual(
+            user.partner_id.ldap_name,
+            'jack',
+            'Update partner fails with wrong ldap_name')
 
         # Recreate a user from a partner
-        self.assertRaises(orm.except_orm, self.partner_model.create_user, cr, uid, 'popol', paul_id, [fr_id], context=context)
+        self.assertRaises(
+            orm.except_orm,
+            self.partner_model.create_user,
+            cr,
+            uid,
+            'popol',
+            paul_id,
+            [fr_id],
+            context=context)
 
     def test_create_portal_user_from_partner(self):
         """
@@ -112,11 +156,23 @@ class test_create_user_from_partner(SharedSetupTransactionCase):
         wz_id = p2u_wizard_model.create(cr, uid, vals, context=ctx)
 
         # Create a portal user from a partner
-        user_id = p2u_wizard_model.create_user_from_partner(cr, uid, [wz_id], context=ctx)
+        user_id = p2u_wizard_model.create_user_from_partner(
+            cr,
+            uid,
+            [wz_id],
+            context=ctx)
         user = user_model.browse(cr, uid, user_id, context=context)
         grp_ids = [g.id for g in user.groups_id]
-        self.assertEqual(user.partner_id.id, jacques_id, 'Create user fails with wrong partner_id')
-        self.assertEqual(user.login, user.partner_id.email, 'Create user fails with wrong email')
-        self.assertTrue(portal_id in grp_ids, 'Create user fails with wrong group')
-        self.assertEqual(len(grp_ids), 1, 'Create user fails with wrong groups')
-
+        self.assertEqual(
+            user.partner_id.id,
+            jacques_id,
+            'Create user fails with wrong partner_id')
+        self.assertEqual(
+            user.login,
+            user.partner_id.email,
+            'Create user fails with wrong email')
+        self.assertTrue(
+            portal_id in grp_ids,
+            'Create user fails with wrong group')
+        self.assertEqual(len(grp_ids), 1,
+                         'Create user fails with wrong groups')

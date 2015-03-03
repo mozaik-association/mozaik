@@ -35,7 +35,8 @@
     'description': """
 MOZAIK Duplicate
 ================
-* Provide an abstract model (and related wizard) to detect, repair and allow duplicates
+* Provide an abstract model (and related wizard) to detect, repair and allow
+  duplicates
 """,
     'images': [
     ],

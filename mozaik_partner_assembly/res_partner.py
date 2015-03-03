@@ -51,6 +51,12 @@ class res_partner(orm.Model):
         default.update({
             'is_assembly': False,
         })
-        res = super(res_partner, self).copy_data(cr, uid, ids, default=default, context=context)
+        res = super(
+            res_partner,
+            self).copy_data(
+            cr,
+            uid,
+            ids,
+            default=default,
+            context=context)
         return res
-

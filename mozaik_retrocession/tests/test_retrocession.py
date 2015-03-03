@@ -54,7 +54,9 @@ class test_retrocession(SharedSetupTransactionCase):
         fractionation_pool = self.registry('fractionation')
         fractionation_01 = self.browse_ref('%s.f_sample_02' % self._module_ns)
 
-        fractionation_pool.action_invalidate(self.cr, self.uid, [fractionation_01.id])
+        fractionation_pool.action_invalidate(
+            self.cr, self.uid, [
+                fractionation_01.id])
 
         for line in fractionation_01.fractionation_line_ids:
             self.assertFalse(line.active)
@@ -71,13 +73,20 @@ class test_retrocession(SharedSetupTransactionCase):
             Test percentage of line must be lower or equal to 100
         '''
         fractionation_02_id = self.ref('%s.f_sample_02' % self._module_ns)
-        int_power_level_02_id = self.ref('%s.int_power_level_02' % self._module_ns)
+        int_power_level_02_id = self.ref(
+            '%s.int_power_level_02' %
+            self._module_ns)
         data = dict(fractionation_id=fractionation_02_id,
                     power_level_id=int_power_level_02_id,
                     percentage=142)
 
         with testtool.disable_log_error(self.cr):
-            self.assertRaises(psycopg2.IntegrityError, self.registry('fractionation.line').create, self.cr, self.uid, data)
+            self.assertRaises(
+                psycopg2.IntegrityError,
+                self.registry('fractionation.line').create,
+                self.cr,
+                self.uid,
+                data)
 
     def test_unicity_fractionation_line(self):
         '''
@@ -130,28 +139,57 @@ class test_retrocession(SharedSetupTransactionCase):
         retro_id = self.ref('%s.retro_paul_ag_mai_2014' % self._module_ns)
         partner_id = self.ref('%s.res_partner_paul' % self._module_ns)
 
-        self.registry('res.partner').write(self.cr, self.uid, [partner_id], {'active': False,
-                                                                             'expire_date': fields.datetime.now(), }, context=None)
+        self.registry('res.partner').write(
+            self.cr, self.uid, [partner_id], {
+                'active': False, 'expire_date': fields.datetime.now(), },
+            context=None)
 
-        self.assertFalse(self.registry('ext.mandate').read(self.cr, self.uid, mandate_id, ['active'])['active'])
-        self.assertTrue(self.registry('calculation.method').read(self.cr, self.uid, method_id, ['active'])['active'])
-        self.assertFalse(self.registry('retrocession').read(self.cr, self.uid, retro_id, ['active'])['active'])
+        self.assertFalse(
+            self.registry('ext.mandate').read(
+                self.cr,
+                self.uid,
+                mandate_id,
+                ['active'])['active'])
+        self.assertTrue(
+            self.registry('calculation.method').read(
+                self.cr,
+                self.uid,
+                method_id,
+                ['active'])['active'])
+        self.assertFalse(
+            self.registry('retrocession').read(
+                self.cr,
+                self.uid,
+                retro_id,
+                ['active'])['active'])
 
     def test_retro_instance_on_assemblies(self):
         '''
-            If a mandate category has a retrocession mode, all assemblies impacted should have
+            If a mandate category has a retrocession mode, all assemblies
+            impacted should have
             a retrocession management instance specified
         '''
-        mandate_category_id = self.ref('%s.sta_assembly_category_11' % self._module_ns)
-        self.assertRaises(orm.except_orm, self.registry('mandate.category').write, self.cr, self.uid, mandate_category_id, {'retrocession_mode': 'month'})
+        mandate_category_id = self.ref(
+            '%s.sta_assembly_category_11' %
+            self._module_ns)
+        self.assertRaises(orm.except_orm,
+                          self.registry('mandate.category').write,
+                          self.cr,
+                          self.uid,
+                          mandate_category_id,
+                          {'retrocession_mode': 'month'})
 
     def test_mandate_reference(self):
         '''
             All state and external mandates should have a reference
         '''
-        mandate_ids = self.registry('sta.mandate').search(self.cr, self.uid, [('reference', '=', False)])
+        mandate_ids = self.registry('sta.mandate').search(
+            self.cr, self.uid, [
+                ('reference', '=', False)])
         self.assertEqual(len(mandate_ids), 0)
-        mandate_ids = self.registry('ext.mandate').search(self.cr, self.uid, [('reference', '=', False)])
+        mandate_ids = self.registry('ext.mandate').search(
+            self.cr, self.uid, [
+                ('reference', '=', False)])
         self.assertEqual(len(mandate_ids), 0)
 
     def test_ext_mandates(self):
@@ -161,31 +199,37 @@ class test_retrocession(SharedSetupTransactionCase):
         rule_pool = self.registry('calculation.rule')
         mandate_id = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
 
-        '''
-            Retrocession mode should be monthly
-        '''
-        retrocession_mode = self.registry('ext.mandate').read(self.cr, self.uid, mandate_id, ['retrocession_mode'])['retrocession_mode']
+        # Retrocession mode should be monthly
+        retrocession_mode = self.registry('ext.mandate').read(
+            self.cr,
+            self.uid,
+            mandate_id,
+            ['retrocession_mode'])['retrocession_mode']
         self.assertEqual(retrocession_mode, 'month')
 
-        '''
-            Check if fixed rules has been copied from method to mandate
-        '''
-        rule_ids = rule_pool.search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id), ('type', '=', 'fixed')])
+        # Check if fixed rules has been copied from method to mandate
+        rule_ids = rule_pool.search(
+            self.cr, self.uid, [
+                ('ext_mandate_id', '=', mandate_id), ('type', '=', 'fixed')])
         self.assertEqual(len(rule_ids), 2)
 
-        '''
-            Check changing mandate category and assembly changes rules
-        '''
+        # Check changing mandate category and assembly changes rules
         assembly_id = self.ref('%s.ext_assembly_01' % self._module_ns)
         mandate_cat_id = self.ref('%s.mc_administrateur' % self._module_ns)
-        self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id,
-                                                                           'ext_assembly_id': assembly_id})
-        rule_ids = rule_pool.search(self.cr, self.uid, [('ext_mandate_id', '=', mandate_id)])
+        self.registry('ext.mandate').write(
+            self.cr, self.uid, mandate_id, {
+                'mandate_category_id': mandate_cat_id,
+                'ext_assembly_id': assembly_id})
+        rule_ids = rule_pool.search(
+            self.cr, self.uid, [
+                ('ext_mandate_id', '=', mandate_id)])
         self.assertEqual(len(rule_ids), 1)
         assembly_id = self.ref('%s.ext_assembly_02' % self._module_ns)
         mandate_cat_id = self.ref('%s.mc_membre_effectif_ag' % self._module_ns)
-        self.registry('ext.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id,
-                                                                           'ext_assembly_id': assembly_id})
+        self.registry('ext.mandate').write(
+            self.cr, self.uid, mandate_id, {
+                'mandate_category_id': mandate_cat_id,
+                'ext_assembly_id': assembly_id})
 
     def test_sta_mandates(self):
         '''
@@ -194,53 +238,75 @@ class test_retrocession(SharedSetupTransactionCase):
         rule_pool = self.registry('calculation.rule')
         mandate_id = self.ref('%s.stam_jacques_bourgmestre' % self._module_ns)
 
-        '''
-            Retrocession mode should be yearly
-        '''
-        retrocession_mode = self.registry('sta.mandate').read(self.cr, self.uid, mandate_id, ['retrocession_mode'])['retrocession_mode']
+        # Retrocession mode should be yearly
+        retrocession_mode = self.registry('sta.mandate').read(
+            self.cr,
+            self.uid,
+            mandate_id,
+            ['retrocession_mode'])['retrocession_mode']
         self.assertEqual(retrocession_mode, 'year')
 
-        '''
-            Check if fixed rules has been copied from method to mandate
-        '''
-        rule_ids = rule_pool.search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id)])
+        # Check if fixed rules has been copied from method to mandate
+        rule_ids = rule_pool.search(
+            self.cr, self.uid, [
+                ('sta_mandate_id', '=', mandate_id)])
         self.assertEqual(len(rule_ids), 2)
 
-        '''
-            Check changing mandate category changes rules
-        '''
+        # Check changing mandate category changes rules
         mandate_cat_id = self.ref('%s.mc_administrateur' % self._module_ns)
-        self.registry('sta.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id})
-        rule_ids = rule_pool.search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id)])
+        self.registry('sta.mandate').write(
+            self.cr, self.uid, mandate_id, {
+                'mandate_category_id': mandate_cat_id})
+        rule_ids = rule_pool.search(
+            self.cr, self.uid, [
+                ('sta_mandate_id', '=', mandate_id)])
         self.assertEqual(len(rule_ids), 1)
-        mandate_cat_id = self.ref('%s.mc_conseiller_communal' % self._module_ns)
-        self.registry('sta.mandate').write(self.cr, self.uid, mandate_id, {'mandate_category_id': mandate_cat_id})
+        mandate_cat_id = self.ref(
+            '%s.mc_conseiller_communal' % self._module_ns)
+        self.registry('sta.mandate').write(
+            self.cr, self.uid, mandate_id, {
+                'mandate_category_id': mandate_cat_id})
 
-        '''
-            Check changing assembly changes rules
-        '''
+        # Check changing assembly changes rules
         assembly_id = self.ref('%s.sta_assembly_01' % self._module_ns)
-        self.registry('sta.mandate').write(self.cr, self.uid, mandate_id, {'sta_assembly_id': assembly_id})
-        rule_ids = rule_pool.search(self.cr, self.uid, [('sta_mandate_id', '=', mandate_id)])
+        self.registry('sta.mandate').write(
+            self.cr, self.uid, mandate_id, {
+                'sta_assembly_id': assembly_id})
+        rule_ids = rule_pool.search(
+            self.cr, self.uid, [
+                ('sta_mandate_id', '=', mandate_id)])
         self.assertEqual(len(rule_ids), 1)
         assembly_id = self.ref('%s.sta_assembly_03' % self._module_ns)
-        self.registry('sta.mandate').write(self.cr, self.uid, mandate_id, {'sta_assembly_id': assembly_id})
+        self.registry('sta.mandate').write(
+            self.cr, self.uid, mandate_id, {
+                'sta_assembly_id': assembly_id})
 
     def test_retrocession_unicity(self):
         '''
-            Test impossibility to create several retrocession for the same mandate at the same period
+            Test impossibility to create several retrocession for the same
+            mandate at the same period
         '''
         mandate_id = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
         data = dict(ext_mandate_id=mandate_id,
                     month='05', year=2014,
                     )
-        self.assertRaises(orm.except_orm, self.registry('retrocession').create, self.cr, self.uid, data)
+        self.assertRaises(
+            orm.except_orm,
+            self.registry('retrocession').create,
+            self.cr,
+            self.uid,
+            data)
 
         mandate_id = self.ref('%s.stam_jacques_bourgmestre' % self._module_ns)
         data = dict(sta_mandate_id=mandate_id,
                     year=2014,
                     )
-        self.assertRaises(orm.except_orm, self.registry('retrocession').create, self.cr, self.uid, data)
+        self.assertRaises(
+            orm.except_orm,
+            self.registry('retrocession').create,
+            self.cr,
+            self.uid,
+            data)
 
     def test_regulation_retrocession(self):
         '''
@@ -248,26 +314,33 @@ class test_retrocession(SharedSetupTransactionCase):
         '''
         mandate_id = self.ref('%s.extm_jacques_membre_ag' % self._module_ns)
 
-        '''
-            Try to create a regulation retrocession for May
-        '''
+        # Try to create a regulation retrocession for May
         data = {'ext_mandate_id': mandate_id,
-                      'month': '05',
-                      'year': 2014
-                      }
-        self.assertRaises(orm.except_orm, self.registry('retrocession').create, self.cr, self.uid, data)
+                'month': '05',
+                'year': 2014
+                }
+        self.assertRaises(
+            orm.except_orm,
+            self.registry('retrocession').create,
+            self.cr,
+            self.uid,
+            data)
 
-        '''
-            Create a regulation retrocession for December
-        '''
+        # Create a regulation retrocession for December
         data = {'ext_mandate_id': mandate_id,
                 'month': '12',
                 'year': 2014
                 }
 
         self.registry('retrocession').create(self.cr, self.uid, data)
-        self.assertRaises(orm.except_orm, self.registry('retrocession').create, self.cr, self.uid, data)
+        self.assertRaises(
+            orm.except_orm,
+            self.registry('retrocession').create,
+            self.cr,
+            self.uid,
+            data)
 
         data['is_regulation'] = True
-        retro_id = self.registry('retrocession').create(self.cr, self.uid, data)
+        retro_id = self.registry('retrocession').create(
+            self.cr, self.uid, data)
         self.assertNotEqual(retro_id, False)

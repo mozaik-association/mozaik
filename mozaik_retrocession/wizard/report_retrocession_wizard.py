@@ -38,20 +38,20 @@ AVAILABLE_REPORTS = [
 ]
 
 FRACTIONATION_REPORTS_MANDATES_HEADER = [
-_('Mandate Category'),
-_('Assembly'),
-_('Start Date'),
-_('End Date'),
-_('Representative'),
-_('Retrocession Mode'),
-_('Amount Due'),
-_('Amount Paid'),
+    _('Mandate Category'),
+    _('Assembly'),
+    _('Start Date'),
+    _('End Date'),
+    _('Representative'),
+    _('Retrocession Mode'),
+    _('Amount Due'),
+    _('Amount Paid'),
 ]
 
 FRACTIONATION_REPORTS_INSTANCE_HEADER = [
-_('Power Level'),
-_('Instance'),
-_('Amount'),
+    _('Power Level'),
+    _('Instance'),
+    _('Amount'),
 ]
 
 
@@ -88,8 +88,9 @@ class report_retrocession_wizard(orm.TransientModel):
             ids = self.pool.get(model).search(
                 cr, uid, active_domain, context=context)
         elif context.get('active_ids'):
-            ids = context.get('active_ids') or (context.get('active_id')\
-                                        and [context.get('active_id')]) or []
+            ids = context.get('active_ids') or (
+                context.get('active_id') and [
+                    context.get('active_id')]) or []
 
         res = {
             'model': model,
@@ -109,16 +110,16 @@ class report_retrocession_wizard(orm.TransientModel):
         ==============)
         Analyse mandate selection and give an overview of expected results
         """
-        monthly_ids = self.pool[model].search(cr, uid,\
-                                          [('retrocession_mode', '=', 'month'),
-                                           ('id', 'in', ids),
-                                           ('active', '<=', True),
-                                          ])
-        yearly_ids = self.pool[model].search(cr, uid,\
-                                          [('retrocession_mode', '=', 'year'),
-                                           ('id', 'in', ids),
-                                           ('active', '<=', True),
-                                          ])
+        monthly_ids = self.pool[model].search(
+            cr, uid, [
+                ('retrocession_mode', '=', 'month'),
+                ('id', 'in', ids),
+                ('active', '<=', True), ])
+        yearly_ids = self.pool[model].search(
+            cr, uid, [
+                ('retrocession_mode', '=', 'year'),
+                ('id', 'in', ids),
+                ('active', '<=', True), ])
 
         retro_pool = self.pool['retrocession']
         foreign_key = retro_pool.get_relation_column_name(cr,
@@ -127,26 +128,26 @@ class report_retrocession_wizard(orm.TransientModel):
                                                           context=context)
 
         monthly_print_ids = [data[foreign_key][0] for data in
-                                             retro_pool.search_read(cr, uid, [
-                                             ('year', '=', year),
-                                             (foreign_key, 'in', monthly_ids),
-                                             ('state', 'in',
-                                              ['validated', 'done']),
-                                             ('active', '<=', True),
-                                             ('amount_paid', '>', 0)],
-                                             fields=[foreign_key],
-                                             context=context)]
+                             retro_pool.search_read(cr, uid, [
+                                 ('year', '=', year),
+                                 (foreign_key, 'in', monthly_ids),
+                                 ('state', 'in',
+                                  ['validated', 'done']),
+                                 ('active', '<=', True),
+                                 ('amount_paid', '>', 0)],
+            fields=[foreign_key],
+            context=context)]
 
         yearly_print_ids = [data[foreign_key][0] for data in
-                                             retro_pool.search_read(cr, uid, [
-                                             ('year', '=', year),
-                                             (foreign_key, 'in', yearly_ids),
-                                             ('state', 'in',
-                                              ['validated', 'done']),
-                                             ('active', '<=', True),
-                                             ('amount_paid', '>', 0)],
-                                             fields=[foreign_key],
-                                             context=context)]
+                            retro_pool.search_read(cr, uid, [
+                                ('year', '=', year),
+                                (foreign_key, 'in', yearly_ids),
+                                ('state', 'in',
+                                 ['validated', 'done']),
+                                ('active', '<=', True),
+                                ('amount_paid', '>', 0)],
+            fields=[foreign_key],
+            context=context)]
 
         if mode == 'ids':
             res = monthly_print_ids + yearly_print_ids
@@ -198,14 +199,14 @@ class report_retrocession_wizard(orm.TransientModel):
                                                           mandate_model,
                                                           context=context)
         data = retro_pool.search_read(
-                                     cr,
-                                     uid,
-                                     [(foreign_key, '=', mandate_id),
-                                      ('year', '=', year),
-                                      ('state', 'in', ['validated', 'done']),
-                                      ('active', '<=', True)],
-                                     ['amount_total', 'amount_paid'],
-                                     context=context)
+            cr,
+            uid,
+            [(foreign_key, '=', mandate_id),
+             ('year', '=', year),
+             ('state', 'in', ['validated', 'done']),
+             ('active', '<=', True)],
+            ['amount_total', 'amount_paid'],
+            context=context)
         amount_total = sum([record['amount_total'] for record in data])
         amount_paid = sum([record['amount_paid'] for record in data])
         return amount_total, amount_paid
@@ -220,10 +221,10 @@ class report_retrocession_wizard(orm.TransientModel):
         Excel sheets
         """
         assembly_key = self.pool[mandate_model].get_relation_column_name(
-                                                              cr,
-                                                              uid,
-                                                              assembly_model,
-                                                              context=context)
+            cr,
+            uid,
+            assembly_model,
+            context=context)
         mandates_data = {}
         instances_data = {}
         for mandate in self.pool[mandate_model].browse(cr,
@@ -244,12 +245,12 @@ class report_retrocession_wizard(orm.TransientModel):
             instance_id = mandate.partner_id.int_instance_id.id
 
             amount_total, amount_paid = self._get_mandate_retrocession_amounts(
-                                                            cr,
-                                                            uid,
-                                                            mandate_model,
-                                                            mandate.id,
-                                                            year,
-                                                            context=context)
+                cr,
+                uid,
+                mandate_model,
+                mandate.id,
+                year,
+                context=context)
             inst_split, pl_split = self._split_amount(cr,
                                                       uid,
                                                       amount_paid,
@@ -267,16 +268,15 @@ class report_retrocession_wizard(orm.TransientModel):
             data['Mandate Category'] = mandate.mandate_category_id.name
             data['Assembly'] = mandate[assembly_key].name
             data['Start Date'] = self.pool['res.lang'].format_date(
-                                                   cr,
-                                                   uid,
-                                                   mandate.start_date,
-                                                   context=context)
+                cr,
+                uid,
+                mandate.start_date,
+                context=context)
             data['End Date'] = self.pool['res.lang'].format_date(
-                                                   cr,
-                                                   uid,
-                                                   mandate.end_date\
-                                                   or mandate.deadline_date,
-                                                   context=context)
+                cr,
+                uid,
+                mandate.end_date or mandate.deadline_date,
+                context=context)
             data['Representative'] = mandate.partner_id.name
             data['Retrocession Mode'] = mandate.retrocession_mode
             data['Amount Due'] = amount_total
@@ -322,8 +322,8 @@ class report_retrocession_wizard(orm.TransientModel):
         if rest > 0:
             pl_split['Unfractioned'] = rest
             inst_split['Unfractioned'] = {'Instance': 'Unfractioned Amount',
-                                  'Amount': rest,
-                                  'Power Level': ''}
+                                          'Amount': rest,
+                                          'Power Level': ''}
 
         return inst_split, pl_split
 
@@ -336,8 +336,8 @@ class report_retrocession_wizard(orm.TransientModel):
         """
         ids = []
         for mandate_key in mandates_data:
-            ids.extend([key for key in mandates_data[mandate_key]['split']\
-                       if key != 'Unfractioned'])
+            ids.extend([key for key in mandates_data[mandate_key]['split']
+                        if key != 'Unfractioned'])
 
         return list(set(ids))
 
@@ -349,51 +349,52 @@ class report_retrocession_wizard(orm.TransientModel):
         Print certificates for valid selected mandates
         """
         mandate_ids = self.mandate_selection_analysis(
-                                                 cr,
-                                                 uid,
-                                                 wizard.year,
-                                                 wizard.model,
-                                                 eval(wizard.mandate_ids),
-                                                 mode='ids', context=context)
+            cr,
+            uid,
+            wizard.year,
+            wizard.model,
+            eval(wizard.mandate_ids),
+            mode='ids', context=context)
         context['active_ids'] = mandate_ids
         secretariat_dict = {}
         need_signature = {}
         retro_amounts = {}
         for mandate in self.pool[wizard.model].read(
-                                               cr,
-                                               uid,
-                                               mandate_ids,
-                                               ['retro_instance_id'],
-                                               context=context):
+                cr,
+                uid,
+                mandate_ids,
+                ['retro_instance_id'],
+                context=context):
             instance_id = mandate['retro_instance_id'][0]
             default_instance_id = self.pool.get('int.instance').get_default(
-                                                               cr,
-                                                               uid,
-                                                               context=context)
+                cr,
+                uid,
+                context=context)
             need_signature[mandate['id']] = instance_id == default_instance_id
             int_ass_pool = self.pool['int.assembly']
-            assembly_ids = int_ass_pool.search(cr, uid,
-                                        [('instance_id', '=', instance_id),
-                                         ('is_secretariat', '=', True)],
-                                        context=context)
+            assembly_ids = int_ass_pool.search(
+                cr, uid, [
+                    ('instance_id', '=', instance_id),
+                    ('is_secretariat', '=', True)],
+                context=context)
             if not assembly_ids:
                 secretariat_name = False
             else:
                 secretariat_name = int_ass_pool.read(cr,
-                                         uid,
-                                         assembly_ids[0],
-                                         ['name'],
-                                         context=context)['name']
+                                                     uid,
+                                                     assembly_ids[0],
+                                                     ['name'],
+                                                     context=context)['name']
 
             secretariat_dict[mandate['id']] = secretariat_name
 
             amount_total, amount_paid = self._get_mandate_retrocession_amounts(
-                                                            cr,
-                                                            uid,
-                                                            wizard.model,
-                                                            mandate['id'],
-                                                            wizard.year,
-                                                            context=context)
+                cr,
+                uid,
+                wizard.model,
+                mandate['id'],
+                wizard.year,
+                context=context)
             retro_amounts[mandate['id']] = amount_paid \
                 if amount_paid <= amount_total else amount_total
 
@@ -403,10 +404,13 @@ class report_retrocession_wizard(orm.TransientModel):
                 'signature': need_signature,
                 'amounts': retro_amounts,
                 }
-        return self.pool['report'].get_action(cr, uid, [],
-                        'mozaik_retrocession.report_payment_certificate',
-                         data=data,
-                         context=context)
+        return self.pool['report'].get_action(
+            cr,
+            uid,
+            [],
+            'mozaik_retrocession.report_payment_certificate',
+            data=data,
+            context=context)
 
     def print_fractionations(self, cr, uid, wizard, context=None):
         """
@@ -421,22 +425,22 @@ class report_retrocession_wizard(orm.TransientModel):
             assembly_model = 'ext.assembly'
 
         mandate_ids = self.mandate_selection_analysis(
-                                                 cr,
-                                                 uid,
-                                                 wizard.year,
-                                                 wizard.model,
-                                                 eval(wizard.mandate_ids),
-                                                 mode='ids', context=context)
+            cr,
+            uid,
+            wizard.year,
+            wizard.model,
+            eval(wizard.mandate_ids),
+            mode='ids', context=context)
         context['active_ids'] = mandate_ids
 
         inst_data, mandates_data = self._get_fractionation_data(
-                                                           cr,
-                                                           uid,
-                                                           mandate_ids,
-                                                           wizard.model,
-                                                           assembly_model,
-                                                           wizard.year,
-                                                           context=context)
+            cr,
+            uid,
+            mandate_ids,
+            wizard.model,
+            assembly_model,
+            wizard.year,
+            context=context)
 
         power_level_ids = self._extract_power_level_ids(cr,
                                                         uid,

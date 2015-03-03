@@ -33,11 +33,14 @@ class address_local_zip(orm.Model):
     _description = 'Local Zip Code'
 
     def _get_linked_addresses(self, cr, uid, ids, context=None):
-        return self.pool['address.address'].search(cr, uid, [('address_local_zip_id', 'in', ids)], context=context)
+        return self.pool['address.address'].search(
+            cr, uid, [('address_local_zip_id', 'in', ids)], context=context)
 
     _columns = {
-        'local_zip': fields.char(string='Zip Code', required=True, select=True, track_visibility='onchange'),
-        'town': fields.char(string='Town', required=True, select=True, track_visibility='onchange'),
+        'local_zip': fields.char(string='Zip Code', required=True, select=True,
+                                 track_visibility='onchange'),
+        'town': fields.char(string='Town', required=True, select=True,
+                            track_visibility='onchange'),
     }
 
     _rec_name = 'local_zip'
@@ -67,16 +70,22 @@ class address_local_zip(orm.Model):
             ids = [ids]
 
         res = []
-        for record in self.read(cr, uid, ids, ['local_zip', 'town'], context=context):
+        for record in self.read(
+                cr, uid, ids, ['local_zip', 'town'], context=context):
             display_name = "%s %s" % (record['local_zip'], record['town'])
             res.append((record['id'], display_name))
         return res
 
-    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
+    def name_search(self, cr, uid, name, args=None, operator='ilike',
+                    context=None, limit=100):
         if not args:
             args = []
         if name:
-            ids = self.search(cr, uid, ['|', ('local_zip', operator, name), ('town', operator, name)] + args, limit=limit, context=context)
+            ids = self.search(
+                cr, uid, ['|',
+                          ('local_zip', operator, name),
+                          ('town', operator, name)] + args,
+                limit=limit, context=context)
         else:
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)
@@ -95,5 +104,5 @@ class address_local_zip(orm.Model):
         :rtype: list of ids
         """
         adr_ids = self._get_linked_addresses(cr, uid, ids, context=context)
-        return self.pool['address.address'].get_linked_partners(cr, uid, adr_ids, context=context)
-
+        return self.pool['address.address'].get_linked_partners(
+            cr, uid, adr_ids, context=context)

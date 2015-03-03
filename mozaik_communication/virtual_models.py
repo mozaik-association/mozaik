@@ -25,8 +25,10 @@
 from openerp import tools
 from openerp.osv import orm, fields
 
-from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS, AVAILABLE_TONGUES
-from openerp.addons.mozaik_retrocession.retrocession import RETROCESSION_AVAILABLE_STATES
+from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
+from openerp.addons.mozaik_person.res_partner import AVAILABLE_TONGUES
+from openerp.addons.mozaik_retrocession.retrocession import \
+    RETROCESSION_AVAILABLE_STATES
 
 
 class virtual_target(orm.Model):
@@ -69,10 +71,13 @@ class virtual_partner_involvement(orm.Model):
         'partner_id': fields.many2one(
             'res.partner', 'Partner', domain=[('is_assembly', '=', False)]),
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+        'email_coordinate_id': fields.many2one('email.coordinate',
+                                               'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate',
+                                                'Postal Coordinate'),
 
-        'involvement_category_id': fields.many2one('partner.involvement.category', 'Involvement Category'),
+        'involvement_category_id': fields.many2one(
+            'partner.involvement.category', 'Involvement Category'),
 
         'is_company': fields.boolean('Is a Company'),
         'identifier': fields.integer('Number'),
@@ -88,18 +93,20 @@ class virtual_partner_involvement(orm.Model):
         'email_unauthorized': fields.boolean('Email Unauthorized'),
 
         # others
-        'category_id': fields.related('partner_id', 'category_id', type='many2many',
-                                      obj='res.partner.category',
-                                      rel='res_partner_res_partner_category_rel',
-                                      id1='partner_id', id2='category_id', string='Tags'),
-        'competencies_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_competencies_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
-        'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_interests_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'category_id': fields.related(
+            'partner_id', 'category_id', type='many2many',
+            obj='res.partner.category',
+            rel='res_partner_res_partner_category_rel', id1='partner_id',
+            id2='category_id', string='Tags'),
+        'competencies_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term', rel='res_partner_term_competencies_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_interests_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Interests'),
         'active': fields.boolean("Active")
     }
 
@@ -172,10 +179,13 @@ class virtual_partner_relation(orm.Model):
         'common_id': fields.char(string='Common ID'),
         'partner_id': fields.many2one('res.partner', 'Subject'),
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+        'email_coordinate_id': fields.many2one('email.coordinate',
+                                               'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate',
+                                                'Postal Coordinate'),
 
-        'relation_category_id': fields.many2one('partner.relation.category', 'Relation Category'),
+        'relation_category_id': fields.many2one('partner.relation.category',
+                                                'Relation Category'),
         'object_partner_id': fields.many2one('res.partner', 'Object'),
 
         'is_assembly': fields.boolean('Is an Assembly'),
@@ -188,28 +198,35 @@ class virtual_partner_relation(orm.Model):
         'employee': fields.boolean('Employee'),
 
         # others
-        'category_id': fields.related('partner_id', 'category_id', type='many2many',
-                                      obj='res.partner.category',
-                                      rel='res_partner_res_partner_category_rel',
-                                      id1='partner_id', id2='category_id', string='Tags'),
-        'competencies_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_competencies_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
-        'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_interests_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'category_id': fields.related(
+            'partner_id', 'category_id', type='many2many',
+            obj='res.partner.category',
+            rel='res_partner_res_partner_category_rel',
+            id1='partner_id', id2='category_id', string='Tags'),
+        'competencies_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_competencies_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_interests_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Interests'),
 
-        'postal_vip': fields.related('postal_coordinate_id', 'vip', type='boolean',
-                                     obj='postal.coordinate', string='VIP Address'),
-        'postal_unauthorized': fields.related('postal_coordinate_id', 'unauthorized', type='boolean',
-                                     obj='postal.coordinate', string='Unauthorized Address'),
+        'postal_vip': fields.related(
+            'postal_coordinate_id', 'vip', type='boolean',
+            obj='postal.coordinate', string='VIP Address'),
+        'postal_unauthorized': fields.related(
+            'postal_coordinate_id', 'unauthorized', type='boolean',
+            obj='postal.coordinate', string='Unauthorized Address'),
 
-        'email_vip': fields.related('email_coordinate_id', 'vip', type='boolean',
-                                     obj='email.coordinate', string='VIP Email'),
-        'email_unauthorized': fields.related('email_coordinate_id', 'unauthorized', type='boolean',
-                                     obj='email.coordinate', string='Unauthorized Email'),
+        'email_vip': fields.related(
+            'email_coordinate_id', 'vip', type='boolean',
+            obj='email.coordinate', string='VIP Email'),
+        'email_unauthorized': fields.related(
+            'email_coordinate_id', 'unauthorized', type='boolean',
+            obj='email.coordinate', string='Unauthorized Email'),
         'active': fields.boolean("Active")
     }
 
@@ -305,8 +322,10 @@ class virtual_partner_instance(orm.Model):
             'res.partner', 'Partner', domain=[('is_assembly', '=', False)]),
         'membership_state_id': fields.many2one('membership.state', 'State'),
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+        'email_coordinate_id': fields.many2one('email.coordinate',
+                                               'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate',
+                                                'Postal Coordinate'),
 
         'is_company': fields.boolean('Is a Company'),
         'identifier': fields.integer('Number'),
@@ -318,26 +337,31 @@ class virtual_partner_instance(orm.Model):
         'postal_vip': fields.boolean('VIP Address'),
         'main_postal': fields.boolean('Main Postal'),
         'postal_unauthorized': fields.boolean('Unauthorized Address'),
-        'postal_category_id': fields.many2one('coordinate.category', 'Postal Coordinate Category'),
+        'postal_category_id': fields.many2one('coordinate.category',
+                                              'Postal Coordinate Category'),
 
         'email_vip': fields.boolean('VIP Email'),
-        'email_category_id': fields.many2one('coordinate.category', 'Email Coordinate Category'),
+        'email_category_id': fields.many2one('coordinate.category',
+                                             'Email Coordinate Category'),
         'main_email': fields.boolean('Main Email'),
         'email_unauthorized': fields.boolean('Unauthorized Email'),
 
         # others
-        'category_id': fields.related('partner_id', 'category_id', type='many2many',
-                                      obj='res.partner.category',
-                                      rel='res_partner_res_partner_category_rel',
-                                      id1='partner_id', id2='category_id', string='Tags'),
-        'competencies_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_competencies_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
-        'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_interests_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'category_id': fields.related(
+            'partner_id', 'category_id', type='many2many',
+            obj='res.partner.category',
+            rel='res_partner_res_partner_category_rel',
+            id1='partner_id', id2='category_id', string='Tags'),
+        'competencies_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_competencies_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_interests_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Interests'),
         'active': fields.boolean("Active")
     }
 
@@ -409,14 +433,17 @@ class virtual_partner_mandate(orm.Model):
             'res.partner', 'Partner',
             domain=[('is_company', '=', False), ('identifier', '>', 0)]),
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+        'email_coordinate_id': fields.many2one('email.coordinate',
+                                               'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate',
+                                                'Postal Coordinate'),
 
         'model': fields.char('Model'),
 
         'assembly_id': fields.many2one(
             'res.partner', 'Assembly', domain=[('is_assembly', '=', True)]),
-        'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
+        'mandate_category_id': fields.many2one('mandate.category',
+                                               'Mandate Category'),
 
         'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate'),
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate'),
@@ -430,28 +457,37 @@ class virtual_partner_mandate(orm.Model):
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
         'employee': fields.boolean('Employee'),
 
-        'postal_vip': fields.related('postal_coordinate_id', 'vip', string='VIP Address',
-                                     type='boolean', relation='postal.coordinate'),
-        'postal_unauthorized': fields.related('postal_coordinate_id', 'unauthorized', string='Unauthorized Address',
-                                     type='boolean', relation='postal.coordinate'),
-
-        'email_vip': fields.related('email_coordinate_id', 'vip', string='VIP Email',
-                                     type='boolean', relation='email.coordinate'),
-        'email_unauthorized': fields.related('email_coordinate_id', 'unauthorized', string='Unauthorized Email',
-                                     type='boolean', relation='email.coordinate'),
+        'postal_vip': fields.related(
+            'postal_coordinate_id', 'vip', string='VIP Address',
+            type='boolean', relation='postal.coordinate'),
+        'postal_unauthorized': fields.related(
+            'postal_coordinate_id', 'unauthorized',
+            string='Unauthorized Address',
+            type='boolean', relation='postal.coordinate'),
+        'email_vip': fields.related(
+            'email_coordinate_id', 'vip', string='VIP Email',
+            type='boolean', relation='email.coordinate'),
+        'email_unauthorized': fields.related(
+            'email_coordinate_id', 'unauthorized', string='Unauthorized Email',
+            type='boolean', relation='email.coordinate'),
 
         # others
-        'sta_competencies_m2m_ids': fields.related('sta_mandate_id', 'competencies_m2m_ids',
-                                               type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='sta_mandate_term_competencies_rel',
-                                               id1='sta_mandate_id', id2='thesaurus_term_id', string='State Mandate Competencies'),
-        'ext_competencies_m2m_ids': fields.related('ext_mandate_id', 'competencies_m2m_ids',
-                                               type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='ext_mandate_term_competencies_rel',
-                                               id1='ext_mandate_id', id2='thesaurus_term_id', string='External Mandate Competencies'),
-        'mandate_instance_id': fields.many2one('int.instance', 'Mandate Instance'),
+        'sta_competencies_m2m_ids': fields.related(
+            'sta_mandate_id', 'competencies_m2m_ids',
+            type='many2many',
+            obj='thesaurus.term',
+            rel='sta_mandate_term_competencies_rel',
+            id1='sta_mandate_id', id2='thesaurus_term_id',
+            string='State Mandate Competencies'),
+        'ext_competencies_m2m_ids': fields.related(
+            'ext_mandate_id', 'competencies_m2m_ids',
+            type='many2many',
+            obj='thesaurus.term',
+            rel='ext_mandate_term_competencies_rel',
+            id1='ext_mandate_id', id2='thesaurus_term_id',
+            string='External Mandate Competencies'),
+        'mandate_instance_id': fields.many2one(
+            'int.instance', 'Mandate Instance'),
         'active': fields.boolean("Active")
     }
 
@@ -665,14 +701,18 @@ class virtual_partner_candidature(orm.Model):
             'res.partner', 'Partner',
             domain=[('is_company', '=', False), ('identifier', '>', 0)]),
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+        'email_coordinate_id': fields.many2one('email.coordinate',
+                                               'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate',
+                                                'Postal Coordinate'),
 
         'model': fields.char('Model'),
         'assembly_id': fields.many2one(
             'res.partner', 'Assembly', domain=[('is_assembly', '=', True)]),
-        'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
-        'designation_int_assembly_id': fields.many2one('int.assembly', string='Designation Assembly'),
+        'mandate_category_id': fields.many2one('mandate.category',
+                                               'Mandate Category'),
+        'designation_int_assembly_id': fields.many2one(
+            'int.assembly', string='Designation Assembly'),
 
         'start_date': fields.date('Mandate Start Date'),
 
@@ -689,18 +729,21 @@ class virtual_partner_candidature(orm.Model):
         'email_unauthorized': fields.boolean('Unauthorized Email'),
 
         # others
-        'category_id': fields.related('partner_id', 'category_id', type='many2many',
-                                      obj='res.partner.category',
-                                      rel='res_partner_res_partner_category_rel',
-                                      id1='partner_id', id2='category_id', string='Tags'),
-        'competencies_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_competencies_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
-        'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_interests_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'category_id': fields.related(
+            'partner_id', 'category_id', type='many2many',
+            obj='res.partner.category',
+            rel='res_partner_res_partner_category_rel',
+            id1='partner_id', id2='category_id', string='Tags'),
+        'competencies_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_competencies_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_interests_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Interests'),
         'active': fields.boolean("Active")
     }
 
@@ -709,144 +752,144 @@ class virtual_partner_candidature(orm.Model):
     def init(self, cr):
         tools.drop_view_if_exists(cr, 'virtual_partner_candidature')
         cr.execute("""
-        create or replace view virtual_partner_candidature as (
-        SELECT 'int.candidature' AS model,
-            concat(pc.id,
-                '/',
-                e.id) as common_id,
-            candidature.id as id,
-            candidature.mandate_category_id,
-            candidature.partner_id,
-            candidature.mandate_start_date as start_date,
-            candidature.designation_int_assembly_id as designation_int_assembly_id,
-            partner_assembly.id as assembly_id,
-            partner.identifier as identifier,
-            partner.birth_date as birth_date,
-            partner.gender as gender,
-            partner.tongue as tongue,
-            partner.employee as employee,
-            partner.int_instance_id as int_instance_id,
-            e.id AS email_coordinate_id,
-            pc.id AS postal_coordinate_id,
-            pc.unauthorized as postal_unauthorized,
-            pc.vip as postal_vip,
-            e.vip as email_vip,
-            e.unauthorized as email_unauthorized,
-            CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-                THEN True
-                ELSE False
-            END as active
-        FROM int_candidature AS candidature
-        JOIN int_assembly AS assembly
-            ON assembly.id = candidature.int_assembly_id
-        JOIN res_partner  AS partner_assembly
-            ON partner_assembly.id = assembly.partner_id
-        JOIN res_partner  AS partner
-            ON partner.id = candidature.partner_id
-        LEFT OUTER JOIN postal_coordinate pc
-            ON pc.partner_id = candidature.partner_id
-            and pc.is_main = TRUE
-            AND pc.active = TRUE
-        LEFT OUTER JOIN email_coordinate e
-            ON e.partner_id = candidature.partner_id
-            and e.is_main = TRUE
-            AND e.active = TRUE
-        WHERE candidature.active = True
+    create or replace view virtual_partner_candidature as (
+    SELECT 'int.candidature' AS model,
+        concat(pc.id,
+            '/',
+            e.id) as common_id,
+        candidature.id as id,
+        candidature.mandate_category_id,
+        candidature.partner_id,
+        candidature.mandate_start_date as start_date,
+        candidature.designation_int_assembly_id as designation_int_assembly_id,
+        partner_assembly.id as assembly_id,
+        partner.identifier as identifier,
+        partner.birth_date as birth_date,
+        partner.gender as gender,
+        partner.tongue as tongue,
+        partner.employee as employee,
+        partner.int_instance_id as int_instance_id,
+        e.id AS email_coordinate_id,
+        pc.id AS postal_coordinate_id,
+        pc.unauthorized as postal_unauthorized,
+        pc.vip as postal_vip,
+        e.vip as email_vip,
+        e.unauthorized as email_unauthorized,
+        CASE
+            WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+            THEN True
+            ELSE False
+        END as active
+    FROM int_candidature AS candidature
+    JOIN int_assembly AS assembly
+        ON assembly.id = candidature.int_assembly_id
+    JOIN res_partner  AS partner_assembly
+        ON partner_assembly.id = assembly.partner_id
+    JOIN res_partner  AS partner
+        ON partner.id = candidature.partner_id
+    LEFT OUTER JOIN postal_coordinate pc
+        ON pc.partner_id = candidature.partner_id
+        and pc.is_main = TRUE
+        AND pc.active = TRUE
+    LEFT OUTER JOIN email_coordinate e
+        ON e.partner_id = candidature.partner_id
+        and e.is_main = TRUE
+        AND e.active = TRUE
+    WHERE candidature.active = True
 
-        UNION
+    UNION
 
-        SELECT 'sta.candidature' AS model,
-            concat(pc.id,
-                '/',
-                e.id) as common_id,
-            candidature.unique_id as id,
-            candidature.mandate_category_id,
-            candidature.partner_id,
-            candidature.mandate_start_date as start_date,
-            candidature.designation_int_assembly_id as designation_int_assembly_id,
-            partner_assembly.id as assembly_id,
-            partner.identifier as identifier,
-            partner.birth_date as birth_date,
-            partner.gender as gender,
-            partner.tongue as tongue,
-            partner.employee as employee,
-            partner.int_instance_id as int_instance_id,
-            e.id AS email_coordinate_id,
-            pc.id AS postal_coordinate_id,
-            pc.unauthorized as postal_unauthorized,
-            pc.vip as postal_vip,
-            e.vip as email_vip,
-            e.unauthorized as email_unauthorized,
-            CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-                THEN True
-                ELSE False
-            END as active
-        FROM sta_candidature AS candidature
-        JOIN sta_assembly AS assembly
-            ON assembly.id = candidature.sta_assembly_id
-        JOIN res_partner  AS partner_assembly
-            ON partner_assembly.id = assembly.partner_id
-        JOIN res_partner  AS partner
-            ON partner.id = candidature.partner_id
-        LEFT OUTER JOIN electoral_district ed
-            ON ed.id = candidature.electoral_district_id
-        LEFT OUTER JOIN postal_coordinate pc
-            ON pc.partner_id = candidature.partner_id
-            and pc.is_main = TRUE
-            AND pc.active = TRUE
-        LEFT OUTER JOIN email_coordinate e
-            ON e.partner_id = candidature.partner_id
-            and e.is_main = TRUE
-            AND e.active = TRUE
-        WHERE candidature.active = True
+    SELECT 'sta.candidature' AS model,
+        concat(pc.id,
+            '/',
+            e.id) as common_id,
+        candidature.unique_id as id,
+        candidature.mandate_category_id,
+        candidature.partner_id,
+        candidature.mandate_start_date as start_date,
+        candidature.designation_int_assembly_id as designation_int_assembly_id,
+        partner_assembly.id as assembly_id,
+        partner.identifier as identifier,
+        partner.birth_date as birth_date,
+        partner.gender as gender,
+        partner.tongue as tongue,
+        partner.employee as employee,
+        partner.int_instance_id as int_instance_id,
+        e.id AS email_coordinate_id,
+        pc.id AS postal_coordinate_id,
+        pc.unauthorized as postal_unauthorized,
+        pc.vip as postal_vip,
+        e.vip as email_vip,
+        e.unauthorized as email_unauthorized,
+        CASE
+            WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+            THEN True
+            ELSE False
+        END as active
+    FROM sta_candidature AS candidature
+    JOIN sta_assembly AS assembly
+        ON assembly.id = candidature.sta_assembly_id
+    JOIN res_partner  AS partner_assembly
+        ON partner_assembly.id = assembly.partner_id
+    JOIN res_partner  AS partner
+        ON partner.id = candidature.partner_id
+    LEFT OUTER JOIN electoral_district ed
+        ON ed.id = candidature.electoral_district_id
+    LEFT OUTER JOIN postal_coordinate pc
+        ON pc.partner_id = candidature.partner_id
+        and pc.is_main = TRUE
+        AND pc.active = TRUE
+    LEFT OUTER JOIN email_coordinate e
+        ON e.partner_id = candidature.partner_id
+        and e.is_main = TRUE
+        AND e.active = TRUE
+    WHERE candidature.active = True
 
-        UNION
+    UNION
 
-        SELECT 'ext.candidature' AS model,
-            concat(pc.id,
-                '/',
-                e.id) as common_id,
-            candidature.unique_id as id,
-            candidature.mandate_category_id,
-            candidature.partner_id,
-            candidature.mandate_start_date as start_date,
-            candidature.designation_int_assembly_id as designation_int_assembly_id,
-            partner_assembly.id as assembly_id,
-            partner.identifier as identifier,
-            partner.birth_date as birth_date,
-            partner.gender as gender,
-            partner.tongue as tongue,
-            partner.employee as employee,
-            partner.int_instance_id as int_instance_id,
-            e.id AS email_coordinate_id,
-            pc.id postal_coordinate_id,
-            pc.unauthorized as postal_unauthorized,
-            pc.vip as postal_vip,
-            e.vip as email_vip,
-            e.unauthorized as email_unauthorized,
-            CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-                THEN True
-                ELSE False
-            END as active
-        FROM ext_candidature AS candidature
-        JOIN ext_assembly AS assembly
-            ON assembly.id = candidature.ext_assembly_id
-        JOIN res_partner  AS partner_assembly
-            ON partner_assembly.id = assembly.partner_id
-        JOIN res_partner  AS partner
-            ON partner.id = candidature.partner_id
-        LEFT OUTER JOIN postal_coordinate pc
-            ON pc.partner_id = candidature.partner_id
-            and pc.is_main = TRUE
-            AND pc.active = TRUE
-        LEFT OUTER JOIN email_coordinate e
-            ON e.partner_id = candidature.partner_id
-            and e.is_main = TRUE
-            AND e.active = TRUE
-        WHERE candidature.active = True
+    SELECT 'ext.candidature' AS model,
+        concat(pc.id,
+            '/',
+            e.id) as common_id,
+        candidature.unique_id as id,
+        candidature.mandate_category_id,
+        candidature.partner_id,
+        candidature.mandate_start_date as start_date,
+        candidature.designation_int_assembly_id as designation_int_assembly_id,
+        partner_assembly.id as assembly_id,
+        partner.identifier as identifier,
+        partner.birth_date as birth_date,
+        partner.gender as gender,
+        partner.tongue as tongue,
+        partner.employee as employee,
+        partner.int_instance_id as int_instance_id,
+        e.id AS email_coordinate_id,
+        pc.id postal_coordinate_id,
+        pc.unauthorized as postal_unauthorized,
+        pc.vip as postal_vip,
+        e.vip as email_vip,
+        e.unauthorized as email_unauthorized,
+        CASE
+            WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+            THEN True
+            ELSE False
+        END as active
+    FROM ext_candidature AS candidature
+    JOIN ext_assembly AS assembly
+        ON assembly.id = candidature.ext_assembly_id
+    JOIN res_partner  AS partner_assembly
+        ON partner_assembly.id = assembly.partner_id
+    JOIN res_partner  AS partner
+        ON partner.id = candidature.partner_id
+    LEFT OUTER JOIN postal_coordinate pc
+        ON pc.partner_id = candidature.partner_id
+        and pc.is_main = TRUE
+        AND pc.active = TRUE
+    LEFT OUTER JOIN email_coordinate e
+        ON e.partner_id = candidature.partner_id
+        and e.is_main = TRUE
+        AND e.active = TRUE
+    WHERE candidature.active = True
         )""")
 
 
@@ -861,18 +904,25 @@ class virtual_assembly_instance(orm.Model):
         'partner_id': fields.many2one(
             'res.partner', 'Assembly', domain=[('is_assembly', '=', True)]),
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+        'email_coordinate_id': fields.many2one('email.coordinate',
+                                               'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate',
+                                                'Postal Coordinate'),
 
         'model': fields.char('Model'),
         'category': fields.char('Assembly Category'),
 
-        'int_power_level_id': fields.many2one('int.power.level', 'Internal Power Level'),
-        'sta_power_level_id': fields.many2one('sta.power.level', 'State Power Level'),
+        'int_power_level_id': fields.many2one('int.power.level',
+                                              'Internal Power Level'),
+        'sta_power_level_id': fields.many2one('sta.power.level',
+                                              'State Power Level'),
 
-        'int_category_assembly_id': fields.many2one('int.assembly.category', 'Internal Assembly Category'),
-        'ext_category_assembly_id': fields.many2one('ext.assembly.category', 'External Assembly Category'),
-        'sta_category_assembly_id': fields.many2one('sta.assembly.category', 'State Assembly Category'),
+        'int_category_assembly_id': fields.many2one(
+            'int.assembly.category', 'Internal Assembly Category'),
+        'ext_category_assembly_id': fields.many2one(
+            'ext.assembly.category', 'External Assembly Category'),
+        'sta_category_assembly_id': fields.many2one(
+            'sta.assembly.category', 'State Assembly Category'),
 
         'postal_vip': fields.boolean('VIP Address'),
         'postal_unauthorized': fields.boolean('Unauthorized Address'),
@@ -881,18 +931,21 @@ class virtual_assembly_instance(orm.Model):
         'email_unauthorized': fields.boolean('Unauthorized Email'),
 
         # others
-        'category_id': fields.related('partner_id', 'category_id', type='many2many',
-                                      obj='res.partner.category',
-                                      rel='res_partner_res_partner_category_rel',
-                                      id1='partner_id', id2='category_id', string='Tags'),
-        'competencies_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_competencies_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
-        'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_interests_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'category_id': fields.related(
+            'partner_id', 'category_id', type='many2many',
+            obj='res.partner.category',
+            rel='res_partner_res_partner_category_rel',
+            id1='partner_id', id2='category_id', string='Tags'),
+        'competencies_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_competencies_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_interests_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Interests'),
         'active': fields.boolean('Active')
     }
 
@@ -1047,8 +1100,10 @@ class virtual_partner_retrocession(orm.Model):
             'res.partner', 'Partner',
             domain=[('is_company', '=', False), ('identifier', '>', 0)]),
         'int_instance_id': fields.many2one('int.instance', 'Instance'),
-        'email_coordinate_id': fields.many2one('email.coordinate', 'Email Coordinate'),
-        'postal_coordinate_id': fields.many2one('postal.coordinate', 'Postal Coordinate'),
+        'email_coordinate_id': fields.many2one('email.coordinate',
+                                               'Email Coordinate'),
+        'postal_coordinate_id': fields.many2one('postal.coordinate',
+                                                'Postal Coordinate'),
 
         'state': fields.selection(RETROCESSION_AVAILABLE_STATES, 'State'),
 
@@ -1065,33 +1120,43 @@ class virtual_partner_retrocession(orm.Model):
         'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate'),
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate'),
 
-        'mandate_category_id': fields.many2one('mandate.category', 'Mandate Category'),
+        'mandate_category_id': fields.many2one('mandate.category',
+                                               'Mandate Category'),
 
-        'postal_vip': fields.related('postal_coordinate_id', 'vip', string='VIP Address',
-                                     type='boolean', relation='postal.coordinate'),
-        'postal_unauthorized': fields.related('postal_coordinate_id', 'unauthorized', string='Unauthorized Address',
-                                     type='boolean', relation='postal.coordinate'),
+        'postal_vip': fields.related(
+            'postal_coordinate_id', 'vip', string='VIP Address',
+            type='boolean', relation='postal.coordinate'),
+        'postal_unauthorized': fields.related(
+            'postal_coordinate_id', 'unauthorized',
+            string='Unauthorized Address',
+            type='boolean', relation='postal.coordinate'),
 
-        'email_vip': fields.related('email_coordinate_id', 'vip', string='VIP Email',
-                                     type='boolean', relation='email.coordinate'),
-        'email_unauthorized': fields.related('email_coordinate_id', 'unauthorized', string='Unauthorized Email',
-                                     type='boolean', relation='email.coordinate'),
+        'email_vip': fields.related(
+            'email_coordinate_id', 'vip', string='VIP Email',
+            type='boolean', relation='email.coordinate'),
+        'email_unauthorized': fields.related(
+            'email_coordinate_id', 'unauthorized', string='Unauthorized Email',
+            type='boolean', relation='email.coordinate'),
 
 
         # others
-        'category_id': fields.related('partner_id', 'category_id', type='many2many',
-                                      obj='res.partner.category',
-                                      rel='res_partner_res_partner_category_rel',
-                                      id1='partner_id', id2='category_id', string='Tags'),
-        'competencies_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_competencies_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
-        'interests_m2m_ids': fields.related('partner_id', 'competencies_m2m_ids', type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_interests_rel',
-                                               id1='partner_id', id2='thesaurus_term_id', string='Interests'),
-        'retro_instance_id': fields.many2one('int.instance', 'Retrocessions Management Instance'),
+        'category_id': fields.related(
+            'partner_id', 'category_id', type='many2many',
+            obj='res.partner.category',
+            rel='res_partner_res_partner_category_rel',
+            id1='partner_id', id2='category_id', string='Tags'),
+        'competencies_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_competencies_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_interests_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'retro_instance_id': fields.many2one(
+            'int.instance', 'Retrocessions Management Instance'),
         'active': fields.boolean('Active')
     }
 

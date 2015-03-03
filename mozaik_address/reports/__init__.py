@@ -23,5 +23,4 @@
 #
 ##############################################################################
 
-import report_postal_coordinate_label
-
+from . import report_postal_coordinate_label

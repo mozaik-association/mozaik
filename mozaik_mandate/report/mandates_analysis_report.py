@@ -44,8 +44,8 @@ class mandates_analysis_report(orm.Model):
         'designation_int_assembly_id': fields.integer('Designation Assembly'),
         'months_before_end_of_mandate': fields.integer('Alert Delay (#Months)'
                                                        ),
-        'remaining_months_before_end_of_mandate': fields.integer(
-                                    'Remaining Months before End of Mandate')
+        'remaining_months_before_end_of_mandate':
+            fields.integer('Remaining Months before End of Mandate')
     }
 
 # orm methods
@@ -131,10 +131,11 @@ class mandates_analysis_report(orm.Model):
                                         context=context)
             for mandate in mandates:
                 secretariat_id = assembly_pool.get_secretariat_assembly_id(
-              cr, uid, mandate['designation_int_assembly_id'], context=context)
+                    cr, uid, mandate['designation_int_assembly_id'],
+                    context=context)
                 if secretariat_id:
-                    mandate = self.pool.get(mandate['model']).browse(cr, uid,
-                                                mandate['id'], context=context)
+                    mandate = self.pool[mandate['model']].browse(
+                        cr, uid, mandate['id'], context=context)
                     if secretariat_id in alert_dict:
                         alert_dict[secretariat_id].extend([mandate])
                     else:
@@ -146,8 +147,8 @@ class mandates_analysis_report(orm.Model):
             mandate_list = alert_dict[secretary_id]
             content_text = ['<p><table>']
             content_text.append(
-                            '<tr><th colspan="2"><br/><u>%s</u></th></tr>' %
-                            _('Ending mandates alerts report'))
+                '<tr><th colspan="2"><br/><u>%s</u></th></tr>' %
+                _('Ending mandates alerts report'))
             for mandate in mandate_list:
                 assembly_name = ''
                 if isinstance(mandate._model, int_mandate):
@@ -155,18 +156,19 @@ class mandates_analysis_report(orm.Model):
                 elif isinstance(mandate._model, ext_mandate):
                     assembly_name = mandate.ext_assembly_id.name
 
-                content_text.append('<tr><td><b>%s</b</td><td>%s</td><td>%s\
-                                     </td><td><a style="color:blue" \
-                                     href="%s">(%s)</a></td></tr>' % \
-                               (mandate.partner_id.name,
-                                mandate.mandate_category_id.name,
-                                assembly_name,
-                                url.get_document_url(self, cr, uid,
-                                                     mandate._model._name,
-                                                     mandate.id,
-                                                     context=context),
-                                self.pool.get('res.lang').format_date(cr, uid,
-                                      mandate.deadline_date, context=context)))
+                content_text.append(
+                    '<tr><td><b>%s</b</td><td>%s</td><td>%s\
+                     </td><td><a style="color:blue" \
+                     href="%s">(%s)</a></td></tr>' %
+                    (mandate.partner_id.name,
+                     mandate.mandate_category_id.name,
+                     assembly_name,
+                     url.get_document_url(self, cr, uid,
+                                          mandate._model._name,
+                                          mandate.id,
+                                          context=context),
+                     self.pool['res.lang'].format_date(
+                         cr, uid, mandate.deadline_date, context=context)))
                 mandate._model.write(cr, uid, mandate.id,
                                      {'alert_date': fields.date.today()},
                                      context=context)
@@ -174,10 +176,8 @@ class mandates_analysis_report(orm.Model):
 
             mail_vals = {
                 'subject': _('Mozaik: Ending Mandates Summary - %s') %
-                self.pool.get('res.lang').format_date(cr,
-                                                    uid,
-                                                    fields.date.today(cr, uid),
-                                                    context=context),
+                self.pool['res.lang'].format_date(
+                    cr, uid, fields.date.today(cr, uid), context=context),
                 'body_html': '\n'.join(content_text),
                 'recipient_ids': [[6, False, [secretary.partner_id.id]]],
             }

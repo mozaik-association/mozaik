@@ -59,19 +59,20 @@ class ext_assembly(orm.Model):
         return res
 
     _name_store_triggers = {
-        'ext.assembly': (lambda self, cr, uid, ids, context=None: ids,
-                         ['ref_partner_id', 'assembly_category_id', ], 10),
-        'res.partner': (lambda self, cr, uid, ids, context=None:
-                        self.pool['ext.assembly'].search(cr, uid,
-                                            [('ref_partner_id', 'in', ids)],
-                                            context=context),
-                         ['lastname', ], 10),
-        'ext.assembly.category': (lambda self, cr, uid, ids, context=None:
-                        self.pool['ext.assembly'].search(cr, uid,
-                                  [('assembly_category_id', 'in', ids)],
-                                  context=context),
-                                  ['name', ], 10),
-    }
+        'ext.assembly': (
+            lambda self, cr, uid, ids, context=None: ids, [
+                'ref_partner_id', 'assembly_category_id', ], 10),
+        'res.partner': (
+            lambda self, cr, uid, ids, context=None:
+            self.pool['ext.assembly'].search(
+                cr, uid, [
+                    ('ref_partner_id', 'in', ids)], context=context), [
+                'lastname', ], 10), 'ext.assembly.category': (
+            lambda self, cr, uid, ids, context=None:
+            self.pool['ext.assembly'].search(
+                cr, uid, [
+                    ('assembly_category_id', 'in', ids)], context=context), [
+                'name', ], 10), }
 
     _columns = {
         # dummy: define a dummy function to update the partner name associated
@@ -92,13 +93,13 @@ class ext_assembly(orm.Model):
                                        required=True,
                                        track_visibility='onchange'),
         'designation_int_assembly_id': fields.many2one(
-                                       'int.assembly',
-                                       string='Designation Assembly',
-                                       select=True,
-                                       track_visibility='onchange',
-                                       domain=[
-                                       ('is_designation_assembly', '=', True)
-                                       ]),
+            'int.assembly',
+            string='Designation Assembly',
+            select=True,
+            track_visibility='onchange',
+            domain=[
+                ('is_designation_assembly', '=', True)
+            ]),
         'ref_partner_id': fields.many2one('res.partner',
                                           string='Legal Person',
                                           select=True,
@@ -109,7 +110,7 @@ class ext_assembly(orm.Model):
 
     _defaults = {
         'instance_id': lambda self, cr, uid, ids, context=None:
-                    self.pool.get('int.instance').get_default(cr, uid)
+        self.pool.get('int.instance').get_default(cr, uid)
     }
 
 # constraints
@@ -126,13 +127,20 @@ class ext_assembly(orm.Model):
         if not vals.get('name') and not vals.get('partner_id'):
             instance = ''
             if vals.get('ref_partner_id'):
-                instance = self.pool['res.partner'].read(cr, uid,
-                        vals.get('ref_partner_id'), ['name'], context=context)
+                instance = self.pool['res.partner'].read(
+                    cr,
+                    uid,
+                    vals.get('ref_partner_id'),
+                    ['name'],
+                    context=context)
             category = ''
             if vals.get('assembly_category_id'):
-                category = self.pool['ext.assembly.category'].read(cr, uid,
-                        vals.get('assembly_category_id'), ['name'],
-                                 context=context)
+                category = self.pool['ext.assembly.category'].read(
+                    cr,
+                    uid,
+                    vals.get('assembly_category_id'),
+                    ['name'],
+                    context=context)
             vals['name'] = '%s (%s)' % (instance['name'], category['name'])
         res = super(ext_assembly, self).create(cr, uid, vals, context=context)
         return res
@@ -141,4 +149,4 @@ class ext_assembly(orm.Model):
     def onchange_assembly_category_id(self, cr, uid, ids, assembly_category_id,
                                       context=None):
         return super(ext_assembly, self).onchange_assembly_category_id(
-                        cr, uid, ids, assembly_category_id, context=context)
+            cr, uid, ids, assembly_category_id, context=context)

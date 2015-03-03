@@ -44,7 +44,8 @@ def get_document_url(self, cr, uid, model, object_id, context=None):
         :rtype: string
         :rparam: document url
         """
-        base_url = self.pool.get('ir.config_parameter').get_param(cr, uid, 'web.base.url')
+        base_url = self.pool['ir.config_parameter'].get_param(
+            cr, uid, 'web.base.url')
         # the parameters to encode for the query and fragment part of url
         query = {
             'db': cr.dbname,
@@ -54,5 +55,6 @@ def get_document_url(self, cr, uid, model, object_id, context=None):
             'model': model,
             'res_id': object_id,
         }
-        url = urljoin(base_url, "?%s#%s" % (urlencode(query), urlencode(fragment)))
+        url = urljoin(
+            base_url, "?%s#%s" % (urlencode(query), urlencode(fragment)))
         return url

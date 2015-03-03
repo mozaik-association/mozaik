@@ -32,4 +32,3 @@ checks = [
     test_email_coordinate,
     test_email_bounce,
 ]
-

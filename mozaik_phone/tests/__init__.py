@@ -31,9 +31,8 @@ fast_suite = [
 ]
 
 checks = [
-     test_phone_phone,
-     test_phone_coordinate,
-     test_phone_coordinate_wizard,
-     test_res_partner
+    test_phone_phone,
+    test_phone_coordinate,
+    test_phone_coordinate_wizard,
+    test_res_partner
 ]
-

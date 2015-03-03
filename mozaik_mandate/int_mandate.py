@@ -28,6 +28,7 @@ from openerp.osv import orm, fields
 from openerp.addons.mozaik_mandate.abstract_mandate import abstract_candidature
 from openerp.addons.mozaik_mandate.mandate import mandate_category
 
+
 CANDIDATURE_AVAILABLE_STATES = [
     ('draft', 'Draft'),
     ('declared', 'Declared'),
@@ -77,20 +78,20 @@ class int_selection_committee(orm.Model):
                                        string='Internal Assembly',
                                        track_visibility='onchange',
                                        domain=[
-                                        ('designation_int_assembly_id',
-                                         '!=', False)]),
+                                           ('designation_int_assembly_id',
+                                            '!=', False)]),
         'candidature_ids': fields.one2many(_candidature_model,
                                            'selection_committee_id',
                                            'Internal Candidatures',
                                            domain=[('active', '<=', True)],
                                            context={'force_recompute': True}),
         'assembly_category_id': fields.related(
-                                           'mandate_category_id',
-                                           _mandate_category_foreign_key,
-                                           string='Internal Assembly Category',
-                                           type='many2one',
-                                           relation=_assembly_category_model,
-                                           store=False),
+            'mandate_category_id',
+            _mandate_category_foreign_key,
+            string='Internal Assembly Category',
+            type='many2one',
+            relation=_assembly_category_model,
+            store=False),
         'partner_ids': fields.many2many(
             'res.partner', 'int_selection_committee_res_partner_rel',
             'committee_id', 'partner_id',
@@ -177,9 +178,9 @@ class int_selection_committee(orm.Model):
         """
         return super(int_selection_committee,
                      self).process_invalidate_candidatures_after_delay(
-                                                               cr,
-                                                               uid,
-                                                               context=context)
+            cr,
+            uid,
+            context=context)
 
 
 class int_candidature(orm.Model):
@@ -201,12 +202,12 @@ class int_candidature(orm.Model):
         'int.candidature': (lambda self, cr, uid, ids, context=None:
                             ids, ['selection_committee_id'], 20),
         _selection_committee_model: (lambda self, cr, uid, ids, context=None:
-                            self.pool.get('int.candidature').search(
-                                                    cr,
-                                                    uid,
-                                                    [('selection_committee_id',
-                                                      'in', ids)],
-                                                      context=context),
+                                     self.pool.get('int.candidature').search(
+                                         cr,
+                                         uid,
+                                         [('selection_committee_id',
+                                           'in', ids)],
+                                         context=context),
                                      ['mandate_category_id'], 20),
     }
 
@@ -214,12 +215,12 @@ class int_candidature(orm.Model):
         'int.candidature': (lambda self, cr, uid, ids, context=None:
                             ids, ['selection_committee_id'], 20),
         _selection_committee_model: (lambda self, cr, uid, ids, context=None:
-                            self.pool.get('int.candidature').search(
-                                                    cr,
-                                                    uid,
-                                                    [('selection_committee_id',
-                                                    'in', ids)],
-                                                    context=context),
+                                     self.pool.get('int.candidature').search(
+                                         cr,
+                                         uid,
+                                         [('selection_committee_id',
+                                           'in', ids)],
+                                         context=context),
                                      ['int_assembly_id'], 20),
     }
 
@@ -227,12 +228,12 @@ class int_candidature(orm.Model):
         'int.candidature': (lambda self, cr, uid, ids, context=None:
                             ids, ['selection_committee_id'], 20),
         _selection_committee_model: (lambda self, cr, uid, ids, context=None:
-                            self.pool.get('int.candidature').search(
-                                                    cr,
-                                                    uid,
-                                                    [('selection_committee_id',
-                                                      'in', ids)],
-                                                    context=context),
+                                     self.pool.get('int.candidature').search(
+                                         cr,
+                                         uid,
+                                         [('selection_committee_id',
+                                           'in', ids)],
+                                         context=context),
                                      ['designation_int_assembly_id'], 20),
     }
 
@@ -240,12 +241,12 @@ class int_candidature(orm.Model):
         'int.candidature': (lambda self, cr, uid, ids, context=None:
                             ids, ['selection_committee_id'], 20),
         _selection_committee_model: (lambda self, cr, uid, ids, context=None:
-                            self.pool.get('int.candidature').search(
-                                                    cr,
-                                                    uid,
-                                                    [('selection_committee_id',
-                                                      'in', ids)],
-                                                    context=context),
+                                     self.pool.get('int.candidature').search(
+                                         cr,
+                                         uid,
+                                         [('selection_committee_id',
+                                           'in', ids)],
+                                         context=context),
                                      ['mandate_start_date'], 20),
     }
 
@@ -256,24 +257,24 @@ class int_candidature(orm.Model):
                                   track_visibility='onchange',),
         'selection_committee_id': fields.many2one(_selection_committee_model,
                                                   string='Selection Committee',
-                                                 required=True,
-                                                 select=True,
-                                                 track_visibility='onchange'),
+                                                  required=True,
+                                                  select=True,
+                                                  track_visibility='onchange'),
         'mandate_category_id': fields.related(
-                                        'selection_committee_id',
-                                        'mandate_category_id',
-                                        string='Mandate Category',
-                                        type='many2one',
-                                        relation="mandate.category",
-                                        store=_mandate_category_store_trigger,
-                                        domain=[('type', '=', 'int')]),
+            'selection_committee_id',
+            'mandate_category_id',
+            string='Mandate Category',
+            type='many2one',
+            relation="mandate.category",
+            store=_mandate_category_store_trigger,
+            domain=[('type', '=', 'int')]),
         'mandate_start_date': fields.related(
-                                        'selection_committee_id',
-                                        'mandate_start_date',
-                                        string='Mandate Start Date',
-                                        type='date',
-                                        store=_mandate_start_date_store_trigger
-                                        ),
+            'selection_committee_id',
+            'mandate_start_date',
+            string='Mandate Start Date',
+            type='date',
+            store=_mandate_start_date_store_trigger
+        ),
         'int_assembly_id': fields.related('selection_committee_id',
                                           'assembly_id',
                                           string='Internal Assembly',
@@ -281,19 +282,19 @@ class int_candidature(orm.Model):
                                           relation="int.assembly",
                                           store=_int_assembly_store_trigger),
         'designation_int_assembly_id': fields.related(
-                                  'selection_committee_id',
-                                  'designation_int_assembly_id',
-                                  string='Designation Assembly',
-                                  type='many2one',
-                                  relation="int.assembly",
-                                  store=_designation_assembly_store_trigger),
+            'selection_committee_id',
+            'designation_int_assembly_id',
+            string='Designation Assembly',
+            type='many2one',
+            relation="int.assembly",
+            store=_designation_assembly_store_trigger),
         'months_before_end_of_mandate': fields.related(
-                                        'int_assembly_id',
-                                        'months_before_end_of_mandate',
-                                        string='Alert Delay (#Months)',
-                                        type='integer',
-                                        relation="int.assembly",
-                                        store=False),
+            'int_assembly_id',
+            'months_before_end_of_mandate',
+            string='Alert Delay (#Months)',
+            type='integer',
+            relation="int.assembly",
+            store=False),
         'mandate_ids': fields.one2many(_mandate_model,
                                        'candidature_id',
                                        'Internal Mandates',
@@ -309,25 +310,24 @@ class int_candidature(orm.Model):
                                         selection_committee_id, context=None):
         res = {}
         selection_committee = self.pool.get(
-                            self._selection_committee_model).browse(
-                                                        cr,
-                                                        uid,
-                                                        selection_committee_id,
-                                                        context)
+            self._selection_committee_model).browse(
+            cr,
+            uid,
+            selection_committee_id,
+            context)
         assembly = selection_committee.designation_int_assembly_id.id
         res['value'] = dict(
-                int_assembly_id=selection_committee.assembly_id.id or False,
-                designation_int_assembly_id=assembly or False,
-                mandate_category_id=selection_committee.mandate_category_id.id\
-                                    or False,)
+            int_assembly_id=selection_committee.assembly_id.id,
+            designation_int_assembly_id=assembly,
+            mandate_category_id=selection_committee.mandate_category_id.id)
         return res
 
     def button_create_mandate(self, cr, uid, ids, context=None):
         return super(int_candidature, self).button_create_mandate(
-                                                              cr,
-                                                              uid,
-                                                              ids,
-                                                              context=context)
+            cr,
+            uid,
+            ids,
+            context=context)
 
 
 class int_mandate(orm.Model):
@@ -341,8 +341,8 @@ class int_mandate(orm.Model):
     _unique_id_sequence = 0
 
     _unique_id_store_trigger = {
-            'int.mandate': (lambda self, cr, uid, ids, context=None:
-                            ids, ['partner_id'], 20),
+        'int.mandate': (lambda self, cr, uid, ids, context=None:
+                        ids, ['partner_id'], 20),
     }
 
     def _compute_unique_id(self, cr, uid, ids, fname, arg, context=None):
@@ -355,51 +355,65 @@ class int_mandate(orm.Model):
                                               context=context)
 
     _columns = {
-        'unique_id': fields.function(_compute_unique_id,
-                                     type="integer",
-                                     string="Unique id",
-                                     store=_unique_id_store_trigger),
-        'mandate_category_id': fields.many2one('mandate.category',
-                                               string='Mandate Category',
-                                               select=True,
-                                               required=True,
-                                               track_visibility='onchange',
-                                               domain=[('type', '=', 'int')]),
-        'int_assembly_id': fields.many2one('int.assembly',
-                                           'Internal Assembly',
-                                           select=True,
-                                           required=True,
-                                           domain=[
-                                            ('designation_int_assembly_id',
-                                             '!=',
-                                             False)
-                                                   ]),
-        'int_assembly_category_id': fields.related('mandate_category_id',
-                                          'int_assembly_category_id',
-                                          string='Internal Assembly Category',
-                                          type='many2one',
-                                          relation="int.assembly.category",
-                                          store=False),
-        'candidature_id': fields.many2one('int.candidature', 'Candidature'),
-        'is_submission_mandate': fields.related('mandate_category_id',
-                              'is_submission_mandate',
-                              string='With Wages Declaration',
-                              help='Submission to a Mandates and Wages Declaration',
-                              type='boolean',
-                              store={'mandate.category':
-                              (mandate_category.get_linked_int_mandate_ids,
-                              ['is_submission_mandate'], 20)}),
-        'is_submission_assets': fields.related('mandate_category_id',
-                              'is_submission_assets',
-                              string='With Assets Declaration',
-                              help='Submission to a Mandates and Assets Declaration',
-                              type='boolean',
-                              store={'mandate.category':
-                              (mandate_category.get_linked_int_mandate_ids,
-                              ['is_submission_assets'], 20)}),
+        'unique_id': fields.function(
+            _compute_unique_id,
+            type="integer",
+            string="Unique id",
+            store=_unique_id_store_trigger),
+        'mandate_category_id': fields.many2one(
+            'mandate.category',
+            string='Mandate Category',
+            select=True,
+            required=True,
+            track_visibility='onchange',
+            domain=[
+                ('type',
+                 '=',
+                 'int')]),
+        'int_assembly_id': fields.many2one(
+            'int.assembly',
+            'Internal Assembly',
+            select=True,
+            required=True,
+            domain=[
+                ('designation_int_assembly_id',
+                 '!=',
+                 False)]),
+        'int_assembly_category_id': fields.related(
+            'mandate_category_id',
+            'int_assembly_category_id',
+            string='Internal Assembly Category',
+            type='many2one',
+            relation="int.assembly.category",
+            store=False),
+        'candidature_id': fields.many2one(
+            'int.candidature',
+            'Candidature'),
+        'is_submission_mandate': fields.related(
+            'mandate_category_id',
+            'is_submission_mandate',
+            string='With Wages Declaration',
+            help='Submission to a Mandates and Wages Declaration',
+            type='boolean',
+            store={
+                'mandate.category': (
+                    mandate_category.get_linked_int_mandate_ids,
+                    ['is_submission_mandate'],
+                    20)}),
+        'is_submission_assets': fields.related(
+            'mandate_category_id',
+            'is_submission_assets',
+            string='With Assets Declaration',
+            help='Submission to a Mandates and Assets Declaration',
+            type='boolean',
+            store={
+                'mandate.category': (
+                    mandate_category.get_linked_int_mandate_ids,
+                    ['is_submission_assets'],
+                    20)}),
         'months_before_end_of_mandate': fields.integer(
-                                               'Alert Delay (#Months)',
-                                               track_visibility='onchange'),
+            'Alert Delay (#Months)',
+            track_visibility='onchange'),
     }
 
     _order = 'partner_id, int_assembly_id, start_date, mandate_category_id'
@@ -442,18 +456,18 @@ class int_mandate(orm.Model):
                                                       context=context)
 
     def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id,
-                                                        context=None):
+                                     context=None):
         int_assembly_cat_id = False
 
         if mandate_category_id:
             category_data = self.pool.get('mandate.category').read(
-                                                 cr,
-                                                 uid,
-                                                 mandate_category_id,
-                                                 ['int_assembly_category_id'],
-                                                 context)
+                cr,
+                uid,
+                mandate_category_id,
+                ['int_assembly_category_id'],
+                context)
             int_assembly_cat_id = category_data['int_assembly_category_id']\
-                                      or False
+                or False
 
         res = {
             'int_assembly_category_id': int_assembly_cat_id,

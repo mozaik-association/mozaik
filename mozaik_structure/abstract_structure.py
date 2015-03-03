@@ -27,6 +27,7 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
 
+
 class abstract_power_level(orm.AbstractModel):
 
     _name = 'abstract.power.level'
@@ -43,15 +44,15 @@ class abstract_power_level(orm.AbstractModel):
                                    required=True,
                                    track_visibility='onchange'),
         'assembly_category_ids': fields.one2many(
-                                             'abstract.assembly.category',
-                                             'power_level_id',
-                                             'Assembly Categories',
-                                             domain=[('active', '=', True)]),
+            'abstract.assembly.category',
+            'power_level_id',
+            'Assembly Categories',
+            domain=[('active', '=', True)]),
         'assembly_category_inactive_ids': fields.one2many(
-                                            'abstract.assembly.category',
-                                            'power_level_id',
-                                            'Assembly Categories',
-                                            domain=[('active', '=', False)]),
+            'abstract.assembly.category',
+            'power_level_id',
+            'Assembly Categories',
+            domain=[('active', '=', False)]),
     }
 
     _order = 'sequence, name'
@@ -80,8 +81,8 @@ class abstract_assembly_category(orm.AbstractModel):
         'duration': fields.integer('Duration of Mandates',
                                    track_visibility='onchange'),
         'months_before_end_of_mandate': fields.integer(
-                                            'Alert Delay (#Months)',
-                                            track_visibility='onchange'),
+            'Alert Delay (#Months)',
+            track_visibility='onchange'),
         'power_level_id': fields.many2one('abstract.power.level',
                                           'Power Level'),
     }
@@ -100,32 +101,45 @@ class abstract_instance(orm.AbstractModel):
     _description = 'Abstract Instance'
 
     _columns = {
-        'name': fields.char('Name',
-                            size=128,
-                            required=True,
-                            select=True,
-                            track_visibility='onchange'),
-        'power_level_id': fields.many2one('abstract.power.level',
-                                          'Power Level',
-                                          required=True,
-                                          select=True,
-                                          track_visibility='onchange'),
-
-        'parent_id': fields.many2one('abstract.instance',
-                                     'Parent Instance',
-                                     select=True,
-                                     track_visibility='onchange'),
-        'parent_left': fields.integer('Left Parent', select=True),
-        'parent_right': fields.integer('Right Parent', select=True),
-
-        'assembly_ids': fields.one2many('abstract.assembly',
-                                        'assembly_category_id',
-                                        'Assemblies',
-                                        domain=[('active', '=', True)]),
-        'assembly_inactive_ids': fields.one2many('abstract.assembly',
-                                                 'assembly_category_id',
-                                                 'Assemblies',
-                                        domain=[('active', '=', False)]),
+        'name': fields.char(
+            'Name',
+            size=128,
+            required=True,
+            select=True,
+            track_visibility='onchange'),
+        'power_level_id': fields.many2one(
+            'abstract.power.level',
+            'Power Level',
+            required=True,
+            select=True,
+            track_visibility='onchange'),
+        'parent_id': fields.many2one(
+            'abstract.instance',
+            'Parent Instance',
+            select=True,
+            track_visibility='onchange'),
+        'parent_left': fields.integer(
+            'Left Parent',
+            select=True),
+        'parent_right': fields.integer(
+            'Right Parent',
+            select=True),
+        'assembly_ids': fields.one2many(
+            'abstract.assembly',
+            'assembly_category_id',
+            'Assemblies',
+            domain=[
+                ('active',
+                 '=',
+                 True)]),
+        'assembly_inactive_ids': fields.one2many(
+            'abstract.assembly',
+            'assembly_category_id',
+            'Assemblies',
+            domain=[
+                ('active',
+                 '=',
+                 False)]),
     }
 
     _parent_name = 'parent_id'
@@ -181,23 +195,27 @@ class abstract_assembly(orm.AbstractModel):
     _category_model = 'abstract.assembly.category'
 
     _columns = {
-        'assembly_category_id': fields.many2one(_category_model,
-                                                string='Category',
-                                                select=True,
-                                                required=True,
-                                                track_visibility='onchange'),
-        'instance_id': fields.many2one('abstract.instance',
-                                       string='Instance',
-                                       select=True,
-                                       required=True,
-                                       track_visibility='onchange'),
-        'partner_id': fields.many2one('res.partner',
-                                      string='Associated Partner',
-                                      select=True,
-                                      required=True,
-                                      ondelete='restrict'),
-        'months_before_end_of_mandate': fields.integer('Alert Delay (#Months)',
-                                                track_visibility='onchange'),
+        'assembly_category_id': fields.many2one(
+            _category_model,
+            string='Category',
+            select=True,
+            required=True,
+            track_visibility='onchange'),
+        'instance_id': fields.many2one(
+            'abstract.instance',
+            string='Instance',
+            select=True,
+            required=True,
+            track_visibility='onchange'),
+        'partner_id': fields.many2one(
+            'res.partner',
+            string='Associated Partner',
+            select=True,
+            required=True,
+            ondelete='restrict'),
+        'months_before_end_of_mandate': fields.integer(
+            'Alert Delay (#Months)',
+            track_visibility='onchange'),
     }
 
     _defaults = {
@@ -226,7 +244,7 @@ class abstract_assembly(orm.AbstractModel):
         assemblies = self.browse(cr, uid, ids, context=context)
         for assembly in assemblies:
             if not assembly.assembly_category_id._model._columns.\
-                   get('power_level_id'):
+                    get('power_level_id'):
                 break
             if assembly.assembly_category_id.power_level_id and \
                assembly.assembly_category_id.power_level_id.id !=\
@@ -238,7 +256,7 @@ class abstract_assembly(orm.AbstractModel):
     _constraints = [
         (_check_consistent_power_level,
          _('Power level of category and instance are inconsistent'),
-          ['assembly_category_id', 'instance_id'])
+         ['assembly_category_id', 'instance_id'])
     ]
 
     _unicity_keys = 'instance_id, assembly_category_id'
@@ -250,8 +268,8 @@ class abstract_assembly(orm.AbstractModel):
         res = {}
         res['value'] = dict(months_before_end_of_mandate=False)
         if assembly_category_id:
-            assembly_category = self.pool.get(self._category_model).browse(\
-                                        cr, uid, assembly_category_id)
+            assembly_category = self.pool.get(self._category_model).browse(
+                cr, uid, assembly_category_id)
             value = assembly_category.months_before_end_of_mandate
             res['value'] = dict(months_before_end_of_mandate=value)
 

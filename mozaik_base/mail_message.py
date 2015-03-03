@@ -44,7 +44,8 @@ class mail_message(orm.Model):
         return super(mail_message, self)._get_default_from(
             cr, uid, context=context)
 
-    def _find_allowed_model_wise(self, cr, uid, doc_model, doc_dict, context=None):
+    def _find_allowed_model_wise(self, cr, uid, doc_model, doc_dict,
+                                 context=None):
         '''
         Do not test the active flag when retrieving the message_ids list
         '''
@@ -53,4 +54,5 @@ class mail_message(orm.Model):
         ctx.update({
             'active_test': False,
         })
-        return super(mail_message, self)._find_allowed_model_wise(cr, uid, doc_model, doc_dict, context=ctx)
+        return super(mail_message, self)._find_allowed_model_wise(
+            cr, uid, doc_model, doc_dict, context=ctx)

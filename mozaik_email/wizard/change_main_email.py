@@ -39,15 +39,17 @@ class change_main_email(orm.TransientModel):
     }
 
     def default_get(self, cr, uid, flds, context):
-        res = super(change_main_email, self).default_get(cr, uid, flds, context=context)
+        res = super(change_main_email, self).default_get(
+            cr, uid, flds, context=context)
         if context.get('mode', False) == 'switch':
-            coord = self.pool.get(context.get('target_model')).browse(cr, uid, context.get('target_id', False))
+            coord = self.pool[context.get('target_model')].browse(
+                cr, uid, context.get('target_id', False))
             res['email'] = coord.email
         ids = context.get('active_ids') \
             or (context.get('active_id') and [context.get('active_id')]) \
             or []
         if len(ids) == 1:
-            partner = self.pool.get('res.partner').browse(cr, SUPERUSER_ID, ids[0], context=context)
+            partner = self.pool['res.partner'].browse(
+                cr, SUPERUSER_ID, ids[0], context=context)
             res['old_email'] = partner.email_coordinate_id.email
         return res
-

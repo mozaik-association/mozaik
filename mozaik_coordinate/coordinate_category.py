@@ -33,7 +33,8 @@ class coordinate_category(orm.Model):
     _description = 'Coordinate Category'
 
     _columns = {
-        'name': fields.char('Name', size=128, required=True, select=True, track_visibility='onchange'),
+        'name': fields.char('Name', size=128, required=True, select=True,
+                            track_visibility='onchange'),
     }
 
     _order = 'name'
@@ -41,4 +42,3 @@ class coordinate_category(orm.Model):
 # constraints
 
     _unicity_keys = 'name'
-

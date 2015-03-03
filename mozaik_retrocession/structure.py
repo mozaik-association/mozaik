@@ -42,15 +42,26 @@ class sta_assembly(orm.Model):
         """
         if isinstance(ids, (int, long)):
             ids = [ids]
-        return self.pool.get('sta.mandate').search(cr, uid, [('sta_assembly_id', 'in', ids)], context=context)
+        return self.pool.get('sta.mandate').search(
+            cr, uid, [
+                ('sta_assembly_id', 'in', ids)], context=context)
 
     _columns = {
-        'fractionation_id': fields.many2one('fractionation', 'Fractionation',
-                                            select=True, track_visibility='onchange'),
-        'calculation_method_id': fields.many2one('calculation.method', string='Calculation Method',
-                                            select=True, track_visibility='onchange'),
-        'retro_instance_id': fields.many2one('int.instance', 'Retrocessions Management Instance',
-                                       select=True, track_visibility='onchange'),
+        'fractionation_id': fields.many2one(
+            'fractionation',
+            'Fractionation',
+            select=True,
+            track_visibility='onchange'),
+        'calculation_method_id': fields.many2one(
+            'calculation.method',
+            string='Calculation Method',
+            select=True,
+            track_visibility='onchange'),
+        'retro_instance_id': fields.many2one(
+            'int.instance',
+            'Retrocessions Management Instance',
+            select=True,
+            track_visibility='onchange'),
     }
 
 
@@ -71,14 +82,24 @@ class ext_assembly(orm.Model):
         """
         if isinstance(ids, (int, long)):
             ids = [ids]
-        return self.pool.get('ext.mandate').search(cr, uid, [('ext_assembly_id', 'in', ids)], context=context)
+        return self.pool.get('ext.mandate').search(
+            cr, uid, [
+                ('ext_assembly_id', 'in', ids)], context=context)
 
     _columns = {
-        'fractionation_id': fields.many2one('fractionation', 'Fractionation',
-                                                select=True, track_visibility='onchange'),
-        'calculation_method_id': fields.many2one('calculation.method', string='Calculation Method',
-                                                select=True, track_visibility='onchange'),
-        'retro_instance_id': fields.many2one('int.instance', 'Retrocessions Management Instance',
-                                       select=True, track_visibility='onchange'),
+        'fractionation_id': fields.many2one(
+            'fractionation',
+            'Fractionation',
+            select=True,
+            track_visibility='onchange'),
+        'calculation_method_id': fields.many2one(
+            'calculation.method',
+            string='Calculation Method',
+            select=True,
+            track_visibility='onchange'),
+        'retro_instance_id': fields.many2one(
+            'int.instance',
+            'Retrocessions Management Instance',
+            select=True,
+            track_visibility='onchange'),
     }
-

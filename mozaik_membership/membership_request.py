@@ -33,12 +33,8 @@ from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
 
 from openerp.addons.mozaik_base.base_tools import format_email, check_email
-from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
 from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
 
-from openerp.api import Environment
-from openerp import api
-import openerp
 
 _logger = logging.getLogger(__name__)
 
@@ -384,8 +380,14 @@ class membership_request(orm.Model):
         finally:
             self.pool.pure_function_fields = orig_pure_fct_fields
 
-    def get_partner_preview(self, cr, uid, request_type, partner_id=False,
-                            partner_datas={'lastname': '%s' % uuid4()}, context=None):
+    def get_partner_preview(
+            self,
+            cr,
+            uid,
+            request_type,
+            partner_id=False,
+            partner_datas=None,
+            context=None):
         """
         Try to advancing workflow of partner
         If no partner then create one.
@@ -400,6 +402,9 @@ class membership_request(orm.Model):
         :rparam: next status in partner's workflow depending on `request_type`
         """
         context = context or {}
+        partner_datas = partner_datas or {
+            'lastname': '%s' %
+            uuid4()}
 
         partner_obj = self.pool['res.partner']
 

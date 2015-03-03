@@ -36,8 +36,10 @@
 MOZAIK Thesaurus
 ================
 Implements a light thesaurus for indexation purpose.
-Model is read-only for all users except thesaurus managers that are followers of all terms.
-Creating a new term will send a message to all this followers requesting their validation.
+Model is read-only for all users except thesaurus managers that are followers
+of all terms.
+Creating a new term will send a message to all this followers requesting
+their validation.
 """,
     'images': [
     ],

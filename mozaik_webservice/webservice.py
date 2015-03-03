@@ -32,7 +32,8 @@ from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
 logger = logging.getLogger(__name__)
 
 
-def make_webservice_error(object_id=False, session_id=False, error_code=False, error_text=False):
+def make_webservice_error(object_id=False, session_id=False, error_code=False,
+                          error_text=False):
     return dict(response='WEBSERVICE-ERROR',
                 object_id=object_id, session_id=session_id,
                 error_code=error_code, error_text=error_text)
@@ -40,7 +41,8 @@ def make_webservice_error(object_id=False, session_id=False, error_code=False, e
 
 class WebServiceException(Exception):
 
-    def __init__(self, session_id=False, object_id=False, error_code=False, error_text=False):
+    def __init__(self, session_id=False, object_id=False, error_code=False,
+                 error_text=False):
         self.session_id = session_id
         self.object_id = object_id
         self.error_code = error_code
@@ -51,22 +53,30 @@ def web_service(func):
 
     def inner(self, cr, uid, *args, **kwargs):
         try:
-            logger.info("WEB SERVICE REQUEST %s <- %s %s", func.__name__, repr(('self', 'cr', uid) + args), kwargs and repr(kwargs) or '')
+            logger.info(
+                "WEB SERVICE REQUEST %s <- %s %s",
+                func.__name__, repr(('self', 'cr', uid) + args),
+                kwargs and repr(kwargs) or '')
             res = func(self, cr, uid, *args, **kwargs)
-            logger.info("WEB SERVICE RESPONSE %s -> %s", func.__name__, repr(res))
+            logger.info(
+                "WEB SERVICE RESPONSE %s -> %s", func.__name__, repr(res))
             return res
         except WebServiceException as e:
             res = make_webservice_error(object_id=e.object_id,
-                                  session_id=e.session_id,
-                                  error_code=e.error_code,
-                                  error_text=e.error_text)
-            logger.warning("WEB SERVICE ERROR RESPONSE %s -> %s", func.__name__, repr(res), exc_info=True)
+                                        session_id=e.session_id,
+                                        error_code=e.error_code,
+                                        error_text=e.error_text)
+            logger.warning(
+                "WEB SERVICE ERROR RESPONSE %s -> %s",
+                func.__name__, repr(res), exc_info=True)
             cr.rollback()
             return res
         except Exception as e:
-            res = WebServiceException(error_code='SYSTEM_ERROR',
-                                 error_text=unicode(e))
-            logger.error("WEB SERVICE SYSTEM ERROR RESPONSE %s -> %s", func.__name__, repr(res), exc_info=True)
+            res = WebServiceException(
+                error_code='SYSTEM_ERROR', error_text=unicode(e))
+            logger.error(
+                "WEB SERVICE SYSTEM ERROR RESPONSE %s -> %s",
+                func.__name__, repr(res), exc_info=True)
             cr.rollback()
             return res
     return inner
@@ -78,9 +88,10 @@ class custom_webservice(orm.Model):
     _auto = False
 
     @web_service
-    def membership_request(self, cr, uid, lastname, firstname, gender, street, zip_code, town, status,\
-                           day=False, month=False, year=False, email=False, mobile=False,
-                           phone=False, interest=False, note=False, context=None):
+    def membership_request(self, cr, uid, lastname, firstname, gender, street,
+                           zip_code, town, status, day=False, month=False,
+                           year=False, email=False, mobile=False, phone=False,
+                           interest=False, note=False, context=None):
         """
         ==================
         membership_request
@@ -133,7 +144,8 @@ class custom_webservice(orm.Model):
         try:
             res = membership_request.create(cr, uid, vals, context=context)
         except Exception as e:
-            raise WebServiceException(uuid, 'Membership Request', 'CREATE ERROR', e.message)
+            raise WebServiceException(
+                uuid, 'Membership Request', 'CREATE ERROR', e.message)
         return res
 
     @web_service
@@ -141,9 +153,11 @@ class custom_webservice(orm.Model):
         self.check_access_rights(cr, uid, 'read')
         partner_obj = self.pool['res.partner']
         try:
-            res = partner_obj.get_login(cr, SUPERUSER_ID, email, birth_date, context=context)
+            res = partner_obj.get_login(
+                cr, SUPERUSER_ID, email, birth_date, context=context)
         except Exception as e:
-            raise WebServiceException(uid, "User's logname", 'SEARCH ERROR', e.message)
+            raise WebServiceException(
+                uid, "User's logname", 'SEARCH ERROR', e.message)
         return res
 
     @web_service
@@ -159,7 +173,8 @@ class custom_webservice(orm.Model):
         return res
 
     @web_service
-    def get_distribution_list(self, cr, uid, distribution_list_id, context=None):
+    def get_distribution_list(self, cr, uid, distribution_list_id,
+                              context=None):
         self.check_access_rights(cr, uid, 'read')
         list_obj = self.pool['distribution.list']
         partner_obj = self.pool['res.partner']

@@ -26,10 +26,9 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from openerp.addons.mozaik_mandate.mandate import mandate_category
 from openerp.osv import orm, osv, fields
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, \
-                          DEFAULT_SERVER_DATE_FORMAT
+    DEFAULT_SERVER_DATE_FORMAT
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
 
@@ -39,7 +38,7 @@ SELECTION_COMMITTEE_AVAILABLE_STATES = [
     ('done', 'Closed'),
 ]
 selection_committee_available_states = dict(
-                                        SELECTION_COMMITTEE_AVAILABLE_STATES)
+    SELECTION_COMMITTEE_AVAILABLE_STATES)
 
 CANDIDATURE_AVAILABLE_STATES = [
     ('draft', 'Draft'),
@@ -83,8 +82,9 @@ class abstract_selection_committee(orm.AbstractModel):
             elif candidature.state == 'suggested':
                 res.append(candidature.id)
             else:
-                raise osv.except_osv(_('Operation Forbidden!'),
-                        _('Some candidatures are still in "declared" state'))
+                raise osv.except_osv(
+                    _('Operation Forbidden!'),
+                    _('Some candidatures are still in "declared" state'))
         return res
 
     _columns = {
@@ -94,8 +94,8 @@ class abstract_selection_committee(orm.AbstractModel):
                                   track_visibility='onchange',),
         'mandate_category_id': fields.many2one('mandate.category',
                                                string='Mandate Category',
-                                                 required=True,
-                                                 track_visibility='onchange'),
+                                               required=True,
+                                               track_visibility='onchange'),
         'assembly_id': fields.many2one(_assembly_model,
                                        string='Abstract Assembly',
                                        track_visibility='onchange'),
@@ -104,20 +104,20 @@ class abstract_selection_committee(orm.AbstractModel):
                                            'Abstract Candidatures',
                                            domain=[('active', '<=', True)]),
         'assembly_category_id': fields.related(
-                                        'mandate_category_id',
-                                        _mandate_category_foreign_key,
-                                        string='Abstract Assembly Category',
-                                        type='many2one',
-                                        relation=_assembly_category_model,
-                                        store=False),
+            'mandate_category_id',
+            _mandate_category_foreign_key,
+            string='Abstract Assembly Category',
+            type='many2one',
+            relation=_assembly_category_model,
+            store=False),
         'designation_int_assembly_id': fields.many2one(
-                                        'int.assembly',
-                                        string='Designation Assembly',
-                                        required=True,
-                                        track_visibility='onchange',
-                                        domain=[
-                                        ('is_designation_assembly', '=', True)
-                                        ]),
+            'int.assembly',
+            string='Designation Assembly',
+            required=True,
+            track_visibility='onchange',
+            domain=[
+                ('is_designation_assembly', '=', True)
+            ]),
         'decision_date': fields.date('Designation Date',
                                      track_visibility='onchange'),
         'mandate_start_date': fields.date('Mandates Start Date',
@@ -191,13 +191,13 @@ class abstract_selection_committee(orm.AbstractModel):
 
         for committee in self.browse(cr, uid, ids, context=context):
             display_name = u'{assembly}/{start} ({name})'.format(
-                     assembly=committee.assembly_id.name,
-                     start=self.pool.get('res.lang').format_date(
-                                                 cr,
-                                                 uid,
-                                                 committee.mandate_start_date,
-                                                 context) or False,
-                     name=committee.name,)
+                assembly=committee.assembly_id.name,
+                start=self.pool.get('res.lang').format_date(
+                    cr,
+                    uid,
+                    committee.mandate_start_date,
+                    context) or False,
+                name=committee.name,)
             res.append((committee['id'], display_name))
         return res
 
@@ -207,14 +207,15 @@ class abstract_selection_committee(orm.AbstractModel):
             args = []
         if name:
             assembly_ids = self.pool[self._assembly_model].search(
-                                                  cr,
-                                                  uid,
-                                                  [('name', operator, name)],
-                                                  context=context)
-            ids = self.search(cr, uid, ['|',
-                                        ('name', operator, name),
-                                        ('assembly_id', 'in', assembly_ids)]
-                                        + args, limit=limit, context=context)
+                cr,
+                uid,
+                [('name', operator, name)],
+                context=context)
+            ids = self.search(
+                cr, uid, ['|',
+                          ('name', operator, name),
+                          ('assembly_id', 'in', assembly_ids)] + args,
+                limit=limit, context=context)
         else:
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)
@@ -231,11 +232,11 @@ class abstract_selection_committee(orm.AbstractModel):
             'candidature_ids': False,
         })
         res = super(abstract_selection_committee, self).copy_data(
-                                                              cr,
-                                                              uid,
-                                                              id_,
-                                                              default=default,
-                                                              context=context)
+            cr,
+            uid,
+            id_,
+            default=default,
+            context=context)
 
         res.update({
             'name': _('%s (copy)') % res.get('name'),
@@ -256,10 +257,10 @@ class abstract_selection_committee(orm.AbstractModel):
         copied_committee_id = ids[0]
         candidature_pool = self.pool.get(self._candidature_model)
         rejected_candidature_ids = candidature_pool.search(
-                       cr,
-                       uid,
-                       [('selection_committee_id', '=', copied_committee_id),
-                        ('state', '=', 'rejected')])
+            cr,
+            uid,
+            [('selection_committee_id', '=', copied_committee_id),
+             ('state', '=', 'rejected')])
         new_committee_id = self.copy(cr,
                                      uid,
                                      copied_committee_id,
@@ -267,10 +268,10 @@ class abstract_selection_committee(orm.AbstractModel):
                                      context)
         if rejected_candidature_ids:
             candidature_pool.write(
-                               cr,
-                               uid,
-                               rejected_candidature_ids,
-                               {'selection_committee_id': new_committee_id})
+                cr,
+                uid,
+                rejected_candidature_ids,
+                {'selection_committee_id': new_committee_id})
             candidature_pool.signal_workflow(cr,
                                              uid,
                                              rejected_candidature_ids,
@@ -293,14 +294,17 @@ class abstract_selection_committee(orm.AbstractModel):
         """
         for committee in self.browse(cr, uid, ids, context=context):
             if committee.candidature_ids:
-                self.pool.get(self._candidature_model).signal_workflow(cr,
-                                                                       uid,\
-                    self._get_suggested_candidatures(cr,
-                                                     uid,
-                                                     ids,
-                                                     context=context),
-                                                    'action_accept',
-                                                    context=context)
+                self.pool.get(
+                    self._candidature_model).signal_workflow(
+                    cr,
+                    uid,
+                    self._get_suggested_candidatures(
+                        cr,
+                        uid,
+                        ids,
+                        context=context),
+                    'action_accept',
+                    context=context)
         self.action_invalidate(cr, uid, ids, context, {'state': 'done'})
         return True
 
@@ -318,15 +322,15 @@ class abstract_selection_committee(orm.AbstractModel):
         for committee in self.browse(cr, uid, ids, context=context):
             if committee.candidature_ids:
                 self.pool.get(self._candidature_model).signal_workflow(
-                                   cr,
-                                   uid,
-                                   self._get_suggested_candidatures(
-                                                            cr,
-                                                            uid,
-                                                            ids,
-                                                            context=context),
-                                   'button_declare',
-                                   context=context)
+                    cr,
+                    uid,
+                    self._get_suggested_candidatures(
+                        cr,
+                        uid,
+                        ids,
+                        context=context),
+                    'button_declare',
+                    context=context)
             self.write(cr, uid, ids, {'decision_date': False}, context=context)
         return True
 
@@ -336,19 +340,18 @@ class abstract_selection_committee(orm.AbstractModel):
         assembly_category_id = False
         if mandate_category_id:
             mandate_category = self.pool.get('mandate.category').browse(
-                                                        cr,
-                                                        uid,
-                                                        mandate_category_id,
-                                                        context)
-            values =\
-        dict(
-        sta_assembly_category_id=mandate_category.sta_assembly_category_id.id\
-                                 or False,
-        int_assembly_category_id=mandate_category.int_assembly_category_id.id\
-                                 or False,
-        ext_assembly_category_id=mandate_category.ext_assembly_category_id.id\
-                                 or False,
-                                )
+                cr,
+                uid,
+                mandate_category_id,
+                context)
+            values = dict(
+                sta_assembly_category_id=(
+                    mandate_category.sta_assembly_category_id.id or False),
+                int_assembly_category_id=(
+                    mandate_category.int_assembly_category_id.id or False),
+                ext_assembly_category_id=(
+                    mandate_category.ext_assembly_category_id.id or False),
+            )
             assembly_category_id = values[self._mandate_category_foreign_key]
         res['value'] = dict(assembly_category_id=assembly_category_id)
         return res
@@ -362,24 +365,23 @@ class abstract_selection_committee(orm.AbstractModel):
                                                                   uid,
                                                                   assembly_id)
             mandate_category_ids = self.pool.get('mandate.category').search(
-                                        cr,
-                                        uid,
-                                        [(self._mandate_category_foreign_key,
-                                          '=',
-                                          assembly.assembly_category_id.id)])
+                cr,
+                uid,
+                [(self._mandate_category_foreign_key,
+                  '=',
+                  assembly.assembly_category_id.id)])
             mandate_category_id = False
             if mandate_category_ids:
                 mandate_category_id = mandate_category_ids[0]
 
-            res['value'] = dict(\
-                        assembly_category_id=assembly.assembly_category_id.id\
-                                             or False,
-                        mandate_category_id=mandate_category_id)
+            res['value'] = dict(
+                assembly_category_id=assembly.assembly_category_id.id,
+                mandate_category_id=mandate_category_id)
 
             if self.pool.get(self._assembly_model)._columns.get(
-                                                'designation_int_assembly_id'):
+                    'designation_int_assembly_id'):
                 res['value']['designation_int_assembly_id'] =\
-                                        assembly.designation_int_assembly_id.id
+                    assembly.designation_int_assembly_id.id
         return res
 
 # public methods
@@ -408,33 +410,33 @@ class abstract_selection_committee(orm.AbstractModel):
         committee_ids = self.search(cr,
                                     uid,
                                     [('id', 'in',
-                                    [committee[0] for committee
-                                                      in cr.fetchall()]),
+                                      [committee[0] for committee
+                                       in cr.fetchall()]),
                                      ('active', '=', False)],
                                     context=context)
 
         invalidation_delay = int(
-                self.pool.get('ir.config_parameter').get_param(
-                                                        cr,
-                                                        uid,
-                                                        self._parameters_key,
-                                                        60))
+            self.pool.get('ir.config_parameter').get_param(
+                cr,
+                uid,
+                self._parameters_key,
+                60))
 
         for committee in self.browse(cr, uid, committee_ids, context=context):
             limit_date = datetime.strptime(
-                              committee.expire_date,
-                              DEFAULT_SERVER_DATETIME_FORMAT)\
-                              + relativedelta(days=invalidation_delay or 0.0)
+                committee.expire_date,
+                DEFAULT_SERVER_DATETIME_FORMAT)\
+                + relativedelta(days=invalidation_delay or 0.0)
             if datetime.strptime(fields.datetime.now(),
                                  DEFAULT_SERVER_DATETIME_FORMAT) >= limit_date:
                 self.pool.get(
-                        self._candidature_model).action_invalidate(
-                                                cr,
-                                                uid,
-                                                [candidature.id
-                                                 for candidature in
-                                                 committee.candidature_ids],
-                                                context=context)
+                    self._candidature_model).action_invalidate(
+                    cr,
+                    uid,
+                    [candidature.id
+                     for candidature in
+                     committee.candidature_ids],
+                    context=context)
 
         return True
 
@@ -480,13 +482,13 @@ class abstract_mandate(orm.AbstractModel):
                                                select=True,
                                                track_visibility='onchange'),
         'designation_int_assembly_id': fields.many2one(
-                                                'int.assembly',
-                                                'Designation Assembly',
-                                                select=True,
-                                                track_visibility='onchange',
-                                                domain=[
-                                                    ('is_designation_assembly',
-                                                     '=', True)]),
+            'int.assembly',
+            'Designation Assembly',
+            select=True,
+            track_visibility='onchange',
+            domain=[
+                ('is_designation_assembly',
+                 '=', True)]),
         'start_date': fields.date('Start Date',
                                   required=True,
                                   track_visibility='onchange'),
@@ -496,19 +498,19 @@ class abstract_mandate(orm.AbstractModel):
         'end_date': fields.date('End Date',
                                 track_visibility='onchange'),
         'is_submission_mandate': fields.related(
-                                'mandate_category_id',
-                                'is_submission_mandate',
-                                string='With Wages Declaration',
-                                help='Submission to a Mandates and Wages Declaration',
-                                type='boolean',
-                                store=True),
+            'mandate_category_id',
+            'is_submission_mandate',
+            string='With Wages Declaration',
+            help='Submission to a Mandates and Wages Declaration',
+            type='boolean',
+            store=True),
         'is_submission_assets': fields.related(
-                                'mandate_category_id',
-                                'is_submission_assets',
-                                string='With Assets Declaration',
-                                help='Submission to a Mandates and Assets Declaration',
-                                type='boolean',
-                                store=True),
+            'mandate_category_id',
+            'is_submission_assets',
+            string='With Assets Declaration',
+            help='Submission to a Mandates and Assets Declaration',
+            type='boolean',
+            store=True),
         'candidature_id': fields.many2one('abstract.candidature',
                                           'Candidature'),
         'email_coordinate_id': fields.many2one('email.coordinate',
@@ -563,8 +565,8 @@ class abstract_mandate(orm.AbstractModel):
 
         for mandate in self.browse(cr, uid, ids, context=context):
             display_name = u'{name} ({mandate_category})'.format(
-                             name=mandate.partner_id.name,
-                             mandate_category=mandate.mandate_category_id.name)
+                name=mandate.partner_id.name,
+                mandate_category=mandate.mandate_category_id.name)
             res.append((mandate['id'], display_name))
         return res
 
@@ -574,20 +576,20 @@ class abstract_mandate(orm.AbstractModel):
             args = []
         if name:
             partner_ids = self.pool.get('res.partner').search(
-                                                  cr,
-                                                  uid,
-                                                  [('name', operator, name)],
-                                                  context=context)
+                cr,
+                uid,
+                [('name', operator, name)],
+                context=context)
             category_ids = self.pool.get('mandate.category').search(
-                                                    cr,
-                                                    uid,
-                                                    [('name', operator, name)],
-                                                    context=context)
+                cr,
+                uid,
+                [('name', operator, name)],
+                context=context)
             ids = self.search(cr, uid, ['|',
                                         ('partner_id', 'in', partner_ids),
                                         ('mandate_category_id', 'in',
                                          category_ids)] + args,
-                                         limit=limit, context=context)
+                              limit=limit, context=context)
         else:
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)
@@ -598,40 +600,40 @@ class abstract_mandate(orm.AbstractModel):
         reset_ids = []
         duplicate_ids = []
         mandate_dataset = self._get_discriminant_model().search_read(
-                                                 cr,
-                                                 uid,
-                                                 [(self._discriminant_field,
-                                                   '=', value)],
-                                                 ['mandate_category_id',
-                                                  'start_date',
-                                                  'deadline_date',
-                                                  'is_duplicate_detected',
-                                                  'is_duplicate_allowed'],
-                                                 context=context)
+            cr,
+            uid,
+            [(self._discriminant_field,
+              '=', value)],
+            ['mandate_category_id',
+             'start_date',
+             'deadline_date',
+             'is_duplicate_detected',
+             'is_duplicate_allowed'],
+            context=context)
         for mandate_data in mandate_dataset:
             category = self.pool.get('mandate.category').browse(
-                                        cr,
-                                        uid,
-                                        mandate_data['mandate_category_id'][0],
-                                        context=context)
+                cr,
+                uid,
+                mandate_data['mandate_category_id'][0],
+                context=context)
             if category.exclusive_category_m2m_ids:
                 mandate_ids = self._get_discriminant_model().search(
-                        cr,
-                        uid,
-                        [(self._discriminant_field,
-                          '=', value),
-                        ('mandate_category_id',
-                         'in',
-                         [exclu.id for
-                                   exclu
-                                   in category.exclusive_category_m2m_ids]),
-                        ('start_date',
-                         '<=',
-                         mandate_data['deadline_date']),
-                        ('deadline_date',
-                         '>=',
-                         mandate_data['start_date'])],
-                        context=context)
+                    cr,
+                    uid,
+                    [(self._discriminant_field,
+                      '=', value),
+                     ('mandate_category_id',
+                      'in',
+                      [exclu.id for
+                       exclu
+                       in category.exclusive_category_m2m_ids]),
+                     ('start_date',
+                      '<=',
+                      mandate_data['deadline_date']),
+                     ('deadline_date',
+                      '>=',
+                      mandate_data['start_date'])],
+                    context=context)
                 if mandate_ids:
                     mandate_ids.append(mandate_data['id'])
                     for mandate_id in mandate_ids:
@@ -640,12 +642,12 @@ class abstract_mandate(orm.AbstractModel):
                         if mandate_id in reset_ids:
                             reset_ids.remove(mandate_id)
                 elif mandate_data['is_duplicate_detected'] or\
-                     mandate_data['is_duplicate_allowed']:
+                        mandate_data['is_duplicate_allowed']:
                     reset_ids.append(mandate_data['id'])
 
             elif mandate_data['is_duplicate_detected'] or\
-                 mandate_data['is_duplicate_allowed']:
-                    reset_ids.append(mandate_data['id'])
+                    mandate_data['is_duplicate_allowed']:
+                reset_ids.append(mandate_data['id'])
 
         return reset_ids, duplicate_ids
 
@@ -676,7 +678,7 @@ class abstract_mandate(orm.AbstractModel):
         return True
 
     def detect_and_repair_duplicate(self, cr, uid, vals, context=None,
-                                    detection_model=None, columns_to_read=[],
+                                    detection_model=None, columns_to_read=None,
                                     model_id_name=None):
         """
         ===========================
@@ -689,10 +691,11 @@ class abstract_mandate(orm.AbstractModel):
         :param vals: discriminant values
         :type vals: list
         """
+        columns_to_read = columns_to_read or []
         super(abstract_mandate, self).detect_and_repair_duplicate(
-                                    cr, uid, vals, context=context,
-                                    columns_to_read=['model', 'mandate_id'],
-                                    model_id_name='mandate_id')
+            cr, uid, vals, context=context,
+            columns_to_read=['model', 'mandate_id'],
+            model_id_name='mandate_id')
 
     def process_finish_and_invalidate_mandates(self, cr, uid, context=None):
         """
@@ -716,7 +719,7 @@ class abstract_mandate(orm.AbstractModel):
                                   [('id',
                                     'in',
                                     [mandate[0] for mandate
-                                                 in cr.fetchall()])],
+                                     in cr.fetchall()])],
                                   context=context)
 
         if mandate_ids:
@@ -757,37 +760,37 @@ class abstract_candidature(orm.AbstractModel):
                                   readonly=True,
                                   track_visibility='onchange',),
         'selection_committee_id': fields.many2one(
-                                        'abstract.selection.committee',
-                                        string='Selection Committee',
-                                        required=True,
-                                        select=True,
-                                        track_visibility='onchange'),
+            'abstract.selection.committee',
+            string='Selection Committee',
+            required=True,
+            select=True,
+            track_visibility='onchange'),
         'mandate_start_date': fields.related(
-                                     'selection_committee_id',
-                                     'mandate_start_date',
-                                     string='Mandate Start Date',
-                                     type='date',
-                                     store=_mandate_start_date_store_trigger),
+            'selection_committee_id',
+            'mandate_start_date',
+            string='Mandate Start Date',
+            type='date',
+            store=_mandate_start_date_store_trigger),
         'mandate_category_id': fields.related(
-                                      'selection_committee_id',
-                                      'mandate_category_id',
-                                      string='Mandate Category',
-                                      type='many2one',
-                                      relation="mandate.category",
-                                      store=_mandate_category_store_trigger),
+            'selection_committee_id',
+            'mandate_category_id',
+            string='Mandate Category',
+            type='many2one',
+            relation="mandate.category",
+            store=_mandate_category_store_trigger),
         'designation_int_assembly_id': fields.related(
-                                  'selection_committee_id',
-                                  'designation_int_assembly_id',
-                                  string='Designation Assembly',
-                                  type='many2one',
-                                  relation="int.assembly",
-                                  store=_designation_assembly_store_trigger),
+            'selection_committee_id',
+            'designation_int_assembly_id',
+            string='Designation Assembly',
+            type='many2one',
+            relation="int.assembly",
+            store=_designation_assembly_store_trigger),
         'is_selection_committee_active': fields.related(
-                                    'selection_committee_id',
-                                    'active',
-                                    string='Is Selection Committee Active?',
-                                    type='boolean',
-                                    store=False),
+            'selection_committee_id',
+            'active',
+            string='Is Selection Committee Active?',
+            type='boolean',
+            store=False),
         'mandate_ids': fields.one2many(_mandate_model,
                                        'candidature_id',
                                        'Abstract Mandates',
@@ -840,12 +843,12 @@ class abstract_candidature(orm.AbstractModel):
         if ('partner_name' not in vals) or\
            ('partner_name' in vals and not vals['partner_name']):
             vals['partner_name'] = self.onchange_partner_id(
-                                                    cr,
-                                                    uid,
-                                                    False,
-                                                    vals['partner_id'],
-                                                    context
-                                                    )['value']['partner_name']
+                cr,
+                uid,
+                False,
+                vals['partner_id'],
+                context
+            )['value']['partner_name']
 
         res = super(abstract_candidature, self).create(cr,
                                                        uid,
@@ -864,9 +867,8 @@ class abstract_candidature(orm.AbstractModel):
 
         for candidature in self.browse(cr, uid, ids, context=context):
             display_name = u'{name} ({mandate_category})'.format(
-                       name=candidature.partner_name\
-                            or candidature.partner_id.name,
-                       mandate_category=candidature.mandate_category_id.name)
+                name=candidature.partner_name or candidature.partner_id.name,
+                mandate_category=candidature.mandate_category_id.name)
             res.append((candidature['id'], display_name))
         return res
 
@@ -882,12 +884,12 @@ class abstract_candidature(orm.AbstractModel):
                                                                 name)],
                                                               context=context)
             category_ids = self.pool.get('mandate.category').search(
-                                                            cr,
-                                                            uid,
-                                                            [('name',
-                                                              operator,
-                                                              name)],
-                                                            context=context)
+                cr,
+                uid,
+                [('name',
+                  operator,
+                  name)],
+                context=context)
             ids = self.search(cr, uid, ['|',
                                         '|',
                                         ('partner_name', operator, name),
@@ -917,10 +919,9 @@ class abstract_candidature(orm.AbstractModel):
         partner = partner_model.browse(cr, uid, partner_id, context)
 
         res['value'] = dict(
-                        partner_name=partner_model.build_name(
-                                                        partner,
-                                                        capitalize_mode=True)\
-                                                        or False,)
+            partner_name=partner_model.build_name(
+                partner,
+                capitalize_mode=True) or False)
         return res
 
     def button_create_mandate(self, cr, uid, ids, context=None):
@@ -931,10 +932,10 @@ class abstract_candidature(orm.AbstractModel):
                                                               context)
 
         return self.pool.get(self._mandate_model).display_object_in_form_view(
-                                                            cr,
-                                                            uid,
-                                                            mandate_id,
-                                                            context=context)
+            cr,
+            uid,
+            mandate_id,
+            context=context)
 
     def create_mandate_from_candidature(self, cr, uid, candidature_id,
                                         context=None):
@@ -960,15 +961,15 @@ class abstract_candidature(orm.AbstractModel):
 
         if mandate_values:
             committee_data = committee_pool.read(
-                                 cr,
-                                 uid,
-                                 candidature_data['selection_committee_id'][0],
-                                 ['mandate_start_date',
-                                  'mandate_deadline_date'],
-                                 context=context)
+                cr,
+                uid,
+                candidature_data['selection_committee_id'][0],
+                ['mandate_start_date',
+                 'mandate_deadline_date'],
+                context=context)
             mandate_values['start_date'] = committee_data['mandate_start_date']
             mandate_values['deadline_date'] =\
-                                        committee_data['mandate_deadline_date']
+                committee_data['mandate_deadline_date']
             mandate_values['candidature_id'] = candidature_data['id']
             res = mandate_pool.create(cr, uid, mandate_values, context)
         return res

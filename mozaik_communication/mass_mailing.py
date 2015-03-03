@@ -23,41 +23,49 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
+from openerp.osv import orm
 from openerp.tools.translate import _
-import openerp.tools as tools
-from openerp.tools import SUPERUSER_ID
 
 
 class MailMailStats(orm.Model):
 
     _inherit = 'mail.mail.statistics'
 
-    def set_bounced(self, cr, uid, ids=None, mail_mail_ids=None, mail_message_ids=None, context=None):
+    def set_bounced(self, cr, uid, ids=None, mail_mail_ids=None,
+                    mail_message_ids=None, context=None):
         """
         ===========
         set_bounced
-        This overload is made to spread the bounce counter to the email_coordinate.
+        This overload is made to spread the bounce counter to the
+        email_coordinate.
         ===========
         Only work for message that have `email.coordinate` as model
         """
-        res_ids = super(MailMailStats, self).set_bounced(cr, uid, ids=ids, mail_mail_ids=mail_mail_ids, mail_message_ids=mail_message_ids, context=context)
+        res_ids = super(MailMailStats, self).set_bounced(
+            cr, uid, ids=ids, mail_mail_ids=mail_mail_ids,
+            mail_message_ids=mail_message_ids, context=context)
         for stat in self.browse(cr, uid, res_ids, context=context):
             if stat.model == 'email.coordinate' and stat.res_id:
                 active_ids = [stat.res_id]
             else:
-                email_key = self.pool.get(stat.model).get_relation_column_name(cr, uid, 'email.coordinate', context=context)
+                stat_model = self.pool[stat.model]
+                email_key = stat_model.get_relation_column_name(
+                    cr, uid, 'email.coordinate', context=context)
                 if email_key:
-                    active_ids = [self.pool.get(stat.model).read(cr, uid, stat.res_id, [email_key], context=context)[email_key][0]]
+                    vals = stat_model.read(
+                        cr, uid, stat.res_id, [email_key], context=context)
+                    active_ids = [vals[email_key][0]]
 
             if active_ids:
                 ctx = context.copy()
                 ctx['active_ids'] = active_ids
-                wiz_id = self.pool['bounce.editor'].create(cr, uid, {'increase': 1,
-                                                                     'model': 'email.coordinate',
-                                                                     'description': _('Invalid Email Address'),
-                                                                      }, context=context)
-                self.pool['bounce.editor'].update_bounce_datas(cr, uid, [wiz_id], context=ctx)
+                wiz_id = self.pool['bounce.editor'].create(
+                    cr, uid, {'increase': 1,
+                              'model': 'email.coordinate',
+                              'description': _('Invalid Email Address'),
+                              }, context=context)
+                self.pool['bounce.editor'].update_bounce_datas(
+                    cr, uid, [wiz_id], context=ctx)
         return res_ids
 
 

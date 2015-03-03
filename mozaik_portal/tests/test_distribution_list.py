@@ -44,9 +44,6 @@ class test_distribution_list(common.TransactionCase):
         cr, uid, context = self.cr, self.uid, {}
         dst_model_id = self.registry('ir.model').search(
             self.cr, self.uid, [('model', '=', 'res.partner')])[0]
-        vals = {
-            'name': '%s' % uuid4(),
-        }
         partner_id = self.dl_obj._get_partner(cr, uid, context=context)
         vals = {
             'name': '%s' % uuid4(),
