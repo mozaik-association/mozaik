@@ -23,10 +23,3 @@
 #
 ##############################################################################
 from . import test_partner_relation_category
-
-fast_suite = [
-]
-
-checks = [
-    test_partner_relation_category,
-]

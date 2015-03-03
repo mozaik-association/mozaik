@@ -22,26 +22,12 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.addons.mozaik_mandate.tests import\
-    test_sta_mandate, \
-    test_int_mandate, \
-    test_ext_mandate, \
-    test_mandate, \
-    test_copy_mandate_wizard, \
-    test_electoral_results_wizard,\
-    test_import_candidatures_wizard,\
-    test_update_mandate_end_date_wizard
 
-fast_suite = [
-]
-
-checks = [
-    test_mandate,
-    test_sta_mandate,
-    test_int_mandate,
-    test_ext_mandate,
-    test_copy_mandate_wizard,
-    test_electoral_results_wizard,
-    test_import_candidatures_wizard,
-    test_update_mandate_end_date_wizard
-]
+from . import test_sta_mandate
+from . import test_int_mandate
+from . import test_ext_mandate
+from . import test_mandate
+from . import test_copy_mandate_wizard
+from . import test_electoral_results_wizard
+from . import test_import_candidatures_wizard
+from . import test_update_mandate_end_date_wizard

@@ -23,10 +23,3 @@
 #
 ##############################################################################
 from . import test_structure
-
-fast_suite = [
-]
-
-checks = [
-    test_structure,
-]
