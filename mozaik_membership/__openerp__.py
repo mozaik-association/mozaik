@@ -72,6 +72,7 @@ local zip, default instance otherwise. This field is added to all views
         'wizard/generate_reference.xml',
         'wizard/pass_former_member.xml',
         'report/waiting_member_report_view.xml',
+        'views/structure_view.xml',
     ],
     'qweb': [
     ],

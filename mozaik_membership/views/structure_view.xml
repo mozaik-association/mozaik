@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="abstract_instance_form_view" model="ir.ui.view">
+            <field name="name">int.instance.form (mozaik_membership)</field>
+            <field name="model">int.instance</field>
+            <field name="inherit_id" ref="mozaik_structure.abstract_instance_form_view" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_inline oe_stat_button" icon="fa-users"
+                        type="action" name="%(mozaik_person.natural_res_partner_action)d"
+                        context="{'search_default_membership_state': True}"
+                        attrs="{'invisible':[('id','=', False)]}">
+                        <field name="member_count" widget="statinfo" />
+                    </button>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

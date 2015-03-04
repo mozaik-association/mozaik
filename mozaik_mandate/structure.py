@@ -22,6 +22,8 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp import fields as new_fields
+from openerp import api
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT,\
@@ -184,3 +186,100 @@ class ext_assembly(orm.Model):
             'Selection Committees',
             domain=[('active', '=', False)]),
     }
+
+
+class int_instance(orm.Model):
+
+    _inherit = 'int.instance'
+
+    @api.multi
+    def _get_model_ids(self, model):
+        """
+        Get all ids for a given model that are linked to an designation
+        assembly for the current instance
+        :type model: char
+        :param model: model is the name of the model to make the search
+        :rtype: [integer]
+        :rparam: list of ids for the model `model`.
+        """
+        self.ensure_one()
+        assembly_obj = self.env['int.assembly']
+        model_obj = self.env[model]
+        domain = [
+            ('instance_id', '=', self.id),
+            ('is_designation_assembly', '=', True)
+        ]
+        assembly_ids =\
+            [assembly.id for assembly in assembly_obj.search(domain)]
+        domain = [
+            ('designation_int_assembly_id', 'in', assembly_ids),
+        ]
+        res_ids =\
+            [object_ids.id for object_ids in model_obj.search(domain)]
+        return res_ids
+
+    @api.multi
+    def get_model_action(self):
+        """
+        return an action for a specific model contains into the context
+        """
+        self.ensure_one()
+        context = self.env.context
+        action =\
+            context.get('action') and context.get('action').split('.') or []
+        model = context.get('model')
+        if not model or not len(action) == 2:
+            raise Warning(
+                _('A model and an action for this model are required for '
+                  'this operation'))
+
+        module = action[0]
+        action_name = action[1]
+        res_ids = self._get_model_ids(model)
+        domain = [('id', '=', res_ids)]
+
+        # get model's action to update its domain
+        action = self.env['ir.actions.act_window'].for_xml_id(
+            module, action_name, context=context)
+        ctx = action.get('context') and eval(action['context']) or {}
+        ctx.update({
+            'domain': domain,
+        })
+        action['context'] = str(ctx)
+        return action
+
+    def _compute_cand_mandate_count(self):
+        """
+        This method will set the value for
+        * sta_mandate_count
+        * sta_candidature_count
+        * ext_mandate_count
+        * int_mandate_count
+        """
+        values = {}
+        for int_instance in self:
+            values[int_instance] = {
+                'sta_mandate_count':
+                    len(int_instance._get_model_ids('sta.mandate')),
+                'sta_candidature_count':
+                    len(int_instance._get_model_ids('sta.candidature')),
+                'ext_mandate_count':
+                    len(int_instance._get_model_ids('ext.mandate')),
+                'int_mandate_count':
+                    len(int_instance._get_model_ids('int.mandate')),
+            }
+        for instance, vals in values.iteritems():
+            instance.write(vals)
+
+    sta_mandate_count = new_fields.Integer(
+        compute=_compute_cand_mandate_count, type='integer',
+        string='State Mandates')
+    sta_candidature_count = new_fields.Integer(
+        compute=_compute_cand_mandate_count, type='integer',
+        string='State Candidatures')
+    ext_mandate_count = new_fields.Integer(
+        compute=_compute_cand_mandate_count, type='integer',
+        string='External Mandates')
+    int_mandate_count = new_fields.Integer(
+        compute=_compute_cand_mandate_count, type='integer',
+        string='Internal Mandates')
