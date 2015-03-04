@@ -71,17 +71,17 @@ class int_instance(orm.Model):
 
     _inherit = 'int.instance'
 
+    @api.one
     def _compute_member_count(self):
         partner_obj = self.env['res.partner']
-        for int_instance in self:
-            domain = [
-                ('int_instance_id', '=', int_instance.id),
-                ('is_company', '=', False)
-            ]
-            int_instance.member_count = partner_obj.search_count(domain)
+        domain = [
+            ('int_instance_id', '=', self.id),
+            ('is_company', '=', False)
+        ]
+        int_instance.member_count = partner_obj.search_count(domain)
 
     member_count = fields.Integer(
-        compute=_compute_member_count, type='integer', string='Members')
+        compute='_compute_member_count', type='integer', string='Members')
 
 # orm methods
 

@@ -248,6 +248,7 @@ class int_instance(orm.Model):
         action['context'] = str(ctx)
         return action
 
+    @api.one
     def _compute_cand_mandate_count(self):
         """
         This method will set the value for
@@ -256,30 +257,27 @@ class int_instance(orm.Model):
         * ext_mandate_count
         * int_mandate_count
         """
-        values = {}
-        for int_instance in self:
-            values[int_instance] = {
-                'sta_mandate_count':
-                    len(int_instance._get_model_ids('sta.mandate')),
-                'sta_candidature_count':
-                    len(int_instance._get_model_ids('sta.candidature')),
-                'ext_mandate_count':
-                    len(int_instance._get_model_ids('ext.mandate')),
-                'int_mandate_count':
-                    len(int_instance._get_model_ids('int.mandate')),
-            }
-        for instance, vals in values.iteritems():
-            instance.write(vals)
+        vals = {
+            'sta_mandate_count':
+                len(self._get_model_ids('sta.mandate')),
+            'sta_candidature_count':
+                len(self._get_model_ids('sta.candidature')),
+            'ext_mandate_count':
+                len(self._get_model_ids('ext.mandate')),
+            'int_mandate_count':
+                len(self._get_model_ids('int.mandate')),
+        }
+        self.write(vals)
 
     sta_mandate_count = new_fields.Integer(
-        compute=_compute_cand_mandate_count, type='integer',
+        compute='_compute_cand_mandate_count', type='integer',
         string='State Mandates')
     sta_candidature_count = new_fields.Integer(
-        compute=_compute_cand_mandate_count, type='integer',
+        compute='_compute_cand_mandate_count', type='integer',
         string='State Candidatures')
     ext_mandate_count = new_fields.Integer(
-        compute=_compute_cand_mandate_count, type='integer',
+        compute='_compute_cand_mandate_count', type='integer',
         string='External Mandates')
     int_mandate_count = new_fields.Integer(
-        compute=_compute_cand_mandate_count, type='integer',
+        compute='_compute_cand_mandate_count', type='integer',
         string='Internal Mandates')
