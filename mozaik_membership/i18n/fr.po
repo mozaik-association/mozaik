@@ -1505,3 +1505,23 @@ msgstr "⇒ Précaution à prendre"
 msgid "⇒ Reset"
 msgstr "⇒ Réinitialiser"
 
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+#: field:membership.request,change_ids:0
+msgid "Changes"
+msgstr "Changements"
+
+#. module: mozaik_membership
+#: field:membership.request.change,old_value:0
+msgid "Old Value"
+msgstr "Value actuelle"
+
+#. module: mozaik_membership
+#: field:membership.request.change,new_value:0
+msgid "New Value"
+msgstr "Nouvelle valeur"
+
+#. module: mozaik_membership
+#: field:membership.request.change,field_name:0
+msgid "Field Name"
+msgstr "Champ"

@@ -53,6 +53,7 @@ class test_membership(SharedSetupTransactionCase):
         self.partner_obj = self.registry['res.partner']
 
         self.mro = self.registry('membership.request')
+        self.mrco = self.registry('membership.request.change')
         self.mrs = self.registry('membership.state')
 
         self.rec_partner = self.browse_ref(
@@ -213,3 +214,53 @@ class test_membership(SharedSetupTransactionCase):
                                           context=context)
         self.assertEqual(code, uniq_code_membership.code,
                          "Code should be %s" % code)
+
+    def test_track_changes(self):
+        '''
+            Test to valid tracks changes method to detect differences
+            between modification request and partner data
+        '''
+        cr, uid, context = self.cr, self.uid, {}
+
+        request = self.rec_mr_update
+
+        def get_changes():
+            changes = {}
+            for change in request.change_ids:
+                changes[change.field_name] = (change.old_value,
+                                              change.new_value)
+            return changes
+
+        changes = get_changes()
+        self.assertIn('Firstname', changes)
+        self.assertIn('Mobile', changes)
+        self.assertIn('Gender', changes)
+        self.assertIn('Email', changes)
+        self.assertIn('Birth Date', changes)
+
+        self.assertEquals(changes['Firstname'][0], 'Pauline')
+        self.assertEquals(changes['Firstname'][1], 'Paulinne')
+        self.assertFalse(changes['Mobile'][0])
+        self.assertEquals(changes['Mobile'][1], '+32 475 45 12 32')
+        self.assertFalse(changes['Gender'][0])
+        self.assertEquals(changes['Gender'][1], 'Female')
+        self.assertFalse(changes['Email'][0])
+        self.assertEquals(changes['Email'][1], 'pauline_marois@gmail.com')
+        self.assertFalse(changes['Birth Date'][0])
+        self.assertEquals(changes['Birth Date'][1], '1949-03-29')
+
+        address_id = request.partner_id.postal_coordinate_id.address_id.id
+
+        self.registry['address.address'].write(cr, uid, address_id,
+                                               {'address_local_zip_id': False,
+                                                'street_man': 'Street Sample',
+                                                'town_man': 'Test Valley'},
+                                               context=context)
+        changes = get_changes()
+        self.assertIn('City', changes)
+        self.assertIn('Reference Street', changes)
+        self.assertEquals(changes['City'][0], 'Test Valley')
+        self.assertEquals(changes['City'][1], 'Oreye')
+        self.assertEquals(changes['Reference Street'][0], 'Street Sample')
+        self.assertEquals(changes['Reference Street'][1],
+                          u'Rue Louis Maréchal')

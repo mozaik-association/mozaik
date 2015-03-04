@@ -26,6 +26,7 @@ from uuid import uuid4, uuid1
 from datetime import date
 from collections import OrderedDict
 from contextlib import contextmanager
+from operator import attrgetter
 
 from openerp.tools import logging
 from openerp.osv import orm, fields
@@ -89,9 +90,275 @@ class membership_request(orm.Model):
         vals.pop('local_zip', None)
         vals.pop('country_code', None)
 
+    def _get_tracked_fields(self):
+        '''
+            This method return a list of tuple defining which fields
+            must create a change record.
+            Tuple is structured like:
+             - sequence: n° of sequence of the change, it respect the display
+                         order on the screen view
+             - field name: field name on view
+             - request path: path to the field value from the request object
+             - partner_path: path to the field value from the partner object
+             - label: label to be able to ignore comparison
+        '''
+        partner_address_path = 'postal_coordinate_id.address_id'
+        return [
+            (
+                1,
+                'lastname',
+                'lastname',
+                'lastname',
+                ''
+            ),
+            (
+                2,
+                'firstname',
+                'firstname',
+                'firstname',
+                ''
+            ),
+            (
+                3,
+                'birth_date',
+                'birth_date',
+                'birth_date',
+                ''
+            ),
+            (
+                4,
+                'phone',
+                'phone',
+                'fix_coordinate_id.phone_id.name',
+                ''
+            ),
+            (
+                5,
+                'gender',
+                'gender',
+                'gender',
+                ''
+            ),
+            (
+                6,
+                'mobile',
+                'mobile',
+                'mobile_coordinate_id.phone_id.name',
+                ''
+            ),
+            (
+                7,
+                'email',
+                'email',
+                'email_coordinate_id.email',
+                ''
+            ),
+            (
+                8,
+                'country_id',
+                'country_id.display_name',
+                partner_address_path + '.country_id.display_name',
+                ''
+            ),
+            # address_local_zip_id set on request AND on partner
+            (
+                9,
+                'address_local_zip_id',
+                'address_local_zip_id.display_name',
+                partner_address_path + '.address_local_zip_id.display_name',
+                'ZIP_REQUEST_PARTNER'
+            ),
+            # address_local_zip_id set on request AND not on partner
+            (
+                9,
+                'address_local_zip_id',
+                'address_local_zip_id.local_zip',
+                partner_address_path + '.zip_man',
+                'ZIP_REQUEST_NO_PARTNER'),
+            (
+                9,
+                'address_local_zip_id',
+                'address_local_zip_id.town',
+                partner_address_path + '.town_man',
+                'ZIP_REQUEST_NO_PARTNER'
+            ),
+            # address_local_zip_id not set on request but on partner
+            (
+                9,
+                'zip_man',
+                'zip_man',
+                partner_address_path + '.address_local_zip_id.local_zip',
+                'ZIP_NO_REQUEST_PARTNER'
+            ),
+            (
+                9,
+                'town_man',
+                'town_man',
+                partner_address_path + '.address_local_zip_id.town',
+                'ZIP_NO_REQUEST_PARTNER'
+            ),
+            # address_local_zip_id not set on request and not on partner
+            (
+                9,
+                'zip_man',
+                'zip_man',
+                partner_address_path + '.zip_man',
+                'ZIP_NO_REQUEST_NO_PARTNER'),
+            (
+                9,
+                'town_man',
+                'town_man',
+                partner_address_path + '.town_man',
+                'ZIP_NO_REQUEST_NO_PARTNER'
+            ),
+            # address_local_street_id set on request AND on partner
+            (
+                10,
+                'address_local_street_id',
+                'address_local_street_id.display_name',
+                partner_address_path + '.address_local_street_id.display_name',
+                'STREET_REQUEST_PARTNER'
+            ),
+            # address_local_street_id set on request AND not on partner
+            (
+                10,
+                'address_local_street_id',
+                'address_local_street_id.display_name',
+                partner_address_path + '.street_man',
+                'ZIP_REQUEST_NO_PARTNER'
+            ),
+            # address_local_street_id not set on request but on partner
+            (
+                10,
+                'street_man',
+                'street_man',
+                partner_address_path + '.address_local_street_id.display_name',
+                'STREET_NO_REQUEST_PARTNER'
+            ),
+            # address_local_street_id not set on request and not partner
+            (
+                10,
+                'street_man',
+                'street_man',
+                partner_address_path + '.street_man',
+                'STREET_NO_REQUEST_NO_PARTNER'
+            ),
+            (
+                11,
+                'number',
+                'number',
+                partner_address_path + '.number',
+                ''
+            ),
+            (
+                12,
+                'street2',
+                'street2',
+                partner_address_path + '.street2',
+                ''
+            ),
+            (
+                13,
+                'box',
+                'box',
+                partner_address_path + '.box',
+                ''
+            ),
+            (
+                14,
+                'sequence',
+                'sequence',
+                partner_address_path + '.sequence',
+                ''
+            ),
+        ]
+
+    def _clean_stored_changes(self, cr, uid, ids, context):
+        chg_obj = self.pool.get('membership.request.change')
+        chg_ids = chg_obj.search(cr, uid, [('membership_request_id',
+                                            'in',
+                                            ids)], context=context)
+        if chg_ids:
+            return chg_obj.unlink(cr, uid, chg_ids, context=context)
+
+        return False
+
+    def _get_labels_to_process(self, request):
+        label_path = []
+        partner_adr = request.partner_id.postal_coordinate_id.address_id
+        if (request.address_local_zip_id
+           and partner_adr.address_local_zip_id):
+            label_path.append('ZIP_REQUEST_PARTNER')
+        elif (request.address_local_zip_id
+              and not partner_adr.address_local_zip_id):
+            label_path.append('ZIP_REQUEST_NO_PARTNER')
+        elif (not request.address_local_zip_id
+              and partner_adr.address_local_zip_id):
+            label_path.append('ZIP_NO_REQUEST_PARTNER')
+        else:
+            label_path.append('ZIP_NO_REQUEST_NO_PARTNER')
+
+        if (request.address_local_street_id
+           and partner_adr.address_local_street_id):
+            label_path.append('STREET_REQUEST_PARTNER')
+        elif (request.address_local_street_id
+              and not partner_adr.address_local_street_id):
+            label_path.append('STREET_REQUEST_NO_PARTNER')
+        elif (not request.address_local_street_id
+              and partner_adr.address_local_street_id):
+            label_path.append('STREET_NO_REQUEST_PARTNER')
+        else:
+            label_path.append('STREET_NO_REQUEST_NO_PARTNER')
+        return label_path
+
+    def _get_changes(self, cr, uid, ids, name, arg, context=None):
+        tracked_fields = self._get_tracked_fields()
+        fields_def = self.fields_get(cr,
+                                     uid,
+                                     [elem[1] for elem in tracked_fields],
+                                     context=context)
+        res = {}
+        chg_obj = self.pool.get('membership.request.change')
+        self._clean_stored_changes(cr, uid, ids, context=context)
+
+        for request in self.browse(cr, uid, ids, context=context):
+            if not request.partner_id:
+                res[request.id] = False
+                continue
+            chg_ids = []
+            label_to_process = self._get_labels_to_process(request)
+
+            for element in tracked_fields:
+                seq, field, request_path, partner_path, label = element
+                if label and label not in label_to_process:
+                    continue
+                request_value = attrgetter(request_path)(request)
+                partner_value = attrgetter(partner_path)(request.partner_id)
+                field = fields_def[field]
+
+                if (request_value and request_value != partner_value):
+                    if 'selection' in field:
+                        selection = dict(field['selection'])
+                        request_value = selection.get(request_value)
+                        partner_value = selection.get(partner_value)
+                    vals = {
+                        'membership_request_id': request.id,
+                        'sequence': seq,
+                        'field_name': field['string'],
+                        'old_value': partner_value,
+                        'new_value': request_value,
+                    }
+                    chg_ids.append(chg_obj.create(cr,
+                                                  uid, vals, context=context))
+            res[request.id] = chg_ids
+        return res
+
     _columns = {
-        'identifier': fields.related('partner_id', 'identifier',
-                                     string='Identifier', type='integer'),
+        'identifier': fields.related('partner_id',
+                                     'identifier',
+                                     string='Identifier',
+                                     type='integer',
+                                     store=True),
         'lastname': fields.char('Lastname', required=True,
                                 track_visibility='onchange'),
         'firstname': fields.char('Firstname', track_visibility='onchange'),
@@ -180,6 +447,10 @@ class membership_request(orm.Model):
         'phone_id': fields.many2one('phone.phone',
                                     string='Phone',
                                     track_visibility='onchange'),
+        'change_ids': fields.function(_get_changes,
+                                      type='one2many',
+                                      relation="membership.request.change",
+                                      string='Changes', store=False),
     }
 
     _defaults = {
@@ -890,3 +1161,21 @@ class membership_request(orm.Model):
                            '%s %s' % (record.lastname, record.firstname)
             res.append((record['id'], display_name))
         return res
+
+
+class membership_request_change(orm.Model):
+    _name = 'membership.request.change'
+    _inherit = ['mozaik.abstract.model']
+    _description = 'Membership Request Change'
+    _order = 'sequence'
+
+    _columns = {
+        'membership_request_id': fields.many2one('membership.request',
+                                                 'Membership Request'),
+        "sequence": fields.integer('Sequence'),
+        'field_name': fields.char('Field Name'),
+        'old_value': fields.char('Old Value'),
+        'new_value': fields.char('New Value'),
+    }
+
+    _unicity_keys = 'N/A'
