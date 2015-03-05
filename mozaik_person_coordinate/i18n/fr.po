@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-20 18:59+0000\n"
-"PO-Revision-Date: 2014-10-20 18:59+0000\n"
+"POT-Creation-Date: 2015-03-05 19:03+0000\n"
+"PO-Revision-Date: 2015-03-05 19:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_person_coordinate
-#: code:addons\mozaik_person_coordinate\partner_relation.py:136
+#: code:addons/mozaik_person_coordinate/partner_relation.py:196
 #: constraint:partner.relation:0
 #, python-format
 msgid "A relation must associate two contacts and must exist in only one way!"
@@ -51,7 +51,7 @@ msgid "All Relations, expired or not"
 msgstr "Toutes les relations, expirées ou non"
 
 #. module: mozaik_person_coordinate
-#: code:addons\mozaik_person_coordinate\partner_relation.py:164
+#: code:addons/mozaik_person_coordinate/partner_relation.py:233
 #, python-format
 msgid "An active relation cannot be duplicated!"
 msgstr "Une relation active ne peut être dupliquée !"
@@ -109,7 +109,7 @@ msgid "Email Coordinate"
 msgstr "Coordonnée électronique"
 
 #. module: mozaik_person_coordinate
-#: code:addons\mozaik_person_coordinate\partner_relation.py:164
+#: code:addons/mozaik_person_coordinate/partner_relation.py:232
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -265,7 +265,7 @@ msgid "More Info"
 msgstr "Plus d'info"
 
 #. module: mozaik_person_coordinate
-#: code:addons\mozaik_person_coordinate\report\duplicates_analysis_report.py:153
+#: code:addons/mozaik_person_coordinate/report/duplicates_analysis_report.py:201
 #, python-format
 msgid "Mozaik: Duplicates Summary - %s"
 msgstr "Mozaik: Relevé des doublons - %s"
@@ -320,21 +320,12 @@ msgid "Partner Object"
 msgstr "Partenaire objet"
 
 #. module: mozaik_person_coordinate
-#: model:ir.model,name:mozaik_person_coordinate.model_partner_relation
-msgid "Partner Relation"
-msgstr "Relation de partenaire"
-
-#. module: mozaik_person_coordinate
-#: model:ir.model,name:mozaik_person_coordinate.model_partner_relation_category
-msgid "Partner Relation Category"
-msgstr "Catégorie de relation de partenaire"
-
-#. module: mozaik_person_coordinate
 #: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
 msgid "Partner Subject"
 msgstr "Partenaire sujet"
 
 #. module: mozaik_person_coordinate
+#: model:ir.model,name:mozaik_person_coordinate.model_partner_relation
 #: view:partner.relation:mozaik_person_coordinate.partner_relation_object_form_view
 #: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_form_view
 msgid "Partners Relation"
@@ -347,6 +338,7 @@ msgid "Partners Relation Categories"
 msgstr "Catégories de relation de partenaires"
 
 #. module: mozaik_person_coordinate
+#: model:ir.model,name:mozaik_person_coordinate.model_partner_relation_category
 #: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_form_view
 msgid "Partners Relation Category"
 msgstr "Catégorie de relation de partenaires"
@@ -445,7 +437,7 @@ msgid "The start date must be anterior to the end date."
 msgstr "La date de début doit être antérieure à la date de fin."
 
 #. module: mozaik_person_coordinate
-#: code:addons\mozaik_person_coordinate\report\duplicates_analysis_report.py:149
+#: code:addons/mozaik_person_coordinate/report/duplicates_analysis_report.py:197
 #, python-format
 msgid "There are no duplicates"
 msgstr "Aucun doublon"
@@ -471,7 +463,7 @@ msgid "To > ..."
 msgstr "Jusqu'à > ..."
 
 #. module: mozaik_person_coordinate
-#: code:addons\mozaik_person_coordinate\report\duplicates_analysis_report.py:144
+#: code:addons/mozaik_person_coordinate/report/duplicates_analysis_report.py:178
 #, python-format
 msgid "Unknown birth date"
 msgstr "Date de naissance inconnue"
@@ -509,5 +501,5 @@ msgstr "Injoignable"
 #. module: mozaik_person_coordinate
 #: view:res.partner:mozaik_person_coordinate.view_partner_tree
 msgid "grey:active==False;red:is_duplicate_detected==True;darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP' or email>='N/A' and email<'N/B' or address>='N/A' and address<'N/B'"
-msgstr "grey:active==False;red:is_duplicate_detected==True;darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP' or email>='N/A' and email<'N/B' or address>='N/A' and address<'N/B'"
+msgstr ""
 

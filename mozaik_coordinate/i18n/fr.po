@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-09 01:47+0000\n"
-"PO-Revision-Date: 2015-01-09 01:47+0000\n"
+"POT-Creation-Date: 2015-03-05 18:43+0000\n"
+"PO-Revision-Date: 2015-03-05 18:43+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgid "Allowed Duplicates"
 msgstr "Doublons autorisés"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\abstract_coordinate.py:277
+#: code:addons/mozaik_coordinate/abstract_coordinate.py:301
 #, python-format
 msgid "An active coordinate cannot be duplicated!"
 msgstr "Une coordonnée active ne peut être dupliquée !"
@@ -58,7 +58,7 @@ msgid "Apply"
 msgstr "Appliquer"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:109
+#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:113
 #, python-format
 msgid "At least one partner is required to change its main coordinate!"
 msgstr "Au moins un partenanire est requis pour changer sa coordonnée principale !"
@@ -179,15 +179,15 @@ msgid "Email Coordinates"
 msgstr "Coordonnées électroniques"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\abstract_coordinate.py:270
-#: code:addons\mozaik_coordinate\abstract_coordinate.py:277
-#: code:addons\mozaik_coordinate\wizard\bounce_editor.py:62
-#: code:addons\mozaik_coordinate\wizard\bounce_editor.py:65
-#: code:addons\mozaik_coordinate\wizard\bounce_editor.py:71
-#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:64
-#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:76
-#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:97
-#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:109
+#: code:addons/mozaik_coordinate/abstract_coordinate.py:292
+#: code:addons/mozaik_coordinate/abstract_coordinate.py:301
+#: code:addons/mozaik_coordinate/wizard/bounce_editor.py:62
+#: code:addons/mozaik_coordinate/wizard/bounce_editor.py:67
+#: code:addons/mozaik_coordinate/wizard/bounce_editor.py:79
+#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:63
+#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:76
+#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:98
+#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:112
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -214,7 +214,7 @@ msgid "Expired Coordinates"
 msgstr "Coordonnées expirées"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\wizard\export_csv.py:231
+#: code:addons/mozaik_coordinate/wizard/export_csv.py:230
 #: view:export.csv:mozaik_coordinate.export_csv_wizard
 #, python-format
 msgid "Export CSV"
@@ -374,13 +374,13 @@ msgid "Messages and communication history"
 msgstr "Historique des messages et communications"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\wizard\bounce_editor.py:65
+#: code:addons/mozaik_coordinate/wizard/bounce_editor.py:68
 #, python-format
 msgid "Missing active_ids in context!"
 msgstr "\"active_ids\" manquant dans le contexte !"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\wizard\bounce_editor.py:62
+#: code:addons/mozaik_coordinate/wizard/bounce_editor.py:63
 #, python-format
 msgid "Missing active_model in context!"
 msgstr "\"active_model\" manquant dans le contexte !"
@@ -422,7 +422,7 @@ msgid "Phone Coordinates"
 msgstr "Coordonnées téléphoniques"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:76
+#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:77
 #, python-format
 msgid "Please select only one coordinate!"
 msgstr "Veuillez sélectionner une seule coordonnée!"
@@ -455,14 +455,14 @@ msgid "Summary"
 msgstr "Résumé"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:64
-#: code:addons\mozaik_coordinate\wizard\change_main_coordinate.py:97
+#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:63
+#: code:addons/mozaik_coordinate/wizard/change_main_coordinate.py:98
 #, python-format
 msgid "Target model not specified!"
 msgstr "Modèle destination non spécifié !"
 
 #. module: mozaik_coordinate
-#: code:addons\mozaik_coordinate\wizard\bounce_editor.py:71
+#: code:addons/mozaik_coordinate/wizard/bounce_editor.py:80
 #, python-format
 msgid "This action is not allowed on inactive documents!"
 msgstr "Cette action n'est pas admise sur les documents inactifs !"

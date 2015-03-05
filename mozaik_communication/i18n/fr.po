@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-06 19:50+0000\n"
-"PO-Revision-Date: 2015-02-06 19:50+0000\n"
+"POT-Creation-Date: 2015-03-04 19:10+0000\n"
+"PO-Revision-Date: 2015-03-04 19:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,14 +16,14 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/postal_mail.py:80
-#: code:addons/mozaik_communication/postal_mail.py:202
+#: code:addons/mozaik_communication/postal_mail.py:84
+#: code:addons/mozaik_communication/postal_mail.py:216
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/postal_mail.py:187
+#: code:addons/mozaik_communication/postal_mail.py:199
 #, python-format
 msgid "A postal mail log cannot be copied when linked to a postal mailing!"
 msgstr "Un courrier postal ne peut être dupliqué s'il est lié à un envoi postal de masse !"
@@ -451,9 +451,9 @@ msgid "Employee"
 msgstr "Employé"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/event.py:80
-#: code:addons/mozaik_communication/postal_mail.py:187
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:198
+#: code:addons/mozaik_communication/event.py:77
+#: code:addons/mozaik_communication/postal_mail.py:198
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:220
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -532,19 +532,19 @@ msgid "Expired Registrations"
 msgstr "Inscriptions expirées"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:307
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:356
 #, python-format
 msgid "Export CSV"
-msgstr "Exportation CSV""
+msgstr "Exportation CSV"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:264
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:309
 #, python-format
 msgid "Export PDF"
 msgstr "Exportation PDF"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:324
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:376
 #, python-format
 msgid "Export VCF"
 msgstr "Exportation VCF"
@@ -813,7 +813,7 @@ msgid "Internal Power Level"
 msgstr "Niveau de pouvoir interne"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/mass_mailing.py:61
+#: code:addons/mozaik_communication/mass_mailing.py:65
 #, python-format
 msgid "Invalid Email Address"
 msgstr "Adresse électronique invalide"
@@ -1171,7 +1171,7 @@ msgid "Number"
 msgstr "Numéro"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/event.py:80
+#: code:addons/mozaik_communication/event.py:77
 #, python-format
 msgid "Number of seats is not reached"
 msgstr "Nombre of places non atteint"
@@ -1460,7 +1460,7 @@ msgid "Relation Category"
 msgstr "Catégorie de relation"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:206
+#: code:addons/mozaik_communication/distribution_list.py:203
 #, python-format
 msgid "Result of %s Filter without coordinate"
 msgstr "Résultat du filtre %s (injoignables)"
@@ -1630,7 +1630,7 @@ msgid "Templates"
 msgstr "Modèles"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:198
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:220
 #, python-format
 msgid "There are no recipients"
 msgstr "Aucun destinataire"
@@ -1834,9 +1834,44 @@ msgstr "Année"
 msgid "Zip Code"
 msgstr "Code postal"
 
+#. module: mozaik_communication
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+msgid "mozaik_base.mozaik_res_groups_user"
+msgstr ""
+
+#. module: mozaik_communication
+#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_form
+msgid "mozaik_base.res_groups_developper"
+msgstr ""
+
+#. module: mozaik_communication
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+msgid "not context.get('is_developper')"
+msgstr ""
 
 #. module: mozaik_communication
 #: view:add.registration:mozaik_communication.add_registration_wizard
 #: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
 msgid "or"
 msgstr "ou"
+
+#. module: mozaik_communication
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+msgid "{'invisible':[('active', '=', False)]}"
+msgstr ""
+
+#. module: mozaik_communication
+#: view:event.registration:mozaik_communication.view_event_registration_form
+msgid "{'readonly': [('id', '!=', False)]}"
+msgstr ""
+
+#. module: mozaik_communication
+#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_form
+msgid "{'required': [('mailing_model', '!=','email.coordinate')],'invisible': [('mailing_model', '=','email.coordinate')]}"
+msgstr ""
+
+#. module: mozaik_communication
+#: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_distribution_list_form
+msgid "{'required': [('mailing_model', '=','email.coordinate')],'invisible': [('mailing_model', '!=','email.coordinate')]}"
+msgstr ""
+
