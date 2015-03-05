@@ -68,7 +68,9 @@ class ResPartner(models.Model):
         """
         Remove accents and upper-case
         """
-        self.technical_name = format_value(self.display_name).replace(' ', '')
+        if self.display_name:
+            self.technical_name =\
+                format_value(self.display_name).replace(' ', '')
 
     technical_name = new_fields.Char(
         string='Technical Name', compute='_compute_technical_name', store=True)

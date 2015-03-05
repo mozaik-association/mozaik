@@ -90,7 +90,7 @@ class membership_request(orm.Model):
         vals.pop('local_zip', None)
         vals.pop('country_code', None)
 
-    def _get_tracked_fields(self):
+    def _get_membership_tracked_fields(self):
         '''
             This method return a list of tuple defining which fields
             must create a change record.
@@ -312,7 +312,7 @@ class membership_request(orm.Model):
         return label_path
 
     def _get_changes(self, cr, uid, ids, name, arg, context=None):
-        tracked_fields = self._get_tracked_fields()
+        tracked_fields = self._get_membership_tracked_fields()
         fields_def = self.fields_get(cr,
                                      uid,
                                      [elem[1] for elem in tracked_fields],
