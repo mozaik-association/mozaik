@@ -24,11 +24,13 @@
 ##############################################################################
 import unicodedata
 
+from openerp import models, api
+from openerp import fields as new_fields
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 
 from openerp.addons.base.res import res_partner
-
+from openerp.addons.mozaik_base.base_tools import format_value
 
 # Constants
 AVAILABLE_GENDERS = [
@@ -54,6 +56,22 @@ AVAILABLE_TONGUES = [
 ]
 
 available_tongues = dict(AVAILABLE_TONGUES)
+
+
+class ResPartner(models.Model):
+
+    _inherit = 'res.partner'
+
+    @api.one
+    @api.depends('display_name')
+    def _compute_technical_name(self):
+        """
+        Remove accents and upper-case
+        """
+        self.technical_name = format_value(self.display_name).replace(' ', '')
+
+    technical_name = new_fields.Char(
+        string='Technical Name', compute='_compute_technical_name', store=True)
 
 
 class res_partner(orm.Model):

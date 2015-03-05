@@ -210,9 +210,9 @@ class test_res_partner(SharedSetupTransactionCase):
                                   'usual_lastname': 'BOND',
                                   },
                                  context=context)
+        f_read = ['name', 'display_name', 'printable_name', 'technical_name']
         vals = partner_model.read(
-            cr, uid, [marc_id], [
-                'name', 'display_name', 'printable_name'], context=context)[0]
+            cr, uid, [marc_id], f_read, context=context)[0]
         self.assertEqual(
             vals['name'], '%s %s' %
             ('FLEMING', 'Ian'),
@@ -224,6 +224,11 @@ class test_res_partner(SharedSetupTransactionCase):
              'James',
              vals['name']),
             'Update all partner names fails with wrong display_name')
+        self.assertEquals(
+            vals['technical_name'],
+            '%s' % 'bondjamesflemingian',
+            'Technical name should be equals to display_name without uppercase'
+            ' and without accents and spaces or special characters')
         self.assertEqual(
             vals['printable_name'], '%s %s' %
             ('James', 'BOND'),

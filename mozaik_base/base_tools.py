@@ -22,10 +22,29 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
+import string
+import unicodedata
 import re
 
 from openerp.tools.mail import single_email_re
+
+
+CHARS_TO_ESCAPE = re.compile(r'[%s\s]+' % re.escape(string.punctuation))
+
+
+def format_value(value):
+    """
+    :type value: char
+    :rtype: char
+    :rparam: upper to lower case for value stripping all special characters
+             to one space
+    """
+    if value:
+        value = ''.join(c for c in unicodedata.normalize('NFD', u'%s' % value)
+                        if unicodedata.category(c) != 'Mn')
+        value = re.sub(CHARS_TO_ESCAPE, ' ', value)
+        value = value.lower().strip()
+    return value
 
 
 def format_email(value):
