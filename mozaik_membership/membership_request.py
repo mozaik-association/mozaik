@@ -286,26 +286,25 @@ class membership_request(orm.Model):
     def _get_labels_to_process(self, request):
         label_path = []
         partner_adr = request.partner_id.postal_coordinate_id.address_id
-        if (request.address_local_zip_id
-           and partner_adr.address_local_zip_id):
+        if (request.address_local_zip_id and partner_adr.address_local_zip_id):
             label_path.append('ZIP_REQUEST_PARTNER')
-        elif (request.address_local_zip_id
-              and not partner_adr.address_local_zip_id):
+        elif (request.address_local_zip_id and not
+              partner_adr.address_local_zip_id):
             label_path.append('ZIP_REQUEST_NO_PARTNER')
-        elif (not request.address_local_zip_id
-              and partner_adr.address_local_zip_id):
+        elif (not request.address_local_zip_id and
+              partner_adr.address_local_zip_id):
             label_path.append('ZIP_NO_REQUEST_PARTNER')
         else:
             label_path.append('ZIP_NO_REQUEST_NO_PARTNER')
 
-        if (request.address_local_street_id
-           and partner_adr.address_local_street_id):
+        if (request.address_local_street_id and
+                partner_adr.address_local_street_id):
             label_path.append('STREET_REQUEST_PARTNER')
-        elif (request.address_local_street_id
-              and not partner_adr.address_local_street_id):
+        elif (request.address_local_street_id and not
+              partner_adr.address_local_street_id):
             label_path.append('STREET_REQUEST_NO_PARTNER')
-        elif (not request.address_local_street_id
-              and partner_adr.address_local_street_id):
+        elif (not request.address_local_street_id and
+              partner_adr.address_local_street_id):
             label_path.append('STREET_NO_REQUEST_PARTNER')
         else:
             label_path.append('STREET_NO_REQUEST_NO_PARTNER')
@@ -313,10 +312,8 @@ class membership_request(orm.Model):
 
     def _get_changes(self, cr, uid, ids, name, arg, context=None):
         tracked_fields = self._get_membership_tracked_fields()
-        fields_def = self.fields_get(cr,
-                                     uid,
-                                     [elem[1] for elem in tracked_fields],
-                                     context=context)
+        fields_def = self.fields_get(
+            cr, uid, [elem[1] for elem in tracked_fields], context=context)
         res = {}
         chg_obj = self.pool.get('membership.request.change')
         self._clean_stored_changes(cr, uid, ids, context=context)
