@@ -77,6 +77,7 @@ class membership_request(orm.Model):
     _name = 'membership.request'
     _inherit = ['mozaik.abstract.model']
     _description = 'Membership Request'
+    _inactive_cascade = True
 
     def _act_membership_state(
             self, cr, uid, membership_code, partner_id, context=None):
@@ -878,11 +879,13 @@ class membership_request(orm.Model):
         email = vals.get('email', False)
         mobile = vals.get('mobile', False)
         phone = vals.get('phone', False)
+        address_id = vals.get('address_id', False)
         address_local_street_id = vals.get('address_local_street_id', False)
         address_local_zip_id = vals.get('address_local_zip_id', False)
         number = vals.get('number', False)
         box = vals.get('box', False)
         town_man = vals.get('town_man', False)
+        country_id = vals.get('country_id', False)
         zip_man = vals.get('zip_man', False)
         street_man = vals.get('street_man', False)
 
@@ -900,16 +903,12 @@ class membership_request(orm.Model):
             zids = self.pool['address.local.zip'].search(
                 cr, uid, domain, context=context)
             if zids:
-                vals['country_id'] = \
+                country_id = \
                     self.pool['res.country']._country_default_get(
                         cr, uid, COUNTRY_CODE, context=context)
-                vals['address_local_zip_id'] = zids[0]
-                vals.pop('zip_man', False)
-                vals.pop('town_man', False)
+                address_local_zip_id = zids[0]
                 town_man = False
                 zip_man = False
-
-        country_id = vals.get('country_id', False)
 
         if not birth_date:
             birth_date = self.get_birth_date(cr, uid, day, month, year,
@@ -936,6 +935,9 @@ class membership_request(orm.Model):
             cr, uid, address_local_street_id, address_local_zip_id, number,
             box, town_man, street_man, zip_man, country_id=country_id,
             context=context)
+        address_id = address_id or self.onchange_technical_name(
+            cr, uid, False, technical_name,
+            context=context)['value']['address_id']
         int_instance_id =\
             self.get_int_instance_id(
                 cr, uid, address_local_zip_id, context=context)
@@ -972,6 +974,13 @@ class membership_request(orm.Model):
 
             'mobile_id': mobile_id,
             'phone_id': phone_id,
+
+            'address_id': address_id,
+            'address_local_zip_id': address_local_zip_id,
+            'country_id': country_id,
+            'zip_man': zip_man,
+            'town_man': town_man,
+
             'technical_name': technical_name,
         })
 
@@ -1191,8 +1200,8 @@ class membership_request_change(orm.Model):
     _order = 'sequence'
 
     _columns = {
-        'membership_request_id': fields.many2one('membership.request',
-                                                 'Membership Request'),
+        'membership_request_id': fields.many2one(
+            'membership.request', 'Membership Request', ondelete='cascade'),
         "sequence": fields.integer('Sequence'),
         'field_name': fields.char('Field Name'),
         'old_value': fields.char('Old Value'),

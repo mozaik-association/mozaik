@@ -91,9 +91,13 @@ class test_membership(SharedSetupTransactionCase):
         all_values = {
             'street':
             self.rec_postal.address_id.address_local_street_id.local_street,
-            'zip_code':
+            'zip_man':
             self.rec_postal.address_id.address_local_zip_id.local_zip,
-            'town': self.rec_postal.address_id.address_local_zip_id.town,
+            'address_local_street_id':
+            self.rec_postal.address_id.address_local_street_id.id,
+            'box': self.rec_postal.address_id.box,
+            'number': self.rec_postal.address_id.number,
+            'town_man': self.rec_postal.address_id.address_local_zip_id.town,
         }
         all_values.update(base_values)
 
@@ -103,6 +107,9 @@ class test_membership(SharedSetupTransactionCase):
                          self.rec_phone.phone_id.id,
                          'Should have the same phone that the phone of the \
                          phone coordinate')
+        self.assertEqual(output_values.get('address_id', False),
+                         self.rec_postal.address_id.id,
+                         'Should be the same address')
         self.assertEqual(output_values.get('partner_id', False),
                          self.rec_partner.id, 'Should have the same partner')
         self.assertEqual(
