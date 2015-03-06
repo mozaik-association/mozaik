@@ -54,6 +54,13 @@
                             string="See Distribution List Result" type="object" icon="gtk-redo"
                             groups="mozaik_base.res_groups_base" />
                 </xpath>
+                
+                <xpath expr="//button[@name='get_action_from_domains']" position="after">
+                    <button name="get_all_without_coordinates"
+                            attrs="{'invisible':[('active', '=', False)]}"
+                            string="See Distribution List Result without Coordinates" type="object" icon="gtk-stop"
+                            groups="mozaik_base.res_groups_base" />
+                </xpath>
 
             </field>
         </record>

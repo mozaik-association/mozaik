@@ -139,6 +139,31 @@ class distribution_list(orm.Model):
         self._fields['note'].track_visibility = 'onchange'
         pass
 
+    def get_all_without_coordinates(self, cr, uid, ids, context=None):
+        """
+        Return all ids corresponding to filters but without any coordinate
+
+        :rtype: {}
+        :rparam: dictionary to launch an ir.actions.act_window
+        """
+        context = {} if context is None else context
+        context['active_test'] = False
+        dl = self.browse(cr, uid, ids, context=context)[0]
+        res_ids = self.get_ids_from_distribution_list(cr, uid, ids,
+                                                      context=context)
+        domain = "[['id', 'in', %s]"\
+                 ",['active', '=', False]]" % res_ids
+        return {'type': 'ir.actions.act_window',
+                'name': _(' Result of ' + dl.name + ' Distribution List'),
+                'view_type': 'form',
+                'view_mode': 'tree, form',
+                'res_model': dl.dst_model_id.model,
+                'view_id': False,
+                'views': [(False, 'tree')],
+                'domain': domain,
+                'target': 'new',
+                }
+
 
 class distribution_list_line(orm.Model):
 
@@ -203,9 +228,6 @@ class distribution_list_line(orm.Model):
         res['name'] = _('Result of %s Filter without coordinate')\
             % current_filter.name
         no_coord_domain = [('active', '=', False)]
-        if current_filter.src_model_id.model == 'res.partner':
-            no_coord_domain = [('email', '=', False),
-                               ('address', '=', False)]
         domain = eval(res['domain'])
         domain.extend(no_coord_domain)
         res['domain'] = str(domain)

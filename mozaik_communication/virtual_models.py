@@ -51,13 +51,11 @@ class virtual_target(orm.Model):
         cr.execute("""
         create or replace view virtual_target as (
         SELECT *,
-            concat(postal_coordinate_id ,'/', email_coordinate_id) as id
+            concat(partner_id, '/',
+                   postal_coordinate_id ,'/', email_coordinate_id) as id
         FROM
             virtual_master_partner
-
-        WHERE email_coordinate_id IS NOT NULL
-        OR postal_coordinate_id IS NOT NULL
-            )""")
+        )""")
 
 
 class virtual_partner_involvement(orm.Model):
@@ -118,7 +116,7 @@ class virtual_partner_involvement(orm.Model):
         create or replace view virtual_partner_involvement as (
         SELECT
             pi.id as id,
-            concat(pc.id, '/', e.id) as common_id,
+            concat(pi.partner_id, '/', pc.id, '/', e.id) as common_id,
             pi.partner_id as partner_id,
             pic.id as involvement_category_id,
             p.int_instance_id as int_instance_id,
@@ -238,7 +236,7 @@ class virtual_partner_relation(orm.Model):
         create or replace view virtual_partner_relation as (
         SELECT
             r.id as id,
-            concat(
+            concat(r.subject_partner_id, '/',
                    CASE
                        WHEN r.postal_coordinate_id IS NULL
                        THEN pc.id
@@ -373,7 +371,7 @@ class virtual_partner_instance(orm.Model):
         create or replace view virtual_partner_instance as (
         SELECT
             concat(p.id, '/', pc.id, '/', e.id) as id,
-            concat(pc.id, '/', e.id) as common_id,
+            concat(p.id, '/', pc.id, '/', e.id) as common_id,
             p.id as partner_id,
             p.int_instance_id as int_instance_id,
             e.id as email_coordinate_id,
@@ -498,7 +496,7 @@ class virtual_partner_mandate(orm.Model):
         cr.execute("""
         create or replace view virtual_partner_mandate as (
         SELECT 'int.mandate' AS model,
-            concat(
+            concat(mandate.partner_id, '/',
                 CASE
                     WHEN mandate.postal_coordinate_id IS NULL
                     THEN pc.id
@@ -562,7 +560,7 @@ class virtual_partner_mandate(orm.Model):
         UNION
 
         SELECT 'sta.mandate' AS model,
-            concat(
+            concat(mandate.partner_id, '/',
                 CASE
                     WHEN mandate.postal_coordinate_id IS NULL
                     THEN pc.id
@@ -626,7 +624,7 @@ class virtual_partner_mandate(orm.Model):
         UNION
 
         SELECT 'ext.mandate' AS model,
-            concat(
+            concat(mandate.partner_id, '/',
                 CASE
                     WHEN mandate.postal_coordinate_id IS NULL
                     THEN pc.id
@@ -754,7 +752,8 @@ class virtual_partner_candidature(orm.Model):
         cr.execute("""
     create or replace view virtual_partner_candidature as (
     SELECT 'int.candidature' AS model,
-        concat(pc.id,
+        concat(candidature.partner_id, '/',
+            pc.id,
             '/',
             e.id) as common_id,
         candidature.id as id,
@@ -800,7 +799,8 @@ class virtual_partner_candidature(orm.Model):
     UNION
 
     SELECT 'sta.candidature' AS model,
-        concat(pc.id,
+        concat(candidature.partner_id, '/',
+            pc.id,
             '/',
             e.id) as common_id,
         candidature.unique_id as id,
@@ -848,7 +848,8 @@ class virtual_partner_candidature(orm.Model):
     UNION
 
     SELECT 'ext.candidature' AS model,
-        concat(pc.id,
+        concat(candidature.partner_id, '/',
+            pc.id,
             '/',
             e.id) as common_id,
         candidature.unique_id as id,
@@ -957,8 +958,8 @@ class virtual_assembly_instance(orm.Model):
         create or replace view virtual_assembly_instance as (
         SELECT
             'int.assembly' as model,
-            concat(pc.id, '/', e.id) as id,
-            concat(pc.id, '/', e.id) as common_id,
+            concat(assembly.partner_id, '/', pc.id, '/', e.id) as id,
+            concat(assembly.partner_id, '/', pc.id, '/', e.id) as common_id,
             assembly.partner_id as partner_id,
             i.id as int_instance_id,
 
@@ -1002,8 +1003,8 @@ class virtual_assembly_instance(orm.Model):
 
         SELECT
             'sta.assembly' as model,
-            concat(pc.id, '/', e.id) as id,
-            concat(pc.id, '/', e.id) as common_id,
+            concat(assembly.partner_id, '/', pc.id, '/', e.id) as id,
+            concat(assembly.partner_id, '/', pc.id, '/', e.id) as common_id,
             assembly.partner_id as partner_id,
             i.int_instance_id as int_instance_id,
 
@@ -1047,8 +1048,8 @@ class virtual_assembly_instance(orm.Model):
 
         SELECT
             'ext.assembly' as model,
-            concat(pc.id, '/', e.id) as id,
-            concat(pc.id, '/', e.id) as common_id,
+            concat(assembly.partner_id, '/', pc.id, '/', e.id) as id,
+            concat(assembly.partner_id, '/', pc.id, '/', e.id) as common_id,
             assembly.partner_id as partner_id,
             assembly.instance_id as int_instance_id,
 
@@ -1181,7 +1182,7 @@ class virtual_partner_retrocession(orm.Model):
                     THEN e.id
                     ELSE m.email_coordinate_id
                 END) as id,
-            concat(
+            concat(p.id, '/',
                 CASE
                     WHEN m.postal_coordinate_id IS NULL
                     THEN pc.id
@@ -1263,7 +1264,7 @@ class virtual_partner_retrocession(orm.Model):
                     THEN e.id
                     ELSE m.email_coordinate_id
                 END) as id,
-            concat(
+            concat(p.id, '/',
                 CASE
                     WHEN m.postal_coordinate_id IS NULL
                     THEN pc.id
@@ -1405,8 +1406,8 @@ class virtual_partner_membership(orm.Model):
         cr.execute("""
         create or replace view virtual_partner_membership as (
         SELECT
-            concat(pc.id, '/', e.id) as id,
-            concat(pc.id, '/', e.id) as common_id,
+            concat(p.id, '/', pc.id, '/', e.id) as id,
+            concat(p.id, '/', pc.id, '/', e.id) as common_id,
             p.id as partner_id,
             p.int_instance_id as int_instance_id,
             p.del_doc_date as del_doc_date,
@@ -1523,7 +1524,7 @@ class virtual_partner_event(orm.Model):
         create or replace view virtual_partner_event as (
         SELECT
             er.id as id,
-            concat(pc.id, '/', e.id) as common_id,
+            concat(p.id, '/', pc.id, '/', e.id) as common_id,
             p.id as partner_id,
             p.int_instance_id as int_instance_id,
             e.id as email_coordinate_id,
