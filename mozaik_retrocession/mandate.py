@@ -340,6 +340,9 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         return res
 
 # public methods
+    def need_mail_for_payment_reference(self, cr, uid, mandate_id,
+                                        context=None):
+        return True
 
     def generate_mandate_reference(self, cr, uid, mandate_id, context=None):
         """
@@ -388,6 +391,9 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         ctx.pop('active_id', None)
         ctx.pop('active_ids', None)
         for mandate in self.browse(cr, uid, ids, context=ctx):
+            if not self.need_mail_for_payment_reference(
+               cr, uid, mandate.id, context=ctx):
+                continue
             composer = self.pool['mail.compose.message']
             mail_composer_vals = {'parent_id': False,
                                   'use_active_domain': False,
