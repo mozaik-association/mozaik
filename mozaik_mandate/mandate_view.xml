@@ -598,10 +598,6 @@
                     <attribute name="context">{'default_type': 'sta'}</attribute>
                 </xpath>
 
-                <xpath expr="//field[@name='deadline_date']" position="attributes">
-                    <attribute name="attrs">{'readonly': [('id','!=', False)]}</attribute>
-                </xpath>
-
                 <xpath expr="//group[@name='data']" position="after">
                     <notebook>
                         <page name="index" string="Indexation">
