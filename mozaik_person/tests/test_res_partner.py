@@ -83,7 +83,7 @@ class test_res_partner(SharedSetupTransactionCase):
             cr,
             uid,
             [fgtb_id],
-            ['is_company'],
+            ['is_company', 'identifier'],
             context=context)[0]
         self.assertTrue(
             vals['is_company'],
@@ -92,7 +92,7 @@ class test_res_partner(SharedSetupTransactionCase):
             cr,
             uid,
             [marc_id],
-            ['is_company'],
+            ['is_company', 'identifier'],
             context=context)[0]
         self.assertFalse(
             vals['is_company'],
@@ -102,36 +102,35 @@ class test_res_partner(SharedSetupTransactionCase):
 
         # 1/ name
         self.partner_model.write(
-            cr, uid, [fgtb_id], {
-                'name': 'newname', 'acronym': False}, context=context)
-        vals = partner_model.read(
-            cr, uid, [fgtb_id], [
-                'name', 'display_name'], context=context)[0]
+            cr, uid, [fgtb_id],
+            {'name': 'newname', 'acronym': False}, context=context)
+        rec = partner_model.browse(
+            cr, uid, [fgtb_id], context=context)[0]
         self.assertEqual(
-            vals['name'],
-            'newname',
+            rec.name, 'newname',
             'Update partner name fails with wrong name')
         self.assertEqual(
-            vals['display_name'],
-            vals['name'],
+            rec.select_name,
+            rec.name,
+            'Update partner name fails with wrong select_name')
+        self.assertEqual(
+            rec.display_name, '%s-%s' % (rec.identifier, rec.select_name),
             'Update partner name fails with wrong display_name')
 
         # 2/ acronym
         self.partner_model.write(
             cr, uid, [fgtb_id], {
                 'acronym': 'abbrev'}, context=context)
-        vals = partner_model.read(
-            cr, uid, [fgtb_id], [
-                'name', 'display_name'], context=context)[0]
+        rec = partner_model.browse(
+            cr, uid, [fgtb_id], context=context)[0]
         self.assertEqual(
-            vals['name'],
-            'newname',
+            rec.name, 'newname',
             'Update partner name fails with wrong name')
         self.assertEqual(
-            vals['display_name'],
-            "%s (%s)" %
-            (vals['name'],
-             'abbrev'),
+            rec.select_name, '%s (%s)' % (rec.name, 'abbrev'),
+            'Update partner name fails with wrong select_name')
+        self.assertEqual(
+            rec.display_name, '%s-%s' % (rec.identifier, rec.select_name),
             'Update partner name fails with wrong display_name')
 
         # B/ Change various names of a contact
@@ -146,113 +145,98 @@ class test_res_partner(SharedSetupTransactionCase):
                                   'usual_lastname': False,
                                   },
                                  context=context)
-        vals = partner_model.read(
-            cr, uid, [marc_id], [
-                'name', 'display_name'], context=context)[0]
+        rec = partner_model.browse(
+            cr, uid, [marc_id], context=context)[0]
         self.assertEqual(
-            vals['name'],
-            '%s %s' %
-            ('last',
-             'first'),
+            rec.name, '%s %s' % ('last', 'first'),
             'Update both partner first and last names fails with wrong name')
         self.assertEqual(
-            vals['display_name'],
-            vals['name'],
-            'Update both partner first and last names fails with wrong'
-            ' display_name')
+            rec.select_name, rec.name,
+            'Update both partner first and last names fails with wrong '
+            'select_name')
+        self.assertEqual(
+            rec.display_name, "%s-%s" % (rec.identifier, rec.select_name),
+            'Update both partner first and last names fails with wrong '
+            'display_name')
 
         # 2/ usual_firstname
-        self.partner_model.write(cr, uid, [marc_id],
-                                 {'usual_firstname': 'ufirst'},
-                                 context=context)
-        vals = partner_model.read(
-            cr, uid, [marc_id], [
-                'name', 'display_name'], context=context)[0]
+        self.partner_model.write(
+            cr, uid, [marc_id],
+            {'usual_firstname': 'ufirst'}, context=context)
+        rec = partner_model.browse(
+            cr, uid, [marc_id], context=context)[0]
         self.assertEqual(
-            vals['name'], '%s %s' %
-            ('last', 'first'), 'Update partner usual_firstname fails with '
-            'wrong name')
+            rec.name, '%s %s' % ('last', 'first'),
+            'Update partner usual_firstname fails with wrong name')
         self.assertEqual(
-            vals['display_name'],
-            '%s %s (%s)' %
-            ('last',
-             'ufirst',
-             vals['name']),
-            'Update partner usual_firstname fails with wrong display_name')
+            rec.select_name,
+            '%s %s (%s)' % ('last', 'ufirst', rec.name),
+            'Update partner usual_firstname fails with wrong select_name')
+        self.assertEqual(
+            rec.display_name,
+            '%s-%s' % (rec.identifier, rec.select_name),
+            'Update partner usual_firstname fails with wrong select_name')
 
         # 3/ usual_lastname
         self.partner_model.write(
-            cr, uid, [marc_id], {
-                'usual_firstname': False, 'usual_lastname': 'ulast'},
+            cr, uid, [marc_id],
+            {'usual_firstname': False, 'usual_lastname': 'ulast'},
             context=context)
-        vals = partner_model.read(
-            cr, uid, [marc_id], [
-                'name', 'display_name'], context=context)[0]
+        rec = partner_model.browse(
+            cr, uid, [marc_id], context=context)[0]
         self.assertEqual(
-            vals['name'], '%s %s' %
-            ('last', 'first'),
+            rec.name, '%s %s' % ('last', 'first'),
             'Update partner usual_lastname fails with wrong name')
         self.assertEqual(
-            vals['display_name'],
-            '%s %s (%s)' %
-            ('ulast',
-             'first',
-             vals['name']),
+            rec.select_name,
+            '%s %s (%s)' % ('ulast', 'first', rec.name),
+            'Update partner usual_lastname fails with wrong select_name')
+        self.assertEqual(
+            rec.display_name,
+            '%s-%s' % (rec.identifier, rec.select_name),
             'Update partner usual_lastname fails with wrong display_name')
 
         # 4/ all
-        self.partner_model.write(cr,
-                                 uid,
-                                 [marc_id],
-                                 {'firstname': 'Ian',
-                                  'lastname': 'FLEMING',
-                                  'usual_firstname': 'James',
-                                  'usual_lastname': 'BOND',
-                                  },
-                                 context=context)
-        f_read = ['name', 'display_name', 'printable_name', 'technical_name']
-        vals = partner_model.read(
-            cr, uid, [marc_id], f_read, context=context)[0]
+        vals = {
+            'firstname': 'Ian', 'lastname': 'FLEMING',
+            'usual_firstname': 'James', 'usual_lastname': 'BOND', 
+        }
+        self.partner_model.write(
+            cr, uid, [marc_id], vals, context=context)
+        rec = partner_model.browse(
+            cr, uid, [marc_id], context=context)[0]
         self.assertEqual(
-            vals['name'], '%s %s' %
-            ('FLEMING', 'Ian'),
+            rec.name, '%s %s' % ('FLEMING', 'Ian'),
             'Update all partner names fails with wrong name')
         self.assertEqual(
-            vals['display_name'],
-            '%s %s (%s)' %
-            ('BOND',
-             'James',
-             vals['name']),
+            rec.select_name,
+            '%s %s (%s)' % ('BOND', 'James', rec.name),
+            'Update all partner names fails with wrong select_name')
+        self.assertEqual(
+            rec.display_name,
+            '%s-%s' % (rec.identifier, rec.select_name),
             'Update all partner names fails with wrong display_name')
         self.assertEquals(
-            vals['technical_name'],
-            '%s' % 'bondjamesflemingian',
+            rec.technical_name, 'bondjamesflemingian',
             'Technical name should be equals to display_name without uppercase'
-            ' and without accents and spaces or special characters')
+            ' and without accents nor spaces nor special characters')
         self.assertEqual(
-            vals['printable_name'], '%s %s' %
-            ('James', 'BOND'),
+            rec.printable_name, '%s %s' % ('James', 'BOND'),
             'Update all partner names fails with wrong printable_name')
 
         # 5/ Test the capitalize mode
-        self.partner_model.write(cr,
-                                 uid,
-                                 [marc_id],
-                                 {'firstname': u'Carmelitá',
-                                  'lastname': u'de la Sígnora di Spaña',
-                                  'usual_firstname': False,
-                                  'usual_lastname': False,
-                                  },
-                                 context=context)
+        vals = {
+            'firstname': u'Carmelitá', 'lastname': u'de la Sígnora di Spaña',
+            'usual_firstname': False, 'usual_lastname': False,
+        }
+        self.partner_model.write(
+            cr, uid, [marc_id], vals, context=context)
         p = self.partner_model.browse(cr, uid, [marc_id])[0]
         name = self.partner_model.build_name(
-            p,
-            reverse_mode=True,
-            capitalize_mode=True)
+            p, reverse_mode=True, capitalize_mode=True)
         self.assertEqual(
-            name,
-            u'Carmelitá de la SÍGNORA di SPAÑA',
-            'Update all partner names fails with wrong name')
+            name, u'Carmelitá de la SÍGNORA di SPAÑA',
+            'Update all partner names fails with wrong capitalized name')
 
     def test_res_partner_duplicates(self):
         """
