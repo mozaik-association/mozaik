@@ -35,7 +35,7 @@ from openerp.tools import SUPERUSER_ID
 
 from openerp.addons.mozaik_base.base_tools import format_email, check_email
 from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
-
+from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
 
 _logger = logging.getLogger(__name__)
 
@@ -886,15 +886,33 @@ class membership_request(orm.Model):
         number = vals.get('number', False)
         box = vals.get('box', False)
         town_man = vals.get('town_man', False)
-        street_man = vals.get('street_man', False)
         zip_man = vals.get('zip_man', False)
+        street_man = vals.get('street_man', False)
 
-        country_id = vals.get('country_id', False)
         partner_id = vals.get('partner_id', False)
 
         membership_state_id = vals.get('membership_state_id', False)
         request_type = vals.get('request_type', False)
         result_type_id = vals.get('result_type_id', False)
+
+        if zip_man and town_man:
+            domain = [
+                ('local_zip', '=', zip_man),
+                ('town', 'ilike', town_man),
+            ]
+            zids = self.pool['address.local.zip'].search(
+                cr, uid, domain, context=context)
+            if zids:
+                vals['country_id'] = \
+                    self.pool['res.country']._country_default_get(
+                        cr, uid, COUNTRY_CODE, context=context)
+                vals['address_local_zip_id'] = zids[0]
+                vals.pop('zip_man', False)
+                vals.pop('town_man', False)
+                town_man = False
+                zip_man = False
+
+        country_id = vals.get('country_id', False)
 
         if not birth_date:
             birth_date = self.get_birth_date(cr, uid, day, month, year,
@@ -921,7 +939,9 @@ class membership_request(orm.Model):
             cr, uid, address_local_street_id, address_local_zip_id, number,
             box, town_man, street_man, zip_man, country_id=country_id,
             context=context)
-
+        int_instance_id =\
+            self.get_int_instance_id(
+                cr, uid, address_local_zip_id, context=context)
         if partner_id:
             partner = self.pool['res.partner'].browse(cr, uid, partner_id,
                                                       context=context)
@@ -929,6 +949,9 @@ class membership_request(orm.Model):
                 partner.membership_state_id.id or False
             result_type_id = self.get_partner_preview(
                 cr, SUPERUSER_ID, request_type, partner.id, context=context)
+
+            if technical_name == EMPTY_ADDRESS:
+                int_instance_id = partner.int_instance_id.id
 
         # update vals dictionary because some inputs may have changed
         # (and new values too)
@@ -940,6 +963,7 @@ class membership_request(orm.Model):
 
             'membership_state_id': membership_state_id,
             'result_type_id': result_type_id,
+            'int_instance_id': int_instance_id,
 
             'day': day,
             'month': month,

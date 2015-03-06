@@ -77,7 +77,7 @@ class test_membership(SharedSetupTransactionCase):
         """
         cr, uid, context = self.cr, self.uid, {}
 
-        input_values = {
+        base_values = {
             'lastname': self.rec_partner.lastname,
             'firstname': self.rec_partner.firstname,
             'gender': self.rec_partner.gender,
@@ -86,23 +86,35 @@ class test_membership(SharedSetupTransactionCase):
             'year': 1985,
 
             'request_type': 's',
-            'street': self.rec_postal.address_id.address_local_street_id.
-                            local_street,
-            'zip_code': self.rec_postal.address_id.address_local_zip_id.
-                            local_zip,
-            'town': self.rec_postal.address_id.address_local_zip_id.town,
-
             'mobile': self.rec_phone.phone_id.name,
         }
+        all_values = {
+            'street':
+            self.rec_postal.address_id.address_local_street_id.local_street,
+            'zip_code':
+            self.rec_postal.address_id.address_local_zip_id.local_zip,
+            'town': self.rec_postal.address_id.address_local_zip_id.town,
+        }
+        all_values.update(base_values)
 
-        output_values = self.mro.pre_process(cr, uid, input_values,
-                                             context=context)
+        output_values = self.mro.pre_process(
+            cr, uid, all_values, context=context)
         self.assertEqual(output_values.get('mobile_id', False),
                          self.rec_phone.phone_id.id,
                          'Should have the same phone that the phone of the \
                          phone coordinate')
         self.assertEqual(output_values.get('partner_id', False),
                          self.rec_partner.id, 'Should have the same partner')
+        self.assertEqual(
+            output_values.get('int_instance_id', False),
+            self.rec_postal.address_id.address_local_zip_id.int_instance_id.id,
+            'Instance should be the instance of the address local zip')
+        output_values = self.mro.pre_process(
+            cr, uid, base_values, context=context)
+        self.assertEqual(
+            output_values.get('int_instance_id', False),
+            self.rec_partner.int_instance_id.id,
+            'Instance should be the instance of the partner')
 
     def test_get_address_id(self):
         cr, uid = self.cr, self.uid

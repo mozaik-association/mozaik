@@ -27,8 +27,6 @@ from openerp.tools import logging
 from openerp.osv import orm
 from openerp.tools import SUPERUSER_ID
 
-from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
-
 logger = logging.getLogger(__name__)
 
 
@@ -126,20 +124,6 @@ class custom_webservice(orm.Model):
             'interests': interest,
             'note': note,
         }
-        if zip_code and town:
-            domain = [
-                ('local_zip', '=', zip_code),
-                ('town', 'ilike', town),
-            ]
-            zids = self.pool['address.local.zip'].search(
-                cr, uid, domain, context=context)
-            if zids:
-                vals['country_id'] = \
-                    self.pool['res.country']._country_default_get(
-                        cr, uid, COUNTRY_CODE, context=context)
-                vals['address_local_zip_id'] = zids[0]
-                vals.pop('zip_man', False)
-                vals.pop('town_man', False)
         context['mode'] = 'ws'
         try:
             res = membership_request.create(cr, uid, vals, context=context)
