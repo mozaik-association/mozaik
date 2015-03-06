@@ -16,6 +16,9 @@
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expired Involvements" />
+                    <filter name="my_categories" string="My Categories"
+                        domain="[('partner_involvement_category_id.res_users_ids','ilike', uid)]"
+                        help="Involvements where I am into the owners of their categories" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]"
