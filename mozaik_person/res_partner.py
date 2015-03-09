@@ -24,11 +24,10 @@
 ##############################################################################
 import unicodedata
 
-from openerp import models, api, exceptions
+from openerp import models, api
 from openerp import fields as new_fields
 from openerp.osv import orm, fields, expression
 from openerp.tools.translate import _
-from openerp import SUPERUSER_ID
 
 from openerp.addons.base.res import res_partner
 from openerp.addons.mozaik_base.base_tools import format_value
