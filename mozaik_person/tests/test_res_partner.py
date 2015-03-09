@@ -199,7 +199,7 @@ class test_res_partner(SharedSetupTransactionCase):
         # 4/ all
         vals = {
             'firstname': 'Ian', 'lastname': 'FLEMING',
-            'usual_firstname': 'James', 'usual_lastname': 'BOND', 
+            'usual_firstname': 'James', 'usual_lastname': 'BOND',
         }
         self.partner_model.write(
             cr, uid, [marc_id], vals, context=context)
