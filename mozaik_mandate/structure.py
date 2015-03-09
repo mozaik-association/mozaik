@@ -236,16 +236,12 @@ class int_instance(orm.Model):
         module = action[0]
         action_name = action[1]
         res_ids = self._get_model_ids(model)
-        domain = [('id', '=', res_ids)]
+        domain = [('id', 'in', res_ids)]
 
         # get model's action to update its domain
         action = self.env['ir.actions.act_window'].for_xml_id(
-            module, action_name, context=context)
-        ctx = action.get('context') and eval(action['context']) or {}
-        ctx.update({
-            'domain': domain,
-        })
-        action['context'] = str(ctx)
+            module, action_name)
+        action['domain'] = domain
         return action
 
     @api.one
@@ -257,17 +253,11 @@ class int_instance(orm.Model):
         * ext_mandate_count
         * int_mandate_count
         """
-        vals = {
-            'sta_mandate_count':
-                len(self._get_model_ids('sta.mandate')),
-            'sta_candidature_count':
-                len(self._get_model_ids('sta.candidature')),
-            'ext_mandate_count':
-                len(self._get_model_ids('ext.mandate')),
-            'int_mandate_count':
-                len(self._get_model_ids('int.mandate')),
-        }
-        self.write(vals)
+        self.sta_candidature_count = len(
+            self._get_model_ids('sta.candidature'))
+        self.ext_mandate_count = len(self._get_model_ids('sta.mandate'))
+        self.int_mandate_count = len(self._get_model_ids('int.mandate'))
+        self.sta_mandate_count = len(self._get_model_ids('ext.mandate'))
 
     sta_mandate_count = new_fields.Integer(
         compute='_compute_cand_mandate_count', type='integer',
