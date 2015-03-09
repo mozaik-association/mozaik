@@ -296,12 +296,6 @@ class res_partner(orm.Model):
         ids = self.search(cr, user, domain, limit=limit, context=context)
         return self.name_get(cr, user, ids, context=context)
 
-    def check_credentials(self, cr, uid, password):
-        """ Override this method to plug additional authentication methods"""
-        res = self.search(cr, SUPERUSER_ID, [('id','=',uid),('password','=',password)], order='id')
-        if not res:
-            raise exceptions.AccessDenied()
-
     def copy_data(self, cr, uid, ids, default=None, context=None):
         """
         Do not copy o2m fields.
