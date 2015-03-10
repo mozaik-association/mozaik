@@ -49,10 +49,11 @@ class test_accounting_with_product(object):
 
     def setUp(self):
         super(test_accounting_with_product, self).setUp()
-        wiz_id = self.ref('%s.%s' % (self._module_ns, self._account_wizard))
-        self.registry('wizard.multi.charts.accounts').execute(self.cr,
-                                                              self.uid,
-                                                              [wiz_id])
+        if self._account_wizard:
+            wiz_id = self.ref(
+                '%s.%s' % (self._module_ns, self._account_wizard))
+            self.registry('wizard.multi.charts.accounts').auto_execute(
+                self.cr, self.uid, [wiz_id])
 
         self.bs_obj = self.registry('account.bank.statement')
         self.bsl_obj = self.registry('account.bank.statement.line')
