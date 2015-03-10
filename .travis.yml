@@ -16,12 +16,12 @@ install:
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - pip install ofxparse anybox.testing.openerp phonenumbers
   - travis_install_nightly
-  - git clone --depth=1 https://github.com/acsone/acsone-addons -b ${VERSION} $HOME/acsone-addons
+  - git clone https://github.com/acsone/acsone-addons -b ${VERSION} $HOME/acsone-addons
   - git clone --depth=1 https://github.com/OCA/web -b ${VERSION} $HOME/web
   - git clone --depth=1 https://github.com/OCA/server-tools -b ${VERSION} $HOME/server-tools
   - git clone --depth=1 https://github.com/OCA/connector -b ${VERSION} $HOME/connector
   - git clone --depth=1 https://github.com/OCA/partner-contact -b ${VERSION} $HOME/partner-contact
-  - cd $HOME/acsone-addons; git fetch --all; git merge origin/8.0-acc-installer-imprv-ola
+  - cd $HOME/acsone-addons; git merge origin/8.0-acc-installer-imprv-ola
 
 script:
   - travis_run_tests
