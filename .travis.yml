@@ -21,6 +21,7 @@ install:
   - git clone --depth=1 https://github.com/OCA/server-tools -b ${VERSION} $HOME/server-tools
   - git clone --depth=1 https://github.com/OCA/connector -b ${VERSION} $HOME/connector
   - git clone --depth=1 https://github.com/OCA/partner-contact -b ${VERSION} $HOME/partner-contact
+  - cd $HOME/acsone-addons; git merge remotes/origin/8.0-acc-installer-imprv-ola
 
 script:
   - travis_run_tests
