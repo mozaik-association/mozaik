@@ -324,16 +324,10 @@ class res_partner(orm.Model):
 
     def create(self, cr, uid, vals, context=None):
         """
-        =====
-        create
-        =====
         When create partner get identifier value from within attached sequence
         """
         need_identifier = True
-        if 'is_assembly' in vals and vals['is_assembly']:
-            need_identifier = False
-
-        if 'identifier' in vals and vals['identifier'] > 0:
+        if vals.get('is_assembly') or vals.get('identifier'):
             need_identifier = False
 
         if need_identifier:

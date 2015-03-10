@@ -1549,11 +1549,6 @@ msgid "or"
 msgstr "ou"
 
 #. module: mozaik_membership
-#: view:membership.request:mozaik_membership.membership_request_form_view
-msgid "to"
-msgstr "vers"
-
-#. module: mozaik_membership
 #: view:product.template:mozaik_membership.product_template_only_form_view
 msgid "{'invisible': ['|',('product_variant_count', '>', 1),('membership', '=', True)]}"
 msgstr ""

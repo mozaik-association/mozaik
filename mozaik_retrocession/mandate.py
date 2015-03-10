@@ -340,14 +340,24 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         return res
 
 # public methods
+
     def need_mail_for_payment_reference(self, cr, uid, mandate_id,
                                         context=None):
+        """
+        This method is intended to be overriden regarding
+        locale conventions.
+        It returns a boolean indicating whether a mail is send
+        to representative containing its mandate payment reference
+        Here is an arbitrary convention: True
+        """
         return True
 
     def generate_mandate_reference(self, cr, uid, mandate_id, context=None):
         """
         This method is intended to be overriden regarding
         locale conventions.
+        It builds the reference for payment (i.e. structured communication)
+        related to the mandate
         Here is an arbitrary convention: "RC: <mandate_unique_id>"
         """
         unique_id = self.read(

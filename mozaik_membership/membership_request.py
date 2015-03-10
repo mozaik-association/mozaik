@@ -79,17 +79,10 @@ class membership_request(orm.Model):
     _description = 'Membership Request'
     _inactive_cascade = True
 
-    def _act_membership_state(
-            self, cr, uid, membership_code, partner_id, context=None):
-        '''
-        Method to be overriding case of special behavior during a specific
-        membership status
-        '''
-        return
-
     def _pop_related(self, cr, uid, vals, context=None):
         vals.pop('local_zip', None)
         vals.pop('country_code', None)
+        vals.pop('identifier', None)
 
     def _get_membership_tracked_fields(self):
         '''
@@ -452,7 +445,7 @@ class membership_request(orm.Model):
 
     _defaults = {
         'is_update': False,
-        'state': 'draft'
+        'state': 'draft',
     }
 
 # constraints
@@ -560,7 +553,7 @@ class membership_request(orm.Model):
         return values
 
     def onchange_partner_id(self, cr, uid, ids, request_type, partner_id,
-                            context=None):
+                            technical_name, context=None):
         """
         Take current
             * membership_state_id
@@ -573,9 +566,11 @@ class membership_request(orm.Model):
         fields are similarly named
         """
         uid = SUPERUSER_ID
-        res_value = {'value': {}}
-        interests_ids = []
-        competencies_ids = []
+        res = {
+            'interests_m2m_ids': False,
+            'competencies_m2m_ids': False,
+            'identifier': False,
+        }
         if partner_id:
             res_partner_obj = self.pool['res.partner']
             partner = res_partner_obj.browse(cr, uid, partner_id,
@@ -583,30 +578,30 @@ class membership_request(orm.Model):
             # take current status of partner
             partner_status_id = partner.membership_state_id and \
                 partner.membership_state_id.id or False
-            interests_ids = partner.interests_m2m_ids and \
-                ([interest.id for interest in partner.interests_m2m_ids]) or \
+            interests_ids = [term.id for term in partner.interests_m2m_ids]
+            res['interests_m2m_ids'] = interests_ids and \
+                [[6, False, interests_ids]] or \
                 False
-            competencies_ids = partner.competencies_m2m_ids and \
-                ([competence.id for competence in partner.
-                  competencies_m2m_ids]) or False
+            competencies_ids = [trm.id for trm in partner.competencies_m2m_ids]
+            res['competencies_m2m_ids'] = competencies_ids and \
+                [[6, False, competencies_ids]] or \
+                False
+            res['identifier'] = partner.identifier
+
+            if technical_name == EMPTY_ADDRESS:
+                res['int_instance_id'] = partner.int_instance_id.id
         else:
             partner_status_id = self.pool['membership.state'].\
                 _state_default_get(cr, uid, context=context)
-        partner_data = partner_id and {} or {'lastname': '%s' % uuid4()}
         # (status,partner_id)
         result_type_id = self.get_partner_preview(
-            cr, uid, request_type, partner_id, partner_data,
-            context=context)
+            cr, uid, request_type, partner_id, context=context)
 
-        res_value['value'] = {
+        res.update({
             'membership_state_id': partner_status_id,
             'result_type_id': result_type_id,
-            'interests_m2m_ids': interests_ids and
-            [[6, False, interests_ids]] or interests_ids,
-            'competencies_m2m_ids': competencies_ids and
-            [[6, False, competencies_ids]] or competencies_ids,
-        }
-        return res_value
+        })
+        return {'value': res}
 
     def onchange_mobile(self, cr, uid, ids, mobile, context=None):
         mobile = self.get_format_phone_number(cr, uid, mobile, context=context)
@@ -654,7 +649,6 @@ class membership_request(orm.Model):
             uid,
             request_type,
             partner_id=False,
-            partner_datas=None,
             context=None):
         """
         Try to advancing workflow of partner
@@ -665,14 +659,9 @@ class membership_request(orm.Model):
         :param request_type: m or s (member or supporter)
         :type partner_id: integer
         :type partner_data: {}
-        :param partner_datas: if no partner id, use this to create a partner
-        :rtype: char
         :rparam: next status in partner's workflow depending on `request_type`
         """
         context = context or {}
-        partner_datas = partner_datas or {
-            'lastname': '%s' %
-            uuid4()}
 
         partner_obj = self.pool['res.partner']
 
@@ -688,6 +677,10 @@ class membership_request(orm.Model):
         try:
             ctx = context.copy().update({'tracking_disable': True})
             if not partner_id:
+                partner_datas = {
+                    'lastname': '%s' % uuid4(),
+                    'identifier': -1,
+                }
                 with self.protect_v8_cache(pffs):
                     # safe mode is here mandatory
                     partner_id = partner_obj.create(
@@ -890,9 +883,7 @@ class membership_request(orm.Model):
 
         partner_id = vals.get('partner_id', False)
 
-        membership_state_id = vals.get('membership_state_id', False)
         request_type = vals.get('request_type', False)
-        result_type_id = vals.get('result_type_id', False)
 
         if zip_man and town_man:
             domain = [
@@ -902,12 +893,13 @@ class membership_request(orm.Model):
             zids = self.pool['address.local.zip'].search(
                 cr, uid, domain, context=context)
             if zids:
-                country_id = \
-                    self.pool['res.country']._country_default_get(
-                        cr, uid, COUNTRY_CODE, context=context)
-                address_local_zip_id = zids[0]
-                town_man = False
-                zip_man = False
+                cnty_id = self.pool['res.country']._country_default_get(
+                    cr, uid, COUNTRY_CODE, context=context)
+                if not country_id or cnty_id == country_id:
+                    country_id = cnty_id
+                    address_local_zip_id = zids[0]
+                    town_man = False
+                    zip_man = False
 
         if not birth_date:
             birth_date = self.get_birth_date(cr, uid, day, month, year,
@@ -937,19 +929,13 @@ class membership_request(orm.Model):
         address_id = address_id or self.onchange_technical_name(
             cr, uid, False, technical_name,
             context=context)['value']['address_id']
-        int_instance_id =\
-            self.get_int_instance_id(
-                cr, uid, address_local_zip_id, context=context)
-        if partner_id:
-            partner = self.pool['res.partner'].browse(cr, uid, partner_id,
-                                                      context=context)
-            membership_state_id = partner.membership_state_id and \
-                partner.membership_state_id.id or False
-            result_type_id = self.get_partner_preview(
-                cr, SUPERUSER_ID, request_type, partner.id, context=context)
+        int_instance_id = self.get_int_instance_id(
+            cr, uid, address_local_zip_id, context=context)
 
-            if technical_name == EMPTY_ADDRESS:
-                int_instance_id = partner.int_instance_id.id
+        res = self.onchange_partner_id(
+            cr, uid, [], request_type, partner_id, technical_name,
+            context=None)['value']
+        vals.update(res)
 
         # update vals dictionary because some inputs may have changed
         # (and new values too)
@@ -959,8 +945,6 @@ class membership_request(orm.Model):
             'firstname': firstname,
             'birth_date': birth_date,
 
-            'membership_state_id': membership_state_id,
-            'result_type_id': result_type_id,
             'int_instance_id': int_instance_id,
 
             'day': day,
@@ -1036,9 +1020,7 @@ class membership_request(orm.Model):
             }
             result_id = mr.result_type_id and mr.result_type_id.id or False
 
-            is_act = False
             if mr.membership_state_id.id != result_id:
-                is_act = True
                 partner_values['int_instance_id'] = mr.int_instance_id.id
 
             partner_id = False
@@ -1049,11 +1031,6 @@ class membership_request(orm.Model):
                                                 context=context)
                 mr_vals['partner_id'] = partner_id
                 partner_values = {}
-
-            if is_act:
-                self._act_membership_state(
-                    cr, uid, mr.membership_state_id.code, partner_id,
-                    context=context)
 
             partner = partner_obj.browse(
                 cr, uid, [partner_id], context=context)[0]
@@ -1158,11 +1135,12 @@ class membership_request(orm.Model):
     def create(self, cr, uid, vals, context=None):
         # do not pass related fields to the orm
         context = context or {}
-        self._pop_related(cr, uid, vals, context=context)
 
         if context.get('install_mode', False) or \
                 context.get('mode', True) == 'ws':
             self.pre_process(cr, uid, vals, context=context)
+
+        self._pop_related(cr, uid, vals, context=context)
 
         return super(membership_request, self).create(cr, uid, vals,
                                                       context=context)
