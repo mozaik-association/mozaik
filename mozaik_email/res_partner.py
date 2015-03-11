@@ -87,9 +87,7 @@ class res_partner(orm.Model):
                 cr, SUPERUSER_ID, coordinate_ids, context=context):
             if coord.active == coord.partner_id.active:
                 result[coord.partner_id.id] = (
-                    'VIP' if coord.vip
-                    else 'N/A: %s' % coord.email if coord.unauthorized
-                    else coord.email)
+                    'VIP' if coord.vip else coord.email)
         return result
 
     _email_store_trigger = {
