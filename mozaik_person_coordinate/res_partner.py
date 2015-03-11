@@ -56,7 +56,8 @@ class ResPartner(models.Model):
                 break
 
     unauthorized = new_fields.Boolean(
-        string='Unauthorized', compute='_compute_unauthorized', store=True)
+        string='Unauthorized', compute='_compute_unauthorized', store=True,
+        help='If checked: One or more coordinates are unauthorized')
 
 
 class res_partner(orm.Model):
