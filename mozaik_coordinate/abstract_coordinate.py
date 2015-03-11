@@ -201,10 +201,6 @@ class abstract_coordinate(orm.AbstractModel):
             if context.get('is_notification', False):
                 display_name = '%s: %s' %\
                     (record['partner_id'][1], display_name)
-            else:
-                display_name = \
-                    'N/A: %s' % display_name if record[
-                        'unauthorized'] else display_name
             res.append((record['id'], display_name))
         return res
 

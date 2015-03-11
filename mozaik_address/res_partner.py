@@ -129,9 +129,7 @@ class res_partner(orm.Model):
                     'city': coord.address_id.city,
                     'street': coord.address_id.street,
                     'address':
-                        'VIP' if coord.vip else
-                        'N/A: %s' % coord.address_id.name
-                        if coord.unauthorized else coord.address_id.name,
+                        'VIP' if coord.vip else coord.address_id.name,
                 }
         return result
 
