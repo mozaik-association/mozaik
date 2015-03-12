@@ -26,6 +26,9 @@
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 
+from openerp import fields as new_fields, api
+from openerp.tools.translate import _
+
 
 class change_main_address(orm.TransientModel):
 
@@ -40,6 +43,13 @@ class change_main_address(orm.TransientModel):
             'address.address', 'New Main Address',
             required=True, ondelete='cascade'),
     }
+
+    co_residency_id = new_fields.Many2one('co.residency', 'Co-Residency')
+    move_co_residency = new_fields.Boolean('Move Co-Residency', default=True)
+    invalidate_co_residency = new_fields.Boolean('Invalidate Co-Residency',
+                                                 default=True)
+    move_allowed = new_fields.Boolean('Move Allowed')
+    message = new_fields.Char('Message')
 
     def default_get(self, cr, uid, flds, context):
         res = super(change_main_address, self).default_get(
@@ -58,4 +68,41 @@ class change_main_address(orm.TransientModel):
             if context.get('address_id', False):
                 res['change_allowed'] = not(
                     res['address_id'] == res['old_address_id'])
+            if res.get('old_address_id', False):
+                cores_obj = self.pool.get('co.residency')
+                cores_wiz_obj = self.pool.get('change.co.residency.address')
+                co_res = cores_obj.search(
+                    cr, uid, [('address_id', '=', res['old_address_id'])],
+                    context=context)
+                if co_res:
+                    co_res_id = co_res[0]
+                    if co_res_id:
+                        res['move_allowed'] = cores_wiz_obj._use_allowed(
+                            cr, uid, co_res_id, context=context)
+                    res['co_residency_id'] = co_res_id
+                    res['move_co_residency'] = res.get('move_allowed', False)
+                    res['invalidate_co_residency'] = res.get('move_allowed',
+                                                             False)
+                    if not res.get('move_allowed', False):
+                        res['message'] = _('Due to security restrictions'
+                                           ' you are not allowed to move'
+                                           ' all co-residency members !')
+        return res
+
+    @api.multi
+    def button_change_main_coordinate(self):
+        res = super(change_main_address,
+                    self._model).button_change_main_coordinate(
+            self.env.cr, self.env.uid, self.ids, self.env.context.copy())
+        if self.co_residency_id and self.move_co_residency:
+            cores_wiz_obj = self.env['change.co.residency.address']
+            vals = {
+                'co_residency_id': self.co_residency_id.id,
+                'old_address_id': self.old_address_id.id,
+                'address_id': self.address_id.id,
+                'use_allowed': self.move_allowed,
+                'invalidate': self.invalidate_co_residency,
+            }
+            wizard = cores_wiz_obj.create(vals)
+            wizard.change_address()
         return res
