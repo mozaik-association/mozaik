@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-05 19:03+0000\n"
-"PO-Revision-Date: 2015-03-05 19:03+0000\n"
+"POT-Creation-Date: 2015-03-12 20:31+0000\n"
+"PO-Revision-Date: 2015-03-12 20:31+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,13 +36,13 @@ msgid "A New Membership Line Has Been Created"
 msgstr "Un nouvel historique a été créé"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:365
+#: code:addons/mozaik_membership/res_partner.py:364
 #, python-format
 msgid "A Partner is required for a Modification Request"
 msgstr "Un partenaire est requis pour faire une demande de modification"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:301
+#: code:addons/mozaik_membership/res_partner.py:300
 #, python-format
 msgid "A natural person with membership history cannot be transformed to a legal person"
 msgstr "Une personne physique avec un historique d'ahésions ne peut être transformée en une personne morale"
@@ -69,6 +69,8 @@ msgstr "Date d'acceptation"
 #: field:membership.request.change,active:0
 #: field:membership.state,active:0
 #: field:sub.abstract.coordinate,active:0
+#: field:virtual.custom.partner,active:0
+#: field:virtual.master.partner,active:0
 msgid "Active"
 msgstr "Actif"
 
@@ -363,10 +365,10 @@ msgid "Email is Main"
 msgstr "Adresse électronique principale"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:976
-#: code:addons/mozaik_membership/res_partner.py:300
-#: code:addons/mozaik_membership/res_partner.py:364
-#: code:addons/mozaik_membership/res_partner.py:472
+#: code:addons/mozaik_membership/membership_request.py:989
+#: code:addons/mozaik_membership/res_partner.py:299
+#: code:addons/mozaik_membership/res_partner.py:363
+#: code:addons/mozaik_membership/res_partner.py:471
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -687,7 +689,7 @@ msgid "Internal Mandate"
 msgstr "Mandat interne"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:976
+#: code:addons/mozaik_membership/membership_request.py:989
 #, python-format
 msgid "Invalid Data"
 msgstr "Données invalides"
@@ -1407,7 +1409,7 @@ msgid "Unauthorized"
 msgstr "Interdit"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:473
+#: code:addons/mozaik_membership/res_partner.py:472
 #, python-format
 msgid "Undefined Membership State: %s"
 msgstr "Statut d'adhésion inconnu: %s"
@@ -1557,6 +1559,11 @@ msgstr ""
 #: view:product.template:mozaik_membership.product_template_form_view
 #: view:product.template:mozaik_membership.product_template_only_form_view
 msgid "{'invisible': [('membership', '=', True)]}"
+msgstr ""
+
+#. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_form_view
+msgid "⇒"
 msgstr ""
 
 #. module: mozaik_membership

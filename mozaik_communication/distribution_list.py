@@ -154,7 +154,7 @@ class distribution_list(orm.Model):
         domain = "[['id', 'in', %s]"\
                  ",['active', '=', False]]" % res_ids
         return {'type': 'ir.actions.act_window',
-                'name': _(' Result of ' + dl.name + ' Distribution List'),
+                'name': _('Result of %s') % dl.name,
                 'view_type': 'form',
                 'view_mode': 'tree, form',
                 'res_model': dl.dst_model_id.model,

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-05 18:51+0000\n"
-"PO-Revision-Date: 2015-03-05 18:51+0000\n"
+"POT-Creation-Date: 2015-03-12 20:28+0000\n"
+"PO-Revision-Date: 2015-03-12 20:28+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -2191,11 +2191,6 @@ msgstr ""
 #. module: mozaik_mandate
 #: view:sta.selection.committee:mozaik_mandate.sta_selection_committee_form_view
 msgid "{'readonly': [('electoral_district_id','!=', False)]}"
-msgstr ""
-
-#. module: mozaik_mandate
-#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
-msgid "{'readonly': [('id','!=', False)]}"
 msgstr ""
 
 #. module: mozaik_mandate

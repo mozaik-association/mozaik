@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-05 19:03+0000\n"
-"PO-Revision-Date: 2015-03-05 19:03+0000\n"
+"POT-Creation-Date: 2015-03-12 20:39+0000\n"
+"PO-Revision-Date: 2015-03-12 20:39+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -187,6 +187,11 @@ msgstr ""
 #: help:partner.relation.category,message_unread:0
 msgid "If checked new messages require your attention."
 msgstr "Si coché, de nouveaux messages requièrent votre attention."
+
+#. module: mozaik_person_coordinate
+#: help:res.partner,unauthorized:0
+msgid "Checked if one or more main coordinates are unauthorized"
+msgstr "Coché si une ou plusieurs coordonnées principales sont interdites"
 
 #. module: mozaik_person_coordinate
 #: view:partner.relation:mozaik_person_coordinate.partner_relation_object_form_view
@@ -463,6 +468,11 @@ msgid "To > ..."
 msgstr "Jusqu'à > ..."
 
 #. module: mozaik_person_coordinate
+#: field:res.partner,unauthorized:0
+msgid "Unauthorized"
+msgstr "Interdit"
+
+#. module: mozaik_person_coordinate
 #: code:addons/mozaik_person_coordinate/report/duplicates_analysis_report.py:178
 #, python-format
 msgid "Unknown birth date"
@@ -500,6 +510,12 @@ msgstr "Injoignables"
 
 #. module: mozaik_person_coordinate
 #: view:res.partner:mozaik_person_coordinate.view_partner_tree
-msgid "grey:active==False;red:is_duplicate_detected==True;darkorange:phone>'N/A' and phone != 'VIP' or mobile>'N/A' and mobile != 'VIP' or fax>'N/A' and fax != 'VIP' or email>='N/A' and email<'N/B' or address>='N/A' and address<'N/B'"
+msgid "grey:active==False;red:is_duplicate_detected==True;darkorange:unauthorized==True"
+msgstr ""
+
+#. module: mozaik_person_coordinate
+#: view:res.partner:mozaik_person_coordinate.view_partner_tree
+#: view:res.partner:mozaik_person_coordinate.view_partner_tree_2
+msgid "{'invisible': [('unauthorized', '=', True)]}"
 msgstr ""
 
