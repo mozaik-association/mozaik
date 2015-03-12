@@ -22,6 +22,7 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from openerp.osv import orm, fields
 
 
@@ -36,3 +37,33 @@ class account_chart_template(orm.Model):
         'property_subscription_account': fields.many2one(
             'account.account.template', 'Subscription Account'),
     }
+
+
+class account_account(orm.Model):
+
+    _inherit = 'account.account'
+
+    def _check_coa_loaded(self, cr, uid, company_id, coa_id, context=None):
+        """
+        Determine if a COA is already loaded for a specific company
+        """
+        template = self.pool['account.chart.template'].browse(
+            cr, uid, coa_id, context=context)
+        dom = [('chart_template_id', '=', coa_id)]
+        if template.account_root_id.id:
+            dom = ['|'] + dom + [
+                '&',
+                ('parent_id', 'child_of', [template.account_root_id.id]),
+                ('chart_template_id', '=', False)
+            ]
+        codes = self.pool['account.account.template'].search_read(
+            cr, uid, [('nocreate', '!=', True)] + dom,
+            ['code'], context=context)
+
+        codes = [c['code'] for c in codes]
+
+        account_id = self.search(
+            cr, uid,
+            [('company_id', '=', company_id), ('code', 'in', codes)],
+            limit=1, context=context)
+        return account_id

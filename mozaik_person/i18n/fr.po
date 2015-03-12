@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-20 17:34+0000\n"
-"PO-Revision-Date: 2014-10-20 17:34+0000\n"
+"POT-Creation-Date: 2015-03-12 20:32+0000\n"
+"PO-Revision-Date: 2015-03-12 20:32+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,19 +16,19 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\partner_involvement.py:68
+#: code:addons/mozaik_person/partner_involvement.py:65
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\res_partner.py:298
+#: code:addons/mozaik_person/res_partner.py:410
 #, python-format
 msgid "A partner and a login must be provided to create a user!"
 msgstr "Un partenaire et un login sont requis pour créer un utilisateur !"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\wizard\create_user_from_partner.py:63
+#: code:addons/mozaik_person/wizard/create_user_from_partner.py:62
 #, python-format
 msgid "A partner is required to create a new user!"
 msgstr "Un partenaire est obligatoire pour créer un nouvel utilisateur !"
@@ -88,7 +88,7 @@ msgid "Allowed Duplicates"
 msgstr "Doublons autorisés"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\partner_involvement.py:126
+#: code:addons/mozaik_person/partner_involvement.py:123
 #, python-format
 msgid "An active involvement cannot be duplicated!"
 msgstr "Une participation active ne peut être dupliquée !"
@@ -104,7 +104,7 @@ msgid "Assemblies"
 msgstr "Assemblées"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\res_partner.py:302
+#: code:addons/mozaik_person/res_partner.py:416
 #, python-format
 msgid "Bad partner id: %s!"
 msgstr "Identifiant de partenaire incorrect: %s!"
@@ -128,6 +128,11 @@ msgstr "Date de naissance > ..."
 #: view:create.user.from.partner:mozaik_person.create_user_from_partner_wizard
 msgid "Cancel"
 msgstr "Annuler"
+
+#. module: mozaik_person
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
+msgid "Categories of which I am an owner"
+msgstr "Catégories dont je suis propriétaire"
 
 #. module: mozaik_person
 #: view:partner.involvement:mozaik_person.partner_involvement_search_view
@@ -211,13 +216,13 @@ msgid "Enterprise Number"
 msgstr "Numéro d'enterprise"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\partner_involvement.py:125
-#: code:addons\mozaik_person\res_partner.py:298
-#: code:addons\mozaik_person\res_partner.py:302
-#: code:addons\mozaik_person\res_partner.py:305
-#: code:addons\mozaik_person\res_partner.py:308
-#: code:addons\mozaik_person\res_partner.py:311
-#: code:addons\mozaik_person\wizard\create_user_from_partner.py:63
+#: code:addons/mozaik_person/partner_involvement.py:122
+#: code:addons/mozaik_person/res_partner.py:409
+#: code:addons/mozaik_person/res_partner.py:415
+#: code:addons/mozaik_person/res_partner.py:421
+#: code:addons/mozaik_person/res_partner.py:427
+#: code:addons/mozaik_person/res_partner.py:434
+#: code:addons/mozaik_person/wizard/create_user_from_partner.py:61
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -372,6 +377,11 @@ msgid "Involvements"
 msgstr "Participations"
 
 #. module: mozaik_person
+#: view:partner.involvement:mozaik_person.partner_involvement_search_view
+msgid "Involvements of which I am one of the owners of the category"
+msgstr "Participations dont je suis propriétaire de la catégorie"
+
+#. module: mozaik_person
 #: field:res.partner,is_duplicate_allowed:0
 msgid "Is Duplicate Allowed"
 msgstr "Doublon autorisé"
@@ -464,6 +474,16 @@ msgstr "Historique des messages et communications"
 #: view:res.partner:mozaik_person.view_emails_partner_info_form
 msgid "More Info"
 msgstr "Plus d'info"
+
+#. module: mozaik_person
+#: view:partner.involvement.category:mozaik_person.partner_involvement_category_search_view
+msgid "My Categories"
+msgstr "Mes catégories"
+
+#. module: mozaik_person
+#: view:partner.involvement:mozaik_person.partner_involvement_search_view
+msgid "My Involvements"
+msgstr "Mes participations"
 
 #. module: mozaik_person
 #: help:res.partner,ldap_name:0
@@ -588,6 +608,11 @@ msgid "Security"
 msgstr "Sécurité"
 
 #. module: mozaik_person
+#: field:res.partner,select_name:0
+msgid "Select Name"
+msgstr "Nom"
+
+#. module: mozaik_person
 #: selection:res.partner,civil_status:0
 msgid "Separated"
 msgstr "Séparé(e)"
@@ -614,24 +639,29 @@ msgid "Tags..."
 msgstr "Étiquettes..."
 
 #. module: mozaik_person
+#: field:res.partner,technical_name:0
+msgid "Technical Name"
+msgstr "Nom technique"
+
+#. module: mozaik_person
 #: view:res.partner:mozaik_person.view_partner_form
 msgid "Terms..."
 msgstr "Termes..."
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\res_partner.py:308
+#: code:addons/mozaik_person/res_partner.py:428
 #, python-format
 msgid "The partner %s cannot be a company to be associated to a user!"
 msgstr "Le partenaire %s ne peut être une personne morale pour devenir un utilisateur !"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\res_partner.py:311
+#: code:addons/mozaik_person/res_partner.py:435
 #, python-format
 msgid "The partner %s has to be active!"
 msgstr "Le partenaire %s doit être actif !"
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\res_partner.py:305
+#: code:addons/mozaik_person/res_partner.py:422
 #, python-format
 msgid "The partner %s is already a user!"
 msgstr "Le partenaire %s est déjà un utilisateur !"
@@ -652,7 +682,7 @@ msgid "The selected partner is deactivated."
 msgstr "Le partenaire sélectionné est désactivé."
 
 #. module: mozaik_person
-#: code:addons\mozaik_person\res_partner.py:184
+#: code:addons/mozaik_person/res_partner.py:251
 #: constraint:res.partner:0
 #, python-format
 msgid "This identifier is already assigned"
@@ -772,6 +802,11 @@ msgstr ""
 #: view:res.partner:mozaik_person.view_partner_form
 msgid "mozaik_base.res_groups_developper"
 msgstr ""
+
+#. module: mozaik_person
+#: view:create.user.from.partner:mozaik_person.create_user_from_partner_wizard
+msgid "or"
+msgstr "ou"
 
 #. module: mozaik_person
 #: view:res.partner:mozaik_person.view_partner_form_firstname

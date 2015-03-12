@@ -22,8 +22,10 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
+from openerp import fields, api
 from openerp.osv import orm
+
+PARTNER_ACTION = 'mozaik_person.natural_res_partner_action'
 
 
 class sta_assembly(orm.Model):
@@ -70,6 +72,36 @@ class sta_assembly(orm.Model):
 class int_instance(orm.Model):
 
     _inherit = 'int.instance'
+
+    @api.multi
+    def _get_member_ids(self):
+        partner_obj = self.env['res.partner']
+        domain = [
+            ('int_instance_id', '=', self.id),
+            ('is_company', '=', False)
+        ]
+        return [partner.id for partner in partner_obj.search(domain)]
+
+    @api.one
+    def _compute_member_count(self):
+        self.member_count = len(self._get_member_ids())
+
+    member_count = fields.Integer(
+        compute='_compute_member_count', type='integer', string='Members')
+
+    @api.multi
+    def get_member_action(self):
+        self.ensure_one()
+        action = PARTNER_ACTION.split('.') or []
+
+        module = action[0]
+        action_name = action[1]
+        # get model's action to update its domain
+        action = self.env['ir.actions.act_window'].for_xml_id(
+            module, action_name)
+
+        action['domain'] = [('int_instance_id', '=', self.id)]
+        return action
 
 # orm methods
 

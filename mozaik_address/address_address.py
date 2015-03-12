@@ -22,14 +22,12 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-import string
-import unicodedata
-import re
 from collections import OrderedDict
 
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+
+from openerp.addons.mozaik_base.base_tools import format_value
 
 COUNTRY_CODE = 'BE'
 # Do Not Add Sequence Here
@@ -45,26 +43,6 @@ KEY_FIELDS = OrderedDict([
 ])
 TRIGGER_FIELDS = KEY_FIELDS.keys() + [
     'sequence', 'select_alternative_address_local_street']
-
-CHARS_TO_ESCAPE = re.compile(r'[%s\s]+' % re.escape(string.punctuation))
-
-
-def format_value(value):
-    """
-    ============
-    format_value
-    ============
-    :type value: char
-    :rtype: char
-    :rparam: upper to lower case for value stripping all special characters
-             to one space
-    """
-    if value:
-        value = ''.join(c for c in unicodedata.normalize('NFD', u'%s' % value)
-                        if unicodedata.category(c) != 'Mn')
-        value = re.sub(CHARS_TO_ESCAPE, ' ', value)
-        value = value.lower().strip()
-    return value
 
 
 class address_address(orm.Model):

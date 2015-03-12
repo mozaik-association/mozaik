@@ -20,6 +20,10 @@
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]"
                         help="All Involvements, expired or not" />
+                    <separator/>
+                    <filter name="my_involvements" string="My Involvements"
+                        domain="[('partner_involvement_category_id.res_users_ids', 'in', [uid])]"
+                        help="Involvements of which I am one of the owners of the category" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>
@@ -120,6 +124,10 @@
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]"
                         help="All Categories, expired or not" />
+                    <separator/>
+                    <filter name="my_categories" string="My Categories"
+                        domain="[('res_users_ids', 'in', [uid])]"
+                        help="Categories of which I am an owner" />
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>

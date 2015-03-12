@@ -125,7 +125,7 @@
                                         <field name="bounce_counter" class="oe_inline" readonly="1"/>
                                         <button name="button_reset_counter" type="object" class="oe_link" string="⇒ Reset"
                                                 attrs="{'invisible': [('bounce_counter','=',0)]}"
-                                                groups="mozaik_base.mozaik_res_groups_configurator"
+                                                groups="mozaik_base.mozaik_res_groups_officer"
                                                 confirm="Reset Counter: proceed anyway?"/>
                                     </div>
                                     <field name="bounce_description" readonly="1" />

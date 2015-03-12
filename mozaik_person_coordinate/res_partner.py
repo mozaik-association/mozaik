@@ -22,8 +22,42 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from operator import attrgetter
 
+from openerp import models, api
+from openerp import fields as new_fields
 from openerp.osv import orm, fields
+
+TRIGGER_UNAUTHORIZED = [
+    'email_coordinate_id', 'postal_coordinate_id', 'fix_coordinate_id',
+    'fax_coordinate_id', 'mobile_coordinate_id'
+]
+
+
+class ResPartner(models.Model):
+
+    _inherit = 'res.partner'
+
+    @api.one
+    @api.depends(
+        'postal_coordinate_ids.unauthorized',
+        'email_coordinate_ids.unauthorized',
+        'phone_coordinate_ids.unauthorized',
+        'postal_coordinate_ids.is_main',
+        'email_coordinate_ids.is_main',
+        'phone_coordinate_ids.is_main',
+        'postal_coordinate_ids.active',
+        'email_coordinate_ids.active',
+        'phone_coordinate_ids.active')
+    def _compute_unauthorized(self):
+        for f in TRIGGER_UNAUTHORIZED:
+            if attrgetter('%s.unauthorized' % f)(self):
+                self.unauthorized = True
+                break
+
+    unauthorized = new_fields.Boolean(
+        string='Unauthorized', compute='_compute_unauthorized', store=True,
+        help='Checked if one or more main coordinates are unauthorized')
 
 
 class res_partner(orm.Model):

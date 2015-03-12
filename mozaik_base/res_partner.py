@@ -43,3 +43,12 @@ class res_partner(orm.Model):
             return super(res_partner, self).create_workflow(
                 cr, uid, ids, context=context)
         return True
+
+    def step_workflow(self, cr, uid, ids, context=None):
+        """
+        Do not reevaluate workflow if not yet ready for
+        """
+        if self._enable_wkf:
+            return super(res_partner, self).step_workflow(
+                cr, uid, ids, context=context)
+        return True

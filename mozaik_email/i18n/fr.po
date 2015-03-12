@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-09 02:18+0000\n"
-"PO-Revision-Date: 2015-01-09 02:18+0000\n"
+"POT-Creation-Date: 2015-03-12 20:28+0000\n"
+"PO-Revision-Date: 2015-03-12 20:28+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -101,7 +101,7 @@ msgid "Email"
 msgstr "Adresse électronique"
 
 #. module: mozaik_email
-#: code:addons\mozaik_email\email_coordinate.py:41
+#: code:addons/mozaik_email/email_coordinate.py:38
 #: model:ir.model,name:mozaik_email.model_email_coordinate
 #, python-format
 msgid "Email Coordinate"
@@ -128,7 +128,7 @@ msgid "Export CSV"
 msgstr "Export CSV"
 
 #. module: mozaik_email
-#: code:addons\mozaik_email\wizard\export_vcard.py:52
+#: code:addons/mozaik_email/wizard/export_vcard.py:53
 #, python-format
 msgid "Export VCF"
 msgstr "Export VCF"
@@ -172,7 +172,7 @@ msgid "If checked new messages require your attention."
 msgstr "Si coché, de nouveaux messages requièrent votre attention."
 
 #. module: mozaik_email
-#: code:addons\mozaik_email\email_coordinate.py:73
+#: code:addons/mozaik_email/email_coordinate.py:62
 #: constraint:email.coordinate:0
 #, python-format
 msgid "Invalid Email Format"
@@ -236,13 +236,6 @@ msgstr "Date de dernière mise à jour"
 #: view:export.vcard:mozaik_email.export_vcard_wizard
 msgid "Launch"
 msgstr "Exécuter"
-
-#. module: mozaik_email
-#: code:addons\mozaik_email\email_coordinate.py:75
-#: constraint:email.coordinate:0
-#, python-format
-msgid "Main Coordinate Could Not Be Unauthorized"
-msgstr "Une coordonnée principale ne peut être interdite"
 
 #. module: mozaik_email
 #: field:email.coordinate,message_ids:0

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-20 20:10+0000\n"
-"PO-Revision-Date: 2014-10-20 20:10+0000\n"
+"POT-Creation-Date: 2015-03-05 19:25+0000\n"
+"PO-Revision-Date: 2015-03-05 19:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -835,7 +835,7 @@ msgstr "Niveau de pouvoir"
 
 #. module: mozaik_structure
 #: constraint:abstract.assembly:0
-#: code:addons\mozaik_structure\abstract_structure.py:242
+#: code:addons/mozaik_structure/abstract_structure.py:258
 #: constraint:ext.assembly:0
 #: constraint:int.assembly:0
 #: constraint:sta.assembly:0
@@ -1057,8 +1057,8 @@ msgstr "Année"
 
 #. module: mozaik_structure
 #: constraint:abstract.instance:0
-#: code:addons\mozaik_structure\abstract_structure.py:143
-#: code:addons\mozaik_structure\sta_structure.py:160
+#: code:addons/mozaik_structure/abstract_structure.py:154
+#: code:addons/mozaik_structure/sta_structure.py:169
 #: constraint:int.instance:0
 #: constraint:sta.instance:0
 #, python-format
@@ -1080,5 +1080,10 @@ msgstr ""
 #: view:int.power.level:mozaik_structure.int_power_level_form_view
 #: view:sta.power.level:mozaik_structure.sta_power_level_form_view
 msgid "{'default_power_level_id': active_id}"
+msgstr ""
+
+#. module: mozaik_structure
+#: view:int.assembly:mozaik_structure.int_assembly_form_view
+msgid "{'invisible': [('is_designation_assembly', '=', True)]}"
 msgstr ""
 

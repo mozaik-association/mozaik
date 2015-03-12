@@ -25,8 +25,3 @@
 
 from . import test_address_address
 from . import test_postal_coordinate
-
-checks = [
-    test_address_address,
-    test_postal_coordinate,
-]

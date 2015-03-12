@@ -66,6 +66,7 @@ class virtual_master_partner(orm.Model):
         'int_instance_id': fields.many2one(
             'int.instance',
             string='Internal Instance'),
+        'active': fields.boolean("Active"),
     }
 
 # orm methods

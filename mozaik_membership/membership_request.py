@@ -26,6 +26,7 @@ from uuid import uuid4, uuid1
 from datetime import date
 from collections import OrderedDict
 from contextlib import contextmanager
+from operator import attrgetter
 
 from openerp.tools import logging
 from openerp.osv import orm, fields
@@ -34,7 +35,7 @@ from openerp.tools import SUPERUSER_ID
 
 from openerp.addons.mozaik_base.base_tools import format_email, check_email
 from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
-
+from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
 
 _logger = logging.getLogger(__name__)
 
@@ -76,22 +77,278 @@ class membership_request(orm.Model):
     _name = 'membership.request'
     _inherit = ['mozaik.abstract.model']
     _description = 'Membership Request'
-
-    def _act_membership_state(
-            self, cr, uid, membership_code, partner_id, context=None):
-        '''
-        Method to be overriding case of special behavior during a specific
-        membership status
-        '''
-        return
+    _inactive_cascade = True
 
     def _pop_related(self, cr, uid, vals, context=None):
         vals.pop('local_zip', None)
         vals.pop('country_code', None)
+        vals.pop('identifier', None)
+
+    def _get_membership_tracked_fields(self):
+        '''
+            This method return a list of tuple defining which fields
+            must create a change record.
+            Tuple is structured like:
+             - sequence: n° of sequence of the change, it respect the display
+                         order on the screen view
+             - field name: field name on view
+             - request path: path to the field value from the request object
+             - partner_path: path to the field value from the partner object
+             - label: label to be able to ignore comparison
+        '''
+        partner_address_path = 'postal_coordinate_id.address_id'
+        return [
+            (
+                1,
+                'lastname',
+                'lastname',
+                'lastname',
+                ''
+            ),
+            (
+                2,
+                'firstname',
+                'firstname',
+                'firstname',
+                ''
+            ),
+            (
+                3,
+                'birth_date',
+                'birth_date',
+                'birth_date',
+                ''
+            ),
+            (
+                4,
+                'phone',
+                'phone',
+                'fix_coordinate_id.phone_id.name',
+                ''
+            ),
+            (
+                5,
+                'gender',
+                'gender',
+                'gender',
+                ''
+            ),
+            (
+                6,
+                'mobile',
+                'mobile',
+                'mobile_coordinate_id.phone_id.name',
+                ''
+            ),
+            (
+                7,
+                'email',
+                'email',
+                'email_coordinate_id.email',
+                ''
+            ),
+            (
+                8,
+                'country_id',
+                'country_id.display_name',
+                partner_address_path + '.country_id.display_name',
+                ''
+            ),
+            # address_local_zip_id set on request AND on partner
+            (
+                9,
+                'address_local_zip_id',
+                'address_local_zip_id.display_name',
+                partner_address_path + '.address_local_zip_id.display_name',
+                'ZIP_REQUEST_PARTNER'
+            ),
+            # address_local_zip_id set on request AND not on partner
+            (
+                9,
+                'address_local_zip_id',
+                'address_local_zip_id.local_zip',
+                partner_address_path + '.zip_man',
+                'ZIP_REQUEST_NO_PARTNER'),
+            (
+                9,
+                'address_local_zip_id',
+                'address_local_zip_id.town',
+                partner_address_path + '.town_man',
+                'ZIP_REQUEST_NO_PARTNER'
+            ),
+            # address_local_zip_id not set on request but on partner
+            (
+                9,
+                'zip_man',
+                'zip_man',
+                partner_address_path + '.address_local_zip_id.local_zip',
+                'ZIP_NO_REQUEST_PARTNER'
+            ),
+            (
+                9,
+                'town_man',
+                'town_man',
+                partner_address_path + '.address_local_zip_id.town',
+                'ZIP_NO_REQUEST_PARTNER'
+            ),
+            # address_local_zip_id not set on request and not on partner
+            (
+                9,
+                'zip_man',
+                'zip_man',
+                partner_address_path + '.zip_man',
+                'ZIP_NO_REQUEST_NO_PARTNER'),
+            (
+                9,
+                'town_man',
+                'town_man',
+                partner_address_path + '.town_man',
+                'ZIP_NO_REQUEST_NO_PARTNER'
+            ),
+            # address_local_street_id set on request AND on partner
+            (
+                10,
+                'address_local_street_id',
+                'address_local_street_id.display_name',
+                partner_address_path + '.address_local_street_id.display_name',
+                'STREET_REQUEST_PARTNER'
+            ),
+            # address_local_street_id set on request AND not on partner
+            (
+                10,
+                'address_local_street_id',
+                'address_local_street_id.display_name',
+                partner_address_path + '.street_man',
+                'ZIP_REQUEST_NO_PARTNER'
+            ),
+            # address_local_street_id not set on request but on partner
+            (
+                10,
+                'street_man',
+                'street_man',
+                partner_address_path + '.address_local_street_id.display_name',
+                'STREET_NO_REQUEST_PARTNER'
+            ),
+            # address_local_street_id not set on request and not partner
+            (
+                10,
+                'street_man',
+                'street_man',
+                partner_address_path + '.street_man',
+                'STREET_NO_REQUEST_NO_PARTNER'
+            ),
+            (
+                11,
+                'number',
+                'number',
+                partner_address_path + '.number',
+                ''
+            ),
+            (
+                12,
+                'street2',
+                'street2',
+                partner_address_path + '.street2',
+                ''
+            ),
+            (
+                13,
+                'box',
+                'box',
+                partner_address_path + '.box',
+                ''
+            ),
+            (
+                14,
+                'sequence',
+                'sequence',
+                partner_address_path + '.sequence',
+                ''
+            ),
+        ]
+
+    def _clean_stored_changes(self, cr, uid, ids, context):
+        chg_obj = self.pool.get('membership.request.change')
+        chg_ids = chg_obj.search(cr, uid, [('membership_request_id',
+                                            'in',
+                                            ids)], context=context)
+        if chg_ids:
+            return chg_obj.unlink(cr, uid, chg_ids, context=context)
+
+        return False
+
+    def _get_labels_to_process(self, request):
+        label_path = []
+        partner_adr = request.partner_id.postal_coordinate_id.address_id
+        if (request.address_local_zip_id and partner_adr.address_local_zip_id):
+            label_path.append('ZIP_REQUEST_PARTNER')
+        elif (request.address_local_zip_id and not
+              partner_adr.address_local_zip_id):
+            label_path.append('ZIP_REQUEST_NO_PARTNER')
+        elif (not request.address_local_zip_id and
+              partner_adr.address_local_zip_id):
+            label_path.append('ZIP_NO_REQUEST_PARTNER')
+        else:
+            label_path.append('ZIP_NO_REQUEST_NO_PARTNER')
+
+        if (request.address_local_street_id and
+                partner_adr.address_local_street_id):
+            label_path.append('STREET_REQUEST_PARTNER')
+        elif (request.address_local_street_id and not
+              partner_adr.address_local_street_id):
+            label_path.append('STREET_REQUEST_NO_PARTNER')
+        elif (not request.address_local_street_id and
+              partner_adr.address_local_street_id):
+            label_path.append('STREET_NO_REQUEST_PARTNER')
+        else:
+            label_path.append('STREET_NO_REQUEST_NO_PARTNER')
+        return label_path
+
+    def _get_changes(self, cr, uid, ids, name, arg, context=None):
+        tracked_fields = self._get_membership_tracked_fields()
+        fields_def = self.fields_get(
+            cr, uid, [elem[1] for elem in tracked_fields], context=context)
+        res = {}
+        chg_obj = self.pool.get('membership.request.change')
+        self._clean_stored_changes(cr, uid, ids, context=context)
+
+        for request in self.browse(cr, uid, ids, context=context):
+            if not request.partner_id:
+                res[request.id] = False
+                continue
+            chg_ids = []
+            label_to_process = self._get_labels_to_process(request)
+
+            for element in tracked_fields:
+                seq, field, request_path, partner_path, label = element
+                if label and label not in label_to_process:
+                    continue
+                request_value = attrgetter(request_path)(request)
+                partner_value = attrgetter(partner_path)(request.partner_id)
+                field = fields_def[field]
+
+                if (request_value and request_value != partner_value):
+                    if 'selection' in field:
+                        selection = dict(field['selection'])
+                        request_value = selection.get(request_value)
+                        partner_value = selection.get(partner_value)
+                    vals = {
+                        'membership_request_id': request.id,
+                        'sequence': seq,
+                        'field_name': field['string'],
+                        'old_value': partner_value,
+                        'new_value': request_value,
+                    }
+                    chg_ids.append(chg_obj.create(cr,
+                                                  uid, vals, context=context))
+            res[request.id] = chg_ids
+        return res
 
     _columns = {
-        'identifier': fields.related('partner_id', 'identifier',
-                                     string='Identifier', type='integer'),
+        'identifier': fields.related('partner_id',
+                                     'identifier',
+                                     string='Identifier',
+                                     type='integer'),
         'lastname': fields.char('Lastname', required=True,
                                 track_visibility='onchange'),
         'firstname': fields.char('Firstname', track_visibility='onchange'),
@@ -180,11 +437,15 @@ class membership_request(orm.Model):
         'phone_id': fields.many2one('phone.phone',
                                     string='Phone',
                                     track_visibility='onchange'),
+        'change_ids': fields.function(_get_changes,
+                                      type='one2many',
+                                      relation="membership.request.change",
+                                      string='Changes', store=False),
     }
 
     _defaults = {
         'is_update': False,
-        'state': 'draft'
+        'state': 'draft',
     }
 
 # constraints
@@ -292,7 +553,7 @@ class membership_request(orm.Model):
         return values
 
     def onchange_partner_id(self, cr, uid, ids, request_type, partner_id,
-                            context=None):
+                            technical_name, context=None):
         """
         Take current
             * membership_state_id
@@ -305,9 +566,11 @@ class membership_request(orm.Model):
         fields are similarly named
         """
         uid = SUPERUSER_ID
-        res_value = {'value': {}}
-        interests_ids = []
-        competencies_ids = []
+        res = {
+            'interests_m2m_ids': False,
+            'competencies_m2m_ids': False,
+            'identifier': False,
+        }
         if partner_id:
             res_partner_obj = self.pool['res.partner']
             partner = res_partner_obj.browse(cr, uid, partner_id,
@@ -315,30 +578,30 @@ class membership_request(orm.Model):
             # take current status of partner
             partner_status_id = partner.membership_state_id and \
                 partner.membership_state_id.id or False
-            interests_ids = partner.interests_m2m_ids and \
-                ([interest.id for interest in partner.interests_m2m_ids]) or \
+            interests_ids = [term.id for term in partner.interests_m2m_ids]
+            res['interests_m2m_ids'] = interests_ids and \
+                [[6, False, interests_ids]] or \
                 False
-            competencies_ids = partner.competencies_m2m_ids and \
-                ([competence.id for competence in partner.
-                  competencies_m2m_ids]) or False
+            competencies_ids = [trm.id for trm in partner.competencies_m2m_ids]
+            res['competencies_m2m_ids'] = competencies_ids and \
+                [[6, False, competencies_ids]] or \
+                False
+            res['identifier'] = partner.identifier
+
+            if technical_name == EMPTY_ADDRESS:
+                res['int_instance_id'] = partner.int_instance_id.id
         else:
             partner_status_id = self.pool['membership.state'].\
                 _state_default_get(cr, uid, context=context)
-        partner_data = partner_id and {} or {'lastname': '%s' % uuid4()}
         # (status,partner_id)
         result_type_id = self.get_partner_preview(
-            cr, uid, request_type, partner_id, partner_data,
-            context=context)
+            cr, uid, request_type, partner_id, context=context)
 
-        res_value['value'] = {
+        res.update({
             'membership_state_id': partner_status_id,
             'result_type_id': result_type_id,
-            'interests_m2m_ids': interests_ids and
-            [[6, False, interests_ids]] or interests_ids,
-            'competencies_m2m_ids': competencies_ids and
-            [[6, False, competencies_ids]] or competencies_ids,
-        }
-        return res_value
+        })
+        return {'value': res}
 
     def onchange_mobile(self, cr, uid, ids, mobile, context=None):
         mobile = self.get_format_phone_number(cr, uid, mobile, context=context)
@@ -386,7 +649,6 @@ class membership_request(orm.Model):
             uid,
             request_type,
             partner_id=False,
-            partner_datas=None,
             context=None):
         """
         Try to advancing workflow of partner
@@ -397,14 +659,9 @@ class membership_request(orm.Model):
         :param request_type: m or s (member or supporter)
         :type partner_id: integer
         :type partner_data: {}
-        :param partner_datas: if no partner id, use this to create a partner
-        :rtype: char
         :rparam: next status in partner's workflow depending on `request_type`
         """
         context = context or {}
-        partner_datas = partner_datas or {
-            'lastname': '%s' %
-            uuid4()}
 
         partner_obj = self.pool['res.partner']
 
@@ -420,6 +677,10 @@ class membership_request(orm.Model):
         try:
             ctx = context.copy().update({'tracking_disable': True})
             if not partner_id:
+                partner_datas = {
+                    'lastname': '%s' % uuid4(),
+                    'identifier': -1,
+                }
                 with self.protect_v8_cache(pffs):
                     # safe mode is here mandatory
                     partner_id = partner_obj.create(
@@ -610,20 +871,35 @@ class membership_request(orm.Model):
         email = vals.get('email', False)
         mobile = vals.get('mobile', False)
         phone = vals.get('phone', False)
+        address_id = vals.get('address_id', False)
         address_local_street_id = vals.get('address_local_street_id', False)
         address_local_zip_id = vals.get('address_local_zip_id', False)
         number = vals.get('number', False)
         box = vals.get('box', False)
         town_man = vals.get('town_man', False)
-        street_man = vals.get('street_man', False)
-        zip_man = vals.get('zip_man', False)
-
         country_id = vals.get('country_id', False)
+        zip_man = vals.get('zip_man', False)
+        street_man = vals.get('street_man', False)
+
         partner_id = vals.get('partner_id', False)
 
-        membership_state_id = vals.get('membership_state_id', False)
         request_type = vals.get('request_type', False)
-        result_type_id = vals.get('result_type_id', False)
+
+        if zip_man and town_man:
+            domain = [
+                ('local_zip', '=', zip_man),
+                ('town', 'ilike', town_man),
+            ]
+            zids = self.pool['address.local.zip'].search(
+                cr, uid, domain, context=context)
+            if zids:
+                cnty_id = self.pool['res.country']._country_default_get(
+                    cr, uid, COUNTRY_CODE, context=context)
+                if not country_id or cnty_id == country_id:
+                    country_id = cnty_id
+                    address_local_zip_id = zids[0]
+                    town_man = False
+                    zip_man = False
 
         if not birth_date:
             birth_date = self.get_birth_date(cr, uid, day, month, year,
@@ -650,14 +926,16 @@ class membership_request(orm.Model):
             cr, uid, address_local_street_id, address_local_zip_id, number,
             box, town_man, street_man, zip_man, country_id=country_id,
             context=context)
+        address_id = address_id or self.onchange_technical_name(
+            cr, uid, False, technical_name,
+            context=context)['value']['address_id']
+        int_instance_id = self.get_int_instance_id(
+            cr, uid, address_local_zip_id, context=context)
 
-        if partner_id:
-            partner = self.pool['res.partner'].browse(cr, uid, partner_id,
-                                                      context=context)
-            membership_state_id = partner.membership_state_id and \
-                partner.membership_state_id.id or False
-            result_type_id = self.get_partner_preview(
-                cr, SUPERUSER_ID, request_type, partner.id, context=context)
+        res = self.onchange_partner_id(
+            cr, uid, [], request_type, partner_id, technical_name,
+            context=None)['value']
+        vals.update(res)
 
         # update vals dictionary because some inputs may have changed
         # (and new values too)
@@ -667,8 +945,7 @@ class membership_request(orm.Model):
             'firstname': firstname,
             'birth_date': birth_date,
 
-            'membership_state_id': membership_state_id,
-            'result_type_id': result_type_id,
+            'int_instance_id': int_instance_id,
 
             'day': day,
             'month': month,
@@ -680,6 +957,13 @@ class membership_request(orm.Model):
 
             'mobile_id': mobile_id,
             'phone_id': phone_id,
+
+            'address_id': address_id,
+            'address_local_zip_id': address_local_zip_id,
+            'country_id': country_id,
+            'zip_man': zip_man,
+            'town_man': town_man,
+
             'technical_name': technical_name,
         })
 
@@ -736,9 +1020,7 @@ class membership_request(orm.Model):
             }
             result_id = mr.result_type_id and mr.result_type_id.id or False
 
-            is_act = False
             if mr.membership_state_id.id != result_id:
-                is_act = True
                 partner_values['int_instance_id'] = mr.int_instance_id.id
 
             partner_id = False
@@ -749,11 +1031,6 @@ class membership_request(orm.Model):
                                                 context=context)
                 mr_vals['partner_id'] = partner_id
                 partner_values = {}
-
-            if is_act:
-                self._act_membership_state(
-                    cr, uid, mr.membership_state_id.code, partner_id,
-                    context=context)
 
             partner = partner_obj.browse(
                 cr, uid, [partner_id], context=context)[0]
@@ -858,11 +1135,12 @@ class membership_request(orm.Model):
     def create(self, cr, uid, vals, context=None):
         # do not pass related fields to the orm
         context = context or {}
-        self._pop_related(cr, uid, vals, context=context)
 
         if context.get('install_mode', False) or \
                 context.get('mode', True) == 'ws':
             self.pre_process(cr, uid, vals, context=context)
+
+        self._pop_related(cr, uid, vals, context=context)
 
         return super(membership_request, self).create(cr, uid, vals,
                                                       context=context)
@@ -890,3 +1168,21 @@ class membership_request(orm.Model):
                            '%s %s' % (record.lastname, record.firstname)
             res.append((record['id'], display_name))
         return res
+
+
+class membership_request_change(orm.Model):
+    _name = 'membership.request.change'
+    _inherit = ['mozaik.abstract.model']
+    _description = 'Membership Request Change'
+    _order = 'sequence'
+
+    _columns = {
+        'membership_request_id': fields.many2one(
+            'membership.request', 'Membership Request', ondelete='cascade'),
+        "sequence": fields.integer('Sequence'),
+        'field_name': fields.char('Field Name'),
+        'old_value': fields.char('Old Value'),
+        'new_value': fields.char('New Value'),
+    }
+
+    _unicity_keys = 'N/A'

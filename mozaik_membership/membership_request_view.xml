@@ -105,14 +105,16 @@
                                 NEW
                             </span>
                             <span
-                                attrs="{'invisible':['|',('partner_id', '=', False),
-                                                        ('membership_state_id', '=', False)]}">
+                                attrs="{'invisible':[('result_type_id', '=', False),
+                                                     ('membership_state_id', '=', False)]}">
                                 (
                                 <field name="membership_state_id"
-                                    readonly="1" class="oe_inline" options='{"no_open":True, "no_create":True}'/>
-                                <label string="to"/>
+                                    readonly="1" class="oe_inline" options='{"no_open":True, "no_create":True}'
+                                    attrs="{'invisible':[('membership_state_id', '=', False)]}"/>
+                                <label string="⇒" attrs="{'invisible':[('result_type_id', '=', False)]}"/>
                                 <field name="result_type_id"
-                                    readonly="1" class="oe_inline" options='{"no_open":True, "no_create":True}'/>
+                                    readonly="1" class="oe_inline" options='{"no_open":True, "no_create":True}'
+                                    attrs="{'invisible':[('result_type_id', '=', False)]}"/>
                                 )
                             </span>
                         </h3>
@@ -129,7 +131,7 @@
                             </group>
                             <group name="request_info">
                                 <field name="request_type"
-                                    on_change="onchange_partner_id(request_type, partner_id)" />
+                                    on_change="onchange_partner_id(request_type, partner_id, technical_name)" />
                             </group>
                         </group>
 
@@ -223,7 +225,7 @@
                                         domain="[('is_company','=', False),('identifier','!=',0)]"
                                         attrs="{'readonly':[('is_update', '=', True)],
                                                    'required':[('is_update', '=', True)]}"
-                                        on_change="onchange_partner_id(request_type, partner_id)" />
+                                        on_change="onchange_partner_id(request_type, partner_id, technical_name)" />
                                     <field name="birth_date" />
                                     <field name="int_instance_id"
                                         readonly="1" />
@@ -249,6 +251,17 @@
                                 <group>
                                     <field name="phone_id" />
                                     <field name="mobile_id" />
+                                </group>
+                            </page>
+                            <page string="Changes" name="changes">
+                                <group attrs="{'invisible': [('partner_id', '=', False)]}">
+                                    <field name="change_ids" nolabel="1">
+                                        <tree>
+                                            <field name="field_name"/>
+                                            <field name="old_value"/>
+                                            <field name="new_value"/>
+                                        </tree>
+                                    </field>
                                 </group>
                             </page>
                         </notebook>

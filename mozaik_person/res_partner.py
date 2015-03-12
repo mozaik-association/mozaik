@@ -24,11 +24,13 @@
 ##############################################################################
 import unicodedata
 
-from openerp.osv import orm, fields
+from openerp import models, api
+from openerp import fields as new_fields
+from openerp.osv import orm, fields, expression
 from openerp.tools.translate import _
 
 from openerp.addons.base.res import res_partner
-
+from openerp.addons.mozaik_base.base_tools import format_value
 
 # Constants
 AVAILABLE_GENDERS = [
@@ -54,6 +56,25 @@ AVAILABLE_TONGUES = [
 ]
 
 available_tongues = dict(AVAILABLE_TONGUES)
+
+
+class ResPartner(models.Model):
+
+    _inherit = 'res.partner'
+
+    @api.one
+    @api.depends('select_name')
+    def _compute_technical_name(self):
+        """
+        Remove accents and upper-case
+        """
+        if self.select_name:
+            self.technical_name = format_value(
+                self.select_name, remove_blanks=True)
+
+    technical_name = new_fields.Char(
+        string='Technical Name', compute='_compute_technical_name',
+        store=True, index=True)
 
 
 class res_partner(orm.Model):
@@ -87,12 +108,17 @@ class res_partner(orm.Model):
         Calling and result convention: Multiple mode
         """
         result = {
-            i: {key for key in ['display_name', 'printable_name', ]}
-            for i in ids}
+            i: {
+                key for key in
+                ['display_name', 'printable_name', 'select_name', ]
+            } for i in ids
+        }
         for partner in self.browse(cr, uid, ids, context=context):
             result[partner.id] = {
-                'display_name': self.build_name(partner, full_mode=True),
+                'display_name': self.build_name(
+                    partner, full_mode=True, ident_mode=True),
                 'printable_name': self.build_name(partner, reverse_mode=True),
+                'select_name': self.build_name(partner, full_mode=True),
             }
         return result
 
@@ -104,11 +130,12 @@ class res_partner(orm.Model):
                         # priority of the store=True in partner_firstname
                         # module)
                         ['is_company', 'name', 'firstname', 'lastname',
-                         'usual_firstname', 'usual_lastname', 'acronym', ], 20)
+                         'usual_firstname', 'usual_lastname', 'acronym',
+                         'identifier', ], 20)
     }
 
     _columns = {
-        'identifier': fields.integer('Number'),
+        'identifier': fields.integer('Number', select=True),
         'tongue': fields.selection(
             AVAILABLE_TONGUES, 'Tongue', select=True,
             track_visibility='onchange'),
@@ -139,8 +166,12 @@ class res_partner(orm.Model):
             _get_partner_names, type='char', string='Printable Name',
             multi="AllNames",
             store=_display_name_store_trigger),
+        'select_name': fields.function(
+            _get_partner_names, type='char', string='Select Name',
+            multi="AllNames",
+            store=_display_name_store_trigger),
         'acronym': fields.char(
-            'Acronym', select=True, track_visibility='onchange'),
+            'Acronym', track_visibility='onchange'),
         'enterprise_identifier': fields.char(
             'Enterprise Number', size=10, track_visibility='onchange'),
 
@@ -161,7 +192,7 @@ class res_partner(orm.Model):
         # Standard fields redefinition
         'display_name': fields.function(
             _get_partner_names, type='char', string='Name', multi="AllNames",
-            store=_display_name_store_trigger),
+            store=_display_name_store_trigger, select=True),
         'website': fields.char(
             'Main Website', size=128, track_visibility='onchange',
             help="Main Website of Partner or Company"),
@@ -191,6 +222,8 @@ class res_partner(orm.Model):
         'identifier': False,
         'tongue': lambda *args: AVAILABLE_TONGUES[0][0],
     }
+
+    _order = 'select_name'
 
 # constraints
 
@@ -239,11 +272,28 @@ class res_partner(orm.Model):
                 ids = [ids]
             res = []
             for record in self.browse(cr, uid, ids, context=context):
-                name = self.build_name(record, full_mode=True)
+                name = self.build_name(record, full_mode=True, ident_mode=True)
                 if context.get('show_email') and record.email:
                     name = "%s <%s>" % (name, record.email)
                 res.append((record.id, name))
         return res
+
+    def name_search(
+            self, cr, user, name,
+            args=None, operator='ilike', context=None, limit=100):
+        if not args:
+            args = []
+        op = operator in ['like', 'ilike', '=', ] and operator or 'ilike'
+        ident = name.isdigit() and int(name) or -1
+        domain = [
+            '|', '|',
+            ('select_name', op, name),
+            ('technical_name', op, name),
+            ('identifier', '=', ident),
+        ]
+        domain = expression.AND([domain, args])
+        ids = self.search(cr, user, domain, limit=limit, context=context)
+        return self.name_get(cr, user, ids, context=context)
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
         """
@@ -274,16 +324,10 @@ class res_partner(orm.Model):
 
     def create(self, cr, uid, vals, context=None):
         """
-        =====
-        create
-        =====
         When create partner get identifier value from within attached sequence
         """
         need_identifier = True
-        if 'is_assembly' in vals and vals['is_assembly']:
-            need_identifier = False
-
-        if 'identifier' in vals and vals['identifier'] > 0:
+        if vals.get('is_assembly') or vals.get('identifier'):
             need_identifier = False
 
         if need_identifier:
@@ -308,7 +352,7 @@ class res_partner(orm.Model):
             partner,
             reverse_mode=False,
             full_mode=False,
-            capitalize_mode=False):
+            capitalize_mode=False, ident_mode=False):
         if partner.is_company:
             name = partner.name or partner.lastname
             if partner.acronym and not reverse_mode:
@@ -336,6 +380,8 @@ class res_partner(orm.Model):
             name = " ".join([n for n in names if n])
             if name != partner.name and full_mode:
                 name = "%s (%s)" % (name, partner.name)
+        if ident_mode and partner.identifier:
+            name = "%s-%s" % (partner.identifier, name)
         return name
 
     def _update_user_partner(self, cr, uid, partner, vals, context=None):

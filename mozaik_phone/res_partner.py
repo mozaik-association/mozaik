@@ -144,8 +144,6 @@ class res_partner(orm.Model):
                 val = ''
                 if coord.vip:
                     val = 'VIP'
-                elif coord.unauthorized:
-                    val = 'N/A: %s' % coord.phone_id.name
                 else:
                     val = coord.phone_id.name
                 result[

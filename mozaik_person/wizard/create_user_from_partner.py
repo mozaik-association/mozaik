@@ -84,7 +84,7 @@ class create_user_from_partner(orm.TransientModel):
             nok = 'company'
         elif not partner.birth_date:
             nok = 'birthdate'
-        elif not partner.email or partner.email.startswith('N/A'):
+        elif not partner.email:
             nok = 'email'
 
         res.update({'nok': nok})

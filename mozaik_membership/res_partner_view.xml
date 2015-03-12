@@ -60,8 +60,7 @@
             <field name="inherit_id" ref="mozaik_person.view_partner_tree" />
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='identifier']"
-                    position="before">
+                <xpath expr="//field[@name='country_id']" position="before">
                     <field name="membership_state_id"
                         invisible="context.get('default_is_company')" />
                     <field name="int_instance_id" />

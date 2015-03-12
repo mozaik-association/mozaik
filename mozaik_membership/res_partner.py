@@ -22,7 +22,6 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from datetime import date
 
 from openerp.osv import orm, fields

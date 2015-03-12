@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <search string="Partner">
                     <field name="identifier" string="Number"/>
-                    <field name="display_name" />
+                    <field name="display_name" filter_domain="['|',('select_name','ilike',self),('technical_name','ilike',self)]"/>
                     <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field name="enterprise_identifier" invisible="'default_is_company' not in context or not context.get('default_is_company')" />
@@ -64,7 +64,9 @@
                     <attribute name="colors">grey:active==False;red:is_duplicate_detected==True</attribute>
                 </xpath>
 
-                <xpath expr="//field[@name='display_name']" position="after">
+                <xpath expr="//field[@name='display_name']" position="replace">
+                    <field name="identifier" attrs="{'invisible':[('identifier', '=', 0)]}"/>
+                    <field name="select_name" />
                     <field name="birth_date" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                 </xpath>
 
@@ -75,8 +77,6 @@
                 </xpath>
 
                 <xpath expr="//field[@name='parent_id']" position="replace">
-                    <field name="identifier" attrs="{'invisible':[('identifier', '=', 0)]}"/>
-
                     <field name="is_duplicate_detected" invisible="1"/>
                     <field name="is_duplicate_allowed" invisible="1"/>
                     <button name="button_undo_allow_duplicate" string="Undo Allow Duplicate" type="object"
@@ -87,9 +87,6 @@
 
                     <field name="expire_date"
                            invisible="context.get('invisible_expire_date', True)" />
-
-                    <field name="gender" invisible="1"/>
-                    <field name="tongue" invisible="1"/>
                 </xpath>
 
             </field>
@@ -327,7 +324,9 @@
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="display_name" />
+                                <field name="technical_name" />
                                 <field name="printable_name" />
+                                <field name="select_name" />
                                 <field name="is_assembly" />
                                 <field name="tz" />
                                 <field name="parent_id" />

@@ -24,11 +24,3 @@
 ##############################################################################
 from . import test_email_coordinate
 from . import test_email_bounce
-
-fast_suite = [
-]
-
-checks = [
-    test_email_coordinate,
-    test_email_bounce,
-]
