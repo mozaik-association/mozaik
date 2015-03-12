@@ -17,6 +17,7 @@
                     <field string="Phones" name="phone" filter_domain="['|','|',('phone','ilike',self),('mobile','ilike',self),('fax','ilike',self)]" />
                     <filter name="without_coordinate" string="Without Coordinate"
                             domain="[('email','=',False), ('address', '=', False)]" />
+                    <separator/>
                 </xpath>
             </field>
         </record>

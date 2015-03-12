@@ -20,11 +20,12 @@
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expired Distribution Lists" />
-                    <filter name="my_lists" string="My Lists"
-                        domain="[('res_users_ids','ilike', uid)]" help="Distribution Lists where I am into the owners" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Distribution Lists, expired or not" />
+                    <separator/>
+                    <filter name="my_lists" string="My Lists"
+                        domain="[('res_users_ids', 'in', [uid])]" help="Distribution Lists of which I am an owner" />
                 </xpath>
             </field>
         </record>

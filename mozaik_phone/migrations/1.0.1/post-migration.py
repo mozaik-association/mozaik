@@ -13,8 +13,8 @@ def migrate(cr, version):
         "WHERE phone like 'N/A: %';"
         "UPDATE res_partner "
         "SET mobile = substring(mobile, 6) "
-        "WHERE mobile like \'N/A: %'; "
+        "WHERE mobile like 'N/A: %'; "
         "UPDATE res_partner "
         "SET fax = substring(fax, 6) "
-        "WHERE fax like \'N/A: %';"
+        "WHERE fax like 'N/A: %';"
     )

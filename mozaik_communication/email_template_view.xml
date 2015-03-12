@@ -10,7 +10,7 @@
                 <xpath expr="//field[@name='model_id']" position="after">
                     <field name="int_instance_id"/>
                     <filter name="my_templates" string="My Templates"
-                        domain="[('res_users_ids','ilike', uid)]" help="Email Templates where I am into the owners" />
+                        domain="[('res_users_ids', 'in', [uid])]" help="Email Templates of which I am an owner" />
                 </xpath>
 
                 <xpath expr="//group[1]" position="inside">
