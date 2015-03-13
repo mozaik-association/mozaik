@@ -505,7 +505,12 @@ msgstr "Historique de communication de site web"
 
 #. module: mozaik_person_coordinate
 #: view:res.partner:mozaik_person_coordinate.res_partner_search_view
-msgid "Without Coordinate"
+msgid "With Unauthorized Main Coordinates"
+msgstr "Avec Coordonnées Principales Interdites"
+
+#. module: mozaik_person_coordinate
+#: view:res.partner:mozaik_person_coordinate.res_partner_search_view
+msgid "Without Coordinates"
 msgstr "Injoignables"
 
 #. module: mozaik_person_coordinate
