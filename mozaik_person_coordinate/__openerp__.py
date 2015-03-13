@@ -53,12 +53,6 @@ MOZAIK Person - Coordinate
         'partner_relation_view.xml',
         'res_partner_view.xml',
     ],
-    'qweb': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
     'license': 'AGPL-3',
     'sequence': 150,
     'auto_install': True,  # automatically install if all depends loaded

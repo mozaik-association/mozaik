@@ -234,12 +234,14 @@ class mozaik_abstract_model(orm.AbstractModel):
                 cr, uid, query, mode=mode, context=context)
         return res
 
-    def create(self, cr, uid, vals, context=None):
+    @api.model
+    @api.returns('self', lambda value: value.id)
+    def create(self, vals):
         """
         Do not add creator to followers nor track message on create
         Disable tracking if possible: when testing, installing, migrating, ...
         """
-        ctx = dict(context or {}, mail_no_autosubscribe=True)
+        ctx = dict(self.env.context, mail_no_autosubscribe=True)
         if ctx.get('install_mode') or 'uid' not in ctx:
             ctx['tracking_disable'] = True
         if not ctx.get('tracking_disable'):
@@ -248,12 +250,15 @@ class mozaik_abstract_model(orm.AbstractModel):
                 'mail_notrack': True,
             })
         if ctx.get('force_recompute'):
-            ctx.pop('recompute', None)
-        new_id = super(mozaik_abstract_model, self).create(
-            cr, uid, vals, context=ctx)
+            temp = self.env.all.recompute
+            self.env.all.recompute = True
+        new_id = super(
+            mozaik_abstract_model, self.with_context(ctx)).create(vals)
+        if ctx.get('force_recompute'):
+            self.env.all.recompute = temp
         if ctx.get('install_mode') and vals.get('create_date'):
             q = 'update %s set create_date=%%s where id=%%s' % self._table
-            cr.execute(q, (vals['create_date'], new_id))
+            self.env.cr.execute(q, (vals['create_date'], new_id.id))
         return new_id
 
     def write(self, cr, uid, ids, vals, context=None):
