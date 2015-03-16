@@ -49,8 +49,7 @@ Loads all applicative modules
     'qweb': [
     ],
     'demo': [
-    ],
-    'test': [
+        'demo/res_users_demo.xml',
     ],
     'license': 'AGPL-3',
     'sequence': 150,

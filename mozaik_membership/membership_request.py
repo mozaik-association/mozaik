@@ -1048,7 +1048,8 @@ class membership_request(orm.Model):
             })
 
             # update_partner values
-            partner.write(partner_values)
+            partner_obj.write(
+                cr, uid, [partner.id], partner_values, context=context)
             # address if technical name is empty then means that no address
             # required
             address_id = mr.address_id and mr.address_id.id or False

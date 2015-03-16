@@ -154,11 +154,10 @@ class distribution_list_mass_function(orm.TransientModel):
                     #
 
                     context['field_main_object'] = 'email_coordinate_id'
-                    active_ids = self.pool[
+                    active_ids, alternative_ids = self.pool[
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
-                    alternative_ids = active_ids
                     self.export_csv(
                         cr, uid, wizard.trg_model, active_ids,
                         wizard.groupby_coresidency, context=context)
@@ -198,11 +197,10 @@ class distribution_list_mass_function(orm.TransientModel):
                     context['alternative_more_filter'] = [
                         ('email_coordinate_id', '=', False)]
 
-                    active_ids = self.pool[
+                    active_ids, alternative_ids = self.pool[
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
-                    alternative_ids = active_ids
                     context['active_ids'] = active_ids
                     context['dl_computed'] = True
                     context['email_coordinate_path'] = 'email'

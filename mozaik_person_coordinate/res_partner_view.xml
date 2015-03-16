@@ -15,8 +15,11 @@
                     <field string="Email" name="email" filter_domain="[('email','ilike',self)]" />
                     <field string="Address" name="street" filter_domain="[('address','ilike',self)] "/>
                     <field string="Phones" name="phone" filter_domain="['|','|',('phone','ilike',self),('mobile','ilike',self),('fax','ilike',self)]" />
-                    <filter name="without_coordinate" string="Without Coordinate"
+                    <filter name="without_coordinate" string="Without Coordinates"
                             domain="[('email','=',False), ('address', '=', False)]" />
+                    <separator/>
+                    <filter name="unauthorized" string="With Unauthorized Main Coordinates"
+                            domain="[('unauthorized','=',True)]" />
                     <separator/>
                 </xpath>
             </field>
