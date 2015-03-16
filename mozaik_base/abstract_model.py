@@ -249,12 +249,10 @@ class mozaik_abstract_model(orm.AbstractModel):
                 'mail_create_nosubscribe': True,
                 'mail_notrack': True,
             })
-        """
-        Work around the optimization algorithm introduced in the setter of
-        one2many fields, it breaks the record rules check at the end of
-        model._create because all data needed to evaluate rules are not
-        already available
-        """
+        # Work around the optimization algorithm introduced in the setter of
+        # one2many fields, it breaks the record rules check at the end of
+        # model._create because all data needed to evaluate rules are not
+        # already available
         self.env.all.recompute = True
 
         new_id = super(
