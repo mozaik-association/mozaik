@@ -23,7 +23,6 @@
 #
 ##############################################################################
 from anybox.testing.openerp import SharedSetupTransactionCase
-from openerp.osv import orm
 
 
 class test_mozaik(SharedSetupTransactionCase):
@@ -51,15 +50,8 @@ class test_mozaik(SharedSetupTransactionCase):
         vals = {
             'email_coordinate_ids': [[0, False, email_vals]],
         }
-        compute_key = 'force_recompute'
-        field_email_ids = user.partner_id._fields['email_coordinate_ids']
-        field_email_ids.context[compute_key] = False
-        self.assertRaises(
-            orm.except_orm, user.partner_id.sudo(user).write, vals)
-        field_email_ids.context[compute_key] = True
-        email_vals['email'] = 'test2@test.be'
 
         user.partner_id.sudo(user).write(vals)
         self.assertTrue(
-            len(user.partner_id.email_coordinate_ids) == 3,
+            len(user.partner_id.email_coordinate_ids) == 2,
             'Should have a two email coordinate')
