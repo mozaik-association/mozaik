@@ -23,6 +23,7 @@
 #
 ##############################################################################
 
+import base64
 from datetime import datetime
 
 from openerp.tools.translate import _
@@ -81,6 +82,8 @@ class distribution_list_mass_function(orm.TransientModel):
             'int.instance', string='Internal Instance', ondelete='cascade'),
 
         'groupby_coresidency': fields.boolean('Group by Co-Residency'),
+        'export_file': fields.binary('File', readonly=True),
+        'export_filename': fields.char('Export Filename', size=128),
     }
 
     _defaults = {
@@ -117,6 +120,7 @@ class distribution_list_mass_function(orm.TransientModel):
         - email.coordinate
         - postal.coordinate
         """
+        file_exported = False
         composer = self.pool['mail.compose.message']
         for wizard in self.browse(cr, uid, ids, context=context):
             if wizard.trg_model == 'email.coordinate':
@@ -158,8 +162,9 @@ class distribution_list_mass_function(orm.TransientModel):
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
-                    self.export_csv(
-                        cr, uid, wizard.trg_model, active_ids,
+
+                    file_exported = self.export_csv(
+                        cr, uid, ids, wizard.trg_model, active_ids,
                         wizard.groupby_coresidency, context=context)
 
                 elif wizard.e_mass_function == 'email_coordinate_id':
@@ -205,8 +210,8 @@ class distribution_list_mass_function(orm.TransientModel):
                     context['dl_computed'] = True
                     context['email_coordinate_path'] = 'email'
                     if alternative_ids and wizard.extract_csv:
-                        self.export_csv(
-                            cr, uid, 'postal.coordinate',
+                        file_exported = self.export_csv(
+                            cr, uid, ids, 'postal.coordinate',
                             alternative_ids, wizard.groupby_coresidency,
                             context=context)
                         if wizard.postal_mail_name:
@@ -226,7 +231,8 @@ class distribution_list_mass_function(orm.TransientModel):
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
-                    self.export_vcard(cr, uid, active_ids, context)
+                    file_exported = self.export_vcard(cr, uid, ids,
+                                                      active_ids, context)
 
             elif wizard.trg_model == 'postal.coordinate':
                 domains = []
@@ -260,8 +266,8 @@ class distribution_list_mass_function(orm.TransientModel):
                             context=context)
                     self.post_processing(
                         cr, uid, wizard, active_ids, context=context)
-                    self.export_csv(
-                        cr, uid, wizard.trg_model, active_ids,
+                    file_exported = self.export_csv(
+                        cr, uid, ids, wizard.trg_model, active_ids,
                         wizard.groupby_coresidency, context=context)
 
                     if wizard.postal_mail_name:
@@ -292,19 +298,30 @@ class distribution_list_mass_function(orm.TransientModel):
                         report_name='mozaik_address.' +
                         'report_postal_coordinate_label', context=ctx)
 
+                    pdf = base64.encodestring(report)
+
+                    self.write(cr, uid, ids[0],
+                               {'export_file': pdf,
+                                'export_filename': 'report.pdf'},
+                               context=context)
+                    file_exported = True
+
                     if wizard.postal_mail_name:
                         self._generate_postal_log(
                             cr, uid, wizard.postal_mail_name, active_ids,
                             context=context)
 
-                    attachment = [('report.pdf', report)]
-                    partner_ids = self.pool['res.partner'].search(
-                        cr, uid, [('user_ids', '=', uid)], context=context)
-                    if partner_ids:
-                        self.pool['mail.thread'].message_post(
-                            cr, uid, False, attachments=attachment,
-                            context=context, partner_ids=partner_ids,
-                            subject=_('Export PDF'))
+        if file_exported:
+            return {
+                'name': 'Mass Function',
+                'type': 'ir.actions.act_window',
+                'res_model': 'distribution.list.mass.function',
+                'view_mode': 'form',
+                'view_type': 'form',
+                'res_id': ids[0],
+                'views': [(False, 'form')],
+                'target': 'new',
+            }
 
     def _generate_postal_log(self, cr, uid,
                              postal_mail_name, postal_coordinate_ids,
@@ -335,7 +352,7 @@ class distribution_list_mass_function(orm.TransientModel):
 
         return True
 
-    def export_csv(self, cr, uid, model, model_ids, group_by=False,
+    def export_csv(self, cr, uid, ids, model, model_ids, group_by=False,
                    context=None):
         """
         ==========
@@ -345,17 +362,17 @@ class distribution_list_mass_function(orm.TransientModel):
         """
         csv_content = self.pool.get('export.csv').get_csv(
             cr, uid, model, model_ids, group_by=group_by, context=context)
-        attachment = [('extract.csv', csv_content)]
-        partner_ids = self.pool['res.partner'].search(
-            cr, uid, [('user_ids', '=', uid)], context=context)
-        if partner_ids:
-            self.pool['mail.thread'].message_post(
-                cr, uid, False, attachments=attachment, context=context,
-                partner_ids=partner_ids, subject=_('Export CSV'))
+
+        csv_content = base64.encodestring(csv_content)
+
+        self.write(cr, uid, ids[0],
+                   {'export_file': csv_content,
+                    'export_filename': 'extract.csv'},
+                   context=context)
 
         return True
 
-    def export_vcard(self, cr, uid, email_coordinate_ids, context=None):
+    def export_vcard(self, cr, uid, ids, email_coordinate_ids, context=None):
         """
         ============
         export_vcard
@@ -365,13 +382,12 @@ class distribution_list_mass_function(orm.TransientModel):
         """
         vcard_content = self.pool.get('export.vcard').get_vcard(
             cr, uid, email_coordinate_ids, context=context)
-        attachment = [('extract.vcf', vcard_content)]
-        partner_ids = self.pool['res.partner'].search(
-            cr, uid, [('user_ids', '=', uid)], context=context)
-        if partner_ids:
-            self.pool['mail.thread'].message_post(
-                cr, uid, False, attachments=attachment, context=context,
-                partner_ids=partner_ids, subject=_('Export VCF'))
+        vcard_content = base64.encodestring(vcard_content)
+
+        self.write(cr, uid, ids[0],
+                   {'export_file': vcard_content,
+                    'export_filename': 'extract.vcf'},
+                   context=context)
 
         return True
 
