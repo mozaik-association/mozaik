@@ -11,9 +11,8 @@
                     <field name="display_name" filter_domain="['|',('select_name','ilike',self),('technical_name','ilike',self)]"/>
                     <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
-                    <field string="Age > ..." name="age" filter_domain="[('age','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <field string="Age >= ..." name="age" filter_domain="[('age','>=', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field string="Age &lt; ..." name="age" filter_domain="[('age','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
-                    <field string="Age" name="age" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field name="enterprise_identifier" invisible="'default_is_company' not in context or not context.get('default_is_company')" />
                     <field name="comment" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />

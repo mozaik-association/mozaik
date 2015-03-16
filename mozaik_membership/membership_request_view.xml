@@ -15,9 +15,8 @@
                     <field name="address_id" />
                     <field name="mobile_id" domain="[('type','=','mobile')]"/>
                     <field name="phone_id" domain="[('type','=','fix')]"/>
-                    <field string="Age > ..." name="age" filter_domain="[('age','>', self)]"/>
+                    <field string="Age >= ..." name="age" filter_domain="[('age','>=', self)]"/>
                     <field string="Age &lt; ..." name="age" filter_domain="[('age','&lt;', self)]"/>
-                    <field string="Age" name="age"/>
 
                     <filter name="state_draft" string="Draft"
                         domain="[('state', '=', 'draft')]" />

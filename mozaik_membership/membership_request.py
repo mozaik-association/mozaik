@@ -90,8 +90,8 @@ class membership_request(orm.Model):
         computed_birth_date = date.today() - relativedelta(years=age)
         computed_birth_date = datetime.strftime(
             computed_birth_date, DEFAULT_SERVER_DATE_FORMAT)
-        if domain[0][1] == '>':
-            operator = '<'
+        if domain[0][1] == '>=':
+            operator = '<='
         elif domain[0][1] == '<':
             operator = '>'
         else:
