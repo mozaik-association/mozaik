@@ -22,14 +22,19 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from uuid import uuid4
-import string
+from datetime import date, datetime
+import logging
 import random
+import string
+from uuid import uuid4
 
 from anybox.testing.openerp import SharedSetupTransactionCase
-import logging
-from openerp.tools import SUPERUSER_ID
+from dateutil.relativedelta import relativedelta
+
 from openerp.osv import orm
+from openerp.tools import SUPERUSER_ID
+from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
+
 
 _logger = logging.getLogger(__name__)
 
@@ -723,3 +728,21 @@ class test_res_partner(SharedSetupTransactionCase):
                 email,
                 birth_date) == '',
             BAD_GROUP)
+
+    def test_age_computation(self):
+        """
+        Check value of age depending of the birth_date
+        """
+        cr, uid, context = self.cr, self.uid, {}
+        age = 10
+        birth_date = datetime.strftime(
+            date.today() - relativedelta(years=age),
+            DEFAULT_SERVER_DATE_FORMAT)
+        vals = {
+            'name': 'Mitch',
+            'birth_date': birth_date,
+        }
+        partner_id = self.partner_model.create(cr, uid, vals, context=context)
+        partner = self.partner_model.browse(
+            cr, uid, partner_id, context=context)
+        self.assertEquals(partner.age, age, 'Should be the same age')

@@ -22,20 +22,23 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from uuid import uuid4, uuid1
-from datetime import date
 from collections import OrderedDict
 from contextlib import contextmanager
+from datetime import date, datetime
 from operator import attrgetter
+from uuid import uuid4, uuid1
+from dateutil.relativedelta import relativedelta
 
-from openerp.tools import logging
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
-from openerp.tools import SUPERUSER_ID
-
-from openerp.addons.mozaik_base.base_tools import format_email, check_email
-from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
 from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
+from openerp.addons.mozaik_base.base_tools import format_email, check_email
+from openerp.addons.mozaik_base.base_tools import get_age
+from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
+from openerp.osv import orm, fields
+from openerp.tools import SUPERUSER_ID
+from openerp.tools import logging
+from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
+from openerp.tools.translate import _
+
 
 _logger = logging.getLogger(__name__)
 
@@ -78,6 +81,35 @@ class membership_request(orm.Model):
     _inherit = ['mozaik.abstract.model']
     _description = 'Membership Request'
     _inactive_cascade = True
+
+    def _search_age(self, cr, uid, obj, name, domain, context=None):
+        """
+        Use birth_date to search on age
+        """
+        age = int(domain[0][2])
+        computed_birth_date = date.today() - relativedelta(years=age)
+        computed_birth_date = datetime.strftime(
+            computed_birth_date, DEFAULT_SERVER_DATE_FORMAT)
+        if domain[0][1] == '>':
+            operator = '<'
+        elif domain[0][1] == '<':
+            operator = '>'
+        else:
+            operator = domain[0][1]
+        return [('birth_date', operator, computed_birth_date)]
+
+    def _compute_age(self, cr, uid, ids, name, args, context=None):
+        """
+        :rtype: {id: computed age}
+        :rparam: age computed depending of the birth date of the
+        membership request
+        """
+        result = {}.fromkeys(ids, False)
+        for mr in self.browse(cr, uid, ids, context=context):
+            birth_date = mr.birth_date
+            if birth_date:
+                result[mr.id] = get_age(birth_date)
+        return result
 
     def _pop_related(self, cr, uid, vals, context=None):
         vals.pop('local_zip', None)
@@ -362,6 +394,9 @@ class membership_request(orm.Model):
         'month': fields.char('Month'),
         'year': fields.char('Year'),
         'birth_date': fields.date('Birth Date', track_visibility='onchange'),
+        'age': fields.function(
+            fnct=_compute_age, fnct_search=_search_age, type="integer",
+            string='Age'),
 
         # request and states
         'request_type': fields.selection(MEMBERSHIP_REQUEST_TYPE,

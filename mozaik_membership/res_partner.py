@@ -28,6 +28,7 @@ from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
 
+
 # Constants
 AVAILABLE_PARTNER_KINDS = [
     ('a', 'Assembly'),

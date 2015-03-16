@@ -22,10 +22,14 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from datetime import date, datetime
 from uuid import uuid4
+
 from anybox.testing.openerp import SharedSetupTransactionCase
+from dateutil.relativedelta import relativedelta
 
 from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
+from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
 
 class test_membership(SharedSetupTransactionCase):
@@ -283,3 +287,22 @@ class test_membership(SharedSetupTransactionCase):
         self.assertEquals(changes['Reference Street'][0], 'Street Sample')
         self.assertEquals(changes['Reference Street'][1],
                           u'Rue Louis Maréchal')
+
+    def test_age_computation(self):
+        """
+        Check value of age depending of the birth_date
+        """
+        cr, uid, context = self.cr, self.uid, {}
+        age = 10
+        birth_date = datetime.strftime(
+            date.today() - relativedelta(years=age),
+            DEFAULT_SERVER_DATE_FORMAT)
+        vals = {
+            'birth_date': birth_date,
+        }
+        mr_id = self.ref('%s.membership_request_mp' % self._module_ns)
+        clone_id = self.mro.copy(cr, uid, mr_id, context=context)
+        mr = self.mro.browse(cr, uid, clone_id, context=context)
+        self.mro.write(cr, uid, [mr.id], vals, context=context)
+        mr = self.mro.browse(cr, uid, mr.id, context=context)
+        self.assertEquals(mr.age, age, 'Should be the same age')

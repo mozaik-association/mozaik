@@ -15,6 +15,9 @@
                     <field name="address_id" />
                     <field name="mobile_id" domain="[('type','=','mobile')]"/>
                     <field name="phone_id" domain="[('type','=','fix')]"/>
+                    <field string="Age > ..." name="age" filter_domain="[('age','>', self)]"/>
+                    <field string="Age &lt; ..." name="age" filter_domain="[('age','&lt;', self)]"/>
+                    <field string="Age" name="age"/>
 
                     <filter name="state_draft" string="Draft"
                         domain="[('state', '=', 'draft')]" />
@@ -227,6 +230,7 @@
                                                    'required':[('is_update', '=', True)]}"
                                         on_change="onchange_partner_id(request_type, partner_id, technical_name)" />
                                     <field name="birth_date" />
+                                    <field name="age" attrs="{'invisible': [('birth_date', '=', False)]}"/>
                                     <field name="int_instance_id"
                                         readonly="1" />
                                 </group>
