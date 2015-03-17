@@ -32,8 +32,11 @@
             <field name="inherit_id" ref="mozaik_coordinate.view_partner_form" />
             <field name="arch" type="xml">
 
-                <xpath expr="//separator[@name='email']" position="after">
-                    <button string="All Details" name="%(email_coordinate_action)d"
+                <xpath expr="//separator[@name='email']" position="replace">
+                    <span name="email" class="oe_horizontal_separator oe_clear oe_inline">
+                        Email Coordinates
+                    </span>
+                    <button class="oe_right" string="All Details" name="%(email_coordinate_action)d"
                             type="action" attrs="{'invisible': [('id','=',False)]}"
                             context="{'search_default_partner_id': active_id,
                                       'default_partner_id': active_id,

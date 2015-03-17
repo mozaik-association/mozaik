@@ -160,7 +160,7 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="mozaik_coordinate.view_partner_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//separator[@name='email']" position="before">
+                <xpath expr="//page/span[@name='email']" position="before">
                     <group name="coordinates_data">
                         <field name="unauthorized" />
                     </group>
