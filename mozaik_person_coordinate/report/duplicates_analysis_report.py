@@ -28,10 +28,12 @@ from openerp import tools
 from openerp.osv import orm, fields
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
+from openerp.exceptions import Warning
 
 from openerp.addons.mozaik_base import url
 
 _logger = logging.getLogger(__name__)
+complete_group = 'mozaik_base.mozaik_res_groups_configurator'
 
 
 class duplicate_analysis_report(orm.Model):
@@ -114,101 +116,98 @@ class duplicate_analysis_report(orm.Model):
 
 # public methods
 
-    def process_notify_duplicates(
-            self,
-            cr,
-            uid,
-            ids=None,
-            force_send=False,
-            context=None):
+    def _get_partner_ids(self, cr, uid, context=None):
         """
-        =========================
-        process_notify_duplicates
-        =========================
+        Return the partner ids concerned by the duplicate coordinate
+        """
+        partner_ids = []
+        splited = complete_group.split('.')
+        if len(splited) != 2:
+            raise Warning(_('Should have a correct name of group'))
+        module = splited[0]
+        group = splited[1]
+        model, group_id = self.pool['ir.model.data'].get_object_reference(
+            cr, uid, module, group)
+        configurator_group = self.pool[model].browse(
+            cr, uid, [group_id], context=context)[0]
+        if configurator_group.users:
+            users = configurator_group.users
+            partner_ids = [
+                u.partner_id.id for u in users
+                if u.id != SUPERUSER_ID and u.partner_id.email]
+        return partner_ids
+
+    def process_notify_duplicates(
+            self, cr, uid, ids=None, force_send=False, context=None):
+        """
         Search duplicates and send a summary email to the configurators
         :type force_send: boolean
         :param force_send: If no duplicates found force a mail to say there are
                            no duplicates
         """
         uid = SUPERUSER_ID
-        model, group_id = self.pool['ir.model.data'].get_object_reference(
-            cr, uid, 'mozaik_base', 'mozaik_res_groups_configurator')
-        configurator_group = self.pool[model].browse(
-            cr,
-            uid,
-            [group_id],
-            context=context)[0]
         mail_id = False
-        if configurator_group.users:
-            users = configurator_group.users
-            partner_ids = [
-                u.partner_id.id for u in users
-                if u.id != SUPERUSER_ID and u.partner_id.email]
-            if partner_ids:
-                groups = self.read_group(
-                    cr,
-                    uid,
-                    [],
-                    [],
-                    ['model'],
-                    context=context,
-                    orderby='sequence')
-                content_text = []
-                if groups:
-                    content_text.append('<p/><table>')
-                    ir_model = self.pool.get('ir.model')
-                    for model_domain in [
-                            group['__domain'] for group in groups]:
-                        model_name = ir_model.search_read(
-                            cr,
-                            uid,
-                            domain=model_domain,
-                            fields=['name'],
-                            context=context)[0]['name']
-                        content_text.append(
-                            '<tr><th colspan="2"><br/><u>%s</u></th></tr>' %
-                            model_name)
-                        duplicates = self.search_read(
-                            cr,
-                            uid,
-                            domain=model_domain,
-                            order='name',
-                            context=context)
-                        for duplicate in duplicates:
-                            reason = duplicate['name'] or _(
-                                'Unknown birth date')
-                            content_text.append(
-                                '<tr><td><b>%s</b</td><td>'
-                                '<a style="color:blue" href="%s">%s</a></td>'
-                                '</tr>' %
-                                (duplicate['partner_name'],
-                                 url.get_document_url(
-                                    self,
-                                    cr,
-                                    uid,
-                                    duplicate['model'],
-                                    duplicate['orig_id'],
-                                    context=context),
-                                    reason))
-                    content_text.append('</table><p/>')
-                elif force_send:
-                    content_text.append(
-                        '<p>%s</p>' %
-                        _('There are no duplicates'))
-
-                if content_text:
-                    mail_vals = {
-                        'subject': _(
-                            'Mozaik: Duplicates Summary - %s') %
-                        fields.date.today(cr, uid),
-                        'body_html': '\n'.join(content_text),
-                        'recipient_ids': [[6, False, partner_ids]],
-                    }
-                    mail_id = self.pool.get('mail.mail').create(
+        partner_ids = self._get_partner_ids(cr, uid, context=context)
+        if partner_ids:
+            groups = self.read_group(
+                cr, uid, [], [], ['model'], context=context,
+                orderby='sequence')
+            content_text = []
+            if groups:
+                content_text.append('<p/><table>')
+                ir_model = self.pool.get('ir.model')
+                for model_domain in [
+                        group['__domain'] for group in groups]:
+                    model_name = ir_model.search_read(
                         cr,
                         uid,
-                        mail_vals,
+                        domain=model_domain,
+                        fields=['name'],
+                        context=context)[0]['name']
+                    content_text.append(
+                        '<tr><th colspan="2"><br/><u>%s</u></th></tr>' %
+                        model_name)
+                    duplicates = self.search_read(
+                        cr,
+                        uid,
+                        domain=model_domain,
+                        order='name',
                         context=context)
+                    for duplicate in duplicates:
+                        reason = duplicate['name'] or _(
+                            'Unknown birth date')
+                        content_text.append(
+                            '<tr><td><b>%s</b</td><td>'
+                            '<a style="color:blue" href="%s">%s</a></td>'
+                            '</tr>' %
+                            (duplicate['partner_name'],
+                             url.get_document_url(
+                                self,
+                                cr,
+                                uid,
+                                duplicate['model'],
+                                duplicate['orig_id'],
+                                context=context),
+                                reason))
+                content_text.append('</table><p/>')
+            elif force_send:
+                content_text.append(
+                    '<p>%s</p>' %
+                    _('There are no duplicates'))
+
+            if content_text:
+                mail_vals = {
+                    'subject': _(
+                        'Mozaik: Duplicates Summary - %s') %
+                    fields.date.today(cr, uid),
+                    'body_html': '\n'.join(content_text),
+                    'recipient_ids': [[6, False, partner_ids]],
+                }
+                mail_id = self.pool.get('mail.mail').create(
+                    cr,
+                    uid,
+                    mail_vals,
+                    context=context)
 
         if mail_id:
             _logger.info(
