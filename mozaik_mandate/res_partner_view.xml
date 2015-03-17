@@ -7,6 +7,22 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="mozaik_person.view_partner_form" />
             <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_inline oe_stat_button" icon="fa-check-circle-o"
+                        type="object" name="get_mandate_action"
+                        attrs="{'invisible':['|', '|', ('id','=', False), ('is_company','=', False),
+                            '&amp;', ('is_assembly', '=', True), ('ext_mandate_count', '=', 0)]}">
+                        <field name="ext_mandate_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_inline oe_stat_button" icon="fa-university"
+                        type="action" name="mozaik_structure.ext_assembly_action"
+                        context="{'search_default_ref_partner_id': active_id}"
+                        attrs="{'invisible':['|', '|', ('id','=', False), ('is_company','=', False), ('is_assembly', '=', True)]}">
+                        <field name="ext_assembly_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+
                 <xpath expr="//field[@name='identifier']" position="after">
                     <span attrs="{'invisible':[('sta_mandate_ids','=',[])]}">
                         <br/>
