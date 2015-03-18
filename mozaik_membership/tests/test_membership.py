@@ -28,7 +28,10 @@ from uuid import uuid4
 from anybox.testing.openerp import SharedSetupTransactionCase
 from dateutil.relativedelta import relativedelta
 
+from openerp.addons.mozaik_membership.membership_request\
+    import MR_REQUIRED_AGE_KEY
 from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
+from openerp.exceptions import ValidationError
 from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
 
@@ -306,3 +309,24 @@ class test_membership(SharedSetupTransactionCase):
         self.mro.write(cr, uid, [mr.id], vals, context=context)
         mr = self.mro.browse(cr, uid, mr.id, context=context)
         self.assertEquals(mr.age, age, 'Should be the same age')
+
+    def test_required_age(self):
+        mr_obj = self.env['membership.request']
+        name = 'Test'
+        vals = {
+            'lastname': name,
+            'firstname': name,
+            'state': 'confirm',
+            'gender': 'm',
+            'day': 10,
+            'month': 04,
+            'year': 1999,
+            'request_type': 'm',
+        }
+        mr = mr_obj.with_context(mode='ws').create(vals)
+        self.assertRaises(ValidationError, mr.validate_request)
+        domain = [('key', '=', MR_REQUIRED_AGE_KEY)]
+        param = self.env['ir.config_parameter'].search(domain)
+        param.value = mr.age
+        mr.validate_request()
+        self.assertEquals(mr.state, 'validate', 'Validation should work')

@@ -38,6 +38,8 @@ from openerp.tools import SUPERUSER_ID
 from openerp.tools import logging
 from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 from openerp.tools.translate import _
+from openerp.exceptions import ValidationError
+from openerp import api, fields as new_fields
 
 
 _logger = logging.getLogger(__name__)
@@ -54,6 +56,7 @@ MEMBERSHIP_REQUEST_TYPE = [
     ('m', 'Member'),
     ('s', 'Supporter'),
 ]
+MR_REQUIRED_AGE_KEY = 'mr_required_age'
 
 
 def get_status_values(request_type):
@@ -82,34 +85,39 @@ class membership_request(orm.Model):
     _description = 'Membership Request'
     _inactive_cascade = True
 
-    def _search_age(self, cr, uid, obj, name, domain, context=None):
+    @api.multi
+    @api.constrains('birth_date', 'age', 'state')
+    def _check_age(self):
+        required_age = self.env['ir.config_parameter'].get_param(
+            MR_REQUIRED_AGE_KEY, default=-1)
+        if self.request_type and self.state == 'validate':
+            if self.birth_date and self.age < eval(required_age):
+                raise ValidationError(_('The required age for a membership '
+                                        'request is %s' % required_age))
+
+    def _search_age(self, operator, value):
         """
         Use birth_date to search on age
         """
-        age = int(domain[0][2])
+        age = value
         computed_birth_date = date.today() - relativedelta(years=age)
         computed_birth_date = datetime.strftime(
             computed_birth_date, DEFAULT_SERVER_DATE_FORMAT)
-        if domain[0][1] == '>=':
+        if operator == '>=':
             operator = '<='
-        elif domain[0][1] == '<':
+        elif operator == '<':
             operator = '>'
-        else:
-            operator = domain[0][1]
         return [('birth_date', operator, computed_birth_date)]
 
-    def _compute_age(self, cr, uid, ids, name, args, context=None):
+    @api.one
+    @api.depends('birth_date')
+    def _compute_age(self):
         """
-        :rtype: {id: computed age}
-        :rparam: age computed depending of the birth date of the
+        age computed depending of the birth date of the
         membership request
         """
-        result = {}.fromkeys(ids, False)
-        for mr in self.browse(cr, uid, ids, context=context):
-            birth_date = mr.birth_date
-            if birth_date:
-                result[mr.id] = get_age(birth_date)
-        return result
+        if self.birth_date:
+            self.age = get_age(self.birth_date)
 
     def _pop_related(self, cr, uid, vals, context=None):
         vals.pop('local_zip', None)
@@ -394,9 +402,6 @@ class membership_request(orm.Model):
         'month': fields.char('Month'),
         'year': fields.char('Year'),
         'birth_date': fields.date('Birth Date', track_visibility='onchange'),
-        'age': fields.function(
-            fnct=_compute_age, fnct_search=_search_age, type="integer",
-            string='Age'),
 
         # request and states
         'request_type': fields.selection(MEMBERSHIP_REQUEST_TYPE,
@@ -477,6 +482,9 @@ class membership_request(orm.Model):
                                       relation="membership.request.change",
                                       string='Changes', store=False),
     }
+
+    age = new_fields.Integer(
+        string='Age', compute='_compute_age', search='_search_age')
 
     _defaults = {
         'is_update': False,

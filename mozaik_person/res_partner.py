@@ -95,33 +95,28 @@ class res_partner(orm.Model):
 
 # private methods
 
-    def _compute_age(self, cr, uid, ids, name, args, context=None):
+    @api.one
+    @api.depends('birth_date')
+    def _compute_age(self):
         """
-        :rtype: {id: computed age}
-        :rparam: age computed depending of the birth date of the
-        res_partner
+        age computed depending of the birth date of the
+        membership request
         """
-        result = {}.fromkeys(ids, False)
-        for partner in self.browse(cr, uid, ids, context=context):
-            birth_date = partner.birth_date
-            if birth_date:
-                result[partner.id] = get_age(birth_date)
-        return result
+        if self.birth_date:
+            self.age = get_age(self.birth_date)
 
-    def _search_age(self, cr, uid, obj, name, domain, context=None):
+    def _search_age(self, operator, value):
         """
         Use birth_date to search on age
         """
-        age = int(domain[0][2])
+        age = value
         computed_birth_date = date.today() - relativedelta(years=age)
         computed_birth_date = datetime.strftime(
             computed_birth_date, DEFAULT_SERVER_DATE_FORMAT)
-        if domain[0][1] == '>=':
+        if operator == '>=':
             operator = '<='
-        elif domain[0][1] == '<':
+        elif operator == '<':
             operator = '>'
-        else:
-            operator = domain[0][1]
         return [('birth_date', operator, computed_birth_date)]
 
     def _get_partner_names(self, cr, uid, ids, name, args, context=None):
@@ -242,10 +237,10 @@ class res_partner(orm.Model):
         # astronomic number of columns !!
         'birth_date': fields.date(
             'Birth Date', select=True, track_visibility='onchange'),
-        'age': fields.function(
-            fnct=_compute_age, fnct_search=_search_age, type="integer",
-            string='Age'),
     }
+
+    age = new_fields.Integer(
+        string='Age', compute='_compute_age', search='_search_age')
 
     _defaults = {
         # Redefinition
