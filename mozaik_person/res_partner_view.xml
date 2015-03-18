@@ -63,7 +63,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//tree" position="attributes">
-                    <attribute name="colors">grey:active==False;red:is_duplicate_detected==True</attribute>
+                    <attribute name="colors">grey:active==False;darkorange:is_duplicate_detected==True</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='display_name']" position="replace">

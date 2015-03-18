@@ -212,7 +212,7 @@
                                                   'default_address_id': active_id,
                                                   'search_default_all': True}" />
                                 <field name="postal_coordinate_ids" context="{'default_address_id': id}">
-                                    <tree colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
+                                    <tree colors="darkorange:is_duplicate_detected==True;red:unauthorized==True">
                                         <field name="partner_id"/>
                                         <field name="coordinate_category_id" />
                                         <field name="is_main" />
@@ -223,7 +223,7 @@
                                 </field>
                                 <field name="postal_coordinate_inactive_ids"
                                        readonly="1" attrs="{'invisible': [('active','=',True)]}">
-                                    <tree colors="darkorange:unauthorized==True">
+                                    <tree colors="red:unauthorized==True">
                                         <field name="partner_id"/>
                                         <field name="coordinate_category_id" />
                                         <field name="is_main" />
@@ -325,7 +325,7 @@
                                                   'search_default_all': True}" />
                                 <field name="postal_coordinate_ids"
                                        readonly="1" attrs="{'invisible': [('active','=',False)]}">
-                                    <tree colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
+                                    <tree colors="darkorange:is_duplicate_detected==True;red:unauthorized==True">
                                         <field name="partner_id"/>
                                         <field name="coordinate_category_id" />
                                         <field name="is_main" />

@@ -8,13 +8,15 @@
             <field name="name">virtual.target.tree</field>
             <field name="model">virtual.target</field>
             <field name="arch" type="xml">
-                <tree string="Virtual Target" create="0" delete="0">
+                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Virtual Target" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="email" />
                     <field name="postal" />
                     <field name="membership_state_id" />
                     <field name="int_instance_id" />
                     <field name="identifier" />
+                    <field name="postal_unauthorized" invisible="1" />
+                    <field name="email_unauthorized" invisible="1" />
                 </tree>
             </field>
         </record>
@@ -94,7 +96,7 @@
             <field name="name">virtual.partner.involvement.tree</field>
             <field name="model">virtual.partner.involvement</field>
             <field name="arch" type="xml">
-                <tree string="Partners/Involvements" create="0" delete="0">
+                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Involvements" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -103,6 +105,8 @@
                     <field name="birth_date" />
                     <field name="gender" />
                     <field name="tongue" />
+                    <field name="postal_unauthorized" invisible="1" />
+                    <field name="email_unauthorized" invisible="1" />
                 </tree>
             </field>
         </record>
@@ -218,7 +222,7 @@
             <field name="name">virtual.partner.relation.tree</field>
             <field name="model">virtual.partner.relation</field>
             <field name="arch" type="xml">
-                <tree string="Partners/Relations" create="0" delete="0">
+                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Relations" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -228,6 +232,8 @@
                     <field name="birth_date" />
                     <field name="gender" />
                     <field name="tongue" />
+                    <field name="postal_unauthorized" invisible="1" />
+                    <field name="email_unauthorized" invisible="1" />
                 </tree>
             </field>
         </record>
@@ -349,7 +355,7 @@
             <field name="name">virtual.partner.instance.tree</field>
             <field name="model">virtual.partner.instance</field>
             <field name="arch" type="xml">
-                <tree string="Partners/Instances" create="0" delete="0">
+                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Instances" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -358,6 +364,8 @@
                     <field name="birth_date" />
                     <field name="gender" />
                     <field name="tongue" />
+                    <field name="postal_unauthorized" invisible="1" />
+                    <field name="email_unauthorized" invisible="1" />
                 </tree>
             </field>
         </record>
@@ -485,7 +493,7 @@
             <field name="name">virtual.partner.mandate.tree</field>
             <field name="model">virtual.partner.mandate</field>
             <field name="arch" type="xml">
-                <tree string="Partners/Mandates" create="0" delete="0">
+                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Mandates" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -497,6 +505,8 @@
                     <field name="birth_date" />
                     <field name="gender" />
                     <field name="tongue" />
+                    <field name="postal_unauthorized" invisible="1" />
+                    <field name="email_unauthorized" invisible="1" />
                 </tree>
             </field>
         </record>
@@ -609,7 +619,7 @@
             <field name="name">virtual.partner.candidature.tree</field>
             <field name="model">virtual.partner.candidature</field>
             <field name="arch" type="xml">
-                <tree string="Partners/Candidatures" create="0" delete="0">
+                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Candidatures" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -621,6 +631,8 @@
                     <field name="birth_date" />
                     <field name="gender" />
                     <field name="tongue" />
+                    <field name="postal_unauthorized" invisible="1" />
+                    <field name="email_unauthorized" invisible="1" />
                 </tree>
             </field>
         </record>
@@ -729,11 +741,13 @@
             <field name="name">virtual.assembly.instance.tree</field>
             <field name="model">virtual.assembly.instance</field>
             <field name="arch" type="xml">
-                <tree string="Assemblies/Instances" create="0" delete="0">
+                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Assemblies/Instances" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
                     <field name="category" />
+                    <field name="email_unauthorized" invisible="True"/>
+                    <field name="postal_unauthorized" invisible="True"/>
                 </tree>
             </field>
         </record>
@@ -844,7 +858,7 @@
             <field name="name">virtual.partner.retrocession.tree</field>
             <field name="model">virtual.partner.retrocession</field>
             <field name="arch" type="xml">
-                <tree string="Partners/Retrocessions" create="0" delete="0">
+                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Retrocessions" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
 
@@ -858,6 +872,8 @@
                     <field name="birth_date" />
                     <field name="gender" />
                     <field name="tongue" />
+                    <field name="postal_unauthorized" invisible="1" />
+                    <field name="email_unauthorized" invisible="1" />
                 </tree>
             </field>
         </record>
@@ -996,7 +1012,7 @@
             <field name="name">virtual.partner.membership.tree</field>
             <field name="model">virtual.partner.membership</field>
             <field name="arch" type="xml">
-                <tree string="Partners/Membership" create="0" delete="0">
+                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Membership" create="0" delete="0">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
                     <field name="membership_state_id" />
@@ -1006,6 +1022,8 @@
                     <field name="birth_date" />
                     <field name="gender" />
                     <field name="tongue" />
+                    <field name="postal_unauthorized" invisible="1" />
+                    <field name="email_unauthorized" invisible="1" />
                 </tree>
             </field>
         </record>
@@ -1120,7 +1138,7 @@
             <field name="name">virtual.partner.event.tree</field>
             <field name="model">virtual.partner.event</field>
             <field name="arch" type="xml">
-                <tree string="Partners/Events" create="0" delete="0">
+                <tree colors="red:email_unauthorized==True or postal_unauthorized==True" string="Partners/Events" create="0" delete="0">
                     <field name="event_registration_id" />
                     <field name="int_instance_id" />
 

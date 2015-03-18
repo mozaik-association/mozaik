@@ -43,7 +43,7 @@
                                       'search_default_all': True}" />
                     <field name="email_coordinate_ids" context="{'default_partner_id': active_id}"
                            attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
-                        <tree colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
+                        <tree colors="darkorange:is_duplicate_detected==True;red:unauthorized==True">
                             <field name="email"/>
                             <field name="coordinate_category_id" />
                             <field name="is_main" />
@@ -54,7 +54,7 @@
                     </field>
                     <field name="email_coordinate_inactive_ids"
                            readonly="1" attrs="{'invisible': [('active','=',True)]}">
-                        <tree colors="darkorange:unauthorized==True">
+                        <tree colors="red:unauthorized==True">
                             <field name="email"/>
                             <field name="coordinate_category_id" />
                             <field name="is_main" />
