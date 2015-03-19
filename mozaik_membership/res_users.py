@@ -23,6 +23,7 @@
 #
 ##############################################################################
 
+from openerp import fields
 from openerp.osv import orm
 from openerp.tools import SUPERUSER_ID
 
@@ -30,6 +31,11 @@ from openerp.tools import SUPERUSER_ID
 class res_users(orm.Model):
 
     _inherit = 'res.users'
+
+    int_instance_m2m_ids = fields.Many2many(
+        related='partner_id.int_instance_m2m_ids', inherited=True)
+
+    lang = fields.Selection(related='partner_id.lang', inherited=True)
 
     def _register_hook(self, cr):
         """
@@ -39,9 +45,6 @@ class res_users(orm.Model):
         # duplicate list to avoid modifying the original reference
         self.SELF_READABLE_FIELDS = list(self.SELF_READABLE_FIELDS)
         self.SELF_READABLE_FIELDS.append('int_instance_m2m_ids')
-        # if the user can be read, let's also read its name and lang
-        self._fields['name'].related_sudo = True
-        self._fields['lang'].related_sudo = True
         return init_res
 
     def internal_instances(self, cr, uid, power_level_id=False):

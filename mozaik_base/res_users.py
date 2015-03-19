@@ -78,7 +78,9 @@ class res_users(orm.Model):
         '''
         Grant a 100% visibility on users to everybody
         '''
-        if mode != 'read':
+        context = context or {}
+        if mode != 'read' or context.get('force_apply_rules') or \
+                context.get('apply_for_read', 'read') != 'read':
             super(res_users, self)._apply_ir_rules(
                 cr, uid, query, mode=mode, context=context)
         pass

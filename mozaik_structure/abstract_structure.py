@@ -168,6 +168,7 @@ class abstract_instance(orm.AbstractModel):
                  and display_name, the name of this object.
         :rtype: [(id,name)] list of tuple
         """
+        uid = SUPERUSER_ID
         if not ids:
             return []
 
