@@ -629,13 +629,13 @@ class membership_request(orm.Model):
 # public method
 
     @contextmanager
-    def protect_v8_cache(self, safe_pure_fct_fields):
+    def protect_v8_cache(self):
         '''
         Hackish: prevent to alter the _cache of onchange record
         when simulating a workflow progression on an onchange callback
         '''
         orig_pure_fct_fields = self.pool.pure_function_fields
-        self.pool.pure_function_fields = safe_pure_fct_fields
+        self.pool.pure_function_fields = []
         try:
             yield
         except:
@@ -651,52 +651,45 @@ class membership_request(orm.Model):
             partner_id=False,
             context=None):
         """
-        Try to advancing workflow of partner
-        If no partner then create one.
-        :type context: {}
-        :param context: rollback if contains the key `rollback` set to `True`
+        Advance partner's workflow to catch the next state
+        If no partner then create one
+        See also write and create method in abstract_model, it is important
+        that disable_tracking remains always True during the entire simulation
         :type request_type: char
         :param request_type: m or s (member or supporter)
         :type partner_id: integer
-        :type partner_data: {}
+        :param partner_id: id of partner
         :rparam: next status in partner's workflow depending on `request_type`
         """
         context = context or {}
 
         partner_obj = self.pool['res.partner']
 
-        # Build a new pure_function_fields list
-        # without fields of membership.request
-        pffs = [
-            f for f in self.pool.pure_function_fields
-            if f.model_name != self._name
-        ]
         status_id = False
         name = 'preview-%s' % uuid1().hex
         cr.execute('SAVEPOINT "%s"' % name)
         try:
-            ctx = context.copy().update({'tracking_disable': True})
             if not partner_id:
                 partner_datas = {
                     'lastname': '%s' % uuid4(),
                     'identifier': -1,
                 }
-                with self.protect_v8_cache(pffs):
+                with self.protect_v8_cache():
                     # safe mode is here mandatory
                     partner_id = partner_obj.create(
-                        cr, uid, partner_datas, context=ctx)
+                        cr, uid, partner_datas, context=context)
             status_id = partner_obj.read(
                 cr, uid, partner_id, ['membership_state_id'],
-                context=ctx)['membership_state_id'][0]
+                context=context)['membership_state_id'][0]
             vals = get_status_values(request_type)
             if vals:
-                with self.protect_v8_cache(pffs):
+                with self.protect_v8_cache():
                     # safe mode is here mandatory
                     partner_obj.write(
-                        cr, uid, partner_id, vals, context=ctx)
+                        cr, uid, partner_id, vals, context=context)
                 status_id = partner_obj.read(
                     cr, uid, partner_id, ['membership_state_id'],
-                    context=ctx)['membership_state_id'][0]
+                    context=context)['membership_state_id'][0]
         except:
             pass
         finally:
