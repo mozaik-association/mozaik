@@ -29,6 +29,8 @@ from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
 from openerp.addons.mozaik_person.res_partner import AVAILABLE_TONGUES
 from openerp.addons.mozaik_retrocession.retrocession import \
     RETROCESSION_AVAILABLE_STATES
+from openerp.addons.mozaik_mandate.mandate import \
+    mandate_category_available_types
 
 
 class virtual_target(orm.Model):
@@ -489,13 +491,17 @@ class virtual_partner_mandate(orm.Model):
         'active': fields.boolean("Active")
     }
 
-# orm methods
-
-    def init(self, cr):
-        tools.drop_view_if_exists(cr, 'virtual_partner_mandate')
-        cr.execute("""
-        create or replace view virtual_partner_mandate as (
-        SELECT 'int.mandate' AS model,
+    def _select(self, mandate_type):
+        mandate_id = ("mandate.id" if mandate_type == 'int'
+                      else "mandate.unique_id")
+        sta_mandate_id = ("mandate.id" if mandate_type == 'sta'
+                          else "NULL::int")
+        ext_mandate_id = ("mandate.id" if mandate_type == 'ext'
+                          else "NULL::int")
+        mandate_instance_id = ("mandate.mandate_instance_id"
+                               if mandate_type == 'int' else "NULL")
+        return """
+        SELECT '%s.mandate' AS model,
             concat(mandate.partner_id, '/',
                 CASE
                     WHEN mandate.postal_coordinate_id IS NULL
@@ -508,9 +514,9 @@ class virtual_partner_mandate(orm.Model):
                     THEN e.id
                     ELSE mandate.email_coordinate_id
                 END) as common_id,
-            mandate.id as id,
-            NULL::int as sta_mandate_id,
-            NULL::int as ext_mandate_id,
+            %s as id,
+            %s as sta_mandate_id,
+            %s as ext_mandate_id,
             mandate.mandate_category_id,
             mandate.partner_id,
             mandate.start_date,
@@ -534,143 +540,20 @@ class virtual_partner_mandate(orm.Model):
                 ELSE mandate.postal_coordinate_id
             END
             AS postal_coordinate_id,
-            mandate.mandate_instance_id as mandate_instance_id,
+            %s as mandate_instance_id,
             CASE
                 WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
                 THEN True
                 ELSE False
             END as active
-        FROM int_mandate AS mandate
-        JOIN int_assembly AS assembly
-            ON assembly.id = mandate.int_assembly_id
-        JOIN res_partner AS partner_assembly
-            ON partner_assembly.id = assembly.partner_id
-        JOIN res_partner AS partner
-            ON partner.id = mandate.partner_id
-        LEFT OUTER JOIN postal_coordinate pc
-            ON pc.partner_id = mandate.partner_id
-            and pc.is_main = TRUE
-            AND pc.active = TRUE
-        LEFT OUTER JOIN email_coordinate e
-            ON e.partner_id = mandate.partner_id
-            and e.is_main = TRUE
-            AND e.active = TRUE
-        WHERE mandate.active = True
+        """ % (mandate_type, mandate_id, sta_mandate_id, ext_mandate_id,
+               mandate_instance_id)
 
-        UNION
-
-        SELECT 'sta.mandate' AS model,
-            concat(mandate.partner_id, '/',
-                CASE
-                    WHEN mandate.postal_coordinate_id IS NULL
-                    THEN pc.id
-                    ELSE mandate.postal_coordinate_id
-                END,
-                '/',
-                CASE
-                    WHEN mandate.email_coordinate_id IS NULL
-                    THEN e.id
-                    ELSE mandate.email_coordinate_id
-                END) as common_id,
-            mandate.unique_id as id,
-            mandate.id as sta_mandate_id,
-            NULL::int as ext_mandate_id,
-            mandate.mandate_category_id,
-            mandate.partner_id,
-            mandate.start_date,
-            mandate.deadline_date,
-            partner_assembly.id as assembly_id,
-            partner.identifier as identifier,
-            partner.birth_date as birth_date,
-            partner.gender as gender,
-            partner.tongue as tongue,
-            partner.employee as employee,
-            partner.int_instance_id as int_instance_id,
-            CASE
-                WHEN mandate.email_coordinate_id IS NULL
-                THEN e.id
-                ELSE mandate.email_coordinate_id
-            END
-            AS email_coordinate_id,
-            CASE
-                WHEN mandate.postal_coordinate_id IS NULL
-                THEN pc.id
-                ELSE mandate.postal_coordinate_id
-            END
-            AS postal_coordinate_id,
-            NULL as mandate_instance_id,
-            CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-                THEN True
-                ELSE False
-            END as active
-        FROM sta_mandate AS mandate
-        JOIN sta_assembly AS assembly
-            ON assembly.id = mandate.sta_assembly_id
-        JOIN res_partner AS partner_assembly
-            ON partner_assembly.id = assembly.partner_id
-        JOIN res_partner AS partner
-            ON partner.id = mandate.partner_id
-        LEFT OUTER JOIN postal_coordinate pc
-            ON pc.partner_id = mandate.partner_id
-            and pc.is_main = TRUE
-            AND pc.active = TRUE
-        LEFT OUTER JOIN email_coordinate e
-            ON e.partner_id = mandate.partner_id
-            and e.is_main = TRUE
-            AND e.active = TRUE
-        WHERE mandate.active = True
-
-        UNION
-
-        SELECT 'ext.mandate' AS model,
-            concat(mandate.partner_id, '/',
-                CASE
-                    WHEN mandate.postal_coordinate_id IS NULL
-                    THEN pc.id
-                    ELSE mandate.postal_coordinate_id
-                END,
-                '/',
-                CASE
-                    WHEN mandate.email_coordinate_id IS NULL
-                    THEN e.id
-                    ELSE mandate.email_coordinate_id
-                END) as common_id,
-            mandate.unique_id as id,
-            NULL::int as sta_mandate_id,
-            mandate.id as ext_mandate_id,
-            mandate.mandate_category_id,
-            mandate.partner_id,
-            mandate.start_date,
-            mandate.deadline_date,
-            partner_assembly.id as assembly_id,
-            partner.identifier as identifier,
-            partner.birth_date as birth_date,
-            partner.gender as gender,
-            partner.tongue as tongue,
-            partner.employee as employee,
-            partner.int_instance_id as int_instance_id,
-            CASE
-                WHEN mandate.email_coordinate_id IS NULL
-                THEN e.id
-                ELSE mandate.email_coordinate_id
-            END
-            AS email_coordinate_id,
-            CASE
-                WHEN mandate.postal_coordinate_id IS NULL
-                THEN pc.id
-                ELSE mandate.postal_coordinate_id
-            END
-            AS postal_coordinate_id,
-            NULL as mandate_instance_id,
-            CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-                THEN True
-                ELSE False
-            END as active
-        FROM ext_mandate AS mandate
-        JOIN ext_assembly AS assembly
-            ON assembly.id = mandate.ext_assembly_id
+    def _from(self, mandate_type):
+        return """
+        FROM %s_mandate AS mandate
+        JOIN %s_assembly AS assembly
+            ON assembly.id = mandate.%s_assembly_id
         JOIN res_partner AS partner_assembly
             ON partner_assembly.id = assembly.partner_id
         JOIN res_partner  AS partner
@@ -683,8 +566,25 @@ class virtual_partner_mandate(orm.Model):
             ON e.partner_id = mandate.partner_id
             and e.is_main = TRUE
             AND e.active = TRUE
-        WHERE mandate.active = True
-        )""")
+        """ % (mandate_type, mandate_type, mandate_type)
+
+    def _where(self, mandate_type):
+        return "WHERE mandate.active = True"
+
+# orm methods
+    def init(self, cr):
+        query_members = []
+        for mandate_type in mandate_category_available_types.keys():
+            query_members.append(''.join([self._select(mandate_type),
+                                 self._from(mandate_type),
+                                 self._where(mandate_type)]))
+        query = '\n\n        UNION\n'.join(query_members)
+
+        tools.drop_view_if_exists(cr, 'virtual_partner_mandate')
+        cr.execute("""
+        create or replace view virtual_partner_mandate as (
+        %s
+        )""" % query)
 
 
 class virtual_partner_candidature(orm.Model):
