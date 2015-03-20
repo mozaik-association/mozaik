@@ -282,6 +282,8 @@ class test_membership(SharedSetupTransactionCase):
                                                 'street_man': 'Street Sample',
                                                 'town_man': 'Test Valley'},
                                                context=context)
+        self.mro.write(cr, uid, request.id, {'name': "Test"})
+        request = self.mro.browse(cr, uid, request.id)
         changes = get_changes()
         self.assertIn('City', changes)
         self.assertIn('Reference Street', changes)

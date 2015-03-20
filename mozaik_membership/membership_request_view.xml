@@ -257,8 +257,19 @@
                                 </group>
                             </page>
                             <page string="Changes" name="changes">
+                                <group name='buttons'>
+	                                <button name="update_changes" attrs="{'invisible': [('active', '=', False)]}"
+	                                        string="Refresh" type="object"/>
+                                </group>
                                 <group attrs="{'invisible': [('partner_id', '=', False)]}">
-                                    <field name="change_ids" nolabel="1">
+                                    <field name="change_ids" readonly='1' nolabel="1" attrs="{'invisible': [('active', '=', False)]}">
+                                        <tree>
+                                            <field name="field_name"/>
+                                            <field name="old_value"/>
+                                            <field name="new_value"/>
+                                        </tree>
+                                    </field>
+                                    <field name="inactive_change_ids" readonly='1' nolabel="1" attrs="{'invisible': [('active', '=', True)]}">
                                         <tree>
                                             <field name="field_name"/>
                                             <field name="old_value"/>

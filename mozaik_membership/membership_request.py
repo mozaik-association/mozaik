@@ -344,7 +344,7 @@ class membership_request(orm.Model):
             label_path.append('STREET_NO_REQUEST_NO_PARTNER')
         return label_path
 
-    def _get_changes(self, cr, uid, ids, name, arg, context=None):
+    def _detect_changes(self, cr, uid, ids, context=None):
         tracked_fields = self._get_membership_tracked_fields()
         fields_def = self.fields_get(
             cr, uid, [elem[1] for elem in tracked_fields], context=context)
@@ -356,7 +356,6 @@ class membership_request(orm.Model):
             if not request.partner_id:
                 res[request.id] = False
                 continue
-            chg_ids = []
             label_to_process = self._get_labels_to_process(request)
 
             for element in tracked_fields:
@@ -379,10 +378,7 @@ class membership_request(orm.Model):
                         'old_value': partner_value,
                         'new_value': request_value,
                     }
-                    chg_ids.append(chg_obj.create(cr,
-                                                  uid, vals, context=context))
-            res[request.id] = chg_ids
-        return res
+                    chg_obj.create(cr, uid, vals, context=context)
 
     _columns = {
         'identifier': fields.related('partner_id',
@@ -477,10 +473,15 @@ class membership_request(orm.Model):
         'phone_id': fields.many2one('phone.phone',
                                     string='Phone',
                                     track_visibility='onchange'),
-        'change_ids': fields.function(_get_changes,
-                                      type='one2many',
-                                      relation="membership.request.change",
-                                      string='Changes', store=False),
+        'change_ids': fields.one2many('membership.request.change',
+                                      'membership_request_id',
+                                      string='Changes',
+                                      domain=[('active', '=', True)]),
+        'inactive_change_ids': fields.one2many('membership.request.change',
+                                               'membership_request_id',
+                                               string='Changes',
+                                               domain=[('active',
+                                                        '=', False)]),
     }
 
     age = new_fields.Integer(
@@ -1167,6 +1168,9 @@ class membership_request(orm.Model):
             instance_obj = self.pool['int.instance']
             return instance_obj.get_default(cr, uid)
 
+    def update_changes(self, cr, uid, ids, context=None):
+        return
+
 # orm methods
 
     def create(self, cr, uid, vals, context=None):
@@ -1178,15 +1182,27 @@ class membership_request(orm.Model):
             self.pre_process(cr, uid, vals, context=context)
 
         self._pop_related(cr, uid, vals, context=context)
+        request_id = super(membership_request, self).create(cr, uid, vals,
+                                                            context=context)
+        self._detect_changes(cr, uid, [request_id], context=context)
 
-        return super(membership_request, self).create(cr, uid, vals,
-                                                      context=context)
+        return request_id
 
     def write(self, cr, uid, ids, vals, context=None):
         # do not pass related fields to the orm
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+        active_ids = self.search(cr, uid,
+                                 [('id', 'in', ids), ('active', '=', True)],
+                                 context=context)
         self._pop_related(cr, uid, vals, context=context)
-        return super(membership_request, self).write(cr, uid, ids, vals,
-                                                     context=context)
+        res = super(membership_request, self).write(cr, uid, ids, vals,
+                                                    context=context)
+        if 'active' in vals:
+            if not vals.get('active'):
+                active_ids = []
+        if active_ids:
+            self._detect_changes(cr, uid, active_ids, context=context)
+        return res
 
     def name_get(self, cr, uid, ids, context=None):
         """
