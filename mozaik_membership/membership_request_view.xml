@@ -96,8 +96,7 @@
                             statusbar_visible="draft,confirm,validate" groups="mozaik_base.res_groups_base"/>
                     </header>
                     <sheet>
-                        <h3 attrs="{'invisible': [('id', '=', False)]}"
-                            groups="mozaik_base.res_groups_base">
+                        <h3 groups="mozaik_base.res_groups_base">
                             <label string="#" />
                             <field name="identifier" readonly="1"
                                 attrs="{'invisible': [('identifier', '=', 0)]}"
