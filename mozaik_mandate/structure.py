@@ -255,9 +255,9 @@ class int_instance(orm.Model):
         """
         self.sta_candidature_count = len(
             self._get_model_ids('sta.candidature'))
-        self.ext_mandate_count = len(self._get_model_ids('sta.mandate'))
+        self.ext_mandate_count = len(self._get_model_ids('ext.mandate'))
         self.int_mandate_count = len(self._get_model_ids('int.mandate'))
-        self.sta_mandate_count = len(self._get_model_ids('ext.mandate'))
+        self.sta_mandate_count = len(self._get_model_ids('sta.mandate'))
 
     sta_mandate_count = new_fields.Integer(
         compute='_compute_cand_mandate_count', type='integer',
