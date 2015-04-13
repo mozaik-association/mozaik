@@ -66,7 +66,12 @@ class res_users(orm.Model):
         Invalidate cache when updating user
         '''
         res = super(res_users, self).write(cr, uid, ids, vals, context=context)
-        super(res_users, self).context_get.clear_cache(self)
+        if hasattr(self, '_context_get'):
+            # Temporary: test attr while the #6037 odoo issue is not fixed;
+            # afterwards we can force the _context_get.clear_cache
+            super(res_users, self)._context_get.clear_cache(self)
+        else:
+            super(res_users, self).context_get.clear_cache(self)
         return res
 
     def _apply_ir_rules(self, cr, uid, query, mode='read', context=None):
