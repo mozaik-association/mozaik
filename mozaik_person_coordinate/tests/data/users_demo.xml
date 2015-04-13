@@ -9,9 +9,6 @@
             <field name="usual_firstname"></field>
             <field name="company_id" ref="base.main_company"/>
             <field name="employee" eval="1"/>
-            <field name="int_instance_m2m_ids" eval="[(6, 0, [
-                ref('mozaik_structure.int_instance_01'),
-            ])]"/>
         </record>
 
         <record id="user_test" model="res.users">
