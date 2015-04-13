@@ -162,7 +162,7 @@ class res_partner(orm.Model):
     }
 
     _columns = {
-        'identifier': fields.integer('Number', select=True),
+        'identifier': fields.integer('Number', select=True, group_operator='min'),
         'tongue': fields.selection(
             AVAILABLE_TONGUES, 'Tongue', select=True,
             track_visibility='onchange'),
@@ -184,7 +184,7 @@ class res_partner(orm.Model):
             help="Name of the user in the LDAP"),
         'ldap_id': fields.integer(
             'LDAP Id', track_visibility='onchange',
-            help="ID of the user in the LDAP"),
+            help="ID of the user in the LDAP", group_operator='min'),
         'usual_firstname': fields.char(
             "Usual Firstname", track_visibility='onchange'),
         'usual_lastname': fields.char(

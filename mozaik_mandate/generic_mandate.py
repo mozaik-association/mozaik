@@ -47,7 +47,7 @@ class generic_mandate(orm.Model):
     _columns = {
         'id': fields.integer('ID'),
         'model': fields.char('Models'),
-        'mandate_id': fields.integer('Mandate ID'),
+        'mandate_id': fields.integer('Mandate ID', group_operator='min'),
         'mandate_ref': fields.reference('Mandate Reference',
                                         selection=_get_document_types),
         'mandate_category_id': fields.many2one('mandate.category',

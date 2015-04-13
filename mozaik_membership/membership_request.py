@@ -437,7 +437,8 @@ class membership_request(orm.Model):
         'number': fields.char(string='Number', track_visibility='onchange'),
         'box': fields.char(string='Box', track_visibility='onchange'),
         'sequence': fields.integer('Sequence',
-                                   track_visibility='onchange'),
+                                   track_visibility='onchange',
+                                   group_operator='min'),
 
         'technical_name': fields.char(string='Technical Name'),
 
@@ -1232,7 +1233,7 @@ class membership_request_change(orm.Model):
     _columns = {
         'membership_request_id': fields.many2one(
             'membership.request', 'Membership Request', ondelete='cascade'),
-        "sequence": fields.integer('Sequence'),
+        'sequence': fields.integer('Sequence'),
         'field_name': fields.char('Field Name'),
         'old_value': fields.char('Old Value'),
         'new_value': fields.char('New Value'),

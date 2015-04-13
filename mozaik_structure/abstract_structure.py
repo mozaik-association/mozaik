@@ -42,7 +42,8 @@ class abstract_power_level(orm.AbstractModel):
                             track_visibility='onchange'),
         'sequence': fields.integer('Sequence',
                                    required=True,
-                                   track_visibility='onchange'),
+                                   track_visibility='onchange',
+                                   group_operator='min'),
         'assembly_category_ids': fields.one2many(
             'abstract.assembly.category',
             'power_level_id',
@@ -82,7 +83,7 @@ class abstract_assembly_category(orm.AbstractModel):
                                    track_visibility='onchange'),
         'months_before_end_of_mandate': fields.integer(
             'Alert Delay (#Months)',
-            track_visibility='onchange'),
+            track_visibility='onchange', group_operator='min'),
         'power_level_id': fields.many2one('abstract.power.level',
                                           'Power Level'),
     }
@@ -216,7 +217,7 @@ class abstract_assembly(orm.AbstractModel):
             ondelete='restrict'),
         'months_before_end_of_mandate': fields.integer(
             'Alert Delay (#Months)',
-            track_visibility='onchange'),
+            track_visibility='onchange', group_operator='min'),
     }
 
     _defaults = {

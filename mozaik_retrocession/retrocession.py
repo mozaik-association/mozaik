@@ -358,7 +358,7 @@ class calculation_rule(orm.Model):
             required=True,
             select=True,
             track_visibility='onchange'),
-        'sequence': fields.integer('Sequence'),
+        'sequence': fields.integer('Sequence', group_operator='min'),
         'type': fields.selection(
             CALCULATION_RULE_AVAILABLE_TYPES,
             'Amount Type',

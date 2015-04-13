@@ -80,7 +80,7 @@ class virtual_partner_involvement(orm.Model):
             'partner.involvement.category', 'Involvement Category'),
 
         'is_company': fields.boolean('Is a Company'),
-        'identifier': fields.integer('Number'),
+        'identifier': fields.integer('Number', group_operator='min'),
         'birth_date': fields.date('Birth Date'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
@@ -191,7 +191,7 @@ class virtual_partner_relation(orm.Model):
         'is_assembly': fields.boolean('Is an Assembly'),
 
         'is_company': fields.boolean('Is a Company'),
-        'identifier': fields.integer('Number'),
+        'identifier': fields.integer('Number', group_operator='min'),
         'birth_date': fields.date('Birth Date'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
@@ -328,7 +328,7 @@ class virtual_partner_instance(orm.Model):
                                                 'Postal Coordinate'),
 
         'is_company': fields.boolean('Is a Company'),
-        'identifier': fields.integer('Number'),
+        'identifier': fields.integer('Number', group_operator='min'),
         'birth_date': fields.date('Birth Date'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
@@ -451,7 +451,7 @@ class virtual_partner_mandate(orm.Model):
         'start_date': fields.date('Start Date'),
         'deadline_date': fields.date('Deadline Date'),
 
-        'identifier': fields.integer('Number'),
+        'identifier': fields.integer('Number', group_operator='min'),
         'birth_date': fields.date('Birth Date'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
@@ -614,7 +614,7 @@ class virtual_partner_candidature(orm.Model):
 
         'start_date': fields.date('Mandate Start Date'),
 
-        'identifier': fields.integer('Number'),
+        'identifier': fields.integer('Number', group_operator='min'),
         'birth_date': fields.date('Birth Date'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
@@ -1012,7 +1012,7 @@ class virtual_partner_retrocession(orm.Model):
         'month': fields.selection(fields.date.MONTHS, 'Month',
                                   select=True, track_visibility='onchange'),
 
-        'identifier': fields.integer('Number'),
+        'identifier': fields.integer('Number', group_operator='min'),
         'birth_date': fields.date('Birth Date'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
@@ -1252,7 +1252,7 @@ class virtual_partner_membership(orm.Model):
         'del_doc_date': fields.date('Welcome Documents Sent Date'),
         'del_mem_card_date': fields.date('Member Card Sent Date'),
 
-        'identifier': fields.integer('Number'),
+        'identifier': fields.integer('Number', group_operator='min'),
         'birth_date': fields.date('Birth Date'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
@@ -1370,7 +1370,7 @@ class virtual_partner_event(orm.Model):
         'event_registration_id': fields.many2one(
             'event.registration', 'Event Registration'),
 
-        'identifier': fields.integer('Number'),
+        'identifier': fields.integer('Number', group_operator='min'),
         'birth_date': fields.date('Birth Date'),
         'gender': fields.selection(AVAILABLE_GENDERS, 'Gender'),
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
