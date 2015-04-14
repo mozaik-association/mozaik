@@ -282,11 +282,14 @@ class test_membership(SharedSetupTransactionCase):
                                                 'street_man': 'Street Sample',
                                                 'town_man': 'Test Valley'},
                                                context=context)
-        self.mro.write(cr, uid, request.id, {'name': "Test"})
+        self.mro.write(cr, uid, request.id, {'lastname': 'Test'})
         request = self.mro.browse(cr, uid, request.id)
         changes = get_changes()
+        self.assertIn('Lastname', changes)
         self.assertIn('City', changes)
         self.assertIn('Reference Street', changes)
+        self.assertEquals(changes['Lastname'][0], 'MAROIS')
+        self.assertEquals(changes['Lastname'][1], 'Test')
         self.assertEquals(changes['City'][0], 'Test Valley')
         self.assertEquals(changes['City'][1], 'Oreye')
         self.assertEquals(changes['Reference Street'][0], 'Street Sample')
