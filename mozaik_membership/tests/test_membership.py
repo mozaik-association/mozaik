@@ -317,21 +317,32 @@ class test_membership(SharedSetupTransactionCase):
 
     def test_required_age(self):
         mr_obj = self.env['membership.request']
+        minage = int(self.env['ir.config_parameter'].get_param(
+            MR_REQUIRED_AGE_KEY, default=16))
         name = 'Test'
+        d = date.today() - relativedelta(years=minage) + relativedelta(days=1)
         vals = {
             'lastname': name,
             'firstname': name,
             'state': 'confirm',
             'gender': 'm',
-            'day': 10,
-            'month': 04,
-            'year': 1999,
+            'day': d.day,
+            'month': d.month,
+            'year': d.year,
             'request_type': 'm',
         }
         mr = mr_obj.with_context(mode='ws').create(vals)
         self.assertRaises(ValidationError, mr.validate_request)
-        domain = [('key', '=', MR_REQUIRED_AGE_KEY)]
-        param = self.env['ir.config_parameter'].search(domain)
-        param.value = mr.age
+
+        d = date.today() - relativedelta(years=minage)
+        vals = {
+            'day': d.day,
+            'month': d.month,
+            'year': d.year,
+        }
+        oc = mr.onchange_partner_component(
+            d.day, d.month, d.year, name, name, None, False)
+        vals['birth_date'] = oc['value'].get('birth_date', False)
+        mr.write(vals)
         mr.validate_request()
         self.assertEquals(mr.state, 'validate', 'Validation should work')

@@ -88,12 +88,13 @@ class membership_request(orm.Model):
     @api.multi
     @api.constrains('birth_date', 'age', 'state')
     def _check_age(self):
-        required_age = self.env['ir.config_parameter'].get_param(
-            MR_REQUIRED_AGE_KEY, default=-1)
+        required_age = int(self.env['ir.config_parameter'].get_param(
+            MR_REQUIRED_AGE_KEY, default=16))
         if self.request_type and self.state == 'validate':
-            if self.birth_date and self.age < eval(required_age):
-                raise ValidationError(_('The required age for a membership '
-                                        'request is %s' % required_age))
+            if self.birth_date and self.age < required_age:
+                raise ValidationError(
+                    _('The required age for a membership request is %s') %
+                    required_age)
 
     def _search_age(self, operator, value):
         """
