@@ -162,7 +162,8 @@ class res_partner(orm.Model):
     }
 
     _columns = {
-        'identifier': fields.integer('Number', select=True, group_operator='min'),
+        'identifier': fields.integer(
+            'Number', select=True, group_operator='min'),
         'tongue': fields.selection(
             AVAILABLE_TONGUES, 'Tongue', select=True,
             track_visibility='onchange'),
