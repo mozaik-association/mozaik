@@ -295,7 +295,13 @@
                             </tree>
                         </field>
                     </page>
-                    <page name="user" string="User" attrs="{'invisible': [('user_ids','=',[])]}" groups="mozaik_base.mozaik_res_groups_configurator">
+                    <page name="user" string="User" groups="mozaik_base.mozaik_res_groups_configurator">
+                        <group name="user">
+                            <group>
+                                <label for="user_ids" string="User"/>
+                                <field name="user_ids" readonly="1" nolabel="1"/>
+                            </group>
+                        </group>
                         <group name="ldap">
                             <group>
                                 <field name="ldap_name" />
@@ -333,8 +339,6 @@
                                 <field name="is_assembly" />
                                 <field name="tz" />
                                 <field name="parent_id" />
-                                <field name="user_ids" attrs="{'invisible': [('user_ids','=',[])]}"
-                                       context="{'form_view_ref': 'base.view_users_form'}"/>
                             </group>
                         </div>
                     </div>
