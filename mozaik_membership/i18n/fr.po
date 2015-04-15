@@ -1369,7 +1369,7 @@ msgstr "Nom technique"
 #: code:addons/mozaik_membership/membership_request.py:95
 #, python-format
 msgid "The required age for a membership request is %s"
-msgstr "L'âge requis pour une demande d'adhésion %s"
+msgstr "L'âge requis pour une demande d'adhésion est de %s ans"
 
 #. module: mozaik_membership
 #: model:mail.message.subtype,description:mozaik_membership.main_email_notification
