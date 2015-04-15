@@ -1,3 +1,4 @@
+sudo: required 
 language: python
 
 python:
@@ -14,7 +15,7 @@ virtualenv:
 install:
   - git clone https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
-  - pip install ofxparse anybox.testing.openerp phonenumbers
+  - pip install anybox.testing.openerp phonenumbers unicodecsv lxml
   - travis_install_nightly
   - git clone https://github.com/acsone/acsone-addons -b ${VERSION} $HOME/acsone-addons
   - git clone --depth=1 https://github.com/OCA/web -b ${VERSION} $HOME/web

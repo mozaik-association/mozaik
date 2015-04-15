@@ -270,7 +270,9 @@ class res_partner(orm.Model):
                     cr, uid, context=context),
             })
         res = super(res_partner, self).create(cr, uid, vals, context=context)
-        if vals.get('identifier', False):
+        if vals.get('identifier', 0) > 0:
+            # do not update followers when simulating partner workflow
+            # i.e. identifier = -1 (see get_partner_preview method)
             self._update_follower(cr, SUPERUSER_ID, [res], context=context)
         return res
 

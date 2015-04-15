@@ -242,7 +242,7 @@ class mozaik_abstract_model(orm.AbstractModel):
         Disable tracking if possible: when testing, installing, migrating, ...
         """
         ctx = dict(self.env.context, mail_no_autosubscribe=True)
-        if ctx.get('install_mode'):
+        if ctx.get('install_mode') or self.env.all.mode:
             ctx['tracking_disable'] = True
         if not ctx.get('tracking_disable'):
             ctx.update({
@@ -263,25 +263,25 @@ class mozaik_abstract_model(orm.AbstractModel):
             self.env.cr.execute(q, (vals['create_date'], new_id.id))
         return new_id
 
-    def write(self, cr, uid, ids, vals, context=None):
+    @api.multi
+    def write(self, vals):
         """
         Disable tracking if possible: when testing, installing, migrating, ...
         """
-        ctx = dict(context or {}, mail_no_autosubscribe=True)
-        if ctx.get('install_mode'):
+        ctx = dict(self.env.context, mail_no_autosubscribe=True)
+        if ctx.get('install_mode') or self.env.all.mode:
             ctx['tracking_disable'] = True
+        self = self.with_context(ctx)
         if 'active' in vals:
             mode = 'activate' if vals['active'] else 'deactivate'
             expire_date = vals.get('expire_date', False)
-            vals.update(self.get_fields_to_update(cr, uid, mode, context=ctx))
+            vals.update(self.get_fields_to_update(mode))
             if mode == 'deactivate':
                 if expire_date:
                     vals['expire_date'] = expire_date
                 if self._inactive_cascade:
-                    self._invalidate_active_relations(
-                        cr, uid, ids, context=ctx)
-        res = super(mozaik_abstract_model, self).write(
-            cr, uid, ids, vals, context=ctx)
+                    self._invalidate_active_relations()
+        res = super(mozaik_abstract_model, self).write(vals)
         return res
 
     def step_workflow(self, cr, uid, ids, context=None):
