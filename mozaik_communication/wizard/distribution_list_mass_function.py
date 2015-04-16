@@ -120,43 +120,37 @@ class distribution_list_mass_function(orm.TransientModel):
         - email.coordinate
         - postal.coordinate
         """
+        context = dict(context or {})
         file_exported = False
         composer = self.pool['mail.compose.message']
         for wizard in self.browse(cr, uid, ids, context=context):
+            domains = []
+            if wizard.internal_instance_id:
+                domains.append(
+                    ('int_instance_id', 'child_of',
+                     [wizard.internal_instance_id.id]))
+            context['more_filter'] = domains
+            context['target_model'] = wizard.trg_model
+
+            if wizard.sort_by:
+                context['sort_by'] = wizard.sort_by
+            if wizard.groupby_coresidency:
+                context['alternative_group_by'] = 'co_residency_id'
+
             if wizard.trg_model == 'email.coordinate':
-                domains = []
-
-                if wizard.include_unauthorized:
-                    domains.append('|')
-                    domains.append(('email_unauthorized', '=', True))
-                    domains.append(('email_unauthorized', '=', False))
-                else:
+                if not wizard.include_unauthorized:
                     domains.append(('email_unauthorized', '=', False))
 
-                if wizard.internal_instance_id:
-                    domains.append(
-                        ('int_instance_id', 'child_of',
-                         ['%s' % wizard.internal_instance_id.id]))
-
-                if wizard.bounce_counter != 0:
+                if wizard.bounce_counter:
                     wizard.bounce_counter = wizard.bounce_counter if \
                         wizard.bounce_counter >= 0 else 0
                     domains.append(
-                        ('email_bounce_counter', '<=',
-                         '%s' % wizard.bounce_counter))
-
-                context['more_filter'] = domains
-                context['target_model'] = wizard.trg_model
-                if wizard.sort_by:
-                    context['sort_by'] = wizard.sort_by
-                if wizard.groupby_coresidency:
-                    context['alternative_group_by'] = 'co_residency_id'
+                        ('email_bounce_counter', '<=', wizard.bounce_counter))
 
                 if wizard.e_mass_function == 'csv':
                     #
                     # Get CSV containing email coordinates
                     #
-
                     context['field_main_object'] = 'email_coordinate_id'
                     active_ids, alternative_ids = self.pool[
                         'distribution.list'].get_complex_distribution_list_ids(
@@ -225,8 +219,10 @@ class distribution_list_mass_function(orm.TransientModel):
                         cr, uid, [mail_composer_id], context=context)
 
                 elif wizard.e_mass_function == 'vcard':
+                    #
+                    # Get VCARD containing email coordinates
+                    #
                     context['field_main_object'] = 'email_coordinate_id'
-                    context['target_model'] = wizard.trg_model
                     active_ids, alternative_ids = self.pool[
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
@@ -235,31 +231,21 @@ class distribution_list_mass_function(orm.TransientModel):
                                                       active_ids, context)
 
             elif wizard.trg_model == 'postal.coordinate':
-                domains = []
-
-                if wizard.include_unauthorized:
-                    domains.append('|')
-                    domains.append(('postal_unauthorized', '=', True))
-                    domains.append(('postal_unauthorized', '=', False))
-                else:
+                if not wizard.include_unauthorized:
                     domains.append(('postal_unauthorized', '=', False))
 
-                if wizard.internal_instance_id:
-                    domains.append(('int_instance_id', 'child_of',
-                                    ['%s' % wizard.internal_instance_id.id]))
-                if wizard.sort_by:
-                    context['sort_by'] = wizard.sort_by
-                if wizard.groupby_coresidency:
-                    context['alternative_group_by'] = 'co_residency_id'
+                if wizard.bounce_counter:
+                    wizard.bounce_counter = wizard.bounce_counter if \
+                        wizard.bounce_counter >= 0 else 0
+                    domains.append(
+                        ('postal_bounce_counter', '<=', wizard.bounce_counter))
 
-                context['more_filter'] = domains
+                context['field_main_object'] = 'postal_coordinate_id'
 
                 if wizard.p_mass_function == 'csv':
                     #
                     # Get CSV containing postal coordinates
                     #
-                    context['field_main_object'] = 'postal_coordinate_id'
-                    context['target_model'] = wizard.trg_model
                     active_ids, alternative_ids = self.pool[
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
@@ -275,13 +261,10 @@ class distribution_list_mass_function(orm.TransientModel):
                             cr, uid, wizard.postal_mail_name, active_ids,
                             context=context)
 
-                if wizard.p_mass_function == 'postal_coordinate_id':
+                elif wizard.p_mass_function == 'postal_coordinate_id':
                     #
-                    # Get postal coordinate labels PDF
+                    # Get postal coordinate PDF labels
                     #
-                    context['more_filter'] = domains
-                    context['field_main_object'] = 'postal_coordinate_id'
-                    context['target_model'] = wizard.trg_model
                     active_ids, alternative_ids = self.pool[
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
