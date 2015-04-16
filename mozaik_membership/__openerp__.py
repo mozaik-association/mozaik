@@ -24,7 +24,7 @@
 ##############################################################################
 {
     'name': 'MOZAIK: Membership',
-    'version': '1.0.1',
+    'version': '1.0.2',
     "author": "ACSONE SA/NV",
     "maintainer": "ACSONE SA/NV",
     "website": "http://www.acsone.eu",

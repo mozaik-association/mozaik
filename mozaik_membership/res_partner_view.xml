@@ -207,7 +207,7 @@
                                 ('membership_state_code', '!=', 'former_member'),
                                 ('membership_state_code', '!=', 'supporter')]}" />
                             <button name="reset" string="Reset"
-                                type="object"
+                                type="workflow"
                                 confirm="Reset Partner Membership State: proceed anyway?"
                                 attrs="{'invisible': [('membership_state_code', 'not in',
                                 ['former_supporter', 'resignation_former_member', 'break_former_member',
