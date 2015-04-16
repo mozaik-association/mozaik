@@ -88,15 +88,15 @@ class test_partner(SharedSetupTransactionCase):
         * without_status -> supporter -> member_candidate
             -> member_committee -> refused_member_candidate
             -> supporter -> member_committee -> refused_member_candidate
-            -> member_candidate -> supporter -> former_supporter
+            -> member_candidate -> supporter -> former_supporter -> supporter
         * without_status -> member_candidate -> member_committee
             -> member -> former_member -> former_member_committee -> member
             -> former_member -> former_member_committee
                 -> inappropriate_former_member
-        * former_member -> inappropriate_former_member
-        * former_member -> break_former_member
-        * member -> expulsion_former_member
-        * member -> resignation_former_member
+        * former_member -> inappropriate_former_member -> former_member
+        * former_member -> break_former_member -> former_member
+        * member -> expulsion_former_member -> former_member
+        * member -> resignation_former_member -> former_member
         """
         cr, uid = self.cr, self.uid
         partner_obj = self.partner_obj
@@ -161,6 +161,9 @@ class test_partner(SharedSetupTransactionCase):
         partner = self.get_partner(partner.id)
         self.assertEquals(partner.membership_state_id.code,
                           'former_supporter', 'Should be "former_supporter"')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'reset')
+        self.assertEquals(partner.membership_state_id.code,
+                          'supporter', 'Should be "supporter"')
 
         # go to member state
         partner = self.get_partner()
@@ -192,6 +195,10 @@ class test_partner(SharedSetupTransactionCase):
         self.assertEquals(partner.membership_state_id.code,
                           'inappropriate_former_member',
                           'Should be "inappropriate_former_member"')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'reset')
+        self.assertEquals(partner.membership_state_id.code,
+                          'former_member',
+                          'Should be "former_member"')
 
         # Go to member
         partner = self.get_partner()
@@ -207,6 +214,10 @@ class test_partner(SharedSetupTransactionCase):
         self.assertEquals(partner.membership_state_id.code,
                           'resignation_former_member',
                           'Should be "resignation_former_member"')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'reset')
+        self.assertEquals(partner.membership_state_id.code,
+                          'former_member',
+                          'Should be "former_member"')
 
         # Go to member
         partner = self.get_partner()
@@ -222,6 +233,10 @@ class test_partner(SharedSetupTransactionCase):
         self.assertEquals(partner.membership_state_id.code,
                           'expulsion_former_member',
                           'Should be "expulsion_former_member"')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'reset')
+        self.assertEquals(partner.membership_state_id.code,
+                          'former_member',
+                          'Should be "former_member"')
 
         # Go to former committee member
         partner = self.get_partner()
@@ -263,6 +278,10 @@ class test_partner(SharedSetupTransactionCase):
         self.assertEquals(partner.membership_state_id.code,
                           'resignation_former_member',
                           'Should be "break_former_member"')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'reset')
+        self.assertEquals(partner.membership_state_id.code,
+                          'former_member',
+                          'Should be "former_member"')
 
     def test_button_modification_request(self):
         """
