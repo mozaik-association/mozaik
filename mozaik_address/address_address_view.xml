@@ -113,6 +113,7 @@
             <field name="arch" type="xml">
                 <search string="Address" version="7.0">
                     <field name="name" />
+                    <field name="street_man" />
                     <field name="address_local_zip_id" />
                     <field name="country_id" />
                     <separator />
