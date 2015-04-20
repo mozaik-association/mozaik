@@ -851,142 +851,96 @@ class virtual_assembly_instance(orm.Model):
     }
 
 # orm methods
+    def _select(self, mandate_type):
+        int_instance_id = ""
+        if mandate_type == 'int':
+            int_instance_id = 'i.id'
+        elif mandate_type == 'sta':
+            int_instance_id = 'i.int_instance_id'
+        elif mandate_type == 'ext':
+            int_instance_id = 'assembly.instance_id'
+
+        int_cat_id = ("assembly.assembly_category_id" if mandate_type == 'int'
+                      else "NULL::int")
+        sta_cat_id = ("assembly.assembly_category_id" if mandate_type == 'sta'
+                      else "NULL::int")
+        ext_cat_id = ("assembly.assembly_category_id" if mandate_type == 'ext'
+                      else "NULL::int")
+
+        int_power_id = ("i.power_level_id" if mandate_type == 'int'
+                        else "NULL::int")
+        sta_power_id = ("i.power_level_id" if mandate_type == 'sta'
+                        else "NULL::int")
+        return """
+        SELECT
+            '%s.assembly' as model,
+            concat(assembly.partner_id, '/', pc.id, '/', e.id) as id,
+            concat(assembly.partner_id, '/', pc.id, '/', e.id) as common_id,
+            assembly.partner_id as partner_id,
+            %s as int_instance_id,
+
+            cat.name as category,
+
+            %s as int_category_assembly_id,
+            %s as sta_category_assembly_id,
+            %s as ext_category_assembly_id,
+
+            %s as int_power_level_id,
+            %s as sta_power_level_id,
+            e.id as email_coordinate_id,
+            pc.id as postal_coordinate_id,
+            pc.unauthorized as postal_unauthorized,
+            pc.vip as postal_vip,
+            e.vip as email_vip,
+            e.unauthorized as email_unauthorized,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END as active""" % (mandate_type, int_instance_id, int_cat_id,
+                                sta_cat_id, ext_cat_id, int_power_id,
+                                sta_power_id)
+
+    def _from(self, mandate_type):
+        instance_join = ""
+        if mandate_type in ('int', 'sta'):
+            instance_join = """JOIN %s_instance i
+           ON i.id = assembly.instance_id""" % mandate_type
+
+        return """
+        FROM %s_assembly assembly
+        JOIN res_partner p
+            ON p.id = assembly.partner_id
+        JOIN %s_assembly_category cat
+            ON cat.id = assembly.assembly_category_id
+        %s
+        LEFT OUTER JOIN postal_coordinate pc
+            ON (pc.partner_id = p.id
+            AND pc.active = TRUE)
+        LEFT OUTER JOIN email_coordinate e
+            ON (e.partner_id = p.id
+            AND e.active = TRUE)""" % (mandate_type, mandate_type,
+                                       instance_join)
+
+    def _where(self, mandate_type):
+        return """
+        WHERE assembly.active = TRUE
+        AND p.active = TRUE
+        """
 
     def init(self, cr):
+        query_members = []
+        for mandate_type in mandate_category_available_types.keys():
+            query_members.append(''.join([self._select(mandate_type),
+                                 self._from(mandate_type),
+                                 self._where(mandate_type)]))
+        query = '\n\n        UNION\n'.join(query_members)
+
         tools.drop_view_if_exists(cr, 'virtual_assembly_instance')
         cr.execute("""
         create or replace view virtual_assembly_instance as (
-        SELECT
-            'int.assembly' as model,
-            concat(assembly.partner_id, '/', pc.id, '/', e.id) as id,
-            concat(assembly.partner_id, '/', pc.id, '/', e.id) as common_id,
-            assembly.partner_id as partner_id,
-            i.id as int_instance_id,
-
-            ica.name as category,
-
-            assembly.assembly_category_id as int_category_assembly_id,
-            NULL::int as sta_category_assembly_id,
-            NULL::int as ext_category_assembly_id,
-
-            i.power_level_id as int_power_level_id,
-            NULL as sta_power_level_id,
-
-            e.id as email_coordinate_id,
-            pc.id as postal_coordinate_id,
-            pc.unauthorized as postal_unauthorized,
-            pc.vip as postal_vip,
-            e.vip as email_vip,
-            e.unauthorized as email_unauthorized,
-            CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-                THEN True
-                ELSE False
-            END as active
-        FROM int_assembly assembly
-        JOIN res_partner p
-            ON p.id = assembly.partner_id
-        JOIN int_assembly_category ica
-            ON ica.id = assembly.assembly_category_id
-        JOIN int_instance i
-            ON i.id = assembly.instance_id
-        LEFT OUTER JOIN postal_coordinate pc
-            ON (pc.partner_id = p.id
-            AND pc.active = TRUE)
-        LEFT OUTER JOIN email_coordinate e
-            ON (e.partner_id = p.id
-            AND e.active = TRUE)
-        WHERE assembly.active = TRUE
-        AND p.active = TRUE
-
-        UNION
-
-        SELECT
-            'sta.assembly' as model,
-            concat(assembly.partner_id, '/', pc.id, '/', e.id) as id,
-            concat(assembly.partner_id, '/', pc.id, '/', e.id) as common_id,
-            assembly.partner_id as partner_id,
-            i.int_instance_id as int_instance_id,
-
-            sca.name as category,
-
-            NULL::int as int_category_assembly_id,
-            assembly.assembly_category_id as sta_category_assembly_id,
-            NULL::int as ext_category_assembly_id,
-
-            NULL as int_power_level_id,
-            i.power_level_id as sta_power_level_id,
-
-            e.id as email_coordinate_id,
-            pc.id as postal_coordinate_id,
-            pc.unauthorized as postal_unauthorized,
-            pc.vip as postal_vip,
-            e.vip as email_vip,
-            e.unauthorized as email_unauthorized,
-            CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-                THEN True
-                ELSE False
-            END as active
-        FROM sta_assembly assembly
-        JOIN res_partner p
-            ON p.id = assembly.partner_id
-        JOIN sta_assembly_category sca
-            ON sca.id = assembly.assembly_category_id
-        JOIN sta_instance i
-            ON i.id = assembly.instance_id
-        LEFT OUTER JOIN postal_coordinate pc
-            ON (pc.partner_id = p.id
-            AND pc.active = TRUE)
-        LEFT OUTER JOIN email_coordinate e
-            ON (e.partner_id = p.id
-            AND e.active = TRUE)
-        WHERE assembly.active = TRUE
-        AND p.active = TRUE
-
-        UNION
-
-        SELECT
-            'ext.assembly' as model,
-            concat(assembly.partner_id, '/', pc.id, '/', e.id) as id,
-            concat(assembly.partner_id, '/', pc.id, '/', e.id) as common_id,
-            assembly.partner_id as partner_id,
-            assembly.instance_id as int_instance_id,
-
-            eca.name as category,
-
-            NULL::int as int_category_assembly_id,
-            NULL::int as sta_category_assembly_id,
-            assembly.assembly_category_id as ext_category_assembly_id,
-
-            NULL as int_power_level_id,
-            NULL as sta_power_level_id,
-
-            e.id as email_coordinate_id,
-            pc.id as postal_coordinate_id,
-            pc.unauthorized as postal_unauthorized,
-            pc.vip as postal_vip,
-            e.vip as email_vip,
-            e.unauthorized as email_unauthorized,
-            CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-                THEN True
-                ELSE False
-            END as active
-        FROM ext_assembly assembly
-        JOIN res_partner p
-            ON p.id = assembly.partner_id
-        JOIN ext_assembly_category eca
-            ON eca.id = assembly.assembly_category_id
-        LEFT OUTER JOIN postal_coordinate pc
-            ON (pc.partner_id = p.id
-            AND pc.active = TRUE)
-        LEFT OUTER JOIN email_coordinate e
-            ON (e.partner_id = p.id
-            AND e.active = TRUE)
-        WHERE assembly.active = TRUE
-        AND p.active = TRUE
-        )""")
+        %s
+        )""" % query)
 
 
 class virtual_partner_retrocession(orm.Model):
