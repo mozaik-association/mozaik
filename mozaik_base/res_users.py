@@ -65,13 +65,11 @@ class res_users(orm.Model):
         '''
         Invalidate cache when updating user
         '''
+        # this write() will clear the cache of the _context_get() here under
         res = super(res_users, self).write(cr, uid, ids, vals, context=context)
-        if hasattr(self, '_context_get'):
-            # Temporary: test attr while the #6037 odoo issue is not fixed;
-            # afterwards we can force the _context_get.clear_cache
-            super(res_users, self)._context_get.clear_cache(self)
-        else:
-            super(res_users, self).context_get.clear_cache(self)
+        # while this explicit clear_cache() will clear the cache of the native
+        # _context_get() in .../odoo/openerp/addons/base/res/res_users.py
+        super(res_users, self)._context_get.clear_cache(self)
         return res
 
     def _apply_ir_rules(self, cr, uid, query, mode='read', context=None):
@@ -88,13 +86,13 @@ class res_users(orm.Model):
 # override public methods
 
     @tools.ormcache(skiparg=2)
-    def context_get(self, cr, uid, context=None):
+    def _context_get(self, cr, uid, context=None):
         '''
         Add in the users's context:
         - a flag related to each Mozaik group
         - the date format associated to the user's lang
         '''
-        result = super(res_users, self).context_get(cr, uid)
+        result = super(res_users, self)._context_get(cr, uid)
         user = self.browse(cr, SUPERUSER_ID, uid, context)
         imd_obj = self.pool['ir.model.data']
         _, appl_id = imd_obj.get_object_reference(
