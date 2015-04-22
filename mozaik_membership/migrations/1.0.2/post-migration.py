@@ -78,4 +78,3 @@ def migrate(cr, version):
         mf.res_model != mms.res_model
     '''
     cr.execute(SQL_QUERY)
-
