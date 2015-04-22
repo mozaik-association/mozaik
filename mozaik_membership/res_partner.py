@@ -39,17 +39,23 @@ AVAILABLE_PARTNER_KINDS = [
 ]
 
 XML_IDS = {
-    'coordinates': [
-        'former_phone_id_notification',
-        'main_phone_id_notification',
-        'former_email_notification',
-        'main_email_notification',
-        'former_address_id_notification',
-        'main_address_id_notification',
-        'membership_line_notification',
+    'email.coordinate': [
+        'mozaik_membership.former_email_notification',
+        'mozaik_membership.main_email_notification',
+        'mozaik_email.email_failure_notification',
+    ],
+    'phone.coordinate': [
+        'mozaik_membership.former_phone_id_notification',
+        'mozaik_membership.main_phone_id_notification',
+        'mozaik_phone.phone_failure_notification',
+    ],
+    'postal.coordinate': [
+        'mozaik_membership.former_address_id_notification',
+        'mozaik_membership.main_address_id_notification',
+        'mozaik_address.address_failure_notification',
     ],
     'partners': [
-        'membership_line_notification'
+        'mozaik_membership.membership_line_notification',
     ]
 }
 
@@ -64,10 +70,13 @@ class res_partner(orm.Model):
     # ready for workflow !
     _enable_wkf = True
 
-    def _get_subtype_ids(self, cr, uid, mode, context=None):
+    def _get_subtype_ids(
+            self, cr, uid, mode, context=None):
         subtype_ids = []
-        location = 'mozaik_membership'
         for xml_id in XML_IDS[mode]:
+            splited_id = xml_id.split('.')
+            location = splited_id[0]
+            xml_id = splited_id[1]
             subtype_ids.append(
                 self.pool['ir.model.data'].get_object_reference(
                     cr, uid, location, xml_id)[1])
@@ -95,13 +104,13 @@ class res_partner(orm.Model):
                 cr, uid, [partner_id], f_partner_ids,
                 subtype_ids=subtype_ids, context=context)
 
-            subtype_ids = self._get_subtype_ids(
-                cr, uid, 'coordinates', context=context)
             # partner are at least follower of their own coordinate
             domain = [('partner_id', '=', partner_id), ('is_main', '=', True)]
             prefixes = ['email', 'postal', 'phone']
 
             for prefix in prefixes:
+                subtype_ids = self._get_subtype_ids(
+                    cr, uid, '%s.coordinate' % prefix, context=context)
                 obj = self.pool['%s.coordinate' % prefix]
                 res_ids = obj.search(
                     cr, uid, domain, context=context)
@@ -109,7 +118,6 @@ class res_partner(orm.Model):
                     obj.message_subscribe(
                         cr, uid, res_ids, f_partner_ids,
                         subtype_ids=subtype_ids, context=context)
-                    # add partner without subtype too
                     obj.message_subscribe(
                         cr, uid, res_ids, f_partner_ids, context=context)
 

@@ -3,7 +3,6 @@
     <data noupdate="0">
 
         <!-- Bounce Notification -->
-
         <record id="phone_failure_notification" model="mail.message.subtype">
             <field name="name">Failure Notification</field>
             <field name="res_model">phone.coordinate</field>
