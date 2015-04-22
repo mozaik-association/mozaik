@@ -49,15 +49,12 @@ class force_int_instance(orm.TransientModel):
         '''
         for wiz in self.browse(cr, uid, ids, context=context):
             if wiz.int_instance_id.id != wiz.partner_id.int_instance_id.id:
-                vals = {
-                    'int_instance_id': wiz.int_instance_id.id
-                }
-                wiz.partner_id.write(vals)
                 partner_id = wiz.partner_id.id
                 partner_obj = self.pool['res.partner']
-                partner_obj._update_follower(
+                partner_obj._change_instance(
+                    cr, uid, partner_id, wiz.int_instance_id.id,
+                    context=context)
+                partner_obj._update_followers(
                     cr, SUPERUSER_ID, [partner_id], context=context)
-                partner_obj.update_membership_line(
-                    cr, uid, [partner_id], context=context)
 
         return True

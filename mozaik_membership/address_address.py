@@ -49,21 +49,17 @@ class postal_coordinate(orm.Model):
                 cur_int_instance_id = partner.int_instance_id.id
                 def_int_instance_id = self.pool['int.instance'].\
                     get_default(cr, uid)
-                # get instance_id of address or keep default if Not
+                # get instance_id of address or keep default otherwise
                 zip_id = pc.address_id.address_local_zip_id
                 new_int_instance_id = \
                     zip_id and zip_id.int_instance_id.id or \
                     def_int_instance_id
-                vals = {
-                    'int_instance_id': new_int_instance_id,
-                }
-                pc.partner_id.write(vals)
 
-                # have to create a membership lines
-                partner_obj = self.pool['res.partner']
                 if new_int_instance_id != cur_int_instance_id:
-                    partner_obj.update_membership_line(
-                        cr, uid, [partner.id], context=context)
+                    partner_obj = self.pool['res.partner']
+                    partner_obj._change_instance(
+                        cr, uid, partner.id, new_int_instance_id,
+                        context=context)
 
     _update_track = {
         'is_main': {
@@ -133,12 +129,14 @@ class postal_coordinate(orm.Model):
         '''
         call `_update_partner_int_instance` if `is_main` is True
         '''
+        context = context or {}
+        change_instance = not context.get('keep_current_instance')
+        ctx = dict(context, delay_notification=change_instance)
         res = super(postal_coordinate, self).create(
-            cr, uid, vals, context=context)
-        if vals.get('is_main', False):
-            if not context.get('keep_current_instance'):
-                self._update_partner_int_instance(
-                    cr, uid, [res], context=context)
-                self.update_notify_followers(
-                    cr, uid, vals, [res], context=context)
+            cr, uid, vals, context=ctx)
+        if vals.get('is_main') and change_instance:
+            self._update_partner_int_instance(
+                cr, uid, [res], context=context)
+            self.update_notify_followers(
+                cr, uid, vals, [res], context=context)
         return res

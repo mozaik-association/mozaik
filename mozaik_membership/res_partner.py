@@ -82,46 +82,78 @@ class res_partner(orm.Model):
                     cr, uid, location, xml_id)[1])
         return subtype_ids or False
 
-    def _update_follower(
+    def _get_followers_assemblies(
+            self, cr, uid, pid, context=None):
+        context = context or {}
+        ia_obj = self.pool['int.assembly']
+        int_instance_id = context.get('new_instance_id') or self.read(
+            cr, uid, pid, ['int_instance_id'],
+            context=context)['int_instance_id'][0]
+        fol_ids = ia_obj.get_followers_assemblies(
+            cr, uid, int_instance_id, context=context)
+        return fol_ids or False
+
+    def _subscribe_assemblies(
+            self, cr, uid, pid, context=None):
+        # compute list of new followers
+        fol_ids = self._get_followers_assemblies(
+            cr, uid, pid, context=context)
+        # subscribe assemblies
+        subtype_ids = self._get_subtype_ids(
+            cr, uid, 'partners', context=context)
+        self.message_subscribe(
+            cr, uid, [pid], fol_ids,
+            subtype_ids=subtype_ids, context=context)
+        return fol_ids
+
+    def _update_followers(
             self, cr, uid, partner_ids, context=None):
         '''
-        Update follower for each partner_ids
+        Update followers list for each partner
         '''
-
-        p_obj = self.pool['res.partner']
-        ia_obj = self.pool['int.assembly']
         for partner_id in partner_ids:
-            int_instance_id = self.read(
-                cr, uid, partner_id, ['int_instance_id'],
-                context=context)['int_instance_id'][0]
-            f_partner_ids = ia_obj.get_followers_assemblies(
-                cr, uid, int_instance_id, context=context)
-            # update even if f_partner_ids is void case to reset
+            # reset former followers
+            self.reset_followers(cr, uid, [partner_id], context=context)
+            # subscribe assemblies on partner
+            f_partner_ids = self._subscribe_assemblies(
+                cr, uid, partner_id, context=context)
 
-            subtype_ids = self._get_subtype_ids(
-                cr, uid, 'partners', context=context)
-            p_obj.message_subscribe(
-                cr, uid, [partner_id], f_partner_ids,
-                subtype_ids=subtype_ids, context=context)
-
-            # partner are at least follower of their own coordinate
-            domain = [('partner_id', '=', partner_id), ('is_main', '=', True)]
-            prefixes = ['email', 'postal', 'phone']
-
-            for prefix in prefixes:
-                subtype_ids = self._get_subtype_ids(
-                    cr, uid, '%s.coordinate' % prefix, context=context)
+            # subscribe assemblies on coordinates
+            domain = [('partner_id', '=', partner_id)]
+            for prefix in ['email', 'postal', 'phone']:
                 obj = self.pool['%s.coordinate' % prefix]
                 res_ids = obj.search(
                     cr, uid, domain, context=context)
                 if res_ids:
-                    obj.message_subscribe(
-                        cr, uid, res_ids, f_partner_ids,
-                        subtype_ids=subtype_ids, context=context)
-                    obj.message_subscribe(
-                        cr, uid, res_ids, f_partner_ids, context=context)
+                    obj.reset_followers(
+                        cr, uid, res_ids, except_fol_ids=[partner_id],
+                        context=context)
+                    obj._update_followers(
+                        cr, uid, res_ids, fol_ids=f_partner_ids,
+                        context=context)
 
         return True
+
+    def _change_instance(self, cr, uid, pid, new_instance_id, context=None):
+        """
+        Update instance of partner
+        """
+        ctx = dict(
+            context or {},
+            new_instance_id=new_instance_id
+        )
+        # subscribe related assemblies before updating partner
+        # followers list will be entirely reinitialize later
+        self._subscribe_assemblies(
+            cr, uid, pid, context=ctx)
+        # update partner and send changing instance notification
+        vals = {
+            'int_instance_id': new_instance_id,
+        }
+        self.write(cr, uid, [pid], vals, context=context)
+        # add a membership line
+        self.update_membership_line(
+            cr, uid, [pid], context=context)
 
     def _generate_membership_reference(self, cr, uid, partner_id,
                                        ref_date=None, context=None):
@@ -179,6 +211,11 @@ class res_partner(orm.Model):
 
     _track = {
         'membership_state_id': {
+            'mozaik_membership.membership_line_notification':
+                lambda self, cr, uid, obj, ctx=None:
+                    obj.membership_state_id.code != 'without_membership',
+        },
+        'int_instance_id': {
             'mozaik_membership.membership_line_notification':
                 lambda self, cr, uid, obj, ctx=None:
                     obj.membership_state_id.code != 'without_membership',
@@ -282,7 +319,7 @@ class res_partner(orm.Model):
         if vals.get('identifier', 0) > 0:
             # do not update followers when simulating partner workflow
             # i.e. identifier = -1 (see get_partner_preview method)
-            self._update_follower(cr, SUPERUSER_ID, [res], context=context)
+            self._update_followers(cr, SUPERUSER_ID, [res], context=context)
         return res
 
     def write(self, cr, uid, ids, vals, context=None):

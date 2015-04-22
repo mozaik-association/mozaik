@@ -162,14 +162,14 @@ class test_membership(SharedSetupTransactionCase):
         * Test the validate process with a create and check that
             relations are created
         """
-        cr, uid, context = self.cr, self.uid, {'no_notify': True}
+        cr, uid = self.cr, self.uid
         partner_obj = self.registry['res.partner']
 
         to_update_partner_id = self.rec_mr_update.partner_id.id
 
         # validate the membership request
         self.mro.validate_request(
-            cr, uid, [self.rec_mr_update.id], context=context)
+            cr, uid, [self.rec_mr_update.id])
         modified_partner = partner_obj.browse(cr, uid, to_update_partner_id)
 
         self.assertEqual(self.rec_mr_update.firstname, modified_partner.
@@ -187,7 +187,7 @@ class test_membership(SharedSetupTransactionCase):
             {'country_id': self.registry('res.country').
              _country_default_get(cr, uid, COUNTRY_CODE)})
         self.mro.validate_request(
-            cr, uid, [self.rec_mr_create.id], context=context)
+            cr, uid, [self.rec_mr_create.id])
         created_partner_ids = partner_obj.search(
             cr, uid, [('firstname', '=', self.rec_mr_create.firstname),
                       ('lastname', '=', self.rec_mr_create.lastname),

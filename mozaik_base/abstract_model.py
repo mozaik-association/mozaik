@@ -325,6 +325,24 @@ class mozaik_abstract_model(orm.AbstractModel):
             cr, uid, ids, partner_ids, subtype_ids, context=context)
         return res
 
+    def reset_followers(
+            self, cr, uid, ids, except_fol_ids=[], context=None):
+        """
+        Reset followers list associated to a document
+        """
+        uid = SUPERUSER_ID
+        fol_obj = self.pool['mail.followers']
+        dom = except_fol_ids and [
+            ('partner_id', 'not in', except_fol_ids),
+        ] or []
+        dom = dom + [
+            ('res_model', '=', self._name),
+            ('res_id', 'in', ids),
+        ]
+        fol_ids = fol_obj.search(
+            cr, uid, dom, context=context)
+        return fol_obj.unlink(cr, uid, fol_ids, context=context)
+
     def copy_data(self, cr, uid, ids, default=None, context=None):
         """
         Reset some fields to their initial values

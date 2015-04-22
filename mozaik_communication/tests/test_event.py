@@ -39,46 +39,45 @@ class test_event(common.TransactionCase):
         self.phone_obj = self.registry['phone.phone']
 
     def test_cancel_registration(self):
-        cr, uid, context = self.cr, self.uid, {'no_notify': True}
+        cr, uid = self.cr, self.uid
         vals = {
             'name': 'My Event',
             'date_begin': '2014-10-29 14:57:08',
             'date_end': '2014-10-29 15:57:08',
         }
-        event_id = self.event_obj.create(cr, uid, vals, context=context)
+        event_id = self.event_obj.create(cr, uid, vals)
         # create partner
         vals = {
             'name': 'Bill',
         }
-        partner_id = self.partner_obj.create(cr, uid, vals, context=context)
+        partner_id = self.partner_obj.create(cr, uid, vals)
         vals = {
             'event_id': event_id,
             'partner_id': partner_id,
         }
-        reg_id = self.event_reg_obj.create(cr, uid, vals, context=context)
+        reg_id = self.event_reg_obj.create(cr, uid, vals)
         self.event_reg_obj.button_reg_cancel(
-            cr, uid, [reg_id], context=context)
+            cr, uid, [reg_id])
         reg_ids = self.event_reg_obj.search(
-            cr, uid, [('active', '=', False), ('id', '=', reg_id)],
-            context=context)
+            cr, uid, [('active', '=', False), ('id', '=', reg_id)])
         self.assertTrue(reg_ids, 'Should be deactivate')
 
     def test_get_coordinate(self):
         '''
         '''
-        cr, uid, context = self.cr, self.uid, {'no_notify': True}
+        cr, uid = self.cr, self.uid
         # create event
         vals = {
             'name': 'My Event',
             'date_begin': '2014-10-29 14:57:08',
             'date_end': '2014-10-29 15:57:08',
         }
-        self.event_obj.create(cr, uid, vals, context=context)
+        self.event_obj.create(cr, uid, vals)
         # create partner
         vals = {
             'name': 'Bill',
         }
-        partner_id = self.partner_obj.create(cr, uid, vals, context=context)
+        partner_id = self.partner_obj.create(cr, uid, vals)
 
         # create email coordinate
         vals = {
@@ -86,7 +85,7 @@ class test_event(common.TransactionCase):
             'email': 'test@sample.com',
         }
         email_coo_id = self.email_coo_obj.create(
-            cr, uid, vals, context=context)
+            cr, uid, vals)
 
         # create phone
         vals = {
@@ -94,7 +93,7 @@ class test_event(common.TransactionCase):
             'type': 'fix',
         }
         phone_id = self.phone_obj.create(
-            cr, uid, vals, context=context)
+            cr, uid, vals)
 
         # create phone_coordinate
         vals = {
@@ -102,22 +101,22 @@ class test_event(common.TransactionCase):
             'phone_id': phone_id,
         }
         self.phone_coo_obj.create(
-            cr, uid, vals, context=context)
+            cr, uid, vals)
 
         vals = {
             'partner_id': partner_id,
         }
-        self.event_reg_obj._get_coordinates(cr, uid, vals, context=context)
-        partner = self.partner_obj.browse(cr, uid, partner_id, context=context)
+        self.event_reg_obj._get_coordinates(cr, uid, vals)
+        partner = self.partner_obj.browse(cr, uid, partner_id)
         self.assertEqual(partner.display_name, vals['name'],
                          'Display name and registration name should be'
                          ' the same')
-        phone = self.phone_obj.browse(cr, uid, phone_id, context=context)
+        phone = self.phone_obj.browse(cr, uid, phone_id)
         self.assertEqual(phone.name, vals['phone'],
                          'Phone name and registration phone should be'
                          ' the same')
         email_coo = self.email_coo_obj.browse(
-            cr, uid, email_coo_id, context=context)
+            cr, uid, email_coo_id)
         self.assertEqual(email_coo.email, vals['email'],
                          'Email coordinate and registration email should be'
                          ' the same')
