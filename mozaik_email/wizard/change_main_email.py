@@ -39,7 +39,7 @@ class change_main_email(orm.TransientModel):
     }
 
     def default_get(self, cr, uid, flds, context):
-        context = dict(context)
+        context = dict(context or {})
         res = super(change_main_email, self).default_get(
             cr, uid, flds, context=context)
         if context.get('mode', False) == 'switch':
