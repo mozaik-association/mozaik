@@ -326,7 +326,7 @@ class mozaik_abstract_model(orm.AbstractModel):
         return res
 
     def reset_followers(
-            self, cr, uid, ids, except_fol_ids=[], context=None):
+            self, cr, uid, ids, except_fol_ids=None, context=None):
         """
         Reset followers list associated to a document
         """
