@@ -102,6 +102,11 @@
                                  ('mail_forwarding', '=', False),
                                  ('mail_alias_id', '=', False),]}"/>
                         </group>
+                        <group name="partner_diffusion">
+                            <field name="partner_id"
+                                 attrs="{'invisible': ['|',
+                                 ('mail_forwarding', '=', False)]}"/>
+                        </group>
                     </group>
                     <group name="state" attrs="{'invisible': [('id','=',False)]}">
                         <group name="validity">

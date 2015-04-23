@@ -42,9 +42,13 @@ class distribution_list(orm.Model):
 
     def _get_mail_compose_message_vals(
             self, cr, uid, msg, dl_id, mailing_model=False, context=None):
-        return super(distribution_list, self)._get_mail_compose_message_vals(
+        res = super(distribution_list, self)._get_mail_compose_message_vals(
             cr, uid, msg, dl_id, mailing_model='email.coordinate',
             context=context)
+        dl = self.browse(cr, uid, dl_id, context=context)
+        if dl.partner_id and dl.partner_id.email:
+            res['email_from'] = dl.partner_id.email
+        return res
 
     _columns = {
         'name': fields.char(
@@ -56,6 +60,9 @@ class distribution_list(orm.Model):
             string='Owners', required=True),
         'int_instance_id': fields.many2one(
             'int.instance', string='Internal Instance',
+            select=True, track_visibility='onchange'),
+        'partner_id': fields.many2one(
+            'res.partner', string='Partner Diffusion',
             select=True, track_visibility='onchange'),
     }
 
@@ -112,11 +119,11 @@ class distribution_list(orm.Model):
         ctx = context.copy()
         ctx['email_coordinate_path'] = 'email'
 
-        coordinate_id = self._get_mailing_object(
+        coordinate_ids = self._get_mailing_object(
             cr, uid, dl_id, msg['email_from'], context=context)
-        if coordinate_id:
+        if coordinate_ids:
             coo_values = self.pool['email.coordinate'].read(
-                cr, uid, coordinate_id, ['partner_id'], context=context)
+                cr, uid, coordinate_ids[0], ['partner_id'], context=context)
             partner_id = coo_values.get('partner_id') and \
                 coo_values['partner_id'][0] or False
             if partner_id:
@@ -129,6 +136,7 @@ class distribution_list(orm.Model):
                         cr, uid, dl_id, ['res_users_ids'], context=context)
                     owner_ids = dl_values.get('res_users_ids', False)
                     if user_id in owner_ids:
+                        ctx['field_main_object'] = 'email_coordinate_id'
                         return super(distribution_list, self).\
                             distribution_list_forwarding(
                                 cr, user_id, msg, dl_id, context=ctx)
