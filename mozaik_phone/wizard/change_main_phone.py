@@ -44,6 +44,7 @@ class change_main_phone(orm.TransientModel):
     }
 
     def default_get(self, cr, uid, flds, context):
+        context = dict(context)
         res = super(
             change_main_phone,
             self).default_get(

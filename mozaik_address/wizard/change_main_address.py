@@ -52,6 +52,7 @@ class change_main_address(orm.TransientModel):
     message = new_fields.Char('Message')
 
     def default_get(self, cr, uid, flds, context):
+        context = dict(context)
         res = super(change_main_address, self).default_get(
             cr, uid, flds, context=context)
         if context.get('mode', False) == 'switch':
