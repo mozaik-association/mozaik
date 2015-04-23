@@ -178,12 +178,14 @@
                                 attrs="{'invisible': [('membership_state_code', '!=', 'member_committee'),
                                 ('membership_state_code', '!=', 'former_member_committee')]}" />
 
+                            <button name="register_free_membership" string="Free Membership" type="object"
+                                groups="mozaik_base.mozaik_res_groups_configurator,mozaik_base.mozaik_res_groups_financial_manager"
+                                attrs="{'invisible': ['|', ('membership_state_code', 'not in', ['member_candidate', 'member', 'supporter', 'former_member']), ('reference', '=', False)]}"
+                                confirm="Register a free membership: proceed anyway?" />
+
                             <button name="paid" string="Paid"
                                 groups="mozaik_base.res_groups_developper"
-                                attrs="{'invisible': [('membership_state_code', '!=', 'member_candidate'),
-                                ('membership_state_code', '!=', 'member'),
-                                ('membership_state_code', '!=', 'supporter'),
-                                ('membership_state_code', '!=', 'former_member'),]}" />
+                                attrs="{'invisible': [('membership_state_code', 'not in', ['member_candidate', 'member', 'supporter', 'former_member']),]}" />
 
                             <button name="decline_payment"
                                 string="Decline Payment" type="object"
@@ -206,8 +208,8 @@
                                 attrs="{'invisible': [('membership_state_code', '!=', 'member'),
                                 ('membership_state_code', '!=', 'former_member'),
                                 ('membership_state_code', '!=', 'supporter')]}" />
+
                             <button name="reset" string="Reset"
-                                type="workflow"
                                 confirm="Reset Partner Membership State: proceed anyway?"
                                 attrs="{'invisible': [('membership_state_code', 'not in',
                                 ['former_supporter', 'resignation_former_member', 'break_former_member',

@@ -176,6 +176,18 @@ class res_partner(orm.Model):
         super(res_partner, self)._update_user_partner(
             cr, uid, partner, vals, context=context)
 
+    def _get_active_membership_line(self, cr, uid, pid, context=None):
+        """
+        Return the browse record related to the active membership line
+        False otherwise
+        """
+        ml_obj = self.pool['membership.line']
+        line_ids = ml_obj.search(
+            cr, uid, [('partner_id', '=', pid), ('active', '=', True)],
+            context=context)
+        line = line_ids and ml_obj.browse(cr, uid, line_ids[0]) or False
+        return line
+
     def _get_product_id(self, cr, uid, ids, name, arg, context=None):
         res = {}
         ml_values = self.pool['membership.line'].search_read(
@@ -243,8 +255,7 @@ class res_partner(orm.Model):
         'int_instance_m2m_ids': fields.many2many(
             'int.instance', 'res_partner_int_instance_rel', id1='partner_id',
             id2='int_instance_id', string='Internal Instances'),
-        # membership fields: track visibility is done into membership history
-        # management
+        # membership fields: tracking is done into membership history model
         'membership_line_ids': fields.one2many(
             'membership.line', 'partner_id', 'Memberships'),
         'free_member': fields.boolean('Free Member'),
@@ -370,6 +381,27 @@ class res_partner(orm.Model):
         return res
 
 # view methods: onchange, button
+
+    def register_free_membership(self, cr, uid, ids, context=None):
+        '''
+        Accept free subscription as membership payment
+        '''
+        # Accept membership
+        self.pool['res.partner'].signal_workflow(
+            cr, uid, ids, 'paid', context=context)
+        # Get free subscription
+        imd_obj = self.pool['ir.model.data']
+        free_prd_id = imd_obj.xmlid_to_res_id(
+            cr, uid, 'mozaik_membership.membership_product_free')
+        vals = {
+            'product_id': free_prd_id,
+            'price': 0.0,
+        }
+        # Force free subscription
+        for pid in ids:
+            ml = self._get_active_membership_line(
+                cr, uid, pid, context=context)
+            ml.write(vals)
 
     def decline_payment(self, cr, uid, ids, context=None):
         today = fields.date.today()
@@ -569,6 +601,7 @@ class res_partner(orm.Model):
         for partner in self.browse(cr, uid, ids, context=context):
             if partner.is_company:
                 continue
+            values['partner_id'] = partner.id
             values['state_id'] = partner.membership_state_id.id
             if values['state_id'] != def_state:
                 values['int_instance_id'] = partner.int_instance_id and \
@@ -594,10 +627,6 @@ class res_partner(orm.Model):
                         context=context)
                 else:
                     # create first membership_line
-                    values.update({
-                        'partner_id': partner.id,
-                        'date_from': today,
-                    })
                     membership_line_obj.create(
                         cr, uid, values, context=context)
 
