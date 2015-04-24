@@ -163,15 +163,15 @@ class custom_webservice(orm.Model):
         list_obj = self.pool['distribution.list']
         partner_obj = self.pool['res.partner']
         res = []
-        context = context or {}
+        ctx = dict(context or {},
+                   field_main_object='partner_id',
+                   active_test=False)
         try:
-            context['field_main_object'] = 'partner_id'
-            context['active_test'] = False
             active_ids, _ = list_obj.get_complex_distribution_list_ids(
                 cr,
                 SUPERUSER_ID,
                 [distribution_list_id],
-                context=context)
+                context=ctx)
 
             res = partner_obj.read(cr,
                                    SUPERUSER_ID,
