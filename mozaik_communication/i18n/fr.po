@@ -6,20 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-12 20:15+0000\n"
-"PO-Revision-Date: 2015-03-12 20:15+0000\n"
+"POT-Creation-Date: 2015-04-24 17:47+0000\n"
+"PO-Revision-Date: 2015-04-24 17:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:157
-#, python-format
-msgid "Result of %s"
-msgstr "Résultat de %s"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/postal_mail.py:84
@@ -470,7 +464,7 @@ msgstr "Employé"
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/event.py:77
 #: code:addons/mozaik_communication/postal_mail.py:198
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:220
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:217
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -549,22 +543,9 @@ msgid "Expired Registrations"
 msgstr "Inscriptions expirées"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:356
-#, python-format
-msgid "Export CSV"
-msgstr "Exportation CSV"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:309
-#, python-format
-msgid "Export PDF"
-msgstr "Exportation PDF"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:376
-#, python-format
-msgid "Export VCF"
-msgstr "Exportation VCF"
+#: field:distribution.list.mass.function,export_filename:0
+msgid "Export Filename"
+msgstr "Fichier d'export"
 
 #. module: mozaik_communication
 #: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
@@ -618,6 +599,11 @@ msgstr "Février"
 #: selection:virtual.partner.retrocession,gender:0
 msgid "Female"
 msgstr "Femme"
+
+#. module: mozaik_communication
+#: field:distribution.list.mass.function,export_file:0
+msgid "File"
+msgstr "Fichier"
 
 #. module: mozaik_communication
 #: field:virtual.target,firstname:0
@@ -1253,6 +1239,11 @@ msgid "Partner"
 msgstr "Partenaire"
 
 #. module: mozaik_communication
+#: field:distribution.list,partner_id:0
+msgid "Partner Diffusion"
+msgstr "Partenaire émetteur"
+
+#. module: mozaik_communication
 #: field:event.registration,partner_instance_id:0
 #: field:postal.mail.log,partner_instance_id:0
 msgid "Partner Internal Instance"
@@ -1487,7 +1478,13 @@ msgid "Relation Category"
 msgstr "Catégorie de relation"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:228
+#: code:addons/mozaik_communication/distribution_list.py:165
+#, python-format
+msgid "Result of %s"
+msgstr "Résultat de %s"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/distribution_list.py:236
 #, python-format
 msgid "Result of %s Filter without coordinate"
 msgstr "Résultat du filtre %s (injoignables)"
@@ -1662,7 +1659,7 @@ msgid "Templates"
 msgstr "Modèles"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:220
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:217
 #, python-format
 msgid "There are no recipients"
 msgstr "Aucun destinataire"

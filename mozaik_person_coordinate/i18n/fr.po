@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-12 20:39+0000\n"
-"PO-Revision-Date: 2015-03-12 20:39+0000\n"
+"POT-Creation-Date: 2015-04-24 18:13+0000\n"
+"PO-Revision-Date: 2015-04-24 18:13+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -60,6 +60,11 @@ msgstr "Une relation active ne peut être dupliquée !"
 #: view:partner.relation:mozaik_person_coordinate.partner_relation_search_view
 msgid "Category"
 msgstr "Catégorie"
+
+#. module: mozaik_person_coordinate
+#: help:res.partner,unauthorized:0
+msgid "Checked if one or more main coordinates are unauthorized"
+msgstr "Coché si une ou plusieurs coordonnées principales sont interdites"
 
 #. module: mozaik_person_coordinate
 #: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_form_view
@@ -189,11 +194,6 @@ msgid "If checked new messages require your attention."
 msgstr "Si coché, de nouveaux messages requièrent votre attention."
 
 #. module: mozaik_person_coordinate
-#: help:res.partner,unauthorized:0
-msgid "Checked if one or more main coordinates are unauthorized"
-msgstr "Coché si une ou plusieurs coordonnées principales sont interdites"
-
-#. module: mozaik_person_coordinate
 #: view:partner.relation:mozaik_person_coordinate.partner_relation_object_form_view
 #: view:partner.relation:mozaik_person_coordinate.partner_relation_subject_form_view
 #: view:partner.relation.category:mozaik_person_coordinate.partner_relation_category_form_view
@@ -270,7 +270,7 @@ msgid "More Info"
 msgstr "Plus d'info"
 
 #. module: mozaik_person_coordinate
-#: code:addons/mozaik_person_coordinate/report/duplicates_analysis_report.py:201
+#: code:addons/mozaik_person_coordinate/report/duplicates_analysis_report.py:200
 #, python-format
 msgid "Mozaik: Duplicates Summary - %s"
 msgstr "Mozaik: Relevé des doublons - %s"
@@ -412,6 +412,12 @@ msgid "Sequence"
 msgstr "Séquence"
 
 #. module: mozaik_person_coordinate
+#: code:addons/mozaik_person_coordinate/report/duplicates_analysis_report.py:126
+#, python-format
+msgid "Should have a correct name of group"
+msgstr "Doit avoir un nom correct de groupe"
+
+#. module: mozaik_person_coordinate
 #: field:partner.relation,subject_partner_id:0
 msgid "Subject"
 msgstr "Sujet"
@@ -442,7 +448,7 @@ msgid "The start date must be anterior to the end date."
 msgstr "La date de début doit être antérieure à la date de fin."
 
 #. module: mozaik_person_coordinate
-#: code:addons/mozaik_person_coordinate/report/duplicates_analysis_report.py:197
+#: code:addons/mozaik_person_coordinate/report/duplicates_analysis_report.py:196
 #, python-format
 msgid "There are no duplicates"
 msgstr "Aucun doublon"
@@ -473,7 +479,7 @@ msgid "Unauthorized"
 msgstr "Interdit"
 
 #. module: mozaik_person_coordinate
-#: code:addons/mozaik_person_coordinate/report/duplicates_analysis_report.py:178
+#: code:addons/mozaik_person_coordinate/report/duplicates_analysis_report.py:177
 #, python-format
 msgid "Unknown birth date"
 msgstr "Date de naissance inconnue"
@@ -515,7 +521,7 @@ msgstr "Injoignables"
 
 #. module: mozaik_person_coordinate
 #: view:res.partner:mozaik_person_coordinate.view_partner_tree
-msgid "grey:active==False;red:is_duplicate_detected==True;darkorange:unauthorized==True"
+msgid "grey:active==False;darkorange:is_duplicate_detected==True;red:unauthorized==True"
 msgstr ""
 
 #. module: mozaik_person_coordinate
