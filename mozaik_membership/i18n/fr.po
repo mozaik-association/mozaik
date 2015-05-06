@@ -987,11 +987,6 @@ msgid "Memberships"
 msgstr "Adhésions"
 
 #. module: mozaik_membership
-#: view:res.partner:mozaik_membership.view_partner_form_membership
-msgid "Memberships"
-msgstr "Statuts"
-
-#. module: mozaik_membership
 #: field:membership.line,message_ids:0
 #: field:membership.request,message_ids:0
 #: field:membership.request.change,message_ids:0
