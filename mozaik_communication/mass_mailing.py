@@ -34,12 +34,7 @@ class MailMailStats(orm.Model):
     def set_bounced(self, cr, uid, ids=None, mail_mail_ids=None,
                     mail_message_ids=None, context=None):
         """
-        ===========
-        set_bounced
-        This overload is made to spread the bounce counter to the
-        email_coordinate.
-        ===========
-        Only work for message that have `email.coordinate` as model
+        Increase the bounce counter of the email_coordinate
         """
         res_ids = super(MailMailStats, self).set_bounced(
             cr, uid, ids=ids, mail_mail_ids=mail_mail_ids,
@@ -66,6 +61,18 @@ class MailMailStats(orm.Model):
                               }, context=context)
                 self.pool['bounce.editor'].update_bounce_datas(
                     cr, uid, [wiz_id], context=ctx)
+
+                # post technical details of the bounce on the sender document
+                keep_bounce = self.pool['ir.config_parameter'].get_param(
+                    cr, uid, 'mail.bounce.keep', default='1', context=context)
+                bounce_body = context.get('bounce_body')
+                if bounce_body and keep_bounce.lower() in ['1', 'true']:
+                    email_coordinate = self.pool['email.coordinate']
+                    email_coordinate.message_post(
+                        cr, uid, active_ids[0],
+                        subject='Bounce Details', body=bounce_body,
+                        context=context)
+
         return res_ids
 
 
