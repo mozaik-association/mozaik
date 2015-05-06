@@ -225,7 +225,7 @@ class abstract_assembly(orm.AbstractModel):
         'is_assembly': True,
     }
 
-    _order = 'partner_id'
+    _order = 'partner_id, assembly_category_id'
 
 # constraints
 
