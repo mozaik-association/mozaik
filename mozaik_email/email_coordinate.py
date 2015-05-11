@@ -38,7 +38,9 @@ class email_coordinate(orm.Model):
     _mail_mass_mailing = _('Email Coordinate')
 
     _track = {
-        'e_bounce_counter': {
+        # specify bounce_date here not bounce_counter to avoid to subscribe
+        # the coordinate owner itself (see abstract.create() method)
+        'bounce_date': {
             'mozaik_email.email_failure_notification':
                 lambda self, cr, uid, obj, ctx=None: obj.bounce_counter,
         },
