@@ -38,7 +38,7 @@ class distribution_list(orm.Model):
             email_field='email', context=None):
         return super(distribution_list, self)._get_mailing_object(
             cr, uid, dl_id, email_from, mailing_model='email.coordinate',
-            context=context)
+            email_field=email_field, context=context)
 
     def _get_mail_compose_message_vals(
             self, cr, uid, msg, dl_id, mailing_model=False, context=None):
