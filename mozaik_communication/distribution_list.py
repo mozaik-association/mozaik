@@ -23,6 +23,8 @@
 #
 ##############################################################################
 
+from email.utils import formataddr
+
 from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
@@ -47,7 +49,8 @@ class distribution_list(orm.Model):
             context=context)
         dl = self.browse(cr, uid, dl_id, context=context)
         if dl.partner_id and dl.partner_id.email:
-            res['email_from'] = dl.partner_id.email
+            res['email_from'] = formataddr(
+                (dl.partner_id.name, dl.partner_id.email))
         return res
 
     _columns = {
