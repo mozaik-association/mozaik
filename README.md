@@ -8,6 +8,8 @@ A suite of Odoo modules to manage large associative organizations (members, comm
 
 A [sandbox environnement](http://mozaik.odoodemo.acsone.eu/web) is available. A demo user with guest/guest credentials can be used to log on.
 
+A [presentation from Odoo Experience 2015](http://www.slideshare.net/acsone/mozaik-managing-a-political-party-with-odoo) is available, illustrating a small subset of features.
+
 Summary
 -------
 
