@@ -123,6 +123,7 @@ class distribution_list_mass_function(orm.TransientModel):
         context = dict(context or {})
         file_exported = False
         composer = self.pool['mail.compose.message']
+        mail_message = self.pool['mail.message']
         for wizard in self.browse(cr, uid, ids, context=context):
             domains = []
             if wizard.internal_instance_id:
@@ -169,7 +170,7 @@ class distribution_list_mass_function(orm.TransientModel):
                         'postal_coordinate_id'
                     context['field_main_object'] = wizard.e_mass_function
                     template_id = wizard.email_template_id.id
-                    email_from = composer._get_default_from(
+                    email_from = mail_message._get_default_from(
                         cr, uid, context=context)
                     dl_id = wizard.distribution_list_id and \
                         wizard.distribution_list_id.id or False
