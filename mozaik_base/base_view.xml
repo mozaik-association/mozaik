@@ -203,6 +203,12 @@
             </field>
         </record>
 
+        <record id="base.user_groups_view" model="ir.ui.view">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('base.group_erp_manager'),
+            ])]" />
+        </record>
+
         <!-- Messages form -->
 
         <record id="view_message_form" model="ir.ui.view">
