@@ -243,6 +243,10 @@
                     <attribute name="groups">mozaik_base.mozaik_res_groups_user</attribute>
                 </xpath>
 
+                <xpath expr="//field[@name='src_model_id']" position="attributes">
+                    <attribute name="widget">selection</attribute>
+                </xpath>
+
                 <xpath expr="//field[@name='domain']" position="attributes">
                     <attribute name="readonly">not context.get('is_developper')</attribute>
                 </xpath>

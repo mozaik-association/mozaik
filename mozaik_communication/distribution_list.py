@@ -202,6 +202,10 @@ class distribution_list_line(orm.Model):
             track_visibility='onchange'),
     }
 
+    _defaults = {
+        'src_model_id': lambda self, cr, uid, c: False,
+    }
+
 # constraints
 
     # No More Unique Name For distribution list
