@@ -172,11 +172,12 @@ class int_assembly(orm.Model):
         res = {}
         assemblies = self.browse(cursor, uid, ids, context=context)
         for ass in assemblies:
-            fullname = "%s (%s) " % (ass.instance_id.name,
-                                     ass.assembly_category_id.name)
+            fullname = "%s (%s)" % (ass.instance_id.name,
+                                    ass.assembly_category_id.name)
             res[ass.id] = fullname
-            self.pool['res.partner'].write(cursor, uid, ass.partner_id.id,
-                                           {'name': fullname}, context=context)
+            self.pool['res.partner'].write(
+                cursor, uid, ass.partner_id.id,
+                {'name': fullname}, context=context)
         return res
 
     _name_store_triggers = {
