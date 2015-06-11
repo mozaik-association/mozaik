@@ -52,9 +52,10 @@ MOZAIK Sample Customization
         '../mozaik_person_coordinate/tests/data/relation_data.xml',
         '../mozaik_thesaurus/tests/data/thesaurus_data.xml',
         '../mozaik_membership/tests/data/structure_address_data.xml',
+        '../mozaik_membership/tests/data/membership_request_data.xml',
+        '../mozaik_membership/tests/data/res_partner_data.xml',
         '../mozaik_mandate/tests/data/mandate_data.xml',
         '../mozaik_retrocession/tests/data/retrocession_data.xml',
-        '../mozaik_membership/tests/data/membership_request_data.xml',
         '../mozaik_communication/tests/data/communication_data.xml',
         '../mozaik_communication/tests/data/postal_mail_data.xml',
         # ... and finally ...

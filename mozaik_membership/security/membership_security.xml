@@ -243,13 +243,22 @@
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
-        <record id="int_instance_base_rule" model="ir.rule">
-            <field name="name">Internal Instance for Mozaik</field>
+        <record id="int_instance_rud_base_rule" model="ir.rule">
+            <field name="name">Internal Instance (RUD) for Mozaik</field>
             <field name="model_id" ref="mozaik_structure.model_int_instance"/>
             <field name="domain_force">[('id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
             <field name="groups" eval="[(5,0,0)]"/>
             <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
-            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="int_instance_c_base_rule" model="ir.rule">
+            <field name="name">Internal Instance (C) for Mozaik</field>
+            <field name="model_id" ref="mozaik_structure.model_int_instance"/>
+            <field name="domain_force">['|',('parent_id','=',False),('parent_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="0"/>
         </record>
 
     </data>

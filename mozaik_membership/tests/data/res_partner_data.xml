@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="res_partner_marc" model="res.partner">
+            <field name="int_instance_m2m_ids" eval="[(6, 0, [
+                ref('mozaik_structure.int_instance_01'),
+            ])]"/>
+        </record>
+
+    </data>
+</openerp>
