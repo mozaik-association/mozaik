@@ -14,7 +14,7 @@
                 </xpath>
 
                 <xpath expr="//group[1]" position="inside">
-                    <filter name="instance" string="Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
+                    <filter name="instance" string="Internal Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
                 </xpath>
             </field>
         </record>

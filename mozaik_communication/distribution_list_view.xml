@@ -12,7 +12,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='dst_model_id']" position="replace"/>
                 <xpath expr="//filter[@name='dst_model']" position="replace">
-                    <filter name="instance" string="Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
+                    <filter name="instance" string="Internal Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
                 </xpath>
 
                 <xpath expr="//field[@name='name']" position="after">
