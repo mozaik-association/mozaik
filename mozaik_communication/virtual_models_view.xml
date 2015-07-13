@@ -430,6 +430,7 @@
                     <field name="assembly_id" />
                     <field name="designation_int_assembly_id" />
                     <field name="designation_instance_id" string="Designated by descendants of..." operator="child_of"/>
+                    <field name="sta_instance_id" string="Designated to descendants of..." operator="child_of"/>
                     <field name="mandate_category_id" />
 
                     <field name="ext_competencies_m2m_ids" string="External Mandate Competencies"
@@ -567,6 +568,7 @@
                     <field name="assembly_id" />
                     <field name="designation_int_assembly_id" />
                     <field name="designation_instance_id" string="Designated by descendants of..." operator="child_of"/>
+                    <field name="sta_instance_id" string="Designated to descendants of..." operator="child_of"/>
                     <field name="mandate_category_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />

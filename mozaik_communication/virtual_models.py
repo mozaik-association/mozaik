@@ -478,6 +478,8 @@ class virtual_partner_mandate(orm.Model):
             string='External Mandate Competencies'),
         'mandate_instance_id': fields.many2one(
             'int.instance', 'Mandate Instance'),
+        'sta_instance_id': fields.many2one(
+            'sta.instance', string='State Instance'),
         'active': fields.boolean("Active")
     }
 
@@ -490,6 +492,8 @@ class virtual_partner_mandate(orm.Model):
                           else "NULL::int")
         mandate_instance_id = ("mandate.mandate_instance_id"
                                if mandate_type == 'int' else "NULL")
+        sta_instance_id = (
+            "assembly.instance_id" if mandate_type == 'sta' else "NULL::int")
         return """
         SELECT '%s.mandate' AS model,
             concat(mandate.partner_id, '/',
@@ -533,13 +537,14 @@ class virtual_partner_mandate(orm.Model):
             END
             AS postal_coordinate_id,
             %s as mandate_instance_id,
+            %s as sta_instance_id,
             CASE
                 WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
                 THEN True
                 ELSE False
             END AS active
         """ % (mandate_type, mandate_id, sta_mandate_id, ext_mandate_id,
-               mandate_instance_id)
+               mandate_instance_id, sta_instance_id)
 
     def _from(self, mandate_type):
         return """
@@ -566,6 +571,7 @@ class virtual_partner_mandate(orm.Model):
         return "WHERE mandate.active = True"
 
 # orm methods
+
     def init(self, cr):
         query_members = []
         for mandate_type in mandate_category_available_types.keys():
@@ -608,6 +614,8 @@ class virtual_partner_candidature(orm.Model):
             'int.assembly', string='Designation Assembly'),
         'designation_instance_id': fields.many2one(
             'int.instance', string='Designation Instance'),
+        'sta_instance_id': fields.many2one(
+            'sta.instance', string='State Instance'),
 
         'start_date': fields.date('Mandate Start Date'),
 
@@ -658,6 +666,7 @@ class virtual_partner_candidature(orm.Model):
         candidature.mandate_start_date as start_date,
         candidature.designation_int_assembly_id as designation_int_assembly_id,
         designation_assembly.instance_id as designation_instance_id,
+        NULL::int as sta_instance_id,
         partner_assembly.id as assembly_id,
         partner.identifier as identifier,
         partner.birth_date as birth_date,
@@ -708,6 +717,7 @@ class virtual_partner_candidature(orm.Model):
         candidature.mandate_start_date as start_date,
         candidature.designation_int_assembly_id as designation_int_assembly_id,
         designation_assembly.instance_id as designation_instance_id,
+        assembly.instance_id as sta_instance_id,
         partner_assembly.id as assembly_id,
         partner.identifier as identifier,
         partner.birth_date as birth_date,
@@ -760,6 +770,7 @@ class virtual_partner_candidature(orm.Model):
         candidature.mandate_start_date as start_date,
         candidature.designation_int_assembly_id as designation_int_assembly_id,
         designation_assembly.instance_id as designation_instance_id,
+        NULL::int as sta_instance_id,
         partner_assembly.id as assembly_id,
         partner.identifier as identifier,
         partner.birth_date as birth_date,
@@ -856,6 +867,7 @@ class virtual_assembly_instance(orm.Model):
     }
 
 # orm methods
+
     def _select(self, mandate_type):
         int_instance_id = ""
         if mandate_type == 'int':
