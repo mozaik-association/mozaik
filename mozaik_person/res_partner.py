@@ -227,7 +227,7 @@ class res_partner(orm.Model):
         'comment': fields.text('Notes', track_visibility='onchange'),
         'firstname': fields.char("Firstname", track_visibility='onchange'),
         'lastname': fields.char(
-            "Lastname", required=True, track_visibility='onchange'),
+            "Lastname", track_visibility='onchange'),
 
         # Special case:
         # * do not use native birthdate field, it is a char field without

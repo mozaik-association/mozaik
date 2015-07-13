@@ -61,6 +61,20 @@ class res_users(orm.Model):
             res.append((record['id'], name))
         return res
 
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        Apply also copy_data() for related partner
+        (maybe it's a bug, it should be native)
+        """
+        default = default or {}
+        p_id = self.read(
+            cr, uid, ids, ['partner_id'], context=context)['partner_id'][0]
+        default = self.pool['res.partner'].copy_data(
+            cr, uid, p_id, default=default, context=context)
+        res = super(res_users, self).copy_data(
+            cr, uid, ids, default=default, context=context)
+        return res
+
     def write(self, cr, uid, ids, vals, context=None):
         '''
         Invalidate cache when updating user
