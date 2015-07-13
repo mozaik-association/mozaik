@@ -93,7 +93,6 @@ class virtual_partner_involvement(orm.Model):
         'email_vip': fields.boolean('Email VIP'),
         'email_unauthorized': fields.boolean('Email Unauthorized'),
 
-        # others
         'category_id': fields.related(
             'partner_id', 'category_id', type='many2many',
             obj='res.partner.category',
@@ -139,32 +138,27 @@ class virtual_partner_involvement(orm.Model):
                 WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
                 THEN True
                 ELSE False
-            END as active
-        FROM
-            partner_involvement pi
+            END AS active
+        FROM partner_involvement AS pi
 
-        JOIN
-            res_partner p
-        ON (p.id = pi.partner_id
-        AND p.active = TRUE
-        AND p.identifier > 0)
+        JOIN res_partner AS p
+            ON (p.id = pi.partner_id
+            AND p.active = TRUE
+            AND p.identifier > 0)
 
-        JOIN
-            partner_involvement_category pic
-        ON (pic.id = pi.partner_involvement_category_id
-        AND pic.active = TRUE)
+        JOIN partner_involvement_category AS pic
+            ON (pic.id = pi.partner_involvement_category_id
+            AND pic.active = TRUE)
 
-        LEFT OUTER JOIN
-            postal_coordinate pc
-        ON (pc.partner_id = p.id
-        AND pc.active = TRUE
-        AND pc.is_main = TRUE)
+        LEFT OUTER JOIN postal_coordinate AS pc
+            ON (pc.partner_id = p.id
+            AND pc.active = TRUE
+            AND pc.is_main = TRUE)
 
-        LEFT OUTER JOIN
-            email_coordinate e
-        ON (e.partner_id = p.id
-        AND e.active = TRUE
-        AND e.is_main = TRUE)
+        LEFT OUTER JOIN email_coordinate AS e
+            ON (e.partner_id = p.id
+            AND e.active = TRUE
+            AND e.is_main = TRUE)
 
         WHERE pi.active = TRUE
         )""")
@@ -199,7 +193,6 @@ class virtual_partner_relation(orm.Model):
         'tongue': fields.selection(AVAILABLE_TONGUES, 'Tongue'),
         'employee': fields.boolean('Employee'),
 
-        # others
         'category_id': fields.related(
             'partner_id', 'category_id', type='many2many',
             obj='res.partner.category',
@@ -276,37 +269,32 @@ class virtual_partner_relation(orm.Model):
             END
             AS postal_coordinate_id,
             CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL
-                      OR r.email_coordinate_id IS NOT NULL
-                      OR r.postal_coordinate_id IS NOT NULL)
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL OR
+                      r.email_coordinate_id IS NOT NULL OR
+                      r.postal_coordinate_id IS NOT NULL)
                 THEN True
                 ELSE False
-            END as active
-        FROM
-            partner_relation r
+            END AS active
+        FROM partner_relation AS r
 
-        JOIN
-            res_partner p
-        ON (p.id = r.subject_partner_id
-        AND p.active = TRUE
-        AND p.identifier > 0)
+        JOIN res_partner AS p
+            ON (p.id = r.subject_partner_id
+            AND p.active = TRUE
+            AND p.identifier > 0)
 
-        JOIN
-            partner_relation_category rc
-        ON (rc.id = r.partner_relation_category_id
-        AND rc.active = TRUE)
+        JOIN partner_relation_category AS rc
+            ON (rc.id = r.partner_relation_category_id
+            AND rc.active = TRUE)
 
-        LEFT OUTER JOIN
-            postal_coordinate pc
-        ON (pc.partner_id = p.id
-        AND pc.active = TRUE
-        AND pc.is_main = TRUE)
+        LEFT OUTER JOIN postal_coordinate AS pc
+            ON (pc.partner_id = p.id
+            AND pc.active = TRUE
+            AND pc.is_main = TRUE)
 
-        LEFT OUTER JOIN
-            email_coordinate e
-        ON (e.partner_id = p.id
-        AND e.active = TRUE
-        AND e.is_main = TRUE)
+        LEFT OUTER JOIN email_coordinate AS e
+            ON (e.partner_id = p.id
+            AND e.active = TRUE
+            AND e.is_main = TRUE)
 
         WHERE r.active = TRUE
         )""")
@@ -349,7 +337,6 @@ class virtual_partner_instance(orm.Model):
         'main_email': fields.boolean('Main Email'),
         'email_unauthorized': fields.boolean('Unauthorized Email'),
 
-        # others
         'category_id': fields.related(
             'partner_id', 'category_id', type='many2many',
             obj='res.partner.category',
@@ -400,24 +387,20 @@ class virtual_partner_instance(orm.Model):
                 WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
                 THEN True
                 ELSE False
-            END as active
+            END AS active
 
-        FROM
-            res_partner p
+        FROM res_partner AS p
 
-        LEFT OUTER JOIN
-            membership_state ms
-        ON (ms.id = p.membership_state_id)
+        LEFT OUTER JOIN membership_state AS ms
+            ON (ms.id = p.membership_state_id)
 
-        LEFT OUTER JOIN
-            postal_coordinate pc
-        ON (pc.partner_id = p.id
-        AND pc.active = TRUE)
+        LEFT OUTER JOIN postal_coordinate AS pc
+            ON (pc.partner_id = p.id
+            AND pc.active = TRUE)
 
-        LEFT OUTER JOIN
-            email_coordinate e
-        ON (e.partner_id = p.id
-        AND e.active = TRUE)
+        LEFT OUTER JOIN email_coordinate AS e
+            ON (e.partner_id = p.id
+            AND e.active = TRUE)
 
         WHERE p.active = TRUE
         AND p.identifier > 0
@@ -479,7 +462,6 @@ class virtual_partner_mandate(orm.Model):
             'email_coordinate_id', 'unauthorized', string='Unauthorized Email',
             type='boolean', relation='email.coordinate'),
 
-        # others
         'sta_competencies_m2m_ids': fields.related(
             'sta_mandate_id', 'competencies_m2m_ids',
             type='many2many',
@@ -555,7 +537,7 @@ class virtual_partner_mandate(orm.Model):
                 WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
                 THEN True
                 ELSE False
-            END as active
+            END AS active
         """ % (mandate_type, mandate_id, sta_mandate_id, ext_mandate_id,
                mandate_instance_id)
 
@@ -566,15 +548,15 @@ class virtual_partner_mandate(orm.Model):
             ON assembly.id = mandate.%s_assembly_id
         JOIN res_partner AS partner_assembly
             ON partner_assembly.id = assembly.partner_id
-        JOIN res_partner  AS partner
+        JOIN res_partner AS partner
             ON partner.id = mandate.partner_id
         LEFT OUTER JOIN int_assembly AS designation_assembly
             ON designation_assembly.id = mandate.designation_int_assembly_id
-        LEFT OUTER JOIN postal_coordinate pc
+        LEFT OUTER JOIN postal_coordinate AS pc
             ON pc.partner_id = mandate.partner_id
             and pc.is_main = TRUE
             AND pc.active = TRUE
-        LEFT OUTER JOIN email_coordinate e
+        LEFT OUTER JOIN email_coordinate AS e
             ON e.partner_id = mandate.partner_id
             and e.is_main = TRUE
             AND e.active = TRUE
@@ -641,7 +623,6 @@ class virtual_partner_candidature(orm.Model):
         'email_vip': fields.boolean('VIP Email'),
         'email_unauthorized': fields.boolean('Unauthorized Email'),
 
-        # others
         'category_id': fields.related(
             'partner_id', 'category_id', type='many2many',
             obj='res.partner.category',
@@ -694,21 +675,21 @@ class virtual_partner_candidature(orm.Model):
             WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
             THEN True
             ELSE False
-        END as active
+        END AS active
     FROM int_candidature AS candidature
     JOIN int_assembly AS assembly
         ON assembly.id = candidature.int_assembly_id
     JOIN res_partner  AS partner_assembly
         ON partner_assembly.id = assembly.partner_id
-    JOIN res_partner  AS partner
+    JOIN res_partner AS partner
         ON partner.id = candidature.partner_id
     LEFT OUTER JOIN int_assembly AS designation_assembly
         ON designation_assembly.id = candidature.designation_int_assembly_id
-    LEFT OUTER JOIN postal_coordinate pc
+    LEFT OUTER JOIN postal_coordinate AS pc
         ON pc.partner_id = candidature.partner_id
         and pc.is_main = TRUE
         AND pc.active = TRUE
-    LEFT OUTER JOIN email_coordinate e
+    LEFT OUTER JOIN email_coordinate AS e
         ON e.partner_id = candidature.partner_id
         and e.is_main = TRUE
         AND e.active = TRUE
@@ -744,11 +725,11 @@ class virtual_partner_candidature(orm.Model):
             WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
             THEN True
             ELSE False
-        END as active
+        END AS active
     FROM sta_candidature AS candidature
     JOIN sta_assembly AS assembly
         ON assembly.id = candidature.sta_assembly_id
-    JOIN res_partner  AS partner_assembly
+    JOIN res_partner AS partner_assembly
         ON partner_assembly.id = assembly.partner_id
     JOIN res_partner  AS partner
         ON partner.id = candidature.partner_id
@@ -756,11 +737,11 @@ class virtual_partner_candidature(orm.Model):
         ON ed.id = candidature.electoral_district_id
     LEFT OUTER JOIN int_assembly AS designation_assembly
         ON designation_assembly.id = candidature.designation_int_assembly_id
-    LEFT OUTER JOIN postal_coordinate pc
+    LEFT OUTER JOIN postal_coordinate AS pc
         ON pc.partner_id = candidature.partner_id
         and pc.is_main = TRUE
         AND pc.active = TRUE
-    LEFT OUTER JOIN email_coordinate e
+    LEFT OUTER JOIN email_coordinate AS e
         ON e.partner_id = candidature.partner_id
         and e.is_main = TRUE
         AND e.active = TRUE
@@ -796,26 +777,26 @@ class virtual_partner_candidature(orm.Model):
             WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
             THEN True
             ELSE False
-        END as active
+        END AS active
     FROM ext_candidature AS candidature
     JOIN ext_assembly AS assembly
         ON assembly.id = candidature.ext_assembly_id
     JOIN res_partner  AS partner_assembly
         ON partner_assembly.id = assembly.partner_id
-    JOIN res_partner  AS partner
+    JOIN res_partner AS partner
         ON partner.id = candidature.partner_id
     LEFT OUTER JOIN int_assembly AS designation_assembly
         ON designation_assembly.id = candidature.designation_int_assembly_id
-    LEFT OUTER JOIN postal_coordinate pc
+    LEFT OUTER JOIN postal_coordinate AS pc
         ON pc.partner_id = candidature.partner_id
         and pc.is_main = TRUE
         AND pc.active = TRUE
-    LEFT OUTER JOIN email_coordinate e
+    LEFT OUTER JOIN email_coordinate AS e
         ON e.partner_id = candidature.partner_id
         and e.is_main = TRUE
         AND e.active = TRUE
     WHERE candidature.active = True
-        )""")
+    )""")
 
 
 class virtual_assembly_instance(orm.Model):
@@ -856,7 +837,6 @@ class virtual_assembly_instance(orm.Model):
         'email_vip': fields.boolean('VIP Email'),
         'email_unauthorized': fields.boolean('Unauthorized Email'),
 
-        # others
         'category_id': fields.related(
             'partner_id', 'category_id', type='many2many',
             obj='res.partner.category',
@@ -922,30 +902,32 @@ class virtual_assembly_instance(orm.Model):
                 WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
                 THEN True
                 ELSE False
-            END as active""" % (mandate_type, int_instance_id, int_cat_id,
-                                sta_cat_id, ext_cat_id, int_power_id,
-                                sta_power_id)
+            END AS active
+        """ % (mandate_type, int_instance_id, int_cat_id, sta_cat_id, 
+               ext_cat_id, int_power_id, sta_power_id)
 
     def _from(self, mandate_type):
         instance_join = ""
         if mandate_type in ('int', 'sta'):
-            instance_join = """JOIN %s_instance i
-           ON i.id = assembly.instance_id""" % mandate_type
+            instance_join = """
+        JOIN %s_instance i
+           ON i.id = assembly.instance_id
+        """ % mandate_type
 
         return """
         FROM %s_assembly assembly
-        JOIN res_partner p
+        JOIN res_partner AS p
             ON p.id = assembly.partner_id
-        JOIN %s_assembly_category cat
+        JOIN %s_assembly_category AS cat
             ON cat.id = assembly.assembly_category_id
         %s
-        LEFT OUTER JOIN postal_coordinate pc
+        LEFT OUTER JOIN postal_coordinate AS pc
             ON (pc.partner_id = p.id
             AND pc.active = TRUE)
-        LEFT OUTER JOIN email_coordinate e
+        LEFT OUTER JOIN email_coordinate AS e
             ON (e.partner_id = p.id
-            AND e.active = TRUE)""" % (mandate_type, mandate_type,
-                                       instance_join)
+            AND e.active = TRUE)
+        """ % (mandate_type, mandate_type, instance_join)
 
     def _where(self, mandate_type):
         return """
@@ -1022,8 +1004,6 @@ class virtual_partner_retrocession(orm.Model):
             'email_coordinate_id', 'unauthorized', string='Unauthorized Email',
             type='boolean', relation='email.coordinate'),
 
-
-        # others
         'category_id': fields.related(
             'partner_id', 'category_id', type='many2many',
             obj='res.partner.category',
@@ -1105,28 +1085,24 @@ class virtual_partner_retrocession(orm.Model):
             END
             AS postal_coordinate_id,
             CASE
-                WHEN (e.id IS NOT NULL
-                       OR pc.id IS NOT NULL
-                       or m.postal_coordinate_id is not null
-                       or m.email_coordinate_id is not null)
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL OR
+                      m.postal_coordinate_id IS NOT NULL OR
+                      m.email_coordinate_id IS NOT NULL)
                 THEN True
                 ELSE False
-            END as active
-        FROM
-            retrocession r
-        JOIN sta_mandate m
+            END AS active
+        FROM retrocession AS r
+        JOIN sta_mandate AS m
             ON (m.id = r.sta_mandate_id
             AND m.active = True)
-        JOIN res_partner p
+        JOIN res_partner AS p
             ON (p.id = m.partner_id
             AND p.active = TRUE)
-        LEFT OUTER JOIN
-            postal_coordinate pc
+        LEFT OUTER JOIN postal_coordinate AS pc
             ON (pc.partner_id = p.id
             AND pc.is_main = True
             AND pc.active = True)
-        LEFT OUTER JOIN
-            email_coordinate e
+        LEFT OUTER JOIN email_coordinate AS e
             ON (e.partner_id = p.id
             AND e.is_main = True
             AND e.active = True)
@@ -1188,28 +1164,24 @@ class virtual_partner_retrocession(orm.Model):
             END
             AS postal_coordinate_id,
             CASE
-                WHEN (e.id IS NOT NULL
-                       OR pc.id IS NOT NULL
-                       or m.postal_coordinate_id is not null
-                       or m.email_coordinate_id is not null)
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL OR
+                      m.postal_coordinate_id IS NOT NULL OR
+                      m.email_coordinate_id IS NOT NULL)
                 THEN True
                 ELSE False
-            END as active
-        FROM
-            retrocession r
-        JOIN ext_mandate m
+            END AS active
+        FROM retrocession AS r
+        JOIN ext_mandate AS m
             ON (m.id = r.ext_mandate_id
             AND m.active = True)
-        JOIN res_partner p
+        JOIN res_partner AS p
             ON (p.id = m.partner_id
             AND p.active = TRUE)
-        LEFT OUTER JOIN
-            postal_coordinate pc
+        LEFT OUTER JOIN postal_coordinate AS pc
             ON (pc.partner_id = p.id
             AND pc.is_main = True
             AND pc.active = True)
-        LEFT OUTER JOIN
-            email_coordinate e
+        LEFT OUTER JOIN email_coordinate AS e
             ON (e.partner_id = p.id
             AND e.is_main = True
             AND e.active = True)
@@ -1255,7 +1227,6 @@ class virtual_partner_membership(orm.Model):
         'email_category_id': fields.many2one('coordinate.category',
                                              'Email Coordinate Category'),
 
-        # others
         'category_id': fields.related('partner_id', 'category_id',
                                       type='many2many',
                                       obj='res.partner.category',
@@ -1314,21 +1285,19 @@ class virtual_partner_membership(orm.Model):
             e.unauthorized as email_unauthorized,
             p.membership_state_id as membership_state_id,
             CASE
-                WHEN (e.id IS NOT NULL
-                      OR pc.id IS NOT NULL)
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
                 THEN True
                 ELSE False
-            END as active
-        FROM
-            res_partner p
-        JOIN membership_line m
+            END AS active
+        FROM res_partner AS p
+        JOIN membership_line AS m
             ON (m.partner_id = p.id
             AND m.active = TRUE)
-        LEFT OUTER JOIN postal_coordinate pc
+        LEFT OUTER JOIN postal_coordinate AS pc
             ON (pc.partner_id = p.id
             AND pc.active = TRUE
             AND pc.is_main = TRUE)
-        LEFT OUTER JOIN email_coordinate e
+        LEFT OUTER JOIN email_coordinate AS e
             ON (e.partner_id = p.id
             AND e.active = TRUE
             AND e.is_main = TRUE)
@@ -1373,7 +1342,6 @@ class virtual_partner_event(orm.Model):
         'email_category_id': fields.many2one('coordinate.category',
                                              'Email Coordinate Category'),
 
-        # others
         'category_id': fields.related('partner_id', 'category_id',
                                       type='many2many',
                                       obj='res.partner.category',
@@ -1430,29 +1398,24 @@ class virtual_partner_event(orm.Model):
             er.id as event_registration_id,
             er.event_id as event_id,
             CASE
-                WHEN (e.id IS NOT NULL
-                       OR pc.id IS NOT NULL)
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
                 THEN True
                 ELSE False
-            END as active
-        FROM
-            res_partner p
+            END AS active
+        FROM res_partner AS p
 
-        JOIN
-            event_registration er
-        ON er.partner_id = p.id
+        JOIN event_registration AS er
+            ON er.partner_id = p.id
 
-        LEFT OUTER JOIN
-            postal_coordinate pc
-        ON (pc.partner_id = p.id
-        AND pc.active = TRUE
-        AND pc.is_main = TRUE)
+        LEFT OUTER JOIN postal_coordinate AS pc
+            ON (pc.partner_id = p.id
+            AND pc.active = TRUE
+            AND pc.is_main = TRUE)
 
-        LEFT OUTER JOIN
-            email_coordinate e
-        ON (e.partner_id = p.id
-        AND e.active = TRUE
-        AND e.is_main = TRUE)
+        LEFT OUTER JOIN email_coordinate AS e
+            ON (e.partner_id = p.id
+            AND e.active = TRUE
+            AND e.is_main = TRUE)
 
         WHERE p.active = TRUE
         AND p.is_company = FALSE
