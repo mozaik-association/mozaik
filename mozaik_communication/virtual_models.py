@@ -448,6 +448,8 @@ class virtual_partner_mandate(orm.Model):
             'res.partner', 'Assembly', domain=[('is_assembly', '=', True)]),
         'mandate_category_id': fields.many2one(
             'mandate.category', string='Mandate Category'),
+        'designation_int_assembly_id': fields.many2one(
+            'int.assembly', string='Designation Assembly'),
 
         'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate'),
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate'),
@@ -525,6 +527,7 @@ class virtual_partner_mandate(orm.Model):
             mandate.partner_id,
             mandate.start_date,
             mandate.deadline_date,
+            mandate.designation_int_assembly_id as designation_int_assembly_id,
             partner_assembly.id as assembly_id,
             partner.identifier as identifier,
             partner.birth_date as birth_date,
@@ -962,6 +965,8 @@ class virtual_partner_retrocession(orm.Model):
             domain=[('is_company', '=', False), ('identifier', '>', 0)]),
         'int_instance_id': fields.many2one(
             'int.instance', string='Internal Instance'),
+        'designation_int_assembly_id': fields.many2one(
+            'int.assembly', string='Designation Assembly'),
 
         'email_coordinate_id': fields.many2one('email.coordinate',
                                                'Email Coordinate'),
@@ -1069,6 +1074,7 @@ class virtual_partner_retrocession(orm.Model):
             NULL::int as ext_mandate_id,
             m.mandate_category_id,
             m.retro_instance_id,
+            m.designation_int_assembly_id as designation_int_assembly_id,
             r.state as state,
             CASE
                 WHEN m.email_coordinate_id IS NULL
@@ -1151,6 +1157,7 @@ class virtual_partner_retrocession(orm.Model):
             m.id as ext_mandate_id,
             m.mandate_category_id,
             m.retro_instance_id,
+            m.designation_int_assembly_id as designation_int_assembly_id,
             r.state as state,
             CASE
                 WHEN m.email_coordinate_id IS NULL

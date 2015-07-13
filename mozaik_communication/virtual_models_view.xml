@@ -37,6 +37,7 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
+                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
                     <field name="involvement_category_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
@@ -158,6 +159,7 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
+                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
                     <field name="relation_category_id" />
                     <field name="object_partner_id" />
 
@@ -282,6 +284,7 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
+                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
                     <field name="membership_state_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
@@ -423,7 +426,9 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
+                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
                     <field name="assembly_id" />
+                    <field name="designation_int_assembly_id" />
                     <field name="mandate_category_id" />
 
                     <field name="ext_competencies_m2m_ids" string="External Mandate Competencies"
@@ -471,6 +476,7 @@
                         <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
                         <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
                         <filter name="assembly" string="Assembly" context="{'group_by':'assembly_id'}" />
+                        <filter name="designation_assembly" string="Designation Assembly" context="{'group_by':'designation_int_assembly_id'}" />
                         <filter name="mandate_category_id" string="Mandate Category" context="{'group_by':'mandate_category_id'}" />
                     </group>
                 </search>
@@ -556,6 +562,7 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
+                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
                     <field name="assembly_id" />
                     <field name="designation_int_assembly_id" />
                     <field name="mandate_category_id" />
@@ -664,6 +671,7 @@
                 <search string="Assemblies/Instances">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
+                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
 
                     <field name="int_category_assembly_id" string="Internal Assembly Category" />
                     <field name="sta_category_assembly_id" string="State Assembly Category" />
@@ -782,6 +790,8 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
+                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
+                    <field name="designation_int_assembly_id" />
                     <field name="mandate_category_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
@@ -812,6 +822,7 @@
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
                         <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                        <filter name="designation_assembly" string="Designation Assembly" context="{'group_by':'designation_int_assembly_id'}" />
                         <filter name="sta_mandate" string="State Mandate" context="{'group_by':'sta_mandate_id'}" />
                         <filter name="ext_mandate" string="External Mandate" context="{'group_by':'ext_mandate_id'}" />
                         <filter name="state" string="State" context="{'group_by':'state'}" />
@@ -898,6 +909,7 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
+                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
                     <field name="membership_state_id" />
 
                     <field string="Welcome Documents Sent Date > ..." name="del_doc_date"
@@ -1044,6 +1056,7 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
+                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
                     <field name="event_id" />
                     <field name="event_registration_id" />
 
