@@ -70,7 +70,8 @@ class virtual_partner_involvement(orm.Model):
         'common_id': fields.char('Common ID'),
         'partner_id': fields.many2one(
             'res.partner', 'Partner', domain=[('is_assembly', '=', False)]),
-        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'int_instance_id': fields.many2one(
+            'int.instance', string='Internal Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate',
                                                'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate',
@@ -178,7 +179,8 @@ class virtual_partner_relation(orm.Model):
     _columns = {
         'common_id': fields.char(string='Common ID'),
         'partner_id': fields.many2one('res.partner', 'Subject'),
-        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'int_instance_id': fields.many2one(
+            'int.instance', string='Internal Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate',
                                                'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate',
@@ -321,7 +323,8 @@ class virtual_partner_instance(orm.Model):
         'partner_id': fields.many2one(
             'res.partner', 'Partner', domain=[('is_assembly', '=', False)]),
         'membership_state_id': fields.many2one('membership.state', 'State'),
-        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'int_instance_id': fields.many2one(
+            'int.instance', string='Internal Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate',
                                                'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate',
@@ -432,7 +435,8 @@ class virtual_partner_mandate(orm.Model):
         'partner_id': fields.many2one(
             'res.partner', 'Partner',
             domain=[('is_company', '=', False), ('identifier', '>', 0)]),
-        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'int_instance_id': fields.many2one(
+            'int.instance', string='Internal Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate',
                                                'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate',
@@ -442,8 +446,8 @@ class virtual_partner_mandate(orm.Model):
 
         'assembly_id': fields.many2one(
             'res.partner', 'Assembly', domain=[('is_assembly', '=', True)]),
-        'mandate_category_id': fields.many2one('mandate.category',
-                                               'Mandate Category'),
+        'mandate_category_id': fields.many2one(
+            'mandate.category', string='Mandate Category'),
 
         'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate'),
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate'),
@@ -598,7 +602,8 @@ class virtual_partner_candidature(orm.Model):
         'partner_id': fields.many2one(
             'res.partner', 'Partner',
             domain=[('is_company', '=', False), ('identifier', '>', 0)]),
-        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'int_instance_id': fields.many2one(
+            'int.instance', string='Internal Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate',
                                                'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate',
@@ -804,7 +809,8 @@ class virtual_assembly_instance(orm.Model):
         'common_id': fields.char(string='Common ID'),
         'partner_id': fields.many2one(
             'res.partner', 'Assembly', domain=[('is_assembly', '=', True)]),
-        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'int_instance_id': fields.many2one(
+            'int.instance', string='Internal Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate',
                                                'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate',
@@ -954,7 +960,9 @@ class virtual_partner_retrocession(orm.Model):
         'partner_id': fields.many2one(
             'res.partner', 'Partner',
             domain=[('is_company', '=', False), ('identifier', '>', 0)]),
-        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'int_instance_id': fields.many2one(
+            'int.instance', string='Internal Instance'),
+
         'email_coordinate_id': fields.many2one('email.coordinate',
                                                'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate',
@@ -1197,7 +1205,8 @@ class virtual_partner_membership(orm.Model):
             'res.partner', 'Partner',
             domain=[('is_company', '=', False), ('identifier', '>', 0)]),
         'membership_state_id': fields.many2one('membership.state', 'State'),
-        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'int_instance_id': fields.many2one(
+            'int.instance', string='Internal Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate',
                                                'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate',
@@ -1314,7 +1323,8 @@ class virtual_partner_event(orm.Model):
         'common_id': fields.char(string='Common ID'),
         'partner_id': fields.many2one(
             'res.partner', 'Partner', domain=[('identifier', '>', 0)]),
-        'int_instance_id': fields.many2one('int.instance', 'Instance'),
+        'int_instance_id': fields.many2one(
+            'int.instance', string='Internal Instance'),
         'email_coordinate_id': fields.many2one('email.coordinate',
                                                'Email Coordinate'),
         'postal_coordinate_id': fields.many2one('postal.coordinate',
