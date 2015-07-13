@@ -494,13 +494,11 @@
                     <field name="int_instance_id" />
 
                     <field name="assembly_id" />
+                    <field name="designation_int_assembly_id" />
                     <field name="mandate_category_id" />
 
                     <field name="start_date" />
 
-                    <field name="birth_date" />
-                    <field name="gender" />
-                    <field name="tongue" />
                     <field name="postal_unauthorized" invisible="1" />
                     <field name="email_unauthorized" invisible="1" />
                 </tree>
@@ -583,6 +581,21 @@
                     <filter name="ext_mod" string="External Candidature"
                         domain="[('model','=','ext.candidature')]" />
                     <separator />
+                    <filter string="Male" name="male"
+                        domain="[('gender','=','m')]" />
+                    <filter string="Female" name="female"
+                        domain="[('gender','=','f')]" />
+                    <separator />
+                    <filter string="French" name="french"
+                        domain="[('tongue','=','f')]" />
+                    <filter string="German" name="german"
+                        domain="[('tongue','=','g')]" />
+                    <separator />
+                    <filter string="Employee" name="employee"
+                        domain="[('employee','!=',0)]" />
+                    <filter string="Not Employee" name="not_employee"
+                        domain="[('employee','=',0)]" />
+                    <separator />
                     <filter name="p_vip" string="VIP Address"
                         domain="[('postal_vip','=',True)]" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                     <separator />
@@ -617,13 +630,11 @@
                     <field name="int_instance_id" />
 
                     <field name="assembly_id" />
+                    <field name="designation_int_assembly_id" />
                     <field name="mandate_category_id" />
 
                     <field name="start_date" />
 
-                    <field name="birth_date" />
-                    <field name="gender" />
-                    <field name="tongue" />
                     <field name="postal_unauthorized" invisible="1" />
                     <field name="email_unauthorized" invisible="1" />
                 </tree>

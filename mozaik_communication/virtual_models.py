@@ -484,14 +484,15 @@ class virtual_partner_mandate(orm.Model):
     }
 
     def _select(self, mandate_type):
-        mandate_id = ("mandate.id" if mandate_type == 'int'
-                      else "mandate.unique_id")
-        sta_mandate_id = ("mandate.id" if mandate_type == 'sta'
-                          else "NULL::int")
-        ext_mandate_id = ("mandate.id" if mandate_type == 'ext'
-                          else "NULL::int")
-        mandate_instance_id = ("mandate.mandate_instance_id"
-                               if mandate_type == 'int' else "NULL")
+        mandate_id = (
+            "mandate.id" if mandate_type == 'int' else "mandate.unique_id")
+        sta_mandate_id = (
+            "mandate.id" if mandate_type == 'sta' else "NULL::int")
+        ext_mandate_id = (
+            "mandate.id" if mandate_type == 'ext' else "NULL::int")
+        mandate_instance_id = (
+            "mandate.mandate_instance_id"
+            if mandate_type == 'int' else "NULL::int")
         sta_instance_id = (
             "assembly.instance_id" if mandate_type == 'sta' else "NULL::int")
         return """
@@ -578,7 +579,7 @@ class virtual_partner_mandate(orm.Model):
             query_members.append(''.join([self._select(mandate_type),
                                  self._from(mandate_type),
                                  self._where(mandate_type)]))
-        query = '\n\n        UNION\n'.join(query_members)
+        query = '\nUNION\n'.join(query_members)
 
         tools.drop_view_if_exists(cr, 'virtual_partner_mandate')
         cr.execute("""
@@ -649,165 +650,81 @@ class virtual_partner_candidature(orm.Model):
         'active': fields.boolean("Active")
     }
 
+    def _select(self, cand_type):
+        cand_id = ("id" if cand_type == 'int' else "unique_id")
+        sta_instance_id = (
+            "assembly.instance_id" if cand_type == 'sta' else "NULL::int")
+
+        return """
+        SELECT '%s.candidature' AS model,
+            CONCAT(candidature.partner_id, '/', pc.id, '/', e.id) AS common_id,
+            candidature.%s AS id,
+            candidature.mandate_category_id,
+            candidature.partner_id,
+            candidature.mandate_start_date AS start_date,
+            candidature.designation_int_assembly_id
+                AS designation_int_assembly_id,
+            designation_assembly.instance_id AS designation_instance_id,
+            %s AS sta_instance_id,
+            partner_assembly.id AS assembly_id,
+            partner.identifier AS identifier,
+            partner.birth_date AS birth_date,
+            partner.gender AS gender,
+            partner.tongue AS tongue,
+            partner.employee AS employee,
+            partner.int_instance_id AS int_instance_id,
+            e.id AS email_coordinate_id,
+            pc.id AS postal_coordinate_id,
+            pc.unauthorized AS postal_unauthorized,
+            pc.vip AS postal_vip,
+            e.vip AS email_vip,
+            e.unauthorized AS email_unauthorized,
+            CASE
+                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                THEN True
+                ELSE False
+            END AS active
+        """ % (cand_type, cand_id, sta_instance_id)
+
+    def _from(self, cand_type):
+        return """
+        FROM %s_candidature AS candidature
+        JOIN %s_assembly AS assembly
+            ON assembly.id = candidature.%s_assembly_id
+        JOIN res_partner AS partner_assembly
+            ON partner_assembly.id = assembly.partner_id
+        JOIN res_partner  AS partner
+            ON partner.id = candidature.partner_id
+        LEFT OUTER JOIN int_assembly AS designation_assembly ON
+            designation_assembly.id = candidature.designation_int_assembly_id
+        LEFT OUTER JOIN postal_coordinate AS pc
+            ON pc.partner_id = candidature.partner_id
+            and pc.is_main = TRUE
+            AND pc.active = TRUE
+        LEFT OUTER JOIN email_coordinate AS e
+            ON e.partner_id = candidature.partner_id
+            and e.is_main = TRUE
+            AND e.active = TRUE
+        """ % (cand_type, cand_type, cand_type)
+
+    def _where(self, cand_type):
+        return "WHERE candidature.active = True"
+
 # orm methods
 
     def init(self, cr):
+        query_members = []
+        for cand_type in mandate_category_available_types.keys():
+            query_members.append(''.join([self._select(cand_type),
+                                 self._from(cand_type),
+                                 self._where(cand_type)]))
+        query = '\nUNION\n'.join(query_members)
+
         tools.drop_view_if_exists(cr, 'virtual_partner_candidature')
         cr.execute("""
-    create or replace view virtual_partner_candidature as (
-    SELECT 'int.candidature' AS model,
-        concat(candidature.partner_id, '/',
-            pc.id,
-            '/',
-            e.id) as common_id,
-        candidature.id as id,
-        candidature.mandate_category_id,
-        candidature.partner_id,
-        candidature.mandate_start_date as start_date,
-        candidature.designation_int_assembly_id as designation_int_assembly_id,
-        designation_assembly.instance_id as designation_instance_id,
-        NULL::int as sta_instance_id,
-        partner_assembly.id as assembly_id,
-        partner.identifier as identifier,
-        partner.birth_date as birth_date,
-        partner.gender as gender,
-        partner.tongue as tongue,
-        partner.employee as employee,
-        partner.int_instance_id as int_instance_id,
-        e.id AS email_coordinate_id,
-        pc.id AS postal_coordinate_id,
-        pc.unauthorized as postal_unauthorized,
-        pc.vip as postal_vip,
-        e.vip as email_vip,
-        e.unauthorized as email_unauthorized,
-        CASE
-            WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-            THEN True
-            ELSE False
-        END AS active
-    FROM int_candidature AS candidature
-    JOIN int_assembly AS assembly
-        ON assembly.id = candidature.int_assembly_id
-    JOIN res_partner  AS partner_assembly
-        ON partner_assembly.id = assembly.partner_id
-    JOIN res_partner AS partner
-        ON partner.id = candidature.partner_id
-    LEFT OUTER JOIN int_assembly AS designation_assembly
-        ON designation_assembly.id = candidature.designation_int_assembly_id
-    LEFT OUTER JOIN postal_coordinate AS pc
-        ON pc.partner_id = candidature.partner_id
-        and pc.is_main = TRUE
-        AND pc.active = TRUE
-    LEFT OUTER JOIN email_coordinate AS e
-        ON e.partner_id = candidature.partner_id
-        and e.is_main = TRUE
-        AND e.active = TRUE
-    WHERE candidature.active = True
-
-    UNION
-
-    SELECT 'sta.candidature' AS model,
-        concat(candidature.partner_id, '/',
-            pc.id,
-            '/',
-            e.id) as common_id,
-        candidature.unique_id as id,
-        candidature.mandate_category_id,
-        candidature.partner_id,
-        candidature.mandate_start_date as start_date,
-        candidature.designation_int_assembly_id as designation_int_assembly_id,
-        designation_assembly.instance_id as designation_instance_id,
-        assembly.instance_id as sta_instance_id,
-        partner_assembly.id as assembly_id,
-        partner.identifier as identifier,
-        partner.birth_date as birth_date,
-        partner.gender as gender,
-        partner.tongue as tongue,
-        partner.employee as employee,
-        partner.int_instance_id as int_instance_id,
-        e.id AS email_coordinate_id,
-        pc.id AS postal_coordinate_id,
-        pc.unauthorized as postal_unauthorized,
-        pc.vip as postal_vip,
-        e.vip as email_vip,
-        e.unauthorized as email_unauthorized,
-        CASE
-            WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-            THEN True
-            ELSE False
-        END AS active
-    FROM sta_candidature AS candidature
-    JOIN sta_assembly AS assembly
-        ON assembly.id = candidature.sta_assembly_id
-    JOIN res_partner AS partner_assembly
-        ON partner_assembly.id = assembly.partner_id
-    JOIN res_partner  AS partner
-        ON partner.id = candidature.partner_id
-    LEFT OUTER JOIN electoral_district ed
-        ON ed.id = candidature.electoral_district_id
-    LEFT OUTER JOIN int_assembly AS designation_assembly
-        ON designation_assembly.id = candidature.designation_int_assembly_id
-    LEFT OUTER JOIN postal_coordinate AS pc
-        ON pc.partner_id = candidature.partner_id
-        and pc.is_main = TRUE
-        AND pc.active = TRUE
-    LEFT OUTER JOIN email_coordinate AS e
-        ON e.partner_id = candidature.partner_id
-        and e.is_main = TRUE
-        AND e.active = TRUE
-    WHERE candidature.active = True
-
-    UNION
-
-    SELECT 'ext.candidature' AS model,
-        concat(candidature.partner_id, '/',
-            pc.id,
-            '/',
-            e.id) as common_id,
-        candidature.unique_id as id,
-        candidature.mandate_category_id,
-        candidature.partner_id,
-        candidature.mandate_start_date as start_date,
-        candidature.designation_int_assembly_id as designation_int_assembly_id,
-        designation_assembly.instance_id as designation_instance_id,
-        NULL::int as sta_instance_id,
-        partner_assembly.id as assembly_id,
-        partner.identifier as identifier,
-        partner.birth_date as birth_date,
-        partner.gender as gender,
-        partner.tongue as tongue,
-        partner.employee as employee,
-        partner.int_instance_id as int_instance_id,
-        e.id AS email_coordinate_id,
-        pc.id postal_coordinate_id,
-        pc.unauthorized as postal_unauthorized,
-        pc.vip as postal_vip,
-        e.vip as email_vip,
-        e.unauthorized as email_unauthorized,
-        CASE
-            WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-            THEN True
-            ELSE False
-        END AS active
-    FROM ext_candidature AS candidature
-    JOIN ext_assembly AS assembly
-        ON assembly.id = candidature.ext_assembly_id
-    JOIN res_partner  AS partner_assembly
-        ON partner_assembly.id = assembly.partner_id
-    JOIN res_partner AS partner
-        ON partner.id = candidature.partner_id
-    LEFT OUTER JOIN int_assembly AS designation_assembly
-        ON designation_assembly.id = candidature.designation_int_assembly_id
-    LEFT OUTER JOIN postal_coordinate AS pc
-        ON pc.partner_id = candidature.partner_id
-        and pc.is_main = TRUE
-        AND pc.active = TRUE
-    LEFT OUTER JOIN email_coordinate AS e
-        ON e.partner_id = candidature.partner_id
-        and e.is_main = TRUE
-        AND e.active = TRUE
-    WHERE candidature.active = True
-    )""")
+        create or replace view virtual_partner_candidature as (
+        %s
+        )""" % query)
 
 
 class virtual_assembly_instance(orm.Model):
@@ -868,26 +785,29 @@ class virtual_assembly_instance(orm.Model):
 
 # orm methods
 
-    def _select(self, mandate_type):
+    def _select(self, assembly_type):
         int_instance_id = ""
-        if mandate_type == 'int':
+        if assembly_type == 'int':
             int_instance_id = 'i.id'
-        elif mandate_type == 'sta':
+        elif assembly_type == 'sta':
             int_instance_id = 'i.int_instance_id'
-        elif mandate_type == 'ext':
+        elif assembly_type == 'ext':
             int_instance_id = 'assembly.instance_id'
 
-        int_cat_id = ("assembly.assembly_category_id" if mandate_type == 'int'
-                      else "NULL::int")
-        sta_cat_id = ("assembly.assembly_category_id" if mandate_type == 'sta'
-                      else "NULL::int")
-        ext_cat_id = ("assembly.assembly_category_id" if mandate_type == 'ext'
-                      else "NULL::int")
+        int_cat_id = (
+            "assembly.assembly_category_id"
+            if assembly_type == 'int' else "NULL::int")
+        sta_cat_id = (
+            "assembly.assembly_category_id"
+            if assembly_type == 'sta' else "NULL::int")
+        ext_cat_id = (
+            "assembly.assembly_category_id"
+            if assembly_type == 'ext' else "NULL::int")
+        int_power_id = (
+            "i.power_level_id" if assembly_type == 'int' else "NULL::int")
+        sta_power_id = (
+            "i.power_level_id" if assembly_type == 'sta' else "NULL::int")
 
-        int_power_id = ("i.power_level_id" if mandate_type == 'int'
-                        else "NULL::int")
-        sta_power_id = ("i.power_level_id" if mandate_type == 'sta'
-                        else "NULL::int")
         return """
         SELECT
             '%s.assembly' as model,
@@ -915,16 +835,16 @@ class virtual_assembly_instance(orm.Model):
                 THEN True
                 ELSE False
             END AS active
-        """ % (mandate_type, int_instance_id, int_cat_id, sta_cat_id, 
+        """ % (assembly_type, int_instance_id, int_cat_id, sta_cat_id,
                ext_cat_id, int_power_id, sta_power_id)
 
-    def _from(self, mandate_type):
+    def _from(self, assembly_type):
         instance_join = ""
-        if mandate_type in ('int', 'sta'):
+        if assembly_type in ('int', 'sta'):
             instance_join = """
         JOIN %s_instance i
            ON i.id = assembly.instance_id
-        """ % mandate_type
+        """ % assembly_type
 
         return """
         FROM %s_assembly assembly
@@ -939,9 +859,9 @@ class virtual_assembly_instance(orm.Model):
         LEFT OUTER JOIN email_coordinate AS e
             ON (e.partner_id = p.id
             AND e.active = TRUE)
-        """ % (mandate_type, mandate_type, instance_join)
+        """ % (assembly_type, assembly_type, instance_join)
 
-    def _where(self, mandate_type):
+    def _where(self, assembly_type):
         return """
         WHERE assembly.active = TRUE
         AND p.active = TRUE
@@ -949,11 +869,11 @@ class virtual_assembly_instance(orm.Model):
 
     def init(self, cr):
         query_members = []
-        for mandate_type in mandate_category_available_types.keys():
-            query_members.append(''.join([self._select(mandate_type),
-                                 self._from(mandate_type),
-                                 self._where(mandate_type)]))
-        query = '\n\n        UNION\n'.join(query_members)
+        for assembly_type in mandate_category_available_types.keys():
+            query_members.append(''.join([self._select(assembly_type),
+                                 self._from(assembly_type),
+                                 self._where(assembly_type)]))
+        query = '\nUNION\n'.join(query_members)
 
         tools.drop_view_if_exists(cr, 'virtual_assembly_instance')
         cr.execute("""
