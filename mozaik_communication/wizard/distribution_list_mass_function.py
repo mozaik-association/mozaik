@@ -191,6 +191,10 @@ class distribution_list_mass_function(orm.TransientModel):
                     value = composer.onchange_template_id(
                         cr, uid, ids, template_id, 'mass_mail', '', 0,
                         context=context)['value']
+                    if value.get('attachment_ids'):
+                        value['attachment_ids'] = [
+                            [6, False, value['attachment_ids']]
+                        ]
                     mail_composer_vals.update(value)
                     mail_composer_id = composer.create(
                         cr, uid, mail_composer_vals, context=context)
