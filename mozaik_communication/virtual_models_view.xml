@@ -298,7 +298,7 @@
                         widget="many2one" />
 
                     <filter string="Main Coordinate" name="main_coo"
-                        domain="['&amp;', ('main_postal','=',1), ('main_email','=',1)]" />
+                        domain="['&amp;', '|', ('main_postal','=',1), ('postal_coordinate_id','=',False), '|', ('main_email','=',1), ('email_coordinate_id','=',False)]" />
                     <filter string="Main Postal" name="main_postal"
                         domain="[('main_postal','=',1)]" />
                     <filter string="Main Email" name="main_email"
