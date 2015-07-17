@@ -259,8 +259,9 @@ class res_partner(orm.Model):
         'membership_line_ids': fields.one2many(
             'membership.line', 'partner_id', 'Memberships'),
         'free_member': fields.boolean('Free Member'),
-        'membership_state_id': fields.many2one('membership.state',
-                                               string='Membership State'),
+        'membership_state_id': fields.many2one(
+            'membership.state', string='Membership State',
+            track_visibility='onchange'),
         'membership_state_code': fields.related('membership_state_id', 'code',
                                                 string='Membership State Code',
                                                 type="char", readonly=True),
@@ -581,6 +582,19 @@ class res_partner(orm.Model):
                 cr, uid, ids, ref=current_reference, context=context)
 
         return res
+
+    def message_track(self, cr, uid, ids,
+                      tracked_fields, initial_values, context=None):
+        """
+        If a notification has already been sent due to state change
+        in the workflow, avoid to sent twice the same notification
+        due to state modification tracking
+        """
+        context = context or {}
+        if context.get('do_not_track_twice'):
+            tracked_fields.pop('membership_state_id', False)
+        super(res_partner, self).message_track(
+            cr, uid, ids, tracked_fields, initial_values, context=context)
 
     def update_membership_line(self, cr, uid, ids, ref=False, context=None):
         """

@@ -1087,8 +1087,13 @@ class membership_request(orm.Model):
             })
 
             # update_partner values
+            # Passing do_not_track_twice in context the first tracking
+            # evaluation through workflow will produce a notification
+            # the second one out of workflow not (when context will be
+            # pass through workflow this solution will not work anymore)
+            ctx = dict(context or {}, do_not_track_twice=True)
             partner_obj.write(
-                cr, uid, [partner.id], partner_values, context=context)
+                cr, uid, [partner.id], partner_values, context=ctx)
             # address if technical name is empty then means that no address
             # required
             address_id = mr.address_id and mr.address_id.id or False
