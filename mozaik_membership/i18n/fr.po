@@ -32,8 +32,8 @@ msgstr ""
 
 #. module: mozaik_membership
 #: model:mail.message.subtype,description:mozaik_membership.membership_line_notification
-msgid "A New Membership Line Has Been Created"
-msgstr "Un nouvel historique a été créé"
+msgid "A new membership line has been created"
+msgstr "Un nouvel historique d'adhésion a été créé"
 
 #. module: mozaik_membership
 #: code:addons/mozaik_membership/res_partner.py:444
