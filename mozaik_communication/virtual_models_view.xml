@@ -23,8 +23,7 @@
 
         <!-- Partners/Involvements -->
 
-        <record id="virtual_partner_involvement_search_view"
-            model="ir.ui.view">
+        <record id="virtual_partner_involvement_search_view" model="ir.ui.view">
             <field name="name">virtual.partner.involvement.search</field>
             <field name="model">virtual.partner.involvement</field>
             <field name="arch" type="xml">
@@ -37,12 +36,12 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
                     <field name="involvement_category_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
-                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter string="Natural Persons" name="type_person"
@@ -159,13 +158,13 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
                     <field name="relation_category_id" />
                     <field name="object_partner_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
-                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter string="Natural Persons" name="type_person"
@@ -284,18 +283,16 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
                     <field name="membership_state_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
-                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
-                    <field name="email_category_id" string="Email Category"
-                        widget="many2one" />
-                    <field name="postal_category_id" string="Postal Category"
-                        widget="many2one" />
+                    <field name="email_category_id" />
+                    <field name="postal_category_id" />
 
                     <filter string="Main Postal" name="main_postal"
                         domain="[('main_postal','=',1)]" />
@@ -424,17 +421,18 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
-                    <field name="assembly_id" />
+                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
                     <field name="designation_int_assembly_id" />
                     <field name="designation_instance_id" string="Designated by descendants of..." operator="child_of"/>
+                    <field name="designation_instance_id" string="Designated by non descendants of..." operator="not child_of"/>
+                    <field name="assembly_id" />
                     <field name="sta_instance_id" string="Designated to descendants of..." operator="child_of"/>
+                    <field name="sta_instance_id" string="Designated to non descendants of..." operator="not child_of"/>
                     <field name="mandate_category_id" />
 
-                    <field name="ext_competencies_m2m_ids" string="External Mandate Competencies"
-                        widget="many2one" />
-                    <field name="sta_competencies_m2m_ids" string="State Mandate Competencies"
-                        widget="many2one" />
+                    <field name="ext_competencies_m2m_ids" string="External Mandate Competencies" widget="many2one" />
+                    <field name="sta_competencies_m2m_ids" string="State Mandate Competencies" widget="many2one" />
 
                     <filter name="sta_mod" string="State Mandate"
                         domain="[('model','=','sta.mandate')]" />
@@ -541,8 +539,7 @@
 
         <!-- Partners/Candidatures -->
 
-        <record id="virtual_partner_candidature_search_view"
-            model="ir.ui.view">
+        <record id="virtual_partner_candidature_search_view" model="ir.ui.view">
             <field name="name">virtual.partner.candidature.search</field>
             <field name="model">virtual.partner.candidature</field>
             <field name="arch" type="xml">
@@ -560,16 +557,18 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
-                    <field name="assembly_id" />
+                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
                     <field name="designation_int_assembly_id" />
                     <field name="designation_instance_id" string="Designated by descendants of..." operator="child_of"/>
+                    <field name="designation_instance_id" string="Designated by non descendants of..." operator="not child_of"/>
+                    <field name="assembly_id" />
                     <field name="sta_instance_id" string="Designated to descendants of..." operator="child_of"/>
+                    <field name="sta_instance_id" string="Designated to non descendants of..." operator="not child_of"/>
                     <field name="mandate_category_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
-                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter name="sta_mod" string="State Candidature"
@@ -684,7 +683,8 @@
                 <search string="Assemblies/Instances">
                     <field name="partner_id" />
                     <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
 
                     <field name="int_category_assembly_id" string="Internal Assembly Category" />
                     <field name="sta_category_assembly_id" string="State Assembly Category" />
@@ -693,8 +693,7 @@
                     <field name="int_power_level_id" string="Internal Power Level" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
-                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter name="sta_mod" string="State Assembly"
@@ -785,8 +784,7 @@
 
         <!-- Partners/Retrocessions -->
 
-        <record id="virtual_partner_retrocession_search_view"
-            model="ir.ui.view">
+        <record id="virtual_partner_retrocession_search_view" model="ir.ui.view">
             <field name="name">virtual.partner.retrocession.search
             </field>
             <field name="model">virtual.partner.retrocession</field>
@@ -803,13 +801,13 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
                     <field name="designation_int_assembly_id" />
                     <field name="mandate_category_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
-                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter name="sta_mod" string="State Mandate"
@@ -846,8 +844,7 @@
             </field>
         </record>
 
-        <record id="virtual_partner_retrocession_tree_view"
-            model="ir.ui.view">
+        <record id="virtual_partner_retrocession_tree_view" model="ir.ui.view">
             <field name="name">virtual.partner.retrocession.tree</field>
             <field name="model">virtual.partner.retrocession</field>
             <field name="arch" type="xml">
@@ -922,7 +919,8 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
                     <field name="membership_state_id" />
 
                     <field string="Welcome Documents Sent Date > ..." name="del_doc_date"
@@ -935,12 +933,8 @@
                         filter_domain="[('del_mem_card_date','&lt;',self)]" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
-                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
-
-                    <field name="email_category_id" string="Email Category" />
-                    <field name="postal_category_id" string="Postal Category" />
 
                     <filter string="Undelivered Welcome Documents"
                         name="del_doc_date"
@@ -1069,19 +1063,14 @@
 
                     <field name="partner_id" />
                     <field name="int_instance_id" />
-                    <field name="int_instance_id" string="Descendants of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
                     <field name="event_id" />
                     <field name="event_registration_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics"
-                        widget="many2one" />
+                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
-
-                    <field name="email_category_id" string="Email Category"
-                        widget="many2one" />
-                    <field name="postal_category_id" string="Postal Category"
-                        widget="many2one" />
 
                     <filter string="Male" name="male"
                         domain="[('gender','=','m')]" />

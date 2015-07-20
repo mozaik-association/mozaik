@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-13 19:05+0000\n"
-"PO-Revision-Date: 2015-07-13 19:05+0000\n"
+"POT-Creation-Date: 2015-07-20 17:25+0000\n"
+"PO-Revision-Date: 2015-07-20 17:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -319,19 +319,6 @@ msgid "December"
 msgstr "Décembre"
 
 #. module: mozaik_communication
-#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
-#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
-#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
-#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
-#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
-#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
-#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
-#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
-#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
-msgid "Descendants of..."
-msgstr "Descendants de..."
-
-#. module: mozaik_communication
 #: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
 #: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
 msgid "Designated by descendants of..."
@@ -340,8 +327,20 @@ msgstr "Désignés par une descendance de..."
 #. module: mozaik_communication
 #: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
 #: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+msgid "Designated by non descendants of..."
+msgstr "Désignés par une non descendance de..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
 msgid "Designated to descendants of..."
 msgstr "Désignés à une descendance de..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+msgid "Designated to non descendants of..."
+msgstr "Désignés à une non descendance de..."
 
 #. module: mozaik_communication
 #: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
@@ -402,13 +401,6 @@ msgid "Email Bounce Counter"
 msgstr "Compteur d'échecs de courriel"
 
 #. module: mozaik_communication
-#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
-#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
-#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
-msgid "Email Category"
-msgstr "Catégorie d'adresse électronique"
-
-#. module: mozaik_communication
 #: selection:distribution.list.mass.function,trg_model:0
 #: field:event.registration,email_coordinate_id:0
 #: model:ir.model,name:mozaik_communication.model_email_coordinate
@@ -426,9 +418,7 @@ msgid "Email Coordinate"
 msgstr "Coordonnée électronique"
 
 #. module: mozaik_communication
-#: field:virtual.partner.event,email_category_id:0
 #: field:virtual.partner.instance,email_category_id:0
-#: field:virtual.partner.membership,email_category_id:0
 msgid "Email Coordinate Category"
 msgstr "Catégorie de coordonnée électronique"
 
@@ -505,7 +495,7 @@ msgstr "Employé"
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/event.py:77
 #: code:addons/mozaik_communication/postal_mail.py:198
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:218
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:222
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -845,6 +835,32 @@ msgid "Internal Instance"
 msgstr "Instance interne"
 
 #. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+msgid "Internal Instance descending of..."
+msgstr "Instance Interne descendant de..."
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+msgid "Internal Instance not descending of..."
+msgstr "Instance Interne ne descendant pas de..."
+
+#. module: mozaik_communication
 #: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
 msgid "Internal Mandate"
 msgstr "Mandat interne"
@@ -995,11 +1011,6 @@ msgstr "Nombre de courriers"
 #: model:ir.ui.menu,name:mozaik_communication.mailings_submenu
 msgid "Mailings"
 msgstr "Courriels"
-
-#. module: mozaik_communication
-#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
-msgid "Main Coordinate"
-msgstr "Coordonnée principale"
 
 #. module: mozaik_communication
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
@@ -1401,13 +1412,6 @@ msgid "Postal Bounce Counter"
 msgstr "Compteur d'échecs postaux"
 
 #. module: mozaik_communication
-#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
-#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
-#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
-msgid "Postal Category"
-msgstr "Catégorie d'adresse"
-
-#. module: mozaik_communication
 #: selection:distribution.list.mass.function,trg_model:0
 #: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
 #: field:postal.mail.log,postal_coordinate_id:0
@@ -1425,9 +1429,7 @@ msgid "Postal Coordinate"
 msgstr "Coordonnée postale"
 
 #. module: mozaik_communication
-#: field:virtual.partner.event,postal_category_id:0
 #: field:virtual.partner.instance,postal_category_id:0
-#: field:virtual.partner.membership,postal_category_id:0
 msgid "Postal Coordinate Category"
 msgstr "Catégorie de coordonnée postale"
 
@@ -1707,7 +1709,7 @@ msgid "Templates"
 msgstr "Modèles"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:218
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:222
 #, python-format
 msgid "There are no recipients"
 msgstr "Aucun destinataire"

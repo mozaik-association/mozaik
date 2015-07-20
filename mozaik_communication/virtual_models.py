@@ -103,11 +103,11 @@ class virtual_partner_involvement(orm.Model):
             obj='thesaurus.term', rel='res_partner_term_competencies_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
         'interests_m2m_ids': fields.related(
-            'partner_id', 'competencies_m2m_ids', type='many2many',
+            'partner_id', 'interests_m2m_ids', type='many2many',
             obj='thesaurus.term',
             rel='res_partner_term_interests_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Interests'),
-        'active': fields.boolean("Active")
+        'active': fields.boolean("Active"),
     }
 
 # orm methods
@@ -204,7 +204,7 @@ class virtual_partner_relation(orm.Model):
             rel='res_partner_term_competencies_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
         'interests_m2m_ids': fields.related(
-            'partner_id', 'competencies_m2m_ids', type='many2many',
+            'partner_id', 'interests_m2m_ids', type='many2many',
             obj='thesaurus.term',
             rel='res_partner_term_interests_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Interests'),
@@ -222,7 +222,7 @@ class virtual_partner_relation(orm.Model):
         'email_unauthorized': fields.related(
             'email_coordinate_id', 'unauthorized', type='boolean',
             obj='email.coordinate', string='Unauthorized Email'),
-        'active': fields.boolean("Active")
+        'active': fields.boolean("Active"),
     }
 
 # orm methods
@@ -348,11 +348,11 @@ class virtual_partner_instance(orm.Model):
             rel='res_partner_term_competencies_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
         'interests_m2m_ids': fields.related(
-            'partner_id', 'competencies_m2m_ids', type='many2many',
+            'partner_id', 'interests_m2m_ids', type='many2many',
             obj='thesaurus.term',
             rel='res_partner_term_interests_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Interests'),
-        'active': fields.boolean("Active")
+        'active': fields.boolean("Active"),
     }
 
 # orm methods
@@ -643,11 +643,11 @@ class virtual_partner_candidature(orm.Model):
             rel='res_partner_term_competencies_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
         'interests_m2m_ids': fields.related(
-            'partner_id', 'competencies_m2m_ids', type='many2many',
+            'partner_id', 'interests_m2m_ids', type='many2many',
             obj='thesaurus.term',
             rel='res_partner_term_interests_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Interests'),
-        'active': fields.boolean("Active")
+        'active': fields.boolean("Active"),
     }
 
     def _select(self, cand_type):
@@ -776,11 +776,11 @@ class virtual_assembly_instance(orm.Model):
             rel='res_partner_term_competencies_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
         'interests_m2m_ids': fields.related(
-            'partner_id', 'competencies_m2m_ids', type='many2many',
+            'partner_id', 'interests_m2m_ids', type='many2many',
             obj='thesaurus.term',
             rel='res_partner_term_interests_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Interests'),
-        'active': fields.boolean('Active')
+        'active': fields.boolean('Active'),
     }
 
 # orm methods
@@ -947,13 +947,13 @@ class virtual_partner_retrocession(orm.Model):
             rel='res_partner_term_competencies_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
         'interests_m2m_ids': fields.related(
-            'partner_id', 'competencies_m2m_ids', type='many2many',
+            'partner_id', 'interests_m2m_ids', type='many2many',
             obj='thesaurus.term',
             rel='res_partner_term_interests_rel',
             id1='partner_id', id2='thesaurus_term_id', string='Interests'),
         'retro_instance_id': fields.many2one(
             'int.instance', 'Retrocessions Management Instance'),
-        'active': fields.boolean('Active')
+        'active': fields.boolean('Active'),
     }
 
 # orm methods
@@ -1151,41 +1151,25 @@ class virtual_partner_membership(orm.Model):
 
         'postal_vip': fields.boolean('VIP Address'),
         'postal_unauthorized': fields.boolean('Unauthorized Address'),
-        'postal_category_id': fields.many2one('coordinate.category',
-                                              'Postal Coordinate Category'),
 
         'email_vip': fields.boolean('VIP Email'),
         'email_unauthorized': fields.boolean('Unauthorized Email'),
-        'email_category_id': fields.many2one('coordinate.category',
-                                             'Email Coordinate Category'),
 
-        'category_id': fields.related('partner_id', 'category_id',
-                                      type='many2many',
-                                      obj='res.partner.category',
-                                      rel='res_partner_res_partner_\
-                                          category_rel',
-                                      id1='partner_id',
-                                      id2='category_id',
-                                      string='Tags'),
-        'competencies_m2m_ids': fields.related('partner_id',
-                                               'competencies_m2m_ids',
-                                               type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_\
-                                                   competencies_rel',
-                                               id1='partner_id',
-                                               id2='thesaurus_term_id',
-                                               string='Competencies'),
-        'interests_m2m_ids': fields.related('partner_id',
-                                            'competencies_m2m_ids',
-                                            type='many2many',
-                                            obj='thesaurus.term',
-                                            rel='res_partner_term_\
-                                                interests_rel',
-                                            id1='partner_id',
-                                            id2='thesaurus_term_id',
-                                            string='Interests'),
-        'active': fields.boolean('Active')
+        'category_id': fields.related(
+            'partner_id', 'category_id', type='many2many',
+            obj='res.partner.category',
+            rel='res_partner_res_partner_category_rel', id1='partner_id',
+            id2='category_id', string='Tags'),
+        'competencies_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term', rel='res_partner_term_competencies_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related(
+            'partner_id', 'interests_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_interests_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'active': fields.boolean('Active'),
     }
 
 # orm methods
@@ -1204,7 +1188,6 @@ class virtual_partner_membership(orm.Model):
             p.reference as reference,
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
-            pc.coordinate_category_id as postal_category_id,
             p.identifier as identifier,
             p.birth_date as birth_date,
             p.gender as gender,
@@ -1213,7 +1196,6 @@ class virtual_partner_membership(orm.Model):
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
             e.vip as email_vip,
-            e.coordinate_category_id as email_category_id,
             e.unauthorized as email_unauthorized,
             p.membership_state_id as membership_state_id,
             CASE
@@ -1266,41 +1248,25 @@ class virtual_partner_event(orm.Model):
 
         'postal_vip': fields.boolean('VIP Address'),
         'postal_unauthorized': fields.boolean('Unauthorized Address'),
-        'postal_category_id': fields.many2one('coordinate.category',
-                                              'Postal Coordinate Category'),
 
         'email_vip': fields.boolean('VIP Email'),
         'email_unauthorized': fields.boolean('Unauthorized Email'),
-        'email_category_id': fields.many2one('coordinate.category',
-                                             'Email Coordinate Category'),
 
-        'category_id': fields.related('partner_id', 'category_id',
-                                      type='many2many',
-                                      obj='res.partner.category',
-                                      rel='res_partner_res_partner_\
-                                          category_rel',
-                                      id1='partner_id',
-                                      id2='category_id',
-                                      string='Tags'),
-        'competencies_m2m_ids': fields.related('partner_id',
-                                               'competencies_m2m_ids',
-                                               type='many2many',
-                                               obj='thesaurus.term',
-                                               rel='res_partner_term_\
-                                                   competencies_rel',
-                                               id1='partner_id',
-                                               id2='thesaurus_term_id',
-                                               string='Competencies'),
-        'interests_m2m_ids': fields.related('partner_id',
-                                            'competencies_m2m_ids',
-                                            type='many2many',
-                                            obj='thesaurus.term',
-                                            rel='res_partner_term_\
-                                                interests_rel',
-                                            id1='partner_id',
-                                            id2='thesaurus_term_id',
-                                            string='Interests'),
-        'active': fields.boolean('Active')
+        'category_id': fields.related(
+            'partner_id', 'category_id', type='many2many',
+            obj='res.partner.category',
+            rel='res_partner_res_partner_category_rel', id1='partner_id',
+            id2='category_id', string='Tags'),
+        'competencies_m2m_ids': fields.related(
+            'partner_id', 'competencies_m2m_ids', type='many2many',
+            obj='thesaurus.term', rel='res_partner_term_competencies_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
+        'interests_m2m_ids': fields.related(
+            'partner_id', 'interests_m2m_ids', type='many2many',
+            obj='thesaurus.term',
+            rel='res_partner_term_interests_rel',
+            id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+        'active': fields.boolean('Active'),
     }
 
 # orm methods
@@ -1316,7 +1282,6 @@ class virtual_partner_event(orm.Model):
             p.int_instance_id as int_instance_id,
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
-            pc.coordinate_category_id as postal_category_id,
             p.identifier as identifier,
             p.birth_date as birth_date,
             p.gender as gender,
@@ -1325,7 +1290,6 @@ class virtual_partner_event(orm.Model):
             pc.unauthorized as postal_unauthorized,
             pc.vip as postal_vip,
             e.vip as email_vip,
-            e.coordinate_category_id as email_category_id,
             e.unauthorized as email_unauthorized,
             er.id as event_registration_id,
             er.event_id as event_id,
