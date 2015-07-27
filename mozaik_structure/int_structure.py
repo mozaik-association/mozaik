@@ -172,11 +172,12 @@ class int_assembly(orm.Model):
         res = {}
         assemblies = self.browse(cursor, uid, ids, context=context)
         for ass in assemblies:
-            fullname = "%s (%s) " % (ass.instance_id.name,
-                                     ass.assembly_category_id.name)
+            fullname = "%s (%s)" % (ass.instance_id.name,
+                                    ass.assembly_category_id.name)
             res[ass.id] = fullname
-            self.pool['res.partner'].write(cursor, uid, ass.partner_id.id,
-                                           {'name': fullname}, context=context)
+            self.pool['res.partner'].write(
+                cursor, uid, ass.partner_id.id,
+                {'name': fullname}, context=context)
         return res
 
     _name_store_triggers = {
@@ -194,7 +195,8 @@ class int_assembly(orm.Model):
             self.pool['int.assembly'].search(
                 cr, uid, [
                     ('assembly_category_id', 'in', ids)], context=context), [
-                'name', ], 10), }
+                'name', ], 10),
+    }
 
     _columns = {
         # dummy: define a dummy function to update the partner name associated
@@ -231,32 +233,6 @@ class int_assembly(orm.Model):
                                          relation=_category_model,
                                          store=False),
     }
-
-    def create(self, cr, uid, vals, context=None):
-        '''
-        Produce the first value of the name field.
-        Next values are generated in the function _compute_dummy
-        '''
-        if not vals.get('name') and not vals.get('partner_id'):
-            instance = ''
-            if vals.get('instance_id'):
-                instance = self.pool['int.instance'].read(
-                    cr,
-                    uid,
-                    vals.get('instance_id'),
-                    ['name'],
-                    context=context)
-            category = ''
-            if vals.get('assembly_category_id'):
-                category = self.pool['int.assembly.category'].read(
-                    cr,
-                    uid,
-                    vals.get('assembly_category_id'),
-                    ['name'],
-                    context=context)
-            vals['name'] = '%s (%s)' % (instance['name'], category['name'])
-        res = super(int_assembly, self).create(cr, uid, vals, context=context)
-        return res
 
 # view methods: onchange, button
 

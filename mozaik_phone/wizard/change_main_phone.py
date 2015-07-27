@@ -44,13 +44,9 @@ class change_main_phone(orm.TransientModel):
     }
 
     def default_get(self, cr, uid, flds, context):
-        res = super(
-            change_main_phone,
-            self).default_get(
-            cr,
-            uid,
-            flds,
-            context=context)
+        context = dict(context or {})
+        res = super(change_main_phone, self).default_get(
+            cr, uid, flds, context=context)
         ids = context.get('active_ids') \
             or (context.get('active_id') and [context.get('active_id')]) \
             or []

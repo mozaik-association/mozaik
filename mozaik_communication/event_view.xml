@@ -22,7 +22,7 @@
                 </xpath>
 
                 <xpath expr="//group" position="inside">
-                    <filter name="instance" string="Instance" domain="[]"
+                    <filter name="instance" string="Internal Instance" domain="[]"
                         context="{'group_by':'int_instance_id'}" />
                 </xpath>
 

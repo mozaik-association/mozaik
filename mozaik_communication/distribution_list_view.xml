@@ -12,7 +12,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='dst_model_id']" position="replace"/>
                 <xpath expr="//filter[@name='dst_model']" position="replace">
-                    <filter name="instance" string="Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
+                    <filter name="instance" string="Internal Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
                 </xpath>
 
                 <xpath expr="//field[@name='name']" position="after">
@@ -101,6 +101,11 @@
                                  attrs="{'invisible': ['|',
                                  ('mail_forwarding', '=', False),
                                  ('mail_alias_id', '=', False),]}"/>
+                        </group>
+                        <group name="partner_diffusion">
+                            <field name="partner_id"
+                                 attrs="{'invisible': ['|',
+                                 ('mail_forwarding', '=', False)]}"/>
                         </group>
                     </group>
                     <group name="state" attrs="{'invisible': [('id','=',False)]}">
@@ -236,6 +241,10 @@
                 <xpath expr="//button[@name='action_partner_selection']" position="attributes">
                     <attribute name="attrs">{'invisible':[('active', '=', False)]}</attribute>
                     <attribute name="groups">mozaik_base.mozaik_res_groups_user</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='src_model_id']" position="attributes">
+                    <attribute name="widget">selection</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='domain']" position="attributes">

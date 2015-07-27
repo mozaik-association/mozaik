@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-05 19:20+0000\n"
-"PO-Revision-Date: 2015-03-05 19:20+0000\n"
+"POT-Creation-Date: 2015-04-24 18:19+0000\n"
+"PO-Revision-Date: 2015-04-24 18:19+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -120,11 +120,6 @@ msgstr "Erreur"
 #: field:phone.phone,expire_date:0
 msgid "Expiration Date"
 msgstr "Date d'expiration"
-
-#. module: mozaik_phone
-#: model:mail.message.subtype,name:mozaik_phone.phone_failure_notification
-msgid "Failure Notification"
-msgstr "Notification d'échec"
 
 #. module: mozaik_phone
 #: field:phone.coordinate,bounce_counter:0
@@ -320,10 +315,16 @@ msgstr "Coordonnée téléphonique"
 #: model:ir.ui.menu,name:mozaik_phone.phone_coordinate_submenu
 #: field:phone.phone,phone_coordinate_ids:0
 #: field:phone.phone,phone_coordinate_inactive_ids:0
+#: view:res.partner:mozaik_phone.view_partner_2_form
 #: field:res.partner,phone_coordinate_ids:0
 #: field:res.partner,phone_coordinate_inactive_ids:0
 msgid "Phone Coordinates"
 msgstr "Coordonnées téléphoniques"
+
+#. module: mozaik_phone
+#: model:mail.message.subtype,name:mozaik_phone.phone_failure_notification
+msgid "Phone Failure Notification"
+msgstr "Notification d'échec de téléphone"
 
 #. module: mozaik_phone
 #: model:ir.model,name:mozaik_phone.model_phone_phone

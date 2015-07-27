@@ -26,9 +26,9 @@
 import tempfile
 import vobject
 import codecs
+import base64
 
-from openerp.tools.translate import _
-from openerp.osv import orm
+from openerp.osv import orm, fields
 
 
 class export_vcard(orm.TransientModel):
@@ -36,6 +36,8 @@ class export_vcard(orm.TransientModel):
     _description = 'Export vCard Wizard'
 
     _columns = {
+        'export_file': fields.binary('Vcf', readonly=True),
+        'export_filename': fields.char('Export VCF Filename', size=128),
     }
 
     def export(self, cr, uid, ids, context=None):
@@ -43,15 +45,23 @@ class export_vcard(orm.TransientModel):
             cr, uid, context and context.get('active_ids', False) or False,
             context=context)
 
-        # Send to current user
-        attachment = [('Extract.vcf', vcard_content)]
-        partner_ids = self.pool['res.partner'].search(
-            cr, uid, [('user_ids', '=', uid)], context=context)
-        if partner_ids:
-            self.pool['mail.thread'].message_post(
-                cr, uid, False, attachments=attachment, context=context,
-                partner_ids=partner_ids, subject=_('Export VCF'))
-        return True
+        vcard_content = base64.encodestring(vcard_content)
+
+        self.write(cr, uid, ids[0],
+                   {'export_file': vcard_content,
+                    'export_filename': 'Extract.vcf'},
+                   context=context)
+
+        return {
+            'name': 'Export vCard',
+            'type': 'ir.actions.act_window',
+            'res_model': 'export.vcard',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'res_id': ids[0],
+            'views': [(False, 'form')],
+            'target': 'new',
+        }
 
     def get_vcard(self, cr, uid, email_coordinate_ids, context=None):
         """

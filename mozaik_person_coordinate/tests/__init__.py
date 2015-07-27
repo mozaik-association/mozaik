@@ -24,3 +24,4 @@
 ##############################################################################
 from . import test_partner_relation_category
 from . import test_res_partner
+from . import test_duplicate_analysis_report

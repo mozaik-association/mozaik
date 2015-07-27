@@ -61,24 +61,38 @@ class res_users(orm.Model):
             res.append((record['id'], name))
         return res
 
+    def copy_data(self, cr, uid, ids, default=None, context=None):
+        """
+        Apply also copy_data() for related partner
+        (maybe it's a bug, it should be native)
+        """
+        default = default or {}
+        p_id = self.read(
+            cr, uid, ids, ['partner_id'], context=context)['partner_id'][0]
+        default = self.pool['res.partner'].copy_data(
+            cr, uid, p_id, default=default, context=context)
+        res = super(res_users, self).copy_data(
+            cr, uid, ids, default=default, context=context)
+        return res
+
     def write(self, cr, uid, ids, vals, context=None):
         '''
         Invalidate cache when updating user
         '''
+        # this write() will clear the cache of the _context_get() here under
         res = super(res_users, self).write(cr, uid, ids, vals, context=context)
-        if hasattr(self, '_context_get'):
-            # Temporary: test attr while the #6037 odoo issue is not fixed;
-            # afterwards we can force the _context_get.clear_cache
-            super(res_users, self)._context_get.clear_cache(self)
-        else:
-            super(res_users, self).context_get.clear_cache(self)
+        # while this explicit clear_cache() will clear the cache of the native
+        # _context_get() in .../odoo/openerp/addons/base/res/res_users.py
+        super(res_users, self)._context_get.clear_cache(self)
         return res
 
     def _apply_ir_rules(self, cr, uid, query, mode='read', context=None):
         '''
         Grant a 100% visibility on users to everybody
         '''
-        if mode != 'read':
+        context = context or {}
+        if mode != 'read' or context.get('force_apply_rules') or \
+                context.get('apply_for_read', 'read') != 'read':
             super(res_users, self)._apply_ir_rules(
                 cr, uid, query, mode=mode, context=context)
         pass
@@ -86,13 +100,13 @@ class res_users(orm.Model):
 # override public methods
 
     @tools.ormcache(skiparg=2)
-    def context_get(self, cr, uid, context=None):
+    def _context_get(self, cr, uid, context=None):
         '''
         Add in the users's context:
         - a flag related to each Mozaik group
         - the date format associated to the user's lang
         '''
-        result = super(res_users, self).context_get(cr, uid)
+        result = super(res_users, self)._context_get(cr, uid)
         user = self.browse(cr, SUPERUSER_ID, uid, context)
         imd_obj = self.pool['ir.model.data']
         _, appl_id = imd_obj.get_object_reference(

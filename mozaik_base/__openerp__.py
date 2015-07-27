@@ -32,21 +32,22 @@
     'depends': [
         'base',
         'portal',
-        'asynchronous_batch_mailings',
-        # from https://github.com/acsone/acsone-addons
         'document',
-        'mass_mailing',
         'product',
-        'event_mass_mailing',    # from https://github.com/acsone/acsone-addons
-        'partner_firstname',     # from https://github.com/OCA/partner-contact
-        'cron_run_manually',     # from https://github.com/OCA/server-tools
-        'auth_admin_passkey',    # from https://github.com/OCA/server-tools
-        'settings_improvement',  # from https://github.com/acsone/acsone-addons
-        'distribution_list',     # from https://github.com/acsone/acsone-addons
-        'readonly_bypass',       # from https://github.com/acsone/acsone-addons
+        # from https://github.com/acsone/acsone-addons
+        'asynchronous_batch_mailings',
+        'mass_mailing_distribution_list',
+        'event_mass_mailing',
+        'settings_improvement',
+        'readonly_bypass',
         'html_widget_embedded_picture',
-                                 # from https://github.com/acsone/acsone-addons
-        'help_online',           # from https://github.com/OCA/web
+        # from https://github.com/OCA/partner-contact
+        'partner_firstname',
+        # from https://github.com/OCA/server-tools
+        'cron_run_manually',
+        'auth_admin_passkey',
+        # from https://github.com/OCA/web
+        'help_online',
     ],
     'description': """
 MOZAIK Base

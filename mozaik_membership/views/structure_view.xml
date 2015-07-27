@@ -13,7 +13,7 @@
                         type="object" name="get_member_action"
                         context="{'search_default_membership_state': True}"
                         attrs="{'invisible':[('id','=', False)]}">
-                        <field name="member_count" widget="statinfo" />
+                        <field name="member_count" widget="statinfo" string="Members"/>
                     </button>
                 </xpath>
 

@@ -11,6 +11,8 @@
                     <field name="display_name" filter_domain="['|',('select_name','ilike',self),('technical_name','ilike',self)]"/>
                     <field string="Birth Date > ..." name="birth_date" filter_domain="[('birth_date','>', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field string="Birth Date &lt; ..." name="birth_date" filter_domain="[('birth_date','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <field string="Age >= ..." name="age" filter_domain="[('age','>=', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
+                    <field string="Age &lt; ..." name="age" filter_domain="[('age','&lt;', self)]" invisible="'default_is_company' not in context or context.get('default_is_company')" />
                     <field name="enterprise_identifier" invisible="'default_is_company' not in context or not context.get('default_is_company')" />
                     <field name="comment" />
                     <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
@@ -61,7 +63,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//tree" position="attributes">
-                    <attribute name="colors">grey:active==False;red:is_duplicate_detected==True</attribute>
+                    <attribute name="colors">grey:active==False;darkorange:is_duplicate_detected==True</attribute>
                 </xpath>
 
                 <xpath expr="//field[@name='display_name']" position="replace">
@@ -198,6 +200,7 @@
                 <xpath expr="//group[field[@name='user_ids']]" position="after">
                     <group name="person1" attrs="{'invisible': [('is_company','=', True)]}">
                         <field name="birth_date" />
+                        <field name="age" attrs="{'invisible': [('birth_date', '=', False)]}"/>
                         <field name="gender" />
                     </group>
                     <group name="person2" attrs="{'invisible': [('is_company','=', True)]}">
@@ -292,7 +295,13 @@
                             </tree>
                         </field>
                     </page>
-                    <page name="user" string="User" attrs="{'invisible': [('user_ids','=',[])]}" groups="mozaik_base.mozaik_res_groups_configurator">
+                    <page name="user" string="User" groups="mozaik_base.mozaik_res_groups_configurator">
+                        <group name="user">
+                            <group>
+                                <label for="user_ids" string="User"/>
+                                <field name="user_ids" readonly="1" nolabel="1"/>
+                            </group>
+                        </group>
                         <group name="ldap">
                             <group>
                                 <field name="ldap_name" />
@@ -330,8 +339,6 @@
                                 <field name="is_assembly" />
                                 <field name="tz" />
                                 <field name="parent_id" />
-                                <field name="user_ids" attrs="{'invisible': [('user_ids','=',[])]}"
-                                       context="{'form_view_ref': 'base.view_users_form'}"/>
                             </group>
                         </div>
                     </div>

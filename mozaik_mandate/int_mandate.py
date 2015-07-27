@@ -413,7 +413,7 @@ class int_mandate(orm.Model):
                     20)}),
         'months_before_end_of_mandate': fields.integer(
             'Alert Delay (#Months)',
-            track_visibility='onchange'),
+            track_visibility='onchange', group_operator='max'),
     }
 
     _order = 'partner_id, int_assembly_id, start_date, mandate_category_id'

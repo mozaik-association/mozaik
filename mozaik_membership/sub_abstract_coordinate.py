@@ -32,12 +32,28 @@ class sub_abstract_coordinate(orm.AbstractModel):
     _name = 'sub.abstract.coordinate'
     _inherit = ['abstract.coordinate']
 
+    def _update_followers(
+            self, cr, uid, ids, fol_ids=False, context=None):
+        '''
+        Update followers list for each coordinate of the same partner
+        '''
+        p_obj = self.pool['res.partner']
+        subtype_ids = p_obj._get_subtype_ids(
+            cr, uid, self._name, context=context)
+        if not fol_ids:
+            c = self.browse(cr, uid, ids[0], context=context)
+            fol_ids = p_obj._get_followers_assemblies(
+                cr, uid, c.partner_id.id, context=context)
+        self.message_subscribe(
+            cr, uid, ids, fol_ids,
+            subtype_ids=subtype_ids, context=context)
+
     def _update_notify_followers(
             self, cr, uid, ids, partner_ids, context=None):
         if context is None:
             context = {}
         if not context.get('no_update', False):
-            self.pool['res.partner']._update_follower(
+            self.pool['res.partner']._update_followers(
                 cr, uid, partner_ids, context=context)
         subtype = 'mozaik_membership.main_%s_notification' %\
             self._discriminant_field
@@ -76,13 +92,14 @@ class sub_abstract_coordinate(orm.AbstractModel):
         '''
         update and notify follower if is_main is True
         '''
-        if context is None:
-            context = {}
-        ctx = context.copy()
-        ctx['no_update'] = True
+        context = context or {}
         res = super(sub_abstract_coordinate, self).create(
             cr, uid, vals, context=context)
-        if vals.get('is_main', False) and not context.get('no_notify', False):
+        self._update_followers(
+            cr, SUPERUSER_ID, [res], context=context)
+        if vals.get('is_main') and not context.get('install_mode') and \
+                not context.get('delay_notification'):
+            ctx = dict(context, no_update=True)
             self.update_notify_followers(
                 cr, SUPERUSER_ID, vals, [res], context=ctx)
         return res

@@ -25,10 +25,10 @@
 
 import tempfile
 import csv
+import base64
 from collections import OrderedDict
 
-from openerp.tools.translate import _
-from openerp.osv import orm
+from openerp.osv import orm, fields
 
 from openerp.addons.mozaik_person.res_partner import available_genders, \
     available_tongues
@@ -80,6 +80,8 @@ class export_csv(orm.TransientModel):
     _description = 'Export CSV Wizard'
 
     _columns = {
+        'export_file': fields.binary('Vcf', readonly=True),
+        'export_filename': fields.char('Export VCF Filename', size=128),
     }
 
     def get_csv_rows(self, cr, uid, model, context=None):
@@ -219,13 +221,20 @@ class export_csv(orm.TransientModel):
         model_ids = context.get('active_ids', False)
         csv_content = self.get_csv(cr, uid, model, model_ids, context=context)
 
-        # Send to current user
-        attachment = [('extract.csv', csv_content)]
-        partner_ids = self.pool['res.partner'].search(
-            cr, uid, [('user_ids', '=', uid)], context=context)
-        if partner_ids:
-            self.pool['mail.thread'].message_post(
-                cr, uid,
-                False, attachments=attachment, context=context,
-                partner_ids=partner_ids, subject=_('Export CSV'))
-        return True
+        csv_content = base64.encodestring(csv_content)
+
+        self.write(cr, uid, ids[0],
+                   {'export_file': csv_content,
+                    'export_filename': 'Extract.csv'},
+                   context=context)
+
+        return {
+            'name': 'Export Csv',
+            'type': 'ir.actions.act_window',
+            'res_model': 'export.csv',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'res_id': ids[0],
+            'views': [(False, 'form')],
+            'target': 'new',
+        }

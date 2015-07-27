@@ -32,15 +32,18 @@
             <field name="inherit_id" ref="mozaik_coordinate.view_partner_form" />
             <field name="arch" type="xml">
 
-                <xpath expr="//separator[@name='email']" position="after">
-                    <button string="All Details" name="%(email_coordinate_action)d"
+                <xpath expr="//separator[@name='email']" position="replace">
+                    <span name="email" class="oe_horizontal_separator oe_clear oe_inline">
+                        Email Coordinates
+                    </span>
+                    <button class="oe_right" string="All Details" name="%(email_coordinate_action)d"
                             type="action" attrs="{'invisible': [('id','=',False)]}"
                             context="{'search_default_partner_id': active_id,
                                       'default_partner_id': active_id,
                                       'search_default_all': True}" />
                     <field name="email_coordinate_ids" context="{'default_partner_id': active_id}"
                            attrs="{'invisible': [('active','=',False)], 'readonly': [('id','=',False)]}">
-                        <tree colors="red:is_duplicate_detected==True;darkorange:unauthorized==True">
+                        <tree colors="darkorange:is_duplicate_detected==True;red:unauthorized==True">
                             <field name="email"/>
                             <field name="coordinate_category_id" />
                             <field name="is_main" />
@@ -51,7 +54,7 @@
                     </field>
                     <field name="email_coordinate_inactive_ids"
                            readonly="1" attrs="{'invisible': [('active','=',True)]}">
-                        <tree colors="darkorange:unauthorized==True">
+                        <tree colors="red:unauthorized==True">
                             <field name="email"/>
                             <field name="coordinate_category_id" />
                             <field name="is_main" />

@@ -26,7 +26,9 @@ import string
 import unicodedata
 import re
 
+from datetime import datetime, date
 from openerp.tools.mail import single_email_re
+from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
 
 CHARS_TO_ESCAPE = re.compile(r'[%s\s]+' % re.escape(string.punctuation))
@@ -67,3 +69,13 @@ def format_email(value):
 
 def check_email(email):
     return re.match(single_email_re, email) is not None
+
+
+def get_age(birth_date):
+    """
+    compute age depending of the birth_date and today
+    """
+    born = datetime.strptime(birth_date, DEFAULT_SERVER_DATE_FORMAT)
+    today = date.today()
+    return today.year - born.year -\
+        ((today.month, today.day) < (born.month, born.day))

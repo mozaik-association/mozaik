@@ -44,13 +44,15 @@ class virtual_master_partner(orm.Model):
             'membership.state',
             'Membership State'),
         'display_name': fields.char('Display Name'),
-        'identifier': fields.integer('Identifier'),
+        'identifier': fields.integer('Identifier', group_operator='min'),
         'lastname': fields.char('Lastname'),
         'firstname': fields.char('Firstname'),
         'birth_date': fields.date('Birth Date'),
         'is_company': fields.boolean('Is Company'),
-        'postal_coordinate_id': fields.integer('Postal Coordinate ID'),
-        'email_coordinate_id': fields.integer('Email Coordinate ID'),
+        'postal_coordinate_id': fields.integer(
+            'Postal Coordinate ID', group_operator='min'),
+        'email_coordinate_id': fields.integer(
+            'Email Coordinate ID', group_operator='min'),
         'email': fields.char('Email Coordinate'),
         'postal': fields.char('Postal Coordinate'),
         'email_is_main': fields.boolean('Email is Main'),

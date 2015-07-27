@@ -15,6 +15,8 @@
                     <field name="address_id" />
                     <field name="mobile_id" domain="[('type','=','mobile')]"/>
                     <field name="phone_id" domain="[('type','=','fix')]"/>
+                    <field string="Age >= ..." name="age" filter_domain="[('age','>=', self)]"/>
+                    <field string="Age &lt; ..." name="age" filter_domain="[('age','&lt;', self)]"/>
 
                     <filter name="state_draft" string="Draft"
                         domain="[('state', '=', 'draft')]" />
@@ -94,8 +96,7 @@
                             statusbar_visible="draft,confirm,validate" groups="mozaik_base.res_groups_base"/>
                     </header>
                     <sheet>
-                        <h3 attrs="{'invisible': [('id', '=', False)]}"
-                            groups="mozaik_base.res_groups_base">
+                        <h3 groups="mozaik_base.res_groups_base">
                             <label string="#" />
                             <field name="identifier" readonly="1"
                                 attrs="{'invisible': [('identifier', '=', 0)]}"
@@ -227,6 +228,7 @@
                                                    'required':[('is_update', '=', True)]}"
                                         on_change="onchange_partner_id(request_type, partner_id, technical_name)" />
                                     <field name="birth_date" />
+                                    <field name="age" attrs="{'invisible': [('birth_date', '=', False)]}"/>
                                     <field name="int_instance_id"
                                         readonly="1" />
                                 </group>
@@ -254,8 +256,19 @@
                                 </group>
                             </page>
                             <page string="Changes" name="changes">
+                                <group name='buttons'>
+	                                <button name="update_changes" attrs="{'invisible': [('active', '=', False)]}"
+	                                        string="Refresh" type="object"/>
+                                </group>
                                 <group attrs="{'invisible': [('partner_id', '=', False)]}">
-                                    <field name="change_ids" nolabel="1">
+                                    <field name="change_ids" readonly='1' nolabel="1" attrs="{'invisible': [('active', '=', False)]}">
+                                        <tree>
+                                            <field name="field_name"/>
+                                            <field name="old_value"/>
+                                            <field name="new_value"/>
+                                        </tree>
+                                    </field>
+                                    <field name="inactive_change_ids" readonly='1' nolabel="1" attrs="{'invisible': [('active', '=', True)]}">
                                         <tree>
                                             <field name="field_name"/>
                                             <field name="old_value"/>

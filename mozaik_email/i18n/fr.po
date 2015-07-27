@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-12 20:28+0000\n"
-"PO-Revision-Date: 2015-03-12 20:28+0000\n"
+"POT-Creation-Date: 2015-04-24 17:58+0000\n"
+"PO-Revision-Date: 2015-04-24 17:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -112,10 +112,16 @@ msgstr "Coordonnée électronique"
 #: model:ir.actions.act_window,name:mozaik_email.email_coordinate_action
 #: model:ir.ui.menu,name:mozaik_email.email_coordinate_menu
 #: model:ir.ui.menu,name:mozaik_email.email_coordinate_submenu
+#: view:res.partner:mozaik_email.view_partner_2_form
 #: field:res.partner,email_coordinate_ids:0
 #: field:res.partner,email_coordinate_inactive_ids:0
 msgid "Email Coordinates"
 msgstr "Coordonnées électroniques"
+
+#. module: mozaik_email
+#: model:mail.message.subtype,name:mozaik_email.email_failure_notification
+msgid "Email Failure Notification"
+msgstr "Notification d'échec de courriel"
 
 #. module: mozaik_email
 #: field:email.coordinate,expire_date:0
@@ -123,15 +129,19 @@ msgid "Expiration Date"
 msgstr "Date d'expiration"
 
 #. module: mozaik_email
+#: view:export.vcard:mozaik_email.export_vcard_wizard
+msgid "Export"
+msgstr "Exportation"
+
+#. module: mozaik_email
 #: model:ir.actions.act_window,name:mozaik_email.export_csv_email_action
 msgid "Export CSV"
 msgstr "Export CSV"
 
 #. module: mozaik_email
-#: code:addons/mozaik_email/wizard/export_vcard.py:53
-#, python-format
-msgid "Export VCF"
-msgstr "Export VCF"
+#: field:export.vcard,export_filename:0
+msgid "Export VCF Filename"
+msgstr "Fichier d'export VCF"
 
 #. module: mozaik_email
 #: view:export.vcard:mozaik_email.export_vcard_wizard
@@ -172,7 +182,7 @@ msgid "If checked new messages require your attention."
 msgstr "Si coché, de nouveaux messages requièrent votre attention."
 
 #. module: mozaik_email
-#: code:addons/mozaik_email/email_coordinate.py:62
+#: code:addons/mozaik_email/email_coordinate.py:68
 #: constraint:email.coordinate:0
 #, python-format
 msgid "Invalid Email Format"
@@ -233,11 +243,6 @@ msgid "Last Updated on"
 msgstr "Date de dernière mise à jour"
 
 #. module: mozaik_email
-#: view:export.vcard:mozaik_email.export_vcard_wizard
-msgid "Launch"
-msgstr "Exécuter"
-
-#. module: mozaik_email
 #: field:email.coordinate,message_ids:0
 msgid "Messages"
 msgstr "Messages"
@@ -273,6 +278,11 @@ msgid "Summary"
 msgstr "Résumé"
 
 #. module: mozaik_email
+#: model:mail.message.subtype,description:mozaik_email.email_failure_notification
+msgid "This Email Coordinate seems to be down"
+msgstr "Cette coordonnée électronique semble obsolète"
+
+#. module: mozaik_email
 #: view:export.vcard:mozaik_email.export_vcard_wizard
 msgid "This will export the selected coordinates to a vCard file"
 msgstr "Cet assistant exportera les coordonnées sélectionnées dans un fichier vCard"
@@ -291,6 +301,11 @@ msgstr "Messages non lus"
 #: field:email.coordinate,vip:0
 msgid "VIP"
 msgstr "VIP"
+
+#. module: mozaik_email
+#: field:export.vcard,export_file:0
+msgid "Vcf"
+msgstr ""
 
 #. module: mozaik_email
 #: field:email.coordinate,website_message_ids:0

@@ -163,18 +163,21 @@ class custom_webservice(orm.Model):
         list_obj = self.pool['distribution.list']
         partner_obj = self.pool['res.partner']
         res = []
-        context = context or {}
+        ctx = dict(context or {},
+                   field_main_object='partner_id',
+                   active_test=False)
         try:
-            context['field_main_object'] = 'partner_id'
             active_ids, _ = list_obj.get_complex_distribution_list_ids(
                 cr,
                 SUPERUSER_ID,
                 [distribution_list_id],
-                context=context)
+                context=ctx)
+
             res = partner_obj.read(cr,
                                    SUPERUSER_ID,
                                    active_ids,
-                                   ['lastname',
+                                   ['identifier',
+                                    'lastname',
                                     'firstname',
                                     'usual_lastname',
                                     'usual_firstname',
@@ -195,25 +198,29 @@ class custom_webservice(orm.Model):
         return res
 
     @web_service
-    def update_partner_ldap(self, cr, uid, partner_id, ldap_id, ldap_name,
+    def update_partner_ldap(self, cr, uid, identifier, ldap_id, ldap_name,
                             context=None):
         self.check_access_rights(cr, uid, 'read')
         partner_obj = self.pool['res.partner']
+        partner_ids = partner_obj.search(
+            cr, SUPERUSER_ID, [('identifier', '=', identifier)],
+            context=context)
         res = False
-        try:
-            data = {}
-            if ldap_id:
-                data['ldap_id'] = ldap_id
-            if ldap_name:
-                data['ldap_name'] = ldap_name
+        if partner_ids:
+            try:
+                data = {}
+                if ldap_id:
+                    data['ldap_id'] = ldap_id
+                if ldap_name:
+                    data['ldap_name'] = ldap_name
 
-            if data:
-                res = partner_obj.write(cr,
-                                        SUPERUSER_ID,
-                                        partner_id,
-                                        data,
-                                        context=context)
-        except Exception as e:
-            raise WebServiceException(
-                uid, "Partner", 'UPDATE ERROR', e.message or e.value)
+                if data:
+                    res = partner_obj.write(cr,
+                                            SUPERUSER_ID,
+                                            partner_ids[0],
+                                            data,
+                                            context=context)
+            except Exception as e:
+                raise WebServiceException(
+                    uid, "Partner", 'UPDATE ERROR', e.message or e.value)
         return res

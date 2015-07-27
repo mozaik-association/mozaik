@@ -22,6 +22,8 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+from openerp.tools import SUPERUSER_ID
 from openerp import fields, api
 from openerp.osv import orm
 
@@ -105,8 +107,28 @@ class int_instance(orm.Model):
 
 # orm methods
 
+    @api.cr_uid_ids_context
+    def check_mail_message_access(
+            self, cr, uid, mids, operation, model_obj=None, context=None):
+        """
+        When user has sufficient rights to create a new instance, it has also
+        sufficient rights to create the related notification
+        """
+        if operation == 'create':
+            return
+        super(int_instance, self).check_mail_message_access(
+            cr, uid, mids, operation, model_obj=model_obj, context=context)
+
     def create(self, cr, uid, vals, context=None):
         res = super(int_instance, self).create(cr, uid, vals, context=context)
+        if not vals.get('parent_id'):
+            if uid != SUPERUSER_ID:
+                # because the user has rights to create a new instance
+                # this new instance has to be added to users's internal
+                # instances if it is a root instance
+                u = self.pool['res.users'].browse(
+                    cr, SUPERUSER_ID, uid, context=context)
+                u.partner_id.write({'int_instance_m2m_ids': [(4, res)]})
         self.pool['ir.rule'].clear_cache(cr, uid)
         return res
 

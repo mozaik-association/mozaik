@@ -66,6 +66,12 @@
                             </group>
                         </page>
                     </notebook>
+                    <group>
+                        <field name="export_file"
+                           nolabel="1"
+                           readonly="1"
+                           filename="export_filename" />
+                    </group>
                     <div name="dev" groups="mozaik_base.res_groups_developper">
                         <h3>More Info</h3>
                         <group name="moreinfo">

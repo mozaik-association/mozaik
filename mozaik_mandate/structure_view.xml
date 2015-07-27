@@ -235,7 +235,7 @@
                         type="object" name="get_model_action"
                         context="{'action': 'mozaik_mandate.sta_mandate_action', 'model': 'sta.mandate'}"
                         attrs="{'invisible':[('id','=', False)]}">
-                        <field name="sta_mandate_count" widget="statinfo" />
+                        <field name="sta_mandate_count" widget="statinfo" string="State Mandates"/>
                     </button>
                 </xpath>
 
@@ -244,7 +244,7 @@
                         type="object" name="get_model_action"
                         context="{'action': 'mozaik_mandate.ext_mandate_action', 'model': 'ext.mandate'}"
                         attrs="{'invisible':[('id','=', False)]}">
-                        <field name="ext_mandate_count" widget="statinfo" />
+                        <field name="ext_mandate_count" widget="statinfo" string="External Mandates"/>
                     </button>
                 </xpath>
 
@@ -253,7 +253,7 @@
                         type="object" name="get_model_action"
                         context="{'action': 'mozaik_mandate.int_mandate_action', 'model': 'int.mandate'}"
                         attrs="{'invisible':[('id','=', False)]}">
-                        <field name="int_mandate_count" widget="statinfo" />
+                        <field name="int_mandate_count" widget="statinfo" string="Internal Mandates"/>
                     </button>
                 </xpath>
 
@@ -262,7 +262,7 @@
                         type="object" name="get_model_action"
                         context="{'action': 'mozaik_mandate.sta_candidature_action','model': 'sta.mandate'}"
                         attrs="{'invisible':[('id','=', False)]}">
-                        <field name="sta_candidature_count" widget="statinfo" />
+                        <field name="sta_candidature_count" widget="statinfo" string="State Candidatures"/>
                     </button>
                 </xpath>
 

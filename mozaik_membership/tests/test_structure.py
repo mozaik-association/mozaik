@@ -33,7 +33,9 @@ class test_structure(SharedSetupTransactionCase):
 
     _data_files = (
         '../../mozaik_base/tests/data/res_partner_data.xml',
-        '../../mozaik_structure/tests/data/structure_data.xml'
+        '../../mozaik_base/tests/data/res_users_data.xml',
+        '../../mozaik_structure/tests/data/structure_data.xml',
+        'data/res_partner_data.xml',
     )
 
     _module_ns = 'mozaik_membership'
@@ -41,7 +43,9 @@ class test_structure(SharedSetupTransactionCase):
     def setUp(self):
         super(test_structure, self).setUp()
 
-        self.model_abstract = self.registry('sta.power.level')
+        self.model_users = self.registry('res.users')
+        self.model_int_instance = self.registry('int.instance')
+        self.model_power_level = self.registry('int.power.level')
 
         self.sta_assembly_model = self.registry('sta.assembly')
         self.ext_assembly_model = self.registry('ext.assembly')
@@ -50,6 +54,8 @@ class test_structure(SharedSetupTransactionCase):
                                                  % self._module_ns)
         self.ext_assembly_category_id = self.ref('%s.ext_assembly_category_01'
                                                  % self._module_ns)
+        self.marc_id = self.ref('%s.res_users_marc' % self._module_ns)
+        self.conf_id = self.ref('mozaik_base.mozaik_res_groups_configurator')
 
     def test_internal_inst_of_assembly_partner(self):
         '''
@@ -128,3 +134,57 @@ class test_structure(SharedSetupTransactionCase):
                          assembly.instance_id.int_instance_id.id,
                          'Update state assembly fails with wrong internal \
                          instance linked to the result partner')
+
+    def test_create_internal_instance(self):
+        '''
+        When creating an internal root instance
+        the new instance has to be added to user's Internal Instances if it
+        is not the superuser
+        '''
+        cr, uid, context = self.cr, self.uid, {}
+        uuid = self.marc_id
+        res_users_model = self.model_users
+        model_int_instance = self.model_int_instance
+        model_power_level = self.model_power_level
+
+        # 1/ Update User: make it a configurator
+        marc = res_users_model.browse(cr, uid, uuid, context=context)
+        marc.update({'groups_id': [(4, self.conf_id)]})
+
+        # 1.1/ Verify test data
+        initial_iis = set(marc.partner_id.int_instance_m2m_ids.ids)
+        default_inst_id = model_int_instance.get_default(
+            cr, uid, context=context)
+        self.assertEqual(initial_iis, set([default_inst_id]),
+                         'Verifying test data fails '
+                         'with wrong internal instances linked '
+                         'to the user''s partner')
+
+        # 2/ Create an instance with a parent_id
+        default_power_id = model_power_level.get_default(
+            cr, uid, context=context)
+        vals = {
+            'name': 'Test-ins-1',
+            'power_level_id': default_power_id,
+            'parent_id': default_inst_id,
+        }
+        ctx = res_users_model.context_get(cr, uuid)
+        ctx.update(mail_create_nolog=True)
+        model_int_instance.create(cr, uuid, vals, context=ctx)
+        # users's internal instances must remain unchanged
+        new_iis = set(marc.partner_id.int_instance_m2m_ids.ids) - initial_iis
+        self.assertFalse(new_iis,
+                         'Create an internal instance with a parent fails '
+                         'with wrong internal instances linked '
+                         'to the user''s partner')
+
+        # 3/ Create a root instance
+        vals.pop('parent_id')
+        vals['name'] = 'Test-ins-2'
+        newi = model_int_instance.create(cr, uuid, vals, context=ctx)
+        # users's internal instances must be completed with the new one
+        new_iis = set(marc.partner_id.int_instance_m2m_ids.ids) - initial_iis
+        self.assertEqual(new_iis, set([newi]),
+                         'Create a root internal instance fails '
+                         'with wrong internal instances linked '
+                         'to the user''s partner')

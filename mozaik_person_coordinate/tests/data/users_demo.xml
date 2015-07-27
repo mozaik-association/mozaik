@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="partner_of_user_test" model="res.partner">
+            <field name="lastname">Mitch</field>
+            <field name="firstname">Hctim</field>
+            <field name="usual_lastname"></field>
+            <field name="usual_firstname"></field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="employee" eval="1"/>
+        </record>
+
+        <record id="user_test" model="res.users">
+            <field name="partner_id" ref="partner_of_user_test"/>
+            <field name="login">hc1</field>
+            <field name="password">abc</field>
+            <field name="signature">mitchi</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(6, 0, [
+                ref('mozaik_base.mozaik_res_groups_configurator'),
+            ])]"/>
+        </record>
+
+        <record id="email_coordinate_demo_test" model="email.coordinate">
+            <field name="partner_id" ref="partner_of_user_test" />
+            <field name="email">mitchi@test.be</field>
+        </record>
+
+    </data>
+</openerp>

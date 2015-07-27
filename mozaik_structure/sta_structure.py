@@ -357,7 +357,8 @@ class sta_assembly(orm.Model):
             self.pool['sta.assembly'].search(
                 cr, uid, [
                     ('assembly_category_id', 'in', ids)], context=context), [
-                'name', ], 10), }
+                'name', ], 10),
+    }
 
     _columns = {
         # dummy: define a dummy function to update the partner name associated
@@ -384,29 +385,3 @@ class sta_assembly(orm.Model):
                                          relation='sta.assembly.category',
                                          store=False),
     }
-
-    def create(self, cr, uid, vals, context=None):
-        '''
-        Produce the first value of the name field.
-        Next values are generated in the function _compute_dummy
-        '''
-        if not vals.get('name') and not vals.get('partner_id'):
-            instance = ''
-            if vals.get('instance_id'):
-                instance = self.pool['sta.instance'].read(
-                    cr,
-                    uid,
-                    vals.get('instance_id'),
-                    ['name'],
-                    context=context)
-            category = ''
-            if vals.get('assembly_category_id'):
-                category = self.pool['sta.assembly.category'].read(
-                    cr,
-                    uid,
-                    vals.get('assembly_category_id'),
-                    ['name'],
-                    context=context)
-            vals['name'] = '%s (%s)' % (instance['name'], category['name'])
-        res = super(sta_assembly, self).create(cr, uid, vals, context=context)
-        return res

@@ -35,7 +35,7 @@
         <record id="partner_act_former_supporter" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
             <field name="name">former_supporter</field>
-            <field name="flow_stop" eval="1" />
+            <field name="flow_stop" eval="0" />
             <field name="kind">function</field>
             <field name="action">update_state('former_supporter')</field>
         </record>
@@ -81,7 +81,7 @@
         <record id="partner_act_expulsion_former_member" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
             <field name="name">expulsion_former_member</field>
-            <field name="flow_stop" eval="1" />
+            <field name="flow_stop" eval="0" />
             <field name="kind">function</field>
             <field name="action">update_state('expulsion_former_member')
             </field>
@@ -90,7 +90,7 @@
         <record id="partner_act_resignation_former_member" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
             <field name="name">resignation_former_member</field>
-            <field name="flow_stop" eval="1" />
+            <field name="flow_stop" eval="0" />
             <field name="kind">function</field>
             <field name="action">update_state('resignation_former_member')
             </field>
@@ -99,7 +99,7 @@
         <record id="partner_act_inappropriate_former_member" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
             <field name="name">inappropriate_former_member</field>
-            <field name="flow_stop" eval="1" />
+            <field name="flow_stop" eval="0" />
             <field name="kind">function</field>
             <field name="action">update_state('inappropriate_former_member')
             </field>
@@ -108,7 +108,7 @@
         <record id="partner_act_break_former_member" model="workflow.activity">
             <field name="wkf_id" ref="wkf_membership" />
             <field name="name">break_former_member</field>
-            <field name="flow_stop" eval="1" />
+            <field name="flow_stop" eval="0" />
             <field name="kind">function</field>
             <field name="action">update_state('break_former_member')</field>
         </record>
@@ -254,6 +254,42 @@
         </record>
 
         <!-- MANUAL OPTION -->
+
+        <!-- Former supporter to supporter-->
+        <record id="membership_trans_partner_act_former_supporter_supporter" model="workflow.transition">
+            <field name="act_from" ref="partner_act_former_supporter" />
+            <field name="act_to" ref="partner_act_supporter" />
+            <field name="signal">reset</field>
+            <field name="condition">True</field>
+        </record>
+        <!-- resignation_former_member resignation_former_member to former_member -->
+        <record id="membership_trans_resignation_former_member_former_member" model="workflow.transition">
+            <field name="act_from" ref="partner_act_resignation_former_member" />
+            <field name="act_to" ref="partner_act_former_member" />
+            <field name="signal">reset</field>
+            <field name="condition">True</field>
+        </record>
+        <!-- break_former_member to former_member -->
+        <record id="membership_trans_break_former_member_former_member" model="workflow.transition">
+            <field name="act_from" ref="partner_act_break_former_member" />
+            <field name="act_to" ref="partner_act_former_member" />
+            <field name="signal">reset</field>
+            <field name="condition">True</field>
+        </record>
+        <!-- inappropriate_former_member to former_member -->
+        <record id="membership_trans_inappropriate_former_member_former_member" model="workflow.transition">
+            <field name="act_from" ref="partner_act_inappropriate_former_member" />
+            <field name="act_to" ref="partner_act_former_member" />
+            <field name="signal">reset</field>
+            <field name="condition">True</field>
+        </record>
+        <!-- expulsion_former_member to former_member -->
+        <record id="membership_trans_expulsion_former_member_former_member" model="workflow.transition">
+            <field name="act_from" ref="partner_act_expulsion_former_member" />
+            <field name="act_to" ref="partner_act_former_member" />
+            <field name="signal">reset</field>
+            <field name="condition">True</field>
+        </record>
 
         <!-- Member TO Member Via button -->
         <record id="membership_trans_member_member_button" model="workflow.transition">

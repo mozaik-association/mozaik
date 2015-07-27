@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-12 20:16+0000\n"
-"PO-Revision-Date: 2015-03-12 20:16+0000\n"
+"POT-Creation-Date: 2015-04-24 17:58+0000\n"
+"PO-Revision-Date: 2015-04-24 17:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgid "Allowed Duplicates"
 msgstr "Doublons autorisés"
 
 #. module: mozaik_coordinate
-#: code:addons/mozaik_coordinate/abstract_coordinate.py:301
+#: code:addons/mozaik_coordinate/abstract_coordinate.py:297
 #, python-format
 msgid "An active coordinate cannot be duplicated!"
 msgstr "Une coordonnée active ne peut être dupliquée !"
@@ -214,9 +214,7 @@ msgid "Expired Coordinates"
 msgstr "Coordonnées expirées"
 
 #. module: mozaik_coordinate
-#: code:addons/mozaik_coordinate/wizard/export_csv.py:230
 #: view:export.csv:mozaik_coordinate.export_csv_wizard
-#, python-format
 msgid "Export CSV"
 msgstr "Export CSV"
 
@@ -224,6 +222,11 @@ msgstr "Export CSV"
 #: model:ir.model,name:mozaik_coordinate.model_export_csv
 msgid "Export CSV Wizard"
 msgstr "Assistant d'exportation CSV"
+
+#. module: mozaik_coordinate
+#: field:export.csv,export_filename:0
+msgid "Export VCF Filename"
+msgstr "Fichier d'export VCF"
 
 #. module: mozaik_coordinate
 #: model:ir.actions.act_window,name:mozaik_coordinate.bounce_editor_action
@@ -506,6 +509,11 @@ msgstr "VIP"
 #: view:coordinate.category:mozaik_coordinate.coordinate_category_form_view
 msgid "Validate"
 msgstr "Valider"
+
+#. module: mozaik_coordinate
+#: field:export.csv,export_file:0
+msgid "Vcf"
+msgstr ""
 
 #. module: mozaik_coordinate
 #: field:abstract.coordinate,website_message_ids:0

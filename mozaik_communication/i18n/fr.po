@@ -6,20 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-12 20:15+0000\n"
-"PO-Revision-Date: 2015-03-12 20:15+0000\n"
+"POT-Creation-Date: 2015-07-20 17:25+0000\n"
+"PO-Revision-Date: 2015-07-20 17:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:157
-#, python-format
-msgid "Result of %s"
-msgstr "Résultat de %s"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/postal_mail.py:84
@@ -326,9 +320,43 @@ msgstr "Décembre"
 
 #. module: mozaik_communication
 #: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+msgid "Designated by descendants of..."
+msgstr "Désignés par une descendance de..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+msgid "Designated by non descendants of..."
+msgstr "Désignés par une non descendance de..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+msgid "Designated to descendants of..."
+msgstr "Désignés à une descendance de..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+msgid "Designated to non descendants of..."
+msgstr "Désignés à une non descendance de..."
+
+#. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
 #: field:virtual.partner.candidature,designation_int_assembly_id:0
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,designation_int_assembly_id:0
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.partner.retrocession,designation_int_assembly_id:0
 msgid "Designation Assembly"
 msgstr "Assemblée de désignation"
+
+#. module: mozaik_communication
+#: field:virtual.partner.candidature,designation_instance_id:0
+#: field:virtual.partner.mandate,designation_instance_id:0
+msgid "Designation Instance"
+msgstr "Instance de désignation"
 
 #. module: mozaik_communication
 #: view:distribution.list:mozaik_communication.distribution_list_form
@@ -373,13 +401,6 @@ msgid "Email Bounce Counter"
 msgstr "Compteur d'échecs de courriel"
 
 #. module: mozaik_communication
-#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
-#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
-#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
-msgid "Email Category"
-msgstr "Catégorie d'adresse électronique"
-
-#. module: mozaik_communication
 #: selection:distribution.list.mass.function,trg_model:0
 #: field:event.registration,email_coordinate_id:0
 #: model:ir.model,name:mozaik_communication.model_email_coordinate
@@ -397,9 +418,7 @@ msgid "Email Coordinate"
 msgstr "Coordonnée électronique"
 
 #. module: mozaik_communication
-#: field:virtual.partner.event,email_category_id:0
 #: field:virtual.partner.instance,email_category_id:0
-#: field:virtual.partner.membership,email_category_id:0
 msgid "Email Coordinate Category"
 msgstr "Catégorie de coordonnée électronique"
 
@@ -429,6 +448,11 @@ msgid "Email Templates of which I am an owner"
 msgstr "Les modèles de courriels dont je suis propriétaire"
 
 #. module: mozaik_communication
+#: model:ir.model,name:mozaik_communication.model_mail_thread
+msgid "Email Thread"
+msgstr "Discussion par courriel"
+
+#. module: mozaik_communication
 #: field:virtual.partner.involvement,email_unauthorized:0
 #: field:virtual.target,email_unauthorized:0
 msgid "Email Unauthorized"
@@ -450,6 +474,7 @@ msgid "Email is Main"
 msgstr "Adresse électronique principale"
 
 #. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
 #: field:virtual.partner.candidature,employee:0
 #: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
 #: field:virtual.partner.event,employee:0
@@ -470,7 +495,7 @@ msgstr "Employé"
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/event.py:77
 #: code:addons/mozaik_communication/postal_mail.py:198
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:220
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:222
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -549,22 +574,9 @@ msgid "Expired Registrations"
 msgstr "Inscriptions expirées"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:356
-#, python-format
-msgid "Export CSV"
-msgstr "Exportation CSV"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:309
-#, python-format
-msgid "Export PDF"
-msgstr "Exportation PDF"
-
-#. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:376
-#, python-format
-msgid "Export VCF"
-msgstr "Exportation VCF"
+#: field:distribution.list.mass.function,export_filename:0
+msgid "Export Filename"
+msgstr "Fichier d'export"
 
 #. module: mozaik_communication
 #: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
@@ -602,6 +614,7 @@ msgid "February"
 msgstr "Février"
 
 #. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
 #: selection:virtual.partner.candidature,gender:0
 #: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
 #: selection:virtual.partner.event,gender:0
@@ -620,6 +633,11 @@ msgid "Female"
 msgstr "Femme"
 
 #. module: mozaik_communication
+#: field:distribution.list.mass.function,export_file:0
+msgid "File"
+msgstr "Fichier"
+
+#. module: mozaik_communication
 #: field:virtual.target,firstname:0
 msgid "Firstname"
 msgstr "Prénom"
@@ -632,6 +650,7 @@ msgid "Followers"
 msgstr "Abonnés"
 
 #. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
 #: selection:virtual.partner.candidature,tongue:0
 #: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
 #: selection:virtual.partner.event,tongue:0
@@ -662,6 +681,7 @@ msgid "Gender"
 msgstr "Genre"
 
 #. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
 #: selection:virtual.partner.candidature,tongue:0
 #: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
 #: selection:virtual.partner.event,tongue:0
@@ -757,22 +777,6 @@ msgid "Include Unauthorized"
 msgstr "Inclure les interdits"
 
 #. module: mozaik_communication
-#: view:distribution.list:mozaik_communication.distribution_list_search
-#: view:email.template:mozaik_communication.view_email_template_search
-#: view:event.event:mozaik_communication.view_event_search
-#: field:virtual.assembly.instance,int_instance_id:0
-#: field:virtual.partner.candidature,int_instance_id:0
-#: field:virtual.partner.event,int_instance_id:0
-#: field:virtual.partner.instance,int_instance_id:0
-#: field:virtual.partner.involvement,int_instance_id:0
-#: field:virtual.partner.mandate,int_instance_id:0
-#: field:virtual.partner.membership,int_instance_id:0
-#: field:virtual.partner.relation,int_instance_id:0
-#: field:virtual.partner.retrocession,int_instance_id:0
-msgid "Instance"
-msgstr "Instance"
-
-#. module: mozaik_communication
 #: field:virtual.assembly.instance,interests_m2m_ids:0
 #: field:virtual.partner.candidature,interests_m2m_ids:0
 #: field:virtual.partner.event,interests_m2m_ids:0
@@ -801,10 +805,36 @@ msgid "Internal Candidature"
 msgstr "Candidature interne"
 
 #. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_search
 #: field:distribution.list,int_instance_id:0
 #: field:distribution.list.mass.function,internal_instance_id:0
+#: view:email.template:mozaik_communication.view_email_template_search
 #: field:email.template,int_instance_id:0
+#: view:event.event:mozaik_communication.view_event_search
 #: field:event.event,int_instance_id:0
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: field:virtual.assembly.instance,int_instance_id:0
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: field:virtual.partner.candidature,int_instance_id:0
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: field:virtual.partner.event,int_instance_id:0
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: field:virtual.partner.instance,int_instance_id:0
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: field:virtual.partner.involvement,int_instance_id:0
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.partner.mandate,int_instance_id:0
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: field:virtual.partner.membership,int_instance_id:0
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: field:virtual.partner.relation,int_instance_id:0
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+#: field:virtual.partner.retrocession,int_instance_id:0
+#: field:virtual.target,int_instance_id:0
+msgid "Internal Instance"
+msgstr "Instance interne"
+
+#. module: mozaik_communication
 #: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
 #: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
 #: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
@@ -814,9 +844,21 @@ msgstr "Candidature interne"
 #: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
 #: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
 #: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
-#: field:virtual.target,int_instance_id:0
-msgid "Internal Instance"
-msgstr "Instance interne"
+msgid "Internal Instance descending of..."
+msgstr "Instance Interne descendant de..."
+
+#. module: mozaik_communication
+#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
+#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
+#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
+#: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
+#: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
+#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
+msgid "Internal Instance not descending of..."
+msgstr "Instance Interne ne descendant pas de..."
 
 #. module: mozaik_communication
 #: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
@@ -830,7 +872,7 @@ msgid "Internal Power Level"
 msgstr "Niveau de pouvoir interne"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/mass_mailing.py:65
+#: code:addons/mozaik_communication/mass_mailing.py:60
 #, python-format
 msgid "Invalid Email Address"
 msgstr "Adresse électronique invalide"
@@ -972,11 +1014,6 @@ msgstr "Courriels"
 
 #. module: mozaik_communication
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
-msgid "Main Coordinate"
-msgstr "Coordonnée principale"
-
-#. module: mozaik_communication
-#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
 #: field:virtual.partner.instance,main_email:0
 msgid "Main Email"
 msgstr "Adresse électronique principale"
@@ -988,6 +1025,7 @@ msgid "Main Postal"
 msgstr "Adresse principale"
 
 #. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
 #: selection:virtual.partner.candidature,gender:0
 #: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
 #: selection:virtual.partner.event,gender:0
@@ -1171,6 +1209,7 @@ msgid "Natural Persons"
 msgstr "Personnes physiques"
 
 #. module: mozaik_communication
+#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
 #: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
 #: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
@@ -1251,6 +1290,11 @@ msgstr "Propriétaires"
 #: field:virtual.target,partner_id:0
 msgid "Partner"
 msgstr "Partenaire"
+
+#. module: mozaik_communication
+#: field:distribution.list,partner_id:0
+msgid "Partner Diffusion"
+msgstr "Partenaire émetteur"
 
 #. module: mozaik_communication
 #: field:event.registration,partner_instance_id:0
@@ -1368,13 +1412,6 @@ msgid "Postal Bounce Counter"
 msgstr "Compteur d'échecs postaux"
 
 #. module: mozaik_communication
-#: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
-#: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
-#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
-msgid "Postal Category"
-msgstr "Catégorie d'adresse"
-
-#. module: mozaik_communication
 #: selection:distribution.list.mass.function,trg_model:0
 #: view:postal.mail.log:mozaik_communication.postal_mail_log_search_view
 #: field:postal.mail.log,postal_coordinate_id:0
@@ -1392,9 +1429,7 @@ msgid "Postal Coordinate"
 msgstr "Coordonnée postale"
 
 #. module: mozaik_communication
-#: field:virtual.partner.event,postal_category_id:0
 #: field:virtual.partner.instance,postal_category_id:0
-#: field:virtual.partner.membership,postal_category_id:0
 msgid "Postal Coordinate Category"
 msgstr "Catégorie de coordonnée postale"
 
@@ -1487,7 +1522,13 @@ msgid "Relation Category"
 msgstr "Catégorie de relation"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:228
+#: code:addons/mozaik_communication/distribution_list.py:168
+#, python-format
+msgid "Result of %s"
+msgstr "Résultat de %s"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/distribution_list.py:243
 #, python-format
 msgid "Result of %s Filter without coordinate"
 msgstr "Résultat du filtre %s (injoignables)"
@@ -1601,6 +1642,12 @@ msgid "State Candidature"
 msgstr "Candidature politique"
 
 #. module: mozaik_communication
+#: field:virtual.partner.candidature,sta_instance_id:0
+#: field:virtual.partner.mandate,sta_instance_id:0
+msgid "State Instance"
+msgstr "Instance de l'État"
+
+#. module: mozaik_communication
 #: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
 #: field:virtual.partner.mandate,sta_mandate_id:0
 #: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
@@ -1662,7 +1709,7 @@ msgid "Templates"
 msgstr "Modèles"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:220
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:222
 #, python-format
 msgid "There are no recipients"
 msgstr "Aucun destinataire"
@@ -1886,6 +1933,11 @@ msgstr ""
 #: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
 msgid "or"
 msgstr "ou"
+
+#. module: mozaik_communication
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+msgid "selection"
+msgstr ""
 
 #. module: mozaik_communication
 #: view:distribution.list.line:mozaik_communication.distribution_list_line_form

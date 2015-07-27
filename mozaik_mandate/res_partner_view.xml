@@ -7,6 +7,22 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="mozaik_person.view_partner_form" />
             <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_inline oe_stat_button" icon="fa-check-circle-o"
+                        type="object" name="get_mandate_action"
+                        attrs="{'invisible':['|', '|', ('id','=', False), ('is_company','=', False),
+                            '&amp;', ('is_assembly', '=', True), ('ext_mandate_count', '=', 0)]}">
+                        <field name="ext_mandate_count" widget="statinfo" string="External Mandates"/>
+                    </button>
+                    <button class="oe_inline oe_stat_button" icon="fa-university"
+                        type="action" name="mozaik_structure.ext_assembly_action"
+                        context="{'search_default_ref_partner_id': active_id}"
+                        attrs="{'invisible':['|', '|', ('id','=', False), ('is_company','=', False), ('is_assembly', '=', True)]}">
+                        <field name="ext_assembly_count" widget="statinfo" string="External Assemblies"/>
+                    </button>
+                </xpath>
+
                 <xpath expr="//field[@name='identifier']" position="after">
                     <span attrs="{'invisible':[('sta_mandate_ids','=',[])]}">
                         <br/>
@@ -15,8 +31,10 @@
                 </xpath>
                 <xpath expr="//notebook" position="inside">
                     <page name="mandates" string="Mandates" invisible="context.get('popup')" attrs="{'invisible': [('is_company','=',True)]}">
-                        <separator name="state_mandate" string="State Mandates"/>
-                        <button string="All Details" name="%(sta_mandate_action)d"
+                        <span class="oe_horizontal_separator oe_clear oe_inline">
+                            State Mandates
+                        </span>
+                        <button class="oe_right" string="All Details" name="%(sta_mandate_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
                                         context="{'search_default_partner_id': active_id,
                                                   'default_partner_id': active_id,
@@ -40,8 +58,10 @@
                                 <field name="deadline_date"/>
                             </tree>
                         </field>
-                        <separator name="state_candidature" string="State Candidatures"/>
-                        <button string="All Details" name="%(sta_candidature_action)d"
+                        <span class="oe_horizontal_separator oe_clear oe_inline">
+                            State Candidatures
+                        </span>
+                        <button class="oe_right" string="All Details" name="%(sta_candidature_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
                                         context="{'search_default_partner_id': active_id,
                                                   'default_partner_id': active_id,
@@ -64,8 +84,10 @@
                                 <field name="state"/>
                             </tree>
                         </field>
-                        <separator name="internal_mandate" string="Internal Mandates"/>
-                        <button string="All Details" name="%(int_mandate_action)d"
+                        <span class="oe_horizontal_separator oe_clear oe_inline">
+                            Internal Mandates
+                        </span>
+                        <button class="oe_right" string="All Details" name="%(int_mandate_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
                                         context="{'search_default_partner_id': active_id,
                                                   'default_partner_id': active_id,
@@ -89,8 +111,10 @@
                                 <field name="deadline_date"/>
                             </tree>
                         </field>
-                        <separator name="internal_candidature" string="Internal Candidatures"/>
-                        <button string="All Details" name="%(int_candidature_action)d"
+                        <span class="oe_horizontal_separator oe_clear oe_inline">
+                            Internal Candidatures
+                        </span>
+                        <button class="oe_right" string="All Details" name="%(int_candidature_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
                                         context="{'search_default_partner_id': active_id,
                                                   'default_partner_id': active_id,
@@ -111,8 +135,10 @@
                                 <field name="state"/>
                             </tree>
                         </field>
-                        <separator name="external_mandate" string="External Mandates"/>
-                        <button string="All Details" name="%(ext_mandate_action)d"
+                        <span class="oe_horizontal_separator oe_clear oe_inline">
+                            External Mandates
+                        </span>
+                        <button class="oe_right" string="All Details" name="%(ext_mandate_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
                                         context="{'search_default_partner_id': active_id,
                                                   'default_partner_id': active_id,
@@ -136,8 +162,10 @@
                                 <field name="deadline_date"/>
                             </tree>
                         </field>
-                        <separator name="external_candidature" string="External Candidatures"/>
-                        <button string="All Details" name="%(ext_candidature_action)d"
+                        <span class="oe_horizontal_separator oe_clear oe_inline">
+                            External Candidatures
+                        </span>
+                        <button class="oe_right" string="All Details" name="%(ext_candidature_action)d"
                                         type="action" attrs="{'invisible': [('id','=',False)]}"
                                         context="{'search_default_partner_id': active_id,
                                                   'default_partner_id': active_id,

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-12 20:11+0000\n"
-"PO-Revision-Date: 2015-03-12 20:11+0000\n"
+"POT-Creation-Date: 2015-04-24 17:40+0000\n"
+"PO-Revision-Date: 2015-04-24 17:40+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -44,6 +44,11 @@ msgstr "Actif"
 #: field:res.partner,postal_coordinate_id:0
 msgid "Address"
 msgstr "Adresse"
+
+#. module: mozaik_address
+#: model:mail.message.subtype,name:mozaik_address.address_failure_notification
+msgid "Address Failure Notification"
+msgstr "Notification d'échec d'adresse postale"
 
 #. module: mozaik_address
 #: view:address.address:mozaik_address.address_address_tree_view
@@ -136,6 +141,9 @@ msgstr "Co-Résidences"
 #. module: mozaik_address
 #: field:allow.duplicate.address.wizard,address_id:0
 #: field:allow.duplicate.address.wizard,co_residency_id:0
+#: field:change.co.residency.address,co_residency_id:0
+#: view:change.main.address:mozaik_address.change_main_address_wizard
+#: field:change.main.address,co_residency_id:0
 #: view:co.residency:mozaik_address.co_residency_form_view
 #: view:co.residency:mozaik_address.co_residency_search_view
 #: view:co.residency:mozaik_address.co_residency_tree_view
@@ -235,6 +243,12 @@ msgid "Disabled"
 msgstr "Obsolète"
 
 #. module: mozaik_address
+#: code:addons/mozaik_address/wizard/change_main_address.py:88
+#, python-format
+msgid "Due to security restrictions you are not allowed to move all co-residency members !"
+msgstr "Pour des raisons de sécurité, vous n'êtes pas autorisé à déménager tous les membres de cette co-résidence !"
+
+#. module: mozaik_address
 #: view:co.residency:mozaik_address.co_residency_search_view
 msgid "Empty Co-Residencies"
 msgstr "Co-Résidences vides"
@@ -257,11 +271,6 @@ msgstr "Date d'expiration"
 #: model:ir.actions.act_window,name:mozaik_address.export_csv_postal_action
 msgid "Export CSV"
 msgstr ""
-
-#. module: mozaik_address
-#: model:mail.message.subtype,name:mozaik_address.address_failure_notification
-msgid "Failure Notification"
-msgstr "Notification d'échec"
 
 #. module: mozaik_address
 #: field:postal.coordinate,bounce_counter:0
@@ -329,6 +338,7 @@ msgstr "Adresse incomplète/invalide"
 
 #. module: mozaik_address
 #: field:change.co.residency.address,invalidate:0
+#: field:change.main.address,invalidate_co_residency:0
 msgid "Invalidate Co-Residency"
 msgstr "Invalider la co-résidence actuelle"
 
@@ -472,6 +482,7 @@ msgstr "Codes postaux locaux"
 
 #. module: mozaik_address
 #: field:change.co.residency.address,message:0
+#: field:change.main.address,message:0
 msgid "Message"
 msgstr "Message"
 
@@ -499,6 +510,16 @@ msgstr "Historique des messages et communications"
 #: view:co.residency:mozaik_address.co_residency_form_view
 msgid "More Info"
 msgstr "Plus d'info"
+
+#. module: mozaik_address
+#: field:change.main.address,move_allowed:0
+msgid "Move Allowed"
+msgstr "Déménagement autorisé"
+
+#. module: mozaik_address
+#: field:change.main.address,move_co_residency:0
+msgid "Move Co-Residency"
+msgstr "Déménager une co-résidence"
 
 #. module: mozaik_address
 #: selection:bounce.editor,reason:0
@@ -563,6 +584,7 @@ msgstr "Coordonnée postale"
 #: model:ir.actions.act_window,name:mozaik_address.postal_coordinate_action
 #: model:ir.ui.menu,name:mozaik_address.postal_coordinate_menu
 #: model:ir.ui.menu,name:mozaik_address.postal_coordinate_submenu
+#: view:res.partner:mozaik_address.view_partner_2_form
 #: field:res.partner,postal_coordinate_ids:0
 #: field:res.partner,postal_coordinate_inactive_ids:0
 msgid "Postal Coordinates"
@@ -732,6 +754,11 @@ msgstr "adresse"
 #: view:change.co.residency.address:mozaik_address.change_co_residency_address_wizard
 msgid "or"
 msgstr "ou"
+
+#. module: mozaik_address
+#: view:change.main.address:mozaik_address.change_main_address_wizard
+msgid "{'invisible': [('old_address_id', '=', False)]}"
+msgstr ""
 
 #. module: mozaik_address
 #: view:postal.coordinate:mozaik_address.postal_coordinate_form_view

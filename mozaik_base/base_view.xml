@@ -4,15 +4,16 @@
 
         <!-- Add web resources -->
 
-        <template id="assets_backend" name="backend_base_css" inherit_id="web.assets_backend">
+        <template id="assets_backend" name="backend_mozaik_base" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
-                <link rel="stylesheet" href="/mozaik_base/static/src/css/backend_base.css"/>
+                <link rel="stylesheet" href="/mozaik_base/static/src/css/backend_mozaik_base.css"/>
+                <script type="text/javascript" src="/mozaik_base/static/src/js/mozaik_base.js"></script>
             </xpath>
         </template>
 
-        <template id="theme" name="frontend_base_css" inherit_id="website.theme">
+        <template id="theme" name="frontend_mozaik_base" inherit_id="website.theme">
             <xpath expr="." position="inside">
-                <link rel="stylesheet" href="/mozaik_base/static/src/css/frontend_base.css"/>
+                <link rel="stylesheet" href="/mozaik_base/static/src/css/frontend_mozaik_base.css"/>
             </xpath>
         </template>
 
@@ -201,6 +202,12 @@
                     <attribute name="groups">mozaik_base.res_groups_developper</attribute>
                 </xpath>
             </field>
+        </record>
+
+        <record id="base.user_groups_view" model="ir.ui.view">
+            <field name="groups_id" eval="[(6, 0, [
+                ref('base.group_erp_manager'),
+            ])]" />
         </record>
 
         <!-- Messages form -->

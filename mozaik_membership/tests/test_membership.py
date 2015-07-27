@@ -22,10 +22,17 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from datetime import date, datetime
 from uuid import uuid4
-from anybox.testing.openerp import SharedSetupTransactionCase
 
+from anybox.testing.openerp import SharedSetupTransactionCase
+from dateutil.relativedelta import relativedelta
+
+from openerp.addons.mozaik_membership.membership_request\
+    import MR_REQUIRED_AGE_KEY
 from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
+from openerp.exceptions import ValidationError
+from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
 
 class test_membership(SharedSetupTransactionCase):
@@ -155,14 +162,14 @@ class test_membership(SharedSetupTransactionCase):
         * Test the validate process with a create and check that
             relations are created
         """
-        cr, uid, context = self.cr, self.uid, {'no_notify': True}
+        cr, uid = self.cr, self.uid
         partner_obj = self.registry['res.partner']
 
         to_update_partner_id = self.rec_mr_update.partner_id.id
 
         # validate the membership request
         self.mro.validate_request(
-            cr, uid, [self.rec_mr_update.id], context=context)
+            cr, uid, [self.rec_mr_update.id])
         modified_partner = partner_obj.browse(cr, uid, to_update_partner_id)
 
         self.assertEqual(self.rec_mr_update.firstname, modified_partner.
@@ -180,7 +187,7 @@ class test_membership(SharedSetupTransactionCase):
             {'country_id': self.registry('res.country').
              _country_default_get(cr, uid, COUNTRY_CODE)})
         self.mro.validate_request(
-            cr, uid, [self.rec_mr_create.id], context=context)
+            cr, uid, [self.rec_mr_create.id])
         created_partner_ids = partner_obj.search(
             cr, uid, [('firstname', '=', self.rec_mr_create.firstname),
                       ('lastname', '=', self.rec_mr_create.lastname),
@@ -275,11 +282,67 @@ class test_membership(SharedSetupTransactionCase):
                                                 'street_man': 'Street Sample',
                                                 'town_man': 'Test Valley'},
                                                context=context)
+        self.mro.write(cr, uid, request.id, {'lastname': 'Test'})
+        request = self.mro.browse(cr, uid, request.id)
         changes = get_changes()
+        self.assertIn('Lastname', changes)
         self.assertIn('City', changes)
         self.assertIn('Reference Street', changes)
+        self.assertEquals(changes['Lastname'][0], 'MAROIS')
+        self.assertEquals(changes['Lastname'][1], 'Test')
         self.assertEquals(changes['City'][0], 'Test Valley')
         self.assertEquals(changes['City'][1], 'Oreye')
         self.assertEquals(changes['Reference Street'][0], 'Street Sample')
         self.assertEquals(changes['Reference Street'][1],
                           u'Rue Louis Maréchal')
+
+    def test_age_computation(self):
+        """
+        Check value of age depending of the birth_date
+        """
+        cr, uid, context = self.cr, self.uid, {}
+        age = 10
+        birth_date = datetime.strftime(
+            date.today() - relativedelta(years=age),
+            DEFAULT_SERVER_DATE_FORMAT)
+        vals = {
+            'birth_date': birth_date,
+        }
+        mr_id = self.ref('%s.membership_request_mp' % self._module_ns)
+        clone_id = self.mro.copy(cr, uid, mr_id, context=context)
+        mr = self.mro.browse(cr, uid, clone_id, context=context)
+        self.mro.write(cr, uid, [mr.id], vals, context=context)
+        mr = self.mro.browse(cr, uid, mr.id, context=context)
+        self.assertEquals(mr.age, age, 'Should be the same age')
+
+    def test_required_age(self):
+        mr_obj = self.env['membership.request']
+        minage = int(self.env['ir.config_parameter'].get_param(
+            MR_REQUIRED_AGE_KEY, default=16))
+        name = 'Test'
+        d = date.today() - relativedelta(years=minage) + relativedelta(days=1)
+        vals = {
+            'lastname': name,
+            'firstname': name,
+            'state': 'confirm',
+            'gender': 'm',
+            'day': d.day,
+            'month': d.month,
+            'year': d.year,
+            'request_type': 'm',
+        }
+        mr = mr_obj.with_context(mode='ws').create(vals)
+        self.assertRaises(ValidationError, mr.validate_request)
+
+        d = date.today() - relativedelta(years=minage)
+        vals = {
+            'day': d.day,
+            'month': d.month,
+            'year': d.year,
+        }
+        oc = mr.onchange_partner_component(
+            d.day, d.month, d.year, name, name, None, False)
+        vals['birth_date'] = oc['value'].get('birth_date', False)
+        mr.write(vals)
+        mr.validate_request()
+        self.assertEquals(mr.state, 'validate', 'Validation should work')

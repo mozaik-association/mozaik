@@ -23,6 +23,8 @@
 #
 ##############################################################################
 
+from openerp import fields as new_fields
+from openerp import api
 from openerp.osv import orm, fields
 
 
@@ -33,6 +35,58 @@ class res_partner(orm.Model):
 
     _allowed_inactive_link_models = ['res.partner']
     _inactive_cascade = True
+
+    @api.multi
+    def _get_assembly_ids(self):
+        """
+        return the assemblies' ids of the current partner
+        """
+        self.ensure_one()
+        assembly_model = 'ext.assembly'
+        if self.is_assembly:
+            field = 'partner_id'
+        else:
+            field = 'ref_partner_id'
+        domain = [(field, '=', self.id)]
+
+        assembly_obj = self.env[assembly_model]
+        assemblies = assembly_obj.search(domain)
+        assembly_ids = [assembly.id for assembly in assemblies]
+
+        return assembly_ids
+
+    @api.multi
+    def _get_mandate_ids(self):
+        """
+        return list of mandates linked to the assemblies of the
+        current partner
+        """
+        self.ensure_one()
+        mandate_model = 'ext.mandate'
+        prefix = 'ext'
+        mandate_obj = self.env[mandate_model]
+
+        assembly_ids = self._get_assembly_ids()
+        domain = [('%s_assembly_id' % prefix, 'in', assembly_ids)]
+        mandates = mandate_obj.search(domain)
+        mandate_ids = [mandate.id for mandate in mandates]
+
+        return mandate_ids
+
+    @api.one
+    def _compute_mandate_count(self):
+        """
+        count the number of mandates linked to the assemblies of the
+        current partner
+        """
+        self.ext_mandate_count = len(self._get_mandate_ids())
+
+    @api.one
+    def _compute_assembly_count(self):
+        """
+        count the number of assemblies linked to the current partner
+        """
+        self.ext_assembly_count = len(self._get_assembly_ids())
 
     _columns = {
         'sta_mandate_ids': fields.one2many(
@@ -73,6 +127,11 @@ class res_partner(orm.Model):
             domain=[('active', '=', False)]),
     }
 
+    ext_mandate_count = new_fields.Integer(
+        string='External Mandates', compute='_compute_mandate_count')
+    ext_assembly_count = new_fields.Integer(
+        string='External Assemblies', compute='_compute_assembly_count')
+
 # orm methods
 
     def copy_data(self, cr, uid, ids, default=None, context=None):
@@ -97,3 +156,21 @@ class res_partner(orm.Model):
         res = super(res_partner, self).copy_data(cr, uid, ids, default=default,
                                                  context=context)
         return res
+
+    @api.multi
+    def get_mandate_action(self):
+        """
+        return an action for an ext.mandate contains into the domain a
+        specific tuples to get concerned mandates
+        """
+        self.ensure_one()
+        module = 'mozaik_mandate'
+        action_name = 'ext_mandate_action'
+        res_ids = self._get_mandate_ids()
+        domain = [('id', 'in', res_ids)]
+
+        # get model's action to update its domain
+        action = self.env['ir.actions.act_window'].for_xml_id(
+            module, action_name)
+        action['domain'] = domain
+        return action

@@ -253,8 +253,8 @@ class address_address(orm.Model):
             fields.char(string='Number', track_visibility='onchange'),
         'box':
             fields.char(string='Box', track_visibility='onchange'),
-        'sequence':
-            fields.integer('Sequence', track_visibility='onchange'),
+        'sequence': fields.integer(
+            'Sequence', track_visibility='onchange', group_operator='min'),
 
         'postal_coordinate_ids':
             fields.one2many(

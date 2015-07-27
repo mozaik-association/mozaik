@@ -22,20 +22,25 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from uuid import uuid4, uuid1
-from datetime import date
 from collections import OrderedDict
 from contextlib import contextmanager
+from datetime import date, datetime
 from operator import attrgetter
+from uuid import uuid4, uuid1
+from dateutil.relativedelta import relativedelta
 
-from openerp.tools import logging
-from openerp.osv import orm, fields
-from openerp.tools.translate import _
-from openerp.tools import SUPERUSER_ID
-
-from openerp.addons.mozaik_base.base_tools import format_email, check_email
-from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
 from openerp.addons.mozaik_address.address_address import COUNTRY_CODE
+from openerp.addons.mozaik_base.base_tools import format_email, check_email
+from openerp.addons.mozaik_base.base_tools import get_age
+from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
+from openerp.osv import orm, fields
+from openerp.tools import SUPERUSER_ID
+from openerp.tools import logging
+from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
+from openerp.tools.translate import _
+from openerp.exceptions import ValidationError
+from openerp import api, fields as new_fields
+
 
 _logger = logging.getLogger(__name__)
 
@@ -51,6 +56,7 @@ MEMBERSHIP_REQUEST_TYPE = [
     ('m', 'Member'),
     ('s', 'Supporter'),
 ]
+MR_REQUIRED_AGE_KEY = 'mr_required_age'
 
 
 def get_status_values(request_type):
@@ -78,6 +84,41 @@ class membership_request(orm.Model):
     _inherit = ['mozaik.abstract.model']
     _description = 'Membership Request'
     _inactive_cascade = True
+
+    @api.multi
+    @api.constrains('birth_date', 'age', 'state')
+    def _check_age(self):
+        required_age = int(self.env['ir.config_parameter'].get_param(
+            MR_REQUIRED_AGE_KEY, default=16))
+        if self.request_type and self.state == 'validate':
+            if self.birth_date and self.age < required_age:
+                raise ValidationError(
+                    _('The required age for a membership request is %s') %
+                    required_age)
+
+    def _search_age(self, operator, value):
+        """
+        Use birth_date to search on age
+        """
+        age = value
+        computed_birth_date = date.today() - relativedelta(years=age)
+        computed_birth_date = datetime.strftime(
+            computed_birth_date, DEFAULT_SERVER_DATE_FORMAT)
+        if operator == '>=':
+            operator = '<='
+        elif operator == '<':
+            operator = '>'
+        return [('birth_date', operator, computed_birth_date)]
+
+    @api.one
+    @api.depends('birth_date')
+    def _compute_age(self):
+        """
+        age computed depending of the birth date of the
+        membership request
+        """
+        if self.birth_date:
+            self.age = get_age(self.birth_date)
 
     def _pop_related(self, cr, uid, vals, context=None):
         vals.pop('local_zip', None)
@@ -304,7 +345,7 @@ class membership_request(orm.Model):
             label_path.append('STREET_NO_REQUEST_NO_PARTNER')
         return label_path
 
-    def _get_changes(self, cr, uid, ids, name, arg, context=None):
+    def _detect_changes(self, cr, uid, ids, context=None):
         tracked_fields = self._get_membership_tracked_fields()
         fields_def = self.fields_get(
             cr, uid, [elem[1] for elem in tracked_fields], context=context)
@@ -316,7 +357,6 @@ class membership_request(orm.Model):
             if not request.partner_id:
                 res[request.id] = False
                 continue
-            chg_ids = []
             label_to_process = self._get_labels_to_process(request)
 
             for element in tracked_fields:
@@ -339,10 +379,7 @@ class membership_request(orm.Model):
                         'old_value': partner_value,
                         'new_value': request_value,
                     }
-                    chg_ids.append(chg_obj.create(cr,
-                                                  uid, vals, context=context))
-            res[request.id] = chg_ids
-        return res
+                    chg_obj.create(cr, uid, vals, context=context)
 
     _columns = {
         'identifier': fields.related('partner_id',
@@ -401,7 +438,8 @@ class membership_request(orm.Model):
         'number': fields.char(string='Number', track_visibility='onchange'),
         'box': fields.char(string='Box', track_visibility='onchange'),
         'sequence': fields.integer('Sequence',
-                                   track_visibility='onchange'),
+                                   track_visibility='onchange',
+                                   group_operator='min'),
 
         'technical_name': fields.char(string='Technical Name'),
 
@@ -437,11 +475,19 @@ class membership_request(orm.Model):
         'phone_id': fields.many2one('phone.phone',
                                     string='Phone',
                                     track_visibility='onchange'),
-        'change_ids': fields.function(_get_changes,
-                                      type='one2many',
-                                      relation="membership.request.change",
-                                      string='Changes', store=False),
+        'change_ids': fields.one2many('membership.request.change',
+                                      'membership_request_id',
+                                      string='Changes',
+                                      domain=[('active', '=', True)]),
+        'inactive_change_ids': fields.one2many('membership.request.change',
+                                               'membership_request_id',
+                                               string='Changes',
+                                               domain=[('active',
+                                                        '=', False)]),
     }
+
+    age = new_fields.Integer(
+        string='Age', compute='_compute_age', search='_search_age')
 
     _defaults = {
         'is_update': False,
@@ -1041,8 +1087,13 @@ class membership_request(orm.Model):
             })
 
             # update_partner values
+            # Passing do_not_track_twice in context the first tracking
+            # evaluation through workflow will produce a notification
+            # the second one out of workflow not (when context will be
+            # pass through workflow this solution will not work anymore)
+            ctx = dict(context or {}, do_not_track_twice=True)
             partner_obj.write(
-                cr, uid, [partner.id], partner_values, context=context)
+                cr, uid, [partner.id], partner_values, context=ctx)
             # address if technical name is empty then means that no address
             # required
             address_id = mr.address_id and mr.address_id.id or False
@@ -1124,6 +1175,9 @@ class membership_request(orm.Model):
             instance_obj = self.pool['int.instance']
             return instance_obj.get_default(cr, uid)
 
+    def update_changes(self, cr, uid, ids, context=None):
+        return
+
 # orm methods
 
     def create(self, cr, uid, vals, context=None):
@@ -1135,15 +1189,27 @@ class membership_request(orm.Model):
             self.pre_process(cr, uid, vals, context=context)
 
         self._pop_related(cr, uid, vals, context=context)
+        request_id = super(membership_request, self).create(cr, uid, vals,
+                                                            context=context)
+        self._detect_changes(cr, uid, [request_id], context=context)
 
-        return super(membership_request, self).create(cr, uid, vals,
-                                                      context=context)
+        return request_id
 
     def write(self, cr, uid, ids, vals, context=None):
         # do not pass related fields to the orm
+        ids = isinstance(ids, (long, int)) and [ids] or ids
+        active_ids = self.search(cr, uid,
+                                 [('id', 'in', ids), ('active', '=', True)],
+                                 context=context)
         self._pop_related(cr, uid, vals, context=context)
-        return super(membership_request, self).write(cr, uid, ids, vals,
-                                                     context=context)
+        res = super(membership_request, self).write(cr, uid, ids, vals,
+                                                    context=context)
+        if 'active' in vals:
+            if not vals.get('active'):
+                active_ids = []
+        if active_ids:
+            self._detect_changes(cr, uid, active_ids, context=context)
+        return res
 
     def name_get(self, cr, uid, ids, context=None):
         """
@@ -1173,7 +1239,7 @@ class membership_request_change(orm.Model):
     _columns = {
         'membership_request_id': fields.many2one(
             'membership.request', 'Membership Request', ondelete='cascade'),
-        "sequence": fields.integer('Sequence'),
+        'sequence': fields.integer('Sequence'),
         'field_name': fields.char('Field Name'),
         'old_value': fields.char('Old Value'),
         'new_value': fields.char('New Value'),

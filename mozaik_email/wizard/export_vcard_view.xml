@@ -12,9 +12,15 @@
                     <div>
                         <label string="This will export the selected coordinates to a vCard file"/>
                     </div>
+                    <group>
+                        <field name="export_file"
+                           nolabel="1"
+                           readonly="1"
+                           filename="export_filename" />
+                    </group>
                     <footer>
-                        <span name="go-wizard">
-                            <button name="export" string="Launch" type="object" class="oe_highlight"/>
+                        <span name="go-wizard" attrs="{'invisible': [('export_file', '!=', False)]}">
+                            <button name="export" string="Export" type="object" class="oe_highlight"/>
                             or
                         </span>
                         <button string="Cancel" class="oe_link" special="cancel"/>

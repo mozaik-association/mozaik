@@ -33,6 +33,7 @@ class change_co_residency_address(orm.TransientModel):
     _description = 'Change Co-Residency Address Wizard'
 
     _columns = {
+        'co_residency_id': fields.many2one('co.residency', 'Co-Residency'),
         'old_address_id': fields.many2one(
             'address.address', 'Current Address'),
         'address_id': fields.many2one(
@@ -69,17 +70,19 @@ class change_co_residency_address(orm.TransientModel):
             or (context.get('active_id') and [context.get('active_id')]) \
             or []
         if len(ids) == 1:
-            res['use_allowed'] = self._use_allowed(cr,
-                                                   uid,
-                                                   ids[0],
-                                                   context=context)
+            if 'co_residency_id' in flds:
+                res['co_residency_id'] = ids[0]
 
-            resid = self.pool.get('co.residency').browse(cr,
-                                                         uid,
-                                                         ids[0],
-                                                         context=context)
-            res['old_address_id'] = resid.address_id.id
-            res['invalidate'] = True
+            if 'use_allowed' in flds:
+                res['use_allowed'] = self._use_allowed(cr,
+                                                       uid,
+                                                       ids[0],
+                                                       context=context)
+            if 'old_address_id' in flds:
+                resid = self.pool.get('co.residency').browse(
+                    cr, uid, ids[0], context=context)
+                res['old_address_id'] = resid.address_id.id
+                res['invalidate'] = True
 
         return res
 
@@ -88,12 +91,10 @@ class change_co_residency_address(orm.TransientModel):
         co_res_obj = self.pool['co.residency']
         coord_obj = self.pool['postal.coordinate']
         dupl_wiz_obj = self.pool['allow.duplicate.address.wizard']
-        ids = context.get('active_ids') \
-            or (context.get('active_id') and [context.get('active_id')]) \
-            or []
+
         cores = co_res_obj.browse(cr,
                                   uid,
-                                  ids[0],
+                                  wiz.co_residency_id.id,
                                   context=context)
 
         new_coord_ids = []

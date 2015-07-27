@@ -745,7 +745,7 @@ class abstract_candidature(orm.AbstractModel):
     _mandate_start_date_store_trigger = {}
 
     _columns = {
-        'unique_id': fields.integer("Unique id"),
+        'unique_id': fields.integer("Unique id", group_operator='min'),
         'partner_id': fields.many2one('res.partner',
                                       'Candidate',
                                       required=True,

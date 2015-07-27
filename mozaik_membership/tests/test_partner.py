@@ -50,6 +50,8 @@ class test_partner(SharedSetupTransactionCase):
         self.partner_obj = self.registry('res.partner')
         self.ms_obj = self.registry('membership.state')
         self.ml_obj = self.registry('membership.line')
+        self.prd_obj = self.registry('product.template')
+        self.imd_obj = self.registry['ir.model.data']
 
         self.partner1 = self.browse_ref(
             '%s.res_partner_thierry' % self._module_ns)
@@ -64,10 +66,7 @@ class test_partner(SharedSetupTransactionCase):
 
     def get_partner(self, partner_id=False):
         """
-        ==========
-        get_partner
-        ==========
-        return a new browse record of partner
+        Return a new browse record of partner
         """
         if not partner_id:
             name = uuid.uuid4()
@@ -88,18 +87,21 @@ class test_partner(SharedSetupTransactionCase):
         * without_status -> supporter -> member_candidate
             -> member_committee -> refused_member_candidate
             -> supporter -> member_committee -> refused_member_candidate
-            -> member_candidate -> supporter -> former_supporter
+            -> member_candidate -> supporter -> former_supporter -> supporter
         * without_status -> member_candidate -> member_committee
             -> member -> former_member -> former_member_committee -> member
             -> former_member -> former_member_committee
                 -> inappropriate_former_member
-        * former_member -> inappropriate_former_member
-        * former_member -> break_former_member
-        * member -> expulsion_former_member
-        * member -> resignation_former_member
+        * former_member -> inappropriate_former_member -> former_member
+        * former_member -> break_former_member -> former_member
+        * member -> expulsion_former_member -> former_member
+        * member -> resignation_former_member -> former_member
         """
         cr, uid = self.cr, self.uid
         partner_obj = self.partner_obj
+        prd_obj = self.prd_obj
+        imd_obj = self.imd_obj
+        today = date.today().strftime('%Y-%m-%d')
 
         # create = without_membership
         partner = self.get_partner()
@@ -108,161 +110,210 @@ class test_partner(SharedSetupTransactionCase):
                           'Create: should be "without_status"')
 
         # without_status -> member_candidate
-        partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
-                       'free_member': False})
-        partner = self.get_partner(partner.id)
+        partner.write({'accepted_date': today, 'free_member': False})
         self.assertEquals(partner.membership_state_id.code,
                           'member_candidate', 'Should be "member_candidate"')
+
+        nbl = 0
 
         # without_status -> supporter
         partner = self.get_partner()
-        partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
-                       'free_member': True})
-        partner = self.get_partner(partner.id)
+        partner.write({'accepted_date': today, 'free_member': True})
+        nbl += 1
         self.assertEquals(partner.membership_state_id.code, 'supporter',
                           'Should be "supporter"')
 
+        # supporter -> former_supporter
+        partner.write({'resignation_date': today})
+        nbl += 1
+        self.assertEquals(partner.membership_state_id.code,
+                          'former_supporter', 'Should be "former_supporter"')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'reset')
+        nbl += 1
+        self.assertEquals(partner.membership_state_id.code,
+                          'supporter', 'Should be "supporter"')
+
         # supporter -> member_candidate
-        partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
-                       'free_member': False})
-        partner = self.get_partner(partner.id)
+        partner.write({'accepted_date': today, 'free_member': False})
+        nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'member_candidate', 'Should be "member_candidate"')
 
-        # member_candidate -> member_committee
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
-        partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code, 'member_committee',
-                          'Should be "member_committee"')
+        # member_candidate -> supporter
+        partner.write({'decline_payment_date': today, 'free_member': True})
+        nbl += 1
+        self.assertEquals(partner.membership_state_id.code, 'supporter',
+                          'Should be "supporter"')
 
-        # member_committee -> refused_member_candidate
-        partner.write({'rejected_date': date.today().strftime('%Y-%m-%d')})
-        partner = self.get_partner(partner.id)
+        # supporter -> member_candidate (already tested)
+        partner.write({'accepted_date': today, 'free_member': False})
+        nbl += 1
+
+        # member_candidate -> refused_member_candidate
+        partner.write({'rejected_date': today})
+        nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'refused_member_candidate',
                           'Should be "refused_member_candidate"')
 
         # refused_member_candidate -> member_candidate
-        partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
-                       'free_member': False})
-        partner = self.get_partner(partner.id)
+        partner.write({'accepted_date': today, 'free_member': False})
+        nbl += 1
         self.assertEquals(partner.membership_state_id.code, 'member_candidate',
                           'Should be "member_candidate"')
 
-        # member_candidate -> supporter
-        partner.write({'decline_payment_date':
-                       date.today().strftime('%Y-%m-%d'), 'free_member': True})
-        partner = self.get_partner(partner.id)
+        # member_candidate -> member_committee
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
+        nbl += 1
+        self.assertEquals(partner.membership_state_id.code, 'member_committee',
+                          'Should be "member_committee"')
+
+        # member_committee -> refused_member_candidate
+        partner.write({'rejected_date': today})
+        nbl += 1
+        self.assertEquals(partner.membership_state_id.code,
+                          'refused_member_candidate',
+                          'Should be "refused_member_candidate"')
+
+        # refused_member_candidate -> supporter
+        partner.write({'accepted_date': today, 'free_member': True})
+        nbl += 1
         self.assertEquals(partner.membership_state_id.code, 'supporter',
                           'Should be "supporter"')
 
-        # supporter -> former_supporter
-        partner.write({'resignation_date': date.today().strftime('%Y-%m-%d')})
-        partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code,
-                          'former_supporter', 'Should be "former_supporter"')
-
-        # go to member state
-        partner = self.get_partner()
-        partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
-                       'free_member': False})
+        # supporter -> member_committee
         partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
+        nbl += 1
+        self.assertEquals(partner.membership_state_id.code, 'member_committee',
+                          'Should be "member_committee"')
+
+        # member_committee -> member
         partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
-        partner = self.get_partner(partner.id)
+        nbl += 1
         self.assertEquals(partner.membership_state_id.code, 'member',
                           'Should be "member"')
 
         # member -> former_member
-        partner.write({'decline_payment_date':
-                       date.today().strftime('%Y-%m-%d')})
-        partner = self.get_partner(partner.id)
+        partner.write({'decline_payment_date': today})
+        nbl += 1
         self.assertEquals(partner.membership_state_id.code, 'former_member',
                           'Should be "former_member"')
 
         # former_member -> former_member_committee
         partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
-        partner = self.get_partner(partner.id)
+        nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'former_member_committee',
                           'Should be "former_member_committee"')
 
         # former_member_committee -> inappropriate_former_member
-        partner.write({'exclusion_date': date.today().strftime('%Y-%m-%d')})
-        partner = self.get_partner(partner.id)
+        partner.write({'exclusion_date': today})
+        nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'inappropriate_former_member',
                           'Should be "inappropriate_former_member"')
 
-        # Go to member
-        partner = self.get_partner()
-        partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
-                       'free_member': False})
+        # inappropriate_former_member -> former_member
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'reset')
+        nbl += 1
+        self.assertEquals(partner.membership_state_id.code,
+                          'former_member',
+                          'Should be "former_member"')
+
+        # former_member -> inappropriate_former_member
+        partner.write({'exclusion_date': today})
+        nbl += 1
+        self.assertEquals(partner.membership_state_id.code,
+                          'inappropriate_former_member',
+                          'Should be "inappropriate_former_member"')
+
+        # inappropriate_former_member -> former_member (already tested)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'reset')
+        nbl += 1
+
+        # former_member -> break_former_member
+        partner.write({'resignation_date': today})
+        nbl += 1
+        self.assertEquals(partner.membership_state_id.code,
+                          'break_former_member',
+                          'Should be "break_former_member"')
+
+        # break_former_member -> former_member
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'reset')
+        nbl += 1
+        self.assertEquals(partner.membership_state_id.code,
+                          'former_member',
+                          'Should be "former_member"')
+
+        # former_member -> former_member_committee (already tested)
         partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
+        nbl += 1
+
+        # former_member_committee -> member
         partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
-        partner = self.get_partner(partner.id)
+        nbl += 1
+        self.assertEquals(partner.membership_state_id.code,
+                          'member',
+                          'Should be "member"')
 
         # member -> resignation_former_member
-        partner.write({'resignation_date': date.today().strftime('%Y-%m-%d')})
-        partner = self.get_partner(partner.id)
+        partner.write({'resignation_date': today})
+        nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'resignation_former_member',
                           'Should be "resignation_former_member"')
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'reset')
+        nbl += 1
+        self.assertEquals(partner.membership_state_id.code,
+                          'former_member',
+                          'Should be "former_member"')
 
-        # Go to member
-        partner = self.get_partner()
-        partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
-                       'free_member': False})
+        # former_member -> former_member_committee -> member (already tested)
         partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
+        nbl += 1
+        ml = partner_obj._get_active_membership_line(cr, uid, partner.id)
+        def_prd_id = prd_obj._get_default_subscription(cr, uid)
+        ml.write({
+            'product_id': def_prd_id,
+            'price': 44.44,
+        })
+        self.assertEquals(partner.subscription_product_id.id,
+                          def_prd_id,
+                          'Should be "Usual Subscription" (id=%s)' %
+                          def_prd_id)
         partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
-        partner = self.get_partner(partner.id)
+        nbl += 1
+
+        # member -> member (with free subscription)
+        partner_obj.register_free_membership(cr, uid, [partner.id])
+        nbl += 1
+        self.assertEquals(partner.membership_state_id.code, 'member',
+                          'Should be "member"')
+        ml = partner_obj._get_active_membership_line(cr, uid, partner.id)
+        self.assertEquals(ml.price, 0.0, 'Should be "0.0')
+        free_prd_id = imd_obj.xmlid_to_res_id(
+            cr, uid, 'mozaik_membership.membership_product_free')
+        self.assertEquals(partner.subscription_product_id.id,
+                          free_prd_id,
+                          'Should be "Free Subscription" (id=%s)' %
+                          free_prd_id)
 
         # member -> expulsion_former_member
-        partner.write({'exclusion_date': date.today().strftime('%Y-%m-%d')})
-        partner = self.get_partner(partner.id)
+        partner.write({'exclusion_date': today})
+        nbl += 1
         self.assertEquals(partner.membership_state_id.code,
                           'expulsion_former_member',
                           'Should be "expulsion_former_member"')
-
-        # Go to former committee member
-        partner = self.get_partner()
-        partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
-                       'free_member': False})
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
-        partner = self.get_partner(partner.id)
-
-        # member -> former_member
-        partner.write({'decline_payment_date':
-                       date.today().strftime('%Y-%m-%d')})
-        partner = self.get_partner(partner.id)
+        partner_obj.signal_workflow(cr, uid, [partner.id], 'reset')
+        nbl += 1
         self.assertEquals(partner.membership_state_id.code,
-                          'former_member', 'Should be "former member"')
+                          'former_member',
+                          'Should be "former_member"')
 
-        # former_member -> former_member_committee
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
-        partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code,
-                          'former_member_committee',
-                          'Should be "former_member_committee"')
-
-        # former_member_committee -> break_former_member
-        partner.write({'resignation_date': date.today().strftime('%Y-%m-%d')})
-        partner = self.get_partner(partner.id)
-
-        # go to former member
-        partner = self.get_partner()
-        partner.write({'accepted_date': date.today().strftime('%Y-%m-%d'),
-                       'free_member': False})
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'paid')
-        partner_obj.signal_workflow(cr, uid, [partner.id], 'accept')
-        partner = self.get_partner(partner.id)
-
-        # member -> resignation_former_member
-        partner.write({'resignation_date': date.today().strftime('%Y-%m-%d')})
-        partner = self.get_partner(partner.id)
-        self.assertEquals(partner.membership_state_id.code,
-                          'resignation_former_member',
-                          'Should be "break_former_member"')
+        # number of membership lines ?
+        self.assertEquals(len(partner.membership_line_ids),
+                          nbl,
+                          'Should be "%s"' % nbl)
 
     def test_button_modification_request(self):
         """
@@ -517,7 +568,7 @@ class test_partner(SharedSetupTransactionCase):
         res = partner_obj.button_modification_request(
             cr, uid, [pid], context=context)
         mr_id = res['res_id']
-        imd_obj = self.registry['ir.model.data']
+        imd_obj = self.imd_obj
         vals = {
             'country_id': imd_obj.get_object_reference(
                 cr, uid, 'base', 'ad')[1],

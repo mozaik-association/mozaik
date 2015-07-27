@@ -28,9 +28,12 @@ from openerp import models, api
 from openerp import fields as new_fields
 from openerp.osv import orm, fields, expression
 from openerp.tools.translate import _
+from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
+from datetime import datetime, date
 
 from openerp.addons.base.res import res_partner
-from openerp.addons.mozaik_base.base_tools import format_value
+from openerp.addons.mozaik_base.base_tools import format_value, get_age
+from dateutil.relativedelta import relativedelta
 
 # Constants
 AVAILABLE_GENDERS = [
@@ -92,6 +95,30 @@ class res_partner(orm.Model):
 
 # private methods
 
+    @api.one
+    @api.depends('birth_date')
+    def _compute_age(self):
+        """
+        age computed depending of the birth date of the
+        membership request
+        """
+        if self.birth_date:
+            self.age = get_age(self.birth_date)
+
+    def _search_age(self, operator, value):
+        """
+        Use birth_date to search on age
+        """
+        age = value
+        computed_birth_date = date.today() - relativedelta(years=age)
+        computed_birth_date = datetime.strftime(
+            computed_birth_date, DEFAULT_SERVER_DATE_FORMAT)
+        if operator == '>=':
+            operator = '<='
+        elif operator == '<':
+            operator = '>'
+        return [('birth_date', operator, computed_birth_date)]
+
     def _get_partner_names(self, cr, uid, ids, name, args, context=None):
         """
         ==================
@@ -135,7 +162,8 @@ class res_partner(orm.Model):
     }
 
     _columns = {
-        'identifier': fields.integer('Number', select=True),
+        'identifier': fields.integer(
+            'Number', select=True, group_operator='min'),
         'tongue': fields.selection(
             AVAILABLE_TONGUES, 'Tongue', select=True,
             track_visibility='onchange'),
@@ -157,7 +185,7 @@ class res_partner(orm.Model):
             help="Name of the user in the LDAP"),
         'ldap_id': fields.integer(
             'LDAP Id', track_visibility='onchange',
-            help="ID of the user in the LDAP"),
+            help="ID of the user in the LDAP", group_operator='min'),
         'usual_firstname': fields.char(
             "Usual Firstname", track_visibility='onchange'),
         'usual_lastname': fields.char(
@@ -199,7 +227,7 @@ class res_partner(orm.Model):
         'comment': fields.text('Notes', track_visibility='onchange'),
         'firstname': fields.char("Firstname", track_visibility='onchange'),
         'lastname': fields.char(
-            "Lastname", required=True, track_visibility='onchange'),
+            "Lastname", track_visibility='onchange'),
 
         # Special case:
         # * do not use native birthdate field, it is a char field without
@@ -211,6 +239,9 @@ class res_partner(orm.Model):
         'birth_date': fields.date(
             'Birth Date', select=True, track_visibility='onchange'),
     }
+
+    age = new_fields.Integer(
+        string='Age', compute='_compute_age', search='_search_age')
 
     _defaults = {
         # Redefinition
