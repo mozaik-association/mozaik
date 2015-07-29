@@ -167,7 +167,7 @@
             <field name="model">generic.mandate</field>
             <field name="arch" type="xml">
                 <search string="Incompatible Mandates" version="7.0">
-                    <field name="partner_id"/>
+                    <field name="partner_id" domain="[('is_company','=',False)]"/>
 
                     <filter name="duplicate" string="Incompatible Mandates"
                             domain="[('is_duplicate_detected','=',True)]" />
@@ -260,7 +260,8 @@
                             <h1>Mandate: <field name="mandate_category_id" class="oe_inline"
                                                 attrs="{'readonly': [('candidature_id','!=',False)]}"/></h1>
                             <h2><field name="partner_id" domain="[('is_company','=',False)]"
-                                       attrs="{'readonly': [('candidature_id','!=',False)]}"/></h2>
+                                       attrs="{'readonly': [('candidature_id','!=',False)]}"
+                                       context="{'default_is_company': False}"/></h2>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
@@ -291,8 +292,9 @@
                                 <label for="is_duplicate_detected" attrs="{'invisible': [('is_duplicate_detected','=',False)]}"/>
                                 <div attrs="{'invisible': [('is_duplicate_detected','=',False)]}">
                                     <field name="is_duplicate_detected" class="oe_inline" />
-                                    <button name="%(generic_mandate_action)d" type="action" class="oe_red_link" string="⇒ Show all incompatible mandates"
-                                    context="{'search_default_partner_id': partner_id}"/>
+                                    <button name="%(generic_mandate_action)d" type="action" class="oe_red_link"
+                                            string="⇒ Show all incompatible mandates"
+                                            context="{'search_default_partner_id': partner_id}"/>
                                 </div>
 
                                 <field name="is_duplicate_allowed" attrs="{'invisible': [('is_duplicate_allowed','=',False)]}" />
@@ -349,7 +351,8 @@
                                                      readonly ="1"/></h1>
                             <h2><field name="partner_id" domain="[('is_company','=',False)]"
                                        attrs="{'readonly': [('id','!=',False)]}"
-                                       on_change="onchange_partner_id(partner_id)"/></h2>
+                                       on_change="onchange_partner_id(partner_id)"
+                                       context="{'default_is_company': False}"/></h2>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
                         </div>
