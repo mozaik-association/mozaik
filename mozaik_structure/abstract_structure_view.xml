@@ -9,6 +9,7 @@
             <field name="model">abstract.assembly</field>
             <field name="arch" type="xml">
                 <search string="Assembly" version="7.0">
+                    <field name="name" />
                     <field name="assembly_category_id" />
                     <field name="instance_id" />
 

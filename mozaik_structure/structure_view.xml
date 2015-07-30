@@ -70,6 +70,16 @@
                 <xpath expr="//field[@name='instance_id']" position="after">
                     <field name="designation_int_assembly_id" />
                 </xpath>
+                <xpath expr="//filter[@name='expired']" position="before">
+                    <filter name="designation_assemblies" string="Designation Assemblies"
+                            domain="[('is_designation_assembly','=',True)]" />
+                    <filter name="executive_assemblies" string="Executive Assemblies"
+                            domain="[('designation_int_assembly_id','!=',False)]" />
+                    <separator/>
+                </xpath>
+                <xpath expr="//group[@name='group_by']" position="before">
+                    <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
+                </xpath>
             </field>
         </record>
 
@@ -137,6 +147,7 @@
                 </xpath>
                 <xpath expr="//filter[@name='instance']" position="before">
                     <filter name="partner" string="Partner" domain="[]" context="{'group_by':'ref_partner_id'}"/>
+                    <filter name="designation_assembly" string="Designation Assembly" domain="[]" context="{'group_by':'designation_int_assembly_id'}" />
                 </xpath>
             </field>
         </record>
@@ -159,7 +170,7 @@
 
                     <group expand="0" string="Group By..." name="group_by">
                         <filter name="level" string="Power Level" domain="[]" context="{'group_by':'power_level_id'}" />
-                        <filter name="year" string="Year" domain="[]" context="{'group_by':'start_date'}" />
+                        <filter name="year" string="Year" domain="[]" context="{'group_by':'start_date:year'}" />
                     </group>
                 </search>
             </field>
@@ -660,10 +671,10 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
                      <field name="is_designation_assembly"/>
-                     <field name="designation_int_assembly_id" attrs="{'invisible': [('is_designation_assembly', '=', True)]}"/>
+                     <field name="designation_int_assembly_id" domain="[('is_designation_assembly', '=', True), ('id','!=',active_id)]"/>
                 </xpath>
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="attributes">
-                     <attribute name="attrs">{'invisible': [('is_designation_assembly', '=', True)]}</attribute>
+                     <attribute name="attrs">{'invisible': [('designation_int_assembly_id', '=', False)]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='assembly_category_id']" position="attributes">
                      <attribute name="on_change">onchange_assembly_category_id(assembly_category_id)</attribute>
