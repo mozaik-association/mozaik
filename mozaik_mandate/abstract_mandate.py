@@ -483,12 +483,12 @@ class abstract_mandate(orm.AbstractModel):
                                                track_visibility='onchange'),
         'designation_int_assembly_id': fields.many2one(
             'int.assembly',
-            'Designation Assembly',
+            string='Designation Assembly',
             select=True,
             track_visibility='onchange',
             domain=[
-                ('is_designation_assembly',
-                 '=', True)]),
+                ('is_designation_assembly', '=', True)
+            ]),
         'start_date': fields.date('Start Date',
                                   required=True,
                                   track_visibility='onchange'),
@@ -784,13 +784,15 @@ class abstract_candidature(orm.AbstractModel):
             string='Designation Assembly',
             type='many2one',
             relation="int.assembly",
-            store=_designation_assembly_store_trigger),
+            store=_designation_assembly_store_trigger,
+            domain=[
+                ('is_designation_assembly', '=', True)
+            ]),
         'is_selection_committee_active': fields.related(
             'selection_committee_id',
             'active',
             string='Is Selection Committee Active?',
-            type='boolean',
-            store=False),
+            type='boolean'),
         'mandate_ids': fields.one2many(_mandate_model,
                                        'candidature_id',
                                        'Abstract Mandates',

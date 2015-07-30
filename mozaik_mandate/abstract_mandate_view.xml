@@ -238,7 +238,6 @@
             </field>
         </record>
 
-
         <!-- Form Views -->
 
         <record id="abstract_mandate_form_view" model="ir.ui.view">
@@ -272,7 +271,7 @@
                                 <field name="postal_coordinate_id" domain="[('partner_id', '=', partner_id)]" context="{'default_partner_id': partner_id}"/>
                             </group>
                             <group name="data_2">
-                                <field name="designation_int_assembly_id" domain="[('is_designation_assembly', '=', True)]"/>
+                                <field name="designation_int_assembly_id" required="1"/>
                                 <field name="is_submission_mandate" readonly="1"/>
                                 <field name="is_submission_assets" readonly="1"/>
                                 <field name="candidature_id" readonly="1"
