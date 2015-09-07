@@ -1014,15 +1014,15 @@ msgstr "Courriels"
 
 #. module: mozaik_communication
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
-#: field:virtual.partner.instance,main_email:0
-msgid "Main Email"
-msgstr "Adresse électronique principale"
+#: field:virtual.partner.instance,main_postal:0
+msgid "Main Address"
+msgstr "Adresse principale"
 
 #. module: mozaik_communication
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
-#: field:virtual.partner.instance,main_postal:0
-msgid "Main Postal"
-msgstr "Adresse principale"
+#: field:virtual.partner.instance,main_email:0
+msgid "Main Email"
+msgstr "Adresse électronique principale"
 
 #. module: mozaik_communication
 #: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view

@@ -294,8 +294,9 @@
                     <field name="email_category_id" />
                     <field name="postal_category_id" />
 
-                    <filter string="Main Postal" name="main_postal"
+                    <filter string="Main Address" name="main_postal"
                         domain="[('main_postal','=',1)]" />
+                    <separator />
                     <filter string="Main Email" name="main_email"
                         domain="[('main_email','=',1)]" />
                     <separator />

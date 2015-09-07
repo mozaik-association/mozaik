@@ -326,7 +326,7 @@ class virtual_partner_instance(orm.Model):
         'employee': fields.boolean('Employee'),
 
         'postal_vip': fields.boolean('VIP Address'),
-        'main_postal': fields.boolean('Main Postal'),
+        'main_postal': fields.boolean('Main Address'),
         'postal_unauthorized': fields.boolean('Unauthorized Address'),
         'postal_category_id': fields.many2one('coordinate.category',
                                               'Postal Coordinate Category'),
