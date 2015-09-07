@@ -434,6 +434,8 @@
                     <field name="ext_competencies_m2m_ids" string="External Mandate Competencies" widget="many2one" />
                     <field name="sta_competencies_m2m_ids" string="State Mandate Competencies" widget="many2one" />
 
+                    <field name="ref_partner_competencies_m2m_ids" string='Topics' widget="many2one"/>
+
                     <filter name="sta_mod" string="State Mandate"
                         domain="[('model','=','sta.mandate')]" />
                     <filter name="int_mod" string="Internal Mandate"

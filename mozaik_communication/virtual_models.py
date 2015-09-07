@@ -439,6 +439,9 @@ class virtual_partner_mandate(orm.Model):
         'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate'),
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate'),
 
+        'ref_partner_id': fields.many2one(
+            'res.partner', 'Partner'),
+
         'start_date': fields.date('Start Date'),
         'deadline_date': fields.date('Deadline Date'),
 
@@ -461,6 +464,14 @@ class virtual_partner_mandate(orm.Model):
         'email_unauthorized': fields.related(
             'email_coordinate_id', 'unauthorized', string='Unauthorized Email',
             type='boolean', relation='email.coordinate'),
+
+        'ref_partner_competencies_m2m_ids': fields.related(
+            'ref_partner_id', 'competencies_m2m_ids',
+            type='many2many',
+            obj='thesaurus.term',
+            rel='ref_partner_term_competencies_rel',
+            id1='ref_partner_id', id2='thesaurus_term_id',
+            string='Topics'),
 
         'sta_competencies_m2m_ids': fields.related(
             'sta_mandate_id', 'competencies_m2m_ids',
@@ -495,6 +506,9 @@ class virtual_partner_mandate(orm.Model):
             if mandate_type == 'int' else "NULL::int")
         sta_instance_id = (
             "assembly.instance_id" if mandate_type == 'sta' else "NULL::int")
+        ref_partner_id = (
+            "assembly.ref_partner_id"
+            if mandate_type == 'ext' else "NULL::int")
         return """
         SELECT '%s.mandate' AS model,
             concat(mandate.partner_id, '/',
@@ -512,6 +526,7 @@ class virtual_partner_mandate(orm.Model):
             %s as id,
             %s as sta_mandate_id,
             %s as ext_mandate_id,
+            %s as ref_partner_id,
             mandate.mandate_category_id,
             mandate.partner_id,
             mandate.start_date,
@@ -545,7 +560,7 @@ class virtual_partner_mandate(orm.Model):
                 ELSE False
             END AS active
         """ % (mandate_type, mandate_id, sta_mandate_id, ext_mandate_id,
-               mandate_instance_id, sta_instance_id)
+               ref_partner_id, mandate_instance_id, sta_instance_id)
 
     def _from(self, mandate_type):
         return """
