@@ -277,7 +277,10 @@
                         </div>
                     </page>
                     <page name="involvement" string="Involvements" invisible="context.get('popup')" attrs="{'invisible': [('is_assembly','=',True)]}">
-                        <button string="All Details" name="%(partner_involvement_action)d"
+                        <span class="oe_horizontal_separator oe_clear oe_inline">
+                            Involvements
+                        </span>
+                        <button class="oe_right" string="All Details" name="%(partner_involvement_action)d"
                                 type="action" attrs="{'invisible': [('id','=',False)]}"
                                 context="{'search_default_partner_id': active_id,
                                           'default_partner_id': active_id,
