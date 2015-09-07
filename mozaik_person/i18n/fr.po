@@ -375,7 +375,7 @@ msgstr "Catégories de participation"
 #: field:partner.involvement,partner_involvement_category_id:0
 #: field:partner.involvement.category,name:0
 msgid "Involvement Category"
-msgstr "Catégorie de particpation"
+msgstr "Catégorie de participation"
 
 #. module: mozaik_person
 #: model:ir.actions.act_window,name:mozaik_person.partner_involvement_action
