@@ -16,8 +16,17 @@
             <field name="name">Distribution List (CUD) for Mozaik Base</field>
             <field name="model_id" ref="distribution_list.model_distribution_list" />
             <field name="domain_force">[('res_users_ids','in', [user.id])]</field>
-            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="groups" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]"/>
             <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="distribution_list_configurator_cud_rule" model="ir.rule">
+            <field name="name">Distribution List (CUD) for Mozaik Configurator</field>
+            <field name="model_id" ref="distribution_list.model_distribution_list" />
+            <field name="domain_force">[(1,'=', 1)]</field>
+            <field name="groups" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_configurator')])]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
