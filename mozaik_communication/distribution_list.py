@@ -28,6 +28,7 @@ from email.utils import formataddr
 from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp import api, fields as new_fields
 
 
 class distribution_list(orm.Model):
@@ -69,6 +70,8 @@ class distribution_list(orm.Model):
             select=True, track_visibility='onchange'),
     }
 
+    code = new_fields.Char('Code', track_visibility='onchange')
+
     _defaults = {
         'res_users_ids': lambda self, cr, uid, c: [uid],
         'dst_model_id': lambda self, cr, uid, c:
@@ -81,7 +84,9 @@ class distribution_list(orm.Model):
 # constraints
 
     # No More Unique Name For distribution list
-    _sql_constraints = [('unique_name_by_company', 'check(1=1)', '')]
+    _sql_constraints = [('unique_name_by_company', 'check(1=1)', ''),
+                        ('unique_code', 'unique (code)', 'Code already used !')
+                        ]
 
     _unicity_keys = 'name, int_instance_id'
 
@@ -100,6 +105,10 @@ class distribution_list(orm.Model):
         res['value'] = {'bridge_field': bridge_field}
         return res
 
+    @api.onchange('newsletter')
+    def onchange_newsletter(self):
+        if not self.newsletter:
+            self.code = False
 # public methods
 
     def get_distribution_list_from_filters(self, cr, uid, ids, context=None):

@@ -17,7 +17,11 @@
                     <field name="phone_id" domain="[('type','=','fix')]"/>
                     <field string="Age >= ..." name="age" filter_domain="[('age','>=', self)]"/>
                     <field string="Age &lt; ..." name="age" filter_domain="[('age','&lt;', self)]"/>
-
+                    <filter name="member" string="Member"
+                        domain="[('request_type', '=', 'm')]" />
+                    <filter name="supporter" string="Supporter"
+                        domain="[('request_type', '=', 's')]" />
+                    <separator />
                     <filter name="state_draft" string="Draft"
                         domain="[('state', '=', 'draft')]" />
                     <filter name="state_confirmed" string="Confirmed"

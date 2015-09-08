@@ -11,3 +11,4 @@ from . import event
 from . import mail_mail
 from . import mail_thread
 from . import res_partner
+from . import membership_request

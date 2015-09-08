@@ -96,7 +96,7 @@ elif sys.argv[2] == '3':
         'Rue Louis Maréhal 6/2B',
         '4360',
         'Oreye',
-        False,
+        'n',
         False,
         False,
         False,
@@ -104,7 +104,8 @@ elif sys.argv[2] == '3':
         False,
         False,
         False,
-        'demande newsletter etopia')
+        'demande newsletter etopia',
+        'ETOPIA')
 elif sys.argv[2] == '4':
     METHOD = 'get_distribution_list'
     res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 1)

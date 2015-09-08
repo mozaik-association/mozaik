@@ -31,6 +31,7 @@
     'category': 'Political Association',
     'depends': [
         'mozaik_membership',
+        'mozaik_communication',
     ],
     'description': """
 MOZAIK Web Service

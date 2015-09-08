@@ -17,6 +17,7 @@
 
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="int_instance_id"/>
+                    <field name="code"/>
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expired Distribution Lists" />
@@ -89,7 +90,8 @@
 
                 <xpath expr="//group[@name='info']" position="replace">
                     <group>
-                        <field name="newsletter"/>
+                        <field name="newsletter" on_change="1"/>
+                         <field name="code" attrs="{'invisible': [('newsletter', '=', False)]}"/>
                         <field name="public" attrs="{'invisible': [('newsletter', '=', False)]}"/>
                     </group>
                     <group name="forwarding_infos">

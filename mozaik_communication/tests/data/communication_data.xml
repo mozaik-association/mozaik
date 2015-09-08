@@ -15,5 +15,13 @@
             <field name="to_include_distribution_list_line_ids" eval="[[4,ref('filter_all_prts_int')]]"/>
         </record>
 
+        <record id="distribution_list_newsletter" model="distribution.list">
+            <field name="name">Sample Newsletter</field>
+            <field name="code">NEWS</field>
+            <field name="newsletter" eval="1"/>
+            <field name="company_id" ref='base.main_company'/>
+            <field name="opt_out_ids" eval="[(4, ref('res_partner_paul'))]"/>
+        </record>
+
     </data>
 </openerp>

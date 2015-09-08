@@ -25,7 +25,7 @@
 
 import logging
 from uuid import uuid4
-
+import psycopg2
 import openerp.tests.common as common
 
 _logger = logging.getLogger(__name__)
@@ -92,6 +92,7 @@ class test_distribution_list(common.TransactionCase):
             'int_instance_id': default_instance_id,
             'dst_model_id': self.partner_model_id,
             'mail_forwarding': True,
+            'alias_name': 'xxx'
         }
         dl_id = self.dl_obj.create(cr, uid, vals, context=context)
         msg = {
@@ -122,3 +123,15 @@ class test_distribution_list(common.TransactionCase):
         self.assertTrue(mail_ids, 'Partner of the mailing object is into '
                         'the owner of the distribution list so it should '
                         'be possible to make a mail forwarding')
+
+    def test_newsletter_code_unique(self):
+        cr, uid, context = self.cr, self.uid, {}
+        vals = dict(name='Newsletter Sample 1',
+                    code='SAMPLE1',
+                    newsletter=True)
+        self.dl_obj.create(cr, uid, vals, context=context)
+        vals = dict(name='Newsletter Sample 2',
+                    code='SAMPLE1',
+                    newsletter=True)
+        with self.assertRaises(psycopg2.IntegrityError):
+            self.dl_obj.create(cr, uid, vals, context=context)

@@ -89,7 +89,8 @@ class custom_webservice(orm.Model):
     def membership_request(self, cr, uid, lastname, firstname, gender, street,
                            zip_code, town, status, day=False, month=False,
                            year=False, email=False, mobile=False, phone=False,
-                           interest=False, note=False, context=None):
+                           interest=False, note=False, code=False,
+                           context=None):
         """
         ==================
         membership_request
@@ -101,6 +102,7 @@ class custom_webservice(orm.Model):
         self.check_access_rights(cr, uid, 'read')
         context = context or {}
         membership_request = self.pool['membership.request']
+        distribution_list = self.pool['distribution.list']
         town = town.strip()
         vals = {
             'lastname': lastname,
@@ -125,6 +127,11 @@ class custom_webservice(orm.Model):
             'note': note,
         }
         context['mode'] = 'ws'
+        if code:
+            list_id = distribution_list.search(
+                cr, uid, [('code', '=', code), ('newsletter', '=', True)])
+            if list_id:
+                vals['distribution_list_id'] = list_id[0]
         try:
             res = membership_request.create(cr, uid, vals, context=context)
         except Exception as e:
