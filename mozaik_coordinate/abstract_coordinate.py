@@ -463,6 +463,7 @@ class abstract_coordinate(orm.AbstractModel):
         return res
 
     def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+        context = context.copy() if context else {}
         rejected_ids = []
         for coordinate in self.browse(cr, uid, ids, context=context):
             coord_ids = self.search(
