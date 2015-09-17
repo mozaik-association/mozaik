@@ -24,3 +24,4 @@
 ##############################################################################
 
 from . import change_main_phone
+from . import change_phone_type

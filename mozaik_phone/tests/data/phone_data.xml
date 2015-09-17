@@ -24,9 +24,29 @@
             <field name="type">mobile</field>
         </record>
 
+        <record id="mobile_four" model="phone.phone">
+            <field name="name">+32 473 78 10 79</field>
+            <field name="type">mobile</field>
+        </record>
+
+        <record id="mobile_five" model="phone.phone">
+            <field name="name">+32 473 78 10 80</field>
+            <field name="type">mobile</field>
+        </record>
+
         <record id="fax_one" model="phone.phone">
             <field name="name">061548799</field>
             <field name="type">fax</field>
+        </record>
+
+        <record id="fix_one" model="phone.phone">
+            <field name="name">063458978</field>
+            <field name="type">fix</field>
+        </record>
+
+        <record id="fix_two" model="phone.phone">
+            <field name="name">063458688</field>
+            <field name="type">fix</field>
         </record>
 
         <record id="fix_for_test_update_1" model="phone.phone">
@@ -96,5 +116,25 @@
             <field name="partner_id" ref="res_partner_nouvelobs" />
         </record>
 
+        <!--  Partner Jacques -->
+        <record id="mobile_coordinate_for_jacques_1" model="phone.coordinate">
+            <field name="phone_id" ref="mobile_four" />
+            <field name="partner_id" ref="res_partner_jacques" />
+        </record>
+
+        <record id="mobile_coordinate_for_jacques_2" model="phone.coordinate">
+            <field name="phone_id" ref="mobile_five" />
+            <field name="partner_id" ref="res_partner_jacques" />
+        </record>
+
+        <record id="fix_coordinate_for_jacques_1" model="phone.coordinate">
+            <field name="phone_id" ref="fix_one" />
+            <field name="partner_id" ref="res_partner_jacques" />
+        </record>
+
+        <record id="fix_coordinate_for_jacques_2" model="phone.coordinate">
+            <field name="phone_id" ref="fix_two" />
+            <field name="partner_id" ref="res_partner_jacques" />
+        </record>
     </data>
 </openerp>

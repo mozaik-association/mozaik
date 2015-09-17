@@ -26,3 +26,4 @@ from . import test_phone_phone
 from . import test_phone_coordinate
 from . import test_phone_coordinate_wizard
 from . import test_res_partner
+from . import test_change_phone_type
