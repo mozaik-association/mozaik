@@ -846,13 +846,21 @@ class membership_request(orm.Model):
         :rparam: Id of a `phone.phone` object or  False
         """
         phone_obj = self.pool['phone.phone']
+        wiz_obj = self.pool['change.phone.type']
         phone_ids = phone_obj.search(cr, uid, [('name', '=', phone_number),
                                                ('type', '=', '%s'
                                                 % phone_type)])
         if not phone_ids and then_create:
-            phone_ids.append(phone_obj.create(cr, uid, {'name': phone_number,
-                                                        'type': phone_type},
-                                              context=context))
+            phone_ids = phone_obj.search(
+                cr, uid, [('name', '=', phone_number)])
+            if phone_ids:
+                wiz_id = wiz_obj.create(
+                    cr, uid, {'phone_id': phone_ids[0], 'type': phone_type})
+                wiz_obj.change_phone_type(cr, uid, wiz_id, context=context)
+            else:
+                phone_ids.append(phone_obj.create(
+                    cr, uid, {'name': phone_number, 'type': phone_type},
+                    context=context))
         return (phone_ids or False) and phone_ids[0]
 
     def get_format_email(self, cr, uid, email, context=None):
