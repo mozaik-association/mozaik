@@ -120,6 +120,8 @@
                     <button name="button_modification_request" string="Modification Request" 
                             type="object" attrs="{'invisible': [('kind', '!=', 'm')]}"
                             invisible="(context.get('uid',0)!=1) and (context.get('in_mozaik_officer') or not context.get('in_mozaik_user'))"/>
+                    <button name="button_modification_request" string="Membership Request" 
+                            type="object" attrs="{'invisible': ['|', ('kind', '=', 'm'), ('is_company', '=', True)]}"/>
                 </xpath>
 
                 <xpath expr="//header/div/button[@name='action_invalidate']" position="attributes">
