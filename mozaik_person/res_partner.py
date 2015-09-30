@@ -149,6 +149,17 @@ class res_partner(orm.Model):
             }
         return result
 
+    @api.one
+    def _inverse_name_after_cleaning_whitespace(self):
+        '''
+            Name field is readonly on mozaik for a natural person
+            but due to a dependance on readonly_bypass, the inverse function
+            in partner_firstname is triggered and can change the expected
+            result. For example if lastname contains space(s).
+        '''
+        if self.is_company:
+            super(res_partner, self)._inverse_name_after_cleaning_whitespace()
+
 # data model
 
     _display_name_store_trigger = {

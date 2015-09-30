@@ -280,7 +280,8 @@ class test_res_partner(SharedSetupTransactionCase):
         # Update nouvelobs_bis => duplicates: 2 detected, 0 allowed
         partner_model.write(
             cr, uid, [nouvelobs_bis_id], {
-                'name': 'Nouvel Observateur'}, context=context)
+                'name': 'Nouvel Observateur', 'is_company': True},
+            context=context)
         flds = ['is_duplicate_detected', 'is_duplicate_allowed']
         partner_fields = partner_model.read(
             cr, SUPERUSER_ID, [
@@ -347,7 +348,8 @@ class test_res_partner(SharedSetupTransactionCase):
         # Create one more 'nouvelobs' => duplicates: 3 detected, 0 allowed
         nouvelobs_ter_id = partner_model.create(
             cr, uid, {
-                'name': 'Nouvel Observateur'}, context=context)
+                'name': 'Nouvel Observateur', 'is_company': True},
+            context=context)
         partner_fields = partner_model.read(
             cr, SUPERUSER_ID, [
                 nouvelobs_id, nouvelobs_bis_id, nouvelobs_ter_id], flds,
@@ -404,7 +406,8 @@ class test_res_partner(SharedSetupTransactionCase):
         # Update nouvelobs_bis => duplicates: 0 detected, 0 allowed
         partner_model.write(
             cr, uid, [nouvelobs_id], {
-                'name': 'Nouvel Observateur (Economat)'}, context=context)
+                'name': 'Nouvel Observateur (Economat)', 'is_company': True},
+            context=context)
         partner_fields = partner_model.read(
             cr, SUPERUSER_ID, [
                 nouvelobs_id, nouvelobs_bis_id], flds, context=context)
@@ -746,3 +749,12 @@ class test_res_partner(SharedSetupTransactionCase):
         partner = self.partner_model.browse(
             cr, uid, partner_id, context=context)
         self.assertEquals(partner.age, age, 'Should be the same age')
+
+    def test_lastname_firstname(self):
+        vals = {
+            'lastname': 'El Ghabri',
+            'firstname': 'Mohssin',
+            'name': 'El Ghabri Mohssin'
+        }
+        partner = self.env['res.partner'].create(vals)
+        self.assertEqual(vals['lastname'], partner.lastname)
