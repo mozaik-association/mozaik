@@ -36,7 +36,7 @@
                 </xpath>
 
                 <xpath expr="//field[@name='active']" position="before">
-                    <field name="co_residency_id" groups="mozaik_base.res_groups_developper"/>
+                    <field name="co_residency_id"/>
                 </xpath>
 
             </field>

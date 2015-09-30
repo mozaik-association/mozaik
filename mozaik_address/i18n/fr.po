@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_address
+#   * mozaik_address
 #
 msgid ""
 msgstr ""
@@ -76,7 +76,7 @@ msgid "Alternative Street"
 msgstr "Rue alternative"
 
 #. module: mozaik_address
-#: code:addons/mozaik_address/address_address.py:302
+#: code:addons/mozaik_address/address_address.py:303
 #, python-format
 msgid "An Address without sequence number cannot be duplicated!"
 msgstr "Une adresse sans numéro de séquence ne peut être dupliquée !"
@@ -152,6 +152,12 @@ msgstr "Co-Résidences"
 #: field:postal.coordinate,co_residency_id:0
 msgid "Co-Residency"
 msgstr "Co-Résidence"
+
+#. module: mozaik_address
+#: code:addons/mozaik_address/address_address.py:487
+#, python-format
+msgid "Co-Residency to complete"
+msgstr "Co-Résidence à compléter"
 
 #. module: mozaik_address
 #: field:postal.coordinate,partner_id:0
@@ -254,7 +260,7 @@ msgid "Empty Co-Residencies"
 msgstr "Co-Résidences vides"
 
 #. module: mozaik_address
-#: code:addons/mozaik_address/address_address.py:301
+#: code:addons/mozaik_address/address_address.py:302
 #, python-format
 msgid "Error"
 msgstr "Erreur"

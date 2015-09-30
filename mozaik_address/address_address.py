@@ -405,6 +405,20 @@ class postal_coordinate(orm.Model):
     _unicity_keys = 'partner_id, %s' % _discriminant_field
 
 # public methods
+    def name_get(self, cr, uid, ids, context=None):
+        result = super(postal_coordinate, self).name_get(
+            cr, uid, ids, context=context)
+        new_result = []
+        for res in result:
+            data = self.read(cr, uid, res[0], ['co_residency_id'],
+                             context=context)
+            name = res[1]
+            if data['co_residency_id']:
+                co_res_name = self.pool['co.residency'].name_get(
+                    cr, uid, data['co_residency_id'][0], context=context)[0][1]
+                name = "%s(%s)" % (res[1], co_res_name)
+            new_result.append((res[0], name))
+        return new_result
 
     def get_fields_to_update(self, cr, uid, mode, context=None):
         """
@@ -466,8 +480,14 @@ class co_residency(orm.Model):
         ids = isinstance(ids, (long, int)) and [ids] or ids
 
         res = []
-        for record in self.read(cr, uid, ids, ['address_id'], context=context):
-            res.append((record['id'], record['address_id'][1]))
+        for record in self.read(cr, uid, ids, ['line', 'line2'],
+                                context=context):
+            if not record['line'] and not record['line2']:
+                name = _("Co-Residency to complete")
+            else:
+                name = "/".join([line for line in
+                                 [record['line'], record['line2']] if line])
+            res.append((record['id'], name))
         return res
 
     def unlink(self, cr, uid, ids, context=None):
