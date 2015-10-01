@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_communication
+#   * mozaik_communication
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-20 17:25+0000\n"
-"PO-Revision-Date: 2015-07-20 17:25+0000\n"
+"POT-Creation-Date: 2015-10-01 08:55+0000\n"
+"PO-Revision-Date: 2015-10-01 08:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,36 @@ msgstr ""
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/distribution_list.py:210
+#, python-format
+msgid "<div>For your information, the alias name of the distribution list %s has been changed by %s.</div>"
+msgstr "<div>Pour votre information, le pseudonyme de la liste de distribution %s a été modifié par %s.</div>"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/distribution_list.py:217
+#, python-format
+msgid "<div>New alias name: %s</div>"
+msgstr "<div>Nouveau pseudonyme: %s</div>"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/distribution_list.py:215
+#, python-format
+msgid "<div>Old alias name: %s</div>"
+msgstr "<div>Ancien pseudonyme: %s</div>"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/distribution_list.py:220
+#, python-format
+msgid "<div>Regards,</div></p>"
+msgstr "<div>Cordialement,</div></p>"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/distribution_list.py:208
+#, python-format
+msgid "<p>Hello,"
+msgstr "<p>Bonjour,"
 
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/postal_mail.py:199
@@ -72,6 +102,12 @@ msgstr "Ajouter ce filtre à une liste de distribution"
 #: model:ir.model,name:mozaik_communication.model_add_registration
 msgid "Add Registrations"
 msgstr "Ajouter des inscriptions"
+
+#. module: mozaik_communication
+#: code:addons/mozaik_communication/distribution_list.py:205
+#, python-format
+msgid "Alias name modified on distribution list %s"
+msgstr "Pseudonyme modifié pour la liste de distribution: %s"
 
 #. module: mozaik_communication
 #: view:distribution.list:mozaik_communication.distribution_list_search
@@ -1958,4 +1994,3 @@ msgstr ""
 #: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_distribution_list_form
 msgid "{'required': [('mailing_model', '=','email.coordinate')],'invisible': [('mailing_model', '!=','email.coordinate')]}"
 msgstr ""
-

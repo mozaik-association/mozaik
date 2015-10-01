@@ -54,6 +54,16 @@ class distribution_list(orm.Model):
                 (dl.partner_id.name, dl.partner_id.email))
         return res
 
+    def _notify_changes_to_owners(self, subject, message):
+        recipient_ids = [user.partner_id.id for user in self.res_users_ids
+                         if user.id != self.env.uid]
+        mail_vals = {
+            'subject': subject,
+            'body_html': message,
+            'recipient_ids': [[6, False, recipient_ids]],
+        }
+        self.env['mail.mail'].create(mail_vals)
+
     _columns = {
         'name': fields.char(
             string='Name', required=True, track_visibility='onchange'),
@@ -183,6 +193,34 @@ class distribution_list(orm.Model):
                 'domain': domain,
                 'target': 'new',
                 }
+
+    @api.one
+    def write(self, vals):
+        old_alias = self.alias_name
+        new_alias = vals.get('alias_name', False)
+        old_alias_name = self.alias_id.name_get()[0][1]
+        res = super(distribution_list, self).write(vals)
+        if new_alias and new_alias != old_alias:
+            user = self.env['res.users'].browse(self.env.uid)
+            subject = _('Alias name modified'
+                        ' on distribution list %s') % self.name
+            html_content = []
+            html_content.append(_("<p>Hello,"))
+            html_content.append("<div><br></div>")
+            html_content.append(_("<div>For your information, the alias name"
+                                  " of the distribution list %s has been"
+                                  " changed by %s.</div>") %
+                                (self.name, user.name))
+            html_content.append("<div><br></div>")
+            html_content.append(_("<div>Old alias name: %s</div>")
+                                % old_alias_name)
+            html_content.append(_("<div>New alias name: %s</div>")
+                                % self.alias_id.name_get()[0][1])
+            html_content.append("<div><br></div>")
+            html_content.append(_("<div>Regards,</div></p>"))
+            message = "\n".join(html_content)
+            self._notify_changes_to_owners(subject, message)
+        return res
 
 
 class distribution_list_line(orm.Model):

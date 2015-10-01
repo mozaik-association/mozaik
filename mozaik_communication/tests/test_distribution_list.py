@@ -135,3 +135,47 @@ class test_distribution_list(common.TransactionCase):
                     newsletter=True)
         with self.assertRaises(psycopg2.IntegrityError):
             self.dl_obj.create(cr, uid, vals, context=context)
+
+    def test_notify_owner_on_alias_change(self):
+        cr, uid, context = self.cr, self.uid, {}
+        dl_name = '%s' % uuid4()
+        name = '%s' % uuid4()
+        vals = {
+            'name': name,
+        }
+        partner_id = self.partner_obj.create(
+            cr, uid, vals, context=context)
+        default_instance_id = self.int_instance_obj.get_default(
+            cr, uid, context=context)
+        vals = {
+            'name': name,
+            'login': name,
+            'signature': name,
+            'partner_id': partner_id,
+            'company_id': self.ref('base.main_company'),
+            'groups_id': [(6, 0, [
+                self.ref('mozaik_base.mozaik_res_groups_officer')])],
+            'int_instance_m2m_ids': [(6, 0, [default_instance_id])]
+        }
+        user_id = self.user_obj.create(
+            cr, uid, vals, context=context)
+        vals = {
+            'name': dl_name,
+            'int_instance_id': default_instance_id,
+            'dst_model_id': self.partner_model_id,
+            'mail_forwarding': True,
+            'alias_name': 'xxx',
+            'res_users_ids': [(6, False, [uid, user_id])]
+        }
+        dl_id = self.dl_obj.create(cr, uid, vals, context=context)
+
+        vals = {
+            'alias_name': "yyy"
+        }
+        self.dl_obj.write(cr, uid, dl_id, vals, context=context)
+
+        # owner should notified
+        mail_ids = self.registry('mail.mail').search(cr, uid, [
+            ('subject', 'ilike', dl_name),
+            ('recipient_ids', 'in', partner_id)], context=context)
+        self.assertEqual(len(mail_ids), 1)
