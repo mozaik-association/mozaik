@@ -62,6 +62,12 @@ class account_bank_statement(orm.Model):
         Method to create account move linked to membership payment
         """
         bsl_obj = self.pool.get('account.bank.statement.line')
+        line_count = bsl_obj.search_count(cr, uid, [('id', '!=', bank_line.id),
+                                                    ('name', '=', reference)],
+                                          context=context)
+        if line_count > 0:
+            # do not auto reconcile if reference has been used previously
+            return
         product_id, price, credit_account = bsl_obj.get_membership_prod_info(
             cr,
             uid,

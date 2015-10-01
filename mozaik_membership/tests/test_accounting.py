@@ -404,3 +404,35 @@ class test_accounting_grouped_payment(test_accounting_with_product,
                                     ('credit', '=', price)])
             self.assertEqual(len(mv_lines), 1,
                              'No account move lines created for partner')
+
+
+class test_accounting_protect_auto_reconcile(test_accounting_with_product,
+                                             SharedSetupTransactionCase):
+
+    def setUp(self):
+        self.product = self.browse_ref('%s.membership_product_live_together'
+                                       % self._module_ns)
+        super(test_accounting_protect_auto_reconcile, self).setUp()
+
+    def test_accounting_auto_reconcile(self):
+        '''
+            Auto reconcile should not occur if reference has been already
+            used previously
+        '''
+        b_statement_id = self._generate_payment()
+        if not self._with_coda:
+            self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id)
+        for bank_s in self.bs_obj.browse(self.cr, self.uid, b_statement_id):
+            for line in bank_s.line_ids:
+                self.assertNotEqual(line.journal_entry_id.id, False)
+        b_statement_id2 = self.bs_obj.copy(self.cr, self.uid, b_statement_id)
+        self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id2)
+        for bank_s in self.bs_obj.browse(self.cr, self.uid, b_statement_id2):
+            for line in bank_s.line_ids:
+                self.assertFalse(line.journal_entry_id.id)
+
+    def test_accounting_manual_reconcile(self):
+        return
+
+    def test_accounting_manual_reconcile_without_partner(self):
+        return
