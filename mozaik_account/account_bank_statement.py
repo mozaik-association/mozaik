@@ -150,6 +150,12 @@ class account_bank_statement_line(orm.Model):
                                context=None, prod_id=None, price=None):
 
         bank_line = self.browse(cr, uid, line_id, context=context)
+        for line in mv_line_dicts:
+            mode, partner_id = self.search_partner_id_with_reference(
+                cr, uid, line.get('name', False), context=context)[0:2]
+            if mode == "membership" and partner_id:
+                line['partner_id'] = partner_id
+
         if not bank_line.partner_id.id:
             raise orm.except_orm(_('No Partner Defined!'),
                                  _("You must first select a partner!"))

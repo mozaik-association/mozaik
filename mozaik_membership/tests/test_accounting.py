@@ -356,6 +356,8 @@ class test_accounting_grouped_payment(test_accounting_with_product,
         additional_amount = self.product.list_price
         b_statement_id = self._generate_payment(
             additional_amount=additional_amount)
+        references = {self.partner.id: self.partner.reference,
+                      self.partner_2.id: self.partner_2.reference}
         self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id)
         for bank_s in self.bs_obj.browse(self.cr, self.uid, b_statement_id):
             for line in bank_s.line_ids:
@@ -395,3 +397,10 @@ class test_accounting_grouped_payment(test_accounting_with_product,
 
             self.assertEqual(ml_data['price'], price,
                              'Wrong price specified')
+
+            mv_lines = self.registry('account.move.line').search(
+                self.cr, self.uid, [('partner_id', '=', partner.id),
+                                    ('name', '=', references[partner.id]),
+                                    ('credit', '=', price)])
+            self.assertEqual(len(mv_lines), 1,
+                             'No account move lines created for partner')
