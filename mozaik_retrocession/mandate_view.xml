@@ -124,7 +124,7 @@
                           invisible="context.get('popup')"
                           attrs="{'invisible': [('retrocession_mode', '=', 'none')]}">
                         <group>
-                            <field name="retrocession_mode" readonly="1"/>
+                            <field name="retrocession_mode"/>
                             <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
                             <field name="retro_instance_id" attrs="{'invisible': [('retrocession_mode', '=', 'none')],
                                                                    'required': [('retrocession_mode', '!=', 'none')]}"/>
@@ -241,7 +241,7 @@
                           invisible="context.get('popup')"
                           attrs="{'invisible': [('retrocession_mode', '=', 'none')]}">
                         <group>
-                           <field name="retrocession_mode" readonly="1"/>
+                           <field name="retrocession_mode"/>
                            <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
                            <field name="retro_instance_id" attrs="{'invisible': [('retrocession_mode', '=', 'none')],
                                                                    'required': [('retrocession_mode', '!=', 'none')]}"/>
