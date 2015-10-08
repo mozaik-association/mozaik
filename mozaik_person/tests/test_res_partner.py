@@ -428,33 +428,19 @@ class test_res_partner(SharedSetupTransactionCase):
         test_invalidate_partner
         =======================
         1) create a company and a user
-        2) try to invalidate company's partner and user's partner and check
-        that failed
+        2) try to invalidate user's partner and check that failed
         3) set active to false for the new user
         4) retry to invalidate the user's partner and check it succeed
         """
-        company_test_id = self.company_model.create(
-            self.cr, self.uid, {
-                'name': '%s' %
-                uuid4()})
         user_test_id = self.user_model.create(
             self.cr, SUPERUSER_ID, {
                 'name': '%s' %
                 uuid4(), 'login': '%s' %
                 uuid4()})
 
-        company_test = self.company_model.browse(
-            self.cr,
-            self.uid,
-            [company_test_id])[0]
         user_test = self.user_model.browse(
             self.cr, self.uid, [user_test_id])[0]
 
-        self.assertRaises(orm.except_orm,
-                          self.partner_model.action_invalidate,
-                          self.cr,
-                          self.uid,
-                          [company_test.partner_id.id])
         self.assertRaises(orm.except_orm,
                           self.partner_model.action_invalidate,
                           self.cr,
