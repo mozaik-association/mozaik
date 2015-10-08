@@ -191,7 +191,7 @@ class distribution_list(orm.Model):
                 'view_id': False,
                 'views': [(False, 'tree')],
                 'domain': domain,
-                'target': 'new',
+                'target': 'current',
                 }
 
     @api.one
