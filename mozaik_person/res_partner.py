@@ -79,6 +79,16 @@ class ResPartner(models.Model):
         string='Technical Name', compute='_compute_technical_name',
         store=True, index=True)
 
+    @api.model
+    @api.returns('self', lambda value: value.id)
+    def create(self, vals):
+        if (vals.get('is_company') and vals.get('name')
+            and not(vals.get('lastname')
+                    and vals.get('firstname'))):
+                vals['lastname'] = vals['name']
+        partner = super(ResPartner, self).create(vals)
+        return partner
+
 
 class res_partner(orm.Model):
 
