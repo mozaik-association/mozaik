@@ -224,6 +224,23 @@
                 <xpath expr="//field[@name='subtype_id']" position="after">
                     <field name="message_id" readonly="1"/>
                 </xpath>
+                <xpath expr="//field[@name='body']" position="after">
+                    <separator string="Attachments"/>
+                    <field name="attachment_ids"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Email form -->
+
+        <record model="ir.ui.view" id="view_mail_form">
+            <field name="name">mail.mail.form (mozaik_base)</field>
+            <field name="model">mail.mail</field>
+            <field name="inherit_id" ref="mail.view_mail_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='message_id']" position="after">
+                    <field name="mail_message_id" readonly="1"/>
+                </xpath>
             </field>
         </record>
 
