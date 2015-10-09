@@ -23,12 +23,15 @@
 #
 ##############################################################################
 
+import logging
 from email.utils import formataddr
 
 from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp import api, fields as new_fields
+
+_logger = logging.getLogger(__name__)
 
 
 class distribution_list(orm.Model):
@@ -141,6 +144,7 @@ class distribution_list(orm.Model):
         ctx = context.copy()
         ctx['email_coordinate_path'] = 'email'
 
+        noway = 'No coordinate found with address: %s' % msg['email_from']
         coordinate_ids = self._get_mailing_object(
             cr, uid, dl_id, msg['email_from'], context=context)
         if coordinate_ids:
@@ -148,21 +152,26 @@ class distribution_list(orm.Model):
                 cr, uid, coordinate_ids[0], ['partner_id'], context=context)
             partner_id = coo_values.get('partner_id') and \
                 coo_values['partner_id'][0] or False
+            noway = 'Orphan coordinate [%s]' % coordinate_ids[0]
             if partner_id:
                 user_ids = self.pool['res.users'].search(
                     cr, uid, [('partner_id', '=', partner_id)],
                     context=context)
                 user_id = user_ids and user_ids[0] or False
+                noway = 'Partner [%s] is not a user' % partner_id
                 if user_id:
                     dl_values = self.read(
                         cr, uid, dl_id, ['res_users_ids'], context=context)
                     owner_ids = dl_values.get('res_users_ids', False)
+                    noway = 'User [%s] is not an owner %s' % (
+                        user_id, owner_ids)
                     if user_id in owner_ids:
                         ctx['field_main_object'] = 'email_coordinate_id'
                         return super(distribution_list, self).\
                             distribution_list_forwarding(
                                 cr, user_id, msg, dl_id, context=ctx)
-        return
+        _logger.warning(
+            'Mail forwarding aborted. Reason: %s' % noway)
 
     def _register_hook(self, cr):
         super(distribution_list, self)._register_hook(cr)
