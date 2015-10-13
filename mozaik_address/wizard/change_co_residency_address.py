@@ -123,20 +123,26 @@ class change_co_residency_address(orm.TransientModel):
             if pc_ids:
                 new_coord_ids.extend(pc_ids)
         if wiz.invalidate:
-            co_res_obj.action_invalidate(cr, uid, cores.id)
+            postal_coordinate_id =\
+                cores.postal_coordinate_ids and\
+                cores.postal_coordinate_ids[0].id or False
+            if postal_coordinate_id:
+                coord_obj.button_undo_allow_duplicate(
+                    cr, uid, postal_coordinate_id, context=context)
+            co_res_obj.action_invalidate(cr, uid, cores.id, context=context)
 
         if new_coord_ids:
-            ctx = {
-                'active_model': coord_obj._name,
-                'active_ids': new_coord_ids,
-            }
+            ctx = dict(
+                context or {}, active_model=coord_obj._name,
+                active_ids=new_coord_ids
+            )
             dupl_wiz_id = dupl_wiz_obj.create(cr, uid, {}, context=ctx)
             res = dupl_wiz_obj.button_allow_duplicate(cr,
                                                       uid,
                                                       [dupl_wiz_id],
                                                       context=ctx)
-            new_cor_id = res['res_id']
-            if cores.line or cores.line2:
+            if not context.get('new_co_res') and cores.line or cores.line2:
+                new_cor_id = res['res_id']
                 vals = dict(line=cores.line,
                             line2=cores.line2)
                 co_res_obj.write(cr, uid, new_cor_id, vals, context=context)
