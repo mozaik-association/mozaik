@@ -405,6 +405,7 @@ class postal_coordinate(orm.Model):
     _unicity_keys = 'partner_id, %s' % _discriminant_field
 
 # public methods
+
     def name_get(self, cr, uid, ids, context=None):
         result = super(postal_coordinate, self).name_get(
             cr, uid, ids, context=context)
@@ -414,9 +415,7 @@ class postal_coordinate(orm.Model):
                              context=context)
             name = res[1]
             if data['co_residency_id']:
-                co_res_name = self.pool['co.residency'].name_get(
-                    cr, uid, data['co_residency_id'][0], context=context)[0][1]
-                name = "%s(%s)" % (res[1], co_res_name)
+                name = "%s(%s)" % (name, data['co_residency_id'][1])
             new_result.append((res[0], name))
         return new_result
 
