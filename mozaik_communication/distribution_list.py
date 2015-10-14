@@ -124,6 +124,14 @@ class distribution_list(orm.Model):
             self.code = False
 # public methods
 
+    def _get_opt_res_ids(
+            self, cr, uid, model_name, domain, in_mode, context=None):
+        if in_mode:
+            domain.append(('email_is_main', '=', True))
+        opt_ids = super(distribution_list, self)._get_opt_res_ids(
+            cr, uid, model_name, domain, in_mode, context=context)
+        return opt_ids
+
     def get_distribution_list_from_filters(self, cr, uid, ids, context=None):
         domain = [
             '|',
