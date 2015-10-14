@@ -141,7 +141,7 @@ class change_co_residency_address(orm.TransientModel):
                                                       uid,
                                                       [dupl_wiz_id],
                                                       context=ctx)
-            if not context.get('new_co_res') and cores.line or cores.line2:
+            if res and res.get('new_co_res') and cores.line or cores.line2:
                 new_cor_id = res['res_id']
                 vals = dict(line=cores.line,
                             line2=cores.line2)

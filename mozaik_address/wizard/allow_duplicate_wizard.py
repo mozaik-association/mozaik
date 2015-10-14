@@ -89,8 +89,9 @@ class allow_duplicate_wizard(orm.TransientModel):
         if context and context.get('get_co_residency', False):
             return cor_id
 
-        if new_co:
-            context['new_co_res'] = True
         # go directly to the newly created co-residency
-        return self.pool['co.residency'].display_object_in_form_view(
+        res = self.pool['co.residency'].display_object_in_form_view(
             cr, uid, cor_id, context=context)
+        if res and new_co:
+            res['new_co_res'] = True
+        return res
