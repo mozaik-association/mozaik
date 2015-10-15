@@ -67,6 +67,30 @@ class distribution_list(orm.Model):
         }
         self.env['mail.mail'].create(mail_vals)
 
+    def _get_computed_ids(
+            self, cr, uid, dl_id, bridge_field, to_be_computed_ids,
+            in_mode, context=None):
+        res = super(distribution_list, self)._get_computed_ids(
+            cr, uid, dl_id, bridge_field, to_be_computed_ids, in_mode,
+            context=context)
+        if not in_mode:
+            target_model_name = self.browse(
+                cr, uid, dl_id).dst_model_id.model
+            t_model = self.pool(target_model_name)
+            res = list(res)
+            t_recs = t_model.browse(cr, uid, list(res), context=context)
+            p_ids = []
+            for t_rec in t_recs:
+                p_id = t_rec.partner_id.id
+                if p_id not in p_ids:
+                    p_ids.append(p_id)
+                    domain = [
+                        ('partner_id', '=', p_id)
+                    ]
+                    res += t_model.search(cr, uid, domain, context=context)
+            res = set(res)
+        return res
+
     _columns = {
         'name': fields.char(
             string='Name', required=True, track_visibility='onchange'),
