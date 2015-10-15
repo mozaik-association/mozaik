@@ -55,9 +55,6 @@ class address_address(orm.Model):
 
     def _get_technical_name(self, cr, uid, values, context=None):
         """
-        ===================
-        _get_technical_name
-        ===================
         This method produces a technical name with the content of values.
         :type values: dictionary
         :param values: used to create a technical address name
@@ -358,9 +355,6 @@ class address_address(orm.Model):
 
     def get_linked_partners(self, cr, uid, ids, context=None):
         """
-        ===================
-        get_linked_partners
-        ===================
         Return all partners ids linked to addresses ids
         :param: ids
         :type: list of addresses ids
@@ -415,15 +409,12 @@ class postal_coordinate(orm.Model):
                              context=context)
             name = res[1]
             if data['co_residency_id']:
-                name = "%s(%s)" % (name, data['co_residency_id'][1])
+                name = "%s (%s)" % (name, data['co_residency_id'][1])
             new_result.append((res[0], name))
         return new_result
 
     def get_fields_to_update(self, cr, uid, mode, context=None):
         """
-        ====================
-        get_fields_to_update
-        ====================
         :type mode: char
         :param mode: mode defining return values
         :rtype: dictionary
