@@ -118,7 +118,7 @@
         <!-- Pyramidal Confidentiality -->
 
         <record id="res_partner_base_r_rule" model="ir.rule">
-            <field name="name">Partner (R) for Mozaik Base</field>
+            <field name="name">Partner (R) for Mozaik</field>
             <field name="model_id" ref="base.model_res_partner"/>
             <field name="domain_force">[
                 '|',
@@ -135,7 +135,7 @@
         </record>
 
         <record id="res_partner_base_cud_rule" model="ir.rule">
-            <field name="name">Partner (CUD) for Mozaik Base</field>
+            <field name="name">Partner (CUD) for Mozaik</field>
             <field name="model_id" ref="base.model_res_partner"/>
             <field name="domain_force">[
                 ('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
@@ -146,12 +146,25 @@
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
-        <record id="postal_coordinate_base_rule" model="ir.rule">
-            <field name="name">Postal Coordinate for Mozaik</field>
+        <record id="postal_coordinate_base_r_rule" model="ir.rule">
+            <field name="name">Postal Coordinate (R) for Mozaik</field>
+            <field name="model_id" ref="mozaik_address.model_postal_coordinate"/>
+            <field name="domain_force">[
+              '|',
+              ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+              ('partner_id.int_mandate_ids','in',user._model.internal_mandates(user.env.cr,user.id))
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="postal_coordinate_base_cud_rule" model="ir.rule">
+            <field name="name">Postal Coordinate (CUD) for Mozaik</field>
             <field name="model_id" ref="mozaik_address.model_postal_coordinate"/>
             <field name="domain_force">[('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
             <field name="groups" eval="[(5,0,0)]"/>
-            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
@@ -168,21 +181,47 @@
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
-        <record id="email_coordinate_base_rule" model="ir.rule">
-            <field name="name">Email Coordinate for Mozaik</field>
+        <record id="email_coordinate_base_r_rule" model="ir.rule">
+            <field name="name">Email Coordinate (R) for Mozaik</field>
+            <field name="model_id" ref="mozaik_email.model_email_coordinate"/>
+            <field name="domain_force">[
+              '|',
+              ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+              ('partner_id.int_mandate_ids','in',user._model.internal_mandates(user.env.cr,user.id))
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="email_coordinate_base_cud_rule" model="ir.rule">
+            <field name="name">Email Coordinate (CUD) for Mozaik</field>
             <field name="model_id" ref="mozaik_email.model_email_coordinate"/>
             <field name="domain_force">[('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
             <field name="groups" eval="[(5,0,0)]"/>
-            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 
-        <record id="phone_coordinate_base_rule" model="ir.rule">
-            <field name="name">Phone Coordinate for Mozaik</field>
+        <record id="phone_coordinate_base_r_rule" model="ir.rule">
+            <field name="name">Phone Coordinate (R) for Mozaik</field>
+            <field name="model_id" ref="mozaik_phone.model_phone_coordinate"/>
+            <field name="domain_force">[
+              '|',
+              ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
+              ('partner_id.int_mandate_ids','in',user._model.internal_mandates(user.env.cr,user.id))
+            ]</field>
+            <field name="groups" eval="[(5,0,0)]"/>
+            <field name="perm_read" eval="1"/><field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/><field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="phone_coordinate_base_cud_rule" model="ir.rule">
+            <field name="name">Phone Coordinate (CUD) for Mozaik</field>
             <field name="model_id" ref="mozaik_phone.model_phone_coordinate"/>
             <field name="domain_force">[('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
             <field name="groups" eval="[(5,0,0)]"/>
-            <field name="perm_read" eval="1"/><field name="perm_write" eval="1"/>
+            <field name="perm_read" eval="0"/><field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/><field name="perm_unlink" eval="1"/>
         </record>
 

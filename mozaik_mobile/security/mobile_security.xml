@@ -3,7 +3,7 @@
     <data noupdate="0">
 
         <record id="virtual_mobile_partner_rule" model="ir.rule">
-            <field name="name">Partner/Mobile for Mozaik Base</field>
+            <field name="name">Partner/Mobile for Mozaik</field>
             <field name="model_id" ref="mozaik_mobile.model_virtual_mobile_partner"/>
             <field name="domain_force">[('int_instance_id','in',user._model.internal_instances(user.env.cr,user.id))]</field>
             <field name="groups" eval="[(5,0,0)]"/>

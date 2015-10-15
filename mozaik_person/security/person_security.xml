@@ -3,7 +3,7 @@
     <data noupdate="0">
 
         <record id="partner_involvement_category_base_c_rule" model="ir.rule">
-            <field name="name">Partner Involvement Category (C) for Mozaik Base</field>
+            <field name="name">Partner Involvement Category (C) for Mozaik</field>
             <field name="model_id" ref="mozaik_person.model_partner_involvement_category" />
             <field name="domain_force">[('res_users_ids', 'in', [user.id])]</field>
             <field name="groups" eval="[(5,0,0)]"/>

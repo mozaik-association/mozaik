@@ -53,7 +53,7 @@ account.account_comp_rule
         <!-- Pyramidal Confidentiality -->
 
         <record id="sta_selection_committee_base_rule" model="ir.rule">
-            <field name="name">State Selection Committee for Mozaik Base</field>
+            <field name="name">State Selection Committee for Mozaik</field>
             <field name="model_id" ref="mozaik_mandate.model_sta_selection_committee"/>
             <field name="domain_force">[
                 ('designation_int_assembly_id.instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
@@ -64,7 +64,7 @@ account.account_comp_rule
         </record>
 
         <record id="int_selection_committee_base_rule" model="ir.rule">
-            <field name="name">Internal Selection Committee for Mozaik Base</field>
+            <field name="name">Internal Selection Committee for Mozaik</field>
             <field name="model_id" ref="mozaik_mandate.model_int_selection_committee"/>
             <field name="domain_force">[
                 ('designation_int_assembly_id.instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
@@ -75,7 +75,7 @@ account.account_comp_rule
         </record>
 
         <record id="ext_selection_committee_base_rule" model="ir.rule">
-            <field name="name">External Selection Committee for Mozaik Base</field>
+            <field name="name">External Selection Committee for Mozaik</field>
             <field name="model_id" ref="mozaik_mandate.model_ext_selection_committee"/>
             <field name="domain_force">[
                 ('designation_int_assembly_id.instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
@@ -86,7 +86,7 @@ account.account_comp_rule
         </record>
 
         <record id="sta_candidature_base_rule" model="ir.rule">
-            <field name="name">State Candidature for Mozaik Base</field>
+            <field name="name">State Candidature for Mozaik</field>
             <field name="model_id" ref="mozaik_mandate.model_sta_candidature"/>
             <field name="domain_force">[
                 ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
@@ -98,7 +98,7 @@ account.account_comp_rule
         </record>
 
         <record id="int_candidature_base_rule" model="ir.rule">
-            <field name="name">Internal Candidature for Mozaik Base</field>
+            <field name="name">Internal Candidature for Mozaik</field>
             <field name="model_id" ref="mozaik_mandate.model_int_candidature"/>
             <field name="domain_force">[
                 ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
@@ -110,7 +110,7 @@ account.account_comp_rule
         </record>
 
         <record id="ext_candidature_base_rule" model="ir.rule">
-            <field name="name">External Candidature for Mozaik Base</field>
+            <field name="name">External Candidature for Mozaik</field>
             <field name="model_id" ref="mozaik_mandate.model_ext_candidature"/>
             <field name="domain_force">[
                 ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
@@ -122,7 +122,7 @@ account.account_comp_rule
         </record>
 
         <record id="sta_mandate_base_ru_rule" model="ir.rule">
-            <field name="name">State Mandate (RU) for Mozaik Base</field>
+            <field name="name">State Mandate (RU) for Mozaik</field>
             <field name="model_id" ref="mozaik_mandate.model_sta_mandate"/>
             <field name="domain_force">[
                 ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
@@ -133,7 +133,7 @@ account.account_comp_rule
         </record>
 
         <record id="sta_mandate_base_cd_rule" model="ir.rule">
-            <field name="name">State Mandate (CD) for Mozaik Base</field>
+            <field name="name">State Mandate (CD) for Mozaik</field>
             <field name="model_id" ref="mozaik_mandate.model_sta_mandate"/>
             <field name="domain_force">[
                 ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
@@ -145,7 +145,7 @@ account.account_comp_rule
         </record>
 
         <record id="int_mandate_base_rule" model="ir.rule">
-            <field name="name">Internal Mandate for Mozaik Base</field>
+            <field name="name">Internal Mandate for Mozaik</field>
             <field name="model_id" ref="mozaik_mandate.model_int_mandate"/>
             <field name="domain_force">[
                 '|',
@@ -158,7 +158,7 @@ account.account_comp_rule
         </record>
 
         <record id="ext_mandate_base_ru_rule" model="ir.rule">
-            <field name="name">External Mandate (RU) for Mozaik Base</field>
+            <field name="name">External Mandate (RU) for Mozaik</field>
             <field name="model_id" ref="mozaik_mandate.model_ext_mandate"/>
             <field name="domain_force">[
                 ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
@@ -169,7 +169,7 @@ account.account_comp_rule
         </record>
 
         <record id="ext_mandate_base_cd_rule" model="ir.rule">
-            <field name="name">External Mandate (CD) for Mozaik Base</field>
+            <field name="name">External Mandate (CD) for Mozaik</field>
             <field name="model_id" ref="mozaik_mandate.model_ext_mandate"/>
             <field name="domain_force">[
                 ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
@@ -181,7 +181,7 @@ account.account_comp_rule
         </record>
 
         <record id="generic_mandate_base_rule" model="ir.rule">
-            <field name="name">Generic Mandate for Mozaik Base</field>
+            <field name="name">Generic Mandate for Mozaik</field>
             <field name="model_id" ref="mozaik_mandate.model_generic_mandate"/>
             <field name="domain_force">[
                 ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
@@ -192,7 +192,7 @@ account.account_comp_rule
         </record>
 
         <record id="retrocession_base_rule" model="ir.rule">
-            <field name="name">Retrocession for Mozaik Base</field>
+            <field name="name">Retrocession for Mozaik</field>
             <field name="model_id" ref="mozaik_retrocession.model_retrocession"/>
             <field name="domain_force">[
                 ('partner_instance_id','in',user._model.internal_instances(user.env.cr,user.id)),
