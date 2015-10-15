@@ -405,7 +405,7 @@
             <field name="model">virtual.partner.mandate</field>
             <field name="arch" type="xml">
                 <search string="Partners/Mandates">
-                    <field name="identifier" />
+                    <field name="identifier" /> 
                     <field string="Birth Date > ..." name="birth_date"
                         filter_domain="[('birth_date','>',self)]" />
                     <field string="Birth Date &lt; ..." name="birth_date"
@@ -1125,6 +1125,9 @@
                     <field name="birth_date" />
                     <field name="gender" />
                     <field name="tongue" />
+
+                    <field name="postal_unauthorized" invisible="1" />
+                    <field name="email_unauthorized" invisible="1" />
                 </tree>
             </field>
         </record>
