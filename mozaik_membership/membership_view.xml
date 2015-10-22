@@ -108,6 +108,7 @@
                     <field string="To > ..." name="date_to" filter_domain="[('date_to','>', self)]" />
                     <field string="To &lt; ..." name="date_to" filter_domain="[('date_to','&lt;', self)]" />
 
+                    <field name="reference"/>
                     <field name="partner_id" domain="[('is_company','=',False),('identifier','!=',0)]"/>
                     <field name="int_instance_id"/>
                     <field name="state_id"/>
