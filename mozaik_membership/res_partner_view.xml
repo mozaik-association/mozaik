@@ -70,8 +70,7 @@
         </record>
 
         <record id="view_partner_form_address" model="ir.ui.view">
-            <field name="name">res.partner.form (mozaik_membership)
-            </field>
+            <field name="name">res.partner.form (mozaik_membership)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="mozaik_address.view_partner_form" />
             <field name="arch" type="xml">
