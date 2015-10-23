@@ -267,8 +267,12 @@
 
                         <group name="data">
                             <group name="data_1">
-                                <field name="email_coordinate_id" domain="[('partner_id', '=', partner_id)]" context="{'default_partner_id': partner_id}"/>
-                                <field name="postal_coordinate_id" domain="[('partner_id', '=', partner_id)]" context="{'default_partner_id': partner_id}"/>
+                                <field name="email_coordinate_id" domain="[('partner_id', '=', partner_id),('is_main', '=', False)]" context="{'default_partner_id': partner_id}"/>
+                                <label for="postal_coordinate_id"/>
+                                <div>
+                                    <field name="postal_coordinate_id" domain="[('partner_id', '=', partner_id),('is_main', '=', False)]" context="{'default_partner_id': partner_id}"/>
+                                    <span class="oe_grey">(Empty Coordinates = Use of Main Coordinates)</span>
+                                </div>
                             </group>
                             <group name="data_2">
                                 <field name="designation_int_assembly_id" required="1"/>
