@@ -8,7 +8,7 @@
         <record id="distribution_list_search" model="ir.ui.view">
             <field name="name">distribution.list.search (mozaik_communication)</field>
             <field name="model">distribution.list</field>
-            <field name="inherit_id" ref="distribution_list.distribution_list_search" />
+            <field name="inherit_id" ref="mass_mailing_distribution_list.distribution_list_search" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='dst_model_id']" position="replace"/>
                 <xpath expr="//field[@name='note']" position="replace"/>
@@ -53,7 +53,7 @@
         <record id="distribution_list_tree" model="ir.ui.view">
             <field name="name">distribution.list.tree (mozaik_communication)</field>
             <field name="model">distribution.list</field>
-            <field name="inherit_id" ref="distribution_list.distribution_list_tree" />
+            <field name="inherit_id" ref="mass_mailing_distribution_list.distribution_list_tree" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='dst_model_id']" position="replace">
                     <field name="dst_model_id" invisible="1"/>
