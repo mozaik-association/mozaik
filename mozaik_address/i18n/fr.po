@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-24 17:40+0000\n"
-"PO-Revision-Date: 2015-04-24 17:40+0000\n"
+"POT-Creation-Date: 2015-10-23 16:04+0000\n"
+"PO-Revision-Date: 2015-10-23 16:04+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,7 @@ msgid "Alternative Street"
 msgstr "Rue alternative"
 
 #. module: mozaik_address
-#: code:addons/mozaik_address/address_address.py:303
+#: code:addons/mozaik_address/address_address.py:299
 #, python-format
 msgid "An Address without sequence number cannot be duplicated!"
 msgstr "Une adresse sans numéro de séquence ne peut être dupliquée !"
@@ -154,7 +154,7 @@ msgid "Co-Residency"
 msgstr "Co-Résidence"
 
 #. module: mozaik_address
-#: code:addons/mozaik_address/address_address.py:487
+#: code:addons/mozaik_address/address_address.py:476
 #, python-format
 msgid "Co-Residency to complete"
 msgstr "Co-Résidence à compléter"
@@ -260,7 +260,7 @@ msgid "Empty Co-Residencies"
 msgstr "Co-Résidences vides"
 
 #. module: mozaik_address
-#: code:addons/mozaik_address/address_address.py:302
+#: code:addons/mozaik_address/address_address.py:298
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -453,7 +453,7 @@ msgstr "Ligne 2"
 #: view:address.local.street:mozaik_address.address_local_street_tree_view
 #: model:ir.model,name:mozaik_address.model_address_local_street
 msgid "Local Street"
-msgstr "Rue locales"
+msgstr "Rue locale"
 
 #. module: mozaik_address
 #: view:address.local.street:mozaik_address.address_local_street_form_view

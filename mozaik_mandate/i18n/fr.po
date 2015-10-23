@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-02 14:49+0000\n"
-"PO-Revision-Date: 2015-10-02 14:49+0000\n"
+"POT-Creation-Date: 2015-10-23 17:54+0000\n"
+"PO-Revision-Date: 2015-10-23 17:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,11 @@ msgstr "#PS"
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
+
+#. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
+msgid "(Empty Coordinates = Use of Main Coordinates)"
+msgstr "(Coordonnées vides = Utilisation des coordonnées principales)"
 
 #. module: mozaik_mandate
 #: constraint:abstract.candidature:0
@@ -230,6 +235,11 @@ msgstr "Mandats incompatibles autorisés"
 #: sql_constraint:mandate.category:0
 msgid "An Assembly Category is required."
 msgstr "Une catégorie d'assemblée est obligatoire."
+
+#. module: mozaik_mandate
+#: view:res.partner:mozaik_mandate.view_partner_form
+msgid "Assemblies"
+msgstr "Assemblées"
 
 #. module: mozaik_mandate
 #: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_search_view
@@ -704,15 +714,15 @@ msgid "Expired Mandates"
 msgstr "Mandats expirés"
 
 #. module: mozaik_mandate
+#: view:int.instance:mozaik_mandate.abstract_instance_form_view
+msgid "Ext. Mandates"
+msgstr "Mandats ext."
+
+#. module: mozaik_mandate
 #: model:ir.ui.menu,name:mozaik_mandate.ext_submenu
 #: selection:mandate.category,type:0
 msgid "External"
 msgstr "Externe"
-
-#. module: mozaik_mandate
-#: view:res.partner:mozaik_mandate.view_partner_form
-msgid "External Assemblies"
-msgstr "Assemblées externes"
 
 #. module: mozaik_mandate
 #: field:copy.ext.mandate.wizard,assembly_id:0
@@ -761,7 +771,6 @@ msgstr "Mandat externe"
 
 #. module: mozaik_mandate
 #: field:ext.candidature,mandate_ids:0
-#: view:int.instance:mozaik_mandate.abstract_instance_form_view
 #: model:ir.actions.act_window,name:mozaik_mandate.ext_mandate_action
 #: model:ir.ui.menu,name:mozaik_mandate.ext_mandate_submenu
 #: field:mandate.category,ext_mandate_ids:0
@@ -949,6 +958,11 @@ msgid "Indexation"
 msgstr "Indexation"
 
 #. module: mozaik_mandate
+#: view:int.instance:mozaik_mandate.abstract_instance_form_view
+msgid "Int. Mandates"
+msgstr "Mandats int."
+
+#. module: mozaik_mandate
 #: model:ir.ui.menu,name:mozaik_mandate.int_submenu
 #: selection:mandate.category,type:0
 msgid "Internal"
@@ -1008,7 +1022,6 @@ msgstr "Mandat interne"
 
 #. module: mozaik_mandate
 #: field:int.candidature,mandate_ids:0
-#: view:int.instance:mozaik_mandate.abstract_instance_form_view
 #: model:ir.actions.act_window,name:mozaik_mandate.int_mandate_action
 #: model:ir.ui.menu,name:mozaik_mandate.int_mandate_submenu
 #: field:mandate.category,int_mandate_ids:0
@@ -1285,9 +1298,7 @@ msgid "Mandate Start Date"
 msgstr "Date de début de mandat"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/sta_mandate.py:771
 #: constraint:sta.mandate:0
-#, python-format
 msgid "Mandate period is inconsistent with legislature period!"
 msgstr "La période du mandat est incohérente avec celle de la législature !"
 
@@ -1751,6 +1762,16 @@ msgid "Source File"
 msgstr "Fichier d'entrée"
 
 #. module: mozaik_mandate
+#: view:int.instance:mozaik_mandate.abstract_instance_form_view
+msgid "St. Candidatures"
+msgstr "Candidatures pol."
+
+#. module: mozaik_mandate
+#: view:int.instance:mozaik_mandate.abstract_instance_form_view
+msgid "St. Mandates"
+msgstr "Mandats pol."
+
+#. module: mozaik_mandate
 #: field:abstract.copy.mandate.wizard,start_date:0
 #: field:abstract.mandate,start_date:0
 #: field:copy.ext.mandate.wizard,start_date:0
@@ -1793,7 +1814,6 @@ msgid "State Candidature"
 msgstr "Candidature politique"
 
 #. module: mozaik_mandate
-#: view:int.instance:mozaik_mandate.abstract_instance_form_view
 #: model:ir.actions.act_window,name:mozaik_mandate.sta_candidature_action
 #: model:ir.ui.menu,name:mozaik_mandate.sta_candidature_submenu
 #: view:res.partner:mozaik_mandate.view_partner_form
@@ -1821,7 +1841,6 @@ msgid "State Mandate"
 msgstr "Mandat politique"
 
 #. module: mozaik_mandate
-#: view:int.instance:mozaik_mandate.abstract_instance_form_view
 #: model:ir.actions.act_window,name:mozaik_mandate.sta_mandate_action
 #: model:ir.ui.menu,name:mozaik_mandate.sta_mandate_submenu
 #: field:mandate.category,sta_mandate_ids:0
