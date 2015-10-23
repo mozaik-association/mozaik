@@ -123,6 +123,20 @@ class test_distribution_list(common.TransactionCase):
         self.assertTrue(mail_ids, 'Partner of the mailing object is into '
                         'the owner of the distribution list so it should '
                         'be possible to make a mail forwarding')
+        vals = {
+            'res_users_ids': [(3, user_id, False)],
+            'res_partner_m2m_ids': [(6, 0, [partner_id])],
+        }
+        self.dl_obj.write(cr, uid, [dl_id], vals, context=context)
+        self.dl_obj.distribution_list_forwarding(
+            cr, uid, msg, dl_id, context=context)
+        mail_ids = self.mail_obj.search(
+            cr, uid,
+            [('res_id', '=', e_id), ('model', '=', 'email.coordinate')],
+            context=context)
+        self.assertTrue(mail_ids, 'Partner of the mailing object is into '
+                        'the allowed partner of the distribution list so'
+                        'it should be possible to make a mail forwarding')
 
     def test_newsletter_code_unique(self):
         cr, uid, context = self.cr, self.uid, {}

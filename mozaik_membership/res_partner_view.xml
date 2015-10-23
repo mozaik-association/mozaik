@@ -146,11 +146,12 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//page[@name='user']" position="inside">
-                    <separator string="Internal Instances" />
+                    <separator string="Internal Instances" attrs="{'invisible': [('is_company','=', True)]}"/>
                     <field name="int_instance_m2m_ids" widget="many2many_tags"
                         placeholder="Instances..."
-                        attrs="{'required': [('user_ids','!=',[]),('membership_state_id','!=',False)]}" />
-                    <div class="oe_clear">
+                        attrs="{'required': [('user_ids','!=',[]),('membership_state_id','!=',False)],
+                        'invisible': [('is_company','=', True)]}" />
+                    <div class="oe_clear" attrs="{'invisible': [('is_company','=', True)]}">
                         <!-- Some blank lines to see the entire elapsed many2many_tags widget -->
                         <br />
                         <br />

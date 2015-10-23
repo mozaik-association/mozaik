@@ -42,3 +42,5 @@ class ResPartner(models.Model):
                                   column2='distribution_list_id',
                                   string='Opt-In',
                                   domain=[('newsletter', '=', True)])
+    responsible_user_id = fields.Many2one(
+        comodel_name='res.users', string='Responsible User', index=True)

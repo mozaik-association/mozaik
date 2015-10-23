@@ -105,6 +105,11 @@ class distribution_list(orm.Model):
         'partner_id': fields.many2one(
             'res.partner', string='Partner Diffusion',
             select=True, track_visibility='onchange'),
+        'res_partner_m2m_ids': fields.many2many(
+            'res.partner', string='Allowed Partners',
+            rel='distribution_list_res_partner_rel',
+            column1='distribution_list_id', column2='res_partner_id',
+            track_visibility='onchange'),
     }
 
     code = new_fields.Char('Code', track_visibility='onchange')
@@ -179,31 +184,48 @@ class distribution_list(orm.Model):
         noway = 'No coordinate found with address: %s' % msg['email_from']
         coordinate_ids = self._get_mailing_object(
             cr, uid, dl_id, msg['email_from'], context=context)
-        if coordinate_ids:
+        if len(coordinate_ids) == 1:
             coo_values = self.pool['email.coordinate'].read(
                 cr, uid, coordinate_ids[0], ['partner_id'], context=context)
             partner_id = coo_values.get('partner_id') and \
                 coo_values['partner_id'][0] or False
             noway = 'Orphan coordinate [%s]' % coordinate_ids[0]
             if partner_id:
-                user_ids = self.pool['res.users'].search(
-                    cr, uid, [('partner_id', '=', partner_id)],
-                    context=context)
-                user_id = user_ids and user_ids[0] or False
-                noway = 'Partner [%s] is not a user' % partner_id
-                if user_id:
-                    dl_values = self.read(
-                        cr, uid, dl_id, ['res_users_ids'], context=context)
-                    owner_ids = dl_values.get('res_users_ids', False)
-                    noway = 'User [%s] is not an owner %s' % (
-                        user_id, owner_ids)
-                    if user_id in owner_ids:
-                        ctx['field_main_object'] = 'email_coordinate_id'
-                        return super(distribution_list, self).\
-                            distribution_list_forwarding(
-                                cr, user_id, msg, dl_id, context=ctx)
-        _logger.warning(
-            'Mail forwarding aborted. Reason: %s' % noway)
+                user_id = False
+                is_partner_allowed = False
+                dl = self.browse(cr, uid, dl_id, context=context)
+                if partner_id in [p.id for p in dl.res_partner_m2m_ids]:
+                    is_partner_allowed = True
+                if not is_partner_allowed:
+                    if partner_id in\
+                            [p.partner_id.id for p in dl.res_users_ids]:
+                        is_partner_allowed = True
+                noway = 'Partner [%s] is not into owners or into '\
+                    'allowed partners' % partner_id
+                if is_partner_allowed:
+                    partner = self.pool['res.partner'].browse(
+                        cr, uid, partner_id, context=context)
+                    res_users_model = self.pool['res.users']
+                    if partner.is_company and partner.responsible_user_id:
+                        user_id = partner.responsible_user_id.id
+                    else:
+                        domain = [
+                            ('partner_id', '=', partner_id),
+                        ]
+                        user_id = res_users_model.search(
+                            cr, uid, domain, context=context)[0]
+                    noway = 'Partner [%s] is not a user' % partner_id
+                    if user_id:
+                        noway = 'User [%s] is not into the '\
+                            'Mozaik User' % partner_id
+                        if self.pool['res.users'].has_group(
+                                cr, user_id,
+                                'mozaik_base.mozaik_res_groups_user'):
+                            ctx['field_main_object'] = 'email_coordinate_id'
+                            return super(distribution_list, self).\
+                                distribution_list_forwarding(
+                                    cr, user_id, msg, dl_id, context=ctx)
+        _logger.warning('Mail forwarding aborted. Reason: %s' % noway)
 
     def _register_hook(self, cr):
         super(distribution_list, self)._register_hook(cr)
