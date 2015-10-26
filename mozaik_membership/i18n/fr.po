@@ -636,7 +636,7 @@ msgstr ""
 #: field:virtual.master.partner,identifier:0
 #: field:waiting.member.report,identifier:0
 msgid "Identifier"
-msgstr "Identifiant"
+msgstr "Numéro"
 
 #. module: mozaik_membership
 #: help:membership.line,message_unread:0

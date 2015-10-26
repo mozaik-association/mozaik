@@ -818,11 +818,6 @@ msgid "Identification Number"
 msgstr "Numéro d'identification"
 
 #. module: mozaik_communication
-#: field:virtual.target,identifier:0
-msgid "Identifier"
-msgstr "Identifiant"
-
-#. module: mozaik_communication
 #: help:distribution.list.line,message_unread:0
 #: help:postal.mail,message_unread:0
 #: help:postal.mail.log,message_unread:0
@@ -1301,6 +1296,7 @@ msgstr "Novembre"
 #: field:virtual.partner.membership,identifier:0
 #: field:virtual.partner.relation,identifier:0
 #: field:virtual.partner.retrocession,identifier:0
+#: field:virtual.target,identifier:0
 msgid "Number"
 msgstr "Numéro"
 

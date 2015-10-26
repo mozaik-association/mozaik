@@ -44,7 +44,7 @@ class virtual_master_partner(orm.Model):
             'membership.state',
             'Membership State'),
         'display_name': fields.char('Display Name'),
-        'identifier': fields.integer('Identifier', group_operator='min'),
+        'identifier': fields.integer('Number', group_operator='min'),
         'lastname': fields.char('Lastname'),
         'firstname': fields.char('Firstname'),
         'birth_date': fields.date('Birth Date'),
@@ -88,7 +88,7 @@ class virtual_master_partner(orm.Model):
             p.is_company as is_company,
 
             e.bounce_counter as email_bounce_counter,
-            pc.bounce_counter as postal_bounce_coutner,
+            pc.bounce_counter as postal_bounce_counter,
 
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,

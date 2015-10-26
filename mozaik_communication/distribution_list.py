@@ -78,16 +78,15 @@ class distribution_list(orm.Model):
                 cr, uid, dl_id).dst_model_id.model
             t_model = self.pool(target_model_name)
             res = list(res)
-            t_recs = t_model.browse(cr, uid, list(res), context=context)
-            p_ids = []
-            for t_rec in t_recs:
-                p_id = t_rec.partner_id.id
-                if p_id not in p_ids:
-                    p_ids.append(p_id)
-                    domain = [
-                        ('partner_id', '=', p_id)
-                    ]
-                    res += t_model.search(cr, uid, domain, context=context)
+            t_recs = t_model.read(
+                cr, uid, res, ['partner_id'],
+                load='_classic_write', context=context)
+            p_ids = [r['partner_id'] for r in t_recs]
+            if p_ids:
+                domain = [
+                    ('partner_id', 'in', p_ids)
+                ]
+                res = t_model.search(cr, uid, domain, context=context)
             res = set(res)
         return res
 
@@ -181,7 +180,8 @@ class distribution_list(orm.Model):
         ctx = context.copy()
         ctx['email_coordinate_path'] = 'email'
 
-        noway = 'No coordinate found with address: %s' % msg['email_from']
+        noway = 'No unique coordinate found with address: %s' % \
+            msg['email_from']
         coordinate_ids = self._get_mailing_object(
             cr, uid, dl_id, msg['email_from'], context=context)
         if len(coordinate_ids) == 1:
@@ -200,8 +200,8 @@ class distribution_list(orm.Model):
                     if partner_id in\
                             [p.partner_id.id for p in dl.res_users_ids]:
                         is_partner_allowed = True
-                noway = 'Partner [%s] is not into owners or into '\
-                    'allowed partners' % partner_id
+                noway = 'Partner [%s] is not an owner nor ' \
+                    'an allowed partner' % partner_id
                 if is_partner_allowed:
                     partner = self.pool['res.partner'].browse(
                         cr, uid, partner_id, context=context)

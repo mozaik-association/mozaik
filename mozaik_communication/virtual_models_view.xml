@@ -14,7 +14,6 @@
                     <field name="postal" />
                     <field name="membership_state_id" />
                     <field name="int_instance_id" />
-                    <field name="identifier" />
                     <field name="postal_unauthorized" invisible="1" />
                     <field name="email_unauthorized" invisible="1" />
                 </tree>
