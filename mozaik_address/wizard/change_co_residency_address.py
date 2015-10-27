@@ -134,7 +134,8 @@ class change_co_residency_address(orm.TransientModel):
         if new_coord_ids:
             ctx = dict(
                 context or {}, active_model=coord_obj._name,
-                active_ids=new_coord_ids
+                active_ids=new_coord_ids,
+                active_id=new_coord_ids[0],
             )
             dupl_wiz_id = dupl_wiz_obj.create(cr, uid, {}, context=ctx)
             res = dupl_wiz_obj.button_allow_duplicate(cr,
