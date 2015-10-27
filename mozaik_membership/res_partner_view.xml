@@ -117,10 +117,11 @@
 
                 <xpath expr="//header/div" position="inside">
                     <button name="button_modification_request" string="Modification Request" 
-                            type="object" attrs="{'invisible': [('kind', '!=', 'm')]}"
+                            type="object" attrs="{'invisible': [('membership_state_code', '!=', 'member')]}"
                             invisible="(context.get('uid',0)!=1) and (context.get('in_mozaik_officer') or not context.get('in_mozaik_user'))"/>
                     <button name="button_modification_request" string="Membership Request" 
-                            type="object" attrs="{'invisible': ['|', ('kind', '=', 'm'), ('is_company', '=', True)]}"/>
+                            type="object" attrs="{'invisible': ['|', ('kind', 'in', ['a','t','c']), ('membership_state_code', '=', 'member')]}"
+                            groups="mozaik_base.mozaik_res_groups_user"/>
                 </xpath>
 
                 <xpath expr="//header/div/button[@name='action_invalidate']" position="attributes">
