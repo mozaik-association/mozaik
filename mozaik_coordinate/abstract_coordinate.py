@@ -472,11 +472,14 @@ class abstract_coordinate(orm.AbstractModel):
         limit = 1 if not invalidate else False
         rejected_ids = []
         for coordinate in self.browse(cr, uid, ids, context=context):
+            if invalidate:
+                domain = ('id', 'not in', ids)
+            else:
+                domain = ('id', '!=', coordinate.id)
             coord_ids = self.search(
                 cr, uid, [('partner_id', '=', coordinate.partner_id.id),
                           ('coordinate_type', '=', coordinate.coordinate_type),
-                          ('id', '!=', coordinate.id)], limit=limit,
-                context=context)
+                          domain], limit=limit, context=context)
             if coordinate.is_main and len(coord_ids) == 1:
                 new_main = self.browse(cr, uid, coord_ids[0], context=context)
                 context['invalidate'] = invalidate
@@ -497,5 +500,5 @@ class abstract_coordinate(orm.AbstractModel):
         context = context.copy() if context else {}
         rejected_ids = self.ensure_one_main_coordinate(
             cr, uid, ids, invalidate=True, context=context)
-        return super(abstract_coordinate, self). action_invalidate(
+        return super(abstract_coordinate, self).action_invalidate(
             cr, uid, rejected_ids, context=context, vals=vals)
