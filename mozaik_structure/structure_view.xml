@@ -608,7 +608,8 @@
             <field name="inherit_id" ref="abstract_assembly_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='instance_id']" position="before">
-                     <field name="ref_partner_id" domain="[('is_company','=',True),('is_assembly','=',False)]"/>
+                     <field name="ref_partner_id" domain="[('is_company','=',True),('is_assembly','=',False)]"
+                            context="{'default_is_company': True}"/>
                 </xpath>
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
                      <field name="designation_int_assembly_id" required="1"/>
