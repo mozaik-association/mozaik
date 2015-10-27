@@ -92,9 +92,6 @@ class change_main_address(orm.TransientModel):
 
     @api.multi
     def button_change_main_coordinate(self):
-        res = super(change_main_address,
-                    self._model).button_change_main_coordinate(
-            self.env.cr, self.env.uid, self.ids, self.env.context.copy())
         if self.co_residency_id and self.move_co_residency:
             cores_wiz_obj = self.env['change.co.residency.address']
             vals = {
@@ -106,4 +103,7 @@ class change_main_address(orm.TransientModel):
             }
             wizard = cores_wiz_obj.create(vals)
             wizard.change_address()
+        res = super(change_main_address,
+                    self._model).button_change_main_coordinate(
+            self.env.cr, self.env.uid, self.ids, self.env.context.copy())
         return res
