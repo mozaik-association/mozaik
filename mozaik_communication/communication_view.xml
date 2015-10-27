@@ -2,6 +2,12 @@
 <openerp>
     <data noupdate="0">
 
+        <template id="assets_backend" name="backend_mozaik_communication" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/mozaik_communication/static/src/js/mozaik_communication.js"></script>
+            </xpath>
+        </template>
+
         <!--
             Distribution Lists:
             - Distribution Lists

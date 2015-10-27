@@ -68,7 +68,7 @@ class abstract_virtual_target(orm.AbstractModel):
 class virtual_target(orm.Model):
     _name = "virtual.target"
     _description = "Searching Result"
-    _inherit = ['virtual.master.partner']
+    _inherit = ['virtual.master.partner', 'abstract.virtual.target']
     _auto = False
 
 # orm methods
