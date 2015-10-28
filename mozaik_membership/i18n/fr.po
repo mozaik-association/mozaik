@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-23 17:54+0000\n"
-"PO-Revision-Date: 2015-10-23 17:54+0000\n"
+"POT-Creation-Date: 2015-10-28 18:57+0000\n"
+"PO-Revision-Date: 2015-10-28 18:57+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -322,6 +322,11 @@ msgid "Decline Payment Date"
 msgstr "Date de refus de paiement"
 
 #. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Decline membership payment request: proceed anyway?"
+msgstr "Poursuivre le refus de paiement ?"
+
+#. module: mozaik_membership
 #: field:virtual.custom.partner,display_name:0
 #: field:virtual.master.partner,display_name:0
 msgid "Display Name"
@@ -388,6 +393,16 @@ msgstr "Erreur"
 #: view:res.partner:mozaik_membership.view_partner_form_membership
 msgid "Exclude"
 msgstr "Exclure"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Exclude former member: proceed anyway?"
+msgstr "Poursuivre l'exclusion de l'ancien membre ?"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Exclude member: proceed anyway?"
+msgstr "Poursuivre l'exclusion du membre ?"
 
 #. module: mozaik_membership
 #: field:res.partner,exclusion_date:0
@@ -632,8 +647,6 @@ msgstr ""
 
 #. module: mozaik_membership
 #: field:membership.request,identifier:0
-#: field:virtual.custom.partner,identifier:0
-#: field:virtual.master.partner,identifier:0
 #: field:waiting.member.report,identifier:0
 msgid "Identifier"
 msgstr "Numéro"
@@ -1073,6 +1086,8 @@ msgstr "Notes"
 
 #. module: mozaik_membership
 #: field:membership.request,number:0
+#: field:virtual.custom.partner,identifier:0
+#: field:virtual.master.partner,identifier:0
 msgid "Number"
 msgstr "Numéro"
 
@@ -1255,6 +1270,11 @@ msgid "Reject"
 msgstr "Exclure"
 
 #. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Reject member candidate: proceed anyway?"
+msgstr "Poursuivre le rejet du candidat membre?"
+
+#. module: mozaik_membership
 #: field:res.partner,rejected_date:0
 msgid "Rejected Date"
 msgstr "Date d'exclusion"
@@ -1276,13 +1296,18 @@ msgstr "Poursuivre la réinitialisation de la date ?"
 
 #. module: mozaik_membership
 #: view:res.partner:mozaik_membership.view_partner_form_membership
-msgid "Reset Partner Membership State: proceed anyway?"
+msgid "Reset membership state: proceed anyway?"
 msgstr "Poursuivre la réinitialisation de l'état d'adhésion ?"
 
 #. module: mozaik_membership
 #: view:res.partner:mozaik_membership.view_partner_form_membership
 msgid "Resign"
 msgstr "Démissionner"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Resign person: proceed anyway?"
+msgstr "Confirmer la démission de la personne ?"
 
 #. module: mozaik_membership
 #: field:res.partner,resignation_date:0

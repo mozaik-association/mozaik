@@ -171,15 +171,13 @@
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
                 <notebook position="inside">
-                    <page string="Memberships"
-                        attrs="{'invisible':[('membership_state_id','in',
-                        [False, %(mozaik_membership.without_membership)d])]}">
+                    <page name="memberships" string="Memberships"
+                        attrs="{'invisible': [('membership_state_code', 'in', [False, 'without_membership'])]}">
 
                         <div name="state_management">
                             <button name="accept" string="Accept"
                                 groups="mozaik_base.res_groups_developper"
-                                attrs="{'invisible': [('membership_state_code', '!=', 'member_committee'),
-                                ('membership_state_code', '!=', 'former_member_committee')]}" />
+                                attrs="{'invisible': [('membership_state_code', 'not in', ['member_committee', 'former_member_committee'])]}" />
 
                             <button name="register_free_membership" string="Free Membership" type="object"
                                 groups="mozaik_base.mozaik_res_groups_configurator,mozaik_base.mozaik_res_groups_financial_manager"
@@ -190,33 +188,29 @@
                                 groups="mozaik_base.res_groups_developper"
                                 attrs="{'invisible': [('membership_state_code', 'not in', ['member_candidate', 'member', 'supporter', 'former_member']),]}" />
 
-                            <button name="decline_payment"
-                                string="Decline Payment" type="object"
-                                attrs="{'invisible': [('membership_state_code', '!=', 'member_candidate'),
-                                ('membership_state_code', '!=', 'member')]}" />
+                            <button name="decline_payment" string="Decline Payment" type="object"
+                                confirm="Decline membership payment request: proceed anyway?"
+                                attrs="{'invisible': ['|', ('membership_state_code', 'not in', ['member_candidate', 'member']), ('reference', '=', False)]}" />
 
-                            <button name="reject" string="Reject"
-                                type="object"
-                                attrs="{'invisible': [('membership_state_code', '!=', 'member_candidate'),
-                                ('membership_state_code', '!=', 'member_committee')]}" />
+                            <button name="reject" string="Reject" type="object"
+                                confirm="Reject member candidate: proceed anyway?"
+                                attrs="{'invisible': [('membership_state_code', 'not in', ['member_candidate', 'member_committee'])]}" />
 
-                            <button name="exclude" string="Exclude"
-                                type="object"
-                                attrs="{'invisible': [('membership_state_code', '!=', 'member'),
-                                ('membership_state_code', '!=', 'former_member'),
-                                ('membership_state_code', '!=', 'former_member_committee')]}" />
+                            <button name="exclude_former" string="Exclude" type="object"
+                                confirm="Exclude former member: proceed anyway?"
+                                attrs="{'invisible': [('membership_state_code', 'not in', ['former_member', 'former_member_committee'])]}" />
 
-                            <button name="resign" string="Resign"
-                                type="object"
-                                attrs="{'invisible': [('membership_state_code', '!=', 'member'),
-                                ('membership_state_code', '!=', 'former_member'),
-                                ('membership_state_code', '!=', 'supporter')]}" />
+                            <button name="exclude_member" string="Exclude" type="object"
+                                confirm="Exclude member: proceed anyway?"
+                                attrs="{'invisible': [('membership_state_code', 'not in', ['member'])]}" />
+
+                            <button name="resign" string="Resign" type="object"
+                                confirm="Resign person: proceed anyway?"
+                                attrs="{'invisible': [('membership_state_code', 'not in', ['member', 'former_member', 'supporter'])]}" />
 
                             <button name="reset" string="Reset"
-                                confirm="Reset Partner Membership State: proceed anyway?"
-                                attrs="{'invisible': [('membership_state_code', 'not in',
-                                ['former_supporter', 'resignation_former_member', 'break_former_member',
-                                 'inappropriate_former_member', 'expulsion_former_member'])]}" />
+                                confirm="Reset membership state: proceed anyway?"
+                                attrs="{'invisible': [('membership_state_code', 'not in', ['former_supporter', 'resignation_former_member', 'break_former_member', 'inappropriate_former_member', 'expulsion_former_member'])]}" />
                         </div>
                         <group name="membership_data">
                             <group name="membership_subscription">
