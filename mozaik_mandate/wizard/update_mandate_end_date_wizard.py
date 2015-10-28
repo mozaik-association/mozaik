@@ -24,10 +24,7 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT,\
-    DEFAULT_SERVER_DATE_FORMAT
 from openerp.tools.translate import _
-from datetime import datetime as dt
 
 
 class abstract_update_mandate_end_date_wizard(orm.AbstractModel):
@@ -65,8 +62,7 @@ class abstract_update_mandate_end_date_wizard(orm.AbstractModel):
         res['mandate_id'] = mandate.id
 
         if mode == 'end_date':
-            res['mandate_end_date'] = dt.today().strftime(
-                DEFAULT_SERVER_DATETIME_FORMAT)
+            res['mandate_end_date'] = fields.date.today()
 
             if mandate.active:
                 res['message'] = _('Mandate will be invalidated'
@@ -77,7 +73,8 @@ class abstract_update_mandate_end_date_wizard(orm.AbstractModel):
             if not mandate.mandate_category_id.active:
                 res['message'] = _('The mandate category is not active'
                                    ' anymore!')
-            if not mandate.designation_int_assembly_id.active:
+            if mandate.designation_int_assembly_id and \
+                    not mandate.designation_int_assembly_id.active:
                 res['message'] = _('The designation assembly is not active'
                                    ' anymore!')
             if not mandate.partner_id.active:
@@ -88,19 +85,23 @@ class abstract_update_mandate_end_date_wizard(orm.AbstractModel):
     def set_mandate_end_date(self, cr, uid, ids, context=None):
         model = context.get('active_model', False)
         wizard = self.browse(cr, uid, ids, context=context)[0]
-        if(dt.strptime(wizard.mandate_end_date,
-                       DEFAULT_SERVER_DATE_FORMAT) >
-           dt.strptime(fields.datetime.now(),
-                       DEFAULT_SERVER_DATETIME_FORMAT)):
-            raise orm.except_orm(_('Warning'),
-                                 _('End date must be lower or'
-                                   ' equal than today !'))
-        vals = {}
-        vals['end_date'] = wizard.mandate_end_date
+        if wizard.mandate_end_date > fields.date.today():
+            raise orm.except_orm(
+                _('Warning'),
+                _('End date must be lower or equal than today!'))
+        if wizard.mandate_end_date > wizard.mandate_id.deadline_date:
+            raise orm.except_orm(
+                _('Warning'),
+                _('End date must be lower or equal than deadline date!'))
+        if wizard.mandate_id.start_date > wizard.mandate_end_date:
+            raise orm.except_orm(
+                _('Warning'),
+                _('End date must be greater or equal than start date!'))
+        vals = {'end_date': wizard.mandate_end_date}
         if wizard.mandate_id.active:
             self.pool[model].action_invalidate(cr,
                                                uid,
-                                               wizard.mandate_id.id,
+                                               [wizard.mandate_id.id],
                                                context=context,
                                                vals=vals)
         else:
@@ -110,25 +111,26 @@ class abstract_update_mandate_end_date_wizard(orm.AbstractModel):
     def reactivate_mandate(self, cr, uid, ids, context=None):
         model = context.get('active_model', False)
         wizard = self.browse(cr, uid, ids, context=context)[0]
-        if(dt.strptime(wizard.mandate_deadline_date,
-                       DEFAULT_SERVER_DATE_FORMAT) <=
-           dt.strptime(fields.datetime.now(),
-                       DEFAULT_SERVER_DATETIME_FORMAT)):
-            raise orm.except_orm(_('Warning'),
-                                 _('New deadline date must be greater'
-                                   ' than today !'))
-        vals = {'deadline_date': wizard.mandate_deadline_date,
-                'end_date': False,
-                'active': True}
+        if wizard.mandate_deadline_date <= fields.date.today():
+            raise orm.except_orm(
+                _('Warning'),
+                _('New deadline date must be greater than today !'))
 
-        if not wizard.mandate_id.postal_coordinate_id.active:
+        vals = {
+            'deadline_date': wizard.mandate_deadline_date,
+            'end_date': False,
+        }
+
+        if wizard.mandate_id.postal_coordinate_id and \
+                not wizard.mandate_id.postal_coordinate_id.active:
             vals['postal_coordinate_id'] = False
 
-        if not wizard.mandate_id.email_coordinate_id.active:
+        if wizard.mandate_id.email_coordinate_id and \
+                not wizard.mandate_id.email_coordinate_id.active:
             vals['email_coordinate_id'] = False
 
-        self.pool[model].write(cr, uid, wizard.mandate_id.id,
-                               vals=vals, context=context)
+        self.pool[model].action_revalidate(
+            cr, uid, wizard.mandate_id.id, vals=vals, context=context)
 
 
 class update_sta_mandate_end_date_wizard(orm.TransientModel):

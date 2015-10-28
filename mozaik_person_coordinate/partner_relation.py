@@ -240,3 +240,32 @@ class partner_relation(orm.Model):
             default=default,
             context=context)
         return res
+
+# public methods
+
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+        """
+        Invalidates relations at the current date
+        :rparam: True
+        :rtype: boolean
+        """
+        vals = vals or {}
+        date_to = vals.get('date_to') or fields.date.today()
+        for rel in self.browse(cr, uid, ids, context=context):
+            if rel.date_to and date_to >= rel.date_to:
+                date_to = rel.date_to
+            if not rel.date_from:
+                date_to = False
+            elif date_to <= rel.date_from:
+                date_to = rel.date_from
+
+            vals = {'date_to': date_to}
+
+            if rel.date_from > fields.date.today():
+                vals = {'date_to': False, 'date_from': False}
+
+            super(partner_relation, self).action_invalidate(
+                cr, uid, [rel.id],
+                context=context, vals=vals)
+
+        return True

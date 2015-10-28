@@ -630,12 +630,8 @@ class res_partner(orm.Model):
 
                 if current_membership_line_id:
                     # update and copy it
-                    vals = {
-                        'date_to': today,
-                    }
                     membership_line_obj.action_invalidate(
-                        cr, uid, [current_membership_line_id],
-                        context=context, vals=vals)
+                        cr, uid, [current_membership_line_id], context=context)
                     membership_line_obj.copy(
                         cr, uid, current_membership_line_id, default=values,
                         context=context)

@@ -224,12 +224,7 @@
         </record>
 
         <record id="extm_paul_membre_ag" model="ext.mandate">
-            <field name="mandate_category_id" ref="mc_membre_effectif_ag"/>
-            <field name="designation_int_assembly_id" ref="int_assembly_01"/>
-            <field name="ext_assembly_id" ref="ext_assembly_02"/>
             <field name="start_date">2013-12-01</field>
-            <field name="deadline_date">2018-04-15</field>
-            <field name="partner_id" ref="res_partner_paul"/>
             <field name="retro_instance_id" ref ="mozaik_structure.int_instance_01"/>
             <field name="retrocession_mode">month</field>
         </record>

@@ -777,26 +777,6 @@ class sta_mandate(orm.Model):
 
 # view methods: onchange, button
 
-    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
-        """
-        Invalidates an object
-        :rparam: True
-        :rtype: boolean
-        Note: Argument vals must be the last in the signature
-        """
-        return super(sta_mandate, self).action_invalidate(cr, uid, ids,
-                                                          context=context,
-                                                          vals=vals)
-
-    def action_finish(self, cr, uid, ids, context=None):
-        """
-        Finish mandate at the current date
-        :rparam: True
-        :rtype: boolean
-        """
-        return super(sta_mandate, self).action_finish(cr, uid, ids,
-                                                      context=context)
-
     def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id,
                                      context=None):
         sta_assembly_category_id = False

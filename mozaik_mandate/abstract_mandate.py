@@ -27,8 +27,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from openerp.osv import orm, osv, fields
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, \
-    DEFAULT_SERVER_DATE_FORMAT
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from openerp.tools import SUPERUSER_ID
 from openerp.tools.translate import _
 
@@ -545,9 +544,8 @@ class abstract_mandate(orm.AbstractModel):
          "The end date must be between start date and deadline date."),
     ]
 
-# view methods: onchange, button
-
 # orm methods
+
     def create(self, cr, uid, vals, context=None):
         res = super(abstract_mandate, self).create(cr,
                                                    uid,
@@ -651,29 +649,23 @@ class abstract_mandate(orm.AbstractModel):
 
         return reset_ids, duplicate_ids
 
-    def action_finish(self, cr, uid, ids, context=None):
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
         """
-        =================
-        action_finish
-        =================
-        Finish mandate at the current date
+        Invalidates mandates at the current date
         :rparam: True
         :rtype: boolean
         """
-        for mandate_data in self.read(cr, uid, ids, ['deadline_date'],
-                                      context=context):
-            deadline = datetime.strptime(mandate_data['deadline_date'],
-                                         DEFAULT_SERVER_DATE_FORMAT)
-            if datetime.strptime(fields.datetime.now(),
-                                 DEFAULT_SERVER_DATETIME_FORMAT) >= deadline:
-                end_date = mandate_data['deadline_date']
-            else:
-                end_date = fields.datetime.now()
-            self.action_invalidate(cr,
-                                   uid,
-                                   [mandate_data['id']],
-                                   context=context,
-                                   vals={'end_date': end_date})
+        vals = vals or {}
+        end_date = vals.get('end_date') or fields.date.today()
+        for mandate in self.browse(cr, uid, ids, context=context):
+            if end_date >= mandate.deadline_date:
+                end_date = mandate.deadline_date
+            if end_date <= mandate.start_date:
+                end_date = mandate.start_date
+
+            super(abstract_mandate, self).action_invalidate(
+                cr, uid, [mandate.id],
+                context=context, vals={'end_date': end_date})
 
         return True
 
@@ -723,7 +715,7 @@ class abstract_mandate(orm.AbstractModel):
                                   context=context)
 
         if mandate_ids:
-            self.action_finish(cr, uid, mandate_ids, context=context)
+            self.action_invalidate(cr, uid, mandate_ids, context=context)
 
         return True
 

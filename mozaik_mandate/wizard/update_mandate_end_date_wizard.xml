@@ -12,7 +12,8 @@
                         <field name="mandate_end_date" required="context.get('mode','x') == 'end_date'"
                                invisible="not context.get('mode','x') == 'end_date'"/>
                         <field name="mandate_deadline_date" required="context.get('mode','x') == 'reactivate'"
-                               invisible="not context.get('mode','x') == 'reactivate'"/>
+                               invisible="not context.get('mode','x') == 'reactivate'"
+                               attrs="{'invisible': [('message', '!=', False)]}"/>
                     </group>
                     <group name='info'>
                         <h3>
@@ -26,15 +27,17 @@
                         </group>
                     </div>
                     <footer>
-                        <span name="go-wizard">
+                        <span name="go-wizard" invisible="not context.get('mode','x') == 'end_date'">
                             <button string="Set End Date" name="set_mandate_end_date"
                                     type="object" class="oe_highlight" confirm="Set end date, proceed anyway?"
-                                    invisible="not context.get('mode','x') == 'end_date'"/>
-                            <button string="Reactivate" name="reactivate_mandate"
-                                    type="object" class="oe_highlight" confirm="Reactivate mandate, proceed anyway?"
+                                    />
+                            or
+                        </span>
+                        <span name="go-wizard"
                                     invisible="not context.get('mode','x') == 'reactivate'"
-                                    attrs="{'invisible': [('message', '!=', False)]}"
-                                    groups="mozaik_base.mozaik_res_groups_configurator"/>
+                                    attrs="{'invisible': [('message', '!=', False)]}">
+                            <button string="Reactivate" name="reactivate_mandate"
+                                    type="object" class="oe_highlight" confirm="Reactivate mandate, proceed anyway?"/>
                             or
                         </span>
                         <button string="Cancel" class="oe_link" special="cancel" />
@@ -108,7 +111,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model">int.mandate</field>
-            <field name="res_model">update.sta.mandate.end.date.wizard</field>
+            <field name="res_model">update.int.mandate.end.date.wizard</field>
             <field name="target">new</field>
             <field name="view_id" ref="update_mandate_end_date_wizard" />
             <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_configurator')])]" />
@@ -128,7 +131,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="src_model">ext.mandate</field>
-            <field name="res_model">update.sta.mandate.end.date.wizard</field>
+            <field name="res_model">update.ext.mandate.end.date.wizard</field>
             <field name="target">new</field>
             <field name="view_id" ref="update_mandate_end_date_wizard" />
             <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_configurator')])]" />
@@ -142,5 +145,6 @@
             <field name="key2">client_action_relate</field>
             <field name="value" eval="'ir.actions.act_window,%s' % ref('reactivate_ext_mandate_action')" />
         </record>
+
     </data>
 </openerp>

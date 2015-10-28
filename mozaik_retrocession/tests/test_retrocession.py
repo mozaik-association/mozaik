@@ -138,18 +138,21 @@ class test_retrocession(SharedSetupTransactionCase):
         method_id = self.ref('%s.cm_sample_01' % self._module_ns)
         retro_id = self.ref('%s.retro_paul_ag_mai_2014' % self._module_ns)
         partner_id = self.ref('%s.res_partner_paul' % self._module_ns)
+        today = fields.date.today()
 
-        self.registry('res.partner').write(
-            self.cr, self.uid, [partner_id], {
-                'active': False, 'expire_date': fields.datetime.now(), },
-            context=None)
+        mandate = self.registry('ext.mandate').browse(
+            self.cr, self.uid, mandate_id)
 
-        self.assertFalse(
-            self.registry('ext.mandate').read(
-                self.cr,
-                self.uid,
-                mandate_id,
-                ['active'])['active'])
+        self.registry('res.partner').action_invalidate(
+            self.cr, self.uid, [partner_id], context=None)
+
+        self.assertFalse(mandate.active)
+        if today < mandate.start_date:
+            self.assertEqual(mandate.end_date, mandate.start_date)
+        elif today < mandate.deadline_date:
+            self.assertEqual(mandate.end_date, today)
+        else:
+            self.assertLessEqual(mandate.end_date, mandate.deadline_date)
         self.assertTrue(
             self.registry('calculation.method').read(
                 self.cr,
