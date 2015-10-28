@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <form string="Print Postal From Partner Wizard">
                     <span>
-                        Print Postal Labels from Partners
+                        This will produce labels related to main postal coordinates of selected partners
                     </span>
                     <footer>
                         <span>
