@@ -30,3 +30,4 @@ from . import address_address
 from . import res_partner
 from . import wizard
 from . import reports
+from . import models

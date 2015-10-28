@@ -103,7 +103,7 @@ class change_main_address(orm.TransientModel):
             }
             wizard = cores_wiz_obj.create(vals)
             wizard.change_address()
-        res = super(change_main_address,
-                    self._model).button_change_main_coordinate(
-            self.env.cr, self.env.uid, self.ids, self.env.context.copy())
+        res = super(
+            change_main_address, self._model).button_change_main_coordinate(
+               self.env.cr, self.env.uid, self.ids, self.env.context.copy())
         return res

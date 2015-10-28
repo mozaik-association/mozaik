@@ -23,8 +23,13 @@
 #
 ##############################################################################
 
-from . import change_main_address
-from . import allow_duplicate_wizard
-from . import bounce_editor
-from . import change_co_residency_address
-from . import print_postal_from_partner_wizard
+from openerp import fields, models
+
+
+class PrintPostalFromPartnerWizard(models.TransientModel):
+
+    _name = 'print.postal.from.partner.wizard'
+    _description = 'Print Postal From Partner Wizard'
+
+    export_file = fields.Binary('File', readonly=True)
+    export_filename = fields.Char()

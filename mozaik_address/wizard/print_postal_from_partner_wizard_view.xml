@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="print_postal_from_partner_wizard" model="ir.ui.view">
+            <field name="name">print.postal.from.partner.wizard.form</field>
+            <field name="model">print.postal.from.partner.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Print Postal From Partner Wizard">
+                    <group>
+                        <field name="export_file" readonly="1" filename="export_filename" />
+                    </group>
+                    <footer>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>
