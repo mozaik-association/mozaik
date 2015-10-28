@@ -73,7 +73,7 @@ class distribution_list(orm.Model):
         res = super(distribution_list, self)._get_computed_ids(
             cr, uid, dl_id, bridge_field, to_be_computed_ids, in_mode,
             context=context)
-        if not in_mode:
+        if not in_mode and res and bridge_field != 'id':
             target_model_name = self.browse(
                 cr, uid, dl_id).dst_model_id.model
             t_model = self.pool(target_model_name)

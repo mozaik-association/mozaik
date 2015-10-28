@@ -50,7 +50,7 @@ class test_postal_mail(SharedSetupTransactionCase):
 
         self.test_postal_mail = self.ref('%s.postal_mail_1' % self._module_ns)
         self.test_distribution_list = self.ref(
-            '%s.distribution_list' % self._module_ns)
+            '%s.everybody_list' % self._module_ns)
 
     def test_unique_postal_mail(self):
         '''

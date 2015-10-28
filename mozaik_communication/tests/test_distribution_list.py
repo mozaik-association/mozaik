@@ -26,17 +26,24 @@
 import logging
 from uuid import uuid4
 import psycopg2
+from anybox.testing.openerp import SharedSetupTransactionCase
+
 import openerp.tests.common as common
+from openerp.addons.mozaik_base import testtool
 
 _logger = logging.getLogger(__name__)
 
-DB = common.DB
 SUPERUSER_ID = common.ADMIN_USER_ID
 
 
-class test_distribution_list(common.TransactionCase):
+class test_distribution_list(SharedSetupTransactionCase):
 
-    _module_ns = 'distribution_list'
+    _data_files = (
+        '../../mozaik_base/tests/data/res_partner_data.xml',
+        'data/communication_data.xml',
+    )
+
+    _module_ns = 'mozaik_communication'
 
     def setUp(self):
         super(test_distribution_list, self).setUp()
@@ -86,15 +93,7 @@ class test_distribution_list(common.TransactionCase):
         e_id = self.email_coordinate_obj.create(
             cr, uid, vals, context=context)
 
-        dl_name = '%s' % uuid4()
-        vals = {
-            'name': dl_name,
-            'int_instance_id': default_instance_id,
-            'dst_model_id': self.partner_model_id,
-            'mail_forwarding': True,
-            'alias_name': 'xxx'
-        }
-        dl_id = self.dl_obj.create(cr, uid, vals, context=context)
+        dl_id = self.ref('%s.everybody_list' % self._module_ns)
         msg = {
             'email_from': "<%s@test.eu>" % name,
             'subject': 'test',
@@ -147,8 +146,10 @@ class test_distribution_list(common.TransactionCase):
         vals = dict(name='Newsletter Sample 2',
                     code='SAMPLE1',
                     newsletter=True)
-        with self.assertRaises(psycopg2.IntegrityError):
-            self.dl_obj.create(cr, uid, vals, context=context)
+        with testtool.disable_log_error(cr):
+            self.assertRaises(psycopg2.IntegrityError,
+                              self.dl_obj.create,
+                              cr, uid, vals, context)
 
     def test_notify_owner_on_alias_change(self):
         cr, uid, context = self.cr, self.uid, {}
