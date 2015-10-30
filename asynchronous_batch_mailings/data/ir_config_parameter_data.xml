@@ -9,7 +9,7 @@
 
         <record id="mail_worker_pivot" model="ir.config_parameter">
             <field name="key">mail_worker_pivot</field>
-            <field name="value">80</field>
+            <field name="value">20</field>
         </record>
 
     </data>

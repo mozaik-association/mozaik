@@ -34,7 +34,7 @@ from openerp.addons.connector.session import ConnectorSession
 
 _logger = logging.getLogger(__name__)
 
-WORKER_PIVOT = 100
+WORKER_PIVOT = 20
 CHUNK_SIZE = 100
 
 
@@ -43,14 +43,21 @@ class mail_compose_message(orm.TransientModel):
     _inherit = 'mail.compose.message'
 
     def _prepare_vals(self, vals):
-        vals.pop('id')
+        """
+        Remove useless keys and transform all o2m list values with magic number
+        """
+        for key in ['id', 'notification_ids', 'notified_partner_ids',
+                    'child_ids', 'vote_user_ids', ]:
+            vals.pop(key, False)
         for key in vals.keys():
-            if(isinstance(vals[key], tuple)):
-                vals[key] = vals[key][0]
+            if (isinstance(vals[key], list)):
+                vals[key] = [
+                    (6, False, vals[key])
+                ]
 
     def send_mail(self, cr, uid, ids, context=None):
         """
-        Send mail by asynchronous way depending parameters
+        Send mails by asynchronous way depending on parameters
         """
         if context is None:
             context = {}
@@ -64,18 +71,23 @@ class mail_compose_message(orm.TransientModel):
                     worker_pivot = WORKER_PIVOT
                 if len(context['active_ids']) > worker_pivot:
                     res_ids = context['active_ids']
-                    vals = self.read(cr, uid, ids, [], context=context)[0]
+                    vals = self.read(
+                        cr, uid, ids, [],
+                        context=context, load='_classic_write')[0]
                     self._prepare_vals(vals)
 
                     session = ConnectorSession(cr, uid, context=context)
-                    description = _('Send Mail "%s (Chunk Process)') %\
-                        (vals['subject'])
+                    description = _(
+                        'Prepare Mailing for "%s" (Chunk Process)'
+                        ) % vals['subject']
+                    _logger.info(
+                        'Delay %s for ids: %s' % (description, res_ids))
                     prepare_mailings.delay(
                         session, self._name, vals, res_ids,
                         description=description, context=context)
-                    return
+                    return {'type': 'ir.actions.act_window_close'}
 
-        super(mail_compose_message, self).send_mail(
+        return super(mail_compose_message, self).send_mail(
             cr, uid, ids, context=context)
 
 
@@ -89,9 +101,9 @@ def prepare_mailings(session, model_name, vals, active_ids, context=None):
 
     if not chunck_size.isdigit() or int(chunck_size) < 1:
         chunck_size = CHUNK_SIZE
-        _logger.warning('Could not retrieve a valid value from '
+        _logger.warning('No valid value provided for '
                         '"job_mail_chunck_size" parameter. '
-                        'Chunck size is %s') % CHUNK_SIZE
+                        'Value %s is used.' % CHUNK_SIZE)
 
     chunck_size = int(chunck_size)
     chunck_list_active_ids = \
@@ -100,11 +112,13 @@ def prepare_mailings(session, model_name, vals, active_ids, context=None):
 
     i = 1
     for chunck_active_ids in chunck_list_active_ids:
-        description = _('Send mail "%s" (Mailing %d/%d)') %\
+        description = _('Send Mails "%s" (chunk %s/%s)') %\
             (vals['subject'], i, len(chunck_list_active_ids))
         i = i + 1
+        _logger.info(
+            'Delay %s for ids: %s' % (description, chunck_active_ids))
         send_mail.delay(
-            session, model_name, vals, chunck_active_ids,
+            self, model_name, vals, chunck_active_ids,
             description=description, context=context)
 
 
@@ -119,13 +133,12 @@ def do_send_mail(session, model_name, vals, active_ids=None, context=None):
         wizard
     :result: send_mail
     """
-    if context is None:
-        context = {}
+    context = dict(context or {})
     self, cr, uid = session, session.cr, session.uid
-    model = session.pool.get(model_name)
+    model = self.pool.get(model_name)
     if active_ids:
         context['active_ids'] = active_ids
 
-    wiz_id = model.create(self.cr, self.uid, vals, context=context)
+    wiz_id = model.create(cr, uid, vals, context=context)
     context['not_async'] = True
     model.send_mail(cr, uid, [wiz_id], context=context)

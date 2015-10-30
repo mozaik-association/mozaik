@@ -46,6 +46,7 @@ class test_async_mail_send(common.TransactionCase):
         from the passing values of the wizard.
         """
         cr, uid = self.cr, self.uid
+
         context = {
             'lang': 'en_US',
             'tz': False,
@@ -61,10 +62,6 @@ class test_async_mail_send(common.TransactionCase):
             'name': 'RedHat_spec.doc',
         }
         attachment_id = ir_att_obj.create(cr, uid, vals, context=context)
-        vals = {
-            'name': 'Mitch',
-            'email': 'mitch@mi.tch',
-        }
 
         mail_vals = {
             'composition_mode': 'mass_mail',
@@ -79,13 +76,19 @@ class test_async_mail_send(common.TransactionCase):
             'record_name': 'a',
             'model': 'res.partner',
             'partner_ids': [[6, False, []]],
-            'res_id': 6,
+            'res_id': self.ref('base.res_partner_1'),
             'email_from': 'Administrator <admin@example.com>',
             'subject': 'v15rIke7MpaRhg15FvqRjzet'
         }
         model_name = "mail.compose.message"
+        model_mcm = self.registry(model_name)
+        new_mcm_id = model_mcm.create(cr, uid, mail_vals, context=context)
+        vals = model_mcm.read(
+            cr, uid, [new_mcm_id], [],
+            context=context, load='_classic_write')[0]
+        model_mcm._prepare_vals(vals)
         session = ConnectorSession(self.cr, ADMIN_USER_ID, context=context)
-        fc.do_send_mail(session, model_name, mail_vals)
+        fc.do_send_mail(session, model_name, vals)
         model_name = "mail.mail"
         model_mail = self.registry(model_name)
         mail_ids = model_mail.search(
@@ -97,4 +100,5 @@ class test_async_mail_send(common.TransactionCase):
         # Test the content of the mail
         read_mail = model_mail.browse(self.cr, ADMIN_USER_ID, mail_ids[0])
         self.assertEqual(read_mail.body, '<p>sample body</p>')
+        self.assertEqual(len(read_mail.attachment_ids), 1)
         self.assertEqual(read_mail.attachment_ids[0].name, "RedHat_spec.doc")
