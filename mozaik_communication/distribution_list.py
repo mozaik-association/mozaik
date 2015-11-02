@@ -225,7 +225,7 @@ class distribution_list(orm.Model):
                             return super(distribution_list, self).\
                                 distribution_list_forwarding(
                                     cr, user_id, msg, dl_id, context=ctx)
-        _logger.warning('Mail forwarding aborted. Reason: %s' % noway)
+        _logger.info('Mail forwarding aborted. Reason: %s' % noway)
 
     def _register_hook(self, cr):
         super(distribution_list, self)._register_hook(cr)
