@@ -32,9 +32,6 @@ class mail_compose_message(orm.TransientModel):
 
     def get_mail_values(self, cr, uid, wizard, res_ids, context=None):
         """
-        ===============
-        get_mail_values
-        ===============
         If the wizard's model is `email.coordinate` then the recipient is the
         email of the `email.coordinate`
         """
@@ -49,3 +46,15 @@ class mail_compose_message(orm.TransientModel):
                     values[model_obj['id']].pop('recipient_ids', [])
                     values[model_obj['id']]['email_to'] = email
         return values
+
+    def _transient_vacuum(self, cr, uid, force=False):
+        """
+        Do not unlink mail composer wizards if unfinished jobs exist
+        """
+        res = True
+        domain = [('state', '!=', 'done')]
+        job_ids = self.pool['queue.job'].search(cr, uid, domain)
+        if not job_ids:
+            res = super(mail_compose_message, self)._transient_vacuum(
+                cr, uid, force=force)
+        return res
