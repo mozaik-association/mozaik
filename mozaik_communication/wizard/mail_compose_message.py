@@ -58,3 +58,13 @@ class mail_compose_message(orm.TransientModel):
             res = super(mail_compose_message, self)._transient_vacuum(
                 cr, uid, force=force)
         return res
+
+    def send_mail(self, cr, uid, ids, context=None):
+        """
+        Do not recompute ids if sending mails asynchronously
+        """
+        context = context or {}
+        if context.get('not_async'):
+            context = dict(context, dl_computed=True)
+        return super(mail_compose_message, self).send_mail(
+            cr, uid, ids, context=context)
