@@ -77,15 +77,12 @@ class test_accounting_with_product(object):
 
     def get_partner(self, partner_id=False):
         """
-        ==========
-        get_partner
-        ==========
         return a new browse record of partner
         """
         if not partner_id:
             name = uuid.uuid4()
             partner_values = {
-                'name': name,
+                'lastname': name,
             }
             partner_id = self.partner_obj.create(self.cr, self.uid,
                                                  partner_values)
