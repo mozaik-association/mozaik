@@ -70,7 +70,7 @@ class FileTermsLoader(models.TransientModel):
 
         return datas
 
-    @api.models
+    @api.model
     def _update_terms(
             self, datas, to_update_identifiers, thesaurus_term_ids):
         """
@@ -94,7 +94,7 @@ class FileTermsLoader(models.TransientModel):
             if data_name != t_term_id.name:
                 t_term_id.name = data_name
 
-    @api.models
+    @api.model
     def _create_terms(
             self, datas, to_create_identifiers):
         """
@@ -110,7 +110,7 @@ class FileTermsLoader(models.TransientModel):
             vals = dict(datas[identifier], state='confirm')
             self.env['thesaurus.term'].create(vals)
 
-    @api.models
+    @api.model
     def cu_terms(self, datas_file):
         """
         :type datas_file: [['', '', '']]
@@ -138,7 +138,7 @@ class FileTermsLoader(models.TransientModel):
         self._create_terms(identifier_datas, to_create_identifiers)
         _logger.info('New Terms Created')
 
-    @api.models
+    @api.model
     def set_relation_terms(self, datas_file):
         """
         """

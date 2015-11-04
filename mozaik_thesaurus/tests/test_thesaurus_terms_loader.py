@@ -53,3 +53,19 @@ class TestThesaurusTermsLoader(SharedSetupTransactionCase):
         self.thesaurus_terms_loader_model.cu_terms(data_file)
         t_ids = self.thesaurus_term_model.search(domain)
         self.assertEqual(len(t_ids), 4, 'Should have 4 terms created')
+        data_file = [
+            ['100000000', 'Modified', 'other'],
+            ['100000004', 'NEW', 'other'],
+        ]
+        self.thesaurus_terms_loader_model.cu_terms(data_file)
+        domain = [
+            ('ext_identifier', '=', '100000004'),
+        ]
+        t_ids = self.thesaurus_term_model.search(domain)
+        self.assertTrue(t_ids)
+        domain = [
+            ('ext_identifier', '=', '100000000'),
+        ]
+        t_ids = self.thesaurus_term_model.search(domain)
+        self.assertTrue(t_ids)
+        self.assertEqual(t_ids.name, 'Modified', 'Should be the modified')
