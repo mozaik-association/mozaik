@@ -46,6 +46,7 @@ class FileTermsLoader(models.TransientModel):
 
     @api.multi
     def _get_tmp_file(self):
+        self.ensure_one()
         tmp = tempfile.NamedTemporaryFile(
             prefix='ImportTerms', suffix='.csv', delete=False)
         tmp.write(base64.decodestring(self.file_terms))
@@ -69,7 +70,7 @@ class FileTermsLoader(models.TransientModel):
 
         return datas
 
-    @api.one
+    @api.models
     def _update_terms(
             self, datas, to_update_identifiers, thesaurus_term_ids):
         """
@@ -93,7 +94,7 @@ class FileTermsLoader(models.TransientModel):
             if data_name != t_term_id.name:
                 t_term_id.name = data_name
 
-    @api.one
+    @api.models
     def _create_terms(
             self, datas, to_create_identifiers):
         """
@@ -109,7 +110,7 @@ class FileTermsLoader(models.TransientModel):
             vals = dict(datas[identifier], state='confirm')
             self.env['thesaurus.term'].create(vals)
 
-    @api.one
+    @api.models
     def cu_terms(self, datas_file):
         """
         :type datas_file: [['', '', '']]
@@ -137,7 +138,7 @@ class FileTermsLoader(models.TransientModel):
         self._create_terms(identifier_datas, to_create_identifiers)
         _logger.info('New Terms Created')
 
-    @api.one
+    @api.models
     def set_relation_terms(self, datas_file):
         """
         """
