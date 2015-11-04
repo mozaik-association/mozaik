@@ -71,15 +71,18 @@ class virtual_target(orm.Model):
     _inherit = ['virtual.master.partner', 'abstract.virtual.target']
     _auto = False
 
+    _columns = {
+        'email_coordinate_id': fields.many2one(
+            'email.coordinate', string='Email Coordinate'),
+        'postal_coordinate_id': fields.many2one(
+            'postal.coordinate', string='Postal Coordinate'),
+    }
+
 # orm methods
 
     def init(self, cr):
         """
-        ====
-        init
-        ====
-        This view will take all the columns of `virtual.partner`
-        However only the row with at least one coordinate will be take
+        This add an id to all columns of `virtual_master_partner`
         """
         tools.drop_view_if_exists(cr, 'virtual_target')
         cr.execute("""
