@@ -89,7 +89,7 @@ class FileTermsLoader(models.TransientModel):
         for identifier in to_update_identifiers:
             t_term_id = thesaurus_term_ids.filtered(
                 lambda t: t.ext_identifier == identifier)
-            data_name = datas[identifier]['name']
+            data_name = datas[identifier]['name'].decode('UTF-8')
             if data_name != t_term_id.name:
                 t_term_id.name = data_name
 
@@ -106,7 +106,8 @@ class FileTermsLoader(models.TransientModel):
             created
         """
         for identifier in to_create_identifiers:
-            self.env['thesaurus.term'].create(datas[identifier])
+            vals = dict(datas[identifier], state='confirm')
+            self.env['thesaurus.term'].create(vals)
 
     @api.one
     def cu_terms(self, datas_file):
@@ -115,8 +116,11 @@ class FileTermsLoader(models.TransientModel):
         :param datas_file: data structure of the csv
         """
         keys = ['ext_identifier', 'name']
-        dict_datas = [dict(zip(keys, values)) for values in datas_file][0]
-        ext_identifiers = dict_datas.keys()
+        dict_datas = [dict(zip(keys, values)) for values in datas_file]
+        identifier_datas = {}
+        for dict_data in dict_datas:
+            identifier_datas[dict_data[keys[0]]] = dict_data
+        ext_identifiers = identifier_datas.keys()
         thesaurus_term_ids = self.env['thesaurus.term'].sudo().search([])
         existing_identifiers = [t.ext_identifier for t in thesaurus_term_ids]
 
@@ -124,13 +128,13 @@ class FileTermsLoader(models.TransientModel):
             list(set(ext_identifiers) & set(existing_identifiers))
         _logger.info('Start Updating Existing Terms')
         self._update_terms(
-            dict_datas, to_update_identifiers, thesaurus_term_ids._ids)
+            identifier_datas, to_update_identifiers, thesaurus_term_ids._ids)
         _logger.info('Existing Terms Updated')
 
         to_create_identifiers =\
             list(set(ext_identifiers) - set(existing_identifiers))
         _logger.info('Start Creating New Terms')
-        self._create_terms(dict_datas, to_create_identifiers)
+        self._create_terms(identifier_datas, to_create_identifiers)
         _logger.info('New Terms Created')
 
     @api.one

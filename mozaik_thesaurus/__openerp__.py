@@ -45,10 +45,10 @@ their validation.
     'images': [
     ],
     'data': [
+        'security/ir.model.access.csv',
+        'data/thesaurus_data.xml',
         'views/thesaurus_view.xml',
         'wizard/thesaurus_terms_loader_view.xml',
-        # 'security/ir.model.access.csv',
-        # 'data/thesaurus_data.xml',
     ],
     'sequence': 150,
     'installable': True,

@@ -72,7 +72,7 @@ class Thesaurus(models.Model):
         if not newid:
             # context: notrack when resetting the new term id to False to avoid
             # a notification
-            ctx['mail_notrack']
+            ctx['mail_notrack'] = True
         vals = {'new_thesaurus_term_id': newid}
         return self.with_context(ctx).write(vals)
 
@@ -83,7 +83,7 @@ class ThesaurusTerm(models.Model):
     _inherit = ['mozaik.abstract.model']
     _description = 'Thesaurus Term'
     _order = 'name'
-    _unicity_keys = 'ext_identifier'
+    _unicity_keys = 'technical_name'
 
     @api.model
     def _get_default_thesaurus_id(self):
@@ -99,18 +99,32 @@ class ThesaurusTerm(models.Model):
             raise Warning(
                 _('Missing External Identifier for a validated term'))
 
+    @api.one
+    @api.depends('name', 'state', 'expire_date')
+    def _compute_technical_name(self):
+        elts = [
+            '%s' % self.thesaurus_id.id,
+            self.state,
+            self.state == 'draft' and self.name or
+            self.state == 'confirm' and
+            self.ext_identifier or self.expire_date
+        ]
+        self.technical_name = '#'.join([el for el in elts if el])
+
     name = fields.Char(
-        string='Term', required=True, select=True, track_visibility='onchange')
+        string='Term', required=True, index=True, track_visibility='onchange')
     thesaurus_id = fields.Many2one(
-        string='thesaurus', 'Thesaurus', readonly=True, required=True,
-        default=_get_default_thesaurus_id)
+        comodel_name='thesaurus', string='Thesaurus', readonly=True,
+        required=True, default=_get_default_thesaurus_id)
     ext_identifier = fields.Char(
-        string='External Identifier', required=False, select=True,
+        string='External Identifier', required=False, index=True,
         track_visibility='onchange', states={'confirm': [('required', True)]})
     state = fields.Selection(
         selection=TERM_AVAILABLE_STATES, string='Status', readonly=True,
         required=True, track_visibility='onchange',
         default=TERM_AVAILABLE_STATES[0][0])
+    technical_name = fields.Char(
+        compute='_compute_technical_name', index=True, store=True)
 
     @api.model
     @api.returns('self', lambda value: value.id)
@@ -128,7 +142,7 @@ class ThesaurusTerm(models.Model):
             # Reset notification term on the thesaurus
             self.thesaurus_id.update_notification_term()
             # Set notification term on the thesaurus
-            self.thesaurus_id.update_notification_term(new_id=new_id)
+            self.thesaurus_id.update_notification_term(newid=new_id)
         return new_id
 
     @api.one
