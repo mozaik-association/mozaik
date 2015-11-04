@@ -24,10 +24,11 @@
 ##############################################################################
 {
     'name': 'MOZAIK: Thesaurus',
-    'version': '1.0',
-    "author": "ACSONE SA/NV",
-    "maintainer": "ACSONE SA/NV",
-    "website": "http://www.acsone.eu",
+    'version': '1.0.1',
+    'author': 'ACSONE SA/NV',
+    'maintainer': 'ACSONE SA/NV',
+    'license': 'AGPL-3',
+    'website': 'http://www.acsone.eu',
     'category': 'Political Association',
     'depends': [
         'mozaik_base',
@@ -44,17 +45,11 @@ their validation.
     'images': [
     ],
     'data': [
-        'security/ir.model.access.csv',
-        'data/thesaurus_data.xml',
-        'thesaurus_view.xml',
+        'views/thesaurus_view.xml',
+        'wizard/thesaurus_terms_loader_view.xml',
+        # 'security/ir.model.access.csv',
+        # 'data/thesaurus_data.xml',
     ],
-    'qweb': [
-    ],
-    'demo': [
-    ],
-    'test': [
-    ],
-    'license': 'AGPL-3',
     'sequence': 150,
     'installable': True,
     'auto_install': False,

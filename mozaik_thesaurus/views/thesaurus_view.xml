@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <menuitem id="thesaurus_submenu" name="Thesaurus"
+                  sequence="55" parent="mozaik_base.persons_configuration_submenu" />
+
+    </data>
+</openerp>
