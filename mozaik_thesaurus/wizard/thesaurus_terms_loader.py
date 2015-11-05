@@ -84,15 +84,20 @@ class FileTermsLoader(models.TransientModel):
             updated or not
         :type thesaurus_term_ids: [int]
         :param thesaurus_term_ids: ids of the thesaurus term
+        :rtype: integer
+        :rparam: number of updated records
         """
         thesaurus_term_ids = self.env['thesaurus.term'].browse(
             thesaurus_term_ids)
+        cpt = 0
         for identifier in to_update_identifiers:
             t_term_id = thesaurus_term_ids.filtered(
                 lambda t: t.ext_identifier == identifier)
             data_name = datas[identifier]['name'].decode('UTF-8')
             if data_name != t_term_id.name:
                 t_term_id.name = data_name
+                cpt += 1
+        return cpt
 
     @api.model
     def _create_terms(
@@ -105,38 +110,59 @@ class FileTermsLoader(models.TransientModel):
         :type to_create_identifiers: [int]
         :param to_create_identifiers: list of identifiers that are here to be
             created
+        :rtype: integer
+        :rparam: number of created records
         """
+        ids = []
         for identifier in to_create_identifiers:
             vals = dict(datas[identifier], state='confirm')
-            self.env['thesaurus.term'].create(vals)
+            ids.append(self.env['thesaurus.term'].create(vals))
+        return len(ids)
 
     @api.model
-    def cu_terms(self, datas_file):
+    def _get_data_by_external_identifier(self):
+        # as the file should not be too large we temporary save the content
+        # into datas_file
+        datas_file = self._get_data()
+        identifier_datas = {}
+        keys = ['ext_identifier', 'name']
+        dict_datas = [dict(zip(keys, values)) for values in datas_file]
+        for dict_data in dict_datas:
+            identifier_datas[dict_data[keys[0]]] = dict_data
+        return identifier_datas
+
+    @api.model
+    def cu_terms(self, identifier_datas):
         """
         :type datas_file: [['', '', '']]
         :param datas_file: data structure of the csv
         """
-        keys = ['ext_identifier', 'name']
-        dict_datas = [dict(zip(keys, values)) for values in datas_file]
-        identifier_datas = {}
-        for dict_data in dict_datas:
-            identifier_datas[dict_data[keys[0]]] = dict_data
         ext_identifiers = identifier_datas.keys()
         thesaurus_term_ids = self.env['thesaurus.term'].sudo().search([])
         existing_identifiers = [t.ext_identifier for t in thesaurus_term_ids]
 
         to_update_identifiers =\
             list(set(ext_identifiers) & set(existing_identifiers))
-        _logger.info('Start Updating Existing Terms')
-        self._update_terms(
-            identifier_datas, to_update_identifiers, thesaurus_term_ids._ids)
-        _logger.info('Existing Terms Updated')
+        nb_to_update = len(to_update_identifiers)
+        if nb_to_update:
+            _logger.info(
+                'Start Updating %d Existing Terms' % len(
+                    to_update_identifiers))
+            nb_updated = self._update_terms(
+                identifier_datas, to_update_identifiers,
+                thesaurus_term_ids._ids)
+            _logger.info('%d/%d Updated' % (nb_updated, nb_to_update))
 
         to_create_identifiers =\
             list(set(ext_identifiers) - set(existing_identifiers))
-        _logger.info('Start Creating New Terms')
-        self._create_terms(identifier_datas, to_create_identifiers)
-        _logger.info('New Terms Created')
+        nb_to_create = len(to_create_identifiers)
+        if nb_to_create:
+            _logger.info(
+                'Start Creating %d New Terms' % len(to_create_identifiers))
+            nb_created = self._create_terms(
+                identifier_datas, to_create_identifiers)
+            _logger.info(
+                '%d/%d New Terms Created' % (nb_created, nb_to_create))
 
     @api.model
     def set_relation_terms(self, datas_file):
@@ -152,11 +178,9 @@ class FileTermsLoader(models.TransientModel):
         * Reset relation with col1, col3a,col3b,col3c
         """
         self.ensure_one()
-        _logger.info('Start Load Terms...')
-        # as the file should not be too large we temporary save the content
-        # into datas_file
-        datas_file = self._get_data()
-        _logger.info('Start Create/Update Terms')
-        self.cu_terms(datas_file)
-        _logger.info('Reset Relations between Terms')
-        self.set_relation_terms(datas_file)
+        _logger.info('Start loading terms...')
+        identifier_datas = self._get_data_by_external_identifier()
+        _logger.info('Start Creating/Updating Terms')
+        self.cu_terms(identifier_datas)
+        _logger.info('Start Reset Relations between Terms')
+        self.set_relation_terms(identifier_datas)

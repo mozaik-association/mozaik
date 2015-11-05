@@ -24,6 +24,9 @@
 ##############################################################################
 
 from anybox.testing.openerp import SharedSetupTransactionCase
+import tempfile
+import csv
+import base64
 
 
 class TestThesaurusTermsLoader(SharedSetupTransactionCase):
@@ -34,6 +37,18 @@ class TestThesaurusTermsLoader(SharedSetupTransactionCase):
         self.thesaurus_term_model = self.env['thesaurus.term']
         self.thesaurus = self.env['thesaurus']
 
+    def _get_csv_content(self, data_file):
+        tmp = tempfile.NamedTemporaryFile(
+            prefix='Extract', suffix=".csv", delete=False)
+        f = open(tmp.name, "r+")
+        writer = csv.writer(f, delimiter=';')
+        writer.writerows(data_file)
+        f.close()
+        f = open(tmp.name, "r")
+        csv_content = f.read()
+        f.close()
+        return base64.encodestring(csv_content)
+
     def test_cu_terms(self):
         data_file = [
             ['100000000', 'Name1', 'other'],
@@ -41,6 +56,12 @@ class TestThesaurusTermsLoader(SharedSetupTransactionCase):
             ['100000002', 'Name3', 'other'],
             ['100000003', 'Name4', 'other'],
         ]
+        csv_content = self._get_csv_content(data_file)
+        vals = {
+            'file_terms': csv_content,
+        }
+        ttlm_id = self.thesaurus_terms_loader_model.create(vals)
+
         domain = [
             '|', '|', '|',
             ('ext_identifier', '=', '100000000'),
@@ -50,14 +71,20 @@ class TestThesaurusTermsLoader(SharedSetupTransactionCase):
         ]
         t_ids = self.thesaurus_term_model.search(domain)
         self.assertFalse(t_ids)
-        self.thesaurus_terms_loader_model.cu_terms(data_file)
+        ttlm_id.load_terms()
         t_ids = self.thesaurus_term_model.search(domain)
         self.assertEqual(len(t_ids), 4, 'Should have 4 terms created')
         data_file = [
             ['100000000', 'Modified', 'other'],
+            ['100000002', 'Name3', 'other'],
             ['100000004', 'NEW', 'other'],
         ]
-        self.thesaurus_terms_loader_model.cu_terms(data_file)
+        csv_content = self._get_csv_content(data_file)
+        vals = {
+            'file_terms': csv_content,
+        }
+        ttlm_id = self.thesaurus_terms_loader_model.create(vals)
+        ttlm_id.load_terms()
         domain = [
             ('ext_identifier', '=', '100000004'),
         ]

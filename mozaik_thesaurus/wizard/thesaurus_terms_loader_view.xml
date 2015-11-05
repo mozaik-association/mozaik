@@ -32,7 +32,7 @@
         </record>
 
         <menuitem id="thesaurus_terms_loader_menu" action="thesaurus_terms_loader_action"
-            sequence="20" parent="mozaik_thesaurus.thesaurus_submenu" />
+            sequence="99" parent="mozaik_thesaurus.thesaurus_submenu" />
 
     </data>
 </openerp>
