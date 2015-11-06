@@ -152,6 +152,7 @@
                         <group name="data">
                             <group name="main">
                                 <field name="ext_identifier" />
+                                <field name="parent_m2m_ids" readonly="1" widget="many2many_tags"/>
                             </group>
                             <group name="other">
                                 <field name="thesaurus_id" groups="mozaik_base.mozaik_res_groups_configurator" />
@@ -174,6 +175,7 @@
                             <group name="moreinfo">
                                 <field name="id"/>
                                 <field name="technical_name"/>
+                                <field name="search_name"/>
                                 <field name="active"/>
                             </group>
                         </div>

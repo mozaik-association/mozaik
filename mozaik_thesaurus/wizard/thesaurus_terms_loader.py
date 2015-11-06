@@ -116,6 +116,7 @@ class FileTermsLoader(models.TransientModel):
         ids = []
         for identifier in to_create_identifiers:
             vals = dict(datas[identifier], state='confirm')
+            vals.pop('relations')
             ids.append(self.env['thesaurus.term'].create(vals))
         return len(ids)
 
@@ -125,7 +126,7 @@ class FileTermsLoader(models.TransientModel):
         # into datas_file
         datas_file = self._get_data()
         identifier_datas = {}
-        keys = ['ext_identifier', 'name']
+        keys = ['ext_identifier', 'name', 'relations']
         dict_datas = [dict(zip(keys, values)) for values in datas_file]
         for dict_data in dict_datas:
             identifier_datas[dict_data[keys[0]]] = dict_data
@@ -134,8 +135,9 @@ class FileTermsLoader(models.TransientModel):
     @api.model
     def cu_terms(self, identifier_datas):
         """
-        :type datas_file: [['', '', '']]
-        :param datas_file: data structure of the csv
+        :type datas_file: {}
+        :param datas_file:
+        {'ext_identifier': {'ext_identifier', 'name', 'parent_ext_ids'}}
         """
         ext_identifiers = identifier_datas.keys()
         thesaurus_term_ids = self.env['thesaurus.term'].sudo().search([])
@@ -165,10 +167,24 @@ class FileTermsLoader(models.TransientModel):
                 '%d/%d New Terms Created' % (nb_created, nb_to_create))
 
     @api.model
-    def set_relation_terms(self, datas_file):
+    def set_relation_terms(self, identifier_datas):
         """
         """
-        pass
+        for identifier in identifier_datas.keys():
+            ext_relations_ids = identifier_datas[identifier]['relations']
+            if ext_relations_ids:
+                ext_relations_ids = ext_relations_ids.split(',')
+                ext_relations_ids.append(identifier)
+                domain = [
+                    ('ext_identifier', 'in', ext_relations_ids)
+                ]
+                term_ids = self.env['thesaurus.term'].search(domain)
+                if len(term_ids) > 1:
+                    main_term = term_ids.filtered(
+                        lambda t: t.ext_identifier == identifier)
+                    parent_term_ids = term_ids.filtered(
+                        lambda t: t.ext_identifier != identifier).ids
+                    main_term.set_relation_terms(parent_term_ids)
 
     @api.multi
     def load_terms(self):
@@ -182,5 +198,6 @@ class FileTermsLoader(models.TransientModel):
         identifier_datas = self._get_data_by_external_identifier()
         _logger.info('Start Creating/Updating Terms')
         self.cu_terms(identifier_datas)
-        _logger.info('Start Reset Relations between Terms')
+        _logger.info('Start Updating Relations between Terms')
         self.set_relation_terms(identifier_datas)
+        _logger.info('Relations between Terms Updated')

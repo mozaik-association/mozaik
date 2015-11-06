@@ -84,6 +84,7 @@ class ThesaurusTerm(models.Model):
     _description = 'Thesaurus Term'
     _order = 'name'
     _unicity_keys = 'technical_name'
+    _rec_name = 'search_name'
 
     @api.model
     def _get_default_thesaurus_id(self):
@@ -111,8 +112,31 @@ class ThesaurusTerm(models.Model):
         ]
         self.technical_name = '#'.join([el for el in elts if el])
 
+    @api.multi
+    def _compute_search_name(self):
+        self.ensure_one()
+        parent_names, name_path = [], []
+        for parent_id in self.parent_m2m_ids:
+            parent_names.append(parent_id._compute_search_name())
+        if parent_names:
+            parent_names.append(self.name)
+            for parent_name in parent_names:
+                if parent_name not in name_path:
+                    name_path.append(parent_name)
+            name_path = str.join('/', parent_names)
+        return name_path or self.name
+
+    @api.one
+    def compute_search_name(self):
+        if self.parent_m2m_ids:
+            self.search_name = self._compute_search_name()
+        else:
+            self.search_name = self.name
+
     name = fields.Char(
         string='Term', required=True, index=True, track_visibility='onchange')
+    search_name = fields.Char(
+        string='Search Name', index=True, readonly=True)
     thesaurus_id = fields.Many2one(
         comodel_name='thesaurus', string='Thesaurus', readonly=True,
         required=True, default=_get_default_thesaurus_id)
@@ -125,6 +149,15 @@ class ThesaurusTerm(models.Model):
         default=TERM_AVAILABLE_STATES[0][0])
     technical_name = fields.Char(
         compute='_compute_technical_name', index=True, store=True)
+    parent_m2m_ids = fields.Many2many(
+        comodel_name='thesaurus.term', relation='child_term_parent_term_rel',
+        column1='child_term_id', column2='parent_term_id',
+        string='Parent Terms')
+
+    @api.one
+    def set_relation_terms(self, parent_term_ids):
+        self.parent_m2m_ids = parent_term_ids
+        self.compute_search_name()
 
     @api.model
     @api.returns('self', lambda value: value.id)
@@ -144,6 +177,21 @@ class ThesaurusTerm(models.Model):
             # Set notification term on the thesaurus
             self.thesaurus_id.update_notification_term(newid=new_id)
         return new_id
+
+    @api.returns('self')
+    def search(self, args, offset=0, limit=None, order=None, count=False):
+        return super(ThesaurusTerm, self).search(
+            args, offset=offset, limit=limit, order=order, count=count)
+
+    @api.model
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
+        args = list(args or [])
+        ids = super(ThesaurusTerm, self).search(
+            [('search_name', operator, name)] + args, limit=limit)
+        if ids:
+            return ids.name_get()
+        return super(ThesaurusTerm, self).name_search(
+            name=name, args=args, operator=operator, limit=limit)
 
     @api.one
     @api.returns('self', lambda value: value.id)

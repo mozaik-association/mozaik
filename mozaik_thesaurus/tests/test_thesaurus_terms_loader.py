@@ -51,10 +51,10 @@ class TestThesaurusTermsLoader(SharedSetupTransactionCase):
 
     def test_cu_terms(self):
         data_file = [
-            ['100000000', 'Name1', 'other'],
-            ['100000001', 'Name2', 'other'],
-            ['100000002', 'Name3', 'other'],
-            ['100000003', 'Name4', 'other'],
+            ['100000000', 'Name1', ''],
+            ['100000001', 'Name2', '100000000'],
+            ['100000002', 'Name3', '100000001'],
+            ['100000003', 'Name4', '100000001'],
         ]
         csv_content = self._get_csv_content(data_file)
         vals = {
@@ -74,6 +74,9 @@ class TestThesaurusTermsLoader(SharedSetupTransactionCase):
         ttlm_id.load_terms()
         t_ids = self.thesaurus_term_model.search(domain)
         self.assertEqual(len(t_ids), 4, 'Should have 4 terms created')
+        self.assertEqual(
+            t_ids[1].parent_m2m_ids.id, t_ids[0].id,
+            'Parent Relation should be represented')
         data_file = [
             ['100000000', 'Modified', 'other'],
             ['100000002', 'Name3', 'other'],
