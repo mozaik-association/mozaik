@@ -122,9 +122,11 @@ class distribution_list(orm.Model):
         'partner_path': 'partner_id',
     }
 
+    _order = 'name'
+
 # constraints
 
-    # No More Unique Name For distribution list
+    # No More Global Unique Name
     _sql_constraints = [('unique_name_by_company', 'check(1=1)', ''),
                         ('unique_code', 'unique (code)', 'Code already used !')
                         ]
@@ -150,6 +152,7 @@ class distribution_list(orm.Model):
     def onchange_newsletter(self):
         if not self.newsletter:
             self.code = False
+
 # public methods
 
     def _get_opt_res_ids(
@@ -257,6 +260,20 @@ class distribution_list(orm.Model):
                 'target': 'current',
                 }
 
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+        """
+        Invalidates distribution lists
+        :rparam: True
+        :rtype: boolean
+        """
+        vals = vals or {}
+        vals['code'] = False
+
+        super(distribution_list, self).action_invalidate(
+            cr, uid, ids, context=context, vals=vals)
+
+        return True
+
     @api.one
     def write(self, vals):
         old_alias = self.alias_name
@@ -310,15 +327,27 @@ class distribution_list_line(orm.Model):
                 'virtual.assembly.instance',
             ])],
             track_visibility='onchange'),
+        'distribution_list_in_ids': fields.many2many(
+            'distribution.list',
+            'include_distribution_list_line_rel',
+            'include_distribution_list_line_id',
+            'include_distribution_list_id', string="Include in"),
+        'distribution_list_out_ids': fields.many2many(
+            'distribution.list',
+            'exclude_distribution_list_line_rel',
+            'exclude_distribution_list_line_id',
+            'exclude_distribution_list_id', string="Exclude from"),
     }
 
     _defaults = {
         'src_model_id': lambda self, cr, uid, c: False,
     }
 
+    _order = 'name'
+
 # constraints
 
-    # No More Unique Name For distribution list
+    # No More Global Unique Name
     _sql_constraints = [('unique_name_by_company', 'check(1=1)', '')]
 
     _unicity_keys = 'name, company_id'
@@ -357,3 +386,18 @@ class distribution_list_line(orm.Model):
         domain.extend(no_coord_domain)
         res['domain'] = str(domain)
         return res
+
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+        """
+        Invalidates distribution list Lines
+        :rparam: True
+        :rtype: boolean
+        """
+        vals = vals or {}
+        vals['distribution_list_in_ids'] = [(5,)]
+        vals['distribution_list_out_ids'] = [(5,)]
+
+        super(distribution_list_line, self).action_invalidate(
+            cr, uid, ids, context=context, vals=vals)
+
+        return True
