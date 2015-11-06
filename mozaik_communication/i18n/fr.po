@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-04 14:17+0000\n"
-"PO-Revision-Date: 2015-11-04 14:17+0000\n"
+"POT-Creation-Date: 2015-11-06 03:12+0000\n"
+"PO-Revision-Date: 2015-11-06 03:12+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,31 +23,31 @@ msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:273
+#: code:addons/mozaik_communication/distribution_list.py:290
 #, python-format
 msgid "<div>For your information, the alias name of the distribution list %s has been changed by %s.</div>"
 msgstr "<div>Pour votre information, le pseudonyme de la liste de distribution %s a été modifié par %s.</div>"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:280
+#: code:addons/mozaik_communication/distribution_list.py:297
 #, python-format
 msgid "<div>New alias name: %s</div>"
 msgstr "<div>Nouveau pseudonyme: %s</div>"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:278
+#: code:addons/mozaik_communication/distribution_list.py:295
 #, python-format
 msgid "<div>Old alias name: %s</div>"
 msgstr "<div>Ancien pseudonyme: %s</div>"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:283
+#: code:addons/mozaik_communication/distribution_list.py:300
 #, python-format
 msgid "<div>Regards,</div></p>"
 msgstr "<div>Cordialement,</div></p>"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:271
+#: code:addons/mozaik_communication/distribution_list.py:288
 #, python-format
 msgid "<p>Hello,"
 msgstr "<p>Bonjour,"
@@ -109,7 +109,7 @@ msgid "Add Registrations"
 msgstr "Ajouter des inscriptions"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:268
+#: code:addons/mozaik_communication/distribution_list.py:285
 #, python-format
 msgid "Alias name modified on distribution list %s"
 msgstr "Pseudonyme modifié pour la liste de distribution: %s"
@@ -575,6 +575,16 @@ msgid "Events"
 msgstr "Évènements"
 
 #. module: mozaik_communication
+#: field:distribution.list.line,distribution_list_out_ids:0
+msgid "Exclude from"
+msgstr "Exclu de"
+
+#. module: mozaik_communication
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+msgid "Excluded from following distribution lists:"
+msgstr "Exclu des listes de distribution suivantes:"
+
+#. module: mozaik_communication
 #: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
 msgid "Execute Distribution List"
 msgstr "Exécuter la liste de distribution"
@@ -830,9 +840,19 @@ msgid "Include Unauthorized"
 msgstr "Inclure les interdits"
 
 #. module: mozaik_communication
+#: field:distribution.list.line,distribution_list_in_ids:0
+msgid "Include in"
+msgstr "Inclu dans"
+
+#. module: mozaik_communication
 #: field:distribution.list.mass.function,include_without_coordinate:0
 msgid "Include without Coordinate"
 msgstr "Inclure les injoignables"
+
+#. module: mozaik_communication
+#: view:distribution.list.line:mozaik_communication.distribution_list_line_form
+msgid "Included in following distribution lists:"
+msgstr "Inclu dans les listes de distribution suivantes:"
 
 #. module: mozaik_communication
 #: field:virtual.assembly.instance,interests_m2m_ids:0
@@ -1630,13 +1650,13 @@ msgid "Result"
 msgstr "Résultat"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:250
+#: code:addons/mozaik_communication/distribution_list.py:253
 #, python-format
 msgid "Result of %s"
 msgstr "Résultat de %s"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:353
+#: code:addons/mozaik_communication/distribution_list.py:382
 #, python-format
 msgid "Result of %s Filter without coordinate"
 msgstr "Résultat du filtre %s (injoignables)"
