@@ -23,8 +23,7 @@
 #
 ##############################################################################
 
-from lxml import etree
-from openerp import models, api, fields
+from openerp import models, fields
 from openerp.modules.registry import RegistryManager
 from openerp.tools import SUPERUSER_ID
 import openerp.tests.common as common
