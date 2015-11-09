@@ -164,6 +164,11 @@ class FileTermsLoader(models.TransientModel):
     @api.model
     def set_relation_terms(self, identifier_datas):
         """
+        Set the parent/children depending of the identifier_datas
+        Launch the compute of the search name once the work is done
+        :type identifier_datas: {}
+        :param identifier_datas:
+        {'ext_identifier': {'ext_identifier', 'name', 'parent_ext_ids'}}
         """
         t_t_model = self.env['thesaurus.term']
         for identifier in identifier_datas.keys():
