@@ -82,7 +82,7 @@ class ThesaurusTerm(models.Model):
     _name = 'thesaurus.term'
     _inherit = ['mozaik.abstract.model']
     _description = 'Thesaurus Term'
-    _order = 'name'
+    _order = 'search_name'
     _unicity_keys = 'technical_name'
     _rec_name = 'search_name'
 
@@ -153,11 +153,21 @@ class ThesaurusTerm(models.Model):
         comodel_name='thesaurus.term', relation='child_term_parent_term_rel',
         column1='child_term_id', column2='parent_term_id',
         string='Parent Terms')
+    children_m2m_ids = fields.Many2many(
+        comodel_name='thesaurus.term', relation='parent_term_child_term_rel',
+        column1='parent_term_id', column2='child_term_id',
+        string='Children Terms')
 
     @api.one
     def set_relation_terms(self, parent_term_ids):
-        self.parent_m2m_ids = parent_term_ids
-        self.compute_search_name()
+        vals = {
+            'parent_m2m_ids': [[6, False, parent_term_ids]],
+        }
+        self.write(vals)
+        vals = {
+            'children_m2m_ids': [[4, self.id]],
+        }
+        self.browse(parent_term_ids).write(vals)
 
     @api.model
     @api.returns('self', lambda value: value.id)
@@ -170,6 +180,8 @@ class ThesaurusTerm(models.Model):
         :rparam: id of the new term
         :rtype: integer
         """
+        if not vals.get('search_name'):
+            vals['search_name'] = vals.get('name')
         new_id = super(ThesaurusTerm, self).create(vals)
         if not self.env.context.get('load_mode'):
             # Reset notification term on the thesaurus
@@ -178,18 +190,26 @@ class ThesaurusTerm(models.Model):
             self.thesaurus_id.update_notification_term(newid=new_id)
         return new_id
 
-    @api.returns('self')
-    def search(self, args, offset=0, limit=None, order=None, count=False):
-        return super(ThesaurusTerm, self).search(
-            args, offset=offset, limit=limit, order=order, count=count)
+    @api.multi
+    def get_children_term(self):
+        self.ensure_one()
+        children_terms = []
+        for t in self.children_m2m_ids:
+            children_terms += t.get_children_term()
+        children_terms.append(self.id)
+        return list(set(children_terms))
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
         args = list(args or [])
-        ids = super(ThesaurusTerm, self).search(
-            [('search_name', operator, name)] + args, limit=limit)
-        if ids:
-            return ids.name_get()
+        if len(name) and name[-1:] == '!':
+            name = name.replace('!', '', 1)
+            args = [('name', '=', name)]
+        else:
+            ids = super(ThesaurusTerm, self).search(
+                [('search_name', operator, name)] + args, limit=80)
+            if ids:
+                return ids.name_get()
         return super(ThesaurusTerm, self).name_search(
             name=name, args=args, operator=operator, limit=limit)
 

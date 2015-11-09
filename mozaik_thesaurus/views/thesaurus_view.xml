@@ -28,43 +28,52 @@
             <field name="arch" type="xml">
                 <form string="Thesaurus" version="7.0">
                     <header>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('popup')"
-                             groups="mozaik_base.mozaik_res_groups_configurator">
-                            <button name="action_invalidate" string="Invalidate" type="object"
-                                    confirm="Invalidate thesaurus: proceed anyway?" />
+                        <div
+                            attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                            invisible="context.get('popup')"
+                            groups="mozaik_base.mozaik_res_groups_configurator">
+                            <button name="action_invalidate"
+                                string="Invalidate" type="object"
+                                confirm="Invalidate thesaurus: proceed anyway?" />
                         </div>
                     </header>
                     <sheet>
-                        <div class="oe_title"  name="title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name" /></h1>
+                        <div class="oe_title" name="title">
+                            <label for="name" class="oe_edit_only" />
+                            <h1>
+                                <field name="name" />
+                            </h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                        <div class="oe_right oe_button_box" name="buttons"
+                            invisible="context.get('popup')">
                         </div>
 
-                        <group name="status" attrs="{'invisible': [('id','=',False)]}">
+                        <group name="status"
+                            attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
-                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                                <field name="expire_date"
+                                    attrs="{'invisible': [('active','=',True)]}" />
                             </group>
                             <group name="other">
                             </group>
                         </group>
 
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg"
+                        groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
-                                <field name="id"/>
-                                <field name="active"/>
-                                <field name="new_thesaurus_term_id"/>
+                                <field name="id" />
+                                <field name="active" />
+                                <field name="new_thesaurus_term_id" />
                             </group>
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers"
+                            groups="mozaik_base.mozaik_res_groups_configurator" />
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -81,8 +90,10 @@
                     <field name="name" />
                     <field name="state" />
 
-                    <filter name="draft" string="To confirm" domain="[('state','in',['draft'])]" />
-                    <filter name="confirm" string="Confirmed" domain="[('state','in',['confirmed'])]" />
+                    <filter name="draft" string="To confirm"
+                        domain="[('state','in',['draft'])]" />
+                    <filter name="confirm" string="Confirmed"
+                        domain="[('state','in',['confirmed'])]" />
                     <separator />
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
@@ -92,7 +103,8 @@
                         domain="[('active', '&lt;=', True)]" />
 
                     <group expand="1" string="Group By..." name="group_by">
-                        <filter name="status" string="Status" domain="[]" context="{'group_by':'state'}" />
+                        <filter name="status" string="Status"
+                            domain="[]" context="{'group_by':'state'}" />
                     </group>
                 </search>
             </field>
@@ -103,11 +115,11 @@
             <field name="model">thesaurus.term</field>
             <field name="arch" type="xml">
                 <tree string="Thesaurus Terms" version="7.0"
-                      colors="grey:active==False;red:state=='draft'">
+                    colors="grey:active==False;red:state=='draft'">
                     <field name="name" />
 
                     <field name="expire_date"
-                           invisible="context.get('invisible_expire_date', True)" />
+                        invisible="context.get('invisible_expire_date', True)" />
 
                     <field name="state" invisible="1" />
                     <field name="active" invisible="1" />
@@ -132,56 +144,78 @@
             <field name="arch" type="xml">
                 <form string="Thesaurus Term" version="7.0">
                     <header>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
-                        <div attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
-                             invisible="context.get('popup')"
-                             groups="mozaik_base.mozaik_res_groups_configurator">
-                            <button name="button_confirm" string="Confirm Term" type="object" states="draft" />
-                            <button name="button_cancel" string="Cancel Term" type="object" states="confirm" />
-                            <button name="button_reset" string="Reset Term" type="object" states="cancel" />
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="draft,confirm" />
+                        <div
+                            attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                            invisible="context.get('popup')"
+                            groups="mozaik_base.mozaik_res_groups_configurator">
+                            <button name="button_confirm" string="Confirm Term"
+                                type="object" states="draft" />
+                            <button name="button_cancel" string="Cancel Term"
+                                type="object" states="confirm" />
+                            <button name="button_reset" string="Reset Term"
+                                type="object" states="cancel" />
                         </div>
                     </header>
                     <sheet>
-                        <div class="oe_title"  name="title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name" /></h1>
+                        <div class="oe_title" name="title">
+                            <label for="search_name" class="oe_edit_only" />
+                            <h1>
+                                <field name="search_name" />
+                            </h1>
                         </div>
-                        <div class="oe_right oe_button_box" name="buttons" invisible="context.get('popup')">
+                        <div class="oe_right oe_button_box" name="buttons"
+                            invisible="context.get('popup')">
                         </div>
 
                         <group name="data">
-                            <group name="main">
-                                <field name="ext_identifier" />
-                                <field name="parent_m2m_ids" readonly="1" widget="many2many_tags"/>
-                            </group>
                             <group name="other">
-                                <field name="thesaurus_id" groups="mozaik_base.mozaik_res_groups_configurator" />
+                                <field name="thesaurus_id"
+                                    groups="mozaik_base.mozaik_res_groups_configurator" />
                             </group>
                         </group>
 
-                        <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                        <group name="state"
+                            attrs="{'invisible': [('id','=',False)]}">
                             <group name="validity">
                                 <field name="create_date" />
-                                <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                                <field name="expire_date"
+                                    attrs="{'invisible': [('active','=',True)]}" />
                             </group>
                             <group name="other">
                             </group>
                         </group>
+                        <notebook>
+                            <page name="relation" string="Parent Terms">
+                                <field name="parent_m2m_ids" readonly="1"/>
+                            </page>
+                            <page name="children_terms" string="Children Terms">
+                                <field name="children_m2m_ids" readonly="1"/>
+                            </page>
+                            <page name="technical" string="Technicals">
+                                <group name="technical">
+                                    <field name="name"/>
+                                    <field name="ext_identifier" />
+                                </group>
+                            </page>
+                        </notebook>
 
                     </sheet>
-                    <div name="dev" class="oe_form_sheetbg" groups="mozaik_base.res_groups_developper">
+                    <div name="dev" class="oe_form_sheetbg"
+                        groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">
                             <h3>More Info</h3>
                             <group name="moreinfo">
-                                <field name="id"/>
-                                <field name="technical_name"/>
-                                <field name="search_name"/>
-                                <field name="active"/>
+                                <field name="id" />
+                                <field name="technical_name" />
+                                <field name="active" />
                             </group>
                         </div>
                     </div>
                     <div name="chat" class="oe_chatter" invisible="context.get('popup')">
-                        <field name="message_follower_ids" widget="mail_followers" groups="mozaik_base.mozaik_res_groups_configurator"/>
+                        <field name="message_follower_ids" widget="mail_followers"
+                            groups="mozaik_base.mozaik_res_groups_configurator" />
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
@@ -191,13 +225,13 @@
         <!-- Menu -->
 
         <menuitem id="thesaurus_submenu" name="Thesaurus"
-                  sequence="55" parent="mozaik_base.persons_configuration_submenu" />
+            sequence="55" parent="mozaik_base.persons_configuration_submenu" />
 
         <menuitem id="thesaurus_term_menu" action="thesaurus_term_action"
-                  sequence="10" parent="thesaurus_submenu" />
+            sequence="10" parent="thesaurus_submenu" />
 
         <menuitem id="thesaurus_menu" action="thesaurus_action"
-                  sequence="20" parent="thesaurus_submenu" />
+            sequence="20" parent="thesaurus_submenu" />
 
     </data>
 </openerp>

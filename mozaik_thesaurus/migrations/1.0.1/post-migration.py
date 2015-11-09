@@ -2,7 +2,7 @@
 from openerp.tools import SUPERUSER_ID
 from openerp.modules.registry import RegistryManager
 
-__name__ = "Truncate Table thesaurus and thesaurus_term"
+__name__ = "Delete from Table thesaurus_term"
 
 
 def migrate(cr, version):

@@ -33,7 +33,6 @@ import logging
 from openerp import fields, api, models
 from openerp.tools.translate import _
 from openerp.exceptions import Warning
-
 _logger = logging.getLogger(__name__)
 
 
@@ -72,27 +71,24 @@ class FileTermsLoader(models.TransientModel):
 
     @api.model
     def _update_terms(
-            self, datas, to_update_identifiers, thesaurus_term_ids):
+            self, datas, to_update_identifiers):
         """
         If the value of the identifiers'id is not the same than the value of
-        the thesaurus_term_ids then update it with the value into datas for
+        the thesaurus_term_id found with the identifier
+        then update it with the value into datas for
         this external identifier
         :type datas: dict
         :param datas: contains the value to update per ext_identifier
         :type to_update_identifiers: [int]
         :param to_update_identifiers: list of identifiers that are here to be
             updated or not
-        :type thesaurus_term_ids: [int]
-        :param thesaurus_term_ids: ids of the thesaurus term
         :rtype: integer
         :rparam: number of updated records
         """
-        thesaurus_term_ids = self.env['thesaurus.term'].browse(
-            thesaurus_term_ids)
         cpt = 0
         for identifier in to_update_identifiers:
-            t_term_id = thesaurus_term_ids.filtered(
-                lambda t: t.ext_identifier == identifier)
+            domain = [('ext_identifier', '=', identifier)]
+            t_term_id = self.env['thesaurus.term'].search(domain)
             data_name = datas[identifier]['name'].decode('UTF-8')
             if data_name != t_term_id.name:
                 t_term_id.name = data_name
@@ -151,8 +147,7 @@ class FileTermsLoader(models.TransientModel):
                 'Start Updating %d Existing Terms' % len(
                     to_update_identifiers))
             nb_updated = self._update_terms(
-                identifier_datas, to_update_identifiers,
-                thesaurus_term_ids._ids)
+                identifier_datas, to_update_identifiers)
             _logger.info('%d/%d Updated' % (nb_updated, nb_to_update))
 
         to_create_identifiers =\
@@ -170,6 +165,7 @@ class FileTermsLoader(models.TransientModel):
     def set_relation_terms(self, identifier_datas):
         """
         """
+        t_t_model = self.env['thesaurus.term']
         for identifier in identifier_datas.keys():
             ext_relations_ids = identifier_datas[identifier]['relations']
             if ext_relations_ids:
@@ -178,13 +174,14 @@ class FileTermsLoader(models.TransientModel):
                 domain = [
                     ('ext_identifier', 'in', ext_relations_ids)
                 ]
-                term_ids = self.env['thesaurus.term'].search(domain)
+                term_ids = t_t_model.search(domain)
                 if len(term_ids) > 1:
                     main_term = term_ids.filtered(
                         lambda t: t.ext_identifier == identifier)
                     parent_term_ids = term_ids.filtered(
                         lambda t: t.ext_identifier != identifier).ids
                     main_term.set_relation_terms(parent_term_ids)
+        t_t_model.search([]).compute_search_name()
 
     @api.multi
     def load_terms(self):

@@ -63,7 +63,9 @@ available_tongues = dict(AVAILABLE_TONGUES)
 
 class ResPartner(models.Model):
 
-    _inherit = 'res.partner'
+    _name = 'res.partner'
+    _inherit = ['res.partner', 'abstract.term.finder']
+    _terms = ['interests_m2m_ids', 'competencies_m2m_ids']
 
     @api.one
     @api.depends('select_name')
