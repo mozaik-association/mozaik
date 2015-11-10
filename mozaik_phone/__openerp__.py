@@ -52,6 +52,7 @@ Numbers are normalized regarding the external python library: phonenumbers
         'wizard/change_main_phone.xml',
         'wizard/allow_duplicate_view.xml',
         'wizard/bounce_editor_view.xml',
+        'wizard/change_phone_type.xml',
     ],
     'qweb': [
     ],

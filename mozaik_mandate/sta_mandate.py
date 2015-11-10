@@ -24,7 +24,6 @@
 ##############################################################################
 
 from openerp.osv import orm, fields
-from openerp.tools.translate import _
 from openerp.tools import SUPERUSER_ID
 
 from openerp.addons.mozaik_mandate.abstract_mandate import abstract_candidature
@@ -605,7 +604,7 @@ class sta_candidature(orm.Model):
 
     _constraints = [
         (_check_partner,
-         _("A candidature already exists for this partner in this category"),
+         "A candidature already exists for this partner in this category",
          ['partner_id'])
     ]
 
@@ -766,9 +765,10 @@ class sta_mandate(orm.Model):
     _order = 'partner_id, sta_assembly_id, legislature_id, mandate_category_id'
 
 # constraints
+
     _constraints = [
         (_check_legislature_date_consistency,
-         _('Mandate period is inconsistent with legislature period!'),
+         'Mandate period is inconsistent with legislature period!',
          ['start_date', 'deadline_date'])
     ]
 
@@ -777,82 +777,76 @@ class sta_mandate(orm.Model):
 
 # view methods: onchange, button
 
-    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
-        """
-        =================
-        action_invalidate
-        =================
-        Invalidates an object
-        :rparam: True
-        :rtype: boolean
-        Note: Argument vals must be the last in the signature
-        """
-        return super(sta_mandate, self).action_invalidate(cr, uid, ids,
-                                                          context=context,
-                                                          vals=vals)
-
-    def action_finish(self, cr, uid, ids, context=None):
-        """
-        =================
-        action_finish
-        =================
-        Finish mandate at the current date
-        :rparam: True
-        :rtype: boolean
-        """
-        return super(sta_mandate, self).action_finish(cr, uid, ids,
-                                                      context=context)
-
     def onchange_mandate_category_id(self, cr, uid, ids, mandate_category_id,
                                      context=None):
         sta_assembly_category_id = False
 
         if mandate_category_id:
-            category_data = self.pool.get('mandate.category').read(
-                cr,
-                uid,
-                mandate_category_id,
+            category_data = self.pool['mandate.category'].read(
+                cr, uid, mandate_category_id,
                 ['sta_assembly_category_id'],
-                context)
+                context=context)
             sta_assembly_category_id = category_data[
                 'sta_assembly_category_id'] or False
 
-        res = {
+        vals = {
             'sta_assembly_category_id': sta_assembly_category_id,
             'sta_assembly_id': False,
             'legislature_id': False,
         }
         return {
-            'value': res,
+            'value': vals,
         }
 
     def onchange_legislature_id(self, cr, uid, ids, legislature_id,
                                 context=None):
-        res = {}
-        res['value'] = dict(mandate_start_date=False,
-                            mandate_deadline_date=False)
+        vals = dict(start_date=False, deadline_date=False)
+
         if legislature_id:
-            legislature_data = self.pool.get('legislature').read(
-                cr,
-                uid,
-                legislature_id,
-                ['start_date',
-                 'deadline_date'])
-            res['value'] = dict(
-                start_date=legislature_data['start_date'],
-                deadline_date=legislature_data['deadline_date'])
-        return res
+            legislature_data = self.pool['legislature'].read(
+                cr, uid, legislature_id,
+                ['start_date', 'deadline_date'],
+                context=context)
+            vals['start_date'] = legislature_data['start_date']
+            vals['deadline_date'] = legislature_data['deadline_date']
+
+        return {
+            'value': vals,
+        }
 
     def onchange_sta_assembly_id(self, cr, uid, ids, sta_assembly_id,
                                  context=None):
-        res = {}
-        res['value'] = dict(sta_power_level_id=False)
+        vals = {
+            'sta_power_level_id': False,
+            'designation_int_assembly_id': False,
+        }
+        designation_int_assembly_ids = []
+        domain = [('is_designation_assembly', '=', True)]
         if sta_assembly_id:
-            assembly = self.pool.get('sta.assembly').browse(cr, uid,
-                                                            sta_assembly_id)
+            assembly = self.pool['sta.assembly'].browse(
+                cr, uid, sta_assembly_id, context=context)
 
             power_level_id = assembly.assembly_category_id.power_level_id.id
-            res['value'] = dict(
-                sta_power_level_id=power_level_id)
+            vals['sta_power_level_id'] = power_level_id
+            if assembly.assembly_category_id.is_legislative:
+                designation_int_assembly_ids = [
+                    ed.designation_int_assembly_id.id
+                    for ed in assembly.electoral_district_ids
+                ]
+                domain = [('id', 'in', designation_int_assembly_ids)]
+            else:
+                designation_int_assembly_ids = [
+                    a.id
+                    for a in assembly.instance_id.int_instance_id.assembly_ids
+                    if a.is_designation_assembly
+                ]
+            if 1 == len(designation_int_assembly_ids):
+                vals['designation_int_assembly_id'] = \
+                    designation_int_assembly_ids[0]
 
-        return res
+        return {
+            'value': vals,
+            'domain': {
+                'designation_int_assembly_id': str(domain),
+            }
+        }

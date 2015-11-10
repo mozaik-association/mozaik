@@ -31,9 +31,9 @@ from openerp.osv import orm, fields
 
 # Constants
 SORT_BY = [
-    ('identifier asc', 'Identification Number'),
-    ('display_name asc', 'Name'),
-    ('country_id, zip asc,display_name asc', 'Zip Code'),
+    ('identifier', 'Identification Number'),
+    ('display_name', 'Name'),
+    ('country_id, zip, display_name', 'Zip Code'),
 ]
 E_MASS_FUNCTION = [
     ('email_coordinate_id', 'Mass Mailing'),
@@ -56,10 +56,12 @@ class distribution_list_mass_function(orm.TransientModel):
     _description = 'Mass Function'
 
     _columns = {
-        'trg_model': fields.selection(TRG_MODEL, 'Sending Mode',
-                                      required=True),
-        'e_mass_function': fields.selection(E_MASS_FUNCTION, 'Mass Function'),
-        'p_mass_function': fields.selection(P_MASS_FUNCTION, 'Mass Function'),
+        'trg_model': fields.selection(
+            TRG_MODEL, string='Sending Mode', required=True),
+        'e_mass_function': fields.selection(
+            E_MASS_FUNCTION, string='Mass Function'),
+        'p_mass_function': fields.selection(
+            P_MASS_FUNCTION, string='Mass Function'),
 
         'distribution_list_id': fields.many2one(
             'distribution.list', string='Distribution List',
@@ -67,45 +69,57 @@ class distribution_list_mass_function(orm.TransientModel):
 
         'email_template_id': fields.many2one(
             'email.template', string='Email Template', ondelete='cascade'),
-        'mass_mailing_name': fields.char('Mass Mailing'),
+        'mass_mailing_name': fields.char(string='Mass Mailing Name'),
         'extract_csv': fields.boolean(
-            'Complementary Postal CSV',
+            string='Complementary Postal CSV',
             help="Get a CSV file for partners without email"),
 
-        'postal_mail_name': fields.char('Postal Mailing Name'),
+        'postal_mail_name': fields.char(string='Postal Mailing Name'),
+        'sort_by': fields.selection(SORT_BY, string='Sort by'),
 
-        'sort_by': fields.selection(SORT_BY, 'Sort by'),
-
-        'bounce_counter': fields.integer('Maximum of Fails'),
-        'include_unauthorized': fields.boolean('Include Unauthorized'),
+        'bounce_counter': fields.integer(string='Maximum of Fails'),
+        'include_unauthorized': fields.boolean(string='Include Unauthorized'),
         'internal_instance_id': fields.many2one(
             'int.instance', string='Internal Instance', ondelete='cascade'),
 
-        'groupby_coresidency': fields.boolean('Group by Co-Residency'),
-        'export_file': fields.binary('File', readonly=True),
-        'export_filename': fields.char('Export Filename', size=128),
+        'include_without_coordinate': fields.boolean(
+            string='Include without Coordinate'),
+        'groupby_coresidency': fields.boolean(string='Group by Co-Residency'),
+
+        'export_file': fields.binary(string='File', readonly=True),
+        'export_filename': fields.char(string='Export Filename', size=128),
     }
 
     _defaults = {
         'trg_model': 'email.coordinate',
         'distribution_list_id': lambda self, cr, uid, context:
             context.get('active_id', False),
+        'include_unauthorized': False,
+        'extract_csv': False,
+        'include_without_coordinate': False,
+        'groupby_coresidency': False,
     }
+
+    def onchange_mass_function(self, cr, uid, ids, context=None):
+        """
+        Reset some fields when `mass_fucntion` change
+        """
+        return {
+            'value': {
+                'extract_csv': False,
+                'export_filename': False,
+                'include_without_coordinate': False,
+            }
+        }
 
     def onchange_trg_model(self, cr, uid, ids, context=None):
         """
-        ==================
-        onchange_trg_model
-        ==================
-        reset `p_mass_function` and `e_mass_function`
-        when `trg_model` is changed
+        Reset some fields when `trg_model` change
         """
         return {
             'value': {
                 'p_mass_function': False,
                 'e_mass_function': False,
-                'extract_csv': False,
-                'set_memcard_date': False,
             }
         }
 
@@ -113,9 +127,6 @@ class distribution_list_mass_function(orm.TransientModel):
 
     def mass_function(self, cr, uid, ids, context=None):
         """
-        =============
-        mass function
-        =============
         This method allow to make mass function on
         - email.coordinate
         - postal.coordinate
@@ -132,11 +143,19 @@ class distribution_list_mass_function(orm.TransientModel):
                      [wizard.internal_instance_id.id]))
             context['more_filter'] = domains
             context['target_model'] = wizard.trg_model
+            fct = wizard.trg_model == 'email.coordinate' \
+                and wizard.e_mass_function or wizard.p_mass_function
+            if (fct == 'csv' or wizard.extract_csv) and \
+                    wizard.include_without_coordinate:
+                context['active_test'] = False
+                context['field_alternative_object'] = 'id'
 
             if wizard.sort_by:
                 context['sort_by'] = wizard.sort_by
             if wizard.groupby_coresidency:
                 context['alternative_group_by'] = 'co_residency_id'
+
+            csv_model = wizard.trg_model
 
             if wizard.trg_model == 'email.coordinate':
                 if not wizard.include_unauthorized:
@@ -148,27 +167,21 @@ class distribution_list_mass_function(orm.TransientModel):
                     domains.append(
                         ('email_bounce_counter', '<=', wizard.bounce_counter))
 
-                if wizard.e_mass_function == 'csv':
+                context['field_main_object'] = 'email_coordinate_id'
+
+                if fct == 'csv':
                     #
                     # Get CSV containing email coordinates
                     #
-                    context['field_main_object'] = 'email_coordinate_id'
                     active_ids, alternative_ids = self.pool[
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
 
-                    file_exported = self.export_csv(
-                        cr, uid, ids, wizard.trg_model, active_ids,
-                        wizard.groupby_coresidency, context=context)
-
-                elif wizard.e_mass_function == 'email_coordinate_id':
+                elif fct == 'email_coordinate_id':
                     #
                     # Send mass mailing
                     #
-                    context['field_alternative_object'] = \
-                        'postal_coordinate_id'
-                    context['field_main_object'] = wizard.e_mass_function
                     template_id = wizard.email_template_id.id
                     email_from = mail_message._get_default_from(
                         cr, uid, context=context)
@@ -198,37 +211,42 @@ class distribution_list_mass_function(orm.TransientModel):
                     mail_composer_vals.update(value)
                     mail_composer_id = composer.create(
                         cr, uid, mail_composer_vals, context=context)
-                    context['alternative_more_filter'] = [
-                        ('email_coordinate_id', '=', False)]
 
+                    if wizard.extract_csv:
+                        if not wizard.include_without_coordinate:
+                            context['field_alternative_object'] = \
+                                'postal_coordinate_id'
+                        context['alternative_more_filter'] = [
+                            ('email_coordinate_id', '=', False)]
                     active_ids, alternative_ids = self.pool[
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
-                    context['active_ids'] = active_ids
-                    context['dl_computed'] = True
-                    context['email_coordinate_path'] = 'email'
+
                     if alternative_ids and wizard.extract_csv:
-                        file_exported = self.export_csv(
-                            cr, uid, ids, 'postal.coordinate',
-                            alternative_ids, wizard.groupby_coresidency,
-                            context=context)
-                        if wizard.postal_mail_name:
+                        if wizard.postal_mail_name and \
+                                not wizard.include_without_coordinate:
                             self._generate_postal_log(
                                 cr, uid, wizard.postal_mail_name,
                                 alternative_ids, context=context)
-                    if not active_ids:
+                    elif not active_ids:
                         raise orm.except_orm(
                             _('Error'), _('There are no recipients'))
+                    context['active_ids'] = active_ids
+                    context['dl_computed'] = True
+                    context['email_coordinate_path'] = 'email'
                     composer.send_mail(
                         cr, uid, [mail_composer_id], context=context)
+                    if alternative_ids and wizard.extract_csv:
+                        fct = 'csv'
+                        csv_model = 'postal.coordinate'
+                        active_ids = alternative_ids
 
-                elif wizard.e_mass_function == 'vcard':
+                elif fct == 'vcard':
                     #
                     # Get VCARD containing email coordinates
                     #
-                    context['field_main_object'] = 'email_coordinate_id'
-                    active_ids, alternative_ids = self.pool[
+                    active_ids, __ = self.pool[
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
@@ -247,7 +265,7 @@ class distribution_list_mass_function(orm.TransientModel):
 
                 context['field_main_object'] = 'postal_coordinate_id'
 
-                if wizard.p_mass_function == 'csv':
+                if fct == 'csv':
                     #
                     # Get CSV containing postal coordinates
                     #
@@ -255,18 +273,16 @@ class distribution_list_mass_function(orm.TransientModel):
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
-                    self.post_processing(
-                        cr, uid, wizard, active_ids, context=context)
-                    file_exported = self.export_csv(
-                        cr, uid, ids, wizard.trg_model, active_ids,
-                        wizard.groupby_coresidency, context=context)
 
-                    if wizard.postal_mail_name:
+                    if wizard.postal_mail_name and \
+                            not wizard.include_without_coordinate:
+                        self.post_processing(
+                            cr, uid, wizard, active_ids, context=context)
                         self._generate_postal_log(
                             cr, uid, wizard.postal_mail_name, active_ids,
                             context=context)
 
-                elif wizard.p_mass_function == 'postal_coordinate_id':
+                elif fct == 'postal_coordinate_id':
                     #
                     # Get postal coordinate PDF labels
                     #
@@ -274,8 +290,10 @@ class distribution_list_mass_function(orm.TransientModel):
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
                             context=context)
-                    self.post_processing(
-                        cr, uid, wizard, active_ids, context=context)
+                    if wizard.postal_mail_name and \
+                            not wizard.include_without_coordinate:
+                        self.post_processing(
+                            cr, uid, wizard, active_ids, context=context)
                     ctx = context.copy()
                     ctx.update({
                         'active_model': 'postal.coordinate',
@@ -299,9 +317,19 @@ class distribution_list_mass_function(orm.TransientModel):
                             cr, uid, wizard.postal_mail_name, active_ids,
                             context=context)
 
+            if fct == 'csv':
+                if wizard.include_without_coordinate:
+                    file_exported = self.export_csv(
+                        cr, uid, ids, 'virtual.target', alternative_ids,
+                        context=context)
+                else:
+                    file_exported = self.export_csv(
+                        cr, uid, ids, csv_model, active_ids,
+                        wizard.groupby_coresidency, context=context)
+
         if file_exported:
             return {
-                'name': 'Mass Function',
+                'name': _('Mass Function'),
                 'type': 'ir.actions.act_window',
                 'res_model': 'distribution.list.mass.function',
                 'view_mode': 'form',
@@ -343,9 +371,6 @@ class distribution_list_mass_function(orm.TransientModel):
     def export_csv(self, cr, uid, ids, model, model_ids, group_by=False,
                    context=None):
         """
-        ==========
-        export_csv
-        ==========
         Export the specified coordinates to a CSV file.
         """
         csv_content = self.pool.get('export.csv').get_csv(

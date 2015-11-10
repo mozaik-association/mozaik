@@ -59,25 +59,6 @@ MEMBERSHIP_REQUEST_TYPE = [
 MR_REQUIRED_AGE_KEY = 'mr_required_age'
 
 
-def get_status_values(request_type):
-    """
-    :type request_type: char
-    :param request_type: m or s for member or supporter.
-        `False` if not defined
-    :rtype: dict
-    :rparam: affected date resulting of the `request_type`
-        and the `status`
-    """
-    vals = {}
-    if request_type:
-        vals['accepted_date'] = date.today().strftime('%Y-%m-%d')
-        if request_type == 'm':
-            vals['free_member'] = False
-        elif request_type == 's':
-            vals['free_member'] = True
-    return vals
-
-
 class membership_request(orm.Model):
 
     _name = 'membership.request'
@@ -380,6 +361,24 @@ class membership_request(orm.Model):
                         'new_value': request_value,
                     }
                     chg_obj.create(cr, uid, vals, context=context)
+
+    def _get_status_values(self, request_type):
+        """
+        :type request_type: char
+        :param request_type: m or s for member or supporter.
+            `False` if not defined
+        :rtype: dict
+        :rparam: affected date resulting of the `request_type`
+            and the `status`
+        """
+        vals = {}
+        if request_type:
+            vals['accepted_date'] = date.today().strftime('%Y-%m-%d')
+            if request_type == 'm':
+                vals['free_member'] = False
+            elif request_type == 's':
+                vals['free_member'] = True
+        return vals
 
     _columns = {
         'identifier': fields.related('partner_id',
@@ -727,7 +726,7 @@ class membership_request(orm.Model):
             status_id = partner_obj.read(
                 cr, uid, partner_id, ['membership_state_id'],
                 context=context)['membership_state_id'][0]
-            vals = get_status_values(request_type)
+            vals = self._get_status_values(request_type)
             if vals:
                 with self.protect_v8_cache():
                     # safe mode is here mandatory
@@ -847,13 +846,21 @@ class membership_request(orm.Model):
         :rparam: Id of a `phone.phone` object or  False
         """
         phone_obj = self.pool['phone.phone']
+        wiz_obj = self.pool['change.phone.type']
         phone_ids = phone_obj.search(cr, uid, [('name', '=', phone_number),
                                                ('type', '=', '%s'
                                                 % phone_type)])
         if not phone_ids and then_create:
-            phone_ids.append(phone_obj.create(cr, uid, {'name': phone_number,
-                                                        'type': phone_type},
-                                              context=context))
+            phone_ids = phone_obj.search(
+                cr, uid, [('name', '=', phone_number)])
+            if phone_ids:
+                wiz_id = wiz_obj.create(
+                    cr, uid, {'phone_id': phone_ids[0], 'type': phone_type})
+                wiz_obj.change_phone_type(cr, uid, wiz_id, context=context)
+            else:
+                phone_ids.append(phone_obj.create(
+                    cr, uid, {'name': phone_number, 'type': phone_type},
+                    context=context))
         return (phone_ids or False) and phone_ids[0]
 
     def get_format_email(self, cr, uid, email, context=None):
@@ -1080,7 +1087,7 @@ class membership_request(orm.Model):
                 ([competence.id for competence in mr.competencies_m2m_ids]) \
                 or []
 
-            partner_values.update(get_status_values(mr.request_type))
+            partner_values.update(self._get_status_values(mr.request_type))
             partner_values.update({
                 'competencies_m2m_ids': [[6, False, new_competencies_ids]],
                 'interests_m2m_ids': [[6, False, new_interests_ids]],

@@ -384,4 +384,8 @@ class sta_assembly(orm.Model):
                                          type='boolean',
                                          relation='sta.assembly.category',
                                          store=False),
+        'electoral_district_ids': fields.one2many(
+            'electoral.district', 'assembly_id',
+            string='Abstract Candidatures',
+            domain=[('active', '<=', True)]),
     }

@@ -23,11 +23,16 @@
 #
 ##############################################################################
 
+import logging
 from email.utils import formataddr
 
 from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp import api, fields as new_fields
+from openerp.exceptions import except_orm
+
+_logger = logging.getLogger(__name__)
 
 
 class distribution_list(orm.Model):
@@ -53,6 +58,39 @@ class distribution_list(orm.Model):
                 (dl.partner_id.name, dl.partner_id.email))
         return res
 
+    def _notify_changes_to_owners(self, subject, message):
+        recipient_ids = [user.partner_id.id for user in self.res_users_ids
+                         if user.id != self.env.uid]
+        mail_vals = {
+            'subject': subject,
+            'body_html': message,
+            'recipient_ids': [[6, False, recipient_ids]],
+        }
+        self.env['mail.mail'].create(mail_vals)
+
+    def _get_computed_ids(
+            self, cr, uid, dl_id, bridge_field, to_be_computed_ids,
+            in_mode, context=None):
+        res = super(distribution_list, self)._get_computed_ids(
+            cr, uid, dl_id, bridge_field, to_be_computed_ids, in_mode,
+            context=context)
+        if not in_mode and res and bridge_field != 'id':
+            target_model_name = self.browse(
+                cr, uid, dl_id).dst_model_id.model
+            t_model = self.pool(target_model_name)
+            res = list(res)
+            t_recs = t_model.read(
+                cr, uid, res, ['partner_id'],
+                load='_classic_write', context=context)
+            p_ids = [r['partner_id'] for r in t_recs]
+            if p_ids:
+                domain = [
+                    ('partner_id', 'in', p_ids)
+                ]
+                res = t_model.search(cr, uid, domain, context=context)
+            res = set(res)
+        return res
+
     _columns = {
         'name': fields.char(
             string='Name', required=True, track_visibility='onchange'),
@@ -67,7 +105,14 @@ class distribution_list(orm.Model):
         'partner_id': fields.many2one(
             'res.partner', string='Partner Diffusion',
             select=True, track_visibility='onchange'),
+        'res_partner_m2m_ids': fields.many2many(
+            'res.partner', string='Allowed Partners',
+            rel='distribution_list_res_partner_rel',
+            column1='distribution_list_id', column2='res_partner_id',
+            track_visibility='onchange'),
     }
+
+    code = new_fields.Char('Code', track_visibility='onchange')
 
     _defaults = {
         'res_users_ids': lambda self, cr, uid, c: [uid],
@@ -78,10 +123,14 @@ class distribution_list(orm.Model):
         'partner_path': 'partner_id',
     }
 
+    _order = 'name'
+
 # constraints
 
-    # No More Unique Name For distribution list
-    _sql_constraints = [('unique_name_by_company', 'check(1=1)', '')]
+    # No More Global Unique Name
+    _sql_constraints = [('unique_name_by_company', 'check(1=1)', ''),
+                        ('unique_code', 'unique (code)', 'Code already used !')
+                        ]
 
     _unicity_keys = 'name, int_instance_id'
 
@@ -100,7 +149,20 @@ class distribution_list(orm.Model):
         res['value'] = {'bridge_field': bridge_field}
         return res
 
+    @api.onchange('newsletter')
+    def onchange_newsletter(self):
+        if not self.newsletter:
+            self.code = False
+
 # public methods
+
+    def _get_opt_res_ids(
+            self, cr, uid, model_name, domain, in_mode, context=None):
+        if in_mode:
+            domain.append(('email_is_main', '=', True))
+        opt_ids = super(distribution_list, self)._get_opt_res_ids(
+            cr, uid, model_name, domain, in_mode, context=context)
+        return opt_ids
 
     def get_distribution_list_from_filters(self, cr, uid, ids, context=None):
         domain = [
@@ -117,33 +179,64 @@ class distribution_list(orm.Model):
         msg['email_from']) is into the owners of the distribution list
         If user is into the owners then call super with uid=found_user_id
         """
-        if context is None:
-            context = {}
-        ctx = context.copy()
-        ctx['email_coordinate_path'] = 'email'
-
+        partner_id = False
+        user_id = False
+        is_partner_allowed = False
+        is_partner_user = False
+        has_visibility = False
+        noway = 'No unique coordinate found with address: %s' % \
+            msg['email_from']
         coordinate_ids = self._get_mailing_object(
             cr, uid, dl_id, msg['email_from'], context=context)
-        if coordinate_ids:
+        if len(coordinate_ids) == 1:
+            noway = 'Orphan coordinate [%s]' % coordinate_ids[0]
             coo_values = self.pool['email.coordinate'].read(
                 cr, uid, coordinate_ids[0], ['partner_id'], context=context)
             partner_id = coo_values.get('partner_id') and \
                 coo_values['partner_id'][0] or False
-            if partner_id:
-                user_ids = self.pool['res.users'].search(
-                    cr, uid, [('partner_id', '=', partner_id)],
-                    context=context)
-                user_id = user_ids and user_ids[0] or False
-                if user_id:
-                    dl_values = self.read(
-                        cr, uid, dl_id, ['res_users_ids'], context=context)
-                    owner_ids = dl_values.get('res_users_ids', False)
-                    if user_id in owner_ids:
-                        ctx['field_main_object'] = 'email_coordinate_id'
-                        return super(distribution_list, self).\
-                            distribution_list_forwarding(
-                                cr, user_id, msg, dl_id, context=ctx)
-        return
+        if partner_id:
+            noway = 'Partner [%s] is not an owner nor ' \
+                'an allowed partner' % partner_id
+            dl = self.browse(cr, uid, dl_id, context=context)
+            if partner_id in [p.id for p in dl.res_partner_m2m_ids]:
+                is_partner_allowed = True
+            if not is_partner_allowed:
+                if partner_id in\
+                        [p.partner_id.id for p in dl.res_users_ids]:
+                    is_partner_allowed = True
+        if is_partner_allowed:
+            noway = 'Partner [%s] is not a user' % partner_id
+            partner = self.pool['res.partner'].browse(
+                cr, uid, partner_id, context=context)
+            res_users_model = self.pool['res.users']
+            if partner.is_company and partner.responsible_user_id:
+                user_id = partner.responsible_user_id.id
+            else:
+                domain = [('partner_id', '=', partner_id)]
+                user_id = res_users_model.search(
+                    cr, uid, domain, context=context)
+                user_id = user_id and user_id[0] or False
+        if user_id:
+            noway = 'User [%s] is not a Mozaik User' % user_id
+            is_partner_user = self.pool['res.users'].has_group(
+                cr, user_id, 'mozaik_base.mozaik_res_groups_user')
+        if is_partner_user:
+            noway = 'User [%s] has no visibility on list [%s]' % \
+                (user_id, dl_id)
+            try:
+                self.check_access_rule(
+                    cr, user_id, [dl_id], 'read', context=context)
+                has_visibility = True
+            except except_orm:
+                pass
+        if has_visibility:
+            ctx = dict(context or {},
+                       email_coordinate_path='email',
+                       field_main_object='email_coordinate_id')
+            return super(distribution_list, self).\
+                distribution_list_forwarding(
+                cr, user_id, msg, dl_id, context=ctx)
+        _logger.info('Mail forwarding aborted. Reason: %s' % noway)
 
     def _register_hook(self, cr):
         super(distribution_list, self)._register_hook(cr)
@@ -172,8 +265,50 @@ class distribution_list(orm.Model):
                 'view_id': False,
                 'views': [(False, 'tree')],
                 'domain': domain,
-                'target': 'new',
+                'target': 'current',
                 }
+
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+        """
+        Invalidates distribution lists
+        :rparam: True
+        :rtype: boolean
+        """
+        vals = vals or {}
+        vals['code'] = False
+
+        super(distribution_list, self).action_invalidate(
+            cr, uid, ids, context=context, vals=vals)
+
+        return True
+
+    @api.one
+    def write(self, vals):
+        old_alias = self.alias_name
+        new_alias = vals.get('alias_name', False)
+        old_alias_name = self.alias_id.name_get()[0][1]
+        res = super(distribution_list, self).write(vals)
+        if new_alias and new_alias != old_alias:
+            user = self.env['res.users'].browse(self.env.uid)
+            subject = _('Alias name modified'
+                        ' on distribution list %s') % self.name
+            html_content = []
+            html_content.append(_("<p>Hello,"))
+            html_content.append("<div><br></div>")
+            html_content.append(_("<div>For your information, the alias name"
+                                  " of the distribution list %s has been"
+                                  " changed by %s.</div>") %
+                                (self.name, user.name))
+            html_content.append("<div><br></div>")
+            html_content.append(_("<div>Old alias name: %s</div>")
+                                % old_alias_name)
+            html_content.append(_("<div>New alias name: %s</div>")
+                                % self.alias_id.name_get()[0][1])
+            html_content.append("<div><br></div>")
+            html_content.append(_("<div>Regards,</div></p>"))
+            message = "\n".join(html_content)
+            self._notify_changes_to_owners(subject, message)
+        return res
 
 
 class distribution_list_line(orm.Model):
@@ -200,15 +335,27 @@ class distribution_list_line(orm.Model):
                 'virtual.assembly.instance',
             ])],
             track_visibility='onchange'),
+        'distribution_list_in_ids': fields.many2many(
+            'distribution.list',
+            'include_distribution_list_line_rel',
+            'include_distribution_list_line_id',
+            'include_distribution_list_id', string="Include in"),
+        'distribution_list_out_ids': fields.many2many(
+            'distribution.list',
+            'exclude_distribution_list_line_rel',
+            'exclude_distribution_list_line_id',
+            'exclude_distribution_list_id', string="Exclude from"),
     }
 
     _defaults = {
         'src_model_id': lambda self, cr, uid, c: False,
     }
 
+    _order = 'name'
+
 # constraints
 
-    # No More Unique Name For distribution list
+    # No More Global Unique Name
     _sql_constraints = [('unique_name_by_company', 'check(1=1)', '')]
 
     _unicity_keys = 'name, company_id'
@@ -247,3 +394,18 @@ class distribution_list_line(orm.Model):
         domain.extend(no_coord_domain)
         res['domain'] = str(domain)
         return res
+
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+        """
+        Invalidates distribution list Lines
+        :rparam: True
+        :rtype: boolean
+        """
+        vals = vals or {}
+        vals['distribution_list_in_ids'] = [(5,)]
+        vals['distribution_list_out_ids'] = [(5,)]
+
+        super(distribution_list_line, self).action_invalidate(
+            cr, uid, ids, context=context, vals=vals)
+
+        return True

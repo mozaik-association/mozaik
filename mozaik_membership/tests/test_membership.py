@@ -67,6 +67,8 @@ class test_membership(SharedSetupTransactionCase):
             '%s.res_partner_thierry' % self._module_ns)
         self.rec_partner_pauline = self.browse_ref(
             '%s.res_partner_pauline' % self._module_ns)
+        self.rec_partner_jacques = self.browse_ref(
+            '%s.res_partner_jacques' % self._module_ns)
         self.rec_postal = self.browse_ref(
             '%s.postal_coordinate_2_duplicate_2' % self._module_ns)
         self.rec_phone = self.browse_ref(
@@ -76,6 +78,10 @@ class test_membership(SharedSetupTransactionCase):
             '%s.membership_request_mp' % self._module_ns)
         self.rec_mr_create = self.browse_ref(
             '%s.membership_request_eh' % self._module_ns)
+        self.mobile_five = self.browse_ref('%s.mobile_five'
+                                           % self._module_ns)
+        self.coord_mobile_2 = self.browse_ref(
+            '%s.mobile_coordinate_for_jacques_2' % self._module_ns)
 
     def test_pre_process(self):
         """
@@ -346,3 +352,32 @@ class test_membership(SharedSetupTransactionCase):
         mr.write(vals)
         mr.validate_request()
         self.assertEquals(mr.state, 'validate', 'Validation should work')
+
+    def test_phone_auto_change_type(self):
+        '''
+            Use case tested:
+            ----------------
+            - Jacques has the number +32 473 78 10 80 set as mobile in the
+              database.
+            - A membership request is created with +32 473 78 10 80 set as a
+              fix phone number.
+            ==> The validation of the request should automatically change the
+                phone number as fix in the database and fix all linked
+                coordinates as main
+        '''
+        mr_obj = self.env['membership.request']
+        vals = {
+            'lastname': 'LE CROQUANT',
+            'firstname': 'Jacques',
+            'state': 'confirm',
+            'request_type': 'm',
+            'phone': self.mobile_five.name,
+            'partner_id': self.rec_partner_jacques.id
+        }
+        vals = mr_obj.pre_process(vals)
+        mr1 = mr_obj.create(vals)
+        mr1.validate_request()
+        self.env.invalidate_all()
+        self.assertEqual(self.mobile_five.type, 'fix')
+        self.assertEqual(self.coord_mobile_2.coordinate_type, 'fix')
+        self.assertTrue(self.coord_mobile_2.is_main)

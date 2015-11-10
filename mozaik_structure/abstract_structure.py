@@ -236,7 +236,7 @@ class abstract_assembly(orm.AbstractModel):
             string='Associated Partner',
             select=True,
             required=True,
-            ondelete='restrict'),
+            ondelete='restrict', auto_join=True),
         'months_before_end_of_mandate': fields.integer(
             'Alert Delay (#Months)',
             track_visibility='onchange', group_operator='min'),

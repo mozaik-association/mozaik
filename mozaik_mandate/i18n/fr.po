@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_mandate
+#   * mozaik_mandate
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-13 16:41+0000\n"
-"PO-Revision-Date: 2015-04-13 16:41+0000\n"
+"POT-Creation-Date: 2015-10-28 13:26+0000\n"
+"PO-Revision-Date: 2015-10-28 13:26+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,16 +30,20 @@ msgid "#SP"
 msgstr "#PS"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/abstract_mandate.py:242
+#: code:addons/mozaik_mandate/abstract_mandate.py:241
 #: code:addons/mozaik_mandate/mandate.py:233
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_mandate
+#: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
+msgid "(Empty Coordinates = Use of Main Coordinates)"
+msgstr "(Coordonnées vides = Utilisation des coordonnées principales)"
+
+#. module: mozaik_mandate
 #: constraint:abstract.candidature:0
-#: code:addons/mozaik_mandate/abstract_mandate.py:834
-#: code:addons/mozaik_mandate/sta_mandate.py:608
+#: code:addons/mozaik_mandate/abstract_mandate.py:828
 #: constraint:ext.candidature:0
 #: constraint:int.candidature:0
 #: constraint:sta.candidature:0
@@ -49,7 +53,7 @@ msgstr "Une candidature existe déjà pour ce partenaire dans cette catégorie"
 
 #. module: mozaik_mandate
 #: constraint:abstract.selection.committee:0
-#: code:addons/mozaik_mandate/abstract_mandate.py:175
+#: code:addons/mozaik_mandate/abstract_mandate.py:174
 #: constraint:ext.selection.committee:0
 #: constraint:int.selection.committee:0
 #: constraint:sta.selection.committee:0
@@ -231,6 +235,11 @@ msgstr "Mandats incompatibles autorisés"
 #: sql_constraint:mandate.category:0
 msgid "An Assembly Category is required."
 msgstr "Une catégorie d'assemblée est obligatoire."
+
+#. module: mozaik_mandate
+#: view:res.partner:mozaik_mandate.view_partner_form
+msgid "Assemblies"
+msgstr "Assemblées"
 
 #. module: mozaik_mandate
 #: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_search_view
@@ -630,9 +639,21 @@ msgid "End Date"
 msgstr "Date de fin"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:80
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:99
 #, python-format
-msgid "End date must be lower or equal than today !"
+msgid "End date must be greater or equal than start date!"
+msgstr "La date de fin doit être antérieure à la date de début!"
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:95
+#, python-format
+msgid "End date must be lower or equal than deadline date!"
+msgstr "La date de fin doit être antérieure à la date d'échéance!"
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:91
+#, python-format
+msgid "End date must be lower or equal than today!"
 msgstr "La date de fin doit être antérieure à la date du jour!"
 
 #. module: mozaik_mandate
@@ -705,15 +726,15 @@ msgid "Expired Mandates"
 msgstr "Mandats expirés"
 
 #. module: mozaik_mandate
+#: view:int.instance:mozaik_mandate.abstract_instance_form_view
+msgid "Ext. Mandates"
+msgstr "Mandats ext."
+
+#. module: mozaik_mandate
 #: model:ir.ui.menu,name:mozaik_mandate.ext_submenu
 #: selection:mandate.category,type:0
 msgid "External"
 msgstr "Externe"
-
-#. module: mozaik_mandate
-#: view:res.partner:mozaik_mandate.view_partner_form
-msgid "External Assemblies"
-msgstr "Assemblées externes"
 
 #. module: mozaik_mandate
 #: field:copy.ext.mandate.wizard,assembly_id:0
@@ -762,7 +783,6 @@ msgstr "Mandat externe"
 
 #. module: mozaik_mandate
 #: field:ext.candidature,mandate_ids:0
-#: view:int.instance:mozaik_mandate.abstract_instance_form_view
 #: model:ir.actions.act_window,name:mozaik_mandate.ext_mandate_action
 #: model:ir.ui.menu,name:mozaik_mandate.ext_mandate_submenu
 #: field:mandate.category,ext_mandate_ids:0
@@ -950,6 +970,11 @@ msgid "Indexation"
 msgstr "Indexation"
 
 #. module: mozaik_mandate
+#: view:int.instance:mozaik_mandate.abstract_instance_form_view
+msgid "Int. Mandates"
+msgstr "Mandats int."
+
+#. module: mozaik_mandate
 #: model:ir.ui.menu,name:mozaik_mandate.int_submenu
 #: selection:mandate.category,type:0
 msgid "Internal"
@@ -1009,7 +1034,6 @@ msgstr "Mandat interne"
 
 #. module: mozaik_mandate
 #: field:int.candidature,mandate_ids:0
-#: view:int.instance:mozaik_mandate.abstract_instance_form_view
 #: model:ir.actions.act_window,name:mozaik_mandate.int_mandate_action
 #: model:ir.ui.menu,name:mozaik_mandate.int_mandate_submenu
 #: field:mandate.category,int_mandate_ids:0
@@ -1252,6 +1276,14 @@ msgid "Mandate Category"
 msgstr "Catégorie de mandat"
 
 #. module: mozaik_mandate
+#: field:abstract.update.mandate.end.date.wizard,mandate_deadline_date:0
+#: field:update.ext.mandate.end.date.wizard,mandate_deadline_date:0
+#: field:update.int.mandate.end.date.wizard,mandate_deadline_date:0
+#: field:update.sta.mandate.end.date.wizard,mandate_deadline_date:0
+msgid "Mandate Deadline Date"
+msgstr "Date d'échéance"
+
+#. module: mozaik_mandate
 #: field:abstract.update.mandate.end.date.wizard,mandate_end_date:0
 #: field:update.ext.mandate.end.date.wizard,mandate_end_date:0
 #: field:update.int.mandate.end.date.wizard,mandate_end_date:0
@@ -1278,9 +1310,7 @@ msgid "Mandate Start Date"
 msgstr "Date de début de mandat"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/sta_mandate.py:771
 #: constraint:sta.mandate:0
-#, python-format
 msgid "Mandate period is inconsistent with legislature period!"
 msgstr "La période du mandat est incohérente avec celle de la législature !"
 
@@ -1436,6 +1466,12 @@ msgid "New deadline date must be greater or equal than today !"
 msgstr "La date d'échéance doit être supérieur ou égale à la date du jour !"
 
 #. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:117
+#, python-format
+msgid "New deadline date must be greater than today !"
+msgstr "La nouvelle date d'échéance doit être supérieure à la date du jour !"
+
+#. module: mozaik_mandate
 #: view:import.sta.candidatures.wizard:mozaik_mandate.import_sta_candidatures_wizard_step2
 msgid "No candidature found in input file!"
 msgstr "Le fichier d'entrée est vide !"
@@ -1472,7 +1508,7 @@ msgid "Notes"
 msgstr "Notes"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/abstract_mandate.py:86
+#: code:addons/mozaik_mandate/abstract_mandate.py:85
 #, python-format
 msgid "Operation Forbidden!"
 msgstr "Opération interdite !"
@@ -1544,12 +1580,28 @@ msgid "Power Level"
 msgstr "Niveau de pouvoir"
 
 #. module: mozaik_mandate
+#: view:abstract.update.mandate.end.date.wizard:mozaik_mandate.update_mandate_end_date_wizard
+msgid "Reactivate"
+msgstr "Prolonger"
+
+#. module: mozaik_mandate
+#: model:ir.actions.act_window,name:mozaik_mandate.reactivate_ext_mandate_action
+#: model:ir.actions.act_window,name:mozaik_mandate.reactivate_int_mandate_action
+msgid "Reactivate Mandate"
+msgstr "Prolonger le mandat"
+
+#. module: mozaik_mandate
 #: view:abstract.candidature:mozaik_mandate.abstract_candidature_form_view
 #: view:abstract.mandate:mozaik_mandate.abstract_mandate_form_view
 #: view:abstract.selection.committee:mozaik_mandate.abstract_selection_committee_form_view
 #: view:mandate.category:mozaik_mandate.mandate_category_form_view
 msgid "Reactivate document: proceed anyway?"
 msgstr "Poursuivre la réactivation du document ?"
+
+#. module: mozaik_mandate
+#: view:abstract.update.mandate.end.date.wizard:mozaik_mandate.update_mandate_end_date_wizard
+msgid "Reactivate mandate, proceed anyway?"
+msgstr "Poursuivre le prolongement du mandat?"
 
 #. module: mozaik_mandate
 #: view:ext.selection.committee:mozaik_mandate.ext_selection_committee_form_view
@@ -1705,7 +1757,7 @@ msgid "Set end date, proceed anyway?"
 msgstr "Poursuivre l'arrêt du mandat ?"
 
 #. module: mozaik_mandate
-#: code:addons/mozaik_mandate/abstract_mandate.py:87
+#: code:addons/mozaik_mandate/abstract_mandate.py:86
 #, python-format
 msgid "Some candidatures are still in \"declared\" state"
 msgstr "Certaines candidatures restent au statut \"Déclaré\""
@@ -1720,6 +1772,16 @@ msgstr "Ordre de tri"
 #: field:import.sta.candidatures.wizard,source_file:0
 msgid "Source File"
 msgstr "Fichier d'entrée"
+
+#. module: mozaik_mandate
+#: view:int.instance:mozaik_mandate.abstract_instance_form_view
+msgid "St. Candidatures"
+msgstr "Candidatures pol."
+
+#. module: mozaik_mandate
+#: view:int.instance:mozaik_mandate.abstract_instance_form_view
+msgid "St. Mandates"
+msgstr "Mandats pol."
 
 #. module: mozaik_mandate
 #: field:abstract.copy.mandate.wizard,start_date:0
@@ -1764,7 +1826,6 @@ msgid "State Candidature"
 msgstr "Candidature politique"
 
 #. module: mozaik_mandate
-#: view:int.instance:mozaik_mandate.abstract_instance_form_view
 #: model:ir.actions.act_window,name:mozaik_mandate.sta_candidature_action
 #: model:ir.ui.menu,name:mozaik_mandate.sta_candidature_submenu
 #: view:res.partner:mozaik_mandate.view_partner_form
@@ -1792,7 +1853,6 @@ msgid "State Mandate"
 msgstr "Mandat politique"
 
 #. module: mozaik_mandate
-#: view:int.instance:mozaik_mandate.abstract_instance_form_view
 #: model:ir.actions.act_window,name:mozaik_mandate.sta_mandate_action
 #: model:ir.ui.menu,name:mozaik_mandate.sta_mandate_submenu
 #: field:mandate.category,sta_mandate_ids:0
@@ -1903,12 +1963,43 @@ msgid "Terms..."
 msgstr "Termes..."
 
 #. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:186
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:230
+#, python-format
+msgid "The assembly is not active anymore!"
+msgstr "L'assemblée n'est plus active!"
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:78
+#, python-format
+msgid "The designation assembly is not active anymore!"
+msgstr "L'assemblée de désignation n'est plus active!"
+
+#. module: mozaik_mandate
 #: sql_constraint:abstract.mandate:0
 #: sql_constraint:ext.mandate:0
 #: sql_constraint:int.mandate:0
 #: sql_constraint:sta.mandate:0
 msgid "The end date must be between start date and deadline date."
 msgstr "La date de fin doit être comprise entre la date de début et la date d'échéance."
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:74
+#, python-format
+msgid "The mandate category is not active anymore!"
+msgstr "La catégorie de mandat n'est plus active!"
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:81
+#, python-format
+msgid "The representative is not active anymore!"
+msgstr "Le mandataire n'est plus actif!"
+
+#. module: mozaik_mandate
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:72
+#, python-format
+msgid "The selected mandate is already active!"
+msgstr "Le mandat sélectionné est toujours actif!"
 
 #. module: mozaik_mandate
 #: sql_constraint:abstract.copy.mandate.wizard:0
@@ -2015,7 +2106,10 @@ msgstr "Déclaration de rémunération"
 
 #. module: mozaik_mandate
 #: code:addons/mozaik_mandate/structure.py:48
-#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:79
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:90
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:94
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:98
+#: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:116
 #, python-format
 msgid "Warning"
 msgstr "Attention"

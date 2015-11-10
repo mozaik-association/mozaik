@@ -280,7 +280,8 @@ class test_res_partner(SharedSetupTransactionCase):
         # Update nouvelobs_bis => duplicates: 2 detected, 0 allowed
         partner_model.write(
             cr, uid, [nouvelobs_bis_id], {
-                'name': 'Nouvel Observateur'}, context=context)
+                'name': 'Nouvel Observateur', 'is_company': True},
+            context=context)
         flds = ['is_duplicate_detected', 'is_duplicate_allowed']
         partner_fields = partner_model.read(
             cr, SUPERUSER_ID, [
@@ -347,7 +348,8 @@ class test_res_partner(SharedSetupTransactionCase):
         # Create one more 'nouvelobs' => duplicates: 3 detected, 0 allowed
         nouvelobs_ter_id = partner_model.create(
             cr, uid, {
-                'name': 'Nouvel Observateur'}, context=context)
+                'name': 'Nouvel Observateur', 'is_company': True},
+            context=context)
         partner_fields = partner_model.read(
             cr, SUPERUSER_ID, [
                 nouvelobs_id, nouvelobs_bis_id, nouvelobs_ter_id], flds,
@@ -404,7 +406,8 @@ class test_res_partner(SharedSetupTransactionCase):
         # Update nouvelobs_bis => duplicates: 0 detected, 0 allowed
         partner_model.write(
             cr, uid, [nouvelobs_id], {
-                'name': 'Nouvel Observateur (Economat)'}, context=context)
+                'name': 'Nouvel Observateur (Economat)', 'is_company': True},
+            context=context)
         partner_fields = partner_model.read(
             cr, SUPERUSER_ID, [
                 nouvelobs_id, nouvelobs_bis_id], flds, context=context)
@@ -425,33 +428,19 @@ class test_res_partner(SharedSetupTransactionCase):
         test_invalidate_partner
         =======================
         1) create a company and a user
-        2) try to invalidate company's partner and user's partner and check
-        that failed
+        2) try to invalidate user's partner and check that failed
         3) set active to false for the new user
         4) retry to invalidate the user's partner and check it succeed
         """
-        company_test_id = self.company_model.create(
-            self.cr, self.uid, {
-                'name': '%s' %
-                uuid4()})
         user_test_id = self.user_model.create(
             self.cr, SUPERUSER_ID, {
                 'name': '%s' %
                 uuid4(), 'login': '%s' %
                 uuid4()})
 
-        company_test = self.company_model.browse(
-            self.cr,
-            self.uid,
-            [company_test_id])[0]
         user_test = self.user_model.browse(
             self.cr, self.uid, [user_test_id])[0]
 
-        self.assertRaises(orm.except_orm,
-                          self.partner_model.action_invalidate,
-                          self.cr,
-                          self.uid,
-                          [company_test.partner_id.id])
         self.assertRaises(orm.except_orm,
                           self.partner_model.action_invalidate,
                           self.cr,
@@ -746,3 +735,12 @@ class test_res_partner(SharedSetupTransactionCase):
         partner = self.partner_model.browse(
             cr, uid, partner_id, context=context)
         self.assertEquals(partner.age, age, 'Should be the same age')
+
+    def test_lastname_firstname(self):
+        vals = {
+            'lastname': 'El Ghabri',
+            'firstname': 'Mohssin',
+            'name': 'El Ghabri Mohssin'
+        }
+        partner = self.env['res.partner'].create(vals)
+        self.assertEqual(vals['lastname'], partner.lastname)

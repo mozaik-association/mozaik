@@ -107,7 +107,7 @@ class sub_abstract_coordinate(orm.AbstractModel):
     def update_notify_followers(
             self, cr, uid, vals, not_main_ids, ids=False, context=None):
         new_main_ids = []
-        if ids:
+        if ids and not_main_ids:
             if vals.get('is_main', False):
                 partner_ids = []
                 # assure change is well made after write

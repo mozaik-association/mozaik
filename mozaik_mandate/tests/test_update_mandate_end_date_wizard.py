@@ -54,6 +54,7 @@ class test_update_mandate_end_date_wizard(object):
         context = {
             'active_ids': [self.mandate.id],
             'active_model': self.model,
+            'mode': 'end_date',
         }
         tomorrow = datetime.now() + timedelta(days=1)
         last_week = datetime.now() - timedelta(days=7)
@@ -70,7 +71,7 @@ class test_update_mandate_end_date_wizard(object):
                           self.uid,
                           wiz_id,
                           {})
-        # Finish and inactive a opened mandate
+        # Finish and inactive an opened mandate
         wizard_pool.write(self.cr,
                           self.uid,
                           wiz_id,
@@ -100,6 +101,82 @@ class test_update_mandate_end_date_wizard(object):
         self.assertEqual(self.mandate.end_date,
                          last_month.strftime('%Y-%m-%d'))
 
+    def test_reactivate_mandate(self):
+        '''
+            Test the reactivation of an inactive mandate
+        '''
+        context = {
+            'active_ids': [self.mandate.id],
+            'active_model': self.model,
+            'mode': 'reactivate',
+        }
+        last_week = datetime.now() - timedelta(days=7)
+        last_month = datetime.now() - timedelta(days=30)
+        next_month = datetime.now() + timedelta(days=30)
+
+        wizard_pool = self.registry(self.wizard)
+
+        # Inactivate mandate
+        wiz_id = wizard_pool.create(self.cr,
+                                    self.uid,
+                                    {'mandate_end_date': last_week},
+                                    context=context)
+        wizard_pool.set_mandate_end_date(self.cr,
+                                         self.uid,
+                                         wiz_id,
+                                         context=context)
+        self.assertFalse(self.mandate.active)
+
+        # Reactivate mandate
+        wiz_id = wizard_pool.create(self.cr,
+                                    self.uid,
+                                    {'mandate_deadline_date': last_month},
+                                    context=context)
+        self.assertRaises(orm.except_orm,
+                          wizard_pool.reactivate_mandate,
+                          self.cr,
+                          self.uid,
+                          wiz_id,
+                          {})
+
+        wizard_pool.write(self.cr,
+                          self.uid,
+                          wiz_id,
+                          {'mandate_deadline_date': next_month})
+
+        wizard_pool.reactivate_mandate(self.cr,
+                                       self.uid,
+                                       wiz_id,
+                                       context=context)
+
+        self.assertTrue(self.mandate.active)
+        self.assertEqual(self.mandate.deadline_date,
+                         next_month.strftime('%Y-%m-%d'))
+
+    def test_reactivate_active_mandate(self):
+        '''
+            Test the reactivation of an active mandate
+        '''
+        context = {
+            'active_ids': [self.mandate.id],
+            'active_model': self.model,
+            'mode': 'reactivate',
+        }
+        next_month = datetime.now() + timedelta(days=30)
+
+        wizard_pool = self.registry(self.wizard)
+
+        self.assertTrue(self.mandate.active)
+
+        # Reactivate mandate
+        wiz_id = wizard_pool.create(self.cr,
+                                    self.uid,
+                                    {'mandate_deadline_date': next_month},
+                                    context=context)
+        wizard = wizard_pool.browse(self.cr, self.uid, wiz_id, context=context)
+        self.assertEqual(wizard.message,
+                         "The selected mandate is already active!")
+
 
 class update_sta_mandate_end_date_wizard(test_update_mandate_end_date_wizard,
                                          SharedSetupTransactionCase):
@@ -110,6 +187,12 @@ class update_sta_mandate_end_date_wizard(test_update_mandate_end_date_wizard,
         self.model = 'sta.mandate'
         self.wizard = 'update.sta.mandate.end.date.wizard'
         super(update_sta_mandate_end_date_wizard, self).setUp()
+
+    def test_reactivate_mandate(self):
+        return
+
+    def test_reactivate_active_mandate(self):
+        return
 
 
 class update_int_mandate_end_date_wizard(test_update_mandate_end_date_wizard,

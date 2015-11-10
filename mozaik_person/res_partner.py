@@ -79,6 +79,16 @@ class ResPartner(models.Model):
         string='Technical Name', compute='_compute_technical_name',
         store=True, index=True)
 
+    @api.model
+    @api.returns('self', lambda value: value.id)
+    def create(self, vals):
+        if (vals.get('is_company') and vals.get('name')
+            and not(vals.get('lastname')
+                    and vals.get('firstname'))):
+                vals['lastname'] = vals['name']
+        partner = super(ResPartner, self).create(vals)
+        return partner
+
 
 class res_partner(orm.Model):
 
@@ -148,6 +158,17 @@ class res_partner(orm.Model):
                 'select_name': self.build_name(partner, full_mode=True),
             }
         return result
+
+    @api.one
+    def _inverse_name_after_cleaning_whitespace(self):
+        '''
+            Name field is readonly on mozaik for a natural person
+            but due to a dependance on readonly_bypass, the inverse function
+            in partner_firstname is triggered and can change the expected
+            result. For example if lastname contains space(s).
+        '''
+        if self.is_company:
+            super(res_partner, self)._inverse_name_after_cleaning_whitespace()
 
 # data model
 

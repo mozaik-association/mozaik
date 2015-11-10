@@ -27,7 +27,6 @@ from openerp import tools
 
 
 class virtual_master_partner(orm.Model):
-
     """
     All partners with their postal/email coordinates
     """
@@ -44,7 +43,7 @@ class virtual_master_partner(orm.Model):
             'membership.state',
             'Membership State'),
         'display_name': fields.char('Display Name'),
-        'identifier': fields.integer('Identifier', group_operator='min'),
+        'identifier': fields.integer('Number', group_operator='min'),
         'lastname': fields.char('Lastname'),
         'firstname': fields.char('Firstname'),
         'birth_date': fields.date('Birth Date'),
@@ -80,7 +79,7 @@ class virtual_master_partner(orm.Model):
         SELECT
             p.id as partner_id,
             p.membership_state_id as membership_state_id,
-            p.display_name as display_name,
+            p.select_name as display_name,
             p.identifier as identifier,
             p.lastname as lastname,
             p.firstname as firstname,
@@ -88,7 +87,7 @@ class virtual_master_partner(orm.Model):
             p.is_company as is_company,
 
             e.bounce_counter as email_bounce_counter,
-            pc.bounce_counter as postal_bounce_coutner,
+            pc.bounce_counter as postal_bounce_counter,
 
             e.id as email_coordinate_id,
             pc.id as postal_coordinate_id,
@@ -150,13 +149,9 @@ class virtual_custom_partner(orm.Model):
 
     def init(self, cr):
         """
-        ====
-        init
-        ====
         Select all row of virtual.master.partner but take only main coordinate
         if there are
         """
-        super(virtual_custom_partner, self).init(cr)
         cr.execute("""
         create or replace view virtual_custom_partner as (
         SELECT

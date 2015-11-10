@@ -56,6 +56,8 @@ class ir_model(orm.Model):
                     continue
                 if not model._columns.get(relation.name):
                     continue
+                if not model._columns.get('active'):
+                    continue
 
                 col = model._columns[relation.name]
                 if hasattr(col, 'store') and not col.store:

@@ -53,7 +53,7 @@
                             <field name="unauthorized" />
                             <field name="vip" groups="mozaik_base.mozaik_res_groups_vip_reader" />
                             <field name="is_duplicate_detected" invisible="1"/>
-                            <field name="co_residency_id" invisible="1"/>
+                            <field name="co_residency_id"/>
                         </tree>
                     </field>
                     <field name="postal_coordinate_inactive_ids"

@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_phone
+#   * mozaik_phone
 #
 msgid ""
 msgstr ""
@@ -50,6 +50,16 @@ msgid "Also for Fax"
 msgstr "Également pour fax"
 
 #. module: mozaik_phone
+#: view:change.phone.type:mozaik_phone.change_phone_type_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: mozaik_phone
+#: view:change.phone.type:mozaik_phone.change_phone_type_form
+msgid "Change"
+msgstr "Modifier"
+
+#. module: mozaik_phone
 #: field:change.main.phone,change_allowed:0
 msgid "Change Allowed"
 msgstr "Changement autorisé"
@@ -63,6 +73,17 @@ msgstr "Changer le téléphone principal"
 #: model:ir.model,name:mozaik_phone.model_change_main_phone
 msgid "Change Main Phone Wizard"
 msgstr "Assistant de changement de téléphone principal"
+
+#. module: mozaik_phone
+#: view:change.phone.type:mozaik_phone.change_phone_type_form
+#: model:ir.actions.act_window,name:mozaik_phone.change_phone_type_action
+msgid "Change Phone Type"
+msgstr "Changement du type de téléphone"
+
+#. module: mozaik_phone
+#: model:ir.model,name:mozaik_phone.model_change_phone_type
+msgid "Change Phone Type Wizard"
+msgstr "Assistant de changement de type de téléphone"
 
 #. module: mozaik_phone
 #: field:phone.coordinate,partner_id:0
@@ -81,6 +102,7 @@ msgstr "Coordonnées"
 
 #. module: mozaik_phone
 #: field:change.main.phone,create_uid:0
+#: field:change.phone.type,create_uid:0
 #: field:phone.coordinate,create_uid:0
 #: field:phone.phone,create_uid:0
 msgid "Created by"
@@ -88,6 +110,7 @@ msgstr "Créé par"
 
 #. module: mozaik_phone
 #: field:change.main.phone,create_date:0
+#: field:change.phone.type,create_date:0
 msgid "Created on"
 msgstr "Date de création"
 
@@ -127,6 +150,7 @@ msgid "Failures Counter"
 msgstr "Compteur d'échecs"
 
 #. module: mozaik_phone
+#: selection:change.phone.type,type:0
 #: selection:phone.coordinate,coordinate_type:0
 #: selection:phone.phone,type:0
 #: field:res.partner,fax_coordinate_id:0
@@ -139,6 +163,7 @@ msgid "Faxes"
 msgstr "Fax"
 
 #. module: mozaik_phone
+#: selection:change.phone.type,type:0
 #: selection:phone.coordinate,coordinate_type:0
 #: selection:phone.phone,type:0
 msgid "Fix"
@@ -169,6 +194,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 
 #. module: mozaik_phone
 #: field:change.main.phone,id:0
+#: field:change.phone.type,id:0
 #: field:phone.coordinate,id:0
 #: field:phone.phone,id:0
 msgid "ID"
@@ -236,6 +262,7 @@ msgstr "Date du dernier message"
 
 #. module: mozaik_phone
 #: field:change.main.phone,write_uid:0
+#: field:change.phone.type,write_uid:0
 #: field:phone.coordinate,write_uid:0
 #: field:phone.phone,write_uid:0
 msgid "Last Updated by"
@@ -243,6 +270,7 @@ msgstr "Dernière mise à jour par"
 
 #. module: mozaik_phone
 #: field:change.main.phone,write_date:0
+#: field:change.phone.type,write_date:0
 #: field:phone.coordinate,write_date:0
 #: field:phone.phone,write_date:0
 msgid "Last Updated on"
@@ -267,6 +295,7 @@ msgid "Messages and communication history"
 msgstr "Historique des messages et communications"
 
 #. module: mozaik_phone
+#: selection:change.phone.type,type:0
 #: selection:phone.coordinate,coordinate_type:0
 #: selection:phone.phone,type:0
 #: field:res.partner,mobile_coordinate_id:0
@@ -284,6 +313,12 @@ msgid "New Main Phone"
 msgstr "Nouveau téléphone principal"
 
 #. module: mozaik_phone
+#: code:addons/mozaik_phone/wizard/change_phone_type.py:58
+#, python-format
+msgid "New phone type should be different than current one!"
+msgstr "Le nouveau type de téléphone doit être différent de l'actuel!"
+
+#. module: mozaik_phone
 #: field:phone.phone,name:0
 msgid "Number"
 msgstr "Numéro"
@@ -295,6 +330,7 @@ msgid "Partner"
 msgstr "Partenaire"
 
 #. module: mozaik_phone
+#: field:change.phone.type,phone_id:0
 #: view:phone.coordinate:mozaik_phone.phone_coordinate_search_view
 #: field:phone.coordinate,phone_id:0
 #: view:phone.phone:mozaik_phone.phone_phone_form_view
@@ -346,6 +382,7 @@ msgid "Phones"
 msgstr "Téléphones"
 
 #. module: mozaik_phone
+#: field:change.phone.type,is_main:0
 #: model:ir.actions.act_window,name:mozaik_phone.set_as_main_action
 msgid "Set as main"
 msgstr "Positionner comme principale"
@@ -362,6 +399,7 @@ msgid "This Phone Coordinate seems to be down"
 msgstr "Cette coordonnée téléphonique semble obsolète"
 
 #. module: mozaik_phone
+#: field:change.phone.type,type:0
 #: view:phone.phone:mozaik_phone.phone_phone_search_view
 #: field:phone.phone,type:0
 msgid "Type"
@@ -408,9 +446,13 @@ msgid "Website communication history"
 msgstr "Historique de communication de site web"
 
 #. module: mozaik_phone
+#: view:change.phone.type:mozaik_phone.change_phone_type_form
+msgid "or"
+msgstr "ou"
+
+#. module: mozaik_phone
 #: view:phone.coordinate:mozaik_phone.phone_coordinate_form_view
 msgid "{'search_default_duplicate': True,\n"
 "                                               'search_default_phone_id': phone_id,\n"
 "                                               'default_phone_id': phone_id}"
 msgstr ""
-

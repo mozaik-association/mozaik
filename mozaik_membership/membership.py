@@ -126,6 +126,21 @@ class membership_line(orm.Model):
             partner_ids.append(record.partner_id.id)
         return partner_ids
 
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+        """
+        Invalidates membership lines
+        :rparam: True
+        :rtype: boolean
+        """
+        vals = vals or {}
+        if 'date_to' not in vals:
+            vals['date_to'] = fields.date.today()
+
+        super(membership_line, self).action_invalidate(
+            cr, uid, ids, context=context, vals=vals)
+
+        return True
+
 
 class membership_state(orm.Model):
 

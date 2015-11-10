@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-24 18:05+0000\n"
-"PO-Revision-Date: 2015-04-24 18:05+0000\n"
+"POT-Creation-Date: 2015-10-28 18:57+0000\n"
+"PO-Revision-Date: 2015-10-28 18:57+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,21 +31,21 @@ msgid "2016"
 msgstr ""
 
 #. module: mozaik_membership
-#: model:mail.message.subtype,description:mozaik_membership.membership_line_notification
-msgid "A new membership line has been created"
-msgstr "Un nouvel historique d'adhésion a été créé"
-
-#. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:444
+#: code:addons/mozaik_membership/res_partner.py:445
 #, python-format
 msgid "A Partner is required for a Modification Request"
 msgstr "Un partenaire est requis pour faire une demande de modification"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:359
+#: code:addons/mozaik_membership/res_partner.py:360
 #, python-format
 msgid "A natural person with membership history cannot be transformed to a legal person"
 msgstr "Une personne physique avec un historique d'ahésions ne peut être transformée en une personne morale"
+
+#. module: mozaik_membership
+#: model:mail.message.subtype,description:mozaik_membership.membership_line_notification
+msgid "A new membership line has been created"
+msgstr "Un nouvel historique d'adhésion a été créé"
 
 #. module: mozaik_membership
 #: model:ir.model,name:mozaik_membership.model_sub_abstract_coordinate
@@ -322,6 +322,11 @@ msgid "Decline Payment Date"
 msgstr "Date de refus de paiement"
 
 #. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Decline membership payment request: proceed anyway?"
+msgstr "Poursuivre le refus de paiement ?"
+
+#. module: mozaik_membership
 #: field:virtual.custom.partner,display_name:0
 #: field:virtual.master.partner,display_name:0
 msgid "Display Name"
@@ -376,10 +381,10 @@ msgid "Email is Main"
 msgstr "Adresse électronique principale"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:1028
-#: code:addons/mozaik_membership/res_partner.py:358
-#: code:addons/mozaik_membership/res_partner.py:443
-#: code:addons/mozaik_membership/res_partner.py:551
+#: code:addons/mozaik_membership/membership_request.py:1035
+#: code:addons/mozaik_membership/res_partner.py:359
+#: code:addons/mozaik_membership/res_partner.py:444
+#: code:addons/mozaik_membership/res_partner.py:552
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -388,6 +393,16 @@ msgstr "Erreur"
 #: view:res.partner:mozaik_membership.view_partner_form_membership
 msgid "Exclude"
 msgstr "Exclure"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Exclude former member: proceed anyway?"
+msgstr "Poursuivre l'exclusion de l'ancien membre ?"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Exclude member: proceed anyway?"
+msgstr "Poursuivre l'exclusion du membre ?"
 
 #. module: mozaik_membership
 #: field:res.partner,exclusion_date:0
@@ -632,11 +647,9 @@ msgstr ""
 
 #. module: mozaik_membership
 #: field:membership.request,identifier:0
-#: field:virtual.custom.partner,identifier:0
-#: field:virtual.master.partner,identifier:0
 #: field:waiting.member.report,identifier:0
 msgid "Identifier"
-msgstr "Identifiant"
+msgstr "Numéro"
 
 #. module: mozaik_membership
 #: help:membership.line,message_unread:0
@@ -705,7 +718,7 @@ msgid "Internal Mandate"
 msgstr "Mandat interne"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:1028
+#: code:addons/mozaik_membership/membership_request.py:1035
 #, python-format
 msgid "Invalid Data"
 msgstr "Données invalides"
@@ -864,6 +877,7 @@ msgstr "Instance interne du mandat"
 #: selection:email.coordinate,partner_kind:0
 #: view:membership.line:mozaik_membership.membership_line_search_view
 #: field:membership.line,partner_id:0
+#: view:membership.request:mozaik_membership.membership_request_search_view
 #: selection:membership.request,request_type:0
 #: model:membership.state,name:mozaik_membership.member
 #: selection:phone.coordinate,partner_kind:0
@@ -936,6 +950,7 @@ msgstr "Historiques d'adhésion"
 #: model:ir.model,name:mozaik_membership.model_membership_request
 #: view:membership.request:mozaik_membership.membership_request_form_view
 #: field:membership.request.change,membership_request_id:0
+#: view:res.partner:mozaik_membership.view_partner_2_form
 msgid "Membership Request"
 msgstr "Demande d'adhésion"
 
@@ -1060,12 +1075,19 @@ msgid "New Value"
 msgstr "Nouvelle valeur"
 
 #. module: mozaik_membership
+#: selection:membership.request,request_type:0
+msgid "Newsletter"
+msgstr "Lettre d'information"
+
+#. module: mozaik_membership
 #: field:membership.request,note:0
 msgid "Notes"
 msgstr "Notes"
 
 #. module: mozaik_membership
 #: field:membership.request,number:0
+#: field:virtual.custom.partner,identifier:0
+#: field:virtual.master.partner,identifier:0
 msgid "Number"
 msgstr "Numéro"
 
@@ -1248,6 +1270,11 @@ msgid "Reject"
 msgstr "Exclure"
 
 #. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Reject member candidate: proceed anyway?"
+msgstr "Poursuivre le rejet du candidat membre?"
+
+#. module: mozaik_membership
 #: field:res.partner,rejected_date:0
 msgid "Rejected Date"
 msgstr "Date d'exclusion"
@@ -1269,13 +1296,18 @@ msgstr "Poursuivre la réinitialisation de la date ?"
 
 #. module: mozaik_membership
 #: view:res.partner:mozaik_membership.view_partner_form_membership
-msgid "Reset Partner Membership State: proceed anyway?"
+msgid "Reset membership state: proceed anyway?"
 msgstr "Poursuivre la réinitialisation de l'état d'adhésion ?"
 
 #. module: mozaik_membership
 #: view:res.partner:mozaik_membership.view_partner_form_membership
 msgid "Resign"
 msgstr "Démissionner"
+
+#. module: mozaik_membership
+#: view:res.partner:mozaik_membership.view_partner_form_membership
+msgid "Resign person: proceed anyway?"
+msgstr "Confirmer la démission de la personne ?"
 
 #. module: mozaik_membership
 #: field:res.partner,resignation_date:0
@@ -1363,6 +1395,7 @@ msgid "Summary"
 msgstr "Résumé"
 
 #. module: mozaik_membership
+#: view:membership.request:mozaik_membership.membership_request_search_view
 #: selection:membership.request,request_type:0
 #: model:membership.state,name:mozaik_membership.supporter
 msgid "Supporter"
@@ -1382,7 +1415,7 @@ msgid "Technical Name"
 msgstr "Nom technique"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/membership_request.py:96
+#: code:addons/mozaik_membership/membership_request.py:77
 #, python-format
 msgid "The required age for a membership request is %s"
 msgstr "L'âge requis pour une demande d'adhésion est de %s ans"
@@ -1454,7 +1487,7 @@ msgid "Unauthorized"
 msgstr "Interdit"
 
 #. module: mozaik_membership
-#: code:addons/mozaik_membership/res_partner.py:552
+#: code:addons/mozaik_membership/res_partner.py:553
 #, python-format
 msgid "Undefined Membership State: %s"
 msgstr "Statut d'adhésion inconnu: %s"
@@ -1609,11 +1642,6 @@ msgstr ""
 #: view:product.template:mozaik_membership.product_template_form_view
 #: view:product.template:mozaik_membership.product_template_only_form_view
 msgid "{'invisible': [('membership', '=', True)]}"
-msgstr ""
-
-#. module: mozaik_membership
-#: view:membership.request:mozaik_membership.membership_request_form_view
-msgid "⇒"
 msgstr ""
 
 #. module: mozaik_membership

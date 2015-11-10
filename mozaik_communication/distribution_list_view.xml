@@ -8,24 +8,43 @@
         <record id="distribution_list_search" model="ir.ui.view">
             <field name="name">distribution.list.search (mozaik_communication)</field>
             <field name="model">distribution.list</field>
-            <field name="inherit_id" ref="distribution_list.distribution_list_search" />
+            <field name="inherit_id" ref="mass_mailing_distribution_list.distribution_list_search" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='dst_model_id']" position="replace"/>
+                <xpath expr="//field[@name='note']" position="replace"/>
+
+                <xpath expr="//field[@name='alias_name']" position="replace">
+                    <field name="code"/>
+                    <field name="note"/>
+                    <field name="alias_id"/>
+                    <field name="int_instance_id"/>
+                    <field name="partner_id"/>
+                </xpath>
+
                 <xpath expr="//filter[@name='dst_model']" position="replace">
                     <filter name="instance" string="Internal Instance" domain="[]" context="{'group_by':'int_instance_id'}" />
                 </xpath>
 
-                <xpath expr="//field[@name='name']" position="after">
-                    <field name="int_instance_id"/>
+                <xpath expr="//filter[@name='newsletter']" position="before">
+                    <filter name="my_lists" string="My Lists"
+                        domain="[('res_users_ids', 'in', [uid])]" help="Distribution Lists of which I am an owner" />
+                    <separator/>
+                </xpath>
+
+                <xpath expr="//filter[@name='newsletter']" position="after">
+                    <separator/>
+                    <filter name="public" string="Public Newsletters"
+                        domain="[('newsletter','=',True),('public','=',True)]"/>
+                </xpath>
+
+                <xpath expr="//filter[@name='mail_forwarding']" position="after">
+                    <separator/>
                     <filter name="expired" string="Expired"
                         context="{'invisible_expire_date': False}"
                         domain="[('active','=',False)]" help="Expired Distribution Lists" />
                     <filter name="all" string="All"
                         context="{'invisible_expire_date': False}"
                         domain="['|', ('active', '=', True), ('active', '!=', True)]" help="All Distribution Lists, expired or not" />
-                    <separator/>
-                    <filter name="my_lists" string="My Lists"
-                        domain="[('res_users_ids', 'in', [uid])]" help="Distribution Lists of which I am an owner" />
                 </xpath>
             </field>
         </record>
@@ -34,7 +53,7 @@
         <record id="distribution_list_tree" model="ir.ui.view">
             <field name="name">distribution.list.tree (mozaik_communication)</field>
             <field name="model">distribution.list</field>
-            <field name="inherit_id" ref="distribution_list.distribution_list_tree" />
+            <field name="inherit_id" ref="mass_mailing_distribution_list.distribution_list_tree" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='dst_model_id']" position="replace">
                     <field name="dst_model_id" invisible="1"/>
@@ -57,7 +76,7 @@
                             string="See Distribution List Result" type="object" icon="gtk-redo"
                             groups="mozaik_base.res_groups_base" />
                 </xpath>
-                
+
                 <xpath expr="//button[@name='get_action_from_domains']" position="after">
                     <button name="get_all_without_coordinates"
                             attrs="{'invisible':[('active', '=', False)]}"
@@ -87,28 +106,25 @@
                     </header>
                 </xpath>
 
-                <xpath expr="//group[@name='info']" position="replace">
-                    <group>
-                        <field name="newsletter"/>
+                <xpath expr="//group[field[@name='dst_model_id']]" position="replace">
+                    <group name="newsletter1">
+                        <field name="newsletter" on_change="1"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//group[field[@name='bridge_field']]" position="replace">
+                    <group name="newsletter2">
                         <field name="public" attrs="{'invisible': [('newsletter', '=', False)]}"/>
+                        <field name="code" attrs="{'invisible': [('newsletter', '=', False)]}"/>
                     </group>
-                    <group name="forwarding_infos">
-                        <group name="mail_forwarding">
-                            <field name="mail_forwarding"/>
-                        </group>
-                        <group name="mail_alias_id">
-                            <field name="mail_alias_id"
-                                 attrs="{'invisible': ['|',
-                                 ('mail_forwarding', '=', False),
-                                 ('mail_alias_id', '=', False),]}"/>
-                        </group>
-                        <group name="partner_diffusion">
-                            <field name="partner_id"
-                                 attrs="{'invisible': ['|',
-                                 ('mail_forwarding', '=', False)]}"/>
-                        </group>
-                    </group>
-                    <group name="state" attrs="{'invisible': [('id','=',False)]}">
+                </xpath>
+
+                <xpath expr="//group[@name='group_alias']" position="inside">
+                    <field name="partner_id"/>
+                </xpath>
+
+                <xpath expr="//group[@name='info']" position="after">
+                    <group name="status" attrs="{'invisible': [('id','=',False)]}">
                         <group name="validity">
                             <field name="create_date" />
                             <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
@@ -117,7 +133,7 @@
                         </group>
                     </group>
                 </xpath>
-                
+
                 <xpath expr="//field[@name='to_include_distribution_list_line_ids']//button[@name='get_list_from_domain']" position="after">
                     <button name="get_list_without_coordinate_from_domain"
                             string="See Result Without Coordinate" type="object"
@@ -131,6 +147,7 @@
                         <group name="validity">
                             <field name="int_instance_id" />
                             <field name="res_users_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+                            <field name="res_partner_m2m_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
                         </group>
                         <div class="oe_clear">
                             <br />
@@ -159,6 +176,8 @@
                                        on_change="onchange_dst_model(dst_model_id)"
                                        domain="[('model', 'in', ['virtual.target', 'res.partner'])]"/>
                                 <field name="bridge_field"/>
+                                <field name="partner_path"
+                                       attrs="{'required':[('newsletter','=', True)]}" />
                             </group>
                         </div>
                     </div>
@@ -249,6 +268,21 @@
 
                 <xpath expr="//field[@name='domain']" position="attributes">
                     <attribute name="readonly">not context.get('is_developper')</attribute>
+                </xpath>
+
+                <xpath expr="//sheet" position="inside">
+                    <group name="status" attrs="{'invisible': [('id','=',False)]}">
+                        <group name="validity">
+                            <field name="create_date" />
+                            <field name="expire_date" attrs="{'invisible': [('active','=',True)]}" />
+                        </group>
+                        <group name="other">
+                        </group>
+                    </group>
+                    <separator string="Included in following distribution lists:"/>
+                    <field name="distribution_list_in_ids" widget="many2many_tags" readonly="1" context="{'active_test': False}"/>
+                    <separator string="Excluded from following distribution lists:"/>
+                    <field name="distribution_list_out_ids" widget="many2many_tags" readonly="1" context="{'active_test': False}"/>
                 </xpath>
 
                 <!-- Add user tree into distribution list form -->

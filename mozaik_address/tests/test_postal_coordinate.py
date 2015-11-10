@@ -320,6 +320,7 @@ class test_postal_coordinate(SharedSetupTransactionCase):
         # check inactive
         co_res = cr_mod.browse(cr, uid, cor_id)
         self.assertFalse(co_res.active)
+        self.assertFalse(len(co_res.postal_coordinate_ids))
 
         for coord in co_res.postal_coordinate_ids:
             self.assertFalse(coord.active)

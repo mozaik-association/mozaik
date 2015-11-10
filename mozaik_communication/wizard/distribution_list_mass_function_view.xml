@@ -4,26 +4,24 @@
 
         <!-- Distribution List Mailing View -->
 
-        <record id="distribution_list_mass_function_wizard"
-            model="ir.ui.view">
-            <field name="name">distribution.list.mailing.form</field>
+        <record id="distribution_list_mass_function_wizard" model="ir.ui.view">
+            <field name="name">distribution.list.mass.function.wizard</field>
             <field name="model">distribution.list.mass.function</field>
             <field name="arch" type="xml">
-                <form string="Mass Mailing" version="7.0">
+                <form string="Mass Function">
                     <div class="oe_title" name="title">
-                        <label for="distribution_list_id" string="Execute Distribution List"
-                            class="oe_edit_only" />
+                        <separator string="Execute Distribution List"/>
                         <h1>
                             <field name="distribution_list_id" readonly="1" options='{"no_open":True}' />
                         </h1>
                     </div>
                     <group>
                         <field name="trg_model" on_change="onchange_trg_model()" widget="radio" />
-                        <field name="e_mass_function"
+                        <field name="e_mass_function" on_change="onchange_mass_function()"
                             attrs="{'invisible':[('trg_model','!=','email.coordinate')],
                                     'required':[('trg_model','=','email.coordinate')]}"
                             widget="radio" />
-                        <field name="p_mass_function"
+                        <field name="p_mass_function" on_change="onchange_mass_function()"
                             attrs="{'invisible':[('trg_model','!=','postal.coordinate')],
                                     'required':[('trg_model','=','postal.coordinate')]}"
                             widget="radio" />
@@ -37,8 +35,18 @@
                     </group>
 
                     <notebook>
-                        <page name="mass_mailing" string="Mass Mailing"
+                        <page name="download" string="Result"
                             autofocus="autofocus"
+                            attrs="{'invisible':[('export_filename','=',False)]}">
+                            <group>
+                                <field name="export_file"
+                                   nolabel="1"
+                                   readonly="1"
+                                   filename="export_filename" />
+                                <field name="export_filename" invisible="1"/>
+                            </group>
+                        </page>
+                        <page name="mass_mailing" string="Mass Mailing"
                             attrs="{'invisible':['|',('trg_model','!=','email.coordinate'),
                                                        ('e_mass_function','!=','email_coordinate_id')]}">
                             <group>
@@ -55,30 +63,28 @@
                             </group>
                         </page>
                         <page name="postal_mailing" string="Postal Mailing"
-                            attrs="{'invisible':[('trg_model','!=','postal.coordinate'),
-                                    '|', ('extract_csv','=',False), ('e_mass_function','!=','email_coordinate_id')]}">
+                            attrs="{'invisible':['|',('trg_model','!=','postal.coordinate'),('p_mass_function','=',False),('extract_csv','=',False),('e_mass_function','!=','csv')]}">
                             <group>
                                 <group>
-                                    <field name="postal_mail_name" />
                                     <field name="sort_by" />
-                                    <field name="groupby_coresidency" />
+                                    <field name="include_without_coordinate"
+                                        attrs="{'invisible':[('p_mass_function','=','postal_coordinate_id')]}" />
+                                    <field name="postal_mail_name"
+                                        attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}" />
+                                    <field name="groupby_coresidency"
+                                        attrs="{'invisible':['|',('include_without_coordinate','=',True),('e_mass_function','=','csv')]}" />
                                 </group>
                             </group>
                         </page>
                     </notebook>
-                    <group>
-                        <field name="export_file"
-                           nolabel="1"
-                           readonly="1"
-                           filename="export_filename" />
-                    </group>
                     <div name="dev" groups="mozaik_base.res_groups_developper">
                         <h3>More Info</h3>
                         <group name="moreinfo">
                         </group>
                     </div>
                     <footer>
-                        <span name="go-wizard">
+                        <span name="go-wizard"
+                            attrs="{'invisible':[('p_mass_function','=',False),('e_mass_function','=',False)]}">
                             <button name="mass_function" string="Launch"
                                 type="object" class="oe_highlight" />
                             or

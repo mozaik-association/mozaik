@@ -22,7 +22,7 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import tools
+from openerp import tools, api
 from openerp.osv import orm, fields
 
 from openerp.addons.mozaik_person.res_partner import AVAILABLE_GENDERS
@@ -31,23 +31,58 @@ from openerp.addons.mozaik_retrocession.retrocession import \
     RETROCESSION_AVAILABLE_STATES
 from openerp.addons.mozaik_mandate.mandate import \
     mandate_category_available_types
+from lxml import etree
+
+
+class abstract_virtual_target(orm.AbstractModel):
+    _name = 'abstract.virtual.target'
+    _description = 'Abstract Virtual Target'
+
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form',
+                        context=None, toolbar=False, submenu=False):
+        context = context or {}
+        res = super(abstract_virtual_target, self).fields_view_get(
+            cr, uid, view_id=view_id, view_type=view_type, context=context,
+            toolbar=toolbar, submenu=submenu)
+        if view_type == 'tree':
+            button = etree.Element(
+                'button', string='See Partner', type='object',
+                name='get_partner_action', icon='gtk-redo')
+            doc = etree.XML(res['arch'])
+            doc.xpath('//tree')[0].append(button)
+            res['arch'] = etree.tostring(doc)
+        return res
+
+    @api.multi
+    def get_partner_action(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'res.partner',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'res_id': self.partner_id.id,
+            'target': 'current',
+        }
 
 
 class virtual_target(orm.Model):
     _name = "virtual.target"
     _description = "Searching Result"
-    _inherit = ['virtual.master.partner']
+    _inherit = ['virtual.master.partner', 'abstract.virtual.target']
     _auto = False
+
+    _columns = {
+        'email_coordinate_id': fields.many2one(
+            'email.coordinate', string='Email Coordinate'),
+        'postal_coordinate_id': fields.many2one(
+            'postal.coordinate', string='Postal Coordinate'),
+    }
 
 # orm methods
 
     def init(self, cr):
         """
-        ====
-        init
-        ====
-        This view will take all the columns of `virtual.partner`
-        However only the row with at least one coordinate will be take
+        This add an id to all columns of `virtual_master_partner`
         """
         tools.drop_view_if_exists(cr, 'virtual_target')
         cr.execute("""
@@ -63,6 +98,7 @@ class virtual_target(orm.Model):
 class virtual_partner_involvement(orm.Model):
 
     _name = "virtual.partner.involvement"
+    _inherit = "abstract.virtual.target"
     _description = "Partner/Involvement"
     _auto = False
 
@@ -168,6 +204,7 @@ class virtual_partner_relation(orm.Model):
 
     _name = "virtual.partner.relation"
     _description = "Partner/Relation"
+    _inherit = "abstract.virtual.target"
     _auto = False
 
     _columns = {
@@ -222,6 +259,7 @@ class virtual_partner_relation(orm.Model):
         'email_unauthorized': fields.related(
             'email_coordinate_id', 'unauthorized', type='boolean',
             obj='email.coordinate', string='Unauthorized Email'),
+
         'active': fields.boolean("Active"),
     }
 
@@ -235,15 +273,15 @@ class virtual_partner_relation(orm.Model):
             r.id as id,
             concat(r.subject_partner_id, '/',
                    CASE
-                       WHEN r.postal_coordinate_id IS NULL
-                       THEN pc.id
-                       ELSE r.postal_coordinate_id
+                       WHEN pc2.id IS NULL
+                       THEN pc1.id
+                       ELSE pc2.id
                    END,
                    '/',
                    CASE
-                       WHEN r.email_coordinate_id IS NULL
-                       THEN e.id
-                       ELSE r.email_coordinate_id
+                       WHEN ec2.id IS NULL
+                       THEN ec1.id
+                       ELSE ec2.id
                    END) as common_id,
             r.subject_partner_id as partner_id,
             rc.id as relation_category_id,
@@ -257,46 +295,52 @@ class virtual_partner_relation(orm.Model):
             p.tongue as tongue,
             p.employee as employee,
             CASE
-                WHEN r.email_coordinate_id IS NULL
-                THEN e.id
-                ELSE r.email_coordinate_id
+                WHEN ec2.id IS NULL
+                THEN ec1.id
+                ELSE ec2.id
             END
             AS email_coordinate_id,
             CASE
-                WHEN r.postal_coordinate_id IS NULL
-                THEN pc.id
-                ELSE r.postal_coordinate_id
+                WHEN pc2.id IS NULL
+                THEN pc1.id
+                ELSE pc2.id
             END
             AS postal_coordinate_id,
             CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL OR
-                      r.email_coordinate_id IS NOT NULL OR
-                      r.postal_coordinate_id IS NOT NULL)
+                WHEN ec1.id IS NOT NULL OR pc1.id IS NOT NULL
                 THEN True
                 ELSE False
             END AS active
         FROM partner_relation AS r
 
         JOIN res_partner AS p
-            ON (p.id = r.subject_partner_id
-            AND p.active = TRUE
-            AND p.identifier > 0)
+            ON p.id = r.subject_partner_id
+            AND p.active
+            AND p.identifier > 0
 
         JOIN partner_relation_category AS rc
-            ON (rc.id = r.partner_relation_category_id
-            AND rc.active = TRUE)
+            ON rc.id = r.partner_relation_category_id
+            AND rc.active
 
-        LEFT OUTER JOIN postal_coordinate AS pc
-            ON (pc.partner_id = p.id
-            AND pc.active = TRUE
-            AND pc.is_main = TRUE)
+        LEFT OUTER JOIN postal_coordinate AS pc1
+            ON pc1.partner_id = p.id
+            AND pc1.active
+            AND pc1.is_main
 
-        LEFT OUTER JOIN email_coordinate AS e
-            ON (e.partner_id = p.id
-            AND e.active = TRUE
-            AND e.is_main = TRUE)
+        LEFT OUTER JOIN email_coordinate AS ec1
+            ON ec1.partner_id = p.id
+            AND ec1.active
+            AND ec1.is_main
 
-        WHERE r.active = TRUE
+        LEFT OUTER JOIN postal_coordinate AS pc2
+            ON pc2.id = r.postal_coordinate_id
+            AND pc2.active
+
+        LEFT OUTER JOIN email_coordinate AS ec2
+            ON ec2.id = r.email_coordinate_id
+            AND ec2.active
+
+        WHERE r.active
         )""")
 
 
@@ -304,6 +348,7 @@ class virtual_partner_instance(orm.Model):
 
     _name = "virtual.partner.instance"
     _description = "Partner/Instance"
+    _inherit = "abstract.virtual.target"
     _auto = False
 
     _columns = {
@@ -326,7 +371,7 @@ class virtual_partner_instance(orm.Model):
         'employee': fields.boolean('Employee'),
 
         'postal_vip': fields.boolean('VIP Address'),
-        'main_postal': fields.boolean('Main Postal'),
+        'main_postal': fields.boolean('Main Address'),
         'postal_unauthorized': fields.boolean('Unauthorized Address'),
         'postal_category_id': fields.many2one('coordinate.category',
                                               'Postal Coordinate Category'),
@@ -362,55 +407,60 @@ class virtual_partner_instance(orm.Model):
         cr.execute("""
         create or replace view virtual_partner_instance as (
         SELECT
-            concat(p.id, '/', pc.id, '/', e.id) as id,
-            concat(p.id, '/', pc.id, '/', e.id) as common_id,
-            p.id as partner_id,
-            p.int_instance_id as int_instance_id,
-            e.id as email_coordinate_id,
-            pc.id as postal_coordinate_id,
-            pc.coordinate_category_id as postal_category_id,
-            p.is_company as is_company,
-            p.identifier as identifier,
-            p.birth_date as birth_date,
-            p.gender as gender,
-            p.tongue as tongue,
-            p.employee as employee,
-            pc.unauthorized as postal_unauthorized,
-            pc.vip as postal_vip,
-            pc.is_main as main_postal,
-            e.vip as email_vip,
-            e.coordinate_category_id as email_category_id,
-            e.is_main as main_email,
-            e.unauthorized as email_unauthorized,
-            ms.id as membership_state_id,
-            CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
-                THEN True
-                ELSE False
-            END AS active
+            *,
+            row_number() OVER(ORDER BY common_id) AS id
+        FROM (
+            SELECT
+                concat(p.id, '/', pc.id, '/', e.id) as common_id,
+                p.id as partner_id,
+                p.int_instance_id as int_instance_id,
+                e.id as email_coordinate_id,
+                pc.id as postal_coordinate_id,
+                pc.coordinate_category_id as postal_category_id,
+                p.is_company as is_company,
+                p.identifier as identifier,
+                p.birth_date as birth_date,
+                p.gender as gender,
+                p.tongue as tongue,
+                p.employee as employee,
+                pc.unauthorized as postal_unauthorized,
+                pc.vip as postal_vip,
+                pc.is_main as main_postal,
+                e.vip as email_vip,
+                e.coordinate_category_id as email_category_id,
+                e.is_main as main_email,
+                e.unauthorized as email_unauthorized,
+                ms.id as membership_state_id,
+                CASE
+                    WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                    THEN True
+                    ELSE False
+                END AS active
 
-        FROM res_partner AS p
+            FROM res_partner AS p
 
-        LEFT OUTER JOIN membership_state AS ms
-            ON (ms.id = p.membership_state_id)
+            LEFT OUTER JOIN membership_state AS ms
+                ON (ms.id = p.membership_state_id)
 
-        LEFT OUTER JOIN postal_coordinate AS pc
-            ON (pc.partner_id = p.id
-            AND pc.active = TRUE)
+            LEFT OUTER JOIN postal_coordinate AS pc
+                ON (pc.partner_id = p.id
+                AND pc.active = TRUE)
 
-        LEFT OUTER JOIN email_coordinate AS e
-            ON (e.partner_id = p.id
-            AND e.active = TRUE)
+            LEFT OUTER JOIN email_coordinate AS e
+                ON (e.partner_id = p.id
+                AND e.active = TRUE)
 
-        WHERE p.active = TRUE
-        AND p.identifier > 0
-        )""")
+            WHERE p.active = TRUE
+            AND p.identifier > 0
+            ) as subquery)
+            """)
 
 
 class virtual_partner_mandate(orm.Model):
 
     _name = "virtual.partner.mandate"
     _description = "Partner/Mandate"
+    _inherit = "abstract.virtual.target"
     _auto = False
 
     _columns = {
@@ -439,6 +489,9 @@ class virtual_partner_mandate(orm.Model):
         'sta_mandate_id': fields.many2one('sta.mandate', 'State Mandate'),
         'ext_mandate_id': fields.many2one('ext.mandate', 'External Mandate'),
 
+        'ref_partner_id': fields.many2one(
+            'res.partner', 'Partner'),
+
         'start_date': fields.date('Start Date'),
         'deadline_date': fields.date('Deadline Date'),
 
@@ -461,6 +514,14 @@ class virtual_partner_mandate(orm.Model):
         'email_unauthorized': fields.related(
             'email_coordinate_id', 'unauthorized', string='Unauthorized Email',
             type='boolean', relation='email.coordinate'),
+
+        'ref_partner_competencies_m2m_ids': fields.related(
+            'ref_partner_id', 'competencies_m2m_ids',
+            type='many2many',
+            obj='thesaurus.term',
+            rel='ref_partner_term_competencies_rel',
+            id1='ref_partner_id', id2='thesaurus_term_id',
+            string='Topics'),
 
         'sta_competencies_m2m_ids': fields.related(
             'sta_mandate_id', 'competencies_m2m_ids',
@@ -495,23 +556,27 @@ class virtual_partner_mandate(orm.Model):
             if mandate_type == 'int' else "NULL::int")
         sta_instance_id = (
             "assembly.instance_id" if mandate_type == 'sta' else "NULL::int")
+        ref_partner_id = (
+            "assembly.ref_partner_id"
+            if mandate_type == 'ext' else "NULL::int")
         return """
         SELECT '%s.mandate' AS model,
             concat(mandate.partner_id, '/',
                 CASE
-                    WHEN mandate.postal_coordinate_id IS NULL
-                    THEN pc.id
-                    ELSE mandate.postal_coordinate_id
+                    WHEN pc2.id IS NULL
+                    THEN pc1.id
+                    ELSE pc2.id
                 END,
                 '/',
                 CASE
-                    WHEN mandate.email_coordinate_id IS NULL
-                    THEN e.id
-                    ELSE mandate.email_coordinate_id
+                    WHEN ec2.id IS NULL
+                    THEN ec1.id
+                    ELSE ec2.id
                 END) as common_id,
             %s as id,
             %s as sta_mandate_id,
             %s as ext_mandate_id,
+            %s as ref_partner_id,
             mandate.mandate_category_id,
             mandate.partner_id,
             mandate.start_date,
@@ -526,26 +591,26 @@ class virtual_partner_mandate(orm.Model):
             partner.employee as employee,
             partner.int_instance_id as int_instance_id,
             CASE
-                WHEN mandate.email_coordinate_id IS NULL
-                THEN e.id
-                ELSE mandate.email_coordinate_id
+                WHEN ec2.id IS NULL
+                THEN ec1.id
+                ELSE ec2.id
             END
             AS email_coordinate_id,
             CASE
-                WHEN mandate.postal_coordinate_id IS NULL
-                THEN pc.id
-                ELSE mandate.postal_coordinate_id
+                WHEN pc2.id IS NULL
+                THEN pc1.id
+                ELSE pc2.id
             END
             AS postal_coordinate_id,
             %s as mandate_instance_id,
             %s as sta_instance_id,
             CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL)
+                WHEN ec1.id IS NOT NULL OR pc1.id IS NOT NULL
                 THEN True
                 ELSE False
             END AS active
         """ % (mandate_type, mandate_id, sta_mandate_id, ext_mandate_id,
-               mandate_instance_id, sta_instance_id)
+               ref_partner_id, mandate_instance_id, sta_instance_id)
 
     def _from(self, mandate_type):
         return """
@@ -558,14 +623,20 @@ class virtual_partner_mandate(orm.Model):
             ON partner.id = mandate.partner_id
         LEFT OUTER JOIN int_assembly AS designation_assembly
             ON designation_assembly.id = mandate.designation_int_assembly_id
-        LEFT OUTER JOIN postal_coordinate AS pc
-            ON pc.partner_id = mandate.partner_id
-            and pc.is_main = TRUE
-            AND pc.active = TRUE
-        LEFT OUTER JOIN email_coordinate AS e
-            ON e.partner_id = mandate.partner_id
-            and e.is_main = TRUE
-            AND e.active = TRUE
+        LEFT OUTER JOIN postal_coordinate AS pc1
+            ON pc1.partner_id = mandate.partner_id
+            AND pc1.is_main
+            AND pc1.active
+        LEFT OUTER JOIN email_coordinate AS ec1
+            ON ec1.partner_id = mandate.partner_id
+            AND ec1.is_main
+            AND ec1.active
+        LEFT OUTER JOIN postal_coordinate AS pc2
+            ON pc2.id = mandate.postal_coordinate_id
+            AND pc2.active
+        LEFT OUTER JOIN email_coordinate AS ec2
+            ON ec2.id = mandate.email_coordinate_id
+            AND ec2.active
         """ % (mandate_type, mandate_type, mandate_type)
 
     def _where(self, mandate_type):
@@ -592,6 +663,7 @@ class virtual_partner_candidature(orm.Model):
 
     _name = "virtual.partner.candidature"
     _description = "Partner/Candidature"
+    _inherit = "abstract.virtual.target"
     _auto = False
 
     _columns = {
@@ -731,6 +803,7 @@ class virtual_assembly_instance(orm.Model):
 
     _name = "virtual.assembly.instance"
     _description = "Assembly/Instance"
+    _inherit = "abstract.virtual.target"
     _auto = False
 
     _columns = {
@@ -811,7 +884,6 @@ class virtual_assembly_instance(orm.Model):
         return """
         SELECT
             '%s.assembly' as model,
-            concat(assembly.partner_id, '/', pc.id, '/', e.id) as id,
             concat(assembly.partner_id, '/', pc.id, '/', e.id) as common_id,
             assembly.partner_id as partner_id,
             %s as int_instance_id,
@@ -878,14 +950,15 @@ class virtual_assembly_instance(orm.Model):
         tools.drop_view_if_exists(cr, 'virtual_assembly_instance')
         cr.execute("""
         create or replace view virtual_assembly_instance as (
-        %s
-        )""" % query)
+        SELECT *, row_number() OVER(ORDER BY common_id) AS id FROM (%s) as
+        subquery)""" % query)
 
 
 class virtual_partner_retrocession(orm.Model):
 
     _name = "virtual.partner.retrocession"
     _description = "Partner/Retrocession"
+    _inherit = "abstract.virtual.target"
     _auto = False
 
     _columns = {
@@ -963,31 +1036,18 @@ class virtual_partner_retrocession(orm.Model):
         cr.execute("""
         create or replace view virtual_partner_retrocession as (
         SELECT
-            concat(
-                r.id,
-                '/',
-                CASE
-                    WHEN m.postal_coordinate_id IS NULL
-                    THEN pc.id
-                    ELSE m.postal_coordinate_id
-                END,
-                '/',
-                CASE
-                    WHEN m.email_coordinate_id IS NULL
-                    THEN e.id
-                    ELSE m.email_coordinate_id
-                END) as id,
+            r.id as id,
             concat(p.id, '/',
                 CASE
-                    WHEN m.postal_coordinate_id IS NULL
-                    THEN pc.id
-                    ELSE m.postal_coordinate_id
+                    WHEN pc2.id IS NULL
+                    THEN pc1.id
+                    ELSE pc2.id
                 END,
                 '/',
                 CASE
-                    WHEN m.email_coordinate_id IS NULL
-                    THEN e.id
-                    ELSE m.email_coordinate_id
+                    WHEN ec2.id IS NULL
+                    THEN ec1.id
+                    ELSE ec2.id
                 END) as common_id,
             r.year as year,
             r.month as month,
@@ -1005,69 +1065,60 @@ class virtual_partner_retrocession(orm.Model):
             m.designation_int_assembly_id as designation_int_assembly_id,
             r.state as state,
             CASE
-                WHEN m.email_coordinate_id IS NULL
-                THEN e.id
-                ELSE m.email_coordinate_id
+                WHEN ec2.id IS NULL
+                THEN ec1.id
+                ELSE ec2.id
             END
             AS email_coordinate_id,
             CASE
-                WHEN m.postal_coordinate_id IS NULL
-                THEN pc.id
-                ELSE m.postal_coordinate_id
+                WHEN pc2.id IS NULL
+                THEN pc1.id
+                ELSE pc2.id
             END
             AS postal_coordinate_id,
             CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL OR
-                      m.postal_coordinate_id IS NOT NULL OR
-                      m.email_coordinate_id IS NOT NULL)
+                WHEN ec1.id IS NOT NULL OR pc1.id IS NOT NULL
                 THEN True
                 ELSE False
             END AS active
         FROM retrocession AS r
         JOIN sta_mandate AS m
-            ON (m.id = r.sta_mandate_id
-            AND m.active = True)
+            ON m.id = r.sta_mandate_id
+            AND m.active
         JOIN res_partner AS p
-            ON (p.id = m.partner_id
-            AND p.active = TRUE)
-        LEFT OUTER JOIN postal_coordinate AS pc
-            ON (pc.partner_id = p.id
-            AND pc.is_main = True
-            AND pc.active = True)
-        LEFT OUTER JOIN email_coordinate AS e
-            ON (e.partner_id = p.id
-            AND e.is_main = True
-            AND e.active = True)
+            ON p.id = m.partner_id
+            AND p.active = TRUE
+        LEFT OUTER JOIN postal_coordinate AS pc1
+            ON pc1.partner_id = p.id
+            AND pc1.is_main
+            AND pc1.active
+        LEFT OUTER JOIN email_coordinate AS ec1
+            ON ec1.partner_id = p.id
+            AND ec1.is_main
+            AND ec1.active
+        LEFT OUTER JOIN postal_coordinate AS pc2
+            ON pc2.id = m.postal_coordinate_id
+            AND pc2.active
+        LEFT OUTER JOIN email_coordinate AS ec2
+            ON ec2.id = m.email_coordinate_id
+            AND ec2.active
 
         UNION
 
         SELECT
-            concat(
-                r.id,
-                '/',
-                CASE
-                    WHEN m.postal_coordinate_id IS NULL
-                    THEN pc.id
-                    ELSE m.postal_coordinate_id
-                END,
-                '/',
-                CASE
-                    WHEN m.email_coordinate_id IS NULL
-                    THEN e.id
-                    ELSE m.email_coordinate_id
-                END) as id,
+            r.id as id,
             concat(p.id, '/',
                 CASE
-                    WHEN m.postal_coordinate_id IS NULL
-                    THEN pc.id
-                    ELSE m.postal_coordinate_id
+                    WHEN pc2.id IS NULL
+                    THEN pc1.id
+                    ELSE pc2.id
                 END,
                 '/',
                 CASE
-                    WHEN m.email_coordinate_id IS NULL
-                    THEN e.id
-                    ELSE m.email_coordinate_id
-                    END) as common_id,
+                    WHEN ec2.id IS NULL
+                    THEN ec1.id
+                    ELSE ec2.id
+                END) as common_id,
             r.year as year,
             r.month as month,
             p.id as partner_id,
@@ -1084,39 +1135,43 @@ class virtual_partner_retrocession(orm.Model):
             m.designation_int_assembly_id as designation_int_assembly_id,
             r.state as state,
             CASE
-                WHEN m.email_coordinate_id IS NULL
-                THEN e.id
-                ELSE m.email_coordinate_id
+                WHEN ec2.id IS NULL
+                THEN ec1.id
+                ELSE ec2.id
             END
             AS email_coordinate_id,
-                CASE
-                WHEN m.postal_coordinate_id IS NULL
-                THEN pc.id
-                ELSE m.postal_coordinate_id
+            CASE
+                WHEN pc2.id IS NULL
+                THEN pc1.id
+                ELSE pc2.id
             END
             AS postal_coordinate_id,
             CASE
-                WHEN (e.id IS NOT NULL OR pc.id IS NOT NULL OR
-                      m.postal_coordinate_id IS NOT NULL OR
-                      m.email_coordinate_id IS NOT NULL)
+                WHEN ec1.id IS NOT NULL OR pc1.id IS NOT NULL
                 THEN True
                 ELSE False
             END AS active
         FROM retrocession AS r
         JOIN ext_mandate AS m
-            ON (m.id = r.ext_mandate_id
-            AND m.active = True)
+            ON m.id = r.ext_mandate_id
+            AND m.active
         JOIN res_partner AS p
-            ON (p.id = m.partner_id
-            AND p.active = TRUE)
-        LEFT OUTER JOIN postal_coordinate AS pc
-            ON (pc.partner_id = p.id
-            AND pc.is_main = True
-            AND pc.active = True)
-        LEFT OUTER JOIN email_coordinate AS e
-            ON (e.partner_id = p.id
-            AND e.is_main = True
-            AND e.active = True)
+            ON p.id = m.partner_id
+            AND p.active
+        LEFT OUTER JOIN postal_coordinate AS pc1
+            ON pc1.partner_id = p.id
+            AND pc1.is_main = True
+            AND pc1.active
+        LEFT OUTER JOIN email_coordinate AS ec1
+            ON ec1.partner_id = p.id
+            AND ec1.is_main
+            AND ec1.active
+        LEFT OUTER JOIN postal_coordinate AS pc2
+            ON pc2.id = m.postal_coordinate_id
+            AND pc2.active
+        LEFT OUTER JOIN email_coordinate AS ec2
+            ON ec2.id = m.email_coordinate_id
+            AND ec2.active
         )""")
 
 
@@ -1124,6 +1179,7 @@ class virtual_partner_membership(orm.Model):
 
     _name = "virtual.partner.membership"
     _description = "Partner/Membership"
+    _inherit = "abstract.virtual.target"
     _auto = False
 
     _columns = {
@@ -1179,7 +1235,7 @@ class virtual_partner_membership(orm.Model):
         cr.execute("""
         create or replace view virtual_partner_membership as (
         SELECT
-            concat(p.id, '/', pc.id, '/', e.id) as id,
+            p.id as id,
             concat(p.id, '/', pc.id, '/', e.id) as common_id,
             p.id as partner_id,
             p.int_instance_id as int_instance_id,
@@ -1223,6 +1279,7 @@ class virtual_partner_event(orm.Model):
 
     _name = "virtual.partner.event"
     _description = "Partner/Event"
+    _inherit = "abstract.virtual.target"
     _auto = False
 
     _columns = {

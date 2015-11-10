@@ -71,7 +71,7 @@ class test_partner(SharedSetupTransactionCase):
         if not partner_id:
             name = uuid.uuid4()
             partner_values = {
-                'name': name,
+                'lastname': name,
             }
             partner_id = self.partner_obj.create(self.cr, self.uid,
                                                  partner_values)

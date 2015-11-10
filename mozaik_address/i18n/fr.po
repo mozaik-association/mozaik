@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* mozaik_address
+#   * mozaik_address
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-24 17:40+0000\n"
-"PO-Revision-Date: 2015-04-24 17:40+0000\n"
+"POT-Creation-Date: 2015-10-28 15:34+0000\n"
+"PO-Revision-Date: 2015-10-28 15:34+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,7 @@ msgid "Alternative Street"
 msgstr "Rue alternative"
 
 #. module: mozaik_address
-#: code:addons/mozaik_address/address_address.py:302
+#: code:addons/mozaik_address/address_address.py:299
 #, python-format
 msgid "An Address without sequence number cannot be duplicated!"
 msgstr "Une adresse sans numéro de séquence ne peut être dupliquée !"
@@ -93,6 +93,7 @@ msgstr "Boîte"
 
 #. module: mozaik_address
 #: view:change.co.residency.address:mozaik_address.change_co_residency_address_wizard
+#: view:print.postal.from.partner.wizard:mozaik_address.print_postal_from_partner_wizard
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -154,6 +155,12 @@ msgid "Co-Residency"
 msgstr "Co-Résidence"
 
 #. module: mozaik_address
+#: code:addons/mozaik_address/address_address.py:476
+#, python-format
+msgid "Co-Residency to complete"
+msgstr "Co-Résidence à compléter"
+
+#. module: mozaik_address
 #: field:postal.coordinate,partner_id:0
 msgid "Contact"
 msgstr "Contact"
@@ -195,6 +202,7 @@ msgstr "Code du pays"
 #: field:change.main.address,create_uid:0
 #: field:co.residency,create_uid:0
 #: field:postal.coordinate,create_uid:0
+#: field:print.postal.from.partner.wizard,create_uid:0
 msgid "Created by"
 msgstr "Créé par"
 
@@ -203,6 +211,7 @@ msgstr "Créé par"
 #: field:allow.duplicate.address.wizard,create_date:0
 #: field:change.co.residency.address,create_date:0
 #: field:change.main.address,create_date:0
+#: field:print.postal.from.partner.wizard,create_date:0
 msgid "Created on"
 msgstr "Date de création"
 
@@ -254,7 +263,7 @@ msgid "Empty Co-Residencies"
 msgstr "Co-Résidences vides"
 
 #. module: mozaik_address
-#: code:addons/mozaik_address/address_address.py:301
+#: code:addons/mozaik_address/address_address.py:298
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -309,6 +318,7 @@ msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce rés
 #: field:change.main.address,id:0
 #: field:co.residency,id:0
 #: field:postal.coordinate,id:0
+#: field:print.postal.from.partner.wizard,id:0
 #: field:report.mozaik_address.report_postal_coordinate_label,id:0
 msgid "ID"
 msgstr ""
@@ -417,6 +427,7 @@ msgstr "Dernière mise à jour"
 #: field:change.main.address,write_uid:0
 #: field:co.residency,write_uid:0
 #: field:postal.coordinate,write_uid:0
+#: field:print.postal.from.partner.wizard,write_uid:0
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
@@ -428,6 +439,7 @@ msgstr "Dernière mise à jour par"
 #: field:change.main.address,write_date:0
 #: field:co.residency,write_date:0
 #: field:postal.coordinate,write_date:0
+#: field:print.postal.from.partner.wizard,write_date:0
 msgid "Last Updated on"
 msgstr "Date de dernière mise à jour"
 
@@ -447,7 +459,7 @@ msgstr "Ligne 2"
 #: view:address.local.street:mozaik_address.address_local_street_tree_view
 #: model:ir.model,name:mozaik_address.model_address_local_street
 msgid "Local Street"
-msgstr "Rue locales"
+msgstr "Rue locale"
 
 #. module: mozaik_address
 #: view:address.local.street:mozaik_address.address_local_street_form_view
@@ -591,6 +603,22 @@ msgid "Postal Coordinates"
 msgstr "Coordonnées postales"
 
 #. module: mozaik_address
+#: view:print.postal.from.partner.wizard:mozaik_address.print_postal_from_partner_wizard
+msgid "Print"
+msgstr "Imprimer"
+
+#. module: mozaik_address
+#: model:ir.actions.act_window,name:mozaik_address.res_partner_print_label_actions
+msgid "Print Labels"
+msgstr "Étiquettes"
+
+#. module: mozaik_address
+#: model:ir.model,name:mozaik_address.model_print_postal_from_partner_wizard
+#: view:print.postal.from.partner.wizard:mozaik_address.print_postal_from_partner_wizard
+msgid "Print Postal From Partner Wizard"
+msgstr "Print Postal From Partner Wizard"
+
+#. module: mozaik_address
 #: field:bounce.editor,reason:0
 msgid "Reason"
 msgstr "Raison"
@@ -657,6 +685,11 @@ msgstr "Cette coordonnée postal semble obsolète"
 #, python-format
 msgid "This local street identifier already exists for this zip code!"
 msgstr "Cet identifiant de rue locale existe déjà pour ce code postal !"
+
+#. module: mozaik_address
+#: view:print.postal.from.partner.wizard:mozaik_address.print_postal_from_partner_wizard
+msgid "This will produce labels related to main postal coordinates of selected partners"
+msgstr "Cet assistant produira les étiquettes des coordonnées principales des partenaires sélectionnés"
 
 #. module: mozaik_address
 #: field:address.address,town_man:0
@@ -752,6 +785,7 @@ msgstr "adresse"
 
 #. module: mozaik_address
 #: view:change.co.residency.address:mozaik_address.change_co_residency_address_wizard
+#: view:print.postal.from.partner.wizard:mozaik_address.print_postal_from_partner_wizard
 msgid "or"
 msgstr "ou"
 

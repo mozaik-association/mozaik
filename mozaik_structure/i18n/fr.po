@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-24 18:20+0000\n"
-"PO-Revision-Date: 2015-04-24 18:20+0000\n"
+"POT-Creation-Date: 2015-10-23 17:54+0000\n"
+"PO-Revision-Date: 2015-10-23 17:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,11 @@ msgstr "Assemblée abstraite"
 #: model:ir.model,name:mozaik_structure.model_abstract_assembly_category
 msgid "Abstract Assembly Category"
 msgstr "Catégorie abstraite d'assemblée"
+
+#. module: mozaik_structure
+#: field:sta.assembly,electoral_district_ids:0
+msgid "Abstract Candidatures"
+msgstr "Candidatures abstraites"
 
 #. module: mozaik_structure
 #: model:ir.model,name:mozaik_structure.model_abstract_instance
@@ -243,8 +248,15 @@ msgid "Deadline Date"
 msgstr "Date d'échéance"
 
 #. module: mozaik_structure
+#: view:int.assembly:mozaik_structure.int_assembly_search_view
+msgid "Designation Assemblies"
+msgstr "Assemblées de désignation"
+
+#. module: mozaik_structure
 #: field:electoral.district,designation_int_assembly_id:0
+#: view:ext.assembly:mozaik_structure.ext_assembly_search_view
 #: field:ext.assembly,designation_int_assembly_id:0
+#: view:int.assembly:mozaik_structure.int_assembly_search_view
 #: field:int.assembly,designation_int_assembly_id:0
 msgid "Designation Assembly"
 msgstr "Assemblée de désignation"
@@ -290,6 +302,11 @@ msgstr "Circonscription électorale"
 #: field:sta.instance,electoral_district_inactive_ids:0
 msgid "Electoral Districts"
 msgstr "Circonscriptions électorales"
+
+#. module: mozaik_structure
+#: view:int.assembly:mozaik_structure.int_assembly_search_view
+msgid "Executive Assemblies"
+msgstr "Assemblées executives"
 
 #. module: mozaik_structure
 #: field:abstract.assembly,expire_date:0
@@ -835,7 +852,7 @@ msgstr "Niveau de pouvoir"
 
 #. module: mozaik_structure
 #: constraint:abstract.assembly:0
-#: code:addons/mozaik_structure/abstract_structure.py:260
+#: code:addons/mozaik_structure/abstract_structure.py:282
 #: constraint:ext.assembly:0
 #: constraint:int.assembly:0
 #: constraint:sta.assembly:0
@@ -1084,6 +1101,6 @@ msgstr ""
 
 #. module: mozaik_structure
 #: view:int.assembly:mozaik_structure.int_assembly_form_view
-msgid "{'invisible': [('is_designation_assembly', '=', True)]}"
+msgid "{'invisible': [('designation_int_assembly_id', '=', False)]}"
 msgstr ""
 

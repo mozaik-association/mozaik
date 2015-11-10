@@ -55,9 +55,6 @@ class address_address(orm.Model):
 
     def _get_technical_name(self, cr, uid, values, context=None):
         """
-        ===================
-        _get_technical_name
-        ===================
         This method produces a technical name with the content of values.
         :type values: dictionary
         :param values: used to create a technical address name
@@ -358,9 +355,6 @@ class address_address(orm.Model):
 
     def get_linked_partners(self, cr, uid, ids, context=None):
         """
-        ===================
-        get_linked_partners
-        ===================
         Return all partners ids linked to addresses ids
         :param: ids
         :type: list of addresses ids
@@ -406,11 +400,21 @@ class postal_coordinate(orm.Model):
 
 # public methods
 
+    def name_get(self, cr, uid, ids, context=None):
+        result = super(postal_coordinate, self).name_get(
+            cr, uid, ids, context=context)
+        new_result = []
+        for res in result:
+            data = self.read(cr, uid, res[0], ['co_residency_id'],
+                             context=context)
+            name = res[1]
+            if data['co_residency_id']:
+                name = "%s (%s)" % (name, data['co_residency_id'][1])
+            new_result.append((res[0], name))
+        return new_result
+
     def get_fields_to_update(self, cr, uid, mode, context=None):
         """
-        ====================
-        get_fields_to_update
-        ====================
         :type mode: char
         :param mode: mode defining return values
         :rtype: dictionary
@@ -466,8 +470,14 @@ class co_residency(orm.Model):
         ids = isinstance(ids, (long, int)) and [ids] or ids
 
         res = []
-        for record in self.read(cr, uid, ids, ['address_id'], context=context):
-            res.append((record['id'], record['address_id'][1]))
+        for record in self.read(cr, uid, ids, ['line', 'line2'],
+                                context=context):
+            if not record['line'] and not record['line2']:
+                name = _("Co-Residency to complete")
+            else:
+                name = "/".join([line for line in
+                                 [record['line'], record['line2']] if line])
+            res.append((record['id'], name))
         return res
 
     def unlink(self, cr, uid, ids, context=None):

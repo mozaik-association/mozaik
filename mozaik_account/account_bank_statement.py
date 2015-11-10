@@ -62,6 +62,12 @@ class account_bank_statement(orm.Model):
         Method to create account move linked to membership payment
         """
         bsl_obj = self.pool.get('account.bank.statement.line')
+        line_count = bsl_obj.search_count(cr, uid, [('id', '!=', bank_line.id),
+                                                    ('name', '=', reference)],
+                                          context=context)
+        if line_count > 0:
+            # do not auto reconcile if reference has been used previously
+            return
         product_id, price, credit_account = bsl_obj.get_membership_prod_info(
             cr,
             uid,
@@ -150,6 +156,12 @@ class account_bank_statement_line(orm.Model):
                                context=None, prod_id=None, price=None):
 
         bank_line = self.browse(cr, uid, line_id, context=context)
+        for line in mv_line_dicts:
+            mode, partner_id = self.search_partner_id_with_reference(
+                cr, uid, line.get('name', False), context=context)[0:2]
+            if mode == "membership" and partner_id:
+                line['partner_id'] = partner_id
+
         if not bank_line.partner_id.id:
             raise orm.except_orm(_('No Partner Defined!'),
                                  _("You must first select a partner!"))

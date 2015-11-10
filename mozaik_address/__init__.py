@@ -28,5 +28,5 @@ from . import address_local_zip
 from . import address_local_street
 from . import address_address
 from . import res_partner
-from . import wizard
 from . import reports
+from . import wizard

@@ -77,15 +77,12 @@ class test_accounting_with_product(object):
 
     def get_partner(self, partner_id=False):
         """
-        ==========
-        get_partner
-        ==========
         return a new browse record of partner
         """
         if not partner_id:
             name = uuid.uuid4()
             partner_values = {
-                'name': name,
+                'lastname': name,
             }
             partner_id = self.partner_obj.create(self.cr, self.uid,
                                                  partner_values)
@@ -356,6 +353,8 @@ class test_accounting_grouped_payment(test_accounting_with_product,
         additional_amount = self.product.list_price
         b_statement_id = self._generate_payment(
             additional_amount=additional_amount)
+        references = {self.partner.id: self.partner.reference,
+                      self.partner_2.id: self.partner_2.reference}
         self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id)
         for bank_s in self.bs_obj.browse(self.cr, self.uid, b_statement_id):
             for line in bank_s.line_ids:
@@ -395,3 +394,42 @@ class test_accounting_grouped_payment(test_accounting_with_product,
 
             self.assertEqual(ml_data['price'], price,
                              'Wrong price specified')
+
+            mv_lines = self.registry('account.move.line').search(
+                self.cr, self.uid, [('partner_id', '=', partner.id),
+                                    ('name', '=', references[partner.id]),
+                                    ('credit', '=', price)])
+            self.assertEqual(len(mv_lines), 1,
+                             'No account move lines created for partner')
+
+
+class test_accounting_protect_auto_reconcile(test_accounting_with_product,
+                                             SharedSetupTransactionCase):
+
+    def setUp(self):
+        self.product = self.browse_ref('%s.membership_product_live_together'
+                                       % self._module_ns)
+        super(test_accounting_protect_auto_reconcile, self).setUp()
+
+    def test_accounting_auto_reconcile(self):
+        '''
+            Auto reconcile should not occur if reference has been already
+            used previously
+        '''
+        b_statement_id = self._generate_payment()
+        if not self._with_coda:
+            self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id)
+        for bank_s in self.bs_obj.browse(self.cr, self.uid, b_statement_id):
+            for line in bank_s.line_ids:
+                self.assertNotEqual(line.journal_entry_id.id, False)
+        b_statement_id2 = self.bs_obj.copy(self.cr, self.uid, b_statement_id)
+        self.bs_obj.auto_reconcile(self.cr, self.uid, b_statement_id2)
+        for bank_s in self.bs_obj.browse(self.cr, self.uid, b_statement_id2):
+            for line in bank_s.line_ids:
+                self.assertFalse(line.journal_entry_id.id)
+
+    def test_accounting_manual_reconcile(self):
+        return
+
+    def test_accounting_manual_reconcile_without_partner(self):
+        return

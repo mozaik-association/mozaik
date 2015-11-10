@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Change Phone Type -->
+
+        <record id="change_phone_type_form" model="ir.ui.view">
+            <field name="name">change.phone.type.form</field>
+            <field name="model">change.phone.type</field>
+            <field name="arch" type="xml">
+                <form string="Change Phone Type">
+                    <group name="data">
+                        <field name="phone_id" readonly="1"/>
+                        <field name="type"/>
+                        <field name="is_main"/>
+                    </group>
+                    <footer>
+                        <span name="go-wizard">
+                            <button string="Change" name="change_phone_type"
+                                    type="object" class="oe_highlight" />
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="change_phone_type_action" model="ir.actions.act_window">
+            <field name="name">Change Phone Type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="src_model">phone.phone</field>
+            <field name="res_model">change.phone.type</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="change_phone_type_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('mozaik_base.mozaik_res_groups_user')])]" />
+        </record>
+
+        <record id="change_phone_type_value" model="ir.values">
+            <field name="name">Change Phone Type</field>
+            <field name="model">phone.phone</field>
+            <field name="key">action</field>
+            <field name="key2">client_action_relate</field>
+            <field name="value" eval="'ir.actions.act_window,%s' % ref('change_phone_type_action')"/>
+        </record>
+    </data>
+</openerp>

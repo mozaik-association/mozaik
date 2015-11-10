@@ -462,18 +462,27 @@ class abstract_coordinate(orm.AbstractModel):
             })
         return res
 
-    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+    def ensure_one_main_coordinate(self, cr, uid, ids, invalidate=False,
+                                   vals=False, context=None):
+        '''
+            This method ensure that a main coordinate will remain after
+            an action
+        '''
+        context = context.copy() or {}
+        limit = 1 if not invalidate else False
         rejected_ids = []
         for coordinate in self.browse(cr, uid, ids, context=context):
+            if invalidate:
+                domain = ('id', 'not in', ids)
+            else:
+                domain = ('id', '!=', coordinate.id)
             coord_ids = self.search(
                 cr, uid, [('partner_id', '=', coordinate.partner_id.id),
                           ('coordinate_type', '=', coordinate.coordinate_type),
-                          ('id', '!=', coordinate.id)], context=context)
+                          domain], limit=limit, context=context)
             if coordinate.is_main and len(coord_ids) == 1:
-                # only one coordinate will remain after invalidate -> set it
-                # automatically as new main
                 new_main = self.browse(cr, uid, coord_ids[0], context=context)
-                context['invalidate'] = True
+                context['invalidate'] = invalidate
                 coordinate_field = self._discriminant_field
                 coordinate_value = self._is_discriminant_m2o() and \
                     new_main[coordinate_field].id or \
@@ -485,5 +494,11 @@ class abstract_coordinate(orm.AbstractModel):
                     self.write(cr, uid, coordinate.id, vals, context=context)
             else:
                 rejected_ids.append(coordinate.id)
-        return super(abstract_coordinate, self). action_invalidate(
+        return rejected_ids
+
+    def action_invalidate(self, cr, uid, ids, context=None, vals=None):
+        context = context.copy() if context else {}
+        rejected_ids = self.ensure_one_main_coordinate(
+            cr, uid, ids, invalidate=True, context=context)
+        return super(abstract_coordinate, self).action_invalidate(
             cr, uid, rejected_ids, context=context, vals=vals)

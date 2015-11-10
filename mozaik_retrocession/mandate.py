@@ -133,7 +133,6 @@ class abstract_mandate_retrocession(orm.AbstractModel):
     _assembly_model = False
 
     _method_id_store_trigger = {}
-    _retrocession_mode_store_trigger = {}
 
     def _get_method_id(self, cr, uid, ids, fname, arg, context=None):
         """
@@ -201,13 +200,9 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         return res
 
     _columns = {
-        'retrocession_mode': fields.related(
-            'mandate_category_id',
-            'retrocession_mode',
+        'retrocession_mode': fields.selection(
             string='Retrocession Mode',
-            type='selection',
-            selection=RETROCESSION_MODES_AVAILABLE,
-            store=_retrocession_mode_store_trigger),
+            selection=RETROCESSION_MODES_AVAILABLE),
         'calculation_method_id': fields.function(
             _get_method_id,
             string='Calculation Method',
@@ -473,29 +468,10 @@ class sta_mandate(orm.Model):
             sta_assembly.get_linked_sta_mandate_ids,
             ['calculation_method_id'], 20), }
 
-    _retrocession_mode_store_trigger = {
-        'sta.mandate': (
-            lambda self,
-            cr,
-            uid,
-            ids,
-            context=None: ids,
-            ['mandate_category_id'],
-            20),
-        'mandate.category': (
-            mandate_category.get_linked_sta_mandate_ids,
-            ['retrocession_mode'],
-            20),
-    }
-
     _columns = {
-        'retrocession_mode': fields.related(
-            'mandate_category_id',
-            'retrocession_mode',
+        'retrocession_mode': fields.selection(
             string='Retrocession Mode',
-            type='selection',
-            selection=RETROCESSION_MODES_AVAILABLE,
-            store=_retrocession_mode_store_trigger),
+            selection=RETROCESSION_MODES_AVAILABLE,),
         'calculation_method_id': fields.function(
             _get_method_id,
             string='Calculation Method',
@@ -652,29 +628,10 @@ class ext_mandate(orm.Model):
             ext_assembly.get_linked_ext_mandate_ids,
             ['calculation_method_id'], 20), }
 
-    _retrocession_mode_store_trigger = {
-        'ext.mandate': (
-            lambda self,
-            cr,
-            uid,
-            ids,
-            context=None: ids,
-            ['mandate_category_id'],
-            20),
-        'mandate.category': (
-            mandate_category.get_linked_ext_mandate_ids,
-            ['retrocession_mode'],
-            20),
-    }
-
     _columns = {
-        'retrocession_mode': fields.related(
-            'mandate_category_id',
-            'retrocession_mode',
+        'retrocession_mode': fields.selection(
             string='Retrocession Mode',
-            type='selection',
-            selection=RETROCESSION_MODES_AVAILABLE,
-            store=_retrocession_mode_store_trigger),
+            selection=RETROCESSION_MODES_AVAILABLE,),
         'calculation_method_id': fields.function(
             _get_method_id,
             string='Calculation Method',

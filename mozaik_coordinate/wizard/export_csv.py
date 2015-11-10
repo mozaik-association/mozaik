@@ -40,22 +40,22 @@ HEADER_ROW = [
     'Firstname',
     'Usual Lastname',
     'Usual Firstname',
-    'Co-Residency Line 1',
-    'Co-Residency Line 2',
-    'Main Address',
-    'Unauthorized Address',
-    'Vip Address',
-    'Country Code',
-    'Country Name',
-    'Zip',
-    'Street',
-    'Street2',
-    'City',
+    'Co-residency Line 1',
+    'Co-residency Line 2',
     'Internal Instance',
     'Reference',
     'Birthdate',
     'Gender',
     'Tongue',
+    'Main Address',
+    'Unauthorized Address',
+    'Vip Address',
+    'Street2',
+    'Street',
+    'Zip',
+    'City',
+    'Country Code',
+    'Country Name',
     'Main Phone',
     'Unauthorized Phone',
     'Vip Phone',
@@ -86,18 +86,12 @@ class export_csv(orm.TransientModel):
 
     def get_csv_rows(self, cr, uid, model, context=None):
         """
-        =============
-        get_csv_rows
-        =============
         Get the rows (header) for the specified model.
         """
         return HEADER_ROW
 
     def get_csv_values(self, cr, uid, model, obj, context=None):
         """
-        ==============
-        get_csv_values
-        ==============
         Get the values of the specified obj, which should be an instance
         of the specified model, either an email or a postal coordinate.
         """
@@ -120,13 +114,17 @@ class export_csv(orm.TransientModel):
             return False
 
         if model == 'postal.coordinate':
-            # for postal coordinates, get email coordinate from the partner
             pc = obj
+            # for postal coordinates, get email coordinate from the partner
             ec = partner.email_coordinate_id or None
         elif model == 'email.coordinate':
             # for email coordinates, get postal coordinate from the partner
-            ec = obj
             pc = partner.postal_coordinate_id or None
+            ec = obj
+        elif model == 'virtual.target':
+            # for email coordinates, get postal coordinate from the partner
+            pc = obj.postal_coordinate_id or None
+            ec = obj.email_coordinate_id or None
 
         xc = partner.fix_coordinate_id or None
         mc = partner.mobile_coordinate_id or None
@@ -145,20 +143,20 @@ class export_csv(orm.TransientModel):
             ('printable_name', cc and _get_utf8(cc.line) or
                 _get_utf8(partner.printable_name)),
             ('co_residency', cc and _get_utf8(cc.line2)),
-            ('adr_main', pc and pc.is_main or False),
-            ('adr_unauthorized', pc and pc.unauthorized or False),
-            ('adr_vip', pc and pc.vip or False),
-            ('country_code', pc and pc.address_id.country_code),
-            ('country_name', pc and _get_utf8(pc.address_id.country_id.name)),
-            ('zip', pc and pc.address_id.zip),
-            ('street', pc and _get_utf8(pc.address_id.street)),
-            ('street2', pc and _get_utf8(pc.address_id.street2)),
-            ('city', pc and _get_utf8(pc.address_id.city)),
             ('instance', ic and _get_utf8(ic.name)),
             ('reference', _get_utf8(partner.reference)),
             ('birth_date', partner.birth_date or None),
             ('gender', available_genders.get(partner.gender, None)),
             ('tongue', available_tongues.get(partner.tongue, None)),
+            ('adr_main', pc and pc.is_main or False),
+            ('adr_unauthorized', pc and pc.unauthorized or False),
+            ('adr_vip', pc and pc.vip or False),
+            ('street2', pc and _get_utf8(pc.address_id.street2)),
+            ('street', pc and _get_utf8(pc.address_id.street)),
+            ('zip', pc and pc.address_id.zip),
+            ('city', pc and _get_utf8(pc.address_id.city)),
+            ('country_code', pc and pc.address_id.country_code),
+            ('country_name', pc and _get_utf8(pc.address_id.country_id.name)),
             ('fix_main', xc and xc.is_main or False),
             ('fix_unauthorized', xc and xc.unauthorized or False),
             ('fix_vip', xc and xc.vip or False),
@@ -180,14 +178,8 @@ class export_csv(orm.TransientModel):
 
     def get_csv(self, cr, uid, model, model_ids, group_by=False, context=None):
         """
-        ========
-        get_csv
-        ========
-        Get a CSV file with data of postal_ids depending of ``HEADER_ROW``
+        Build a CSV file related to a coordinate model
         """
-
-        if model not in ['postal.coordinate', 'email.coordinate']:
-            return
 
         objects = self.pool[model].browse(cr, uid, model_ids, context=context)
         tmp = tempfile.NamedTemporaryFile(prefix='Extract', suffix=".csv",

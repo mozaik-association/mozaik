@@ -14,10 +14,49 @@
                     <field name="postal" />
                     <field name="membership_state_id" />
                     <field name="int_instance_id" />
-                    <field name="identifier" />
                     <field name="postal_unauthorized" invisible="1" />
                     <field name="email_unauthorized" invisible="1" />
                 </tree>
+            </field>
+        </record>
+
+        <record id="virtual_target_search_view" model="ir.ui.view">
+            <field name="name">virtual.target.search</field>
+            <field name="model">virtual.target</field>
+            <field name="arch" type="xml">
+                <search string="Virtual Target">
+                    <field name="identifier" />
+                    <field string="Birth Date > ..." name="birth_date"
+                        filter_domain="[('birth_date','>',self)]" />
+                    <field string="Birth Date &lt; ..." name="birth_date"
+                        filter_domain="[('birth_date','&lt;',self)]" />
+
+                    <field name="partner_id" />
+                    <field name="int_instance_id" />
+                    <field name="int_instance_id" string="Internal Instance descending of..." operator="child_of"/>
+                    <field name="int_instance_id" string="Internal Instance not descending of..." operator="not child_of"/>
+
+                    <filter string="Natural Persons" name="type_person"
+                        domain="[('is_company','=',0)]" />
+                    <filter string="Legal Persons" name="type_company"
+                        domain="[('is_company','!=',0)]" />
+                    <separator />
+                    <filter name="p_unauthorized" string="Unauthorized Address"
+                        domain="[('postal_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="e_unauthorized" string="Unauthorized Email"
+                        domain="[('email_unauthorized','=',True)]" />
+                    <separator />
+                    <filter name="without_coordinate" string="Without Coordinate"
+                        domain="[('active','=',False)]" />
+
+                    <group expand="0" string="Group By..." name="group_by">
+                        <filter name="partner" string="Partner" context="{'group_by':'partner_id'}" />
+                        <filter name="int_instance" string="Internal Instance" context="{'group_by':'int_instance_id'}" />
+                        <filter name="email_coordinate" string="Email Coordinate" context="{'group_by':'email_coordinate_id'}" />
+                        <filter name="postal_coordinate" string="Postal Coordinate" context="{'group_by':'postal_coordinate_id'}" />
+                    </group>
+                </search>
             </field>
         </record>
 
@@ -294,8 +333,9 @@
                     <field name="email_category_id" />
                     <field name="postal_category_id" />
 
-                    <filter string="Main Postal" name="main_postal"
+                    <filter string="Main Address" name="main_postal"
                         domain="[('main_postal','=',1)]" />
+                    <separator />
                     <filter string="Main Email" name="main_email"
                         domain="[('main_email','=',1)]" />
                     <separator />
@@ -404,7 +444,7 @@
             <field name="model">virtual.partner.mandate</field>
             <field name="arch" type="xml">
                 <search string="Partners/Mandates">
-                    <field name="identifier" />
+                    <field name="identifier" /> 
                     <field string="Birth Date > ..." name="birth_date"
                         filter_domain="[('birth_date','>',self)]" />
                     <field string="Birth Date &lt; ..." name="birth_date"
@@ -433,6 +473,8 @@
 
                     <field name="ext_competencies_m2m_ids" string="External Mandate Competencies" widget="many2one" />
                     <field name="sta_competencies_m2m_ids" string="State Mandate Competencies" widget="many2one" />
+
+                    <field name="ref_partner_competencies_m2m_ids" string='Topics' widget="many2one"/>
 
                     <filter name="sta_mod" string="State Mandate"
                         domain="[('model','=','sta.mandate')]" />
@@ -1122,6 +1164,9 @@
                     <field name="birth_date" />
                     <field name="gender" />
                     <field name="tongue" />
+
+                    <field name="postal_unauthorized" invisible="1" />
+                    <field name="email_unauthorized" invisible="1" />
                 </tree>
             </field>
         </record>

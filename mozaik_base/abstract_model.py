@@ -445,7 +445,7 @@ class mozaik_abstract_model(orm.AbstractModel):
         """
         Return the object (with given id) in the default form view
         """
-        return self.get_formview_action(cr, uid, object_id, context=None)
+        return self.get_formview_action(cr, uid, object_id, context=context)
 
     def get_relation_column_name(self, cr, uid, relation_model, context=None):
         return self.pool['ir.model']._get_relation_column_name(

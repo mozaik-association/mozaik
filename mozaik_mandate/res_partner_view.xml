@@ -13,13 +13,13 @@
                         type="object" name="get_mandate_action"
                         attrs="{'invisible':['|', '|', ('id','=', False), ('is_company','=', False),
                             '&amp;', ('is_assembly', '=', True), ('ext_mandate_count', '=', 0)]}">
-                        <field name="ext_mandate_count" widget="statinfo" string="External Mandates"/>
+                        <field name="ext_mandate_count" widget="statinfo" string="Mandates"/>
                     </button>
                     <button class="oe_inline oe_stat_button" icon="fa-university"
                         type="action" name="mozaik_structure.ext_assembly_action"
                         context="{'search_default_ref_partner_id': active_id}"
                         attrs="{'invisible':['|', '|', ('id','=', False), ('is_company','=', False), ('is_assembly', '=', True)]}">
-                        <field name="ext_assembly_count" widget="statinfo" string="External Assemblies"/>
+                        <field name="ext_assembly_count" widget="statinfo" string="Assemblies"/>
                     </button>
                 </xpath>
 
@@ -55,7 +55,7 @@
                                 <field name="mandate_category_id"/>
                                 <field name="sta_assembly_id"/>
                                 <field name="start_date"/>
-                                <field name="deadline_date"/>
+                                <field name="end_date"/>
                             </tree>
                         </field>
                         <span class="oe_horizontal_separator oe_clear oe_inline">
@@ -108,7 +108,7 @@
                                 <field name="mandate_category_id"/>
                                 <field name="int_assembly_id"/>
                                 <field name="start_date"/>
-                                <field name="deadline_date"/>
+                                <field name="end_date"/>
                             </tree>
                         </field>
                         <span class="oe_horizontal_separator oe_clear oe_inline">
@@ -159,7 +159,7 @@
                                 <field name="mandate_category_id"/>
                                 <field name="ext_assembly_id"/>
                                 <field name="start_date"/>
-                                <field name="deadline_date"/>
+                                <field name="end_date"/>
                             </tree>
                         </field>
                         <span class="oe_horizontal_separator oe_clear oe_inline">

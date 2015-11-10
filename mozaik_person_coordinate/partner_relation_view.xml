@@ -123,20 +123,27 @@
 
                         <notebook>
                             <page name="email_coordinate" string="Coordinates">
-                                <group>
-                                    <field name="email_coordinate_id" domain="[('partner_id','=',subject_partner_id)]"
+                                <group name="coordinates">
+                                    <field name="email_coordinate_id" domain="[('partner_id','=',subject_partner_id),('is_main', '=', False)]"
                                                                       context="{'default_partner_id': subject_partner_id}"/>
-                                    <field name="postal_coordinate_id" domain="[('partner_id','=',subject_partner_id)]"
+                                    <field name="postal_coordinate_id" domain="[('partner_id','=',subject_partner_id),('is_main', '=', False)]"
                                                                        context="{'default_partner_id': subject_partner_id}"/>
-                                    <field name="fix_coordinate_id" domain="[('partner_id','=',subject_partner_id),('coordinate_type','=','fix')]"
+                                    <field name="fix_coordinate_id" domain="[('partner_id','=',subject_partner_id),('coordinate_type','=','fix'),('is_main', '=', False)]"
                                                                     context="{'default_partner_id': subject_partner_id,
                                                                               'default_type': 'fix'}"/>
-                                    <field name="mobile_coordinate_id" domain="[('partner_id','=',subject_partner_id),('coordinate_type','=','mobile')]"
+                                    <field name="mobile_coordinate_id" domain="[('partner_id','=',subject_partner_id),('coordinate_type','=','mobile'),('is_main', '=', False)]"
                                                                        context="{'default_partner_id': subject_partner_id,
                                                                                  'default_type': 'mobile'}"/>
-                                    <field name="fax_coordinate_id" domain="[('partner_id','=',subject_partner_id),('coordinate_type','=','fax')]"
+                                    <field name="fax_coordinate_id" domain="[('partner_id','=',subject_partner_id),('coordinate_type','=','fax'),('is_main', '=', False)]"
                                                                     context="{'default_partner_id': subject_partner_id,
                                                                               'default_type': 'fax'}"/>
+                                    <label for="fax_coordinate_id"/>
+                                    <div>
+                                        <field name="fax_coordinate_id" domain="[('partner_id','=',subject_partner_id),('coordinate_type','=','fax'),('is_main', '=', False)]"
+                                                                        context="{'default_partner_id': subject_partner_id,
+                                                                                  'default_type': 'fax'}"/>
+                                        <span class="oe_grey">(Empty Coordinates = Use of Main Coordinates)</span>
+                                    </div>
                                 </group>
                             </page>
                         </notebook>
