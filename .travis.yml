@@ -1,16 +1,21 @@
+language: python
 sudo: false
-cache: pip
+cache:
+  apt: true
+  directories:
+    - $HOME/.cache/pip
+
+python:
+  - "2.7"
 
 addons:
   apt:
     packages:
       - expect-dev  # provides unbuffer utility
       - python-lxml # because pip installation is slow
-
-language: python
-
-python:
-  - "2.7"
+      - python-simplejson
+      - python-serial
+      - python-yaml
 
 env:
   global:
@@ -25,18 +30,13 @@ virtualenv:
   system_site_packages: true
 
 install:
-  - git clone https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - pip install anybox.testing.openerp phonenumbers unicodecsv
   - travis_install_nightly
-  - git clone https://github.com/acsone/acsone-addons -b ${VERSION} $HOME/acsone-addons
-  - git clone --depth=1 https://github.com/OCA/web -b ${VERSION} $HOME/web
-  - git clone --depth=1 https://github.com/OCA/server-tools -b ${VERSION} $HOME/server-tools
-  - git clone --depth=1 https://github.com/OCA/connector -b ${VERSION} $HOME/connector
-  - git clone --depth=1 https://github.com/OCA/partner-contact -b ${VERSION} $HOME/partner-contact
 
 script:
   - travis_run_tests
 
 after_success:
-  coveralls
+  travis_after_tests_success
