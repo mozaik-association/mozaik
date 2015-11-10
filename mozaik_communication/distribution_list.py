@@ -30,6 +30,7 @@ from openerp.tools import SUPERUSER_ID
 from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp import api, fields as new_fields
+from openerp.exceptions import except_orm
 
 _logger = logging.getLogger(__name__)
 
@@ -178,56 +179,63 @@ class distribution_list(orm.Model):
         msg['email_from']) is into the owners of the distribution list
         If user is into the owners then call super with uid=found_user_id
         """
-        if context is None:
-            context = {}
-        ctx = context.copy()
-        ctx['email_coordinate_path'] = 'email'
-
+        partner_id = False
+        user_id = False
+        is_partner_allowed = False
+        is_partner_user = False
+        has_visibility = False
         noway = 'No unique coordinate found with address: %s' % \
             msg['email_from']
         coordinate_ids = self._get_mailing_object(
             cr, uid, dl_id, msg['email_from'], context=context)
         if len(coordinate_ids) == 1:
+            noway = 'Orphan coordinate [%s]' % coordinate_ids[0]
             coo_values = self.pool['email.coordinate'].read(
                 cr, uid, coordinate_ids[0], ['partner_id'], context=context)
             partner_id = coo_values.get('partner_id') and \
                 coo_values['partner_id'][0] or False
-            noway = 'Orphan coordinate [%s]' % coordinate_ids[0]
-            if partner_id:
-                user_id = False
-                is_partner_allowed = False
-                dl = self.browse(cr, uid, dl_id, context=context)
-                if partner_id in [p.id for p in dl.res_partner_m2m_ids]:
+        if partner_id:
+            noway = 'Partner [%s] is not an owner nor ' \
+                'an allowed partner' % partner_id
+            dl = self.browse(cr, uid, dl_id, context=context)
+            if partner_id in [p.id for p in dl.res_partner_m2m_ids]:
+                is_partner_allowed = True
+            if not is_partner_allowed:
+                if partner_id in\
+                        [p.partner_id.id for p in dl.res_users_ids]:
                     is_partner_allowed = True
-                if not is_partner_allowed:
-                    if partner_id in\
-                            [p.partner_id.id for p in dl.res_users_ids]:
-                        is_partner_allowed = True
-                noway = 'Partner [%s] is not an owner nor ' \
-                    'an allowed partner' % partner_id
-                if is_partner_allowed:
-                    partner = self.pool['res.partner'].browse(
-                        cr, uid, partner_id, context=context)
-                    res_users_model = self.pool['res.users']
-                    if partner.is_company and partner.responsible_user_id:
-                        user_id = partner.responsible_user_id.id
-                    else:
-                        domain = [
-                            ('partner_id', '=', partner_id),
-                        ]
-                        user_id = res_users_model.search(
-                            cr, uid, domain, context=context)[0]
-                    noway = 'Partner [%s] is not a user' % partner_id
-                    if user_id:
-                        noway = 'User [%s] is not into the '\
-                            'Mozaik User' % partner_id
-                        if self.pool['res.users'].has_group(
-                                cr, user_id,
-                                'mozaik_base.mozaik_res_groups_user'):
-                            ctx['field_main_object'] = 'email_coordinate_id'
-                            return super(distribution_list, self).\
-                                distribution_list_forwarding(
-                                    cr, user_id, msg, dl_id, context=ctx)
+        if is_partner_allowed:
+            noway = 'Partner [%s] is not a user' % partner_id
+            partner = self.pool['res.partner'].browse(
+                cr, uid, partner_id, context=context)
+            res_users_model = self.pool['res.users']
+            if partner.is_company and partner.responsible_user_id:
+                user_id = partner.responsible_user_id.id
+            else:
+                domain = [('partner_id', '=', partner_id)]
+                user_id = res_users_model.search(
+                    cr, uid, domain, context=context)
+                user_id = user_id and user_id[0] or False
+        if user_id:
+            noway = 'User [%s] is not a Mozaik User' % user_id
+            is_partner_user = self.pool['res.users'].has_group(
+                cr, user_id, 'mozaik_base.mozaik_res_groups_user')
+        if is_partner_user:
+            noway = 'User [%s] has no visibility on list [%s]' % \
+                (user_id, dl_id)
+            try:
+                self.check_access_rule(
+                    cr, user_id, [dl_id], 'read', context=context)
+                has_visibility = True
+            except except_orm:
+                pass
+        if has_visibility:
+            ctx = dict(context or {},
+                       email_coordinate_path='email',
+                       field_main_object='email_coordinate_id')
+            return super(distribution_list, self).\
+                distribution_list_forwarding(
+                cr, user_id, msg, dl_id, context=ctx)
         _logger.info('Mail forwarding aborted. Reason: %s' % noway)
 
     def _register_hook(self, cr):
