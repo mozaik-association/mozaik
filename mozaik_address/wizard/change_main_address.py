@@ -108,7 +108,7 @@ class change_main_address(orm.TransientModel):
             wizard.change_address()
         res = super(
             change_main_address, self._model).button_change_main_coordinate(
-               self.env.cr, self.env.uid, self.ids, self.env.context.copy())
+            self.env.cr, self.env.uid, self.ids, self.env.context.copy())
         if self.invalidate_previous_coordinate and postal_coordinate_ids:
             postal_coordinate_ids =\
                 self.env['postal.coordinate'].browse(postal_coordinate_ids)
