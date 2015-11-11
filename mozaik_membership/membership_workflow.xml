@@ -120,7 +120,7 @@
             <field name="act_from" ref="partner_act_without_membership" />
             <field name="act_to" ref="partner_act_member_candidate" />
             <field name="condition">
-                accepted_date != False and free_member != True
+                accepted_date != False and free_member == False
             </field>
         </record>
 
@@ -152,7 +152,7 @@
             <field name="act_from" ref="partner_act_refused_member_candidate" />
             <field name="act_to" ref="partner_act_member_candidate" />
             <field name="condition">
-                accepted_date != False and free_member != True
+                accepted_date != False and free_member == False
             </field>
         </record>
 
@@ -160,7 +160,7 @@
         <record id="membership_trans_cm_supp" model="workflow.transition">
             <field name="act_from" ref="partner_act_member_candidate" />
             <field name="act_to" ref="partner_act_supporter" />
-            <field name="condition">decline_payment_date != False and free_member == True</field>
+            <field name="condition">decline_payment_date != False</field>
         </record>
 
         <!-- Without Status TO Supporter -->

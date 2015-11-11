@@ -569,6 +569,9 @@ class res_partner(orm.Model):
             'reference': False,
         }
 
+        if membership_state_code == 'supporter':
+            vals['free_member'] = True
+
         current_reference = self.read(
             cr, uid, ids, ['reference'], context=context)[0]['reference']
         res = self.write(cr, uid, ids, vals, context=context)
