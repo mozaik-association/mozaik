@@ -61,6 +61,7 @@ class distribution_list(orm.Model):
     def _notify_changes_to_owners(self, subject, message):
         recipient_ids = [user.partner_id.id for user in self.res_users_ids
                          if user.id != self.env.uid]
+        recipient_ids += self.res_partner_m2m_ids.ids
         mail_vals = {
             'subject': subject,
             'body_html': message,
@@ -290,24 +291,18 @@ class distribution_list(orm.Model):
         res = super(distribution_list, self).write(vals)
         if new_alias and new_alias != old_alias:
             user = self.env['res.users'].browse(self.env.uid)
-            subject = _('Alias name modified'
-                        ' on distribution list %s') % self.name
-            html_content = []
-            html_content.append(_("<p>Hello,"))
-            html_content.append("<div><br></div>")
-            html_content.append(_("<div>For your information, the alias name"
-                                  " of the distribution list %s has been"
-                                  " changed by %s.</div>") %
-                                (self.name, user.name))
-            html_content.append("<div><br></div>")
-            html_content.append(_("<div>Old alias name: %s</div>")
-                                % old_alias_name)
-            html_content.append(_("<div>New alias name: %s</div>")
-                                % self.alias_id.name_get()[0][1])
-            html_content.append("<div><br></div>")
-            html_content.append(_("<div>Regards,</div></p>"))
-            message = "\n".join(html_content)
-            self._notify_changes_to_owners(subject, message)
+            subject = _(
+                'Alias modified on distribution list %s') % self.name
+
+            msg = "<p>%s,</p><p>%s</p><p>%s<br/>%s</p>"
+            parts = (
+                _('Hello'),
+                _('The alias of the distribution list %s '
+                  'has been changed by %s.') % (self.name, user.name),
+                _('Former alias: %s') % old_alias_name,
+                _('<b>New alias</b>: %s') % self.alias_id.name_get()[0][1],
+            )
+            self._notify_changes_to_owners(subject, msg % parts)
         return res
 
 
