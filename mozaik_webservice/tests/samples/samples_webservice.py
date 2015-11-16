@@ -108,7 +108,7 @@ elif sys.argv[2] == '3':
         'ETOPIA')
 elif sys.argv[2] == '4':
     METHOD = 'get_distribution_list'
-    res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 1)
+    res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 964)
 elif sys.argv[2] == '5':
     METHOD = 'update_partner_ldap'
     res = sock.execute(DBNAME, UID, PWD, OBJECT, METHOD, 7, 456, 'new name')
