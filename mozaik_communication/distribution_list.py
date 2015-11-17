@@ -233,7 +233,8 @@ class distribution_list(orm.Model):
         if has_visibility:
             ctx = dict(context or {},
                        email_coordinate_path='email',
-                       field_main_object='email_coordinate_id')
+                       main_object_field='email_coordinate_id',
+                       main_target_model='email.coordinate')
             return super(distribution_list, self).\
                 distribution_list_forwarding(
                 cr, user_id, msg, dl_id, context=ctx)

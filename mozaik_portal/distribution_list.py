@@ -31,9 +31,6 @@ class distribution_list(orm.Model):
 
     _inherit = "distribution.list"
 
-    def _get_main_object(self, cr, uid, ids, context=None):
-        return 'partner_id'
-
     def _get_partner(self, cr, uid, context=None):
         user_obj = self.pool['res.users']
         return user_obj.read(
@@ -53,15 +50,14 @@ class distribution_list(orm.Model):
         the distribution list or not
         :rtype: {id: boolean}
         '''
-        if context is None:
-            context = {}
-        ctx = context.copy()
         result = {i: False for i in ids}
 
         partner_id = self._get_partner(cr, uid, context=context)
 
-        ctx['field_main_object'] = \
-            self._get_main_object(cr, uid, ids, context=ctx)
+        ctx = dict(context or {},
+                   main_object_field='partner_id',
+                   main_target_model='res.partner')
+
         for dl_id in ids:
             subscribed_ids = self.get_complex_distribution_list_ids(
                 cr, SUPERUSER_ID, [dl_id], context=ctx)[0]

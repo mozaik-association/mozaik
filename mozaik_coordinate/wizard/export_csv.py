@@ -122,9 +122,13 @@ class export_csv(orm.TransientModel):
             pc = partner.postal_coordinate_id or None
             ec = obj
         elif model == 'virtual.target':
-            # for email coordinates, get postal coordinate from the partner
-            pc = obj.postal_coordinate_id or None
-            ec = obj.email_coordinate_id or None
+            # safe evaluation to avoid VIP security warning
+            pc = safe_get(obj.postal_coordinate_id, 'address_id') and \
+                obj.postal_coordinate_id or partner.postal_coordinate_id or \
+                None
+            ec = safe_get(obj.email_coordinate_id, 'email') and \
+                obj.email_coordinate_id or partner.email_coordinate_id or \
+                None
 
         xc = partner.fix_coordinate_id or None
         mc = partner.mobile_coordinate_id or None
@@ -143,7 +147,7 @@ class export_csv(orm.TransientModel):
             ('printable_name', cc and _get_utf8(cc.line) or
                 _get_utf8(partner.printable_name)),
             ('co_residency', cc and _get_utf8(cc.line2)),
-            ('instance', ic and _get_utf8(ic.name)),
+            ('instance', ic and _get_utf8(ic.display_name)),
             ('reference', _get_utf8(partner.reference)),
             ('birth_date', partner.birth_date or None),
             ('gender', available_genders.get(partner.gender, None)),
