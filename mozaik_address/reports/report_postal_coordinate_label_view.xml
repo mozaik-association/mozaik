@@ -66,13 +66,13 @@
             </t>
             <!-- Put more margin-left for the second and third sticker so they will be centered -->
             <div class="col-xs-3 card" t-att-style="modulo(o_index, 3) != 0 and 'margin-left:'+ str(10+((1-modulo(modulo(o_index, 3),2))*2))+'mm;' or ''">
-                <t t-if="not o.co_residency_id">
+                <t t-if="not o.co_residency_id or not co">
                     <span t-esc="o.partner_id.printable_name"/><br/>
                 </t>
-                <t t-if="o.co_residency_id and o.co_residency_id.line">
+                <t t-if="o.co_residency_id and o.co_residency_id.line and co">
                     <span t-esc="o.co_residency_id.line"/><br/>
                 </t>
-                <t t-if="o.co_residency_id and o.co_residency_id.line2">
+                <t t-if="o.co_residency_id and o.co_residency_id.line2 and co">
                    <span t-esc="o.co_residency_id.line2"/><br/>
                 </t>
                 <t t-if="o.address_id.street2">
@@ -98,6 +98,7 @@
                         <div class="pageTop" t-if="o_first or modulo(o_index, 33) == 0"/>
 
                         <t t-call="mozaik_address.postal_coordinate_label_report_card">
+                            <t t-set="co" t-value="co"/>
                             <t t-set="o" t-value="o"/>
                             <t t-set="o_index" t-value="o_index"/>
                         </t>

@@ -152,8 +152,6 @@ class distribution_list_mass_function(orm.TransientModel):
 
             if wizard.sort_by:
                 context['sort_by'] = wizard.sort_by
-            if wizard.groupby_coresidency:
-                context['alternative_group_by'] = 'co_residency_id'
 
             csv_model = wizard.trg_model
 
@@ -295,9 +293,24 @@ class distribution_list_mass_function(orm.TransientModel):
                         self.post_processing(
                             cr, uid, wizard, active_ids, context=context)
                     ctx = context.copy()
+                    if wizard.groupby_coresidency:
+                        to_print_ids = []
+                        co_res_ids = []
+                        for postal in self.pool['postal.coordinate'].browse(
+                                cr, uid, active_ids, context=context):
+                            if postal.co_residency_id:
+                                if postal.co_residency_id.id not in\
+                                        co_res_ids:
+                                    co_res_ids.append(
+                                        postal.co_residency_id.id)
+                                    to_print_ids.append(postal.id)
+                            else:
+                                to_print_ids.append(postal.id)
+                        active_ids = to_print_ids
                     ctx.update({
                         'active_model': 'postal.coordinate',
                         'active_ids': active_ids,
+                        'groupby_co_residency': wizard.groupby_coresidency,
                     })
                     report = self.pool['report'].get_pdf(
                         cr, uid, active_ids,
