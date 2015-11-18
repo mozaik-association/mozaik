@@ -8,7 +8,7 @@
             <field name="name">thesaurus.tree</field>
             <field name="model">thesaurus</field>
             <field name="arch" type="xml">
-                <tree string="Thesaurus" version="7.0">
+                <tree string="Thesaurus">
                     <field name="name" />
                 </tree>
             </field>
@@ -26,7 +26,7 @@
             <field name="name">thesaurus.form</field>
             <field name="model">thesaurus</field>
             <field name="arch" type="xml">
-                <form string="Thesaurus" version="7.0">
+                <form string="Thesaurus">
                     <header>
                         <div
                             attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
@@ -86,9 +86,10 @@
             <field name="name">thesaurus.term.search</field>
             <field name="model">thesaurus.term</field>
             <field name="arch" type="xml">
-                <search string="Thesaurus Term" version="7.0">
+                <search string="Thesaurus Terms">
                     <field name="name" />
                     <field name="state" />
+                    <field name="ext_identifier" />
 
                     <filter name="draft" string="To confirm"
                         domain="[('state','in',['draft'])]" />
@@ -114,9 +115,10 @@
             <field name="name">thesaurus.term.tree</field>
             <field name="model">thesaurus.term</field>
             <field name="arch" type="xml">
-                <tree string="Thesaurus Terms" version="7.0"
+                <tree string="Thesaurus Terms"
                     colors="grey:active==False;red:state=='draft'">
                     <field name="name" />
+                    <field name="ext_identifier" />
 
                     <field name="expire_date"
                         invisible="context.get('invisible_expire_date', True)" />
@@ -127,7 +129,6 @@
             </field>
         </record>
 
-        <!--delete id="thesaurus_term_action" model="ir.actions.act_window"/-->
         <record id="thesaurus_term_action" model="ir.actions.act_window">
             <field name="name">Thesaurus Terms</field>
             <field name="res_model">thesaurus.term</field>
@@ -142,7 +143,7 @@
             <field name="name">thesaurus.term.form</field>
             <field name="model">thesaurus.term</field>
             <field name="arch" type="xml">
-                <form string="Thesaurus Term" version="7.0">
+                <form string="Thesaurus Term">
                     <header>
                         <field name="state" widget="statusbar"
                             statusbar_visible="draft,confirm" />
@@ -160,21 +161,14 @@
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">
-                            <label for="search_name" class="oe_edit_only" />
+                            <label for="name" class="oe_edit_only" />
                             <h1>
-                                <field name="search_name" />
+                                <field name="name" />
                             </h1>
                         </div>
                         <div class="oe_right oe_button_box" name="buttons"
                             invisible="context.get('popup')">
                         </div>
-
-                        <group name="data">
-                            <group name="other">
-                                <field name="thesaurus_id"
-                                    groups="mozaik_base.mozaik_res_groups_configurator" />
-                            </group>
-                        </group>
 
                         <group name="state"
                             attrs="{'invisible': [('id','=',False)]}">
@@ -186,8 +180,9 @@
                             <group name="other">
                             </group>
                         </group>
+
                         <notebook>
-                            <page name="relation" string="Parent Terms">
+                            <page name="parent_terms" string="Parent Terms">
                                 <field name="parent_m2m_ids" readonly="1"/>
                             </page>
                             <page name="children_terms" string="Children Terms">
@@ -195,13 +190,14 @@
                             </page>
                             <page name="technical" string="Technicals">
                                 <group name="technical">
-                                    <field name="name"/>
                                     <field name="ext_identifier" />
+                                    <field name="thesaurus_id"
+                                        groups="mozaik_base.mozaik_res_groups_configurator" />
                                 </group>
                             </page>
                         </notebook>
-
                     </sheet>
+
                     <div name="dev" class="oe_form_sheetbg"
                         groups="mozaik_base.res_groups_developper">
                         <div class="oe_formview oe_form_sheet_width">

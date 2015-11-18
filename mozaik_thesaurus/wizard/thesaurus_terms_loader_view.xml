@@ -6,7 +6,7 @@
             <field name="name">thesaurus.terms.loader.wizard</field>
             <field name="model">thesaurus.terms.loader</field>
             <field name="arch" type="xml">
-                <form string="Thesaurus Terms Loader" version="7.0">
+                <form string="Thesaurus Terms Loader">
                     <group name="data">
                         <field name="file_terms" />
                     </group>
