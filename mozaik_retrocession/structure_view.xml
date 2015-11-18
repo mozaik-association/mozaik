@@ -49,7 +49,7 @@
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
-                    <field name="retro_instance_id"/>
+                    <field name="retro_instance_id" required="1"/>
                     <field name="calculation_method_id"/>
                 </xpath>
             </field>
@@ -112,7 +112,7 @@
             ])]"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='months_before_end_of_mandate']" position="before">
-                    <field name="retro_instance_id"/>
+                    <field name="retro_instance_id" required="1"/>
                     <field name="calculation_method_id"/>
                 </xpath>
             </field>
