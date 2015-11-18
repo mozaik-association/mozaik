@@ -83,7 +83,7 @@ class ThesaurusTerm(models.Model):
     _inherit = ['mozaik.abstract.model']
     _description = 'Thesaurus Term'
     _order = 'search_name'
-    _unicity_keys = 'technical_name'
+    _unicity_keys = 'name'
     _rec_name = 'search_name'
 
     @api.model
@@ -100,31 +100,23 @@ class ThesaurusTerm(models.Model):
             raise Warning(
                 _('Missing External Identifier for a validated term'))
 
-    @api.one
-    @api.depends('name', 'state', 'expire_date')
-    def _compute_technical_name(self):
-        elts = [
-            '%s' % self.thesaurus_id.id,
-            self.state,
-            self.state == 'draft' and self.name or
-            self.state == 'confirm' and
-            self.ext_identifier or self.expire_date
-        ]
-        self.technical_name = '#'.join([el for el in elts if el])
-
     @api.multi
     def _compute_search_name(self):
         self.ensure_one()
-        parent_names, name_path = [], []
-        for parent_id in self.parent_m2m_ids:
-            parent_names.append(parent_id._compute_search_name())
-        if parent_names:
-            parent_names.append(self.name)
-            for parent_name in parent_names:
-                if parent_name not in name_path:
-                    name_path.append(parent_name)
-            name_path = str.join('/', parent_names)
-        return name_path or self.name
+        name_path = self.name
+        names = [self.name]
+        parent_ids = self.parent_m2m_ids._ids
+        while parent_ids:
+            for p_id in parent_ids:
+                parent = self.browse(p_id)
+                if parent.name not in names:
+                    names.append(parent.name)
+                parent_ids += parent.parent_m2m_ids._ids
+                parent_ids = filter(lambda a: a != p_id, parent_ids)
+        if names:
+            names.reverse()
+            name_path = '/'.join(names)
+        return name_path
 
     @api.one
     def compute_search_name(self):
@@ -147,14 +139,12 @@ class ThesaurusTerm(models.Model):
         selection=TERM_AVAILABLE_STATES, string='Status', readonly=True,
         required=True, track_visibility='onchange',
         default=TERM_AVAILABLE_STATES[0][0])
-    technical_name = fields.Char(
-        compute='_compute_technical_name', index=True, store=True)
     parent_m2m_ids = fields.Many2many(
         comodel_name='thesaurus.term', relation='child_term_parent_term_rel',
         column1='child_term_id', column2='parent_term_id',
         string='Parent Terms')
     children_m2m_ids = fields.Many2many(
-        comodel_name='thesaurus.term', relation='parent_term_child_term_rel',
+        comodel_name='thesaurus.term', relation='child_term_parent_term_rel',
         column1='parent_term_id', column2='child_term_id',
         string='Children Terms')
 
@@ -164,10 +154,6 @@ class ThesaurusTerm(models.Model):
             'parent_m2m_ids': [[6, False, parent_term_ids]],
         }
         self.write(vals)
-        vals = {
-            'children_m2m_ids': [[4, self.id]],
-        }
-        self.browse(parent_term_ids).write(vals)
 
     @api.model
     @api.returns('self', lambda value: value.id)

@@ -204,7 +204,6 @@
                             <h3>More Info</h3>
                             <group name="moreinfo">
                                 <field name="id" />
-                                <field name="technical_name" />
                                 <field name="active" />
                             </group>
                         </div>
