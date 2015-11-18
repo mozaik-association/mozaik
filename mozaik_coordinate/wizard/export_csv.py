@@ -72,6 +72,8 @@ HEADER_ROW = [
     'Unauthorized Email',
     'Vip Email',
     'Email',
+    'Website',
+    'Secondary Website',
 ]
 
 
@@ -177,6 +179,8 @@ class export_csv(orm.TransientModel):
             ('email_unauthorized', ec and ec.unauthorized or False),
             ('email_vip', ec and ec.vip or False),
             ('email', ec and _get_utf8(ec.email)),
+            ('website', _get_utf8(partner.website)),
+            ('secondary_website', _get_utf8(partner.secondary_website)),
         ])
         return export_values
 
