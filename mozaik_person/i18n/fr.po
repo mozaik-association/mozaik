@@ -164,7 +164,7 @@ msgstr "Compétences"
 #. module: mozaik_person
 #: view:res.partner:mozaik_person.res_partner_search_view
 msgid "Competencies & Topics"
-msgstr "Compétencies & intérêts"
+msgstr "Compétences & thèmes"
 
 #. module: mozaik_person
 #: view:res.partner:mozaik_person.res_partner_search_view
