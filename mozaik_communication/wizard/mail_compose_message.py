@@ -66,7 +66,5 @@ class mail_compose_message(orm.TransientModel):
         context = context or {}
         if context.get('not_async'):
             context = dict(context, dl_computed=True)
-        else:
-            pass
         return super(mail_compose_message, self).send_mail(
             cr, uid, ids, context=context)
