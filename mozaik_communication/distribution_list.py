@@ -109,8 +109,7 @@ class distribution_list(orm.Model):
         'res_partner_m2m_ids': fields.many2many(
             'res.partner', string='Allowed Partners',
             rel='distribution_list_res_partner_rel',
-            column1='distribution_list_id', column2='res_partner_id',
-            track_visibility='onchange'),
+            column1='distribution_list_id', column2='res_partner_id'),
     }
 
     code = new_fields.Char('Code', track_visibility='onchange')
