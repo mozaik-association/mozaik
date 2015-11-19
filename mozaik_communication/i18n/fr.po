@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * mozaik_communication
+#	* mozaik_communication
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-16 10:05+0000\n"
-"PO-Revision-Date: 2015-11-16 10:05+0000\n"
+"POT-Creation-Date: 2015-11-19 17:20+0000\n"
+"PO-Revision-Date: 2015-11-19 17:20+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -527,7 +527,7 @@ msgstr "Employé"
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/event.py:77
 #: code:addons/mozaik_communication/postal_mail.py:198
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:234
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:236
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -1165,7 +1165,7 @@ msgid "Mass Action"
 msgstr "Fonctionnalité de masse"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:332
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:350
 #: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
 #: field:distribution.list.mass.function,e_mass_function:0
 #: field:distribution.list.mass.function,p_mass_function:0
@@ -1831,7 +1831,7 @@ msgid "The alias of the distribution list %s has been changed by %s."
 msgstr "Le pseudonyme de la liste de distribution %s a été modifié par %s."
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:234
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:236
 #, python-format
 msgid "There are no recipients"
 msgstr "Aucun destinataire"
@@ -2074,6 +2074,11 @@ msgstr ""
 #. module: mozaik_communication
 #: view:distribution.list.line:mozaik_communication.distribution_list_line_form
 msgid "{'invisible':[('active', '=', False)]}"
+msgstr ""
+
+#. module: mozaik_communication
+#: view:distribution.list:mozaik_communication.distribution_list_form
+msgid "{'no_open':True}"
 msgstr ""
 
 #. module: mozaik_communication

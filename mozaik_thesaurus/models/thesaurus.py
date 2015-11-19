@@ -134,19 +134,20 @@ class ThesaurusTerm(models.Model):
         required=True, default=_get_default_thesaurus_id)
     ext_identifier = fields.Char(
         string='External Identifier', required=False, index=True,
-        track_visibility='onchange', states={'confirm': [('required', True)]})
+        track_visibility='onchange', states={'confirm': [('required', True)]},
+        copy=False)
     state = fields.Selection(
         selection=TERM_AVAILABLE_STATES, string='Status', readonly=True,
         required=True, track_visibility='onchange',
-        default=TERM_AVAILABLE_STATES[0][0])
+        default=TERM_AVAILABLE_STATES[0][0], copy=False)
     parent_m2m_ids = fields.Many2many(
         comodel_name='thesaurus.term', relation='child_term_parent_term_rel',
         column1='child_term_id', column2='parent_term_id',
-        string='Parent Terms')
+        string='Parent Terms', copy=False)
     children_m2m_ids = fields.Many2many(
         comodel_name='thesaurus.term', relation='child_term_parent_term_rel',
         column1='parent_term_id', column2='child_term_id',
-        string='Children Terms')
+        string='Children Terms', copy=False)
 
     @api.one
     def set_relation_terms(self, parent_term_ids):
@@ -204,8 +205,6 @@ class ThesaurusTerm(models.Model):
     def copy(self, default=None):
         default = default or {}
         default.update({
-            'ext_identifier': False,
-            'state': TERM_AVAILABLE_STATES[0][0],
             'name': _('%s (copy)') % self.name,
         })
         return super(ThesaurusTerm, self).copy(default=default)
