@@ -20,8 +20,7 @@
                                     class="pull-right">
                                     <a href="/partner_search_form/">
                                         <button class="btn-large btn-primary"
-                                            type="button">Advanced Search
-                                        </button>
+                                            type="button">New Search</button>
                                     </a>
                                 </div>
                             </div>
@@ -49,7 +48,7 @@
                 <div style="display:inline-block;" class="pull-right">
                     <a href="/partner_search_form/">
                         <button class="btn-large btn-primary"
-                            type="button">Advanced Search</button>
+                            type="button">New Search</button>
                     </a>
                 </div>
                 <div class="container">
@@ -240,7 +239,7 @@
         </template>
 
         <!-- Search Form on * name * phone * email -->
-        <template id="partner_search_form" name="Partner Advanced Search">
+        <template id="partner_search_form" name="Partner Search">
             <t t-call="mozaik_mobile.layout">
                 <div class="container">
                     <form role="form" t-attf-action="/partner_mobile"

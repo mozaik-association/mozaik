@@ -22,16 +22,6 @@ msgstr "Ajouter une langue..."
 
 #. module: mozaik_mobile
 #. openerp-web
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:23
-#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:52
-#: view:website:mozaik_mobile.mobile_index
-#: view:website:mozaik_mobile.show_partner
-#, python-format
-msgid "Advanced Search"
-msgstr "Recherche avancée"
-
-#. module: mozaik_mobile
-#. openerp-web
 #: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:113
 #: view:website:mozaik_mobile.show_partner
 #, python-format
@@ -150,7 +140,17 @@ msgstr ""
 #: view:website:mozaik_mobile.partner_search_form
 #, python-format
 msgid "Name"
-msgstr "Description"
+msgstr "Nom"
+
+#. module: mozaik_mobile
+#. openerp-web
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:23
+#: code:addons/mozaik_mobile/static/src/xml/mobile_view.xml:52
+#: view:website:mozaik_mobile.mobile_index
+#: view:website:mozaik_mobile.show_partner
+#, python-format
+msgid "New Search"
+msgstr "Nouvelle recherche"
 
 #. module: mozaik_mobile
 #. openerp-web
