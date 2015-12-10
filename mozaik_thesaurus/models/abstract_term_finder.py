@@ -23,6 +23,7 @@
 #
 ##############################################################################
 from openerp import models, api
+from __builtin__ import int
 
 
 class AbstractTermFinder(models.AbstractModel):
@@ -44,6 +45,7 @@ class AbstractTermFinder(models.AbstractModel):
                  arg[0], 'in', self.env['thesaurus.term'].browse(
                         arg[2]).get_children_term()
                 ] if hasattr(arg, '__iter__') and arg[0] in self._terms
+                    and isinstance(arg[2], int)
                 else arg for arg in args
             ]
         return super(AbstractTermFinder, self).search(
