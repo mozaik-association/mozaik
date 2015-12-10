@@ -182,7 +182,6 @@ class distribution_list(orm.Model):
         partner_id = False
         user_id = False
         is_partner_allowed = False
-        is_partner_user = False
         has_visibility = False
         noway = 'No unique coordinate found with address: %s' % \
             msg['email_from']
@@ -217,18 +216,13 @@ class distribution_list(orm.Model):
                     cr, uid, domain, context=context)
                 user_id = user_id and user_id[0] or False
         if user_id:
-            noway = 'User [%s] is not a Mozaik User' % user_id
-            is_partner_user = self.pool['res.users'].has_group(
-                cr, user_id, 'mozaik_base.mozaik_res_groups_user')
-        if is_partner_user:
-            noway = 'User [%s] has no visibility on list [%s]' % \
-                (user_id, dl_id)
             try:
                 self.check_access_rule(
                     cr, user_id, [dl_id], 'read', context=context)
                 has_visibility = True
             except except_orm:
-                pass
+                noway = 'User [%s] has no visibility on list [%s]' % \
+                    (user_id, dl_id)
         if has_visibility:
             ctx = dict(context or {},
                        email_coordinate_path='email',
