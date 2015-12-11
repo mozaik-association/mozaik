@@ -466,11 +466,8 @@
 
                         <notebook invisible="context.get('popup')">
                             <page string="Exclusive Categories" name="exclusive_categories" autofocus="autofocus">
-                                <field name="exclusive_category_m2m_ids">
-                                    <tree>
-                                        <field name="name"/>
-                                    </tree>
-                                </field>
+                                <field name="exclusive_category_m2m_ids"
+                                    context="{'tree_view_ref': 'mozaik_thesaurus.thesaurus_term_search_tree_view'}"/>
                             </page>
                         </notebook>
                     </sheet>
@@ -602,11 +599,8 @@
                     <notebook>
                         <page name="index" string="Indexation">
                             <separator string="Competencies"/>
-                            <field name="competencies_m2m_ids" placeholder="Terms..." context="{'default_state': 'draft'}">
-                                <tree>
-                                    <field name="search_name"/>
-                                </tree>
-                            </field>
+                            <field name="competencies_m2m_ids" placeholder="Terms..."
+                                context="{'tree_view_ref': 'mozaik_thesaurus.thesaurus_term_search_tree_view'}"/>
                         </page>
                     </notebook>
                 </xpath>
@@ -675,11 +669,8 @@
                     <notebook>
                         <page name="index" string="Indexation">
                             <separator string="Competencies"/>
-                            <field name="competencies_m2m_ids" placeholder="Terms..." context="{'default_state': 'draft'}" >
-                                <tree>
-                                    <field name="search_name"/>
-                                </tree>
-                            </field>
+                            <field name="competencies_m2m_ids" placeholder="Terms..."
+                                context="{'tree_view_ref': 'mozaik_thesaurus.thesaurus_term_search_tree_view'}"/>
                         </page>
                     </notebook>
                 </xpath>
