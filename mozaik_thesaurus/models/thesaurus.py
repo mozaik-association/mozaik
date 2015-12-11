@@ -128,7 +128,7 @@ class ThesaurusTerm(models.Model):
     name = fields.Char(
         string='Term', required=True, index=True, track_visibility='onchange')
     search_name = fields.Char(
-        string='Search Name', index=True, readonly=True)
+        string='Full Path', index=True, readonly=True)
     thesaurus_id = fields.Many2one(
         comodel_name='thesaurus', string='Thesaurus', readonly=True,
         required=True, default=_get_default_thesaurus_id)

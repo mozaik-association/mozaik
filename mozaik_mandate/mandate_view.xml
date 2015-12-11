@@ -602,7 +602,11 @@
                     <notebook>
                         <page name="index" string="Indexation">
                             <separator string="Competencies"/>
-                            <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." context="{'default_state': 'draft'}" />
+                            <field name="competencies_m2m_ids" placeholder="Terms..." context="{'default_state': 'draft'}">
+                                <tree>
+                                    <field name="search_name"/>
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </xpath>
@@ -671,7 +675,11 @@
                     <notebook>
                         <page name="index" string="Indexation">
                             <separator string="Competencies"/>
-                            <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." context="{'default_state': 'draft'}" />
+                            <field name="competencies_m2m_ids" placeholder="Terms..." context="{'default_state': 'draft'}" >
+                                <tree>
+                                    <field name="search_name"/>
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </xpath>
