@@ -188,11 +188,13 @@ class distribution_list(orm.Model):
         coordinate_ids = self._get_mailing_object(
             cr, uid, dl_id, msg['email_from'], context=context)
         if len(coordinate_ids) == 1:
-            noway = 'Orphan coordinate [%s]' % coordinate_ids[0]
-            coo_values = self.pool['email.coordinate'].read(
-                cr, uid, coordinate_ids[0], ['partner_id'], context=context)
-            partner_id = coo_values.get('partner_id') and \
-                coo_values['partner_id'][0] or False
+            coo_obj = self.pool['email.coordinate'].browse(
+               cr, uid, coordinate_ids[0], context=context)
+            noway = 'Coordinate [%s] is not main' % coordinate_ids[0]
+            if coo_obj and coo_obj.is_main:
+                noway = 'Orphan coordinate [%s]' % coordinate_ids[0]
+                partner_id = coo_obj.partner_id and coo_obj.partner_id.id or\
+                    False
         if partner_id:
             noway = 'Partner [%s] is not an owner nor ' \
                 'an allowed partner' % partner_id
