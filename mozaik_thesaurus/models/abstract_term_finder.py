@@ -40,13 +40,11 @@ class AbstractTermFinder(models.AbstractModel):
         order=None, count=False: value if count else value.ids)
     def search(self, args, offset=0, limit=None, order=None, count=False):
         if self._terms:
-            args = [
-                [
-                 arg[0], 'in', self.env['thesaurus.term'].browse(
-                        arg[2]).get_children_term()
-                ] if hasattr(arg, '__iter__') and arg[0] in self._terms
-                    and isinstance(arg[2], int)
-                else arg for arg in args
+            args = [[
+                arg[0], 'in', self.env['thesaurus.term'].browse(
+                    arg[2]).get_children_term()
+                ] if hasattr(arg, '__iter__') and arg[0] in self._terms and
+                isinstance(arg[2], int) else arg for arg in args
             ]
         return super(AbstractTermFinder, self).search(
             args, offset=offset, limit=limit, order=order, count=count)
