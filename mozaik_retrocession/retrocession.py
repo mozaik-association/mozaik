@@ -1458,25 +1458,24 @@ class retrocession(orm.Model):
 
         if template_id:
             # Remove navigation history: maybe we're coming from a mandate
-            ctx = dict(context or {},
-                       email_coordinate_path='email_coordinate_id.email')
+            ctx = dict(context or {})
             ctx.pop('active_model', None)
             ctx.pop('active_id', None)
             ctx.pop('active_ids', None)
             composer = self.pool['mail.compose.message']
             mail_composer_vals = {'parent_id': False,
                                   'use_active_domain': False,
-                                  'composition_mode': 'mass_mail',
-                                  'partner_ids': [[6, False, []]],
+                                  'partner_ids': [[6, False,
+                                                   [retro.partner_id.id]]],
                                   'notify': False,
                                   'template_id': template_id,
-                                  'model': 'retrocession',
+                                  'model': self._name,
                                   'record_name': retro.display_name,
                                   'res_id': retro.id,
                                   }
             value = composer.onchange_template_id(
-                cr, uid, retro.id, template_id, 'mass_mail',
-                False, False,
+                cr, uid, False, template_id, False,
+                False, retro.id,
                 context=ctx)['value']
             value['email_from'] = composer._get_default_from(
                 cr, uid, context=ctx)
@@ -1489,9 +1488,6 @@ class retrocession(orm.Model):
 
     def generate_account_move(self, cr, uid, retro, context=None):
         """
-        ======================
-        _generate_account_move
-        ======================
         Generate account move for retrocession(s)
         :rparam: None
         :rtype: None
