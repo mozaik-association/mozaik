@@ -2,6 +2,12 @@
 # This file contains the translation of the following modules:
 #	* mozaik_retrocession
 #
+# CAUTION
+# =======
+# Due to an unfixed odoo issue (opw 665734):
+# Exclude from PO files terms of translatable fields of protected records (i.e. nonupdadable=True),
+# typically subject and body of mail templates, to avoid to loose custom translations.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
@@ -1176,12 +1182,6 @@ msgid "Reactivate document: proceed anyway?"
 msgstr "Poursuivre la réactivation du document ?"
 
 #. module: mozaik_retrocession
-#: model:email.template,subject:mozaik_retrocession.email_template_ext_mandate_reference
-#: model:email.template,subject:mozaik_retrocession.email_template_sta_mandate_reference
-msgid "Reference for payments"
-msgstr "Référence pour paiements"
-
-#. module: mozaik_retrocession
 #: view:website:mozaik_retrocession.report_payment_certificate_document
 msgid "Regards,"
 msgstr "Salutations distinguées,"
@@ -1230,11 +1230,6 @@ msgstr "Poursuivre la réinitialisation de la rétrocession ?"
 #: view:retrocession:mozaik_retrocession.retrocession_form_view
 msgid "Retrocession"
 msgstr "Rétrocession"
-
-#. module: mozaik_retrocession
-#: model:email.template,subject:mozaik_retrocession.email_template_request_payment_retrocession
-msgid "Retrocession ${object.unique_id}: Request for payment"
-msgstr "Rétrocession ${object.unique_id}: demande de paiement"
 
 #. module: mozaik_retrocession
 #: field:abstract.mandate.retrocession,retrocession_mode:0
