@@ -261,7 +261,7 @@ class mozaik_abstract_model(orm.AbstractModel):
         if ctx.get('install_mode') and vals.get('create_date'):
             q = 'update %s set create_date=%%s where id=%%s' % self._table
             self.env.cr.execute(q, (vals['create_date'], new_id.id))
-        return new_id
+        return new_id.with_context(self.env.context)
 
     @api.multi
     def write(self, vals):

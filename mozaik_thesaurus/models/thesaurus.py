@@ -68,13 +68,13 @@ class Thesaurus(models.Model):
         """
         Update the field new_thesaurus_term_id producing or not a notification
         """
-        ctx = self.env.context.copy()
-        if not newid:
-            # context: notrack when resetting the new term id to False to avoid
-            # a notification
-            ctx['mail_notrack'] = True
         vals = {'new_thesaurus_term_id': newid}
-        return self.with_context(ctx).write(vals)
+        if not newid:
+            # notrack=Tue: disable tracking notification when
+            # resetting new term id
+            self.with_context(mail_notrack=True).write(vals)
+        else:
+            self.write(vals)
 
 
 class ThesaurusTerm(models.Model):
@@ -172,9 +172,9 @@ class ThesaurusTerm(models.Model):
         new_id = super(ThesaurusTerm, self).create(vals)
         if not self.env.context.get('load_mode'):
             # Reset notification term on the thesaurus
-            self.thesaurus_id.update_notification_term()
+            new_id.thesaurus_id.update_notification_term()
             # Set notification term on the thesaurus
-            self.thesaurus_id.update_notification_term(newid=new_id)
+            new_id.thesaurus_id.update_notification_term(newid=new_id.id)
         return new_id
 
     @api.multi

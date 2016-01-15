@@ -87,10 +87,10 @@
             <field name="model">thesaurus.term</field>
             <field name="arch" type="xml">
                 <search string="Thesaurus Terms">
-                    <field name="name" />
-                    <field name="state" />
-                    <field name="ext_identifier" />
                     <field name="search_name" />
+                    <field name="name" />
+                    <field name="ext_identifier" />
+                    <field name="state" />
 
                     <filter name="draft" string="To confirm"
                         domain="[('state','in',['draft'])]" />
@@ -160,9 +160,7 @@
             <field name="arch" type="xml">
                 <form string="Thesaurus Term">
                     <header>
-                        <field name="state" widget="statusbar"
-                            statusbar_visible="draft,confirm" />
-                        <div
+                        <span
                             attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
                             invisible="context.get('popup')"
                             groups="mozaik_base.mozaik_res_groups_configurator">
@@ -172,7 +170,9 @@
                                 type="object" states="confirm" />
                             <button name="button_reset" string="Reset Term"
                                 type="object" states="cancel" />
-                        </div>
+                        </span>
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="draft,confirm" />
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">
