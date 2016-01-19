@@ -150,6 +150,7 @@ class distribution_list_mass_function(orm.TransientModel):
                 context['alternative_object_field'] = 'id'
                 context['alternative_target_model'] = \
                     wizard.distribution_list_id.dst_model_id.model
+                context['alternative_object_domain'] = domains
 
             if wizard.sort_by:
                 context['sort_by'] = wizard.sort_by
@@ -218,8 +219,8 @@ class distribution_list_mass_function(orm.TransientModel):
                                 'postal_coordinate_id'
                             context['alternative_target_model'] = \
                                 'postal.coordinate'
-                        context['alternative_object_domain'] = [
-                            ('email_coordinate_id', '=', False)]
+                            context['alternative_object_domain'] = [
+                                ('email_coordinate_id', '=', False)]
                     active_ids, alternative_ids = self.pool[
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
