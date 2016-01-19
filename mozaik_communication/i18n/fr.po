@@ -2095,3 +2095,8 @@ msgstr ""
 #: view:mail.mass_mailing:mozaik_communication.view_mail_mass_mailing_distribution_list_form
 msgid "{'required': [('mailing_model', '=','email.coordinate')],'invisible': [('mailing_model', '!=','email.coordinate')]}"
 msgstr ""
+
+#. module: mozaik_communication
+#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+msgid "In Progresse"
+msgstr "En cours"
