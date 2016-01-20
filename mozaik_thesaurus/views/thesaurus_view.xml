@@ -220,6 +220,7 @@
                             <group name="moreinfo">
                                 <field name="id" />
                                 <field name="active" />
+                                <field name="select_name" />
                             </group>
                         </div>
                     </div>

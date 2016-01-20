@@ -24,6 +24,7 @@
 ##############################################################################
 from openerp import models, api, fields
 from openerp.tools.translate import _
+from openerp.addons.mozaik_base.base_tools import format_value
 
 
 # Available States for thesaurus terms
@@ -125,10 +126,17 @@ class ThesaurusTerm(models.Model):
         else:
             self.search_name = self.name
 
+    @api.one
+    @api.depends('search_name')
+    def _compute_select_name(self):
+        self.select_name = format_value(self.search_name, remove_blanks=True)
+
     name = fields.Char(
         string='Term', required=True, index=True, track_visibility='onchange')
     search_name = fields.Char(
         string='Full Path', index=True, readonly=True)
+    select_name = fields.Char(
+        compute='_compute_select_name', store=True, index=True)
     thesaurus_id = fields.Many2one(
         comodel_name='thesaurus', string='Thesaurus', readonly=True,
         required=True, default=_get_default_thesaurus_id)
@@ -191,10 +199,17 @@ class ThesaurusTerm(models.Model):
         args = list(args or [])
         if len(name) and name[-1:] == '!':
             name = name.replace('!', '', 1)
-            args = [('name', '=', name)]
+            args = [
+                '|',
+                ('name', '=', name),
+                ('select_name', '=', name),
+            ]
         else:
-            ids = super(ThesaurusTerm, self).search(
-                [('search_name', operator, name)] + args, limit=80)
+            ids = super(ThesaurusTerm, self).search([
+                    '|',
+                    ('select_name', operator, name),
+                    ('search_name', operator, name),
+                ] + args, limit=80)
             if ids:
                 return ids.name_get()
         return super(ThesaurusTerm, self).name_search(
