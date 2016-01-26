@@ -232,6 +232,10 @@ class distribution_list(orm.Model):
                        email_coordinate_path='email',
                        main_object_field='email_coordinate_id',
                        main_target_model='email.coordinate')
+            res_ids = self._get_mailing_object(
+                cr, uid, dl_id, msg['email_from'], context=context)
+            if res_ids:
+                ctx['additional_res_ids'] = res_ids
             return super(distribution_list, self).\
                 distribution_list_forwarding(
                 cr, user_id, msg, dl_id, context=ctx)
