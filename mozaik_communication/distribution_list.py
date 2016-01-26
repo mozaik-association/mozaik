@@ -31,6 +31,7 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp import api, fields as new_fields
 from openerp.exceptions import except_orm
+from openerp.addons.mozaik_base.base_tools import format_email
 
 _logger = logging.getLogger(__name__)
 
@@ -43,6 +44,7 @@ class distribution_list(orm.Model):
     def _get_mailing_object(
             self, cr, uid, dl_id, email_from, mailing_model=False,
             email_field='email', context=None):
+        email_from = format_email(email_from)
         return super(distribution_list, self)._get_mailing_object(
             cr, uid, dl_id, email_from, mailing_model='email.coordinate',
             email_field=email_field, context=context)
