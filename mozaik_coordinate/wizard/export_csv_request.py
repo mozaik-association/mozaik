@@ -20,7 +20,7 @@ SELECT
  cc.id as co_residency_id,
  cc.line2 as co_residency,
  instance.name as instance,
- ms.code as status,
+ ms.name as status,
  ipl.name as power_name,
  pc.is_main as adr_main,
  pc.unauthorized as adr_unauthorized,
@@ -102,7 +102,8 @@ LEFT OUTER JOIN int_power_level ipl
  ON instance.power_level_id = ipl.id
 
 LEFT OUTER JOIN postal_coordinate pc
- ON pc.id = vt.postal_coordinate_id
+ ON pc.id = vt.postal_coordinate_id AND
+ pc.active = True
 
 LEFT OUTER JOIN address_address address
  ON address.id = pc.address_id
@@ -116,7 +117,8 @@ LEFT OUTER JOIN co_residency cc
 LEFT OUTER JOIN phone_coordinate fix
  ON fix.partner_id = p.id AND
  fix.is_main = True AND
- fix.coordinate_type= 'fix'
+ fix.coordinate_type= 'fix' AND
+ fix.active = True
 
 LEFT OUTER JOIN phone_phone fix_phone
  ON fix_phone.id = fix.id
@@ -124,7 +126,8 @@ LEFT OUTER JOIN phone_phone fix_phone
 LEFT OUTER JOIN phone_coordinate mobile
  ON mobile.partner_id = p.id AND
  mobile.is_main = True AND
- mobile.coordinate_type = 'mobile'
+ mobile.coordinate_type = 'mobile' AND
+ mobile.active = True
 
 LEFT OUTER JOIN phone_phone mobile_phone
  ON mobile_phone.id = mobile.id
@@ -132,13 +135,15 @@ LEFT OUTER JOIN phone_phone mobile_phone
 LEFT OUTER JOIN phone_coordinate fax
  ON fax.partner_id = p.id AND
  fax.is_main = True AND
- fax.coordinate_type = 'fix'
+ fax.coordinate_type = 'fix' AND
+ fax.active = True
 
 LEFT OUTER JOIN phone_phone fax_phone
  ON fax_phone.id = fax.id
 
 LEFT OUTER JOIN email_coordinate ec
- ON ec.id = vt.email_coordinate_id
+ ON ec.id = vt.email_coordinate_id AND
+ ec.active = True
 
 """ % COMMON_REQUEST
 
@@ -160,7 +165,8 @@ LEFT OUTER JOIN int_power_level ipl
 
 LEFT OUTER JOIN postal_coordinate pc
  ON pc.partner_id = p.id AND
- pc.is_main = True
+ pc.is_main = True AND
+ pc.active = True
 
 LEFT OUTER JOIN address_address address
  ON address.id = pc.address_id
@@ -174,7 +180,8 @@ LEFT OUTER JOIN co_residency cc
 LEFT OUTER JOIN phone_coordinate fix
  ON fix.partner_id = p.id AND
  fix.is_main = True AND
- fix.coordinate_type= 'fix'
+ fix.coordinate_type= 'fix' AND
+ fix.active = True
 
 LEFT OUTER JOIN phone_phone fix_phone
  ON fix_phone.id = fix.id
@@ -182,7 +189,8 @@ LEFT OUTER JOIN phone_phone fix_phone
 LEFT OUTER JOIN phone_coordinate mobile
  ON mobile.partner_id = p.id AND
  mobile.is_main = True AND
- mobile.coordinate_type = 'mobile'
+ mobile.coordinate_type = 'mobile' AND
+ mobile.active = True
 
 LEFT OUTER JOIN phone_phone mobile_phone
  ON mobile_phone.id = mobile.id
@@ -190,7 +198,8 @@ LEFT OUTER JOIN phone_phone mobile_phone
 LEFT OUTER JOIN phone_coordinate fax
  ON fax.partner_id = p.id AND
  fax.is_main = True AND
- fax.coordinate_type = 'fix'
+ fax.coordinate_type = 'fix' AND
+ fax.active = True
 
 LEFT OUTER JOIN phone_phone fax_phone
  ON fax_phone.id = fax.id
@@ -225,7 +234,8 @@ LEFT OUTER JOIN co_residency cc
 LEFT OUTER JOIN phone_coordinate fix
  ON fix.partner_id = p.id AND
  fix.is_main = True AND
- fix.coordinate_type= 'fix'
+ fix.coordinate_type= 'fix' AND
+ fix.active = True
 
 LEFT OUTER JOIN phone_phone fix_phone
  ON fix_phone.id = fix.id
@@ -233,7 +243,8 @@ LEFT OUTER JOIN phone_phone fix_phone
 LEFT OUTER JOIN phone_coordinate mobile
  ON mobile.partner_id = p.id AND
  mobile.is_main = True AND
- mobile.coordinate_type = 'mobile'
+ mobile.coordinate_type = 'mobile' AND
+ mobile.active = True
 
 LEFT OUTER JOIN phone_phone mobile_phone
  ON mobile_phone.id = mobile.id
@@ -241,13 +252,15 @@ LEFT OUTER JOIN phone_phone mobile_phone
 LEFT OUTER JOIN phone_coordinate fax
  ON fax.partner_id = p.id AND
  fax.is_main = True AND
- fax.coordinate_type = 'fix'
+ fax.coordinate_type = 'fix' AND
+ fax.active = True
 
 LEFT OUTER JOIN phone_phone fax_phone
  ON fax_phone.id = fax.id
 
 LEFT OUTER JOIN email_coordinate ec
  ON ec.partner_id = p.id AND
- ec.is_main = True
+ ec.is_main = True AND
+ ec.active = True
 
 """ % COMMON_REQUEST
