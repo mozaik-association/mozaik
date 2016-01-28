@@ -12,6 +12,7 @@ SELECT
  p.tongue,
  p.website,
  p.secondary_website,
+ p.display_name,
  CASE
   WHEN cc IS NOT NULL
   THEN cc.line
@@ -39,7 +40,7 @@ SELECT
   WHEN pc.vip = True
   THEN 'VIP'
   ELSE address.zip
- END AS zip,
+ END AS final_zip,
  CASE
   WHEN pc.vip = True
   THEN 'VIP'

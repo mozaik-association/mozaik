@@ -98,6 +98,16 @@ class export_csv(orm.TransientModel):
         """
         return HEADER_ROW
 
+    def _get_order_by(self, order_by):
+        r_order_by = False
+        if order_by:
+            if order_by == "identifier" or order_by == "display_name":
+                r_order_by = "ORDER BY p.%s" % order_by
+            else:
+                r_order_by =\
+                    "ORDER BY country_name, final_zip, p.display_name"
+        return r_order_by
+
     def get_csv_values(self, cr, uid, model, obj, context=None):
         """
         Get the values of the specified obj, which should be an instance
@@ -129,7 +139,7 @@ class export_csv(orm.TransientModel):
             ('adr_vip', obj.get('adr_vip')),
             ('street2', _get_utf8(obj.get('street2'))),
             ('street', _get_utf8(obj.get('street'))),
-            ('zip', obj.get('zip')),
+            ('zip', obj.get('final_zip')),
             ('city', _get_utf8(obj.get('city'))),
             ('country_code', obj.get('country_code')),
             ('country_name', _get_utf8(obj.get('country_name'))),
@@ -173,6 +183,9 @@ class export_csv(orm.TransientModel):
             raise orm.except_orm(
                 _('Error'),
                 _('Model %s Not supported for csv generation!') % model)
+        order_by = self._get_order_by(context.get('sort_by'))
+        if order_by:
+            query = "%s %s" % (query, order_by)
         cr.execute(query, (tuple(model_ids),))
         for row in cr.dictfetchall():
             yield row
