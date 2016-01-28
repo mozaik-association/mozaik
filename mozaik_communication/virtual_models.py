@@ -541,14 +541,14 @@ class virtual_partner_mandate(orm.Model):
             obj='thesaurus.term',
             rel='sta_mandate_term_competencies_rel',
             id1='sta_mandate_id', id2='thesaurus_term_id',
-            string='State Mandate Competencies'),
+            string='State Mandate Remits'),
         'ext_competencies_m2m_ids': fields.related(
             'ext_mandate_id', 'competencies_m2m_ids',
             type='many2many',
             obj='thesaurus.term',
             rel='ext_mandate_term_competencies_rel',
             id1='ext_mandate_id', id2='thesaurus_term_id',
-            string='External Mandate Competencies'),
+            string='External Mandate Remits'),
         'mandate_instance_id': fields.many2one(
             'int.instance', 'Mandate Instance'),
         'sta_instance_id': fields.many2one(
@@ -822,7 +822,6 @@ class virtual_assembly_instance(orm.Model):
     _inherit = "abstract.virtual.target"
     _terms = [
         'competencies_m2m_ids',
-        'interests_m2m_ids',
     ]
     _auto = False
 
@@ -867,12 +866,7 @@ class virtual_assembly_instance(orm.Model):
             'partner_id', 'competencies_m2m_ids', type='many2many',
             obj='thesaurus.term',
             rel='res_partner_term_competencies_rel',
-            id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
-        'interests_m2m_ids': fields.related(
-            'partner_id', 'interests_m2m_ids', type='many2many',
-            obj='thesaurus.term',
-            rel='res_partner_term_interests_rel',
-            id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+            id1='partner_id', id2='thesaurus_term_id', string='Topics'),
         'active': fields.boolean('Active'),
     }
 

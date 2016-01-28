@@ -598,7 +598,7 @@
                 <xpath expr="//group[@name='data']" position="after">
                     <notebook>
                         <page name="index" string="Indexation">
-                            <separator string="Competencies"/>
+                            <separator string="Remits"/>
                             <field name="competencies_m2m_ids" placeholder="Terms..."
                                 context="{'tree_view_ref': 'mozaik_thesaurus.thesaurus_term_search_tree_view'}"/>
                         </page>
@@ -668,7 +668,7 @@
                 <xpath expr="//group[@name='data']" position="after">
                     <notebook>
                         <page name="index" string="Indexation">
-                            <separator string="Competencies"/>
+                            <separator string="Remits"/>
                             <field name="competencies_m2m_ids" placeholder="Terms..."
                                 context="{'tree_view_ref': 'mozaik_thesaurus.thesaurus_term_search_tree_view'}"/>
                         </page>

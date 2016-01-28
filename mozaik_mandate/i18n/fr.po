@@ -374,14 +374,6 @@ msgid "Closed"
 msgstr "Terminé"
 
 #. module: mozaik_mandate
-#: view:ext.mandate:mozaik_mandate.ext_mandate_form_view
-#: field:ext.mandate,competencies_m2m_ids:0
-#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
-#: field:sta.mandate,competencies_m2m_ids:0
-msgid "Competencies"
-msgstr "Compétences"
-
-#. module: mozaik_mandate
 #: model:ir.ui.menu,name:mozaik_mandate.configuration_submenu
 msgid "Configuration"
 msgstr "Configuration"
@@ -1650,6 +1642,14 @@ msgstr "Candidatures réjétées"
 #: field:mandates.analysis.report,remaining_months_before_end_of_mandate:0
 msgid "Remaining Months before End of Mandate"
 msgstr "Remaining Months before End of Mandate"
+
+#. module: mozaik_mandate
+#: view:ext.mandate:mozaik_mandate.ext_mandate_form_view
+#: field:ext.mandate,competencies_m2m_ids:0
+#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
+#: field:sta.mandate,competencies_m2m_ids:0
+msgid "Remits"
+msgstr "Attributions"
 
 #. module: mozaik_mandate
 #: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard

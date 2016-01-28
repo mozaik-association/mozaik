@@ -400,7 +400,7 @@ class ext_mandate(orm.Model):
             'ext_mandate_term_competencies_rel',
             id1='ext_mandate_id',
             id2='thesaurus_term_id',
-            string='Competencies'),
+            string='Remits'),
         'months_before_end_of_mandate': fields.integer(
             'Alert Delay (#Months)',
             track_visibility='onchange', group_operator='max'),

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-19 17:20+0000\n"
-"PO-Revision-Date: 2015-11-19 17:20+0000\n"
+"POT-Creation-Date: 2016-01-28 17:10+0000\n"
+"PO-Revision-Date: 2016-01-28 17:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:303
+#: code:addons/mozaik_communication/distribution_list.py:305
 #, python-format
 msgid "<b>New alias</b>: %s"
 msgstr "<b>Nouveau pseudonyme</b>: %s"
@@ -85,7 +85,7 @@ msgid "Add Registrations"
 msgstr "Ajouter des inscriptions"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:294
+#: code:addons/mozaik_communication/distribution_list.py:296
 #, python-format
 msgid "Alias modified on distribution list %s"
 msgstr "Pseudonyme modifié pour la liste de distribution %s"
@@ -272,7 +272,6 @@ msgid "Common ID"
 msgstr "Common ID"
 
 #. module: mozaik_communication
-#: field:virtual.assembly.instance,competencies_m2m_ids:0
 #: field:virtual.partner.candidature,competencies_m2m_ids:0
 #: field:virtual.partner.event,competencies_m2m_ids:0
 #: field:virtual.partner.instance,competencies_m2m_ids:0
@@ -284,14 +283,10 @@ msgid "Competencies"
 msgstr "Compétences"
 
 #. module: mozaik_communication
-#: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
-#: view:virtual.partner.candidature:mozaik_communication.virtual_partner_candidature_search_view
 #: view:virtual.partner.event:mozaik_communication.virtual_partner_event_search_view
 #: view:virtual.partner.instance:mozaik_communication.virtual_partner_instance_search_view
 #: view:virtual.partner.involvement:mozaik_communication.virtual_partner_involvement_search_view
-#: view:virtual.partner.membership:mozaik_communication.virtual_partner_membership_search_view
 #: view:virtual.partner.relation:mozaik_communication.virtual_partner_relation_search_view
-#: view:virtual.partner.retrocession:mozaik_communication.virtual_partner_retrocession_search_view
 msgid "Competencies & Topics"
 msgstr "Compétences & thèmes"
 
@@ -527,7 +522,7 @@ msgstr "Employé"
 #. module: mozaik_communication
 #: code:addons/mozaik_communication/event.py:77
 #: code:addons/mozaik_communication/postal_mail.py:198
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:236
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:237
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -645,10 +640,9 @@ msgid "External Mandate"
 msgstr "Mandat externe"
 
 #. module: mozaik_communication
-#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
 #: field:virtual.partner.mandate,ext_competencies_m2m_ids:0
-msgid "External Mandate Competencies"
-msgstr "Compétences de mandat externe"
+msgid "External Mandate Remits"
+msgstr "Attributions de mandat externe"
 
 #. module: mozaik_communication
 #: selection:virtual.partner.retrocession,month:0
@@ -692,7 +686,7 @@ msgid "Followers"
 msgstr "Abonnés"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:302
+#: code:addons/mozaik_communication/distribution_list.py:304
 #, python-format
 msgid "Former alias: %s"
 msgstr "Ancien pseudonyme: %s"
@@ -774,7 +768,7 @@ msgid "Group by Co-Residency"
 msgstr "Grouper par Co-Résidence"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:299
+#: code:addons/mozaik_communication/distribution_list.py:301
 #, python-format
 msgid "Hello"
 msgstr "Bonjour"
@@ -1170,7 +1164,7 @@ msgid "Mass Action"
 msgstr "Fonctionnalité de masse"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:350
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:351
 #: view:distribution.list.mass.function:mozaik_communication.distribution_list_mass_function_wizard
 #: field:distribution.list.mass.function,e_mass_function:0
 #: field:distribution.list.mass.function,p_mass_function:0
@@ -1643,13 +1637,13 @@ msgid "Result"
 msgstr "Résultat"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:262
+#: code:addons/mozaik_communication/distribution_list.py:264
 #, python-format
 msgid "Result of %s"
 msgstr "Résultat de %s"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:385
+#: code:addons/mozaik_communication/distribution_list.py:387
 #, python-format
 msgid "Result of %s Filter without coordinate"
 msgstr "Résultat du filtre %s (injoignables)"
@@ -1777,10 +1771,9 @@ msgid "State Mandate"
 msgstr "Mandat politique"
 
 #. module: mozaik_communication
-#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
 #: field:virtual.partner.mandate,sta_competencies_m2m_ids:0
-msgid "State Mandate Competencies"
-msgstr "Compétences de mandat politique"
+msgid "State Mandate Remits"
+msgstr "Attributions de mandat politique"
 
 #. module: mozaik_communication
 #: view:virtual.assembly.instance:mozaik_communication.virtual_assembly_instance_search_view
@@ -1830,13 +1823,13 @@ msgid "Templates"
 msgstr "Modèles"
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/distribution_list.py:300
+#: code:addons/mozaik_communication/distribution_list.py:302
 #, python-format
 msgid "The alias of the distribution list %s has been changed by %s."
 msgstr "Le pseudonyme de la liste de distribution %s a été modifié par %s."
 
 #. module: mozaik_communication
-#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:236
+#: code:addons/mozaik_communication/wizard/distribution_list_mass_function.py:237
 #, python-format
 msgid "There are no recipients"
 msgstr "Aucun destinataire"
@@ -1854,7 +1847,7 @@ msgid "Tongue"
 msgstr "Langue"
 
 #. module: mozaik_communication
-#: view:virtual.partner.mandate:mozaik_communication.virtual_partner_mandate_search_view
+#: field:virtual.assembly.instance,competencies_m2m_ids:0
 #: field:virtual.partner.mandate,ref_partner_competencies_m2m_ids:0
 msgid "Topics"
 msgstr "Thèmes"
