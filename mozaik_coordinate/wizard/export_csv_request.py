@@ -138,7 +138,8 @@ LEFT OUTER JOIN phone_phone fax_phone
  ON fax_phone.id = fax.id
 
 LEFT OUTER JOIN email_coordinate ec
- ON ec.id = vt.postal_coordinate_id
+ ON ec.id = vt.email_coordinate_id
+
 """ % COMMON_REQUEST
 
 EMAIL_COORDINATE_REQUEST = """
