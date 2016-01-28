@@ -101,11 +101,11 @@ class export_csv(orm.TransientModel):
     def _get_order_by(self, order_by):
         r_order_by = False
         if order_by:
-            if order_by == "identifier" or order_by == "display_name":
+            if order_by == "identifier" or order_by == "technical_name":
                 r_order_by = "ORDER BY p.%s" % order_by
             else:
                 r_order_by =\
-                    "ORDER BY country_name, final_zip, p.display_name"
+                    "ORDER BY country_name, final_zip, p.technical_name"
         return r_order_by
 
     def get_csv_values(self, cr, uid, model, obj, context=None):

@@ -12,7 +12,7 @@ SELECT
  p.tongue,
  p.website,
  p.secondary_website,
- p.display_name,
+ p.technical_name,
  CASE
   WHEN cc IS NOT NULL
   THEN cc.line
