@@ -20,6 +20,7 @@ SELECT
  cc.id as co_residency_id,
  cc.line2 as co_residency,
  instance.name as instance,
+ ms.code as status,
  ipl.name as power_name,
  pc.is_main as adr_main,
  pc.unauthorized as adr_unauthorized,
@@ -94,6 +95,9 @@ JOIN res_partner p
 LEFT OUTER JOIN int_instance instance
  ON instance.id = p.int_instance_id
 
+LEFT OUTER JOIN membership_state ms
+ ON ms.id = p.membership_state_id
+
 LEFT OUTER JOIN int_power_level ipl
  ON instance.power_level_id = ipl.id
 
@@ -147,6 +151,9 @@ JOIN res_partner p
 LEFT OUTER JOIN int_instance instance
  ON instance.id = p.int_instance_id
 
+LEFT OUTER JOIN membership_state ms
+ ON ms.id = p.membership_state_id
+
 LEFT OUTER JOIN int_power_level ipl
  ON instance.power_level_id = ipl.id
 
@@ -198,6 +205,9 @@ JOIN res_partner p
 
 LEFT OUTER JOIN int_instance instance
  ON instance.id = p.int_instance_id
+
+LEFT OUTER JOIN membership_state ms
+ ON ms.id = p.membership_state_id
 
 LEFT OUTER JOIN int_power_level ipl
  ON instance.power_level_id = ipl.id
