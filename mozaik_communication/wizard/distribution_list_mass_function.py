@@ -32,8 +32,8 @@ from openerp.osv import orm, fields
 # Constants
 SORT_BY = [
     ('identifier', 'Identification Number'),
-    ('display_name', 'Name'),
-    ('country_id, zip, display_name', 'Zip Code'),
+    ('technical_name', 'Name'),
+    ('country_id, zip, technical_name', 'Zip Code'),
 ]
 E_MASS_FUNCTION = [
     ('email_coordinate_id', 'Mass Mailing'),
