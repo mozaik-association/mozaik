@@ -87,7 +87,7 @@
             <field name="model">thesaurus.term</field>
             <field name="arch" type="xml">
                 <search string="Thesaurus Terms">
-                    <field name="search_name" />
+                    <field name="search_name" filter_domain="['|',('search_name','ilike',self),('select_name','ilike',self)]" />
                     <field name="name" />
                     <field name="ext_identifier" />
                     <field name="state" />
