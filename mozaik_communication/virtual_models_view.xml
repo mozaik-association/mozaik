@@ -476,7 +476,7 @@
 
                     <field name="ref_partner_competencies_m2m_ids" string='Topics' widget="many2one"/>
 
-                    <filter string="In Progresse" name="in_progress" domain="[('start_date','&gt;=', current_date)]"/>
+                    <filter string="In Progress" name="in_progress" domain="[('start_date','&lt;=', current_date)]"/>
                     <separator/>
                     <filter name="sta_mod" string="State Mandate"
                         domain="[('model','=','sta.mandate')]" />
