@@ -57,31 +57,29 @@ class waiting_member_report(orm.Model):
         tools.drop_view_if_exists(cr, 'waiting_member_report')
         cr.execute("""
             create or replace view waiting_member_report as (
-                SELECT *
-                FROM
-                    (SELECT p.id as id,
-                            p.id as partner_id,
-                            p.identifier as identifier,
-                            ms.id as membership_state_id,
-                            ABS(EXTRACT
-                                (year FROM age(ml.date_from))*365 +
-                            EXTRACT
-                                (month FROM age(ml.date_from))*30 +
-                            EXTRACT
-                                (day FROM age(ml.date_from))) AS
-                            nb_days
-                    FROM res_partner p
-                    JOIN membership_state ms
-                        ON ms.id = p.membership_state_id
-                    JOIN
-                        membership_line ml
-                        ON ml.partner_id = p.id
-                    WHERE
-                        p.is_company = false AND
-                        ml.active = true AND
-                        ms.code = 'member_committee' OR
-                        ms.code = 'former_member_committee'
-                    ) as partner
+                SELECT
+                    p.id as id,
+                    p.id as partner_id,
+                    p.identifier as identifier,
+                    ms.id as membership_state_id,
+                    ABS(EXTRACT
+                        (year FROM age(ml.date_from))*365 +
+                    EXTRACT
+                        (month FROM age(ml.date_from))*30 +
+                    EXTRACT
+                        (day FROM age(ml.date_from))) AS
+                    nb_days
+                FROM res_partner p
+                JOIN membership_state ms
+                    ON ms.id = p.membership_state_id
+                JOIN
+                    membership_line ml
+                    ON ml.partner_id = p.id
+                WHERE
+                    p.is_company = false AND
+                    ml.active = true AND
+                    ms.code IN
+                    ('member_committee', 'former_member_committee')
             )
         """)
 
@@ -92,20 +90,19 @@ class waiting_member_report(orm.Model):
         Advance the workflow with the signal `accept`
         for all partners found
         """
-        if ids is None:
-            nb_days = self.pool['ir.config_parameter'].get_param(
-                cr, uid, 'nb_days', default=DEFAULT_NB_DAYS, context=context)
+        nb_days = self.pool['ir.config_parameter'].get_param(
+            cr, uid, 'nb_days', default=DEFAULT_NB_DAYS, context=context)
 
-            try:
-                nb_days = int(nb_days)
-            except:
-                nb_days = DEFAULT_NB_DAYS
-                _logger.info('It seems the ir.config_parameter(nb_days) '
-                             'is not a valid number. DEFAULT_NB_DAYS=%s days '
-                             'is used instead.' % DEFAULT_NB_DAYS)
+        try:
+            nb_days = int(nb_days)
+        except:
+            nb_days = DEFAULT_NB_DAYS
+            _logger.info('It seems the ir.config_parameter(nb_days) '
+                         'is not a valid number. DEFAULT_NB_DAYS=%s days '
+                         'is used instead.' % DEFAULT_NB_DAYS)
 
-            ids = self.search(
-                cr, uid, [('nb_days', '>=', nb_days)], context=context)
+        ids = self.search(
+            cr, uid, [('nb_days', '>=', nb_days)], context=context)
 
         pids = [
             pid['id']
