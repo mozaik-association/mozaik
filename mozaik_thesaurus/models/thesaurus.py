@@ -134,7 +134,7 @@ class ThesaurusTerm(models.Model):
     name = fields.Char(
         string='Term', required=True, index=True, track_visibility='onchange')
     search_name = fields.Char(
-        string='Full Path', index=True, readonly=True)
+        string='Term (Full Path)', index=True, readonly=True)
     select_name = fields.Char(
         compute='_compute_select_name', store=True, index=True)
     thesaurus_id = fields.Many2one(

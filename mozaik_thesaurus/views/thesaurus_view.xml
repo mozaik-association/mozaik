@@ -133,11 +133,11 @@
         <record id="thesaurus_term_search_tree_view" model="ir.ui.view">
             <field name="name">thesaurus.term.tree.search</field>
             <field name="model">thesaurus.term</field>
-            <field name="sequence">20</field>
+            <field name="priority">5</field>
             <field name="arch" type="xml">
                 <tree string="Thesaurus Terms"
                     colors="grey:active==False;red:state=='draft'">
-                    <field name="search_name" />
+                    <field name="search_name" string="Term"/>
                     <field name="state" invisible="1" />
                     <field name="active" invisible="1" />
                 </tree>

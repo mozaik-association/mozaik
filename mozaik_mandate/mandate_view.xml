@@ -599,8 +599,7 @@
                     <notebook>
                         <page name="index" string="Indexation">
                             <separator string="Remits"/>
-                            <field name="competencies_m2m_ids" placeholder="Terms..."
-                                context="{'tree_view_ref': 'mozaik_thesaurus.thesaurus_term_search_tree_view'}"/>
+                            <field name="competencies_m2m_ids"/>
                         </page>
                     </notebook>
                 </xpath>
@@ -669,8 +668,7 @@
                     <notebook>
                         <page name="index" string="Indexation">
                             <separator string="Remits"/>
-                            <field name="competencies_m2m_ids" placeholder="Terms..."
-                                context="{'tree_view_ref': 'mozaik_thesaurus.thesaurus_term_search_tree_view'}"/>
+                            <field name="competencies_m2m_ids"/>
                         </page>
                     </notebook>
                 </xpath>
