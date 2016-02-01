@@ -466,8 +466,11 @@
 
                         <notebook invisible="context.get('popup')">
                             <page string="Exclusive Categories" name="exclusive_categories" autofocus="autofocus">
-                                <field name="exclusive_category_m2m_ids"
-                                    context="{'tree_view_ref': 'mozaik_thesaurus.thesaurus_term_search_tree_view'}"/>
+                                <field name="exclusive_category_m2m_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>

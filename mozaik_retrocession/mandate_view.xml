@@ -121,8 +121,7 @@
                 </xpath>
                 <xpath expr="//page[@name='index']" position="before">
                     <page name="rules" string="Retrocessions"
-                          invisible="context.get('popup')"
-                          attrs="{'invisible': [('retrocession_mode', '=', 'none')]}">
+                          invisible="context.get('popup')">
                         <group>
                             <field name="retrocession_mode"/>
                             <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
@@ -238,8 +237,7 @@
                 </xpath>
                 <xpath expr="//page[@name='index']" position="before">
                     <page name="rules" string="Retrocessions"
-                          invisible="context.get('popup')"
-                          attrs="{'invisible': [('retrocession_mode', '=', 'none')]}">
+                          invisible="context.get('popup')">
                         <group>
                            <field name="retrocession_mode"/>
                            <field name="method_type" readonly="1" attrs="{'invisible': [('retrocession_mode', '=', 'none')]}"/>
