@@ -22,35 +22,29 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'MOZAIK: Thesaurus',
-    'version': '1.0.1',
-    'author': 'ACSONE SA/NV',
-    'maintainer': 'ACSONE SA/NV',
-    'license': 'AGPL-3',
-    'website': 'http://www.acsone.eu',
-    'category': 'Political Association',
-    'depends': [
-        'mozaik_base',
-    ],
-    'description': """
-MOZAIK Thesaurus
-================
-Implements a light thesaurus for indexation purpose.
-Model is read-only for all users except thesaurus managers that are followers
-of all terms.
-Creating a new term will send a message to all this followers requesting
-their validation.
-""",
-    'images': [
-    ],
-    'data': [
-        'security/ir.model.access.csv',
-        'data/thesaurus_data.xml',
-        'views/thesaurus_view.xml',
-        'wizard/thesaurus_terms_loader_view.xml',
-    ],
-    'sequence': 150,
-    'installable': True,
-    'auto_install': False,
-}
+from openerp import models, api
+from __builtin__ import int
+
+
+class AbstractTermFinder(models.AbstractModel):
+
+    _name = 'abstract.term.finder'
+    _description = 'Abstract Term Finder'
+    _terms = []
+
+    @api.model
+    @api.returns(
+        'self', upgrade=lambda self, value, args, offset=0, limit=None,
+        order=None, count=False: value if count else self.browse(value),
+        downgrade=lambda self, value, args, offset=0, limit=None,
+        order=None, count=False: value if count else value.ids)
+    def search(self, args, offset=0, limit=None, order=None, count=False):
+        if self._terms:
+            args = [[
+                arg[0], 'in', self.env['thesaurus.term'].browse(
+                    arg[2]).get_children_term()
+                ] if hasattr(arg, '__iter__') and arg[0] in self._terms and
+                isinstance(arg[2], int) else arg for arg in args
+            ]
+        return super(AbstractTermFinder, self).search(
+            args, offset=offset, limit=limit, order=order, count=count)

@@ -62,9 +62,10 @@ MR_REQUIRED_AGE_KEY = 'mr_required_age'
 class membership_request(orm.Model):
 
     _name = 'membership.request'
-    _inherit = ['mozaik.abstract.model']
+    _inherit = ['mozaik.abstract.model', 'abstract.term.finder']
     _description = 'Membership Request'
     _inactive_cascade = True
+    _terms = ['interests_m2m_ids', 'competencies_m2m_ids']
 
     @api.multi
     @api.constrains('birth_date', 'age', 'state')

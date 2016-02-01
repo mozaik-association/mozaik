@@ -59,11 +59,11 @@ class add_registration(orm.TransientModel):
             worker_pivot = WORKER_PIVOT
         for wiz in self.browse(cr, uid, ids, context=context):
             dl_obj = self.pool['distribution.list']
-            if context is None:
-                context = {}
-            context['field_main_object'] = 'partner_id'
+            ctx = dict(context or {},
+                       main_object_field='partner_id',
+                       main_target_model='res.partner')
             partner_ids = dl_obj.get_complex_distribution_list_ids(
-                cr, uid, [wiz.distribution_list_id.id], context=context)[0]
+                cr, uid, [wiz.distribution_list_id.id], context=ctx)[0]
             session = ConnectorSession(cr, uid, context=context)
             if len(partner_ids) > worker_pivot:
                 add_registration_action.delay(

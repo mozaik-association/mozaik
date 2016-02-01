@@ -759,7 +759,7 @@ class sta_mandate(orm.Model):
             'sta_mandate_term_competencies_rel',
             id1='sta_mandate_id',
             id2='thesaurus_term_id',
-            string='Competencies'),
+            string='Remits'),
     }
 
     _order = 'partner_id, sta_assembly_id, legislature_id, mandate_category_id'

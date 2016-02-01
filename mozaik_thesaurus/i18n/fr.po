@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-05 19:27+0000\n"
-"PO-Revision-Date: 2015-03-05 19:27+0000\n"
+"POT-Creation-Date: 2016-02-01 09:09+0000\n"
+"PO-Revision-Date: 2016-02-01 09:09+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,16 +16,21 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mozaik_thesaurus
-#: code:addons/mozaik_thesaurus/thesaurus.py:274
+#: code:addons/mozaik_thesaurus/models/thesaurus.py:223
 #, python-format
 msgid "%s (copy)"
 msgstr "%s (copie)"
 
 #. module: mozaik_thesaurus
-#: code:addons/mozaik_thesaurus/thesaurus.py:84
+#: code:addons/mozaik_thesaurus/models/thesaurus.py:65
 #, python-format
-msgid "A thesaurus cannot be duplicated!"
+msgid "A Thesaurus cannot be duplicated!"
 msgstr "Un thésaurus ne peut être dupliqué !"
+
+#. module: mozaik_thesaurus
+#: model:ir.model,name:mozaik_thesaurus.model_abstract_term_finder
+msgid "Abstract Term Finder"
+msgstr ""
 
 #. module: mozaik_thesaurus
 #: field:thesaurus,active:0
@@ -39,6 +44,11 @@ msgid "All"
 msgstr "Tous"
 
 #. module: mozaik_thesaurus
+#: view:thesaurus.terms.loader:mozaik_thesaurus.thesaurus_terms_loader_view
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: mozaik_thesaurus
 #: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_form_view
 msgid "Cancel Term"
 msgstr "Annuler le terme"
@@ -47,6 +57,12 @@ msgstr "Annuler le terme"
 #: selection:thesaurus.term,state:0
 msgid "Cancelled"
 msgstr "Annulé"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_form_view
+#: field:thesaurus.term,children_m2m_ids:0
+msgid "Children Terms"
+msgstr "Termes enfants"
 
 #. module: mozaik_thesaurus
 #: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_form_view
@@ -62,26 +78,26 @@ msgstr "Confirmé"
 #. module: mozaik_thesaurus
 #: field:thesaurus,create_uid:0
 #: field:thesaurus.term,create_uid:0
+#: field:thesaurus.terms.loader,create_uid:0
 msgid "Created by"
 msgstr "Créé par"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus.terms.loader,create_date:0
+msgid "Created on"
+msgstr "Créé le"
 
 #. module: mozaik_thesaurus
 #: field:thesaurus,create_date:0
 #: field:thesaurus.term,create_date:0
 msgid "Creation Date"
-msgstr "Date de cration"
+msgstr "Date de création"
 
 #. module: mozaik_thesaurus
 #: help:thesaurus,message_last_post:0
 #: help:thesaurus.term,message_last_post:0
 msgid "Date of the last message posted on the record."
 msgstr "Date du dernier message posté sur l'enregistrement."
-
-#. module: mozaik_thesaurus
-#: code:addons/mozaik_thesaurus/thesaurus.py:83
-#, python-format
-msgid "Error"
-msgstr "Erreur"
 
 #. module: mozaik_thesaurus
 #: field:thesaurus,expire_date:0
@@ -105,6 +121,11 @@ msgid "External Identifier"
 msgstr "Identifiant externe"
 
 #. module: mozaik_thesaurus
+#: field:thesaurus.terms.loader,file_terms:0
+msgid "File to Load"
+msgstr "Fichier à charger"
+
+#. module: mozaik_thesaurus
 #: field:thesaurus,message_follower_ids:0
 #: field:thesaurus.term,message_follower_ids:0
 msgid "Followers"
@@ -122,8 +143,10 @@ msgid "Holds the Chatter summary (number of messages, ...). This summary is dire
 msgstr "Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est au format HTML pour permettre son utilisation dans la vue kanban."
 
 #. module: mozaik_thesaurus
+#: field:abstract.term.finder,id:0
 #: field:thesaurus,id:0
 #: field:thesaurus.term,id:0
+#: field:thesaurus.terms.loader,id:0
 msgid "ID"
 msgstr ""
 
@@ -158,14 +181,27 @@ msgstr "Date du dernier message"
 #. module: mozaik_thesaurus
 #: field:thesaurus,write_uid:0
 #: field:thesaurus.term,write_uid:0
+#: field:thesaurus.terms.loader,write_uid:0
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: mozaik_thesaurus
 #: field:thesaurus,write_date:0
 #: field:thesaurus.term,write_date:0
+#: field:thesaurus.terms.loader,write_date:0
 msgid "Last Updated on"
 msgstr "Date de dernière mise à jour"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.terms.loader:mozaik_thesaurus.thesaurus_terms_loader_view
+msgid "Load"
+msgstr "Charger"
+
+#. module: mozaik_thesaurus
+#: model:ir.actions.act_window,name:mozaik_thesaurus.thesaurus_terms_loader_action
+#: model:ir.ui.menu,name:mozaik_thesaurus.thesaurus_terms_loader_menu
+msgid "Load Terms"
+msgstr "Charger les termes"
 
 #. module: mozaik_thesaurus
 #: field:thesaurus,message_ids:0
@@ -180,8 +216,7 @@ msgid "Messages and communication history"
 msgstr "Historique des messages et communications"
 
 #. module: mozaik_thesaurus
-#: code:addons/mozaik_thesaurus/thesaurus.py:189
-#: constraint:thesaurus.term:0
+#: code:addons/mozaik_thesaurus/models/thesaurus.py:102
 #, python-format
 msgid "Missing External Identifier for a validated term"
 msgstr "Identifiant externe manquant pour un terme validé"
@@ -201,8 +236,19 @@ msgstr "Nouveau terme à valider"
 
 #. module: mozaik_thesaurus
 #: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_form_view
+#: field:thesaurus.term,parent_m2m_ids:0
+msgid "Parent Terms"
+msgstr "Termes parents"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_form_view
 msgid "Reset Term"
 msgstr "Réinitialiser le terme"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus.term,select_name:0
+msgid "Select name"
+msgstr "Nom de sélection"
 
 #. module: mozaik_thesaurus
 #: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_view
@@ -217,14 +263,20 @@ msgid "Summary"
 msgstr "Rsumé"
 
 #. module: mozaik_thesaurus
-#: field:thesaurus.term,technical_name:0
-msgid "Technical Name"
-msgstr "Nom technique"
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_form_view
+msgid "Technicals"
+msgstr "Technique"
 
 #. module: mozaik_thesaurus
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_tree_view
 #: field:thesaurus.term,name:0
 msgid "Term"
 msgstr "Terme"
+
+#. module: mozaik_thesaurus
+#: field:thesaurus.term,search_name:0
+msgid "Term (Full Path)"
+msgstr "Terme (chemin complet)"
 
 #. module: mozaik_thesaurus
 #: model:ir.actions.act_window,name:mozaik_thesaurus.thesaurus_action
@@ -241,16 +293,29 @@ msgstr "Thésaurus"
 #. module: mozaik_thesaurus
 #: model:ir.model,name:mozaik_thesaurus.model_thesaurus_term
 #: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_form_view
-#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_view
 msgid "Thesaurus Term"
 msgstr "Terme du thésaurus"
 
 #. module: mozaik_thesaurus
 #: model:ir.actions.act_window,name:mozaik_thesaurus.thesaurus_term_action
 #: model:ir.ui.menu,name:mozaik_thesaurus.thesaurus_term_menu
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_tree_view
+#: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_view
 #: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_tree_view
 msgid "Thesaurus Terms"
 msgstr "Termes du thésaurus"
+
+#. module: mozaik_thesaurus
+#: model:ir.model,name:mozaik_thesaurus.model_thesaurus_terms_loader
+#: view:thesaurus.terms.loader:mozaik_thesaurus.thesaurus_terms_loader_view
+msgid "Thesaurus Terms Loader"
+msgstr "Chargeur de termes"
+
+#. module: mozaik_thesaurus
+#: code:addons/mozaik_thesaurus/wizard/thesaurus_terms_loader.py:68
+#, python-format
+msgid "Thesaurus file is not well formed"
+msgstr "Thesaurus file is not well formed"
 
 #. module: mozaik_thesaurus
 #: view:thesaurus.term:mozaik_thesaurus.thesaurus_term_search_view
@@ -279,4 +344,9 @@ msgstr "Messages de site web"
 #: help:thesaurus.term,website_message_ids:0
 msgid "Website communication history"
 msgstr "Historique de communication de site web"
+
+#. module: mozaik_thesaurus
+#: view:thesaurus.terms.loader:mozaik_thesaurus.thesaurus_terms_loader_view
+msgid "or"
+msgstr "ou"
 

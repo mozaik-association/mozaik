@@ -68,7 +68,11 @@ class abstract_virtual_target(orm.AbstractModel):
 class virtual_target(orm.Model):
     _name = "virtual.target"
     _description = "Searching Result"
-    _inherit = ['virtual.master.partner', 'abstract.virtual.target']
+    _inherit = [
+        'virtual.master.partner',
+        'abstract.virtual.target',
+        'abstract.term.finder'
+    ]
     _auto = False
 
     _columns = {
@@ -99,6 +103,7 @@ class virtual_partner_involvement(orm.Model):
 
     _name = "virtual.partner.involvement"
     _inherit = "abstract.virtual.target"
+    _terms = ['interests_m2m_ids', 'competencies_m2m_ids']
     _description = "Partner/Involvement"
     _auto = False
 
@@ -205,6 +210,7 @@ class virtual_partner_relation(orm.Model):
     _name = "virtual.partner.relation"
     _description = "Partner/Relation"
     _inherit = "abstract.virtual.target"
+    _terms = ['interests_m2m_ids', 'competencies_m2m_ids']
     _auto = False
 
     _columns = {
@@ -349,6 +355,7 @@ class virtual_partner_instance(orm.Model):
     _name = "virtual.partner.instance"
     _description = "Partner/Instance"
     _inherit = "abstract.virtual.target"
+    _terms = ['interests_m2m_ids', 'competencies_m2m_ids']
     _auto = False
 
     _columns = {
@@ -461,6 +468,11 @@ class virtual_partner_mandate(orm.Model):
     _name = "virtual.partner.mandate"
     _description = "Partner/Mandate"
     _inherit = "abstract.virtual.target"
+    _terms = [
+        'ref_partner_competencies_m2m_ids',
+        'sta_competencies_m2m_ids',
+        'ext_competencies_m2m_ids'
+    ]
     _auto = False
 
     _columns = {
@@ -529,14 +541,14 @@ class virtual_partner_mandate(orm.Model):
             obj='thesaurus.term',
             rel='sta_mandate_term_competencies_rel',
             id1='sta_mandate_id', id2='thesaurus_term_id',
-            string='State Mandate Competencies'),
+            string='State Mandate Remits'),
         'ext_competencies_m2m_ids': fields.related(
             'ext_mandate_id', 'competencies_m2m_ids',
             type='many2many',
             obj='thesaurus.term',
             rel='ext_mandate_term_competencies_rel',
             id1='ext_mandate_id', id2='thesaurus_term_id',
-            string='External Mandate Competencies'),
+            string='External Mandate Remits'),
         'mandate_instance_id': fields.many2one(
             'int.instance', 'Mandate Instance'),
         'sta_instance_id': fields.many2one(
@@ -664,6 +676,10 @@ class virtual_partner_candidature(orm.Model):
     _name = "virtual.partner.candidature"
     _description = "Partner/Candidature"
     _inherit = "abstract.virtual.target"
+    _terms = [
+        'competencies_m2m_ids',
+        'interests_m2m_ids',
+    ]
     _auto = False
 
     _columns = {
@@ -804,6 +820,9 @@ class virtual_assembly_instance(orm.Model):
     _name = "virtual.assembly.instance"
     _description = "Assembly/Instance"
     _inherit = "abstract.virtual.target"
+    _terms = [
+        'competencies_m2m_ids',
+    ]
     _auto = False
 
     _columns = {
@@ -847,12 +866,7 @@ class virtual_assembly_instance(orm.Model):
             'partner_id', 'competencies_m2m_ids', type='many2many',
             obj='thesaurus.term',
             rel='res_partner_term_competencies_rel',
-            id1='partner_id', id2='thesaurus_term_id', string='Competencies'),
-        'interests_m2m_ids': fields.related(
-            'partner_id', 'interests_m2m_ids', type='many2many',
-            obj='thesaurus.term',
-            rel='res_partner_term_interests_rel',
-            id1='partner_id', id2='thesaurus_term_id', string='Interests'),
+            id1='partner_id', id2='thesaurus_term_id', string='Topics'),
         'active': fields.boolean('Active'),
     }
 
@@ -959,6 +973,10 @@ class virtual_partner_retrocession(orm.Model):
     _name = "virtual.partner.retrocession"
     _description = "Partner/Retrocession"
     _inherit = "abstract.virtual.target"
+    _terms = [
+        'competencies_m2m_ids',
+        'interests_m2m_ids',
+    ]
     _auto = False
 
     _columns = {
@@ -1180,6 +1198,10 @@ class virtual_partner_membership(orm.Model):
     _name = "virtual.partner.membership"
     _description = "Partner/Membership"
     _inherit = "abstract.virtual.target"
+    _terms = [
+        'competencies_m2m_ids',
+        'interests_m2m_ids',
+    ]
     _auto = False
 
     _columns = {
@@ -1280,6 +1302,10 @@ class virtual_partner_event(orm.Model):
     _name = "virtual.partner.event"
     _description = "Partner/Event"
     _inherit = "abstract.virtual.target"
+    _terms = [
+        'competencies_m2m_ids',
+        'interests_m2m_ids',
+    ]
     _auto = False
 
     _columns = {

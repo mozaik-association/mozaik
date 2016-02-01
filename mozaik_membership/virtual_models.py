@@ -43,6 +43,7 @@ class virtual_master_partner(orm.Model):
             'membership.state',
             'Membership State'),
         'display_name': fields.char('Display Name'),
+        'technical_name': fields.char('Technical Name'),
         'identifier': fields.integer('Number', group_operator='min'),
         'lastname': fields.char('Lastname'),
         'firstname': fields.char('Firstname'),
@@ -79,6 +80,7 @@ class virtual_master_partner(orm.Model):
         SELECT
             p.id as partner_id,
             p.membership_state_id as membership_state_id,
+            p.technical_name as technical_name,
             p.select_name as display_name,
             p.identifier as identifier,
             p.lastname as lastname,

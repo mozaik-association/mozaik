@@ -238,17 +238,10 @@
                                 </group>
                             </page>
                             <page string="Indexation" name="indexation">
-                                <group>
-                                    <field name="competencies_m2m_ids"
-                                        widget="many2many_tags" />
-                                    <field name="interests_m2m_ids"
-                                        widget="many2many_tags" />
-                                </group>
-                                <div class="oe_clear">
-                                    <!-- Some blank lines to see the entire elapsed many2many_tags widget -->
-                                    <br />
-                                    <br />
-                                </div>
+                                <separator string="Competencies"/>
+                                <field name="competencies_m2m_ids"/>
+                                <separator string="Interests"/>
+                                <field name="interests_m2m_ids"/>
                             </page>
                             <page string="Coordinates" name="coordinates">
                                 <group>

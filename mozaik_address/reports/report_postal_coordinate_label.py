@@ -33,6 +33,7 @@ class report_postal_coordinate_label(report_sxw.rml_parse):
             cr, uid, name, context=context)
         self.localcontext.update({
             'modulo': self._modulo,
+            'co': context.get('groupby_co_residency'),
         })
 
     def _modulo(self, number, modulo):

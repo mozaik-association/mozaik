@@ -48,6 +48,7 @@
         'auth_admin_passkey',
         # from https://github.com/OCA/web
         'help_online',
+        'incoming_mail_embedded_picture_reader',
     ],
     'description': """
 MOZAIK Base

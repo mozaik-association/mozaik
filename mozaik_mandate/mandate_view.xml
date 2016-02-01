@@ -601,8 +601,8 @@
                 <xpath expr="//group[@name='data']" position="after">
                     <notebook>
                         <page name="index" string="Indexation">
-                            <separator string="Competencies"/>
-                            <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." context="{'default_state': 'draft'}" />
+                            <separator string="Remits"/>
+                            <field name="competencies_m2m_ids"/>
                         </page>
                     </notebook>
                 </xpath>
@@ -670,8 +670,8 @@
                 <xpath expr="//group[@name='data']" position="after">
                     <notebook>
                         <page name="index" string="Indexation">
-                            <separator string="Competencies"/>
-                            <field name="competencies_m2m_ids" widget="many2many_tags" placeholder="Terms..." context="{'default_state': 'draft'}" />
+                            <separator string="Remits"/>
+                            <field name="competencies_m2m_ids"/>
                         </page>
                     </notebook>
                 </xpath>

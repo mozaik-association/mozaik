@@ -165,8 +165,7 @@
                 </xpath>
 
                 <!-- email linked to partner_id + remove button send email-->
-                <xpath expr="//div[descendant::field[@name='email']]" position="replace" />
-                <xpath expr="//label[@for='email']" position="replace" />
+                <xpath expr="//field[@name='email']" position="replace" />
                 <!-- phone linked to partner_id -->
                 <xpath expr="//field[@name='phone']" position="replace" />
                 <!-- name is not used because of partner_id -->

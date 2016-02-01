@@ -471,11 +471,13 @@
                     <field name="sta_instance_id" string="Designated to non descendants of..." operator="not child_of"/>
                     <field name="mandate_category_id" />
 
-                    <field name="ext_competencies_m2m_ids" string="External Mandate Competencies" widget="many2one" />
-                    <field name="sta_competencies_m2m_ids" string="State Mandate Competencies" widget="many2one" />
+                    <field name="ext_competencies_m2m_ids" widget="many2one" />
+                    <field name="sta_competencies_m2m_ids" widget="many2one" />
 
-                    <field name="ref_partner_competencies_m2m_ids" string='Topics' widget="many2one"/>
+                    <field name="ref_partner_competencies_m2m_ids" widget="many2one"/>
 
+                    <filter string="In Progress" name="in_progress" domain="[('start_date','&lt;=', current_date)]"/>
+                    <separator/>
                     <filter name="sta_mod" string="State Mandate"
                         domain="[('model','=','sta.mandate')]" />
                     <filter name="int_mod" string="Internal Mandate"
@@ -577,6 +579,7 @@
             <field name="view_mode">tree</field>
             <field name="search_view_id" ref="virtual_partner_mandate_search_view" />
             <field name="view_id" ref="virtual_partner_mandate_tree_view" />
+            <field name="context">{'search_default_in_progress': True}</field>
         </record>
 
         <!-- Partners/Candidatures -->
@@ -610,7 +613,7 @@
                     <field name="mandate_category_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="competencies_m2m_ids" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter name="sta_mod" string="State Candidature"
@@ -734,8 +737,7 @@
                     <field name="sta_power_level_id" string="State Power Level" />
                     <field name="int_power_level_id" string="Internal Power Level" />
 
-                    <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="competencies_m2m_ids" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter name="sta_mod" string="State Assembly"
@@ -849,7 +851,7 @@
                     <field name="mandate_category_id" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="competencies_m2m_ids" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter name="sta_mod" string="State Mandate"
@@ -975,7 +977,7 @@
                         filter_domain="[('del_mem_card_date','&lt;',self)]" />
 
                     <field name="interests_m2m_ids" widget="many2one" />
-                    <field name="competencies_m2m_ids" string="Competencies &amp; Topics" widget="many2one" />
+                    <field name="competencies_m2m_ids" widget="many2one" />
                     <field name="category_id" string="Tag" widget="many2one" />
 
                     <filter string="Undelivered Welcome Documents"

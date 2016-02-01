@@ -171,14 +171,13 @@ class custom_webservice(orm.Model):
         partner_obj = self.pool['res.partner']
         res = []
         ctx = dict(context or {},
-                   field_main_object='partner_id',
-                   active_test=False)
+                   active_test=False,
+                   main_object_field='partner_id',
+                   main_target_model='res.partner')
         try:
-            active_ids, _ = list_obj.get_complex_distribution_list_ids(
-                cr,
-                SUPERUSER_ID,
-                [distribution_list_id],
-                context=ctx)
+            active_ids = list_obj.get_complex_distribution_list_ids(
+                cr, SUPERUSER_ID, [distribution_list_id],
+                context=ctx)[0]
 
             res = partner_obj.read(cr,
                                    SUPERUSER_ID,
@@ -202,6 +201,7 @@ class custom_webservice(orm.Model):
         except Exception as e:
             raise WebServiceException(
                 uid, "Distribution List", 'READ ERROR', e.message or e.value)
+
         return res
 
     @web_service

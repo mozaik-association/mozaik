@@ -32,8 +32,8 @@ from openerp.osv import orm, fields
 # Constants
 SORT_BY = [
     ('identifier', 'Identification Number'),
-    ('display_name', 'Name'),
-    ('country_id, zip, display_name', 'Zip Code'),
+    ('technical_name', 'Name'),
+    ('country_id, zip, technical_name', 'Zip Code'),
 ]
 E_MASS_FUNCTION = [
     ('email_coordinate_id', 'Mass Mailing'),
@@ -141,19 +141,19 @@ class distribution_list_mass_function(orm.TransientModel):
                 domains.append(
                     ('int_instance_id', 'child_of',
                      [wizard.internal_instance_id.id]))
-            context['more_filter'] = domains
-            context['target_model'] = wizard.trg_model
+            context['main_object_domain'] = domains
             fct = wizard.trg_model == 'email.coordinate' \
                 and wizard.e_mass_function or wizard.p_mass_function
             if (fct == 'csv' or wizard.extract_csv) and \
                     wizard.include_without_coordinate:
                 context['active_test'] = False
-                context['field_alternative_object'] = 'id'
+                context['alternative_object_field'] = 'id'
+                context['alternative_target_model'] = \
+                    wizard.distribution_list_id.dst_model_id.model
+                context['alternative_object_domain'] = domains
 
             if wizard.sort_by:
                 context['sort_by'] = wizard.sort_by
-            if wizard.groupby_coresidency:
-                context['alternative_group_by'] = 'co_residency_id'
 
             csv_model = wizard.trg_model
 
@@ -167,7 +167,8 @@ class distribution_list_mass_function(orm.TransientModel):
                     domains.append(
                         ('email_bounce_counter', '<=', wizard.bounce_counter))
 
-                context['field_main_object'] = 'email_coordinate_id'
+                context['main_object_field'] = 'email_coordinate_id'
+                context['main_target_model'] = 'email.coordinate'
 
                 if fct == 'csv':
                     #
@@ -214,10 +215,12 @@ class distribution_list_mass_function(orm.TransientModel):
 
                     if wizard.extract_csv:
                         if not wizard.include_without_coordinate:
-                            context['field_alternative_object'] = \
+                            context['alternative_object_field'] = \
                                 'postal_coordinate_id'
-                        context['alternative_more_filter'] = [
-                            ('email_coordinate_id', '=', False)]
+                            context['alternative_target_model'] = \
+                                'postal.coordinate'
+                            context['alternative_object_domain'] = [
+                                ('email_coordinate_id', '=', False)]
                     active_ids, alternative_ids = self.pool[
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
@@ -246,10 +249,10 @@ class distribution_list_mass_function(orm.TransientModel):
                     #
                     # Get VCARD containing email coordinates
                     #
-                    active_ids, __ = self.pool[
+                    active_ids = self.pool[
                         'distribution.list'].get_complex_distribution_list_ids(
                             cr, uid, [wizard.distribution_list_id.id],
-                            context=context)
+                            context=context)[0]
                     file_exported = self.export_vcard(cr, uid, ids,
                                                       active_ids, context)
 
@@ -263,7 +266,8 @@ class distribution_list_mass_function(orm.TransientModel):
                     domains.append(
                         ('postal_bounce_counter', '<=', wizard.bounce_counter))
 
-                context['field_main_object'] = 'postal_coordinate_id'
+                context['main_object_field'] = 'postal_coordinate_id'
+                context['main_target_model'] = 'postal.coordinate'
 
                 if fct == 'csv':
                     #
@@ -295,9 +299,24 @@ class distribution_list_mass_function(orm.TransientModel):
                         self.post_processing(
                             cr, uid, wizard, active_ids, context=context)
                     ctx = context.copy()
+                    if wizard.groupby_coresidency:
+                        to_print_ids = []
+                        co_res_ids = []
+                        for postal in self.pool['postal.coordinate'].browse(
+                                cr, uid, active_ids, context=context):
+                            if postal.co_residency_id:
+                                if postal.co_residency_id.id not in\
+                                        co_res_ids:
+                                    co_res_ids.append(
+                                        postal.co_residency_id.id)
+                                    to_print_ids.append(postal.id)
+                            else:
+                                to_print_ids.append(postal.id)
+                        active_ids = to_print_ids
                     ctx.update({
                         'active_model': 'postal.coordinate',
                         'active_ids': active_ids,
+                        'groupby_co_residency': wizard.groupby_coresidency,
                     })
                     report = self.pool['report'].get_pdf(
                         cr, uid, active_ids,

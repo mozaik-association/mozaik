@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="thesaurus_terms_loader_view" model="ir.ui.view">
+            <field name="name">thesaurus.terms.loader.wizard</field>
+            <field name="model">thesaurus.terms.loader</field>
+            <field name="arch" type="xml">
+                <form string="Thesaurus Terms Loader">
+                    <group name="data">
+                        <field name="file_terms" />
+                    </group>
+                    <footer>
+                        <span name="go-wizard">
+                            <button string="Load" name="load_terms"
+                                type="object" class="oe_highlight" />
+                            or
+                        </span>
+                        <button string="Cancel" class="oe_link"
+                            special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="thesaurus_terms_loader_action" model="ir.actions.act_window">
+            <field name="name">Load Terms</field>
+            <field name="res_model">thesaurus.terms.loader</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="thesaurus_terms_loader_menu" action="thesaurus_terms_loader_action"
+            sequence="99" parent="mozaik_thesaurus.thesaurus_submenu" />
+
+    </data>
+</openerp>

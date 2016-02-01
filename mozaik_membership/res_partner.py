@@ -405,24 +405,28 @@ class res_partner(orm.Model):
             ml.write(vals)
 
     def decline_payment(self, cr, uid, ids, context=None):
+        ctx = dict(context or {}, do_not_track_twice=True)
         today = fields.date.today()
         return self.write(cr, uid, ids, {'decline_payment_date': today},
-                          context=context)
+                          context=ctx)
 
     def reject(self, cr, uid, ids, context=None):
+        ctx = dict(context or {}, do_not_track_twice=True)
         today = fields.date.today()
         return self.write(cr, uid, ids, {'rejected_date': today},
-                          context=context)
+                          context=ctx)
 
     def exclude(self, cr, uid, ids, context=None):
+        ctx = dict(context or {}, do_not_track_twice=True)
         today = fields.date.today()
         return self.write(cr, uid, ids, {'exclusion_date': today},
-                          context=context)
+                          context=ctx)
 
     def resign(self, cr, uid, ids, context=None):
+        ctx = dict(context or {}, do_not_track_twice=True)
         today = fields.date.today()
         return self.write(cr, uid, ids, {'resignation_date': today},
-                          context=context)
+                          context=ctx)
 
     def button_modification_request(self, cr, uid, ids, context=None):
         """
@@ -568,6 +572,9 @@ class res_partner(orm.Model):
             ],
             'reference': False,
         }
+
+        if membership_state_code == 'supporter':
+            vals['free_member'] = True
 
         current_reference = self.read(
             cr, uid, ids, ['reference'], context=context)[0]['reference']

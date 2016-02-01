@@ -15,7 +15,7 @@
             <field name="body_html"><![CDATA[
 <div style="font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
 
-    <p>Hello ${object.partner_id.name},</p>
+    <p>Hello ${object.partner_id.printable_name},</p>
 
     <p>A new request for payment is available for you: </p>
 
@@ -24,6 +24,7 @@
        &nbsp;&nbsp;Retrocession: <strong>${object.unique_id}</strong><br />
        &nbsp;&nbsp;Period: <strong>${object.month or ''} ${object.year}</strong><br/>
        &nbsp;&nbsp;Amount: <strong>${object.amount_due} ${object.partner_id.company_id.currency_id.name}</strong><br/>
+       &nbsp;&nbsp;Payment Reference: <strong>${object.ext_mandate_id and object.ext_mandate_id.reference or object.sta_mandate_id.reference}</strong><br>
     </p>
     <br/>
     <p>If you have any question, do not hesitate to contact us.</p>
@@ -44,14 +45,14 @@
             <field name="body_html"><![CDATA[
 <div style="font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
 
-    <p>Hello ${object.partner_id.name},</p>
+    <p>Hello ${object.partner_id.printable_name},</p>
 
     <p>Please use <b>${object.reference}</b> as structured reference for all payments concerning following mandate:</p>
     <p>
     <table>
         <tr>
             <td><u>Representative: </u></td>
-            <td><b>${object.partner_id.name}</b></td>
+            <td><b>${object.partner_id.printable_name}</b></td>
         </tr>
         <tr>
             <td><u>Type: </u></td>
@@ -83,14 +84,14 @@
             <field name="body_html"><![CDATA[
 <div style="font-family: 'Arial; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
 
-    <p>Hello ${object.partner_id.name},</p>
+    <p>Hello ${object.partner_id.printable_name},</p>
 
     <p>Please use <b>${object.reference}</b> as structured reference for all payments concerning following mandate:</p>
     <p>
     <table>
         <tr>
             <td><u>Representative: </u></td>
-            <td><b>${object.partner_id.name}</b></td>
+            <td><b>${object.partner_id.printable_name}</b></td>
         </tr>
         <tr>
             <td><u>Type: </u></td>

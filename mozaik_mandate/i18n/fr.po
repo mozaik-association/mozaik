@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 13:26+0000\n"
-"PO-Revision-Date: 2015-10-28 13:26+0000\n"
+"POT-Creation-Date: 2016-02-01 09:15+0000\n"
+"PO-Revision-Date: 2016-02-01 09:15+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -372,14 +372,6 @@ msgstr "Catégorie"
 #: selection:sta.selection.committee,state:0
 msgid "Closed"
 msgstr "Terminé"
-
-#. module: mozaik_mandate
-#: view:ext.mandate:mozaik_mandate.ext_mandate_form_view
-#: field:ext.mandate,competencies_m2m_ids:0
-#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
-#: field:sta.mandate,competencies_m2m_ids:0
-msgid "Competencies"
-msgstr "Compétences"
 
 #. module: mozaik_mandate
 #: model:ir.ui.menu,name:mozaik_mandate.configuration_submenu
@@ -1652,6 +1644,14 @@ msgid "Remaining Months before End of Mandate"
 msgstr "Remaining Months before End of Mandate"
 
 #. module: mozaik_mandate
+#: view:ext.mandate:mozaik_mandate.ext_mandate_form_view
+#: field:ext.mandate,competencies_m2m_ids:0
+#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
+#: field:sta.mandate,competencies_m2m_ids:0
+msgid "Remits"
+msgstr "Attributions"
+
+#. module: mozaik_mandate
 #: view:abstract.copy.mandate.wizard:mozaik_mandate.abstract_copy_mandate_wizard
 msgid "Renew"
 msgstr "Renouveler"
@@ -1955,12 +1955,6 @@ msgstr "Candidatures suggérées"
 #: field:sta.selection.committee,message_summary:0
 msgid "Summary"
 msgstr "Résumé"
-
-#. module: mozaik_mandate
-#: view:ext.mandate:mozaik_mandate.ext_mandate_form_view
-#: view:sta.mandate:mozaik_mandate.sta_mandate_form_view
-msgid "Terms..."
-msgstr "Termes..."
 
 #. module: mozaik_mandate
 #: code:addons/mozaik_mandate/wizard/update_mandate_end_date_wizard.py:186

@@ -252,15 +252,16 @@ class abstract_mandate_retrocession(orm.AbstractModel):
                 mandate_category_id)
             vals['retrocession_mode'] = category.retrocession_mode
 
-        if ('retro_instance_id' not in vals or vals[
-                'retro_instance_id']):
+        if 'retro_instance_id' not in vals or not vals['retro_instance_id']:
             assembly_id = vals[self._assembly_foreign_key]
-            assembly = self.pool.get(
-                self._assembly_model).browse(
-                cr,
-                uid,
-                assembly_id)
+            assembly = self.pool[self._assembly_model].browse(
+                cr, uid, assembly_id)
             vals['retro_instance_id'] = assembly.retro_instance_id.id
+
+        if not vals['retro_instance_id']:
+            # user probably created an assembly
+            # without specifying its retrocession instance
+            vals['retrocession_mode'] = RETROCESSION_MODES_AVAILABLE[2][0]
 
         res = super(
             abstract_mandate_retrocession,
@@ -395,14 +396,13 @@ class abstract_mandate_retrocession(orm.AbstractModel):
         ctx.pop('active_model', None)
         ctx.pop('active_id', None)
         ctx.pop('active_ids', None)
+        composer = self.pool['mail.compose.message']
         for mandate in self.browse(cr, uid, ids, context=ctx):
             if not self.need_mail_for_payment_reference(
                cr, uid, mandate.id, context=ctx):
                 continue
-            composer = self.pool['mail.compose.message']
             mail_composer_vals = {'parent_id': False,
                                   'use_active_domain': False,
-                                  'composition_mode': 'mass_mail',
                                   'partner_ids': [[6, False,
                                                    [mandate.partner_id.id]]],
                                   'notify': False,
@@ -412,8 +412,8 @@ class abstract_mandate_retrocession(orm.AbstractModel):
                                   'res_id': mandate.id,
                                   }
             value = composer.onchange_template_id(
-                cr, uid, mandate.id, template_id, 'mass_mail',
-                False, False,
+                cr, uid, False, template_id, False,
+                False, mandate.id,
                 context=ctx)['value']
             value['email_from'] = composer._get_default_from(
                 cr, uid, context=ctx)

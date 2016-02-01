@@ -99,14 +99,15 @@ class MassMailing(orm.Model):
         """
         Override this method to get resulting ids of the distribution list
         """
-        context = context or {}
         if mailing.distribution_list_id:
-            context['field_main_object'] = 'email_coordinate_id'
-            dl_obj = self.pool['distribution.list']
             if mailing.mailing_model == 'email.coordinate':
+                ctx = dict(context or {},
+                           main_object_field='email_coordinate_id',
+                           main_target_model='email.coordinate')
+                dl_obj = self.pool['distribution.list']
                 res = dl_obj.get_complex_distribution_list_ids(
                     cr, uid, [mailing.distribution_list_id.id],
-                    context=context)[0]
+                    context=ctx)[0]
                 return res
         return super(MassMailing, self).get_recipients(
             cr, uid, mailing, context=context)

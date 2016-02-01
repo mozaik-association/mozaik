@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- Thesaurus -->
+
+        <record id="thesaurus_tree_view" model="ir.ui.view">
+            <field name="name">thesaurus.tree</field>
+            <field name="model">thesaurus</field>
+            <field name="arch" type="xml">
+                <tree string="Thesaurus">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="thesaurus_action" model="ir.actions.act_window">
+            <field name="name">Thesaurus</field>
+            <field name="res_model">thesaurus</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="thesaurus_tree_view" />
+        </record>
+
+        <record id="thesaurus_form_view" model="ir.ui.view">
+            <field name="name">thesaurus.form</field>
+            <field name="model">thesaurus</field>
+            <field name="arch" type="xml">
+                <form string="Thesaurus">
+                    <header>
+                        <div
+                            attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                            invisible="context.get('popup')"
+                            groups="mozaik_base.mozaik_res_groups_configurator">
+                            <button name="action_invalidate"
+                                string="Invalidate" type="object"
+                                confirm="Invalidate thesaurus: proceed anyway?" />
+                        </div>
+                    </header>
+                    <sheet>
+                        <div class="oe_title" name="title">
+                            <label for="name" class="oe_edit_only" />
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons"
+                            invisible="context.get('popup')">
+                        </div>
+
+                        <group name="status"
+                            attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date"
+                                    attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
+
+                    </sheet>
+                    <div name="dev" class="oe_form_sheetbg"
+                        groups="mozaik_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                                <field name="id" />
+                                <field name="active" />
+                                <field name="new_thesaurus_term_id" />
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers"
+                            groups="mozaik_base.mozaik_res_groups_configurator" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Thesaurus Terms -->
+
+        <record id="thesaurus_term_search_view" model="ir.ui.view">
+            <field name="name">thesaurus.term.search</field>
+            <field name="model">thesaurus.term</field>
+            <field name="arch" type="xml">
+                <search string="Thesaurus Terms">
+                    <field name="search_name" filter_domain="['|',('search_name','ilike',self),('select_name','ilike',self)]" />
+                    <field name="name" />
+                    <field name="ext_identifier" />
+                    <field name="state" />
+
+                    <filter name="draft" string="To confirm"
+                        domain="[('state','in',['draft'])]" />
+                    <filter name="confirm" string="Confirmed"
+                        domain="[('state','in',['confirmed'])]" />
+                    <separator />
+                    <filter name="expired" string="Expired"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active','=',False)]" help="Expired Terms" />
+                    <filter name="all" string="All"
+                        context="{'invisible_expire_date': False}"
+                        domain="[('active', '&lt;=', True)]" />
+
+                    <group expand="1" string="Group By..." name="group_by">
+                        <filter name="status" string="Status"
+                            domain="[]" context="{'group_by':'state'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="thesaurus_term_tree_view" model="ir.ui.view">
+            <field name="name">thesaurus.term.tree</field>
+            <field name="model">thesaurus.term</field>
+            <field name="arch" type="xml">
+                <tree string="Thesaurus Terms"
+                    colors="grey:active==False;red:state=='draft'">
+                    <field name="name" />
+                    <field name="ext_identifier" />
+
+                    <field name="expire_date"
+                        invisible="context.get('invisible_expire_date', True)" />
+
+                    <field name="state" invisible="1" />
+                    <field name="active" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="thesaurus_term_search_tree_view" model="ir.ui.view">
+            <field name="name">thesaurus.term.tree.search</field>
+            <field name="model">thesaurus.term</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <tree string="Thesaurus Terms"
+                    colors="grey:active==False;red:state=='draft'">
+                    <field name="search_name" string="Term"/>
+                    <field name="state" invisible="1" />
+                    <field name="active" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="thesaurus_term_action" model="ir.actions.act_window">
+            <field name="name">Thesaurus Terms</field>
+            <field name="res_model">thesaurus.term</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="thesaurus_term_tree_view" />
+            <field name="search_view_id" ref="thesaurus_term_search_view" />
+            <field name="context">{'search_default_draft': True}</field>
+        </record>
+
+        <record id="thesaurus_term_form_view" model="ir.ui.view">
+            <field name="name">thesaurus.term.form</field>
+            <field name="model">thesaurus.term</field>
+            <field name="arch" type="xml">
+                <form string="Thesaurus Term">
+                    <header>
+                        <span
+                            attrs="{'invisible': ['|',('id','=',False),('active','=',False)]}"
+                            invisible="context.get('popup')"
+                            groups="mozaik_base.mozaik_res_groups_configurator">
+                            <button name="button_confirm" string="Confirm Term"
+                                type="object" states="draft" />
+                            <button name="button_cancel" string="Cancel Term"
+                                type="object" states="confirm" />
+                            <button name="button_reset" string="Reset Term"
+                                type="object" states="cancel" />
+                        </span>
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="draft,confirm" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title" name="title">
+                            <label for="name" class="oe_edit_only" />
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons"
+                            invisible="context.get('popup')">
+                        </div>
+
+                        <group name="state"
+                            attrs="{'invisible': [('id','=',False)]}">
+                            <group name="validity">
+                                <field name="create_date" />
+                                <field name="expire_date"
+                                    attrs="{'invisible': [('active','=',True)]}" />
+                            </group>
+                            <group name="other">
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="parent_terms" string="Parent Terms">
+                                <field name="parent_m2m_ids" readonly="1"/>
+                            </page>
+                            <page name="children_terms" string="Children Terms">
+                                <field name="children_m2m_ids" readonly="1"/>
+                            </page>
+                            <page name="technical" string="Technicals">
+                                <group name="technical">
+                                    <field name="ext_identifier" />
+                                    <field name="thesaurus_id"
+                                        groups="mozaik_base.mozaik_res_groups_configurator" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <div name="dev" class="oe_form_sheetbg"
+                        groups="mozaik_base.res_groups_developper">
+                        <div class="oe_formview oe_form_sheet_width">
+                            <h3>More Info</h3>
+                            <group name="moreinfo">
+                                <field name="id" />
+                                <field name="active" />
+                                <field name="select_name" />
+                            </group>
+                        </div>
+                    </div>
+                    <div name="chat" class="oe_chatter" invisible="context.get('popup')">
+                        <field name="message_follower_ids" widget="mail_followers"
+                            groups="mozaik_base.mozaik_res_groups_configurator" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Menu -->
+
+        <menuitem id="thesaurus_submenu" name="Thesaurus"
+            sequence="55" parent="mozaik_base.persons_configuration_submenu" />
+
+        <menuitem id="thesaurus_term_menu" action="thesaurus_term_action"
+            sequence="10" parent="thesaurus_submenu" />
+
+        <menuitem id="thesaurus_menu" action="thesaurus_action"
+            sequence="20" parent="thesaurus_submenu" />
+
+    </data>
+</openerp>

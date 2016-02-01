@@ -31,6 +31,7 @@ from openerp.osv import orm, fields
 from openerp.tools.translate import _
 from openerp import api, fields as new_fields
 from openerp.exceptions import except_orm
+from openerp.addons.mozaik_base.base_tools import format_email
 
 _logger = logging.getLogger(__name__)
 
@@ -43,6 +44,7 @@ class distribution_list(orm.Model):
     def _get_mailing_object(
             self, cr, uid, dl_id, email_from, mailing_model=False,
             email_field='email', context=None):
+        email_from = format_email(email_from)
         return super(distribution_list, self)._get_mailing_object(
             cr, uid, dl_id, email_from, mailing_model='email.coordinate',
             email_field=email_field, context=context)
@@ -61,6 +63,7 @@ class distribution_list(orm.Model):
     def _notify_changes_to_owners(self, subject, message):
         recipient_ids = [user.partner_id.id for user in self.res_users_ids
                          if user.id != self.env.uid]
+        recipient_ids += self.res_partner_m2m_ids.ids
         mail_vals = {
             'subject': subject,
             'body_html': message,
@@ -108,8 +111,7 @@ class distribution_list(orm.Model):
         'res_partner_m2m_ids': fields.many2many(
             'res.partner', string='Allowed Partners',
             rel='distribution_list_res_partner_rel',
-            column1='distribution_list_id', column2='res_partner_id',
-            track_visibility='onchange'),
+            column1='distribution_list_id', column2='res_partner_id'),
     }
 
     code = new_fields.Char('Code', track_visibility='onchange')
@@ -182,18 +184,19 @@ class distribution_list(orm.Model):
         partner_id = False
         user_id = False
         is_partner_allowed = False
-        is_partner_user = False
         has_visibility = False
         noway = 'No unique coordinate found with address: %s' % \
             msg['email_from']
         coordinate_ids = self._get_mailing_object(
             cr, uid, dl_id, msg['email_from'], context=context)
         if len(coordinate_ids) == 1:
-            noway = 'Orphan coordinate [%s]' % coordinate_ids[0]
-            coo_values = self.pool['email.coordinate'].read(
-                cr, uid, coordinate_ids[0], ['partner_id'], context=context)
-            partner_id = coo_values.get('partner_id') and \
-                coo_values['partner_id'][0] or False
+            coo_obj = self.pool['email.coordinate'].browse(
+               cr, uid, coordinate_ids[0], context=context)
+            noway = 'Coordinate [%s] is not main' % coordinate_ids[0]
+            if coo_obj and coo_obj.is_main:
+                noway = 'Orphan coordinate [%s]' % coordinate_ids[0]
+                partner_id = coo_obj.partner_id and coo_obj.partner_id.id or\
+                    False
         if partner_id:
             noway = 'Partner [%s] is not an owner nor ' \
                 'an allowed partner' % partner_id
@@ -217,22 +220,22 @@ class distribution_list(orm.Model):
                     cr, uid, domain, context=context)
                 user_id = user_id and user_id[0] or False
         if user_id:
-            noway = 'User [%s] is not a Mozaik User' % user_id
-            is_partner_user = self.pool['res.users'].has_group(
-                cr, user_id, 'mozaik_base.mozaik_res_groups_user')
-        if is_partner_user:
-            noway = 'User [%s] has no visibility on list [%s]' % \
-                (user_id, dl_id)
             try:
                 self.check_access_rule(
                     cr, user_id, [dl_id], 'read', context=context)
                 has_visibility = True
             except except_orm:
-                pass
+                noway = 'User [%s] has no visibility on list [%s]' % \
+                    (user_id, dl_id)
         if has_visibility:
             ctx = dict(context or {},
                        email_coordinate_path='email',
-                       field_main_object='email_coordinate_id')
+                       main_object_field='email_coordinate_id',
+                       main_target_model='email.coordinate')
+            res_ids = self._get_mailing_object(
+                cr, uid, dl_id, msg['email_from'], context=context)
+            if res_ids:
+                ctx['additional_res_ids'] = res_ids
             return super(distribution_list, self).\
                 distribution_list_forwarding(
                 cr, user_id, msg, dl_id, context=ctx)
@@ -290,24 +293,18 @@ class distribution_list(orm.Model):
         res = super(distribution_list, self).write(vals)
         if new_alias and new_alias != old_alias:
             user = self.env['res.users'].browse(self.env.uid)
-            subject = _('Alias name modified'
-                        ' on distribution list %s') % self.name
-            html_content = []
-            html_content.append(_("<p>Hello,"))
-            html_content.append("<div><br></div>")
-            html_content.append(_("<div>For your information, the alias name"
-                                  " of the distribution list %s has been"
-                                  " changed by %s.</div>") %
-                                (self.name, user.name))
-            html_content.append("<div><br></div>")
-            html_content.append(_("<div>Old alias name: %s</div>")
-                                % old_alias_name)
-            html_content.append(_("<div>New alias name: %s</div>")
-                                % self.alias_id.name_get()[0][1])
-            html_content.append("<div><br></div>")
-            html_content.append(_("<div>Regards,</div></p>"))
-            message = "\n".join(html_content)
-            self._notify_changes_to_owners(subject, message)
+            subject = _(
+                'Alias modified on distribution list %s') % self.name
+
+            msg = "<p>%s,</p><p>%s</p><p>%s<br/>%s</p>"
+            parts = (
+                _('Hello'),
+                _('The alias of the distribution list %s '
+                  'has been changed by %s.') % (self.name, user.name),
+                _('Former alias: %s') % old_alias_name,
+                _('<b>New alias</b>: %s') % self.alias_id.name_get()[0][1],
+            )
+            self._notify_changes_to_owners(subject, msg % parts)
         return res
 
 
