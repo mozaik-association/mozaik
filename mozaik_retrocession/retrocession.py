@@ -1477,6 +1477,10 @@ class retrocession(orm.Model):
                 cr, uid, False, template_id, False,
                 False, retro.id,
                 context=ctx)['value']
+            if value.get('attachment_ids'):
+                value['attachment_ids'] = [
+                    [6, False, value['attachment_ids']]
+                ]
             value['email_from'] = composer._get_default_from(
                 cr, uid, context=ctx)
             mail_composer_vals.update(value)
